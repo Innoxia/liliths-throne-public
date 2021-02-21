@@ -72,7 +72,7 @@ public enum FluidFlavour {
 					"sweet",
 					"cherry-flavoured")),
 	
-	// ------ Icons for these made by 'Charisma is my Stat Dump': ------ //
+	// ------ Icons for these made by 'Charisma is my Dump Stat': ------ //
 	
 	COFFEE("coffee", PresetColour.BASE_BROWN_DARK,
 			Util.newArrayListOfValues(

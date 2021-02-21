@@ -1,0 +1,2129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- HALLWAY -->
+	
+	<htmlContent tag="HALLWAY"><![CDATA[
+	<p>
+		Hallway which leads through the apartment.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_HALL -->
+	
+	<htmlContent tag="ENTRANCE_HALL"><![CDATA[
+	<p>
+		Modestly-decorated entrance hall, though large enough to have a cloak-room built into one side.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- NYAN_BEDROOM -->
+	
+	<htmlContent tag="NYAN_BEDROOM"><![CDATA[
+	<p>
+		Nyan's bedroom. Light-pink walls and pastel-coloured furniture. An impressive collection of romance novels and cuddly toys. Windows look down onto the courtyard behind the apartment building.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENSUITE -->
+	
+	<htmlContent tag="ENSUITE"><![CDATA[
+	<p>
+		The ensuite to Nyan's bedroom. Very large bathtub takes up almost half of the room. Windows look down onto the courtyard behind the apartment building.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPARE_BEDROOM -->
+	
+	<htmlContent tag="SPARE_BEDROOM"><![CDATA[
+	<p>
+		A spare bedroom, fully furnished and ready for someone to use. Windows look down onto Dominion's streets.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BATHROOM -->
+	
+	<htmlContent tag="BATHROOM"><![CDATA[
+	<p>
+		Small bathroom, containing just a toilet and sink.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- KITCHEN -->
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		Open-plan kitchen connected to dining room. Equipped with all the latest arcane gadgets. Just like the dining room, the windows look down onto Dominion's streets.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DINING_ROOM -->
+	
+	<htmlContent tag="DINING_ROOM"><![CDATA[
+	<p>
+		Spacious dining room, containing several cabinets and the expected table and chairs. Windows look down onto Dominion's streets.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LOUNGE -->
+	
+	<htmlContent tag="LOUNGE"><![CDATA[
+	<p>
+		Lounge holds several plush sofas, each of which is covered in colourful cushions. Windows look down onto the courtyard behind the apartment building.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Sex with solo and both Nyan/Nyanmum -->
+	
+	
+	<!-- SOLO_SEX_FOREPLAY -->
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_NYAN"><![CDATA[
+	<p>
+		TODO Lead-in to foreplay with Nyan.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_NYANMUM"><![CDATA[
+	<p>
+		TODO Lead-in to foreplay with [nyanmum.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_CUNNILINGUS_NYAN"><![CDATA[
+	<p>
+		Deciding to start by eating Nyan out, you get her to sit back on her bed, before kneeling down and sliding off her underwear. Panting in excitement, the cat-girl spreads her legs and moans, [nyan.speech(Yes... Please, give it to me...)]
+	</p>
+	<p>
+		More than happy to do as she asks, you lean forwards and plant a kiss on Nyan's [nyan.labia+], before burying your face between her legs and starting to greedily eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_CUNNILINGUS_NYANMUM"><![CDATA[
+	<p>
+		Deciding to start by eating [nyanmum.name] out, you get her to sit back on her bed, before kneeling down and sliding off her underwear. Moaning in excitement, the cat-girl spreads her legs and teases, [nyanmum.speech(Come on then, show me what that tongue of yours can do!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you lean forwards and plant a kiss on [nyanmum.namePos] [nyanmum.labia+], before burying your face between her legs and starting to greedily eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_FINGERING_NYAN"><![CDATA[
+	<p>
+		Deciding to start slowly, you lie down next to Nyan on her bed, before starting to passionately make out with her. As the two of you kiss one another, you reach down and slide off your girlfriend's underwear, before tracing your [pc.fingers+] over her [nyan.labia+]. Pulling back from your kiss, the cat-girl pants in excitement, [nyan.speech(Yes... More of that...)]
+	</p>
+	<p>
+		More than happy to do as she asks, you move your [pc.hand] down between Nyan's legs and slip your [pc.fingers+] into her [nyan.pussy+]. Pressing her [nyan.lips+] against your mouth, the cat-girl passionately kisses you as you start to finger her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_FINGERING_NYANMUM"><![CDATA[
+	<p>
+		Deciding to start slowly, you lie down next to [nyanmum.name] on her bed, before starting to passionately make out with her. As the two of you kiss one another, you reach down and slide off your girlfriend's underwear, before tracing your [pc.fingers+] over her [nyanmum.labia+]. Pulling back from your kiss, the cat-girl pants in excitement, [nyanmum.speech(No need to be shy... Get those [pc.fingers] in my pussy already!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you move your [pc.hand] down between [nyanmum.namePos] legs and slip your [pc.fingers+] into her [nyanmum.pussy+]. Pressing her [nyanmum.lips+] against your mouth, the cat-girl passionately kisses you as you start to finger her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_SIXTY_NINE_BLOWJOB_NYAN"><![CDATA[
+	<p>
+		Wanting to get into a position in which both of you can enjoy yourselves, you suggest to Nyan that you could sixty-nine with her. Although she blushes at the suggestion, there's an excited look in her big, blue eyes, and she quickly replies, [nyan.speech(That sounds like fun!)]
+	</p>
+	<p>
+		Lying back on her bed, you instruct Nyan to sit on your face, and after slipping off her underwear, she does just that. Smothering your mouth with her [nyan.pussy+], Nyan lets out a desperate moan as you start eating her out, before bending down and giving your [pc.cock+] an experimental lick. Clearly liking the experience, she quickly opens wide and starts giving you a blowjob while continuing to grind her pussy down against your [pc.lips+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_SIXTY_NINE_BLOWJOB_NYANMUM"><![CDATA[
+	<p>
+		Wanting to get into a position in which both of you can enjoy yourselves, you suggest to [nyanmum.name] that you could sixty-nine with her. Grinning at your suggestion, the horny cougar-girl slides off her underwear and replies, [nyanmum.speech(Only if I'm the one on top! I'm going to ride your tongue so good...)]
+	</p>
+	<p>
+		Agreeing to her demand, you lie back on [nyanmum.namePos] bed, and no sooner have you done so, Nyan's horny mother immediately jumps up and sits on your face. Smothering your mouth with her [nyanmum.pussy+], [nyanmum.name] lets out a desperate moan as you start eating her out, before bending down and planting a series of big, wet kisses on your [pc.cock+]. Clearly desperate to get started, she quickly opens wide and starts giving you a blowjob while continuing to grind her pussy down against your [pc.lips+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_SIXTY_NINE_CUNNILINGUS_NYAN"><![CDATA[
+	<p>
+		Wanting to get into a position in which both of you can enjoy yourselves, you suggest to Nyan that you could sixty-nine with her. Although she blushes at the suggestion, there's an excited look in her big, blue eyes, and she quickly replies, [nyan.speech(That sounds like fun!)]
+	</p>
+	<p>
+		Lying back on her bed, you instruct Nyan to sit on your face, and after slipping off her underwear, she does just that. Smothering your mouth with her [nyan.pussy+], Nyan lets out a desperate moan as you start eating her out, before bending down and giving your [pc.pussy+] an experimental lick. Clearly liking the experience, she quickly starts eating you out while continuing to grind her pussy down against your [pc.lips+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_SIXTY_NINE_CUNNILINGUS_NYANMUM"><![CDATA[
+	<p>
+		Wanting to get into a position in which both of you can enjoy yourselves, you suggest to [nyanmum.name] that you could sixty-nine with her. Grinning at your suggestion, the horny cougar-girl slides off her underwear and replies, [nyanmum.speech(Only if I'm the one on top! I'm going to ride your tongue so good...)]
+	</p>
+	<p>
+		Agreeing to her demand, you lie back on [nyanmum.namePos] bed, and no sooner have you done so, Nyan's horny mother immediately jumps up and sits on your face. Smothering your mouth with her [nyanmum.pussy+], [nyanmum.name] lets out a desperate moan as you start eating her out, before bending down and planting a series of big, wet kisses on your [pc.labia+]. Clearly desperate to get started, she quickly moves on to start greedily eating you out while continuing to grind her pussy down against your [pc.lips+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_BLOWJOB_NYAN"><![CDATA[
+	<p>
+		Wanting Nyan to suck your cock, you suggest to her that she could start by giving you a blowjob. Immediately, the cat-girl's cheeks flush red, but despite this reaction, she bites her lip in anticipation and quickly replies, [nyan.speech(Sure! That sounds like fun...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			With your girlfriend having given her positive response, you turn to one side and present her with your lower [pc.legRace]'s body. Dropping down onto her knees, Nyan shuffles forwards and gives your [pc.cock+] an experimental lick. Clearly liking the experience, she quickly opens wide and starts giving you a blowjob...
+		#ELSE
+			With your girlfriend having given her positive response, you sit down on the edge of her bed and present her with your [pc.cock+]. Dropping down onto her knees, Nyan shuffles forwards and gives the [pc.cockHead+] of your cock an experimental lick. Clearly liking the experience, she quickly opens wide and starts giving you a blowjob...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_BLOWJOB_NYANMUM"><![CDATA[
+	<p>
+		Wanting [nyanmum.name] to suck your cock, you suggest to her that she could start by giving you a blowjob. Letting out an eager little moan, she bites her lip in anticipation and quickly replies, [nyanmum.speech(You want me gagging on your cock, huh? Sure, I can give pretty good head...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			With your girlfriend having given her positive response, you turn to one side and present her with your lower [pc.legRace]'s body. Dropping down onto her knees, [nyanmum.name] shuffles forwards and plants a series of loving kisses on your [pc.cock+]. Clearly desperate to get started, she quickly opens wide and starts giving you a blowjob...
+		#ELSE
+			With your girlfriend having given her positive response, you sit down on the edge of her bed and present her with your [pc.cock+]. Dropping down onto her knees, [nyanmum.name] shuffles forwards and plants a series of loving kisses on your [pc.cock+]. Clearly desperate to get started, she quickly opens wide and starts giving you a blowjob...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_PAIZURI_NYAN"><![CDATA[
+	#IF(nyan.isBreastFuckablePaizuri())
+		<p>
+			Wanting to start by fucking Nyan's [nyan.breasts+], you ask her if she'd like to give you a tit-job. Immediately, the cat-girl's cheeks flush red, but despite this reaction, she bites her lip in anticipation and quickly replies, [nyan.speech(Sure! That sounds like fun...)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				With your girlfriend having given her positive response, you turn to one side and present her with your lower [pc.legRace]'s body. Dropping down onto her knees, Nyan shuffles forwards and gives your [pc.cock+] an experimental stroke. Encouraged by the [pc.moan] which you let out in response to her touch, Nyan quickly takes off her bra, before lifting herself up and pressing her breasts around your cock. With the cat-girl now in position, you start bucking your hips forwards, fucking her [nyan.breasts+] in the process...
+			#ELSE
+				With your girlfriend having given her positive response, you sit down on the edge of her bed and present her with your [pc.cock+]. Dropping down onto her knees, Nyan shuffles forwards and gives the [pc.cockHead+] of your cock an experimental stroke. Encouraged by the [pc.moan] which you let out in response to her touch, Nyan quickly takes off her bra, before lifting herself up and pressing her breasts around your cock. With the cat-girl now in position, you sit back and enjoy the experience as she starts lifting her [nyan.breasts+] up and down in order to give you a tit-job...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Wanting to start by fucking Nyan's [nyan.breasts+], you ask her if she'd like to give you a tit-job. Immediately, the cat-girl's cheeks flush red, and she mutters in embarrassment, [nyan.speech(But, they're not really big enough... I mean, I can try...)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Assuring your girlfriend that her breasts are large enough for what you have in mind, you turn to one side and present her with your lower [pc.legRace]'s body. Dropping down onto her knees, Nyan shuffles forwards and gives your [pc.cock+] an experimental stroke. Encouraged by the [pc.moan] which you let out in response to her touch, Nyan quickly takes off her bra, before lifting herself up and pressing her relatively small, [nyan.cupSize]-cup breasts against your cock. Sure enough, they aren't large enough for the cat-girl to give you a proper tit-job, but you don't let that stop you from bucking your hips forwards and grinding your [pc.cock+] against her chest...
+			#ELSE
+				Assuring your girlfriend that her breasts are large enough for what you have in mind, you sit down on the edge of her bed and present her with your [pc.cock+]. Dropping down onto her knees, Nyan shuffles forwards and gives the [pc.cockHead+] of your cock an experimental stroke. Encouraged by the [pc.moan] which you let out in response to her touch, Nyan quickly takes off her bra, before lifting herself up and pressing her relatively small, [nyan.cupSize]-cup breasts against your cock. Sure enough, they aren't large enough for the cat-girl to give you a proper tit-job, but you don't let that stop you from sitting back and enjoying the experience as she starts lifting her [nyan.breasts+] up and down in order to try and give you a tit-job...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_PAIZURI_NYANMUM"><![CDATA[
+	<p>
+		Wanting to start by fucking [nyanmum.namePos] [nyanmum.breasts+], you ask her if she'd like to give you a tit-job. Letting out an excited moan, the horny cougar-girl immediately takes off her bra and exposes her [nyanmum.breastSize] breasts to you. Teasing her fingers over her [nyanmum.nipples+], she seductively bites her lip and teases, [nyanmum.speech(You couldn't resist my huge tits, could you? Come on then, let me show you how good I am at giving tit-fucks...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			With your girlfriend having given her positive response, you turn to one side and present her with your lower [pc.legRace]'s body. Dropping down onto her knees, [nyanmum.name] shuffles forwards and gives your [pc.cock+] a few quick strokes. Encouraged by the [pc.moan] which you let out in response to her touch, the horny cougar-girl quickly lifts herself up and presses her [nyanmum.breasts+] around your cock. With the cat-girl now in position, you start bucking your hips forwards, fucking her [nyanmum.breasts+] in the process...
+		#ELSE
+			With your girlfriend having given her positive response, you sit down on the edge of her bed and present her with your [pc.cock+]. Dropping down onto her knees, [nyanmum.name] shuffles forwards and gives your [pc.cock+] a few quick strokes. Encouraged by the [pc.moan] which you let out in response to her touch, the horny cougar-girl quickly takes off her bra, before lifting herself up and pressing her [nyanmum.breasts+] around your cock. With the cat-girl now in position, you sit back and enjoy the experience as she starts lifting her [nyan.breasts+] up and down in order to give you a tit-job...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_RECEIVE_CUNNILINGUS_NYAN"><![CDATA[
+	<p>
+		Wanting Nyan to eat you out, you suggest to her that she could start by performing cunnilingus on you. Immediately, the cat-girl's cheeks flush red, but despite this reaction, she bites her lip in anticipation and quickly replies, [nyan.speech(Sure! That sounds like fun...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			With your girlfriend having given her positive response, you turn around and present her with the rear of your lower [pc.legRace]'s body. Dropping down onto her knees, Nyan shuffles forwards and gives your [pc.pussy+] an experimental lick. Clearly liking the experience, she quickly starts eating you out...
+		#ELSE
+			With your girlfriend having given her positive response, you sit down on the edge of her bed and present her with your [pc.pussy+]. Dropping down onto her knees, Nyan shuffles forwards and gives your [pc.labia+] an experimental lick. Clearly liking the experience, she quickly opens wide and starts eating you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_RECEIVE_CUNNILINGUS_NYANMUM"><![CDATA[
+	<p>
+		Wanting [nyanmum.name] to eat you out, you suggest to her that she could start by performing cunnilingus on you. Letting out an eager little moan, she bites her lip in anticipation and quickly replies, [nyanmum.speech(You want my tongue in your pussy, huh? Sure, I'm pretty good at this...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			With your girlfriend having given her positive response, you turn to one side and present her with the rear of your lower [pc.legRace]'s body. Dropping down onto her knees, [nyanmum.name] shuffles forwards and plants a series of loving kisses on your [pc.labia+]. Clearly desperate to get started, she quickly opens wide and starts eating you out...
+		#ELSE
+			With your girlfriend having given her positive response, you sit down on the edge of her bed and present her with your [pc.pussy+]. Dropping down onto her knees, [nyanmum.name] shuffles forwards and plants a series of loving kisses on your [pc.labia+]. Clearly desperate to get started, she quickly opens wide and starts eating you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_FACE_SITTING_NYAN"><![CDATA[
+	<p>
+		Wanting to let Nyan take a more dominant role, you suggest to her that she could sit on your face and have you eat her out. Although she blushes at the suggestion, there's an excited look in her big, blue eyes, and she quickly replies, [nyan.speech(That sounds like fun!)]
+	</p>
+	<p>
+		Lying back on her bed, you instruct Nyan to sit on your face, and after slipping off her underwear, she does just that. Smothering your mouth with her [nyan.pussy+], Nyan lets out a desperate moan as you plant a series of kisses on her [nyan.labia+]. Clearly liking the experience, she suddenly drops down and grinds her pussy against your [pc.lips+], forcing you to start eating her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_FACE_SITTING_NYANMUM"><![CDATA[
+	<p>
+		Wanting to let [nyanmum.name] take a more dominant role, you suggest to her that she could sit on your face and have you eat her out. Grinning at your suggestion, the horny cougar-girl slides off her underwear and replies, [nyanmum.speech(I like the sound of that! I'm going to ride your tongue so good...)]
+	</p>
+	<p>
+		Lying back on her bed, you tell [nyanmum.name] that you're ready for her to sit on your face, and after giving you a sly smile, she does just that. Smothering your mouth with her [nyanmum.pussy+], [nyanmum.name] lets out a desperate moan as you plant a series of kisses on her [nyanmum.labia+]. Clearly liking the experience, she suddenly drops down and grinds her pussy against your [pc.lips+], forcing you to start eating her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_PERFORM_ANILINGUS_NYAN"><![CDATA[
+	<p>
+		Deciding to start by rimming Nyan, you slide off her underwear, before telling her what you have in mind and asking her to kneel down on her bed. The cat-girl nervously agrees to do as you ask, and after you've got her to drop down on all fours, she looks back over her shoulder and pants, [nyan.speech(Ok... I'm ready...)]
+	</p>
+	<p>
+		Dropping down behind the cat-girl, you lean forwards and plant a series of quick kisses on her [nyan.ass+]. Working your way down between her cheeks, you press your [pc.lips+] against her [nyan.asshole+] and give it a wet, passionate kiss. Gasping at the feeling, Nyan moans, [nyan.speech(~Aah!~ Yes... That feels pretty good... ~Mmm!~ Give me more...)]
+	</p>
+	<p>
+		Happy to do as she says, you bury your face between Nyan's [nyan.assSize] ass cheeks and start enthusiastically performing anilingus on her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_FOREPLAY_PERFORM_ANILINGUS_NYANMUM"><![CDATA[
+	<p>
+		Deciding to start by rimming [nyanmum.name], you slide off her underwear, before telling her what you have in mind and asking her to kneel down on her bed. The cougar-girl excitedly agrees to do as you ask, and after you've got her to drop down on all fours, she looks back over her shoulder and impatiently pants, [nyanmum.speech(Come on, [pc.name]! Come worship my ass...)]
+	</p>
+	<p>
+		Dropping down behind [nyanmum.name], you lean forwards and plant a series of quick kisses on her [nyanmum.ass+]. Working your way down between her cheeks, you press your [pc.lips+] against her [nyanmum.asshole+] and give it a wet, passionate kiss. Gasping at the feeling, your girlfriend moans, [nyanmum.speech(~Aah!~ Yes... Come on, [pc.name], you know you want more than that... ~Mmm!~ Use your tongue...)]
+	</p>
+	<p>
+		Happy to do as she says, you bury your face between [nyanmum.namePos] [nyanmum.assSize] ass cheeks and start enthusiastically performing anilingus on her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SOLO_ANAL_TALK -->
+	
+	<htmlContent tag="SOLO_ANAL_TALK_NYAN"><![CDATA[
+	<p>
+		Wanting to make sure that Nyan is ok with it before trying to make a move on her, you ask your cute girlfriend if she's willing to do anal sex with you. Immediately, the cat-girl's cheeks flush red, and she stammers, [nyan.speech(A-Anal? As in... You mean... You want to use my butt?)]
+	</p>
+	<p>
+		After you've quickly confirmed that that's what you meant, Nyan bites her lip and muses, [nyan.speech(I mean, there's no way I'm doing anything with your ass, but if you just want to use mine... I guess... Sure, if that's what you like...)]
+	</p>
+	<p>
+		Having obtained your girlfriend's permission to use her ass, you plant a quick kiss on her lips and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_ANAL_TALK_NYANMUM"><![CDATA[
+	<p>
+		Wanting to make sure that [nyanmum.name] is ok with it before trying to make a move on her, you ask your girlfriend if she's willing to do anal sex with you. Immediately, the cougar-girl's lips turn up into a smile, and she teases, [nyanmum.speech(Oh? You've got a thing for anal, have you?)]
+	</p>
+	<p>
+		After you've quickly replied in the positive, [nyanmum.name] lowers her voice to a seductive whisper and teases, [nyanmum.speech(Truth be told, I kind of like having my ass fucked... I'm not going to return the favour, but feel free to use my ass as much as you want...)]
+	</p>
+	<p>
+		Having obtained your girlfriend's permission to use her ass, you plant a quick kiss on her lips and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SOLO_SEX_MAIN -->
+	
+	<htmlContent tag="SOLO_SEX_MAIN_NYAN"><![CDATA[
+	<p>
+		Having had enough of foreplay, Nyan pulls back and excitedly pants, [nyan.speech(Come on, let's take things further...)]
+	</p>
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Happy to do as your girlfriend asks, you prepare to move into another position, but as you do so, Nyan blushes and stutters, [nyan.speech(R-Remember, I'm still a virgin, so take it slow...)]
+		</p>
+		<p>
+			With the cute cat-girl shyly shuffling her feet, you wonder how best to take things from here...
+		</p>
+	#ELSE
+		<p>
+			Happy to do as your girlfriend asks, you prepare to move into another position, and as you do so, Nyan happily exclaims, [nyan.speech(Oh yes, give it to me, [pc.name]!)]
+		</p>
+		<p>
+			With the cute cat-girl clearly being in a state of extreme arousal, you wonder how best to take things from here...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_NYANMUM"><![CDATA[
+	<p>
+		Having had enough of foreplay, [nyanmum.name] pulls back and excitedly pants, [nyanmum.speech(Come on, it's time to move on to the main event! Come and fuck me, [pc.name]!)]
+	</p>
+	<p>
+		Happy to do as your girlfriend asks, you prepare to move into another position, and as you do so, she happily exclaims, [nyanmum.speech(Oh yes, my pussy's all wet and ready for you!)]
+	</p>
+	<p>
+		With the excited cougar-girl clearly being in a state of extreme arousal, you wonder how best to take things from here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_MISSIONARY_NYAN"><![CDATA[
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Deciding that it would be best to take Nyan's virginity in the missionary position, you ask her to lie back on her bed. Doing as you ask, she strips off the last piece of her lingerie and lies back, fully naked, on her bed. Biting her lip and letting out an excited moan, she spreads her legs and presents you with her tight, virgin pussy, while panting, [nyan.speech(Just go gentle... Ok?)]
+		</p>
+		#IF(pc.isTaur())
+			<p>
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl beneath you spreads her legs a little wider and squeals, [nyan.speech(Yes! But not too fast...)]
+			</p>
+			<p>
+				Moving your hips up and down, you repeatedly rub your cock over Nyan's [nyan.labia+] until she pants, [nyan.speech(Ok, I think I'm ready... You can do it!)]
+			</p>
+			<p>
+				Not wanting to rush things, you press your [pc.cock+] forwards and start to push it into Nyan's [nyan.pussy+], before pulling back and continuing to tease the [pc.cockHead+] over her [nyan.labia+]. Repeating this process and teasing Nyan with the prospect of penetration a couple more times, you grin as she finally exclaims, [nyan.speech(Come on! Fuck me, [pc.name]! Stop teasing!)]
+			</p>
+		#ELSE
+			<p>
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and take position between your girlfriend's legs. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl spreads her legs a little wider and squeals, [nyan.speech(Yes! But not too fast...)]
+			</p>
+			<p>
+				Not wanting to rush things, you begin repeatedly rubbing your cock over Nyan's [nyan.labia+] until she pants, [nyan.speech(Ok, I think I'm ready... You can do it!)]
+			</p>
+			<p>
+				Still thinking that it would be too hasty to penetrate her fully right now, you press your [pc.cock+] forwards and start to push it into Nyan's [nyan.pussy+], before pulling back and continuing to tease the [pc.cockHead+] over her [nyan.labia+]. Repeating this process and teasing Nyan with the prospect of penetration a couple more times, you grin as she finally exclaims, [nyan.speech(Come on! Fuck me, [pc.name]! Stop teasing!)]
+			</p>
+		#ENDIF
+		<p>
+			As she's by now clearly ready for it, you once again start to slowly push your cock into Nyan's tight pussy, only this time you don't stop and pull back. Continuing to gently thrust forwards, you feel your girlfriend's wet labia reluctantly spreading around your hard shaft, and she lets out a desperate, high-pitched squeal as you push your [pc.cock+] into her [nyan.pussy+] and claim her virginity. Panting and moaning, Nyan squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's tight, wet pussy, before starting to give her the fucking she's craving...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to fuck Nyan in the missionary position, you ask her to lie back on her bed. Doing as you ask, she strips off the last piece of her lingerie and lies back, fully naked, on her bed. Biting her lip and letting out an excited moan, she spreads her legs and presents you with her [nyan.pussy+], while panting, [nyan.speech(Come on then, [pc.name]... Fuck me!)]
+		</p>
+		#IF(pc.isTaur())
+			<p>
+				Reassuring her that you'll give her what she wants, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Letting out an excited gasp, the cat-girl beneath you spreads her legs a little wider and squeals, [nyan.speech(Yes! Come on...)]
+			</p>
+			<p>
+				Moving your hips up and down, you repeatedly rub your [pc.cock+] over Nyan's [nyan.labia+], before pressing forwards and starting to push it into her [nyan.pussy+]. Pulling back before you fully penetrate her, you once again tease the [pc.cockHead+] of your [pc.cock+] over her [nyan.labia+], causing her to impatiently squeal, [nyan.speech(Come on! Just fuck me, [pc.name]! No more foreplay!)]
+			</p>
+		#ELSE
+			<p>
+				Reassuring her that you'll give her what she wants, you step up onto the bed and take position between your girlfriend's legs. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. Letting out an excited gasp, the cat-girl spreads her legs a little wider and squeals, [nyan.speech(Yes! Come on...)]
+			</p>
+			<p>
+				Not wanting to rush things, you begin repeatedly rubbing your [pc.cock+] over Nyan's [nyan.labia+], before pressing forwards and starting to push it into her [nyan.pussy+]. Pulling back before you fully penetrate her, you once again tease the [pc.cockHead+] of your [pc.cock+] over her [nyan.labia+], causing her to impatiently squeal, [nyan.speech(Come on! Just fuck me, [pc.name]! No more foreplay!)]
+			</p>
+		#ENDIF
+		<p>
+			As she's by now clearly ready for it, you once again start to slowly push your cock into Nyan's [nyan.pussy+], only this time you don't stop and pull back. Continuing to gently thrust forwards, you feel your girlfriend's wet labia spreading around your hard shaft, and she lets out a desperate, high-pitched squeal as you fully push your [pc.cock+] into her [nyan.pussy+]. Panting and moaning, Nyan squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's [nyan.pussy+], before starting to give her the fucking she's craving...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_MISSIONARY_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want to fuck [nyanmum.name] in the missionary position, you ask her to lie back on her bed. Flashing you a sly smile, she strips off the last piece of her lingerie and lies back, fully naked, on her bed. Biting her lip and letting out an erotic moan, she spreads her legs and presents you with her [nyanmum.pussy+], while teasing, [nyanmum.speech(Come on then, [pc.name]! Give my hot little pussy a good, hard fuck!)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			Telling her that you'll give her what she wants, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at [nyanmum.namePos] wet pussy. Letting out an excited gasp, the cougar-girl beneath you spreads her legs a little wider and demands, [nyanmum.speech(Come on, fuck my pussy already!)]
+		</p>
+	#ELSE
+		<p>
+			Telling her that you'll give her what she wants, you step up onto the bed and take position between your girlfriend's legs. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against [nyanmum.namePos] wet pussy. Letting out an excited gasp, the cougar-girl spreads her legs a little wider and demands, [nyanmum.speech(Come on, fuck my pussy already!)]
+		</p>
+	#ENDIF
+	<p>
+		As she's clearly desperate for it, you line the [pc.cockHead+] of your [pc.cock+] up to [nyanmum.namePos] [nyanmum.pussy+], before immediately thrusting forwards. Your girlfriend's wet labia lewdly spread around your hard shaft, and she lets out a desperate, high-pitched squeal as you fully push your [pc.cock+] into her [nyanmum.pussy+]. Panting and moaning, the cougar-girl orders, [nyanmum.speechNoEffects(~Aah!~ Fuck! Come on, [pc.name]! ~Ooh!~ Start pounding my hot cunt!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into [nyanmum.namePos] [nyanmum.pussy+], before starting to give her the fucking she's craving...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_DOGGY_NYAN"><![CDATA[
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Deciding that you want to take Nyan's virginity in the doggy-style position, you ask her to get down on all fours on her bed. Doing as you ask, she strips off the last piece of her lingerie and kneels down, fully naked, on her bed. Biting her lip and letting out an excited moan, she drops down onto all fours and shuffles around to present you with her tight, virgin pussy, while panting, [nyan.speech(Just go gentle... Ok?)]
+		</p>
+		#IF(pc.isTaur())
+			<p>
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl beneath you lifts her hips a little and squeals, [nyan.speech(Yes! But not too fast...)]
+			</p>
+			<p>
+				Moving your hips up and down, you repeatedly rub your cock over Nyan's [nyan.labia+] until she pants, [nyan.speech(Ok, I think I'm ready... You can do it!)]
+			</p>
+			<p>
+				Not wanting to rush things, you press your [pc.cock+] forwards and start to push it into Nyan's [nyan.pussy+], before pulling back and continuing to tease the [pc.cockHead+] over her [nyan.labia+]. Repeating this process and teasing Nyan with the prospect of penetration a couple more times, you grin as she finally exclaims, [nyan.speech(Come on! Fuck me, [pc.name]! Stop teasing!)]
+			</p>
+		#ELSE
+			<p>
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and drop down into position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl lifts her hips a little and squeals, [nyan.speech(Yes! But not too fast...)]
+			</p>
+			<p>
+				Not wanting to rush things, you begin repeatedly rubbing your cock over Nyan's [nyan.labia+] until she pants, [nyan.speech(Ok, I think I'm ready... You can do it!)]
+			</p>
+			<p>
+				Still thinking that it would be too hasty to penetrate her fully right now, you press your [pc.cock+] forwards and start to push it into Nyan's [nyan.pussy+], before pulling back and continuing to tease the [pc.cockHead+] over her [nyan.labia+]. Repeating this process and teasing Nyan with the prospect of penetration a couple more times, you grin as she finally exclaims, [nyan.speech(Come on! Fuck me, [pc.name]! Stop teasing!)]
+			</p>
+		#ENDIF
+		<p>
+			As she's by now clearly ready for it, you once again start to slowly push your cock into Nyan's tight pussy, only this time you don't stop and pull back. Continuing to gently thrust forwards, you feel your girlfriend's wet labia reluctantly spreading around your hard shaft, and she lets out a desperate, high-pitched squeal as you push your [pc.cock+] into her [nyan.pussy+] and claim her virginity. Panting and moaning, Nyan squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's tight, wet pussy, before starting to give her the fucking she's craving...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to fuck Nyan in the doggy-style position, you ask her to get down on all fours on her bed. Doing as you ask, she strips off the last piece of her lingerie and kneels down, fully naked, on her bed. Biting her lip and letting out an excited moan, she drops down onto all fours and shuffles around to present you with her [nyan.pussy+], while panting, [nyan.speech(Come on then, [pc.name]... Fuck me!)]
+		</p>
+		#IF(pc.isTaur())
+			<p>
+				Reassuring her that you'll give her what she wants, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Letting out an excited gasp, the cat-girl beneath you lifts her hips a little and squeals, [nyan.speech(Yes! Come on...)]
+			</p>
+			<p>
+				Moving your hips up and down, you repeatedly rub your [pc.cock+] over Nyan's [nyan.labia+], before pressing forwards and starting to push it into her [nyan.pussy+]. Pulling back before you fully penetrate her, you once again tease the [pc.cockHead+] of your [pc.cock+] over her [nyan.labia+], causing her to impatiently squeal, [nyan.speech(Come on! Just fuck me, [pc.name]! No more foreplay!)]
+			</p>
+		#ELSE
+			<p>
+				Reassuring her that you'll give her what she wants, you step up onto the bed and drop down into position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. Letting out an excited gasp, the cat-girl lifts her hips a little and squeals, [nyan.speech(Yes! Come on...)]
+			</p>
+			<p>
+				Not wanting to rush things, you begin repeatedly rubbing your [pc.cock+] over Nyan's [nyan.labia+], before pressing forwards and starting to push it into her [nyan.pussy+]. Pulling back before you fully penetrate her, you once again tease the [pc.cockHead+] of your [pc.cock+] over her [nyan.labia+], causing her to impatiently squeal, [nyan.speech(Come on! Just fuck me, [pc.name]! No more foreplay!)]
+			</p>
+		#ENDIF
+		<p>
+			As she's by now clearly ready for it, you once again start to slowly push your cock into Nyan's [nyan.pussy+], only this time you don't stop and pull back. Continuing to gently thrust forwards, you feel your girlfriend's wet labia spreading around your hard shaft, and she lets out a desperate, high-pitched squeal as you fully push your [pc.cock+] into her [nyan.pussy+]. Panting and moaning, Nyan squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's [nyan.pussy+], before starting to give her the fucking she's craving...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_DOGGY_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want to fuck [nyanmum.name] in the doggy-style position, you ask her to get down on all fours on her bed. Flashing you a sly smile, she strips off the last piece of her lingerie and kneels down, fully naked, on her bed. Biting her lip and letting out an erotic moan, she drops down onto all fours and shuffles around to present you with her [nyanmum.pussy+], while teasing, [nyanmum.speech(Come on then, [pc.name]! Give my hot little pussy a good, hard fuck!)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			Telling her that you'll give her what she wants, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at [nyanmum.namePos] wet pussy. Letting out an excited gasp, the cougar-girl beneath you lifts her hips a little and demands, [nyanmum.speech(Come on, fuck my pussy already!)]
+		</p>
+	#ELSE
+		<p>
+			Telling her that you'll give her what she wants, you step up onto the bed and drop down into position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against [nyanmum.namePos] wet pussy. Letting out an excited gasp, the cougar-girl lifts her hips a little and demands, [nyanmum.speech(Come on, fuck my pussy already!)]
+		</p>
+	#ENDIF
+	<p>
+		As she's clearly desperate for it, you line the [pc.cockHead+] of your [pc.cock+] up to [nyanmum.namePos] [nyanmum.pussy+], before immediately thrusting forwards. Your girlfriend's wet labia lewdly spread around your hard shaft, and she lets out a desperate, high-pitched squeal as you fully push your [pc.cock+] into her [nyanmum.pussy+]. Panting and moaning, the cougar-girl orders, [nyanmum.speechNoEffects(~Aah!~ Fuck! Come on, [pc.name]! ~Ooh!~ Start pounding my hot cunt!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into [nyanmum.namePos] [nyanmum.pussy+], before starting to give her the fucking she's craving...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_COWGIRL_NYAN"><![CDATA[
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Deciding that it would be best to let Nyan lose her virginity at her own pace, you lie back on her bed and ask her to straddle you in the cowgirl position. Doing as you ask, she strips off the last piece of her lingerie and steps up onto her bed, before nervously moving over the top of you and lowering herself down into position. Biting her lip and letting out an excited moan, she brings her tight, virgin pussy towards your erect cock and pants, [nyan.speech(I'm going to do this gently... Ok?)]
+		</p>
+		<p>
+			Reassuring her that she can take all the time she needs, you watch as your girlfriend experimentally lowers herself down and presses the [pc.cockHead+] of your hard cock against her wet pussy. Letting out an alarmed gasp, the cat-girl holds herself in this position and squeals, [nyan.speech(Ok! Now not too fast...)]
+		</p>
+		<p>
+			Not wanting to rush things, you remain still as Nyan starts repeatedly rubbing her [nyan.labia+] against your cock, until eventually she pants, [nyan.speech(Ok, I think I'm ready...)]
+		</p>
+		<p>
+			Still thinking that it would be too hasty to make a dominant move on her right now, you simply watch as Nyan positions herself over the top of your [pc.cock+] and starts to push it into her [nyan.pussy+]. Clearly being too much for her to handle, she pulls back and reverts to teasing the [pc.cockHead+] over her [nyan.labia+]. Repeating this process and stopping short of fully penetrating herself on your cock a couple more times, Nyan finally shuffles forwards into a more dominant stance and exclaims with determination, [nyan.speech(Ok! No more teasing! Here I go!)]
+		</p>
+		<p>
+			Slowly dropping down onto your cock, your girlfriend lets out a desperate, high-pitched squeal as her wet labia reluctantly spread around your hard shaft. Gazing into your eyes and biting her lip, she lets out a desperate whine as she continues lowering herself down, causing your [pc.cock+] to be pushed fully into her [nyan.pussy+] and losing her virginity in the process. Panting and moaning, your girlfriend squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you wait for your girlfriend to start bouncing up and down on your [pc.cock+] before moving your [pc.hips+] up and down and helping to fuck her tight, wet pussy...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want Nyan to ride your cock in the cowgirl position, you lie back on her bed and ask her to straddle you. Doing as you ask, she strips off the last piece of her lingerie and steps up onto her bed, before moving over the top of you and lowering herself down into position. Biting her lip and letting out an excited moan, she brings her [nyan.pussy+] towards your erect cock and pants, [nyan.speech(Ok, here we go!)]
+		</p>
+		<p>
+			Grinning at the look of excited determination on your girlfriend's face, you watch as she experimentally lowers herself down and presses the [pc.cockHead+] of your hard cock against her wet pussy. Letting out an excited gasp, the cat-girl holds herself in this position and squeals, [nyan.speech(Ok! Here we go...)]
+		</p>
+		<p>
+			Not wanting to rush things, you remain still as Nyan starts repeatedly rubbing her [nyan.labia+] against your cock, before quickly starting to push it into her [nyan.pussy+]. Dropping down onto your cock, your girlfriend lets out a desperate, high-pitched squeal as her wet labia spread around your hard shaft. Gazing into your eyes and biting her lip, she lets out a desperate whine as she continues lowering herself down, causing your [pc.cock+] to be pushed fully into her [nyan.pussy+]. Panting and moaning, your girlfriend squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you wait for your girlfriend to start bouncing up and down on your [pc.cock+] before moving your [pc.hips+] up and down and helping to fuck her tight, wet pussy...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_COWGIRL_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want [nyanmum.name] to ride your cock in the cowgirl position, you lie back on her bed and ask her to straddle you. Doing as you ask, she strips off the last piece of her lingerie and steps up onto her bed, before moving over the top of you and lowering herself down into position. Biting her lip and letting out an excited moan, she brings her [nyanmum.pussy+] towards your erect cock and pants, [nyanmum.speech(I like being on top! Now I can make you give my hot little pussy a good, hard fuck!)]
+	</p>
+	<p>
+		Grinning at the look of excited determination on your girlfriend's face, you watch as she confidently lowers herself down and presses the [pc.cockHead+] of your hard cock against her wet pussy. Letting out an excited moan, the cougar-girl holds herself in this position and teases, [nyanmum.speech(Ask nicely, and I'll give it to you...)]
+	</p>
+	<p>
+		Playing along, you politely ask [nyanmum.name] to let you fuck her pussy, to which she happily laughs and starts repeatedly rubbing her [nyan.labia+] against your cock. Clearly not wanting to waste much more time on foreplay, she then quickly starts to push your [pc.cock+] into her [nyanmum.pussy+], before dropping down onto your cock and letting her wet labia spread around your hard shaft. Gazing into your eyes and biting her lip, she lets out a desperate whine as she continues lowering herself down, causing your [pc.cock+] to be pushed fully into her [nyanmum.pussy+]. Panting and moaning, your girlfriend exclaims, [nyanmum.speechNoEffects(~Aah!~ Fuck! That's good! ~Ooh!~ Fuck me, [pc.name]!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you wait for your girlfriend to start bouncing up and down on your [pc.cock+] before moving your [pc.hips+] up and down and helping to fuck her [nyanmum.pussy+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_BLOWJOB_NYAN"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell Nyan that you want her to give you a blowjob. Although happy enough at the prospect of doing as you ask, you can detect a slight hint of disappointment in your girlfriend's voice as she replies, [nyan.speech(Sure thing, [pc.name]!)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Turning to one side and presenting your [pc.cock+] to Nyan, you wait while she strips off the last piece of her lingerie, before kneeling down beneath your [pc.legRace]'s body and planting an impatient kiss on your [pc.cock+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and takes your [pc.cock+] into her mouth. With lewd, wet slurping noises accompanying her movements, your girlfriend sets about giving you a blowjob...
+		#ELSE
+			Lying back on the bed and presenting your [pc.cock+] to Nyan, you wait while she strips off the last piece of her lingerie, before dropping her head down to your groin and planting an impatient kiss on your [pc.cock+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and takes your [pc.cock+] into her mouth. With lewd, wet slurping noises accompanying her movements, your girlfriend sets about giving you a blowjob...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_BLOWJOB_NYANMUM"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell [nyanmum.name] that you want her to give you a blowjob. Clearly expecting more than just that, your girlfriend makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, I'll suck your cock...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Turning to one side and presenting your [pc.cock+] to [nyanmum.name], you wait while she strips off the last piece of her lingerie, before kneeling down beneath your [pc.legRace]'s body and planting an impatient kiss on your [pc.cock+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and takes your [pc.cock+] into her mouth. With lewd, wet slurping noises accompanying her movements, your girlfriend sets about giving you a blowjob...
+		#ELSE
+			Lying back on the bed and presenting your [pc.cock+] to [nyanmum.name], you wait while she strips off the last piece of her lingerie, before dropping her head down to your groin and planting an impatient kiss on your [pc.cock+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and takes your [pc.cock+] into her mouth. With lewd, wet slurping noises accompanying her movements, your girlfriend sets about giving you a blowjob...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_SCISSOR_TOP_NYAN"><![CDATA[
+	<p>
+		Wanting to scissor with Nyan, you suggest that she lie back on her bed so that you can take the dominant position and start tribbing with her. Doing as you ask, she strips off the last piece of her lingerie and lies back on her bed, before spreading her legs and presenting you with her [nyan.pussy+]. As you join her on the bed and take position between her legs, your girlfriend pants, [nyan.speech(Ok, I'm ready... Let's do this!)]
+	</p>
+	<p>
+		Grinning at her enthusiastic remark, you buck your hips forwards and grind your [pc.pussy+] against Nyan's. Letting out a high-pitched moan as she feels the intimate contact between her legs, the cat-girl exclaims, [nyan.speechNoEffects(~Aah!~ Yes! More of that!)]
+	</p>
+	<p>
+		Giving her what she wants, you start rhythmically grinding your pussy up and down, bumping your [pc.clit+] against Nyan's in the process and causing her to let out a series of erotic moans... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_SCISSOR_TOP_NYANMUM"><![CDATA[
+	<p>
+		Wanting to scissor with [nyanmum.name], you suggest that she lie back on her bed so that you can take the dominant position and start tribbing with her. Doing as you ask, she strips off the last piece of her lingerie and lies back on her bed, before spreading her legs and presenting you with her [nyanmum.pussy+]. As you join her on the bed and take position between her legs, your girlfriend teases, [nyanmum.speech(Come on then, [pc.name], show me what you've got!)]
+	</p>
+	<p>
+		Grinning at her enthusiastic remark, you buck your hips forwards and grind your [pc.pussy+] against [nyanmum.namePos]. Letting out a high-pitched moan as she feels the intimate contact between her legs, the cougar-girl exclaims, [nyanmum.speechNoEffects(~Aah!~ Yes! More of that!)]
+	</p>
+	<p>
+		Giving her what she wants, you start rhythmically grinding your pussy up and down, bumping your [pc.clit+] against [nyanmum.namePos] in the process and causing her to let out a series of erotic moans...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_SCISSOR_BOTTOM_NYAN"><![CDATA[
+	<p>
+		Wanting to scissor with Nyan, you lie back on her bed and suggest that she take the dominant position and start tribbing with you. Doing as you ask, she strips off the last piece of her lingerie and gets up on the bed, before taking position between your legs and nervously mumbling, [nyan.speech(Ok, I think I can do this... Now if I just...)]
+	</p>
+	<p>
+		Reassuring her by saying that she's doing a good job, you wait as your girlfriend shuffles forwards and bumps her [nyan.pussy+] against yours. Letting out a high-pitched moan as she feels the intimate contact between her legs, the cat-girl exclaims, [nyan.speechNoEffects(~Aah!~ Ok, I think I've got it!)]
+	</p>
+	<p>
+		Gaining confidence in her actions, your girlfriend starts rhythmically grinding her pussy up and down against yours, causing your clits to bump against one another in the process. This intense stimulation causes both you and Nyan to let out a series of erotic moans as she continues to scissor with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_SCISSOR_BOTTOM_NYANMUM"><![CDATA[
+	<p>
+		Wanting to scissor with [nyanmum.name], you lie back on her bed and suggest that she take the dominant position and start tribbing with you. Happily doing as you ask, she strips off the last piece of her lingerie and gets up on the bed, before taking position between your legs and teasing, [nyanmum.speech(I like being the one on top! I'll show you a good time...)]
+	</p>
+	<p>
+		Before you can reply, your girlfriend quickly shuffles forwards and bumps her [nyanmum.pussy+] against yours. Letting out a high-pitched moan as she feels the intimate contact between her legs, the cougar-girl exclaims, [nyanmum.speechNoEffects(~Aah!~ This is going to be good!)]
+	</p>
+	<p>
+		Being extremely confident in her actions, your girlfriend starts rhythmically grinding her pussy up and down against yours, causing your clits to bump against one another in the process. This intense stimulation causes both you and [nyanmum.name] to let out a series of erotic moans as she continues to scissor with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_RECEIVE_CUNNILINGUS_NYAN"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell Nyan that you want her to eat you out. Although happy enough at the prospect of doing as you ask, you can detect a slight hint of disappointment in your girlfriend's voice as she replies, [nyan.speech(Sure thing, [pc.name]!)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Turning around and presenting your [pc.pussy+] to Nyan, you wait while she strips off the last piece of her lingerie, before kneeling down behind your [pc.legRace]'s body and planting an impatient kiss on your [pc.labia+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and presses her [nyan.lips+] against your [pc.pussy+]. With lewd, wet slurping noises accompanying each of her passionate kisses, your girlfriend sets about eating you out...
+		#ELSE
+			Lying back on the bed and presenting your [pc.pussy+] to Nyan, you wait while she strips off the last piece of her lingerie, before dropping her head down to your groin and planting an impatient kiss on your [pc.labia+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and presses her [nyan.lips+] against your [pc.pussy+]. With lewd, wet slurping noises accompanying each of her passionate kisses, your girlfriend sets about eating you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_RECEIVE_CUNNILINGUS_NYANMUM"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell [nyanmum.name] that you want her to eat you out. Clearly expecting more than just that, your girlfriend makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, I'll eat you out...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Turning around and presenting your [pc.pussy+] to [nyanmum.name], you wait while she strips off the last piece of her lingerie, before kneeling down behind your [pc.legRace]'s body and planting an impatient kiss on your [pc.labia+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and presses her [nyanmum.lips+] against your [pc.pussy+]. With lewd, wet slurping noises accompanying each of her passionate kisses, your girlfriend sets about eating you out...
+		#ELSE
+			Lying back on the bed and presenting your [pc.pussy+] to [nyanmum.name], you wait while she strips off the last piece of her lingerie, before dropping her head down to your groin and planting an impatient kiss on your [pc.labia+]. By now clearly feeling extremely horny, she wastes no time on further teasing, and immediately opens wide and presses her [nyanmum.lips+] against your [pc.pussy+]. With lewd, wet slurping noises accompanying each of her passionate kisses, your girlfriend sets about eating you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_PERFORM_CUNNILINGUS_NYAN"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell Nyan that you want to eat her out. Although happy enough at the prospect of receiving oral from you, you can detect a slight hint of disappointment in your girlfriend's voice as she replies, [nyan.speech(Sure thing, [pc.name]!)]
+	</p>
+	<p>
+		Stripping off the last piece of her lingerie, Nyan lies back on the bed and presents you with her [nyan.pussy+]. Dropping your head down to her groin, you plant a big kiss on your girlfriend's [pc.labia+], before opening wide and pressing your [pc.lips+] against her [nyan.pussy+]. With lewd, wet slurping noises accompanying each of your passionate kisses, you set about eating Nyan out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_PERFORM_CUNNILINGUS_NYANMUM"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell [nyanmum.name] that you want to eat her out. Clearly expecting more than just that, your girlfriend makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, I'll let you eat me out...)]
+	</p>
+	<p>
+		Stripping off the last piece of her lingerie, [nyanmum.name] lies back on the bed and presents you with her [nyanmum.pussy+]. Dropping your head down to her groin, you plant a big kiss on your girlfriend's [pc.labia+], before opening wide and pressing your [pc.lips+] against her [nyanmum.pussy+]. With lewd, wet slurping noises accompanying each of your passionate kisses, you set about eating [nyanmum.name] out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_PERFORM_ANILINGUS_NYAN"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell Nyan that you want to perform anilingus on her. Although happy enough at the prospect of receiving oral from you, you can detect a slight hint of disappointment in your girlfriend's voice as she replies, [nyan.speech(Sure thing, [pc.name]!)]
+	</p>
+	<p>
+		Stripping off the last piece of her lingerie, Nyan gets down on all fours on the bed and presents you with her [nyan.ass+]. Dropping down behind the cat-girl, you lean forwards and press your [pc.lips+] against her [nyan.asshole+], and after giving it a big, wet kiss, you start passionately rimming her. Gasping at the feeling, Nyan moans, [nyan.speech(~Aah!~ That's it, [pc.name]... ~Mmm!~ Keep going...)]
+	</p>
+	<p>
+		Happy to do as she says, you bury your face between Nyan's [nyan.assSize] ass cheeks and continue to perform anilingus on her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_PERFORM_ANILINGUS_NYANMUM"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell [nyanmum.name] that you want to perform anilingus on her. Clearly expecting more than just that, your girlfriend makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, I'll let you worship my ass...)]
+	</p>
+	<p>
+		Stripping off the last piece of her lingerie, [nyanmum.name] gets down on all fours on the bed and presents you with her [nyan.ass+]. Dropping down behind the cougar-girl, you lean forwards and press your [pc.lips+] against her [nyanmum.asshole+], and after giving it a big, wet kiss, you start passionately rimming her. Gasping at the feeling, [nyanmum.name] moans, [nyanmum.speech(~Aah!~ That's it, [pc.name]... ~Mmm!~ More... Give me more...)]
+	</p>
+	<p>
+		Happy to do as she says, you bury your face between [nyanmum.namePos] [nyanmum.assSize] ass cheeks and continue to perform anilingus on her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_ANAL_NYAN"><![CDATA[
+	#IF(nyan.isAssVirgin())
+		<p>
+			Deciding that you want to take Nyan's anal virginity, you tell her what you have in mind and ask her to get down on all fours on her bed. Doing as you ask, she strips off the last piece of her lingerie and kneels down, fully naked, on her bed. Biting her lip and letting out an excited moan, she drops down onto all fours and shuffles around to present you with her tight, virgin asshole, while panting, [nyan.speech(Just go gentle... Ok?)]
+		</p>
+		#IF(pc.isTaur())
+			<p>
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's exposed asshole. Letting out an alarmed gasp, the cat-girl beneath you lifts her hips a little and squeals, [nyan.speech(Yes! But not too fast...)]
+			</p>
+			<p>
+				Moving your hips up and down, you repeatedly rub your cock over Nyan's [nyan.asshole+] until she pants, [nyan.speech(Ok, I think I'm ready... You can do it!)]
+			</p>
+			<p>
+				Not wanting to rush things, you press your [pc.cock+] forwards and start to push it into Nyan's ass, before pulling back and continuing to tease the [pc.cockHead+] over her [nyan.asshole+]. Repeating this process and teasing Nyan with the prospect of penetration a couple more times, you grin as she finally exclaims, [nyan.speech(Come on! Fuck my ass, [pc.name]! Stop teasing!)]
+			</p>
+		#ELSE
+			<p>
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and drop down into position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's exposed asshole. Letting out an alarmed gasp, the cat-girl lifts her hips a little and squeals, [nyan.speech(Yes! But not too fast...)]
+			</p>
+			<p>
+				Not wanting to rush things, you begin repeatedly rubbing your cock over Nyan's [nyan.asshole+] until she pants, [nyan.speech(Ok, I think I'm ready... You can do it!)]
+			</p>
+			<p>
+				Still thinking that it would be too hasty to penetrate her fully right now, you press your [pc.cock+] forwards and start to push it into Nyan's ass, before pulling back and continuing to tease the [pc.cockHead+] over her [nyan.asshole+]. Repeating this process and teasing Nyan with the prospect of penetration a couple more times, you grin as she finally exclaims, [nyan.speech(Come on! Fuck my ass, [pc.name]! Stop teasing!)]
+			</p>
+		#ENDIF
+		<p>
+			As she's by now clearly ready for it, you once again start to slowly push your cock into Nyan's tight ass, only this time you don't stop and pull back. Continuing to gently thrust forwards, you feel your girlfriend's asshole reluctantly spreading around your hard shaft, and she lets out a desperate, high-pitched squeal as you push your [pc.cock+] into her [nyan.asshole+] and claim her anal virginity. Panting and moaning, Nyan squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's tight asshole, before starting to give her the fucking she's craving...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to fuck Nyan's ass, you tell her what you have in mind and ask her to get down on all fours on her bed. Doing as you ask, she strips off the last piece of her lingerie and kneels down, fully naked, on her bed. Biting her lip and letting out an excited moan, she drops down onto all fours and shuffles around to present you with her [nyan.asshole+], while panting, [nyan.speech(Come on then, [pc.name]... Fuck my ass!)]
+		</p>
+		#IF(pc.isTaur())
+			<p>
+				Reassuring her that you'll give her what she wants, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's exposed asshole. Letting out an excited gasp, the cat-girl beneath you lifts her hips a little and squeals, [nyan.speech(Yes! Come on...)]
+			</p>
+			<p>
+				Moving your hips up and down, you repeatedly rub your [pc.cock+] over Nyan's [nyan.asshole+], before pressing forwards and starting to push it into her ass. Pulling back before you fully penetrate her, you once again tease the [pc.cockHead+] of your [pc.cock+] over her [nyan.asshole+], causing her to impatiently squeal, [nyan.speech(Come on! Just fuck my ass, [pc.name]! No more foreplay!)]
+			</p>
+		#ELSE
+			<p>
+				Reassuring her that you'll give her what she wants, you step up onto the bed and drop down into position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's exposed asshole. Letting out an excited gasp, the cat-girl lifts her hips a little and squeals, [nyan.speech(Yes! Come on...)]
+			</p>
+			<p>
+				Not wanting to rush things, you begin repeatedly rubbing your [pc.cock+] over Nyan's [nyan.asshole+], before pressing forwards and starting to push it into her ass. Pulling back before you fully penetrate her, you once again tease the [pc.cockHead+] of your [pc.cock+] over her [nyan.asshole+], causing her to impatiently squeal, [nyan.speech(Come on! Just fuck my ass, [pc.name]! No more foreplay!)]
+			</p>
+		#ENDIF
+		<p>
+			As she's by now clearly ready for it, you once again start to slowly push your cock into Nyan's ass, only this time you don't stop and pull back. Continuing to gently thrust forwards, you feel your girlfriend's asshole spreading around your hard shaft, and she lets out a desperate, high-pitched squeal as you fully push your [pc.cock+] into her [nyan.asshole+]. Panting and moaning, Nyan squeals, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's asshole, before starting to give her the fucking she's craving...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_SEX_MAIN_ANAL_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want to fuck [nyanmum.namePos] ass, you tell her what you have in mind and ask her to get down on all fours on her bed. Flashing you a sly smile, she strips off the last piece of her lingerie and kneels down, fully naked, on her bed. Biting her lip and letting out an erotic moan, she drops down onto all fours and shuffles around to present you with her [nyanmum.asshole+], while teasing, [nyanmum.speech(Come on then, [pc.name]! Give my ass a good, hard fuck!)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			Telling her that you'll give her what she wants, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at [nyanmum.namePos] exposed asshole. Letting out an excited gasp, the cougar-girl beneath you lifts her hips a little and demands, [nyanmum.speech(Come on, fuck my ass already!)]
+		</p>
+	#ELSE
+		<p>
+			Telling her that you'll give her what she wants, you step up onto the bed and drop down into position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against [nyanmum.namePos] exposed asshole. Letting out an excited gasp, the cougar-girl lifts her hips a little and demands, [nyanmum.speech(Come on, fuck my ass already!)]
+		</p>
+	#ENDIF
+	<p>
+		As she's clearly desperate for it, you line the [pc.cockHead+] of your [pc.cock+] up to [nyanmum.namePos] [nyanmum.asshole+], before immediately thrusting forwards. Your girlfriend's [nyanmum.asshole+] lewdly spread around your hard shaft, and she lets out a desperate, high-pitched squeal as you fully push your [pc.cock+] into her ass. Panting and moaning, the cougar-girl orders, [nyanmum.speechNoEffects(~Aah!~ Fuck! Come on, [pc.name]! ~Ooh!~ Start pounding my ass!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into [nyanmum.namePos] [nyanmum.asshole+], before starting to give her the fucking she's craving...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_SOLO_SEX -->
+	
+	<htmlContent tag="POST_SOLO_SEX_NYAN"><![CDATA[
+	<p>
+		Completely exhausted from the sex, both you and Nyan collapse down onto her bed, panting for breath. Leaning across to plant a quick kiss on your girlfriend's lips, you can't help but smile as she blushes and sighs, [nyan.speech(That was amazing... I love you, [pc.name]...)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanCreampied))
+		<p>
+			After a few minutes, the cat-girl finally recovers enough energy to get up off the bed, and with her mind no longer clouded by arousal, she reaches down to rub a hand over her tummy and wonders aloud, [nyan.speech(I wonder if you've got me pregnant from this...)]
+		</p>
+		<p>
+			After you've responded by telling your girlfriend that that's definitely a possibility, she looks up at you and sighs, [nyan.speech(We'll just have to wait and see, won't we?)]
+		</p>
+		<p>
+			With that, the potentially-pregnant cat-girl shakes the thought of becoming a mother from her head and cheerily asks, [nyan.speech(You're going to stay the night, aren't you? Come on, lets have a wash before getting into bed!)]
+		</p>
+	#ELSE
+		<p>
+			After a few minutes, Nyan finally recovers enough energy to get up off the bed, and after letting out a happy sigh, she turns towards you and asks, [nyan.speech(You're going to stay the night, right? Come on, lets have a wash before getting into bed!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SOLO_SEX_NYANMUM"><![CDATA[
+	<p>
+		Completely exhausted from the sex, both you and [nyanmum.name] collapse down onto her bed, panting for breath. Leaning across to plant a quick kiss on your girlfriend's lips, you can't help but smile as she grins and sighs, [nyanmum.speech(You're good at this... You know, I think I might love you, [pc.name]...)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumCreampied))
+		<p>
+			After a few minutes, the cougar-girl finally recovers enough energy to get up off the bed, and with her mind no longer clouded by arousal, she rubs a hand over her tummy and wonders aloud, [nyanmum.speech(I wonder if you've got me pregnant...)]
+		</p>
+		<p>
+			After you've responded by telling your girlfriend that that's definitely a possibility, she looks up at you with a smile and sighs, [nyanmum.speech(We'll just have to wait and see, won't we? Nyan might be getting some siblings... Anyway, we both need to have a wash before getting into bed. Come on, [pc.name]!)]
+		</p>
+	#ELSE
+		<p>
+			After a few minutes, [nyanmum.name] finally recovers enough energy to get up off the bed, and after letting out a happy sigh, she turns towards you and states, [nyanmum.speech(We both need to have a wash before getting into bed. Come on, [pc.name]!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_SOLO_SEX_SLEEP -->
+	
+	<htmlContent tag="POST_SOLO_SEX_SLEEP_NYAN"><![CDATA[
+	<p>
+		The cute look on your girlfriend's face is too much for you to say no to, and so you agree to both have a wash and sleep over here with her. Accompanying Nyan into her ensuite, the two of you share a very hasty shower, before quickly drying off and returning to her bed. Pulling on a pair of panties and an oversized T-shirt, Nyan excitedly jumps under the covers, before asking you to turn off the lights and join her.
+	</p>
+	<p>
+		Doing as she asks, you soon find yourself under the covers with your girlfriend, and as she snuggles up to you and falls asleep, she sighs, [nyan.speech(Thanks, [pc.name]... I love you...)] 
+	</p>
+	<p>
+		Hugging the cute cat-girl close to your body, you return her sentiments and join her in falling asleep...
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		The next thing you know, you're waking up in Nyan's bed the next morning, and as you roll over, you discover that your girlfriend is nowhere to be seen. Sitting up and yawning, you realise that there's a smell of freshly-baked goods in the air, which tells you exactly where Nyan must be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SOLO_SEX_SLEEP_NYANMUM"><![CDATA[
+	<p>
+		Not wanting to upset her by saying no, you agree to both have a wash and sleep over here with [nyanmum.name]. Accompanying her into the bathroom, the two of you share a very hasty shower, before quickly drying off and returning to her bed. Still completely naked, [nyanmum.name] slips under the covers, before asking you to turn off the lights and join her.
+	</p>
+	<p>
+		Doing as she asks, you soon find yourself under the covers with your naked girlfriend, and as she snuggles up to you and falls asleep, she sighs, [nyanmum.speech(I love you...)] 
+	</p>
+	<p>
+		Hugging the cougar-girl close to your body, you return her sentiments and join her in falling asleep...
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		The next thing you know, you're waking up in [nyanmum.namePos] bed the next morning, and as you roll over, you discover that your girlfriend is nowhere to be seen. Sitting up and yawning, you realise that there's a smell of freshly-baked goods in the air, which tells you exactly where both [nyanmum.name] and her daughter must be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_SOLO_SEX_KITCHEN -->
+	
+	<htmlContent tag="POST_SOLO_SEX_KITCHEN_NYAN"><![CDATA[
+	<p>
+		After quickly using the ensuite bathroom to freshen up, you head to the apartment's kitchen. Being of an open-plan design, you're able to see that both Nyan is in the kitchen right from the moment you enter the dining room. 
+		As you [pc.walk] over to say good morning, you see that Nyan is wearing [nyan.a_slotClothing(TORSO_UNDER, true)], and over the top of that, she's wearing [nyan.a_slotClothing(TORSO_OVER, true)]. As you approach, you see that she's just finished drying up, and as she turns and sees you, she throws you a happy smile and exclaims, [nyan.speech([pc.Name]! I was just about to come and wake you! Look, I made pastries!)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanCreampied))
+		#IF(nyan.isPregnant())
+			<p>
+				[pc.Walking] over to give your girlfriend a kiss, you join her in sitting down behind the counter and eating the pastries which she's freshly baked. As you eat, Nyan alarmingly starts to revert to acting in a shy, nervous manner, and so you stop eating to ask her what's on her mind. Furiously blushing, the cat-girl lets out a little squeak, and with her cheeks flushing red, she holds up an arcane pregnancy tester for you to see...
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				Closing her eyes and taking a deep breath, Nyan occupies her free hand by bunching up the bottom of her dress before blurting out, [nyan.speechNoEffects(I-I'm pregnant with your #IF(nyan.getPregnantLitter().getTotalLitterCount()>1)babies#ELSEbaby#ENDIF!)]
+			</p>
+			<p>
+				After her outburst, she just sits there; eyes scrunched closed, trembling hand clenching her skirt, she seems to be waiting for an admonishment. Moving forwards, you sweep her into your [pc.arms], wishing that you'd been able to record the surprised squeak that bursts out of her mouth. She blinks in surprise as you hold her close, before pulling back a little and staring at you with open-mouthed shock. [nyan.speechNoEffects(You're not upset?)]
+			</p>
+			<p>
+				You hold her at arm's length for a moment, smiling as you shake your head and tell her that you're happy to be having children with her. A visible tension seems to melt from her entire being as the cat-girl cutely smiles back and snuggles into your [pc.arms]. The confidence which she'd gained over the course of your relationship quickly returns, and she says, [nyan.speechNoEffects(My mum'll be able to get things sorted out for when I'm ready give birth. I'll let her know about my pregnancy as soon as I can. For now, though, I think I need to rest...)]
+			</p>
+			<p>
+				Taking the hint, you plant a quick kiss on your girlfriend's cheek, before asking if she'll be ok on her own. With Nyan rapidly nodding her head in response, and with things for you to be getting on with today, you stand up and prepare to say goodbye to your now-pregnant girlfriend...
+			</p>
+		#ELSE
+			<p>
+				[pc.Walking] over to give your girlfriend a kiss, you join her in sitting down behind the counter and eating the pastries which she's freshly baked. As you eat, Nyan alarmingly starts to revert to acting in a shy, nervous manner, and so you stop eating to ask her what's on her mind. Furiously blushing, the cat-girl lets out a little squeak, and with her cheeks flushing red, she holds up an arcane pregnancy tester for you to see...
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				[nyan.speech(I'm not pregnant!)] she blurts out.
+			</p>
+			<p>
+				Moving forwards, you sweep her into your [pc.arms], wishing that you'd been able to record the surprised squeak that bursts out of her mouth. A visible tension seems to melt from her entire being as the cat-girl snuggles into your [pc.arms], before pulling back and asking, [nyan.speechNoEffects(It wouldn't have been a problem if I was pregnant, right?)]
+			</p>
+			<p>
+				Planting a quick kiss on your girlfriend's cheek, you reassure her that it wouldn't have been an issue, to which she happily smiles and lets out a sigh of relief. After finishing off the pastries and talking with one another for a little longer, you feel as though it's time for you to be getting on with your day, and so you stand up and prepare to say goodbye to your girlfriend...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			[pc.Walking] over to give your girlfriend a kiss, you join her in sitting down behind the counter and eating the pastries which she's freshly baked. After about fifteen minutes of talking to one another, the two of you have made your way through the entire pile of baked goods, which leads Nyan into saying, [nyan.speech(I really had a lot of fun last night... Thanks for the date, [pc.name]...)]
+		</p>
+		<p>
+			Planting a quick kiss on your girlfriend's cheek, you tell her that she's more than welcome, and that you too had a wonderful night. With that, you feel as though it's time for you to be getting on with your day, and so you stand up and prepare to say goodbye to your girlfriend...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SOLO_SEX_KITCHEN_NYANMUM"><![CDATA[
+	<p>
+		After quickly using the ensuite bathroom to freshen up, you head to the apartment's kitchen. Being of an open-plan design, you're able to see that both Nyan and [nyanmum.name] are in the kitchen right from the moment you enter the dining room. 
+		As you [pc.walk] over to say good morning, you see that both of the cat-girls have got their backs to you; Nyan is standing in front of the sink, while [nyanmum.name] is sitting on one of three high stools which are positioned on the dining-room side of the kitchen's worktop. 
+	</p>
+	<p>
+		Instead of her usual blouse and miniskirt combo, you see that Nyan is wearing [nyan.a_slotClothing(TORSO_UNDER, true)], and over the top of that, she's wearing [nyan.a_slotClothing(TORSO_OVER, true)]. As you approach, you see that she's just finished drying up, and as she turns and sees you, she throws you a happy smile and exclaims, [nyan.speech([pc.Name]! I was just about to come and wake you! Look, I made pastries!)]
+	</p>
+	<p>
+		Alerted to your presence by her daughter's greeting, [nyanmum.name] turns around and flashes you a sly smile. Instead of the dress which she was wearing last night, she's now clothed in [nyanmum.a_slotClothing(TORSO_UNDER, true)] and [nyanmum.a_slotClothing(LEG, true)], which together show off a good deal of her muscular arms and legs. Patting the stool next to her, she declares, [nyanmum.speech(Come and sit down, [pc.name].)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumCreampied))
+		#IF(nyanmum.isPregnant())
+			<p>
+				[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. As you take your first bite, [nyanmum.name] suddenly smirks, and with a little laugh, she leans across and holds something up right in front of your face. Pulling back so that you can see clearly, you feel your eyes opening wide as you see that what [nyanmum.name] is holding is an arcane pregnancy tester...
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				[nyanmum.speech(You got me knocked up, [pc.name],)] the cougar-girl teases, before rubbing her free hand over her belly and addressing her daughter, [nyanmum.speech(Are you looking forwards to having some siblings, dear?)]
+			</p>
+			<p>
+				#IF(nyan.isPregnant())
+					Rubbing her hand over her own pregnant belly, Nyan replies, [nyan.speech(I hope my kids can get along with yours...)]
+				#ELSE
+					[nyan.speech(Yes, mum,)] Nyan shyly responds, before casting a glance your way and quietly muttering, [nyan.speech(It's not like I'm jealous or anything...)]
+				#ENDIF
+			</p>
+			<p>
+				Moving forwards, you give [nyanmum.name] a big hug and ask her if there's anything you can do for her. Letting out an amused chuckle, she confidently replies, [nyanmum.speech(I don't require any help, no. I've got a personal doctor who can help me to give birth, so there's no need for you to worry about anything...)]
+			</p>
+			<p>
+				With the topic of [nyanmum.namePos] pregnancy seemingly over, the three of you spend the next fifteen minutes talking to one another while making your way through the entire pile of baked goods. Finally, [nyanmum.name] lets out a big yawn and states, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+			</p>
+			<p>
+				Taking the hint, and having matters of your own to attend to, you stand up and prepare to say goodbye to your girlfriends...
+			</p>
+		#ELSE
+			<p>
+				[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. As you take your first bite, [nyanmum.name] suddenly smirks, and with a little laugh, she leans across and holds something up right in front of your face. Pulling back so that you can see clearly, you feel your eyes opening wide as you see that what [nyanmum.name] is holding is an arcane pregnancy tester...
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				[nyanmum.speech(You didn't get me knocked up after all,)] the cougar-girl sighs, before putting the tester down and addressing her
+				#IF(nyan.isPregnant())
+					 pregnant daughter, [nyanmum.speech(Looks like I'll just have to make do with grand-kids...)]
+				#ELSE
+					 daughter, [nyanmum.speech(Looks like you're not getting any siblings...)]
+				#ENDIF
+			</p>
+			<p>
+				[nyan.speech(Yes, mum,)] Nyan sighs.
+			</p>
+			<p>
+				With the topic of [nyanmum.namePos] failure to get pregnant seemingly over, the three of you spend the next fifteen minutes talking to one another while making your way through the entire pile of baked goods. Finally, [nyanmum.name] lets out a big yawn and states, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+			</p>
+			<p>
+				Taking the hint, and having matters of your own to attend to, you stand up and prepare to say goodbye to your girlfriends...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. After about fifteen minutes of talking to one another, the three of you have made your way through the entire pile of baked goods, which leads [nyanmum.name] into saying, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+		</p>
+		<p>
+			Taking the hint, and having matters of your own to attend to, you stand up and prepare to say goodbye to your girlfriends...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SOLO_SEX_LEAVE_NYAN"><![CDATA[
+	<p>
+		Saying that you've got to get going now, you're accompanied by your girlfriend to the front door, where you lean in and kiss her goodbye. After happily returning your kiss, Nyan tells you how much fun she had last night, before saying, [nyan.speech(I hope I see you again soon, [pc.name]...)]
+	</p>
+	<p>
+		Reassuring Nyan that you'll visit her again as soon as you can, you say one last goodbye and then head down the stairs and return to the apartment's foyer. Letting out a contented sigh, you head out of the front door and find yourself back in the streets of Dominion, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SOLO_SEX_LEAVE_NYANMUM"><![CDATA[
+	<p>
+		Saying that you've got to get going now, you're accompanied by your girlfriends to the front door, where you lean in and kiss each of them goodbye. After happily returning your kiss, the two cat-girls tell you how much fun it is having you as their [pc.girlfriend], before [nyanmum.name] says, [nyanmum.speech(I hope we get to see you again soon, [pc.name]...)]
+	</p>
+	<p>
+		Reassuring the two of them that you'll visit them again as soon as you can, you say one last goodbye and then head down the stairs and return to the apartment's foyer. Letting out a contented sigh, you head out of the front door and find yourself back in the streets of Dominion, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DOUBLE_SEX_FOREPLAY -->
+	
+	<htmlContent tag="DOUBLE_SEX_FOREPLAY"><![CDATA[
+	<p>
+		TODO Lead-in to sex with Nyan and [nyanmum.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_FOREPLAY_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to get things started by performing oral on the two cat-girls, you tell them to lie back on the bed and present themselves to you.
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 With their pussies already fully exposed due to their crotchless underwear, Nyan and her mother do as you ask, and lie back on the bed by each other's side.
+		#ELSE
+			 Sliding off their underwear, Nyan and her mother do as you ask, and lie back on the bed by each other's side.
+		#ENDIF
+		 Letting out an excited moan, [nyanmum.name] spreads her legs and tells her daughter, [nyanmum.speech(Go on, Nyan, follow my lead...)]
+	</p>
+	<p>
+		Copying her mother, Nyan spreads her legs, allowing you to drop down and get a good view of both of their pussies.
+		#IF(game.isPubicHairEnabled())
+			 While Nyan's pussy looks to be a lot tighter than her mother's, her black, furry mass of pubic hair is far bushier than [nyanmum.namePos] neatly-trimmed patch. On the other hand, [nyanmum.namePos] dark labia are larger than her daughter's, but they don't seem to be quite as wet as Nyan's small pussy lips.
+		#ELSE
+			 Nyan's pussy looks to be both tighter and wetter than her mother's, with [nyanmum.namePos] dark labia also being far larger than her daughter's small pussy lips.
+		#ENDIF
+		 Leaning forwards, you plant a big, wet kiss on [nyanmum.namePos] [nyanmum.pussy+], before moving over to give Nyan's [nyan.pussy+] a few quick licks. Moaning at the feeling of your [pc.tongue] sliding over her [nyan.labia+], Nyan pants, [nyan.speechNoEffects(~Aah!~ Yes, that feels so good!)]
+	</p>
+	<p>
+		Switching back over to [nyanmum.name], you greedily dart your [pc.tongue] into her [nyanmum.pussy+], causing her to let out a long moan and pant, [nyanmum.speech(That's it... ~Mmm!~ You're good...)]
+	</p>
+	<p>
+		Overcome by arousal, Nyan tilts her head to one side and plants a quick kiss on her mother's cheek. Letting out a surprised chuckle, [nyanmum.name] responds to her daughter's display of affection by leaning over to one side and pressing her [nyanmum.lips+] against her mouth. Taking hold of her daughter's head, she starts passionately kissing Nyan, which, combined with another switch so that you're eating out her pussy, causes the cute cat-girl to let out a series of muffled, high-pitched squeals.
+	</p>
+	<p>
+		With your face buried between Nyan's legs, and with mother and daughter passionately making out with one another, you focus on getting each of them to cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_FOREPLAY_FINGERING"><![CDATA[
+	<p>
+		Wanting to get things started by fingering these two cat-girls, you tell them to lie back on the bed and present themselves to you.
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 With their pussies already fully exposed due to their crotchless underwear, Nyan and her mother do as you ask, and lie back on the bed by each other's side.
+		#ELSE
+			 Sliding off their underwear, Nyan and her mother do as you ask, and lie back on the bed by each other's side.
+		#ENDIF
+		 Letting out an excited moan, [nyanmum.name] spreads her legs and tells her daughter, [nyanmum.speech(Go on, Nyan, follow my lead...)]
+	</p>
+	<p>
+		Copying her mother, Nyan spreads her legs, allowing you to drop down and get a good view of both of their pussies.
+		#IF(game.isPubicHairEnabled())
+			 While Nyan's pussy looks to be a lot tighter than her mother's, her black, furry mass of pubic hair is far bushier than [nyanmum.namePos] neatly-trimmed patch. On the other hand, [nyanmum.namePos] dark labia are larger than her daughter's, but they don't seem to be quite as wet as Nyan's small pussy lips.
+		#ELSE
+			 Nyan's pussy looks to be both tighter and wetter than her mother's, with [nyanmum.namePos] dark labia also being far larger than her daughter's small pussy lips.
+		#ENDIF
+		 Moving your [pc.fingers] up, you give [nyanmum.namePos] [nyanmum.pussy+] a few soft strokes, before moving your other [pc.hand] over to give Nyan's [nyan.pussy+] the same sort of attention. Moaning at the feeling of your [pc.fingers+] sliding over her [nyan.labia+], Nyan pants, [nyan.speechNoEffects(~Aah!~ Yes, that feels so good!)]
+	</p>
+	<p>
+		Focusing first on [nyanmum.name], you greedily slide your [pc.fingers] into her [nyanmum.pussy+] and start stroking her inner-walls, causing her to let out a long moan and pant, [nyanmum.speech(That's it... ~Mmm!~ You're good...)]
+	</p>
+	<p>
+		Overcome by arousal, Nyan tilts her head to one side and plants a quick kiss on her mother's cheek. Letting out a surprised chuckle, [nyanmum.name] responds to her daughter's display of affection by leaning over to one side and pressing her [nyanmum.lips+] against her mouth. Taking hold of her daughter's head, she starts passionately kissing Nyan, which, combined with the feeling of your [pc.fingers+] sliding into her [nyan.pussy+], causes the cute cat-girl to let out a series of muffled, high-pitched squeals.
+	</p>
+	<p>
+		Simultaneously fingering both of their pussies, and with mother and daughter passionately making out with one another, you focus on getting each of them to cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_FOREPLAY_RECEIVE_BLOWJOB"><![CDATA[
+	<p>
+		Wanting to get things started by having your cock sucked by these two cat-girls, you ask them to give you a blowjob. Immediately, Nyan's cheeks flush red, but despite this reaction, she bites her lip in anticipation and quickly replies, [nyan.speech(Sure! That sounds like fun...)]
+	</p>
+	<p>
+		[nyanmum.speech(My, my, you're eager, aren't you?)] [nyanmum.name] teases her daughter, [nyanmum.speech(You like the taste of [pc.namePos] cock, hmm?)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			As Nyan gives her mother a flustered response, you turn to one side and present them with your lower [pc.legRace]'s body. Dropping down onto their knees, Nyan and [nyan.mum] shuffle forwards and each give your [pc.cock+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly opens wide and takes your [pc.cock+] into her mouth, before leaning forwards and taking your hard shaft down her throat.
+		#ELSE
+			As Nyan gives her mother a flustered response, you sit down on the edge of her bed and present them with your [pc.cock+]. Dropping down onto their knees, Nyan and [nyan.mum] shuffle forwards and each give your [pc.cock+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly opens wide and takes your [pc.cock+] into her mouth, before dropping her head down and taking your hard shaft down her throat.
+		#ENDIF
+		 Holding that position for several seconds, she eventually pulls back, and with a mixture of precum and saliva coating her lips, she smirks at her daughter and teases, [nyanmum.speech(Go on, Nyan, try to copy what I just did...)]
+	</p>
+	<p>
+		Nervously gulping, Nyan does as she's told, and after opening wide, she takes your [pc.cock+] into her mouth and tries to take it as deep as she can down her throat. Holding her daughter's head, [nyanmum.name] helps to push Nyan's face into your groin, and you can't help but let out [pc.a_moan+] as the two cat-girls set about giving you a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_FOREPLAY_RECEIVE_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to get things started by having your pussy orally serviced by these two cat-girls, you ask them to eat you out. Immediately, Nyan's cheeks flush red, but despite this reaction, she bites her lip in anticipation and quickly replies, [nyan.speech(Sure! That sounds like fun...)]
+	</p>
+	<p>
+		[nyanmum.speech(My, my, you're eager, aren't you?)] [nyanmum.name] teases her daughter, [nyanmum.speech(You like the taste of [pc.namePos] pussy, hmm?)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			As Nyan gives her mother a flustered response, you turn around and present them with the rear of your lower [pc.legRace]'s body. Dropping down onto their knees, Nyan and [nyan.mum] shuffle forwards and each give your [pc.labia+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly leans forwards and presses her [nyanmum.lips+] against your [pc.pussy+], before greedily darting her tongue inside and starting to eat you out.
+		#ELSE
+			As Nyan gives her mother a flustered response, you sit down on the edge of her bed and present them with your [pc.pussy+].  Dropping down onto their knees, Nyan and [nyan.mum] shuffle forwards and each give your [pc.labia+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly drops her head down and presses her [nyanmum.lips+] against your [pc.pussy+], before greedily darting her tongue inside and starting to eat you out.
+		#ENDIF
+		 Continuing to greedily kiss and lick your [pc.pussy+] for a few moments, she eventually pulls back, and with a mixture of girlcum and saliva coating her lips, she smirks at her daughter and teases, [nyanmum.speech(Go on, Nyan, try to copy what I just did...)]
+	</p>
+	<p>
+		Nervously gulping, Nyan does as she's told, and after pressing her [nyan.lips+] against your pussy, she slides her tongue inside and starts to eat you out. Holding her daughter's head, [nyanmum.name] helps to push Nyan's face into your groin, and you can't help but let out [pc.a_moan+] as the two cat-girls set about performing oral on you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_FOREPLAY_ANILINGUS"><![CDATA[
+	<p>
+		Wanting to get things started by rimming the two cat-girls, you tell them to get down on all fours on the bed and present themselves to you.
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 With their assholes already fully exposed due to their crotchless underwear, Nyan and her mother do as you ask, and drop down onto the bed by each other's side.
+		#ELSE
+			 Sliding off their underwear, Nyan and her mother do as you ask, and drop down onto the bed by each other's side.
+		#ENDIF
+		 Letting out an excited moan, [nyanmum.name] lifts her hips and tells her daughter, [nyanmum.speech(Go on, Nyan, follow my lead...)]
+	</p>
+	<p>
+		Copying her mother, Nyan lifts her hips, allowing you to drop down and bring your face right up to their exposed assholes. Leaning forwards, you plant a big, wet kiss on [nyanmum.namePos] [nyanmum.asshole+], before moving over to give Nyan's [nyan.asshole+] a few quick licks. Moaning at the feeling of your [pc.tongue] sliding over her ass, Nyan pants, [nyan.speechNoEffects(~Aah!~ Yes, that feels so good!)]
+	</p>
+	<p>
+		Switching back over to [nyanmum.name], you press your [pc.lips+] against her [nyanmum.asshole+] and start passionately making out with it, causing her to let out a long moan and pant, [nyanmum.speech(That's it, worship my ass... ~Mmm!~ You're good...)]
+	</p>
+	<p>
+		Overcome by arousal, Nyan tilts her head to one side and plants a quick kiss on her mother's cheek. Letting out a surprised chuckle, [nyanmum.name] responds to her daughter's display of affection by leaning over to one side and pressing her [nyanmum.lips+] against her mouth. As mother and daughter start passionately kissing one another, you switch back to rimming Nyan, which causes the cute cat-girl to let out a series of muffled, high-pitched squeals.
+	</p>
+	<p>
+		With your face buried between Nyan's [nyan.assSize] ass cheeks, and with the two cat-girls continuing to make out with one another, you focus on getting each of them to cum from receiving anilingus...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DOUBLE_ANAL_TALK -->
+	
+	<htmlContent tag="DOUBLE_ANAL_TALK"><![CDATA[
+	<p>
+		Wanting to make sure that they're ok with it before trying to make a move on them, you ask your girlfriends if they're willing to do anal sex with you. Immediately, Nyan's cheeks flush red, and she stammers, [nyan.speech(A-Anal? As in... You mean... You want to use my butt?)]
+	</p>
+	<p>
+		[nyanmum.speech(Of course that's what [pc.she] means,)] [nyanmum.name] quickly replies, before flashing you a smile and revealing, [nyanmum.speech(Truth be told, I kind of like having my ass fucked... I'm not going to return the favour, but feel free to use my ass as much as you want...)]
+	</p>
+	<p>
+		Encouraged by her mother's confident reply, Nyan bites her lip and muses, [nyan.speech(I mean, there's no way I'm doing anything with your ass, but if you just want to use mine... I guess... Sure, if that's what you like...)]
+	</p>
+	<p>
+		Having obtained your girlfriends' permission to use their asses, you plant a quick kiss on each of their lips and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DOUBLE_SEX_MAIN -->
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN"><![CDATA[
+	<p>
+		Having had enough of foreplay, [nyanmum.name] pulls back and excitedly pants, [nyanmum.speech(Come on, it's time to move on to the main event! Come and fuck us, [pc.name]!)]
+	</p>
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Happy to do as the eager cougar-girl asks, you prepare to move into another position, and as you do so, Nyan blushes and stutters,  [nyan.speech(R-Remember, I'm still a virgin, so take it slow...)]
+		</p>
+		<p>
+			[nyanmum.speech(Don't worry, dear,)] [nyanmum.name] reassures her daughter, [nyanmum.speech(I'm here with you for this.)]
+		</p>
+		<p>
+			As [nyanmum.name] plants a loving kiss on her daughter's lips, you wonder how best to take things from here...
+		</p>
+	#ELSE
+		<p>
+			Happy to do as the eager cougar-girl asks, you prepare to move into another position, and as you do so, Nyan happily exclaims, [nyan.speech(Oh yes, fuck me first, [pc.name]!)]
+		</p>
+		<p>
+			[nyanmum.speech(Don't listen to her,)] [nyanmum.name] teases, [nyanmum.speech(You want to fuck me first, right, [pc.name]?)]
+		</p>
+		<p>
+			With the two cat-girls clearly being in a state of extreme arousal, you wonder how best to take things from here...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_MISSIONARY_NYAN"><![CDATA[
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Deciding that you want to take Nyan's virginity in the missionary position, you ask her to lie back on the bed. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 she lies back on her bed and presents you with her exposed pussy.
+			#ELSE
+				 she strips out of her lingerie and lies back, fully naked, on her bed.
+			#ENDIF
+			 Letting out an excited moan, Nyan's mother quickly joins her on the bed, before taking hold of her daughter's legs and spreading them for you. Presenting you with Nyan's tight, virgin pussy, [nyanmum.name] teases, [nyanmum.speech(Look how wet she is! Come on, the sooner you take her virginity, the sooner you can move on to fucking me!)]
+		</p>
+		<p>
+			[nyan.speech(Mum!)] Nyan whines, but despite her exclamation, she willingly spreads her legs a little wider for you and pants, [nyan.speech(Just be gentle, ok?)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl beneath you squeals, [nyan.speech(Yes! But not too fast...)]
+			#ELSE
+				Reassuring her that you'll go slowly for her first time, you move up onto the bed and take position between your girlfriend's legs. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl squeals, [nyan.speech(Yes! But not too fast...)]
+			#ENDIF
+		</p>
+		<p>
+			Taking hold of your [pc.cock+], [nyanmum.name] starts repeatedly rubbing it over Nyan's [nyan.labia+], teasing, [nyanmum.speech(Are you ready for this, dear? You want this cock deep in your tight little pussy, don't you?)]
+		</p>
+		<p>
+			[nyan.speech(~Mmm!~ Yes!)] Nyan whines, before bucking her hips up a little and pushing just the [pc.cockHead+] of your cock into her [nyan.pussy+].
+		</p>
+		<p>
+			Letting out an amused chuckle, [nyanmum.name] pulls your cock back, before once again teasing its [pc.cockHead+] over her daughter's [nyan.labia+] and moaning, [nyanmum.speech(Go on, Nyan! Tell [pc.name] that you want [pc.her] cock in your hot little pussy!)]
+		</p>
+		<p>
+			[nyan.speechNoEffects(Yes! ~Ooh!~ Fuck my little pussy, [pc.name]! Please!)] Nyan squeals. Having got what she wanted out of her daughter, [nyanmum.name] releases her grip on your cock and lies back next to Nyan. Turning her daughter's head towards her, the cougar-girl presses her [nyanmum.lips+] against her mouth and starts passionately kissing her.
+		</p>
+		<p>
+			By now feeling extremely turned on, you waste no time in moving forwards and slowly pushing your cock into Nyan's tight pussy. Gently thrusting forwards, you feel your girlfriend's wet labia reluctantly spreading around your hard shaft, and she lets out a muffled, high-pitched squeal as you push your [pc.cock+] into her [nyan.pussy+] and claim her virginity. Momentarily breaking off from kissing her mother, Nyan squeals, [nyan.speech(~Aah!~ Yes! Fuck! ~Mmm!~ Give me more, [pc.name]!)] 
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's tight, wet pussy, before starting to give her the fucking she's craving...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to fuck the two cat-girls in the missionary position, you ask them to lie back on the bed. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 Nyan and [nyanmum.name] lie back on her bed and present you with their exposed pussies.
+			#ELSE
+				 Nyan and [nyanmum.name] strip out of their lingerie and lie back, fully naked, on the bed.
+			#ENDIF
+			 Spreading her legs wide, [nyanmum.name] teases, [nyanmum.speech(Come on then, [pc.name]! You're going to fuck me first, aren't you?)]
+		</p>
+		<p>
+			[nyan.speech(Mum!)] Nyan whines, before following her mother's lead and spreading her legs for you. Letting out a little moan, she pants, [nyan.speech(Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Deciding to choose Nyan as the one who you'll penetrate first, you step up onto the bed and bring your [pc.legRace]'s body down over the top of the cat-girl. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Moving your hips up and down, you tease your cock over her [nyan.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyan.pussy+].
+			#ELSE
+				Deciding to choose Nyan as the one who you'll penetrate first, you move up onto the bed and take position between the cat-girl's legs. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. With a buck of your hips, you tease your cock over her [nyan.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyan.pussy+].
+			#ENDIF
+		</p>
+		<p>
+			[nyan.speechNoEffects(Yes! ~Ooh!~ Fuck me, [pc.name]!)] Nyan squeals. Letting out a disappointed whine, [nyanmum.name] turns her daughter's head towards her, before pressing her [nyanmum.lips+] against her mouth and starting to passionately kiss her. Pulling back, you once again thrust your [pc.cock+] into Nyan's tight, wet pussy, and with her mother proceeding to make out with her on the bed, you start to eagerly fuck her...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_MISSIONARY_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want to fuck [nyanmum.name] in the missionary position, you ask her to lie back on the bed. Doing as you ask, both [nyanmum.name] and Nyan 
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 lie back on the bed, before spreading her legs and presenting you with their exposed pussies.
+		#ELSE
+			 strip out of their lingerie and lie back, fully naked, on the bed.
+		#ENDIF
+		 Spreading her legs wide, [nyanmum.name] teases,
+		#IF(nyan.isVaginaVirgin())
+			 [nyanmum.speech(Come on then, [pc.name]! You can save taking Nyan's virginity for later!)]
+		#ELSE
+			 [nyanmum.speech(Come on then, [pc.name]! Give my pussy a good fuck before moving onto Nyan's!)]
+		#ENDIF
+	</p>
+	<p>
+		[nyan.speech(Mum!)] Nyan whines, before looking up at you and panting,
+		#IF(nyan.isVaginaVirgin())
+			 [nyan.speech(I'm ready to lose my virginity... You can switch to doing it with me at any time, [pc.name]...)]
+		#ELSE
+			 [nyan.speech(I want to be fucked too, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Keeping Nyan's words in mind, you continue with your original plan, and after stepping up onto the bed, you bring your [pc.legRace]'s body down over the top of [nyanmum.name]. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at her wet pussy. Moving your hips up and down, you tease your cock over her [nyanmum.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyanmum.pussy+].
+		#ELSE
+			Keeping Nyan's words in mind, you continue with your original plan and move up onto the bed and take position between [nyanmum.namePos] legs. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against her wet pussy. With a buck of your hips, you tease your cock over her [nyanmum.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyanmum.pussy+].
+		#ENDIF
+	</p>
+	<p>
+		[nyanmum.speechNoEffects(Yes! ~Ooh!~ Fuck me, [pc.name]!)] [nyanmum.name] squeals. Letting out a disappointed whine, [nyan.name] turns her head towards her mother, before pressing her [nyan.lips+] against her mouth and starting to passionately kiss her. Pulling back, you once again thrust your [pc.cock+] into [nyanmum.namePos] [nyanmum.pussy+], and with her daughter proceeding to make out with her on the bed, you start to eagerly fuck her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_DOGGY_NYAN"><![CDATA[
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Deciding that you want to take Nyan's virginity in the doggy-style position, you ask her to get down onto all fours on the bed. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 she drops and presents you with her exposed pussy.
+			#ELSE
+				 she strips out of her lingerie and drops down, fully naked, on her bed.
+			#ENDIF
+			 Letting out an excited moan, Nyan's mother quickly joins her on the bed, before reaching down between her daughter's legs and teasing her [nyanmum.fingers+] over her tight, virgin pussy. Smirking up at you, [nyanmum.name] teases, [nyanmum.speech(Look how wet she is! Come on, the sooner you take her virginity, the sooner you can move on to fucking me!)]
+		</p>
+		<p>
+			[nyan.speech(Mum!)] Nyan whines, but despite her exclamation, she willingly lifts her ass a little higher for you and pants, [nyan.speech(Just be gentle, ok?)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl beneath you squeals, [nyan.speech(Yes! But not too fast...)]
+			#ELSE
+				Reassuring her that you'll go slowly for her first time, you move up onto the bed and take position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. Letting out an alarmed gasp, the cat-girl squeals, [nyan.speech(Yes! But not too fast...)]
+			#ENDIF
+		</p>
+		<p>
+			Taking hold of your [pc.cock+], [nyanmum.name] starts repeatedly rubbing it over Nyan's [nyan.labia+], teasing, [nyanmum.speech(Are you ready for this, dear? You want this cock deep in your tight little pussy, don't you?)]
+		</p>
+		<p>
+			[nyan.speech(~Mmm!~ Yes!)] Nyan whines, before bucking her hips back a little and pushing just the [pc.cockHead+] of your cock into her [nyan.pussy+].
+		</p>
+		<p>
+			Letting out an amused chuckle, [nyanmum.name] pulls your cock back, before once again teasing its [pc.cockHead+] over her daughter's [nyan.labia+] and moaning, [nyanmum.speech(Go on, Nyan! Tell [pc.name] that you want [pc.her] cock in your hot little pussy!)]
+		</p>
+		<p>
+			[nyan.speechNoEffects(Yes! ~Ooh!~ Fuck my little pussy, [pc.name]! Please!)] Nyan squeals. Having got what she wanted out of her daughter, [nyanmum.name] releases her grip on your cock and drops down onto all fours beside Nyan. Turning her daughter's head towards her, the cougar-girl presses her [nyanmum.lips+] against her mouth and starts passionately kissing her.
+		</p>
+		<p>
+			By now feeling extremely turned on, you waste no time in moving forwards and slowly pushing your cock into Nyan's tight pussy. Gently thrusting forwards, you feel your girlfriend's wet labia reluctantly spreading around your hard shaft, and she lets out a muffled, high-pitched squeal as you push your [pc.cock+] into her [nyan.pussy+] and claim her virginity. Momentarily breaking off from kissing her mother, Nyan squeals, [nyan.speech(~Aah!~ Yes! Fuck! ~Mmm!~ Give me more, [pc.name]!)] 
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's tight, wet pussy, before starting to give her the fucking she's craving...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to fuck the two cat-girls in the doggy-style position, you ask them to get down onto all fours on the bed. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 Nyan and [nyanmum.name] drop down beside one another and present you with their exposed pussies.
+			#ELSE
+				 Nyan and [nyanmum.name] strip out of their lingerie and drop down beside one another, fully naked, on the bed.
+			#ENDIF
+			 Lifting her [nyanmum.hips+], [nyanmum.name] teases, [nyanmum.speech(Come on then, [pc.name]! You're going to fuck me first, aren't you?)]
+		</p>
+		<p>
+			[nyan.speech(Mum!)] Nyan whines, before following her mother's lead and raising her ass towards you. Letting out a little moan, she pants, [nyan.speech(Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Deciding to choose Nyan as the one who you'll penetrate first, you step up onto the bed and bring your [pc.legRace]'s body down over the top of the cat-girl. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's wet pussy. Moving your hips up and down, you tease your cock over her [nyan.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyan.pussy+].
+			#ELSE
+				Deciding to choose Nyan as the one who you'll penetrate first, you move up onto the bed and take position behind the cat-girl. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's wet pussy. With a buck of your hips, you tease your cock over her [nyan.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyan.pussy+].
+			#ENDIF
+		</p>
+		<p>
+			[nyan.speechNoEffects(Yes! ~Ooh!~ Fuck me, [pc.name]!)] Nyan squeals. Letting out a disappointed whine, [nyanmum.name] turns her daughter's head towards her, before pressing her [nyanmum.lips+] against her mouth and starting to passionately kiss her. Pulling back, you once again thrust your [pc.cock+] into Nyan's tight, wet pussy, and with her mother proceeding to make out with her on the bed, you start to eagerly fuck her...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_DOGGY_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want to fuck [nyanmum.name] in the doggy-style position, you ask her to lie back on the bed. Doing as you ask, both [nyanmum.name] and Nyan
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 drop down beside one another and present you with their exposed pussies.
+		#ELSE
+			 strip out of their lingerie and drop down beside one another, fully naked, on the bed.
+		#ENDIF
+		 Lifting her [nyanmum.hips+], [nyanmum.name] teases,
+		#IF(nyan.isVaginaVirgin())
+			 [nyanmum.speech(Come on then, [pc.name]! You can save taking Nyan's virginity for later!)]
+		#ELSE
+			 [nyanmum.speech(Come on then, [pc.name]! Give my pussy a good fuck before moving onto Nyan's!)]
+		#ENDIF
+	</p>
+	<p>
+		[nyan.speech(Mum!)] Nyan whines, before looking back at you and panting,
+		#IF(nyan.isVaginaVirgin())
+			 [nyan.speech(I'm ready to lose my virginity... You can switch to doing it with me at any time, [pc.name]...)]
+		#ELSE
+			 [nyan.speech(I want to be fucked too, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Keeping Nyan's words in mind, you continue with your original plan, and after stepping up onto the bed, you bring your [pc.legRace]'s body down over the top of [nyanmum.name]. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at her wet pussy. Moving your hips up and down, you tease your cock over her [nyanmum.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyanmum.pussy+].
+		#ELSE
+			Keeping Nyan's words in mind, you continue with your original plan and move up onto the bed and take position behind [nyanmum.name]. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against her wet pussy. With a buck of your hips, you tease your cock over her [nyanmum.labia+], before thrusting forwards and sinking your [pc.cock+] into her [nyanmum.pussy+].
+		#ENDIF
+	</p>
+	<p>
+		[nyanmum.speechNoEffects(Yes! ~Ooh!~ Fuck me, [pc.name]!)] [nyanmum.name] squeals. Letting out a disappointed whine, [nyan.name] turns her head towards her mother, before pressing her [nyan.lips+] against her mouth and starting to passionately kiss her. Pulling back, you once again thrust your [pc.cock+] into [nyanmum.namePos] [nyanmum.pussy+], and with her daughter proceeding to make out with her on the bed, you start to eagerly fuck her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_COWGIRL_NYAN"><![CDATA[
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Deciding that it would be best to let Nyan lose her virginity at her own pace, you lie back on the bed and ask her to straddle you in the cowgirl position. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 both she and her mother get up on the bed, before Nyan nervously moves over the top of you and lowers herself down into position.
+			#ELSE
+				 both she and her mother strip out of their lingerie and get up on the bed, before Nyan nervously moves over the top of you and lowers herself down into position.
+			#ENDIF
+			 Biting her lip and letting out an excited moan, she brings her tight, virgin pussy towards your erect cock and pants, [nyan.speech(I'm going to do this gently... Ok?)]
+		</p>
+		<p>
+			[nyanmum.speech(I'm not letting you have all the fun, dear,)] [nyanmum.name] interjects, before crawling forwards and kneeling down over your face, such that she's facing her daughter. Before you can say anything, she lowers herself down and plants her [nyanmum.pussy+] over your mouth, moaning, [nyanmum.speech(That's it! ~Mmm!~ Eat me out!)]
+		</p>
+		<p>
+			With little choice but to do as she says, you dart your [pc.tongue] out and start greedily kissing and kicking the cougar-girl's [nyanmum.pussy+]. Meanwhile, her daughter is experimentally lowering herself down over your groin, and you suddenly feel the [pc.cockHead+] of your hard cock prodding against her wet pussy. Letting out an alarmed gasp, Nyan holds herself in this position and squeals, [nyan.speech(Ok! Now not too fast...)]
+		</p>
+		<p>
+			[nyanmum.speech(That's it, Nyan,)] [nyanmum.name] encourages her daughter, [nyanmum.speech(Drop down... ~Mmm!~ Ride [pc.namePos] cock!)]
+		</p>
+		<p>
+			Gaining confidence from her mother's words, Nyan slowly drops down onto your cock, letting out a desperate, high-pitched squeal as her wet labia reluctantly spread around your hard shaft. Leaning forwards, [nyanmum.name] presses her lips against her daughter's mouth, and as the two of them start passionately kissing one another, Nyan continues slowly lowering herself down, causing your [pc.cock+] to be pushed fully into her [nyan.pussy+] and losing her virginity in the process. Panting and moaning, your girlfriends briefly break off their kiss so that Nyan can squeal, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you wait for your girlfriend to start bouncing up and down on your [pc.cock+] before moving your [pc.hips+] up and down and helping to fuck her tight, wet pussy...
+		</p>
+	#ELSE
+		<p>
+			Deciding that it want Nyan to ride your cock, you lie back on the bed and ask her to straddle you in the cowgirl position. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 both she and her mother get up on the bed, before Nyan moves over the top of you and lowers herself down into position.
+			#ELSE
+				 both she and her mother strip out of their lingerie and get up on the bed, before Nyan moves over the top of you and lowers herself down into position.
+			#ENDIF
+			 Biting her lip and letting out an excited moan, she brings her [nyan.pussy+] towards your erect cock and pants, [nyan.speech(Yes! ~Mmm!~ I want you inside of me...)]
+		</p>
+		<p>
+			[nyanmum.speech(I'm not letting you have all the fun, dear,)] [nyanmum.name] interjects, before crawling forwards and kneeling down over your face, such that she's facing her daughter. Before you can say anything, she lowers herself down and plants her [nyanmum.pussy+] over your mouth, moaning, [nyanmum.speech(That's it! ~Mmm!~ Eat me out!)]
+		</p>
+		<p>
+			With little choice but to do as she says, you dart your [pc.tongue] out and start greedily kissing and kicking the cougar-girl's [nyanmum.pussy+]. Meanwhile, her daughter is impatiently lowering herself down over your groin, and you suddenly feel the [pc.cockHead+] of your hard cock prodding against her wet pussy. Letting out a lewd moan, Nyan holds herself in this position and squeals, [nyan.speech(Ok! Here I go!)]
+		</p>
+		<p>
+			[nyanmum.speech(That's it, Nyan,)] [nyanmum.name] encourages her daughter, [nyanmum.speech(Drop down... ~Mmm!~ Ride [pc.namePos] cock!)]
+		</p>
+		<p>
+			Doing as her mother says, Nyan drops down onto your cock, letting out a desperate, high-pitched squeal as her wet labia spread around your hard shaft. Leaning forwards, [nyanmum.name] presses her lips against her daughter's mouth, and as the two of them start passionately kissing one another, Nyan continues dropping herself down, causing your [pc.cock+] to be pushed fully into her [nyan.pussy+]. Panting and moaning, your girlfriends briefly break off their kiss so that Nyan can squeal, [nyan.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you wait for your girlfriend to start bouncing up and down on your [pc.cock+] before moving your [pc.hips+] up and down and helping to fuck her [nyan.pussy+]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_COWGIRL_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want [nyanmum.name] to ride your cock, you lie back on the bed and ask her to straddle you in the cowgirl position. Doing as you ask,
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 both she and her daughter get up on the bed, before [nyanmum.name] moves over the top of you and lowers herself down into position.
+		#ELSE
+			 both she and her daughter strip out of their lingerie and get up on the bed, before [nyanmum.name] moves over the top of you and lowers herself down into position.
+		#ENDIF
+		 Biting her lip and letting out an excited moan, she brings her [nyanmum.pussy+] down towards your erect cock and pants,
+		#IF(nyan.isVaginaVirgin())
+			 [nyanmum.speech(Your cock is mine, [pc.name]! You can save taking Nyan's virginity for later!)]
+		#ELSE
+			 [nyanmum.speech(Your cock is mine, [pc.name]! You can fuck Nyan some other time!)]
+		#ENDIF
+	</p>
+	<p>
+		[nyan.speech(Mum!)] Nyan whines, before suddenly crawling forwards and kneeling down over your face, such that she's facing her mother. Before you can say anything, she lowers herself down and plants her [nyan.pussy+] over your mouth, moaning, [nyan.speech(If you're going to fuck mum, you can at least eat me out!)]
+	</p>
+	<p>
+		With little choice but to do as she says, you dart your [pc.tongue] out and start greedily kissing and kicking the cat-girl's [nyan.pussy+]. Meanwhile, her mother is impatiently lowering herself down over your groin, and you suddenly feel the [pc.cockHead+] of your hard cock prodding against her wet pussy. Letting out a lewd moan, [nyanmum.name] holds herself in this position and teases, [nyanmum.speech(You want this, [pc.name]?! Make my daughter squeal, and I'll let you fuck me!)]
+	</p>
+	<p>
+		Again left with no other option but to play along with what the cat-girls want, you take hold of Nyan's legs and pull her down onto your face as you passionately eat her out. Sure enough, the intensity of your actions causes the cat-girl to let out a desperate, high-pitched squeal, which is quickly followed by [nyanmum.name] moaning, [nyanmum.speech(Good [pc.girl]! Here I go!)]
+	</p>
+	<p>
+		With no further warning, the cuogar-girl drops down onto your cock, letting out a desperate moan as her wet labia spread around your hard shaft. Leaning forwards, [nyanmum.name] presses her lips against her daughter's mouth, and as the two of them start passionately kissing one another, she continues dropping herself down, causing your [pc.cock+] to be pushed fully into her [nyanmum.pussy+]. Panting and moaning, your girlfriends briefly break off their kiss so that [nyanmum.name] can moan, [nyanmum.speechNoEffects(~Aah!~ Fuck! Yes! ~Ooh!~ Fuck me, [pc.name]!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you wait for your girlfriend to start bouncing up and down on your [pc.cock+] before moving your [pc.hips+] up and down and helping to fuck her [nyanmum.pussy+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_BLOWJOB"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell the cat-girls that you want them to give you a blowjob. Clearly expecting more than just that, [nyanmum.name] makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, we'll suck your cock...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			As Nyan lets out a similarly underwhelmed response, you turn to one side and present them with your lower [pc.legRace]'s body. Dropping down onto their knees, Nyan and [nyan.mum] shuffle forwards and each give your [pc.cock+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly opens wide and takes your [pc.cock+] into her mouth, before leaning forwards and taking your hard shaft down her throat.
+		#ELSE
+			As Nyan lets out a similarly underwhelmed response, you lie back on the bed and present them with your [pc.cock+]. Dropping down towards your groin, Nyan and [nyan.mum] shuffle forwards and each give your [pc.cock+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly opens wide and takes your [pc.cock+] into her mouth, before dropping her head down and taking your hard shaft down her throat.
+		#ENDIF
+		 Holding that position for several seconds, she eventually pulls back, and with a mixture of precum and saliva coating her lips, she smirks at her daughter and teases, [nyanmum.speech(Go on, Nyan, try to copy what I just did...)]
+	</p>
+	<p>
+		Nervously gulping, Nyan does as she's told, and after opening wide, she takes your [pc.cock+] into her mouth and tries to take it as deep as she can down her throat. Holding her daughter's head, [nyanmum.name] helps to push Nyan's face into your groin, and you can't help but let out [pc.a_moan+] as the two cat-girls set about giving you a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_SCISSOR_NYAN"><![CDATA[
+	<p>
+		Wanting to scissor with Nyan, you suggest that she lie back on the bed so that you can take the dominant position and start tribbing with her. Doing as you ask,
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 both she and her mother get up on the bed, before Nyan lies back and presents you with her exposed pussy.
+		#ELSE
+			 both she and her mother strip out of their lingerie and get up on the bed, before Nyan lies back and presents you with her exposed pussy.
+		#ENDIF
+		 Moving into position between the cat-girl's legs, you bump your [pc.pussy+] against hers, causing her to let out a surprised gasp and moan, [nyan.speech(Oh! ~Mmm!~ Yes, give me more of that...)]
+	</p>
+	<p>
+		[nyanmum.speech(I'm not letting you have all the fun, dear,)] [nyanmum.name] interjects, before crawling forwards and kneeling down over her daughter's face, such that she's facing you. Before Nyan can say anything, she lowers herself down and plants her [nyanmum.pussy+] over her mouth, moaning, [nyanmum.speech(That's it! ~Mmm!~ Be a good girl and eat me out!)]
+	</p>
+	<p>
+		Not wanting [nyanmum.name] to be the only one having fun with her daughter, you buck your hips forwards and grind your [pc.pussy+] against Nyan's. Letting out a muffled, high-pitched moan as she feels the intimate contact between her legs, the cat-girl lifts her hips and helps to bump her [nyan.pussy+] against yours.
+	</p>
+	<p>
+		[nyanmum.speech(Having fun with my daughter, [pc.name]?)] [nyanmum.name] teases, but before you can answer, she leans forwards and presses her [nyanmum.lips+] against your mouth. Continuing to rhythmically grind your pussy up and down against Nyan's [nyan.pussy+], you start passionately kissing [nyanmum.name] while she sits on her daughter's face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_SCISSOR_NYANMUM"><![CDATA[
+	<p>
+		Wanting to scissor with [nyanmum.name], you suggest that she lie back on the bed so that you can take the dominant position and start tribbing with her. Doing as you ask,
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 both she and her daughter get up on the bed, before [nyanmum.name] lies back and presents you with her exposed pussy.
+		#ELSE
+			 both she and her daughter strip out of their lingerie and get up on the bed, before [nyanmum.name] lies back and presents you with her exposed pussy.
+		#ENDIF
+		 Moving into position between the cougar-girl's legs, you bump your [pc.pussy+] against hers, causing her to moan, [nyanmum.speech(Oh! ~Mmm!~ Yes, give me more of that, [pc.name]! ~Aah!~ Don't be left out, Nyan; come and sit on my face!)]
+	</p>
+	<p>
+		[nyan.speech(Mum! Are you sure?)] [nyan.name] asks, but without even waiting for an answer, she crawls forwards and kneels down over her mother's face, such that she's facing you. Taking hold of her daughter's legs, [nyanmum.name] pulls Nyan down and forces her to plant her [nyan.pussy+] over her mouth. As her mother's tongue darts into her [nyan.pussy+], Nyan squeals, [nyan.speech(Mum! ~Aah!~ Oh, that feels so good!)]
+	</p>
+	<p>
+		Not wanting Nyan to be the only one having fun with her mother, you buck your hips forwards and grind your [pc.pussy+] against [nyanmum.namePos]. Letting out a muffled moan as she feels the intimate contact between her legs, the cougar-girl lifts her hips and helps to bump her [nyanmum.pussy+] against yours.
+	</p>
+	<p>
+		[nyan.speech(~Aah!~ [pc.Name]! Kiss me!)] Nyan demands, but before you can make a move, she leans forwards and presses her [nyan.lips+] against your mouth. Continuing to rhythmically grind your pussy up and down against [nyanmu.namePos] [nyan.pussy+], you start passionately kissing Nyan while she sits on her mother's face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_SCISSORED_NYAN"><![CDATA[
+	<p>
+		Wanting to scissor with Nyan, you lie back on the bed and suggest that she take the dominant position and start tribbing with you. Doing as you ask,
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 both she and her mother get up on the bed,
+		#ELSE
+			 both she and her mother strip out of their lingerie and get up on the bed,
+		#ENDIF
+		 before Nyan takes position between your legs and nervously mumbles, [nyan.speech(Ok, I think I can do this... Now if I just...)]
+	</p>
+	<p>
+		[nyanmum.speech(I'm not letting you have all the fun, dear,)] [nyanmum.name] interjects, before crawling forwards and kneeling down over your face, such that she's facing her daughter. Before you can say anything, she lowers herself down and plants her [nyanmum.pussy+] over your mouth, moaning, [nyanmum.speech(That's it! ~Mmm!~ Be a good [pc.girl] and eat me out!)]
+	</p>
+	<p>
+		Not wanting her mother to be the only one having fun with you, Nyan experimentally bucks her hips forwards and grinds her [nyan.pussy+] against yours. Letting out a high-pitched moan as she feels the intimate contact between her legs, the cat-girl starts rhythmically grinding and bumping her [nyan.pussy+] up and down over yours.
+	</p>
+	<p>
+		[nyanmum.speech(Having fun there, Nyan?)] [nyanmum.name] teases, but before her daughter can answer, she leans forwards and presses her [nyanmum.lips+] against her mouth. Continuing to frantically scissor with you, Nyan starts passionately kissing her mother while she sits on your face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_SCISSORED_NYANMUM"><![CDATA[
+	<p>
+		Wanting to scissor with [nyanmum.name], you lie back on the bed and suggest that she take the dominant position and start tribbing with you. Doing as you ask,
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 both she and her daughter get up on the bed,
+		#ELSE
+			 both she and her daughter strip out of their lingerie and get up on the bed,
+		#ENDIF
+		 before [nyanmum.name] takes position between your legs and exclaims, [nyanmum.speech(I love being on top! I hope you're ready for this, [pc.name]! Oh, don't be left out, Nyan; come and sit on [pc.her] face!)]
+	</p>
+	<p>
+		[nyan.speech(Is that ok?)] [nyan.name] asks, but without even waiting for an answer, she crawls forwards and kneels down over your face, such that she's facing her mother. Taking hold of the cat-girl's legs, you gently pull her down and get her to plant her [nyan.pussy+] over your mouth. As you dart your [pc.tongue+] into her [nyan.pussy+], Nyan squeals, [nyan.speech([pc.Name]! ~Aah!~ Oh, that feels so good!)]
+	</p>
+	<p>
+		Not wanting Nyan to be the only one having fun with you, [nyanmum.name] bucks her hips forwards and grinds her [nyanmum.pussy+] agasint yours. Letting out a moan as she feels the intimate contact between her legs, the cougar-girl starts rhythmically grinding and bumping her [nyanmum.pussy+] up and down over yours.
+	</p>
+	<p>
+		[nyanmum.speech(Having fun there, Nyan?)] [nyanmum.name] teases, but before her daughter can answer, she leans forwards and presses her [nyanmum.lips+] against her mouth. Continuing to grind her pussy down over your mouth, Nyan starts passionately kissing her mother while she scissors with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_RECEIVE_CUNNILINGUS"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell the cat-girls that you want them to perform cunnilingus on you. Clearly expecting more than just that, [nyanmum.name] makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, we'll eat you out...)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			As Nyan lets out a similarly underwhelmed response, you turn around and present them with the rear of your lower [pc.legRace]'s body. Dropping down onto their knees, Nyan and [nyan.mum] shuffle forwards and each give your [pc.labia+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly leans forwards and presses her [nyanmum.lips+] against your [pc.pussy+], before greedily darting her tongue inside and starting to eat you out.
+		#ELSE
+			As Nyan lets out a similarly underwhelmed response, you lie abck on the bed and present them with your [pc.pussy+]. Dropping down towards your groin, Nyan and [nyan.mum] shuffle forwards and each give your [pc.labia+] a quick kiss. Seizing the initiative, [nyanmum.name] quickly drops her head down and presses her [nyanmum.lips+] against your [pc.pussy+], before greedily darting her tongue inside and starting to eat you out.
+		#ENDIF
+		 Continuing to greedily kiss and lick your [pc.pussy+] for a few moments, she eventually pulls back, and with a mixture of girlcum and saliva coating her lips, she smirks at her daughter and teases, [nyanmum.speech(Go on, Nyan, try to copy what I just did...)]
+	</p>
+	<p>
+		Nervously gulping, Nyan does as she's told, and after pressing her [nyan.lips+] against your pussy, she slides her tongue inside and starts to eat you out. Holding her daughter's head, [nyanmum.name] helps to push Nyan's face into your groin, and you can't help but let out [pc.a_moan+] as the two cat-girls set about performing oral on you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_CUNNILINGUS"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell the cat-girls that you just want to perform cunnilingus on them. Clearly expecting more than just that, [nyanmum.name] makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, you can eat us out...)]
+	</p>
+	<p>
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			With their pussies already fully exposed due to their crotchless underwear, Nyan and her mother lie back on the bed by each other's side.
+		#ELSE
+			Stripping completely naked, Nyan and her mother lie back on the bed by each other's side.
+		#ENDIF
+		 Letting out a moan, [nyanmum.name] spreads her legs and tells her daughter, [nyanmum.speech(Go on, Nyan, follow my lead...)]
+	</p>
+	<p>
+		Copying her mother, Nyan spreads her legs, allowing you to drop down and plant a big, wet kiss on her [nyan.pussy+], before moving over to give [nyanmum.namePos] [nyanmum.pussy+] a few quick licks. Moaning at the feeling of your [pc.tongue] sliding over her [nyanmum.labia+], [nyanmum.name] pants, [nyanmum.speechNoEffects(~Aah!~ Yes, that feels so good!)]
+	</p>
+	<p>
+		Switching back over to [nyan.name], you greedily dart your [pc.tongue] into her [nyan.pussy+], causing her to let out a long moan and pant, [nyanmum.speech(That's it... ~Mmm!~ You're good...)]
+	</p>
+	<p>
+		Overcome by arousal, Nyan tilts her head to one side and plants a quick kiss on her mother's cheek. Letting out a surprised chuckle, [nyanmum.name] responds to her daughter's display of affection by leaning over to one side and pressing her [nyanmum.lips+] against her mouth. Taking hold of her daughter's head, she starts passionately making out with Nyan, and in the middle of their kiss, you switch over and start focusing your oral attention on [nyanmum.namePos] [nyanmum.pussy+]. With your face now buried between [nyanmum.namePos] legs, and with mother and daughter passionately making out with one another, you focus on getting each of them to cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_ANILINGUS"><![CDATA[
+	<p>
+		Not wanting to take things further than oral, you tell the cat-girls that you just want to perform anilingus on them. Clearly expecting more than just that, [nyanmum.name] makes her displeasure known as she replies, [nyanmum.speech(Eugh! Fine, I guess if that's all you want, you can worship our asses...)]
+	</p>
+	<p>
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			With their assholes already fully exposed due to their crotchless underwear, Nyan and her mother do as you ask, and drop down onto the bed by each other's side.
+		#ELSE
+			Stripping completely naked, Nyan and her mother do as you ask, and drop down onto the bed by each other's side.
+		#ENDIF
+		 Letting out an excited moan, [nyanmum.name] lifts her hips and tells her daughter, [nyanmum.speech(Go on, Nyan, follow my lead...)]
+	</p>
+	<p>
+		Copying her mother, Nyan lifts her hips, allowing you to drop down and bring your face right up to their exposed assholes. Leaning forwards, you plant a big, wet kiss on [nyanmum.namePos] [nyanmum.asshole+], before moving over to give Nyan's [nyan.asshole+] a few quick licks. Moaning at the feeling of your [pc.tongue] sliding over her ass, Nyan pants, [nyan.speechNoEffects(~Aah!~ Yes, that feels so good!)]
+	</p>
+	<p>
+		Switching back over to [nyanmum.name], you press your [pc.lips+] against her [nyanmum.asshole+] and start passionately making out with it, causing her to let out a long moan and pant, [nyanmum.speech(That's it, worship my ass... ~Mmm!~ You're good...)]
+	</p>
+	<p>
+		Overcome by arousal, Nyan tilts her head to one side and plants a quick kiss on her mother's cheek. Letting out a surprised chuckle, [nyanmum.name] responds to her daughter's display of affection by leaning over to one side and pressing her [nyanmum.lips+] against her mouth. As mother and daughter start passionately kissing one another, you switch back to rimming Nyan, which causes the cute cat-girl to let out a series of muffled, high-pitched squeals.
+	</p>
+	<p>
+		With your face buried between Nyan's [nyan.assSize] ass cheeks, and with the two cat-girls continuing to make out with one another, you focus on getting each of them to cum from receiving anilingus...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_ANAL_NYAN"><![CDATA[
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Deciding that you want to take Nyan's anal virginity, you ask her to get down onto all fours on the bed. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 she drops and presents you with her exposed pussy.
+			#ELSE
+				 she strips out of her lingerie and drops down, fully naked, on her bed.
+			#ENDIF
+			 Letting out an excited moan, Nyan's mother quickly joins her on the bed, before reaching down to her daughter's ass and teasing her [nyanmum.fingers+] over her tight, virgin asshole. Smirking up at you, [nyanmum.name] teases, [nyanmum.speech(Look how tight she is! Come on, the sooner you take her virginity, the sooner you can move on to fucking me!)]
+		</p>
+		<p>
+			[nyan.speech(Mum!)] Nyan whines, but despite her exclamation, she willingly lifts her ass a little higher for you and pants, [nyan.speech(Just be gentle, ok?)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Reassuring her that you'll go slowly for her first time, you step up onto the bed and bring your [pc.legRace]'s body down over the top of your girlfriend. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's exposed asshole. Letting out an alarmed gasp, the cat-girl beneath you squeals, [nyan.speech(Yes! But not too fast...)]
+			#ELSE
+				Reassuring her that you'll go slowly for her first time, you move up onto the bed and take position behind your girlfriend. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's exposed asshole. Letting out an alarmed gasp, the cat-girl squeals, [nyan.speech(Yes! But not too fast...)]
+			#ENDIF
+		</p>
+		<p>
+			Taking hold of your [pc.cock+], [nyanmum.name] starts repeatedly rubbing it over Nyan's [nyan.asshole+], teasing, [nyanmum.speech(Are you ready for this, dear? You want this cock deep in your tight little asshole, don't you?)]
+		</p>
+		<p>
+			[nyan.speech(~Mmm!~ Yes!)] Nyan whines, before bucking her hips back a little and pushing just the [pc.cockHead+] of your cock into her ass.
+		</p>
+		<p>
+			Letting out an amused chuckle, [nyanmum.name] pulls your cock back, before once again teasing its [pc.cockHead+] over her daughter's [nyan.asshole+] and moaning, [nyanmum.speech(Go on, Nyan! Tell [pc.name] that you want [pc.her] cock in your hot little asshole!)]
+		</p>
+		<p>
+			[nyan.speechNoEffects(Yes! ~Ooh!~ Fuck my little asshole, [pc.name]! Please!)] Nyan squeals. Having got what she wanted out of her daughter, [nyanmum.name] releases her grip on your cock and drops down onto all fours beside Nyan. Turning her daughter's head towards her, the cougar-girl presses her [nyanmum.lips+] against her mouth and starts passionately kissing her.
+		</p>
+		<p>
+			By now feeling extremely turned on, you waste no time in moving forwards and slowly pushing your cock into Nyan's tight ass. Gently thrusting forwards, you feel your girlfriend's asshole reluctantly spreading around your hard shaft, and she lets out a muffled, high-pitched squeal as you push your [pc.cock+] into her [nyan.asshole+] and claim her anal virginity. Momentarily breaking off from kissing her mother, Nyan squeals, [nyan.speech(~Aah!~ Yes! Fuck! ~Mmm!~ Give me more, [pc.name]!)] 
+		</p>
+		<p>
+			More than happy to do as she asks, you pull back and once again thrust your [pc.cock+] into Nyan's tight asshole, before starting to give her the fucking she's craving...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to anally fuck the two cat-girls, you ask them to get down onto all fours on the bed. Doing as you ask,
+			#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+				 Nyan and [nyanmum.name] drop down beside one another and present you with their exposed assholes.
+			#ELSE
+				 Nyan and [nyanmum.name] strip out of their lingerie and drop down beside one another, fully naked, on the bed.
+			#ENDIF
+			 Lifting her [nyanmum.hips+], [nyanmum.name] teases, [nyanmum.speech(Come on then, [pc.name]! You're going to fuck my ass first, aren't you?)]
+		</p>
+		<p>
+			[nyan.speech(Mum!)] Nyan whines, before following her mother's lead and raising her ass towards you. Letting out a little moan, she pants, [nyan.speech(Fuck me, [pc.name]!)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Deciding to choose Nyan as the one who you'll penetrate first, you step up onto the bed and bring your [pc.legRace]'s body down over the top of the cat-girl. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at Nyan's exposed asshole. Moving your hips up and down, you tease your cock over her [nyan.asshole+], before thrusting forwards and sinking your [pc.cock+] into her ass.
+			#ELSE
+				Deciding to choose Nyan as the one who you'll penetrate first, you move up onto the bed and take position behind the cat-girl. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against Nyan's exposed asshole. With a buck of your hips, you tease your cock over her [nyan.asshole+], before thrusting forwards and sinking your [pc.cock+] into her ass.
+			#ENDIF
+		</p>
+		<p>
+			[nyan.speechNoEffects(Yes! ~Ooh!~ Fuck me, [pc.name]!)] Nyan squeals. Letting out a disappointed whine, [nyanmum.name] turns her daughter's head towards her, before pressing her [nyanmum.lips+] against her mouth and starting to passionately kiss her. Pulling back, you once again thrust your [pc.cock+] into Nyan's [nyan.asshole+], and with her mother proceeding to make out with her on the bed, you start to eagerly fuck her ass...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_SEX_MAIN_ANAL_NYANMUM"><![CDATA[
+	<p>
+		Deciding that you want to fuck [nyanmum.namePos] ass, you ask her to get down on all fours on the bed. Doing as you ask, both [nyanmum.name] and Nyan
+		#IF(nyan.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 drop down beside one another and present you with their exposed assholes.
+		#ELSE
+			 strip out of their lingerie and drop down beside one another, fully naked, on the bed.
+		#ENDIF
+		 Lifting her [nyanmum.hips+], [nyanmum.name] teases,
+		#IF(nyan.isAssVirgin())
+			 [nyanmum.speech(Come on then, [pc.name]! You can save taking Nyan's anal virginity for later!)]
+		#ELSE
+			 [nyanmum.speech(Come on then, [pc.name]! Give my ass a good fuck before moving onto Nyan's!)]
+		#ENDIF
+	</p>
+	<p>
+		[nyan.speech(Mum!)] Nyan whines, before looking back at you and panting,
+		#IF(nyan.isAssVirgin())
+			 [nyan.speech(I'm ready to lose my anal virginity... You can switch to doing it with me at any time, [pc.name]...)]
+		#ELSE
+			 [nyan.speech(I want my ass fucked too, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Keeping Nyan's words in mind, you continue with your original plan, and after stepping up onto the bed, you bring your [pc.legRace]'s body down over the top of [nyanmum.name]. Lowering yourself down, you move forwards until you feel the [pc.cockHead+] of your hard cock prodding at her exposed asshole. Moving your hips up and down, you tease your cock over her [nyanmum.asshole+], before thrusting forwards and sinking your [pc.cock+] into her ass.
+		#ELSE
+			Keeping Nyan's words in mind, you continue with your original plan and move up onto the bed and take position behind [nyanmum.name]. Looking down, you shuffle forwards and press the [pc.cockHead+] of your hard cock against her exposed asshole. With a buck of your hips, you tease your cock over her [nyanmum.asshole+], before thrusting forwards and sinking your [pc.cock+] into her ass.
+		#ENDIF
+	</p>
+	<p>
+		[nyanmum.speechNoEffects(Yes! ~Ooh!~ Fuck me, [pc.name]!)] [nyanmum.name] squeals. Letting out a disappointed whine, [nyan.name] turns her head towards her mother, before pressing her [nyan.lips+] against her mouth and starting to passionately kiss her. Pulling back, you once again thrust your [pc.cock+] into [nyanmum.namePos] [nyanmum.asshole+], and with her daughter proceeding to make out with her on the bed, you start to eagerly fuck her ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_DOUBLE_SEX -->
+	
+	<htmlContent tag="POST_DOUBLE_SEX"><![CDATA[
+	<p>
+		Completely exhausted from the sex, all three of you collapse down onto the bed, panting for breath. Leaning across to plant a quick kiss on each of your girlfriends' lips, you can't help but smile as Nyan blushes and sighs, [nyan.speech(That was amazing... I love you, [pc.name]...)]
+	</p>
+	<p>
+		Not one to be outdone, [nyanmum.name] takes hold of your [pc.arm] and sighs, [nyanmum.speech(I love you too, [pc.name]...)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanCreampied))
+		#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumCreampied))
+			<p>
+				After a few minutes, the two cat-girls finally recover enough energy to get up off the bed, and with her mind no longer clouded by arousal, [nyanmum.name] rubs a hand over her tummy and wonders aloud, [nyanmum.speech(I wonder if you've got me pregnant...)]
+			</p>
+			<p>
+				As she hears this, Nyan's eyes open wide, and she copies her mother by reaching down to stroke her tummy, before asking, [nyan.speech(We could be pregnant?)]
+			</p>
+			<p>
+				Smiling at her daughter, [nyanmum.name] teases, [nyanmum.speech(We'll just have to wait and see, won't we? You might be getting some siblings, dear, and I might be getting some grand-kids...)] 
+			</p>
+			<p>
+				With that, the two potentially-pregnant cat-girls turn to look at you, before Nyan shakes the thought of becoming a mother from her head and cheerily asks, [nyan.speech(You're going to stay the night, aren't you? Come on, lets have a wash before getting into bed!)]
+			</p>
+		#ELSE
+			<p>
+				After a few minutes, the two cat-girls finally recover enough energy to get up off the bed, and with her mind no longer clouded by arousal, [nyanmum.name] reaches over to rub a hand over Nyan's tummy and wonders aloud, [nyanmum.speech(I wonder if you've got pregnant from this...)]
+			</p>
+			<p>
+				As she hears this, Nyan's eyes open wide, and she copies her mother by reaching down to stroke her tummy, before asking, [nyan.speech(I could be pregnant?)]
+			</p>
+			<p>
+				Smiling at her daughter, [nyanmum.name] teases, [nyanmum.speech(We'll just have to wait and see, won't we? I might be getting some grand-kids...)] 
+			</p>
+			<p>
+				With that, the potentially-pregnant cat-girl turns to look at you, before shaking the thought of becoming a mother from her head and cheerily asking, [nyan.speech(You're going to stay the night, aren't you? Come on, lets have a wash before getting into bed!)]
+			</p>
+		#ENDIF
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_nyanmumCreampied))
+		<p>
+			After a few minutes, the two cat-girls finally recover enough energy to get up off the bed, and with her mind no longer clouded by arousal, [nyanmum.name] rubs a hand over her tummy and wonders aloud, [nyanmum.speech(I wonder if you've got me pregnant...)]
+		</p>
+		<p>
+			As she hears this, Nyan's eyes open wide, and she asks, [nyan.speech(You could be pregnant?)]
+		</p>
+		<p>
+			Smiling at her daughter, [nyanmum.name] teases, [nyanmum.speech(We'll just have to wait and see, won't we? You might be getting some siblings, dear...)] 
+		</p>
+		<p>
+			With that, the two cat-girls turn to look at you, before Nyan shakes the thought of her mother's potential pregnancy from her head and cheerily asks, [nyan.speech(You're going to stay the night, aren't you? Come on, lets have a wash before getting into bed!)]
+		</p>
+	#ELSE
+		<p>
+			After a few minutes, the two cat-girls finally recover enough energy to get up off the bed, and after letting out a happy sigh, Nyan turns towards you and asks, [nyan.speech(You're going to stay the night, right? Come on, lets have a wash before getting into bed!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_DOUBLE_SEX_SLEEP -->
+	
+	<htmlContent tag="POST_DOUBLE_SEX_SLEEP"><![CDATA[
+	<p>
+		The cute look on your girlfriend's face is too much for you to say no to, and so you agree to both have a wash and sleep over here with her. Accompanying the two cat-girls into their ensuite, the three of you share a very hasty shower, before quickly drying off and returning to bed. Pulling on a pair of panties and an oversized T-shirt, Nyan excitedly jumps under the covers, before asking you to turn off the lights and join her. Remaining naked, [nyanmum.name] also slips under the covers, before joining her daughter in asking you to get into bed with them.
+	</p>
+	<p>
+		Doing as they ask, you soon find yourself under the covers with your girlfriends, and as they snuggles up to each side of you and fall asleep, Nyan sighs, [nyan.speech(Thanks, [pc.name]... I love you...)] 
+	</p>
+	<p>
+		Hugging both of the cat-girls close to your body, you return Nyan's sentiments and join them in falling asleep...
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		The next thing you know, you're waking up in bed the next morning, and as you roll over, you discover that your girlfriends are nowhere to be seen. Sitting up and yawning, you realise that there's a smell of freshly-baked goods in the air, which tells you exactly where they must be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_SOLO_SEX_KITCHEN -->
+	
+	<htmlContent tag="POST_DOUBLE_SEX_KITCHEN"><![CDATA[
+	<p>
+		After quickly using the ensuite bathroom to freshen up, you head to the apartment's kitchen. Being of an open-plan design, you're able to see that both Nyan and [nyanmum.name] are in the kitchen right from the moment you enter the dining room. 
+		As you [pc.walk] over to say good morning, you see that both of the cat-girls have got their backs to you; Nyan is standing in front of the sink, while [nyanmum.name] is sitting on one of three high stools which are positioned on the dining-room side of the kitchen's worktop. 
+	</p>
+	<p>
+		Instead of her usual blouse and miniskirt combo, you see that Nyan is wearing [nyan.a_slotClothing(TORSO_UNDER, true)], and over the top of that, she's wearing [nyan.a_slotClothing(TORSO_OVER, true)]. As you approach, you see that she's just finished drying up, and as she turns and sees you, she throws you a happy smile and exclaims, [nyan.speech([pc.Name]! I was just about to come and wake you! Look, I made pastries!)]
+	</p>
+	<p>
+		Alerted to your presence by her daughter's greeting, [nyanmum.name] turns around and flashes you a sly smile. Instead of the dress which she was wearing last night, she's now clothed in [nyanmum.a_slotClothing(TORSO_UNDER, true)] and [nyanmum.a_slotClothing(LEG, true)], which together show off a good deal of her muscular arms and legs. Patting the stool next to her, she declares, [nyanmum.speech(Come and sit down, [pc.name].)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumCreampied))
+		#IF(game.getDialogueFlags().hasFlag(FLAG_nyanCreampied))
+			<p>
+				[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. As you take your first bite, [nyanmum.name] suddenly smirks, and with a little laugh, she leans across and holds something up right in front of your face. Pulling back so that you can see clearly, you feel your eyes opening wide as you see that what [nyanmum.name] is holding is an arcane pregnancy tester...
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				Before you can react to this, Nyan lets out a high-pitched squeak, before producing a pregnancy tester of her own and thrusting it towards you...
+			</p>
+			[#SPECIAL_PARSE_1]
+			#IF(nyan.isPregnant())
+				#IF(nyanmum.isPregnant())
+					<p>
+						[nyanmum.speech(Looks like you got us both knocked up last night,)] [nyanmum.name] teases, before rubbing her hand over her belly and addressing her daughter, [nyanmum.speech(You'll be getting some siblings, dear...)]
+					</p>
+					<p>
+						[nyan.speech(Yes, mum,)] Nyan replies, before furiously blushing and saying, [nyan.speech(You'll be getting some grand-kids...)]
+					</p>
+					<p>
+						Moving forwards, you grab both Nyan and [nyanmum.name] and pull them into a big hug. Planting a loving kiss on each of their cheeks, you ask if there's anything you can do for them. Letting out an amused chuckle, [nyanmum.name] confidently replies, [nyanmum.speech(We don't require any help, no. I've got a personal doctor who can help us to give birth, so there's no need for you to worry about anything...)]
+					</p>
+				#ELSE
+					<p>
+						[nyanmum.speech(Looks like you only managed to get Nyan knocked up last night,)] [nyanmum.name] teases, before addressing her daughter, [nyanmum.speech(You'll be giving me some grand-kids, then...)]
+					</p>
+					<p>
+						[nyan.speech(Yes, mum,)] Nyan replies, before furiously blushing and quietly muttering, [nyan.speech(It's a shame you didn't get pregnant as well...)]
+					</p>
+					<p>
+						Moving forwards, you grab Nyan and pull her into a big hug. Planting a loving kiss on her cheek, you ask if there's anything you can do for her. Letting out an amused chuckle, [nyanmum.name] confidently replies in her daughter's stead, [nyanmum.speech(Nyan won't require any help, no. I've got a personal doctor who can help her to give birth, so there's no need for you to worry about anything...)]
+					</p>
+				#ENDIF
+			#ELSEIF(nyanmum.isPregnant())
+				<p>
+					[nyanmum.speech(Looks like you only managed to get me knocked up last night,)] [nyanmum.name] teases, before rubbing her hand over her belly and addressing her daughter, [nyanmum.speech(You'll be getting some siblings, dear...)]
+				</p>
+				<p>
+					[nyan.speech(Yes, mum,)] Nyan replies, before furiously blushing and quietly muttering, [nyan.speech(It's not like I'm jealous or anything...)]
+				</p>
+				<p>
+					Moving forwards, you grab [nyanmum.name] and pull her into a big hug. Planting a loving kiss on her cheek, you ask if there's anything you can do for her. Letting out an amused chuckle, [nyanmum.name] confidently replies, [nyanmum.speech(I don't require any help, no. I've got a personal doctor who can help us to give birth, so there's no need for you to worry about anything...)]
+				</p>
+			#ELSE
+				<p>
+					[nyanmum.speech(Looks like you didn't manage to knock either of us up,)] [nyanmum.name] teases, before addressing her daughter, [nyanmum.speech(You'll not be getting any siblings this time, dear...)]
+				</p>
+				<p>
+					[nyan.speech(Yes, mum,)] Nyan replies.
+				</p>
+			#ENDIF
+			<p>
+				With the topic seemingly over, the three of you spend the next fifteen minutes talking to one another while making your way through the entire pile of baked goods. Finally, [nyanmum.name] lets out a big yawn and states, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+			</p>
+			<p>
+				Taking the hint, and having matters of your own to attend to, you stand up and prepare to say goodbye to your girlfriends...
+			</p>
+		#ELSE
+			#IF(nyanmum.isPregnant())
+				<p>
+					[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. As you take your first bite, [nyanmum.name] suddenly smirks, and with a little laugh, she leans across and holds something up right in front of your face. Pulling back so that you can see clearly, you feel your eyes opening wide as you see that what [nyanmum.name] is holding is an arcane pregnancy tester...
+				</p>
+				[#SPECIAL_PARSE_0]
+				<p>
+					[nyanmum.speech(You got me knocked up, [pc.name],)] the cougar-girl teases, before rubbing her free hand over her belly and addressing her daughter, [nyanmum.speech(Are you looking forwards to having some siblings, dear?)]
+				</p>
+				<p>
+					#IF(nyan.isPregnant())
+						Rubbing her hand over her own pregnant belly, Nyan replies, [nyan.speech(I hope my kids can get along with yours...)]
+					#ELSE
+						[nyan.speech(Yes, mum,)] Nyan shyly responds, before casting a glance your way and quietly muttering, [nyan.speech(It's not like I'm jealous or anything...)]
+					#ENDIF
+				</p>
+				<p>
+					Moving forwards, you give [nyanmum.name] a big hug and ask her if there's anything you can do for her. Letting out an amused chuckle, she confidently replies, [nyanmum.speech(I don't require any help, no. I've got a personal doctor who can help us to give birth, so there's no need for you to worry about anything...)]
+				</p>
+				<p>
+					With the topic of [nyanmum.namePos] pregnancy seemingly over, the three of you spend the next fifteen minutes talking to one another while making your way through the entire pile of baked goods. Finally, [nyanmum.name] lets out a big yawn and states, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+				</p>
+				<p>
+					Taking the hint, and having matters of your own to attend to, you stand up and prepare to say goodbye to your girlfriends...
+				</p>
+			#ELSE
+				<p>
+					[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. As you take your first bite, [nyanmum.name] suddenly smirks, and with a little laugh, she leans across and holds something up right in front of your face. Pulling back so that you can see clearly, you feel your eyes opening wide as you see that what [nyanmum.name] is holding is an arcane pregnancy tester...
+				</p>
+				[#SPECIAL_PARSE_0]
+				<p>
+					[nyanmum.speech(You didn't get me knocked up after all,)] the cougar-girl sighs, before putting the tester down and addressing her
+					#IF(nyan.isPregnant())
+						 pregnant daughter, [nyanmum.speech(Looks like I'll just have to make do with grand-kids...)]
+					#ELSE
+						 daughter, [nyanmum.speech(Looks like you're not getting any siblings...)]
+					#ENDIF
+				</p>
+				<p>
+					[nyan.speech(Yes, mum,)] Nyan sighs.
+				</p>
+				<p>
+					With the topic of [nyanmum.namePos] failure to get pregnant seemingly over, the three of you spend the next fifteen minutes talking to one another while making your way through the entire pile of baked goods. Finally, [nyanmum.name] lets out a big yawn and states, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+				</p>
+				<p>
+					Taking the hint, and having matters of your own to attend to, you stand up and prepare to say goodbye to your girlfriends...
+				</p>
+			#ENDIF
+		#ENDIF
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_nyanCreampied))
+		#IF(nyan.isPregnant())
+			<p>
+				[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. As you eat, Nyan alarmingly starts to revert to acting in a shy, nervous manner, and so you stop eating to ask her what's on her mind. Furiously blushing, the cat-girl lets out a little squeak, and with her cheeks flushing red, she holds up an arcane pregnancy tester for you to see...
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				Closing her eyes and taking a deep breath, Nyan occupies her free hand by bunching up the bottom of her dress before blurting out, [nyan.speechNoEffects(I-I'm pregnant with your #IF(nyan.getPregnantLitter().getTotalLitterCount()>1)babies#ELSEbaby#ENDIF!)]
+			</p>
+			<p>
+				[nyanmum.speech(Calm down, dear,)] [nyanmum.name] says in a gentle, soothing voice, [nyanmum.speech(It's ok.)]
+			</p>
+			<p>
+				With her mother's words failing to make any impact, Nyan just sits there; eyes scrunched closed, trembling hand clenching her skirt, she seems to be waiting for an admonishment. Moving forwards, you sweep her into your [pc.arms], wishing that you'd been able to record the surprised squeak that bursts out of her mouth. She blinks in surprise as you hold her close, before pulling back a little and staring at you with open-mouthed shock. [nyan.speechNoEffects(You're not upset?)]
+			</p>
+			<p>
+				You hold her at arm's length for a moment, smiling as you shake your head and tell her that you're happy to be having children with her. A visible tension seems to melt from her entire being as the cat-girl cutely smiles back and snuggles into your [pc.arms]. The confidence which she'd gained over the course of your relationship quickly returns, and she says, [nyan.speechNoEffects(Mum can help me with stuff, so everything will be fine...)]
+			</p>
+			<p>
+				[nyanmum.speech(That's right. I've got a personal doctor who can help Nyan to give birth, so there's no need for you to worry about anything...)] [nyanmum.name] says.
+			</p>
+			<p>
+				With the topic of Nyan's pregnancy seemingly over, the three of you spend the next fifteen minutes talking to one another while making your way through the entire pile of baked goods. Finally, [nyanmum.name] lets out a big yawn and states, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+			</p>
+			<p>
+				Taking the hint, you plant a quick kiss on Nyan's cheek, before asking if she'll be ok on her own. With Nyan rapidly nodding her head in response, and with things for you to be getting on with today, you stand up and prepare to say goodbye to your now-pregnant girlfriend...
+			</p>
+		#ELSE
+			<p>
+				[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. As you eat, Nyan alarmingly starts to revert to acting in a shy, nervous manner, and so you stop eating to ask her what's on her mind. Furiously blushing, the cat-girl lets out a little squeak, and with her cheeks flushing red, she holds up an arcane pregnancy tester for you to see...
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				[nyan.speech(I'm not pregnant!)] she blurts out.
+			</p>
+			<p>
+				[nyanmum.speech(Shame,)] [nyanmum.name] sighs, [nyanmum.speech(I was looking forwards to getting some grand-kids...)]
+			</p>
+			<p>
+				Moving forwards, you sweep Nyan into your [pc.arms], wishing that you'd been able to record the surprised squeak that bursts out of her mouth. A visible tension seems to melt from her entire being as the cat-girl snuggles into your [pc.arms], before pulling back and asking, [nyan.speechNoEffects(It wouldn't have been a problem if I was pregnant, right?)]
+			</p>
+			<p>
+				Planting a quick kiss on your girlfriend's cheek, you reassure her that it wouldn't have been an issue, to which she happily smiles and lets out a sigh of relief. After finishing off the pastries and talking with Nyan and her mother for a little longer, you feel as though it's time for you to be getting on with your day, and so you stand up and prepare to say goodbye to your girlfriends...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			[pc.Walking] over to give each of your girlfriends a kiss, you sit down behind the counter and begin to eat the pastries which Nyan has freshly baked. After about fifteen minutes of talking to one another, the three of you have made your way through the entire pile of baked goods, which leads [nyanmum.name] into saying, [nyanmum.speech(Nyan and I have got some things to take care of today, [pc.name]...)]
+		</p>
+		<p>
+			Taking the hint, and having matters of your own to attend to, you stand up and prepare to say goodbye to your girlfriends...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_DOUBLE_SEX_LEAVE"><![CDATA[
+	<p>
+		Saying that you've got to get going now, you're accompanied by your girlfriends to the front door, where you lean in and kiss each of them goodbye. After happily returning your kiss, the two cat-girls tell you how much fun it is having you as their [pc.girlfriend], before [nyanmum.name] says, [nyanmum.speech(I hope we get to see you again soon, [pc.name]...)]
+	</p>
+	<p>
+		Reassuring the two of them that you'll visit them again as soon as you can, you say one last goodbye and then head down the stairs and return to the apartment's foyer. Letting out a contented sigh, you head out of the front door and find yourself back in the streets of Dominion, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Misc. -->
+	
+	<htmlContent tag="PREGNANCY_ADDITION"><![CDATA[
+	<p style='text-align:center;'>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_nyanCreampied) && nyan.isPregnant())
+			#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumCreampied) && nyanmum.isPregnant())
+				[style.italicsPinkLight(You will be unable to encounter Nyan's or [nyanmum.namePos] children, as after being born, [nyanmum.name] will give them a stable job elsewhere in the Realm...)]
+			#ELSE
+				[style.italicsPinkLight(You will be unable to encounter Nyan's children, as after being born, [nyanmum.name] will give them a stable job elsewhere in the Realm...)]
+			#ENDIF
+		#ELSE
+			[style.italicsPinkLight(You will be unable to encounter [nyanmum.namePos] children, as after being born, [nyanmum.name] will give them a stable job elsewhere in the Realm...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

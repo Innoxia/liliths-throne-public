@@ -1154,6 +1154,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public String getPathName() {
+			return "res/race/neverLucky/dog/border_collie";
+		}
 	};
 	
 	public static AbstractSubspecies DOG_MORPH_DOBERMANN = new AbstractSubspecies(false,
@@ -1307,7 +1311,7 @@ public class Subspecies {
 			"[npc.NameHasFull] a primitive, wolf-like appearance, and possesses levels of strength and intelligence above that of most other dog-morphs.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 15f),
-					new Value<>(Attribute.MAJOR_ARCANE, 2f),
+					new Value<>(Attribute.MAJOR_ARCANE, 0f),
 					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 5f),
 					new Value<>(Attribute.HEALTH_MAXIMUM, 5f)),
@@ -1757,6 +1761,10 @@ public class Subspecies {
 		@Override
 		public String getPathName() {
 			return "res/race/neverLucky/fox/fennec";
+		}
+		@Override
+		public int getIconSize() {
+			return 70;
 		}
 	};
 	
@@ -3976,7 +3984,7 @@ public class Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character!=null) {
-				AbstractSubspecies coreSubspecies = AbstractSubspecies.getFleshSubspecies(character);
+				AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
 				if(character.getSubspeciesOverrideRace()==Race.DEMON) {
 					return UtilText.parse(character,
 							"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
@@ -3995,7 +4003,7 @@ public class Subspecies {
 			if(character==null) {
 				return super.getName(character);
 			}
-			AbstractSubspecies coreSubspecies = AbstractSubspecies.getFleshSubspecies(character);
+			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getName(character);
 			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
@@ -4009,7 +4017,7 @@ public class Subspecies {
 			if(character==null) {
 				return super.getNamePlural(character);
 			}
-			AbstractSubspecies coreSubspecies = AbstractSubspecies.getFleshSubspecies(character);
+			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getNamePlural(character);
 			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
@@ -4023,7 +4031,7 @@ public class Subspecies {
 			if(character==null) {
 				return super.getSingularMaleName(character);
 			}
-			AbstractSubspecies coreSubspecies = AbstractSubspecies.getFleshSubspecies(character);
+			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getSingularMaleName(character);
 			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
@@ -4037,7 +4045,7 @@ public class Subspecies {
 			if(character==null) {
 				return super.getSingularFemaleName(character);
 			}
-			AbstractSubspecies coreSubspecies = AbstractSubspecies.getFleshSubspecies(character);
+			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getSingularFemaleName(character);
 			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
@@ -4051,7 +4059,7 @@ public class Subspecies {
 			if(character==null) {
 				return super.getPluralMaleName(character);
 			}
-			AbstractSubspecies coreSubspecies = AbstractSubspecies.getFleshSubspecies(character);
+			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getPluralMaleName(character);
 			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
@@ -4065,7 +4073,7 @@ public class Subspecies {
 			if(character==null) {
 				return super.getPluralFemaleName(character);
 			}
-			AbstractSubspecies coreSubspecies = AbstractSubspecies.getFleshSubspecies(character);
+			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
 				return super.getPluralFemaleName(character);
 			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
@@ -4079,7 +4087,7 @@ public class Subspecies {
 			if(character==null) {
 				return Subspecies.HUMAN.getSlimeSVGString(null);
 			}
-			return AbstractSubspecies.getFleshSubspecies(character).getSlimeSVGString(character);
+			return character.getFleshSubspecies().getSlimeSVGString(character);
 		}
 
 		@Override
@@ -4087,7 +4095,7 @@ public class Subspecies {
 			if(character==null) {
 				return Subspecies.HUMAN.getSVGStringDesaturated(null);
 			}
-			return AbstractSubspecies.getFleshSubspecies(character).getSVGStringDesaturated(character);
+			return character.getFleshSubspecies().getSVGStringDesaturated(character);
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4813,6 +4821,10 @@ public class Subspecies {
 		@Override
 		public Colour getSecondaryColour() {
 			return PresetColour.BASE_PITCH_BLACK;
+		}
+		@Override
+		public Colour getTertiaryColour() {
+			return PresetColour.BASE_YELLOW;
 		}
 	};
 

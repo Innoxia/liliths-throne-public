@@ -314,6 +314,13 @@ public enum TFModifier {
 			"modifier_circle_vibration",
 			PresetColour.BASE_PINK,
 			Rarity.EPIC),
+
+	CLOTHING_ORGASM_PREVENTION("orgasm prevention",
+			"Makes the wearer unable to orgasm.",
+			"orgasm prevention",
+			"modifier_circle_orgasm_prevention",
+			PresetColour.BASE_CRIMSON,
+			Rarity.EPIC),
 	
 	// Racial parts:
 
@@ -1125,6 +1132,13 @@ public enum TFModifier {
 			"squirting",
 			"modifier_circle_squirter",
 			PresetColour.BASE_AQUA,
+			Rarity.COMMON),
+	
+	TF_MOD_VAGINA_EGG_LAYER("egg-layer",
+			"Applies an effect related to making someone lay eggs.",
+			"egg-laying",
+			"modifier_circle_vagina_eggLayer",
+			PresetColour.EGG,
 			Rarity.COMMON),
 
 	

@@ -297,7 +297,6 @@ public class TailType {
 					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] alligator tails, which [npc.she] can swipe from side to side with considerable force."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					BodyPartTag.TAIL_PREHENSILE,
 					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_SCALES,

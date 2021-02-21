@@ -312,6 +312,12 @@ public class Covering implements XMLSaving {
 		String descriptor = modifier.getName();
 		String name = type.getName(gc);
 		
+		// For furry body hair, just call it 'fur'
+		if(modifier==CoveringModifier.FURRY && type.getCategory()==BodyCoveringCategory.BODY_HAIR) {
+			descriptor = "";
+			name = "fur";
+		}
+		
 //		if(gc.getRace()==Race.SLIME) {
 //			if(this.getType()!=BodyCoveringType.SLIME) {
 //				return gc.getCovering(BodyCoveringType.SLIME).getFullDescription(gc, coloured);

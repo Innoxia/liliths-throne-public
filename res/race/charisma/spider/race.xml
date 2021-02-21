@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>charisma_spider</racialBody>
+	<applyRaceChanges/>
+	<name><![CDATA[spider-morph]]></name>
+	<namePlural><![CDATA[spider-morphs]]></namePlural>
+	<nameFeral>
+		<name legConfiguration="ARACHNID"><![CDATA[spider]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="ARACHNID"><![CDATA[spider]]></name>
+	</nameFeralPlural>
+	<defaultTransformName><![CDATA[spider]]></defaultTransformName>
+	<colour>charisma_spider_silk_white</colour>
+	<disposition>SAVAGE</disposition>
+	<racialClass>OTHER</racialClass>
+	<feralPartsAvailable>true</feralPartsAvailable>
+	<ableToSelfTransform>false</ableToSelfTransform>
+	<flyingRace>false</flyingRace>
+	<combatBehaviour>BALANCED</combatBehaviour>
+	<chanceForMaleOffspring>0.1</chanceForMaleOffspring>
+	<numberOfOffspringLow>2</numberOfOffspringLow>
+	<numberOfOffspringHigh>6</numberOfOffspringHigh>
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

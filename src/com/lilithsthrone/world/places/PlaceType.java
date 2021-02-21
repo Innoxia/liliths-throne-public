@@ -25,7 +25,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
-import com.lilithsthrone.game.dialogue.places.dominion.NyanApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
@@ -46,6 +45,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomArthur;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.DreamLover;
@@ -2707,6 +2707,14 @@ public class PlaceType {
 			ShoppingArcadeDialogue.RESTAURANT,
 			Darkness.ALWAYS_LIGHT,
 			null, "in 'The Oaken Glade'") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getHourOfDay()>=18) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.DINER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			} else {
+				return new ArrayList<>();
+			}
+		}
 	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_PIXS_GYM = new AbstractPlaceType(
@@ -3102,7 +3110,7 @@ public class PlaceType {
 			"'The Rusty Collar'",
 			"A tavern in which bounty hunters can be contracted to track down runaway slaves.",
 			"dominion/slaverAlley/bountyHunters",
-			PresetColour.BASE_RED_DARK,
+			PresetColour.BASE_COPPER,
 			SlaverAlleyDialogue.BOUNTY_HUNTERS,
 			Darkness.ALWAYS_LIGHT,
 			null,

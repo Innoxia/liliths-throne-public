@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
@@ -62,7 +63,7 @@ import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.9
+ * @version 0.4
  * @author Innoxia
  */
 public class NightlifeDistrict {
@@ -70,6 +71,7 @@ public class NightlifeDistrict {
 	private static boolean isSearchingForASub = true;
 	private static Gender clubberGender;
 	private static AbstractSubspecies clubberSubspecies;
+	private static RaceStage clubberRaceStage;
 	
 	private static boolean isClubOpen(int minutesPassedForNextScene) {
 		return !((Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) >= (60 * 5) && (Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) < (60 * 19));
@@ -115,7 +117,7 @@ public class NightlifeDistrict {
 	}
 
 	private static void spawnClubbers(boolean submissiveClubbers) {
-		NPC clubber = new DominionClubNPC(clubberGender, clubberSubspecies, false);
+		NPC clubber = new DominionClubNPC(clubberGender, clubberSubspecies, clubberRaceStage, false);
 				
 		if(Math.random()<0.4f) {
 			clubber.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -1027,17 +1029,27 @@ public class NightlifeDistrict {
 	};
 	
 	public static final DialogueNode WATERING_HOLE_SEARCH_RACE = new DialogueNode("The Watering Hole", "", true, true) {
-		
 		@Override
 		public int getSecondsPassed() {
-			return 0*60;
+			return 0;
 		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_RACE");
 		}
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(index == 0) {
+				return "[style.colourTfPartial(Partial)]";
+			} else if(index == 1) {
+				return "[style.colourTfMinor(Minor)]";
+			} else if(index == 2) {
+				return "[style.colourTfLesser(Lesser)]";
+			} else if(index == 3) {
+				return "[style.colourTfGreater(Greater)]";
+			}
+			return null;
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
@@ -1050,7 +1062,9 @@ public class NightlifeDistrict {
 				subspeciesSet.addAll(pop.getSpecies().keySet());
 			}
 			if(!subspeciesSet.isEmpty()) {
-				for(AbstractSubspecies subspecies : subspeciesSet) {
+				List<AbstractSubspecies> sortedSubspecies = new ArrayList<>(subspeciesSet);
+				sortedSubspecies.sort((s1, s2) -> s1.getRace().getName(false).compareTo(s2.getRace().getName(false)));
+				for(AbstractSubspecies subspecies : sortedSubspecies) {
 					if(count==index) {
 						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
 								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
@@ -1059,6 +1073,20 @@ public class NightlifeDistrict {
 										:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
 							@Override
 							public void effects() {
+								switch(responseTab) {
+									case 0:
+										clubberRaceStage = RaceStage.PARTIAL;
+										break;
+									case 1:
+										clubberRaceStage = RaceStage.PARTIAL_FULL;
+										break;
+									case 2:
+										clubberRaceStage = RaceStage.LESSER;
+										break;
+									default:
+										clubberRaceStage = RaceStage.GREATER;
+										break;
+								}
 								clubberSubspecies = subspecies;
 								spawnClubbers(isSearchingForASub);
 							}
