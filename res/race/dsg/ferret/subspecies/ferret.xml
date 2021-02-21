@@ -170,7 +170,9 @@
 	<statusEffectAttributeModifiers>
 		<attribute value="10">MAJOR_PHYSIQUE</attribute>
 		<attribute value="5">MAJOR_ARCANE</attribute>
-		<attribute value="10">CRITICAL_DAMAGE</attribute>
+		<attribute value="20">CRITICAL_DAMAGE</attribute>
+		<attribute value="10">RESISTANCE_PHYSICAL</attribute>
+		<attribute value="5">DAMAGE_UNARMED</attribute>
 	</statusEffectAttributeModifiers>
 	
 	<!-- Any extra effects which should be listed in this subspecies' status effect tooltip.
