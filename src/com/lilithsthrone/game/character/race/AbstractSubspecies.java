@@ -382,9 +382,11 @@ public abstract class AbstractSubspecies {
 
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
 				
+				String secondaryColourText = coreElement.getMandatoryFirstOf("secondaryColour").getTextContent();
+				String tertiaryColourText = coreElement.getMandatoryFirstOf("tertiaryColour").getTextContent();
 				this.colour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("colour").getTextContent());
-				this.secondaryColour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("secondaryColour").getTextContent());
-				this.tertiaryColour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("tertiaryColour").getTextContent());
+				this.secondaryColour = secondaryColourText.isEmpty() ? this.colour : PresetColour.getColourFromId(secondaryColourText);
+				this.tertiaryColour = tertiaryColourText.isEmpty() ? this.colour : PresetColour.getColourFromId(tertiaryColourText);
 				
 				this.mainSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("mainSubspecies").getTextContent());
 				this.baseSlaveValue = Integer.valueOf(coreElement.getMandatoryFirstOf("baseSlaveValue").getTextContent());
