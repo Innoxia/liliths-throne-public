@@ -3028,106 +3028,111 @@ public class ItemType {
 			allItems.add(loreBook);
 
 			// Essences
+			if(mainSubspecies!=Subspecies.CENTAUR) { // a CENTAUR essence is identical to a HORSE_MORPH essence
 
-			AbstractStatusEffect statusEffect = new AbstractStatusEffect(80,
-					(mainSubspecies.getRace()==Race.ANGEL
-							?"angelic"
-							:(mainSubspecies.getRace()==Race.DEMON && !mainSubspecies.getName(null).toUpperCase().startsWith("IMP")
-							?"demonic"
-							:(mainSubspecies.getRace()==Race.DEMON && mainSubspecies.getName(null).toUpperCase().startsWith("IMP")
-							?"impish"
-							:mainSubspecies.getName(null).toLowerCase())))
-					 + " intuition",
-					null,
-					mainSubspecies.getColour(null),
-					true,
-					Util.newHashMapOfValues(new Util.Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
-							new Util.Value<>(Attribute.getRacialDamageAttribute(mainSubspecies.getRace()), 25f)),
-					null) {
-				@Override
-				public String getDescription(GameCharacter target) {
-					if(target == null) {
-						return "";
+				String raceName = (mainSubspecies.getSubspeciesOverridePriority()>0?mainSubspecies.getName(null):mainSubspecies.getRace().getName(false));
+				String raceNamePlural = (mainSubspecies.getSubspeciesOverridePriority()>0?mainSubspecies.getNamePlural(null):mainSubspecies.getRace().getNamePlural(false));
+
+				AbstractStatusEffect statusEffect = new AbstractStatusEffect(80,
+						(mainSubspecies.getRace()==Race.ANGEL
+								?"angelic"
+								:(mainSubspecies.getRace()==Race.DEMON && !mainSubspecies.getName(null).toUpperCase().startsWith("IMP")
+								?"demonic"
+								:(mainSubspecies.getRace()==Race.DEMON && mainSubspecies.getName(null).toUpperCase().startsWith("IMP")
+								?"impish"
+								:raceName.toLowerCase())))
+								+ " intuition",
+						null,
+						mainSubspecies.getColour(null),
+						true,
+						Util.newHashMapOfValues(new Util.Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+								new Util.Value<>(Attribute.getRacialDamageAttribute(mainSubspecies.getRace()), 25f)),
+						null) {
+					@Override
+					public String getDescription(GameCharacter target) {
+						if(target == null) {
+							return "";
+						}
+						return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how "
+								+ raceNamePlural.toLowerCase() +" will behave.");
 					}
-					return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how "
-							+ mainSubspecies.getNamePlural(null).toLowerCase() +" will behave.");
-				}
-				@Override
-				public String getSVGString(GameCharacter owner) {
-					return getEssenceEffectSvg(mainSubspecies);
-				}
-			};
-
-			String effect_id = "COMBAT_BONUS_"+Subspecies.getIdFromSubspecies(mainSubspecies).toUpperCase();
-
-			StatusEffect.statusEffectToIdMap.put(statusEffect, effect_id);
-			StatusEffect.idToStatusEffectMap.put(effect_id, statusEffect);
-			StatusEffect.allStatusEffects.add(statusEffect);
-
-			AbstractItemEffectType effectType = new AbstractItemEffectType(Util.newArrayListOfValues(
-					"[style.boldGood(+1)] [style.boldArcane(Arcane essence)]"),
-					mainSubspecies.getColour(null)) {
-				@Override
-				public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-					List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
-					list.add("Applies <i style='color:"+statusEffect.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(statusEffect.getName(target))+"'</i>:");
-					for(Entry<AbstractAttribute, Float> entry : statusEffect.getAttributeModifiers(target).entrySet()) {
-						list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
+					@Override
+					public String getSVGString(GameCharacter owner) {
+						return getEssenceEffectSvg(mainSubspecies);
 					}
-					return list;
-				}
-				@Override
-				public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-					target.incrementEssenceCount(1, false);
-					target.addStatusEffect(statusEffect, 60*4*60);
-					return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane essence)], and are now far more effective at fighting "
-							+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>" + mainSubspecies.getNamePlural(null) +"</b>!";
-				}
-			};
+				};
 
-			ItemEffectType.addAbstractItemEffectToIds("BOTTLED_ESSENCE_"+Subspecies.getIdFromSubspecies(mainSubspecies).toUpperCase(), effectType);
+				String effect_id = "COMBAT_BONUS_"+Subspecies.getIdFromSubspecies(mainSubspecies).toUpperCase();
 
-			AbstractItemType essence = new AbstractItemType(
-					Math.min(Math.max((mainSubspecies.getBaseSlaveValue(null) / 250), 40), 10000), // i.e. 48 flames for cat-morphs, minimum 40 flames, 10000 maximum
-					null,
-					false,
-					"Bottled " + Util.capitaliseSentence(mainSubspecies.getName(null)) + " Essence",
-					"Bottled " + Util.capitaliseSentence(mainSubspecies.getName(null)) + " Essences",
-					"A small glass bottle, with a little cork stopper wedged firmly in the top."
-							+ " Inside, the swirling "+mainSubspecies.getColour(null).getName().toLowerCase() + " glow of an arcane essence,"
-							+ " imbued with the energy of "+UtilText.generateSingularDeterminer(mainSubspecies.getName(null)) + " "
-							+ mainSubspecies.getName(null) + ", flickers and swirls about in a mesmerising, cyclical pattern.",
-					null,
-					mainSubspecies.getColour(null),
-					null,
-					null,
-					Rarity.EPIC,
-					Util.newArrayListOfValues(new ItemEffect(effectType)),
-					((mainSubspecies.getSubspeciesOverridePriority()>=10) // Demon+ (and Angels) are contraband
-							?Util.newArrayListOfValues(ItemTag.ESSENCE,ItemTag.CONTRABAND_HEAVY)
-							:Util.newArrayListOfValues(ItemTag.ESSENCE))) {
-				@Override
-				public String getUseName() {
-					return "absorb";
-				}
-				@Override
-				public String getUseDescription(GameCharacter user, GameCharacter target) {
-					return getEssenceAbsorptionText(mainSubspecies.getColour(null), user, target);
-				}
-				@Override
-				public String getSVGString() {
-					return getEssenceSvg(mainSubspecies);
-				}
+				StatusEffect.statusEffectToIdMap.put(statusEffect, effect_id);
+				StatusEffect.idToStatusEffectMap.put(effect_id, statusEffect);
+				StatusEffect.allStatusEffects.add(statusEffect);
 
-			};
+				AbstractItemEffectType effectType = new AbstractItemEffectType(Util.newArrayListOfValues(
+						"[style.boldGood(+1)] [style.boldArcane(Arcane essence)]"),
+						mainSubspecies.getColour(null)) {
+					@Override
+					public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+						List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
+						list.add("Applies <i style='color:"+statusEffect.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(statusEffect.getName(target))+"'</i>:");
+						for(Entry<AbstractAttribute, Float> entry : statusEffect.getAttributeModifiers(target).entrySet()) {
+							list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
+						}
+						return list;
+					}
+					@Override
+					public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+						target.incrementEssenceCount(1, false);
+						target.addStatusEffect(statusEffect, 60*4*60);
+						return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane essence)], and are now far more effective at fighting "
+								+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>" + raceNamePlural +"</b>!";
+					}
+				};
 
-			String essence_id = "BOTTLED_ESSENCE_"+Subspecies.getIdFromSubspecies(mainSubspecies).toUpperCase();
+				ItemEffectType.addAbstractItemEffectToIds("BOTTLED_ESSENCE_"+Subspecies.getIdFromSubspecies(mainSubspecies).toUpperCase(), effectType);
 
-			itemToIdMap.put(essence, essence_id);
-			idToItemMap.put(essence_id, essence);
+				AbstractItemType essence = new AbstractItemType(
+						Math.min(Math.max((mainSubspecies.getBaseSlaveValue(null) / 250), 40), 10000), // i.e. 48 flames for cat-morphs, minimum 40 flames, 10000 maximum
+						null,
+						false,
+						"Bottled " + Util.capitaliseSentence(raceName) + " Essence",
+						"Bottled " + Util.capitaliseSentence(raceName) + " Essences",
+						"A small glass bottle, with a little cork stopper wedged firmly in the top."
+								+ " Inside, the swirling "+mainSubspecies.getColour(null).getName().toLowerCase() + " glow of an arcane essence,"
+								+ " imbued with the energy of "+UtilText.generateSingularDeterminer(raceName) + " " + raceName
+								+ ", flickers and swirls about in a mesmerising, cyclical pattern.",
+						null,
+						mainSubspecies.getColour(null),
+						null,
+						null,
+						Rarity.EPIC,
+						Util.newArrayListOfValues(new ItemEffect(effectType)),
+						((mainSubspecies.getSubspeciesOverridePriority()>=10) // Demon+ (and Angels) are contraband
+								?Util.newArrayListOfValues(ItemTag.ESSENCE,ItemTag.CONTRABAND_HEAVY)
+								:Util.newArrayListOfValues(ItemTag.ESSENCE))) {
+					@Override
+					public String getUseName() {
+						return "absorb";
+					}
+					@Override
+					public String getUseDescription(GameCharacter user, GameCharacter target) {
+						return getEssenceAbsorptionText(mainSubspecies.getColour(null), user, target);
+					}
+					@Override
+					public String getSVGString() {
+						return getEssenceSvg(mainSubspecies);
+					}
 
-			allItems.add(essence);
-			essences.add(essence);
+				};
+
+				String essence_id = "BOTTLED_ESSENCE_"+Subspecies.getIdFromSubspecies(mainSubspecies).toUpperCase();
+
+				itemToIdMap.put(essence, essence_id);
+				idToItemMap.put(essence_id, essence);
+
+				allItems.add(essence);
+				essences.add(essence);
+			}
 
 		}
 	}
