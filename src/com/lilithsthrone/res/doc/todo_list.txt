@@ -46,6 +46,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added several new methods in Body.java and BodyPartTypeInterface.java and used these methods to tidy up xml race files. (PR#1498)
 		Fixed issue where becoming a demon didn't work for several LegConfigurations since the setLegsToDemon() method for those LegConfigurations wasn't implemented. (PR#1496 by Stadler76)
 		Fixed the body tooltip information for antenna to reflect changes to the number of antenna per row. (PR#1494 by debouchere)
+		Fixed arms appearance for feral harpies and bats mentioning that they had fingers. (PR#1456 by Stadler76)
 
 	Engine/Modding:
 		Added 'NEGATIVE_ONE_LEGENDARY', 'NEGATIVE_TWO_MYTHICAL', and 'NEGATIVE_THREE_ZERO' as new SubspeciesSpawnRarity values (for subspecies which should be extremely rare).
