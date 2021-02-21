@@ -1823,7 +1823,12 @@ public class Subspecies {
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getMaxTailCount();
+			if(character==null) {
+				return 15000;
+			}
+			else {
+				return 15000 * character.getMaxTailCount();
+			}
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -1955,7 +1960,12 @@ public class Subspecies {
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getMaxTailCount();
+			if(character==null) {
+				return 15000;
+			}
+			else {
+				return 15000 * character.getMaxTailCount();
+			}
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -2078,7 +2088,12 @@ public class Subspecies {
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getMaxTailCount();
+			if(character==null) {
+				return 15000;
+			}
+			else {
+				return 15000 * character.getMaxTailCount();
+			}
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
