@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>50000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Freedom Certification]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Freedom Certifications]]></namePlural>
+		<description><![CDATA[An official document which has the power to declare a slave as being legally freed. While it carries the Slavery Administration's official seal, both the slave's name and the owner's signature still need to be filled out before it can be considered a legitimate legal document.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>LEGENDARY</rarity> 
+		
+		<imageName>freedom_certification.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_BLACK</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.colourGood(Sets a slave free)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			While the text is extremely boring legal-talk, the enchanted paper upon which its printed is quite interesting, as no matter how you bend or even attempt to tear it, it seems impossible to inflict any sort of damage to it. Both the signature and the wax seal at the bottom of the page are a dark purple in colour, and both appear to also be enchanted, as they emit a steady, faint purple glow.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the Freedom Certification...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off the Freedom Certification to [npc2.name], who is duly impressed by [npc.her] possession of it...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -108,12 +108,181 @@
 	<p>
 		For those residents of Dominion who have specific business with the city's administrators, a large, well-furnished waiting room has been provided. Sitting upon the many low-backed sofas which litter this open area, there are numerous members of the public, and you notice that many of them are holding little ticket stubs. A large, arcane-powered notification board is fixed to the far wall, and you see that it reads: <i>Now serving: [#((game.getHourOfDay()*115)+(game.getDayMinutes()%60)).toFixed(0)]</i>
 	</p>
-	<p>
-		Shuddering at the thought of being at the mercy of Dominion's bureaucracy, and with nothing more to do in this area, you turn around and continue on your way...
-	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CITY_HALL_WAITING_AREA_LODGER_QUEST"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_cityHallLodgerBoardSeen))
+		<p>
+			Shuddering at the thought of being at the mercy of Dominion's bureaucracy, you turn your attention towards the small, free-standing notice board that's positioned on one side of the waiting room. Curious to see if there's anything to be discovered from reading the many notes pinned to it, you quickly head over to this notice board and start reading.
+		</p>
+		<p>
+			It soon becomes apparent that the only item which holds any interest to you is the piece of paper titled 'Lodgers Seeking Rooms To Rent'. While you're sure that this will be a way in which to meet new and exciting people, there's not much point in looking over the list of Lodgers until you've gained Lilaya's permission to invite guests to stay in one of the empty rooms in her mansion. Resolving to ask your [lilaya.relation(pc)] about that as soon as possible, you [pc.step] back and prepare to continue on your way...
+		</p>
+	#ELSE
+		<p>
+			Shuddering at the thought of being at the mercy of Dominion's bureaucracy, you turn away and prepare to leave, but as you do so, you spot a small, free-standing notice board positioned on one side of the waiting room. Curious to see if there's anything to be discovered from reading the many notes pinned to it, you quickly head over to the notice board and start reading.
+		</p>
+		<p>
+			Unfortunately, the vast majority of the posters and proclamations pinned to the board are either advertising some frivolous product or making a common-sense public service announcement. There is, however, one piece of paper which attracts your attention, as it's titled 'Lodgers Seeking Rooms To Rent'. Wondering if this could be a way in which to meet new and exciting people, you decide to ask Lilaya about inviting guests to stay in one of the empty rooms in her mansion. Until such time as you've gained her permission, there's not much point in looking over the list of Lodgers, and so you [pc.step] back and prepare to continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CITY_HALL_WAITING_AREA_LODGER_NO_ROOM"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_cityHallLodgerBoardSeen))
+		<p>
+			Shuddering at the thought of being at the mercy of Dominion's bureaucracy, you turn your attention towards the small, free-standing notice board that's positioned on one side of the waiting room. Curious to see if there's anything to be discovered from reading the many notes pinned to it, you quickly head over to this notice board and start reading.
+		</p>
+		<p>
+			It soon becomes apparent that the only item which holds any interest to you is the piece of paper titled 'Lodgers Seeking Rooms To Rent'. Unfortunately, you don't currently have any free guest rooms in Lilaya's mansion where you could house a lodger, and so with little point in reading over the list of names, you [pc.step] back and prepare to continue on your way...
+		</p>
+	#ELSE
+		<p>
+			Shuddering at the thought of being at the mercy of Dominion's bureaucracy, you turn away and prepare to leave, but as you do so, you spot a small, free-standing notice board positioned on one side of the waiting room. Curious to see if there's anything to be discovered from reading the many notes pinned to it, you quickly head over to the notice board and start reading.
+		</p>
+		<p>
+			Unfortunately, the vast majority of the posters and proclamations pinned to the board are either advertising some frivolous product or making a common-sense public service announcement. There is, however, one piece of paper which attracts your attention, as it's titled 'Lodgers Seeking Rooms To Rent'. Unfortunately, you don't currently have any free guest rooms in Lilaya's mansion where you could house a lodger, and so with little point in reading over the list of names, you [pc.step] back and prepare to continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CITY_HALL_WAITING_AREA_LODGER_AVAILABLE"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_cityHallLodgerBoardSeen))
+		<p>
+			Shuddering at the thought of being at the mercy of Dominion's bureaucracy, you turn your attention towards the small, free-standing notice board that's positioned on one side of the waiting room. Curious to see if there's anything to be discovered from reading the many notes pinned to it, you quickly head over to this notice board and start reading.
+		</p>
+		<p>
+			It soon becomes apparent that the only item which holds any interest to you is the piece of paper titled 'Lodgers Seeking Rooms To Rent'. You wonder whether you should take some time to read over the list of names of people looking for lodgings, or simply [pc.step] back and continue on your way...
+		</p>
+	#ELSE
+		<p>
+			Shuddering at the thought of being at the mercy of Dominion's bureaucracy, you turn away and prepare to leave, but as you do so, you spot a small, free-standing notice board positioned on one side of the waiting room. Curious to see if there's anything to be discovered from reading the many notes pinned to it, you quickly head over to the notice board and start reading.
+		</p>
+		<p>
+			Unfortunately, the vast majority of the posters and proclamations pinned to the board are either advertising some frivolous product or making a common-sense public service announcement. There is, however, one piece of paper which attracts your attention, as it's titled 'Lodgers Seeking Rooms To Rent'. You wonder whether you should take some time to read over the list of names of people looking for lodgings, or simply [pc.step] back and continue on your way...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
+	
+	<!-- CITY_HALL_WAITING_AREA_LODGER_LIST -->
+	
+	<htmlContent tag="CITY_HALL_WAITING_AREA_LODGER_LIST"><![CDATA[
+	<p>
+		Thinking that it would be fun to have someone staying in one of the guest rooms which you've had prepared, you take a closer look at the piece of paper titled 'Lodgers Seeking Rooms To Rent' and spend some time reading through the list of names...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LODGER_IMPORT_START -->
+	
+	<htmlContent tag="LODGER_IMPORT_START"><![CDATA[
+	<p>
+		You can import any of your previously exported characters in order to add them to the lodger list. (Export any character in the game by viewing their character sheet and pressing the little export button in the top-right of the screen.)
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CITY_HALL_APPROACH_LODGER -->
+	
+	<htmlContent tag="CITY_HALL_APPROACH_LODGER"><![CDATA[
+	<p>
+		Liking the sound of '[npc.name]', you look around the waiting room to see if you can find anyone matching [npc.her] description. Sure enough, after a brief [pc.walk] around the many low-backed sofas which litter the waiting room, you see [npc.a_race] sitting beside a small suitcase which undoubtedly contains [npc.her] possessions.
+	</p>
+	<p>
+		[pc.Walking] up to this [npc.race], you ask [npc.her] if [npc.sheIs] the same [npc.name] who's put [npc.her] name down on the list of lodgers looking for rooms to rent.
+		#IF(npc.isShy())
+			 Shyly averting [npc.her] [npc.eyes+] and looking down at the floor,
+		#ELSEIF(npc.isConfident())
+			 Confidently standing up and fixing [npc.her] [npc.eyes+] upon your face,
+		#ELSE
+			 Looking up at you with [npc.her] [npc.eyes+],
+		#ENDIF
+		#IF(npc.isMute())
+			 the [npc.name] reveals the fact that [npc.sheIs] mute by simply nodding [npc.her] head up and down as a means of conveying a positive response.
+		#ELSE
+			  the [npc.name] replies,
+			#IF(npc.isSelfish())
+				 [npc.speech(Yes, that's me. You've got a room for me, right? I deserve it more than anyone else.)]
+			#ELSEIF(npc.isKind())
+				 [npc.speech(Yes, that's me. You've got a room for me? If someone needs it more than me then you can give it to them, but if not, then I'd really appreciate having a place to stay.)]
+			#ELSE
+				 [npc.speech(Yes, that's me. You've got a room for me?)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Taking hold of [npc.her] suitcase, [npc.name] seems ready to leave, and so you need to quickly decide whether or not you really do want to offer [npc.herHim] a room in which to stay...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LODGER_DENIED -->
+	
+	<htmlContent tag="LODGER_DENIED"><![CDATA[
+	<p>
+		Not liking your first impression of [npc.name], you tell [npc.herHim] that you've changed your mind and don't have a room to offer [npc.herHim] after all. Letting out a weary sigh, the [npc.race] picks up [npc.her] suitcase and
+		#IF(npc.isMute())
+			 silently heads for the exit.
+		#ELSE
+			 heads for the exit, muttering, [npc.speech(I'll have better luck elsewhere in the Realm...)]
+		#ENDIF
+	</p>
+	<p>
+		With [npc.name] having swiftly departed, you're left standing in the waiting room wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LODGER_GIVEN_ROOM -->
+	
+	<htmlContent tag="LODGER_GIVEN_ROOM"><![CDATA[
+	<p>
+		Responding to [npc.namePos] question by confirming that you are indeed here to offer [npc.herHim] a room, you ask the [npc.race] if [npc.sheIs] ready to leave this place straight away.
+	</p>
+	#IF(npc.isMute())
+		<p>
+			As [npc.sheIs] unable to talk, [npc.name] responds once again by nodding [npc.her] head, before taking hold of [npc.her] suitcase and accompanying you out of city hall and down the street. As the two of you travel beside one another, [npc.name] seems to be getting more excited about [npc.her] future, and by the time that you've arrived at Lilaya's mansion, the previous worn-out look on [npc.her] face has been replaced by an expression of wide-eyed wonder.
+		</p>
+		<p>
+			Although [npc.she] can't talk, [npc.name] makes [npc.her] emotions known by giving you a look of utter disbelief as you head to the front door. After telling [npc.herHim] that this is where you live, the [npc.race] shakes [npc.her] head in wonder, before following you up the steps to the mansion's entrance.
+		</p>
+		<p>
+			After Rose has opened the door, you accompany [npc.name] through the mansion and show [npc.herHim] to [npc.her] room. Putting [npc.her] suitcase down beside the bed, [npc.she] turns towards you and offers you [npc.her] sincere thanks by bowing [npc.her] head and smiling at you. Telling [npc.name] that [npc.sheIs] very welcome, you tell [npc.herHim] to take [npc.her] time getting settled in, before [pc.stepping] out of [npc.her] room and giving [npc.herHim] some privacy in which to unpack. Feeling as though you've done a good thing, you wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			[npc.speech(Yes,)] [npc.she] immediately replies, before sighing, [npc.speech(I've been waiting here for an opportunity like this for days...)]
+		</p>
+		<p>
+			Taking hold of [npc.her] suitcase, [npc.name] accompanies you out of city hall and down the street. As the two of you travel and talk with one another, [npc.name] starts to get more excited about [npc.her] future, and by the time that you've arrived at Lilaya's mansion, the previous worn-out look on [npc.her] face has been replaced by an expression of wide-eyed wonder.
+		</p>
+		<p>
+			[npc.speech(You mean, you're offering me a place to stay in <i>there</i>?)] [npc.name] asks in disbelief as you head to the front door. After responding in the positive, the [npc.race] sighs, [npc.speech(Wow...)]
+		</p>
+		<p>
+			After Rose has opened the door, you accompany [npc.name] through the mansion and show [npc.herHim] to [npc.her] room. Putting [npc.her] suitcase down beside the bed, [npc.she] turns towards you and offers you [npc.her] sincere thanks, 
+			#IF(npc.hasJob())
+				 [npc.speech(Thank you so much for offering me this place to stay. I've got a pretty steady job, so paying rent won't be an issue. Seriously, thank you.)]
+			#ELSE
+				 [npc.speech(Thank you so much for offering me this place to stay. I don't have a job right now, but I'll be sure to find one soon, and then paying rent won't be an issue. Seriously, thank you.)]
+			#ENDIF
+		</p>
+		<p>
+			Telling [npc.name] that [npc.sheIs] very welcome, you tell [npc.herHim] to take [npc.her] time getting settled in, before [pc.stepping] out of [npc.her] room and giving [npc.herHim] some privacy in which to unpack. Feeling as though you've done a good thing, you wonder what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	
 	<!-- CITY_HALL_OFFICE -->
 	

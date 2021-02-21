@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>charisma_spider</race>
+	<transformationName><![CDATA[spider]]></transformationName>
+	<baseFluidType>GIRLCUM</baseFluidType>
+	<flavour>GIRL_CUM</flavour>
+	<namesMasculine/>
+	<namesFeminine/>
+	<descriptorsMasculine>
+		<name><![CDATA[spider]]></name>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<name><![CDATA[spider]]></name>
+	</descriptorsFeminine>
+	<defaultFluidModifiers>
+		<modifier>SLIMY</modifier>
+	</defaultFluidModifiers>
+</fluid>

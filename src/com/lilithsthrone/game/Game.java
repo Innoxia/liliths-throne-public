@@ -102,10 +102,12 @@ import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.npc.misc.LodgerImport;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
@@ -133,6 +135,7 @@ import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -436,6 +439,50 @@ public class Game implements XMLSaving {
 				}
 				Main.game.addNPC(importedSlave, false);
 				importedSlave.applyNewlyImportedSlaveVariables();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
+
+	public static GameCharacter importCharacterAsLodger(String name) {
+		File file = new File("data/characters/"+name+".xml");
+		
+		if (file.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(file);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element characterElement = (Element) doc.getElementsByTagName("exportedCharacter").item(0);
+				if(characterElement == null) {
+					characterElement = (Element) doc.getElementsByTagName("playerCharacter").item(0);
+				}
+				
+				// Load NPCs:
+				LodgerImport importedLodger = new LodgerImport();
+				importedLodger.loadFromXML(characterElement, doc,
+						CharacterImportSetting.NO_PREGNANCY,
+						CharacterImportSetting.NO_COMPANIONS,
+						CharacterImportSetting.NO_ELEMENTAL,
+						CharacterImportSetting.CLEAR_SLAVERY,
+						CharacterImportSetting.NO_LOCATION_SETUP,
+						CharacterImportSetting.CLEAR_KEY_ITEMS,
+						CharacterImportSetting.CLEAR_COMBAT_HISTORY,
+						CharacterImportSetting.CLEAR_SEX_HISTORY,
+						CharacterImportSetting.REMOVE_RACE_CONCEALED);
+				try {
+					if(((Element)((Element)((Element)characterElement.getElementsByTagName("character").item(0)).getElementsByTagName("core").item(0)).getElementsByTagName("id").item(0)).getAttribute("value").equals("PlayerCharacter")) {
+						importedLodger.setBirthday(importedLodger.getBirthday().plusYears(18)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
+					}
+				} catch(Exception ex) {	
+				}
+				Main.game.addNPC(importedLodger, false);
+				importedLodger.applyNewlyImportedLodgerVariables();
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1498,7 +1545,23 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Nyan.class).setAffection(Main.game.getNpc(Ashley.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Ashley.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.17") && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
+					if(Main.game.getNpc(Lyssieth.class).getAffection(Main.game.getPlayer())<75) {
+						Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getPlayer(), 75);
+					}
+				}
 				
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.17")) { // Reset home loactions:
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc instanceof EnforcerPatrol) {
+							npc.setHomeLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_OFFICE);
+						}
+					}
+					Main.game.getNpc(Wes.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
+					Main.game.getNpc(Elle.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
+				}
+						
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -1841,7 +1904,7 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Angel.class))) { addNPC(new Angel(), false); addedNpcs.add(Angel.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Bunny.class))) { addNPC(new Bunny(), false); addedNpcs.add(Bunny.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Loppy.class))) { addNPC(new Loppy(), false); addedNpcs.add(Loppy.class); }
-
+			
 			// Slime queen:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeQueen.class))) { addNPC(new SlimeQueen(), false); addedNpcs.add(SlimeQueen.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeGuardIce.class))) { addNPC(new SlimeGuardIce(), false); addedNpcs.add(SlimeGuardIce.class); }
@@ -2062,7 +2125,8 @@ public class Game implements XMLSaving {
 			System.out.println("NPC loop start");
 		}
 		for(NPC npc : NPCMap.values()) {
-			boolean inGame = !npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE);
+			boolean inGame = !npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE)
+					|| (npc instanceof Elemental && ((Elemental)npc).getSummoner()!=null && ((Elemental)npc).getSummoner().isElementalSummoned());
 			
 			// Non-slave NPCs clean clothes:
 			if(inGame) {
@@ -2086,6 +2150,7 @@ public class Game implements XMLSaving {
 								npc.setManaPercentage(1);
 							}
 							npc.alignLustToRestingLust(secondsPassedThisTurn*10);
+							
 						} else {
 							// Regenerate health and stamina over time:
 							if (npc.getHealthPercentage() < 1) {
@@ -3646,6 +3711,13 @@ public class Game implements XMLSaving {
 		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc) || (npc.getPartyLeader()!=null && Main.game.getPlayer().hasCompanion(npc.getPartyLeader())));
 		return nonCompanionCharactersPresent;
 	}
+
+	/**
+	 * Uses the player's current location.
+	 */
+	public List<NPC> getCharactersTreatingCellAsHome() {
+		return getCharactersTreatingCellAsHome(Main.game.getPlayerCell());
+	}
 	
 	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {
 		List<NPC> charactersHome = new ArrayList<>();
@@ -4015,18 +4087,24 @@ public class Game implements XMLSaving {
 		}
 	}
 
-	public List<NPC> getOffspring(boolean includeNotBorn, boolean includeEggIncubations) {
+	public List<NPC> getOffspring(boolean includeNotBorn) {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
 			if((npc.getMother()!=null && npc.getMother().isPlayer())
-					|| (npc.getFather()!=null && npc.getFather().isPlayer())
-					|| (includeEggIncubations && npc.getIncubator()!=null && npc.getIncubator().isPlayer())) {
+					|| (npc.getFather()!=null && npc.getFather().isPlayer())) {
 				if(npc.getMother()!=null) {
-					if(includeNotBorn || npc.getMother().getPregnantLitter()==null || !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+					if(includeNotBorn
+							|| npc.getMother().getPregnantLitter()==null
+							|| !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 						offspring.add(npc);
 					}
 				} else {
+					offspring.add(npc);
+				}
+				
+			} else if((npc.getIncubator()!=null && npc.getIncubator().isPlayer())){
+				if(includeNotBorn || !npc.getIncubator().getIncubatingLitters().values().stream().anyMatch(l->l.getOffspring().contains(npc.getId()))) {
 					offspring.add(npc);
 				}
 			}
@@ -4035,19 +4113,21 @@ public class Game implements XMLSaving {
 		return offspring;
 	}
 	
-	public List<NPC> getOffspringSpawned(boolean includeEggIncubations) {
-		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false, includeEggIncubations));
+	public List<NPC> getOffspringSpawned() {
+		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false));
 		
 		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
 		
 		return offspringSpawned;
 	}
 
-	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher, boolean includeEggIncubations) {
-		List<NPC> offspringAvailable = Main.game.getOffspring(false, includeEggIncubations).stream().filter(npc -> !npc.isSlave())
+	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher) {
+		List<NPC> offspringAvailable = Main.game.getOffspring(false).stream()
+										.filter(npc -> !npc.isSlave())
 										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
 										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
-										.filter(matcher).collect(Collectors.toList());
+										.filter(matcher)
+										.collect(Collectors.toList());
 		return offspringAvailable;
 	}
 	
@@ -4437,6 +4517,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.debugMode);
 	}
 
+	public boolean isAllStickersUnlocked() {
+		return Main.getProperties().hasValue(PropertyValue.allStickersUnlocked);
+	}
+
 	public boolean isMetricSizes() {
 		return Main.getProperties().hasValue(PropertyValue.metricSizes);
 	}
@@ -4645,7 +4729,7 @@ public class Game implements XMLSaving {
 	}
 	
 	/**
-	 *  Be careful using this, as it has a chance to trigger the tile's random encounter.
+	 *  <b>Be careful using this</b>, as it has a chance to trigger the tile's random encounter.
 	 */
 	public DialogueNode getDefaultDialogue() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);

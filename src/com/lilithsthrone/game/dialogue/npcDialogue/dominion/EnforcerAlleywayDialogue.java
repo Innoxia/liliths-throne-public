@@ -395,7 +395,7 @@ public class EnforcerAlleywayDialogue {
 			if(delete) {
 				Main.game.banishNPC((NPC) enforcer);
 			} else {
-				enforcer.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+				enforcer.setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_OFFICE, true);
 			}
 		}
 		
@@ -684,6 +684,19 @@ public class EnforcerAlleywayDialogue {
 			};
 		}
 		return null;
+	}
+
+	private static boolean contrabandCheck(Collection<ItemTag> tags) {
+		if(tags==null) {
+			return false;
+		}
+		if(tags.contains(ItemTag.CONTRABAND_HEAVY)) {
+			heavyContrabandFound = true;
+			return true;
+		}
+		return tags.contains(ItemTag.CONTRABAND_MEDIUM)
+				&& !Main.game.getPlayer().hasItemType("innoxia_quest_special_pass")
+				&& !Main.game.getPlayer().hasItemType("innoxia_quest_special_pass_elle");
 	}
 	
 	public static final DialogueNode ENFORCER_ALLEYWAY_START = new DialogueNode("", "", true) {
@@ -1054,19 +1067,6 @@ public class EnforcerAlleywayDialogue {
 			return null;
 		}
 	};
-	
-	private static boolean contrabandCheck(Collection<ItemTag> tags) {
-		if(tags==null) {
-			return false;
-		}
-		if(tags.contains(ItemTag.CONTRABAND_HEAVY)) {
-			heavyContrabandFound = true;
-			return true;
-		}
-		return tags.contains(ItemTag.CONTRABAND_MEDIUM)
-				&& !Main.game.getPlayer().hasItemType("innoxia_quest_special_pass")
-				&& !Main.game.getPlayer().hasItemType("innoxia_quest_special_pass_elle");
-	}
 	
 	public static final DialogueNode ENFORCER_ALLEYWAY_SEARCHED = new DialogueNode("", "", true, true) {
 		@Override

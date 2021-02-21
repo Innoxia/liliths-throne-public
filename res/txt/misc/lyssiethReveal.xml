@@ -726,7 +726,7 @@
 		[lyssieth.speech(Hmm, I suppose it <i>is</i> time for me to return home, so I'll take [pc.name] with me then,)] Lyssieth says.
 	</p>
 	<p>
-		[siren.speech(Oh, mom, can I stay here for a while and catch up with sis'?)] [siren.name] asks.
+		[siren.speech(Oh, mum, can I stay here for a while and catch up with sis'?)] [siren.name] asks.
 	</p>
 	<p>
 		[lyssieth.speech(Very well, but do not let her out of your sight, Lilaya,)] Lyssieth says, before suddenly stepping over to you and pulling you into a big hug, [lyssieth.speech(I'll be back to pick her up soon. Let's go, [pc.name].)] 
@@ -778,7 +778,7 @@
 		[lyssieth.speech(Aww...)] Lyssieth whines, pouting at you as she steps over to sit down on the surface of her desk. [lyssieth.speech(I suppose I don't <i>really</i> need to orgasm for this to work; I just wanted to have some fun...)]
 	</p>
 	<p>
-		[pc.speech(Well, that's a relief,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mom. [pc.speech(Shall we get this done, then?)]
+		[pc.speech(Well, that's a relief,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mother. [pc.speech(Shall we get this done, then?)]
 	</p>
 	<p>
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
@@ -802,7 +802,7 @@
 		[lyssieth.speech(Aww...)] Lyssieth whines, pouting at you as she steps over to sit down on the surface of her desk. [lyssieth.speech(I suppose that's fine. We don't have to have sex if you don't want to...)]
 	</p>
 	<p>
-		[pc.speech(Good,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mom. [pc.speech(Shall we get this done, then?)]
+		[pc.speech(Good,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mother. [pc.speech(Shall we get this done, then?)]
 	</p>
 	<p>
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
@@ -1035,16 +1035,16 @@
 	<p>
 		#IF siren.getAffection(pc)<-25
 		#THEN
-			[siren.speech(You know, I still haven't forgiven you for abandoning me in my citadel like that,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And no matter what, you're still my arch nemesis! But... Thanks for helping mom like this... I guess you can't be too bad after all...)]
+			[siren.speech(You know, I still haven't forgiven you for abandoning me in my citadel like that,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And no matter what, you're still my arch nemesis! But... Thanks for helping mum like this... I guess you can't be too bad after all...)]
 		#ELSE
-			[siren.speech(You know, you're still my arch-nemesis,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And one day we shall duel to decide the fate of the universe! But... I just want to say... Thanks for helping mom like this...)]
+			[siren.speech(You know, you're still my arch-nemesis,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And one day we shall duel to decide the fate of the universe! But... I just want to say... Thanks for helping mum like this...)]
 		#ENDIF
 	</p>
 	<p>
 		[pc.speech(I just hope that I can get the help of your friend,)] you reply, turning your thoughts to Lunette and her herd of demonic centaurs. [pc.speech(You said she's probably in the town of 'Elis'?)]
 	</p>
 	<p>
-		[siren.speech(Yeah, that's right. Oh, and mom said to give you this map. It's got Elis marked on it, so you won't lose your way,)] [siren.name] says, placing a folded paper map on the desk in front of her. 
+		[siren.speech(Yeah, that's right. Oh, and mum said to give you this map. It's got Elis marked on it, so you won't lose your way,)] [siren.name] says, placing a folded paper map on the desk in front of her. 
 	</p>
 	]]>
 	</htmlContent>
@@ -1066,7 +1066,7 @@
 		[pc.speech(I don't suppose there's any transport available?)] you ask, [pc.speech(It's going to take me around five or six hours to walk there.)]
 	</p>
 	<p>
-		[siren.speech(If you can teleport like mom can, then once you've been there once, you can just return there in an instant,)] [siren.name] says, [siren.speech(But otherwise, no, it's all walking.)]
+		[siren.speech(If you can teleport like mum can, then once you've been there once, you can just return there in an instant,)] [siren.name] says, [siren.speech(But otherwise, no, it's all walking.)]
 	</p>
 	<p>
 		[pc.speech(Ok,)] you say, taking a picture of the map with your phone for quick reference, [pc.speech(I'm sure I'll be back soon, bye, [siren.name].)]

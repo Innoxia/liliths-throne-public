@@ -117,7 +117,7 @@
 	</p>
 	<p>
 		#IF(daddy.isFeminine())
-			[daddy.speech(You're back?!)] she exclaims in surprise, before quickly recovering her composure and flashing you a captivating smile. Leaning against the door-frame, she then asks, [daddy.speech(So, have you changed your mind yet? Come on, it wouldn't be so bad having me as your mom now, would it? Just say yes, and your new mommy'll take you out for dinner!)]
+			[daddy.speech(You're back?!)] she exclaims in surprise, before quickly recovering her composure and flashing you a captivating smile. Leaning against the door-frame, she then asks, [daddy.speech(So, have you changed your mind yet? Come on, it wouldn't be so bad having me as your mum now, would it? Just say yes, and your new mommy'll take you out for dinner!)]
 		#ELSE
 			[daddy.speech(You're back?!)] he exclaims in surprise, before quickly recovering his composure and flashing you a charming smile. Leaning against the door-frame, he then asks, [daddy.speech(So, have you changed your mind yet? Come on, it wouldn't be so bad having me as your dad now, would it? Just say yes, and your new daddy'll take you out for dinner!)]
 		#ENDIF
@@ -838,7 +838,7 @@
 		[daddy.speech(In any case, you're directly related to her,)] [daddy.name] says, [daddy.speech(so I need you to accept me as your mother. That includes you calling me '[daddy.daddy]'.)]
 	</p>
 	<p>
-		You're caught off-guard by this demand suddenly being made of you, and before you're able to think of a response, [daddy.name] continues, [daddy.speech(It wouldn't be so bad having me as your new mom, would it? If you agree to help me like this, I'll give you all of my old arcane spell books and scrolls.)]
+		You're caught off-guard by this demand suddenly being made of you, and before you're able to think of a response, [daddy.name] continues, [daddy.speech(It wouldn't be so bad having me as your new mum, would it? If you agree to help me like this, I'll give you all of my old arcane spell books and scrolls.)]
 	</p>
 	]]>
 	</htmlContent>

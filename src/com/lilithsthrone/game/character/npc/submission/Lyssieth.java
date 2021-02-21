@@ -342,12 +342,12 @@ public class Lyssieth extends NPC {
 		return true;
 	}
 	
-	@Override
-	public void turnUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this)) {
-			this.setStartingBody(false);
-		}
-	}
+//	@Override
+//	public void turnUpdate() {
+//		if(!Main.game.getCharactersPresent().contains(this)) {
+//			this.setStartingBody(false);
+//		}
+//	}
 	
 	@Override
 	protected Set<GameCharacter> getChildren() {

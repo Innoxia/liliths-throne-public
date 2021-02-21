@@ -804,11 +804,11 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					((Main.sex.getMainSexPreference(performingCharacter, targetedCharacter)==null || Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getPerformingSexArea()==SexAreaPenetration.PENIS)
 							&& performingCharacter.hasPenis() && performingCharacter.isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
 					|| ((Main.sex.getMainSexPreference(performingCharacter, targetedCharacter)==null || Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getPerformingSexArea()==SexAreaPenetration.TAIL)
-							&& performingCharacter.getTailType().isSuitableForPenetration())
+							&& performingCharacter.isTailSuitableForPenetration())
 					|| ((Main.sex.getMainSexPreference(performingCharacter, targetedCharacter)==null || Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getTargetedSexArea()==SexAreaPenetration.PENIS)
 							&& targetedCharacter.hasPenis() && targetedCharacter.isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
 					|| ((Main.sex.getMainSexPreference(performingCharacter, targetedCharacter)==null || Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getTargetedSexArea()==SexAreaPenetration.TAIL)
-							&& targetedCharacter.getTailType().isSuitableForPenetration());
+							&& targetedCharacter.isTailSuitableForPenetration());
 		}
 		
 		boolean isOngoingSexPenetration = false;

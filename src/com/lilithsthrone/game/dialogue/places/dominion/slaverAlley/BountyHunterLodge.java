@@ -66,7 +66,7 @@ public class BountyHunterLodge {
 						title,
 						"Offer to suck the dobermanns' cocks...",
 						DOBERMANNS_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_ORAL"));
+						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_ORAL"));
 			}
 			
 		} else if(index == startIndex+1) {
@@ -90,7 +90,7 @@ public class BountyHunterLodge {
 						title,
 						"Offer to let the two dobermanns spit-roast you...",
 						DOBERMANNS_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_SPITROAST"));
+						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_SPITROAST"));
 			}
 			
 		} else if(index == startIndex+2) {
@@ -109,7 +109,7 @@ public class BountyHunterLodge {
 						title,
 						"Offer to give the two dobermanns a ride...",
 						DOBERMANNS_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_RIDE"));
+						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_RIDE"));
 			}
 			
 		} else if(index == startIndex+3 && Main.game.isNipplePenEnabled()) {
@@ -130,7 +130,7 @@ public class BountyHunterLodge {
 						title,
 						"Offer to let the two dobermanns fuck your nipples...",
 						DOBERMANNS_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_NIPPLES"));
+						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_NIPPLES"));
 			}
 		}
 		return null;
@@ -301,7 +301,7 @@ public class BountyHunterLodge {
 								null,
 								ResponseTag.PREFER_DOGGY),
 						DOBERMANNS_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_UPSTAIRS_FUCK_THEM"));
+						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_UPSTAIRS_FUCK_THEM"));
 			}
 			return getDobermannsUpstairsSexResponse(2, index, "Submit (sex_type_replacement)");
 		}

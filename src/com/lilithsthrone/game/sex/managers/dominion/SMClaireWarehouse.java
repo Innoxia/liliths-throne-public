@@ -37,6 +37,6 @@ public class SMClaireWarehouse extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Main.sex.getNumberOfOrgasms(partner)>=partner.getOrgasmsBeforeSatisfied() && Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied();
+		return Main.sex.isSatisfiedFromOrgasms(Main.game.getPlayer(), true) && Main.sex.isSatisfiedFromOrgasms(partner, true);
 	}
 }
