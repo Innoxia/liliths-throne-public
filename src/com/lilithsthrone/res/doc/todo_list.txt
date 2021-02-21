@@ -26,7 +26,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added spider-morph and tarantula-morph subspecies.
 		Added 'Jet Black Coffee' and 'Chocolate Coated Cocoa Beans' for the spider-related attribute and TF items.
 	
-	DSG's race's updates:
+	DSG's race's updates (PR#1500):
 		Non-mythical race bonuses were adjusted so taht the total more closely matches the magnitude of the game's other non-mythical races.
 		Total of race bonus values for mythical races (dragons, gryphons) were aligned to the same range as demons and alicorns (demons/dragons at 180, alicorns at 165, gryphons at 150).
 		Fixed a tertiary color issue with dragon overlays, tweaked shark finned ear description.
@@ -44,6 +44,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added unique icon for border-collie morphs and gave bald-eagle harpy icon a coloured beak. (by NeverLucky)
 		In subspecies XMLs, if secondaryColour or tertiaryColour elements are empty they now default to colour. (PR#1503 by Stadler76)
 		Added several new methods in Body.java and BodyPartTypeInterface.java and used these methods to tidy up xml race files. (PR#1498)
+		Fixed issue where becoming a demon didn't work for several LegConfigurations since the setLegsToDemon() method for those LegConfigurations wasn't implemented. (PR#1496 by Stadler76)
 		
 	Engine/Modding:
 		Added 'NEGATIVE_ONE_LEGENDARY', 'NEGATIVE_TWO_MYTHICAL', and 'NEGATIVE_THREE_ZERO' as new SubspeciesSpawnRarity values (for subspecies which should be extremely rare).
