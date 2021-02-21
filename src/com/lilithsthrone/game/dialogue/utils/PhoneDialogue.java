@@ -1263,7 +1263,7 @@ public class PhoneDialogue {
 		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
 		rowCount = 0;
 		
-		if(character.hasBreasts()) {
+		if(character.hasNipples()) {
 			sb.append(statRowHeader(PresetColour.TRANSFORMATION_SEXUAL, "Breast Attributes")
 					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Cup Size",
 							PresetColour.TEXT, String.valueOf(character.getBreastRawSizeValue()),
@@ -1656,8 +1656,11 @@ public class PhoneDialogue {
 		public String getContent() {
 			return "<div class='container-full-width' style='text-align:center; width:100%; padding:0; margin:4px 0;'>"
 						+ "You have orgasmed [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCount()+")] time"+(Main.game.getPlayer().getDaysOrgasmCount()==1?"":"s")
-							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")].<br/>"
-						+ "Your record for most orgasms in one day is currently [style.boldArcane("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
+							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")]."
+						+ "<br/>"
+						+ "Your record for most orgasms in one day is currently [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
+						+ "<br/>"
+						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()>1?"different people":"person")+"."
 					+ "</div>"
 					
 					+ sexStatHeader()
@@ -1915,7 +1918,7 @@ public class PhoneDialogue {
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", PresetColour.MASCULINE.toWebHexString(), sonsFathered);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersFathered);
 
-			for (NPC npc : Main.game.getOffspring(false, true)) {
+			for (NPC npc : Main.game.getOffspring(false)) {
 				childrenMet += ChildMet(npc) ? 1 : 0;
 			}
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
@@ -1952,7 +1955,8 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			int rowCount = 0;
-			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring(false, false));
+			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring(false));
+			offspringBirthed.removeIf(npc -> npc.getIncubator()!=null && npc.getIncubator().isPlayer()); // Only non-egg incubated offspring
 			if(offspringBirthed.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='margin:0; padding:0; width:100%;float:left;'>"
 												+ "[style.italicsDisabled(No Offspring...)]"
@@ -1994,7 +1998,8 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			rowCount = 0;
-			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false, true));
+			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
+			offspringBirthed.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
 			offspringIncubated.removeAll(offspringBirthed);
 			if(offspringIncubated.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"

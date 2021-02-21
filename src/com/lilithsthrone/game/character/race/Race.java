@@ -144,14 +144,14 @@ public class Race {
 		}
 		@Override
 		public String getName(GameCharacter character, boolean feral) {
-			if(feral && character!=null && character.getHalfDemonSubspecies()!=null) {
+			if(feral && character!=null && character.getHalfDemonSubspecies()!=null && character.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
 				return "demonic-"+character.getHalfDemonSubspecies().getFeralName(character);
 			}
 			return super.getName(character, feral);
 		}
 		@Override
 		public String getNamePlural(GameCharacter character, boolean feral) {
-			if(feral && character!=null && character.getHalfDemonSubspecies()!=null) {
+			if(feral && character!=null && character.getHalfDemonSubspecies()!=null && character.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
 				return "demonic-"+character.getHalfDemonSubspecies().getFeralNamePlural(character);
 			}
 			return super.getNamePlural(character, feral);

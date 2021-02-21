@@ -20,7 +20,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -87,23 +86,19 @@ public class GenericSexualPartner extends NPC {
 			}
 			
 			for(AbstractSubspecies s : availableSubspecies) {
+				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+					continue;
+				}
 				if(s==Subspecies.REINDEER_MORPH
 						&& Main.game.getSeason()==Season.WINTER
 						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-					AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
-					
-				} else if(s.getRace()!=Race.DEMON
-						&& s.getRace()!=Race.ANGEL
-						&& s.getRace()!=Race.ELEMENTAL
-						&& s!=Subspecies.FOX_ASCENDANT
-						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
-						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
-						&& s!=Subspecies.SLIME) {
-					if(AbstractSubspecies.getMainSubspeciesOfRace(s.getRace())==s) {
-						AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
-					} else {
-						AbstractSubspecies.addToSubspeciesMap(3, gender, s, availableRaces);
-					}
+					AbstractSubspecies.addToSubspeciesMap(50, gender, s, availableRaces);
+				}
+				
+				if(Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap((int) (1000*Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap((int) (1000*Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			
