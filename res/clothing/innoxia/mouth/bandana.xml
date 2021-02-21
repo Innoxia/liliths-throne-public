@@ -6,13 +6,14 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[bandana]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[bandanas]]></namePlural> 
-		<description><![CDATA[A square piece of cloth, which can be folded and tied so as to cover the wearer's mouth or the top of their head.]]></description>
+		<description><![CDATA[A square piece of cloth, which can be folded and tied to form a cover for the wearer's head, neck, or face.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<equipSlots>
 			<slot>MOUTH</slot>
 			<slot>HEAD</slot>
 			<slot>HAIR</slot>
+			<slot>NECK</slot>
 		</equipSlots>
 		<rarity>COMMON</rarity>
 		<clothingSet/>
@@ -20,6 +21,7 @@
 		<imageEquippedName slot="MOUTH">bandana.svg</imageEquippedName>
 		<imageEquippedName slot="HEAD">bandana_head.svg</imageEquippedName>
 		<imageEquippedName slot="HAIR">bandana_head.svg</imageEquippedName>
+		<imageEquippedName slot="NECK">bandana.svg</imageEquippedName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
@@ -66,9 +68,20 @@
 			</blockedParts>
 		</blockedPartsList>
 		
+		<blockedPartsList slot="NECK"> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
 		<incompatibleSlots slot="MOUTH"/>
 		<incompatibleSlots slot="HEAD"/>
 		<incompatibleSlots slot="HAIR"/>
+		<incompatibleSlots slot="NECK"/>
 		
 		<primaryColours values="ALL"/>
 		<primaryColoursDye/>
@@ -167,6 +180,29 @@
     </otherRough>
   </replacementText>
   <displacementText slot="HAIR" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ends of [npc.her] bandana and [npc.verb(take)] it off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ends of [npc2.namePos] bandana and [npc.verb(take)] it off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the ends of [npc.her] bandana and [npc.verb(take)] it off.]]>
+    </otherRough>
+  </displacementText>
+  
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the bandana loosely around [npc.her] neck, before reaching back and tying the ends together.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the bandana loosely around [npc2.namePos] neck, before reaching back and tying the ends together.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(tie)] the bandana around [npc2.namePos] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(untie)] the ends of [npc.her] bandana and [npc.verb(take)] it off.]]>
     </self>

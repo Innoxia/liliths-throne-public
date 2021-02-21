@@ -291,6 +291,9 @@ public class PregnancyRoulette {
 					if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 						return new Response("Breeder ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You don't have a penis, so you can't sign up to be one of the breeders!", null);
 						
+					} else if(!Main.game.getPlayer().isAbleToOrgasm()) {
+						return new Response("Breeder ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are unable to orgasm, so you can't sign up to be one of the breeders!", null);
+						
 					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 						return new Response("Breeder ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You aren't able to gain access to your penis, so you can't sign up to be one of the breeders!", null);
 						

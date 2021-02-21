@@ -389,6 +389,8 @@ public class PresetColour {
 	public static Colour CUM = new Colour(false, BaseColour.BLUE_PALE, "pale blue", Util.newArrayListOfValues("cum", "cummed")) {};
 	public static Colour GIRLCUM = new Colour(false, BaseColour.PINK_PALE, "pale pink", Util.newArrayListOfValues("girlcum", "gcum")) {};
 
+	public static Colour EGG = new Colour(false, BaseColour.YELLOW_PALE, "pale yellow", Util.newArrayListOfValues("egg")) {};
+	
 	public static Colour VAGINA = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("vagina", "pussy", "cunt")) {};
 	public static Colour ANUS = new Colour(false, BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues("asshole", "anus", "ass")) {};
 	public static Colour PENIS = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("penis", "cock")) {};

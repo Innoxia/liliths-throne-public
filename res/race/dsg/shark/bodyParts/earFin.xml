@@ -47,7 +47,7 @@
 	<!-- The description which is shown when a character transforms to obtain this ear type.
 	This description immediately follows a brief description of the ear type beginning to transform. -->
 	<transformationDescription><![CDATA[
-		They quickly begin to narrow and grow longer while shifting to sit higher up on [npc.her] head than normal human ears would until they resemble a pair of pointed fins.
+		They quickly begin to narrow and grow longer while shifting to sit higher up on [npc.her] head than normal human ears would until they resemble a pair of swept, pointed fins.
 		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
 		 A layer of [npc.earFullDescriptionColour] quickly grows to cover them,
 		#ELSE
@@ -59,7 +59,7 @@
 	
 	<!-- How this ear is described in a character's description page. -->
 	<bodyDescription><![CDATA[
-		[npc.She] [npc.has] a pair of upright,#IF(npc.isPiercedEar()) pierced,#ENDIF shark-like ears that resemble pointed fins. They are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].
+		[npc.She] [npc.has] a pair of upright,#IF(npc.isPiercedEar()) pierced,#ENDIF shark-like ears that resemble swept, pointed fins. They are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].
 	]]></bodyDescription>
 	
 </ear>

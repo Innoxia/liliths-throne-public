@@ -1386,7 +1386,8 @@ public class Sex {
 				
 				// Extra effects:
 				if((participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue() || Main.sex.getNumberOfDeniedOrgasms(participant)>0) && getNumberOfOrgasms(participant) == 0) {
-					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, (240*60)+(postSexDialogue.getSecondsPassed()));if(Main.sex.getNumberOfDeniedOrgasms(participant)>0) {
+					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, (240*60)+(postSexDialogue.getSecondsPassed()));
+					if(Main.sex.getNumberOfDeniedOrgasms(participant)>0) {
 						endSexSB.append("<p style='text-align:center'>[style.boldArcane(After being denied [npc.her] orgasm, [npc.name] is left feeling frustrated and horny!)]</p>");
 					} else {
 						endSexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, [npc.name] is left feeling frustrated and horny!)]</p>");
@@ -1463,25 +1464,22 @@ public class Sex {
 							
 						} else {
 							if(!Main.sex.isDom(participant)) {
-								boolean denialAffectionChange = false;
 								if(participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive()) {
-									if(Main.sex.getNumberOfDeniedOrgasms(participant)==0 && Main.sex.getNumberOfOrgasms(participant)==0) {
+									if(participant.isAbleToOrgasm() && Main.sex.getNumberOfDeniedOrgasms(participant)==0 && Main.sex.getNumberOfOrgasms(participant)==0) {
 										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give or deny [npc.herHim] a single orgasm."));
+											endSexSB.append(participant.incrementAffection(domParticipant, -5f, "[npc.Name] is upset at [npc2.name] for failing to give or deny [npc.herHim] a single orgasm."));
 										}
-										denialAffectionChange = true;
 									}
-								
-								}
-								if(!denialAffectionChange) {
+									
+								} else {
 									int orgasms = Main.sex.getNumberOfOrgasms(participant);
 									if(Main.sex.getNumberOfOrgasms(participant)==0) {
 										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give [npc.herHim] a single orgasm."));
+											endSexSB.append(participant.incrementAffection(domParticipant, -5f, "[npc.Name] is upset at [npc2.name] for failing to give [npc.herHim] a single orgasm."));
 										}
 									} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
 										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -5f,
+											endSexSB.append(participant.incrementAffection(domParticipant, -2.5f,
 													"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
 														+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
 										}
@@ -2746,7 +2744,7 @@ public class Sex {
 			
 			// Draining levels:
 			Set<GameCharacter> levelDrains = new HashSet<>();
-			if(!Main.sex.getCharacterPerformingAction().isImmuneToLevelDrain()) {
+			if(!Main.sex.getCharacterPerformingAction().isImmuneToLevelDrain() && !Main.sex.getInitialSexManager().isHidden(Main.sex.getCharacterPerformingAction())) {
 				if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
 					for(GameCharacter sub : Main.sex.getSubmissiveParticipants(true).keySet()) {
 						if(sub.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && ((!sub.isPlayer() && sub.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) || Main.sex.playerLevelDrain)) {
@@ -2807,9 +2805,9 @@ public class Sex {
 							if(entry.getValue().containsKey(characterTarget)) {
 								for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
 									if(entry.getKey().isPenetration()) {
-										if(activeCharacter.equals(targetCharacter)) {
-											System.out.println(activeCharacter.getNameIgnoresPlayerKnowledge());
-										}
+//										if(activeCharacter.equals(targetCharacter)) {
+//											System.out.println(activeCharacter.getNameIgnoresPlayerKnowledge());
+//										}
 										stringBuilderForAppendingDescriptions.append(applyPenetrationEffects(sexAction, character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea));
 									}
 									
@@ -5448,7 +5446,31 @@ public class Sex {
 		
 		return tooShallowMap;
 	}
-
+	
+	/**
+	 * @param character The character to be checked.
+	 * @param factorInOrgasmBlockers If true, and the character cannot orgasm, then this method does not check for actual satisfaction of this character, and instead returns true if they are simply at their maximum arousal.
+	 *  Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
+	 * @return true if this character has orgasmed enough times to be satisfied.
+	 */
+	public boolean isSatisfiedFromOrgasms(GameCharacter character, boolean factorInOrgasmBlockers) {
+		return isOrgasmCountMet(character, character.getOrgasmsBeforeSatisfied(), factorInOrgasmBlockers);
+	}
+	
+	/**
+	 * @param character The character to be checked.
+	 * @param timesOrgasmed The number of orgasms which the character needs to have had in order for this method to return true.
+	 * @param factorInOrgasmBlockers If true, and the character cannot orgasm, then this method does not check the character's orgasm count, and instead returns true if they are simply at their maximum arousal.
+	 *  Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
+	 * @return true if this character has orgasmed 'timesOrgasmed' times.
+	 */
+	public boolean isOrgasmCountMet(GameCharacter character, int timesOrgasmed, boolean factorInOrgasmBlockers) {
+		if(factorInOrgasmBlockers && !character.isAbleToOrgasm()) {
+			return character.getArousal()>=90f; // Although they stop at 95, some actions might be making them drop a little, so add some leeway down to 90
+		}
+		return getNumberOfOrgasms(character) >= timesOrgasmed;
+	}
+	
 	public int getNumberOfOrgasms(GameCharacter character) {
 		orgasmCountMap.putIfAbsent(character, 0);
 		return orgasmCountMap.get(character);

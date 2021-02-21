@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 
 /**
@@ -148,10 +149,16 @@ public class Sticker {
 	}
 
 	public String getUnavailabilityText() {
+		if(Main.game.isDebugMode()) {
+			return "";
+		}
 		return unavailabilityText;
 	}
 
 	public String getAvailabilityText() {
+		if(Main.game.isDebugMode()) {
+			return "";
+		}
 		return availabilityText;
 	}
 }

@@ -1459,7 +1459,9 @@ public class Util {
 				distance = newDistance;
 			}
 		}
-		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		if(distance>0) { // Only show error message if difference is more than just capitalisation differences
+			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		}
 //		new IllegalArgumentException().printStackTrace(System.err);
 		return closestString;
 	}
@@ -1555,7 +1557,9 @@ public class Util {
 				distance = newDistance;
 			}
 		}
-		System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		if(distance>0) { // Only show error message if difference is more than just capitalisation differences
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		}
 //		throw new IllegalArgumentException();
 		return closestString;
 	}

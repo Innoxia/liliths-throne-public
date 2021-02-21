@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.types;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -130,5 +131,14 @@ public interface BodyPartTypeInterface {
 	 */
 	public default BodyPartClothingBlock getBodyPartClothingBlock() {
 		return null;
+	}
+
+	/**
+	 * Checks, if the given BodyPartType is in the list of BodyPartTypes
+	 * @param values The list of BodyPartTypes to match the type against
+	 * @return true, if the type is among the list.
+	 */
+	public default boolean isOneOf(BodyPartTypeInterface... values) {
+		return Arrays.asList(values).contains(this);
 	}
 }

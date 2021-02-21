@@ -381,7 +381,7 @@ public abstract class AbstractOutfit {
 					Collections.shuffle(guaranteedClothingEquips);
 					for(AbstractClothing c : guaranteedClothingEquips) {
 						if(c.getClothingType().getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
-							c.setName(UtilText.parse(character, c.getName()));
+							c.setName(UtilText.parse(character, c.getBaseName()));
 							if(!character.isSlotIncompatible(c.getClothingType().getEquipSlots().get(0))) {
 								character.equipClothingOverride(c, c.getClothingType().getEquipSlots().get(0), false, false);
 							}
