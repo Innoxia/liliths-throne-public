@@ -397,7 +397,7 @@ public enum LegConfiguration {
 			"statusEffects/race/raceBackgroundLegArachnid") {
 		@Override
 		public List<Class<? extends BodyPartInterface>> getFeralParts() {
-			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Tail.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
 		}
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
@@ -467,7 +467,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
-			return true;
+			return false;
 		}
 		@Override
 		public boolean isThighSexAvailable() {
