@@ -3030,23 +3030,31 @@ public class ItemType {
 			// Essences
 			if(mainSubspecies!=Subspecies.CENTAUR) { // a CENTAUR essence is identical to a HORSE_MORPH essence
 
-				String raceName = (mainSubspecies.getSubspeciesOverridePriority()>0?mainSubspecies.getName(null):mainSubspecies.getRace().getName(false));
-				String raceNamePlural = (mainSubspecies.getSubspeciesOverridePriority()>0?mainSubspecies.getNamePlural(null):mainSubspecies.getRace().getNamePlural(false));
+				int override = mainSubspecies.getSubspeciesOverridePriority();
+				String raceName = (override>0?mainSubspecies.getName(null):mainSubspecies.getRace().getName(false));
+				String raceNamePlural = (override>0?mainSubspecies.getNamePlural(null):mainSubspecies.getRace().getNamePlural(false));
 
 				AbstractStatusEffect statusEffect = new AbstractStatusEffect(80,
 						(mainSubspecies.getRace()==Race.ANGEL
 								?"angelic"
-								:(mainSubspecies.getRace()==Race.DEMON && !mainSubspecies.getName(null).toUpperCase().startsWith("IMP")
-								?"demonic"
-								:(mainSubspecies.getRace()==Race.DEMON && mainSubspecies.getName(null).toUpperCase().startsWith("IMP")
+								:(mainSubspecies.getRace()==Race.DEMON && override <= 2
 								?"impish"
-								:raceName.toLowerCase())))
+								:(mainSubspecies.getRace()==Race.DEMON && override >= 5 && override <= 20
+								?"demonic"
+								:(mainSubspecies.getRace()==Race.DEMON && override >= 5000
+								?"lilin"
+								:raceName.toLowerCase()))))
 								+ " intuition",
 						null,
 						mainSubspecies.getColour(null),
 						true,
 						Util.newHashMapOfValues(new Util.Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
-								new Util.Value<>(Attribute.getRacialDamageAttribute(mainSubspecies.getRace()), 25f)),
+								new Util.Value<>(
+									(mainSubspecies.getRace()==Race.DEMON && override <= 2
+										?Attribute.DAMAGE_IMP
+										:mainSubspecies.getRace()==Race.DEMON && override >= 5000
+										?Attribute.DAMAGE_LILIN
+										:Attribute.getRacialDamageAttribute(mainSubspecies.getRace())), 25f)),
 						null) {
 					@Override
 					public String getDescription(GameCharacter target) {
@@ -3107,7 +3115,7 @@ public class ItemType {
 						null,
 						Rarity.EPIC,
 						Util.newArrayListOfValues(new ItemEffect(effectType)),
-						((mainSubspecies.getSubspeciesOverridePriority()>=10) // Demon+ (and Angels) are contraband
+						((mainSubspecies.getSubspeciesOverridePriority()>=5) // Half-Demon+ (and Angels) are contraband
 								?Util.newArrayListOfValues(ItemTag.ESSENCE,ItemTag.CONTRABAND_HEAVY)
 								:Util.newArrayListOfValues(ItemTag.ESSENCE))) {
 					@Override
