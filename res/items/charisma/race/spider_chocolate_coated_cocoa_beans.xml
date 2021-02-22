@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a tin of]]></determiner>
 		<name><![CDATA[Chocolate Coated Coffee Bean]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[Chocolate Coated Coffee Beans]]></namePlural>
-		<description><![CDATA[A metal tin of chocolate covered coffee beans, a niche candy for those who prefer the strong flavours of coffee and dark chocolate over sugary sweetness. On the bottom small print reads, "WARNING: EXTREMELY ALCOHOLIC TO SPIDERS," next to a picture of a flushed spider-girl winking at the reader... Is this really a warning?]]></description> 
+		<description><![CDATA[A metal tin containing several dozen coffee beans covered in dark chocolate. On one side of the tin there's a picture of a flushed spider-girl winking at the viewer, along with the cautionary words: <i>'Warning! Extremely alcoholic to spiders!'</i>]]></description> 
 		
 		<useDescriptor>eat</useDescriptor>
 		

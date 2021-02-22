@@ -98,6 +98,11 @@ public class Main extends Application {
 		"<p>"
 			+ "Hello again!"
 		+ "</p>"
+
+		+ "<p>"
+			+ "<i>This version of 0.3.19 is a small hotfix to address some bugs which were present in 0.3.18!</i>"
+		+ "</p>"
+		
 		
 		+ "<p>"
 			+ "For this preview update, I've got Nyan's reworked romance content finished up to the point where you can go on a restaurant date with her every weekend."
@@ -120,6 +125,43 @@ public class Main extends Application {
 			+ "Thank you all for playing Lilith's Throne, and a very big thank you to all of you who support development by reporting bugs, making PRs, or backing me on SubscribeStar!"
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
+
+		+ "<br/>"
+
+		+ "<list>"
+		+ "<h6>v0.3.19</h6>"
+			+"<li>Contributions:</li>"
+			+"<ul>Fixed issue where spider-morph book's front cover icon wasn't visible. (by NeverLucky)</ul>"
+			+"<ul>Added furred spider tail as a TF option for spider TF potions. (PR#1510 by Stadler76)</ul>"
+			
+			+"<li>Engine/Modding:</li>"
+			+"<ul>Added parser hook for BodyCoveringCategory using the prefix 'BODY_COVERING_CATEGORY_'.</ul>"
+			+"<ul>Added BodyPartTag 'TAIL_TAPERING_BULBOUS' for defining the shape of spider abdomen-like tails.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added 'hug' and 'pettings' actions to interactions with characters staying in the mansion as your guest.</ul>"
+			+"<ul>Changed name of spider TF item from 'Chocolate Coated Cocoa Beans' to 'Chocolate Coated Coffee Beans'.</ul>"
+			+"<ul>Added ability to regrow or remove hymen via the self-TF menu.</ul>"
+			+"<ul>Added dirty talk variations for tribbing.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Typos, grammar, and parsing fixes.</ul>"
+			+"<ul>Fixed bug where trying to set a slave free would throw background errors and cause buttons to become unresponsive.</ul>"
+			+"<ul>Fixed bug where Helena would sometimes end up trying to sell more slaves than she actually owned.</ul>"
+			+"<ul>Fixed related issue where Helena's slaves would not be correctly initialised if you were standing on her shop tile at the moment new slaves were generated.</ul>"
+			+"<ul>The 'Dispel elemental' action now works correctly for companions.</ul>"
+			+"<ul>Fixed bug where you'd sometimes lose a proportion of your health and aura when loading a saved game.</ul>"
+			+"<ul>Fixed bug with the new 'Aristocrat' background, where your corruption would double every time you loaded your game. Also fixed related issue where the derived resistances from aristocrat's corruption would be incorrectly saved and loaded.</ul>"
+			+"<ul>Fixed rare cases where nested else/if statements would parse incorrectly.</ul>"
+			+"<ul>Fixed issue with some non-bat tails being referred to as 'bat' tails.</ul>"
+			+"<ul>When freeing Scarlett (and therefore triggering her body to be reset to her harpy form), she now correctly returns to having her default fetishes, and also no longer regains her anal virginity if she'd lost it while being your slave.</ul>"
+			+"<ul>Fixed issue where spider-morphs with an arachnid leg configuration wouldn't have a spinneret.</ul>"
+			+"<ul>Spider-morphs will no longer spawn with crotch-boobs by default.</ul>"
+			+"<ul>Fixed bug where a spinneret's orifice covering wouldn't be coloured according to the character's skin colour.</ul>"
+			+"<ul>Fixed error log entries related to item spawns being generated when spawning a spider-morph attacker.</ul>"
+			+"<ul>Fixed the save/load menu having very dark row background colours when in light mode, which was making it impossible to read saved game names.</ul>"
+			+"<ul>Fixed issue where all clothing stickers would be unlocked by turning debug mode on, instead of the actual sticker unlocks mode.</ul>"
+		+"</list>"
 
 		+ "<br/>"
 		

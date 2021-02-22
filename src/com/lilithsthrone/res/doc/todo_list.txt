@@ -83,7 +83,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Spinneret initial colour scarlet
 	[x] light mode
 	[x] PR abdomen fix merge
+	[x] spider colour
 	
+	
+	[] Lilaya lab coat & goggles as 1-time action
 	
 	[] mouse
 	
