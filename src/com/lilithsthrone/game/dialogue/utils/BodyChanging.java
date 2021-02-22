@@ -1464,10 +1464,12 @@ public class BodyChanging {
 					+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(getRacesForMinorPartSelfTransform())
 					
 					+ CharacterModificationUtils.getSelfTransformGirlcumFlavourDiv()
+
+					+ CharacterModificationUtils.getSelfTransformGirlcumModifiersDiv()
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformGirlcumModifiersDiv()
 						+ CharacterModificationUtils.getSelfTransformVaginaSquirterDiv()
+						+ CharacterModificationUtils.getSelfTransformVaginaHymenDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"

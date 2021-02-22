@@ -63,12 +63,15 @@ public class DominionAlleywayAttacker extends NPC {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
 	
+	/**
+	 * You must manually place this NPC in a location after creation!
+	 */
 	public DominionAlleywayAttacker(Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false,
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false,
 				generationFlags);
 
 		if(!isImported) {
@@ -161,7 +164,6 @@ public class DominionAlleywayAttacker extends NPC {
 
 			initHealthAndManaToMax();
 			
-			this.setLocation(Main.game.getPlayer(), true);
 			if(this.isStormAttacker() && !this.isVulnerableToArcaneStorm()) { // NPCs spawned during a storm should be vulnerable to it.
 				this.addSpecialPerk(Perk.SPECIAL_ARCANE_ALLERGY);
 			}

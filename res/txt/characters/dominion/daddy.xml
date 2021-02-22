@@ -1004,7 +1004,7 @@
 		[daddy.speech(Ah...)] [daddy.name] sighs, dropping [daddy.her] shoulders and casting [daddy.her] eyes down at the table surface. This display of anguish only lasts a moment, however, as [daddy.she] quickly looks back up and smiles at the two of you, before saying, [daddy.speech(Well, I'll just have to try extra hard to become the sort of person she'll want as her [daddy.husband]! Even if it takes a thousand years, one day I'll be by her side, and until then, I've got the two of you to take care of!)]
 	</p>
 	<p>
-		As she hears this, Lilaya blushes a little, before saying, [lilaya.speech(Don't worry, you don't need to do anything special to take care of me, I'm just looking forwards to having a... a [daddy.dad] I can visit now and again...)]
+		As she hears this, Lilaya blushes a little, before saying, [lilaya.speech(Don't worry, you don't need to do anything special to take care of me, I'm just looking forward to having a... a [daddy.dad] I can visit now and again...)]
 	</p>
 	<p>
 		[daddy.speech(Well, you can certainly do that with me! Come and visit me here in Demon Home as often as you like!)] [daddy.name] happily exclaims.
@@ -1070,7 +1070,7 @@
 			With your evening out coming to an end, you exit the restaurant with [daddy.namePos] arm around your waist, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] pulls you close as [daddy.she] asks, [daddy.speech(So, you want to come back to my place for a little more fun?)]
 		#ELSE
 			#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forwards to meeting Lilaya when you bring her with you.)]
+				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forward to meeting Lilaya when you bring her with you.)]
 			#ELSE
 				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and we can do this again.)]
 			#ENDIF
@@ -1120,7 +1120,7 @@
 			With your evening out coming to an end, you exit the restaurant with [daddy.namePos] arm around your waist, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] pulls you close as [daddy.she] asks, [daddy.speech(So, you want to come back to my place for some special 'dessert'?)]
 		#ELSE
 			#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forwards to meeting Lilaya when you bring her with you.)]
+				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forward to meeting Lilaya when you bring her with you.)]
 			#ELSE
 				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and we can do this again.)]
 			#ENDIF
@@ -1240,7 +1240,7 @@
 	<htmlContent tag="DINNER_END_REFUSE"><![CDATA[
 	<p>
 		#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-			Not feeling in the mood to go back to [daddy.her] place, you make your excuses and decline [daddy.namePos] offer. In a disappointed tone, [daddy.name] replies, [daddy.speech(Ok, well, I'm just happy that you accepted me as your new [daddy.dad]. I really had a lot of fun tonight, and I'm looking forwards to meeting Lilaya when you bring her with you.)]
+			Not feeling in the mood to go back to [daddy.her] place, you make your excuses and decline [daddy.namePos] offer. In a disappointed tone, [daddy.name] replies, [daddy.speech(Ok, well, I'm just happy that you accepted me as your new [daddy.dad]. I really had a lot of fun tonight, and I'm looking forward to meeting Lilaya when you bring her with you.)]
 		#ELSE
 			Not feeling in the mood to go back to [daddy.her] place, you make your excuses and decline [daddy.namePos] offer. In a disappointed tone, [daddy.name] replies, [daddy.speech(Ok, well, come back and visit me any evening you want. I really had a lot of fun tonight.)]
 		#ENDIF
@@ -1489,7 +1489,7 @@
 	<p>
 		After lying next to one another for a while, you eventually decide that it's time for you to leave, and, after putting your clothes back on, [daddy.name] leads you back to [daddy.her] front door. Leaning in to plant one last kiss on your [pc.lips+] [daddy.she] says,
 		#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-			 [daddy.speech(I really had a lot of fun tonight, [pc.name]. Please come and visit me again soon, and I'm looking forwards to meeting Lilaya when you bring her with you!)]
+			 [daddy.speech(I really had a lot of fun tonight, [pc.name]. Please come and visit me again soon, and I'm looking forward to meeting Lilaya when you bring her with you!)]
 		#ELSE
 			 [daddy.speech(I really had a lot of fun tonight, [pc.name]. Please come and visit me again soon!)]
 		#ENDIF

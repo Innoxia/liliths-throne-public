@@ -1011,7 +1011,7 @@
 			</p>
 			[#SPECIAL_PARSE_0]
 			<p>
-				[nyanmum.speech(You got me knocked up, [pc.name],)] the cougar-girl teases, before rubbing her free hand over her belly and addressing her daughter, [nyanmum.speech(Are you looking forwards to having some siblings, dear?)]
+				[nyanmum.speech(You got me knocked up, [pc.name],)] the cougar-girl teases, before rubbing her free hand over her belly and addressing her daughter, [nyanmum.speech(Are you looking forward to having some siblings, dear?)]
 			</p>
 			<p>
 				#IF(nyan.isPregnant())
@@ -1999,7 +1999,7 @@
 				</p>
 				[#SPECIAL_PARSE_0]
 				<p>
-					[nyanmum.speech(You got me knocked up, [pc.name],)] the cougar-girl teases, before rubbing her free hand over her belly and addressing her daughter, [nyanmum.speech(Are you looking forwards to having some siblings, dear?)]
+					[nyanmum.speech(You got me knocked up, [pc.name],)] the cougar-girl teases, before rubbing her free hand over her belly and addressing her daughter, [nyanmum.speech(Are you looking forward to having some siblings, dear?)]
 				</p>
 				<p>
 					#IF(nyan.isPregnant())
@@ -2077,7 +2077,7 @@
 				[nyan.speech(I'm not pregnant!)] she blurts out.
 			</p>
 			<p>
-				[nyanmum.speech(Shame,)] [nyanmum.name] sighs, [nyanmum.speech(I was looking forwards to getting some grand-kids...)]
+				[nyanmum.speech(Shame,)] [nyanmum.name] sighs, [nyanmum.speech(I was looking forward to getting some grand-kids...)]
 			</p>
 			<p>
 				Moving forwards, you sweep Nyan into your [pc.arms], wishing that you'd been able to record the surprised squeak that bursts out of her mouth. A visible tension seems to melt from her entire being as the cat-girl snuggles into your [pc.arms], before pulling back and asking, [nyan.speechNoEffects(It wouldn't have been a problem if I was pregnant, right?)]

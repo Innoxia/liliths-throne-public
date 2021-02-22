@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a bottle of]]></determiner>
 		<name><![CDATA[Jet Black Coffee]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Jet Black Coffees]]></namePlural>
-		<description><![CDATA[A plastic bottle of dark cold-brew coffee, advertised as having a higher caffeine content than any other coffee on the market. At the bottom of the bottle's label there's some small print which reads, 'WARNING: EXTREMELY ALCOHOLIC TO SPIDERS' next to a picture of a spider-girl passed out drunk.]]></description> 
+		<description><![CDATA[A plastic bottle of cold-brew coffee, advertised as having an extremely high caffeine content. At the bottom of the bottle's label there's a picture of a spider-girl who's passed out drunk, and beneath her, the cautionary words: <i>'Warning! Extremely alcoholic to spiders!'</i>]]></description> 
 		
 		<useDescriptor>drink</useDescriptor>
 		

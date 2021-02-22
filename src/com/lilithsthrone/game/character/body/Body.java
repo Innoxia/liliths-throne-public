@@ -2849,6 +2849,9 @@ public class Body implements XMLSaving {
 					case TAIL_TAPERING_NONE:
 						sb.append(" The girth of each one does not taper off from the base, and so each tentacle has a constant diameter all the way to the [npc.tentacleTip].");
 						break;
+					case TAIL_TAPERING_BULBOUS:
+						sb.append(" The girth of each one expands, then tapers off, at a steady rate from the base so as to make a bulbous, oval shape.");
+						break;
 					default:
 						break;
 				}
@@ -3023,6 +3026,9 @@ public class Body implements XMLSaving {
 				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_LINEAR)) {
 					sb.append(" It tapers off at a steady rate from the base, and so at the [npc.tailTip], it is [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
 					
+				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_BULBOUS)) {
+					sb.append(" Its girth expands, then tapers off, at a steady rate from the base so as to make a bulbous, oval shape.");
+					
 				} else {
 					sb.append(" It does not taper off from the base, and is a constant diameter all the way to the [npc.tailTip].");
 				}
@@ -3034,6 +3040,9 @@ public class Body implements XMLSaving {
 					
 				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_LINEAR)) {
 					sb.append(" They taper off at a steady rate from the base, and so at their [npc.tailTips], they are [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
+					
+				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_BULBOUS)) {
+					sb.append(" Their girth expands, then tapers off, at a steady rate from the base so as to make them into bulbous, oval shapes.");
 					
 				} else {
 					sb.append(" They do not taper off from the base, and are a constant diameter all the way to the [npc.tailTips].");
@@ -6299,6 +6308,8 @@ public class Body implements XMLSaving {
 			updateVaginaColouring();
 			
 			updatePenisColouring();
+			
+			updateSpinneretColouring();
 		}
 	}
 	
@@ -6380,6 +6391,10 @@ public class Body implements XMLSaving {
 		} else {
 			coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, PresetColour.ORIFICE_INTERIOR, false));
 		}
+	}
+
+	public void updateSpinneretColouring() {
+		coverings.put(BodyCoveringType.SPINNERET, new Covering(BodyCoveringType.SPINNERET, CoveringPattern.ORIFICE_SPINNERET, coverings.get(BodyCoveringType.VAGINA).getPrimaryColour(), false, PresetColour.ORIFICE_INTERIOR, false));
 	}
 	
 	public boolean isAbleToFlyFromArms() {

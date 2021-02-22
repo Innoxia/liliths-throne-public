@@ -1202,7 +1202,7 @@
 		</p>
 		<p>
 			#IF(brax.hasFetish(FETISH_DOMINANT))
-				[brax.speech(Don't think that this makes me like you!)] [brax.name] snaps, but from the way [com.her] cheeks are flushing, you can tell that [com.sheIs] desperately looking forwards to what's to come.
+				[brax.speech(Don't think that this makes me like you!)] [brax.name] snaps, but from the way [com.her] cheeks are flushing, you can tell that [com.sheIs] desperately looking forward to what's to come.
 			#ELSEIF(brax.hasFetish(FETISH_SUBMISSIVE))
 				[brax.speech(I can't wait to feel you inside of me,)] [brax.name] submissively teases, tracing [com.her] [com.fingers] down between [com.her] [com.legs].
 			#ELSE

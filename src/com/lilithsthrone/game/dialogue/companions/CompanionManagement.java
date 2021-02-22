@@ -418,8 +418,8 @@ public class CompanionManagement {
 						return new Response("Dispel elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode){
 							@Override
 							public void effects() {
-								characterSelected().removeCompanion(characterSelected().getElemental());
 								characterSelected().getElemental().returnToHome();
+								characterSelected().setElementalSummoned(false);
 							}
 						};
 					}
@@ -1867,6 +1867,7 @@ public class CompanionManagement {
 					
 				}
 				Main.game.banishNPC(characterSelected());
+				Main.game.getDialogueFlags().setManagementCompanion(null);
 				
 			} else {
 				freedSlaveDeleted = false;
@@ -1874,7 +1875,6 @@ public class CompanionManagement {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_GUEST_CHOICE", characterSelected()));
 				Main.game.getTextEndStringBuilder().append(characterSelected().incrementAffection(Main.game.getPlayer(), 25));
 			}
-			Main.game.getDialogueFlags().setManagementCompanion(null);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1920,6 +1920,7 @@ public class CompanionManagement {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_GOODBYE", characterSelected()));
 							Main.game.banishNPC(characterSelected());
+							Main.game.getDialogueFlags().setManagementCompanion(null);
 						}
 					};
 					
@@ -1935,6 +1936,7 @@ public class CompanionManagement {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_THROWN_OUT", characterSelected()));
 							Main.game.banishNPC(characterSelected());
+							Main.game.getDialogueFlags().setManagementCompanion(null);
 						}
 					};
 				}
@@ -1971,7 +1973,12 @@ public class CompanionManagement {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", UtilText.parse(characterSelected(), "Having left [npc.name] to get settled into [npc.her] new room, you continue with your plans for the day..."), Main.game.getDefaultDialogue(false));
+				return new Response("Continue", UtilText.parse(characterSelected(), "Having left [npc.name] to get settled into [npc.her] new room, you continue with your plans for the day..."), Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+					}
+				};
 			}
 			return null;
 		}
