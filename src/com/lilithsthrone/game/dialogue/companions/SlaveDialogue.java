@@ -1793,10 +1793,19 @@ public class SlaveDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<p>"
-						+ "You decide that [npc.name] is in need of some physical comfort, and, stepping forwards, you reach and take hold of [npc.herHim], before pulling [npc.herHim] into a tight hug.");
+			AffectionLevelBasic slaveAffection = AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()));
 			
-			switch(AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()))) {
+			boolean silly = Main.game.isSillyMode() && Math.random()<0.25f && slaveAffection==AffectionLevelBasic.NEUTRAL;
+			
+			UtilText.nodeContentSB.append("<p>");
+			
+			if(silly) {
+				UtilText.nodeContentSB.append("Wanting [npc.name] to show you some physical affection, you ask [npc.herHim] to give you a hug.");
+			} else {
+				UtilText.nodeContentSB.append("You decide that [npc.name] is in need of some physical comfort, and, stepping forwards, you reach and take hold of [npc.herHim], before pulling [npc.herHim] into a tight hug.");
+			}
+			
+			switch(slaveAffection) {
 				case DISLIKE:
 					switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 						case DISOBEDIENT:
@@ -1841,9 +1850,22 @@ public class SlaveDialogue {
 							+ "</p>");
 					break;
 				case NEUTRAL:
-					switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
-						case DISOBEDIENT:
-							UtilText.nodeContentSB.append(
+					if(silly) {
+						UtilText.nodeContentSB.append(
+								"</p>"
+								+ "<p>"
+									+ "[npc.speech(~Eugh!~ Fine...)] [npc.name] relents, before blushing and holding out [npc.her] [npc.arms] towards you."
+									+ " Beckoning you forwards into [npc.her] embrace, she sighs, [npc.speech(I guess you are my little pogchamp... Come here...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "[pc.Stepping] forwards, you ignore [npc.namePos] embarrassment and let [npc.herHim] give you a big hug."
+									+ " [npc.She] pats your back a little, and you get the distinct impression that [npc.sheIs] only reciprocating your gesture because that's what's expected of [npc.herHim]."
+									+ " After a short while, you finally release [npc.name], allowing [npc.herHim] to [npc.step] back and mutter,"
+									+ " [npc.speech(That was kind of poggers...)]");
+					} else {
+						switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
+							case DISOBEDIENT:
+								UtilText.nodeContentSB.append(
 										" [npc.She] half-heartedly returns your embrace, sighing,"
 										+ " [npc.speech(Thanks, [npc.pcName], I guess a hug now and then isn't too bad...)]"
 									+ "</p>"
@@ -1852,29 +1874,30 @@ public class SlaveDialogue {
 										+ " [npc.She] pats your back a little, and you get the distinct impression that [npc.sheIs] only reciprocating your gesture because that's what's expected of [npc.herHim]."
 										+ " After a short while, you finally release [npc.name], and [npc.she] steps back, smiling."
 										+ " [npc.speech(That was nice, I guess. Anything else you want?)]");
-							break;
-						case NEUTRAL:
-							UtilText.nodeContentSB.append(
-									" [npc.She] half-heartedly returns your embrace, sighing,"
-									+ " [npc.speech(Thank you, [npc.pcName]...)]"
-								+ "</p>"
-								+ "<p>"
-									+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
-									+ " [npc.She] pats your back a little, and you get the distinct impression that [npc.sheIs] only reciprocating your gesture because that's what's expected of [npc.herHim]."
-									+ " After a short while, you finally release [npc.name], and [npc.she] steps back, smiling."
-									+ " [npc.speech(Is there anything else you need, [npc.pcName]?)]");
-							break;
-						case OBEDIENT:
-							UtilText.nodeContentSB.append(
-									" [npc.She] half-heartedly returns your embrace, sighing,"
-									+ " [npc.speech(Thank you, [npc.pcName].)]"
-								+ "</p>"
-								+ "<p>"
-									+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
-									+ " [npc.She] pats your back a little, and you get the distinct impression that [npc.sheIs] only reciprocating your gesture because it's what's expected of [npc.herHim]."
-									+ " After a short while, you finally release [npc.name], and [npc.she] steps back, smiling."
-									+ " [npc.speech(Is there anything else you need, [npc.pcName]?)]");
-							break;
+								break;
+							case NEUTRAL:
+								UtilText.nodeContentSB.append(
+										" [npc.She] half-heartedly returns your embrace, sighing,"
+										+ " [npc.speech(Thank you, [npc.pcName]...)]"
+									+ "</p>"
+									+ "<p>"
+										+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
+										+ " [npc.She] pats your back a little, and you get the distinct impression that [npc.sheIs] only reciprocating your gesture because that's what's expected of [npc.herHim]."
+										+ " After a short while, you finally release [npc.name], and [npc.she] steps back, smiling."
+										+ " [npc.speech(Is there anything else you need, [npc.pcName]?)]");
+								break;
+							case OBEDIENT:
+								UtilText.nodeContentSB.append(
+										" [npc.She] half-heartedly returns your embrace, sighing,"
+										+ " [npc.speech(Thank you, [npc.pcName].)]"
+									+ "</p>"
+									+ "<p>"
+										+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
+										+ " [npc.She] pats your back a little, and you get the distinct impression that [npc.sheIs] only reciprocating your gesture because it's what's expected of [npc.herHim]."
+										+ " After a short while, you finally release [npc.name], and [npc.she] steps back, smiling."
+										+ " [npc.speech(Is there anything else you need, [npc.pcName]?)]");
+								break;
+						}
 					}
 					UtilText.nodeContentSB.append("</p>"
 							+ "<p>"

@@ -1352,7 +1352,7 @@
 	
 	<htmlContent tag="RAPE_BOTH"><![CDATA[
 	<p>
-		[npc.speech(I hope the two of you are looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust, [npc.speech(And if not, then too bad! I'm going to have my fun fucking both of you at once, and that's all that matters!)]
+		[npc.speech(I hope the two of you are looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust, [npc.speech(And if not, then too bad! I'm going to have my fun fucking both of you at once, and that's all that matters!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you and [com.name] into position...
@@ -1372,7 +1372,7 @@
 	
 	<htmlContent tag="RAPE_PLAYER"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
 	</p>
 	<p>
 		#IF(pc.hasCompanions())
@@ -1400,7 +1400,7 @@
 	
 	<htmlContent tag="RAPE_COMPANION"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards [com.name] and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards [com.name] and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move your companion into position, leaving you to look on...

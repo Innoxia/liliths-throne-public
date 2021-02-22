@@ -1141,7 +1141,6 @@ public enum TFModifier {
 			PresetColour.EGG,
 			Rarity.COMMON),
 
-	
 	TF_MOD_HYMEN("hymen",
 			"Applies an effect related to growing or removing a hymen.",
 			"hymen",

@@ -1337,7 +1337,7 @@
 		#IF(elle.hasSexCountWith(pc))
 			 [elle.speech(Let's do this a little differently than the last time we were in here...)]
 		#ELSE
-			 [elle.speech(I'm looking forwards to adding you to my list of sexual conquests!)]
+			 [elle.speech(I'm looking forward to adding you to my list of sexual conquests!)]
 		#ENDIF
 	</p>
 	]]>
@@ -1532,7 +1532,7 @@
 		[wes.speech(Great, I should be able to get this work finished in the meantime,)] the fox-boy sighs in relief, before handing a key to his slave and instructing her, [wes.speech(Go and use my office, and come straight back here after you're done.)]
 	</p>
 	<p>
-		Taking the key from Wes, Elle unlocks the door to the storage area, before stepping out to the other side of the counter and and getting physical with you. Pressing her hot body up against you, she reaches down to give your groin a firm grope, before breathlessly teasing, [elle.speech(Don't worry, [pc.name], I don't hold anything against you for helping Wes to get me arrested and enslaved... I'm just looking forwards to having a good fuck!)]
+		Taking the key from Wes, Elle unlocks the door to the storage area, before stepping out to the other side of the counter and and getting physical with you. Pressing her hot body up against you, she reaches down to give your groin a firm grope, before breathlessly teasing, [elle.speech(Don't worry, [pc.name], I don't hold anything against you for helping Wes to get me arrested and enslaved... I'm just looking forward to having a good fuck!)]
 	</p>
 	<p>
 		As she's the one who's got the key, you let Elle take the lead as she heads out of the requisitions area and over to the door of Wes's office. Quickly unlocking it, she steps forwards and beckons you inside.
@@ -1556,7 +1556,7 @@
 		#IF(elle.hasSexCountWith(pc))
 			 [elle.speech(Let's do this a little differently than the last time we were in here...)]
 		#ELSE
-			 [elle.speech(I'm looking forwards to adding you to my list of sexual conquests!)]
+			 [elle.speech(I'm looking forward to adding you to my list of sexual conquests!)]
 		#ENDIF
 	</p>
 	]]>

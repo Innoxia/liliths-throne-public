@@ -1114,6 +1114,7 @@ public class DebugDialogue {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		attacker.setLocation(Main.game.getPlayer(), true);
 		Main.game.setActiveNPC(attacker);
 	}
 	

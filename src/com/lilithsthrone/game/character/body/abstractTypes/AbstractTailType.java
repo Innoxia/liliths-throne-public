@@ -489,9 +489,9 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 		}
 		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_GENERIC)) {
 			if(owner.getTailCount()>1) {
-				sb.append(UtilText.parse(owner, " [npc.Her] bat tails are"));
+				sb.append(UtilText.parse(owner, " [npc.Her] tails are"));
 			} else {
-				sb.append(UtilText.parse(owner, " [npc.Her] bat tail is"));
+				sb.append(UtilText.parse(owner, " [npc.Her] tail is"));
 			}
 			switch(owner.getTailGirth()) {
 				case ZERO_THIN:

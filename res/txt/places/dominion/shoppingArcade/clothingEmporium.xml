@@ -130,7 +130,7 @@
 			#ENDIF
 		</p>
 		<p>
-			After telling her that she'll have to wait and see, Nyan grins and playfully swishes her ail around behind her. There's no doubt that she's significantly more confident than when you first met her, and you notice that the cat-girl's stutter has completely vanished as she points behind her and says, [nyan.speechNoEffects(Come on, I can show you the stockroom again if you'd like! Follow me!)]
+			After telling her that she'll have to wait and see, Nyan grins and playfully swishes her tail around behind her. There's no doubt that she's significantly more confident than when you first met her, and you notice that the cat-girl's stutter has completely vanished as she points behind her and says, [nyan.speechNoEffects(Come on, I can show you the stockroom again if you'd like! Follow me!)]
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateCompleted))
 		#IF(game.getDialogueFlags().hasFlag(FLAG_nyanApologised))

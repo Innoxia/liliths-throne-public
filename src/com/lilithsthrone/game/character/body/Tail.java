@@ -341,7 +341,7 @@ public class Tail implements BodyPartInterface {
 	 * @return The diameter.
 	 */
 	public float getDiameter(GameCharacter owner, float atLength) {
-		float baseDiameter = (owner.getHeightValue() * 0.08f) * (1f + this.getGirth().getDiameterPercentageModifier());
+		float baseDiameter = (owner.getHeightValue() * 0.08f) * (1f + this.getGirth().getDiameterPercentageModifier()); // Default linear tapering
 		float lengthPercentage = Math.min(1, atLength / this.getLength(owner));
 		
 		if(this.getType().getTags().contains(BodyPartTag.TAIL_TAPERING_EXPONENTIAL)) { // Exponential diameter tapering:

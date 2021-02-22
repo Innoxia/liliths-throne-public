@@ -149,14 +149,14 @@ public class Sticker {
 	}
 
 	public String getUnavailabilityText() {
-		if(Main.game.isDebugMode()) {
+		if(Main.game.isAllStickersUnlocked()) {
 			return "";
 		}
 		return unavailabilityText;
 	}
 
 	public String getAvailabilityText() {
-		if(Main.game.isDebugMode()) {
+		if(Main.game.isAllStickersUnlocked()) {
 			return "";
 		}
 		return availabilityText;
