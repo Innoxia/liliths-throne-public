@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -144,10 +145,16 @@ public class Scarlett extends NPC {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
 			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
-	
+			
+			this.clearFetishes();
+			this.clearFetishDesires();
+			
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
+
+			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
 		}
 		
 		// Body:
@@ -419,8 +426,10 @@ public class Scarlett extends NPC {
 	}
 	
 	public void completeBodyReset() {
+		boolean analVirgin = this.isAnalVirgin();
 		this.setBody(Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER, false);
 		this.setStartingBody(true);
+		this.setAnalVirgin(analVirgin);
 		this.endPregnancy(true);
 		this.equipClothing();
 		this.getPetNameMap().remove(Main.game.getPlayer().getId());

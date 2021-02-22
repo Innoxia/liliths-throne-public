@@ -272,7 +272,7 @@
 		Telling your girlfriend that you're happy to hear that she's really starting to overcome her anxiety and confidence issues, you say that her mother is sure to be proud of her efforts. Still smiling, Nyan nervously rubs her hands together and responds by saying, [nyan.speechNoEffects(I really hope so... My mum's a super successful b-businesswoman, and so I worry that I'll never live up to h-her expectations... She's been travelling all over the Realm d-doing business for over a year now, and I-I can't wait to see her again. She's so amazing, I really want to be like her, b-but I find it difficult to be around people...)]
 	</p>
 	<p>
-		As you continue your conversation with Nyan, you find it extremely difficult to get her to talk about anything but her mother, and you very quickly get the clear impression that your girlfriend practically worships her mum. Eventaully, however, the cat-girl's praise of her mother is brought to an end not by your efforts, but by the arrival of your main meals.
+		As you continue your conversation with Nyan, you find it extremely difficult to get her to talk about anything but her mother, and you very quickly get the clear impression that your girlfriend practically worships her mum. Eventually, however, the cat-girl's praise of her mother is brought to an end not by your efforts, but by the arrival of your main meals.
 	</p>
 	<p>
 		After the waiter has delivered your food and swiftly departed, both you and Nyan start to eat, giving you a brief moment in which to think of what to say next in order to steer the topic away from her mother...
@@ -306,13 +306,13 @@
 	
 	<htmlContent tag="DATE_RESTAURANT_6_DESSERT"><![CDATA[
 	<p>
-		Having successfully steered Nyan away from talking about her mother, you allow the topic of conversation to turn towards you. While you don't want to cause Nyan any distress by telling her all of the details, you do reveal that Lilaya is your aunt, and that you're helping her to conduct arcane research.
+		Having successfully steered Nyan away from talking about her mother, you allow the topic of conversation to turn towards you. While you don't want to cause Nyan any distress by telling her all of the details, you do reveal that Lilaya is your [lilaya.relation(pc)], and that you're helping her to conduct arcane research.
 	</p>
 	<p>
 		[nyan.speechNoEffects(L-Lilaya? As in, Lyssieth's daughter?)] Nyan asks, and after you've replied in the affirmative, she gasps, [nyan.speechNoEffects(Wow... So you're related to an elder lilin? M-My mother has met with Lyssieth quite a lot to do business, and so I've heard a l-lot about her and Lilaya...)]
 	</p>
 	<p>
-		After finishing your meals, the two of you continue to discuss your aunt for a short while, and you discover that by accompanying her mother on one of her business trips, Nyan has actually met Lilaya once before. As you remark upon the fact that it's a small world, the waiter suddenly returns to take your plates away. After quickly carrying out his task, he asks if you or Nyan would like to see the dessert menu. Upon hearing this, your girlfriend puts on one of the cutest looks you've ever seen, and you find yourself unable to resist giving her what she wants...
+		After finishing your meals, the two of you continue to discuss your [lilaya.relation(pc)] for a short while, and you discover that by accompanying her mother on one of her business trips, Nyan has actually met Lilaya once before. As you remark upon the fact that it's a small world, the waiter suddenly returns to take your plates away. After quickly carrying out his task, he asks if you or Nyan would like to see the dessert menu. Upon hearing this, your girlfriend puts on one of the cutest looks you've ever seen, and you find yourself unable to resist giving her what she wants...
 	</p>
 	]]>
 	</htmlContent>
@@ -490,7 +490,7 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_INTERVIEW_2_DEMON"><![CDATA[
 	<p>
-		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the names of both your demonic aunt and mother. As you tell the cougar-girl that Lilaya is your aunt, you see her eyes widen in surprise, and as you then reveal that you're a direct daughter of Lyssieth herself, she momentarily loses her composure and asks in awe, [nyanmum.speech(Wait... <i>You're</i> the one who Lyssieth transformed into her new [pc.daughter]?! Hmm... Well, with family like that, I guess you'll be able to provide for Nyan...)]
+		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the names of both your demonic [lilaya.relation(pc)] and mother. As you tell the cougar-girl that Lilaya is your [lilaya.relation(pc)], you see her eyes widen in surprise, and as you then reveal that you're a direct daughter of Lyssieth herself, she momentarily loses her composure and asks in awe, [nyanmum.speech(Wait... <i>You're</i> the one who Lyssieth transformed into her new [pc.daughter]?! Hmm... Well, with family like that, I guess you'll be able to provide for Nyan...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -511,7 +511,7 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_INTERVIEW_2_LILAYA_REVEAL"><![CDATA[
 	<p>
-		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the name of your demonic aunt. As you tell Nyan's mother that you're very close to Lilaya, and that she'd surely help you out if you were in a rough spot, you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
+		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the name of your demonic [lilaya.relation(pc)]. As you tell Nyan's mother that you're very close to Lilaya, and that she'd surely help you out if you were in a rough spot, you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
 	</p>
 	]]>
 	</htmlContent>

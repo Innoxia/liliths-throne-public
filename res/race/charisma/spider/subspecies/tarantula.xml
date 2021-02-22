@@ -6,8 +6,8 @@
 	<tertiaryColour>charisma_spider_silk_white</tertiaryColour>
 	<mainSubspecies>false</mainSubspecies>
 	<baseSlaveValue>10000</baseSlaveValue>
-	<attributeItemId>spider_jet_black_coffee</attributeItemId>
-	<transformativeItemId>spider_chocolate_coated_cocoa_beans</transformativeItemId>
+	<attributeItemId>charisma_spider_jet_black_coffee</attributeItemId>
+	<transformativeItemId>charisma_spider_chocolate_coated_cocoa_beans</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
@@ -44,7 +44,7 @@
 	]]></subspeciesWeighting>
 	<iconName>icon</iconName>
 	<backgroundName>raceBackground</backgroundName>
-	<bookIconName>icon</bookIconName>
+	<bookIconName>icon2</bookIconName>
 	<bookName>Deadly Spiders</bookName>
 	<basicDescriptionId>SPIDER_BASIC</basicDescriptionId>
 	<advancedDescriptionId>SPIDER_ADVANCED</advancedDescriptionId>

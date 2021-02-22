@@ -60,7 +60,10 @@ public class SubmissionAttacker extends NPC {
 	public SubmissionAttacker(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
-	
+
+	/**
+	 * You must manually place this NPC in a location after creation!
+	 */
 	public SubmissionAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
@@ -69,8 +72,6 @@ public class SubmissionAttacker extends NPC {
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 
 		if(!isImported) {
-			this.setLocation(Main.game.getPlayer(), true);
-			
 			// Set random level from 5 to 8:
 			setLevel(5 + Util.random.nextInt(4));
 			

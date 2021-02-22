@@ -4202,8 +4202,19 @@ public class Game implements XMLSaving {
 		}
 		return id;
 	}
+
 	public String addNPC(NPC npc, boolean isImported) throws Exception {
-		
+		return addNPC(npc, isImported, false);
+	}
+	
+	/**
+	 * @param npc The NPC to add.
+	 * @param isImported IF it's being added from an imported file.
+	 * @param forceImmediateAddition If true, the addition of this npc will not wait until the NPC Update Loop has finished, and will immediately be added.
+	 * @return The id which has been assigned to the npc.
+	 * @throws Exception
+	 */
+	public String addNPC(NPC npc, boolean isImported, boolean forceImmediateAddition) throws Exception {
 		if(isImported) {
 			int tallyCount;
 			String rawId = npc.getId();
@@ -4230,7 +4241,7 @@ public class Game implements XMLSaving {
 			throw new Exception("NPC map already contained an NPC with this Id ("+npc.getId()+"). SOMETHING HAS GONE HORRIBLY WRONG! PANIC!");
 		}
 		
-		if(isInNPCUpdateLoop) {
+		if(isInNPCUpdateLoop && !forceImmediateAddition) {
 			npcsToAdd.add(npc);
 		} else {
 			NPCMap.put(npc.getId(), npc);

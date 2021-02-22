@@ -5,7 +5,7 @@
 	<coveringType>charisma_spider_chitinFluffy</coveringType>
 	<defaultFootStructure>PLANTIGRADE</defaultFootStructure>
 	<footType>ARACHNID</footType>
-	<spinneret>false</spinneret>
+	<spinneret>true</spinneret>
 	<tentacleType>NONE</tentacleType>
 	<tentacleCount>0</tentacleCount>
 	<allowedLegConfigurations>
