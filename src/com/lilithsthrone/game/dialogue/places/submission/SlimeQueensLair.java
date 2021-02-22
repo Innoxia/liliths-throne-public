@@ -649,7 +649,7 @@ public class SlimeQueensLair {
 							Main.game.getNpc(SlimeRoyalGuard.class),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), "[pc.speech(Fine, I'll spar with you,)] you say, readying yourself for a fight, [pc.speech(but remember what you said about your body being mine when you lose!)]"),
-									new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), "[slimeRoyalGuard.speech(Hah!)] [slimeRoyalGuard.name] booms. [slimeRoyalGuard.speech(I'm looking forwards to claiming my prize!)]")));
+									new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), "[slimeRoyalGuard.speech(Hah!)] [slimeRoyalGuard.name] booms. [slimeRoyalGuard.speech(I'm looking forward to claiming my prize!)]")));
 				} else {
 					return null;
 				}

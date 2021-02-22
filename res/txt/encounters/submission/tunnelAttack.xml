@@ -938,7 +938,7 @@
 	
 	<htmlContent tag="RAPE_PLAYER"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you into position...

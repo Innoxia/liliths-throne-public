@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.89
- * @version 0.3.9.3
+ * @version 0.4
  * @author Innoxia
  */
 public enum NPCFlagValue {
@@ -33,6 +33,8 @@ public enum NPCFlagValue {
 	occupantTalkJob,
 	occupantTalkLilaya,
 	occupantTalkSlaves,
+	occupantHugged,
+	occupantPet,
 	
 	occupantHasNewJob,
 	
@@ -61,6 +63,8 @@ public enum NPCFlagValue {
 		occupantFlags.add(occupantTalkJob);
 		occupantFlags.add(occupantTalkLilaya);
 		occupantFlags.add(occupantTalkSlaves);
+		occupantFlags.add(occupantHugged);
+		occupantFlags.add(occupantPet);
 	}
 
 	public static List<NPCFlagValue> getSlaveFlags() {
