@@ -318,20 +318,25 @@ public class Helena extends NPC {
 					Main.game.banishNPC((NPC) character);
 				}
 			}
-			this.removeAllSlaves();
+
+			// Helena's slaves after completing her romance quest are in holding for the player, and so should not be removed.
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && !this.getSlavesOwned().isEmpty() && !Main.game.isWorkTime() && Main.game.getHourOfDay()>12) {
+				sellOffRemainingSlaves();
+			}
+			
+			//this.removeAllSlaves();
 			
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)) {
 				for(int i=0; i<2; i++) {
 					NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-					newSlave.setHistory(Occupation.NPC_SLAVE);
 					try {
-						Main.game.addNPC(newSlave, false);
+						Main.game.addNPC(newSlave, false, true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
+					newSlave.setHistory(Occupation.NPC_SLAVE);
 					newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					addSlave(newSlave);
 					newSlave.resetInventory(true);
@@ -378,11 +383,6 @@ public class Helena extends NPC {
 						
 					} else {
 						this.returnToHome();
-					}
-					
-					// Helena's slaves after completing her romance quest are in holding for the player, and so should not be removed.
-					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && !this.getSlavesOwned().isEmpty() && !Main.game.isWorkTime() && Main.game.getHourOfDay()>12) {
-						sellOffRemainingSlaves();
 					}
 				}
 			}

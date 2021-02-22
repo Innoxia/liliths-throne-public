@@ -3045,6 +3045,23 @@ public class MainControllerInitMethod {
 					}, false);
 				}
 
+				// Vagina hymen:
+				id = "VAGINA_HYMEN_ON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setHymen(true);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "VAGINA_HYMEN_OFF";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setHymen(false);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				
+
 				// Vagina egg-layer:
 				id = "VAGINA_EGG_LAYER_ON";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -4873,7 +4890,6 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										System.out.println(":3");
 										CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
 										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryColour(colour);
 										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing((colour != PresetColour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing()));

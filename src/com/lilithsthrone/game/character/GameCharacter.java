@@ -3152,8 +3152,8 @@ public abstract class GameCharacter implements XMLSaving {
 			character.equipMove(moveId);
 		}
 		
-		character.setHealth(newHealth);
-		character.setMana(newMana);
+		character.health = (newHealth);
+		character.mana = (newMana);
 	}
 
 	/**
@@ -5764,6 +5764,15 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(this.getHistory()==Occupation.ARISTOCRAT
+			&& (attribute == Attribute.RESISTANCE_FIRE
+				|| attribute == Attribute.RESISTANCE_ICE
+				|| attribute == Attribute.RESISTANCE_LUST
+				|| attribute == Attribute.RESISTANCE_PHYSICAL
+				|| attribute == Attribute.RESISTANCE_POISON)) {
+			value += (this.getAttributeValue(Attribute.MAJOR_CORRUPTION)/4);
+		}
+		
 		return Math.round((value + bonusAttributes.get(attribute))*100)/100f;
 //		return Math.round(bonusAttributes.get(att)*100)/100f;
 	}
@@ -5830,15 +5839,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(this.getHistory()==Occupation.ARISTOCRAT
-			&& (att == Attribute.RESISTANCE_FIRE
-				|| att == Attribute.RESISTANCE_ICE
-				|| att == Attribute.RESISTANCE_LUST
-				|| att == Attribute.RESISTANCE_PHYSICAL
-				|| att == Attribute.RESISTANCE_POISON)) {
-			value += (this.getAttributeValue(Attribute.MAJOR_CORRUPTION)/4);
-		}
-		
 		if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT_3)
 				&& (att == Attribute.RESISTANCE_FIRE
 					|| att == Attribute.RESISTANCE_ICE
@@ -5875,13 +5875,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String incrementAttribute(AbstractAttribute att, float increment, boolean appendAttributeChangeText) {
-		if(att==Attribute.MAJOR_CORRUPTION && this.getHistory()==Occupation.ARISTOCRAT) {
+		if(Main.game.isStarted() && att==Attribute.MAJOR_CORRUPTION && this.getHistory()==Occupation.ARISTOCRAT) {
 			increment *= 2;
 		}
 		float value = attributes.get(att) + increment;
 
-		// For handling health, mana and stamina changes as a result of an
-		// attribute being changed:
+		// For handling health, mana and stamina changes as a result of an attribute being changed:
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
 		
@@ -13161,6 +13160,32 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String getDirtyTalkClitPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
+		
+		if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.CLIT, target).contains(SexAreaPenetration.CLIT)) { // Tribbing:
+			switch(Main.sex.getSexPace(this)) {
+				case DOM_GENTLE:
+				case DOM_NORMAL:
+				case SUB_EAGER:
+				case SUB_NORMAL:
+					availableLines.add(UtilText.returnStringAtRandom(
+							"Your pussy feels so good!",
+							"You like the feel of my pussy rubbing over yours?",
+							"That's it, push your pussy back against mine!"));
+					break;
+				case DOM_ROUGH:
+					availableLines.add(UtilText.returnStringAtRandom(
+							"Your dirty little cunt feels so good!",
+							"You like the feel of my pussy rubbing over your slutty cunt?",
+							"That's it, bitch, push your pussy back against mine!"));
+					break;
+				case SUB_RESISTING:
+					availableLines.add(UtilText.returnStringAtRandom(
+							"I don't want to do this! Please let me stop!",
+							"Let me go! I don't want to do this!",
+							"Please! Stop! I don't want this!"));
+					break;
+			}
+		}
 		
 		if(!Main.sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.CLIT, target).isEmpty()) {
 			for(SexAreaOrifice orifice : Main.sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.CLIT, target)) {
@@ -24922,11 +24947,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isAssVirgin() {
 		return body.getAss().getAnus().getOrificeAnus().isVirgin();
 	}
+	/** Calls isAssVirgin() */
 	public boolean isAnalVirgin() {
 		return isAssVirgin();
 	}
 	public void setAssVirgin(boolean virgin) {
 		body.getAss().getAnus().getOrificeAnus().setVirgin(virgin);
+	}
+	/** Calls setAssVirgin(boolean virgin) */
+	public void setAnalVirgin(boolean virgin) {
+		setAssVirgin(virgin);
 	}
 	// Bleaching:
 	public boolean isAssBleached() {
@@ -27968,7 +27998,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body!=null && getTailType().hasSpinneret();
 	}
 	public boolean hasLegSpinneret() {
-		return body!=null && getLegType().hasSpinneret();
+		return body!=null && this.getLegConfiguration()==LegConfiguration.ARACHNID && getLegType().hasSpinneret();
 	}
 	public boolean hasSpinneret() {
 		return hasTailSpinneret() || hasLegSpinneret();

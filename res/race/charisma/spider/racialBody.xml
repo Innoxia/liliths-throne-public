@@ -71,7 +71,7 @@
 	<femaleBreastDepth>2</femaleBreastDepth>
 	<femaleBreastElasticity>3</femaleBreastElasticity>
 	<femaleBreastPlasticity>3</femaleBreastPlasticity>
-	<breastCrotchType>charisma_spider_breast</breastCrotchType>
+	<breastCrotchType>NONE</breastCrotchType>
 	<breastCrotchShapes udderShapes="false"/>
 	<breastCrotchSize>0</breastCrotchSize>
 	<breastCrotchRows>0</breastCrotchRows>
@@ -108,6 +108,7 @@
 	<cumProduction>80</cumProduction>
 	<tailTypes>
 		<type>charisma_spider_tail</type>
+		<type>charisma_spider_tailFluffy</type>
 	</tailTypes>
 	<tentacleType>NONE</tentacleType>
 	<torsoType>charisma_spider_torso</torsoType>

@@ -62,6 +62,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -1045,7 +1046,7 @@ public class UtilText {
 								
 							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
 									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
-									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I')
+									&& (i+1==input.length()||i+2==input.length()||i+3==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I'||input.charAt(i+3)!='F')
 									&& openBrackets-1==closeBrackets
 									&& conditionalStatement!=null) {
 								conditionalElseFound = true;
@@ -1108,7 +1109,7 @@ public class UtilText {
 								
 							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
 									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
-									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I')
+									&& (i+1==input.length()||i+2==input.length()||i+3==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I'||input.charAt(i+3)!='F')
 									&& openBrackets-1==closeBrackets) {
 								conditionalElseFound = true;
 	//							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the end of this section.
@@ -9316,6 +9317,9 @@ public class UtilText {
 		}
 		for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
 			engine.put("BODY_COVERING_TYPE_"+BodyCoveringType.getIdFromBodyCoveringType(bct), bct);
+		}
+		for(BodyCoveringCategory coveringCategory : BodyCoveringCategory.values()) {
+			engine.put("BODY_COVERING_CATEGORY_"+coveringCategory, coveringCategory);
 		}
 		for(CoveringPattern pattern : CoveringPattern.values()) {
 			engine.put("COVERING_PATTERN_"+pattern.toString(), pattern);

@@ -3530,7 +3530,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
 				"GIRLCUM_MODIFIER",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformVaginaCapacityDiv() {
@@ -3586,6 +3586,35 @@ public class CharacterModificationUtils {
 						+ "<br/><i>If [npc.nameIsFull] a squirter, then when [npc.she] [npc.verb(orgasm)] [npc.she] will dirty clothes [npc.she] [npc.verb(squirt)] on."
 							+ " Also, if someone is eating [npc.herHim] out, they will ingest [npc.her] fluids.</i>"),
 				"VAGINA_SQUIRTER",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getSelfTransformVaginaHymenDiv() {
+		contentSB.setLength(0);
+		
+		if(BodyChanging.getTarget().hasHymen()) {
+			contentSB.append(
+					"<div id='VAGINA_HYMEN_OFF' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.getShades()[0]+";'>Lost</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button active'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Intact</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Lost</span>"
+					+ "</div>"
+					+"<div id='VAGINA_HYMEN_ON' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.getShades()[0]+";'>Intact</span>"
+					+ "</div>");
+		}
+		
+
+		return applyWrapper("Hymen",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] hymen is intact or not."),
+				"VAGINA_HYMEN",
 				contentSB.toString(),
 				true);
 	}
