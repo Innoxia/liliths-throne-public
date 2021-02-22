@@ -23,6 +23,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributions:
 		Fixed issue where spider-morph book's front cover icon wasn't visible. (by NeverLucky)
+		Added furred spider tail as a TF option for spider TF potions. (PR#1510 by Stadler76)
 	
 	Engine/Modding:
 		Added parser hook for BodyCoveringCategory using the prefix 'BODY_COVERING_CATEGORY_'.
@@ -81,8 +82,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Spider crotch-boobs
 	[x] Spinneret initial colour scarlet
 	[x] light mode
-	
-	[] PR abdomen fix merge
+	[x] PR abdomen fix merge
 	
 	
 	[] mouse
