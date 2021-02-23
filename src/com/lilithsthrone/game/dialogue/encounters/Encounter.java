@@ -191,6 +191,7 @@ public enum Encounter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				npc.setLocation(Main.game.getPlayer(), true);
 				Main.game.setActiveNPC(npc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
@@ -379,6 +380,7 @@ public enum Encounter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				npc.setLocation(Main.game.getPlayer(), true);
 				Main.game.setActiveNPC(npc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
@@ -529,6 +531,7 @@ public enum Encounter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				Main.game.getActiveNPC().setLocation(Main.game.getPlayer(), true);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 			}else if(node == EncounterType.DOMINION_FIND_ITEM) {
@@ -951,6 +954,7 @@ public enum Encounter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				Main.game.getActiveNPC().setLocation(Main.game.getPlayer(), true);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 			} else if (node == EncounterType.SUBMISSION_FIND_ITEM) {

@@ -15,12 +15,12 @@
 		[npc.She] now [npc.has] [style.boldSpider(surprisingly normal, humanoid)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldSpider(normal milk)].
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[
-		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] human-like, [npc.nipplesFullDescription].
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] [npc.nipplesFullDescription].
 	]]></bodyDescription>
 	<crotchBoobsTransformationDescription><![CDATA[
 		[npc.She] now [npc.has] [style.boldSpider(mammal-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldSpider(suspicious milk)].
 	]]></crotchBoobsTransformationDescription>
 	<crotchBoobsBodyDescription><![CDATA[
-		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] cursed, [npc.crotchNipplesFullDescription].
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] [npc.crotchNipplesFullDescription].
 	]]></crotchBoobsBodyDescription>
 </breast>

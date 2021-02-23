@@ -3,9 +3,9 @@
 	<coreAttributes>
 		<value>250</value> 
 		<determiner><![CDATA[a tin of]]></determiner>
-		<name><![CDATA[Chocolate Coated Cocoa Beans]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Chocolate Coated Cocoa Beans]]></namePlural>
-		<description><![CDATA[A metal tin of chocolate covered cocoa beans, a niche candy for those who prefer the strong flavors of coffee and dark chocolate over sugary sweetness. On the bottom small print reads, "WARNING: EXTREMELY ALCOHOLIC TO SPIDERS," next to a picture of a flushed spider-girl winking at the reader... Is this really a warning?]]></description> 
+		<name><![CDATA[Chocolate Coated Coffee Bean]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[Chocolate Coated Coffee Beans]]></namePlural>
+		<description><![CDATA[A metal tin containing several dozen coffee beans covered in dark chocolate. On one side of the tin there's a picture of a flushed spider-girl winking at the viewer, along with the cautionary words: <i>'Warning! Extremely alcoholic to spiders!'</i>]]></description> 
 		
 		<useDescriptor>eat</useDescriptor>
 		
@@ -56,13 +56,13 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(take)] a handful of chocolate coated cocoa beans and [npc.verb(crush)] it in [npc.her] [npc.mouth]. Unable to control [npc.herself], [npc.she] quickly [npc.verb(finish)] the entire tin.
+		[npc.Name] [npc.verb(take)] a handful of chocolate coated coffee beans and [npc.verb(crush)] it in [npc.her] [npc.mouth]. Unable to control [npc.herself], [npc.she] quickly [npc.verb(finish)] the entire tin.
 		#IF(npc.getRace()==RACE_charisma_spider)
 			Due to [npc.her] spider physiology, [npc.verb(start)] to feel [style.boldMinorBad(extremely drunk)].
 		#ENDIF
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(take)] a handful of chocolate coated cocoa beans and [npc.verb(hold)] it out to [npc2.name], who [npc.verb(crush)] it in [npc2.her] [npc2.mouth]. Unable to control [npc2.herself], [npc2.she] quickly [npc2.verb(finish)] the entire tin.
+		[npc.Name] [npc.verb(take)] a handful of chocolate coated coffee beans and [npc.verb(hold)] it out to [npc2.name], who [npc.verb(crush)] it in [npc2.her] [npc2.mouth]. Unable to control [npc2.herself], [npc2.she] quickly [npc2.verb(finish)] the entire tin.
 		#IF(npc2.getRace()==RACE_charisma_spider)
 			Due to [npc2.her] spider physiology, [npc2.verb(start)] to feel [style.boldMinorBad(extremely drunk)].
 		#ENDIF

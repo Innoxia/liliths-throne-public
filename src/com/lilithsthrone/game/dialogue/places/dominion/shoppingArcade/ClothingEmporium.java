@@ -420,7 +420,7 @@ public class ClothingEmporium {
 								if(Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY) {
 									return new Response("Restaurant date",
 											"Ask Nyan if she'd like to go out with you on a date to the restaurant, 'The Oaken Glade'."
-												+ "<br/>[style.italicsMinorBad(This action can only be performed on a week day!)]",
+												+ "<br/>[style.italicsMinorBad(This action cannot be performed on Fridays or Saturdays!)]",
 											null);
 									
 								} else {

@@ -978,7 +978,7 @@ public class Lyssieth extends NPC {
 	@Override
 	public String getDirtyTalkVaginaPenetrated(GameCharacter target, boolean isPlayerDom){
 		if(!isPlayersMommy()) {
-			return super.getDirtyTalkMouthPenetrated(target, isPlayerDom);
+			return super.getDirtyTalkVaginaPenetrated(target, isPlayerDom);
 		}
 		String returnedLine = "";
 		
