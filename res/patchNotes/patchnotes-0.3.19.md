@@ -1,4 +1,4 @@
-###### v0.3.19
+## v0.3.19
 - Contributions:
   - Fixed issue where spider-morph book's front cover icon wasn't visible. (by NeverLucky)
   - Added furred spider tail as a TF option for spider TF potions. (PR#1510 by Stadler76)

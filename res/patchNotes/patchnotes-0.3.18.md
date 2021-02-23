@@ -1,4 +1,4 @@
-###### v0.3.18
+## v0.3.18
 - Charisma's spider-morph contribution:
   - Added spider-morph race.
   - Added spider-morph and tarantula-morph subspecies.
