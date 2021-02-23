@@ -146,19 +146,23 @@ public abstract class AbstractOutfit {
 				break;
 		}
 
-		// Check world region (if in right region, all world types match) Region may be overruled by world type
+		// If world region present, must be in that world region, or in world type
 		if(this.getWorldRegions()!=null
 				&& !this.getWorldRegions().isEmpty()
 				&& !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())
-				&& (this.getWorldTypes()==null
-				|| this.getWorldTypes().isEmpty())) {
+				&& (this.getWorldTypes()==null ||
+				    this.getWorldTypes().isEmpty()) ||
+					!this.getWorldTypes().contains(character.getWorldLocation())) {
 			return false;
 		}
 
-		// If world type present, must be in that world type, regardless of region
+		// If world type present, must be in that world type, or in world region
 		if (this.getWorldTypes()!=null
 				&& !this.getWorldTypes().isEmpty()
-				&& !this.getWorldTypes().contains(character.getWorldLocation())) {
+				&& !this.getWorldTypes().contains(character.getWorldLocation())
+				&& (this.getWorldRegions()==null ||
+				    this.getWorldRegions().isEmpty()) ||
+				    !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())) {
 			return false;
 		}
 
