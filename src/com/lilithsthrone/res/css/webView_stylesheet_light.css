@@ -85,25 +85,47 @@ hr{
 	background-color:#96969c;
 }
 
-list{
-	margin:0 auto;
-	padding:8px;
+div.list {
+	margin: 0 auto;
+	padding: 8px;
 }
-li{
+
+div.list h6 {
+	font-size: 22px;
+	line-height: 26px;
 	font-weight: bold;
-	margin:0 auto;
-	padding:8px;
+	margin: 0;
+	padding: 0;
+}
+
+/* For formatting code in Markdown backticks: ``. Still needs finetuning to make it look less ugly. */
+div.list code {
+	background-color: #fcfcfc;
+	/* Font-stack from: https://css-tricks.com/snippets/css/font-stacks/ */
+	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+	font-size: 18px;
+}
+
+div.list ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+
+div.list > ul > li {
+	font-weight: bold;
+	margin: 0 0 0 -8px;
+	padding: 0 0 8px 0;
 	list-style: none;
 }
-li:before {
-    /*content: '-';*/
-}
-ul{
-	margin:0 auto;
-	padding:2px 8px 2px 32px;
+
+div.list > ul > li > ul > li {
+	font-weight: normal;
+	padding: 0 16px;
 	list-style: none;
 }
-ul:before {
+
+div.list > ul > li > ul > li:before {
 	font-weight: bold;
     content: "- ";
 }
