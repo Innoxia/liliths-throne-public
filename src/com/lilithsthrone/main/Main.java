@@ -10,10 +10,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import org.w3c.dom.Document;
+
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.controller.xmlParsing.Element;
-import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
 import com.lilithsthrone.game.PropertyValue;
@@ -63,9 +64,6 @@ import javax.xml.transform.TransformerFactory;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.data.MutableDataSet;
-import java.io.IOException;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 
 /**
@@ -633,7 +631,7 @@ public class Main extends Application {
 						ex.printStackTrace();
 					}
 				}
-			} catch (XMLLoadException | IOException | SAXException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
