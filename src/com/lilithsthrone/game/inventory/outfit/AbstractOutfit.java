@@ -129,7 +129,12 @@ public abstract class AbstractOutfit {
 	}
 	
 	public boolean isAvailableForCharacter(OutfitType type, GameCharacter character) {
-		switch(this.getFemininity()) {
+
+        if(!this.getOutfitTypes().contains(type)) {
+            return false;
+        }
+
+        switch(this.getFemininity()) {
 			case FEMININE:
 			case FEMININE_STRONG:
 				if(!character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
@@ -146,30 +151,31 @@ public abstract class AbstractOutfit {
 				break;
 		}
 
-		// If world region present, must be in that world region, or in world type
-		if(this.getWorldRegions()!=null
-				&& !this.getWorldRegions().isEmpty()
-				&& !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())
-				&& (this.getWorldTypes()==null ||
-				    this.getWorldTypes().isEmpty()) ||
-					!this.getWorldTypes().contains(character.getWorldLocation())) {
+        boolean hasWorldRegions = this.getWorldRegions()!=null && !this.getWorldRegions().isEmpty();
+        boolean hasWorldTypes = this.getWorldTypes()!=null && !this.getWorldTypes().isEmpty();
+
+		// If world region and world type present, must be in either one
+        if(hasWorldRegions &&
+           hasWorldTypes &&
+           !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion()) &&
+           !this.getWorldTypes().contains(character.getWorldLocation())) {
+            return false;
+        }
+
+		// If only world region present, must be in that world region
+		if(hasWorldRegions &&
+          !hasWorldTypes &&
+           !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())) {
 			return false;
 		}
 
-		// If world type present, must be in that world type, or in world region
-		if (this.getWorldTypes()!=null
-				&& !this.getWorldTypes().isEmpty()
-				&& !this.getWorldTypes().contains(character.getWorldLocation())
-				&& (this.getWorldRegions()==null ||
-				    this.getWorldRegions().isEmpty()) ||
-				    !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())) {
+		// If only world type present, must be in that world type
+		if (hasWorldTypes &&
+           !hasWorldRegions &&
+            !this.getWorldTypes().contains(character.getWorldLocation())) {
 			return false;
 		}
 
-		if(!this.getOutfitTypes().contains(type)) {
-			return false;
-		}
-		
 		if(this.getAcceptableLegConfigurations()!=null
 				&& !this.getAcceptableLegConfigurations().isEmpty()
 				&& !this.getAcceptableLegConfigurations().contains(character.getLegConfiguration())) {
