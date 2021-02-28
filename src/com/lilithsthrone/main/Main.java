@@ -61,11 +61,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerFactory;
 
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.data.MutableDataSet;
-
-
 /**
  * @since 0.1.0
  * @version 0.3.10
@@ -584,17 +579,6 @@ public class Main extends Application {
 	}
 
 	private static void loadPatchNotes() {
-		MutableDataSet options = new MutableDataSet();
-
-		// uncomment to set optional extensions
-		//options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()));
-
-		// uncomment to convert soft-breaks to hard breaks
-		//options.set(HtmlRenderer.SOFT_BREAK, "<br />\n");
-
-		Parser parser = Parser.builder(options).build();
-		HtmlRenderer renderer = HtmlRenderer.builder(options).build();
-
 		// toc.xml parsing
 		File tocXMLFile = new File("res/patchnotes/toc.xml");
 		if (!tocXMLFile.exists()) {
@@ -613,8 +597,8 @@ public class Main extends Application {
 					String fileName = e.getTextContent();
 
 					try {
-						FileInputStream fis = new FileInputStream("res/patchnotes/" + fileName + ".md");
-						String contentHTML = renderer.render(parser.parse(Util.inputStreamToString(fis)));
+						FileInputStream fis = new FileInputStream("res/patchnotes/" + fileName + ".html");
+						String contentHTML = Util.inputStreamToString(fis);
 
 						switch (type) {
 							case "patchnotes":
