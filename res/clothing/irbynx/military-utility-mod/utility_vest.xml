@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version with comments, see "rental_mommy.xml". -->
+<clothing>
+	<coreAtributes>
+		<value>350</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Utility Vest]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Utility Vests]]></namePlural>
+		<description><![CDATA[A utility vest featuring several deep pockets that can contain various useful items in them.]]></description>
+		<physicalResistance>2</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>TORSO_OVER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>utility_vest.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+		</effects>
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours values="JUST_BLACK"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="ALL_METAL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours values="ALL_METAL"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>BAT_CAVERNS_SPAWN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You unzip and pull off your vest.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You unzip and pull off [npc.name]'s vest.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You take hold of [npc.name]'s vest and roughly unzip it, pulling it off afterwards.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] unzips and takes [npc.her] vest off.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] unzips and pulls your vest off.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] grabs hold of your vest and roughly unzips it, pulling it off afterwards.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] unzips and pulls [npc2.name]'s vest off.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] grabs hold of [npc2.name]'s T-shirt and roughly unzips it, pulling it off afterwards.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You put on the vest and zip it up.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You put the vest on [npc.name] and zip it up.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you roughly force the vest on [npc.her] body, before zipping it up.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] puts on the vest and zips it up.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] puts the vest on you and zips it up.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] roughly forces the vest on your body, before zipping it up.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] puts the vest on [npc2.Name] and zips it up.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the vest on [npc1.her] body, before zipping it up.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+
+	<displacementText type="UNZIPS">
+		<playerSelf><![CDATA[
+			You unzip your vest.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull up [npc.name]'s vest.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You impatiently unzip [npc.name]'s vest.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] unzips [npc.her] vest.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] unzips your vest.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] impatiently unzips your vest.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] unzips [npc2.name]'s vest.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] impatiently unzips [npc2.name]'s vest.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+	
+	<replacementText type="UNZIPS">
+		<playerSelf><![CDATA[
+			You zip your vest up, covering your torso.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You zip up [npc.name]'s vest.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You roughly zip up [npc.name]'s vest.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] zips [npc.her] vest back up to cover [npc.her] torso.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] zips down your vest.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] roughly zips up your vest.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] zips up [npc2.name]'s vest.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] roughly zips up [npc2.name]'s vest.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+	
+</clothing>
