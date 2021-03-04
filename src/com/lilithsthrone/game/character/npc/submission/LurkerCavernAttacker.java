@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,21 +34,21 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.5.5
  * @author Innoxia
  */
-public class BatMorphCavernAttacker extends NPC {
+public class LurkerCavernAttacker extends NPC {
 
-	public BatMorphCavernAttacker() {
+	public LurkerCavernAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}
 	
-	public BatMorphCavernAttacker(Gender gender) {
+	public LurkerCavernAttacker(Gender gender) {
 		this(gender, false);
 	}
 	
-	public BatMorphCavernAttacker(boolean isImported) {
+	public LurkerCavernAttacker(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public BatMorphCavernAttacker(Gender gender, boolean isImported) {
+	public LurkerCavernAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
@@ -61,7 +63,16 @@ public class BatMorphCavernAttacker extends NPC {
 			
 			// RACE & NAME:
 			
-			AbstractSubspecies species = Subspecies.BAT_MORPH;
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+					continue;
+				}
+				if(Subspecies.getWorldSpecies(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false, false, Subspecies.SLIME).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap((int) (10000 * Subspecies.getWorldSpecies(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false, false, Subspecies.SLIME).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				}
+			}
+			AbstractSubspecies species = Util.getRandomObjectFromWeightedMap(availableRaces);
 
 			RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
 			if(!gender.isFeminine()) {
