@@ -5485,7 +5485,9 @@ public class Subspecies {
 	 * @param worldType The WorldType from which to fetch Subspecies present.
 	 * @param placeType The PlaceType from which to fetch Subspecies present. Can be passed in as null to ignore.
 	 * @param onlyCoreRaceSpecies true if only core Subspecies should be returned. (e.g. Cat-morph would be returned, but not Lion-morph, Tiger-morph, etc.)
+	 * @param includeRegionSpecies true if the species of the WorldRegion should be included.
 	 * @param subspeciesToExclude Any Subspecies that should be excluded from the returned map.
+	 * @return A weighted map of subspecies that can spawn in that world, region and/or place.
 	 */
 	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, boolean includeRegionSpecies, AbstractSubspecies... subspeciesToExclude) {
 		worldSpecies.putIfAbsent(worldType, new HashMap<>());
