@@ -998,9 +998,8 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies() == Subspecies.BAT_MORPH)
-								:(npc.getSubspecies() == Subspecies.BAT_MORPH)),
-							true);
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))));
 
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -1025,8 +1024,7 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getBodyMaterial() == BodyMaterial.SLIME),
-							true);
+							npc-> (npc.getBodyMaterial() == BodyMaterial.SLIME));
 
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
