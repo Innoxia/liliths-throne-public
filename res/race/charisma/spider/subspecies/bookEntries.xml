@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bookText>
+	
+	<htmlContent tag="SPIDER_BASIC"><![CDATA[
+	<p>
+		spider-morphs can be found in almost any part of Lilith's Realm, although they prefer the cloak of darkness to sunlit areas. Their chitinous limbs and large, spinneret-equipped tail are usually enough to identify a person as a spider-morph.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPIDER_ADVANCED"><![CDATA[
+	<p>
+		While the individual personalities of spider-morphs vary somewhat from one individual to another, they are usually both dominant and territorial. Although incredibly dangerous to meet in the wild, civilized spider-morphs have a reputation for sexual prowess and dominance, and so get far more attention than they would prefer.
+	</p>
+	<p>
+		Like most other races, spider-morphs get affected by arcane storms. However, this is very rarely seen, as urban spider-morphs are rarely outdoors to begin with.
+	</p>
+	<p>
+		A spider-morph's offspring will be a mixture of spider-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+	
+</bookText>

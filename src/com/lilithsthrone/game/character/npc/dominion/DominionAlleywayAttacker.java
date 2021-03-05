@@ -63,12 +63,15 @@ public class DominionAlleywayAttacker extends NPC {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
 	
+	/**
+	 * You must manually place this NPC in a location after creation!
+	 */
 	public DominionAlleywayAttacker(Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false,
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false,
 				generationFlags);
 
 		if(!isImported) {
@@ -92,16 +95,16 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 				if(s==Subspecies.REINDEER_MORPH) {
 					if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-						AbstractSubspecies.addToSubspeciesMap((int) ((canalSpecies?50:1000)* SubspeciesSpawnRarity.THREE_UNCOMMON.getChanceMultiplier()), gender, s, availableRaces);
+						AbstractSubspecies.addToSubspeciesMap((int) ((canalSpecies?500:10000)* SubspeciesSpawnRarity.THREE_UNCOMMON.getChanceMultiplier()), gender, s, availableRaces);
 					}
 					
 				} else {
 					if(Subspecies.getWorldSpecies(WorldType.DOMINION, pt, false).containsKey(s)) {
-						AbstractSubspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+						AbstractSubspecies.addToSubspeciesMap((int) (canalSpecies?2500:10000 * Subspecies.getWorldSpecies(WorldType.DOMINION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					}
 					if(canalSpecies && Subspecies.getWorldSpecies(WorldType.SUBMISSION, pt, false).containsKey(s)) {
 //						System.out.println(s.getName(null));
-						AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+						AbstractSubspecies.addToSubspeciesMap((int) (10000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					}
 				}
 			}
@@ -110,7 +113,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM || canalSpecies || pt==PlaceType.DOMINION_BACK_ALLEYS) {
 				if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-					this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, AbstractSubspecies.getFleshSubspecies(this), true), true);
+					this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
 				}
 			}
 			
@@ -161,7 +164,6 @@ public class DominionAlleywayAttacker extends NPC {
 
 			initHealthAndManaToMax();
 			
-			this.setLocation(Main.game.getPlayer(), true);
 			if(this.isStormAttacker() && !this.isVulnerableToArcaneStorm()) { // NPCs spawned during a storm should be vulnerable to it.
 				this.addSpecialPerk(Perk.SPECIAL_ARCANE_ALLERGY);
 			}

@@ -7,8 +7,8 @@
 		#ELSEIF(targetedBody.getEarType()==EAR_TYPE_NoStepOnSnek_snake_ear)
 			[#targetedBody.setEarType(EAR_TYPE_NoStepOnSnek_snake_ear_l)]
 		#ENDIF
-		#IF(targetedBody.getVaginaType()==VAGINA_TYPE_NoStepOnSnek_snake_vagina_e && RND.nextInt(100)<30)
-			[#targetedBody.setVaginaType(VAGINA_TYPE_NoStepOnSnek_snake_vagina)]
+		#IF(targetedBody.getVagina().getType()==VAGINA_TYPE_NoStepOnSnek_snake_vagina && RND.nextInt(100)<30)
+			[#targetedBody.getVagina().setEggLayer(null, false)]
 		#ENDIF
 	]]></applyRaceChanges>
 	<name><![CDATA[snake-morph]]></name>

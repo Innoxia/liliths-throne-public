@@ -662,7 +662,7 @@ public class ClitVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Tail-fucking";
+			return "Clit-fucking";
 		}
 		@Override
 		public String getActionDescription() {
@@ -1064,7 +1064,7 @@ public class ClitVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Tail-fucked";
+			return "Clit-fucked";
 		}
 		@Override
 		public String getActionDescription() {
@@ -1136,7 +1136,7 @@ public class ClitVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Tail-fucked";
+			return "Clit-fucked";
 		}
 		@Override
 		public String getActionDescription() {

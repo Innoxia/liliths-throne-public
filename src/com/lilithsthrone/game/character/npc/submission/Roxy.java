@@ -250,7 +250,7 @@ public class Roxy extends NPC {
 		this.setVaginaCapacity(Capacity.FOUR_LOOSE, true);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY);
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
 		this.addGirlcumModifier(FluidModifier.ADDICTIVE);
 		
 		// Feet:

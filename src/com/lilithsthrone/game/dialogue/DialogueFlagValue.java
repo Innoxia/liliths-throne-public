@@ -48,6 +48,7 @@ public enum DialogueFlagValue {
 	ashleyIntroduced,
 	ralphIntroduced,
 	nyanIntroduced,
+	nyanmumIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
 	vanessaIntroduced,
@@ -65,6 +66,8 @@ public enum DialogueFlagValue {
 
 	
 	// City hall:
+	cityHallLodgerBoardSeen,
+	
 	vanessaHelped,
 	vanessaDailyHelped,
 	vanessaDailyMassage,
@@ -89,18 +92,25 @@ public enum DialogueFlagValue {
 	nyanFirstKissed,
 	nyanRestaurantDateRequested,
 	nyanRestaurantDateCompleted,
+	nyanmumInterviewPassed,
+	nyanmumDateCompleted,
+	nyanWeekendDated, // Reset every Monday in Nyan's dailyUpdate() method
+	nyanmumGirlfriend,
+	nyanApologised, // Apologise for her mum's behaviour
+	nyanCreampied,
+	nyanmumCreampied,
+	nyanAnalTalk,
+	nyanmumAnalTalk,
 	
 	nyanTalkedTo(true),
 	nyanComplimented(true),
 	nyanFlirtedWith(true),
 	nyanHeadPatted(true),
 	nyanKissed(true),
-	
+	nyanTummyRubbed(true),
 	nyanWalked(true),
-	
 	nyanMakeOut(true),
 	nyanSex(true),
-	
 	nyanGift(true),
 	
 	// Lilaya's Home:
@@ -150,6 +160,8 @@ public enum DialogueFlagValue {
 	
 	// Slaver Alley:
 	finchIntroduced,
+	finchFreedomTalk,
+	
 	seanIntroduced,
 	seanSeenBrax,
 	statueTruthRevealed,

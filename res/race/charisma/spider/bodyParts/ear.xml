@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ear>
+	<race>charisma_spider</race>
+	<transformationName><![CDATA[spider]]></transformationName>
+	<coveringType>charisma_spider_chitinSmooth</coveringType>
+	<tags/>
+	<name><![CDATA[ear]]></name>
+	<namePlural><![CDATA[ears]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor>spider-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>spider-like</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		They quickly recede into small holes while a chitin plating grows over to protect them.
+		<br/>[npc.Name] now [npc.has] [style.boldSpider(internal, spider-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] a pair of internal ears, which are positioned on the sides of [npc.her] head and are concealed by#IF(npc.isPiercedEar()) pierced#ENDIF [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].
+	]]></bodyDescription>
+</ear>

@@ -338,7 +338,7 @@ public class WorldType {
 	
 	public static AbstractWorldType BOUNTY_HUNTER_LODGE = new AbstractWorldType(WorldRegion.DOMINION,
 			"The Rusty Collar",
-			PresetColour.BASE_RED_DARK,
+			PresetColour.BASE_COPPER,
 			1,
 			false,
 			false,
@@ -356,7 +356,7 @@ public class WorldType {
 	
 	public static AbstractWorldType BOUNTY_HUNTER_LODGE_UPSTAIRS = new AbstractWorldType(WorldRegion.DOMINION,
 			"The Rusty Collar (Upstairs)",
-			PresetColour.BASE_RED_DARK,
+			PresetColour.BASE_COPPER,
 			1,
 			false,
 			false,
