@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<face>
+	<race>charisma_spider</race>
+	<transformationName><![CDATA[furred spider]]></transformationName>
+	<coveringType>charisma_spider_chitinFluffy</coveringType>
+	<mouthType>charisma_spider_mouth</mouthType>
+	<tags>
+		<tag>FACE_FANGS</tag>
+		<tag>FACE_VENOMOUS_TEETH_LUST</tag>
+	</tags>
+	<names/>
+	<namesPlural/> 
+	<descriptorsMasculine>
+		<descriptor>spider-like</descriptor>
+		<descriptor>chelicerae-equipped</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>spider-like</descriptor>
+		<descriptor>chelicerae-equipped</descriptor>
+	</descriptorsFeminine>
+	<noseName><![CDATA[nose]]></noseName>
+	<noseNamePlural><![CDATA[noses]]></noseNamePlural>
+	<noseDescriptorsMasculine/>
+	<noseDescriptorsFeminine/>
+	<transformationDescription><![CDATA[
+		[npc.Her] face burns as large chitinous chelicerae emerge from the sides of [npc.her] face and surround [npc.her] [npc.mouth]. [npc.She] also [npc.verb(feel)] a burning in [npc.her] cheeks as venom glands start to form that feed into them. As the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldSpider(spider-like face)], [npc.materialDescriptor] [npc.skinFullDescription], complete with large fang-like chelicerae, which are [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)]. Within [npc.her] [npc.mouth], [npc.she] [npc.has] a humanoid tongue.
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], spider-like face [npc.materialCompositionDescriptor] [npc.skinFullDescription(true)] and complete with large fang-like chelicerae, which are [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)].
+	]]></bodyDescription>
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with large fang-like chelicerae.
+	]]></bodyDescriptionFeral>
+</face>

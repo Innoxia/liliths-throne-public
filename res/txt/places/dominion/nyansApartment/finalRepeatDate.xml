@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- SOLO_DATE_START -->
+	
+	<htmlContent tag="SOLO_DATE_START"><![CDATA[
+	<p>
+		Once again, you find yourself [pc.walking] past the immaculately-clean, regency-styled residences which line the street upon which Nyan's apartment building is located. [pc.Walking] up the steps to the front door, you make use of the arcane intercom to buzz your girlfriend. After a momentary pause, you hear Nyan's voice call out over the intercom, [nyan.speechNoEffects(Hello? This is Ms. [nyan.surname], who is it?)]
+	</p>
+	<p>
+		After quickly telling her that it's you, and that you're here to pick her up for a date, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! Come on up!)]
+	</p>
+	<p>
+		Hearing a loud clicking noise from behind the front door, you experimentally push on it and discover that it's been unlocked. Doing as your girlfriend says, you enter the smartly-kept foyer and head up to her apartment. Greeting her with a loving hug and a kiss, you enter Nyan's apartment and wait in the lounge for her to get ready for your date. After just ten minutes, you hear the cat-girl returning down the hallway, and you reach the door of the lounge at the same moment in which she does.
+	</p>
+	<p>
+		[nyan.speech(I'm ready now!)] the cat-girl happily exclaims, before doing a little twirl and showing off her outfit. Instead of her usual skirt and blouse, you see that she's wearing [nyan.a_slotClothing(TORSO_UNDER, true)], with a colour-coordinated bow on her headband. Just like the last time you went out on a date with her, your girlfriend is wearing a noticeable amount of makeup, and you can't help but instantly think how her red lipstick, black eye-liner, and light blue eye-shadow makes her look more attractive and alluring than ever before.
+	</p>
+	<p>
+		After giving her a quick kiss, and making her blush in the process, you accompany Nyan to the front door, where she pulls on
+		#IF(game.getSeason()==SEASON_SUMMER)
+			 both her stylish, tan-coloured coat and pair of dark brown chelsea boots.
+		#ELSE
+			 her stylish, tan-coloured coat, black scarf, and pair of dark brown thigh-high boots.
+		#ENDIF
+		 After she's picked up her cute frog-umbrella, you lead Nyan out of her apartment and down the stairs, before accompanying her over towards the building's exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SOLO_DATE_RESTAURANT_1_ARRIVED -->
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_1_ARRIVED"><![CDATA[
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			As you approach the exit, a bright pink light suddenly flashes through the windows, causing Nyan to let out a little eek and whine, [nyan.speechNoEffects(Oh no... There's an arcane storm! Perhaps if we wait for the thunder to pass, then run for the Arcade, we could make it?)]
+		</p>
+		<p>
+			Asking Nyan if she's sure that she wants to risk it, and receiving a rapid nod of her head in response, you wait for the next clap of thunder to pass before opening the door and hurrying down the steps with your girlfriend at your side. Clutching her little umbrella in her delicate hands, the cat-girl surprisingly proves to be an extremely capable runner. Her unexpected sprint proves to be very fortuitous, for the two of you manage to reach the doors of the Shopping Arcade without being subjected to a clap of arousing thunder.
+		</p>
+		<p>
+			Rushing through the entrance and shutting the doors after you, Nyan heavily pants, [nyan.speechNoEffects(Phew... We made it... I can't... believe that worked...)]
+		</p>
+		<p>
+			After giving your girlfriend some time in which to catch her breath, you accompany her down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing Nyan to step inside, you follow her through and are immediately met by a smartly-dressed otter-boy, who is quite clearly the establishment's maître d'. Looking over at Nyan, he gives her a big, familiar smile, before slightly bowing his head and offering his enthusiastic greetings, [style.speechMasculine(Good evening, good evening! If you and your partner for this evening would care to follow me, I will show you to your seats. After all, we always have a table for you!)]
+		</p>
+	#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN || game.getCurrentWeather()==WEATHER_SNOW)
+		<p>
+			As you approach the exit, you see through the windows that it's currently
+			#IF(game.getCurrentWeather()==WEATHER_RAIN)
+				 raining outside.
+			#ELSE
+				 snowing outside.
+			#ENDIF
+			 With her cute frog-umbrella coming to the rescue, Nyan steps outside and pops it open, before shyly stuttering, [nyan.speechNoEffects(This is big enough for both of us... So we can walk close together and share it...)]
+		</p>
+		<p>
+			Thanking your girlfriend for her kindness, you do as she suggests and share the umbrella with her. Clearly being very happy at getting to share this moment with you, Nyan blushes and leans into you as you travel down the street. Unfortunately for her, however, this time together under her umbrella doesn't last long, as it only takes you five minutes to arrive at the doors of the Shopping Arcade.
+		</p>
+	#ELSE
+		<p>
+			As you approach the exit, you see through the windows that the weather outside isn't going to prove to be an issue. After holding open the door for your girlfriend, you accompany her down the steps and then proceed on your way down the street. Clearly being very excited about going out on a date with you, Nyan walks right by your side for the whole five minutes that it takes to get to the Shopping Arcade.
+		</p>
+	#ENDIF
+	#IF(game.getCurrentWeather()!=WEATHER_MAGIC_STORM)
+		<p>
+			Heading inside, you accompany your girlfriend down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing Nyan to step inside, you follow her through and are immediately met by a smartly-dressed otter-boy, who is quite clearly the establishment's maître d'. Looking over at Nyan, he gives her a big, familiar smile, before slightly bowing his head and offering his enthusiastic greetings, [style.speechMasculine(Good evening, good evening! If you and your partner for this evening would care to follow me, I will show you to your seats. After all, we always have a table for you!)]
+		</p>
+	#ENDIF
+	<p>
+		As you follow the waiter to the far side of the restaurant, you see that all of the tables are occupied either by couples or small groups of friends, despite the place always looking empty from the outside. Realising that this aspect of the restaurant's illusion must have been designed to grant diners some privacy, you continue on to the other side of what appears in all respects to be a tranquil forest clearing, where you and Nyan are presented with a quiet corner table for two.
+	</p>
+	<p>
+		Taking your girlfriend's coat and umbrella, the waiter seats you both at the table and gives you each a menu, before handing you the wine list and telling you to please take your time in ordering. Looking across the table and giving you her most alluring look, Nyan bites her lip and asks, [nyan.speechNoEffects(Could we order some white wine, please? I don't mind what bottle, so could you please choose for me?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_2_VULPINE"><![CDATA[
+	<p>
+		Looking down the list, you see that the vintages on offer are of a far higher quality than in an average restaurant, and their steep prices reflect this. As even the cheapest bottle, at [#SPECIAL_PARSE_1] flames, is better than anything which you'd be able to order elsewhere, you decide to go with that one, and tell the waiter that you'd like to order a bottle of [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		From the smile on her face, you can tell that Nyan is pleased with your choice of wine, and as she hands her wine list back to the waiter, she happily sighs, [nyan.speechNoEffects(Thanks, [pc.name], I've had that wine before, and I really like it...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_2_ALICORN"><![CDATA[
+	<p>
+		Looking down the list, you see that the vintages on offer are of a far higher quality than in an average restaurant, and their steep prices reflect this. Although not prepared to splash out on the most expensive of the bottles on offer, you do decide to go for something a couple of notches above the cheapest, and so at [#SPECIAL_PARSE_1] flames, you tell the waiter that you'd like to order the bottle of [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		From the big smile on her face, you can tell that Nyan is very pleased with your choice of wine, and as she hands her wine list back to the waiter, she happily exclaims, [nyan.speechNoEffects(Thank you, [pc.name]! I've had that wine once before, and I really loved it...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_2_YOUKO"><![CDATA[
+	<p>
+		Looking down the list, you see that the vintages on offer are of a far higher quality than in an average restaurant, and their steep prices reflect this. Deciding that Nyan deserves the very best, you decide to order the most expensive item on the list, and so at [#SPECIAL_PARSE_1] flames, you tell the waiter that you'd like to order the bottle of [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		From the ecstatic smile on her face, you can tell that Nyan is delighted with your choice of wine, and as she hands her wine list back to the waiter, she happily squeals, [nyan.speechNoEffects(Thank you so much, [pc.name]! I've never had that wine before, but I've heard that it's the very best...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SOLO_DATE_RESTAURANT_2_WINE_ORDER -->
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_2_WINE_ORDER"><![CDATA[
+	<p>
+		Having taken your order, the waiter asks if you'll be sharing the bottle, or if you'll be having something else to drink tonight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_3_SHARE"><![CDATA[
+	<p>
+		After you've confirmed that you'll be sharing the bottle with Nyan, the waiter leaves your two wine glasses on the table, before swiftly departing and then returning with your chosen vintage. You motion for Nyan to be the one to taste it, and after she's done so and given her enthusiastic approval, the waiter pours you each out a glass. Placing the bottle in an arcane-powered cooler, he leaves it on the table, before saying that he'll return shortly to take your food orders and then swiftly departing once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_3_WATER"><![CDATA[
+	<p>
+		Not wanting to have any alcohol tonight, you tell the waiter that you'd like to order a bottle of water. Nodding his head, he swiftly departs and then returns with your chosen beverages. After giving you a glass and placing your bottled water down on the table, the waiter has Nyan taste the wine you've ordered. Receiving her enthusiastic approval, he then pours her out a glass, before placing the bottle in an arcane-powered cooler and leaving it on the table. Saying that he'll return shortly to take your food orders, he swiftly departs once again, leaving the two of you alone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_3_BEER"><![CDATA[
+	<p>
+		Wanting to drink something other than wine, you tell the waiter that you'd like to order a bottle of beer. Nodding his head, he swiftly departs and then returns with your chosen beverages. After expertly pouring out your beer and placing the glass down before you, the waiter has Nyan taste the wine you've ordered. Receiving her enthusiastic approval, he then pours her out a glass, before placing the bottle in an arcane-powered cooler and leaving it on the table. Saying that he'll return shortly to take your food orders, he swiftly departs once again, leaving the two of you alone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SOLO_DATE_RESTAURANT_3_MAIN_DATE -->
+	
+	<htmlContent tag="SOLO_DATE_RESTAURANT_3_MAIN_DATE"><![CDATA[
+	<p>
+		Finally having some time in which to talk with one another, you and Nyan start discussing the food that's on the menu. Just like the last time, she decides to order tsipoura, and talks you into ordering starters. Giving the waiter your order, you request a candle to be lit on your table, which Nyan is very excited about.
+	</p>
+	<p>
+		[nyan.speechNoEffects(That's perfect... I love coming here with you, [pc.name]...)] Nyan happily sighs, before engaging you in conversation about how her week has been. After a short while your starters arrive, and the two of you exchange opinions of the quality of the food while working your way through them.
+	</p>
+	<p>
+		The rest of the evening proceeds in the typical fashion, with you and your girlfriend talking about all manner of topics. Enjoying your main meals, you order a dessert to share, and by the time you're ready to leave, Nyan is lovingly gazing into your eyes and smiling at you in a deeply affectionate manner. Flirting with her a little, you draw out several eager responses and happy little giggles, and you can clearly tell that Nyan is going to want to do more than just kiss tonight.
+	</p>
+	<p>
+		With both of you ready to leave, you call over the waiter and ask for the bill. Swiftly doing as you ask, he presents you with tonight's cost, and you see that you're being charged an eye-watering [#SPECIAL_PARSE_0] flames...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SOLO_DATE_END_RETURN -->
+	
+	<htmlContent tag="SOLO_DATE_END_RETURN"><![CDATA[
+	<p>
+		After you've quickly settled the bill, the waiter retrieves Nyan's coat and umbrella, before seeing the two of you to the door and thanking you for your business. As you [pc.step] out into the Shopping Arcade, Nyan performs an uncharacteristic move, and boldly initiates physical contact by taking hold of your [pc.wing] and leaning into your body. Letting out a happy little giggle, she exclaims, [nyan.speechNoEffects(That was so fun, [pc.name]! Thank you so much!)]
+	</p>
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			Returning your girlfriend's sentiments, you accompany her to the exit of the Shopping Arcade, where you see through the glass doors that there's an ongoing arcane storm. Letting out a little eek, Nyan huddles up to you and whines, [nyan.speechNoEffects(Oh no... Perhaps if we hurry, it won't affect me too much...)]
+		</p>
+		<p>
+			Doing as the cat-girl suggests, the two of you wait for the next clap of thunder to pass before hurrying outside and down the street towards her apartment. By a stroke of particularly good fortune, you manage to avoid both strikes of thunder and horny citizens during your dash towards Nyan's home. As you reach the steps of her apartment building, however, the storm above makes up for its unusual silence by unleashing one of the most powerful claps of arcane thunder you've ever heard.
+		</p>
+		<p>
+			Despite pulling her through the entrance and slamming the door shut behind you, you're not able to save Nyan from the arousing effects of the storm, and before you know what's happening, the cat-girl is frantically pressing her [nyan.lips+] against your mouth and lustfully grinding herself against your body. Protected from any further claps of thunder, Nyan soon starts to come back to her senses, and with a little eek, she breaks off the kiss and exclaims, [nyan.speechNoEffects(I'm sorry, [pc.name]! I-I couldn't stop myself!)]
+		</p>
+		<p>
+			Telling her that there's nothing to be sorry about, you reassuringly stroke Nyan's arm, which has the desired effect of calming her down. Making your way up the flights of stairs to the third floor, the two of you soon arrive at the door to your girlfriend's apartment, where she turns to face you and nervously shuffles her feet, before looking at you with her big, blue eyes and asking, [nyan.speechNoEffects(You're going to come in, aren't you?)]
+		</p>
+	#ELSE
+		#IF(game.getCurrentWeather()==WEATHER_RAIN || game.getCurrentWeather()==WEATHER_SNOW)
+			<p>
+				Returning your girlfriend's sentiments, you accompany her to the exit of the Shopping Arcade, where you see through the glass doors that it's currently
+				#IF(game.getCurrentWeather()==WEATHER_RAIN)
+					 raining outside.
+				#ELSE
+					 snowing outside.
+				#ENDIF
+				 Letting out an embarrassed little whine, Nyan pops open her cute frog-umbrella and offers, [nyan.speechNoEffects(This is big enough for both of us... So we can walk close together and share it...)]
+			</p>
+			<p>
+				Thanking your girlfriend for her kindness, you do as she suggests and share the umbrella with her. Talking with your blushing girlfriend about this evening's meal, you head down the street in the direction of her apartment.
+			</p>
+		#ELSE
+			<p>
+				Returning your girlfriend's sentiments, you accompany her to the exit of the Shopping Arcade, where you see that the lack of precipitation renders Nyan's umbrella unnecessary. Talking with your girlfriend about this evening's meal, you head down the street in the direction of her apartment.
+			</p>
+		#ENDIF
+		<p>
+			After five minutes, you arrive at the entrance to Nyan's apartment building, and after [pc.walking] up the steps, you push open the front door and accompany your girlfriend into the lobby. Making your way up the flights of stairs to the third floor, the two of you soon arrive at the door to Nyan's apartment, where she turns to face you and nervously shuffles her feet, before looking at you with her big, blue eyes and asking, [nyan.speechNoEffects(You're going to come in, aren't you?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SOLO_DATE_END_RETURN_INSIDE -->
+	
+	<htmlContent tag="SOLO_DATE_END_RETURN_INSIDE"><![CDATA[
+	<p>
+		Happily responding to Nyan's question in the positive, you accompany her into her apartment. As soon as she's taken off her coat and shoes, your girlfriend reveals how horny she is by launching herself at you and desperately pressing her [nyan.lips+] against your mouth. Taking hold of her hips, you passionately return Nyan's kiss, and quickly find yourself being half-led, half-dragged towards her bedroom.
+	</p>
+	<p>
+		Within moments, you're standing beside your girlfriend's bed, and after finally breaking off from her kiss, she impatiently strips out of her dress, leaving her standing in just her light-pink lingerie. Following your girlfriend's lead, and with some help from her, you strip naked, which causes Nyan to desperately whine, [nyan.speech(~Mmm!~ Yes! Come on, [pc.name], let's do this!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Double dating: -->
+
+	
+	<!-- DOUBLE_DATE_START -->
+	
+	<htmlContent tag="DOUBLE_DATE_START"><![CDATA[
+	<p>
+		Once again, you find yourself [pc.walking] past the immaculately-clean, regency-styled residences which line the street upon which Nyan's apartment building is located. [pc.Walking] up the steps to the front door, you make use of the arcane intercom to buzz your girlfriend. After a momentary pause, you hear Nyan's voice call out over the intercom, [nyan.speechNoEffects(Hello? This is Ms. [nyan.surname], who is it?)]
+	</p>
+	<p>
+		After quickly telling her that it's you, and that you're here to pick her and her mother up for a date, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! Come on up!)]
+	</p>
+	<p>
+		Hearing a loud clicking noise from behind the front door, you experimentally push on it and discover that it's been unlocked. Doing as your girlfriend says, you enter the smartly-kept foyer and head up to her apartment, where you're met by both Nyan and [nyanmum.name]. Greeting each of them with a loving hug and a kiss, you enter Nyan's apartment and wait in the lounge for the two cat-girls to get ready for your date. After just ten minutes, you hear the two of them returning down the hallway, and you reach the door of the lounge at the same moment in which they do.
+	</p>
+	<p>
+		[nyan.speech(We're ready now!)] Nyan happily exclaims, before doing a little twirl and showing off her outfit. Instead of her usual skirt and blouse, you see that she's wearing [nyan.a_slotClothing(TORSO_UNDER, true)], with a colour-coordinated bow on her headband. Just like the last time you went out on a date with her, your girlfriend is wearing a noticeable amount of makeup, and you can't help but instantly think how her red lipstick, black eye-liner, and light blue eye-shadow makes her look more attractive and alluring than ever before.
+	</p>
+	<p>
+		Looking over at [nyanmum.name], you see that she's wearing her stylish, [nyanmum.slotClothing(TORSO_UNDER, true)], with [nyanmum.a_slotClothing(TORSO_OVER, true)] over the top. Flashing you a seductive smile, she teases, [nyanmum.speech(I'm looking forward to having the same sort of dessert which Nyan and I had the last time...)]
+	</p>
+	<p>
+		[nyan.speech(Mum!)] Nyan exclaims, blushing. Biting her lip, she quietly adds, [nyan.speech(That can wait for later...)]
+	</p>
+	<p>
+		After giving each of your two girlfriends a quick kiss and telling them how beautiful they look, you accompany them to the front door, where Nyan pulls on
+		#IF(game.getSeason()==SEASON_SUMMER)
+			 both her stylish, tan-coloured coat and pair of dark brown chelsea boots.
+		#ELSE
+			 her stylish, tan-coloured coat, black scarf, and pair of dark brown thigh-high boots.
+		#ENDIF
+		 After she's picked up her cute frog-umbrella, Nyan leads the way out of her apartment and down the stairs, where the three of you then head over towards the building's exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DOUBLE_DATE_RESTAURANT_1_ARRIVED -->
+	
+	<htmlContent tag="DOUBLE_DATE_RESTAURANT_1_ARRIVED"><![CDATA[
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			As you approach the exit, a bright pink light suddenly flashes through the windows, causing Nyan to let out a little eek and whine, [nyan.speechNoEffects(Oh no... There's an arcane storm! Perhaps if we wait for the thunder to pass, then run for the Arcade, we could make it?)]
+		</p>
+		<p>
+			[nyanmum.speech(That sounds like fun,)] [nyanmum.name] replies with a big grin on her face. Glancing over at you, she teases, [nyanmum.speech(If we're hit by the thunder, we can always just skip the date and get right to the fun part...)]
+		</p>
+		<p>
+			Asking Nyan if she's sure that she wants to risk it, and receiving a rapid nod of her head in response, you wait for the next clap of thunder to pass before opening the door and hurrying down the steps with the two cat-girls at your side. Clutching her little umbrella in her delicate hands, Nyan proves to be an extremely capable runner, but her performance is overshadowed by her mother, who slips off her [nyanmum.slotClothing(FOOT, false)] and sprints on ahead of the two of you.
+		</p>
+		<p>
+			Thanks to the cat-girls' speed, you manage to reach the doors of the Shopping Arcade without being subjected to a clap of arousing thunder. Rushing through the entrance and shutting the doors after you, Nyan heavily pants, [nyan.speechNoEffects(Phew... We made it... I can't... believe that worked...)]
+		</p>
+		<p>
+			[nyanmum.speech(What fun!)] [nyanmum.name] declares. The physical exertion seems to have got her pumped up, and with a wild look in her eyes, she smiles at you and pants, [nyanmum.speech(I can't wait to burn off some of this energy with you tonight...)]
+		</p>
+		<p>
+			After giving Nyan some time in which to catch her breath, you accompany her and her mother down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
+		</p>
+	#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN || game.getCurrentWeather()==WEATHER_SNOW)
+		<p>
+			As you approach the exit, you see through the windows that it's currently
+			#IF(game.getCurrentWeather()==WEATHER_RAIN)
+				 raining outside.
+			#ELSE
+				 snowing outside.
+			#ENDIF
+			 With her cute frog-umbrella coming to the rescue, Nyan steps outside and pops it open, before shyly stuttering, [nyan.speechNoEffects(This is big enough for all three of us... If we all huddle up and walk close together, that is...)]
+		</p>
+		<p>
+			Thanking Nyan for her kindness, you do as she suggests and share the umbrella with her and her mother. Clearly being very happy at getting to share this moment with you, both Nyan and [nyanmum.name] lean into you as you travel down the street. Unfortunately for all three of you, however, this time together under the umbrella doesn't last long, as it only takes you five minutes to arrive at the doors of the Shopping Arcade.
+		</p>
+	#ELSE
+		<p>
+			As you approach the exit, you see through the windows that the weather outside isn't going to prove to be an issue. After holding open the door for your girlfriends, you accompany them down the steps and then proceed on your way down the street. Clearly being very excited about going out on a date with you, Nyan and [nyanmum.name] walk right by your side for the whole five minutes that it takes to get to the Shopping Arcade.
+		</p>
+	#ENDIF
+	#IF(game.getCurrentWeather()!=WEATHER_MAGIC_STORM)
+		<p>
+			Heading inside, you accompany Nyan and [nyanmum.name] down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
+		</p>
+	#ENDIF
+	<p>
+		As you follow the waiter to the far side of the restaurant, you see that all of the tables are occupied either by couples or small groups of friends, despite the place always looking empty from the outside. Realising that this aspect of the restaurant's illusion must have been designed to grant diners some privacy, you continue on to the other side of what appears in all respects to be a tranquil forest clearing, where you, Nyan, and [nyanmum.name] are presented with a quiet corner table for three.
+	</p>
+	<p>
+		After taking Nyan's coat and umbrella, the waiter seats you at the table and gives all three of you a menu, before handing you the wine list and telling you to please take your time in ordering. Before you're able to even take a look at what's on offer, [nyanmum.name] declares, [nyanmum.speech(We'll be having a bottle of white wine. I think that 'Youko's Reserve' will do, if you're still stocking that vintage.)]
+	</p>
+	<p>
+		[style.speechMasculine(Of course,)] the otter-boy replies, before asking, [style.speechMasculine(Will you all be sharing the bottle, or are there any other drink orders?)]
+	</p>
+	<p>
+		[nyan.speech(I'll share the bottle, yes,)] Nyan squeaks, before looking over at you and waiting to hear if you'll be sharing the wine with her and [nyanmum.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_DATE_RESTAURANT_2_SHARE"><![CDATA[
+	<p>
+		After you've confirmed that you'll be sharing the bottle with Nyan and [nyanmum.name], the waiter leaves your wine glasses on the table, before swiftly departing and then returning with the chosen vintage. [nyanmum.Name] declares that she'll be the one to taste it, and after she's done so and given her enthusiastic approval, the waiter pours you each out a glass. Placing the bottle in an arcane-powered cooler, he leaves it on the table, before saying that he'll return shortly to take your food orders and then swiftly departing once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_DATE_RESTAURANT_2_WATER"><![CDATA[
+	<p>
+		Not wanting to have any alcohol tonight, you tell the waiter that you'd like to order a bottle of water. Nodding his head, he swiftly departs and then returns with your chosen beverages. After giving you a glass and placing your bottled water down on the table, the otter-boy waits for [nyanmum.name] to taste the wine she's ordered. Receiving her enthusiastic approval, he then pours out a glass for her and Nyan, before placing the bottle in an arcane-powered cooler and leaving it on the table. Saying that he'll return shortly to take your food orders, he swiftly departs once again, leaving the three of you alone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_DATE_RESTAURANT_2_BEER"><![CDATA[
+	<p>
+		Wanting to drink something other than wine, you tell the waiter that you'd like to order a bottle of beer. Nodding his head, he swiftly departs and then returns with your chosen beverages. After expertly pouring out your beer and placing the glass down before you, the otter-boy waits for [nyanmum.name] to taste the wine she's ordered. Receiving her enthusiastic approval, he then pours out a glass for her and Nyan, before placing the bottle in an arcane-powered cooler and leaving it on the table. Saying that he'll return shortly to take your food orders, he swiftly departs once again, leaving the three of you alone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DOUBLE_DATE_RESTAURANT_2_MAIN_DATE -->
+	
+	<htmlContent tag="DOUBLE_DATE_RESTAURANT_2_MAIN_DATE"><![CDATA[
+	<p>
+		Finally having some time in which to talk with one another, the three of you start discussing the food that's on the menu. Just like the last time, Nyan decides to order tsipoura, while [nyanmum.name] orders steak and talks you into ordering starters. Giving the waiter your order, you request a candle to be lit on your table, which Nyan is very excited about.
+	</p>
+	<p>
+		[nyan.speechNoEffects(That's perfect... I love coming here with you, [pc.name]...)] Nyan happily sighs, before engaging you and [nyanmum.name] in conversation about how her week has been. After a short while your starters arrive, and the three of you exchange opinions of the quality of the food while working your way through them.
+	</p>
+	<p>
+		The rest of the evening proceeds in the typical fashion, with you and your girlfriends talking about all manner of topics. By the time you've finished your main meals, Nyan is lovingly gazing into your eyes and smiling at you in a deeply affectionate manner. Flirting with her and her mother a little, you draw out several eager responses and happy little giggles, and you can clearly tell that both Nyan and [nyanmum.name] are going to want to do more than just kiss tonight. This is made very clear when you ask the two of them if they'd like dessert, to which [nyanmum.name] replies, [nyanmum.speech(We've already got our dessert planned... Let's head back so Nyan and I can enjoy [pc.herHim]...)]
+	</p>
+	<p>
+		With the horny cat-girls clearly ready to leave, you call over the waiter and ask for the bill. Swiftly doing as you ask, he presents you with tonight's cost, and you see that you're being charged an eye-watering [#SPECIAL_PARSE_0] flames...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DOUBLE_DATE_END_RETURN -->
+	
+	<htmlContent tag="DOUBLE_DATE_END_RETURN"><![CDATA[
+	<p>
+		After you've quickly settled the bill, the waiter retrieves Nyan's coat and umbrella, before seeing the three of you to the door and thanking you for your business. As you [pc.step] out into the Shopping Arcade, both Nyan and [nyanmum.name] immediately make a move on you, with each of them leaning in to opposite sides of your body and taking hold of your [pc.arms]. Letting out an excited little moan, [nyanmum.name] teases, [nyanmum.speech(Come on then, [pc.name]; the sooner we get home, the sooner Nyan and I can be spreading our legs for you...)]
+	</p>
+	<p>
+		[nyan.speech(Mum!)] Nyan exclaims, [nyan.speech(You don't have to be so graphic all the time...)]
+	</p>
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			With your two girlfriends clinging on to you, you head to the exit of the Shopping Arcade, where you see through the glass doors that there's an ongoing arcane storm. Letting out a little eek, Nyan huddles up to you and whines, [nyan.speechNoEffects(Oh no... Perhaps if we run, it won't affect me too much...)]
+		</p>
+		<p>
+			[nyanmum.speech(While I do need a good fuck, I'd rather not do it in the middle of the street,)] [nyanmum.name] crudely adds.
+		</p>
+		<p>
+			Deciding to do as Nyan suggested, the three of you wait for the next clap of thunder to pass before running outside and down the street towards her apartment. By a stroke of particularly good fortune, you manage to avoid both strikes of thunder and horny citizens during your dash towards Nyan's home. As you reach the steps of her apartment building, however, the storm above makes up for its unusual silence by unleashing one of the most powerful claps of arcane thunder you've ever heard.
+		</p>
+		<p>
+			Despite pulling them through the entrance and slamming the door shut behind you, you're not able to save Nyan and her mother from the arousing effects of the storm, and before you know what's happening, the cat-girls are lustfully grinding themselves against you and planting a series of passionate kisses all over your face. Protected from any further claps of thunder, they soon start to come back to her senses, and with a little eek, Nyan pulls back exclaims, [nyan.speechNoEffects(I'm sorry, [pc.name]! I-I couldn't stop myself!)]
+		</p>
+		<p>
+			Not being as embarrassed as her daughter, [nyanmum.name] plants one last kiss on your [pc.lips], before also pulling back and teasing, [nyanmum.speech(That's just a taste of what you're going to be getting this evening...)]
+		</p>
+		<p>
+			Telling Nyan that there's nothing to be sorry about, you reassuringly stroke her arm, which has the desired effect of calming her down. Making your way up the flights of stairs to the third floor, the three of you soon arrive at the door to your girlfriends' apartment. Taking hold of your [pc.hand], [nyanmum.name] wastes no time in pulling you inside, and as Nyan closes the door after you, her mother tells you, [nyanmum.speech(Go and wait in the lounge, [pc.name]. Nyan and I need to slip into something a little more comfortable for you...)]
+		</p>
+	#ELSE
+		#IF(game.getCurrentWeather()==WEATHER_RAIN || game.getCurrentWeather()==WEATHER_SNOW)
+			<p>
+				With your two girlfriends clinging on to you, you head to the exit of the Shopping Arcade, where you see through the glass doors that it's currently
+				#IF(game.getCurrentWeather()==WEATHER_RAIN)
+					 raining outside.
+				#ELSE
+					 snowing outside.
+				#ENDIF
+				 Letting out an embarrassed little whine, Nyan pops open her cute frog-umbrella and offers, [nyan.speechNoEffects(This is big enough for all of us... So long as we huddle together...)]
+			</p>
+			<p>
+				Thanking your girlfriend for her kindness, you and [nyanmum.name] do as she suggests and share the umbrella with her. Talking with your girlfriends about this evening's meal, you head down the street in the direction of their apartment.
+			</p>
+		#ELSE
+			<p>
+				With your two girlfriends clinging on to you, you head to the exit of the Shopping Arcade, where you see that the lack of precipitation renders Nyan's umbrella unnecessary. Talking with your girlfriends about this evening's meal, you head down the street in the direction of their apartment.
+			</p>
+		#ENDIF
+		<p>
+			After five minutes, you arrive at the entrance to Nyan's apartment building, and after [pc.walking] up the steps, you push open the front door and accompany your girlfriends into the lobby. Making your way up the flights of stairs to the third floor, the three of you soon arrive at the door to Nyan's apartment. Taking hold of your [pc.hand], [nyanmum.name] wastes no time in pulling you inside, and as Nyan closes the door after you, her mother tells you, [nyanmum.speech(Go and wait in the lounge, [pc.name]. Nyan and I need to slip into something a little more comfortable for you...)]
+		</p>
+	#ENDIF
+	<p>
+		Taking hold of her daughter's hand, [nyanmum.name] starts leading Nyan towards her bedroom, but before she's out of sight, she turns and asks, [nyanmum.speech(Would you like me to try and make things a little kinky for you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_DATE_END_RETURN_LOUNGE"><![CDATA[
+	<p>
+		Thinking that Nyan might not be comfortable with whatever 'kinky' idea her mother has in mind, you respond by telling her to keep it simple. Pulling her daughter into her bedroom, she calls out before shutting the door, [nyanmum.speech(Suit yourself! Wait for me to call you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOUBLE_DATE_END_RETURN_LOUNGE_KINKY"><![CDATA[
+	<p>
+		Wanting to find out what sort of 'kinky' idea [nyanmum.name] has in mind, you eagerly respond in the positive. Pulling Nyan into her bedroom, she calls out before shutting the door, [nyanmum.speech(Good choice! Wait for me to call you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_DOUBLE_DATE_APARTMENT_LOUNGE -->
+	
+	<htmlContent tag="POST_DOUBLE_DATE_APARTMENT_LOUNGE"><![CDATA[
+	<p>
+		Doing as [nyanmum.name] says, you head into the lounge and wait for the two cat-girls to get ready. Finally having some time in which to stop and think about the events of this evening, you can scarcely believe how well things have turned out for you.
+	</p>
+	<p>
+		You're soon drawn out of your thoughts, however, for you suddenly hear the high-pitched giggling of Nyan drifting down the hallway. This is soon followed by the deeper voice of [nyanmum.name], but you can't quite make out what exactly she's saying to her daughter.
+	</p>
+	<p>
+		After being kept in suspense for a good five minutes, you finally hear [nyanmum.name] call out, [nyanmum.speech(Come on, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_DOUBLE_DATE_APARTMENT_BEDROOM -->
+	
+	<htmlContent tag="POST_DOUBLE_DATE_APARTMENT_BEDROOM_START"><![CDATA[
+	<p>
+		Eager to find out what's waiting for you, you hurry down the hallway and [pc.step] through the door to [nyanmum.namePos] bedroom. As you enter, you immediately see that the lights have been dimmed in order to create a more intimate atmosphere. Underfoot, a trail of red rose petals have been scattered over the cream-coloured carpet, leading to the large double bed on the opposite side of the room. The rest of your surroundings aren't of any particular interest to you from this point on, as your attention is very quickly drawn to the two cat-girls sitting on the edge of the bed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_DOUBLE_DATE_APARTMENT_BEDROOM_KINKY"><![CDATA[
+	<p>
+		The outcome of your decision to ask for [nyanmum.namePos] 'kinky' idea is immediately apparent, as Nyan and [nyanmum.name] are both wearing crotchless thongs and open-cup bras, leaving their breasts and pussies completely exposed. Around each of their necks, they're wearing a bell collar that's colour-coordinated with their lingerie, which for Nyan is light pink and for [nyanmum.name] is royal purple. Finishing off the look, each of them have a fancy ribbon tied around their tails, which is white for Nyan and black for [nyanmum.name].
+	</p>
+	<p>
+		As you let the door swing shut behind you, Nyan and her mother stand up from the edge of the bed, before stepping forwards to meet you half-way across the room. Confidently flaunting her [nyanmum.breastSize], [nyanmum.cupSize]-cup breasts, [nyanmum.name] starts stripping you naked as she moans, [nyanmum.speech(I hope you like our outfits, [pc.name]... It'll be a lot easier for you to fuck us like this!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_DOUBLE_DATE_APARTMENT_BEDROOM"><![CDATA[
+	<p>
+		Nyan and [nyanmum.name] are both wearing lacy lingerie, but while their plunge bras are similar to one another, you see that Nyan is wearing lacy panties, while her mother is wearing a lacy thong. Nyan's lingerie is a light shade of pink, while [nyanmum.namePos] is royal purple. As you let the door swing shut behind you, the two cat-girls stand up from the edge of the bed, before stepping forwards to meet you half-way across the room. Confidently flaunting her [nyanmum.breastSize], [nyanmum.cupSize]-cup breasts, [nyanmum.name] starts stripping you naked as she moans, [nyanmum.speech(I hope you like how we've dressed up for you, [pc.name]...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_DOUBLE_DATE_APARTMENT_BEDROOM_END"><![CDATA[
+	<p>
+		Not wanting to be left out, Nyan joins her mother in quickly taking your clothes off and pants, [nyan.speech(Come on, [pc.name]... I want this...)]
+	</p>
+	#IF(nyan.isVaginaVirgin())
+		<p>
+			Letting out another little moan, [nyanmum.name] teases her fingers down between her daughter's legs and asks, [nyanmum.speech(You're still a virgin down here, aren't you?)]
+		</p>
+		<p>
+			Nodding her head in response, Nyan blushes and confirms, [nyan.speech(Yes...)]
+		</p>
+		<p>
+			[nyanmum.speech(Then let's start with a little foreplay,)] [nyanmum.name] teases, before leaning in to you and pressing her [nyanmum.lips+] against your mouth. After passionately kissing [nyanmum.name] for a few moments, you suddenly feel Nyan's relatively small breasts pressing against your side, and you break off your kiss only to have your [pc.lips] immediately smothered by Nyan's mouth.
+		</p>
+	#ELSE
+		<p>
+			Letting out another little moan, [nyanmum.name] teases her fingers down between her daughter's legs and teases, [nyanmum.speech(You're getting wet already?)]
+		</p>
+		<p>
+			Blushing at her mother's question, Nyan mumbles, [nyan.speech(Yes...)]
+		</p>
+		<p>
+			[nyanmum.speech(Let's kick things off with a little foreplay,)] [nyanmum.name] moans, before leaning in to you and pressing her [nyanmum.lips+] against your mouth. After passionately kissing [nyanmum.name] for a few moments, you suddenly feel Nyan's relatively small breasts pressing against your side, and you break off your kiss only to have your [pc.lips] immediately smothered by Nyan's mouth.
+		</p>
+	#ENDIF
+	<p>
+		After giving both mother and daughter some of your attention, you wonder how best to start things off with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -63,7 +63,7 @@ public class SupplierPartner extends NPC {
 	
 	public SupplierPartner(boolean isImported) {
 		super(isImported, new NameTriplet("Karl", "Karl", "Karla"), "Hummel",
-				"Karl is the one of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.",
+				"Karl is the junior partner of the dobermann bounty-hunter duo which you first met at Kay's Textiles.",
 				28, Month.AUGUST, 8,
 				10,
 				null, null, null,
@@ -85,7 +85,6 @@ public class SupplierPartner extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		this.setDescription("Karl is the one of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.");
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(10);
 		}
@@ -99,6 +98,7 @@ public class SupplierPartner extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.14")) {
 			this.setStartingBody(true);
 		}
+		this.setDescription("Karl is the junior partner of the dobermann bounty-hunter duo which you first met at Kay's Textiles.");
 	}
 
 	@Override

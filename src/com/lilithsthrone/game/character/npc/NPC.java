@@ -531,9 +531,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case POSITIVE_FIVE_WORSHIP:
 					if(this.isAttractedTo(Main.game.getPlayer()) && Main.game.isIncestEnabled()) {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is [style.italicsSex(head-over-heels in love)] with you.");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and is [style.italicsSex(head-over-heels in love)] with you.");
 					} else {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and would do almost anything you asked of [npc.herHim].");
 					}
 					break;
 			}
@@ -625,9 +625,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case POSITIVE_FIVE_WORSHIP:
 					if(this.isAttractedTo(Main.game.getPlayer())) {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and is head-over-heels in love with you.");
 					} else {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and would do almost anything you asked of [npc.herHim].");
 					}
 					break;
 			}
@@ -1091,7 +1091,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
 			
 			BodyMaterial material = this.getBodyMaterial();
-			this.setBody(this.getGenderIdentity(), AbstractSubspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBody(this.getGenderIdentity(), this.getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
 			Main.game.getCharacterUtils().randomiseBody(this, false);
 			
@@ -1104,7 +1104,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			
 		} else {
-			AbstractRacialBody racialBody = RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(this).getRace());
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(this.getFleshSubspecies().getRace());
 			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
 				this.setFemininity(racialBody.getFemaleFemininity());
 				

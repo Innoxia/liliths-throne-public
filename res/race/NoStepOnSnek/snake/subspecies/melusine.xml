@@ -4,7 +4,7 @@
 	<colour>NoStepOnSnek_snake</colour>
 	<secondaryColour>NoStepOnSnek_snake</secondaryColour>
 	<tertiaryColour>NoStepOnSnek_snake</tertiaryColour>
-	<mainSubspecies>true</mainSubspecies>
+	<mainSubspecies>false</mainSubspecies>
 	<baseSlaveValue>10000</baseSlaveValue>
 	<attributeItemId>NoStepOnSnek_race_snake_oil</attributeItemId>
 	<transformativeItemId>NoStepOnSnek_race_snake_eggs</transformativeItemId>
@@ -13,14 +13,14 @@
 	<bipedalSubspecies>false</bipedalSubspecies>
 	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
-		[#LEG_TYPE_NoStepOnSnek_snake_leg.applyLegConfigurationTransformation(targetedBody, LEG_CONFIGURATION_TAIL_LONG, true)]
-		#IF(targetedBody.getWing().getType()!=WING_TYPE_LEATHERY)
-			[#targetedBody.getWing().setType(null, WING_TYPE_LEATHERY)]
-			[#targetedBody.getWing().setSize(null, 1)]
+		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_snake_leg, LEG_CONFIGURATION_TAIL_LONG, true)]
+		#IF(!targetedBody.hasWings())
+			[#targetedBody.setWingType(WING_TYPE_LEATHERY)]
+			[#targetedBody.setWingSize(WING_SIZE_ONE_SMALL)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
-		#IF(targetedRace==RACE_NoStepOnSnek_snake && targetedBody.getLeg().getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG && targetedBody.getWing().getType()!=WING_TYPE_NONE)
+		#IF(targetedRace==RACE_NoStepOnSnek_snake && targetedBody.getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG && targetedBody.hasWings())
 			300
 		#ELSE
 			0

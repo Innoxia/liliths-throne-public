@@ -66,7 +66,7 @@ public class SupplierLeader extends NPC {
 	
 	public SupplierLeader(boolean isImported) {
 		super(isImported, new NameTriplet("Wolfgang", "Wolfgang", "Winifred"), "Meyer",
-				"Wolfgang is the senior of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.",
+				"Wolfgang is the senior partner of the dobermann bounty-hunter duo which you first met at Kay's Textiles.",
 				30, Month.DECEMBER, 4,
 				12,
 				null, null, null,
@@ -88,7 +88,6 @@ public class SupplierLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		this.setDescription("Wolfgang is the senior of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.");
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(12);
 		}
@@ -103,6 +102,7 @@ public class SupplierLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.14")) {
 			this.setStartingBody(true);
 		}
+		this.setDescription("Wolfgang is the senior partner of the dobermann bounty-hunter duo which you first met at Kay's Textiles.");
 	}
 
 	@Override

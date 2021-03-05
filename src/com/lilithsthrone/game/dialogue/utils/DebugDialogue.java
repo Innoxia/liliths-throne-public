@@ -214,6 +214,22 @@ public class DebugDialogue {
 				} else if (index == 13) {
 					return new Response("Very long action text for testing", "Very long action text for testing.", null);
 					
+				} else if (index == 14) {
+					return new Response("Sticker unlocks: ",
+							"Unlocks availability of all stickers for clothing. This is done by ignoring stickers' unavailabilityText and availabilityText, so if you're trying to test those, having this on will be a problem!",
+							DEBUG_MENU){
+						@Override
+						public String getTitle() {
+							return "Sticker unlocks: "+(Main.game.isAllStickersUnlocked()?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+						}
+						
+						@Override
+						public void effects() {
+							Main.getProperties().setValue(PropertyValue.allStickersUnlocked, !Main.game.isAllStickersUnlocked());
+							Main.getProperties().savePropertiesAsXML();
+						}
+					};
+					
 				}
 				
 			} else if(responseTab==1) {
@@ -557,6 +573,7 @@ public class DebugDialogue {
 							}
 						}
 					};
+					
 				} else if(index==18) {
 					return new Response("Moo mode",
 							"Every feminine NPC will have their breast size incremented by 5,"
@@ -583,6 +600,26 @@ public class DebugDialogue {
 							}
 						}
 					};
+				} else if(index==19) {
+					return new Response("Rat mode", "Turn every NPC in the game into a greater rat-morph.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.RACE_RAT_MORPH;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								Main.game.getCharacterUtils().reassignBody(
+										npc,
+										npc.getBody(),
+										npc.getGender(),
+										Subspecies.RAT_MORPH,
+										RaceStage.GREATER,
+										false);
+							}
+						}
+					};
+					
 				}
 				
 			} else if(responseTab == 3) {
@@ -708,7 +745,7 @@ public class DebugDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			for(NPC npc : Main.game.getOffspring(true, true)) {
+			for(NPC npc : Main.game.getOffspring(true)) {
 				boolean isBorn = true;
 				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
@@ -734,11 +771,11 @@ public class DebugDialogue {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
-			} else if(index-1 < Main.game.getOffspring(true, true).size()) {
-				return new Response(Main.game.getOffspring(true, true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
+			} else if(index-1 < Main.game.getOffspring(true).size()) {
+				return new Response(Main.game.getOffspring(true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
 					@Override
 					public void effects() {
-						activeOffspring = Main.game.getOffspring(true, true).get(index-1);
+						activeOffspring = Main.game.getOffspring(true).get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
 							activeOffspring.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 						}
@@ -1077,6 +1114,7 @@ public class DebugDialogue {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		attacker.setLocation(Main.game.getPlayer(), true);
 		Main.game.setActiveNPC(attacker);
 	}
 	
@@ -1111,9 +1149,13 @@ public class DebugDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<AbstractSubspecies> availableSubspecies = new ArrayList<>();
-			availableSubspecies.addAll(Subspecies.getAllSubspecies());
-			availableSubspecies.removeIf(s->s.getRace()==Race.ELEMENTAL);
+			List<AbstractSubspecies> availableSubspecies = new ArrayList<>(Subspecies.getAllSubspecies());
+			availableSubspecies.removeIf(s->
+					s.getRace()==Race.ELEMENTAL
+//					|| s==Subspecies.LILIN
+//					|| s==Subspecies.ELDER_LILIN
+//					|| s==Subspecies.ANGEL
+					);
 			
 			if (index!=0 && index<availableSubspecies.size()+1) {
 				AbstractSubspecies subspecies = availableSubspecies.get(index - 1);
@@ -1153,6 +1195,11 @@ public class DebugDialogue {
 									stage,
 									false);
 						}
+
+						attacker.resetInventory(true);
+						attacker.clearNonEquippedInventory(false);
+						Main.game.getCharacterUtils().generateItemsInInventory(attacker);
+						attacker.equipClothing();
 						
 						Main.game.setContent(new Response("", "", attacker.getEncounterDialogue()));
 					}

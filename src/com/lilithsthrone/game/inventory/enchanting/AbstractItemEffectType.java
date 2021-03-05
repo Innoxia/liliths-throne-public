@@ -203,24 +203,26 @@ public abstract class AbstractItemEffectType {
 	protected static List<TFModifier> getClothingTFSecondaryModifiers(TFModifier primaryModifier) {
 		switch(primaryModifier) {
 			case TF_ASS:
-				return Util.newArrayListOfValues(
+				List<TFModifier> assMods = Util.newArrayListOfValues(
 						TFModifier.TF_MOD_SIZE,// ass size
 						TFModifier.TF_MOD_SIZE_SECONDARY,// hip size
 						Main.game.isAssHairEnabled()
 							?TFModifier.TF_MOD_BODY_HAIR
-							:null,
-						TFModifier.TF_MOD_CAPACITY,
-						Main.game.isPenetrationLimitationsEnabled()
-							?TFModifier.TF_MOD_DEPTH
-							:null,
-						TFModifier.TF_MOD_ELASTICITY,
-						TFModifier.TF_MOD_PLASTICITY,
-						TFModifier.TF_MOD_WETNESS,
-						TFModifier.TF_MOD_ORIFICE_PUFFY,
-						TFModifier.TF_MOD_ORIFICE_RIBBED,
-						TFModifier.TF_MOD_ORIFICE_MUSCLED,
-						TFModifier.TF_MOD_ORIFICE_TENTACLED
-						);
+							:null);
+				if(Main.game.isAnalContentEnabled()) {
+					assMods.add(TFModifier.TF_MOD_CAPACITY);
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						assMods.add(TFModifier.TF_MOD_DEPTH);
+					}
+					assMods.add(TFModifier.TF_MOD_ELASTICITY);
+					assMods.add(TFModifier.TF_MOD_PLASTICITY);
+					assMods.add(TFModifier.TF_MOD_WETNESS);
+					assMods.add(TFModifier.TF_MOD_ORIFICE_PUFFY);
+					assMods.add(TFModifier.TF_MOD_ORIFICE_RIBBED);
+					assMods.add(TFModifier.TF_MOD_ORIFICE_MUSCLED);
+					assMods.add(TFModifier.TF_MOD_ORIFICE_TENTACLED);
+				}
+				return assMods;
 			case TF_ARMS:
 				return Util.newArrayListOfValues(
 						Main.game.isBodyHairEnabled()
@@ -237,8 +239,12 @@ public abstract class AbstractItemEffectType {
 							:null,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
-						TFModifier.TF_MOD_WETNESS,
-						TFModifier.TF_MOD_REGENERATION,
+						Main.game.isLactationContentEnabled()
+							?TFModifier.TF_MOD_WETNESS
+							:null,
+						Main.game.isLactationContentEnabled()
+							?TFModifier.TF_MOD_REGENERATION
+							:null,
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
@@ -2188,18 +2194,22 @@ public abstract class AbstractItemEffectType {
 				if(Main.game.isAssHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
 				}
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
-				if(Main.game.isPenetrationLimitationsEnabled()) {
-					secondaryModPotencyMap.put(TFModifier.TF_MOD_DEPTH, TFPotency.getAllPotencies());
+				
+				if(Main.game.isAnalContentEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						secondaryModPotencyMap.put(TFModifier.TF_MOD_DEPTH, TFPotency.getAllPotencies());
+					}
+					
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
+	
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				}
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
-
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				break;
 				
 			case TF_BREASTS: case TF_BREASTS_CROTCH:
@@ -2243,8 +2253,10 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
 				}
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
+				if(Main.game.isLactationContentEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
+				}
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -2483,18 +2495,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
-				
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BLUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_KNOTTED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_PREHENSILE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_SHEATHED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TAPERED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_VEINY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_OVIPOSITOR, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_VAGINA_SQUIRTER, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_VAGINA_EGG_LAYER, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 				if(Main.game.isPenetrationLimitationsEnabled()) {
@@ -2507,8 +2510,6 @@ public abstract class AbstractItemEffectType {
 				if(Main.game.isPubicHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
 				}
-				
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_VAGINA_SQUIRTER, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -2528,6 +2529,18 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				}
+
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BLUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_KNOTTED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_PREHENSILE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_SHEATHED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TAPERED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_VEINY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_OVIPOSITOR, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
 				break;
 				
@@ -4777,6 +4790,14 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Makes vagina squirt on orgasm.") { @Override public String applyEffect() { return target.setVaginaSquirter(true); } };
 							case MINOR_DRAIN: default:
 								return new RacialEffectUtil("Stops vagina from squirting on orgasm.") { @Override public String applyEffect() { return target.setVaginaSquirter(false); } };
+						}
+
+					case TF_MOD_VAGINA_EGG_LAYER:
+						switch(potency) {
+							case MINOR_BOOST:
+								return new RacialEffectUtil("Makes vagina lay eggs.") { @Override public String applyEffect() { return target.setVaginaEggLayer(true); } };
+							case MINOR_DRAIN: default:
+								return new RacialEffectUtil("Makes vagina birth live young.") { @Override public String applyEffect() { return target.setVaginaEggLayer(false); } };
 						}
 						
 					case TF_MOD_ORIFICE_PUFFY:

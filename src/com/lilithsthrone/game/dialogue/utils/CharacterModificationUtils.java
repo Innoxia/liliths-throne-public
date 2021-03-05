@@ -1045,22 +1045,22 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 				}
 			}
 		}
 		
 		return applyWrapper("Tail",
-				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] tail type."
-						+ "<br/><i>Some types of tail are prehensile (marked by an asterisk), and can be used as penetrative objects in sex scenes."
-						+ " (If the tail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
+				UtilText.parse(BodyChanging.getTarget(), "<i>Tails which are suitable for penetration are marked with an asterisk."
+						+ " Use in sex requires them to either be prehensile (&#8314;) or at least 50% of [npc.namePos] height."
+						+ " (The 'furry tail penetration' content option makes all prehensile tails able to be used in sex, even if not marked as suitable for penetration.)</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
 				true);
@@ -1326,11 +1326,12 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformHornChoiceDiv(List<AbstractRace> availableRaces) {
 		contentSB.setLength(0);
-		
+
 		Set<AbstractHornType> types = new HashSet<>();
 		for(AbstractRace race : availableRaces) {
 			types.addAll(RacialBody.valueOfRace(race).getHornTypes(false));
 		}
+		
 		
 		List<AbstractHornType> sortedTypes = new ArrayList<>(types);
 		sortedTypes.sort((h1, h2) -> h1.getTransformName().compareTo(h2.getTransformName()));
@@ -3455,7 +3456,9 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getVaginaType() == vagina) {
 					contentSB.append(
 							"<div id='CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(vagina.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"
+									+Util.capitaliseSentence(vagina.getTransformName())+(vagina.isEggLayer()?"*":"")
+								+"</span>"
 							+ "</div>");
 					
 				} else {
@@ -3464,7 +3467,7 @@ public class CharacterModificationUtils {
 					contentSB.append(
 							"<div id='CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button"+(cannotChoose?" disabled":"")+"'>"
 								+ "<span style='color:"+(cannotChoose?PresetColour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
-									+Util.capitaliseSentence(vagina.getTransformName())
+									+Util.capitaliseSentence(vagina.getTransformName())+(vagina.isEggLayer()?"*":"")
 								+"</span>"
 							+ "</div>");
 				}
@@ -3472,13 +3475,9 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper("Vagina",
-				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] vagina type."
-					+ "<br/><i>Vagina type affects the modifiers and other attributes of the vagina which characters spawn in with, as well as descriptions both in and out of sex.</i>")
-					+(BodyChanging.getTarget().isPregnant()
-						?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.nameIsFull] pregnant!)]")
-						:BodyChanging.getTarget().hasStatusEffect(StatusEffect.PREGNANT_0)
-							?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.she] [npc.has] the possibility of being pregnant!)]")
-							:UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.she] [npc.is] incubating eggs in [npc.her] womb!)]")),
+				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] vagina type. Types with an asterisk by their names [style.colourEgg(lay eggs)] by default."
+//					+ "<br/><i>Vagina type affects default vagina attributes and descriptions.</i>"
+					+ "<br/>[style.italicsMinorBad(A character's vagina cannot be removed while incubating eggs or having a possibility of being pregnant!)]"),
 				"VAGINA_TYPE",
 				contentSB.toString(),
 				false);
@@ -3507,7 +3506,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"GIRLCUM_FLAVOUR",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformGirlcumModifiersDiv() {
@@ -3533,7 +3532,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
 				"GIRLCUM_MODIFIER",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformVaginaCapacityDiv() {
@@ -3586,8 +3585,69 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Squirter",
 				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] vagina squirts fluids when [npc.she] [npc.verb(orgasm)]."
-						+ "<br/><i>If [npc.nameIsFull] a squirter, then when [npc.she] [npc.verb(orgasm)] [npc.she] will dirty clothes [npc.she] [npc.verb(squirt)] on. Also, if someone is eating [npc.herHim] out, they will ingest [npc.her] fluids.</i>"),
+						+ "<br/><i>If [npc.nameIsFull] a squirter, then when [npc.she] [npc.verb(orgasm)] [npc.she] will dirty clothes [npc.she] [npc.verb(squirt)] on."
+							+ " Also, if someone is eating [npc.herHim] out, they will ingest [npc.her] fluids.</i>"),
 				"VAGINA_SQUIRTER",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getSelfTransformVaginaHymenDiv() {
+		contentSB.setLength(0);
+		
+		if(BodyChanging.getTarget().hasHymen()) {
+			contentSB.append(
+					"<div id='VAGINA_HYMEN_OFF' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.getShades()[0]+";'>Lost</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button active'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Intact</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Lost</span>"
+					+ "</div>"
+					+"<div id='VAGINA_HYMEN_ON' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.getShades()[0]+";'>Intact</span>"
+					+ "</div>");
+		}
+		
+
+		return applyWrapper("Hymen",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] hymen is intact or not."),
+				"VAGINA_HYMEN",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getSelfTransformVaginaEggLayerDiv() {
+		contentSB.setLength(0);
+		
+		boolean disabled = BodyChanging.getTarget().isPregnant();
+		
+		if(BodyChanging.getTarget().isVaginaEggLayer()) {
+			contentSB.append(
+					"<div id='VAGINA_EGG_LAYER_OFF' class='cosmetics-button"+(disabled?" disabled":"")+"'>"
+						+ "<span style='color:"+PresetColour.GENERIC_SEX.getShades()[0]+";'>Live birth</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button"+(disabled?" disabled":" active")+"'>"
+						+ "<span style='color:"+PresetColour.EGG.toWebHexString()+";'>Egg-layer</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button"+(disabled?" disabled":" active")+"'>"
+							+ "<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Live birth</span>"
+					+ "</div>"
+					+"<div id='VAGINA_EGG_LAYER_ON' class='cosmetics-button"+(disabled?" disabled":"")+"'>"
+						+ "<span style='color:"+PresetColour.EGG.getShades()[0]+";'>Egg-layer</span>"
+					+ "</div>");
+		}
+		
+		return applyWrapper("Birth Type",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] gives birth to live young or lays eggs. [style.italicsMinorBad(Cannot be changed while pregnant.)]"
+						+ "<br/><i>Every time vagina type is changed, this value is reset to the vagina type's default birth type value.</i>"),
+				"VAGINA_EGG_LAYER",
 				contentSB.toString(),
 				true);
 	}
@@ -5518,11 +5578,11 @@ public class CharacterModificationUtils {
 		coveringsToBeApplied = new HashMap<>();
 	}
 
-	public static String getKatesDivCoveringsNew(boolean withCost, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
-		return getKatesDivCoveringsNew(withCost, coveringType, title, description, withSecondary, withGlow, true);
+	public static String getKatesDivCoveringsNew(boolean withCost, AbstractRace race, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
+		return getKatesDivCoveringsNew(withCost, race, coveringType, title, description, withSecondary, withGlow, true);
 	}
 	
-	public static String getKatesDivCoveringsNew(boolean withCost, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow, boolean withDyeAndExtraPatterns) {
+	public static String getKatesDivCoveringsNew(boolean withCost, AbstractRace race, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow, boolean withDyeAndExtraPatterns) {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.coveringChangeListenersRequired, true);
 		
 		boolean disabledButton = !coveringsToBeApplied.containsKey(coveringType) || coveringsToBeApplied.get(coveringType).equals(BodyChanging.getTarget().getCovering(coveringType));
@@ -5561,6 +5621,9 @@ public class CharacterModificationUtils {
 
 			sb.append("<div class='container-full-width' style='padding:0; margin:0; text-align:center;'>");
 				sb.append("<b>"+Util.capitaliseSentence(title)+"</b>");
+				if(race!=Race.NONE) {
+					sb.append(" - <b style='color:"+(race.getColour().toWebHexString())+"'>"+Util.capitaliseSentence(race.getName(BodyChanging.getTarget(), BodyChanging.getTarget().isFeral()))+"</b>");
+				}
 			sb.append("</div>");
 			sb.append("<div class='container-full-width' style='padding:0; margin:0; text-align:center;'>");
 				sb.append(Util.capitaliseSentence(BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)));

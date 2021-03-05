@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>charisma_spider</race>
+	<transformationName><![CDATA[spider]]></transformationName>
+	<baseFluidType>MILK</baseFluidType>
+	<flavour>MILK</flavour>
+	<namesMasculine/>
+	<namesFeminine/>
+	<descriptorsMasculine>
+		<name><![CDATA[spider]]></name>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<name><![CDATA[spider]]></name>
+	</descriptorsFeminine>
+	<defaultFluidModifiers/>
+</fluid>

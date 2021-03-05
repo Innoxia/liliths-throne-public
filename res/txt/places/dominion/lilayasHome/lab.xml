@@ -1584,13 +1584,13 @@
 	
 	<htmlContent tag="LILAYA_FRIEND_ACCOMMODATION"><![CDATA[
 	<p>
-		Wanting to ask Lilaya about the possibility of inviting your new friend to come and live here, you take a step towards your demonic [lilaya.relation(pc)] and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
+		Wanting to ask Lilaya about the possibility of inviting guests to come and live here, you take a step towards your demonic [lilaya.relation(pc)] and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
 	</p>
 	<p>
 		[lilaya.speech(Mmm, what about them?)] she answers, raising one eyebrow as she peers at you over the top of her glasses.
 	</p>
 	<p>
-		[pc.speech(Well, I've got a friend, you see, and they're in a pretty rough situation. I was wondering if they'd be able to stay here for a while, until they've got back on their feet.)]
+		[pc.speech(Well, I was wondering if I'd be able to use some of them for guests to stay in.)]
 	</p>
 	<p>
 		Lilaya lets out a sigh, and, placing her hands on her hips, asks, [lilaya.speech(Who's going to be the one paying for their food and cleaning bills? I trust your judgement, so I don't mind your friends using the spare rooms, but I'm certainly not going to be the one to foot the bill.)]

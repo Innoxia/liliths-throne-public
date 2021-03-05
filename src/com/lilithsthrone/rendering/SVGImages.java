@@ -210,7 +210,7 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlowAlwaysLight.svg");
 			cornerGlowAlwaysLight = Util.inputStreamToString(is);
-			cornerGlowAlwaysLight = setColour(cornerGlowAlwaysLight, PresetColour.BASE_PITCH_BLACK, PresetColour.BASE_YELLOW_PALE, null);
+			cornerGlowAlwaysLight = setColour(cornerGlowAlwaysLight, PresetColour.BASE_PITCH_BLACK);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink_small.svg");
 			drinkSmall = Util.inputStreamToString(is);

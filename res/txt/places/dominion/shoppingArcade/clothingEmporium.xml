@@ -9,14 +9,14 @@
 	</p>
 	#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<20)
 		<p>
-			Due to the fact that the main doors are propped wide open, as well as there being a constant stream of shoppers entering and exiting the establishment, it's quite clear that this Clothing Emporium is [style.colourGood(open)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorGood(opening hours are [unit.time(9)]-[unit.time(20)])]; the exact same as all the other stores in the arcade.
+			Due to the fact that the main doors are propped wide open, as well as there being a constant stream of shoppers entering and exiting the establishment, it's quite clear that this Clothing Emporium is [style.colourGood(open)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorGood(opening hours are [unit.time(9)]-[unit.time(20)])].
 		</p>
 		<p>
 			You wonder if you should head inside, or perhaps come back at another time...
 		</p>
 	#ELSE
 		<p>
-			Due to the fact that the main doors are firmly shut, as well as there being no lights on inside the establishment, it's quite clear that this Clothing Emporium is currently [style.colourBad(closed)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorBad(opening hours are [unit.time(9)]-[unit.time(20)])]; the exact same as all the other stores in the arcade.
+			Due to the fact that the main doors are firmly shut, as well as there being no lights on inside the establishment, it's quite clear that this Clothing Emporium is currently [style.colourBad(closed)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorBad(opening hours are [unit.time(9)]-[unit.time(20)])].
 		</p>
 		<p>
 			If you wanted to do some shopping here, or meet Nyan, you'll have to come back at a later time...
@@ -115,17 +115,55 @@
 	<p>
 		Stepping through the open pair of wide, glass doors, you find 'Nyan's Clothing Emporium' to be just as busy as ever. Crowds of shoppers block almost every aisle, and every single member of staff who you see is already occupied with other customers.
 	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumInterviewPassed))
+		<p>
+			Scanning around for any sign of your girlfriend, you suddenly hear a familiar voice call out from behind you, [nyan.speechNoEffects([pc.Name]!)]
+		</p>
+		<p>
+			You turn around to see Nyan happily smiling at you, and after you've returned her greeting, she coyly teases,
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_nyanmumDateCompleted))
+				 [nyan.speechNoEffects(So, have you got plans for this weekend? My mum seems pretty excited about the prospect of it...)]
+			#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_nyanmumGirlfriend))
+				 [nyan.speechNoEffects(So, have you got plans for this weekend? Mum and I would really like to go on another date with you...)]
+			#ELSE
+				 [nyan.speechNoEffects(So, have you got plans for this weekend? I'd really like to go on another date with you...)]
+			#ENDIF
+		</p>
+		<p>
+			After telling her that she'll have to wait and see, Nyan grins and playfully swishes her tail around behind her. There's no doubt that she's significantly more confident than when you first met her, and you notice that the cat-girl's stutter has completely vanished as she points behind her and says, [nyan.speechNoEffects(Come on, I can show you the stockroom again if you'd like! Follow me!)]
+		</p>
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateCompleted))
+		#IF(game.getDialogueFlags().hasFlag(FLAG_nyanApologised))
+			<p>
+				Scanning around for any sign of your girlfriend, you suddenly hear a familiar voice call out from behind you, [nyan.speechNoEffects([pc.Name]!)]
+			</p>
+			<p>
+				You turn around to see Nyan happily smiling at you, but after you've returned her greeting, her smile disappears and she awkwardly mutters, [nyan.speechNoEffects(Sorry about my m-mum... She gets r-really over-protective of me...)]
+			</p>
+			<p>
+				After telling her that there's no need to apologise, you're relieved to see the smile return to Nyan's face. Although she seems a lot more confident than when you first met, you notice that the cat-girl's stutter hasn't entirely vanished as she points behind her and says, [nyan.speechNoEffects(Come on, I-I can show you the stockroom again if you'd like! F-Follow me!)]
+			</p>
+		#ELSE
+			<p>
+				Scanning around for any sign of your girlfriend, you suddenly hear a familiar voice call out from behind you, [nyan.speechNoEffects([pc.Name]!)]
+			</p>
+			<p>
+				You turn around to see Nyan happily smiling at you, and after you've returned her greeting, she exclaims, [nyan.speechNoEffects(Come on, I-I can show you the stockroom again if you'd like! F-Follow me!)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Scanning around for any sign of the store's nervous owner, you suddenly hear a familiar squeak coming from behind you, [nyan.speechNoEffects(A-Ah! H-Hello again!)]
+		</p>
+		<p>
+			You turn around to see Nyan looking down at her feet as she shuffles them about on the shop's laminate flooring. [pc.speech(Hi, Nyan, how are y-)]
+		</p>
+		<p>
+			[nyan.speechNoEffects(I-I'm fine! T-Thanks for asking,)] Nyan bursts out, interrupting you in her haste to answer. Pointing behind her, she continues, [nyan.speechNoEffects(I-I can show you the stockroom again if y-you'd like! F-Follow me!)]
+		</p>
+	#ENDIF
 	<p>
-		Scanning around for any sign of the store's nervous owner, you suddenly hear a familiar squeak coming from behind you, [nyan.speechNoEffects(A-Ah! H-Hello again!)]
-	</p>
-	<p>
-		You turn around to see Nyan looking down at her feet as she shuffles them about on the shop's laminate flooring. [pc.speech(Hi, Nyan, how are y-)]
-	</p>
-	<p>
-		[nyan.speechNoEffects(I-I'm fine! T-Thanks for asking,)] Nyan bursts out, interrupting you in her haste to answer. Pointing behind her, she continues, [nyan.speechNoEffects(I-I can show you the stockroom again if y-you'd like! F-Follow me!)]
-	</p>
-	<p>
-		Following Nyan into her store's stockroom once again, you wonder what to take a look at this time...
+		Doing as she says, you follow Nyan into her store's stockroom once again. As the door swings shut, you wonder what to take a look at this time...
 	</p>
 	]]>
 	</htmlContent>
@@ -138,7 +176,7 @@
 		Entering the familiar room, you discover that Nyan is indeed in here, murmuring to herself behind a stack of boxed clothing. Wringing her hands and staring at her feet, something has quite clearly got her more worked up than usual, and you notice that she jumps a little as she sees you approach.
 	</p>
 	<p>
-		[pc.speech(What's wrong, Nyan?)] you ask.
+		[pc.speech(What's wrong, Nyan?)] you ask, concerned by how she appears to have lost all of her confidence.
 	</p>
 	<p>
 		[nyan.speechNoEffects(O-Oh... well um...)] she says haltingly. [nyan.speechNoEffects(Do y-you remember when w-we...you know...)] She blushes fiercely and says in a very quiet voice, [nyan.speechNoEffects(Had s-sex...?)]
@@ -153,10 +191,10 @@
 		You hold her at arm's length for a moment, smiling as you shake your head. [pc.speech(Why would I be angry? This is great news!)]
 	</p>
 	<p>
-		A visible tension seems to melt from her entire being as the nervous cat-girl cutely smiles back and snuggles into your [pc.arms]. [nyan.speechNoEffects(W-Will you come b-by and visit from time to t-time?)]
+		A visible tension seems to melt from her entire being as the nervous cat-girl cutely smiles back and snuggles into your [pc.arms]. The confidence which she'd gained over the course of your relationship soon returns, and she asks, [nyan.speechNoEffects(Will you come by and visit from time to time?)]
 	</p>
 	<p>
-		You instantly agree, and can't help but grin as you notice that she's looking happier than you've ever seen her before. Still nestled against your chest, Nyan mumbles, [nyan.speechNoEffects(D-Did you need something w-while we're in the s-stockroom?)]
+		You instantly agree, and can't help but grin as you notice that she's looking happier than you've ever seen her before. Still nestled against your chest, Nyan asks, [nyan.speechNoEffects(Did you need something while we're in here?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -185,15 +223,31 @@
 	</htmlContent>
 	
 	<htmlContent tag="NYAN_EXIT"><![CDATA[
-	<p>
-		Thanking Nyan for her time, you explain to her that you need to get going now. Hurrying to put her little notepad away, she stutters, [nyan.speechNoEffects(W-well, thanks for choosing to s-shop here! If you ever want t-to come back, just find me and I-I'll show you what's in stock back here!)]
-	</p>
-	<p>
-		Before you can respond, Nyan turns around and runs off deeper into the stockroom. You're pretty sure that there aren't any other exits in that direction, and that she was just unable to continue the conversation any longer.
-	</p>
-	<p>
-		You step out of the stockroom, and, after pushing your way through a crowd of customers that's loitering around the store's exit, you head back out into the shopping arcade.
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumInterviewPassed))
+		<p>
+			Thanking Nyan for her time, you explain to her that you need to get going now. Putting her little notepad away, she cheekily plants a quick kiss on your cheek, before exclaiming, [nyan.speechNoEffects(Thanks for dropping by, [pc.name]! I'll see you again this weekend, right?)]
+		</p>
+		<p>
+			Telling your girlfriend that you'll do your best to make time for another date with her, you give her a quick kiss goodbye and exit the stockroom. Making your way to the store's exit, you have to push your way through a crowd of customers that's loitering around the glass doors, before finally heading back out into the Arcade and wondering what to do next...
+		</p>
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateCompleted))
+		<p>
+			Thanking Nyan for her time, you explain to her that you need to get going now. Putting her little notepad away, she exclaims, [nyan.speechNoEffects(Thanks for d-dropping by, [pc.name]! I'll see you again this w-weekend, right?)]
+		</p>
+		<p>
+			Telling your girlfriend that you'll do your best to make time for another date with her, you give her a quick kiss goodbye and exit the stockroom. Making your way to the store's exit, you have to push your way through a crowd of customers that's loitering around the glass doors, before finally heading back out into the Arcade and wondering what to do next...
+		</p>
+	#ELSE
+		<p>
+			Thanking Nyan for her time, you explain to her that you need to get going now. Hurrying to put her little notepad away, she stutters, [nyan.speechNoEffects(W-well, thanks for choosing to s-shop here! If you ever want t-to come back, just find me and I-I'll show you what's in stock back here!)]
+		</p>
+		<p>
+			Before you can respond, Nyan turns around and runs off deeper into the stockroom. You're pretty sure that there aren't any other exits in that direction, and that she was just unable to continue the conversation any longer.
+		</p>
+		<p>
+			[pc.Stepping] out of the stockroom, you make your way through the store to the exit. Having to push your way through a crowd of customers that's loitering around the glass doors, you head back out into the Arcade and wonder what to do next...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
