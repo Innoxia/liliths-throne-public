@@ -31,6 +31,7 @@ public enum OrgasmCumTarget {
 	SELF_LEGS("onto self legs", false),
 	SELF_FEET("onto self feet", false),
 	SELF_BREASTS("onto self breasts", false),
+	SELF_HANDS("onto self hands", false),
 	SELF_FACE("onto self face", false);
 	
 	private String name;
