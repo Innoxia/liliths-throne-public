@@ -50,11 +50,7 @@ public class GenericOffspringDialogue {
 	}
 	
 	private static String getTextFilePath() {
-		if(offspring().getWorldLocation().equals(WorldType.HARPY_NEST)) {
-			return "characters/offspring/harpyNests";
-		} else {
-			return "characters/offspring/dominionAlleyway";
-		}
+		return offspring().getWorldLocation().getOffspringTextFilePath(offspring());
 	}
 	
 

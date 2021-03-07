@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 
@@ -102,6 +103,10 @@ public abstract class AbstractWorldType {
 //		throw new IllegalAccessError();
 		System.err.println("Warning: AbstractWorldType's toString() method is being called!");
 		return super.toString();
+	}
+
+	public String getOffspringTextFilePath(NPCOffspring o) {
+		return "characters/offspring/dominionAlleyway";
 	}
 
 	public int getTileSetRowNumber() {
