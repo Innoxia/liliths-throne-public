@@ -81,10 +81,10 @@
 	<transformationDescription><![CDATA[
 		#IF(npc.getTailCount()==1)
 			A furry, raccoon-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] limited control over it, but [npc.is] still able to swish it from side to side.
-			<br/>[npc.Name] now [npc.has] a [style.boldRacoon(raccoon-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+			<br/>[npc.Name] now [npc.has] a [style.boldRaccoon(raccoon-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
 		#ELSE
 			[npc.TailCount] furry, raccoon-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] limited control over them, but [npc.is] still able to swish them from side to side.
-			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldRacoon(raccoon-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldRaccoon(raccoon-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
 		#ENDIF
 	]]></transformationDescription>
 	
