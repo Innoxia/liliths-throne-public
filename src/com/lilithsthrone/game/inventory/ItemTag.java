@@ -68,7 +68,7 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourGood(Negates 'Darkness' effect)]"),
 			false),
-
+	
 	NIGHT_VISION_AREA( // Makes this clothing or weapon provide immunity to the darkness debuff for all characters in the area in which the wearer is located while equipped
 			Util.newArrayListOfValues(
 					"[style.colourExcellent(Negates 'Darkness' effect for all nearby characters)]"),
