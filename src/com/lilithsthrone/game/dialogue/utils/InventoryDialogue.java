@@ -1113,9 +1113,9 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
-									
+
 								} else if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
@@ -1370,7 +1370,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -1756,7 +1756,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2722,7 +2722,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2903,7 +2903,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3126,7 +3126,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3936,7 +3936,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4121,7 +4121,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4475,7 +4475,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(com.lilithsthrone.game.inventory.ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
