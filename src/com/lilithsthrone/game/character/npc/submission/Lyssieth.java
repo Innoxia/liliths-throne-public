@@ -1106,7 +1106,7 @@ public class Lyssieth extends NPC {
 						availableLines.add(UtilText.returnStringAtRandom(
 								"Yes! Keep sucking mommy's cock, like a good [npc2.girl]! Just like that!",
 								"Oh yes! Wrap those lips of yours around mommy's cock! Keep going!",
-								"Keep sucking mommy's cock! Yes! Good [npc2girl]!"));
+								"Keep sucking mommy's cock! Yes! Good [npc2.girl]!"));
 						break;
 					case NIPPLE:
 						availableLines.add(UtilText.returnStringAtRandom(

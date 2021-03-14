@@ -292,6 +292,9 @@ public class MainController implements Initializable {
 	}
 
 	public boolean isInventoryDisabled() {
+		if(!Main.game.isInNewWorld() && !Main.game.isInSex()) {
+			return true;
+		}
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY
 				|| Main.game.isInCombat()
 				/*|| Main.game.isInSex()*/) {
@@ -310,7 +313,7 @@ public class MainController implements Initializable {
 
 	public void openInventory() {
 		if(!Main.game.isInNewWorld() && !Main.game.isInSex()) {
-			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
+			//openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
 			if(Main.combat.getTargetedCombatant().isPlayer()) {

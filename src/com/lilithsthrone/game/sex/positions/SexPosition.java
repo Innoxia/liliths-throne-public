@@ -2943,11 +2943,18 @@ public class SexPosition {
 					continuation = true;
 				}
 				if(matingPress!=null) {
-					if(!matingPress.isTaur()) {
+					if(!matingPress.hasLegs()) {
+						sb.append(UtilText.parse(matingPress, lyingDown,
+								" [npc.NameHasFull] pushed [npc2.namePos] down onto [npc2.her] back, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
+									+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
+										+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
+						
+					} else if(!matingPress.isTaur()) {
 						sb.append(UtilText.parse(matingPress, lyingDown,
 								" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
 									+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
 										+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
+						
 					} else {
 						sb.append(UtilText.parse(matingPress, lyingDown,
 								" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before dropping [npc.her] feral [npc.legRace]'s body down on top of [npc2.herHim],"
@@ -2959,7 +2966,7 @@ public class SexPosition {
 				}
 				if(scissoring!=null) {
 					sb.append(UtilText.parse(scissoring, lyingDown,
-							" [npc.NameHasFull] laid down on [npc.her] back, and by spreading [npc.her] own [npc.legs] and shuffling forwards between [npc2.nameHers],"
+							" [npc.NameHasFull] laid down on [npc.her] back, and by [npc.spreadingHerLegs] and shuffling forwards,"
 									+ " [npc.has] brought [npc.her] groin into contact with [npc2.hers], ready to start scissoring [npc2.herHim]."));
 					continuation = true;
 				}
@@ -3858,9 +3865,10 @@ public class SexPosition {
 		}
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
-			if(((Main.sex.getSexPositionSlot(performer)==SexSlotBreedingStall.BREEDING_STALL_FRONT || Main.sex.getSexPositionSlot(performer)==SexSlotBreedingStall.BREEDING_STALL_BACK)
+			boolean performerIsMother = Main.sex.getSexPositionSlot(performer)==SexSlotBreedingStall.BREEDING_STALL_FRONT || Main.sex.getSexPositionSlot(performer)==SexSlotBreedingStall.BREEDING_STALL_BACK;
+			if((performerIsMother
 					&& (action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.TAIL)
-							|| (action.getSexAreaInteractions().values().contains(SexAreaOrifice.VAGINA) && action.getParticipantType()==SexParticipantType.SELF)))
+							|| ((action.getSexAreaInteractions().values().contains(SexAreaOrifice.VAGINA) || action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) && action.getParticipantType()==SexParticipantType.SELF)))
 				|| (Main.sex.getSexPositionSlot(performer)==SexSlotBreedingStall.BREEDING_STALL_FUCKING
 						&& action.getSexAreaInteractions().values().contains(SexAreaPenetration.TAIL)
 						&& action.getParticipantType()!=SexParticipantType.SELF)) {

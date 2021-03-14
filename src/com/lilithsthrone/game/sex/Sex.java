@@ -2302,47 +2302,56 @@ public class Sex {
 			
 		} else if(standardActions) {
 			// Add actions:
-			for (SexActionInterface sexAction : Main.sex.getActionsAvailablePartner(Main.sex.getCharacterPerformingAction(), targetedCharacter)) {
-				if(sexAction.isAddedToAvailableSexActions() && (Main.sex.isCharacterAllowedToUseSelfActions(Main.sex.getCharacterPerformingAction()) || sexAction.getParticipantType()==SexParticipantType.NORMAL)) {
-					
-					// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
-					// Do not add action if action does not correspond to the partner's preferred action pace
-					if((Main.game.isNonConEnabled()
-						&& getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
-						&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING)
-								|| sexAction.getParticipantType()==SexParticipantType.SELF
-								|| (sexAction.getSexPace()==null && sexAction!=PartnerTalk.PARTNER_DIRTY_TALK && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)))) // TODO This is a little terrible
-							|| (sexAction.getSexPace()!=null && sexAction.getSexPace()!=getSexPace(Main.sex.getCharacterPerformingAction()))) {
-//						System.out.println(Main.sex.getCharacterPerformingAction().getNameIgnoresPlayerKnowledge() +": "+ sexAction.getActionTitle());
+			Set<SexActionInterface> actionsAvailableToPartner = Main.sex.getActionsAvailablePartner(Main.sex.getCharacterPerformingAction(), targetedCharacter);
+			if(actionsAvailableToPartner!=null) {
+				for (SexActionInterface sexAction : actionsAvailableToPartner) {
+					if(sexAction.isAddedToAvailableSexActions() && (Main.sex.isCharacterAllowedToUseSelfActions(Main.sex.getCharacterPerformingAction()) || sexAction.getParticipantType()==SexParticipantType.NORMAL)) {
 						
-					} else {
-						// Add action as normal:
-						int weight = ((NPC)Main.sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
-						
-						if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN) || sexAction.getCategory()==SexActionCategory.POSITIONING) { // Positioning actions should always be available
-							switch(sexAction.getPriority()){
-								case LOW:
-									lowPriority.add(sexAction);
-									break;
-								case NORMAL:
-									normalPriority.add(sexAction);
-									break;
-								case HIGH:
-									// High priority positioning actions are added to normal priority so that when there is a favourite positioning action, it doesn't exclude all other normal actions.
-									// High priority is checked in SexManagerDefault's getPartnerSexAction() method, under the section 'Priority 3'
-									if(sexAction.getCategory()==SexActionCategory.POSITIONING) {
+						// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
+						// Do not add action if action does not correspond to the partner's preferred action pace
+						if((Main.game.isNonConEnabled()
+							&& getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
+							&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING)
+									|| sexAction.getParticipantType()==SexParticipantType.SELF
+									|| (sexAction.getSexPace()==null && sexAction!=PartnerTalk.PARTNER_DIRTY_TALK && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)))) // TODO This is a little terrible
+								|| (sexAction.getSexPace()!=null && sexAction.getSexPace()!=getSexPace(Main.sex.getCharacterPerformingAction()))) {
+	//						System.out.println(Main.sex.getCharacterPerformingAction().getNameIgnoresPlayerKnowledge() +": "+ sexAction.getActionTitle());
+							
+						} else {
+							// Add action as normal:
+							int weight = ((NPC)Main.sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
+							
+							if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN) || sexAction.getCategory()==SexActionCategory.POSITIONING) { // Positioning actions should always be available
+								switch(sexAction.getPriority()){
+									case LOW:
+										lowPriority.add(sexAction);
+										break;
+									case NORMAL:
 										normalPriority.add(sexAction);
-									} else {
-										highPriority.add(sexAction);
-									}
-									break;
-								case UNIQUE_MAX:
-									uniqueMax.add(sexAction);
-									break;
+										break;
+									case HIGH:
+										// High priority positioning actions are added to normal priority so that when there is a favourite positioning action, it doesn't exclude all other normal actions.
+										// High priority is checked in SexManagerDefault's getPartnerSexAction() method, under the section 'Priority 3'
+										if(sexAction.getCategory()==SexActionCategory.POSITIONING) {
+											normalPriority.add(sexAction);
+										} else {
+											highPriority.add(sexAction);
+										}
+										break;
+									case UNIQUE_MAX:
+										uniqueMax.add(sexAction);
+										break;
+								}
 							}
 						}
 					}
 				}
+				
+			} else {
+				System.err.println("Warning! Main.sex.getActionsAvailablePartner() is returning null for: "
+						+(Main.sex.getCharacterPerformingAction()==null?"NULL":Main.sex.getCharacterPerformingAction().getId())
+						+", "
+						+(targetedCharacter==null?"NULL":targetedCharacter.getId()));
 			}
 			
 			if(!uniqueMax.isEmpty()) {

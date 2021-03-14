@@ -158,7 +158,7 @@ public class Lilaya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setHomeLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA);
 		}
 	}

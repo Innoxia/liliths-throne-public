@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<face>
+	<race>innoxia_pig</race>
+	
+	<transformationName><![CDATA[pig]]></transformationName>
+	
+	<coveringType>innoxia_pig_fur</coveringType>
+	
+	<mouthType>innoxia_pig_mouth</mouthType>
+	
+	<tags>
+		<tag>FACE_MUZZLE</tag>
+		<tag>FACE_NATURAL_BALDNESS_FURRY</tag>
+	</tags>
+	
+	<names/>
+	<namesPlural/> 
+	
+	<descriptorsMasculine>
+		<descriptor>anthropomorphic pig-like</descriptor>
+		<descriptor>pig-like</descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor>anthropomorphic pig-like</descriptor>
+		<descriptor>pig-like</descriptor>
+	</descriptorsFeminine>
+	
+	<noseName><![CDATA[snout]]></noseName>
+	<noseNamePlural><![CDATA[snouts]]></noseNamePlural>
+	
+	<noseDescriptorsMasculine/>
+	<noseDescriptorsFeminine/>
+	
+	<transformationDescription><![CDATA[
+		[npc.Her] face twitches and transforms into a stubby, anthropomorphic, pig-like muzzle, while [npc.her] nose pushes up into a distinctly pig-like snout. Within [npc.her] mouth, [npc.she] [npc.verb(feel)] [npc.her] tongue similarly transforming into a strong, pig-like one.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 A layer of very close-cropped, smooth hair quickly grows to cover [npc.her] new face, 
+		#ELSE
+			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
+		#ENDIF
+		and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldPig(pig-like face and snout)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldPig(strong, pig-like tongue)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, pig-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle and pig-like snout.
+	]]></bodyDescription>
+	
+	<!-- Feral variant of the above. -->
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle and pig-like snout.
+	]]></bodyDescriptionFeral>
+	
+</face>

@@ -1374,7 +1374,7 @@ public class Race {
 	public static Map<String, AbstractRace> idToRaceMap = new HashMap<>();
 	
 	/**
-	 * @param id Will be in the format of: 'innoxia_maid'.
+	 * @param id Will be in the format of: 'innoxia_hyena'.
 	 */
 	public static AbstractRace getRaceFromId(String id) {
 		id = Util.getClosestStringMatch(id, idToRaceMap.keySet());
