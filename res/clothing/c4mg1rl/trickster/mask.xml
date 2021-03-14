@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[A marking discreetly engraved into the mask's underside informs you that it was made by 'C4MG1RL'.]]></clothingAuthorTag>
+		<value>6000</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Trickster's mask]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[Trickster's mask]]></namePlural>
+		<description><![CDATA[A fox-like mask, the design of which is based on the mysterious and mischievous youko. Perfect for concealing one's identity while getting up to all kinds of schemes.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>EYES</slot>
+		<rarity>LEGENDARY</rarity>
+		<clothingSet>c4mg1rl_trickster</clothingSet>
+		<imageName>mask.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>EYES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK_JET</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the mask and secure the straps behind [npc.her] head.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the mask onto [npc2.namePos] face, then secure the straps behind [npc2.her] head.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] the mask onto [npc2.namePos] [npc2.face], then secure the straps behind [npc.her] head.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] unsecure the straps behind [npc.her] head, then [npc.verb(take)] off [npc.her] mask.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] unsecure the straps behind [npc2.her] head, then [npc.verb(take)] off [npc2.namePos] mask.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] mask and roughly [npc.verb(pull)] them off [npc2.namePos] [npc2.face].]]>
+		</otherRough>
+	</displacementText>
+  
+</clothing>

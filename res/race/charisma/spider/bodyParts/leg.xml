@@ -4,6 +4,7 @@
 	<transformationName><![CDATA[spider]]></transformationName>
 	<coveringType>charisma_spider_chitinSmooth</coveringType>
 	<defaultFootStructure>PLANTIGRADE</defaultFootStructure>
+	<additionalFootStructure legConfiguration="ARACHNID">ARACHNOID</additionalFootStructure>
 	<footType>ARACHNID</footType>
 	<spinneret>true</spinneret>
 	<tentacleType>NONE</tentacleType>
@@ -33,16 +34,20 @@
 		<descriptor>chitinous</descriptor>
 	</footDescriptorsFeminine>
 	<toeDescriptorsMasculine>
-		<descriptor>bug-like</descriptor>
+		<descriptor>spider-like</descriptor>
 	</toeDescriptorsMasculine>
 	<toeDescriptorsFeminine>
-		<descriptor>bug-like</descriptor>
+		<descriptor>spider-like</descriptor>
 	</toeDescriptorsFeminine>
 	<transformationDescription><![CDATA[
-		A layer of spider-like chitin quickly grows over [npc.her] legs as they shift into a new form. As [npc.her] new chitin spreads down to the ends of [npc.her] toes, it splits around the joints leaving an almost doll or gauntlet-like appearance to them, leaving [npc.him] with plantigrade, bug-like feet. As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new chitin plates sharply transition into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.
+		A layer of spider-like chitin quickly grows over [npc.her] legs as they shift into a new form. As [npc.her] new chitin spreads down to the ends of [npc.her] toes, it splits around the joints leaving an almost doll or gauntlet-like appearance to them, leaving [npc.him] with plantigrade, spider-like feet. As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new chitin plates sharply transition into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.
 		<br/>[npc.Name] now [npc.has] plantigrade, [style.boldSpider(spider-like legs and feet)], which are [npc.materialDescriptor] [npc.legFullDescription].
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[
-		[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are covered small chitin plates splitting at the joints.
+		#IF(npc.getLegConfiguration()==ARACHNID)
+			[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and look identical to those of a feral spider, complete with seven segmented pieces and little claws in place of feet.
+		#ELSE
+			[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are covered small chitin plates splitting at the joints.
+		#ENDIF
 	]]></bodyDescription>
 </leg>

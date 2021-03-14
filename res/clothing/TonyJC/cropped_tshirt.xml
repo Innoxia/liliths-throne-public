@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+	
+		<authorTag><![CDATA[The clothing's tag reads: 'Created by TonyJC, with implementation and editing by NeverLucky']]></authorTag>
+
+		<value>80</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[cropped T-shirt]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[cropped T-shirt]]></namePlural> 
+		
+		<description><![CDATA[A unisex revealing fabric shirt, named after the T shape of its body and sleeves.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>TORSO_UNDER</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>cropped_tshirt.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values ="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values ="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		<tertiaryColoursDye/>
+    
+		<defaultPatterns patternChance=".01" colourNameDerivedFromPattern="true"> 
+			<pattern>horizontally_tiger_striped</pattern>
+			<pattern>leopard_printed</pattern>
+		</defaultPatterns>
+  
+		<patternPrimaryColours values ="ALL"/>
+		<patternSecondaryColours values ="ALL"/>
+		<patternTertiaryColours/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc.her] [npc.arms] through the cropped T-shirt's sleeves as [npc.she] [npc.verb(pull)] it down over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the cropped T-shirt's sleeves as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the cropped T-shirt's sleeves as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] cropped T-shirt.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] cropped T-shirt.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] cropped T-shirt.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] T-shirt back down, covering [npc.her] cropped torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] T-shirt back down, covering [npc2.her] cropped torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(yank)] [npc2.namePos] T-shirt back down, covering [npc2.her] cropped  torso.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] T-shirt up to just below [npc.her] chin, fully exposing [npc.her] cropped torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] T-shirt up to just below [npc2.her] chin, fully exposing [npc2.her] cropped torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] T-shirt up to just below [npc2.her] chin, fully exposing [npc2.her] cropped torso.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

@@ -501,6 +501,7 @@ public class PresetColour {
 	// Brown:
 	public static Colour SKIN_BROWN = new Colour(false, BaseColour.BROWN, "brown") {};
 	// Orange:
+	public static Colour SKIN_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {};
 	// Yellow:
 	public static Colour SKIN_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
 	public static Colour SKIN_AMBER = new Colour(false, BaseColour.AMBER, "amber") {}.setLinkedColourLighter(SKIN_YELLOW);

@@ -1821,7 +1821,7 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(FootStructure footStructure : FootStructure.values()) {
-			if(BodyChanging.getTarget().getLegType().getFootType().getPermittedFootStructures().contains(footStructure)) {
+			if(BodyChanging.getTarget().getLegType().getFootType().getPermittedFootStructures(BodyChanging.getTarget().getLegConfiguration()).contains(footStructure)) {
 				if(BodyChanging.getTarget().getFootStructure() == footStructure) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"

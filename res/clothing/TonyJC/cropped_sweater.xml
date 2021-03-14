@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+	
+		<authorTag><![CDATA[The clothing's tag reads: 'Created by TonyJC, with implementation and editing by NeverLucky']]></authorTag>
+
+		<value>80</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[cropped sweater]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[cropped sweater]]></namePlural> 
+		
+		<description><![CDATA[A comfortable long-sleeve sweater that exposes the stomach.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>TORSO_OVER</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>cropped_sweater.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours values="ALL"/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc.her] [npc.arms] through the sweater's sleeves as [npc.she] [npc.verb(pull)] it down over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the sweater's sleeves as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the sweater's sleeves as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] cropped sweater, revealing [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] sweater, revealing the chest under.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(snag)] off [npc2.namePos] sweater, revealing the chest under.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] sweater back down, covering [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] sweater back down, covering [npc2.her]  chest under.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(yank)] [npc2.namePos] sweater back down, covering [npc2.her]  chest under.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] sweater up to just below [npc.her] chin, fully exposing [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] sweater up to just below [npc2.her] chin, fully exposing [npc2.her] chest under.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] sweater up to just below [npc2.her] chin, fully exposing [npc2.her] chest under.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>
