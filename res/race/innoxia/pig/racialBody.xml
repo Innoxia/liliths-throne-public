@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<racialBody>
+
+	<!-- Miscellaneous attributes: -->
+	<personalityChances/>
+	
+	<orientationFeminineGynephilic>20</orientationFeminineGynephilic>
+	<orientationFeminineAmbiphilic>40</orientationFeminineAmbiphilic>
+	<orientationFeminineAndrophilic>40</orientationFeminineAndrophilic>
+	
+	<orientationMasculineGynephilic>60</orientationMasculineGynephilic>
+	<orientationMasculineAmbiphilic>30</orientationMasculineAmbiphilic>
+	<orientationMasculineAndrophilic>10</orientationMasculineAndrophilic>
+	
+	
+	<!-- Core body info: -->
+	
+	<bodyMaterial>FLESH</bodyMaterial>
+	
+	<bodyHair>innoxia_pig_body_hair</bodyHair>
+	
+	<genitalArrangement>NORMAL</genitalArrangement>
+	
+	<maleHeight>186</maleHeight>
+	<maleFemininity>10</maleFemininity>
+	<maleBodySize>75</maleBodySize>
+	<maleMuscle>55</maleMuscle>
+	
+	<femaleHeight>176</femaleHeight>
+	<femaleFemininity>70</femaleFemininity>
+	<femaleBodySize>70</femaleBodySize>
+	<femaleMuscle>25</femaleMuscle>
+	
+	
+	<!-- Antenna: -->
+	
+	<antennaTypes>
+		<type>NONE</type>
+	</antennaTypes>
+	
+	<maleAntennaLength>0</maleAntennaLength>
+	<femaleAntennaLength>0</femaleAntennaLength>
+	
+	
+	<!-- Arms: -->
+	
+	<armType>innoxia_pig_arm</armType>
+	
+	<armRows>1</armRows>
+	
+	
+	<!-- Ass: -->
+	
+	<assType>innoxia_pig_ass</assType>
+	
+	<maleAssSize>3</maleAssSize>
+	<femaleAssSize>5</femaleAssSize>
+	
+	<maleHipSize>2</maleHipSize>
+	<femaleHipSize>6</femaleHipSize>
+	
+	<anusCapacity>1.5</anusCapacity>
+	<anusDepth>2</anusDepth>
+	<anusWetness>0</anusWetness>
+	<anusElasticity>3</anusElasticity>
+	<anusPlasticity>3</anusPlasticity>
+	
+	
+	<!-- Breasts: -->
+	
+	<breastType>innoxia_pig_breast</breastType>
+	
+	<breastShapes>
+		<shape>ROUND</shape>
+		<shape>POINTY</shape>
+		<shape>PERKY</shape>
+		<shape>SIDE_SET</shape>
+		<shape>WIDE</shape>
+		<shape>NARROW</shape>
+	</breastShapes>
+	
+	<!-- Masculine characteristics: -->
+	<maleBreastSize>0</maleBreastSize>
+	<maleBreastRows>1</maleBreastRows>
+	<maleNippleSize>0</maleNippleSize>
+	<maleNippleShape>NORMAL</maleNippleShape>
+	<maleAreolaeSize>0</maleAreolaeSize>
+	<maleAreolaeShape>NORMAL</maleAreolaeShape>
+	<maleNippleCountPerBreast>1</maleNippleCountPerBreast>
+	<maleLactationRate>0</maleLactationRate>
+	<maleBreastCapacity>0</maleBreastCapacity>
+	<maleBreastDepth>2</maleBreastDepth>
+	<maleBreastElasticity>3</maleBreastElasticity>
+	<maleBreastPlasticity>3</maleBreastPlasticity>
+	
+	<!-- Feminine characteristics: -->
+	<femaleBreastSize>12</femaleBreastSize>
+	<femaleBreastRows>3</femaleBreastRows>
+	<femaleNippleSize>4</femaleNippleSize>
+	<femaleNippleShape>NORMAL</femaleNippleShape>
+	<femaleAreolaeSize>4</femaleAreolaeSize>
+	<femaleAreolaeShape>NORMAL</femaleAreolaeShape>
+	<femaleNippleCountPerBreast>1</femaleNippleCountPerBreast>
+	<femaleLactationRate>0</femaleLactationRate>
+	<femaleBreastCapacity>0</femaleBreastCapacity>
+	<femaleBreastDepth>2</femaleBreastDepth>
+	<femaleBreastElasticity>3</femaleBreastElasticity>
+	<femaleBreastPlasticity>3</femaleBreastPlasticity>
+	
+	
+	<!-- Crotch-boobs/udders: -->
+	
+	<breastCrotchType>innoxia_pig_breast</breastCrotchType>
+	<breastCrotchShapes udderShapes="true"/>
+	
+	<breastCrotchSize>8</breastCrotchSize>
+	<breastCrotchRows>6</breastCrotchRows>
+	<breastCrotchNippleSize>4</breastCrotchNippleSize>
+	<breastCrotchNippleShape>NORMAL</breastCrotchNippleShape>
+	<breastCrotchAreolaeSize>3</breastCrotchAreolaeSize>
+	<breastCrotchAreolaeShape>NORMAL</breastCrotchAreolaeShape>
+	<nippleCountPerBreastCrotch>1</nippleCountPerBreastCrotch>
+	<breastCrotchLactationRate>0</breastCrotchLactationRate>
+	<breastCrotchCapacity>0</breastCrotchCapacity>
+	<breastCrotchDepth>2</breastCrotchDepth>
+	<breastCrotchElasticity>3</breastCrotchElasticity>
+	<breastCrotchPlasticity>3</breastCrotchPlasticity>
+	
+	
+	<!-- Face: -->
+	
+	<faceType>innoxia_pig_face</faceType>
+	
+	<eyeType>innoxia_pig_eye</eyeType>
+	
+	<earType>innoxia_pig_ear</earType>
+	
+	<maleLipSize>1</maleLipSize>
+	<femaleLipSize>3</femaleLipSize>
+	
+	
+	<!-- Hair: -->
+	
+	<hairType>innoxia_pig_hair</hairType>
+	
+	<maleHairLength>12</maleHairLength>
+	<femaleHairLength>35</femaleHairLength>
+	
+	
+	<!-- Horns: -->
+	
+	<hornTypes>
+		<type>NONE</type>
+	</hornTypes>
+	
+	<maleHornLength>0</maleHornLength>
+	<femaleHornLength>0</femaleHornLength>
+	
+	
+	<!-- Legs: -->
+	
+	<legType>innoxia_pig_leg</legType>
+	
+	<legConfiguration>BIPEDAL</legConfiguration>
+	
+	
+	<!-- Penis: -->
+	
+	<penisType>innoxia_pig_penis</penisType>
+	
+	<penisLength>20</penisLength>
+	<penisGirth>4</penisGirth>
+	<testicleSize>4</testicleSize>
+	<testicleQuantity>2</testicleQuantity>
+	<cumProduction>140</cumProduction>
+	
+	
+	<!-- Tail: -->
+	
+	<tailTypes>
+		<type>innoxia_pig_tail</type>
+	</tailTypes>
+	
+	
+	<!-- Tentacle: -->
+	
+	<tentacleType>NONE</tentacleType>
+	
+	
+	<!-- Torso: -->
+	
+	<torsoType>innoxia_pig_torso</torsoType>
+	
+	
+	<!-- Vagina: -->
+	
+	<vaginaType>innoxia_pig_vagina</vaginaType>
+	
+	<clitSize>0</clitSize>
+	
+	<!-- Values from 0 to 6. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationGirth.java -->
+	<clitGirth>3</clitGirth>
+	
+	<vaginaCapacity>2.5</vaginaCapacity>
+	<vaginaDepth>2</vaginaDepth>
+	<vaginaWetness>2</vaginaWetness>
+	<vaginaElasticity>4</vaginaElasticity>
+	<vaginaPlasticity>3</vaginaPlasticity>
+	
+	
+	<!-- Wings: -->
+	
+	<wingTypes>
+		<type>NONE</type>
+	</wingTypes>
+	
+	<maleWingSize>0</maleWingSize>
+	<femaleWingSize>0</femaleWingSize>
+	
+</racialBody>

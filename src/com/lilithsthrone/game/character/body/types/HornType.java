@@ -268,43 +268,36 @@ public class HornType {
 	
 	private static Map<AbstractRace, List<AbstractHornType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractHornType> getHornTypes(AbstractRace r, boolean includeNone) {
-		if(typesMap.containsKey(r)) {
-			return typesMap.get(r);
-		}
-		
-		List<AbstractHornType> types = new ArrayList<>();
-		for(AbstractHornType type : HornType.getAllHornTypes()) {
-			if(type.getRace()==r) {
-				types.add(type);
-			}
-		}
-		if(types.isEmpty()) {
+	/**
+	 * 
+	 * @param race The race whose available horn types are to be returned.
+	 * @param includeNone Whether to include HornType.NONE in the list or not.
+	 * @return A list of HornTypes which are available for this race to have <b>via transformation, not by default</b>. If you want to find out what HornTypes a race has by default, use their RacialBody's getHornTypes() method.
+	 */
+	public static List<AbstractHornType> getHornTypes(AbstractRace race, boolean includeNone) {
+		if(!typesMap.containsKey(race)) {
+			List<AbstractHornType> allTypes = new ArrayList<>();
+			
 			for(AbstractHornType type : HornType.getAllHornTypes()) {
-				if(type.getRace()==Race.NONE && (includeNone || type!=HornType.NONE)) {
-					types.add(type);
+				if(type.getRace()==race) {
+					allTypes.add(type);
 				}
 			}
+			if(allTypes.isEmpty()) {
+				for(AbstractHornType type : HornType.getAllHornTypes()) {
+					if(type.getRace()==Race.NONE) {
+						allTypes.add(type);
+					}
+				}
+			}
+			
+			typesMap.put(race, allTypes);
 		}
-		typesMap.put(r, types);
+		
+		List<AbstractHornType>  types = new ArrayList<>(typesMap.get(race));
+		if(!includeNone) {
+			types.remove(HornType.NONE);
+		}
 		return types;
-	
-		
-		
-//		if(typesMap.containsKey(r)) {
-//			return typesMap.get(r);
-//		}
-//		
-//		List<AbstractHornType> types = new ArrayList<>();
-//		for(AbstractHornType type : HornType.getAllHornTypes()) {
-//			if(type.getRace()==r) {
-//				types.add(type);
-//			}
-//		}
-//		if(types.isEmpty()) {
-//			types.add(HornType.NONE);
-//		}
-//		typesMap.put(r, types);
-//		return types;
 	}
 }

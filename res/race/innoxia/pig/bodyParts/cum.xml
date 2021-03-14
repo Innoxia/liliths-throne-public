@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>innoxia_pig</race>
+	
+	<transformationName><![CDATA[pig]]></transformationName>
+	
+	<baseFluidType>CUM</baseFluidType>
+	
+	<flavour>CUM</flavour>
+	
+	<namesMasculine>
+		<name><![CDATA[pig-]]></name>
+	</namesMasculine>
+	
+	<namesFeminine>
+		<name><![CDATA[pig-]]></name>
+	</namesFeminine>
+	
+	<descriptorsMasculine/>
+	
+	<descriptorsFeminine/>
+	
+	<defaultFluidModifiers>
+		<modifier>MUSKY</modifier>
+		<modifier>STICKY</modifier>
+		<modifier>SLIMY</modifier>
+		<modifier>VISCOUS</modifier>
+	</defaultFluidModifiers>
+</fluid>

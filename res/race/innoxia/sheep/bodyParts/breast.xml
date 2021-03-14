@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<breast>
+	<race>innoxia_sheep</race>
+	
+	<transformationName><![CDATA[sheep]]></transformationName>
+	
+	<coveringType>innoxia_sheep_wool</coveringType>
+	
+	<nippleType>innoxia_sheep_nipple</nippleType>
+	
+	<fluidType>innoxia_sheep_milk</fluidType>
+	
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+	
+	<namesFlat/>
+	<namesPluralFlat/>
+	<descriptorsFlat/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldSheep(sheep-like)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldSheep(sheep milk)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] sheep-like, [npc.nipplesFullDescription].
+	]]></bodyDescription>
+	
+	<crotchBoobsTransformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldSheep(sheep-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldSheep(sheep milk)].
+	]]></crotchBoobsTransformationDescription>
+	
+	<crotchBoobsBodyDescription><![CDATA[
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] sheep-like, [npc.crotchNipplesFullDescription].
+	]]></crotchBoobsBodyDescription>
+</breast>

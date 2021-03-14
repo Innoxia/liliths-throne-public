@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>innoxia_sheep</race>
+	
+	<transformationName><![CDATA[sheep]]></transformationName>
+	
+	<coveringType>innoxia_sheep_wool</coveringType>
+	
+	<spinneret>false</spinneret>
+	
+	<defaultGirth>3</defaultGirth>
+	
+	<defaultLengthAsPercentageOfHeight>0.3</defaultLengthAsPercentageOfHeight>
+	
+	<tags>
+		<tag>TAIL_TYPE_FUR</tag>
+		<tag>TAIL_TAPERING_NONE</tag>
+		<tag>TAIL_SLEEP_HUGGING</tag>
+	</tags>
+	
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	
+	<name><![CDATA[tail]]></name>
+	<namePlural><![CDATA[tails]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>sheep-like</descriptor>
+		<descriptor>woolly</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>sheep-like</descriptor>
+		<descriptor>woolly</descriptor>
+	</descriptorsFeminine>
+	
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>woolly</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>woolly</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A woolly, sheep-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a very limited amount of control over it, and can only swat it from side to side.
+			<br/>[npc.Name] now [npc.has] a [style.boldSheep(sheep-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			[npc.TailCount] woolly, sheep-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a very limited amount of control over them, and can only swat them from side to side.
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldSheep(sheep-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] sheep tail, which [npc.she] can just about swish from side to side.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] sheep tails, which [npc.she] can just about swish from side to side.
+		#ENDIF
+	]]></bodyDescription>
+</tail>

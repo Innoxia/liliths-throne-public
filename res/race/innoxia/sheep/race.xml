@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>innoxia_sheep</racialBody>
+	
+	<applyRaceChanges/>
+	
+	<name><![CDATA[sheep-morph]]></name>
+	<namePlural><![CDATA[sheep-morphs]]></namePlural>
+	
+	<nameFeral>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[sheep]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[sheep]]></name>
+	</nameFeralPlural>
+	
+	<defaultTransformName><![CDATA[sheep]]></defaultTransformName>
+	
+	<colour>innoxia_sheep</colour>
+	
+	<disposition>CIVILIZED</disposition>
+	
+	<racialClass>MAMMAL</racialClass>
+	
+	<feralPartsAvailable>true</feralPartsAvailable>
+	
+	<ableToSelfTransform>false</ableToSelfTransform>
+	
+	<flyingRace>false</flyingRace>
+	
+	<combatBehaviour>BALANCED</combatBehaviour>
+	
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	
+	<numberOfOffspringLow>1</numberOfOffspringLow>
+	<numberOfOffspringHigh>2</numberOfOffspringHigh>
+	
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

@@ -867,6 +867,22 @@
 	</htmlContent>
 	
 	
+	<!-- LILAYA_SCIENTIST_OUTFIT -->
+	
+	<htmlContent tag="LILAYA_SCIENTIST_OUTFIT"><![CDATA[
+	<p>
+		Liking the look of Lilaya's lab coat, you compliment her on her appearance, before asking if she has a spare lying around which you could have.
+	</p>
+	<p>
+		[lilaya.speech(Well, in this instance, flattery will get you somewhere after all,)] she responds with a smile on her face. Striding over to a cabinet on the far side of the room, she slides open one of the drawers and retrieves the white lab coat you've asked for. Walking back over to you, she hands you the garment and says, [lilaya.speech(Don't get carried away and start thinking you're a real arcane researcher; it takes years of study to get to that level.)]
+	</p>
+	<p>
+		As you thank your [lilaya.relation(pc)], she hands you something else which she'd just retrieved from the same drawer, and you look down to see that it's a pair of safety goggles. Flashing you another smile, Lilaya says, [lilaya.speech(If you're trying to get the look right, you'll need these too. Anyway, is there anything else you want?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- LAB_LILAYA_HUG -->
 	
 	<htmlContent tag="LAB_LILAYA_HUG"><![CDATA[
