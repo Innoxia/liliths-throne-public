@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- HALLWAY -->
+	
+	<htmlContent tag="HALLWAY"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_HALLWAY
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_HALL -->
+	
+	<htmlContent tag="ENTRANCE_HALL"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_ENTRANCE
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FELICIA_BEDROOM -->
+	
+	<htmlContent tag="FELICIA_BEDROOM"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_BEDROOM
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BATHROOM -->
+	
+	<htmlContent tag="BATHROOM"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_BATHROOM
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- KITCHEN -->
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_KITCHEN
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DINING_AREA -->
+	
+	<htmlContent tag="DINING_AREA"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_DINING_AREA
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LIVING_AREA -->
+	
+	<htmlContent tag="LIVING_AREA"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_LIVING_AREA
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

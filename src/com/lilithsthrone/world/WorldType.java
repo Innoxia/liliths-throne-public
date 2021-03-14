@@ -676,6 +676,36 @@ public class WorldType {
 			return true;
 		}
 	};
+        
+        public static AbstractWorldType FELICIA_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
+			"Felicia's apartment",
+			PresetColour.BASE_YELLOW_PALE,
+			1,
+			false,
+			false,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/dominion/feliciaApartment/feliciaApartment.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FELICIA_APARTMENT_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0xc3c3c3), PlaceType.FELICIA_APARTMENT_HALLWAY),
+					new Value<>(new Color(0xff7f27), PlaceType.FELICIA_APARTMENT_ENTRANCE),
+
+					new Value<>(new Color(0x99d9ea), PlaceType.FELICIA_APARTMENT_DINING_AREA),
+					new Value<>(new Color(0xb5e61d), PlaceType.FELICIA_APARTMENT_KITCHEN),
+					
+					new Value<>(new Color(0xfff200), PlaceType.FELICIA_APARTMENT_BATHROOM),
+					new Value<>(new Color(0x00ff80), PlaceType.FELICIA_APARTMENT_LIVING_AREA),
+					
+					new Value<>(new Color(0x00a2e8), PlaceType.FELICIA_APARTMENT_BEDROOM)
+					)) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Felicia's apartment!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
 	public static AbstractWorldType HELENAS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
 			"Helena's apartment",

@@ -31,6 +31,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment.FeliciaApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
@@ -758,7 +759,7 @@ public class PlaceType {
 			Darkness.DAYLIGHT, Encounter.DOMINION_ALLEY, "in one of Dominion's backalleys"
 			).initDangerous()
 			.initAquatic(Aquatic.MIXED);
-	
+	       
 	// Canals:
 	
 	public static final AbstractPlaceType DOMINION_CANAL = new AbstractPlaceType(
@@ -1121,9 +1122,92 @@ public class PlaceType {
 			null, "")
 			.initWeatherImmune();
 	
-	
-	
-	
+        //Felicia's Apartment       
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_ENTRANCE = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Entrance Hall",
+			"PLACEHOLDER_FELICIA_APARTMENT_ENTRANCE",
+			"dominion/feliciaApartment/entranceHall",
+			PresetColour.BASE_RED,
+			FeliciaApartment.ENTRANCE_HALL,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the entrance hall of Felicia's apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_BEDROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Felicia's Bedroom",
+			"PLACEHOLDER_FELICIA_APARTMENT_BEDROOM",
+			"dominion/feliciaApartment/feliciaBedroom",
+			PresetColour.BASE_YELLOW_PALE,
+			FeliciaApartment.FELICIA_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Felicia's bedroom"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_BATHROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bathroom",
+			"PLACEHOLDER_FELICIA_APARTMENT_BATHROOM",
+			"dominion/feliciaApartment/toilet",
+			PresetColour.BASE_BLUE_LIGHT,
+			FeliciaApartment.BATHROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the bathroom in Felicia's apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_KITCHEN = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Kitchen",
+			"PLACEHOLDER_FELICIA_APARTMENT_KITCHEN",
+			"dominion/feliciaApartment/kitchen",
+			PresetColour.BASE_ORANGE,
+			FeliciaApartment.KITCHEN,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the kitchen in Felicia's apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_DINING_AREA = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dining Area",
+			"PLACEHOLDER_FELICIA_APARTMENT_DINING_AREA",
+			"dominion/feliciaApartment/diningArea",
+			PresetColour.BASE_BLUE_STEEL,
+			FeliciaApartment.KITCHEN,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the dining area in Felicia's apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_LIVING_AREA = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Living Area",
+			"PLACEHOLDER_FELICIA_APARTMENT_LIVING_AREA",
+			"dominion/feliciaApartment/livingArea",
+			PresetColour.BASE_INDIGO,
+			FeliciaApartment.LIVING_AREA,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the living area in Felicia's apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_HALLWAY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Hallway",
+			"PLACEHOLDER_FELICIA_APARTMENT_HALLWAY",
+			null,
+			PresetColour.BASE_BLACK,
+			FeliciaApartment.HALLWAY,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the hallway in Felicia's apartment"
+        ).initWeatherImmune();
+        
 	// Enforcer warehouse:
 	
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENTRANCE = new AbstractPlaceType(
