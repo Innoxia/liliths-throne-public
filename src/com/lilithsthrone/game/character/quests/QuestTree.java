@@ -60,7 +60,7 @@ public class QuestTree {
 		node2.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_A_FINDING_THE_YOUKO);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_ELIS);
 		node2.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.MAIN_3_B_DEBTS_PAID);
 		node1.addChild(node2);

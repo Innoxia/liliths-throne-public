@@ -959,7 +959,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast(true)] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
-							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc.namePos] [npc.scent+] as before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple(true)]."));
+							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc2.namePos] [npc2.scent+] before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple(true)]."));
 					break;
 			}
 			

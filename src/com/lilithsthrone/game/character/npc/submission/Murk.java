@@ -155,6 +155,17 @@ public class Murk extends NPC {
 	}
 
 	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+		equipMove("strike");
+		equipMove("offhand-strike");
+		equipMove("twin-strike");
+		equipMove("block");
+		this.equipAllSpecialMoves();
+		this.equipAllSpellMoves();
+	}
+	
+	@Override
 	public void setStartingBody(boolean setPersona) {
 		// Persona:
 		if(setPersona) {

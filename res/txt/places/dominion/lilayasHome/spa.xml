@@ -547,8 +547,10 @@
 			#ELSE
 				#IF(npc.isTaur())
 					 before [npc.stepping] over the top of you and mounting you.
-				#ELSE
+				#ELSEIF(pc.hasLegs())
 					 before dropping down between your [pc.legs] and tightly gripping your [pc.hips+].
+				#ELSE
+					 before dropping down before your groin and tightly gripping your [pc.hips+].
 				#ENDIF
 			#ENDIF
 			#IF(npc.isMute() || npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
@@ -611,8 +613,10 @@
 			#ELSE
 				#IF(npc.isTaur())
 					 before [npc.stepping] over the top of you and mounting you.
-				#ELSE
+				#ELSEIF(pc.hasLegs())
 					 before dropping down between your [pc.legs] and tightly gripping your [pc.hips+].
+				#ELSE
+					 before dropping down before your groin and tightly gripping your [pc.hips+].
 				#ENDIF
 			#ENDIF
 			#IF(npc.isMute() || npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
@@ -686,7 +690,13 @@
 				Wanting to have a little extra fun with [npc.name], you roll over so that you're lying on your back, before taking hold of [npc.her] [npc.hand+] and pulling [npc.her] down on top of you. Cutting off [npc.her] alarmed cry by pressing your [pc.lips+] against [npc.her] mouth, you pull your slave into a deep, passionate kiss.
 			</p>
 			<p>
-				After making out with one another in this position for a few moments, you break off the kiss, before repositioning yourself so that [npc.name] is lying back on the lounger and you're between [npc.her] [npc.legs]. Smiling down at your slave,
+				After making out with one another in this position for a few moments, you break off the kiss, before repositioning yourself so that [npc.name] is lying back on the lounger and you're
+				#IF(npc.hasLegs())
+					 between [npc.her] [npc.legs].
+				#ELSE
+					 crotch is positioned over [npc.her] groin.
+				#ENDIF
+				 Smiling down at your slave,
 				#IF(npc.isAttractedTo(pc))
 					 you prepare to dominantly fuck [npc.herHim]...
 				#ELSE
@@ -710,7 +720,13 @@
 			#IF(pc.isTaur())
 				Wanting to have a little extra fun with [npc.name], you submissively push your [pc.ass+] out towards [npc.herHim] and tease [npc.herHim] with the prospect of being allowed to fuck you like this. Clearly desperate to give you what it is you're asking for, [npc.name] quickly drops down behind your hindquarters and prepares to dominantly fuck you...
 			#ELSE
-				Wanting to have a little extra fun with [npc.name], you submissively roll over onto your back and tease [npc.herHim] with the prospect of being allowed to fuck you like this. Clearly desperate to give you what it is you're asking for, [npc.name] quickly drops down between your [pc.legs] and prepares to dominantly fuck you...
+				Wanting to have a little extra fun with [npc.name], you submissively roll over onto your back and tease [npc.herHim] with the prospect of being allowed to fuck you like this. Clearly desperate to give you what it is you're asking for, [npc.name] quickly drops down
+				#IF(pc.hasLegs())
+					 between your [pc.legs]
+				#ELSE
+					 so that [npc.her] crotch is bumping against your groin
+				#ENDIF
+				 and prepares to dominantly fuck you...
 			#ENDIF
 		#ENDIF
 	</p>

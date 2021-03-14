@@ -248,7 +248,7 @@
 		<!-- Fetish gear: -->
 		
 		<clothingType> <!-- Anal toys. -->
-			<conditional><![CDATA[npc.hasFetish(FETISH_ANAL_RECEIVING) && !npc.hasVagina() && RND.nextInt(100)<=33]]></conditional>
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.hasFetish(FETISH_ANAL_RECEIVING) && !npc.hasVagina() && RND.nextInt(100)<=33]]></conditional>
 			<types>
 				<type>norin_anal_beads_anal_beads</type>
 				<type>innoxia_buttPlugs_butt_plug</type>
@@ -261,7 +261,7 @@
 		</clothingType>
 		
 		<clothingType> <!-- Chastity. -->
-			<conditional><![CDATA[npc.hasPenisIgnoreDildo() && npc.hasFetish(FETISH_DENIAL_SELF) && RND.nextInt(100)<=33]]></conditional>
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.hasPenisIgnoreDildo() && npc.hasFetish(FETISH_DENIAL_SELF) && RND.nextInt(100)<=33]]></conditional>
 			<types>
 				<type>innoxia_bdsm_chastity_cage</type>
 				<type>innoxia_bdsm_ornate_chastity_cage</type>
@@ -282,7 +282,7 @@
 		</clothingType>
 		
 		<clothingType> <!-- Anal-only. -->
-			<conditional><![CDATA[npc.hasVagina() && npc.hasFetish(FETISH_ANAL_RECEIVING) && RND.nextInt(100)<=33]]></conditional>
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.hasVagina() && npc.hasFetish(FETISH_ANAL_RECEIVING) && RND.nextInt(100)<=33]]></conditional>
 			<types>
 				<type>innoxia_vagina_sticker_anal_only</type>
 			</types>

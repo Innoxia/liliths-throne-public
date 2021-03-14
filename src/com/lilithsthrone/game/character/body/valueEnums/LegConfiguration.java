@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -181,7 +182,8 @@ public enum LegConfiguration {
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
 			return Util.newArrayListOfValues(
-					GenitalArrangement.CLOACA);
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND); // Shouldn't ever spawn by default, but give player the option
 		}
 		@Override
 		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
@@ -306,7 +308,8 @@ public enum LegConfiguration {
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
 			return Util.newArrayListOfValues(
-					GenitalArrangement.CLOACA);
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND); // Shouldn't ever spawn by default, but give player the option
 		}
 		@Override
 		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
@@ -398,6 +401,10 @@ public enum LegConfiguration {
 		@Override
 		public List<Class<? extends BodyPartInterface>> getFeralParts() {
 			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<FootStructure> getPermittedFootStructuresOverride() {
+			return Util.newArrayListOfValues(FootStructure.ARACHNOID);
 		}
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
@@ -835,6 +842,10 @@ public enum LegConfiguration {
 		return numberOfLegs;
 	}
 
+	public List<FootStructure> getPermittedFootStructuresOverride() {
+		return new ArrayList<>();
+	}
+	
 	public boolean isGenitalsExposed(GameCharacter character) {
 		return true;
 	}
