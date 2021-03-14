@@ -157,7 +157,7 @@ public class RatWarrensCaptiveDialogue {
 				sexIntroTextPath = nodePathSex;
 				responseTitle = "Ride cock";
 				responseDescription = "Do as your Master says and ride his cock...";
-				if(Main.game.getPlayer().isTaur()) {
+				if(Main.game.getPlayer().isTaur() || !Main.game.getPlayer().hasLegs()) {
 					position = SexPosition.LYING_DOWN;
 					if(Main.game.getPlayer().hasVagina()) {
 						murkSexInfo = new Value<>(SexSlotLyingDown.LYING_DOWN, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
@@ -200,7 +200,7 @@ public class RatWarrensCaptiveDialogue {
 				
 			} else if(stage>=4) {
 				sexIntroTextPath = nodePathSex;
-				if(Main.game.getPlayer().isTaur()) {
+				if(Main.game.getPlayer().isTaur() || !Main.game.getPlayer().hasLegs()) {
 					responseTitle = "Humped";
 					responseDescription = "Do as your Master says and present yourself to him so that he can give you a good humping...";
 					position = SexPosition.ALL_FOURS;
@@ -236,8 +236,6 @@ public class RatWarrensCaptiveDialogue {
 				playerSlot = SexSlotAllFours.ALL_FOURS;
 			}
 		}
-		
-		
 		
 		return new ResponseSex(
 				responseTitle,
@@ -2367,33 +2365,34 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_END");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_END_SUBMIT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
+				boolean allFours = Main.game.getPlayer().isTaur() || !Main.game.getPlayer().hasLegs();
 				return new ResponseSex(
-						Main.game.getPlayer().isTaur()
+						allFours
 							?"Present yourself"
 							:"Spread legs",
-						(Main.game.getPlayer().isTaur()
+						(allFours
 							?"Present your pussy to your Master and tell him that his cock is your one true love!"
 							:"Spread your legs for your Master and tell him that his cock is your one true love!")
 							+ getObedienceResponseDescription(25),
 						true,
 						false,
 						getBasicSexManager(
-								Main.game.getPlayer().isTaur()
+								allFours
 									?SexPosition.ALL_FOURS
 									:SexPosition.LYING_DOWN,
 								Util.newHashMapOfValues(new Value<>(getMurk(),
-										Main.game.getPlayer().isTaur()
+										allFours
 											?SexSlotAllFours.HUMPING
 											:(Main.game.getPlayer().isVisiblyPregnant()
 												?SexSlotLyingDown.MISSIONARY
 												:SexSlotLyingDown.MATING_PRESS))),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(),
-										Main.game.getPlayer().isTaur()
+										allFours
 											?SexSlotAllFours.ALL_FOURS
 											:SexSlotLyingDown.LYING_DOWN)),
 								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS),
@@ -2414,7 +2413,7 @@ public class RatWarrensCaptiveDialogue {
 											:PenisAnus.PENIS_FUCKING_START,
 										false,
 										true),
-								Main.game.getPlayer().isTaur()
+								allFours
 									?null
 									:new InitialSexActionInformation(getMurk(),
 											Main.game.getPlayer(),
@@ -2432,7 +2431,7 @@ public class RatWarrensCaptiveDialogue {
 						Main.sex.incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
 						if(Main.game.getPlayer().hasPenis()) {
 							Main.game.getPlayer().applyOrgasmCumEffect();
-							if(!Main.game.getPlayer().isTaur()) {
+							if(!allFours) {
 								Main.game.getPlayer().addDirtySlot(InventorySlot.CHEST);
 							}
 						}

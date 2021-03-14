@@ -2254,8 +2254,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Cocoon [npc2.herHim])]";
+			return "Cocoon [npc2.herHim]";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2294,8 +2298,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Remove webbing)]";
+			return "Remove webbing";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2368,8 +2376,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Tentacle restraint)]";
+			return "Tentacle restraint";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2407,8 +2419,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release tentacles)]";
+			return "Release tentacles";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2519,8 +2535,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Constrict)]";
+			return "Constrict";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2563,8 +2583,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release constriction)]";
+			return "Release constriction";
 		}
 		@Override
 		public String getActionDescription() {

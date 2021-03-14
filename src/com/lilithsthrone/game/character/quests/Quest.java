@@ -296,41 +296,38 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_A_FINDING_THE_YOUKO(QuestType.MAIN, 20, 250) {
+	MAIN_3_ELIS(QuestType.MAIN, 20, 250) {
 		@Override
 		public String getName() {
-			return "Finding the youko";
+			return "Destination Elis";
 		}
 
 		@Override
 		public String getDescription() {
 			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
-					+ "[siren.Name] told you that you're going to need the help of the youko if you're to defeat the elder lilin pegataur, Lunette."
-					+ " She said that you should find and enlist the help of her old friend, [youkoGuide.name], who worked in her lab back when she was living in her citadel."
-					+ " [youkoGuide.Name] will have returned to the town of Elis, which is the settlement nearest to the Shinrin Forest, the youko's homeland.";
+					+ "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " Meraxis additionally mentioned enlisting the aid of the youko, but that can wait until after you've arrived in Elis itself.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You travelled to Elis, where you found the youko, [youkoGuide.name], in an inn called 'The Ninth Tail'."
-					+ " It turned out that she was having to work off a significant debt, and wouldn't be able to help you until it's paid off in full.";
+			return "After encountering a particularly aggressive demonic centaur, you once again met Meraxis and then finally made it to Elis, where you introduced yourself to the lilin, Minotallys.";
 		}
 	},
 	
-	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {
+	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {//TODO
 		@Override
 		public String getName() {
-			return "Debts paid";
+			return "-";
 		}
 
 		@Override
 		public String getDescription() {
-			return "You need to help [youkoGuide.name] clear her debt, and in exchange she's promised to show you where the leader of all the youko lives.";
+			return "-";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You helped [youkoGuide.name] clear her debt, and, as agreed, she is ready and willing to take you to the youko leader's hideout.";
+			return "-";
 		}
 	},
 
@@ -1726,6 +1723,14 @@ public enum Quest {
 
 	public int getExperienceReward() {
 		return experienceReward;
+	}
+	
+	public static Quest getQuestFromId(String quest) {
+		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
+			return Quest.MAIN_3_ELIS;
+		}
+		
+		return Quest.valueOf(quest);
 	}
 
 }

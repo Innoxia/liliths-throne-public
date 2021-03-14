@@ -422,7 +422,13 @@
 		[karl.speech([pc.SheIs] right!)] Karl exclaims, [karl.speech(This job fucking sucks; we should just leave it and go back to the usual bounty hunting.)] 
 	</p>
 	<p>
-		[wolfgang.speech(Maybe you're right,)] Wolfgang hums, before slipping his paw-like hand down between your legs and giving you a good grope. Smirking as you let out an erotic gasp, he suggests to his companion, [wolfgang.speech(How about we give this eager slut a good fuck, then get out of here and forget this contract?)]
+		[wolfgang.speech(Maybe you're right,)] Wolfgang hums, before slipping his paw-like hand down
+		#IF(pc.hasLegs())
+			 between your legs
+		#ELSE
+			 to your groin
+		#ENDIF
+		 and giving you a good grope. Smirking as you let out an erotic gasp, he suggests to his companion, [wolfgang.speech(How about we give this eager slut a good fuck, then get out of here and forget this contract?)]
 	</p>
 	<p>
 		[karl.speech(Sounds good to me,)] Karl replies, before standing up and moving over to dominantly give your [pc.breasts+] a rough squeeze.
@@ -1298,7 +1304,7 @@
 		<p>
 			With [kay.namePos] head so close to your groin, you can't resist the temptation of getting [kay.herHim] to perform oral on you.
 			#IF(pc.isAbleToAccessCoverableArea(CA_PENIS, false))
-				 Spinning your chair to one side, you spread your [pc.legs] and present your submissive pet with your rapidly-hardening cock.
+				 Spinning your chair to one side, you#IF(pc.hasLegs()) spread your [pc.legs] and#ENDIF present your submissive pet with your rapidly-hardening cock.
 			#ELSE
 				 Pulling out your rapidly-hardening cock, you spin your chair to one side and present it to your submissive pet.
 			#ENDIF
@@ -1333,7 +1339,7 @@
 		<p>
 			With [kay.namePos] head so close to your groin, you can't resist the temptation of getting [kay.herHim] to perform oral on you.
 			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, false))
-				 Spinning your chair to one side, you spread your [pc.legs] and present your submissive pet with your [pc.pussy+].
+				 Spinning your chair to one side, you#IF(pc.hasLegs()) spread your [pc.legs] and#ENDIF present your submissive pet with your [pc.pussy+].
 			#ELSE
 				 Quickly exposing your [pc.pussy+], you spin your chair to one side and present yourself to your submissive pet.
 			#ENDIF
@@ -1368,7 +1374,7 @@
 		<p>
 			With [kay.namePos] head so close to your groin, you can't resist the temptation of getting [kay.herHim] to perform oral on you.
 			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, false))
-				 Spinning your chair to one side, you spread your [pc.legs] and present your submissive pet with your [pc.pussy+].
+				 Spinning your chair to one side, you#IF(pc.hasLegs()) spread your [pc.legs] and#ENDIF present your submissive pet with your [pc.pussy+].
 			#ELSE
 				 Quickly exposing your [pc.pussy+], you spin your chair to one side and present yourself to your submissive pet.
 			#ENDIF

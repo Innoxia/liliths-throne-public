@@ -56,7 +56,13 @@
 		[vicky.speech(Sounds good to me, bitch,)] she growls, before leaping over the counter, roughly grabbing you by the [pc.arms], and shoving you towards the store's counter, before turning and locking the front door. [vicky.speech(I love fucking submissive customers like you.)]
 	</p>
 	<p>
-		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
+		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
+		#IF(pc.hasLegs())
+			 between your legs,
+		#ELSE
+			 right up in front of you,
+		#ENDIF
+		 making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -123,7 +129,13 @@
 		[vicky.speech(Suits me, bitch,)] she growls, before grabbing you by the [pc.arms] and shoving you towards the store's counter, before turning and locking the front door. [vicky.speech(I love fucking submissive customers like you.)]
 	</p>
 	<p>
-		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
+		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
+		#IF(pc.hasLegs())
+			 between your legs,
+		#ELSE
+			 right up in front of you,
+		#ENDIF
+		 making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
 	</p>
 	]]>
 	</htmlContent>

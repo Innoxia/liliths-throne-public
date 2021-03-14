@@ -106,6 +106,7 @@ public class FootType {
 			"footjob",
 			"[npc.SheHasFull] reptilian feet.",
 			Util.newArrayListOfValues(
+					FootStructure.PLANTIGRADE,
 					FootStructure.DIGITIGRADE)) {
 		@Override
 		public String getFootNailPolishDescription(GameCharacter owner) {
@@ -125,6 +126,7 @@ public class FootType {
 			"footjob",
 			"[npc.SheHasFull] amphibian feet.",
 			Util.newArrayListOfValues(
+					FootStructure.PLANTIGRADE,
 					FootStructure.DIGITIGRADE)) {
 		@Override
 		public String getFootNailPolishDescription(GameCharacter owner) {
@@ -163,6 +165,7 @@ public class FootType {
 			"clawjob",
 			"[npc.SheHasFull] arachnid claws in place of feet.",
 			Util.newArrayListOfValues(
+					FootStructure.PLANTIGRADE,
 					FootStructure.DIGITIGRADE)) {
 		@Override
 		public String getFootNailPolishDescription(GameCharacter owner) {

@@ -214,7 +214,7 @@
 				Your vagina is already exposed, and, after looking down at it for a moment, Lilaya lets out a little humming noise,
 			#ENDIF
 			#IF(pc.isVaginaEggLayer())
-				 [lilaya.speech(Ooh, you're going to be laying some eggs, how exciting! I'm sure you're already feeling it, but some incredibly strong maternal instincts are going to be kicking in pretty soon, and you're only going to feel comfortable doing this in a very personal area. I think using your room would be the best bet, follow me!)]
+				 [lilaya.speech(Ooh, you're going to be laying #IF(pc.getPregnantLitter().getTotalLitterCount()>1)some eggs#ELSEan egg#ENDIF, how exciting! I'm sure you're already feeling it, but some incredibly strong maternal instincts are going to be kicking in pretty soon, and you're only going to feel comfortable doing this in a very personal area. I think using your room would be the best bet, follow me!)]
 			#ELSE
 				 [lilaya.speech(Ok, so you're going to be giving birth to live young. I've got a room set up for just that purpose, follow me!)]
 			#ENDIF
@@ -237,16 +237,17 @@
 		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, you don't need to stay conscious during this. Now, after I've delivered your children, they're going to grow pretty quickly, so don't be alarmed! They're also going to be pretty hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
-		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
-		#THEN
+		#IF(player.isCoverableAreaExposed(CA_VAGINA))
 			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
 		#ELSE
 			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
 		#ENDIF
-		 After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports.
-	</p>
-	<p>
-		[lilaya.speech(Ok, all set?)]
+		 After following a few more of her instructions, you find yourself
+		 #IF(pc.hasLegs())
+		 	 lying back with your legs held up and spread apart by a pair of sturdy metal supports. Giving you a reassuring smile, Lilaya asks, [lilaya.speech(Ok, all set?)]
+		 #ELSE
+		 	 lying back with your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)]. Giving you a reassuring smile, she asks, [lilaya.speech(Ok, all set?)]
+		 #ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -278,16 +279,17 @@
 		You let out a sigh she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, remember, you don't need to stay conscious during this. Now, just remember that after I've delivered your children, they're going to grow pretty quickly! They're also going to be hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
-		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
-		#THEN
+		#IF(player.isCoverableAreaExposed(CA_VAGINA))
 			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
 		#ELSE
 			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
 		#ENDIF
-		 After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports.
-	</p>
-	<p>
-		[lilaya.speech(Ok, all set?)]
+		 After following a few more of her instructions, you find yourself
+		#IF(pc.hasLegs())
+		 	 lying back with your legs held up and spread apart by a pair of sturdy metal supports. Giving you a reassuring smile, Lilaya asks, [lilaya.speech(Ok, all set?)]
+		#ELSE
+		 	 lying back with your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)]. Giving you a reassuring smile, she asks, [lilaya.speech(Ok, all set?)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -343,22 +345,24 @@
 	</p>
 	<p>
 		#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_FIRST_TIME_PREGNANCY))
-			As Lilaya leads you over to the bed, she explains the situation, [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen. In order for you to start laying your eggs, I need to focus a special kind of arcane spell into your nice little bump here. This isn't as intense as giving birth to live young, so you're going to stay conscious through all of this.)]
+			As Lilaya leads you over to the bed, she explains the situation, [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen. In order for you to start laying your #IF(pc.getPregnantLitter().getTotalLitterCount()>1)eggs#ELSEegg#ENDIF, I need to focus a special kind of arcane spell into your nice little bump here. This isn't as intense as giving birth to live young, so you're going to stay conscious through all of this.)]
 		#ELSE
-			As Lilaya leads you over to the bed, she explains the situation, [lilaya.speech(Ok, so I know we've done this before, but I'll just quickly remind you of what's going to happen. In order for you to start laying your eggs, I need to focus a special kind of arcane spell into your nice little bump here. This isn't as intense as giving birth to live young, so you're going to stay conscious through all of this.)]
+			As Lilaya leads you over to the bed, she explains the situation, [lilaya.speech(Ok, so I know we've done this before, but I'll just quickly remind you of what's going to happen. In order for you to start laying your #IF(pc.getPregnantLitter().getTotalLitterCount()>1)eggs#ELSEegg#ENDIF, I need to focus a special kind of arcane spell into your nice little bump here. This isn't as intense as giving birth to live young, so you're going to stay conscious through all of this.)]
 		#ENDIF
 	</p>
 	<p>
-		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, it doesn't hurt or anything! Now, after I've helped you lay your eggs, you're probably going to get aggressive if I hang around for too long, so I'll leave as quickly as possible. Oh, and don't worry about your behaviour, I understand that your maternal instinct is going to get pretty intense.)]
+		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, it doesn't hurt or anything! Now, after I've helped you lay your #IF(pc.getPregnantLitter().getTotalLitterCount()>1)eggs#ELSEegg#ENDIF, you're probably going to get aggressive if I hang around for too long, so I'll leave as quickly as possible. Oh, and don't worry about your behaviour, I understand that your maternal instinct is going to get pretty intense.)]
 	</p>
 	<p>
-		You fidget about uncomfortably a little, but Lilaya makes a soothing shushing noise as she pushes you down into the middle of your bed, before shuffling around to sit behind you. [lilaya.speech(It's alright, don't worry! So, after you've laid your eggs, you're going to incubate them for roughly twenty-four hours, during which time you'll find that you'll be unable to sleep or get any rest. Once the eggs start hatching, all that built-up tiredness will suddenly wash over you, and you might collapse from exhaustion. I'll be waiting to come in and help your children, so don't worry if you end up passing out! Oh, and remember that they're going to grow pretty rapidly once they've hatched, so they might have already flown the nest by the time you wake up.)]
+		You fidget about uncomfortably a little, but Lilaya makes a soothing shushing noise as she pushes you down into the middle of your bed, before shuffling around to sit behind you. [lilaya.speech(It's alright, don't worry! So, after you've laid your #IF(pc.getPregnantLitter().getTotalLitterCount()>1)eggs, you're going to incubate it#ELSEegg, you're going to incubate it#ENDIF for roughly twenty-four hours, during which time you'll find that you'll be unable to sleep or get any rest. Once the #IF(pc.getPregnantLitter().getTotalLitterCount()>1)eggs start#ELSEeggs starts#ENDIF hatching, all that built-up tiredness will suddenly wash over you, and you might collapse from exhaustion. I'll be waiting to come in and help your children, so don't worry if you end up passing out! Oh, and remember that they're going to grow pretty rapidly once they've hatched, so they might have already flown the nest by the time you wake up.)]
 	</p>
 	<p>
-		As she's been speaking, Lilaya has been shuffling around into a comfortable position behind you. Kneeling down on the bed, she presses herself into your back, before reaching around to rub her hands up and down over your belly. Moving down to apply a gentle pressure to your inner-thighs, Lilaya gets you to spread your legs, so that you're ready to start laying your eggs.
-	</p>
-	<p>
-		[lilaya.speech(Ok, all set?)]
+		As she's been speaking, Lilaya has been shuffling around into a comfortable position behind you. Kneeling down on the bed, she presses herself into your back, before reaching around to rub her hands up and down over your belly.
+		#IF(pc.hasLegs())
+		 	 Moving down to apply a gentle pressure to your inner-thighs, Lilaya gets you to spread your legs so that you're ready to start laying your #IF(pc.getPregnantLitter().getTotalLitterCount()>1)eggs#ELSEegg#ENDIF. In a gentle voice she then asks, [lilaya.speech(Ok, all set?)]
+		 #ELSE
+		 	 Moving down to rest her hands on your lower abdomen, Lilaya asks, [lilaya.speech(Ok, you're ready to start laying your #IF(pc.getPregnantLitter().getTotalLitterCount()>1)eggs#ELSEegg#ENDIF, so shall we start?)]
+		 #ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -374,23 +378,40 @@
 		[lilaya.speech(Right, just try and relax...)] she whispers into your ear, and as she does so, you see a soft pink glow start to run down her arms.
 	</p>
 	<p>
-		Sliding her hands up and down over your pregnant belly, you feel her start to apply a gentle pressure with her thumbs, as though she's trying to push out the eggs within you. As she does this, you start to feel an intense pressure building up deep within your vagina, and, collapsing back into Lilaya, you spread your legs and let out a desperate whine.
+		Sliding her hands up and down over your pregnant belly, you feel her start to apply a gentle pressure with her thumbs, as though she's trying to push out the #IF(pc.getLastLitterBirthed().getTotalLitterCount()>1)eggs#ELSEegg#ENDIF within you. As she does this, you start to feel an intense pressure building up deep within your vagina, and, collapsing back into Lilaya,
+		#IF(pc.hasLegs())
+			 you spread your legs and let out a desperate whine.
+		#ELSE
+			 you buck your hips and let out a desperate whine.
+		#ENDIF
 	</p>
 	<p>
-		[lilaya.speech(That's right, now push... Go on, you can do it...)] Lilaya softly speaks into your ear, and, obeying her instructions, you try to push the pressure out from between your legs.
+		[lilaya.speech(That's right, now push... Go on, you can do it...)] Lilaya softly speaks into your ear, and, obeying her instructions, you try to push the pressure out from within your womb.
 	</p>
-	<p>
-		Looking down, you see the tip of your first egg peeking out from between your legs, and with a determined cry, you push with all your might. You feel the egg stretching you out as you continue to apply pressure, but just as you feel that you can't keep going any longer, the egg pops free and slides out onto the bed beneath you.
-	</p>
-	<p>
-		[pc.speech(I did it...)] you sigh, looking down at the egg you've just laid. It looks to be about the same size as an emu's egg, and as you marvel at its pale pink colouring and smooth shell, you feel yourself subconsciously reaching out to pick it up and cradle in your arms.
-	</p>
-	<p>
-		[lilaya.speech(Good [pc.girl], [pc.name]! But wait, just leave it for a moment, you've still got more to lay!)] Lilaya pulls you back into her, continuing to apply the gentle pressure on your stomach as she makes soothing shushing noises into your ear.
-	</p>
-	<p>
-		Doing as Lilaya says, you allow her to pull you back, but as she does so, a strange feeling suddenly washes over you, and it takes all of your willpower to prevent yourself from pushing Lilaya away and attempting to grab your egg. Almost as though she sensed what you were thinking, Lilaya reminds you to try and overcome your maternal instincts, at least until you've finished laying all your eggs. After promising to do your best, you set about pushing out the rest of your eggs, and within half an hour, a complete clutch of [#SPECIAL_PARSE_0] eggs lie between your legs.
-	</p>
+	#IF(pc.getLastLitterBirthed().getTotalLitterCount()>1)
+		<p>
+			Looking down, you see the tip of your first egg peeking out from your vagina, and with a determined cry, you push with all your might. You feel the egg stretching you out as you continue to apply pressure, but just as you feel that you can't keep going any longer, the egg pops free and slides out onto the bed beneath you.
+		</p>
+		<p>
+			[pc.speech(I did it...)] you sigh, looking down at the egg you've just laid. It looks to be about the same size as an emu's egg, and as you marvel at its pale pink colouring and smooth shell, you feel yourself subconsciously reaching out to pick it up and cradle in your arms.
+		</p>
+		<p>
+			[lilaya.speech(Good [pc.girl], [pc.name]! But wait, just leave it for a moment, you've still got more to lay!)] Lilaya pulls you back into her, continuing to apply the gentle pressure on your stomach as she makes soothing shushing noises into your ear.
+		</p>
+		<p>
+			Doing as Lilaya says, you allow her to pull you back, but as she does so, a strange feeling suddenly washes over you, and it takes all of your willpower to prevent yourself from pushing Lilaya away and attempting to grab your egg. Almost as though she sensed what you were thinking, Lilaya reminds you to try and overcome your maternal instincts, at least until you've finished laying all your eggs. After promising to do your best, you set about pushing out the rest of your eggs, and within half an hour, you've laid a complete clutch of [#SPECIAL_PARSE_0] eggs.
+		</p>
+	#ELSE
+		<p>
+			Looking down, you see the tip of your egg peeking out from your vagina, and with a determined cry, you push with all your might. You feel the egg stretching you out as you continue to apply pressure, but just as you feel that you can't keep going any longer, the egg pops free and slides out onto the bed beneath you.
+		</p>
+		<p>
+			[pc.speech(I did it...)] you sigh, looking down at the egg you've just laid. It looks to be about the same size as an emu's egg, and as you marvel at its pale pink colouring and smooth shell, you feel yourself subconsciously reaching out to pick it up and cradle in your arms.
+		</p>
+		<p>
+			[lilaya.speech(Good [pc.girl], [pc.name]!)] Lilaya exclaims, but as she does so, a strange feeling suddenly washes over you, and it takes all of your willpower to prevent yourself from pushing her away and attempting to grab your egg. Almost as though she sensed what you were thinking, Lilaya reminds you that your maternal instincts are about to take hold...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -398,49 +419,88 @@
 	<!-- LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS -->
 	
 	<htmlContent tag="LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS"><![CDATA[
-	<p>
-		As you look down at your clutch of eggs, you find yourself burning with an overwhelming need to protect them at all costs. Throwing Lilaya's arms off of you, you collapse forwards, wrapping your [pc.arms] around your precious brood as you turn your head back and shout, [pc.speech(Get away! Don't hurt them!)]
-	</p>
-	<p>
-		Lilaya instantly stands up and starts backing off towards the door, [lilaya.speech(Ok, ok, don't worry, I'm leaving. You'll be safe in here...)]
-	</p>
-	<p>
-		Still making soothing shushing noises, she opens the door to your room and slips out, before closing it firmly behind her. Having driven off the only possible threat to your nest, you shuffle around into a more comfortable position, pressing the heat of your body up against your eggs as you continue to cover them with your [pc.arms]. You make sure to position yourself so that you're looking at the only entrance to your room, and, once satisfied that you're in a good position, you settle down to your vigilant watch...
-	</p>
-	<p>
-		For the next twenty hours, you barely move a muscle, but despite the fact that you're lying on a warm, comfortable bed, you don't even consider for a moment to get any rest. Your eyes only occasionally drift away from the door, but only to check your surroundings for any sign of danger.
-	</p>
-	<p>
-		As you enter the twenty-first hour of your incubation, you feel one of your eggs start to move. Letting out a delighted cry, you shift position slightly to look down at your clutch. A feeling of overwhelming joy rushes through you as you see each and every one of your eggs trembling and shifting about.
-	</p>
+	#IF(pc.getLastLitterBirthed().getTotalLitterCount()>1)
+		<p>
+			As you look down at your clutch of eggs, you find yourself burning with an overwhelming need to protect them at all costs. Throwing Lilaya's arms off of you, you collapse forwards, wrapping your [pc.arms] around your precious brood as you turn your head back and shout, [pc.speech(Get away! Don't hurt them!)]
+		</p>
+		<p>
+			Lilaya instantly stands up and starts backing off towards the door, [lilaya.speech(Ok, ok, don't worry, I'm leaving. You'll be safe in here...)]
+		</p>
+		<p>
+			Still making soothing shushing noises, she opens the door to your room and slips out, before closing it firmly behind her. Having driven off the only possible threat to your nest, you shuffle around into a more comfortable position, pressing the heat of your body up against your eggs as you continue to cover them with your [pc.arms]. You make sure to position yourself so that you're looking at the only entrance to your room, and, once satisfied that you're in a good position, you settle down to your vigilant watch...
+		</p>
+		<p>
+			For the next twenty hours, you barely move a muscle, but despite the fact that you're lying on a warm, comfortable bed, you don't even consider for a moment to get any rest. Your eyes only occasionally drift away from the door, but only to check your surroundings for any sign of danger.
+		</p>
+		<p>
+			As you enter the twenty-first hour of your incubation, you feel one of your eggs start to move. Letting out a delighted cry, you shift position slightly to look down at your clutch. A feeling of overwhelming joy rushes through you as you see each and every one of your eggs trembling and shifting about.
+		</p>
+	#ELSE
+		<p>
+			As you look down at your egg, you find yourself burning with an overwhelming need to protect it at all costs. Throwing Lilaya's arms off of you, you collapse forwards, wrapping your [pc.arms] around your precious child as you turn your head back and shout, [pc.speech(Get away! Don't hurt it!)]
+		</p>
+		<p>
+			Lilaya instantly stands up and starts backing off towards the door, [lilaya.speech(Ok, ok, don't worry, I'm leaving. You'll be safe in here...)]
+		</p>
+		<p>
+			Still making soothing shushing noises, she opens the door to your room and slips out, before closing it firmly behind her. Having driven off the only possible threat to your nest, you shuffle around into a more comfortable position, pressing the heat of your body up against your egg as you continue to cover it with your [pc.arms]. You make sure to position yourself so that you're looking at the only entrance to your room, and, once satisfied that you're in a good position, you settle down to your vigilant watch...
+		</p>
+		<p>
+			For the next twenty hours, you barely move a muscle, but despite the fact that you're lying on a warm, comfortable bed, you don't even consider for a moment to get any rest. Your eyes only occasionally drift away from the door, but only to check your surroundings for any sign of danger.
+		</p>
+		<p>
+			As you enter the twenty-first hour of your incubation, you feel your egg start to move. Letting out a delighted cry, you shift position slightly to look down at it. A feeling of overwhelming joy rushes through you as you see it trembling and shifting about.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_FEMININE_HATCHING"><![CDATA[
 	<p>
-		You watch in awe as the first egg starts to crack. Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny [#SPECIAL_PARSE_0] crawling out. A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her. As all the other eggs start cracking in turn, you feel a wave of exhaustion washing over you, and with what little strength you have left, you feebly call out for Lilaya.
+		#IF(pc.getLastLitterBirthed().getTotalLitterCount()>1)
+			You watch in awe as the first egg starts to crack. Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny [#SPECIAL_PARSE_0] crawling out. A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her. As all the other eggs start cracking in turn, you feel a wave of exhaustion washing over you, and with what little strength you have left, you feebly call out for Lilaya.
+		#ELSE
+			You watch in awe as your egg starts to crack. Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny [#SPECIAL_PARSE_0] crawling out. A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her. As you see that your child has safely hatched, you suddenly feel a wave of exhaustion washing over you, and with what little strength you have left, you feebly call out for Lilaya.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_MASCULINE_HATCHING"><![CDATA[
 	<p>
-		You watch in awe as the first egg starts to crack. Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny [#SPECIAL_PARSE_0] crawling out. A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him. As all the other eggs start cracking in turn, you feel a wave of exhaustion washing over you, and with what little strength you have left, you feebly call out for Lilaya.
+		#IF(pc.getLastLitterBirthed().getTotalLitterCount()>1)
+			You watch in awe as the first egg starts to crack. Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny [#SPECIAL_PARSE_0] crawling out. A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him. As all the other eggs start cracking in turn, you feel a wave of exhaustion washing over you, and with what little strength you have left, you feebly call out for Lilaya.
+		#ELSE
+			You watch in awe as your egg starts to crack. Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny [#SPECIAL_PARSE_0] crawling out. A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him. As you see that your child has safely hatched, you suddenly feel a wave of exhaustion washing over you, and with what little strength you have left, you feebly call out for Lilaya.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_END"><![CDATA[
-	<p>
-		As your head collapses down onto the bed, you vaguely see Lilaya rushing into the room. A delighted smile breaks out across her face as she sees that your eggs are hatching, and just before you pass out, you see her bending down in order to start taking care of your children.
-	</p>
-	<p>
-		#IF(pc.getBreastRawMilkStorageValue()>0 && pc.isAbleToAccessCoverableArea(CA_NIPPLES, true) && pc.getNippleShape()==NIPPLE_SHAPE_NORMAL && game.isLactationContentEnabled())
-			Some time later, you drift back into consciousness for a moment as you feel a desperate suckling at your nipples, and you're vaguely aware that it's your children who are eagerly drinking down mouthfuls of your [pc.milk]. Letting your eyelids close again, you soon drift off into an exhausted sleep.
-		#ELSE
-			Some time later, you drift back into consciousness for a moment as you feel a weight on your chest, and you're vaguely aware of cradling your children in your arms as they eagerly drink down bottle after bottle of the milk that Lilaya has provided for you. Letting your eyelids close again, you soon drift off into an exhausted sleep.
-		#ENDIF
-	</p>
+	#IF(pc.getLastLitterBirthed().getTotalLitterCount()>1)
+		<p>
+			As your head collapses down onto the bed, you vaguely see Lilaya rushing into the room. A delighted smile breaks out across her face as she sees that your eggs are hatching, and just before you pass out, you see her bending down in order to start taking care of your children.
+		</p>
+		<p>
+			#IF(pc.getBreastRawMilkStorageValue()>0 && pc.isAbleToAccessCoverableArea(CA_NIPPLES, true) && pc.getNippleShape()==NIPPLE_SHAPE_NORMAL && game.isLactationContentEnabled())
+				Some time later, you drift back into consciousness for a moment as you feel a desperate suckling at your nipples, and you're vaguely aware that it's your children who are eagerly drinking down mouthfuls of your [pc.milk]. Letting your eyelids close again, you soon drift off into an exhausted sleep.
+			#ELSE
+				Some time later, you drift back into consciousness for a moment as you feel a weight on your chest, and you're vaguely aware of cradling your children in your arms as they eagerly drink down bottle after bottle of the milk that Lilaya has provided for you. Letting your eyelids close again, you soon drift off into an exhausted sleep.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			As your head collapses down onto the bed, you vaguely see Lilaya rushing into the room. A delighted smile breaks out across her face as she sees that your egg has hatched, and just before you pass out, you see her bending down in order to start taking care of your child.
+		</p>
+		<p>
+			#IF(pc.getBreastRawMilkStorageValue()>0 && pc.isAbleToAccessCoverableArea(CA_NIPPLES, true) && pc.getNippleShape()==NIPPLE_SHAPE_NORMAL && game.isLactationContentEnabled())
+				Some time later, you drift back into consciousness for a moment as you feel a desperate suckling at your nipples, and you're vaguely aware that it's your child who's eagerly drinking down mouthfuls of your [pc.milk]. Letting your eyelids close again, you soon drift off into an exhausted sleep.
+			#ELSE
+				Some time later, you drift back into consciousness for a moment as you feel a weight on your chest, and you're vaguely aware of cradling your child in your arms as they eagerly drink down bottle after bottle of the milk that Lilaya has provided for you. Letting your eyelids close again, you soon drift off into an exhausted sleep.
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -451,24 +511,24 @@
 	<p>
 		You wake up some time later, lying in your bed. With a groan, you sit up, pushing the covers back as you rub sleep from your eyes.
 	</p>
-		#IF(pc.hasVagina())
-	<p>
-		The first thing you notice is how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
-	</p>
-	<p>
-		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling between your legs. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
-	</p>
-	<p>
-		Glancing across to your bedside cabinet, the final thing you discover is a note from Lilaya. Picking it up, you glance over the contents:
-	</p>
-		#ELSE
-	<p>
-		You notice how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
-	</p>
-	<p>
-		Glancing across to your bedside cabinet, you discover a note from Lilaya. Picking it up, you glance over the contents:
-	</p>
-	    #ENDIF
+	#IF(pc.hasVagina())
+		<p>
+			The first thing you notice is how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
+		</p>
+		<p>
+			As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling #IF(pc.hasLegs())between your legs#ELSEin your groin#ENDIF. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+		</p>
+		<p>
+			Glancing across to your bedside cabinet, the final thing you discover is a note from Lilaya. Picking it up, you glance over the contents:
+		</p>
+	#ELSE
+		<p>
+			You notice how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
+		</p>
+		<p>
+			Glancing across to your bedside cabinet, you discover a note from Lilaya. Picking it up, you glance over the contents:
+		</p>
+	   #ENDIF
 	<p style='text-align:center;'>
 	<i>
 		Hey [pc.name], congratulations! Everything went perfectly!

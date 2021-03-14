@@ -101,15 +101,18 @@ public class SubmissionAttacker extends NPC {
 			} else {
 				this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			}
-
+			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { // Half-demon spawn rate
 				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
 			}
-
+			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
-				Main.game.getCharacterUtils().applyTaurConversion(this);
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+				// Check for race's leg type as taur, otherwise NPCs which sapwn with human legs won't be affected by taur conversion rate:
+				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
+					this.setLegType(this.getRace().getRacialBody().getLegType());
+					Main.game.getCharacterUtils().applyTaurConversion(this);
+				}
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));

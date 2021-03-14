@@ -1636,7 +1636,7 @@
 	#ENDVAR
 	
 	<p>
-		Unable to continue fighting any longer, you feel your [pc.legs] give out from under you, and with a defeated sigh, you collapse down onto the ground.
+		Unable to continue fighting any longer, you feel your [pc.legs] giving out from under you, and with a defeated sigh, you collapse down onto the ground.
 	</p>
 	<p>
 		[npc.speech(That'll teach you to try and fight back against us Enforcers!)] [npc.name] boasts as [npc.she] holsters [npc.her] baton and pistol.
