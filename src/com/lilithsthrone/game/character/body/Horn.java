@@ -24,8 +24,15 @@ public class Horn implements BodyPartInterface {
 	protected int length;
 	
 	public Horn(AbstractHornType type, int length) {
-		this.type = type;
-		this.length = length;
+		if(length<=0) {
+			this.length = 0;
+			this.type = HornType.NONE;
+			
+		} else {
+			this.type = type;
+			this.length = length;
+		}
+		
 		rows = 1;
 		hornsPerRow = type.getDefaultHornsPerRow();
 	}

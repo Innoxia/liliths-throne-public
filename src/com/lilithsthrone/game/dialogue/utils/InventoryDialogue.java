@@ -182,12 +182,10 @@ public class InventoryDialogue {
 				return "Inventory";
 			}
 		}
-
 		@Override
 		public String getHeaderContent() {
 			return inventoryView();
 		}
-
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);

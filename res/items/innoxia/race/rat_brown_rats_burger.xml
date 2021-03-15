@@ -33,6 +33,7 @@
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
 			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+			<line><![CDATA[If body size is less than [style.colourBodySizeThree('large')], increases body size by 1]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
@@ -50,6 +51,9 @@
 				[npc.Name] [npc.verb(start)] to feel a lot more energetic...
 			</p>
 			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		#ENDIF
+		#IF(npc.getBodySizeValue()<60)
+			[#npc.incrementBodySize(1)]
 		#ENDIF
 		]]></applyEffects>
 		

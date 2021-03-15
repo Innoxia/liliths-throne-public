@@ -786,13 +786,25 @@ public class ChairSex {
 					if(isHappy) {
 						switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 							case DOM_ROUGH:
-								return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [np.legs], wrapping them around [npc2.namePos] lower back, and roughly forcing [npc2.herHim] forwards."
-										+ " Glaring up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
-										+ " [npc.speech(Alright, slut, you'd better make this good!)]";
+								if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [npc.legs], wrapping them around [npc2.namePos] lower back, and roughly forcing [npc2.herHim] forwards."
+											+ " Glaring up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
+											+ " [npc.speech(Alright, slut, you'd better make this good!)]";
+								} else {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before presenting [npc.her] groin to [npc2.name]."
+											+ " Glaring up at [npc2.herHim], [npc.she] [npc.moansVerb],"
+											+ " [npc.speech(Alright, slut, you'd better make this good!)]";
+								}
 							default:
-								return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [np.legs], wrapping them around [npc2.namePos] lower back, and forcing [npc2.herHim] forwards."
-										+ " Smiling up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
-										+ " [npc.speech(Come on then, fuck me!)]";
+								if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [npc.legs], wrapping them around [npc2.namePos] lower back, and forcing [npc2.herHim] forwards."
+											+ " Smiling up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
+											+ " [npc.speech(Come on then, fuck me!)]";
+								} else {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before presenting [npc.her] groin to [npc2.name]."
+											+ " Smiling up at [npc2.herHim], [npc.she] [npc.moansVerb],"
+											+ " [npc.speech(Come on then, fuck me!)]";
+								}
 						}
 						
 					} else {

@@ -1491,7 +1491,12 @@
 		#IF(pc.isTaur())
 			 Happy enough to do as you suggest, Elle pushes you down so that you're lying on your animalistic stomach, before moving around in front of you and preparing to use your mouth. Kneeling down behind your feral [pc.legRace]'s body, Wes joins his slave in getting ready to dominantly fuck you...
 		#ELSE
-			 Happy enough to do as you suggest, Elle pushes you down onto the floor so that you're lying on your back, before kneeling down and planting her groin over your face. Kneeling down between your legs, Wes joins his slave in getting ready to dominantly fuck you...
+			 Happy enough to do as you suggest, Elle pushes you down onto the floor so that you're lying on your back, before kneeling down and planting her groin over your face.
+			 #IF(pc.hasLegs())
+				 Kneeling down between your legs, Wes joins his slave in getting ready to dominantly fuck you...
+			 #ELSE
+				 Kneeling down over your groin, Wes joins his slave in getting ready to dominantly fuck you...
+			 #ENDIF
 		#ENDIF
 	</p>
 	]]>

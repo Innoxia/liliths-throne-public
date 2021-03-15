@@ -83,7 +83,12 @@
 		You smirk at [npc.name], before batting your eyelids and putting on the most seductive voice you can muster, [pc.speech(Please [npc.name], could I get your gift elsewhere?)]
 	</p>
 	<p>
-		You slowly trace your fingers over your pussy, drawing [npc.namePos] eyes down between your [pc.legs+]. She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar. [npc.speech(What better way to praise Lilith than by filling an eager slut's womb with my seed?! Your belly's going to be nice and swollen with my demonic brood soon enough!)]
+		#IF(pc.isTaur())
+			You slowly turn around and present your rear-end to [npc.name], drawing [npc.her] eyes down to your [pc.pussy+]. 
+		#ELSE
+			You slowly trace your fingers over your pussy, drawing [npc.namePos] eyes down to your groin. 
+		#ENDIF
+		 She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar. [npc.speech(What better way to praise Lilith than by filling an eager slut's womb with my seed?! Your belly's going to be nice and swollen with my demonic brood soon enough!)]
 	</p>
 	#IF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 		<p>
@@ -202,7 +207,13 @@
 		[npc.speech(How pathetic!)] [npc.name] mocks, reaching down to pull you up, before pushing you down onto the stone altar. [npc.speech(I wonder if you'll keep on mewling like that as I fuck you senseless! Try and struggle all you want, it's no use; this Witch's Seal I've cast upon you has turned you into my very own fuck-doll!)]
 	</p>
 	<p>
-		As she talks, the witch moves you around into position, and you find that you're totally powerless as she spreads your legs and steps forwards. [npc.speech(Now, let's have some fun!)]
+		As she talks, the witch moves you around into position, and you find that you're totally powerless as she
+		#IF(pc.hasLegs())
+			 spreads your legs
+		#ELSE
+			 takes hold of your [pc.legs]
+		#ENDIF
+		 and steps forwards. [npc.speech(Now, let's have some fun!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -245,7 +256,7 @@
 		You move to do as [npc.name] says, and as soon as you've finished getting your things together, she grabs you by the arm and starts marching towards the door. You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door. [npc.speech(Come back some other time if you want another gift!)]
 	</p>
 	<p>
-		With that, the wooden door to the chapel slams shut, leaving you to walk back out to the street with the wet feeling of demonic cum still between your legs...
+		With that, the wooden door to the chapel slams shut, leaving you to walk back out to the street with the wet feeling of demonic cum still oozing out of your [pc.pussy+]...
 	</p>
 	]]>
 	</htmlContent>
@@ -286,7 +297,7 @@
 		After being shouted at once more by [npc.name], the cat-girl grabs you under the arms and drags you outside. She puffs and pants as she pulls you down the dark alleyways, but despite the sounds of exertion, it doesn't her take too long before she's brought you all the way back out to the street where you first met [npc.name]. Rather unceremoniously dumping you down onto an empty bench, the cat-girl takes one last look at you before rushing back off to the chapel.
 	</p>
 	<p>
-		Thankfully, it only takes a couple of minutes before the spell finally wears off, and with the wet feeling of demonic cum still between your legs, you continue on your travels...
+		Thankfully, it only takes a couple of minutes before the spell finally wears off, and with the smell of demonic cum still in the air around you, you continue on your travels...
 	</p>
 	]]>
 	</htmlContent>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	
+	<name><![CDATA[pink]]></name>
+	
+	<colour>e3bbde</colour>
+	<lightColour>e3bbde</lightColour>
+	
+	<formattingNames>
+		<name><![CDATA[pig]]></name>
+		<name><![CDATA[pigMorph]]></name>
+	</formattingNames>
+	
+	<tags/>
+	
+</colour>

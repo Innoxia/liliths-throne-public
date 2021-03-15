@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ass>
+	<race>innoxia_pig</race>
+	
+	<transformationName><![CDATA[pig]]></transformationName>
+	
+	<coveringType>innoxia_pig_fur</coveringType>
+	
+	<anusType>innoxia_pig_anus</anusType>
+	
+	<names/>
+	<namesPlural/>
+	
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] a [style.boldPig(pig-like)], [npc.assholeFullDescription].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] a pig-like, [npc.anusFullDescription(true)]
+	]]></bodyDescription>
+</ass>

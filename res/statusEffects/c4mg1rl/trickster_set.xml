@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>70</renderingPriority>
+	
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	
+	<category>INVENTORY</category>
+	
+	<beneficial>BENEFICIAL</beneficial>
+	
+	<combatEffect>false</combatEffect>
+	
+	<sexEffect>false</sexEffect>
+	
+	<tags/>
+	
+	<name><![CDATA[Trickster's Bounty]]></name>
+	
+	<description><![CDATA[
+		By wearing the Trickster's set, [npc.nameIs] filled with a sense of roguish delight. With all manner of cunning plots and schemes jumping into [npc.her] mind, [npc.name] [npc.verb(feel)] as though [npc.sheHas] become a trickster god#IF(npc.isFeminine())dess#ENDIF!
+	]]></description>
+	
+	<imageName>trickster_set.svg</imageName>
+	
+	<colourPrimary>CLOTHING_RED_DARK</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	
+	<attributeModifiers>
+		<modifier value="10.0">DAMAGE_LUST</modifier>
+		<modifier value="10.0">MAJOR_ARCANE</modifier>
+	</attributeModifiers>
+	
+	<combatMoves/>
+	
+	<spells/>
+	
+	<extraEffects/>
+	
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[
+		[#SET_BONUS_c4mg1rl_trickster.isCharacterWearingCompleteSet(npc)]
+	]]></applicationCondition>
+	
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	
+	<applyEffect/>
+	
+	<applyRemovalEffect/>
+	
+	<applyPostRemovalEffect/>
+	
+</statusEffect>
