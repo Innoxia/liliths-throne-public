@@ -1124,13 +1124,13 @@ public class PlaceType {
 	
         //Felicia's Apartment       
         
-        public static final AbstractPlaceType FELICIA_APARTMENT_ENTRANCE = new AbstractPlaceType(
+        public static final AbstractPlaceType FELICIA_APARTMENT_ENTRYWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Entrance Hall",
-			"PLACEHOLDER_FELICIA_APARTMENT_ENTRANCE",
+			"The entryway in Felicia's apartment has a coat closet off to the side.",
 			"dominion/feliciaApartment/entranceHall",
 			PresetColour.BASE_RED,
-			FeliciaApartment.ENTRANCE_HALL,
+			FeliciaApartment.ENTRYWAY,
 			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the entrance hall of Felicia's apartment"
@@ -1163,7 +1163,7 @@ public class PlaceType {
         public static final AbstractPlaceType FELICIA_APARTMENT_KITCHEN = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Kitchen",
-			"PLACEHOLDER_FELICIA_APARTMENT_KITCHEN",
+			"The barren kitchen is open to both the hallway and the dining area.",
 			"dominion/feliciaApartment/kitchen",
 			PresetColour.BASE_ORANGE,
 			FeliciaApartment.KITCHEN,
@@ -1175,7 +1175,7 @@ public class PlaceType {
         public static final AbstractPlaceType FELICIA_APARTMENT_DINING_AREA = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Dining Area",
-			"PLACEHOLDER_FELICIA_APARTMENT_DINING_AREA",
+			"The dining area in Felicia's apartment is cramped despite being equipped to only seat one.",
 			"dominion/feliciaApartment/diningArea",
 			PresetColour.BASE_BLUE_STEEL,
 			FeliciaApartment.KITCHEN,
@@ -1187,7 +1187,7 @@ public class PlaceType {
         public static final AbstractPlaceType FELICIA_APARTMENT_LIVING_AREA = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Living Area",
-			"PLACEHOLDER_FELICIA_APARTMENT_LIVING_AREA",
+			"Felicia's living room is sparsely decorated but has a view of Dominion's streets.",
 			"dominion/feliciaApartment/livingArea",
 			PresetColour.BASE_INDIGO,
 			FeliciaApartment.LIVING_AREA,
@@ -1199,7 +1199,7 @@ public class PlaceType {
         public static final AbstractPlaceType FELICIA_APARTMENT_HALLWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Hallway",
-			"PLACEHOLDER_FELICIA_APARTMENT_HALLWAY",
+			"The hallway is totally void of decoration or funiture.",
 			null,
 			PresetColour.BASE_BLACK,
 			FeliciaApartment.HALLWAY,

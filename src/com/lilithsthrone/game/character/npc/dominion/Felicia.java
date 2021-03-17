@@ -57,9 +57,13 @@ import org.w3c.dom.Element;
 
 /**
  *
- * @author dustland.crow
+ * @author DSG
  */
 public class Felicia extends NPC {
+    
+    public Felicia() {
+        this(false);
+    }
     
     public Felicia(boolean isImported) {
         super (isImported, new NameTriplet("Felicia"), "Delilah-Hope Renmorre",

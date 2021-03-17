@@ -683,11 +683,11 @@ public class WorldType {
 			1,
 			false,
 			false,
-			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/dominion/feliciaApartment/feliciaApartment.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FELICIA_APARTMENT_ENTRANCE, Util.newHashMapOfValues(
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/dominion/feliciaApartment/feliciaApartment.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FELICIA_APARTMENT_ENTRYWAY, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0xc3c3c3), PlaceType.FELICIA_APARTMENT_HALLWAY),
-					new Value<>(new Color(0xff7f27), PlaceType.FELICIA_APARTMENT_ENTRANCE),
+					new Value<>(new Color(0xff7f27), PlaceType.FELICIA_APARTMENT_ENTRYWAY),
 
 					new Value<>(new Color(0x99d9ea), PlaceType.FELICIA_APARTMENT_DINING_AREA),
 					new Value<>(new Color(0xb5e61d), PlaceType.FELICIA_APARTMENT_KITCHEN),

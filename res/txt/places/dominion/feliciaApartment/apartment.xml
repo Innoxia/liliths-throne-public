@@ -5,17 +5,17 @@
 	
 	<htmlContent tag="HALLWAY"><![CDATA[
 	<p>
-		PLACEHOLDER_FELICIA_APARTMENT_HALLWAY
+		White walls and beige carpets.  THe halls looked like someone had just moved in.  They are void of decoration or furniture.  The only things that stick out are the lights and the half-wall that opens to a view of the dining room.
 	</p>
 	]]>
 	</htmlContent>
 	
 	
-	<!-- ENTRANCE_HALL -->
+	<!-- ENTRYWAY -->
 	
-	<htmlContent tag="ENTRANCE_HALL"><![CDATA[
+	<htmlContent tag="ENTRYWAY"><![CDATA[
 	<p>
-		PLACEHOLDER_FELICIA_APARTMENT_ENTRANCE
+		The entryway of Felicia’s apartment is as empty as the rest of it.  With white walls, and not much decoration.  The only thing that sticks out is the brown rug surrounded by the apartment’s beige carpeting.  To the right is a door which opens to what is probably the coat closet.
 	</p>
 	]]>
 	</htmlContent>
@@ -45,7 +45,7 @@
 	
 	<htmlContent tag="KITCHEN"><![CDATA[
 	<p>
-		PLACEHOLDER_FELICIA_APARTMENT_KITCHEN
+		The lack of a wall between the kitchen and living room opens the place nicely. The beige carpet is replaced with a light brown wood floor.  The left wall is lined with marble topped counters, a sink in the middle of it all.  At the border between the kitchen and living room is a white fridge with, probably, the only colorful thing in the house; a bright pink, stuffed bear sat upon it.  Beside it is the window and a stove, as barren as the rest of the apartment.  Both the living and dining room were are plain view, with no walls between them. 
 	</p>
 	]]>
 	</htmlContent>
@@ -55,7 +55,7 @@
 	
 	<htmlContent tag="DINING_AREA"><![CDATA[
 	<p>
-		PLACEHOLDER_FELICIA_APARTMENT_DINING_AREA
+		In the middle of the room is a single, light brown table with barely enough room to fit two people.  Surprisingly enough, there is only a single, equally brown chair; the table has nothing on it, not even a salt shaker.  Instead of the normal beige carpet, the dining room opens to a wooden floor, its color matching the "dining set".  The wall between the dining room and hallway opens to give a view of each other.
 	</p>
 	]]>
 	</htmlContent>
@@ -65,7 +65,40 @@
 	
 	<htmlContent tag="LIVING_AREA"><![CDATA[
 	<p>
-		PLACEHOLDER_FELICIA_APARTMENT_LIVING_AREA
+		The only things here are a dark green couch, a light brown coffee table, and a bookcase filled to the brim with an assortment of books.  Next to the bookcase is a window, which opens to a view of the streets of Dominion.  To the left is an open view of the equally as empty kitchen.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ARTHUR_WHEREABOUTS -->
+	
+	<htmlContent tag="ARTHUR_WHEREABOUTS"><![CDATA[
+	<p>
+		You oblige, walking in on an empty house. It was a small apartment, with solely a couch, coffee table, and bookcase. The kitchen had the bare essentials, and a pink, stuffed bear on the fridge. You decide to sit closest to the door, the dark-green couch comfier than it looks. The doggy follows you, sitting on the other side.  [felicia.speech(So,)] she begins to speak, trying to keep herself calm; her tail not helping, [felicia.speech(“Have you found Arthur?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ARTHUR_WHEREABOUTS_NO -->
+	
+	<htmlContent tag="ARTHUR_WHEREABOUTS_NO"><![CDATA[
+	<p>
+		You can visibly see her energy seep from her body, her tail and ears drooping. She takes a few seconds to re-collect herself before speaking softly, [felicia.speech(You’ll find him eventually, don’t worry,)] Figuring you should clear the sadness from the air, you decide to ask her some questions.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ARTHUR_WHEREABOUTS_YES -->
+	
+	<htmlContent tag="ARTHUR_WHEREABOUTS_YES"><![CDATA[
+	<p>
+		Her body visibly lights up with excitement, tail moving faster than the speed of light. The dog-girl pounces on you, hugging you to near death. With how soft her fur is, you welcome it. [felicia.speech(I can’t thank you enough! You are the best person ever!)] There’s a few more seconds of hugging before she finally releases you, allowing you to breathe again. She calms herself down and sits besides you again. [felicia.speech(Is he okay?  Where is he?)]
+	</p>
+	<p>
+		[pc.speech(He’s doing fine, staying at my place. He’s going to be there for a while but you can always visit. I’ll tell Rose to let you in when I get back.)]
+	</p>
+	<p>
+		Felicia gives a barely visible pout. [felicia.speech(Awh, I wanted him back here.)] It takes her a second to collect herself before her energy returns. [felicia.speech(Well, as long as im always welcome there it’ll be fine.)]
 	</p>
 	]]>
 	</htmlContent>
