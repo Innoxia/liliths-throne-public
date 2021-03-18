@@ -75,7 +75,7 @@
 	
 	<!-- The name of the svg file which represents this subspecies' icon.
 	It should be located in the same folder as this xml file. -->
-	<iconName displaySize="95">samoyedicon</iconName>
+	<iconName displaySize="90">samoyedicon</iconName>
 	
 	<!-- The name of the svg file which represents the background for this subspecies' icon.
 	It should be located in the same folder as this xml file.

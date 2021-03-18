@@ -2,7 +2,6 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 
 import java.time.Month;
 
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Felicia;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -423,7 +422,7 @@ public class DemonHome {
 	};
 
 	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM = new DialogueNode("", "", true) {
-                public int h = Main.game.getDateNow().getHour();
+                public int h;
                 
 		@Override
 		public int getSecondsPassed() {
@@ -437,24 +436,25 @@ public class DemonHome {
 
 		@Override
 		public String getContent() {
+                    h = Main.game.getDateNow().getHour();
                     String s = "<p> You returned to Sawlty Towers, deciding to visit the dog girl wondering where Arthur was."
                             + " Her room wasn't hard to find, being directly to the left of Arthur's. You knock on the door a few times and wait. </p>";
                     if(h >= 6 && h <= 8) {
                         getFelicia().setLocation(Main.game.getPlayer(), false);
-                        s.concat("<p>Inside, you can hear footsteps getting closer before the door unlocks and opens to reveal a white furball, dripping wet; not in that way."
+                        getFelicia().setIntroducedToPlayer(true);
+                        s = s.concat("<p>Inside, you can hear footsteps getting closer before the door unlocks and opens to reveal a white furball, dripping wet; not in that way."
                                 + " The toweled dog looked at you with her natural puppy eyes and spoke [felicia.speech(Ah, I didn't expect you to come over so early, I would have picked up.)]"
                                 + " As she finished, she motioned to let you in.</p>"
                         );
-                    }
-                    else if (h >= 9 && h <= 14) {
+                    } else if (h >= 9 && h <= 14) {
                         getFelicia().setLocation(Main.game.getPlayer(), false);
-                        s.concat("<p>You hear a sharp [felicia.speech(Ah! Coming!)] seconds before the door swings open, revealing a white ball of floof, wearing an oversized, brown sweater."
+                        getFelicia().setIntroducedToPlayer(true);
+                        s = s.concat("<p>You hear a sharp [felicia.speech(Ah! Coming!)] seconds before the door swings open, revealing a white ball of floof, wearing an oversized, brown sweater."
                                 + " The dog-girl stares at you in excitement when seeing you, speaking sharply,"
-                                + " [felicia.speech(Come in, I just finished lunch.)].</p>"
+                                + " [felicia.speech(Come in, I just finished lunch.)]</p>"
                         );
-                    }
-                    else {
-                        s.concat("<p>After a few moments of silence, you decide to knock again, but there doesn't seem to be anyone home at the moment."
+                    } else {
+                        s = s.concat("<p>After a few moments of silence, you decide to knock again, but there doesn't seem to be anyone home at the moment."
                                 + " Sighing, you give up and decide to come back another time. </p>"
                         );
                     }
@@ -463,16 +463,26 @@ public class DemonHome {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0 && (h < 6 && h > 14)) {
+			if (index == 1 && (h < 6 && h > 14)) {
 				return new Response("Leave", "Looks like Felicia isn't here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);			
-			} else if(index == 0 && (h >= 6 && h <= 14)) {
-                                return new Response("Enter", "Enter Felicia's home.", FeliciaApartment.ARTHUR_WHEREABOUTS) {
-                                    @Override
-                                    public void effects() {
-                                        getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, false);
-                                        Main.game.getPlayer().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA);
-                                    }
-                                };
+			} else if (index == 1 && (h >= 6 && h <= 14)) {
+                                if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaToldAboutArthur)) {
+                                    return new Response("Enter", "Enter Felicia's home.", FeliciaApartment.ARTHUR_WHEREABOUTS) {
+                                        @Override
+                                        public void effects() {
+                                            getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, false);
+                                            Main.game.getPlayer().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA);
+                                        }
+                                    };
+                                } else {
+                                   return new Response("Enter", "Enter Felicia's home.", FeliciaApartment.FELICIA_GREETINGS) {
+                                        @Override
+                                        public void effects() {
+                                            getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, false);
+                                            Main.game.getPlayer().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA);
+                                        }
+                                    }; 
+                                }  
                         } else {
 				return null;
 			}

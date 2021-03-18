@@ -6,7 +6,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -17,7 +16,6 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -25,7 +23,6 @@ import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
@@ -47,6 +44,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -73,12 +71,13 @@ public class Felicia extends NPC {
                 30,
                 Month.FEBRUARY, 17,
                 10,
-                Gender.F_B_DOLL, Subspecies.getSubspeciesFromId(""), RaceStage.GREATER,
+                Gender.F_B_DOLL, Subspecies.getSubspeciesFromId("dsg_dog_subspecies_samoyed"), RaceStage.GREATER,
                 new CharacterInventory(10),
-                WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR,
+                WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA,
                 true);
+        
         if(!isImported) {
-            
+            this.setPlayerKnowsName(false);
         }
     }
     
@@ -224,7 +223,7 @@ public class Felicia extends NPC {
     public DialogueNode getEncounterDialogue() {
         return null;
     }
-
+    
     @Override
     public boolean isUnique() {
         return true;

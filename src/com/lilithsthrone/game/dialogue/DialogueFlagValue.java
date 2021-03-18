@@ -417,6 +417,9 @@ public enum DialogueFlagValue {
 
 	murkLectured(true),
 	murkSpanked(true),
+        
+        //Felicia
+        feliciaToldAboutArthur(false),
 	;
 	
 	boolean dailyReset;

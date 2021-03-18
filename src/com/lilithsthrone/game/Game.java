@@ -1875,10 +1875,13 @@ public class Game implements XMLSaving {
 			}
                         
                         // Sawlty Towers (Arthur/Felicia's apartment building):
-                        if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Felicia.class))) { addNPC(new Felicia(), false); addedNpcs.add(Felicia.class); }
+                        if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Felicia.class))) { 
+                            addNPC(new Felicia(), false); 
+                            addedNpcs.add(Felicia.class); 
+                        }
                         
                         if(addedNpcs.contains(Felicia.class)) {
-                            Main.game.getNpc(Felicia.class).setAffection(Main.game.getNpc(Arthur.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+                                getNpc(Felicia.class).setAffection(getNpc(Arthur.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
                         }
                         
 			// Zaranix's home:

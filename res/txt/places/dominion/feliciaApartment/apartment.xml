@@ -15,7 +15,7 @@
 	
 	<htmlContent tag="ENTRYWAY"><![CDATA[
 	<p>
-		The entryway of Felicia’s apartment is as empty as the rest of it.  With white walls, and not much decoration.  The only thing that sticks out is the brown rug surrounded by the apartment’s beige carpeting.  To the right is a door which opens to what is probably the coat closet.
+		The entryway of [felicia.namePos] apartment is as empty as the rest of it.  With white walls, and not much decoration.  The only thing that sticks out is the brown rug surrounded by the apartment’s beige carpeting.  To the right is a door which opens to what is probably the coat closet.
 	</p>
 	]]>
 	</htmlContent>
@@ -70,11 +70,36 @@
 	]]>
 	</htmlContent>
 	
+	<!-- FELICIA_GREETINGS -->
+	
+	<htmlContent tag="FELICIA_GREETINGS"><![CDATA[
+	<p>
+		FELICIA_GREETINGS_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- FELICIA_GREETINGS_APPROACH -->
+	
+	<htmlContent tag="FELICIA_GREETINGS_APPROACH"><![CDATA[
+	<p>
+		FELICIA_GREETINGS_APPROACH_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FELICIA_GOODBYE"><![CDATA[
+	<p>
+		FELICIA_GOODBYE_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- ARTHUR_WHEREABOUTS -->
 	
 	<htmlContent tag="ARTHUR_WHEREABOUTS"><![CDATA[
 	<p>
-		You oblige, walking in on an empty house. It was a small apartment, with solely a couch, coffee table, and bookcase. The kitchen had the bare essentials, and a pink, stuffed bear on the fridge. You decide to sit closest to the door, the dark-green couch comfier than it looks. The doggy follows you, sitting on the other side.  [felicia.speech(So,)] she begins to speak, trying to keep herself calm; her tail not helping, [felicia.speech(“Have you found Arthur?)]
+		You oblige, walking in on an empty house. It was a small apartment, with solely a couch, coffee table, and bookcase. The kitchen had the bare essentials, and a pink, stuffed bear on the fridge. You decide to sit closest to the door, the dark-green couch comfier than it looks. The doggy follows you, sitting on the other side.  [felicia.speech(So,)] she begins to speak, trying to keep herself calm; her tail not helping, [felicia.speech(Have you found Arthur?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -98,7 +123,132 @@
 		[pc.speech(He’s doing fine, staying at my place. He’s going to be there for a while but you can always visit. I’ll tell Rose to let you in when I get back.)]
 	</p>
 	<p>
-		Felicia gives a barely visible pout. [felicia.speech(Awh, I wanted him back here.)] It takes her a second to collect herself before her energy returns. [felicia.speech(Well, as long as im always welcome there it’ll be fine.)]
+		[felicia.Name] gives a barely visible pout. [felicia.speech(Awh, I wanted him back here.)] It takes her a second to collect herself before her energy returns. [felicia.speech(Well, as long as im always welcome there it’ll be fine.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_MENU -->
+	
+	<htmlContent tag="TALK_MENU"><![CDATA[
+	<p>
+		TALK_MENU_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_MENU_ARTHUR -->
+	
+	<htmlContent tag="TALK_MENU_ARTHUR"><![CDATA[
+	<p>
+		TALK_MENU_ARTHUR_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_MENU_ABOUT_HER -->
+	
+	<htmlContent tag="TALK_MENU_ABOUT_HER"><![CDATA[
+	<p>
+		TALK_MENU_ABOUT_HER_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ARTHUR_PERSONALITY -->
+	
+	<htmlContent tag="TALK_ARTHUR_PERSONALITY"><![CDATA[
+	<p>
+		[pc.speech(What’s Arthur’s personality like?)]
+	</p>
+	<p>
+		#IF(felicia.isPlayerKnowsName())
+		The fluff ball
+		#ELSE
+		Felicia
+		#ENDIF
+		 takes a few seconds to think, ears all perky. [felicia.speech(The first time you meet him you’d think he was a timid man. Ask him anything about what he’s working on and you see just how full of life he is; if you can stay awake during it. Oh, and he gets so red when I ask what he wants for dinner. I wouldn’t ask so much if he could actually cook.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ARTHUR_HOBBIES -->
+	
+	<htmlContent tag="TALK_ARTHUR_HOBBIES"><![CDATA[
+	<p>
+		You wonder what a man of science would do during his pastime: Read? Cool sparkly science shit? Watch anime? [pc.speech(You ever see him do anything besides science?)]
+	</p>
+	<p>
+		[felicia.speech(Yeah, I’ve seen him read a few times.  Mostly science papers; mainly science papers.  I don’t think I've seen him read anything else actually.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_NAME -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_NAME"><![CDATA[
+	<p>
+		[pc.speech(Name’s [pc.name], what’s your’s?)] You didn’t know how else to ask, definitely in this situation.
+	</p>
+	<p>
+		The dog girl perks up, realising she never told you. Her cheeks slightly flush red from embarrassment, her tail swishing. [felicia.speech(Ah!, it’s Felicia.  Felicia Delilah-Hope Renmorre.)]
+	</p>
+	<p>
+		[pc.speech(That’s quite the name.)]
+	</p>
+	<p>
+		[felicia.speech(Yeah,)] She gets a little flustered, tail slightly swishing.
+	</p>
+	<p>
+		[felicia.speech(Family tradition, our middle name is of both grandmothers.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_PLACE -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_PLACE"><![CDATA[
+	<p>
+		[pc.speech(The place is pretty empty, why don’t you have any decorations?)]
+	</p>
+	<p>
+		Felicia looks oblivious, looking confused by your question. [felicia.speech(I’ve got all I need, why should I get anything more?)]
+	</p>
+	<p>
+		[pc.speech(To give the place it’s own personality, you never considered it?)]
+	</p>
+	<p>
+		[felicia.speech(No, not really  I’m not interested in all that I guess.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_FUR -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_FUR"><![CDATA[
+	<p>
+		[pc.speech(Your fur is so silky and fluffy, it’s basically perfect. How’d you do it?)]
+	</p>
+	<p>
+		Felicia’s tail swishes some from the question, liking the compliment. [felicia.speech(Lots. Of. Conditioner.)]
+	</p>
+	<p>
+		Something tells you that’s not the whole truth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_FAVORITE_STORE -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_FAVORITE_STORE"><![CDATA[
+	<p>
+		[pc.speech(There are some interesting shops around, what place do you like the most?)]
+	</p>
+	<p>
+		Felicity takes a moment to think before saying anything. [felicia.speech(Probably Nyan’s Clothing Emporium. I don’t care much about the clothes, I just think cats are cute.)]
+	</p>
+	<p>
+		You guess you should have expected that.
 	</p>
 	]]>
 	</htmlContent>

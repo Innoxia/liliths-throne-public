@@ -1178,7 +1178,7 @@ public class PlaceType {
 			"The dining area in Felicia's apartment is cramped despite being equipped to only seat one.",
 			"dominion/feliciaApartment/diningArea",
 			PresetColour.BASE_BLUE_STEEL,
-			FeliciaApartment.KITCHEN,
+			FeliciaApartment.DINING_AREA,
 			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the dining area in Felicia's apartment"
