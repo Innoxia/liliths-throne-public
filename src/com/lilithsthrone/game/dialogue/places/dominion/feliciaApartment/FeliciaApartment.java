@@ -5,6 +5,7 @@
  */
 package com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment;
 
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.npc.dominion.Felicia;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -204,8 +205,13 @@ public class FeliciaApartment {
         public Response getResponse(int responseTab, int index) {
                 if (index == 1 && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
                         return new Response("No", "Tell her you haven't found him yet.", ARTHUR_WHEREABOUTS_NO);			
-                } else if(index == 1 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
-                        return new Response("Yes", "Tell her the good news.", FeliciaApartment.ARTHUR_WHEREABOUTS_YES);
+                } else if(index == 1 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
+                        return new Response("Yes", "Tell her the good news.", FeliciaApartment.ARTHUR_WHEREABOUTS_YES) {
+                            @Override
+                            public void effects() {
+                                    Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 30));
+                            }
+                        };
                 } else {
                         return null;
                 }
@@ -257,15 +263,28 @@ public class FeliciaApartment {
                 return 1*60;
         }
         @Override
-        public String getContent() {
-                return UtilText.parseFromXMLFile("places/dominion/feliciaApartment/apartment", "TALK_MENU");
+        public String getContent() {   
+            return UtilText.parseFromXMLFile("places/dominion/feliciaApartment/apartment", "TALK_MENU");
         }
         @Override
         public Response getResponse(int responseTab, int index) {
                 if (index == 1) {
                         return new Response("Arthur...", "Ask about Arthur.", TALK_MENU_ARTHUR);
                 } else if (index == 2) {
-                        return new Response("About her", "Ask Felicia about herself.", TALK_MENU_ABOUT_HER);
+                        return new Response("About her", "Ask [felicia.name] about herself.", TALK_MENU_ABOUT_HER);
+                } else if (index == 3 && getFelicia().isPlayerKnowsName()) {
+                        if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaLewdTalkAborted)) {
+                            return new Response("Lewd", "Ask [felicia.name] lewd questions.", TALK_LEWD);
+                        } else {
+                            return new Response("Lewd", "Probably not the best idea to ask about this again.", null);
+                        }
+                } else if (index == 4) {
+                        if (getFelicia().getAffection(Main.game.getPlayer()) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()) {
+                            return new Response("Pet", "Ask to pet [felicia.name].", TALK_PET);
+                        } else {
+                            return new Response("Pet", "[felicia.Name] probably wouldn't appreciate that.", null);
+                        }
+                        
                 } else if (index == 0) {
                         return new Response("Leave", "Leave Felicia be for now.", FELICIA_GOODBYE);
                 } else {
@@ -286,9 +305,25 @@ public class FeliciaApartment {
         @Override
         public Response getResponse(int responseTab, int index) {
                 if (index == 1) {
-                        return new Response("Personality", "What's Arthur like?", TALK_ARTHUR_PERSONALITY);
+                        return new Response("Personality", "What's Arthur like?", TALK_ARTHUR_PERSONALITY) {
+                            @Override
+                            public void effects() {
+                                if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaAskedArthurPersonality)) {
+                                    Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 5));
+                                }
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaAskedArthurPersonality, true);
+                            }
+                        };
                 } else if (index == 2) {
-                        return new Response("Hobbies", "What does Arthur like to do?", TALK_ARTHUR_HOBBIES);
+                        return new Response("Hobbies", "What does Arthur like to do?", TALK_ARTHUR_HOBBIES) {
+                            @Override
+                            public void effects() {
+                                if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaAskedArthurHobbies)) {
+                                    Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 5));
+                                }
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaAskedArthurHobbies, true);
+                            }
+                        };
                 } else if (index == 0) {
                         return new Response("Back", "Ask about another topic.", TALK_MENU);
                 } else {
@@ -313,16 +348,41 @@ public class FeliciaApartment {
                             @Override
                             public void effects() {
                                 getFelicia().setPlayerKnowsName(true);
+                                Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 5));
                             }
                         };
                 } else if (index == 1 && getFelicia().isPlayerKnowsName()) {
                         return new Response("Name", "You already know her name, it'd be awkward to ask again.", null);
                 } else if (index == 2) {
-                        return new Response("Her place", "Why so little stuff?", TALK_ABOUT_HER_PLACE);
+                        return new Response("Her place", "Why so little stuff?", TALK_ABOUT_HER_PLACE) {
+                            @Override
+                            public void effects() {
+                                if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaAskedAboutHerPlace)) {
+                                    Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 5));
+                                }
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaAskedAboutHerPlace, true);
+                            }
+                        };
                 } else if (index == 3) {
-                        return new Response("Fur", "How'd she get it so fluffy?", TALK_ABOUT_HER_FUR);
+                        return new Response("Fur", "How'd she get it so fluffy?", TALK_ABOUT_HER_FUR) {
+                            @Override
+                            public void effects() {
+                                if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaAskedAboutHerFur)) {
+                                    Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 5));
+                                }
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaAskedAboutHerFur, true);
+                            }
+                        };
                 } else if (index == 4) {
-                        return new Response("Favourite store", "Where does she like to shop?", TALK_ABOUT_HER_FAVORITE_STORE);
+                        return new Response("Favourite store", "Where does she like to shop?", TALK_ABOUT_HER_FAVORITE_STORE) {
+                            @Override
+                            public void effects() {
+                                if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaAskedAboutHerFavoriteStore)) {
+                                    Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 5));
+                                }
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaAskedAboutHerFavoriteStore, true);
+                            }
+                        };
                 } else if (index == 0) {
                         return new Response("Back", "Ask about another topic.", TALK_MENU);
                 } else {
@@ -418,6 +478,134 @@ public class FeliciaApartment {
         @Override
         public Response getResponse(int responseTab, int index) {
                 return TALK_MENU_ABOUT_HER.getResponse(responseTab, index);
+        }
+    };
+    
+    public static final DialogueNode TALK_LEWD = new DialogueNode("", "", true) {
+        @Override
+        public int getSecondsPassed() {
+                return 1*60;
+        }
+        @Override
+        public String getContent() {
+                return UtilText.parseFromXMLFile("places/dominion/feliciaApartment/apartment", "TALK_LEWD");
+        }
+        @Override
+        public Response getResponse(int responseTab, int index) {
+                if (index == 1) {
+                        return new Response("Continue", "Someone else, then?", TALK_LEWD_CONTINUE);
+                } else if (index == 2) {
+                        return new Response("Back off", "Take the hint and talk about something else.", TALK_MENU) {
+                            @Override
+                            public void effects() {
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaLewdTalkAborted, true);
+                            }
+                        };
+                } else {
+                        return null;
+                }
+        }
+    };
+    
+    public static final DialogueNode TALK_LEWD_CONTINUE = new DialogueNode("", "", true, true) {
+        @Override
+        public int getSecondsPassed() {
+                return 1*60;
+        }
+        @Override
+        public String getContent() {
+                return UtilText.parseFromXMLFile("places/dominion/feliciaApartment/apartment", "TALK_LEWD_CONTINUE");
+        }
+        @Override
+        public Response getResponse(int responseTab, int index) {
+                if (index == 1) {
+                        return new Response("Push", "How can anyone in this realm be so innocent?", TALK_LEWD_PUSH) {
+                            @Override
+                            public void effects() {
+                                Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), -5));
+                            }
+                        };
+                } else if (index == 2) {
+                        return new Response("Back off", "Take the hint and talk about something else.", TALK_MENU) {
+                            @Override
+                            public void effects() {
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaLewdTalkAborted, true);
+                            }
+                        };
+                } else {
+                        return null;
+                }
+        }
+    };
+    
+    public static final DialogueNode TALK_LEWD_PUSH = new DialogueNode("", "", true, true) {
+        @Override
+        public int getSecondsPassed() {
+                return 1*60;
+        }
+        @Override
+        public String getContent() {
+                return UtilText.parseFromXMLFile("places/dominion/feliciaApartment/apartment", "TALK_LEWD_PUSH");
+        }
+        @Override
+        public Response getResponse(int responseTab, int index) {
+                if (index == 1) {
+                        return new Response("Dig deep", "You <i>must</i> know!", TALK_LEWD_DIG_DEEP) {
+                            @Override
+                            public void effects() {
+                                Main.game.getTextEndStringBuilder().append(getFelicia().setAffection(Main.game.getPlayer(), -100));
+                            }
+                        };
+                } else if (index == 2) {
+                        return new Response("Back off", "Take the hint and talk about something else.", TALK_MENU) {
+                            @Override
+                            public void effects() {
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaLewdTalkAborted, true);
+                            }
+                        };
+                } else {
+                        return null;
+                }
+        }
+    };
+    
+    public static final DialogueNode TALK_LEWD_DIG_DEEP = new DialogueNode("", "", true, true) {
+        @Override
+        public int getSecondsPassed() {
+                return 1*60;
+        }
+        @Override
+        public String getContent() {
+                return UtilText.parseFromXMLFile("places/dominion/feliciaApartment/apartment", "TALK_LEWD_DIG_DEEP");
+        }
+        @Override
+        public Response getResponse(int responseTab, int index) {
+                if (index == 1) {
+                        return new Response("Leave", "You've done enough damage for today.", DemonHome.DEMON_HOME_ARTHURS_APARTMENT) {
+                            @Override
+                            public void effects() {
+                                Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR);
+                                Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feliciaRejectedPlayer, true);
+                            }
+                        };
+                } else {
+                        return null;
+                }
+        }
+    };
+    
+    public static final DialogueNode TALK_PET = new DialogueNode("", "", true) {
+        @Override
+        public int getSecondsPassed() {
+                return 1*60;
+        }
+        @Override
+        public String getContent() {
+                return UtilText.parseFromXMLFile("places/dominion/feliciaApartment/apartment", "TALK_PET");
+        }
+        @Override
+        public Response getResponse(int responseTab, int index) {
+                return TALK_MENU.getResponse(responseTab, index);
         }
     };
     

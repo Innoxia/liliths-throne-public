@@ -6,6 +6,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -228,4 +229,12 @@ public class Felicia extends NPC {
     public boolean isUnique() {
         return true;
     }
+    
+//    @Override
+//    public String getSpeechColour() {
+//            if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
+//                    return "#e6e68a";
+//            }
+//            return "#fff0c1";
+//    }
 }

@@ -419,7 +419,14 @@ public enum DialogueFlagValue {
 	murkSpanked(true),
         
         //Felicia
+        feliciaAskedArthurPersonality(false),
+        feliciaAskedArthurHobbies(false),
+        feliciaAskedAboutHerPlace(false),
+        feliciaAskedAboutHerFur(false),
+        feliciaAskedAboutHerFavoriteStore(false),
         feliciaToldAboutArthur(false),
+        feliciaLewdTalkAborted(false),
+        feliciaRejectedPlayer(false),
 	;
 	
 	boolean dailyReset;

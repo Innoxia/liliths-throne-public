@@ -316,7 +316,7 @@ public class DemonHome {
 				
 			} else if (index == 2) {
 				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
-					return new Response("Felicia's room", "Head up to Felicia's room.", DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM);
+					return new Response("[felicia.Name]'s room", "Head up to [felicia.namePos] room.", DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM);
 				} else {
 					return null;
 				}
@@ -431,43 +431,51 @@ public class DemonHome {
 		
 		@Override
 		public String getLabel() {
-			return "Felicia's Room";
+			return "[felicia.NamePos] Room";
 		}
 
 		@Override
 		public String getContent() {
-                    h = Main.game.getDateNow().getHour();
-                    String s = "<p> You returned to Sawlty Towers, deciding to visit the dog girl wondering where Arthur was."
-                            + " Her room wasn't hard to find, being directly to the left of Arthur's. You knock on the door a few times and wait. </p>";
-                    if(h >= 6 && h <= 8) {
-                        getFelicia().setLocation(Main.game.getPlayer(), false);
-                        getFelicia().setIntroducedToPlayer(true);
-                        s = s.concat("<p>Inside, you can hear footsteps getting closer before the door unlocks and opens to reveal a white furball, dripping wet; not in that way."
-                                + " The toweled dog looked at you with her natural puppy eyes and spoke [felicia.speech(Ah, I didn't expect you to come over so early, I would have picked up.)]"
-                                + " As she finished, she motioned to let you in.</p>"
-                        );
-                    } else if (h >= 9 && h <= 14) {
-                        getFelicia().setLocation(Main.game.getPlayer(), false);
-                        getFelicia().setIntroducedToPlayer(true);
-                        s = s.concat("<p>You hear a sharp [felicia.speech(Ah! Coming!)] seconds before the door swings open, revealing a white ball of floof, wearing an oversized, brown sweater."
-                                + " The dog-girl stares at you in excitement when seeing you, speaking sharply,"
-                                + " [felicia.speech(Come in, I just finished lunch.)]</p>"
-                        );
+                    String s = "";
+                    if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaRejectedPlayer)) {
+                            h = Main.game.getDateNow().getHour(); 
+                            s = "<p> You returned to Sawlty Towers, deciding to visit the dog girl wondering where Arthur was."
+                                + " Her room wasn't hard to find, being directly to the left of Arthur's. You knock on the door a few times and wait. </p>";
+                            if(h >= 6 && h <= 8) {
+                                getFelicia().setLocation(Main.game.getPlayer(), false);
+                                getFelicia().setIntroducedToPlayer(true);
+                                s = s.concat("<p>Inside, you can hear footsteps getting closer before the door unlocks and opens to reveal a white furball, dripping wet; not in that way."
+                                        + " The toweled dog looked at you with her natural puppy eyes and spoke [felicia.speech(Ah, I didn't expect you to come over so early, I would have picked up.)]"
+                                        + " As she finished, she motioned to let you in.</p>"
+                                );
+                            } else if (h >= 9 && h <= 14) {
+                                getFelicia().setLocation(Main.game.getPlayer(), false);
+                                getFelicia().setIntroducedToPlayer(true);
+                                s = s.concat("<p>You hear a sharp [felicia.speech(Ah! Coming!)] seconds before the door swings open, revealing a white ball of floof, wearing an oversized, brown sweater."
+                                        + " The dog-girl stares at you in excitement when seeing you, speaking sharply,"
+                                        + " [felicia.speech(Come in, I just finished lunch.)]</p>"
+                                );
+                            } else {
+                                s = s.concat("<p>After a few moments of silence, you decide to knock again, but there doesn't seem to be anyone home at the moment."
+                                        + " Sighing, you give up and decide to come back another time. </p>"
+                                );
+                            }
                     } else {
-                        s = s.concat("<p>After a few moments of silence, you decide to knock again, but there doesn't seem to be anyone home at the moment."
-                                + " Sighing, you give up and decide to come back another time. </p>"
-                        );
+                            s = "<p>You knock on Felicia’s door, hoping the dog girl has moved on from the incident.  There wasn’t a response; you were just about to knock again when the door opened slightly.</p>"
+                                + "<p>The dog girl spots you through the opening of the door before closing it on you.  [felicia.speech(Not right now)] she said, sounding upset.</p>"
+                                + "<p>[pc.speech(Bu-)] [felicia.speech(No,)] she cut you off.</p>"
+                                + "<p>You stand there for a second, trying to think up something to say. Sadly, nothing came up, and you decided to leave.</p>";
                     }
                     return s;
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1 && (h < 6 && h > 14)) {
-				return new Response("Leave", "Looks like Felicia isn't here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);			
-			} else if (index == 1 && (h >= 6 && h <= 14)) {
+			if (index == 1 && (h < 6 && h > 14) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaRejectedPlayer)) {
+				return new Response("Leave", "Looks like [felicia.name] isn't here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);			
+			} else if (index == 1 && (h >= 6 && h <= 14) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaRejectedPlayer)) {
                                 if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaToldAboutArthur)) {
-                                    return new Response("Enter", "Enter Felicia's home.", FeliciaApartment.ARTHUR_WHEREABOUTS) {
+                                    return new Response("Enter", "Enter [felicia.namePos] home.", FeliciaApartment.ARTHUR_WHEREABOUTS) {
                                         @Override
                                         public void effects() {
                                             getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, false);
@@ -475,14 +483,16 @@ public class DemonHome {
                                         }
                                     };
                                 } else {
-                                   return new Response("Enter", "Enter Felicia's home.", FeliciaApartment.FELICIA_GREETINGS) {
+                                   return new Response("Enter", "Enter [felicia.namePos] home.", FeliciaApartment.FELICIA_GREETINGS) {
                                         @Override
                                         public void effects() {
                                             getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, false);
                                             Main.game.getPlayer().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA);
                                         }
                                     }; 
-                                }  
+                                }
+                        } else if (index == 1 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaRejectedPlayer)) {
+                                return new Response("Leave", "Looks like Felicia doesn't want to talk to you. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);
                         } else {
 				return null;
 			}

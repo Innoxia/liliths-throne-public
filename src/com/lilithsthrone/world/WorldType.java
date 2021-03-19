@@ -678,7 +678,7 @@ public class WorldType {
 	};
         
         public static AbstractWorldType FELICIA_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
-			"Felicia's apartment",
+			"Small apartment",
 			PresetColour.BASE_YELLOW_PALE,
 			1,
 			false,

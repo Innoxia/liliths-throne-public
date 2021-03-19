@@ -1127,25 +1127,25 @@ public class PlaceType {
         public static final AbstractPlaceType FELICIA_APARTMENT_ENTRYWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Entrance Hall",
-			"The entryway in Felicia's apartment has a coat closet off to the side.",
+			"The entryway in [felicia.NamePos] apartment has a coat closet off to the side.",
 			"dominion/feliciaApartment/entranceHall",
 			PresetColour.BASE_RED,
 			FeliciaApartment.ENTRYWAY,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in the entrance hall of Felicia's apartment"
+			"in the entrance hall of [felicia.NamePos] apartment"
         ).initWeatherImmune();
         
         public static final AbstractPlaceType FELICIA_APARTMENT_BEDROOM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Felicia's Bedroom",
+			"Bedroom",
 			"PLACEHOLDER_FELICIA_APARTMENT_BEDROOM",
 			"dominion/feliciaApartment/feliciaBedroom",
 			PresetColour.BASE_YELLOW_PALE,
 			FeliciaApartment.FELICIA_BEDROOM,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in Felicia's bedroom"
+			"in [felicia.NamePos] bedroom"
         ).initWeatherImmune();
         
         public static final AbstractPlaceType FELICIA_APARTMENT_BATHROOM = new AbstractPlaceType(
@@ -1169,31 +1169,31 @@ public class PlaceType {
 			FeliciaApartment.KITCHEN,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in the kitchen in Felicia's apartment"
+			"in the kitchen in [felicia.NamePos] apartment"
         ).initWeatherImmune();
         
         public static final AbstractPlaceType FELICIA_APARTMENT_DINING_AREA = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Dining Area",
-			"The dining area in Felicia's apartment is cramped despite being equipped to only seat one.",
+			"The dining area in [felicia.NamePos] apartment is cramped despite being equipped to only seat one.",
 			"dominion/feliciaApartment/diningArea",
 			PresetColour.BASE_BLUE_STEEL,
 			FeliciaApartment.DINING_AREA,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in the dining area in Felicia's apartment"
+			"in the dining area in [felicia.NamePos] apartment"
         ).initWeatherImmune();
         
         public static final AbstractPlaceType FELICIA_APARTMENT_LIVING_AREA = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Living Area",
-			"Felicia's living room is sparsely decorated but has a view of Dominion's streets.",
+			"[felicia.Name]'s living room is sparsely decorated but has a view of Dominion's streets.",
 			"dominion/feliciaApartment/livingArea",
 			PresetColour.BASE_INDIGO,
 			FeliciaApartment.LIVING_AREA,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in the living area in Felicia's apartment"
+			"in the living area in [felicia.NamePos] apartment"
         ).initWeatherImmune();
         
         public static final AbstractPlaceType FELICIA_APARTMENT_HALLWAY = new AbstractPlaceType(
@@ -1205,7 +1205,7 @@ public class PlaceType {
 			FeliciaApartment.HALLWAY,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in the hallway in Felicia's apartment"
+			"in the hallway in [felicia.NamePos] apartment"
         ).initWeatherImmune();
         
 	// Enforcer warehouse:

@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="HALLWAY"><![CDATA[
 	<p>
-		White walls and beige carpets.  THe halls looked like someone had just moved in.  They are void of decoration or furniture.  The only things that stick out are the lights and the half-wall that opens to a view of the dining room.
+		White walls and beige carpets.  The halls looked like someone had just moved in.  They are void of decoration or furniture.  The only things that stick out are the lights and the half-wall that opens to a view of the dining room.
 	</p>
 	]]>
 	</htmlContent>
@@ -162,7 +162,7 @@
 		[pc.speech(What’s Arthur’s personality like?)]
 	</p>
 	<p>
-		#IF(felicia.isPlayerKnowsName())
+		#IF(!felicia.isPlayerKnowsName())
 		The fluff ball
 		#ELSE
 		Felicia
@@ -212,7 +212,7 @@
 		[pc.speech(The place is pretty empty, why don’t you have any decorations?)]
 	</p>
 	<p>
-		Felicia looks oblivious, looking confused by your question. [felicia.speech(I’ve got all I need, why should I get anything more?)]
+		[felicia.Name] looks oblivious, looking confused by your question. [felicia.speech(I’ve got all I need, why should I get anything more?)]
 	</p>
 	<p>
 		[pc.speech(To give the place it’s own personality, you never considered it?)]
@@ -230,7 +230,7 @@
 		[pc.speech(Your fur is so silky and fluffy, it’s basically perfect. How’d you do it?)]
 	</p>
 	<p>
-		Felicia’s tail swishes some from the question, liking the compliment. [felicia.speech(Lots. Of. Conditioner.)]
+		[felicia.NamePos] tail swishes some from the question, liking the compliment. [felicia.speech(Lots. Of. Conditioner.)]
 	</p>
 	<p>
 		Something tells you that’s not the whole truth.
@@ -245,10 +245,82 @@
 		[pc.speech(There are some interesting shops around, what place do you like the most?)]
 	</p>
 	<p>
-		Felicity takes a moment to think before saying anything. [felicia.speech(Probably Nyan’s Clothing Emporium. I don’t care much about the clothes, I just think cats are cute.)]
+		[felicia.Name] takes a moment to think before saying anything. [felicia.speech(Probably Nyan’s Clothing Emporium. I don’t care much about the clothes, I just think cats are cute.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_PET -->
+	
+	<htmlContent tag="TALK_PET"><![CDATA[
+	<p>
+		The fluffiness of her hair, how it sways in the wind, you can’t help but ask to touch it. Sitting next to her, you move your hand close to her head and ask, [pc.speech(May I?)]
 	</p>
 	<p>
-		You guess you should have expected that.
+		Felicia’s ears perk up as she looks up at your hand.  Realising what you want, she blushes slightly and responds, [felicia.speech(S-Sure...)]
+	</p>
+	<p>
+		With her permission, your hand plops on her head. Her hair feels even fluffier than it looks. As you rub her head, the faint sound of a tail swooshing on a couch can be heard. The fluffiness is so powerful you almost lose yourself in the head pats, Felicia blushing even more. It seems petting is her weakness.
+	</p>
+	<p>
+		A wicked smile forming, you decide to give her a little scratch behind the ears. Felicia’s ears perk up to what was thought impossible, her tail moving fast enough to become a blur. Within a minute, she’s putty in your ear scratching hand, clearly trying to hold her composure.  
+	</p>
+	<p>
+		Finally, her strength breaks and she lets out the slightest [felicia.speech(Awoo)]; her face completely red. You, your hand starting to cramp, decide that’s enough for now. Felicia, still blushing, gives a small whimper before taking a deep breath to regain herself. Meekly, she asks [felicia.speech(W-Want more tea?)]
+	</p>
+	<p>
+		<b>You've reached the end of Felicia's content (for now)</b>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD -->
+	
+	<htmlContent tag="TALK_LEWD"><![CDATA[
+	<p>
+		[pc.speech(So, do you have a crush on Arthur?)] The way she acts about him, anyone would be curious. The girl looks you down, her puppy eyes gone.  
+	</p>
+	<p>
+		[felicia.speech(No,)] she says flatly, [felicia.speech(He was a friend when I didn’t have any.  Nothing more.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD_CONTINUE -->
+	
+	<htmlContent tag="TALK_LEWD_CONTINUE"><![CDATA[
+	<p>
+		[pc.speech(Do you have a crush on anyone else?)] Surely this dog girl can’t have any. [felicia.speech(No.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD_PUSH -->
+	
+	<htmlContent tag="TALK_LEWD_PUSH"><![CDATA[
+	<p>
+		She must be pent up, so innocent. Too not even have a crush. [pc.speech(What if someone had a crush on you?)] you ask the dog-girl, hoping to get some reaction. 
+	</p>
+	<p>
+		[felicia.speech(I’m fine, please stop.)]
+	</p>
+	<p>
+		Well, maybe you should stop pushing her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD_DIG_DEEP -->
+	
+	<htmlContent tag="TALK_LEWD_DIG_DEEP"><![CDATA[
+	<p>
+		You move closer to her, the horny clearly in your eyes. Felicia can smell it, and now has a scowl on her face. [felicia.speech(Leave. Now,)] she speaks sternly. Looks like you struck a nerve.
+	</p>
+	<p>
+		[pc.speech(You sur-)]  [felicia.speech(Yes,)] she cuts you off, [felicia.speech(Leave before I force you out.)] 
+	</p>
+	<p>
+		Taken aback, and embarrassed for letting the horny get to you, you quickly leave her place before any further confrontation.
 	</p>
 	]]>
 	</htmlContent>
