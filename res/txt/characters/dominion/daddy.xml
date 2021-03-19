@@ -1406,10 +1406,12 @@
 	</p>
 	<p>
 		[daddy.speech(Easy now, there's no need to rush-)] [daddy.name] starts, but [daddy.her] voice is cut off as you jump forwards and, lowering yourself down over the top of [daddy.herHim], firmly press your [pc.lips+] down against [daddy.hers]. After dominantly kissing [daddy.herHim] in this fashion for a moment, you pull back,
-		#IF(!pc.isTaur())
-			 before swinging your [pc.legs] over [daddy.hers] and straddling [daddy.her] crotch.
-		#ELSE
+		#IF(!pc.hasLegs())
+			 before sliding down and bumping your groin against [daddy.her] crotch.
+		#ELSEIF(pc.isTaur())
 			 before repositioning yourself and lowering your animalistic rear end down over [daddy.her] crotch.
+		#ELSE
+			 before swinging your [pc.legs] over [daddy.hers] and straddling [daddy.her] crotch.
 		#ENDIF
 	</p>
 	<p>

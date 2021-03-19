@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress' inner lining informs you that it was made by 'C4MG1RL'.]]></clothingAuthorTag>
+		<value>8000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Trickster's tunic]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Sleeved tunics]]></namePlural> 
+		<description><![CDATA[A knee-length tunic lined with dozens of hidden pockets. These concealed compartments are perfect for holding all manner of surprises or pilfered trinkets. Expertly designed so as not to impede the wearer's flexibility, this tunic is ideal for both dancing and fighting!]]></description> 
+		<physicalResistance>3</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>TORSO_UNDER</slot> 
+		<rarity>LEGENDARY</rarity> 
+		<clothingSet>c4mg1rl_trickster</clothingSet>
+		<imageName>tunic.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts> 
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_DRESS_FRONT_FULL"> 
+				</concealedSlots>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ASS</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>MOUND</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>TESTICLES</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN">
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots>
+		</incompatibleSlots>
+		
+		<primaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK_JET</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GOLD</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<tertiaryColoursDye/>
+		<itemTags> 
+			<tag>DRESS</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unties)] the sash, before [npc.verb(pull)] [npc.her] tunic off over [npc.her] head.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unties)] the sash, before [npc.verb(pull)] [npc2.namePos] tunic off over [npc2.her] head.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(unties)] the sash, before roughly [npc.verb(pull)] [npc2.namePos] tunic off over [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pulls)] the tunic down over [npc.her] head and torso, then [npc.verb(tie)] the sash tightly.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pulls)] the tunic down over [npc2.namePos] head and torso, then [npc.verb(ties)] the sash tightly.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pulls)] the tunic down over [npc2.namePos] head and torso, then [npc.verb(ties)] the sash tightly.]]>
+		</otherRough>
+	</replacementText>
+
+	
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] tunic.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc2.namePos] tunic.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] up the skirt of [npc2.namePos] tunic.]]>
+		</otherRough>
+	</displacementText><replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] down the skirt of [npc.her] tunic.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] down the skirt of [npc2.namePos] tunic.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] down the skirt of [npc2.namePos] tunic.]]>
+		</otherRough>
+	</replacementText>
+</clothing>

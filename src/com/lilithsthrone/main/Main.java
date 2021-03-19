@@ -63,7 +63,7 @@ import javax.xml.transform.TransformerFactory;
 
 /**
  * @since 0.1.0
- * @version 0.3.10
+ * @version 0.3.20
  * @author Innoxia
  */
 public class Main extends Application {
@@ -84,7 +84,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.19";
+	public static final String VERSION_NUMBER = "0.3.20";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -123,6 +123,10 @@ public class Main extends Application {
 	
 	public static List<CreditsSlot> credits = new ArrayList<>();
 
+	static {
+		loadPatchNotes();
+	}
+	
 	// World generation:
 	public static Generation gen;
 	@Override
@@ -163,6 +167,10 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("BL4Z3ST0RM", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("~Chai~", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Scarecrowlust", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Doomtrack", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Ookurikara", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Inferniken", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Ace Morris", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -659,8 +667,6 @@ public class Main extends Application {
 			properties.savePropertiesAsXML();
 		}
 
-		loadPatchNotes();
-		
 		launch(args);
 	}
 	

@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.race.Race;
@@ -208,9 +207,9 @@ public class CMSpecialAttack {
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
-            		(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_GIRTHY.getValue())
+            		(source.getTailType().isSuitableForAttack() && source.getTailLength(false)>=100)
             			|| source.getLegConfiguration()==LegConfiguration.TAIL_LONG,
-            		"Available to characters who have a thick, prehensile tail, or a '"+LegConfiguration.TAIL_LONG.getName()+"' lower body.");
+            		"Available to characters who have a suitable tail which is at least [units.sizeShort(100)] long, or a '"+LegConfiguration.TAIL_LONG.getName()+"' lower body.");
         }
 
         @Override

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<leg>
+	<race>innoxia_goat</race>
+	
+	<transformationName><![CDATA[goat]]></transformationName>
+	
+	<coveringType>innoxia_goat_fur</coveringType>
+	
+	<defaultFootStructure>UNGULIGRADE</defaultFootStructure>
+	
+	<footType>HOOFS</footType>
+	
+	<spinneret>false</spinneret>
+	
+	<tentacleType>NONE</tentacleType>
+	
+	<tentacleCount>0</tentacleCount>
+	
+	<allowedLegConfigurations>
+		<configuration>BIPEDAL</configuration>
+		<configuration>QUADRUPEDAL</configuration>
+	</allowedLegConfigurations>
+	
+	<name><![CDATA[leg]]></name>
+	<namePlural><![CDATA[legs]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>masculine</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>anthropomorphic, goat-like</descriptor>
+		<descriptor>fur-coated</descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>anthropomorphic, goat-like</descriptor>
+		<descriptor>fur-coated</descriptor>
+	</descriptorsFeminine>
+	
+	<footDescriptorsMasculine>
+		<descriptor>goat-like</descriptor>
+	</footDescriptorsMasculine>
+	<footDescriptorsFeminine>
+		<descriptor>goat-like</descriptor>
+	</footDescriptorsFeminine>
+	
+	<toeDescriptorsMasculine>
+		<descriptor>goat-like</descriptor>
+	</toeDescriptorsMasculine>
+	<toeDescriptorsFeminine>
+		<descriptor>goat-like</descriptor>
+	</toeDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		A layer of fluffy, goat-like fur quickly grows over [npc.her] legs as they shift into a new form. As [npc.her] new fur spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] [npc.verb(let)] out a cry as a thick, hoof-like nail grows in their place, before quickly transforming to turn [npc.her] feet into goat-like hoofs. As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.
+		<br/>[npc.Name] now [npc.has] anthropomorphic, [style.boldGoat(goat-like legs and hoofed feet)], which are [npc.materialDescriptor] [npc.legFullDescription].
+	]]></transformationDescription>
+	
+	
+	<bodyDescription><![CDATA[
+		[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic goat-like hoofs.
+	]]></bodyDescription>
+</leg>

@@ -347,7 +347,11 @@ public class GenericSexualPartner extends NPC {
 				+ "</p>"
 				+ "<p>"
 					+ "You're vaguely aware of [npc.namePos] taunts fading away as [npc.she] starts to focus [npc.her] attention on fucking you."
-					+ " With a desperate moan, you spread your legs and resign yourself to the fact that you're now nothing more than a"
+					+ " With a desperate moan,"
+					+ (Main.game.getPlayer().hasLegs()
+						?" you spread your legs and"
+						:" you")
+					+ " resign yourself to the fact that you're now nothing more than a"
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>";
 	}

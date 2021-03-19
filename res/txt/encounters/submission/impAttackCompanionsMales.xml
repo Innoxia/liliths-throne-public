@@ -263,7 +263,7 @@
 		[npc2.speech(So what are you waitin' for?)] [npc2.Name] snaps at [npc2.her] subordinates. [npc2.speech(Get these [pc.insultPlural] down on their knees!)]
 	</p>
 	<p>
-		The two smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [npc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto your knees. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the two alpha-imps stepping forwards, grinning in anticipation of what's about to happen.
+		The two smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [pc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto your knees. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the two alpha-imps stepping forwards, grinning in anticipation of what's about to happen.
 	</p>
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
@@ -431,7 +431,7 @@
 		Not giving you a moment's respite, [npc2.name] snaps [npc2.her] fingers, before pointing at the two of you and ordering [npc.her] subordinates, [npc.speech(Restrain the [pc.insultPlural]! Go on, get them!)]
 	</p>
 	<p>
-		The two smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [npc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto all fours. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the two alpha-imps stepping forwards, grinning in anticipation of what's about to happen.
+		The two smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [pc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto all fours. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the two alpha-imps stepping forwards, grinning in anticipation of what's about to happen.
 	</p>
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN

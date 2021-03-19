@@ -56,6 +56,7 @@
 			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
+			<tag>SILLY_MODE</tag>
 		</itemTags>
 	</coreAttributes>
 

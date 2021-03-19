@@ -86,6 +86,15 @@ public enum CoverableArea {
 		}
 	},
 	
+	TAIL(false,
+			"tail",
+			Util.newArrayListOfValues(
+					InventorySlot.TAIL)) {
+		public boolean isPhysicallyAvailable(GameCharacter owner) {
+			return owner.hasTail();
+		}
+	},
+	
 	VAGINA(true,
 			"pussy",
 			Util.newArrayListOfValues(
