@@ -322,7 +322,14 @@ public class EnforcerAlleywayDialogue {
                 }
             }
             
-            if((uniformPassable + impersonatingBrax + impersonatingCandi + impersonatingClaire + impersonatingElle + impersonatingWes + impersonatingNysa + impersonatingSean) >= 0) {
+            if((uniformPassable 
+                    + impersonatingBrax 
+                    + impersonatingCandi 
+                    + impersonatingClaire 
+                    + impersonatingElle 
+                    + impersonatingWes 
+                    + impersonatingNysa 
+                    + impersonatingSean) >= 0) {
                 return true;
             }
             return false;
