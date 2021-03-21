@@ -385,13 +385,13 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_ARTHUR = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Demon Home (Arthur)",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
-			"dominion/demonHomeArthurIcon",
+			"Sawlty Towers",
+			"A large stone building ornately decorated in the Victorian style, it resembles a five-star hotel more than an apartment complex.",
+			"dominion/demonHomeSawltyTowersIcon",
 			PresetColour.RACE_HUMAN,
 			DemonHome.DEMON_HOME_STREET_ARTHUR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the streets of Demon Home") {
+			null, "in the streets of Demon Home outside Sawlty Towers") {
 		@Override
 		public String getName() {
 			if(Main.game.isStarted()) {

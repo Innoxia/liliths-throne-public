@@ -83,14 +83,14 @@
 	
 	<htmlContent tag="FELICIA_GREETINGS_APPROACH"><![CDATA[
 	<p>
-		FELICIA_GREETINGS_APPROACH_PLACEHOLDER
+		The samoyed-girl, Felicia, is sitting on her dark green couch. A book sits in her hand, stealing her focus. When she looks up, she notices you there. [felicia.speech(Ah, still here? Well, if you ever want to talk some more I've got enough tea for a lifetime!)]  She smiles towards you before going back to her book.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="FELICIA_GOODBYE"><![CDATA[
 	<p>
-		FELICIA_GOODBYE_PLACEHOLDER
+		You stand up from the couch, placing the cup of tea back on its plate. [pc.speech(I should get going,)] you say to the samoyed-girl, who responds normally. [felicia.speech(Ah, alright.  I've got the day free, so if you ever need me, I'll be here.)]  She leans towards the bookshelf, picking out one at seemingly random. Before she opens it, she gives you a small smile, then begins to read.
 	</p>
 	]]>
 	</htmlContent>
@@ -99,7 +99,7 @@
 	
 	<htmlContent tag="ARTHUR_WHEREABOUTS"><![CDATA[
 	<p>
-		You oblige, walking in on an empty house. It was a small apartment, with solely a couch, coffee table, and bookcase. The kitchen had the bare essentials, and a pink, stuffed bear on the fridge. You decide to sit closest to the door, the dark-green couch comfier than it looks. The doggy follows you, sitting on the other side.  [felicia.speech(So,)] she begins to speak, trying to keep herself calm; her tail not helping, [felicia.speech(Have you found Arthur?)]
+		You oblige, walking in on an empty house. It was a small apartment, with solely a couch, coffee table, and bookcase. The kitchen had the bare essentials, and a pink, stuffed bear on the fridge. You decide to sit closest to the door, the dark-green couch comfier than it looks, the coffee table beside it a title-less book. The doggy follows you, sitting on the other side.  [felicia.speech(So,)] she begins to speak, trying to keep herself calm; her tail not helping, [felicia.speech(Have you found Arthur?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -108,7 +108,7 @@
 	
 	<htmlContent tag="ARTHUR_WHEREABOUTS_NO"><![CDATA[
 	<p>
-		You can visibly see her energy seep from her body, her tail and ears drooping. She takes a few seconds to re-collect herself before speaking softly, [felicia.speech(You’ll find him eventually, don’t worry,)] Figuring you should clear the sadness from the air, you decide to ask her some questions.
+		You can visibly see her energy seep from her body, her tail and ears drooping. She takes a few seconds to re-collect herself before speaking softly, [felicia.speech(You’ll find him eventually, don’t worry.)] Figuring you should clear the sadness from the air, you decide to ask her some questions.
 	</p>
 	]]>
 	</htmlContent>
@@ -123,7 +123,7 @@
 		[pc.speech(He’s doing fine, staying at my place. He’s going to be there for a while but you can always visit. I’ll tell Rose to let you in when I get back.)]
 	</p>
 	<p>
-		[felicia.Name] gives a barely visible pout. [felicia.speech(Awh, I wanted him back here.)] It takes her a second to collect herself before her energy returns. [felicia.speech(Well, as long as im always welcome there it’ll be fine.)]
+		[felicia.Name] gives a barely visible pout. [felicia.speech(Awh, I wanted him back here.)] It takes her a second to collect herself before her energy returns. [felicia.speech(Well, as long as I'm always welcome there it’ll be fine.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -132,7 +132,7 @@
 	
 	<htmlContent tag="TALK_MENU"><![CDATA[
 	<p>
-		TALK_MENU_PLACEHOLDER
+		The overly comfy couch almost sucks you in as you sit on it. The samoyed girl takes her book from the coffee table and slots it back into the bookshelf. Before you could ask her about it, she begins to speak. [felicia.speech(So, what do you want to talk about?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -141,7 +141,7 @@
 	
 	<htmlContent tag="TALK_MENU_ARTHUR"><![CDATA[
 	<p>
-		TALK_MENU_ARTHUR_PLACEHOLDER
+		[pc.speech(Can I ask you about Arthur?)] you ask The white fluff ball, who perks up slightly. [felicia.speech(Ah, what do you want to know??)]
 	</p>
 	]]>
 	</htmlContent>
@@ -150,7 +150,10 @@
 	
 	<htmlContent tag="TALK_MENU_ABOUT_HER"><![CDATA[
 	<p>
-		TALK_MENU_ABOUT_HER_PLACEHOLDER
+		[pc.speech(So, mind if I get to know you?)]
+	</p>
+	<p>
+		The white fluff ball's ear pops up; her tail swishes slowly. [felicia.speech(M-me?)] she looks a bit flustered, the faintest of red on her face. [felicia.speech(There's not much to know, but if you want to know.)]
 	</p>
 	]]>
 	</htmlContent>

@@ -218,7 +218,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode ARTHUR_WHEREABOUTS_NO = new DialogueNode("", "", true) {
+    public static final DialogueNode ARTHUR_WHEREABOUTS_NO = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -230,14 +230,22 @@ public class FeliciaApartment {
         @Override
         public Response getResponse(int responseTab, int index) {
                 if (index == 1) {
-                        return new Response("Change the subject", "Maybe it'll cheer her up?", TALK_MENU);			
+                        return new Response("Arthur...", "Ask about Arthur.", TALK_MENU_ARTHUR);
+                } else if (index == 2) {
+                        return new Response("About her", "Ask [felicia.name] about herself.", TALK_MENU_ABOUT_HER);
+                } else if (index == 3 && getFelicia().isPlayerKnowsName()) {
+                        if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaLewdTalkAborted)) {
+                            return new Response("Lewd", "Ask [felicia.name] lewd questions.", TALK_LEWD);
+                        } else {
+                            return new Response("Lewd", "Probably not the best idea to ask about this again.", null);
+                        }
                 } else {
                         return null;
                 }
         }
     };
     
-    public static final DialogueNode ARTHUR_WHEREABOUTS_YES = new DialogueNode("", "", true) {
+    public static final DialogueNode ARTHUR_WHEREABOUTS_YES = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -249,11 +257,7 @@ public class FeliciaApartment {
         }
         @Override
         public Response getResponse(int responseTab, int index) {
-                if (index == 1) {
-                        return new Response("Continue", "[felicia.name] seems satisfied with your rescue effort.", TALK_MENU);			
-                } else {
-                        return null;
-                }
+                return TALK_MENU.getResponse(responseTab, index);
         }
     };
     
@@ -283,8 +287,7 @@ public class FeliciaApartment {
                             return new Response("Pet", "Ask to pet [felicia.name].", TALK_PET);
                         } else {
                             return new Response("Pet", "[felicia.Name] probably wouldn't appreciate that.", null);
-                        }
-                        
+                        }                        
                 } else if (index == 0) {
                         return new Response("Leave", "Leave Felicia be for now.", FELICIA_GOODBYE);
                 } else {
@@ -293,7 +296,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_MENU_ARTHUR = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_MENU_ARTHUR = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -332,7 +335,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_MENU_ABOUT_HER = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_MENU_ABOUT_HER = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -391,7 +394,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_ARTHUR_PERSONALITY = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_ARTHUR_PERSONALITY = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -406,7 +409,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_ARTHUR_HOBBIES = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_ARTHUR_HOBBIES = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -421,7 +424,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_ABOUT_HER_NAME = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_ABOUT_HER_NAME = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -436,7 +439,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_ABOUT_HER_PLACE = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_ABOUT_HER_PLACE = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -451,7 +454,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_ABOUT_HER_FUR = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_ABOUT_HER_FUR = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -466,7 +469,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_ABOUT_HER_FAVORITE_STORE = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_ABOUT_HER_FAVORITE_STORE = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -481,7 +484,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_LEWD = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_LEWD = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
@@ -594,7 +597,7 @@ public class FeliciaApartment {
         }
     };
     
-    public static final DialogueNode TALK_PET = new DialogueNode("", "", true) {
+    public static final DialogueNode TALK_PET = new DialogueNode("", "", true, true) {
         @Override
         public int getSecondsPassed() {
                 return 1*60;
