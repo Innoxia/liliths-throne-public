@@ -46,6 +46,8 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -353,7 +355,7 @@ public class Roxy extends NPC {
                 //add a special case for firebombs as they are disposable
                 for (AbstractWeaponType weapon : weaponsForSale) {
                     if (weapon.getId().equals("dsg_hlf_weap_pbomb")) {
-                        if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDealComplete)) {
+                        if (!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE)) {
                             break;
                         }
                         this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 10, false, false);

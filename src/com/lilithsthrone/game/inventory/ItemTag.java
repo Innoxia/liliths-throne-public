@@ -25,7 +25,6 @@ public enum ItemTag {
 	SOLD_BY_KATE, // Jewellery
 	SOLD_BY_FINCH, // BDSM and sex-related stuff
 	SOLD_BY_VICKY, // Weapons
-        SOLD_BY_ROXY, // Contraband
 	
 	SPELL_BOOK,
 	SPELL_SCROLL,

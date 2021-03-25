@@ -127,6 +127,19 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ARMORY_CACHE_OPEN_FIREBOMBS"><![CDATA[
+	<p>
+		You instantly recognize the disposable nature of the firebombs,
+		#IF (pc.getOccupation(OCCUPATION_SOLDIER))
+			 having seen quite a few in improvised weapons training.
+		#ELSE
+			 having seen them on the news.
+		#ENDIF
+		You don't have a way to get more and you doubt any honest shop would want to carry something so obviously illegal, but perhaps a shopkeep with less scruples has the means...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ARMORY_SEARCHED"><![CDATA[
 	<p>
 		You can't be sure what this room was used for, given that half of it has caved in.

@@ -1283,33 +1283,33 @@ public enum Quest {
         
         //Rebel Base        
         REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE, 15, 5) {
-                       @Override
-                       public String getName() {
-                               return "Hit The Lever!";
-                       }
-                       @Override
-                       public String getDescription() {
-                               return "You found a strange handle in the Bat Caverns. Who knows what it's for or what it does.";
-                       }
-                       @Override
-                       public String getCompletedDescription() {
-                               return "You pulled the handle against your better judement.";
-                       }
+                @Override
+                public String getName() {
+                        return "Hit The Lever!";
+                }
+                @Override
+                public String getDescription() {
+                        return "You found a strange handle in the Bat Caverns. Who knows what it's for or what it does.";
+                }
+                @Override
+                public String getCompletedDescription() {
+                        return "You pulled the handle against your better judement.";
+                }
         },
    
         REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 15, 5) {
-          @Override
-          public String getName() {
-            return "Pull Handle, Recieve Mystery";
-          }
-          @Override
-          public String getDescription() {
-            return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
-          }
-          @Override
-          public String getCompletedDescription() {
-            return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
-          }
+                @Override
+                public String getName() {
+                  return "Pull Handle, Recieve Mystery";
+                }
+                @Override
+                public String getDescription() {
+                  return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
+                }
+                @Override
+                public String getCompletedDescription() {
+                  return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
+                }
         },
         
         REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE, 15, 5) {
@@ -1384,6 +1384,36 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
+		}               
+	},
+        
+        REBEL_BASE_FIREBOMBS_START(QuestType.SIDE, 5, 5) {
+		@Override
+		public String getName() {
+			return "Breaking Bombs";
+		}
+		@Override
+		public String getDescription() {
+			return "The firebombs you got from the mysterious cave could come in handy, if only you had a way to get more.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Roxy has agreed to look into getting more firebombs for you.";
+		}               
+	},
+        
+        REBEL_BASE_FIREBOMBS_FINISH(QuestType.SIDE, 5, 5) {
+		@Override
+		public String getName() {
+			return "Fire From The Rats"
+		}
+		@Override
+		public String getDescription() {
+			return "It will take Roxy two days to get a new supply of firebombs going. You should return to her then.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Somehow, Roxy didn't swindle you and you've gotten yourself a supply of firebombs.";
 		}               
 	},
 	

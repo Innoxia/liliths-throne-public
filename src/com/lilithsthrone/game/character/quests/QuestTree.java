@@ -28,6 +28,7 @@ public class QuestTree {
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
 	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
 	public static TreeNode<Quest> rebelBaseTree = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
+        public static TreeNode<Quest> rebelBaseFirebombTree = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
 	
 	
 	static {
@@ -208,6 +209,14 @@ public class QuestTree {
                 node1.addChild(nodeBranchB);
                 node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
                 nodeBranchA.addChild(node2);
+                
+                //Firebombs
+                node1 = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
+                rebelBaseFirebombTree.addChild(node1);
+                node2 = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_FINISH);
+                node1.addChild(node2);
+                node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+                node2.addChild(node1);
 		
 		// Wes quest:
 

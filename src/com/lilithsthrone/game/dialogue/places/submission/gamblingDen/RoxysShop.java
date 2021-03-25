@@ -205,12 +205,14 @@ public class RoxysShop {
                         else if(index==4 
                                 && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.roxyIntroduced)
                                 && Main.game.getPlayer().hasWeaponType(WeaponType.getWeaponTypeFromId("dsg_hlf_weap_pbomb"), true)
-                                && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDeal)
-                                && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDealComplete)) {
+                                && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.REBEL_BASE_FIREBOMBS_FINISH)) {
 				return new Response("Firebombs", "Show Roxy the firebombs you recovered to see if she has a way of getting or making more.<br/>[style.boldBad(You will lose one firebomb.)] ", FIREBOMBS) {
                                     @Override
                                     public void effects() {
-                                        Main.game.getDialogueFlags().values.add(DialogueFlagValue.rebelBaseRoxyDeal);
+                                        if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.REBEL_BASE_FIREBOMBS_FINISH)) {
+                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.REBEL_BASE_FIREBOMBS_FINISH));
+                                        }
+                                        
                                         Main.game.getDialogueFlags().setSavedLong(REBEL_BASE_ROXY_TIMER, Main.game.getMinutesPassed());
                                         
                                         //shuffle at least one instance of the arcane firebomb into the player's inventory if they've got one equipped but none in their inventory
@@ -241,21 +243,14 @@ public class RoxysShop {
 			}
                         //Roxy needs 2 days to get firebombs
                         else if(index==4 
-                                && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDeal)
-                                && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDealComplete)
+                                && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE)
                                 && (Main.game.getMinutesPassed() - Main.game.getDialogueFlags().getSavedLong(REBEL_BASE_ROXY_TIMER)) < 2880) {
 				return new Response("Firebombs", "Roxy hasn't had enough time to get more firebombs yet.", null);				
 			}
                         else if(index==4 
-                                && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDeal)
-                                && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDealComplete)
+                                && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE)
                                 && (Main.game.getMinutesPassed() - Main.game.getDialogueFlags().getSavedLong(REBEL_BASE_ROXY_TIMER)) >= 2880) {
-				return new Response("Firebombs", "It's been two days since you asked Roxy about getting more firebombs, better check in.", FIREBOMBS_COMPLETE) {
-                                    @Override
-                                    public void effects() {
-                                        Main.game.getDialogueFlags().values.add(DialogueFlagValue.rebelBaseRoxyDealComplete);
-                                    }
-                                };				
+				return new Response("Firebombs", "It's been two days since you asked Roxy about getting more firebombs, better check in.", FIREBOMBS_COMPLETE);				
 			}
 			return null;
 		}
@@ -264,7 +259,7 @@ public class RoxysShop {
         public static final DialogueNode FIREBOMBS = new DialogueNode("Roxy's Fun Box", "", false, true) {
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "FIREBOMBS");
+                        return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "FIREBOMBS");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -275,6 +270,9 @@ public class RoxysShop {
         public static final DialogueNode FIREBOMBS_COMPLETE = new DialogueNode("Roxy's Fun Box", "", false, true) {
 		@Override
 		public String getContent() {
+                        if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE)) {
+                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE));
+                        }
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "FIREBOMBS_COMPLETE");
 		}
 		@Override
