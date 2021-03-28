@@ -50,7 +50,6 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -100,13 +99,7 @@ public class Roxy extends NPC {
 							|| itemType.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN))) {
 				itemsForSale.add(itemType);
 			}
-		}
-                
-                for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
-                    if(weaponType.getItemTags().contains(ItemTag.SOLD_BY_ROXY)) {
-                        weaponsForSale.add(weaponType);
-                    }
-                }
+		}               
 	}
 	
 	public Roxy() {

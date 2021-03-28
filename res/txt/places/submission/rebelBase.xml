@@ -130,7 +130,7 @@
 	<htmlContent tag="ARMORY_CACHE_OPEN_FIREBOMBS"><![CDATA[
 	<p>
 		You instantly recognize the disposable nature of the firebombs,
-		#IF (pc.getOccupation(OCCUPATION_SOLDIER))
+		#IF (pc.getOccupation() == OCCUPATION_SOLDIER)
 			 having seen quite a few in improvised weapons training.
 		#ELSE
 			 having seen them on the news.

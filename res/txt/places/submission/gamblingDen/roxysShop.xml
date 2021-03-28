@@ -253,7 +253,7 @@
 		[pc.speech(Nobody up in Dominion is going to carry something like this. Think about it, exclusive goods mean more business.)]
 	</p>
 	<p>
-		You tense up as Roxy grabs the firebomb and holds it perilously close to her lit cigarette while examining it. After a brief pause, she puts it under the counter. [roxy.speech(Yeah, alright, y'made yer fuckin' point. Gimme, say, two days an' I'll set somethin' up. Now, y'got anythin' else fer me or are yer gonna stand there gawpin'?)]
+		You tense up as Roxy grabs the firebomb and holds it perilously close to her lit cigarette while examining it. After a brief pause, she puts it under the counter. [roxy.speech(Yeah, alright, y'made yer fuckin' point. Gimme, say, two days an' I'll set somethin' up. Now, y'gonna buy anythin' or are yer gonna stand there gawpin'?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -262,7 +262,7 @@
 	
 	<htmlContent tag="FIREBOMBS_COMPLETE"><![CDATA[
 	<p>
-		Roxy gestures at a wooden crate full of familiar rag-stuffed glass bottles on a nearby shelf when you ask her about the firebomb you gave her. [roxy.speech(Y'blind? They's right there behind yer. Came in this mornin', perfect copies o' the one yer gave me. Don't ask where I gottem. Now, y'gonna buy 'em or wot?)]
+		Roxy gestures at a wooden crate full of familiar rag-stuffed glass bottles on a nearby shelf when you ask her about the firebomb you gave her. [roxy.speech(Y'blind? They's right there behind yer. Jus' came in, perfect copies o' the one yer gave me. Don't ask where I got 'em. Now, y'gonna buy 'em or wot?)]
 	</p>
 	#IF (!roxy.hasWeaponType(WEAPON_dsg_hlf_weap_pbomb, false))
 		[##roxy.addWeapon(game.getItemGen().generateWeapon(WEAPON_dsg_hlf_weap_pbomb), 10, false, false)]

@@ -1405,7 +1405,7 @@ public enum Quest {
         REBEL_BASE_FIREBOMBS_FINISH(QuestType.SIDE, 5, 5) {
 		@Override
 		public String getName() {
-			return "Fire From The Rats"
+			return "Fire From The Rats";
 		}
 		@Override
 		public String getDescription() {
