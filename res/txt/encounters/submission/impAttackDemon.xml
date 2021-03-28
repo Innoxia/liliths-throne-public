@@ -57,9 +57,9 @@
 			[npc.speech(Give me the potion,)] [npc.name] commands [npc.her] partner. Quickly producing a bottle of strange liquid, [npc2.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. 
 			#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 			#THEN
-				[npc.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				[npc.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ELSE
-				[npc.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				[npc.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ENDIF
 		</p>
 		<p>
@@ -292,7 +292,7 @@
 			As you grovel on the floor before [npc.name], you start to hear the sound of movement off from somewhere behind you, before a pair of imp-sized hands suddenly start squeezing your ass. You instinctively raise your [pc.hips] to offer yourself to the imp, who then suddenly lets go, before swishing back down to deliver a sharp slap to your left buttock. From behind, you hear [npc.name] let out a mocking laugh, [npc2.speech(Hah! Looks like we got another slut for imps! Ya getting turned on at the thought o' gettin' dominated by us, huh, [pc.insult]?!)]
 		</p>
 		<p>
-			As you try to look up and glance behind you, [npc.name] steps forwards and grabs you by the chin, before sneering, [npc.speech(Is that so? You love nothin' more than spreadin' yer legs fer any imp ya come across?!)]
+			As you try to look up and glance behind you, [npc.name] steps forwards and grabs you by the chin, before sneering, [npc.speech(Is that so? You love nothin' more than #IF(pc.hasLegs())spreadin' yer legs fer#ELSEgettin' railed by#ENDIF any imp ya come across?!)]
 		</p>
 		<p>
 			Being as submissive as you are, you find yourself unable to argue back, and as you feel [npc2.name] start groping and squeezing your ass again, you mutter, [pc.speech(Yes... That's right...)]
@@ -348,9 +348,9 @@
 			[npc.speech(Give me the potion,)] [npc.name] snaps at [npc.her] partner. Quickly producing a bottle of strange liquid, [npc2.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. 
 			#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 			#THEN
-				[npc.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				[npc.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ELSE
-				[npc.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				[npc.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ENDIF
 		</p>
 		<p>
@@ -369,7 +369,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
 	<p>
-		Finding yourself down on the floor, and at the mercy of the imps' carnal desires, you decide that the best thing for you to do would be to simply go along with whatever they have in store for you. Sensing your willingness to go along with all of this, [npc.name] sneers down at you, [npc.speech(What a submissive whore you turned out to be! You're just a slut who can't wait to spread [pc.her] [pc.legs] for us imps, aren't you?)]
+		Finding yourself down on the floor, and at the mercy of the imps' carnal desires, you decide that the best thing for you to do would be to simply go along with whatever they have in store for you. Sensing your willingness to go along with all of this, [npc.name] sneers down at you, [npc.speech(What a submissive whore you turned out to be! You're just a slut who can't wait to #IF(pc.hasLegs())spread [pc.her] [pc.legs] for#ELSEget fucked by#ENDIF us imps, aren't you?)]
 	</p>
 	<p>
 		Not wanting to cause any trouble by arguing back, you mutter, [pc.speech(Y-Yes... That's right...)]
@@ -397,7 +397,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
 	<p>
-		Finding yourself being pushed to the floor, and at the mercy of the imps' carnal desires, you feel yourself getting immensely turned-on, and can barely contain the [pc.moan+] that drifts out from between your [pc.lips]. Hearing the lewd noise that just came out of your mouth, [npc.name] sneers down at you, [npc.speech(What a dirty whore you turned out to be! You're just a slut who can't wait to spread [pc.her] [pc.legs] for us imps, aren't you?)]
+		Finding yourself being pushed to the floor, and at the mercy of the imps' carnal desires, you feel yourself getting immensely turned-on, and can barely contain the [pc.moan+] that drifts out from between your [pc.lips]. Hearing the lewd noise that just came out of your mouth, [npc.name] sneers down at you, [npc.speech(What a dirty whore you turned out to be! You're just a slut who can't wait to #IF(pc.hasLegs())spread [pc.her] [pc.legs] for#ELSEget fucked by#ENDIF us imps, aren't you?)]
 	</p>
 	<p>
 		Your arousal gets the better of you, and before you can think things through, you call out, [pc.speech(Yes! Please, fuck me!)]

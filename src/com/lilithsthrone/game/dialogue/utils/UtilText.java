@@ -1371,7 +1371,8 @@ public class UtilText {
 				false,
 				"(prefix/real name)",
 				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
+				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."
+				+ " If a blank space or 'true' is set as the argument, the character's true name will be returned, ignoring whether or not the player knows it."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
@@ -6793,8 +6794,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"Returns the name of this character's 'footjob' action, be it footjob, talonjob, hoofjob, etc.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getLegType().getFootType().getFootjobName();
@@ -6814,6 +6815,46 @@ public class UtilText {
 				return character.getFootStructure().getName();
 			}
 		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spreadsHerLegs",
+						"spreadsHisLegs",
+						"spreadYourLegs"),
+				true,
+				true,
+				"",
+				"Returns 'spread(s) her/his legs' if the character has legs, or 'buck(s) her/his hips' if no legs.",
+				BodyPartType.LEG){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.hasLegs()) {
+					return UtilText.parse(character, "[npc.verb(spread)] [npc.her] [npc.legs]");
+				} else {
+					return UtilText.parse(character, "[npc.verb(buck)] [npc.her] [npc.hips]");
+				}
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spreadingHerLegs",
+						"spreadingHisLegs"),
+				true,
+				true,
+				"",
+				"Returns 'spreading her/his legs' if the character has legs, or 'bucking her/his hips' if no legs.",
+				BodyPartType.LEG){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.hasLegs()) {
+					return UtilText.parse(character, "spreading [npc.her] [npc.legs]");
+				} else {
+					return UtilText.parse(character, "bucking [npc.her] [npc.hips]");
+				}
+			}
+		});
+		
 		
 		// Penis:
 		

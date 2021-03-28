@@ -50,7 +50,7 @@ public enum PropertyValue {
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
-	furryHairContent(true),
+	furryHairContent(false),
 	scalyHairContent(false),
 	
 	nonConContent(false, true),

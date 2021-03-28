@@ -116,6 +116,9 @@ public class Scarlett extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.6") && !this.isSlave()) {
 			this.getPetNameMap().remove(Main.game.getPlayer().getId());
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_EBONY), false);
+		}
 	}
 
 	@Override
@@ -169,6 +172,7 @@ public class Scarlett extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_RED));
 		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_BLACK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_EBONY), false);
 		
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(HairLength.TWO_SHORT);

@@ -1613,7 +1613,7 @@ public class PlaceType {
 	// Harpy Nests:
 	
 	public static final AbstractPlaceType HARPY_NESTS_WALKWAYS = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Walkway",
 			"The harpy nests are connected to one another by means of narrow wooden walkways built on top of Dominion's residential buildings.",
 			null,
@@ -1635,7 +1635,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_WALKWAYS_BRIDGE = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Walkway Bridge",
 			"Here and there, bridges span over the streets below, connecting one set of walkways with another.",
 			"dominion/harpyNests/bridge",
@@ -1668,7 +1668,7 @@ public class PlaceType {
 	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType HARPY_NESTS_HELENAS_NEST = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Helena's nest",
 			"The stunningly beautiful harpy matriarch, Helena, rules over the largest of all the harpy nests.",
 			"dominion/harpyNests/nestHelena",
@@ -1683,7 +1683,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_HARPY_NEST_RED = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Harpy nest",
 			"Diana's nest consists primarily of angry red harpies; their feather colour an attempt to mimic the appearance of their sadistic leader.",
 			"dominion/harpyNests/nestRed",
@@ -1698,7 +1698,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_HARPY_NEST_PINK = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Harpy nest",
 			"Lexi's nest contains a disproportionate amount of harpy males, each of whom hangs around in the hopes of getting to fuck their sex-loving matriarch.",
 			"dominion/harpyNests/nestPink",
@@ -1713,7 +1713,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_HARPY_NEST_YELLOW = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Harpy nest",
 			"Brittany's nest has a considerable population of bleach-blonde-feathered, big-busted, bimbo harpies.",
 			"dominion/harpyNests/nestYellow",
@@ -2016,10 +2016,10 @@ public class PlaceType {
 			Lab.LAB,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lilaya's lab") {
-		@Override
-		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false));
-		}
+//		@Override
+//		public void applyInventoryInit(CharacterInventory inventory) {
+//			inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false));
+//		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
 	

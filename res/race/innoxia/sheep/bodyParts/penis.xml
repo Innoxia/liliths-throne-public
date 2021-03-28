@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<penis>
+	<race>innoxia_sheep</race>
+	
+	<transformationName><![CDATA[sheep]]></transformationName>
+	
+	<coveringType>PENIS</coveringType>
+	
+	<testicleType>innoxia_sheep_testicle</testicleType>
+	
+	<additionalTransformationEffect/>
+	
+	<namesMasculine>
+		<name><![CDATA[sheep-]]></name>
+		<name><![CDATA[ram-]]></name>
+	</namesMasculine>
+	<namesPluralMasculine>
+		<name><![CDATA[sheep-]]></name>
+		<name><![CDATA[ram-]]></name>
+	</namesPluralMasculine>
+	
+	<namesFeminine>
+		<name><![CDATA[sheep-]]></name>
+		<name><![CDATA[ewe-]]></name>
+	</namesFeminine>
+	<namesPluralFeminine>
+		<name><![CDATA[sheep-]]></name>
+		<name><![CDATA[ewe-]]></name>
+	</namesPluralFeminine>
+	
+	<descriptors/>
+	
+	<defaultPenetrationModifiers>
+		<modifier>SHEATHED</modifier>
+	</defaultPenetrationModifiers>
+	
+	<transformationDescription><![CDATA[
+		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick sheath suddenly grows around the base of [npc.her] shaft.
+		<br/>[npc.She] now [npc.has] a [style.boldSheep(sheep-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldSheep([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ELSE sheep#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldSheep(sheep cum)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.a_cockGirth], [npc.cockLengthValue] sheep cock, which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].
+	]]></bodyDescription>
+</penis>

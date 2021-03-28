@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+	
+		<authorTag><![CDATA[The clothing's tag reads: 'Created by TonyJC, with implementation and editing by NeverLucky']]></authorTag>
+
+		<value>80</value>
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[one-strap crop top]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[one-strap crop tops]]></namePlural> 
+		
+		<description><![CDATA[A short tank top with only one shoulder strap.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>TORSO_UNDER</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>one_strap_crop_tank_top.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc.her] [npc.arms] through the top's straps as [npc.she] [npc.verb(pull)] it down over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the top's straps as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the top's straps as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] top.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] top.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] top.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] top back down, covering [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] top back down, covering [npc2.her] torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(yank)] [npc2.namePos] top back down, covering [npc2.her] torso.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] top up to just below [npc.her] chin, fully exposing [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] top up to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] top up to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>
