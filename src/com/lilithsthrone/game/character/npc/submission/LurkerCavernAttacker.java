@@ -72,7 +72,7 @@ public class LurkerCavernAttacker extends NPC {
 					AbstractSubspecies.addToSubspeciesMap((int) (10000 * Subspecies.getWorldSpecies(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false, false, Subspecies.SLIME).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
-			AbstractSubspecies species = Util.getRandomObjectFromWeightedMap(availableRaces);
+			AbstractSubspecies species = AbstractSubspecies.getRandomSubspeciesFromWeightedMap(availableRaces, Subspecies.BAT_MORPH);
 
 			RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
 			if(!gender.isFeminine()) {
