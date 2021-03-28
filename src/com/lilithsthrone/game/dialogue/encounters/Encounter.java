@@ -23,9 +23,9 @@ import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
-import com.lilithsthrone.game.character.npc.submission.LurkerCavernAttacker;
+import com.lilithsthrone.game.character.npc.submission.BatCavernLurkerAttacker;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
-import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
+import com.lilithsthrone.game.character.npc.submission.BatCavernSlimeAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -975,7 +975,7 @@ public enum Encounter {
                 public Map<EncounterType, Float> getDialogues() {
                     Map<EncounterType, Float> map = new HashMap<>();
 
-                    map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
+                    map.put(EncounterType.BAT_CAVERN_LURKER_ATTACK, 8f);
                     map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
                     map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
 
@@ -984,7 +984,7 @@ public enum Encounter {
 
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-			if (node == EncounterType.BAT_CAVERN_BAT_ATTACK) {
+			if (node == EncounterType.BAT_CAVERN_LURKER_ATTACK) {
 
 				// Prioritise re-encountering the NPC on this tile:
 				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
@@ -996,7 +996,7 @@ public enum Encounter {
 				
 //				TODO Add offspring encounters
 				
-				Main.game.setActiveNPC(new LurkerCavernAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new BatCavernLurkerAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -1014,7 +1014,7 @@ public enum Encounter {
 				
 //				TODO Add offspring encounters
 				
-				Main.game.setActiveNPC(new SlimeCavernAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new BatCavernSlimeAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {

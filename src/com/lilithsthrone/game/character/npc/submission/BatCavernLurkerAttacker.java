@@ -34,21 +34,21 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.5.5
  * @author Innoxia
  */
-public class LurkerCavernAttacker extends NPC {
+public class BatCavernLurkerAttacker extends NPC {
 
-	public LurkerCavernAttacker() {
+	public BatCavernLurkerAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}
 	
-	public LurkerCavernAttacker(Gender gender) {
+	public BatCavernLurkerAttacker(Gender gender) {
 		this(gender, false);
 	}
 	
-	public LurkerCavernAttacker(boolean isImported) {
+	public BatCavernLurkerAttacker(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public LurkerCavernAttacker(Gender gender, boolean isImported) {
+	public BatCavernLurkerAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
