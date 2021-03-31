@@ -305,7 +305,7 @@ public class HornType {
 			}
 			if(allTypes.isEmpty()) {
 				for(AbstractHornType type : HornType.getAllHornTypes()) {
-					if(type.getRace()==Race.NONE) {
+					if(type.isGeneric()) {
 						allTypes.add(type);
 					}
 				}
