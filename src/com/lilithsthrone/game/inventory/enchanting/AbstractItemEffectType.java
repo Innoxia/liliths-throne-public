@@ -477,7 +477,7 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						return PenisLength.SEVEN_STALLION.getMaximumValue();
 					case TF_MOD_SIZE_SECONDARY:
-						return PenetrationGirth.SIX_CHUBBY.getValue();
+						return PenetrationGirth.SEVEN_FAT.getValue();
 					case TF_MOD_SIZE_TERTIARY:
 						return TesticleSize.SEVEN_ABSURD.getValue();
 					case TF_MOD_WETNESS:

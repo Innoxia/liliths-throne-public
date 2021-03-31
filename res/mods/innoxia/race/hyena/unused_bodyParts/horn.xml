@@ -18,6 +18,10 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>HORN</coveringType>
 	
+	<!-- Whether this is a generic horn type or not (use the values 'true' or 'false' here).
+	Generic horn types are not associated with any race and therefore can be inherited by any race of hornless offspring, and should be defined as true if this horn type could be applied to any sort of race (such as the default 'curled', 'straight', etc. horn types in the base game). -->
+	<genericType>true</genericType>
+	
 	<!-- How many horns are in each 'row' by default. -->
 	<defaultHornsPerRow>2</defaultHornsPerRow>
 	
