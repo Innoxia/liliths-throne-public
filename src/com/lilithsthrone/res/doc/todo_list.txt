@@ -64,6 +64,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
+	[x] Character race not being recalculated upon load
+	[] American parsing works: "[pc.speech(Apologise.)]" but doesn't work: [pc.speech(Apologise.)] 
+	
 	[x] Enforcer bug
 	[x] Gambling den actions are not greyed out
 	[x] Fyrsia sex bug

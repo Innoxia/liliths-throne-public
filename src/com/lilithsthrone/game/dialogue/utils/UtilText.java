@@ -10267,8 +10267,9 @@ public class UtilText {
 		engine.put(tag, getRaceForParsing());
 	}
 	
-	private static final Map<String, CompiledScript> memo = new HashMap<>();
-	private static final int memo_limit = 500;
+//	private static final Map<String, CompiledScript> memo = new HashMap<>();
+//	private static final int memo_limit = 500;
+	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason. I commented it out to fix it and will come back and investigate at another time.
 	/**
 	 * Added in PR#1442 to increase performance by adding a memoization cache to compile scripting engine scripts.
 	 * <br/>- Adds a cache intended to hold compiled forms of script engine scripts.
@@ -10281,17 +10282,17 @@ public class UtilText {
 	 */
 	private static Object evaluate(String command) throws ScriptException {
 		CompiledScript script;
-		if (!memo.containsKey(command)) {
+//		if (!memo.containsKey(command)) {
 			script = ((NashornScriptEngine)engine).compile(command);
-			if (memo.size() < memo_limit) {
-				memo.put(command, script);
-				if (memo.size() == memo_limit) {
-					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
-				}
-			}
-		} else {
-			script = memo.get(command);
-		}
+//			if (memo.size() < memo_limit) {
+//				memo.put(command, script);
+//				if (memo.size() == memo_limit) {
+//					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
+//				}
+//			}
+//		} else {
+//			script = memo.get(command);
+//		}
 		return script.eval();
 	}
 }
