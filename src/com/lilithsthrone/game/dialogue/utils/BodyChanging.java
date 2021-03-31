@@ -1389,7 +1389,9 @@ public class BodyChanging {
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformBreastRowsDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
+						+ (isDebugMenu()||Main.game.isNipplePenEnabled()
+							?CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
+							:"")
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1412,7 +1414,8 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformAreolaeSizeDiv()
 					+"</div>"
 
-					+"<div style='clear:left;'>"
+					+(isDebugMenu()||Main.game.isNipplePenEnabled()
+					?"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformNippleCapacityDiv()
 						+ CharacterModificationUtils.getSelfTransformNippleDepthDiv()
 					+"</div>"
@@ -1421,6 +1424,7 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformNippleElasticityDiv()
 						+ CharacterModificationUtils.getSelfTransformNipplePlasticityDiv()
 					+"</div>"
+					:"")
 					
 					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
 							BodyChanging.getTarget().getBreastRace(),
@@ -1664,7 +1668,9 @@ public class BodyChanging {
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformBreastCrotchRowsDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
+						+ (isDebugMenu()||Main.game.isNipplePenEnabled()
+							?CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
+							:"")
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1687,7 +1693,8 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformAreolaeCrotchSizeDiv()
 					+"</div>"
 
-					+"<div style='clear:left;'>"
+					+(isDebugMenu()||Main.game.isNipplePenEnabled()
+					?"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformNippleCrotchCapacityDiv()
 						+ CharacterModificationUtils.getSelfTransformNippleCrotchDepthDiv()
 					+"</div>"
@@ -1696,6 +1703,7 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformNippleCrotchElasticityDiv()
 						+ CharacterModificationUtils.getSelfTransformNippleCrotchPlasticityDiv()
 					+"</div>"
+					:"")
 					
 					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
 							BodyChanging.getTarget().getBreastCrotchRace(),

@@ -2931,17 +2931,19 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(NippleShape ns : NippleShape.values()) {
-			if(BodyChanging.getTarget().getNippleShape() == ns) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_SHAPE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
+			if(BodyChanging.isDebugMenu() || (ns != NippleShape.VAGINA && ns != NippleShape.LIPS) || Main.game.isNipplePenEnabled()) {
+				if(BodyChanging.getTarget().getNippleShape() == ns) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_SHAPE_"+ns+"' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+				}
 			}
 		}
 
@@ -2957,17 +2959,19 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(NippleShape ns : NippleShape.values()) {
-			if(BodyChanging.getTarget().getNippleCrotchShape() == ns) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_CROTCH_SHAPE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
+			if(BodyChanging.isDebugMenu() || (ns != NippleShape.VAGINA && ns != NippleShape.LIPS) || Main.game.isNipplePenEnabled()) {
+				if(BodyChanging.getTarget().getNippleCrotchShape() == ns) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_SHAPE_"+ns+"' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+				}
 			}
 		}
 

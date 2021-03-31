@@ -226,7 +226,7 @@ public class Breast implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>Due to the fact that [npc.namePos] breasts are incubating eggs,"
 					+ " [style.colourMinorBad(their size cannot be reduced past "+CupSize.getMinimumCupSizeForEggIncubation().getCupSizeName()+"-cups)]!</p>");
 		}
-		
+
 		if (sizeChange == 0) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.breasts] doesn't change...)]</p>");
 		}
@@ -435,9 +435,11 @@ public class Breast implements BodyPartInterface {
 	}
 
 	public boolean isFuckable() {
-		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && size >= CupSize.getMinimumCupSizeForPenetration().getMeasurement();
+		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE &&
+				size >= CupSize.getMinimumCupSizeForPenetration().getMeasurement() &&
+				Main.game.isNipplePenEnabled();
 	}
-	
+
 	public boolean isAbleToIncubateEggs() {
 		return this.size>=CupSize.getMinimumCupSizeForEggIncubation().getMeasurement();
 	}
