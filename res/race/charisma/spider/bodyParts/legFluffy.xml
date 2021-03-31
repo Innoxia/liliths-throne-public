@@ -44,7 +44,7 @@
 		<br/>[npc.Name] now [npc.has] plantigrade, [style.boldSpider(spider-like legs and feet)], which are [npc.materialDescriptor] [npc.legFullDescription].
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[
-		#IF(npc.getLegConfiguration()==ARACHNID)
+		#IF(npc.getLegConfiguration()==LEG_CONFIGURATION_ARACHNID)
 			[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and look identical to those of a feral spider, complete with seven segmented pieces and little claws in place of feet.
 		#ELSE
 			[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are covered small chitin plates splitting at the joints.

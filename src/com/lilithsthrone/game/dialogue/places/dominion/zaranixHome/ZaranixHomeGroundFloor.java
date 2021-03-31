@@ -459,7 +459,11 @@ public class ZaranixHomeGroundFloor {
 	};
 	
 	public static final DialogueNode MEETING_ZARANIX = new DialogueNode("", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			// Set this to true here so that the repeat encounter with Amber at the door doens't end up with her acting as though you broke in
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.amberRepeatEncountered, true);
+		}
 		@Override
 		public String getLabel() {
 			return "Lounge";
@@ -1127,6 +1131,9 @@ public class ZaranixHomeGroundFloor {
 				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_SUBDUED");
 			
 			} else if(Main.game.getNpc(ZaranixMaidKatherine.class).getFoughtPlayerCount()==0) {
+				if(Main.game.getNpc(Amber.class).getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_GF_ENTRANCE)) {
+					return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_ENCOUNTER_FOUGHT_AMBER");
+				}
 				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "CORRIDOR_MAID_KATHERINE_ENCOUNTER");
 			
 			} else {

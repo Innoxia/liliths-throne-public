@@ -266,6 +266,8 @@ public enum DialogueFlagValue {
 	zaranixAmberSubdued,
 	zaranixKatherineSubdued,
 	zaranixKellySubdued,
+
+	zaranixTransformedPlayer,
 	
 	amberRepeatEncountered,
 	katherineRepeatEncountered,

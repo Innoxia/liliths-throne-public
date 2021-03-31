@@ -483,6 +483,7 @@ public class BodyChanging {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(ScarlettsShop.isSlaveCustomisationMenu()) {
+				SuccubisSecrets.initCoveringsMap(BodyChanging.getTarget());
 				UtilText.nodeContentSB.append(
 						"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getAgeAppearanceChoiceDiv()
