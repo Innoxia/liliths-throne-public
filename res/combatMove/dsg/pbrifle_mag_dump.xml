@@ -179,7 +179,7 @@
 		<execute><![CDATA[
 			Squeezing the trigger as fast as [npc.name] can manage, [npc.she] [npc.verb(manage)] to get [style.colorArcane([#~~(hits)])] hits on [npc2.name]!
 			formattedHealthDamage
-			Expending so much ammo costs you 
+			Expending so much ammo costs [npc.herHim] 
 			#IF(npc.getEssenceCount() < 15)
 				[style.colorArcane([#npc.getEssenceCount])] essences.
 				[##npc.setEssenceCount(0)]

@@ -938,6 +938,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	public boolean isSuitableForSleepHugging() {
 		return tags.contains(BodyPartTag.TAIL_SLEEP_HUGGING);
 	}
+	
+	public boolean isSuitableForAttack() {
+		return tags.contains(BodyPartTag.TAIL_ATTACK);
+	}
 
 	@Override
 	public TFModifier getTFModifier() {

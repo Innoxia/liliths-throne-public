@@ -436,7 +436,7 @@
 	<htmlContent tag="AFTER_COMBAT_DEFEAT"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
 		<p>
-			You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
+			You can't carry on fighting any longer, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
 		</p>
 		<p>
 			[brax.speech(Hah! Looks like you're still just a submissive little bitch! Didn't you learn anything from last time?!)] he growls, stepping forwards and grabbing you by the neck, [brax.speech(Now lets get you another drink!)]
@@ -453,7 +453,7 @@
 		
 	#ELSEIF(brax.getFoughtPlayerCount()>1)
 		<p>
-			You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
+			You can't carry on fighting any longer, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
 		</p>
 		<p>
 			[brax.speech(Hah! What a submissive little bitch! I was kinda hoping that you'd put up a better fight than that, but, whatever,)] he growls, stepping forwards and grabbing you by the neck, [brax.speech(Now this time, you're gonna drink down my potion like a good little bitch, aren't you?!)]
@@ -469,7 +469,7 @@
 		</p>
 	#ELSE
 		<p>
-			You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
+			You can't carry on fighting any longer, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
 		</p>
 		<p>
 			[brax.speech(Hah! What a submissive little bitch! I was kinda hoping that you'd put up a better fight than that, but, whatever,)] he growls, stepping forwards and grabbing you by the neck, [brax.speech(Now let's talk more about that little punishment I mentioned.)]

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+	
+		<authorTag><![CDATA[The clothing's tag reads: 'Created by TonyJC, with implementation and editing by NeverLucky']]></authorTag>
+
+		<value>600</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[denim overalls]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[denim overalls]]></namePlural> 
+		<description><![CDATA[A one-piece made out of hardy denim. It's sturdy, and designed for continuous use.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity> 
+		<slot>LEG</slot>
+		<rarity>COMMON</rarity> 
+		<clothingSet/>
+		<imageName>denim_overalls.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN">
+					<slot>ANKLE</slot>
+					<slot>SOCK</slot>
+				</concealedSlots>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>PENIS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_UNZIPS_GROIN"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/> 
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/> 
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="DENIM"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+<replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] up the overalls from [npc.her] feet, fastening the straps over [npc.her] shoulders and buttoning them to [npc.her] chest.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] up the overalls from [npc2.her] feet, fastening the straps over [npc2.her] shoulders and buttoning them to [npc2.her] chest.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] up the overalls from [npc2.her] feet, fastening the straps over [npc2.her] shoulders and buttoning them to [npc2.her] chest.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unbutton)] the straps on [npc.her] chest, freeing [npc.her] [npc.arms] and allowing [npc.Name] to pull it down to [npc.her] feet and remove it.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unbutton)] the straps on [npc2.her] chest, freeing [npc2.her] [npc2.arms] and allowing [npc.Name] to pull it down to [npc2.her] feet and remove it.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unbutton)] the straps on [npc2.her] chest, freeing [npc2.her] [npc2.arms] and allowing [npc.Name] to pull it down to [npc2.her] feet and remove it.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText type="UNBUTTONS">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(button)] up [npc.her] top and straps, recovering [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(button)] [npc2.namePos] overalls back up, covering [npc2.her] torso.]]>
+    </other>
+    <otherRough>
+	<![CDATA[[npc.Name] quickly [npc.verb(pull)] up [npc2.namePos] overalls without even bother to adjusting it for [npc2.her].]]>    </otherRough>
+  </replacementText>
+
+  <displacementText type="UNBUTTONS">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unbutton)] the straps on [npc.her] chest, allowing [npc.Name] to pull chest piece to expose exposing [npc.her] chest.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] away [npc2.namePos] straps and top down to hang loose, exposing [npc2.her] chest.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(yank)] down [npc2.her] top, letting it hang loosely and exposing [npc2.her] chest.]]>
+    </otherRough>
+  </displacementText>
+  
+  <replacementText type="PULLS_DOWN">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] up the overalls from [npc.her] feet, fastening the straps over [npc.her] shoulders and buttoning them to place.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] up the overalls from [npc2.her] feet, fastening the straps over [npc2.her] shoulders and buttoning them to place]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] up the overalls from [npc2.her] feet, fastening the straps over [npc2.her] shoulders and buttoning them to [npc2.her] chest.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="PULLS_DOWN">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unbutton)] the straps on [npc.her] chest, freeing [npc.her] [npc.arms] and allowing [npc.Name] to pull it down to [npc.her] ankles.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unbutton)] the straps on [npc2.her] chest, freeing [npc2.her] [npc2.arms] and allowing [npc.Name] to pull it down to [npc2.her] ankles.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unbutton)] the straps on [npc2.her] chest, freeing [npc2.her] [npc2.arms] and allowing [npc.Name] to pull it down to [npc2.her] ankles.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

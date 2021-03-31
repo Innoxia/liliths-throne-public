@@ -1296,7 +1296,7 @@ public class Body implements XMLSaving {
 			configuration = LegConfiguration.getValueFromString(leg.getAttribute("configuration"));
 		} catch(Exception ex) {}
 		
-		FootStructure footStructure = legType.getDefaultFootStructure();
+		FootStructure footStructure = legType.getDefaultFootStructure(configuration);
 		try {
 			footStructure = FootStructure.valueOf(leg.getAttribute("footStructure"));
 		} catch(Exception ex) {}
@@ -1495,28 +1495,32 @@ public class Body implements XMLSaving {
 		
 		// **************** Tentacle **************** //
 
+		Tentacle importedTentacle = new Tentacle(TentacleType.NONE);	
+		
 		Element tentacle = (Element)parentElement.getElementsByTagName("tentacle").item(0);
-		AbstractTentacleType tentacleType = TentacleType.getTentacleTypeFromId(tentacle.getAttribute("type"));
-
-		Tentacle importedTentacle = new Tentacle(tentacleType);
-		
-		importedTentacle.tentacleCount = (Integer.valueOf(tentacle.getAttribute("count")));
-		
-		if(tentacle.getAttribute("girth") != null && !tentacle.getAttribute("girth").isEmpty()) {
-			int tentacleGirth = Integer.valueOf(tentacle.getAttribute("girth"));
-			importedTentacle.girth = tentacleGirth;
+		if(tentacle!=null) {
+			AbstractTentacleType tentacleType = TentacleType.getTentacleTypeFromId(tentacle.getAttribute("type"));
+	
+			importedTentacle = new Tentacle(tentacleType);
+			
+			importedTentacle.tentacleCount = (Integer.valueOf(tentacle.getAttribute("count")));
+			
+			if(tentacle.getAttribute("girth") != null && !tentacle.getAttribute("girth").isEmpty()) {
+				int tentacleGirth = Integer.valueOf(tentacle.getAttribute("girth"));
+				importedTentacle.girth = tentacleGirth;
+			}
+			
+			if(tentacle.getAttribute("length")!=null && !tentacle.getAttribute("length").isEmpty()) {
+				float tentacleLength = Float.valueOf(tentacle.getAttribute("length"));
+				importedTentacle.lengthAsPercentageOfHeight = tentacleLength;
+			} else {
+				importedTentacle.lengthAsPercentageOfHeight = tentacleType.getDefaultLengthAsPercentageOfHeight();
+			}
+			
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Tentacle: "
+					+ "<br/>type: "+importedTentacle.getType()
+					+ "<br/>count: "+importedTentacle.getTentacleCount());
 		}
-		
-		if(tentacle.getAttribute("length")!=null && !tentacle.getAttribute("length").isEmpty()) {
-			float tentacleLength = Float.valueOf(tentacle.getAttribute("length"));
-			importedTentacle.lengthAsPercentageOfHeight = tentacleLength;
-		} else {
-			importedTentacle.lengthAsPercentageOfHeight = tentacleType.getDefaultLengthAsPercentageOfHeight();
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Tentacle: "
-				+ "<br/>type: "+importedTentacle.getType()
-				+ "<br/>count: "+importedTentacle.getTentacleCount());
 		
 		
 		// **************** Vagina **************** //
@@ -2939,6 +2943,9 @@ public class Body implements XMLSaving {
 					break;
 				case UNGULIGRADE:
 					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] hoofs.");
+					break;
+				case ARACHNOID:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] [npc.verb(walk)] on the ends of [npc.her] segmented arachnoid legs.");
 					break;
 			}
 		}

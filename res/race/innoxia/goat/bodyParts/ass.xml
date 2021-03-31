@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ass>
+	<race>innoxia_goat</race>
+	
+	<transformationName><![CDATA[goat]]></transformationName>
+	
+	<coveringType>innoxia_goat_fur</coveringType>
+	
+	<anusType>innoxia_goat_anus</anusType>
+	
+	<names/>
+	<namesPlural/>
+	
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] a [style.boldGoat(goat-like)], [npc.assholeFullDescription].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] a goat-like, [npc.anusFullDescription(true)]
+	]]></bodyDescription>
+</ass>

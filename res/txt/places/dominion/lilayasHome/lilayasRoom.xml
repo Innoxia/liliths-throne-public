@@ -89,9 +89,14 @@
 		 The musky, perfume-laced scent of Lilaya overwhelms your senses, and you feel a distinct heat rising in your groin.
 	</p>
 	<p>
-		Pushing yourself up onto your knees once again, you reach down between your legs and start touching yourself.
-		 Breathing in Lilaya's scent once again, you find yourself letting out a desperate whine as you imagine the soft fabric rubbing up against her wet pussy.
-		 Quickly resolving to see this through to the end, you glance at the closed bedroom door once more, before starting to masturbate to your aunt's used panties...
+		#IF(!pc.hasLegs())
+			 Pushing yourself up into a sitting position, you reach down between to your groin and start touching yourself.
+		#ELSEIF(pc.isTaur())
+			 Pushing yourself up onto your knees once again, you push your rear-end back against one of the posts of Lilaya's bed and rub against it in order to masturbate.
+		#ELSE
+			 Pushing yourself up onto your knees once again, you reach down between your legs and start touching yourself.
+		#ENDIF
+		 Breathing in Lilaya's scent once again, you find yourself letting out a desperate whine as you imagine the soft fabric rubbing up against her wet pussy. Quickly resolving to see this through to the end, you glance at the closed bedroom door once more, before starting to masturbate to your aunt's used panties...
 	</p>
 	]]>
 	</htmlContent>
@@ -332,7 +337,11 @@
 		 Suddenly, the cat-girl gives you a surprisingly hard shove, and you find yourself falling back onto Lilaya's bed.
 	</p>
 	<p>
-		[rose.speech(Now spread your legs, you horny slut,)]
+		#IF(pc.hasLegs())
+			[rose.speech(Now spread your legs, you horny slut,)]
+		#ELSE
+			[rose.speech(Now present yourself to me, you horny slut,)]
+		#ENDIF
 		 Rose snaps, stepping forwards as you hurry to obey.
 		 Grinning down at you, Rose leans forwards as she commands,
 		 [rose.speech(Beg for me to fuck you.)]
