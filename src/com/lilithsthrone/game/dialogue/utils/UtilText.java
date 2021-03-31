@@ -10266,6 +10266,16 @@ public class UtilText {
 	
 	private static final Map<String, CompiledScript> memo = new HashMap<>();
 	private static final int memo_limit = 500;
+	/**
+	 * Added in PR#1442 to increase performance by adding a memoization cache to compile scripting engine scripts.
+	 * <br/>- Adds a cache intended to hold compiled forms of script engine scripts.
+	 * <br/>- Cache capacity set to 500, and will stop adding new entries at that limit (tests did not exceed 100, but mods affect this).
+	 * <br/>- Tests showed scripting engine calls take 50% less time on average.
+	 * <br/>- WARNING: adds one more nashorn warning.
+	 * @param command
+	 * @return
+	 * @throws ScriptException
+	 */
 	private static Object evaluate(String command) throws ScriptException {
 		CompiledScript script;
 		if (!memo.containsKey(command)) {
