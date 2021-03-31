@@ -17037,7 +17037,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(characterPerformer.equals(characterTarget)) {
 			if(performerArea.isPenetration()) {
 				if(targetArea.isPenetration()
-                        ||(!Main.game.isNipplePenEnabled()&&(targetArea==SexAreaOrifice.NIPPLE||targetArea==SexAreaOrifice.NIPPLE_CROTCH))) {
+                        || (!Main.game.isNipplePenEnabled() && (targetArea==SexAreaOrifice.NIPPLE || targetArea==SexAreaOrifice.NIPPLE_CROTCH))) {
 					return UtilText.parse(characterPerformer,
 							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc.her] "+targetArea.getName(characterPerformer)+".");
 				} else {
@@ -17057,7 +17057,7 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			if(performerArea.isPenetration()) {
 				if(targetArea.isPenetration()
-				    ||(!Main.game.isNipplePenEnabled()&&(targetArea==SexAreaOrifice.NIPPLE||targetArea==SexAreaOrifice.NIPPLE_CROTCH))){
+				    || (!Main.game.isNipplePenEnabled() && (targetArea==SexAreaOrifice.NIPPLE || targetArea==SexAreaOrifice.NIPPLE_CROTCH))){
 					return UtilText.parse(characterPerformer, characterTarget,
 							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc2.namePos] "+targetArea.getName(characterTarget)+".");
 				} else {

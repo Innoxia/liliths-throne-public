@@ -515,9 +515,9 @@ public class BreastCrotch implements BodyPartInterface {
 	}
 
 	public boolean isFuckable() {
-		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE &&
-				size >= CupSize.getMinimumCupSizeForPenetration().getMeasurement() &&
-				Main.game.isNipplePenEnabled();
+		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE
+				&& size >= CupSize.getMinimumCupSizeForPenetration().getMeasurement()
+				&& Main.game.isNipplePenEnabled();
 	}
 
 	public boolean isAbleToIncubateEggs() {
