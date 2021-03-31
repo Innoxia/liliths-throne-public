@@ -2703,7 +2703,7 @@ public class CharacterModificationUtils {
 				true);
 	}
 
-	public static String getSelfTransformBreastRowsDiv() {
+	public static String getSelfTransformBreastRowsDiv(boolean halfWidth) {
 		contentSB.setLength(0);
 		
 		for(int i=1; i <= Breast.MAXIMUM_BREAST_ROWS; i++) {
@@ -2726,10 +2726,10 @@ public class CharacterModificationUtils {
 						+ "<br/><i>This is a mostly a cosmetic change, but is also taken into account when determining if there are any free nipples for use in sex.</i>"),
 				"BREAST_ROWS",
 				contentSB.toString(),
-				true);
+				halfWidth);
 	}
 
-	public static String getSelfTransformBreastCrotchRowsDiv() {
+	public static String getSelfTransformBreastCrotchRowsDiv(boolean halfWidth) {
 		contentSB.setLength(0);
 		
 		int minimum = 1;
@@ -2762,7 +2762,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>This is a mostly a cosmetic change, but is also taken into account when determining if there are any free crotch-nipples for use in sex.</i>"),
 				"BREAST_CROTCH_ROWS",
 				contentSB.toString(),
-				true);
+				halfWidth);
 	}
 
 	public static String getSelfTransformNippleCountDiv() {
@@ -2931,17 +2931,19 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(NippleShape ns : NippleShape.values()) {
-			if(BodyChanging.getTarget().getNippleShape() == ns) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_SHAPE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
+			if(BodyChanging.isDebugMenu() || !ns.isAssociatedWithPenetrationContent() || Main.game.isNipplePenEnabled()) {
+				if(BodyChanging.getTarget().getNippleShape() == ns) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_SHAPE_"+ns+"' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+				}
 			}
 		}
 
@@ -2957,17 +2959,19 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(NippleShape ns : NippleShape.values()) {
-			if(BodyChanging.getTarget().getNippleCrotchShape() == ns) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_CROTCH_SHAPE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
-						+ "</div>");
+			if(BodyChanging.isDebugMenu() || !ns.isAssociatedWithPenetrationContent() || Main.game.isNipplePenEnabled()) {
+				if(BodyChanging.getTarget().getNippleCrotchShape() == ns) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_SHAPE_"+ns+"' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+									+ "</div>");
+				}
 			}
 		}
 

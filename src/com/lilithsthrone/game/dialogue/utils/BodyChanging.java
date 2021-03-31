@@ -1378,6 +1378,8 @@ public class BodyChanging {
 
 		@Override
 		public String getHeaderContent() {
+			boolean isNipplePenOptions = isDebugMenu() || Main.game.isNipplePenEnabled();
+			
 			return getSelfTransformDescription("breasts")
 					
 					+ CharacterModificationUtils.getSelfTransformBreastChoiceDiv(getRacesForMinorPartSelfTransform())
@@ -1388,8 +1390,10 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastRowsDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
+						+ CharacterModificationUtils.getSelfTransformBreastRowsDiv(isNipplePenOptions)
+						+ (isNipplePenOptions
+							?CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
+							:"")
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1412,15 +1416,17 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformAreolaeSizeDiv()
 					+"</div>"
 
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleCapacityDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleDepthDiv()
-					+"</div>"
-
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleElasticityDiv()
-						+ CharacterModificationUtils.getSelfTransformNipplePlasticityDiv()
-					+"</div>"
+					+(isNipplePenOptions
+						?"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformNippleCapacityDiv()
+							+ CharacterModificationUtils.getSelfTransformNippleDepthDiv()
+						+"</div>"
+	
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformNippleElasticityDiv()
+							+ CharacterModificationUtils.getSelfTransformNipplePlasticityDiv()
+						+"</div>"
+						:"")
 					
 					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
 							BodyChanging.getTarget().getBreastRace(),
@@ -1653,6 +1659,8 @@ public class BodyChanging {
 
 		@Override
 		public String getHeaderContent() {
+			boolean isNipplePenOptions = isDebugMenu() || Main.game.isNipplePenEnabled();
+			
 			return getSelfTransformDescription("[npc.crotchBoobs]")
 					
 					+ CharacterModificationUtils.getSelfTransformBreastCrotchChoiceDiv(getRacesForMinorPartSelfTransform())
@@ -1663,8 +1671,10 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastCrotchRowsDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
+						+ CharacterModificationUtils.getSelfTransformBreastCrotchRowsDiv(isNipplePenOptions)
+						+ (isNipplePenOptions
+							?CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
+							:"")
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1687,15 +1697,17 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformAreolaeCrotchSizeDiv()
 					+"</div>"
 
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchCapacityDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchDepthDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchElasticityDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchPlasticityDiv()
-					+"</div>"
+					+(isNipplePenOptions
+						?"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformNippleCrotchCapacityDiv()
+							+ CharacterModificationUtils.getSelfTransformNippleCrotchDepthDiv()
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformNippleCrotchElasticityDiv()
+							+ CharacterModificationUtils.getSelfTransformNippleCrotchPlasticityDiv()
+						+"</div>"
+						:"")
 					
 					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
 							BodyChanging.getTarget().getBreastCrotchRace(),
