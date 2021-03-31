@@ -911,6 +911,16 @@ public class CharacterUtils {
 			}
 		}
 		
+		if (Math.random()>=takesAfterMotherChance) {
+			if (mother.isFeral()) {
+				body.setFeral(mother.getSubspecies());
+			}
+		} else {
+			if (father.isFeral()) {
+				body.setFeral(father.getSubspecies());
+			}
+		}
+		
 		if(!body.isFeral()
 				&& (Main.getProperties().getUddersLevel()==0
 					|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().getUddersLevel()==1)
