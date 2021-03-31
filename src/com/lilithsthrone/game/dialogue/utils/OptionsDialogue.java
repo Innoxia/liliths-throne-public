@@ -2148,6 +2148,13 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"PENETRATION_LIMITATION_DYNAMIC",
+							PresetColour.BASE_PINK_DEEP,
+							"Elasticity Affect Depth",
+							"When enabled, the elasticity of an orifice will affect it's depth so that you can accommodate longuer sizes.(Require Penetrative size-difference)",
+							Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FOOT",
 							PresetColour.BASE_TAN,
 							"Foot Content",

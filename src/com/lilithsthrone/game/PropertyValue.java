@@ -64,6 +64,8 @@ public enum PropertyValue {
 	
 	cumRegenerationContent(true),
 	penetrationLimitations(true),
+	//ElasticityAffectDepth was modded in so i set the default value to false 
+	elasticityAffectDepth(false),
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),
