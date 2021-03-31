@@ -22,6 +22,7 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -888,7 +889,14 @@ public class UtilText {
 			return duplicationSB.toString() + sb.toString();
 		}
 	}
+
+	private static String speechTarget = "";
+	private static boolean suppressOutput = false;
 	
+	public static boolean isInSpeech() {
+		return speechTarget!=null && !speechTarget.isEmpty();
+	}
+
 	public static String parse(String input, ParserTag... tags) {
 		return parse(new ArrayList<>(), input, tags);
 	}
@@ -896,30 +904,46 @@ public class UtilText {
 	public static String parse(GameCharacter specialNPC, String input, ParserTag... tags) {
 		return parse(Util.newArrayListOfValues(specialNPC), input, tags);
 	}
+
+	public static String parse(GameCharacter specialNPC, AbstractCoreItem specialItem, String input, ParserTag... tags) {
+		return parse(Util.newArrayListOfValues(specialNPC), specialItem, input, tags);
+	}
 	
 	public static String parse(GameCharacter specialNPC1, GameCharacter specialNPC2, String input, ParserTag... tags) {
 		return parse(Util.newArrayListOfValues(specialNPC1, specialNPC2), input, tags);
 	}
-	
-	public static boolean isInSpeech() {
-		return speechTarget!=null && !speechTarget.isEmpty();
+
+	public static String parse(AbstractCoreItem specialItem, String input, ParserTag... tags) {
+		return parse(specialItem, input, false, tags);
 	}
-	
-	private static String speechTarget = "";
-	private static boolean suppressOutput = false;
 
 	public static String parse(List<GameCharacter> specialNPC, String input, ParserTag... tags) {
 		return parse(specialNPC, input, false, tags);
+	}
+
+	public static String parse(List<GameCharacter> specialNPC, AbstractCoreItem specialItem, String input, ParserTag... tags) {
+		return parse(specialNPC, specialItem, input, false, Arrays.asList(tags));
+	}
+	
+	private static String parse(AbstractCoreItem specialItem, String input, boolean xmlParsing, ParserTag... tags) {
+		return parse(specialItem, input, xmlParsing, Arrays.asList(tags));
 	}
 	
 	private static String parse(List<GameCharacter> specialNPC, String input, boolean xmlParsing, ParserTag... tags) {
 		return parse(specialNPC, input, xmlParsing, Arrays.asList(tags));
 	}
-	
+
+	public static String parse(AbstractCoreItem specialItem, String input, boolean xmlParsing, List<ParserTag> tags) {
+		return parse(new ArrayList<>(), specialItem, input, xmlParsing, tags);
+	}
+
+	public static String parse(List<GameCharacter> specialNPC, String input, boolean xmlParsing, List<ParserTag> tags) {
+		return parse(specialNPC, null, input, xmlParsing, tags);
+	}
 	/**
 	 * Parses supplied text.
 	 */
-	public static String parse(List<GameCharacter> specialNPC, String input, boolean xmlParsing, List<ParserTag> tags) {
+	public static String parse(List<GameCharacter> specialNPC, AbstractCoreItem specialItem, String input, boolean xmlParsing, List<ParserTag> tags) {
 		List<GameCharacter> parsingCharactersForSpeechSaved;
 		parserTags = (tags);
 		parsingCharactersForSpeechSaved = parsingCharactersForSpeech;
@@ -1218,12 +1242,12 @@ public class UtilText {
 					resultBuilder.append(input.substring(startedParsingSegmentAt, startIndex));
 					String subResult;
 					if(currentParseMode == ParseMode.CONDITIONAL) {
-						subResult = parseConditionalSyntaxNew(specialNPC, conditionals, xmlParsing);
+						subResult = parseConditionalSyntaxNew(specialNPC, specialItem, conditionals, xmlParsing);
 					} else {
-						subResult = parseSyntaxNew(specialNPC, target, command, arguments, currentParseMode);
+						subResult = parseSyntaxNew(specialNPC, specialItem, target, command, arguments, currentParseMode);
 					}
 					if (openBrackets > 1) {
-						subResult = parse(specialNPC, subResult, false, tags);
+						subResult = parse(specialNPC, specialItem, subResult, false, tags);
 					}
 					if(command!=null && (command.equals("speech") || command.equals("speechNoEffects") || command.equals("speechNoExtraEffects"))) {
 						speechTarget = "";
@@ -9088,6 +9112,10 @@ public class UtilText {
 	}
 
 	private static String parseSyntaxNew(List<GameCharacter> specialNPCs, String target, String command, String arguments, ParseMode currentParseMode) {
+		return parseSyntaxNew(specialNPCs, null, target, command, arguments, currentParseMode);
+	}
+	
+	private static String parseSyntaxNew(List<GameCharacter> specialNPCs, AbstractCoreItem specialItem, String target, String command, String arguments, ParseMode currentParseMode) {
 		GameCharacter character;
 		
 		if(currentParseMode == ParseMode.REGULAR_SCRIPT) {
@@ -9107,6 +9135,10 @@ public class UtilText {
 				} catch(Exception ex) {
 //					System.err.println("Parsing error: Could not initialise npc");
 				}
+			}
+			
+			if(specialItem != null) {
+				engine.put("item", specialItem);
 			}
 			
 			if(Main.game.isStarted() && Main.game.getPlayer().hasCompanions()) {
@@ -9283,7 +9315,7 @@ public class UtilText {
 		// Parser targets:
 		if(Main.game.isStarted()) {
 			for(ParserTarget target : ParserTarget.values()) {
-				if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
+				if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.ITEM && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
 					for(String tag : target.getTags()) {
 						engine.put(tag, target.getCharacter(tag, null));
 					}
@@ -9616,11 +9648,11 @@ public class UtilText {
 //		System.out.println(sb.toString());
 	}
 	
-	private static String parseConditionalSyntaxNew(List<GameCharacter> specialNPCs, Map<String, String> conditionals, boolean hasXmlVariables) {
+	private static String parseConditionalSyntaxNew(List<GameCharacter> specialNPCs, AbstractCoreItem specialItem, Map<String, String> conditionals, boolean hasXmlVariables) {
 		
 		for(Entry<String, String> entry : conditionals.entrySet()) {
 			try {
-				if(evaluateConditional(specialNPCs, entry.getKey(), hasXmlVariables)){
+				if(evaluateConditional(specialNPCs, specialItem, entry.getKey(), hasXmlVariables)){
 					return UtilText.parse(specialNPCs, entry.getValue(), false);
 				}
 				
@@ -9635,7 +9667,7 @@ public class UtilText {
 		return "";
 	}
 	
-	public static boolean evaluateConditional(List<GameCharacter> specialNPCs, String conditionalStatement, boolean hasXmlVariables) throws ScriptException {
+	public static boolean evaluateConditional(List<GameCharacter> specialNPCs, AbstractCoreItem specialItem, String conditionalStatement, boolean hasXmlVariables) throws ScriptException {
 		if(engine==null) {
 			initScriptEngine();
 		}
@@ -9660,12 +9692,16 @@ public class UtilText {
 				}
 			}
 			
+			if(specialItem != null) {
+				engine.put("item", specialItem);
+			}
+		
 			if(Main.game.getPlayer().hasCompanions()) {
-				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
-					if(i==0) {
+				for (int i = 0; i < Main.game.getPlayer().getCompanions().size(); i++) {
+					if (i == 0) {
 						engine.put("com", Main.game.getPlayer().getCompanions().get(i));
 					}
-					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
+					engine.put("com" + (i + 1), Main.game.getPlayer().getCompanions().get(i));
 				}
 			}
 		}

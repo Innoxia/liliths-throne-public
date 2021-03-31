@@ -6941,7 +6941,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(this.getMainWeapon(armRow)!=null) {
-			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
+			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, this.getMainWeapon(armRow), isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
@@ -6949,7 +6949,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getOffhandAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(this.getOffhandWeapon(armRow)!=null) {
-			return this.getOffhandWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
+			return this.getOffhandWeapon(armRow).getWeaponType().getAttackDescription(this, target, this.getOffhandWeapon(armRow), isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
