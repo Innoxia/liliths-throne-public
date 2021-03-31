@@ -18,10 +18,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.script.CompiledScript;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
+import jdk.nashorn.api.scripting.NashornScriptEngine;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -9127,10 +9129,10 @@ public class UtilText {
 				commandWithVariableCalls.append(command);
 				
 				if(suppressOutput) {
-					engine.eval(commandWithVariableCalls.toString());
+					evaluate(commandWithVariableCalls.toString());
 					return "";
 				}
-				return String.valueOf(engine.eval(commandWithVariableCalls.toString()));
+				return String.valueOf(evaluate(commandWithVariableCalls.toString()));
 				
 			} catch (ScriptException e) {
 				System.err.println("Scripting parsing error: "+command);
@@ -9601,7 +9603,7 @@ public class UtilText {
 		
 		// static methods don't work unless initialised like so:
 //		try {
-//			engine.eval("var sex = Java.type('com.lilithsthrone.game.sex.Sex');");
+//			evaluate("var sex = Java.type('com.lilithsthrone.game.sex.Sex');");
 //		} catch (ScriptException e) {
 //			e.printStackTrace();
 //		}
@@ -9679,7 +9681,7 @@ public class UtilText {
 		}
 		conditionalStatementWithVariables.append(conditionalStatement);
 		
-		return (boolean)engine.eval(conditionalStatementWithVariables.toString());
+		return (boolean)evaluate(conditionalStatementWithVariables.toString());
 	}
 	
 	
@@ -10262,4 +10264,31 @@ public class UtilText {
 		engine.put(tag, getRaceForParsing());
 	}
 	
+	private static final Map<String, CompiledScript> memo = new HashMap<>();
+	private static final int memo_limit = 500;
+	/**
+	 * Added in PR#1442 to increase performance by adding a memoization cache to compile scripting engine scripts.
+	 * <br/>- Adds a cache intended to hold compiled forms of script engine scripts.
+	 * <br/>- Cache capacity set to 500, and will stop adding new entries at that limit (tests did not exceed 100, but mods affect this).
+	 * <br/>- Tests showed scripting engine calls take 50% less time on average.
+	 * <br/>- WARNING: adds one more nashorn warning.
+	 * @param command
+	 * @return
+	 * @throws ScriptException
+	 */
+	private static Object evaluate(String command) throws ScriptException {
+		CompiledScript script;
+		if (!memo.containsKey(command)) {
+			script = ((NashornScriptEngine)engine).compile(command);
+			if (memo.size() < memo_limit) {
+				memo.put(command, script);
+				if (memo.size() == memo_limit) {
+					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
+				}
+			}
+		} else {
+			script = memo.get(command);
+		}
+		return script.eval();
+	}
 }
