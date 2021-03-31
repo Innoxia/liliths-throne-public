@@ -3517,6 +3517,14 @@ public class Body implements XMLSaving {
 		return this.arm.setType(owner, type);
 	}
 
+	public String setArmRows(int armRows) {
+		return this.arm.setArmRows(null, armRows);
+	}
+
+	public String setArmRows(GameCharacter owner, int armRows) {
+		return this.arm.setArmRows(owner, armRows);
+	}
+
 	public void setAss(Ass ass) {
 		this.ass = ass;
 	}

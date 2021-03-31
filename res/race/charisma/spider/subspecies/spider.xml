@@ -16,8 +16,8 @@
 		#IF(targetedBody.hasVagina() && targetedBody.hasPenis())
 			[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
 		#ENDIF
-		#IF(targetedBody.getTail().getType()==TAIL_TYPE_charisma_spider_tailFluffy)
-			[#targetedBody.getTail().setType(null, TAIL_TYPE_charisma_spider_tail)]
+		#IF(targetedBody.getTailType()==TAIL_TYPE_charisma_spider_tailFluffy)
+			[#targetedBody.setTailType(TAIL_TYPE_charisma_spider_tail)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
