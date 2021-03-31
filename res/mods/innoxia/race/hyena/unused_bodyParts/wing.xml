@@ -22,8 +22,9 @@
 	<coveringType>innoxia_hyena_fur</coveringType>
 	
 	<!-- Whether this is a generic wing type or not (use the values 'true' or 'false' here).
-	Generic wing types are not associated with any race and therefore can be inherited by any race of wingless offspring, and should be defined as true if this wing type could be applied to any sort of race (such as the default 'fetahered', 'leathery', and 'insect' wing types in the base game). -->
-	<genericType>true</genericType>
+		Generic wing types are not associated with any race and therefore can be inherited by any race of wingless offspring, and should be defined as true if this wing type could be applied to any sort of race (such as the default 'feathered', 'leathery', and 'insect' wing types in the base game).
+		Will most likely be left as false here.  -->
+	<genericType>false</genericType>
 	
 	<!-- Whether this wing type grants the ability to fly. -->
 	<allowsFlight>true</allowsFlight>

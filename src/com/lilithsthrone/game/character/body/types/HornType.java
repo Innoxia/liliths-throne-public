@@ -291,10 +291,10 @@ public class HornType {
 	/**
 	 * 
 	 * @param race The race whose available horn types are to be returned.
-	 * @param includeNone Whether to include HornType.NONE in the list or not.
+	 * @param retainNone Whether to leave HornType.NONE in the list (true) or remove it if it's present (false).
 	 * @return A list of HornTypes which are available for this race to have <b>via transformation, not by default</b>. If you want to find out what HornTypes a race has by default, use their RacialBody's getHornTypes() method.
 	 */
-	public static List<AbstractHornType> getHornTypes(AbstractRace race, boolean includeNone) {
+	public static List<AbstractHornType> getHornTypes(AbstractRace race, boolean retainNone) {
 		if(!typesMap.containsKey(race)) {
 			List<AbstractHornType> allTypes = new ArrayList<>();
 			
@@ -304,6 +304,7 @@ public class HornType {
 				}
 			}
 			if(allTypes.isEmpty()) {
+				allTypes.add(HornType.NONE);
 				for(AbstractHornType type : HornType.getAllHornTypes()) {
 					if(type.isGeneric()) {
 						allTypes.add(type);
@@ -314,8 +315,8 @@ public class HornType {
 			typesMap.put(race, allTypes);
 		}
 		
-		List<AbstractHornType>  types = new ArrayList<>(typesMap.get(race));
-		if(!includeNone) {
+		List<AbstractHornType> types = new ArrayList<>(typesMap.get(race));
+		if(!retainNone) {
 			types.remove(HornType.NONE);
 		}
 		return types;
