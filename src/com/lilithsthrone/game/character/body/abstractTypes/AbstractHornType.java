@@ -34,6 +34,8 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 	private AbstractRace race;
 
 	private String transformationName;
+
+	private boolean generic;
 	
 	private int defaultHornsPerRow;
 
@@ -77,6 +79,8 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 		this.name = name;
 		this.namePlural = namePlural;
 		
+		this.generic = false;
+		
 		this.defaultHornsPerRow = defaultHornsPerRow;
 		
 		this.descriptorsMasculine = descriptorsMasculine;
@@ -101,6 +105,12 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 				
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				if(coreElement.getOptionalFirstOf("genericType").isPresent()) {
+					this.generic = Boolean.valueOf(coreElement.getMandatoryFirstOf("genericType").getTextContent());
+				} else {
+					this.generic = false;
+				}
 				
 				this.defaultHornsPerRow = Integer.valueOf(coreElement.getMandatoryFirstOf("defaultHornsPerRow").getTextContent());
 
@@ -218,6 +228,10 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 	@Override
 	public AbstractRace getRace() {
 		return race;
+	}
+
+	public boolean isGeneric() {
+		return generic;
 	}
 
 	@Override

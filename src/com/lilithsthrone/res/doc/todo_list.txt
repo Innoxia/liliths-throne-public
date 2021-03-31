@@ -34,6 +34,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
+		Added 'genericType' fields for Wing and Horn xml files, so that you can define those types as being generic (not associated with any parent race) or not.
 	
 	Other:
 		Zaranix is now still called 'Zaranix' when in his feminine form, instead of 'Zoelix' (as the name change wasn't being mentioned anywhere or referenced at all, and didn't make much sense).
@@ -54,7 +55,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where you couldn't go upstairs in Zaranix's house before going to encounter Katherine.
 		The starting action for Arthur's hypno-watch quest is now correctly coloured as a side quest.
 		Fixed oral foot worship sex types having no descriptions in quick sex scenes.
-		
+		Fixed bug where maximum penis girth TF from clothing was capped at value 6 instead of 7.
+	
 	
 	
 	[x] Enforcer bug

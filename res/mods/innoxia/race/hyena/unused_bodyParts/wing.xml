@@ -21,6 +21,10 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>innoxia_hyena_fur</coveringType>
 	
+	<!-- Whether this is a generic wing type or not (use the values 'true' or 'false' here).
+	Generic wing types are not associated with any race and therefore can be inherited by any race of wingless offspring, and should be defined as true if this wing type could be applied to any sort of race (such as the default 'fetahered', 'leathery', and 'insect' wing types in the base game). -->
+	<genericType>true</genericType>
+	
 	<!-- Whether this wing type grants the ability to fly. -->
 	<allowsFlight>true</allowsFlight>
 	

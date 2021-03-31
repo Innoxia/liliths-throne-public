@@ -26915,6 +26915,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasHorns() {
 		return body.getHorn().getType() != HornType.NONE;
 	}
+	/**
+	 * Checks, if the character has generic horns aka horns that aren't linked to a specific race.
+	 * @return true, if the character has generic horns
+	 */
+	public boolean hasGenericHorns() {
+		return body.getHorn().getType().isGeneric();
+	}
 	public boolean isHornsAbleToBeUsedAsHandlesInSex() {
 		return this.hasHorns() && HornLength.getLengthFromInt(this.getHornLength()).isSuitableAsHandles();
 	}
@@ -28708,6 +28715,13 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public boolean hasWings() {
 		return body.hasWings();
+	}
+	/**
+	 * Checks, if the NPC has generic wings aka wings that allow flight, but aren't linked to a specific race.
+	 * @return true, if the NPC has generic wings
+	 */
+	public boolean hasGenericWings() {
+		return getWingType().isGeneric();
 	}
 	// Type:
 	public AbstractWingType getWingType() {
