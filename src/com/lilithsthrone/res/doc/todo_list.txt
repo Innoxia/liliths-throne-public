@@ -31,6 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed minor parsing issue with Enforcer Patrol description during arcane storms. (by AceXP)
 		Fixed issue where a background error would something be thrown in sex, softlocking the scene. This was being encountered most frequently in Frysia's sex scene. (by AceXP)
 		Fixed bug where arachnid leg descriptions had a parsing error in them. (by Stadler76)
+		Added feature where if an offspring's father and/or mother has generic wings (feathered, leathery or insect) or horns (curled, curved, straight, etc.), the offspring can inherit them. (PR#1370 by Stadler76)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.

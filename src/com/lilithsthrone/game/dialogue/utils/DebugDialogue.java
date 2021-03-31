@@ -751,7 +751,7 @@ public class DebugDialogue {
 					isBorn = false;
 				}
 				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
-						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies()+")"
+						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies().getName(npc)+")"
 						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			if(activeOffspring!=null) {
