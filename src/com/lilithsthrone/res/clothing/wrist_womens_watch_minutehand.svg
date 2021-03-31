@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-    <g stroke="#000" transform="rotate(-53.967 -781.842 267.817)">
-        <g stroke-width=".5">
-            <path fill="#b3b3b3" fill-rule="evenodd" d="M-126.688 927.05l-5.38-2.119-22.37-19.069 24.37 16.382z" transform="matrix(-.63012 1.20017 -1.21173 -.09009 902.981 1162.043)"/>
-            <path fill="none" d="M-152.868 907.03l25.766 19.71" transform="matrix(-.63012 1.20017 -1.21173 -.09009 902.981 1162.043)"/>
-        </g>
-        <ellipse cx="-133.533" cy="921.514" fill="#b3b3b3" stroke-width=".5" rx="3.403" ry="3.304"/>
-        <ellipse cx="-133.533" cy="921.514" fill="#4d4d4d" stroke-width=".194" rx="1.318" ry="1.28"/>
-    </g>
+<svg version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+ <g stroke="#000">
+  <g transform="rotate(-53.967 -781.84 267.82)" fill="#ffe680" stroke-width=".5">
+   <path transform="matrix(-.63012 1.2002 -1.2117 -.09009 902.98 1162)" d="m-126.69 927.05-5.38-2.119-22.37-19.069 24.37 16.382z" fill-rule="evenodd"/>
+   <path transform="matrix(-.63012 1.2002 -1.2117 -.09009 902.98 1162)" d="m-152.87 907.03 25.766 19.71"/>
+  </g>
+  <ellipse transform="rotate(-53.967)" cx="-28.188" cy="178.98" rx="3.403" ry="3.304" fill="#ffe680" stroke-width=".5"/>
+  <ellipse transform="rotate(-53.967)" cx="-28.188" cy="178.98" rx="1.318" ry="1.28" fill="#ffd42a" stroke-width=".194"/>
+ </g>
 </svg>

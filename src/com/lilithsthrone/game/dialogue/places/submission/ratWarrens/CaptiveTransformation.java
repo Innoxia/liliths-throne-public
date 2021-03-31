@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -172,8 +173,8 @@ public enum CaptiveTransformation {
 					map.put("You's gonna be growin' a nice fat cock! Yer gonna be makin' us a lotta cash with all the cum this thing's gonna be spurtin' out! Heh-heh-heh!",
 							target.setPenisType(RacialBody.valueOfRace(target.getRace()).getPenisType())
 							+ target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				}
 			} else {
@@ -187,8 +188,8 @@ public enum CaptiveTransformation {
 				} else {
 					map.put("Yer cock's gonna need ta be bigger'n that, otherwise the milkin' tube might slip right off while we're milkin' ya!",
 							target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				}
 			}
@@ -235,6 +236,12 @@ public enum CaptiveTransformation {
 							target.setAssCapacity(1, true)
 							+ target.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue())
 							+ target.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
+				}
+				
+				if(!target.hasLegs() && target.getGenitalArrangement()!=GenitalArrangement.CLOACA_BEHIND) {
+					map.put("You's thinkin' I ain't gonna be able ta fuck yer ass from behind, wot with it bein' on the front o' yer [pc.leg]? Well, think again!"
+								+ " Yer gonna 'ave yer asshole in a rear-facin' cloaca, so you's gonna always 'ave ta be fucked from behind from now on! Heh-heh-heh!",
+							target.setGenitalArrangement(GenitalArrangement.CLOACA_BEHIND));
 				}
 			}
 
@@ -396,14 +403,14 @@ public enum CaptiveTransformation {
 					map.put("You's gonna be growin' a nice fat cock! Yer gonna be makin' us a lotta cash with all the cum this thing's gonna be spurtin' out! Heh-heh-heh!",
 							target.setPenisType(RacialBody.valueOfRace(target.getRace()).getPenisType())
 							+ target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				} else {
 					map.put("Yer cock needs ta be big an' fat!",
 							target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				}
 				
@@ -440,6 +447,12 @@ public enum CaptiveTransformation {
 					target.setVaginaCapacity(1, true)
 					+ target.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue())
 					+ target.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+			
+			if(!target.hasLegs() && target.getGenitalArrangement()!=GenitalArrangement.CLOACA_BEHIND) {
+				map.put("You's thinkin' I ain't gonna be able ta fuck yer cunt from behind, wot with it bein' on the front o' yer [pc.leg]? Well, think again!"
+							+ " Yer gonna 'ave yer twat an' asshole in a rear-facin' cloaca, so you's gonna always 'ave ta be fucked from behind from now on! Heh-heh-heh!",
+						target.setGenitalArrangement(GenitalArrangement.CLOACA_BEHIND));
+			}
 			
 			if(Main.game.isAnalContentEnabled()) {
 				Covering covering = target.getCovering(BodyCoveringType.ANUS);

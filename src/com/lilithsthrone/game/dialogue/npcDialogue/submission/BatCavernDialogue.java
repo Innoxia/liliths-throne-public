@@ -913,7 +913,7 @@ public class BatCavernDialogue {
 			} else if (index == 5) {
 				if(!getMugger().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Submit",
-							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
+							"You can't submit to [npc.herHim], as [npc.sheHasFull] no interest in having sex with you!",
 							null);
 				} else {
 					return new ResponseSex("Submit",

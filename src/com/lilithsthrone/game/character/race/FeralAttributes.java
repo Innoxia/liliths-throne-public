@@ -19,6 +19,7 @@ public class FeralAttributes {
 	private LegConfiguration legConfiguration;
 	private boolean sizeHeight;
 	private int size;
+	private float serpentTailLength;
 
 	private boolean armsOrWingsPresent;
 	private boolean fingerActionsAvailable;
@@ -136,6 +137,7 @@ public class FeralAttributes {
 				legConfiguration,
 				sizeHeight,
 				size,
+				0.1f,
 				breastRowCount,
 				nipplesPerBreastCount,
 				crotchBreastRowCount,
@@ -155,6 +157,7 @@ public class FeralAttributes {
 			LegConfiguration legConfiguration,
 			boolean sizeHeight,
 			int size,
+			float serpentTailLength,
 			int breastRowCount,
 			int nipplesPerBreastCount,
 			int crotchBreastRowCount,
@@ -172,6 +175,7 @@ public class FeralAttributes {
 		this.legConfiguration = legConfiguration;
 		this.sizeHeight = sizeHeight;
 		this.size = size;
+		this.serpentTailLength = serpentTailLength;
 		
 		this.armsOrWingsPresent = armsOrWingsPresent;
 		this.fingerActionsAvailable = fingerActionsAvailable;
@@ -222,6 +226,13 @@ public class FeralAttributes {
 		return size;
 	}
 
+	public float getSerpentTailLength() {
+		return serpentTailLength;
+	}
+
+	/**
+	 * @return true if this feral body has either arms or arm-wings.
+	 */
 	public boolean isArmsOrWingsPresent() {
 		return armsOrWingsPresent;
 	}

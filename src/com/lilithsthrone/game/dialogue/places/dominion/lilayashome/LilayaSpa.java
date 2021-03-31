@@ -235,7 +235,7 @@ public class LilayaSpa {
 			"Clearly not at all happy with being forced to work in the spa, [npc.name] angrily growls,");
 
 	private static List<String> receptionRudeGreetingsMute = Util.newArrayListOfValues(
-			"Glaring angrily at you, [npc.name] lets out a disobedient scowl, making it quite clear that [npc.she] has no interest in helping you with anything...",
+			"Glaring angrily at you, [npc.name] lets out a disobedient scowl, making it quite clear that [npc.sheHasFull] no interest in helping you with anything...",
 			"With [npc.her] [npc.eyes+] full of resentment, [npc.name] glares at you and lets out a disobedient growl.",
 			"Clearly not at all happy with being forced to work in the spa, [npc.name] angrily growls at you, before crossing [npc.her] [npc.arms] and refusing to offer you any assistance.");
 	
@@ -367,12 +367,12 @@ public class LilayaSpa {
 	private static List<String> showerRudeGreetings = Util.newArrayListOfValues(
 			"[npc.Name] angrily scowls as [npc.she] reluctantly helps you to clean yourself,",
 			"Glaring angrily at you as [npc.she] half-heartedly helps to wash your body, [npc.name] growls,",
-			"Resenting the fact that [npc.she] has to help you clean yourself, [npc.name] angrily sneers,");
+			"Resenting the fact that [npc.sheHasFull] to help you clean yourself, [npc.name] angrily sneers,");
 
 	private static List<String> showerRudeGreetingsMute = Util.newArrayListOfValues(
 			"[npc.Name] angrily scowls as [npc.she] reluctantly helps you to clean yourself...",
 			"Glaring angrily at you the entire time, [npc.name] half-heartedly helps to wash your body...",
-			"Resenting the fact that [npc.she] has to help you clean yourself, [npc.name] angrily glares at you...");
+			"Resenting the fact that [npc.sheHasFull] to help you clean yourself, [npc.name] angrily glares at you...");
 	
 	private static List<String> showerRudeSpeech = Util.newArrayListOfValues(
 			"Just fucking hurry up so I can get out of here...",
@@ -482,12 +482,12 @@ public class LilayaSpa {
 	private static List<String> bathingRudeGreetings = Util.newArrayListOfValues(
 			"[npc.Name] angrily scowls as [npc.she] reluctantly joins you in the pool,",
 			"Glaring angrily at you as [npc.she] splashes down into the pool's warm water, [npc.name] scowls,",
-			"Resenting the fact that [npc.she] has to join you in the pool, [npc.name] angrily sneers,");
+			"Resenting the fact that [npc.sheHasFull] to join you in the pool, [npc.name] angrily sneers,");
 
 	private static List<String> bathingRudeGreetingsMute = Util.newArrayListOfValues(
 			"[npc.Name] angrily scowls as [npc.she] reluctantly joins you in the pool...",
 			"Glaring angrily at you, [npc.name] reluctantly splashes down into the pool's warm water...",
-			"Resenting the fact that [npc.she] has to join you in the pool, [npc.name] angrily glares at you...");
+			"Resenting the fact that [npc.sheHasFull] to join you in the pool, [npc.name] angrily glares at you...");
 	
 	private static List<String> bathingRudeSpeech = Util.newArrayListOfValues(
 			"The spa's nice, but it's much better when you're not here...",

@@ -63,7 +63,8 @@ public interface SexManagerInterface {
 	public boolean isAbleToSkipSexScene();
 
 	/**
-	 * @return The SexPace that this character should have at the start of this sex scene. Unlike the <i>getForcedSexPace(character)</i> method, this method does <b>not</b> lock the character into the specified sex pace for the duration of this sex scene.
+	 * @return The SexPace that this character should have at the start of this sex scene.
+	 *  Unlike the <i>getForcedSexPace(character)</i> method, this method does <b>not</b> lock the character into the specified sex pace for the duration of this sex scene.
 	 */
 	public default SexPace getStartingSexPaceModifier(GameCharacter character) {
 		return null;
@@ -215,7 +216,7 @@ public interface SexManagerInterface {
 		}
 		
 		for(GameCharacter character : Main.sex.getDominantParticipants(false).keySet()) {
-			if(Main.sex.getNumberOfOrgasms(character)<character.getOrgasmsBeforeSatisfied() && Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
+			if(!Main.sex.isSatisfiedFromOrgasms(character, true) && Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
 				domsSatisfied = false;
 			}
 		}
@@ -224,7 +225,7 @@ public interface SexManagerInterface {
 			if(Main.sex.getSexPace(character)!=SexPace.SUB_RESISTING && Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
 				subsResisting = false;
 			}
-			if(Main.sex.getNumberOfOrgasms(character)<character.getOrgasmsBeforeSatisfied() && Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
+			if(!Main.sex.isSatisfiedFromOrgasms(character, true) && Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
 				subsSatisfied = false;
 			}
 			if(Main.sex.getNumberOfDeniedOrgasms(character)==0) {
@@ -366,14 +367,27 @@ public interface SexManagerInterface {
 	public default boolean isPartnerUsingForeplayActions() {
 		return true;
 	}
+
+	public default boolean isForceCreampieAllowed(GameCharacter characterOrgasming, GameCharacter characterRecevingCreampie) {
+		return true;
+	}
 	
 	/**
-	 * @return The OrgasmBehaviour for this character. Normally returns DEFAULT, but can also return CREAMPIE or PULL_OUT, in which case the character will ignore requests and treat associated orgasm actions as having a SexActionPriority of UNIQUE_MAX.
+	 * @return The OrgasmBehaviour for this character.
+	 *  Normally returns DEFAULT, but can also return CREAMPIE or PULL_OUT, in which case the character will ignore requests and treat associated orgasm actions as having a SexActionPriority of UNIQUE_MAX.
 	 */
 	public default OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
 		return OrgasmBehaviour.DEFAULT;
 	}
 
+	/**
+	 * @return The OrgasmBehaviour for this character when reacting to the characterOrgasming orgasming in the characterPenetrated.
+	 *  Normally returns DEFAULT, but can also return NO_ENCOURAGE, CREAMPIE, or PULL_OUT, in which case the character will use GENERIC_PREPARATION_PREPARE, GENERIC_PREPARATION_ENCOURAGE_CREAMPIE, or GENERIC_PREPARATION_ENCOURAGE_PULL_OUT, respectively.
+	 */
+	public default OrgasmEncourageBehaviour getCharacterOrgasmEncourageBehaviour(GameCharacter character, GameCharacter characterOrgasming, GameCharacter characterPenetrated) {
+		return OrgasmEncourageBehaviour.DEFAULT;
+	}
+	
 	/**
 	 * @return The OrgasmCumTarget for when this character is orgasming in an interaction with the target. Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
 	 */

@@ -10,6 +10,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -259,6 +260,14 @@ public class Bunny extends NPC {
 	@Override
 	public void endSex() {
 		this.returnToHome();
+	}
+
+	@Override
+	public boolean isKnowsCharacterArea(CoverableArea area, GameCharacter target) {
+		if(target.equals(Main.game.getNpc(Loppy.class))) {
+			return true;
+		}
+		return super.isKnowsCharacterArea(area, target);
 	}
 	
 	@Override

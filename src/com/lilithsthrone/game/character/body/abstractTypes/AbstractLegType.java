@@ -2,10 +2,9 @@ package com.lilithsthrone.game.character.body.abstractTypes;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.Map;
 
 import org.w3c.dom.Document;
 
@@ -30,7 +29,6 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -48,6 +46,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.1
@@ -64,7 +63,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 	private String transformationName;
 	
-	private FootStructure defaultFootStructure;
+	private Map<LegConfiguration, FootStructure> defaultFootStructure;
 	private AbstractFootType footType;
 	
 	private String determiner;
@@ -133,7 +132,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 		this.transformationName = null; // Use default race transformation name
 		
-		this.defaultFootStructure = defaultFootStructure;
+		this.defaultFootStructure = Util.newHashMapOfValues(new Value<>(LegConfiguration.BIPEDAL, defaultFootStructure));
 		this.footType = footType;
 		
 		this.allowedLegConfigurations = allowedLegConfigurations;
@@ -164,9 +163,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	public AbstractLegType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -181,7 +178,15 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				
-				this.defaultFootStructure = FootStructure.valueOf(coreElement.getMandatoryFirstOf("defaultFootStructure").getTextContent());
+				this.defaultFootStructure = new HashMap<>();
+				FootStructure defaultStructure = FootStructure.valueOf(coreElement.getMandatoryFirstOf("defaultFootStructure").getTextContent());
+				for(LegConfiguration config : LegConfiguration.values()) {
+					this.defaultFootStructure.put(config, defaultStructure);
+				}
+				for(Element e : coreElement.getAllOf("additionalFootStructure")) {
+					this.defaultFootStructure.put(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), FootStructure.valueOf(e.getTextContent()));
+				}
+				
 				this.footType = FootType.getFootTypeFromId(coreElement.getMandatoryFirstOf("footType").getTextContent());
 				this.spinneret = Boolean.valueOf(coreElement.getMandatoryFirstOf("spinneret").getTextContent());
 				
@@ -266,30 +271,69 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
-		return determiner;
+		if(gc==null) {
+			return determiner;
+		}
+		if(gc.getLegCount()==1) {
+			return "a";
+		} else if(gc.getLegCount()==2) {
+			return "a pair of";
+		}
+		return Util.intToString(gc.getLegCount());
 	}
 
 	@Override
 	public boolean isDefaultPlural(GameCharacter gc) {
-		return true;
+		if(gc==null) {
+			return true;
+		}
+		return gc.getLegCount()>1;
 	}
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
+		if(gc!=null) {
+			switch(gc.getLegConfiguration()) {
+				case ARACHNID:
+				case AVIAN:
+				case BIPEDAL:
+				case QUADRUPEDAL:
+					return "leg";
+				case CEPHALOPOD:
+					return "tentacle";
+				case TAIL:
+				case TAIL_LONG:
+					return "tail";
+			}
+		}
 		return name;
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
+		if(gc!=null) {
+			switch(gc.getLegConfiguration()) {
+				case ARACHNID:
+				case AVIAN:
+				case BIPEDAL:
+				case QUADRUPEDAL:
+					return "legs";
+				case CEPHALOPOD:
+					return "tentacles";
+				case TAIL:
+				case TAIL_LONG:
+					return "tails";
+			}
+		}
 		return namePlural;
 	}
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		if (gc.isFeminine()) {
-			return Util.randomItemFrom(descriptorsFeminine);
-		} else {
+		if(gc!=null && !gc.isFeminine()) {
 			return Util.randomItemFrom(descriptorsMasculine);
+		} else {
+			return Util.randomItemFrom(descriptorsFeminine);
 		}
 	}
 
@@ -312,8 +356,11 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		return footType;
 	}
 
-	public FootStructure getDefaultFootStructure() {
-		return defaultFootStructure;
+	public FootStructure getDefaultFootStructure(LegConfiguration legConfiguration) {
+		if(!defaultFootStructure.containsKey(legConfiguration)) {
+			return defaultFootStructure.get(LegConfiguration.BIPEDAL);
+		}
+		return defaultFootStructure.get(legConfiguration);
 	}
 	
 	
@@ -412,10 +459,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					feralStringBuilder.append("[style.italicsFeral(If [npc.she] [npc.verb(grow)] any wings, they will be located on the back of [npc.her] upper body.)]");
 				}
 			}
-//			if(!legConfiguration.isAbleToGrowTail()) {
-//				feralStringBuilder.append("<br/>");
-//				feralStringBuilder.append("[style.italicsFeral(This leg configuration will prevent [npc.name] from growing a tail!)]");
-//			}
+			if(!legConfiguration.isAbleToGrowTail()) {
+				feralStringBuilder.append("<br/>");
+				feralStringBuilder.append("[style.italicsFeral(This leg configuration will prevent [npc.name] from growing a tail!)]");
+			}
 		feralStringBuilder.append("</p>");
 		
 		if(applyEffects) {
@@ -766,36 +813,36 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			}
 		}
 		if(legConfiguration.getFeralParts().contains(BreastCrotch.class)) { // Crotch-boobs:
+			AbstractBreastType crotchBoobType = BreastType.NONE;
+			if(body.isFeminine()) {
+				if(demon) {
+					crotchBoobType = BreastType.DEMON_COMMON;
+				} else {
+					crotchBoobType = startingBodyType.getBreastCrotchType();
+				}
+			}
+			
 			if(!applyFullEffects) {
-				body.getBreastCrotch().setType(null,
-						(body.isFeminine()
-							?(demon
-								?BreastType.DEMON_COMMON
-								:startingBodyType.getBreastType())
-							:BreastType.NONE));
+				body.getBreastCrotch().setType(null, crotchBoobType);
 				
 			} else {
 				body.setBreastCrotch(
 						new BreastCrotch(
-						(body.isFeminine()
-							?(demon
-								?BreastType.DEMON_COMMON
-								:startingBodyType.getBreastType())
-							:BreastType.NONE),
-						Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
-						startingBodyType.getBreastCrotchSize(),
-						startingBodyType.getBreastCrotchLactationRate(),
-						startingBodyType.getBreastCrotchCount(),
-						startingBodyType.getBreastCrotchNippleSize(),
-						startingBodyType.getBreastCrotchNippleShape(),
-						startingBodyType.getBreastCrotchAreolaeSize(),
-						startingBodyType.getBreastCrotchAreolaeShape(),
-						startingBodyType.getNippleCountPerBreastCrotch(),
-						startingBodyType.getBreastCrotchCapacity(),
-						startingBodyType.getBreastCrotchDepth(),
-						startingBodyType.getBreastCrotchElasticity(),
-						startingBodyType.getBreastCrotchPlasticity(), 
-						true));
+							crotchBoobType,
+							Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+							startingBodyType.getBreastCrotchSize(),
+							startingBodyType.getBreastCrotchLactationRate(),
+							startingBodyType.getBreastCrotchCount(),
+							startingBodyType.getBreastCrotchNippleSize(),
+							startingBodyType.getBreastCrotchNippleShape(),
+							startingBodyType.getBreastCrotchAreolaeSize(),
+							startingBodyType.getBreastCrotchAreolaeShape(),
+							startingBodyType.getNippleCountPerBreastCrotch(),
+							startingBodyType.getBreastCrotchCapacity(),
+							startingBodyType.getBreastCrotchDepth(),
+							startingBodyType.getBreastCrotchElasticity(),
+							startingBodyType.getBreastCrotchPlasticity(), 
+							true));
 			}
 		}
 		if(legConfiguration.getFeralParts().contains(Tail.class)) { // Tail:
@@ -833,7 +880,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							startingBodyType.getCumProduction()*(largeGenitals?10:1),
 							startingBodyType.getTesticleQuantity())
 						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
-				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+//				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
 				body.getPenis().setVirgin(virgin);
 			}
 		}
@@ -864,7 +911,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 									startingBodyType.getVaginaPlasticity(),
 									true)
 							: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 0, 2, 3, 3, true));
-				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+//				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 				body.getVagina().getOrificeVagina().setVirgin(virgin);
 			}
 		}

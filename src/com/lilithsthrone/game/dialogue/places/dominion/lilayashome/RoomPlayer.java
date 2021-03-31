@@ -19,8 +19,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
-import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -89,27 +87,7 @@ public class RoomPlayer {
 		charactersPresent.add(Main.game.getPlayer());
 
 		for(GameCharacter character : charactersPresent) {
-			character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
-			character.setLustNoText(character.getRestingLust());
-			
-			character.removeStatusEffect(StatusEffect.WELL_RESTED);
-			character.removeStatusEffect(StatusEffect.WELL_RESTED_BOOSTED);
-			character.removeStatusEffect(StatusEffect.WELL_RESTED_BOOSTED_EXTRA);
-			
-			boolean neet = character.hasTrait(Perk.JOB_UNEMPLOYED, true);
-			boolean emperorBed = Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);
-			AbstractStatusEffect restedEffect = StatusEffect.WELL_RESTED;
-			if(neet) {
-				if(emperorBed) {
-					restedEffect = StatusEffect.WELL_RESTED_BOOSTED_EXTRA;
-				} else {
-					restedEffect = StatusEffect.WELL_RESTED_BOOSTED;
-				}
-			} else if(emperorBed) {
-				restedEffect = StatusEffect.WELL_RESTED_BOOSTED;
-			}
-			character.addStatusEffect(restedEffect, ((neet?12:10)*60*60) + (sleepTimeInMinutes*60));
+			character.applySleep(sleepTimeInMinutes);
 		}
 
 		Main.game.getPlayer().setActive(false);
@@ -918,7 +896,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("a sheep-boy and goat-boy, standing side-by-side and presenting their erect cocks as they wink playfully at you.");
 					} else {
-						sb.append("a wooly sheep-girl and goat-girl, who are lying back and spreading their legs, presenting you with their tight, wet pussies.");
+						sb.append("a woolly sheep-girl and goat-girl, who are lying back and spreading their legs, presenting you with their tight, wet pussies.");
 					}
 					break;
 				case SEPTEMBER:

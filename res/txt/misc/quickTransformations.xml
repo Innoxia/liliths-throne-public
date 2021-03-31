@@ -21,10 +21,10 @@
 		#IF(npc.getFemininity() == FEMININITY_MASCULINE_STRONG)
 			You decide that you like [npc.name] having a very masculine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
 		#ELSE
-				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a very masculine face and body, you command, [pc.speech(Make your body as manly as you possibly can!)]
+				Wanting [npc.name] to transform [npc.herself] so that [npc.sheHasFull] a very masculine face and body, you command, [pc.speech(Make your body as manly as you possibly can!)]
 			</p>
 			<p>
-				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.sheHasFull] no say in the matter, [npc.speech(Fine...)]
 			</p>
 			<p>
 				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become as masculine as [npc.she] can manage, and within just a moment, you find yourself smiling at his now-extremely-manly body and handsome face. You wonder if you should now get him to
@@ -32,7 +32,7 @@
 		#IF(npc.hasPenis())
 			 transform his cock...
 		#ELSE
-			 grow him a cock...
+			 grow a cock...
 		#ENDIF
 	</p>
 	]]>
@@ -43,10 +43,10 @@
 		#IF(npc.getFemininity() == FEMININITY_MASCULINE)
 			You decide that you like [npc.name] having a masculine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
 		#ELSE
-				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a masculine face and body, you command, [pc.speech(Transform your body so that you're masculine, but not too much so!)]
+				Wanting [npc.name] to transform [npc.herself] so that [npc.sheHasFull] a masculine face and body, you command, [pc.speech(Transform your body so that you're masculine, but not too much so!)]
 			</p>
 			<p>
-				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.sheHasFull] no say in the matter, [npc.speech(Fine...)]
 			</p>
 			<p>
 				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become masculine, and within just a moment, you find yourself smiling at his now-manly body and handsome face. You wonder if you should now get him to
@@ -54,7 +54,7 @@
 		#IF(npc.hasPenis())
 			 transform his cock...
 		#ELSE
-			 grow him a cock...
+			 grow a cock...
 		#ENDIF
 	</p>
 	]]>
@@ -65,10 +65,10 @@
 		#IF(npc.getFemininity() == FEMININITY_ANDROGYNOUS)
 			You decide that you like [npc.name] having an androgynous body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
 		#ELSE
-				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has an androgynous face and body, you command, [pc.speech(Transform your body so that you look androgynous!)]
+				Wanting [npc.name] to transform [npc.herself] so that [npc.sheHasFull] an androgynous face and body, you command, [pc.speech(Transform your body so that you look androgynous!)]
 			</p>
 			<p>
-				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.sheHasFull] no say in the matter, [npc.speech(Fine...)]
 			</p>
 			<p>
 				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become androgynous, and within just a moment, you find yourself smiling at their gender-neutral body and face. You wonder if you should now get [npc.name] to
@@ -87,13 +87,13 @@
 		#IF(npc.getFemininity() == FEMININITY_FEMININE)
 			You decide that you like [npc.name] having a feminine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
 		#ELSE
-				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a feminine face and body, you command, [pc.speech(Transform your body so that you're feminine, but not too much so!)]
+				Wanting [npc.name] to transform [npc.herself] so that [npc.sheHasFull] a feminine face and body, you command, [pc.speech(Transform your body so that you're feminine, but not too much so!)]
 			</p>
 			<p>
-				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.sheHasFull] no say in the matter, [npc.speech(Fine...)]
 			</p>
 			<p>
-				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become feminine, and within just a moment, you find yourself smiling at her girly body and pretty face. You wonder if you should now get [npc.herHim] to
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become feminine, and within just a moment, you find yourself smiling at her girly body and pretty face. You wonder if you should now get her to
 		#ENDIF
 		#IF(npc.hasPenis())
 			 transform her cock...
@@ -109,13 +109,13 @@
 		#IF(npc.getFemininity() == FEMININITY_FEMININE_STRONG)
 			You decide that you like [npc.name] having a very feminine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
 		#ELSE
-				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a very feminine face and body, you command, [pc.speech(Make your body appear as feminine as you possibly can!)]
+				Wanting [npc.name] to transform [npc.herself] so that [npc.sheHasFull] a very feminine face and body, you command, [pc.speech(Make your body appear as feminine as you possibly can!)]
 			</p>
 			<p>
-				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.sheHasFull] no say in the matter, [npc.speech(Fine...)]
 			</p>
 			<p>
-				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become as feminine as [npc.she] can manage, and within just a moment, you find yourself smiling at her extremely womanly body and beautiful face. You wonder if you should now get [npc.herHim] to
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become as feminine as [npc.she] can manage, and within just a moment, you find yourself smiling at her extremely womanly body and beautiful face. You wonder if you should now get her to
 		#ENDIF
 		#IF(npc.hasPenis())
 			 transform her cock...
@@ -319,7 +319,7 @@
 		With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
 	</p>
 	<p>
-		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], C-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.sheHasFull] [npc.breastShape], C-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -336,7 +336,7 @@
 		With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
 	</p>
 	<p>
-		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], E-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.sheHasFull] [npc.breastShape], E-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -360,7 +360,7 @@
 			With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... I just need to get fucked so bad... Fine!)]
 		</p>
 		<p>
-			Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], H-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+			Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.sheHasFull] [npc.breastShape], H-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
 		</p>
 	#ENDIF
 	]]>
@@ -385,7 +385,7 @@
 			With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
 		</p>
 		<p>
-			Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], N-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+			Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.sheHasFull] [npc.breastShape], N-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
 		</p>
 	#ENDIF
 	]]>

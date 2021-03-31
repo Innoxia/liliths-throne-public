@@ -1,7 +1,18 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -10,11 +21,18 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -24,6 +42,117 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class ShoppingArcadeDialogue {
+	
+	// Glory hole:
+	
+	private static void spawnDomGloryHoleNPC(String genericName) {
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
+			@Override
+			public void turnUpdate() {
+				if(this.getGenitalArrangement()==GenitalArrangement.NORMAL) { // Hide ass areas if normal genitals (not entirely sure why this was added...)
+					this.setAreaKnownByCharacter(CoverableArea.ASS, Main.game.getPlayer(), false);
+					this.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
+				}
+			}
+		};
+		
+		npc.setRaceConcealed(true);
+		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
+		
+		npc.setDescription("[npc.Name] is a random stranger, and after wandering in to use the Shopping Arcade's toilet, found you offering to service [npc.her] cock at a gloryhole...");
+		
+		if(Math.random()<0.4f) {
+			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		} else {
+			if(Main.game.getPlayer().isFeminine()) {
+				npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			} else {
+				npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+			}
+		}
+		npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
+		npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
+		npc.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
+		npc.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+		npc.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
+		npc.removeFetish(Fetish.FETISH_NON_CON_SUB);
+		if(npc.hasVagina()) {
+			npc.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+		}
+		if(npc.hasPenis()) {
+			npc.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
+		}
+		
+		npc.unequipAllClothingIntoVoid(true, true);
+		
+		npc.setPenisVirgin(false);
+		npc.setVaginaVirgin(false);
+		
+		npc.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
+		
+		try {
+			Main.game.addNPC(npc, false);
+			Main.game.setActiveNPC(npc);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void spawnSubGloryHoleNPC(String genericName) {
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
+		
+		npc.setRaceConcealed(true);
+		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
+		
+		npc.setDescription("[npc.Name] is a random stranger, and after wandering in to use the Shopping Arcade's toilet, decided to spend some time servicing the gloryhole [npc.she] found there...");
+		
+		if(Math.random()<0.4f) {
+			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		} else {
+			if(Main.game.getPlayer().isFeminine()) {
+				npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			} else {
+				npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+			}
+		}
+		npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
+		npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+		npc.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.THREE_LIKE);
+		npc.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
+		npc.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
+		npc.removeFetish(Fetish.FETISH_NON_CON_SUB);
+		if(npc.hasVagina()) {
+			npc.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+		}
+		if(Math.random()>0.75f) {
+			npc.addFetish(Fetish.FETISH_ORAL_GIVING);
+		}
+		
+		npc.unequipAllClothingIntoVoid(true, true);
+		
+		npc.setPenisVirgin(false);
+		npc.setVaginaVirgin(false);
+		npc.setAssVirgin(false);
+		npc.setFaceVirgin(false);
+		
+		npc.setAllAreasKnownByCharacter(Main.game.getPlayer(), false);
+		
+		try {
+			Main.game.addNPC(npc, false);
+			Main.game.setActiveNPC(npc);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static GameCharacter getGloryHoleCharacter() {
+		List<GameCharacter> characters = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+		characters.removeIf((npc) -> !(npc instanceof GenericSexualPartner));
+		return characters.get(0);
+	}
+	
+	
+	// Other methods:
 	
 	public static String getCoreResponseTab(int index) {
 		if(index==0) {
@@ -98,10 +227,21 @@ public class ShoppingArcadeDialogue {
 						Main.game.setResponseTab(0);
 					}
 				};
+				
+			} else if (index == 8) {
+				return new Response("The Oaken Glade", "Fast travel to the restaurant, 'The Oaken Glade'.", PlaceType.SHOPPING_ARCADE_RESTAURANT.getDialogue(false)){
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RESTAURANT, false);
+						Main.game.setResponseTab(0);
+					}
+				};
 			}
 		}
 		return null;
 	}
+	
+	// Dialogue noes:
 	
 	public static final DialogueNode OUTSIDE = new DialogueNode("Shopping arcade", "-", false) {
 		
@@ -229,7 +369,25 @@ public class ShoppingArcadeDialogue {
 		public Response getResponse(int responseTab, int index) {
 			return getFastTravelResponses(responseTab, index);
 		}
-		
+	};
+	
+	public static final DialogueNode RESTAURANT = new DialogueNode("The Oaken Glade", "-", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "RESTAURANT");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return getCoreResponseTab(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getFastTravelResponses(responseTab, index);
+		}
 	};
 	
 	public static final DialogueNode ANTIQUES = new DialogueNode("Antiques Shop", "-", false) {
@@ -387,6 +545,254 @@ public class ShoppingArcadeDialogue {
 				return new Response("Continue",
 						"Continue on your way out into the Shopping Arcade.",
 						ARCADE);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode TOILETS = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 1*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Toilet", "Use the toilet.", TOILETS_USE);
+				
+			} else if(index==2) {
+				List<InventorySlot> washSlots = Util.newArrayListOfValues(InventorySlot.HEAD, InventorySlot.EYES, InventorySlot.MOUTH, InventorySlot.NECK, InventorySlot.HAIR, InventorySlot.FINGER, InventorySlot.HAND, InventorySlot.WRIST);
+				return new Response("Wash",
+						"Use the sinks to wash your hands and face."
+							+ "<br/>[style.italicsGood(This will clean your "+Util.inventorySlotsToParsedStringList(washSlots, Main.game.getPlayer())+", as well as any clothing worn in these slots.)]"
+							+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
+						TOILETS_WASH) {
+					@Override
+					public void effects() {
+						for(InventorySlot slot : washSlots) {
+							Main.game.getPlayer().removeDirtySlot(slot, true);
+							AbstractClothing c = Main.game.getPlayer().getClothingInSlot(slot);
+							if(c!=null) {
+								c.setDirty(Main.game.getPlayer(), false);
+							}
+						}
+					}
+				};
+				
+			} else if(index==3) {
+				boolean penisAvailable = Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true);
+				boolean vaginaAvailable = Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+				
+				if((penisAvailable && !Main.game.getPlayer().isTaur()) || vaginaAvailable) {
+					return new Response("Glory hole (use)",
+							"One of the toilet's stalls has a glory hole in it. Enter the stall and wait for someone on the other side to service you.",
+							TOILETS_GLORY_HOLE_DOM) {
+						@Override
+						public void effects() {
+							spawnSubGloryHoleNPC("stranger");
+						}
+					};
+					
+				} else if(penisAvailable && Main.game.getPlayer().isTaur()) {
+					return new Response("Glory hole (use)",
+							"Due to the shape of your [pc.legRace]'s body, you cannot get into a suitable position for using the glory hole...",
+							null);
+					
+				} else {
+					return new Response("Glory hole (use)",
+							"You can't get access to your genitals, so can't get serviced at a glory hole.",
+							null);
+				}
+				
+			} else if(index==4) {
+				if((Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true))
+						|| (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+						|| (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))) {
+					return new Response("Glory hole (service)",
+							"One of the toilet's stalls has a glory hole in it. Enter the stall and wait to service someone on the other side.",
+							TOILETS_GLORY_HOLE_SUB) {
+						@Override
+						public void effects() {
+							spawnDomGloryHoleNPC("stranger");
+							getGloryHoleCharacter().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
+						}
+					};
+				
+				} else {
+					return new Response("Glory hole (service)",
+							"You can't get access to your mouth, genitals, or asshole, so can't service any strangers at the glory holes.",
+							null);
+				}
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode TOILETS_USE = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_USE");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return TOILETS.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode TOILETS_WASH = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_WASH");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return TOILETS.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode TOILETS_GLORY_HOLE_DOM = new DialogueNode("Toilets", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			if(Main.game.isExtendedWorkTime()) {
+				return 20*60;
+			}
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_DOM", getGloryHoleCharacter());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==0) {
+				return new Response("Leave", "On second thoughts, you don't really want some stranger having fun with your private parts...", TOILETS) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_DOM_LEAVE", getGloryHoleCharacter()));
+						Main.game.banishNPC((NPC) getGloryHoleCharacter());
+					}
+				};
+				
+			} else if(index==1) {
+				return new ResponseSex("Start",
+						UtilText.parse(getGloryHoleCharacter(), "Do as [npc.name] says and step up to the glory hole."),
+						true, false,
+						new SMGloryHole(
+								SexPositionUnique.GLORY_HOLE,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
+								Util.newHashMapOfValues(new Value<>(getGloryHoleCharacter(), SexSlotUnique.GLORY_HOLE_KNEELING))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
+						null,
+						null,
+						TOILETS_GLORY_HOLE_DOM_POST_SEX,
+						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_DOM_START", getGloryHoleCharacter()));
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode TOILETS_GLORY_HOLE_DOM_POST_SEX = new DialogueNode("Toilets", "The stranger quickly exits their stall, and heads back into the store, leaving you to do the same...", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_DOM_POST_SEX", getGloryHoleCharacter());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Walk out of the stall.", TOILETS) {
+					@Override
+					public void effects() {
+						Main.game.banishNPC((NPC) getGloryHoleCharacter());
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode TOILETS_GLORY_HOLE_SUB = new DialogueNode("Toilets", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			if(Main.game.isExtendedWorkTime()) {
+				return 20*60;
+			}
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_SUB", getGloryHoleCharacter());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==0) {
+				return new Response("Leave", "On second thoughts, you don't really want to suck the cock of some random stranger...", TOILETS) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_SUB_LEAVE", getGloryHoleCharacter()));
+						Main.game.banishNPC((NPC) getGloryHoleCharacter());
+					}
+				};
+				
+			} else if(index==1) {
+				return new ResponseSex("Start",
+						UtilText.parse(getGloryHoleCharacter(), "Do as [npc.name] says and get ready to service [npc.her] cock."),
+						true, false,
+						new SMGloryHole(
+								SexPositionUnique.GLORY_HOLE,
+								Util.newHashMapOfValues(new Value<>(getGloryHoleCharacter(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						},
+						null,
+						null,
+						TOILETS_GLORY_HOLE_SUB_POST_SEX,
+						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_SUB_START", getGloryHoleCharacter()));
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode TOILETS_GLORY_HOLE_SUB_POST_SEX = new DialogueNode("Toilets", "The stranger quickly exits their stall, and heads back into the store, leaving you to do the same...", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "TOILETS_GLORY_HOLE_SUB_POST_SEX", getGloryHoleCharacter());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Walk out of the stall.", TOILETS) {
+					@Override
+					public void effects() {
+						Main.game.banishNPC((NPC) getGloryHoleCharacter());
+					}
+				};
 			}
 			return null;
 		}

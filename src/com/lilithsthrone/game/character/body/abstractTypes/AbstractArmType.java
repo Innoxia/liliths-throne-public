@@ -4,9 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -40,6 +38,8 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	private AbstractRace race;
 	
 	private boolean allowsFlight;
+
+	private boolean underarmHairAllowed;
 	
 	private String name;
 	private String namePlural;
@@ -95,6 +95,8 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 			List<String> fingerDescriptorsFeminine,
 			String armTransformationDescription,
 			String armBodyDescription) {
+
+		this.underarmHairAllowed = race.getRacialClass().isAnthroHair();
 		
 		this.coveringType = coveringType;
 		this.race = race;
@@ -127,9 +129,7 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	public AbstractArmType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -143,6 +143,11 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+
+				this.underarmHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("underarmHairAllowed").isPresent()) {
+					this.underarmHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("underarmHairAllowed").getTextContent());
+				}
 				
 				this.allowsFlight = Boolean.valueOf(coreElement.getMandatoryFirstOf("allowsFlight").getTextContent());
 
@@ -219,6 +224,10 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isUnderarmHairAllowed() {
+		return underarmHairAllowed;
+	}
+
 	public boolean allowsFlight() {
 		return allowsFlight;
 	}

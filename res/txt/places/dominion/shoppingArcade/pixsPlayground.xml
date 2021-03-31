@@ -196,26 +196,26 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_EXHAUSTED"><![CDATA[
-	<p>
-		You feel completely exhausted, and are far too tired to do any more exercise.
-	</p>
+	<htmlContent tag="PERK_PROGRESS_COMPLETE"><![CDATA[
+	<p style='text-align:center;'><i>
+		You feel completely exhausted from your workout, and will be unable to do any more exercise until you've had time to recover.
+		<br/>
+		You've [style.colourExcellent(completed your progress)] towards gaining a [style.colourPhysique(physical perk point)]!
+		<br/>[style.boldGood(+1)] [style.boldPhysique(physical perk point)]
+	</i></p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_POST_WORKOUT_MEMBER"><![CDATA[
-	<p>
-		You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense routine.
-	</p>
+	<htmlContent tag="PERK_PROGRESS"><![CDATA[
+	<p style='text-align:center;'><i>
+		You feel completely exhausted from your workout, and will be unable to do any more exercise until you've had time to recover.
+		<br/>
+		You've [style.colourMinorGood(gained [#SPECIAL_PARSE_0]% progress)] towards gaining a [style.colourPhysique(physical perk point)]!
+		<br/><b>Total progress: [#SPECIAL_PARSE_1]%</b>
+	</i></p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_POST_WORKOUT"><![CDATA[
-	<p>
-		You feel as though you have enough energy left to do another workout if you wanted to.
-	</p>
-	]]>
-	</htmlContent>
 	
 	<htmlContent tag="GYM_PIX_TRAINING"><![CDATA[
 	<p>
@@ -329,7 +329,7 @@
 		[pix.speech(Y'know, that's not what I wanted to hear. Not what I wanted to hear at all.)]
 	</p>
 	<p>
-		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
+		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
 	</p>
 	<p>
 		[pix.speech(Didya notice how empty the gym was? Y'know, most of them stop coming after I have a little fun with them in here. I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!)]
@@ -348,7 +348,7 @@
 		[pix.speech(Y'know, I don't think you're in any position to take charge here.)]
 	</p>
 	<p>
-		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
+		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
 	</p>
 	<p>
 		[pix.speech(Didya notice how empty the gym was? Y'know, most of them stop coming after I have a little fun with them in here. I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!)]
@@ -367,7 +367,7 @@
 		[pix.speech(Y'know, that ain't gonna cut it! No, I think you still need a little punishment.)]
 	</p>
 	<p>
-		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
+		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
 	</p>
 	<p>
 		[pix.speech(Didya notice how empty the gym was? Y'know, most of them stop coming after I have a little fun with them in here. I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!)]
@@ -454,7 +454,7 @@
 		Although you can't see her reaction, you feel her grip on your wrists tighten as you try to turn to face her. Leaning into your back, Pix growls into your ear once more, [pix.speech(That's the spirit! This is gonna be, like, super fun!)]
 	</p>
 	<p>
-		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs. You let out a gasp as she starts stroking your crotch, and as her naked breasts squish into your back, her growls soften down a little, [pix.speech(You're gonna be a good [pc.girl] for Pix now, aren't ya?!)]
+		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her naked breasts squish into your back, her growls soften down a little, [pix.speech(You're gonna be a good [pc.girl] for Pix now, aren't ya?!)]
 	</p>
 	]]>
 	</htmlContent>

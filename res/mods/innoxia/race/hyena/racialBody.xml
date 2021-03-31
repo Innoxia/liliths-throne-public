@@ -188,7 +188,8 @@
 	
 	<!-- This section defines the attributes for crotch-boobs.
 	Crotch-boobs are only present on feminine characters, so there is no section for masculine crotch-boob definitions.
-	All of these attributes use the same value definitions as those for normal breasts above. -->
+	All of these attributes use the same value definitions as those for normal breasts above.
+	Define the 'breastCrotchType' as NONE if you want this race to always spawn without crotch boobs. -->
 	<breastCrotchType>innoxia_hyena_breast</breastCrotchType>
 	<breastCrotchShapes udderShapes="false"/>
 	
@@ -240,7 +241,11 @@
 		<type>NONE</type>
 	</hornTypes>
 	
-	<!-- Horn length is from 0 to 75, measured in cm. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HornLength.java -->
+	<!-- Horn length is from 0 to 75, measured in cm.
+	If the length is defined as 0, it will ignore they hornTypes above and spawn with NONE.
+		This can be useful for preventing either males or females from spawning with horns by setting their length to 0.
+		As hyenas already have NONE defined as their only HornType, this behaviour isn't seen in this race, but you can take a look at the sheep race's racialBody.xml file for an example of this behaviour in use.
+	Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HornLength.java -->
 	<maleHornLength>0</maleHornLength>
 	<femaleHornLength>0</femaleHornLength>
 	

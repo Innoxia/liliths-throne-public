@@ -195,7 +195,7 @@ public class Sean extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(300);
@@ -297,7 +297,8 @@ public class Sean extends NPC {
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		this.setEssenceCount(200); // Make sure he doens't run out of ammo for subsequent fights
+		equipClothing(EquipClothingSetting.getAllClothingSettings());
+		this.setEssenceCount(200); // Make sure he doesn't run out of ammo for subsequent fights
 		if(victory) {
 			return new Response("", "", SlaverAlleyDialogue.PUBLIC_STOCKS_COMPLAIN_CHALLENGE_VICTORY);
 		} else {

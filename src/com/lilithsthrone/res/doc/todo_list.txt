@@ -21,109 +21,467 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Contributors:
-		Added 'Charging Bite' combat move, available to characters who have a face type that has shark teeth. (by DSG)
-		Added variations of starting demonstone damage type based on your birth month, and correct some descriptions during the prologue related to this. (PR#1409 by Rfpnj)
-		Fixed bug where the 'Dye & reforge all (stack)' action would not consume reforge hammers. (by AceXP)
-		Fixed bug where 'Unequip all' would inadvertently unequip milking pumps, which would end up with them being added to your inventory. (by AceXP)
-		Editing your character's description in their save file will now display that description in the in-game selfie screen. (PR#1411 by aDrunkLittleDerp)
-		Fixed issue with incorrect anus description for elementals (with help from PR#1412 by AceXP).
-		Fixed parser command 'glow' to work without a defined colour, as well as for rainbow colours. (PR#1439 by CognitiveMist)
-		Typo fix in bread roll description. (PR#1414 by aDrunkLittleDerp)
-		Added the option for a slave to be mute to Helena's custom slave shop and removed tongue recolouring from the Hair options tab. (PR#1416 by AceXP)
-		Characters with the NON_CON_DOM fetish will now gain lust when having sex with someone that is resisting. (PR#1417 by AceXP)
-		Slaves in the stocks at Slaver Alley without a vagina will no longer have vaginal sex events generated for them. Also fixed these slaves' descriptions and the issue where they would always have all permissions granted. (PR#1426 by AceXP)
-		Added checks for fertility pills, including broodmother. Roxy now sells broodmother pills and random NPCs may sometimes be carrying them. Ralph and Lilaya now react to broodmother pills in the same way as fertility pills. Fixed incorrect colour descriptions of fertility pills in several places. (PR#1422 by AceXP)
-		Fixed issue where hair length, breast size, ass size, and hip size had no tolerance so that post-combat forced TFs alternated between too big and too small. (PR#1334 by Stadler76)
-		Fixed typo in phoenix-harpy description and tidied up parts of the code in UtilText.java. (PR#1336 by Stadler76)
-		Fixed some instances of incorrect unit parsing. (PR#1321 by NoStepOnSneks)
-		Fixed a bug where if a clothing item to be equipped had multiple occurrences, equipping this item would lead to bugs when the next occurrence of the item was to be equipped. (PR#1419 by Deboucher & AceXP)
-		Fixed the bug where clicking on an equipped item while enchanting during a trading session would give you full access to the inventory of the trader, allowing you to take all their equipped items and the items in their inventory. (PR#1420 by AxeXP)
-		Fixed issue with milking rooms not being able to support 8 slaves, maids gathering on the player's tile when loitering in the corridors of Lilaya's home, and the 'well rested' status effect no being applied correctly. (PR#1425 by AceXP)
-		Enchantment recipes can now be applied to weapons that already have enchantments. (PR#1423 by AceXP)
-		
-	Engine/Modding:
-		Made some slight improvements to the documentation of the xml files related to race modding.
-		Added support for wing types to have a defined minimum and maximum size (see the 'res/mods/innoxia/race/hyena/unused_bodyParts/wing.xml' for the commented example).
-		Added comments for the imageName elements in 'res/mods/innoxia/items/items/race/hyena_bone_crunchers.xml'.
-		Choosing to not define any covering modifiers or patterns in coveringType mods is now correctly handled without throwing background errors.
-		Leaving the 'backgroundName' element empty or not including it in subspecies xml mod files is now correctly handled and uses the default race background (as was implied it should in the comments).
-		Added elements in the 'racialBody.xml' file for defining male and female hip sizes ('maleHipSize' and 'femaleHipSize').
-		Added parsing hook to BodyPartTag (using the prefix 'BODY_PART_TAG_').
-		Added ColourTags, which can be added to modded colours to have them be automatically added to the game's covering colour lists.
-		Added setCovering() to Body class to make the setting of coverings easier in race mods. (See 'applySubspeciesChanges' element in lion.xml for an example on this being used.)
-		You can now leave the half-demon name elements empty in subspecies xml files (in which case the game will automatically generate a generic half-demon name for your subspecies).
-		Added support for a 'displaySize' attribute to the 'iconName' element in subspecies xml files, allowing you to define the resizing percentage of your icon image.
+	Contributions:
+		Fixed issue where some subspecies would spawn in canal tiles, even when their spawn rate is supposed to be zero. (by AceXP)
+		Fixed bug where Natalya would be a regular succubus in new games, and not a demonic centaur - the fix will apply when loading into this version for if she's affected by this in your game. (by AceXP)
+		Prevented Enforcers from inadvertently spawning as slimes. (by AceXP)
+		Updated dragon lore entries. (by DSG)
+		Fixed parsing error in spinneret webbing special attack. (by Stadler76)
 	
-	Gameplay:
-		Added a separate variant of the aquatic status effects for characters of an aquatic race who have the leg configuration 'TAIL'.
-		Added ability to recolour cum, girlcum, and milk in the self-TF menu.
-		Minimum size for a clitoris to be used as a psuedo-penis has been increased from 1cm to 5cm.
-		Split cat-morph race into cat-morph and panther-morph. Removed cat-morph's 'panther face' TF option. Tigers, lions, leopards, and snow leopards are now classed as panther-morphs.
-		If a character has the cat-morph's 'panther face', their cat-morph body parts will be converted into panther-morph parts when loading into this version.
-		Added 'Deep Roar' and 'Panther's Delight' consumable items for the new panther-morph race.
+	C4M's clothing contributions:
+		(Note that these can only be spawned via the debug menu for the time being.)
+		Added 'Trickster's Mask' (eyes slot, unisex).
+		Added 'Trickster's Cloak' (over-torso & neck slots, unisex).
+		Added 'Trickster's Tunic' (torso slot, feminine).
+		Added 'Muramasa' weapon (melee, lust damage, one-handed).
+		Added 'trickster' clothing set bonus for the above items.
+		
+	TonyJC (creator) & NeverLucky (editor) clothing contributions:
+		Added 'cropped tank-top' (feminine, torso slot, sold by Nyan).
+		Added 'cropped sweater' (feminine, over-torso slot, sold by Nyan).
+		Added 'cropped T-shirt' (androgynous, torso slot, sold by Nyan).
+		Added 'daisy dukes' (androgynous, leg slot, sold by Nyan).
+		Added 'denim overalls' (androgynous, leg slot, sold by Nyan).
+		Added 'one-strap crop top' (feminine, torso slot, sold by Nyan).
+		Added 'shoulderless sweater' (feminine, over-torso slot, sold by Nyan).
+		Added 'sleeveless shirt' (androgynous, torso slot, sold by Nyan).
+		Added 'spaghetti crop tank-top' (feminine, torso slot, sold by Nyan).
+		Added 'tank-top' (androgynous, torso slot, sold by Nyan).
+		Added 'tied-up croptop' (feminine, torso slot, sold by Nyan).
+	
+	Engine/Modding:
+		Added 'spreadsHerLegs' parsing command for handling the possibility of characters with no legs when describing 'spreads her legs'.
+		Added ability to set 'additionalFootStructure' elements in modded 'leg' xml files, so you can set which foot structure is used by default for that leg type based on different leg configurations.
+		Added 'TAIL_ATTACK' BodyPartTag for setting whether a tail is suitable for being used for the 'tail swipe' attack.
+		Added 'HARPY_NESTS' as a world region, which prevents all Dominion races from showing up in the 'characters present' tooltip in the Harpy Nests.
+		Defining a horn length of '0' in RacialBody.xml files will now force that femininity to spawn with no horns (updated hyena's RacialBody.xml file with comments on how this works).
+		Added an optional 'nameTransformation' field to coveringType files so that you can set a name for the covering to be used in transformation menus (see 'race/innoxia/sheep/coveringTypes/wool_face.xml' for an example).
+	
+	Races:
+		Added orange skin colour.
+		Changed covering type of harpy legs from being feathers to bird skin.
+		Added 'swan-harpy' as a subspecies of harpy, requiring white feathers and either grey or ebony leg skin to be identified as one. Helena is now a swan-harpy.
+		Added 'sheep-morph' race.
+		Added 'Ewe's Brew' (dandelion tea) consumable drink for the sheep-morph's attribute item.
+		Added 'Wooly Goodness' (candy floss) consumable food for the sheep-morph transformative item.
+		Added 'goat-morph' race.
+		Added 'Pan's Flute' (champagne) consumable drink for the goat-morph's attribute item.
+		Added 'Billy's Best' (goat cheese) consumable food for the goat-morph transformative item.
+		Added 'pig-morph' race.
+		Added 'Porcine Pop' (cola) consumable drink for the pig-morph's attribute item.
+		Added 'Oinkers Fries' (curly fries) consumable food for the pig-morph transformative item.
 	
 	Other:
-		Improved sorting of subspecies in several menus.
-		Updated spawn locations of all subspecies.
-		Altered the names of the reindeer and centaur books.
-		Added some more global NPC transformation debug buttons (in Misc. category).
-		Added labourer outfits, so reindeer overseers will no longer spawn with completely random outfits.
-		Slightly adjusted the default colours of the leather belt.
-		Diamond necklaces will no longer spawn as a random item in Dominion's alleyways or canal tiles.
-	
-	Body:
-		Added ROUGH as a covering modifier.
-		Added TAPERED as a tongue modifier.
-		Added REPTILIAN and AMPHIBIAN foot types.
-		Added BodyPartTags TORSO_DORSAL_FIN, TAIL_TYPE_SCALES, and THERMAL_VISION.
-		
-	Sex:
-		NPCs now have the chance to decide to initiate penetration using a clitoris that's large enough to act as a pseudo-penis.
+		You can now additionally apply the vibration enchantment to clothing which fits into the nipple, chest, penis, vagina, nipple-piercing, vagina-piercing, or cock-piercing slots.
+		Added a few more items of clothing to the choices in character creation.
+		You now require a bipedal leg configuration to be transformed into a demon.
+		Added ability to set spider eyes as heterochromatic.
+		Updated Angel's clothing.
+		NPCs with a cloaca will no longer spawn with an equipped buttplug or chastity cage.
+		Greater spider-morphs now have a 50% chance to spawn with 6 arms.
+		Prevented rabbit and harpy tails from ever being suitable for penetration.
+		The 'tail swipe' attack is now only available to alligators, sharks, and dragons who have a tail length greater than 1 metre.
+		Safety goggles no longer spawn on the floor in Lilaya's lab (although they won't be removed if they're already spawned in your game). Instead, you can ask her for a spare lab coat (which gives you safety goggles as well).
+		Cow-eyes now correctly have horizontal pupils by default.
+		Made the 'furry hair' content option disabled by default (this won't affect your current settings).
+		Wolf-morphs and border-collie-morphs now have +25% sheep-morph damage as part of their subspecies status effect.
+		Added body size increase as an effect of the brown rat's burger.
 	
 	Bugs:
-		Fixed bug where characters of a modded race would show as 'human' after loading a game.
-		Fixed non-centred alignment and uneven circle dimensions of race & item backgrounds.
-		Encyclopedia information for modded races should now load and display correctly.
-		Fixed issue with the tile's default dialogue being shown alongside the intended dialogue when refusing a partner's offer of sex in the nightclub.
-		Fixed issue where declining sex in a nightclub partner's apartment would lead into the nightclub's toilets dialogue instead of Dominion boulevard dialogue.
-		The game no longer autosaves when following or taking a nightclub partner home, as loading the autosave which was generated at that point would result in that NPC being unintentionally deleted. Instead the autosave is generated after leaving the partner.
-		Fixed bug where nightclub partners would not be saved if you followed them home and then refused sex, despite the tooltip indicating otherwise.
-		Fixed huge amount of background errors being thrown whenever you changed any of your furry preferences (which was causing that preference screen to lag a lot).
-		Fixed issue with race books not showing up in the library.
-		Added handling for automatic birthing of nipple-incubation eggs when a character transforms into a feral form which lacks breasts.
-		Fixed issue where litters birthed by NPCs would always have the same birth date as their conception date.
-		Fixed issue where background errors would be thrown if a generic sex event generated a half-demon character.
-		Fixed issue where NPCs with eggs implanted in them would never lay the eggs if you saved & loaded the game while they were in the 'completed' stage of incubation.
-		Removed incorrect reference to going to consulting Lilaya when having eggs implanted inside of you, and replaced it with a hint on having to access your phone's menu in order to lay them.
-		Enchanting the item 'Biojuice Canister' now correctly gives you just the option to create a slime-reversion elixir, instead of the full racial options that other standard racial TF items have access to.
-		Fixed image position and alignment in combat move tooltips.
-		Fixed issue where milking pumps and spider webbing seals could spawn as generic clothing on randomly-generated NPCs.
-		Fixed spotted & striped hyenas not having correct plural names for their feral forms.
-		Fixed issue where TF potions with a TF type that's been removed from the game would throw background errors when trying to use it.
-		Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.
+		Parsing fixes.
+		Fixed issue in sex scenes where background errors would be thrown and potentially softlock the game when an anal fetishist orgasmed while receiving anal and having an empty vagina.
+		Fixed issue where Helena's old slaves could get stuck on her shop tile and never despawn.
+		Fixed bug where trying to open your inventory during character creation would throw background errors.
+		Fixed issue where Dominion muggers were not using outfit files and so were spawning with completely random clothing.
+		Added catch to handle error if actions for partners in sex were not being generated properly.
+		Removed all references to 'legs' for characters who don't have legs (i.e. if they have a snake's tail instead of legs). If you find any references to your 'legs' while playing as a lamia or other similar race, please let me know.
+		Fixed references to your character laying multiple eggs in Lilaya's birthing scenes if you only had one egg to lay.
+		Fixed issue with arachnid leg configurations describing their feet as plantigrade.
+		Characters being bred in the pregnancy roulette game can no longer stroke their own cock.
+		Fixed issue with the 'unlikely whammer' burger spawning when silly mode was turned off.
+		Fixed incorrect tooltip for the friendly occupant petting action.
+		Fixed issue where the Enforcer bowler hat commissioner badge was using the same icon as the commissioner oak leaves.
+		Fixed issue with taur sapwn rate not working as intended.
+		Fixed bug where all taurs would spawn with horns, even if their race shouldn't have horns by default.
+		The 'cocoon'/'constrict'/'tentacle restraint' sex actions now correctly become greyed-out when unavailable.
+		Spinnerets are no longer incorrectly blocked by clothing which conceals a character's ass.
+		Fixed issue where some items of clothing would spawn with incorrect colours (such as the feminine and masculine watches).
+		Fixed bug where spider-morphs were sometimes spawning as tarantula-morphs.
+		Fixed bug where Rose would have her home tile set to Lilaya's lab instead of her room.
+		Fixed Youko race status effect displaying '0 corruption'.
+		Fixed bug where you could encounter half-demons of non-Dominion races on canal tiles.
+		Fixed bug where unarmed damage attribute was being applied as a damage modifier three times, making unarmed attacks far more powerful than intended.
+		Fixed issue in combat where if your AP fell to 0, you could never win or lose combat due to being permanently stunned.
+		Fixed some issues with importing characters which were exported in earlier versions.
 	
 	
 	
-	PRs
+	[x] C4M clothing
+	[x] Helena still spawning more slaves...
+	[x] Allow vibration enchantment on nipple and chest clothing
+	[x] While being anally sexed (while being either a sub or a dom) by anyone and while the PC orgasms clicking on any cum somewhere doesn't do anything and gets you soft locked.
+	[x] Trying to open inventory in character creation errors
+		[x] Disable inventory in clothing selection
+	[x] Can you add the winter coat, raincoat, stockings, garterbelt, jeans and the pencil skirt to the character create clothing options
+	[x] ERROR-skinned stomach
+	[x] muggers seem to be wearing random ass clothes again
+	[x] "spreading [npc.her] [npc.legs]" (for tail makes no sense)
+	[x] 7 round rapid parsing
+	[x] Check over all legs text to make sure not being referenced for non-leg characters
+		[x] res txt
+			[x] characters
+				[x] lyssieth.xml
+					[x] (transform into bipedal before starting, otherwise too many variations)
+			[x] encounters
+			[x] misc
+			[x] places
+				[x] dominion
+				[x] submission
+					[x] Test pregnancy roulette mother options with no legs
+					[x] murk TFs with no legs? (ratWarrens/captive.xml)
+						[x] Spread legs action
+					[x] Test
+		[x] src
+	[x] [pc.legs] give
+	[] Check:
+		[] knees
+		[x] thighs
+		[] feet
+	[] Ass cheeks for non-humanoids
+	[x] Search for your [npc.
+	[x] Taur spooder legs are described as plantigrade because the bipedal version is plantigrade
+	[x] Can stroke self cock in pregnancy roulette
+	[x] Roxy spawns unlikely whammer when silly mode off?
+	[x] Murk should just use attacks, not tease
+	[-] Have been using the level drain perk and after a big imp hordes of 4 imps the game becomes unresponsive.
+	[x] spider irises can't be heterochromatic
+	[x] Track option chosen
+	[x] petting interaction for guests wrong tooltip
+	[x] Bug: Enforcer bowler hat commissioner badge is the same as oak leaves, but it shows up properly on the other Enforcer cap
+	[-] taurs spawning with shoes
+		[-] They just seem to be using random clothing as well but this was an issue ever since race rework happened
+	[x] taur spawn rate seems to not be working
+		[x] When legs are not furry, they cannot be quad, so check fails
+		[x] Apply to all NPCs
+	[x] taurs spawning with horns
+	[x] cloacas should be excluded from spawning with butt plugs	
+	[-] non-striped toeless stockings
+	[x] aristocrat text: Bono Malum Superate
+	[x] 'Cocoon her' doesn't get greyed out when unavailable (because of colour override?)
+		[x] Spinneret being blocked by ass blocking when on morph?
+	[x] Watch has incorrect colours, but only in character creation
+	[x] spooders 6 arms
+	[x] Spawning spider-morph attackers sometimes spawns them as tarantulas
+		[x] Tail type is doing it
+	[x] Spider book lore
+	[x] Change tail swipe conditions
+	[x] Lilaya lab coat & goggles as 1-time action
+	[x] Rose home tile is lab?
+	[x] Check tail bulge text doesn't break the game
+	[x] Youko status effect says 0 corruption
+	[-] Oh yeah and dunno if it's only me but after loading my good ol' save which I use every time all the guests locations were set to impassable tile but you can bring them back
+	[x] Encountered typhon in Submission
+	[x] should harpy crowds have that many non-birbs? feels kinda weird when you do a victory fuck with the matriarchs while still pacifying the nests and there's a bunch of bears, ferrets, squirrels, foxes, wolves etc watching
+	[x] damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f); applied twice to special attacks
+	[x] clothing contributions
+		[x] lines
+		[x] patterns
+		[x] colours
+		[x] formatting
+		[x] displacements
+	[x] if you reduce your AP to zero, you can't actually be defeated because you're too stunned to be able to click the defeat/loss button
 	
-	Leg description in Body describes foot structure etc. when the character has only a tail
+	--- New Races: ---
 	
-	Found diamond necklace in wolfgang lair
+		[x] sheep
+			[x] Ewe's brew - Dandelion tea
+				[x] icon
+				[x] xml
+				[x] test
+			[x] Wooly Goodness - Candy floss
+				[x] icon
+				[x] xml
+				[x] test
+			[x] race icon
+			[x] race xml files
+				[x] coverings
+				[x] body parts
+					[x] test eye descriptors
+				[x] race
+				[x] racialBody
+				[x] subspecies
+				[x] Books
+				[x] Add border-collie and wolf-morph damage bonus
+				[x] test
+					[x] Add face wool
+					[x] Hair is spawning?
+					[x] test udders
+					[x] horn sizes
+						[x] Make it so if it's 0, spawn without horns
+						
+		[x] swan
+			[x] white feathers with black legs
+				[x] Add leg skin colour
+			[x] Helena
+			
+		[x] Add TF name to bodypart? So wooly sheep face can be displayed as such
+		
+		[x] goat
+			[x] Pan's Flute - champagne
+				[x] icon
+				[x] xml
+				[x] test
+			[x] Billy's Best - Strong cheese
+				[x] icon
+				[x] xml
+				[x] test
+			[x] race icon
+			[x] race xml files
+				[x] coverings
+				[x] body parts
+				[x] race
+				[x] racialBody
+				[x] subspecies
+				[x] Books
+				[x] test
+					[x] icon colour
+					[x] status effect desc
+					[x] slightly lighten colour
+					[x] tail tapering
+				
+		[-] chicken
+			[-] body size
+		
+		[x] dragon lore
+		
+		[x] pig
+			[x] Porcine pop - cola
+				[x] icon
+				[x] xml
+				[x] test
+			[x] Oinker's curly fries
+				[x] icon
+				[x] xml
+				[x] add body size to burger
+				[x] test
+			[x] race icon
+			[x] race xml files
+				[x] coverings
+				[x] body parts
+				[x] race
+				[x] racialBody
+				[x] subspecies
+				[x] Books
+				[x] test
+					[x] icon sucks
+					
+		[] deer
+			glade springs - sparkling mineral water
+			tree shoots salad
+			
+		[] latex
+		
+		[] mouse
+		
+	------
+	
+	[] PR for Youko self TF
+	
+	[] read cultist doc
+	
+	[] Fields content
+		[-] Map rework
+			[-] Areas to visit/travel through instead of tiles
+		[] Main quest
+			[x] "Maybe you met my friend, youko-girl, in my citadel's lab?"
+			[x] "I guess I head there.​"
+			[x] "back soon, bye, Meraxis"
+			[x] "But otherwise, no, it's all walking.​"
+				[x] change to say there are transportation services
+			[x] Change dialogue so that your task is to head to Elis, and then from there you can find the Youko
+			[x] Change quest name/description
+			[-] Block leaving Dominion until quest stage is met
+			[] Demonic futa centaur encounter when get 2 tiles away (one of Lunette's lieutenants)
+				[] First travel (100% chance first time travelling through)
+					[] Lose get fucked
+						[] Made to eat her out then fucked
+					[] Win can fuck
+					[] Meraxis shows up afterwards, if had sex she's clearly been masturbating
+						[] She says mum taught her how to teleport, and she backtracked from Elis
+						[] Says that she's no longer grounded, and says Lyssieth told her to introduce you to the lilin in charge of town
+							[] Add support for Meraxis missing in office
+					[] Mayor meeting
+						[] add Minotallys
+						[] Lilin is extremely soft cow-girl, with an overprotective assistant
+		[] Elis
+			[] Map
+				[] Town Hall
+					[] Mayor's room
+				[] Tavern
+					[] Rent rooms
+				[] Market
+					[] Buy food/drink/clothing
+				[] Enforcer post
+		[] Encounters
+			[] Fields
+				[] Demonic centaur(s)
+			[] Grassland
+				[] Snakes
+				[] Demonic centaurs
+			[] Woodland
+				Day:
+					[] Deer (residents)
+					[] Boar (truffle-hunting)
+				Night:
+					[] Wolves (pack)
+					[] Owl harpy (attack)
+		[] Set locations
+			[] Farm
+				Goat-boy as overseer
+					[] Can have sex after building up trust
+				Work (all day):
+					[] Milk
+						[] Impregnate cow-morphs
+					[] Shear
+						[] Sheep group sex - they gossip and chat while taking turns with player
+					[] Plough help
+						[] Horse-boy sex
+						[] Size-queen horse-girl (androphilic)
+							[] If cock not big enough, fingers you or jerks you off
+							[] If big enough, lets you fuck her
+					[] Truffle-hunting (pigs are hired help)
+						[] Pig-morph sex
+					[] Admin (with baphomet daughter of goat-boy)
+						[] Likes pregnant sex
+						[] Sassy
+				Paid for providing:
+					[] Milked
+					[] Sheared
+			[] Centaur transport
+				Extremely genki tomboy centauress, likes self-denial (says being on the edge gives her more energy)
+					[] Gives blowjob (claims protein makes her faster)
+				[] Quick travel Elis to Dominion
+			[] Otter family ferry
+				Otter dad and son
+					[] Dad is
+				[] Quick travel Elis to Dominion
+				[] Fishing services for discount on fee
+	
+	
+		
+	----- Nyan marriage expansion -----
+	
+		Visit:
+			[] Nyan bakes (naked apron)
+			[] Nyanmum flashes you (fuck on sofa)
+			
+		[] Slutty actions to make Nyan horny?
+			[] Dirty date actions become positive
+			[] Unlock sex in toilets during walk?
+			[] Wear toys?
+		
+		[] Special romantic date
+			[] MARRIAGE_DOUBLE: Choose to take both on romantic date
+			[] MARRIAGE_NYAN: Choose to take just Nyan
+			[] Locations:
+				[] Monthly full-moon arcane fireworks festival at Demon Home park
+				[] Helena's hotel restaurant (can't risk it if Helena dating)
+				[] Fields picnic (special centaur service, go out of city in cart and spend the afternoon in arboretum)
+				[] Manor house hotel (special centaur service, go out of city in cart and spend the night at a huge manor house hotel)
+		[] Once completed romantic date at least once, can choose to start special proposal date
+			[] Ring (from Ashley, types include wedding preparations. They disapprove of a double-marriage, and charge even more)
+				[] Wedding style (obliged by the state to offer lewd options, which they have written on a napkin)
+					[] Building/location
+						[] City Hall (bureaucrat)
+						[] Glade (Ashley says they can arrange a suitable person)
+						[] Demon Chapel (succubus)
+					[] Ceremony
+						[] Peaceful (walk to aisle, words exchanged, kiss, off to honeymoon)
+						[] Exuberant (walk to aisle, words exchanged, kiss, party, off to honeymoon)
+						[] Lewd (walk to aisle, words exchanged, fuck on altar, off to honeymoon)
+					[] Aesthetic
+						[] Colour1/Colour2
+						[] Flowers
+							[] Lilies
+							[] Roses
+							[] Dripping-Liliths
+						[] Banners
+							[] Plain
+							[] Jazzy
+							[] Lewd
+				[] Wedding dress(es)
+					[] Traditional
+					[] Modern
+					[] Kinky
+				[] Honeymoon location
+					[] Manor house hotel
+			[] Propose at:
+				[] Restaurant reservations
+					[] Store (where first met)
+					[] Bedroom
+				[] Romantic date locations
+	
+	Marriage:
+		[] Lore about forbidden lilin marriage, she was swept away one day and married that afternoon, so the ceremony is the same (having to surprise the bride)
+		[] Chapel location, choose when to marry
+		[] Marry, then to honeymoon location
+	
+	Repeat encounters/dates:
+		[] Sex, talk
+	
+	--- END NYAN MARRIAGE ---
+	
+	
+	[] Fix slime queen quest not being triggered by bat caverns slimes
+	
+	[] enchantment cap reduction upgrades for clothing and weapons (extremely expensive, via Arthur)
+	
+	[] Suggestion: Combine the +10% race damage perks into one perk that you recieve when you read all the books instead of one perk per book
+	[] Essences need to be generated for every race...
+	
+	Jaguar subspecies
+		Black big cats should be panthers
+	
+	Lyssieth content that doesn't involve her desk
+		Sex without desk
+		Demon TF without penis (cunnilingus and scissoring)
+	
+	Inno still hasn't given me alternate scenes for the foot stuff with Amber or Cunningham, nor the anal with Vicky and Natalya, nor made the rough/resist pace different from rape so the slime queen isn't such a turn off.
+	
+	Helena sex without her becoming a total slut
+	Make a non-sloot Helena ending
+	
+	[] Add ability to lay unfertilised eggs (fertilise during sex, if not, then laid some time afterwards)
+	
+	Frustrated when chastity orgasm?
+	Also, cumming without producing any cum leaves someone frustrated, but the frustrated condition is removed at the end of sex because the code checks for the number of orgasms and removes the frustrated effect if it's >1
+	
+	Add 1 random sex action addition to actions (italics, centred)
+		Taste when performing oral
+		Feel of penetration, based on modifiers
+	
+	[] tfw still no double paizuri
+		[] Add to Nyan
+		
+	Add charm to find race in alleyways?
+	
+	1) Moving the ALLOWS_FLIGHT tag to the subspecies file either as a tag or as a distinct element to better support Lessers/Minimals
+	2) Allowing body parts to be associated with subspecies instead of only the parent race
+	Probably some other stuff I've forgotten
+	
+	Add three(+?) tone covering colours
+	
+	Might consider for the fish leg TF having it autoequip what you had before it went fish mode. Might get annoying to have to constantly open inventory and re-equip sets etc every time you cross water
+		 have a '[ ] Don't show this again' checkbox for that message?
+		 
+	add options upon giving birth to select which offspring you'd like to potentially see again
 	
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
 	
-	exk bug:
-		It is related to the MC having a elemental with a passive form of HARPY_PHOENIX, so rather exotic.
-		 The resulting subspecies object for this has several fields that are Null, including things like SVGStringUncoloured. Which then leads to NullPointerExceptions in the ColourReplacement function.
-		 This leads to the left and right panels not rendering anymore.
-	 
-	Well one of my slaves just drained me of 4 levels and I was watching (Meta wise, she didnt know i was even there)
-		Prevent spectators from being drained
-	 
 	Add race fetish preferences
 	
+	Autofellatio or even Auto-insertion with penis types like prehensile
 	
 	[] Sex availability
 		[x] Check for actions blocked
@@ -146,37 +504,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add crotch-nipple & piercing slots
 	
-	change that so you can gain an increasingly-powerful special perk from gym work
-	
-	Ralph should let you sell illegal items to him for a day if you let him fuck you
-	
 	we need an option to have Lilaya keep her skin tone when she becomes a full demon
-	
-	Adding images to characters not working if png image is PNG
-	
-	Pubes on furry morphs being referred to as bushy fur instead of hair on morphs that have fur when
-	
-	you have to get a tattoo that shows unique sex partners because @Innoxia never added that to the phone stats
 	
 	a weird milking room bug where auto selling milk doesn't add to the funding you get from the room, and my upkeep is in negative because of it
 		collecting the milk gives you the upkeep value
 	
-	Improve "desperate for sex" icon
-	
-	item generation in equipClothingFromOutfit is applying sticker prefixes twice and stripping the color prefix
-	
-	Weapons do not list their bonuses when clicked on them in inventory
-	
 	If you are already a slime before you met your first slime in the tunnels then you can't be slimed by that slime and you will never learn about the Slime Queen
 	
-	Roxy just sold me a diamond necklace that is worth 100k+ for 50 flames just because it has an unknown effect
-	 I do remember finding a diamond necklace in the crates at Wolfgang's. Maybe those items should also have some value limit on them?
-	
 	For these pills, although there is a determiner provided in the XML file, the items in the game have a null value for determiner
-	
-	Check 'Kevin' save for multiple clients in Angel's Kiss bug
-	
-	male imp has "succubus-cock"?
 	
 	post-defeat transformation sometimes makes parts too big (breasts, lips, hair), and then in next defeat TF, they shrink them
 	I've had plenty of times where characters say "I'm gonna turn you into a Zebra Girl" or something along those lines only for the forced TF to be stopped at the default Horse features but no Zebra tail or black and white fur colours.
@@ -188,22 +523,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Error: one-piece swimsuit and skater dress are blocking one another's removal!!!
 	
 	tbh i mostly lack the option to have a person underneath you when you are on all fours
-	
-	make the elemental dispel button persist in both tabs, like the form switch button
-	
-	go slime -> demon horse legs -> taur -> unslime
-		demon gets slime options
-	
-	1. Visit any merchant
-	2. Select any enchantable item from the player character's inventory
-	3. Click on enchant
-	4. Without exiting the enchant window (cancel/finish enchantment), click on either player character or npc's equipped item inventory
-	5. Shop inventory becomes free to take, so is equipped ones
-	
-	unrelated to that, I did notice that 'well rested' seems to be applied after your hp/aura is refilled
-		went to bed at 39/39 hp and woke up with 40/70 or so
-	
-	Bunny acts like she doens't know Loppy is a futa when Loppy is revealed in sex for the first time
 	
 	"Meeting Wes" quest is incompletable if you go through "Side with Wes" branch, there's a last quest where you receive Wes' Contractor Pass and you're moved into requisitions. In there you get a dialogue and a pass, but dialogue itself doesn't end nor you can halt it anyhow. 
 		 If you complete the quest to go see wes just before the office closes, it glitches up because time progresses as you talk and you are trapped in a location that you should not be able to be in at that time.
@@ -218,7 +537,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	I suggest adding a selection of fetishes to the section on sexual experiences when creating a character
 	
-	Found a bug where player youkos for some reason have access to the slime transform menu
+	Found a bug where player youkos for some reason have access to the slime transform menu (need to account for self transform ability in transformtion dialogs) Now only demon/slime/debug.
 	
 	Blaze/Crystal post-victory scene should be travel disabled with option to continue (like Max)
 	
@@ -240,6 +559,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		(lots of background errors)
 	
 	Enforcer sex starts in wrong stance if they are taurs
+	
+	[] if you have anal disabled and do the TF stuff for Lilaya and Meraxis one person still performs anal
 	
 	Also, with the new strip before sex rule your opponent's items are sent to the void, making it impossible to steal from some unique characters that are normally possible
 		Add floor items tab
@@ -275,10 +596,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Would it be possible to change how Angel's Kiss works to be more like the Nightclub?
 	 Right now you can quicky run out of room to send prostitutes her way and have no way to remove them from the building. So I was wondering if it could be changed so going to a room opens a menu to select prostitutes you've sent her way?
 	 That'd also help if you wanted to expand the building or add more to the district in the future. Since she's in charge of the area and could send the prostitutes to other businesses or something
-	
-	Inno still hasn't given me alternate scenes for the foot stuff with Amber or Cunningham, nor the anal with Vicky and Natalya, nor made the rough/resist pace different from rape so the slime queen isn't such a turn off.
-	
-	Lyssieth content that doesn't involve her desk, Helena sex without her becoming a total slut
 	
 	Security slave job
 	
@@ -468,7 +785,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	set weapon damage as tier constants
 	
 	coloured cum/milk/girlcum/saliva
-	
+
 	Enchanting a Burning opaque demonstone with + Fire damage doesn't affect unarmed fire damage
 		only + unarmed damage is affecting its melee damage. +fire damage isn't applying at all
 	

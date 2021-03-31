@@ -68,18 +68,18 @@ public class GamblingDenPatron extends NPC {
 			
 			// RACE & NAME:
 			
-			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 100 : 50;
+			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 1000 : 500;
 			
 			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
 			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.SLIME) {
 					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
+					AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					AbstractSubspecies.addToSubspeciesMap((int) (25 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
+					AbstractSubspecies.addToSubspeciesMap((int) (250 * Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			

@@ -17,7 +17,6 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -163,7 +162,7 @@ public class GenericActions {
 			if(sub.hasPenis() && !subBanned.contains(SexAreaPenetration.PENIS) && sub.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
 				
-			} else if(sub.hasTail() && !subBanned.contains(SexAreaPenetration.TAIL) && sub.getTailType().isSuitableForPenetration()){
+			} else if(sub.hasTail() && !subBanned.contains(SexAreaPenetration.TAIL) && sub.isTailSuitableForPenetration()){
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TAIL);
 				
 			} else {
@@ -542,7 +541,7 @@ public class GenericActions {
 			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
 			} else {
-				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(Main.game.getPlayer()).getRace()).getPenisType()));
+				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Main.game.getPlayer().getFleshSubspecies().getRace()).getPenisType()));
 			}
 			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
 				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
@@ -632,7 +631,7 @@ public class GenericActions {
 					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
 			} else {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(Main.sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType()));
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Main.sex.getCharacterTargetedForSexAction(this).getFleshSubspecies().getRace()).getPenisType()));
 			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawCumStorageValue() < 150) {
 				Main.sex.getCharacterTargetedForSexAction(this).setPenisCumStorage(150);
@@ -643,8 +642,8 @@ public class GenericActions {
 			} else {
 				Main.sex.getCharacterTargetedForSexAction(this).setTesticleSize(TesticleSize.THREE_LARGE);
 			}
-			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.FOUR_THICK.getValue()) {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.FOUR_THICK));
+			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.FOUR_GIRTHY.getValue()) {
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.FOUR_GIRTHY));
 			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue() < 20) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisSize(20));
@@ -1118,7 +1117,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isAnyOngoingActionHappening()
+			return Main.sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())
 					&& Main.sex.getAllParticipants(false).size()>2
 					&& !Main.sex.isMasturbation()
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
@@ -2255,8 +2254,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Cocoon [npc2.herHim])]";
+			return "Cocoon [npc2.herHim]";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2295,8 +2298,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Remove webbing)]";
+			return "Remove webbing";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2369,8 +2376,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Tentacle restraint)]";
+			return "Tentacle restraint";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2408,8 +2419,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release tentacles)]";
+			return "Release tentacles";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2520,8 +2535,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Constrict)]";
+			return "Constrict";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2564,8 +2583,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release constriction)]";
+			return "Release constriction";
 		}
 		@Override
 		public String getActionDescription() {

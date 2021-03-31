@@ -158,7 +158,7 @@ public class TongueBreastsCrotch {
 							" [npc2.Name] desperately [npc2.verb(try)] to pull [npc2.her] [npc2.crotchBoobs] away from [npc.namePos] [npc.face],"
 									+ " letting out [npc2.a_sob+] as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to leave [npc2.herHim] alone.",
 
-							" With tears streaming down [npc2.her] [npc2.face], [npc2.name] struggle against [npc.name],"
+							" With tears streaming down [npc2.her] [npc2.face], [npc2.name] [npc2.verb(struggle)] against [npc.name],"
 									+ " [npc2.sobbing] out loud as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.crotchBoobs] away from [npc.her] unwelcome [npc.lips].",
 
 							" [npc2.Sobbing] out loud, and with tears in [npc2.namePos] [npc2.eyes],"

@@ -7,6 +7,7 @@ import java.util.List;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -308,32 +309,49 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 6) {
-					return new Response(
-							hasJob()
-								?"Suggest job change"
-								:"Suggest job",
-							UtilText.parse(occupant(),
-									hasJob()
-										?"Tell [npc.name] that you think [npc.she] should look for a new job."
-										:"Tell [npc.name] what sort of job you think [npc.she] should be looking for."),
-							OCCUPANT_JOB_SUGGESTION) {
-						@Override
-						public void effects() {
-							applyReactionReset();
+					if(!occupant().NPCFlagValues.contains(NPCFlagValue.occupantHugged)) {
+						if(!occupant().getAffectionLevel(Main.game.getPlayer()).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)) {
+							return new Response("Hug",
+									UtilText.parse(occupant(),
+											"[npc.Name] does not like you enough to want to give you a hug."
+											+ "<br/>[style.italicsMinorBad(Requires [npc.name] to have an affection of at least '"+AffectionLevel.POSITIVE_THREE_CARING.getName()+"' towards you.)]"),
+									null);
 						}
-					};
+						
+						return new Response("Hug", UtilText.parse(occupant(), "Give [npc.name] a big hug."), OCCUPANT_HUG) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+								occupant().NPCFlagValues.add(NPCFlagValue.occupantHugged);
+								Main.game.getTextEndStringBuilder().append(occupant().incrementAffection(Main.game.getPlayer(), 5));
+							}
+						};
+						
+					} else {
+						return new Response("Hug", UtilText.parse(occupant(), "You've already hugged [npc.name] today."), null);
+					}
 					
-				} else if(index==7 && occupant().hasJob()) {
-					return new Response("[style.colourBad(Quit job)]",
-							UtilText.parse(occupant(), "Tell [npc.name] to quit [npc.her] job as [npc.a_job], and to remain unemployed until you suggest something else for [npc.herHim]."),
-							OCCUPANT_JOB_QUIT) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_JOB_QUIT", occupant()));
-							occupant().setHistory(Occupation.NPC_UNEMPLOYED);
-							occupant().clearDesiredJobs();
+				} else if (index == 7) {
+					if(!occupant().NPCFlagValues.contains(NPCFlagValue.occupantPet)) {
+						if(!occupant().getAffectionLevel(Main.game.getPlayer()).isGreaterThan(AffectionLevel.POSITIVE_THREE_CARING)) {
+							return new Response("Pettings",
+									UtilText.parse(occupant(),
+											"[npc.Name] does not like you enough to allow you to pet [npc.herHim]."
+											+ "<br/>[style.italicsMinorBad(Requires [npc.name] to have an affection of at least '"+AffectionLevel.POSITIVE_FOUR_LOVE.getName()+"' towards you.)]"),
+									null);
 						}
-					};
+						return new Response("Pettings", UtilText.parse(occupant(), "Give [npc.name] some loving pettings."), OCCUPANT_PETTINGS) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+								occupant().NPCFlagValues.add(NPCFlagValue.occupantPet);
+								Main.game.getTextEndStringBuilder().append(occupant().incrementAffection(Main.game.getPlayer(), 5));
+							}
+						};
+						
+					} else {
+						return new Response("Pettings", UtilText.parse(occupant(), "You've already given [npc.name] some pettings today."), null);
+					}
 					
 				} else if (index == 10) {
 					if(hasJob()) {
@@ -382,6 +400,34 @@ public class OccupantDialogue {
 							};
 						}
 					}
+					
+				} else if (index == 11) {
+					return new Response(
+							hasJob()
+								?"Suggest job change"
+								:"Suggest job",
+							UtilText.parse(occupant(),
+									hasJob()
+										?"Tell [npc.name] that you think [npc.she] should look for a new job."
+										:"Tell [npc.name] what sort of job you think [npc.she] should be looking for."),
+							OCCUPANT_JOB_SUGGESTION) {
+						@Override
+						public void effects() {
+							applyReactionReset();
+						}
+					};
+					
+				} else if(index==12 && occupant().hasJob()) {
+					return new Response("[style.colourBad(Quit job)]",
+							UtilText.parse(occupant(), "Tell [npc.name] to quit [npc.her] job as [npc.a_job], and to remain unemployed until you suggest something else for [npc.herHim]."),
+							OCCUPANT_JOB_QUIT) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_JOB_QUIT", occupant()));
+							occupant().setHistory(Occupation.NPC_UNEMPLOYED);
+							occupant().clearDesiredJobs();
+						}
+					};
 					
 				} else if (index == 0) {
 					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogue(false)) {
@@ -850,7 +896,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -885,14 +931,13 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			//TODO talk about either finding job, or job stories
 			if(hasJob()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_JOB", occupant()));
 				
@@ -925,14 +970,13 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			//TODO talk about Lilaya and Rose
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_LILAYA", occupant()));
 			
 			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
@@ -960,7 +1004,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -993,6 +1037,63 @@ public class OccupantDialogue {
 		}
 	};
 
+	public static final DialogueNode OCCUPANT_HUG = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getLabel(){
+			return UtilText.parse(occupant(),"Hugging [npc.Name]");
+		}
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_HUG", occupant()));
+			
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
+			
+			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return OCCUPANT_START.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return OCCUPANT_START.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode OCCUPANT_PETTINGS = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
+		@Override
+		public String getLabel(){
+			return UtilText.parse(occupant(), "Petting [npc.Name]");
+		}
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_PETTINGS", occupant()));
+			
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
+			
+			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return OCCUPANT_START.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return OCCUPANT_START.getResponse(responseTab, index);
+		}
+	};
 
 	public static final DialogueNode OCCUPANT_JOB_SUGGESTION = new DialogueNode("", "", true) {
 
@@ -1003,7 +1104,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -1018,7 +1119,7 @@ public class OccupantDialogue {
 
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_JOB_SUGGESTION_MECHANICS", occupant()));
 			
-			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
@@ -1111,7 +1212,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override

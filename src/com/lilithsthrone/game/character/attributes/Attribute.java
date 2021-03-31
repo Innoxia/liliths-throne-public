@@ -148,6 +148,23 @@ public class Attribute {
 			}
 		}
 	};
+	
+	public static AbstractAttribute RESTING_LUST = new AbstractAttribute(false,
+			0,
+			0,
+			80,
+			"resting lust",
+			"Resting lust",
+			"arousalIcon",
+			PresetColour.ATTRIBUTE_LUST,
+			"passion",
+			"indifference",
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "The amount of lust which [npc.name] naturally gravitates towards over a period of time.");
+		}
+	};
 
 	public static AbstractAttribute MAJOR_PHYSIQUE = new AbstractAttribute(false,
 			0,
@@ -559,16 +576,27 @@ public class Attribute {
 	public static List<AbstractAttribute> allAttributes;
 	
 	public static Map<AbstractRace, AbstractAttribute> racialAttributes = new HashMap<>();
+
+	private static Map<String, AbstractAttribute> oldConversionMapping = new HashMap<>();
+	static {
+		oldConversionMapping.put("CORRUPTION", Attribute.MAJOR_CORRUPTION);
+		oldConversionMapping.put("STRENGTH", Attribute.MAJOR_PHYSIQUE);
+		oldConversionMapping.put("MAJOR_STRENGTH", Attribute.MAJOR_PHYSIQUE);
+		oldConversionMapping.put("INTELLIGENCE", Attribute.MAJOR_ARCANE);
+		oldConversionMapping.put("RESISTANCE_ATTACK", Attribute.RESISTANCE_PHYSICAL);
+		oldConversionMapping.put("RESISTANCE_MANA", Attribute.RESISTANCE_LUST);
+		oldConversionMapping.put("RESISTANCE_PURE", Attribute.ENERGY_SHIELDING);
+	}
 	
 	public static AbstractAttribute getAttributeFromId(String attributeId) {
 		if(attributeId.startsWith("RESISTANCE_ELEMENTAL")) {
 			attributeId = "RESISTANCE_ELEMENTAL";
 		} else if(attributeId.startsWith("DAMAGE_ELEMENTAL")) {
 			attributeId = "DAMAGE_ELEMENTAL";
-		} else if(attributeId.equals("CORRUPTION")) {
-			attributeId = "MAJOR_CORRUPTION";
-		} else if(attributeId.equals("STRENGTH") || attributeId.equals("MAJOR_STRENGTH")) {
-			attributeId = "MAJOR_PHYSIQUE";
+		}
+		
+		if(oldConversionMapping.containsKey(attributeId)) {
+			return oldConversionMapping.get(attributeId);
 		}
 
 		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet());

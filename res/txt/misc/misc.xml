@@ -105,7 +105,7 @@
 	<htmlContent tag="INCUBATION_EGG_LAYING_VAGINA_SINGLE"><![CDATA[
 	#IF(game.getPlayerCell().getPlace().isPopulated())
 		<p>
-			Thanks to the hormones released into your system by the egg that's been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you spread your [pc.legs] and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling cunt.
+			Thanks to the hormones released into your system by the egg that's been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you #IF(pc.hasLegs())spread your [pc.legs]#ELSElower your [pc.hips] towards the ground#ENDIF and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling cunt.
 		</p>
 		<p>
 			Almost immediately, you feel the huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you.
@@ -115,7 +115,7 @@
 		</p>
 	#ELSE
 		<p>
-			Thanks to the hormones released into your system by the egg that's been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you spread your [pc.legs] and start to push.
+			Thanks to the hormones released into your system by the egg that's been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you #IF(pc.hasLegs())spread your [pc.legs]#ELSElower your [pc.hips] towards the ground#ENDIF and start to push.
 		</p>
 		<p>
 			Almost immediately, you feel the huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you. Before you can react, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you collapse down next to the egg and try to rest and recover your strength...
@@ -127,7 +127,7 @@
 	<htmlContent tag="INCUBATION_EGG_LAYING_VAGINA_MULTIPLE"><![CDATA[
 	#IF(game.getPlayerCell().getPlace().isPopulated())
 		<p>
-			Thanks to the hormones released into your system by the eggs that have been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you spread your [pc.legs] and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling cunt.
+			Thanks to the hormones released into your system by the eggs that have been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you #IF(pc.hasLegs())spread your [pc.legs]#ELSElower your [pc.hips] towards the ground#ENDIF and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling cunt.
 		</p>
 		<p>
 			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you. Seemingly with a mind of its own, your pussy starts spasming and contracting, pushing the next egg out from your womb and leaving you desperately gasping for breath as it stretches out your labia and slides free from your slimy pussy to join the first on the floor beneath you.
@@ -137,7 +137,7 @@
 		</p>
 	#ELSE
 		<p>
-			Thanks to the hormones released into your system by the eggs that have been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you spread your [pc.legs] and start to push.
+			Thanks to the hormones released into your system by the eggs that have been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you #IF(pc.hasLegs())spread your [pc.legs]#ELSElower your [pc.hips] towards the ground#ENDIF and start to push.
 		</p>
 		<p>
 			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you. Seemingly with a mind of its own, your pussy starts spasming and contracting, pushing the next egg out from your womb and leaving you desperately gasping for breath as it stretches out your labia and slides free from your slimy pussy to join the first on the floor beneath you.

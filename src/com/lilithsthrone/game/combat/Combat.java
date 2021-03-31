@@ -738,21 +738,7 @@ public class Combat {
 				}
 				return null;
 			}
-			if(Main.game.getPlayer().isStunned()) {
-				if (index == 1) {
-					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							combatContent.put(Main.game.getPlayer(), Util.newArrayListOfValues("You are stunned, and are unable to make a move!"));
-							endCombatTurn();
-						}
-					};
-					
-				} else {
-					return null;
-				}
-				
-			} else if(escaped) {
+			if(escaped) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
@@ -783,7 +769,7 @@ public class Combat {
 				} else
 					return null;
 				
-			}  else if(isAlliedPartyDefeated()) {
+			} else if(isAlliedPartyDefeated()) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Defeat", "You have been defeated!"){
 						@Override
@@ -795,6 +781,20 @@ public class Combat {
 					};
 				} else
 					return null;
+				
+			} else if(Main.game.getPlayer().isStunned()) {
+				if (index == 1) {
+					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							combatContent.put(Main.game.getPlayer(), Util.newArrayListOfValues("You are stunned, and are unable to make a move!"));
+							endCombatTurn();
+						}
+					};
+					
+				} else {
+					return null;
+				}
 				
 			} else if(isCombatantDefeated(Main.game.getPlayer())) {
 				if (index == 1) {
@@ -1102,7 +1102,7 @@ public class Combat {
 			}
 			@Override
 			public Colour getHighlightColour() {
-				return move.getColour();
+				return move.getColourByDamageType(Main.game.getPlayer());
 			}
 			@Override
 			public AbstractCombatMove getAssociatedCombatMove() {

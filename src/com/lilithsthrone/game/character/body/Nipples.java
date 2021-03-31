@@ -58,22 +58,20 @@ public class Nipples implements BodyPartInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter owner) {
-		// I commented this out as I felt that the crotch names (defined in type) were a little unwieldy
-//		if(crotchNipples) {
-//			return type.getNameCrotchSingular(owner);
-//		} else {
+		if(crotchNipples) {
+			return type.getNameCrotchSingular(owner);
+		} else {
 			return type.getNameSingular(owner);
-//		}
+		}
 	}
 
 	@Override
 	public String getNamePlural(GameCharacter owner) {
-		// I commented this out as I felt that the crotch names (defined in type) were a little unwieldy
-//		if(crotchNipples) {
-//			return type.getNameCrotchPlural(owner);
-//		} else {
+		if(crotchNipples) {
+			return type.getNameCrotchPlural(owner);
+		} else {
 			return type.getNamePlural(owner);
-//		}
+		}
 	}
 
 	@Override
@@ -83,7 +81,6 @@ public class Nipples implements BodyPartInterface {
 		for(OrificeModifier om : orificeNipples.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
 		}
-
 		
 		if(isCrotchNipples()) {
 			if(owner.getNippleCrotchCovering()!=null) {
@@ -135,12 +132,27 @@ public class Nipples implements BodyPartInterface {
 				descriptorList.add("wet");
 			}
 		}
+
+		switch(this.getNippleShape()) {
+			case INVERTED:
+				descriptorList.add("inverted");
+				break;
+			case LIPS:
+			case NORMAL:
+			case VAGINA:
+				break;
+		}
+		
+		descriptorList.add(this.getNippleSize().getName());
 		
 		descriptorList.add(type.getDescriptor(owner));
+		
 		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
 			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 		}
-
+		
+		descriptorList.removeIf(d->d==null || d.isEmpty());
+		
 		return Util.randomItemFrom(descriptorList);
 	}
 

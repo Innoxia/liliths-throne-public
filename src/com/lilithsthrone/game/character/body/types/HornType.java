@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 /**
  * 
  * @since 0.1.0
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public class HornType {
@@ -38,35 +38,35 @@ public class HornType {
 			"") {
 	};
 
-	// Cows:
-	
-	public static final AbstractHornType BOVINE_CURVED = new AbstractHornType(
-			BodyCoveringType.HORN,
-			Race.COW_MORPH,
-			2,
-			"curved",
-			"horn",
-			"horns",
-			Util.newArrayListOfValues("curved", "bovine"),
-			Util.newArrayListOfValues("curved", "bovine", "smooth"),
-			"slightly-curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
-					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
-			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], curved #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
-	};
-
-	public static final AbstractHornType BOVINE_STRAIGHT = new AbstractHornType(
-			BodyCoveringType.HORN,
-			Race.COW_MORPH,
-			2,
-			"straight",
-			"horn",
-			"horns",
-			Util.newArrayListOfValues("straight", "bovine"),
-			Util.newArrayListOfValues("straight", "bovine", "smooth"),
-			"sleek, straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
-					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
-			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], straight #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
-	};
+//	// Cows:
+//	
+//	public static final AbstractHornType BOVINE_CURVED = new AbstractHornType(
+//			BodyCoveringType.HORN,
+//			Race.COW_MORPH,
+//			2,
+//			"curved",
+//			"horn",
+//			"horns",
+//			Util.newArrayListOfValues("curved", "bovine"),
+//			Util.newArrayListOfValues("curved", "bovine", "smooth"),
+//			"slightly-curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
+//					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
+//			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], curved #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+//	};
+//
+//	public static final AbstractHornType BOVINE_STRAIGHT = new AbstractHornType(
+//			BodyCoveringType.HORN,
+//			Race.COW_MORPH,
+//			2,
+//			"straight",
+//			"horn",
+//			"horns",
+//			Util.newArrayListOfValues("straight", "bovine"),
+//			Util.newArrayListOfValues("straight", "bovine", "smooth"),
+//			"sleek, straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
+//					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
+//			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], straight #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+//	};
 
 	// Reindeer:
 	
@@ -100,17 +100,17 @@ public class HornType {
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], unicorn's #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
 	};
 
-	// Demons:
+	// Generic:
 	
 	public static final AbstractHornType CURLED = new AbstractHornType(
 			BodyCoveringType.HORN,
-			Race.DEMON,
+			Race.NONE,
 			2,
 			"curled",
 			"horn",
 			"horns",
-			Util.newArrayListOfValues("curled", "demonic"),
-			Util.newArrayListOfValues("curled", "demonic", "smooth"),
+			Util.newArrayListOfValues("curled"),
+			Util.newArrayListOfValues("curled", "smooth"),
 			"circular-curling #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curled #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], circular-curling #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
@@ -118,13 +118,13 @@ public class HornType {
 	
 	public static final AbstractHornType SPIRAL = new AbstractHornType(
 			BodyCoveringType.HORN,
-			Race.DEMON,
+			Race.NONE,
 			2,
 			"spiral", //Rasen no Chikara
 			"horn",
 			"horns",
-			Util.newArrayListOfValues("spiral", "demonic"),
-			Util.newArrayListOfValues("spiral", "demonic", "smooth"),
+			Util.newArrayListOfValues("spiral"),
+			Util.newArrayListOfValues("spiral", "smooth"),
 			"twisted, spiralling #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(spiral #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], spiralling #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
@@ -132,13 +132,13 @@ public class HornType {
 	
 	public static final AbstractHornType CURVED = new AbstractHornType(
 			BodyCoveringType.HORN,
-			Race.DEMON,
+			Race.NONE,
 			2,
 			"curved",
 			"horn",
 			"horns",
-			Util.newArrayListOfValues("curved", "demonic"),
-			Util.newArrayListOfValues("curved", "demonic", "smooth"),
+			Util.newArrayListOfValues("curved"),
+			Util.newArrayListOfValues("curved", "smooth"),
 			"slightly-curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], curved #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
@@ -146,13 +146,13 @@ public class HornType {
 	
 	public static final AbstractHornType SWEPT_BACK = new AbstractHornType(
 			BodyCoveringType.HORN,
-			Race.DEMON,
+			Race.NONE,
 			2,
 			"swept-back",
 			"horn",
 			"horns",
-			Util.newArrayListOfValues("swept-back", "demonic"),
-			Util.newArrayListOfValues("swept-back", "demonic", "smooth"),
+			Util.newArrayListOfValues("swept-back"),
+			Util.newArrayListOfValues("swept-back", "smooth"),
 			"sleek #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF, before sweeping back and curving over [npc.her] head."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(swept-back #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], swept-back #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
@@ -160,13 +160,13 @@ public class HornType {
 	
 	public static final AbstractHornType STRAIGHT = new AbstractHornType(
 			BodyCoveringType.HORN,
-			Race.DEMON,
+			Race.NONE,
 			2,
 			"straight",
 			"horn",
 			"horns",
-			Util.newArrayListOfValues("straight", "demonic"),
-			Util.newArrayListOfValues("straight", "demonic", "smooth"),
+			Util.newArrayListOfValues("straight"),
+			Util.newArrayListOfValues("straight", "smooth"),
 			"sleek, straight horns."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], straight #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
@@ -249,6 +249,11 @@ public class HornType {
 	}
 	
 	public static AbstractHornType getHornTypeFromId(String id) {
+		if(id.equals("BOVINE_CURVED")) {
+			return CURVED;
+		} else if(id.equals("BOVINE_STRAIGHT")) {
+			return STRAIGHT;
+		}
 		id = Util.getClosestStringMatch(id, idToHornMap.keySet());
 		return idToHornMap.get(id);
 	}
@@ -262,21 +267,37 @@ public class HornType {
 	}
 	
 	private static Map<AbstractRace, List<AbstractHornType>> typesMap = new HashMap<>();
-	public static List<AbstractHornType> getHornTypes(AbstractRace r) {
-		if(typesMap.containsKey(r)) {
-			return typesMap.get(r);
+	
+	/**
+	 * 
+	 * @param race The race whose available horn types are to be returned.
+	 * @param includeNone Whether to include HornType.NONE in the list or not.
+	 * @return A list of HornTypes which are available for this race to have <b>via transformation, not by default</b>. If you want to find out what HornTypes a race has by default, use their RacialBody's getHornTypes() method.
+	 */
+	public static List<AbstractHornType> getHornTypes(AbstractRace race, boolean includeNone) {
+		if(!typesMap.containsKey(race)) {
+			List<AbstractHornType> allTypes = new ArrayList<>();
+			
+			for(AbstractHornType type : HornType.getAllHornTypes()) {
+				if(type.getRace()==race) {
+					allTypes.add(type);
+				}
+			}
+			if(allTypes.isEmpty()) {
+				for(AbstractHornType type : HornType.getAllHornTypes()) {
+					if(type.getRace()==Race.NONE) {
+						allTypes.add(type);
+					}
+				}
+			}
+			
+			typesMap.put(race, allTypes);
 		}
 		
-		List<AbstractHornType> types = new ArrayList<>();
-		for(AbstractHornType type : HornType.getAllHornTypes()) {
-			if(type.getRace()==r) {
-				types.add(type);
-			}
+		List<AbstractHornType>  types = new ArrayList<>(typesMap.get(race));
+		if(!includeNone) {
+			types.remove(HornType.NONE);
 		}
-		if(types.isEmpty()) {
-			types.add(HornType.NONE);
-		}
-		typesMap.put(r, types);
 		return types;
 	}
 }

@@ -26,9 +26,6 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -295,10 +292,8 @@ public class Util {
 	
 	public static String getXmlRootElementName(File XMLFile) {
 		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(XMLFile);
-			
+			Document doc = Main.getDocBuilder().parse(XMLFile);
+
 			// Cast magic:
 			doc.getDocumentElement().normalize();
 			
@@ -1149,6 +1144,9 @@ public class Util {
 
 		slovenlySpeechReplacementMap.put("They", "Dey");
 		slovenlySpeechReplacementMap.put("they", "dey");
+
+		slovenlySpeechReplacementMap.put("These", "Dese");
+		slovenlySpeechReplacementMap.put("these", "dese");
 		
 		slovenlySpeechReplacementMap.put("And", "'An");
 		slovenlySpeechReplacementMap.put("and", "an'");
@@ -1236,6 +1234,7 @@ public class Util {
 			<br/>Into -> inta
 			<br/>The -> Da
 			<br/>Them -> Dem
+			<br/>These -> Dese
 			<br/>And -> An'
 			<br/>Of -> 'O
 			<br/>Who -> 'O
@@ -1460,8 +1459,10 @@ public class Util {
 				distance = newDistance;
 			}
 		}
-		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
-		new IllegalArgumentException().printStackTrace(System.err);
+		if(distance>0) { // Only show error message if difference is more than just capitalisation differences
+			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		}
+//		new IllegalArgumentException().printStackTrace(System.err);
 		return closestString;
 	}
 
@@ -1556,7 +1557,9 @@ public class Util {
 				distance = newDistance;
 			}
 		}
-		System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		if(distance>0) { // Only show error message if difference is more than just capitalisation differences
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		}
 //		throw new IllegalArgumentException();
 		return closestString;
 	}

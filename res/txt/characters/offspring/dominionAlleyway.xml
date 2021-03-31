@@ -214,7 +214,7 @@
 			#IF(pcIsMother)
 				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
@@ -251,7 +251,7 @@
 			#IF(pcIsMother)
 				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
@@ -288,7 +288,7 @@
 			#IF(pcIsMother)
 				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
@@ -721,14 +721,14 @@
 				[npc.She] leans back on the sofa and smiles. [npc.speech(Well, you know, there's always <i>someone</i> looking for a quick fuck, so I never have any problems with money. I mean, Dominion's a pretty great place for being a prostitute!)]
 			</p>
 			<p>
-				From [npc.her] positive attitude, you can tell that [npc.she] has absolutely no qualms about selling [npc.her] body. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
+				From [npc.her] positive attitude, you can tell that [npc.sheHasFull] absolutely no qualms about selling [npc.her] body. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
 			</p>
 		#ELSE
 			<p>
 				[npc.She] leans back on the sofa and smiles. [npc.speech(Well, you know, there's always <i>someone</i> who has need of my... erm... services, so I never have any problems with money. I mean, Dominion's a pretty great place for my line of work... erm... being a prostitute, that is...)]
 			</p>
 			<p>
-				From [npc.her] attitude, you can tell that [npc.she] has no qualms about selling [npc.her] body, although [npc.sheIs] a little nervous talking to you about it. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
+				From [npc.her] attitude, you can tell that [npc.sheHasFull] no qualms about selling [npc.her] body, although [npc.sheIs] a little nervous talking to you about it. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
 			</p>
 		#ENDIF
 		<p>
@@ -754,7 +754,7 @@
 				[npc.She] leans back on the sofa and smiles. [npc.speech(Well, you know, there's always <i>someone</i> dumb enough to wander around in my territory, so I never have any problems with money. I mean, if they didn't want to get mugged, they wouldn't come wandering through the alleyways! Everyone knows that they're dangerous!)]
 			</p>
 			<p>
-				From [npc.her] blase attitude, you can tell that [npc.she] has absolutely no qualms about beating people up and stealing their money. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
+				From [npc.her] blase attitude, you can tell that [npc.sheHasFull] absolutely no qualms about beating people up and stealing their money. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
 			</p>
 			
 		#ELSE
@@ -762,7 +762,7 @@
 				[npc.She] leans back on the sofa and smiles. [npc.speech(Well, you know, there's always <i>someone</i> who's... erm... intruding on my territory, so I never have any problems with money. I mean, Dominion's alleys are known to be dangerous, so why would they be here if they didn't want to get robbed?)]
 			</p>
 			<p>
-				From [npc.her] blase attitude, you can tell that [npc.she] has absolutely no qualms about beating people up and stealing their money, although [npc.sheIs] a little nervous talking to you about it. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
+				From [npc.her] blase attitude, you can tell that [npc.sheHasFull] absolutely no qualms about beating people up and stealing their money, although [npc.sheIs] a little nervous talking to you about it. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
 			</p>
 		#ENDIF
 		<p>
@@ -1356,7 +1356,7 @@
 		Pulling back, [npc.name] wipes the tears from [npc.her] [npc.eyes], before smiling at you and sniffling, [npc.speech(Sorry, [pc.name], I didn't mean to get so emotional... S-Shall I get my stuff packed then?)]
 	</p>
 	<p>
-		Replying in the affirmative, you help your [npc.relation(pc)] to pack up what little personal belongings [npc.she] has. It turns out that the vast majority of [npc.her] apartment's furniture and furnishings are either owned by the landlord, or too old and shabby to be worth taking with you. As a result, the packing only takes ten minutes or so, and with a small suitcase filled with [npc.namePos] belongings, the two of you leave [npc.her] old apartment behind and set off in the direction of Lilaya's home.
+		Replying in the affirmative, you help your [npc.relation(pc)] to pack up what little personal belongings [npc.sheHasFull]. It turns out that the vast majority of [npc.her] apartment's furniture and furnishings are either owned by the landlord, or too old and shabby to be worth taking with you. As a result, the packing only takes ten minutes or so, and with a small suitcase filled with [npc.namePos] belongings, the two of you leave [npc.her] old apartment behind and set off in the direction of Lilaya's home.
 	</p>
 	<p>
 		After a short while you arrive at your destination,

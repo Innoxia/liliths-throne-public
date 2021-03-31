@@ -760,7 +760,8 @@ public class PenisMouth {
 					&& !Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction()).containsKey(InventorySlot.HAIR)
 					&& !Main.sex.getCharacterPerformingAction().getInventorySlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(InventorySlot.HAND)
 					&& (Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS
-							|| Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS);
+							|| Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS)
+					&& Main.sex.getCharacterTargetedForSexAction(this).getHairType().isAbleToBeGrabbedInSex();
 		}
 
 		@Override
@@ -792,7 +793,7 @@ public class PenisMouth {
 								UtilText.returnStringAtRandom(
 								"First pushing [npc3.name] back off of [npc.her] [npc.cock+], [npc.name] roughly [npc.verb(grasp)] [npc2.namePos] "+style+","
 										+ " before violently jerking [npc2.her] head forwards and forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down down to grab [npc2.namePos] "+style+", before mercilessly yanking [npc2.her] head into [npc2.her] groin,"
+								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down down to grab [npc2.namePos] "+style+", before mercilessly yanking [npc2.her] head into [npc.her] groin,"
 										+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
 								"Roughly pushing [npc3.name] back, [npc.name] then [npc.verb(reach)] down to grab [npc2.namePos] "+style+","
 										+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
@@ -2041,7 +2042,7 @@ public class PenisMouth {
 					}
 					
 					descriptions.add("[npc.Name] [npc.verb(grab)] the sides of [npc2.namePos] head, and before [npc2.she] [npc2.verb(know)] what's happening,"
-										+ " [npc.nameIs] roughly slamming [npc.her] [npc.cock+] in and out of [npc2.her] facial fuck-hole.");
+										+ " [npc.sheIs] roughly slamming [npc.her] [npc.cock+] in and out of [npc2.her] facial fuck-hole.");
 					descriptions.add("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] all the way down [npc2.namePos] throat."
 										+ " As [npc2.she] [npc2.verb(blink)] back tears, [npc.name] [npc.verb(start)] rapidly bucking [npc.her] [npc.hips] back and forth,"
 										+ " holding [npc2.namePos] head in place with both hands as [npc.she] ruthlessly [npc.verb(fuck)] [npc2.her] [npc2.face].");
@@ -2089,10 +2090,15 @@ public class PenisMouth {
 							break;
 					}
 				}
-				
-				descriptions.add("[npc.Name] [npc.verb(spread)] [npc.her] knees out on either side of [npc2.namePos] head, and before [npc2.she] [npc2.verb(know)] what's happening,"
-									+ " [npc.nameIs] roughly slamming [npc.her] [npc.cock+] in and out of [npc2.her] facial fuck-hole.");
-				
+
+				if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+					descriptions.add("[npc.Name] [npc.verb(spread)] [npc.her] knees out on either side of [npc2.namePos] head, and before [npc2.she] [npc2.verb(know)] what's happening,"
+							+ " [npc.nameIs] roughly slamming [npc.her] [npc.cock+] in and out of [npc2.her] facial fuck-hole.");
+					
+				} else {
+					descriptions.add("[npc.Name] [npc.verb(push)] [npc.her] groin down onto [npc2.namePos] face, and before [npc2.she] [npc2.verb(know)] what's happening,"
+							+ " [npc.nameIs] roughly slamming [npc.her] [npc.cock+] in and out of [npc2.her] facial fuck-hole.");
+				}
 
 				descriptions.add("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] all the way down [npc2.namePos] throat."
 									+ " As [npc2.she] [npc2.verb(blink)] back tears, [npc.name] [npc.verb(start)] rapidly slamming [npc.her] [npc.hips] up and down,"

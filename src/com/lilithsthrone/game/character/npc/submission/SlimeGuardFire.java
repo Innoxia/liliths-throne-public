@@ -48,7 +48,6 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
@@ -99,7 +98,7 @@ public class SlimeGuardFire extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && AbstractSubspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getFleshSubspecies()!=Subspecies.HUMAN) {
 			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN, false);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
@@ -228,7 +227,7 @@ public class SlimeGuardFire extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(23);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		// Leave cum as normal value

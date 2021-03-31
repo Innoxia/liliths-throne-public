@@ -319,11 +319,26 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return playerElement;
 	}
 	
+	private static boolean debug = false;
+	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
+		long time = System.nanoTime();
+		if(debug) {
+			System.out.println("Player loading start");
+		}
+		
 		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+
+		if(debug) {
+			System.out.println("character created: "+((System.nanoTime()-time)/1000000000d));
+		}
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
-		
+
+		if(debug) {
+			System.out.println("Variables loaded: "+((System.nanoTime()-time)/1000000000d));
+		}
+
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			character.setGenderIdentity(character.getGender());
 		}
@@ -462,7 +477,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								}
 								
 								QuestLine questLine = QuestLine.valueOf(questLineString);
-								Quest quest = Quest.valueOf(questString);
+								Quest quest = Quest.getQuestFromId(questString);
 								
 								List<Quest> questList = new ArrayList<>();
 								TreeNode<Quest> node = questLine.getQuestTree().getFirstNodeWithData(quest);
@@ -489,13 +504,16 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
 								questString = "MAIN_1_E_REPORT_TO_HELENA";
 							}
+							if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.3.14") && questString.startsWith("RELATIONSHIP_NYAN")) {
+								continue;
+							}
 							try {
-								Quest quest = Quest.valueOf(questString);
+								Quest quest = Quest.getQuestFromId(questString);
 								List<Quest> questList = new ArrayList<>();
 								
 								int questIncrement=0;
 								while(!questString.isEmpty()) {
-									quest = Quest.valueOf(questString);
+									quest = Quest.getQuestFromId(questString);
 	
 									questList.add(quest);
 									
@@ -526,7 +544,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 						String questLineString = e.getAttribute("questLine");
 						QuestLine questLine = QuestLine.valueOf(questLineString);
 						String questString = e.getAttribute("q");
-						Quest quest = Quest.valueOf(questString);
+						Quest quest = Quest.getQuestFromId(questString);
 						character.questsFailed.put(
 								questLine,
 								quest);
@@ -555,6 +573,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			} catch(Exception ex) {	
 			}
+		}
+
+		if(debug) {
+			System.out.println("Initial loading: "+((System.nanoTime()-time)/1000000000d));
 		}
 		
 		if(playerSpecificElement!=null && !Main.isVersionOlderThan(version, "0.3.7.7")) {
@@ -613,6 +635,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					}
 				}
 			}
+		}
+
+		if(debug) {
+			System.out.println("encyclopedia loading: "+((System.nanoTime()-time)/1000000000d));
 		}
 		
 		if(Main.isVersionOlderThan(version, "0.3.0.5")) {
@@ -676,12 +702,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaVisited, false);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaInterviewOffered, false);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaBusy, false);
-			
-//			if(!character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
-//				character.addItem(Main.game.getItemGeneration().generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
-//			}
-//			character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 		}
+
+		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
+			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
+		}
+		
 		if(Main.isVersionOlderThan(version, "0.3.8.1")) {
 			if(character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
 				character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
@@ -692,9 +718,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
 			}
 		}
-		
-		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
-			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
+
+		if(debug) {
+			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
 		}
 		
 		return character;

@@ -106,7 +106,7 @@ public class TentacleType {
 	public static final AbstractTentacleType LEG_DEMON_OCTOPUS = new AbstractTentacleType(
 			BodyCoveringType.OCTOPUS_SKIN,
 			Race.DEMON,
-			PenetrationGirth.FOUR_THICK,
+			PenetrationGirth.FOUR_GIRTHY,
 			2.5f,
 			"demonic-octopus",
 			"",

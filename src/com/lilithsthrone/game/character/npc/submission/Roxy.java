@@ -90,8 +90,7 @@ public class Roxy extends NPC {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE)
 					&& (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))
-					&& (itemType.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)
-							|| itemType.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN))) {
+					&& (itemType.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN) || itemType.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN))) {
 				itemsForSale.add(itemType);
 			}
 		}
@@ -251,7 +250,7 @@ public class Roxy extends NPC {
 		this.setVaginaCapacity(Capacity.FOUR_LOOSE, true);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY);
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
 		this.addGirlcumModifier(FluidModifier.ADDICTIVE);
 		
 		// Feet:
@@ -335,8 +334,10 @@ public class Roxy extends NPC {
 		this.addItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
 		
 		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
-				this.addItem(Main.game.getItemGen().generateItem(item), false);
+			if(Main.game.isSillyMode() || !item.getItemTags().contains(ItemTag.SILLY_MODE)) {
+				for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
+					this.addItem(Main.game.getItemGen().generateItem(item), false);
+				}
 			}
 		}
 		

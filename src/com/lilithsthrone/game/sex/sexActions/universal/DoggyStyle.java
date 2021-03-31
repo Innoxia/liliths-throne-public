@@ -98,7 +98,8 @@ public class DoggyStyle {
 			return SexAreaPenetration.FINGER.isFree(Main.sex.getCharacterPerformingAction())
 					&& (mouthFinger || mouthFingerReversed)
 					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& Main.sex.getCharacterTargetedForSexAction(this).getHairLength().isSuitableForPulling();
+					&& Main.sex.getCharacterTargetedForSexAction(this).getHairLength().isSuitableForPulling()
+					&& Main.sex.getCharacterTargetedForSexAction(this).getHairType().isAbleToBeGrabbedInSex();
 		}
 
 		@Override

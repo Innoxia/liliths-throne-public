@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -32,7 +30,8 @@ public abstract class AbstractBodyCoveringType {
 	private boolean mod;
 	private boolean fromExternalFile;
 	
-	private BodyCoveringCategory category; 
+	private BodyCoveringCategory category;
+	private String nameTransformation;
 	private String determiner; 
 	private String namePlural;
 	private String nameSingular;
@@ -55,6 +54,8 @@ public abstract class AbstractBodyCoveringType {
 		this.fromExternalFile = false;
 		
 		this.category = category;
+		
+		this.nameTransformation = null;
 		
 		determiner = template.determiner;
 		namePlural = template.namePlural;
@@ -126,10 +127,12 @@ public abstract class AbstractBodyCoveringType {
 		this.fromExternalFile = false;
 		
 		this.category = category;
+
+		this.nameTransformation = null;
 		
 		this.determiner = determiner;
 		this.namePlural = namePlural;
-		this.nameSingular=nameSingular;
+		this.nameSingular = nameSingular;
 		this.isDefaultPlural = isDefaultPlural;
 		
 		if(naturalModifiers == null) {
@@ -206,9 +209,7 @@ public abstract class AbstractBodyCoveringType {
 	public AbstractBodyCoveringType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -219,6 +220,12 @@ public abstract class AbstractBodyCoveringType {
 				this.fromExternalFile = true;
 				
 				this.category = BodyCoveringCategory.valueOf(coreElement.getMandatoryFirstOf("category").getTextContent());
+
+				if(coreElement.getOptionalFirstOf("nameTransformation").isPresent()) {
+					this.nameTransformation = coreElement.getMandatoryFirstOf("nameTransformation").getTextContent();
+				} else {
+					this.nameTransformation = null;
+				}
 				
 				this.determiner = coreElement.getMandatoryFirstOf("determiner").getTextContent();
 				this.nameSingular = coreElement.getMandatoryFirstOf("name").getTextContent();
@@ -230,6 +237,10 @@ public abstract class AbstractBodyCoveringType {
 					for(Element e : coreElement.getMandatoryFirstOf("naturalCoveringModifiers").getAllOf("modifier")) {
 						this.naturalModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
 					}
+				}
+				if(this.naturalModifiers.isEmpty()) {
+					System.err.println("WARNING: AbstractBodyCoveringType mod did not have any naturalModifiers defined! SMOOTH added for error-prevention.");
+					this.naturalModifiers.add(CoveringModifier.SMOOTH);
 				}
 				
 				this.extraModifiers = new ArrayList<>();
@@ -377,6 +388,16 @@ public abstract class AbstractBodyCoveringType {
 	
 	public String getNamePlural(GameCharacter gc) {
 		return namePlural;
+	}
+	
+	/**
+	 *  @return THe name of the covering for use in transformation menus. Will most likely return the same as getName(gc)
+	 */
+	public String getNameTransformation(GameCharacter gc) {
+		if(nameTransformation==null) {
+			return getName(gc);
+		}
+		return nameTransformation;
 	}
 	
 	public String getName(GameCharacter gc){

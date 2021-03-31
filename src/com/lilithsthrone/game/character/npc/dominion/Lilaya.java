@@ -153,12 +153,12 @@ public class Lilaya extends NPC {
 					PersonalityTrait.SHY);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
-			this.setTailGirth(PenetrationGirth.FIVE_FAT);
+			this.setTailGirth(PenetrationGirth.FIVE_THICK);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setHomeLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA);
 		}
 	}
@@ -228,7 +228,7 @@ public class Lilaya extends NPC {
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.FIVE_FAT);
+		this.setTailGirth(PenetrationGirth.FIVE_THICK);
 
 		this.setHeight(180);
 		this.setFemininity(85);

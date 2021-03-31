@@ -163,7 +163,7 @@ public class Vengar extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN_DARK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_LIGHT), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_LIGHT), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
@@ -200,7 +200,7 @@ public class Vengar extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
@@ -311,7 +311,7 @@ public class Vengar extends NPC {
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_fingerless_gloves", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
 			
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_BLACK, false), true, this);
 			this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_UNDER), DisplacementType.UNBUTTONS, true, true, this);
 			
 			AbstractClothing cargo = Main.game.getItemGen().generateClothing("innoxia_leg_cargo_trousers", PresetColour.CLOTHING_BLACK, false);
@@ -401,8 +401,8 @@ public class Vengar extends NPC {
 			return new Response("", "", RatWarrensDialogue.VENGAR_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-					Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+					((Shadow)Main.game.getNpc(Shadow.class)).moveToBountyHunterLodge();
+					((Silence)Main.game.getNpc(Silence.class)).moveToBountyHunterLodge();
 				}
 			};
 

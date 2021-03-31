@@ -331,18 +331,19 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(npcSpecificElement!=null) {
 			npc.setLastTimeEncountered(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeEncountered").item(0)).getAttribute("value")));
-
-			Element e = (Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0);
-			if(e!=null) {
-				npc.setLastTimeHadSex(Long.valueOf(e.getAttribute("value")), false);
-			}
 			
-			e = (Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0);
-			if(e!=null) {
-				npc.setLastTimeOrgasmed(Long.valueOf(e.getAttribute("value")));
-			} else {
-				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
-			}
+			// Moved to GameCharacter element some time long ago...
+//			Element e = (Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0);
+//			if(e!=null) {
+//				npc.setLastTimeHadSex(Long.valueOf(e.getAttribute("value")), false);
+//			}
+//			
+//			e = (Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0);
+//			if(e!=null) {
+//				npc.setLastTimeOrgasmed(Long.valueOf(e.getAttribute("value")));
+//			} else {
+//				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
+//			}
 			
 			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
 			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
@@ -351,7 +352,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 			NodeList npcValues = ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue");
 			for(int i = 0; i < npcValues.getLength(); i++){
-				e = (Element) npcValues.item(i);
+				Element e = (Element) npcValues.item(i);
 				try {
 					npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
 				} catch(Exception ex) {
@@ -530,9 +531,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case POSITIVE_FIVE_WORSHIP:
 					if(this.isAttractedTo(Main.game.getPlayer()) && Main.game.isIncestEnabled()) {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is [style.italicsSex(head-over-heels in love)] with you.");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and is [style.italicsSex(head-over-heels in love)] with you.");
 					} else {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and would do almost anything you asked of [npc.herHim].");
 					}
 					break;
 			}
@@ -624,9 +625,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case POSITIVE_FIVE_WORSHIP:
 					if(this.isAttractedTo(Main.game.getPlayer())) {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and is head-over-heels in love with you.");
 					} else {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and would do almost anything you asked of [npc.herHim].");
 					}
 					break;
 			}
@@ -880,8 +881,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return null;
 	};
 	
+	/**
+	 * @return The chance of enemies managing to escape from this NPC. Defined as an int from 0-100, representing percentage.
+	 */
 	public int getEscapeChance() {
-		return 30;
+		return (int) (30 * (this.hasTrait(Perk.JOB_BOUNTY_HUNTER, true)?0.5f:1));
 	}
 
 	public boolean isSurrendersAtZeroMana() {
@@ -1087,7 +1091,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
 			
 			BodyMaterial material = this.getBodyMaterial();
-			this.setBody(this.getGenderIdentity(), AbstractSubspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBody(this.getGenderIdentity(), this.getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
 			Main.game.getCharacterUtils().randomiseBody(this, false);
 			
@@ -1100,7 +1104,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			
 		} else {
-			AbstractRacialBody racialBody = RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(this).getRace());
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(this.getFleshSubspecies().getRace());
 			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
 				this.setFemininity(racialBody.getFemaleFemininity());
 				

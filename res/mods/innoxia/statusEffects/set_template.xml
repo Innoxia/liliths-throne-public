@@ -17,8 +17,9 @@
 	<renderInEffectsPanel>true</renderInEffectsPanel>
 	
 	<!-- The category which this status effect falls into. You can omit this field if you want it to be set to DEFAULT (which is the standard category).
+	This particular category is set to INVENTORY, as set bonuses only need to be checked for after a character has had their inventory changed in some way.
 	Categories, along with their meanings, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/StatusEffectCategory.java -->
-	<category>DEFAULT</category>
+	<category>INVENTORY</category>
 	
 	<!-- 'BENEFICIAL' if this is a good status effect for a character to have, 'NEUTRAL' if it's neither, or 'DETRIMENTAL' if it's a bad one. -->
 	<beneficial>BENEFICIAL</beneficial>
@@ -121,6 +122,15 @@
 		SET_BONUS_innoxia_kitty.isCharacterWearingCompleteSet(npc)
 	]]></applicationCondition>
 	-->
+	
+	<!-- How long this status effect should be applied for when the conditions are met.
+	This is measured in seconds and should always be a positive integer.
+	The exception to the positive integer rule is the special value of -1, which means that the status effect should remain active for as long as the applicationCondition is returning true.
+	In almost all of the game's status effects, this field is left as -1.
+	If you define the attribute 'constantRefresh' as true, then the effect's duration will be refreshed to the duration you've defined every turn so long as applicationCondition continues to return true.
+	If 'constantRefresh' is false, then the effect will be applied to the character once at the moment the applicationCondition returns true, and not applied again until the duration has expired and applicationCondition returns true once again.
+	If the value is left as -1, then 'constantRefresh' has no effect, but for formatting uniformity, it should probably be left as false. -->
+	<applicationLength constantRefresh="false">-1</applicationLength>
 	
 	
 	<!-- Status effects execute an 'applyEffect(GameCharacter target, int secondsPassed)' method every time the game ends a turn.

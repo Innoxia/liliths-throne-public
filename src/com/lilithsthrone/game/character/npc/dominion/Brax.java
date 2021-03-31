@@ -141,7 +141,7 @@ public class Brax extends NPC {
 			potion.setName("Brax's Surprise");
 			this.addItem(potion, false);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.7") && !this.isSlave()) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.17") && !this.isSlave()) {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
@@ -243,7 +243,7 @@ public class Brax extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		// Leave cum as normal value
@@ -303,10 +303,10 @@ public class Brax extends NPC {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_ssldshirt", PresetColour.CLOTHING_BLUE, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_BLACK, false), true, this);
 			
-			if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
+			if(!Main.game.isStarted() || (Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN))) {
 				if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 					this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
-					this.setEssenceCount(10);
+					this.setEssenceCount(150);
 					this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
 				}
 			}
@@ -356,6 +356,9 @@ public class Brax extends NPC {
 	
 	@Override
 	public void turnUpdate() {
+		if(!this.isSlave() && !Main.game.getCharactersPresent().contains(this)) {
+			this.setEssenceCount(150);
+		}
 		if(this.isSlave() && !this.getOwner().isPlayer() && !Main.game.getCharactersPresent().contains(this)) {
 			if(Main.game.isWorkTime()) {
 				this.setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);

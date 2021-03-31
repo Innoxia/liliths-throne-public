@@ -399,7 +399,9 @@ public class Response {
 		
 		if(perksRequired!=null) {
 			for(AbstractPerk p : perksRequired){
-				if(Main.game.getPlayer().hasTrait(p, true)) {
+				if(p.isEquippableTrait()
+						?Main.game.getPlayer().hasTrait(p, true)
+						:Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
 					SB.append("<br/>"
 							+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 							+ " (<span style='color:"+PresetColour.PERK.toWebHexString()+";'>Perk</span>): "
@@ -684,12 +686,14 @@ public class Response {
 		if(perksRequired==null) {
 			return false;
 		}
-		for (AbstractPerk p : perksRequired) {
-			if(!Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
-				return true;
+		for(AbstractPerk p : perksRequired) {
+			if(p.isEquippableTrait()
+					?Main.game.getPlayer().hasTrait(p, true)
+					:Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public boolean isFemininityInRange() {

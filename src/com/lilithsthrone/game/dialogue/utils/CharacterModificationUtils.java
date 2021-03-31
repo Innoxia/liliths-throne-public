@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Horn;
+import com.lilithsthrone.game.character.body.Leg;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Testicle;
@@ -135,7 +136,6 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Units.ValueType;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -1027,6 +1027,9 @@ public class CharacterModificationUtils {
 		for(AbstractTailType tail : TailType.getAllTailTypes()) {
 			if((tail.getRace() !=null && availableRaces.contains(tail.getRace()))
 					|| (!removeNone && tail==TailType.NONE)) {
+				if(!BodyChanging.getTarget().getLegConfiguration().isAbleToGrowTail() && tail!=TailType.NONE) {
+					continue;
+				}
 				if(BodyChanging.getTarget().getTailType()==TailType.FOX_MORPH_MAGIC && tail!=TailType.FOX_MORPH_MAGIC) {
 					continue;
 				}
@@ -1042,41 +1045,60 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 				}
 			}
 		}
 		
 		return applyWrapper("Tail",
-				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] tail type."
-						+ "<br/><i>Some types of tail are prehensile (marked by an asterisk), and can be used as penetrative objects in sex scenes."
-						+ " (If the tail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
+				UtilText.parse(BodyChanging.getTarget(), "<i>Tails which are suitable for penetration are marked with an asterisk."
+						+ " Use in sex requires them to either be prehensile (&#8314;) or at least 50% of [npc.namePos] height."
+						+ " (The 'furry tail penetration' content option makes all prehensile tails able to be used in sex, even if not marked as suitable for penetration.)</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
 				true);
 	}
 	
 	public static String getSelfTransformTailLengthDiv() {
-		return applyFullVariableWrapper("Tail Length",
-				UtilText.parse(BodyChanging.getTarget(),
-						BodyChanging.getTarget().hasTail()
-							?"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height, and is limited to values of between 10% and 200%."
-							:"[npc.Name] [npc.do] not have a tail, so the length cannot be changed!"),
-				"TAIL_LENGTH",
-				"5%",
-				"25%",
-				(int)(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%"
-					+ "<br/>"
-					+ Units.size(BodyChanging.getTarget().getTailLength(false)),
-				BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()<=Tail.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTail(),
-				BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()>=Tail.LENGTH_PERCENTAGE_MAX || !BodyChanging.getTarget().hasTail());
+		if(BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+			float percentageMinimum = BodyChanging.getTarget().isFeral()?Leg.LENGTH_PERCENTAGE_MIN_FERAL:Leg.LENGTH_PERCENTAGE_MIN;
+			
+			return applyFullVariableWrapper(Util.capitaliseSentence(LegConfiguration.TAIL_LONG.getName())+" Length",
+					UtilText.parse(BodyChanging.getTarget(),
+						"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height,"
+								+ " and is limited to values of between "+Math.round(percentageMinimum*100)+"% and "+Math.round(Leg.LENGTH_PERCENTAGE_MAX*100)+"%."),
+					"TAIL_LENGTH",
+					"5%",
+					"25%",
+					Math.round(BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()*100)+"%"
+						+ "<br/>"
+						+ Units.size(BodyChanging.getTarget().getLegTailLength(false)),
+					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()<=percentageMinimum,
+					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()>=Leg.LENGTH_PERCENTAGE_MAX);
+			
+		} else {
+			return applyFullVariableWrapper("Tail Length",
+					UtilText.parse(BodyChanging.getTarget(),
+							BodyChanging.getTarget().hasTail()
+								?"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height,"
+										+ " and is limited to values of between "+Math.round(Tail.LENGTH_PERCENTAGE_MIN*100)+"% and "+Math.round(Tail.LENGTH_PERCENTAGE_MAX*100)+"%."
+								:"[npc.Name] [npc.do] not have a tail, so the length cannot be changed!"),
+					"TAIL_LENGTH",
+					"5%",
+					"25%",
+					Math.round(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%"
+						+ "<br/>"
+						+ Units.size(BodyChanging.getTarget().getTailLength(false)),
+					BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()<=Tail.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTail(),
+					BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()>=Tail.LENGTH_PERCENTAGE_MAX || !BodyChanging.getTarget().hasTail());
+		}
 	}
 	
 	public static String getSelfTransformTailCountDiv() {
@@ -1159,7 +1181,10 @@ public class CharacterModificationUtils {
 		return applyWrapper("Tail Girth",
 				UtilText.parse(BodyChanging.getTarget(),
 						!BodyChanging.getTarget().hasTail()
-							?"As [npc.name] [npc.do] not have a tail, [npc.she] cannot change [npc.her] tail girth!"
+							?("As [npc.name] [npc.do] not have a tail, [npc.she] cannot change [npc.her] tail girth!"
+									+(BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG
+										?"<br/>(<i>The girth of [npc.her] serpent-tail is based on [npc.her] hip size.</i>)"
+										:""))
 							:("Change the girth of [npc.namePos] [npc.tail]."
 									+ "<br/><i>Tail girth has an impact in determining whether a tail is too large for the orifice it is penetrating.</i>")),
 				"TAIL_GIRTH",
@@ -1176,7 +1201,7 @@ public class CharacterModificationUtils {
 				"TENTACLE_LENGTH",
 				"5%",
 				"25%",
-				(int)(BodyChanging.getTarget().getTentacleLengthAsPercentageOfHeight()*100)+"%"
+				Math.round(BodyChanging.getTarget().getTentacleLengthAsPercentageOfHeight()*100)+"%"
 					+ "<br/>"
 					+ Units.size(BodyChanging.getTarget().getTentacleLength(false)),
 				BodyChanging.getTarget().getTentacleLengthAsPercentageOfHeight()<=Tentacle.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTentacle(),
@@ -1301,11 +1326,12 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformHornChoiceDiv(List<AbstractRace> availableRaces) {
 		contentSB.setLength(0);
-		
+
 		Set<AbstractHornType> types = new HashSet<>();
 		for(AbstractRace race : availableRaces) {
 			types.addAll(RacialBody.valueOfRace(race).getHornTypes(false));
 		}
+		
 		
 		List<AbstractHornType> sortedTypes = new ArrayList<>(types);
 		sortedTypes.sort((h1, h2) -> h1.getTransformName().compareTo(h2.getTransformName()));
@@ -1795,7 +1821,7 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(FootStructure footStructure : FootStructure.values()) {
-			if(BodyChanging.getTarget().getLegType().getFootType().getPermittedFootStructures().contains(footStructure)) {
+			if(BodyChanging.getTarget().getLegType().getFootType().getPermittedFootStructures(BodyChanging.getTarget().getLegConfiguration()).contains(footStructure)) {
 				if(BodyChanging.getTarget().getFootStructure() == footStructure) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
@@ -1924,13 +1950,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getLegConfiguration() == legConfig) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+PresetColour.RACE_BESTIAL.toWebHexString()+";'>"+Util.capitaliseSentence(legConfig.getName())+(legConfig.isTailLostOnInitialTF()?"":"*")+"</span>"
+								+ "<span style='color:"+PresetColour.RACE_BESTIAL.toWebHexString()+";'>"+Util.capitaliseSentence(legConfig.getName())+(!legConfig.isAbleToGrowTail()?"*":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_LEG_CONFIGURATION_"+legConfig+"' class='cosmetics-button'>"
-								+ "<span style='color:"+PresetColour.RACE_BESTIAL.getShades()[0]+";'>"+Util.capitaliseSentence(legConfig.getName())+(legConfig.isTailLostOnInitialTF()?"":"*")+"</span>"
+								+ "<span style='color:"+PresetColour.RACE_BESTIAL.getShades()[0]+";'>"+Util.capitaliseSentence(legConfig.getName())+(!legConfig.isAbleToGrowTail()?"*":"")+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1938,7 +1964,7 @@ public class CharacterModificationUtils {
 		
 		return applyWrapper("Leg Configuration",
 				UtilText.parse(BodyChanging.getTarget(), "Change what [npc.namePos] lower body is like."
-						+ "<br/><i>Applying this change causes all body parts below the waist to be transformed. Some leg configurations (marked by an asterisk) will remove [npc.namePos] tail during the transformation!</i>"),
+						+ "<br/><i>Applying this change causes all body parts below the waist to be transformed! Some leg configurations (marked by an asterisk) will prevent [npc.namePos] from growing a tail!</i>"),
 				"LEG_CONFIGURATION",
 				contentSB.toString(),
 				true);
@@ -2392,8 +2418,11 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper("Hip Size",
-				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] hips."
-						+ "<br/><i>This is a purely cosmetic change.</i>"),
+				UtilText.parse(BodyChanging.getTarget(),
+						"Change the size of [npc.namePos] hips."
+						+ (BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG
+								?"<br/>This affects the girth of [npc.her] serpent-tail."
+								:"<br/>If [npc.she] ever gains a serpent-tail lower-body, this will affect its girth.")),
 				"HIP_SIZE",
 				contentSB.toString(),
 				true);
@@ -3427,7 +3456,9 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getVaginaType() == vagina) {
 					contentSB.append(
 							"<div id='CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(vagina.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"
+									+Util.capitaliseSentence(vagina.getTransformName())+(vagina.isEggLayer()?"*":"")
+								+"</span>"
 							+ "</div>");
 					
 				} else {
@@ -3436,7 +3467,7 @@ public class CharacterModificationUtils {
 					contentSB.append(
 							"<div id='CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button"+(cannotChoose?" disabled":"")+"'>"
 								+ "<span style='color:"+(cannotChoose?PresetColour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
-									+Util.capitaliseSentence(vagina.getTransformName())
+									+Util.capitaliseSentence(vagina.getTransformName())+(vagina.isEggLayer()?"*":"")
 								+"</span>"
 							+ "</div>");
 				}
@@ -3444,13 +3475,9 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper("Vagina",
-				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] vagina type."
-					+ "<br/><i>Vagina type affects the modifiers and other attributes of the vagina which characters spawn in with, as well as descriptions both in and out of sex.</i>")
-					+(BodyChanging.getTarget().isPregnant()
-						?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.nameIsFull] pregnant!)]")
-						:BodyChanging.getTarget().hasStatusEffect(StatusEffect.PREGNANT_0)
-							?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.she] [npc.has] the possibility of being pregnant!)]")
-							:UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.she] [npc.is] incubating eggs in [npc.her] womb!)]")),
+				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] vagina type. Types with an asterisk by their names [style.colourEgg(lay eggs)] by default."
+//					+ "<br/><i>Vagina type affects default vagina attributes and descriptions.</i>"
+					+ "<br/>[style.italicsMinorBad(A character's vagina cannot be removed while incubating eggs or having a possibility of being pregnant!)]"),
 				"VAGINA_TYPE",
 				contentSB.toString(),
 				false);
@@ -3479,7 +3506,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"GIRLCUM_FLAVOUR",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformGirlcumModifiersDiv() {
@@ -3505,7 +3532,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
 				"GIRLCUM_MODIFIER",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformVaginaCapacityDiv() {
@@ -3558,8 +3585,69 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Squirter",
 				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] vagina squirts fluids when [npc.she] [npc.verb(orgasm)]."
-						+ "<br/><i>If [npc.nameIsFull] a squirter, then when [npc.she] [npc.verb(orgasm)] [npc.she] will dirty clothes [npc.she] [npc.verb(squirt)] on. Also, if someone is eating [npc.herHim] out, they will ingest [npc.her] fluids.</i>"),
+						+ "<br/><i>If [npc.nameIsFull] a squirter, then when [npc.she] [npc.verb(orgasm)] [npc.she] will dirty clothes [npc.she] [npc.verb(squirt)] on."
+							+ " Also, if someone is eating [npc.herHim] out, they will ingest [npc.her] fluids.</i>"),
 				"VAGINA_SQUIRTER",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getSelfTransformVaginaHymenDiv() {
+		contentSB.setLength(0);
+		
+		if(BodyChanging.getTarget().hasHymen()) {
+			contentSB.append(
+					"<div id='VAGINA_HYMEN_OFF' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.getShades()[0]+";'>Lost</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button active'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Intact</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Lost</span>"
+					+ "</div>"
+					+"<div id='VAGINA_HYMEN_ON' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.getShades()[0]+";'>Intact</span>"
+					+ "</div>");
+		}
+		
+
+		return applyWrapper("Hymen",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] hymen is intact or not."),
+				"VAGINA_HYMEN",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getSelfTransformVaginaEggLayerDiv() {
+		contentSB.setLength(0);
+		
+		boolean disabled = BodyChanging.getTarget().isPregnant();
+		
+		if(BodyChanging.getTarget().isVaginaEggLayer()) {
+			contentSB.append(
+					"<div id='VAGINA_EGG_LAYER_OFF' class='cosmetics-button"+(disabled?" disabled":"")+"'>"
+						+ "<span style='color:"+PresetColour.GENERIC_SEX.getShades()[0]+";'>Live birth</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button"+(disabled?" disabled":" active")+"'>"
+						+ "<span style='color:"+PresetColour.EGG.toWebHexString()+";'>Egg-layer</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button"+(disabled?" disabled":" active")+"'>"
+							+ "<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Live birth</span>"
+					+ "</div>"
+					+"<div id='VAGINA_EGG_LAYER_ON' class='cosmetics-button"+(disabled?" disabled":"")+"'>"
+						+ "<span style='color:"+PresetColour.EGG.getShades()[0]+";'>Egg-layer</span>"
+					+ "</div>");
+		}
+		
+		return applyWrapper("Birth Type",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] gives birth to live young or lays eggs. [style.italicsMinorBad(Cannot be changed while pregnant.)]"
+						+ "<br/><i>Every time vagina type is changed, this value is reset to the vagina type's default birth type value.</i>"),
+				"VAGINA_EGG_LAYER",
 				contentSB.toString(),
 				true);
 	}
@@ -5315,19 +5403,55 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getKatesDivAssHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getAssHair(), "ASS_HAIR_", false);
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().isAssHairAvailable()
+						?""
+						:"<br/><i>Due to [npc.namePos] anus type, [npc.she] cannot grow any ass hair!</i>"),
+				BodyChanging.getTarget().getAssHair(),
+				"ASS_HAIR_",
+				!BodyChanging.getTarget().isAssHairAvailable());
 	}
 	
 	public static String getKatesDivUnderarmHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getUnderarmHair(), "UNDERARM_HAIR_", false);
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().isUnderarmHairAvailable()
+						?""
+						:"<br/><i>Due to [npc.namePos] arm type, [npc.she] cannot grow any underam hair!</i>"),
+				BodyChanging.getTarget().getUnderarmHair(),
+				"UNDERARM_HAIR_",
+				!BodyChanging.getTarget().isUnderarmHairAvailable());
 	}
 	
 	public static String getKatesDivFacialHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getFacialHair(), "FACIAL_HAIR_", BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled());
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled()
+						?"<br/><i>Due to the fact that [npc.nameIsFull] feminine, [npc.she] cannot grow a beard!</i>"
+						:(BodyChanging.getTarget().isUnderarmHairAvailable()
+							?""
+							:"<br/><i>Due to [npc.namePos] face type, [npc.she] cannot grow a beard!</i>")),
+				BodyChanging.getTarget().getFacialHair(),
+				"FACIAL_HAIR_",
+				!BodyChanging.getTarget().isFacialHairAvailable() || (BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled()));
 	}
 	
 	public static String getKatesDivPubicHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getPubicHair(), "PUBIC_HAIR_", false);
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().hasPenisIgnoreDildo() && !BodyChanging.getTarget().getPenisType().isPubicHairAllowed()
+						?"<br/><i>Due to [npc.namePos] penis type, [npc.she] cannot grow any pubic hair!</i>"
+						:(BodyChanging.getTarget().hasVagina() && !BodyChanging.getTarget().getVaginaType().isPubicHairAllowed()
+							?"<br/><i>Due to [npc.namePos] vagina type, [npc.she] cannot grow any pubic hair!</i>"
+							:"<br/><i>Due to the fact that [npc.she] [npc.verb(lack)] genitalia, [npc.name] cannot grow any pubic hair!</i>")),
+				BodyChanging.getTarget().getPubicHair(),
+				"PUBIC_HAIR_",
+				!BodyChanging.getTarget().isPubicHairAvailable());
 	}
 	
 	private static String getKatesDivGenericBodyHair(boolean withCost, String title, String description, BodyHair activeHair, String id, boolean blockAllButNoneOptions) {
@@ -5363,7 +5487,7 @@ public class CharacterModificationUtils {
 						:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
 								? UtilText.formatAsMoney(SuccubisSecrets.BASE_BODY_HAIR_COST, "b")
 								: UtilText.formatAsMoney(SuccubisSecrets.BASE_BODY_HAIR_COST, "b", PresetColour.GENERIC_BAD))),
-				description,
+				UtilText.parse(BodyChanging.getTarget(), description),
 				id,
 				contentSB.toString(),
 				false);
@@ -5454,11 +5578,11 @@ public class CharacterModificationUtils {
 		coveringsToBeApplied = new HashMap<>();
 	}
 
-	public static String getKatesDivCoveringsNew(boolean withCost, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
-		return getKatesDivCoveringsNew(withCost, coveringType, title, description, withSecondary, withGlow, true);
+	public static String getKatesDivCoveringsNew(boolean withCost, AbstractRace race, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
+		return getKatesDivCoveringsNew(withCost, race, coveringType, title, description, withSecondary, withGlow, true);
 	}
 	
-	public static String getKatesDivCoveringsNew(boolean withCost, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow, boolean withDyeAndExtraPatterns) {
+	public static String getKatesDivCoveringsNew(boolean withCost, AbstractRace race, AbstractBodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow, boolean withDyeAndExtraPatterns) {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.coveringChangeListenersRequired, true);
 		
 		boolean disabledButton = !coveringsToBeApplied.containsKey(coveringType) || coveringsToBeApplied.get(coveringType).equals(BodyChanging.getTarget().getCovering(coveringType));
@@ -5497,6 +5621,9 @@ public class CharacterModificationUtils {
 
 			sb.append("<div class='container-full-width' style='padding:0; margin:0; text-align:center;'>");
 				sb.append("<b>"+Util.capitaliseSentence(title)+"</b>");
+				if(race!=Race.NONE) {
+					sb.append(" - <b style='color:"+(race.getColour().toWebHexString())+"'>"+Util.capitaliseSentence(race.getName(BodyChanging.getTarget(), BodyChanging.getTarget().isFeral()))+"</b>");
+				}
 			sb.append("</div>");
 			sb.append("<div class='container-full-width' style='padding:0; margin:0; text-align:center;'>");
 				sb.append(Util.capitaliseSentence(BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)));
@@ -5595,7 +5722,7 @@ public class CharacterModificationUtils {
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
 													:(c.getRainbowColours()!=null
 														?"<div class='phone-item-colour' style='background: "+rainbow
-														:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+														:"<div class='phone-item-colour' style='background-color:" + (c.getCoveringIconColour()) + ";"))
 												+(c==PresetColour.COVERING_NONE
 													?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X"
 													:"'>")
@@ -5647,7 +5774,7 @@ public class CharacterModificationUtils {
 														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
 														:(c.getRainbowColours()!=null
 															?"<div class='phone-item-colour' style='background: "+rainbow
-															:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+															:"<div class='phone-item-colour' style='background-color:" + (c.getCoveringIconColour()) + ";"))
 													+(c==PresetColour.COVERING_NONE
 														?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X"
 														:"'>")

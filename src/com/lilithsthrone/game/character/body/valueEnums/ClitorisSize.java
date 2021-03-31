@@ -4,10 +4,10 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
- * Anything over ZERO_AVERAGE is basically a pseudo penis
+ * Anything of size TWO_LARGE and over is treated as a pseudo penis.
  * 
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.4
  * @author Innoxia
  */
 public enum ClitorisSize {
@@ -47,6 +47,10 @@ public enum ClitorisSize {
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.colour = colour;
+	}
+	
+	public static ClitorisSize getMinimumClitorisSizeForPseudoPenis() {
+		return TWO_LARGE;
 	}
 	
 	public boolean isPseudoPenisSize() {

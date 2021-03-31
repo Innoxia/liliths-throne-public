@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -31,6 +28,7 @@ public class Colour {
 	
 	private Color colour;
 	private Color lightColour;
+	private Color coveringIconColour;
 	
 	private String name;
 	private List<String> formattingNames;
@@ -44,6 +42,7 @@ public class Colour {
 		this.metallic = false;
 		this.colour = colour;
 		this.lightColour = colour;
+		this.coveringIconColour = null;
 		this.name = "";
 		tags = null;
 	}
@@ -54,6 +53,7 @@ public class Colour {
 		this.metallic = metallic;
 		this.colour = colour;
 		this.lightColour = lightColour;
+		this.coveringIconColour = null;
 		this.name = name;
 		tags = null;
 	}
@@ -64,6 +64,7 @@ public class Colour {
 		this.metallic = metallic;
 		this.colour = colour.getColour();
 		this.lightColour = colour.getLightColour();
+		this.coveringIconColour = null;
 		this.name = name;
 		tags = null;
 	}
@@ -75,6 +76,7 @@ public class Colour {
 		this.metallic = metallic;
 		this.colour = colour;
 		this.lightColour = lightColour;
+		this.coveringIconColour = null;
 		this.name = name;
 		this.formattingNames = formattingNames;
 		tags = null;
@@ -86,6 +88,7 @@ public class Colour {
 		this.metallic = metallic;
 		this.colour = colour.getColour();
 		this.lightColour = colour.getLightColour();
+		this.coveringIconColour = null;
 		this.name = name;
 		this.formattingNames=formattingNames;
 		tags = null;
@@ -94,10 +97,8 @@ public class Colour {
 	public Colour(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
-				
+				Document doc = Main.getDocBuilder().parse(XMLFile);
+
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 				
@@ -107,11 +108,19 @@ public class Colour {
 				this.fromExternalFile = true;
 				
 				this.metallic = Boolean.valueOf(coreElement.getMandatoryFirstOf("metallic").getTextContent());
+
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
 				
 				this.colour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("colour").getTextContent(), 16));
 				this.lightColour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("lightColour").getTextContent(), 16));
-
-				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				if(coreElement.getOptionalFirstOf("coveringIconColour").isPresent()
+						&& !coreElement.getMandatoryFirstOf("coveringIconColour").getTextContent().isEmpty()) {
+					try {
+						this.coveringIconColour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("coveringIconColour").getTextContent(), 16));
+					} catch(Exception ex) {
+						System.err.println("coveringIconColour failure in '"+this.name+"':\n"+ex.getMessage());
+					}
+				}
 				
 				this.formattingNames = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("formattingNames").isPresent()) {
@@ -143,10 +152,21 @@ public class Colour {
 	}
 
 	/**
-	 * @return A String in the format RRGGBB
+	 * @return A String in the format #RRGGBB
 	 */
 	public String toWebHexString() {
 		return "#"+getColor().toString().substring(2, 8);
+	}
+
+	/**
+	 * The colour that should be used when displaying icons to the player in covering recolouring screens. Will usually be the same as toWebHexString().
+	 * @return A String in the format #RRGGBB
+	 */
+	public String getCoveringIconColour() {
+		if(coveringIconColour!=null) {
+			return "#"+coveringIconColour.toString().substring(2, 8);
+		}
+		return "#"+colour.toString().substring(2, 8);
 	}
 
 	public Color getColor() {
@@ -183,10 +203,6 @@ public class Colour {
 		sb.deleteCharAt(sb.length()-1);
 		sb.append(");");
 		return sb.toString();
-	}
-	
-	public boolean isJetBlack() {
-		return false;
 	}
 	
 	public String getName() {

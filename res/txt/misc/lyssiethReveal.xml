@@ -578,7 +578,7 @@
 	
 	<htmlContent tag="LAB_QUESTION_END"><![CDATA[
 	<p>
-		[lyssieth.speech(I really am almost out of time now,)] Lyssieth announces, [lyssieth.speech(We must move on to what our next step will be. I am committed to defeating Lilith, and securing a future for humanity, and, while I believe that the four of you will join me in this quest, I need a definitive answer from each of you.)]
+		[lyssieth.speech(I really am almost out of time now,)] Lyssieth announces, [lyssieth.speech(We must move on to what our next step will be. I am committed to defeating Lilith and securing a future for humanity, and while I believe that the four of you will join me in this quest, I need a definitive answer from each of you.)]
 	</p>
 	<p>
 		[lilaya.speech(I don't know,)] Lilaya sighs, [lilaya.speech(I suppose we don't have much of a choice now, do we? If Lilith finds out that we know the truth behind this world, I imagine that our futures will consist of being her muted slaves. After all, if news of this got out, she'd have quite the dissent running through her domain... Fine, I'll help you then, mommy.)]
@@ -680,43 +680,56 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="LAB_ENDING_SIREN_HELP"><![CDATA[
+	
+	<htmlContent tag="LAB_ENDING_MINOTALLYS"><![CDATA[
 	<p>
 		[pc.speech(There's no way that I'll stand a chance against that!)] you exclaim, [pc.speech(Not would I have to defeat who-knows how many centaurs all at once, but I'd also have to fight an elder lilin at the same time?! All it took for you to incapacitate me was to use that arcane order. What's to stop Lunette from doing the same?)]
 	</p>
 	<p>
-		[lyssieth.speech(Once I've granted you my essence, it will render you immune to Lilith's Command spell, so Lunette will be unable to defeat you without facing you in combat,)] Lyssieth says, [lyssieth.speech(And as for her centaur followers, well, erm, I'm sure you can think of something...)]
+		[lyssieth.speech(Once I've granted you my essence it will render you immune to Lilith's Command spell, so Lunette will have to face you in combat,)] Lyssieth says, [lyssieth.speech(And as for her centaurs, you should be able to get some help from the lilin Minotallys; she's the mayor of the town of Elis. That's the largest settlement in the fields, and they've been having quite a hard time due to Lunette's rampaging centaurs. It might not be wise to mention to Minotallys all that we've discussed here. Despite being too kind-hearted for her own good, she's always been nothing but completely devoted and loyal to Lilith, and would doubtless betray you to her.)]
 	</p>
 	<p>
-		[siren.speech(Why don't you get the youko to help?)] [siren.name] chimes in, [siren.speech(If there's anyone who could match the power of a demon, it's a youko. I'm sure you could find a way to get their help.)]
+		[siren.speech(Why would she choose to help now?)] [siren.name] chimes in, [siren.speech(I met Minotallys when I was questing to unlock the secrets of the seven scrolls of ultimate power, and she could barely even admit that the centaurs were a problem. She's a complete push-over and does whatever Lunette tells her.)]
 	</p>
+	<p>
+		[lyssieth.speech(Things have got worse out there since you were last in Elis,)] Lyssieth responds, [lyssieth.speech(Even Lilith herself is concerned with the prospect of an uprising due to Lunette's brutality. All Minotallys will need is a little push, and you should have a powerful ally to help you defeat the centaurs.)]
+	</p>
+	<p>
+		[lilaya.speech(Supposing [pc.name] manages to pull this off,)] Lilaya wonders out loud, [lilaya.speech(Is Lilith just going to sit in her tower and ignore the fact that an elder lilin has been defeated right under her nose?)]
+	</p>
+	<p>
+		[lyssieth.speech(Lilith is far too busy trying to assert control over the rest of the world,)] Lyssieth replies, [lyssieth.speech(Most of the time she's not even here, and she certainly doesn't have the time to personally deal with any problems her Realm might experience. With what little influence I have left, I'll play the game of politics so as to put Minotallys forwards as being put in control of stabilising the Foloi fields. Lilith doesn't take too kindly to failure, so I imagine that Lunette will be rewarded by being either locked up in Lilith's tower or given some insignificant plot of land to rule over. Either way, [pc.name] shouldn't draw the wrath of Lilith. Not yet, at least...)]
+	</p>
+	<p>
+		[siren.speech(Perhaps you could get the youko to help as well?)] [siren.name] chimes in, [siren.speech(They're no match for my universe-shattering powers, but if you get a couple of nine-tails on your side then you probably wouldn't even need Minotallys.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_ENDING_SIREN_HELP"><![CDATA[
 	<p>
 		[pc.speech(The youko?)] you ask.
 	</p>
 	<p>
-		[siren.speech(Yeah, you know, the multi-tailed foxes that live in the forests of the Shinrin highlands, to the far west of Dominion,)] she explains, [siren.speech(Maybe you met my friend, [youkoGuide.name], in my citadel's lab? Normally, the youko are pretty hard to make contact with, but she could help you out!)]
+		[siren.speech(They're multi-tailed foxes who live in the forests of the Shinrin highlands, to the west of Elis,)] she explains, [siren.speech(Maybe you met my friend, [youkoGuide.name], in my citadel's lab? Normally, the youko are pretty hard to make contact with, but she could get you in touch with them!)]
 	</p>
 	<p>
-		[pc.speech(I seriously doubt that she's in the citadel anymore,)] you state, [pc.speech(Where could I find her?)]
+		[pc.speech(She's not going to be in the citadel anymore,)] you state, [pc.speech(Where could I find her?)]
 	</p>
 	<p>
-		[siren.speech(I first met her in the town of Elis, back before I decided to conquer all of Submission. It's the closest town to the youko's forest homeland, and one of the largest and most prosperous in all the Foloi fields. She's probably gone back there.)]
+		[siren.speech(I first met her in one of the taverns in Elis, back before I decided to conquer all of Submission. Let me see... I think it was called 'The Red Dragon'? She's probably gone back there.)]
 	</p>
 	<p>
-		[pc.speech(I suppose a 'probably' is better than nothing, and I will need some help against those centaurs,)] you sigh, [pc.speech(I guess I head there.)]
-	</p>
-	<p>
-		[lyssieth.speech(Excellent!)] Lyssieth exclaims, happily clapping her hands together, [lyssieth.speech(Now, I need to infuse my essence into your aura in order to grant you immunity to the Lilith's Command spell. It won't diminish my own powers in any way, so I'll still be able to help when we're finally ready to confront Lilith.)]
+		[lyssieth.speech(Excellent idea, Meraxis! With the youko's help, Lunette's centaurs won't stand a chance,)] Lyssieth exclaims, happily clapping her hands together. Looking at you, she continues, [lyssieth.speech(Now, I need to infuse my essence into your aura in order to grant you immunity to the Lilith's Command spell. It won't diminish my own powers in any way, so I'll still be able to help when we're finally ready to confront Lilith.)]
 	</p>
 	<p>
 		[lilaya.speech(And how exactly will you do that?)] Lilaya angrily asks, [lilaya.speech(By fucking [pc.herHim], I suppose?!)]
 	</p>
 	<p>
-		#IF pc.getRace()==RACE_HUMAN
-		#THEN
-			[lyssieth.speech(Erm, well, you know, what with the nature of the arcane being as it is, yes, I'll need to orgasm in order to fuse my essence into [pc.namePos] aura,)] Lyssieth says in a rather unconvincing manner, and you can't help but wonder if she's lying just to try and get you to have sex with her.
+		#IF(pc.getRace()==RACE_HUMAN)
+			[lyssieth.speech(Well, you know, what with the nature of the arcane being as it is, yes, I'll need to orgasm in order to fuse my essence into [pc.namePos] aura,)] Lyssieth says in a rather unconvincing manner, and you can't help but wonder if she's lying just to try and get you to have sex with her.
 		#ELSE
-			[lyssieth.speech(That isn't strictly necessary,)] Lyssieth says, [lyssieth.speech(But it is a rather intimate process, and, well, it would be only natural to have sex while doing it...)]
+			[lyssieth.speech(That isn't strictly necessary,)] Lyssieth says, [lyssieth.speech(but it is a rather intimate process, and, well, it would be only natural to have sex while doing it...)]
 		#ENDIF
 	</p>
 	<p>
@@ -726,7 +739,7 @@
 		[lyssieth.speech(Hmm, I suppose it <i>is</i> time for me to return home, so I'll take [pc.name] with me then,)] Lyssieth says.
 	</p>
 	<p>
-		[siren.speech(Oh, mom, can I stay here for a while and catch up with sis'?)] [siren.name] asks.
+		[siren.speech(Oh, mum, can I stay here for a while and catch up with sis'?)] [siren.name] asks.
 	</p>
 	<p>
 		[lyssieth.speech(Very well, but do not let her out of your sight, Lilaya,)] Lyssieth says, before suddenly stepping over to you and pulling you into a big hug, [lyssieth.speech(I'll be back to pick her up soon. Let's go, [pc.name].)] 
@@ -746,16 +759,15 @@
 	</p>
 	<p>
 		[lyssieth.speech(Mmm, that's right. It won't turn you into a demon or anything like that, it's just going to strengthen your aura,)] Lyssieth says, her arms still wrapped around you,
-		#IF pc.getRace()==RACE_HUMAN
-		#THEN
+		#IF(pc.getRace()==RACE_HUMAN)
 			 [lyssieth.speech(You need to get me to orgasm for it to work... Mmm... Yes... You humans are so sexy... Do you want to use my pussy, or would you like me to grow a nice big cock and fuck you?
-			#IF pc.getSexCount(lilaya)>0
-			#THEN You know, there aren't many humans who can say that they've fucked both an elder lilin <i>and</i> her recognised daughter!
+			#IF(pc.getSexCount(lilaya)>0)
+				 You know, there aren't many humans who can say that they've fucked both an elder lilin <i>and</i> her recognised daughter!
 			#ENDIF)]
 		#ELSE
 			 [lyssieth.speech(Now, I can do this without having sex, but where's the fun in that?
-			#IF pc.getSexCount(lilaya)>0
-			#THEN You know, there aren't many people who can say that they've fucked both an elder lilin <i>and</i> her recognised daughter!
+			#IF(pc.getSexCount(lilaya)>0)
+				 You know, there aren't many people who can say that they've fucked both an elder lilin <i>and</i> her recognised daughter!
 			#ENDIF)]
 		#ENDIF
 	</p>
@@ -767,9 +779,8 @@
 	
 	<htmlContent tag="LAB_ENDING_RETURN_DECLINE_SEX_HUMAN"><![CDATA[
 	<p>
-		#IF pc.hasStatusEffect(SE_FETISH_PURE_VIRGIN)
-		#THEN
-			There's absolutely no way that you're going to risk losing your precious virginity, and, disentangling yourself from Lyssieth's clutches, you say, [pc.speech(I'm not going to have sex, ok? I'm saving myself for someone special, so can't we do this another way?)]
+		#IF(pc.hasStatusEffect(SE_FETISH_PURE_VIRGIN))
+			There's absolutely no way that you're going to risk losing your precious virginity, and so after quickly disentangling yourself from Lyssieth's clutches, you say, [pc.speech(I'm not going to have sex, ok? I'm saving myself for someone special, so can't we do this another way?)]
 		#ELSE
 			You really don't want to have sex with Lyssieth, and so, disentangling yourself from her clutches, you say, [pc.speech(I don't want to have sex, ok? Can't we do this another way?)]
 		#ENDIF
@@ -778,7 +789,7 @@
 		[lyssieth.speech(Aww...)] Lyssieth whines, pouting at you as she steps over to sit down on the surface of her desk. [lyssieth.speech(I suppose I don't <i>really</i> need to orgasm for this to work; I just wanted to have some fun...)]
 	</p>
 	<p>
-		[pc.speech(Well, that's a relief,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mom. [pc.speech(Shall we get this done, then?)]
+		[pc.speech(Well, that's a relief,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mother. [pc.speech(Shall we get this done, then?)]
 	</p>
 	<p>
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
@@ -802,7 +813,7 @@
 		[lyssieth.speech(Aww...)] Lyssieth whines, pouting at you as she steps over to sit down on the surface of her desk. [lyssieth.speech(I suppose that's fine. We don't have to have sex if you don't want to...)]
 	</p>
 	<p>
-		[pc.speech(Good,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mom. [pc.speech(Shall we get this done, then?)]
+		[pc.speech(Good,)] you say, happy to discover that you're not going to be forced to have sex with Lilaya's mother. [pc.speech(Shall we get this done, then?)]
 	</p>
 	<p>
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
@@ -840,7 +851,7 @@
 		#ENDIF
 	</p>
 	<p>
-		With that, Lyssieth spins you around in her arms, before pushing you down so that you're sitting on the surface of her desk. Stepping in between your spread legs, she leans forwards and passionately kisses you. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to receive a good, hard fucking...
+		With that, Lyssieth gently, yet firmly, pushes you back so that you're sitting on the surface of her desk. Stepping in between your spread legs, she leans forwards and passionately kisses you. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to receive a good, hard fucking...
 	</p>
 	]]>
 	</htmlContent>
@@ -874,7 +885,7 @@
 		Although an immensely powerful being in his own right, he's no match for a natural-born daughter of Lilith herself, and you let out a patronising 'aww' as you easily sidestep his attack. Grabbing him by the neck, you use a blast of arcane force to swiftly disarm him, and, pulling him into your embrace, you tease, [lyssieth.speechNoEffects(My, my, what a spirited thing you are! My sisters and I will have a lot of fun with you...)]
 	</p>
 	<p>
-		At that moment, the other lilin in the room suddenly all turn to face the doorway through which you entered, and, as one, they drop down onto one knee. [genericFemale.speech([style.glowArcane(Most impressive, Lyssieth. As a reward, you may keep that creature as your pet.)])]
+		At that moment, the other lilin in the room suddenly turn to face the doorway through which you entered, and without a moment's hesitation they all drop down onto one knee. [genericFemale.speech([style.glowArcane(Most impressive, Lyssieth. As a reward, you may keep that creature as your pet.)])]
 	</p>
 	<p>
 		Hearing the voice of your mother behind you, you turn to face her. A vague shape of a naked woman, more beautiful than any you could ever imagine, is the last thing you see before starting to come back to your senses...
@@ -1035,16 +1046,16 @@
 	<p>
 		#IF siren.getAffection(pc)<-25
 		#THEN
-			[siren.speech(You know, I still haven't forgiven you for abandoning me in my citadel like that,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And no matter what, you're still my arch nemesis! But... Thanks for helping mom like this... I guess you can't be too bad after all...)]
+			[siren.speech(You know, I still haven't forgiven you for abandoning me in my citadel like that,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And no matter what, you're still my arch nemesis! But... Thanks for helping mum like this... I guess you can't be too bad after all...)]
 		#ELSE
-			[siren.speech(You know, you're still my arch-nemesis,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And one day we shall duel to decide the fate of the universe! But... I just want to say... Thanks for helping mom like this...)]
+			[siren.speech(You know, you're still my arch-nemesis,)] [siren.name] says, walking back over to her desk and sitting down in her chair, [siren.speech(And one day we shall duel to decide the fate of the universe! But... I just want to say... Thanks for helping mum like this...)]
 		#ENDIF
 	</p>
 	<p>
-		[pc.speech(I just hope that I can get the help of your friend,)] you reply, turning your thoughts to Lunette and her herd of demonic centaurs. [pc.speech(You said she's probably in the town of 'Elis'?)]
+		[pc.speech(I just hope that I can get the help of Minotallys and your friend, [youkoGuide.name],)] you reply, turning your thoughts to Lunette and her herd of demonic centaurs. [pc.speech(You said she's probably in a tavern in Elis called 'The Red Dragon'?)]
 	</p>
 	<p>
-		[siren.speech(Yeah, that's right. Oh, and mom said to give you this map. It's got Elis marked on it, so you won't lose your way,)] [siren.name] says, placing a folded paper map on the desk in front of her. 
+		[siren.speech(Yeah, that's right. Oh, and mum said to give you this map. It's got Elis marked on it, so you won't lose your way,)] [siren.name] says, placing a folded paper map on the desk in front of her. 
 	</p>
 	]]>
 	</htmlContent>
@@ -1060,19 +1071,25 @@
 		 in length. There looks to be a large amount of farmland surrounding the capital, which is bordered by an expanse of wild grassland and forests. To the north, there's a huge expanse of what's marked as jungle, while to the south, the farmland transitions first into a wide savannah, and then into a desert.
 	</p>
 	<p>
-		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few kilometres to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly 35km from Dominion itself.
+		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few #IF(game.isMetricSizes())kilometres#ELSemiles#ENDIF to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly
+		#IF(game.isMetricSizes())
+			 35 kilometres
+		#ELSE
+			 20 miles
+		#ENDIF
+		 from Dominion itself.
 	</p>
 	<p>
-		[pc.speech(I don't suppose there's any transport available?)] you ask, [pc.speech(It's going to take me around five or six hours to walk there.)]
+		[pc.speech(I don't suppose there's any transport available?)] you ask, [pc.speech(It'll take quite a few hours to walk there...)]
 	</p>
 	<p>
-		[siren.speech(If you can teleport like mom can, then once you've been there once, you can just return there in an instant,)] [siren.name] says, [siren.speech(But otherwise, no, it's all walking.)]
+		[siren.speech(Last time I left Dominion, there was a centaur transport service that could take you Elis. There's also a river ferry, but that's barely any faster than walking <i>and</i> the river is a couple of miles from Elis, so you have to walk when you get there,)] [siren.name] says, [siren.speech(Of course, if you can teleport like mum can, then once you've been there once, you can just return there in an instant.)]
 	</p>
 	<p>
-		[pc.speech(Ok,)] you say, taking a picture of the map with your phone for quick reference, [pc.speech(I'm sure I'll be back soon, bye, [siren.name].)]
+		[pc.speech(Ok,)] you say, taking a picture of the map with your phone for quick reference, [pc.speech(I'm sure I'll be back soon. Bye, [siren.name].)]
 	</p>
 	<p>
-		[siren.speech(Bye, [pc.name], oh, and you're obviously free to come and go from our palace as you please, but just listen to the maids if they tell you some areas are off-limits,)] [siren.name] says, before letting out a laugh and leaning back in her chair, [siren.speech(The next time we meet, I shall surely best you in a duel!)]
+		[siren.speech(See you later. Oh, and you're obviously free to come and go from our palace as you please, but just listen to the maids if they tell you some areas are off-limits,)] [siren.name] says, before letting out a laugh and leaning back in her chair, [siren.speech(The next time we meet, I shall surely best you in a duel!)]
 	</p>
 	<p>
 		Pushing open the door to [siren.namePos] office, you step back out into the palace corridor, and wonder what to do next... 

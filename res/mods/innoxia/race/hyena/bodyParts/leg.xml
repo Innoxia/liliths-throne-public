@@ -20,12 +20,16 @@
 	<!-- The default structure of the foot that's on the end of this leg.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/FootStructure.java -->
 	<defaultFootStructure>DIGITIGRADE</defaultFootStructure>
+	<!-- You can define multiple elements of a related 'additionalFootStructure' type and add a 'legConfiguration' attribute to them, e.g.:
+			<additionalFootStructure legConfiguration="QUADRUPEDAL">DIGITIGRADE</additionalFootStructure>
+		The value within this element will then override the default foot structure when the character has a "QUADRUPEDAL" foot structure.
+		For an example of this in practice, see: res/race/charisma/spider/bodyParts/leg.xml-->
 	
 	<!-- The type of the foot that's on the end of this leg.
 	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/FootType.java -->
 	<footType>PAWS</footType>
 	
-	<!-- Whether this leg type has a spinneret (will only be true for spider leg types which are limited to the 'ARACHNID' leg configuration). -->
+	<!-- Whether this leg type has a spinneret when transformed into the 'ARACHNID' leg configuration. -->
 	<spinneret>false</spinneret>
 	
 	<!-- If this leg type consists of tentacles instead of legs, then define the type of the tentacle here.
@@ -46,7 +50,8 @@
 	
 	<!-- The singular and plural name of this leg type.
 	These should be left as 'leg' and 'legs' for standard leg types.
-	The values 'tail/tails', 'tentacle/tentacles' should be used if this leg type is a serpent/fish tail or a collection of tentacles, respectively. -->
+	The values 'tail/tails', 'tentacle/tentacles' should be used if this leg type is a serpent/fish tail or a collection of tentacles, respectively.
+	UPDATE: As of version 0.3.14, these values are overridden based on the character's leg configuration, so it doesn't really matter what you put here (although you should probably leave it as a sensible value).-->
 	<name><![CDATA[leg]]></name>
 	<namePlural><![CDATA[legs]]></namePlural> 
 	

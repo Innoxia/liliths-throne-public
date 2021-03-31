@@ -503,7 +503,7 @@ public class LegType {
 	
 	public static AbstractLegType SQUIRREL_MORPH = new AbstractLegType(BodyCoveringType.SQUIRREL_FUR,
 			Race.SQUIRREL_MORPH,
-			FootStructure.DIGITIGRADE,
+			FootStructure.PLANTIGRADE,
 			FootType.PAWS,
 			"a pair of",
 			"leg",
@@ -526,7 +526,7 @@ public class LegType {
 	
 	public static AbstractLegType RAT_MORPH = new AbstractLegType(BodyCoveringType.RAT_FUR,
 			Race.RAT_MORPH,
-			FootStructure.DIGITIGRADE,
+			FootStructure.PLANTIGRADE,
 			FootType.PAWS,
 			"a pair of",
 			"leg",
@@ -549,7 +549,7 @@ public class LegType {
 	
 	public static AbstractLegType RABBIT_MORPH = new AbstractLegType(BodyCoveringType.RABBIT_FUR,
 			Race.RABBIT_MORPH,
-			FootStructure.DIGITIGRADE,
+			FootStructure.PLANTIGRADE,
 			FootType.PAWS,
 			"a pair of",
 			"leg",
@@ -737,7 +737,7 @@ public class LegType {
 					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
-	public static AbstractLegType HARPY = new AbstractLegType(BodyCoveringType.FEATHERS,
+	public static AbstractLegType HARPY = new AbstractLegType(BodyCoveringType.HARPY_SKIN,
 			Race.HARPY,
 			FootStructure.DIGITIGRADE,
 			FootType.TALONS,
@@ -753,9 +753,9 @@ public class LegType {
 			"A layer of scaly, bird-like leather quickly grows over [npc.her] legs as they shift into a new form."
 				+ " As [npc.her] new leathery skin spreads down to the ends of [npc.her] toes, [npc.her] feet start to undergo an extreme transformation."
 				+ " [npc.Her] toes combine together and re-shape themselves into three forward-facing talons, as a fourth, thumb-like talon branches out behind them."
-				+ " As the transformation ends, a layer of attractive feathers grow around [npc.her] upper-thigh, smoothly transitioning into the leathery skin which now covers [npc.her] lower-legs.<br/>"
+				+ " As the transformation ends, this leathery skin sharply transitions into [npc.her] body's [helena.skinColour] [npc.skin] at [npc.her] upper-thigh.<br/>"
 				+ "[npc.Name] now [npc.has] anthropomorphic, [style.boldHarpy(bird-like legs and talons in place of feet)], which are [npc.materialDescriptor] [npc.legFullDescription].",
-			"[npc.Her] upper thighs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], which transition into leathery, bird-like skin just above [npc.her] knee."
+			"[npc.Her] bird-like legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], which sharply transitions into [npc.her] body's [helena.skinColour] [npc.skin] at [npc.her] upper-thigh."
 				+ " At the end of each of [npc.her] [npc.legs], [npc.she] [npc.has] sharp, bird-like talons.",
 				Util.newArrayListOfValues(
 						LegConfiguration.BIPEDAL,

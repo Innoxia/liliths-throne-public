@@ -296,41 +296,38 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_A_FINDING_THE_YOUKO(QuestType.MAIN, 20, 250) {
+	MAIN_3_ELIS(QuestType.MAIN, 20, 250) {
 		@Override
 		public String getName() {
-			return "Finding the youko";
+			return "Destination Elis";
 		}
 
 		@Override
 		public String getDescription() {
 			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
-					+ "[siren.Name] told you that you're going to need the help of the youko if you're to defeat the elder lilin pegataur, Lunette."
-					+ " She said that you should find and enlist the help of her old friend, [youkoGuide.name], who worked in her lab back when she was living in her citadel."
-					+ " [youkoGuide.Name] will have returned to the town of Elis, which is the settlement nearest to the Shinrin Forest, the youko's homeland.";
+					+ "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " Meraxis additionally mentioned enlisting the aid of the youko, but that can wait until after you've arrived in Elis itself.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You travelled to Elis, where you found the youko, [youkoGuide.name], in an inn called 'The Ninth Tail'."
-					+ " It turned out that she was having to work off a significant debt, and wouldn't be able to help you until it's paid off in full.";
+			return "After encountering a particularly aggressive demonic centaur, you once again met Meraxis and then finally made it to Elis, where you introduced yourself to the lilin, Minotallys.";
 		}
 	},
 	
-	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {
+	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {//TODO
 		@Override
 		public String getName() {
-			return "Debts paid";
+			return "-";
 		}
 
 		@Override
 		public String getDescription() {
-			return "You need to help [youkoGuide.name] clear her debt, and in exchange she's promised to show you where the leader of all the youko lives.";
+			return "-";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You helped [youkoGuide.name] clear her debt, and, as agreed, she is ready and willing to take you to the youko leader's hideout.";
+			return "-";
 		}
 	},
 
@@ -522,7 +519,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "After getting to know one of the residents of Dominion's alleyways, you'd like to offer them a real home. Lilaya's mansion is full of empty rooms, so you should ask her if you could use one to house your new friend.";
+			return "Lilaya's mansion is full of empty rooms which could be put to use as guest accommodation. You should ask her if you could use them to house your friends and family.";
 		}
 
 		@Override
@@ -1317,57 +1314,69 @@ public enum Quest {
 	
 	// Romance quests:
 
-	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
+	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
-			return "Offer Nyan your help";
+			return "Helping Nyan";
 		}
-
 		@Override
 		public String getDescription() {
-			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
-					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...<br/>"
-					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
+			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her wholesale supplier has suddenly stopped communicating with her."
+					+ " Apparently, this supplier used to be on good terms with Nyan, and his uncharacteristic behaviour has caused the nervous cat-girl to suspect something terrible has happened to him.<br/>"
+					+ "Perhaps you could offer Nyan your help by finding out what's happened to this supplier?";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You offered Nyan your help in convincing the new suppliers to let the old ones back.";
+			return "You offered Nyan your help in finding out what's happened to her wholesale enchanted clothing supplier.";
 		}
 	},
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 50) {
+	RELATIONSHIP_NYAN_2_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 1, 25) {
 		@Override
 		public String getName() {
-			return "Confront the suppliers";
+			return "Saving Kay";
 		}
-
 		@Override
 		public String getDescription() {
-			return "Nyan explained that the suppliers still work out of the supply depot here in the Shopping Arcane."
-					+ " From all that Nyan's told you about these new suppliers, you should be prepared for a tough fight if you decide to go and talk to them...";
+			return "Nyan told you that her supplier, [kay.nameFull], has his business set up in Dominion's warehouse district."
+					+ " You'll need to travel to the north-west of the city, find Kay's warehouse, and discover why he's suddenly cut off all communication with Nyan.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You put an end to the dobermanns' monopoly, and although they'll continue to work as clothing suppliers, they'll stop intimidating the others.";
+			return "You not only found Kay's warehouse, but were also able to discover that his business has been effectively seized by a pair of bullying bounty hunters.";
 		}
 	},
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
+	RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS(QuestType.RELATIONSHIP, 10, 100) {
 		@Override
 		public String getName() {
-			return "Reward";
+			return "Bounty Hunter Bullies";
 		}
-
 		@Override
 		public String getDescription() {
-			return "You should return to Nyan and get the reward she promised you.";
+			return "Wolfgang and Karl, a pair of bounty hunters hired by Kay to protect his warehouse, have turned on their employer and effectively seized full control of his business."
+					+ " One way or another, you're going to have to convince these dobermann bullies to leave Kay alone...";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "Nyan paid you the reward she promised, and also offered to give you a 25% discount in her store. She also let slip that she's single, in a clumsy attempt to hit on you...";
+			return "By dealing with Wolfgang and Karl and sending them skulking off back to Slaver Alley's 'Bounty Hunter Lodge', you've both saved Kay's business and ensured that Nyan once again has access to a stock of enchanted clothing."
+					+ " Offering you his eternal thanks, Kay said that you're welcome to pay him a visit whenever you like.";
+		}
+	},
+	
+	RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 1, 25) {
+		@Override
+		public String getName() {
+			return "Nyan's Reward";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that you've saved Kay's business, you should return to Nyan and inform her of what's happened.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "A very happy Nyan paid you your promised reward, and also offered to give you a lifetime 25% discount in her store."
+					+ " She also let slip that she's single, in a clumsy attempt to try and hit on you...";
 		}
 	},
 	
@@ -1714,6 +1723,14 @@ public enum Quest {
 
 	public int getExperienceReward() {
 		return experienceReward;
+	}
+	
+	public static Quest getQuestFromId(String quest) {
+		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
+			return Quest.MAIN_3_ELIS;
+		}
+		
+		return Quest.valueOf(quest);
 	}
 
 }

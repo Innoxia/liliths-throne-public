@@ -113,6 +113,15 @@ public class Arm implements BodyPartInterface {
 	}
 
 	public String setArmRows(GameCharacter owner, int armRows) {
+		if(!Main.game.isStarted() || owner==null) {
+			armRows = Math.max(1, Math.min(armRows, MAXIMUM_ROWS));
+			this.armRows = armRows;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		int currentArmRows = getArmRows();
 		armRows = Math.max(1, Math.min(armRows, MAXIMUM_ROWS));
 		if (armRows == currentArmRows) {
@@ -196,6 +205,10 @@ public class Arm implements BodyPartInterface {
 		if(owner==null) {
 			this.underarmHair = underarmHair;
 			return "";
+		}
+
+		if(!this.getType().isUnderarmHairAllowed()) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] arm type prevents [npc.herHim] from growing any underarm hair, nothing happens...)]</p>");
 		}
 		
 		if(getUnderarmHair() == underarmHair) {

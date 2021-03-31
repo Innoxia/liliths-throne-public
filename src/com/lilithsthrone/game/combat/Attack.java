@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 
@@ -177,10 +178,14 @@ public enum Attack {
 			return Math.round(finalDamage);
 		}
 	}
-	
+
 	public static int calculateSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
-		float minimumDamage = getMinimumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance);
-		float maximumDamage = getMaximumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance);
+		return calculateSpecialAttackDamage(attacker, defender, CombatMoveType.ATTACK, damageType, damage, damageVariance, critical);
+	}
+
+	public static int calculateSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
+		float minimumDamage = getMinimumSpecialAttackDamage(attacker, defender, combatMoveType, damageType, damage, damageVariance);
+		float maximumDamage = getMaximumSpecialAttackDamage(attacker, defender, combatMoveType, damageType, damage, damageVariance);
 
 		float difference = maximumDamage - minimumDamage;
 		float finalDamage = minimumDamage;
@@ -295,40 +300,46 @@ public enum Attack {
 		return maxDamage;
 	}
 	
-	public static float getMinimumSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance) {
-		float minDamage = getModifiedDamage(attacker, defender, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 - damageVariance.getPercentage()));
+	public static float getMinimumSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, DamageType damageType, float damage, DamageVariance damageVariance) {
+		float minDamage = getModifiedDamage(attacker, defender, combatMoveType, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 - damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		minDamage = (Math.round(minDamage*10))/10f;
-		
-		minDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
+
+		// Attribute.DAMAGE_UNARMED is already taken into account in GameCharacter.getUnarmedDamage()
+		//minDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return minDamage;
 	}
-	public static float getMaximumSpecialAttackDamage(GameCharacter caster, GameCharacter target, DamageType damageType, float damage, DamageVariance damageVariance) {
-		float maxDamage = getModifiedDamage(caster, target, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 + damageVariance.getPercentage()));
+	public static float getMaximumSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, DamageType damageType, float damage, DamageVariance damageVariance) {
+		float maxDamage = getModifiedDamage(attacker, defender, combatMoveType, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 + damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		maxDamage = (Math.round(maxDamage*10))/10f;
 
-		maxDamage *= 1 + caster.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
+		// Attribute.DAMAGE_UNARMED is already taken into account in GameCharacter.getUnarmedDamage()
+		//maxDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return maxDamage;
+	}
+
+	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, DamageType damageType, float attackersDamage) {
+		return getModifiedDamage(attacker, defender, CombatMoveType.ATTACK, attackType, weapon, damageType, attackersDamage);
 	}
 	
 	/**
 	 * Applies attacker bonuses to the supplied attack value, then returns the result.
 	 * 
-	 * 
-	 * @param attacker
-	 *            The attacking character.
-	 * @param defender
-	 *            The defending character.
-	 * @param attackType
-	 *            Type of this attack.
+	 * @param attacker         The attacking character.
+	 * @param defender         The defending character.
+	 * @param combatMoveType   The type of the combat move.
+	 * @param attackType       Type of this attack.
+	 * @param weapon           The weapon being used (if any).
+	 * @param damageType       The damage type.
+	 * @param attackersDamage  The unmodified damage.
 	 * @return Modified damage value.
 	 */
-	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, DamageType damageType, float attackersDamage) {
+	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, Attack attackType, AbstractWeapon weapon, DamageType damageType, float attackersDamage) {
 		float damage = 0;
 		boolean damageDoubledFromElemental = false;
 		
@@ -371,15 +382,24 @@ public enum Attack {
 			if(attacker!=null) { // Attacker modifiers:
 				damage += attackersDamage * (attacker.getAttributeValue(damageType.getMultiplierAttribute())/100f);
 				
-				if(weapon!=null && !weapon.getWeaponType().isUsingUnarmedCalculation()) {
-					if(weapon.getWeaponType().isMelee()) {
-						damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON)/100f);
-					} else {
-						damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON)/100f);
-					}
-					
-				} else {
-					damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
+				switch (combatMoveType) {
+					case SPELL:
+					case POWER:
+						damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_SPELLS)/100f);
+						break;
+
+					default:
+						if(weapon!=null && !weapon.getWeaponType().isUsingUnarmedCalculation()) {
+							if(weapon.getWeaponType().isMelee()) {
+								damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON)/100f);
+							} else {
+								damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON)/100f);
+							}
+
+						} else {
+							// Attribute.DAMAGE_UNARMED is already taken into account in GameCharacter.getUnarmedDamage()
+							//damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
+						}
 				}
 				
 				if (damage < 1) {

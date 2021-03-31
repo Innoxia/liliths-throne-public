@@ -242,7 +242,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 				Element colourElement = doc.createElement("colour");
 				innerElement.appendChild(colourElement);
 				colourElement.setAttribute("i", String.valueOf(i));
-				colourElement.setTextContent(this.getColour(i).getId());
+				if(this.getColour(i)==null) {
+					colourElement.setTextContent(PresetColour.CLOTHING_BLACK.getId());
+				} else {
+					colourElement.setTextContent(this.getColour(i).getId());
+				}
 			}
 		}
 		
@@ -492,7 +496,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		float modifier = 1;
 		
 		if(this.getRarity()==Rarity.JINXED) {
-			modifier -= 0.5f;
+			modifier -= 0.25f;
 		}
 		
 		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {

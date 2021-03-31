@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the can reads 'Canned by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>100</value> 
+		<determiner><![CDATA[a cup of]]></determiner>
+		<name><![CDATA[Cotton Candy Soda]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Cotton Candy Sodas]]></namePlural>
+		<description><![CDATA[A large translucent plastic cup of blue raspberry cotton candy flavored soda. The label depicts a raccoon-boy in a lab coat dangling a wad of cotton candy over a bowl of carbonated water.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">raccoon_cotton_candy_soda.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/10)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(bring)] the cup of Cotton Candy Soda up to [npc.her] [npc.mouth]. The smell of sugar and raspberries rises from the straw, and as [npc.she] [npc.verb(wrap)] [npc.her] lips around it and [npc.verb(start)] sucking down the tingly liquid, [npc.she] [npc.verb(feel)] much more refreshed.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(bring)] the cup of Cotton Candy Soda up to [npc2.namePos] waiting [npc2.lips]. The smell of sugar and raspberries rises from the straw, and as [npc2.she] [npc2.verb(warp)] [npc2.her] lips around it and [npc2.verb(start)] sucking down the tingly liquid, [npc.she] [npc.verb(feel)] much more refreshed.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

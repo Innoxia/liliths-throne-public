@@ -171,6 +171,7 @@ public class PresetColour {
 	public static Colour RACE_REINDEER_MORPH = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("reindeerMorph", "reindeer")) {};
 	public static Colour RACE_WOLF_MORPH = new Colour(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("wolfMorph", "wolf")) {};
 	public static Colour RACE_FOX_MORPH = new Colour(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("foxMorph", "fox")) {};
+	public static Colour RACE_FOX_MORPH_FENNEC = new Colour(false, Util.newColour(0xddc48b), Util.newColour(0xddc48b), "sandy", Util.newArrayListOfValues("fennecFoxMorph", "fennecFox")) {};
 	public static Colour RACE_FOX_MORPH_ARCTIC = new Colour(false, BaseColour.WHITE, "white", Util.newArrayListOfValues("arcticFoxMorph", "arcticFox")) {};
 	public static Colour RACE_HARPY = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("harpy")) {};
 	public static Colour RACE_SLIME = new Colour(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("slime")) {};
@@ -388,6 +389,8 @@ public class PresetColour {
 	public static Colour CUM = new Colour(false, BaseColour.BLUE_PALE, "pale blue", Util.newArrayListOfValues("cum", "cummed")) {};
 	public static Colour GIRLCUM = new Colour(false, BaseColour.PINK_PALE, "pale pink", Util.newArrayListOfValues("girlcum", "gcum")) {};
 
+	public static Colour EGG = new Colour(false, BaseColour.YELLOW_PALE, "pale yellow", Util.newArrayListOfValues("egg")) {};
+	
 	public static Colour VAGINA = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("vagina", "pussy", "cunt")) {};
 	public static Colour ANUS = new Colour(false, BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues("asshole", "anus", "ass")) {};
 	public static Colour PENIS = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("penis", "cock")) {};
@@ -422,13 +425,14 @@ public class PresetColour {
 	public static Colour CLOTHING_RED = new Colour(false, Util.newColour(0xd73939), Util.newColour(0xd73939), "red") {};
 	public static Colour CLOTHING_RED_BRIGHT = new Colour(false, Util.newColour(0xFA2424), Util.newColour(0xFA2424), "bright red") {};
 	public static Colour CLOTHING_DESATURATED_BROWN = new Colour(false, Util.newColour(0x6c5d53), Util.newColour(0x6c5d53), "desaturated brown") {};
-	public static Colour CLOTHING_BROWN = new Colour(false, Util.newColour(0xC87137), Util.newColour(0xC87137), "brown") {};
-	public static Colour CLOTHING_BROWN_DARK = new Colour(false, Util.newColour(0x63391C), Util.newColour(0x63391C), "dark brown") {};
-	public static Colour CLOTHING_BROWN_VERY_DARK = new Colour(false, Util.newColour(0x3C2211), Util.newColour(0x3C2211), "midnight brown") {};
+	public static Colour CLOTHING_DESATURATED_BROWN_DARK = new Colour(false, Util.newColour(0x3a2e25), Util.newColour(0x3a2e25), "dark desaturated brown") {};
+	public static Colour CLOTHING_BROWN = new Colour(false, Util.newColour(0x8c5b39), Util.newColour(0x8c5b39), "brown") {};
+	public static Colour CLOTHING_BROWN_DARK = new Colour(false, Util.newColour(0x634028), Util.newColour(0x634028), "dark brown") {};
+	public static Colour CLOTHING_BROWN_VERY_DARK = new Colour(false, Util.newColour(0x3c2618), Util.newColour(0x3c2618), "midnight brown") {};
 	public static Colour CLOTHING_ORANGE = new Colour(false, Util.newColour(0xE79F6F), Util.newColour(0xE79F6F), "orange") {};
 	public static Colour CLOTHING_ORANGE_BRIGHT = new Colour(false, Util.newColour(0xFF7900), Util.newColour(0xFF7900), "bright orange") {};
 	public static Colour CLOTHING_ORANGE_DARK = new Colour(false, Util.newColour(0xE56D00), Util.newColour(0xE56D00), "dark orange") {};
-	public static Colour CLOTHING_TAN = new Colour(false, Util.newColour(0xEDC491), Util.newColour(0xEDC491), "tan") {};
+	public static Colour CLOTHING_TAN = new Colour(false, Util.newColour(0xd9bc98), Util.newColour(0xd9bc98), "tan") {};
 	public static Colour CLOTHING_KHAKI = new Colour(false, Util.newColour(0xaa9e76), Util.newColour(0xaa9e76), "khaki") {};
 	public static Colour CLOTHING_OLIVE = new Colour(false, Util.newColour(0x5f4a2a), Util.newColour(0x5f4a2a), "olive") {};//0x887509 0x5f4a2a
 	public static Colour CLOTHING_YELLOW = new Colour(false, Util.newColour(0xE2C360), Util.newColour(0xE2C360), "yellow") {};
@@ -486,7 +490,7 @@ public class PresetColour {
 	// Monochrome:
 	public static Colour SKIN_IVORY = new Colour(false, BaseColour.WHITE, "ivory") {};
 	public static Colour SKIN_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(SKIN_IVORY);
-	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(SKIN_GREY);
+	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(SKIN_GREY);
 	// Pink:
 	public static Colour SKIN_PINK_PALE = new Colour(false, BaseColour.PINK_PALE, "pale pink") {};
 	public static Colour SKIN_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {}.setLinkedColourLighter(SKIN_PINK_PALE);
@@ -497,6 +501,7 @@ public class PresetColour {
 	// Brown:
 	public static Colour SKIN_BROWN = new Colour(false, BaseColour.BROWN, "brown") {};
 	// Orange:
+	public static Colour SKIN_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {};
 	// Yellow:
 	public static Colour SKIN_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
 	public static Colour SKIN_AMBER = new Colour(false, BaseColour.AMBER, "amber") {}.setLinkedColourLighter(SKIN_YELLOW);
@@ -539,7 +544,7 @@ public class PresetColour {
 	public static Colour COVERING_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(COVERING_WHITE);
 	public static Colour COVERING_DARK_GREY = new Colour(false, BaseColour.GREY_DARK, "dark-grey") {}.setLinkedColourLighter(COVERING_GREY);
 	public static Colour COVERING_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(COVERING_DARK_GREY);
-	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(COVERING_BLACK);
+	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(COVERING_BLACK);
 	// Pink:
 	public static Colour COVERING_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {};
 	public static Colour COVERING_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(COVERING_PINK_LIGHT);
@@ -640,7 +645,7 @@ public class PresetColour {
 	public static Colour EYE_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
 	public static Colour EYE_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(EYE_WHITE);
 	public static Colour EYE_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(EYE_GREY);
-	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(EYE_BLACK);
+	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(EYE_BLACK);
 	// Pink:
 	public static Colour EYE_PINK_SALMON = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink") {};
 	public static Colour EYE_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(EYE_PINK_SALMON);

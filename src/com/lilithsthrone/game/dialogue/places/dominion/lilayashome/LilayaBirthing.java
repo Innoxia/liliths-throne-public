@@ -161,7 +161,7 @@ public class LilayaBirthing {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().getVaginaType().isEggLayer()) {
+				if(Main.game.getPlayer().isVaginaEggLayer()) {
 					return new Response("Follow Lilaya", "Allow Lilaya to lead you up to your room.", LILAYA_ASSISTS_EGG_LAYING) {
 						@Override
 						public void effects() {
@@ -419,7 +419,14 @@ public class LilayaBirthing {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Protect the eggs!", "Why is Lilaya sitting so close behind you?! Maybe she wants to take your eggs for herself!", LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS) {
+				return new Response(
+						Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount()==1
+							?"Protect the egg"
+							:"Protect the eggs!",
+						Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount()==1
+							?"Why is Lilaya getting so close?! Maybe she wants to take your egg for herself!"
+							:"Why is Lilaya getting so close?! Maybe she wants to take your eggs for herself!",
+						LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS) {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);

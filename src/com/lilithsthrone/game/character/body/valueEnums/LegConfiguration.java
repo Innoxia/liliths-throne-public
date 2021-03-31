@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -14,6 +15,7 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -149,7 +151,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_HORSE_HOOFED);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_HORSE_HOOFED);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -180,7 +182,8 @@ public enum LegConfiguration {
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
 			return Util.newArrayListOfValues(
-					GenitalArrangement.CLOACA);
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND); // Shouldn't ever spawn by default, but give player the option
 		}
 		@Override
 		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
@@ -233,8 +236,16 @@ public enum LegConfiguration {
 			}
 		}
 		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_SNAKE);
+		}
+		@Override
 		public boolean isTailLostOnInitialTF() {
 			return true;
+		}
+		@Override
+		public boolean isAbleToGrowTail() {
+			return false;
 		}
 		@Override
 		public boolean isThighSexAvailable() {
@@ -297,7 +308,8 @@ public enum LegConfiguration {
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
 			return Util.newArrayListOfValues(
-					GenitalArrangement.CLOACA);
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND); // Shouldn't ever spawn by default, but give player the option
 		}
 		@Override
 		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
@@ -353,8 +365,16 @@ public enum LegConfiguration {
 			}
 		}
 		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_FISH);
+		}
+		@Override
 		public boolean isTailLostOnInitialTF() {
 			return true;
+		}
+		@Override
+		public boolean isAbleToGrowTail() {
+			return false;
 		}
 		@Override
 		public boolean isThighSexAvailable() {
@@ -381,6 +401,10 @@ public enum LegConfiguration {
 		@Override
 		public List<Class<? extends BodyPartInterface>> getFeralParts() {
 			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<FootStructure> getPermittedFootStructuresOverride() {
+			return Util.newArrayListOfValues(FootStructure.ARACHNOID);
 		}
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
@@ -443,6 +467,10 @@ public enum LegConfiguration {
 		@Override
 		public boolean isGenitalsExposed(GameCharacter character) { // As genitals are beneath the arachnid body, they are not easily visible.
 			return false;
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_SPIDER);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -555,6 +583,10 @@ public enum LegConfiguration {
 			return false;
 		}
 		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_OCTOPUS);
+		}
+		@Override
 		public boolean isTailLostOnInitialTF() {
 			return true;
 		}
@@ -648,7 +680,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_COMMON);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_EAGLE);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -725,6 +757,13 @@ public enum LegConfiguration {
 	 * @return true if this LegConfiguration removes the character's tail when applying its transformation.
 	 */
 	public abstract boolean isTailLostOnInitialTF();
+	
+	/**
+	 * @return true if this LegConfiguration prevents the character from growing a tail.
+	 */
+	public boolean isAbleToGrowTail() {
+		return true;
+	}
 	
 	public String getName() {
 		return name;
@@ -803,6 +842,10 @@ public enum LegConfiguration {
 		return numberOfLegs;
 	}
 
+	public List<FootStructure> getPermittedFootStructuresOverride() {
+		return new ArrayList<>();
+	}
+	
 	public boolean isGenitalsExposed(GameCharacter character) {
 		return true;
 	}
@@ -825,6 +868,14 @@ public enum LegConfiguration {
 		throw new IllegalArgumentException("Demon legs for this leg configuration is not yet implemented!");
 	}
 
+	public void setLegsToAvailableDemonLegs(GameCharacter character, AbstractLegType legType) {
+		this.setLegsToAvailableDemonLegs(character, legType, LegType.DEMON_COMMON);
+	}
+
+	public void setLegsToAvailableDemonLegs(GameCharacter character, AbstractLegType legType, AbstractLegType fallBackLegType) {
+		character.setLegType(legType.isAvailableForSelfTransformMenu(character) ? legType : fallBackLegType);
+	}
+
 	public void setWingsToDemon(GameCharacter character) {
 		character.setWingType(WingType.DEMON_COMMON);
 		character.setWingSize(this.minimumWingSizeForFlight.getValue());
@@ -837,5 +888,12 @@ public enum LegConfiguration {
 
 	public String getSubspeciesStatusEffectBackgroundPath() {
 		return subspeciesStatusEffectBackgroundPath;
+	}
+	
+	/**
+	 * @return How many times longer a character's serpent tail is than their height.
+	 */
+	public static int getDefaultSerpentTailLengthMultiplier() {
+		return 5;
 	}
 }

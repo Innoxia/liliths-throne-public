@@ -408,7 +408,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameIsFull] a full-time member of the 'Cult of Lilith', and in order to properly worship [npc.her] goddess, [npc.she] has spent an inordinate amount of time training both [npc.her] spell-casting and seductive powers.");
+					"[npc.NameIsFull] a full-time member of the 'Cult of Lilith', and in order to properly worship [npc.her] goddess, [npc.sheHasFull] spent an inordinate amount of time training both [npc.her] spell-casting and seductive powers.");
 		}
 	};
 
@@ -840,6 +840,22 @@ public class Perk {
 		}
 	};
 	
+	public static AbstractPerk JOB_BOUNTY_HUNTER = new AbstractPerk(20,
+			true,
+			"No Escape",
+			PerkCategory.JOB,
+			"perks/jobs/bounty_hunter",
+			PresetColour.BASE_CRIMSON,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 15)),
+			Util.newArrayListOfValues("[style.boldExcellent(-50%)] chance of enemy escape")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] an expert at tracking down and capturing fugitives, and as such, enemies have a hard time escaping from [npc.herHim] in combat.");
+		}
+	};
+	
 	public static AbstractPerk JOB_CONSTRUCTION_WORKER = new AbstractPerk(20,
 			true,
 			"Builder",
@@ -1056,6 +1072,27 @@ public class Perk {
 		}
 	};
 
+	public static AbstractPerk JOB_ARISTOCRAT = new AbstractPerk(20,
+			true,
+			"Blue Blood",
+			PerkCategory.JOB,
+			"perks/jobs/aristocrat",
+			PresetColour.BASE_GOLD,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
+			Util.newArrayListOfValues(
+					"All [style.colourCorruption(corruption)] gains are [style.colourBad(doubled)]",
+					"[style.colourGood(+0.25)] to [style.colourExcellent(all resistances)] per 1 corruption")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] from an ancient aristocratic family, and [npc.has] been given the best education money can buy."
+					+ " Insufferably arrogant, [npc.name] [npc.verb(know)] that [npc.sheIsFull] better than everyone else, and won't let any filthy peasant get the better of [npc.herHim]!");
+		}
+	};
+	
+	
 	public static AbstractPerk JOB_MAID = new AbstractPerk(20,
 			true,
 			"Housekeeper",
@@ -1104,7 +1141,8 @@ public class Perk {
 					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
 			Util.newArrayListOfValues(
 					"All incorrect English spellings are [style.boldExcellent(automatically fixed)]",
-					"Enemies are blinded by your [style.colourFreedom(freedom)] for [style.colourExcellent(-1)] <span style='color:"+Attribute.ACTION_POINTS.getColour().toWebHexString()+";'>"+Attribute.ACTION_POINTS.getName()+"</span>")) {
+					"Enemies are blinded by your [style.colourFreedom(freedom)] for [style.colourExcellent(-1)] <span style='color:"+Attribute.ACTION_POINTS.getColour().toWebHexString()+";'>"+Attribute.ACTION_POINTS.getName()+"</span>",
+					"Burger effects are [style.colourGood(doubled)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.speech(Excuse me! I'm an American! Do you speak English?! My visa expires in four days, where's the embassy?!)]");
@@ -2099,7 +2137,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] very flirtatious, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce women than men.");
+			return UtilText.parse(owner, "[npc.NameIsFull] very flirtatious, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.her] advances are particularly effective against feminine people.");
 		}
 
 	};
@@ -2124,7 +2162,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce men than women.");
+			return UtilText.parse(owner, "[npc.NameIsFull] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.her] advances are particularly effective against masculine people.");
 		}
 	};
 	

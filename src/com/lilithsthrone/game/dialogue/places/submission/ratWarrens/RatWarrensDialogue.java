@@ -246,9 +246,10 @@ public class RatWarrensDialogue {
 	public static void applyRatWarrensRaid() {
 		Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
 		Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+
+		((Shadow)Main.game.getNpc(Shadow.class)).moveToBountyHunterLodge();
+		((Silence)Main.game.getNpc(Silence.class)).moveToBountyHunterLodge();
 		
-		Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-		Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
 		Main.game.getNpc(Shadow.class).removeItemByType(ItemType.RESONANCE_STONE);
 		
 		Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Vengar.class));
@@ -1548,7 +1549,7 @@ public class RatWarrensDialogue {
 						};
 						
 					} else {
-						return new Response("[style.colourMasculine(Rat-boy)] ("+UtilText.formatAsMoney(buyIn, "span")+")",
+						return new Response("Rat-boy ("+UtilText.formatAsMoneyUncoloured(buyIn, "span")+")",
 								"The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
 								+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises. As a result, you don't have enough money to play with the rat-boy!",
 								null);
@@ -1567,9 +1568,9 @@ public class RatWarrensDialogue {
 						};
 						
 					} else {
-						return new Response("[style.colourMasculine(Rat-boy)] ("+UtilText.formatAsMoney(buyIn, "span")+")",
+						return new Response("Rat-girl ("+UtilText.formatAsMoneyUncoloured(buyIn, "span")+")",
 								"The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
-								+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises. As a result, you don't have enough money to play with the rat-boy!",
+								+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises. As a result, you don't have enough money to play with the rat-girl!",
 								null);
 					}
 					
@@ -1579,10 +1580,10 @@ public class RatWarrensDialogue {
 				} else if(index==4) {
 					int price = getRumPrice();
 					if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.MOUTH)) {
-						return new Response("Rum ("+UtilText.formatAsMoney(price, "span")+")", "You can't drink a glass of rum, as your mouth is blocked...", null);
+						return new Response("Rum ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't drink a glass of rum, as your mouth is blocked...", null);
 					}
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response("Rum ("+UtilText.formatAsMoney(price, "span")+")", "You can't afford to buy a glass of rum from the rat behind the bar...", null);
+						return new Response("Rum ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford to buy a glass of rum from the rat behind the bar...", null);
 					}
 					return new Response("Rum ("+UtilText.formatAsMoney(price, "span")+")", "Buy a glass of rum from the rat behind the bar.", DICE_DEN_RUM) {
 						@Override
@@ -1598,12 +1599,12 @@ public class RatWarrensDialogue {
 				} else if(index==5 && isCompanionDialogue()) {
 					int price = getRumPrice();
 					if(!getMainCompanion().isCoverableAreaExposed(CoverableArea.MOUTH)) {
-						return new Response("Rum ("+UtilText.parse(getMainCompanion(), "[npc.name]")+") ("+UtilText.formatAsMoney(price, "span")+")",
+						return new Response("Rum ("+UtilText.parse(getMainCompanion(), "[npc.name]")+") ("+UtilText.formatAsMoneyUncoloured(price, "span")+")",
 								UtilText.parse(getMainCompanion(), "[npc.Name] can't drink a glass of rum, as [npc.her] mouth is blocked..."),
 								null);
 					}
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response("Rum ("+UtilText.parse(getMainCompanion(), "[npc.name]")+") ("+UtilText.formatAsMoney(price, "span")+")",
+						return new Response("Rum ("+UtilText.parse(getMainCompanion(), "[npc.name]")+") ("+UtilText.formatAsMoneyUncoloured(price, "span")+")",
 								UtilText.parse(getMainCompanion(), "You can't afford to buy a glass of rum for [npc.name] from the rat behind the bar..."),
 								null);
 					}
@@ -2621,7 +2622,7 @@ public class RatWarrensDialogue {
 					}
 					if(Main.game.getPlayer().hasTraitActivated(Perk.CHUUNI)
 							|| Main.game.getPlayer().getRace()==Race.DEMON
-							|| Main.game.getPlayer().getLevel()>=Main.game.getNpc(Vengar.class).getLevel()*2) {
+							|| Main.game.getPlayer().getLevel()>=35) {
 						return new Response("Threaten",
 								"Threaten Vengar, which will cause him to directly fight you without relying on his bodyguards."
 										+ "<br/>[style.italicsMinorGood(Unlocked "
@@ -2629,7 +2630,7 @@ public class RatWarrensDialogue {
 													?"due to acting like chuuni"
 													:(Main.game.getPlayer().getRace()==Race.DEMON
 														?"due to being a demon"
-														:"due to being at least twice Vengar's level"))
+														:"due to being at least level 35"))
 											+".)]",
 								VENGARS_HALL_APPROACH_THREATEN) {
 							@Override
@@ -2723,7 +2724,7 @@ public class RatWarrensDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(Main.game.getPlayer().getMoney()<PERSUASION_PAYMENT) {
-					return new Response("Pay ("+UtilText.formatAsMoney(PERSUASION_PAYMENT, "span")+")", "You do not have "+UtilText.formatAsMoney(PERSUASION_PAYMENT, "span")+", so cannot do as Vengar asks...", null);
+					return new Response("Pay ("+UtilText.formatAsMoneyUncoloured(PERSUASION_PAYMENT, "span")+")", "You do not have "+UtilText.formatAsMoney(PERSUASION_PAYMENT, "span")+", so cannot do as Vengar asks...", null);
 				}
 				return new Response("Pay ("+UtilText.formatAsMoney(PERSUASION_PAYMENT, "span")+")",
 						"Agree to pay Vengar "+UtilText.formatAsMoney(PERSUASION_PAYMENT, "span")+" to show your submission to him..."

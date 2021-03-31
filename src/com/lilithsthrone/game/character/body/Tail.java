@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -77,9 +78,9 @@ public class Tail implements BodyPartInterface {
 
 	public String setType(GameCharacter owner, AbstractTailType type) {
 		if(!Main.game.isStarted() || owner==null) {
-//			if(owner!=null && !owner.getLegConfiguration().isAbleToGrowTail()) {
-//				type = TailType.NONE;
-//			}
+			if(owner!=null && !owner.getLegConfiguration().isAbleToGrowTail()) {
+				type = TailType.NONE;
+			}
 			if(this.getLengthAsPercentageOfHeight()==this.getType().getDefaultLengthAsPercentageOfHeight()) {
 				this.setLengthAsPercentageOfHeight(owner, type.getDefaultLengthAsPercentageOfHeight());
 			}
@@ -92,10 +93,10 @@ public class Tail implements BodyPartInterface {
 
 		StringBuilder sb = new StringBuilder();
 		
-//		if(!owner.getLegConfiguration().isAbleToGrowTail() && type!=TailType.NONE) {
-//			type = TailType.NONE;
-//			sb.append(UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Due to the fact that [npc.name] [npc.has] the '"+owner.getLegConfiguration().getName()+"' leg configuration, [npc.she] cannot grow a tail!)]</p>"));
-//		}
+		if(!owner.getLegConfiguration().isAbleToGrowTail() && type!=TailType.NONE) {
+			type = TailType.NONE;
+			sb.append(UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Due to the fact that [npc.name] [npc.has] the '"+owner.getLegConfiguration().getName()+"' leg configuration, [npc.she] cannot grow a tail!)]</p>"));
+		}
 		
 		if(type == getType()) {
 			if(type == TailType.NONE) {
@@ -151,6 +152,10 @@ public class Tail implements BodyPartInterface {
 
 	public String setTailCount(GameCharacter owner, int tailCount, boolean overrideYoukoLimitations) {
 		tailCount = Math.max(1, Math.min(tailCount, MAXIMUM_COUNT));
+		if(!Main.game.isStarted() || owner==null) {
+			this.tailCount = tailCount;
+			return "";
+		}
 		
 		if(owner.getTailCount() == tailCount) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -242,7 +247,7 @@ public class Tail implements BodyPartInterface {
 		}
 
 		if(!owner.hasTail()) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not [npc.has] a tail, nothing seems to happen...)]</p>");
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not have a tail, nothing seems to happen...)]</p>");
 		}
 		
 		if(girthChange == 0) {
@@ -288,7 +293,7 @@ public class Tail implements BodyPartInterface {
 		}
 		
 		if(!owner.hasTail()) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not [npc.has] a tail, nothing seems to happen...)]</p>");
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not have a tail, nothing seems to happen...)]</p>");
 		}
 		
 		if(lengthChange == 0) {
@@ -301,7 +306,22 @@ public class Tail implements BodyPartInterface {
 	public int getLength(GameCharacter owner) {
 		return (int) (owner.getHeightValue() * getLengthAsPercentageOfHeight());
 	}
-	
+
+	/**
+	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
+	 */
+	public boolean isSuitableForPenetration() {
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION)) {
+			return false;
+		}
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)) {
+			return this.getType().isPrehensile() || this.getLengthAsPercentageOfHeight()>=0.5f;
+			
+		} else if(Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)) {
+			return this.getType().isPrehensile();
+		}
+		return false;
+	}
 	
 	// Diameter:
 
@@ -321,7 +341,7 @@ public class Tail implements BodyPartInterface {
 	 * @return The diameter.
 	 */
 	public float getDiameter(GameCharacter owner, float atLength) {
-		float baseDiameter = (owner.getHeightValue() * 0.08f) * (1f + this.getGirth().getDiameterPercentageModifier());
+		float baseDiameter = (owner.getHeightValue() * 0.08f) * (1f + this.getGirth().getDiameterPercentageModifier()); // Default linear tapering
 		float lengthPercentage = Math.min(1, atLength / this.getLength(owner));
 		
 		if(this.getType().getTags().contains(BodyPartTag.TAIL_TAPERING_EXPONENTIAL)) { // Exponential diameter tapering:

@@ -821,7 +821,7 @@ public class HarpyAttackerDialogue {
 			} else if (index == 5) {
 				if(!getHarpy().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Submit",
-							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
+							"You can't submit to [npc.herHim], as [npc.sheHasFull] no interest in having sex with you!",
 							null);
 				} else {
 					return new ResponseSex("Submit",

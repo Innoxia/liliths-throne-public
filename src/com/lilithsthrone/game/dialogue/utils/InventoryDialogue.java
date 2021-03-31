@@ -182,12 +182,10 @@ public class InventoryDialogue {
 				return "Inventory";
 			}
 		}
-
 		@Override
 		public String getHeaderContent() {
 			return inventoryView();
 		}
-
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -928,12 +926,12 @@ public class InventoryDialogue {
 					+ item.getExtraDescription(owner, owner)
 					+ (owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-									? inventoryNPC.willBuy(item) && item.getItemType().isAbleToBeSold()
-											? "<p>"
-												+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getBuyModifier())) + "."
-											+ "</p>" 
-											: inventoryNPC.getName("The") + " doesn't want to buy this."
-										: "")
+									? "<p>"
+										+(inventoryNPC.willBuy(item) && item.getItemType().isAbleToBeSold()
+											?inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getBuyModifier())) + "."
+											:inventoryNPC.getName("The") + " doesn't want to buy this.")
+										+"</p>"
+									: "")
 							:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
 								? "<p>"
 										+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getSellModifier(item))) + "."
@@ -2510,17 +2508,30 @@ public class InventoryDialogue {
 		
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			List<String> extraDescriptions = weapon.getExtraDescriptions(owner);
+			if(!extraDescriptions.isEmpty()) {
+				sb.append("<p>");
+					for(int i=0 ; i<extraDescriptions.size() ; i++) {
+						sb.append(extraDescriptions.get(i));
+						if(i<extraDescriptions.size()-1) {
+							sb.append("<br/>");
+						}
+					}
+				sb.append("</p>");
+			}
 			return getItemDisplayPanel(weapon.getSVGString(),
 					weapon.getDisplayName(true),
 					weapon.getDescription(owner)
+					+ sb.toString()
 					+ (owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-									? inventoryNPC.willBuy(weapon)
-											? "<p>"
-												+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(weapon.getPrice(inventoryNPC.getBuyModifier())) + "."
-											+ "</p>" 
-											: inventoryNPC.getName("The") + " doesn't want to buy this."
-										: "")
+									? "<p>" 
+										+(inventoryNPC.willBuy(weapon)
+											?inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(weapon.getPrice(inventoryNPC.getBuyModifier())) + "."
+											:inventoryNPC.getName("The") + " doesn't want to buy this.")
+										+"</p>"
+									: "")
 							:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
 								? "<p>"
 										+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(weapon.getPrice(inventoryNPC.getSellModifier(weapon))) + "."
@@ -3691,12 +3702,12 @@ public class InventoryDialogue {
 			sb.append("</p>");
 			sb.append((owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-							? inventoryNPC.willBuy(clothing)
-									? "<p>"
-										+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getBuyModifier())) + "."
-									+ "</p>" 
-									: inventoryNPC.getName("The") + " doesn't want to buy this."
-								: "")
+							? "<p>"
+								+(inventoryNPC.willBuy(clothing)
+									? inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getBuyModifier())) + "."
+									: inventoryNPC.getName("The") + " doesn't want to buy this.")
+								+"</p>"
+							: "")
 					:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
 						? "<p>"
 								+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getSellModifier(clothing))) + "."
@@ -5212,7 +5223,6 @@ public class InventoryDialogue {
 	
 	public static final DialogueNode WEAPON_EQUIPPED = new DialogueNode("Weapon equipped", "", true) {
 		
-
 		@Override
 		public String getLabel() {
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
@@ -5229,9 +5239,22 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			List<String> extraDescriptions = weapon.getExtraDescriptions(owner);
+			if(!extraDescriptions.isEmpty()) {
+				sb.append("<p>");
+					for(int i=0 ; i<extraDescriptions.size() ; i++) {
+						sb.append(extraDescriptions.get(i));
+						if(i<extraDescriptions.size()-1) {
+							sb.append("<br/>");
+						}
+					}
+				sb.append("</p>");
+			}
 			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
 					weapon.getDisplayName(true),
-					 weapon.getDescription(owner));
+					weapon.getDescription(owner)
+					 	+sb.toString());
 		}
 
 		public String getResponseTabTitle(int index) {
@@ -6543,7 +6566,13 @@ public class InventoryDialogue {
 				
 				for(Colour c : cr.getAllColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_CLOTHING_"+i+"_"+c.getId()+"'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ " style='width:auto; margin-right:4px; border-width:1px;"
+											+(cr.getDefaultColours().contains(c)
+												?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
+												:"")
+											+(dyePreviews.size()>i && dyePreviews.get(i)==c
+												?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
+												:"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6658,7 +6687,14 @@ public class InventoryDialogue {
 				
 				for(Colour c : cr.getAllColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_WEAPON_"+i+"_"+c.getId()+"'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ " style='width:auto; margin-right:4px; border-width:1px;"
+											+(cr.getDefaultColours().contains(c)
+												?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
+												:"")
+											+(dyePreviews.size()>i && dyePreviews.get(i)==c
+												?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
+												:"")
+										+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"

@@ -523,7 +523,7 @@ public class OptionsDialogue {
 			String baseName = Util.getFileName(name);
 			String identifierName = Util.getFileIdentifier(name);
 			
-			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ date
 						+ "</div>"
@@ -549,7 +549,7 @@ public class OptionsDialogue {
 					+ "</div>";
 			
 		} else {
-			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ "-"
 						+ "</div>"
@@ -2769,6 +2769,7 @@ public class OptionsDialogue {
 					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"
 					+ "<b style='color:#21bfc5;'>Nnxx</b></br>"
 					+ "<b style='color:#21bfc5;'>Norin</b></br>"
+					+ "<b style='color:#21bfc5;'>NoStepOnSnek</b></br>"
 					+ "<b style='color:#21bfc5;'>Phlarx</b></br>"
 					+ "<b style='color:#21bfc5;'>Pimgd</b></br>"
 					+ "<b style='color:#21bfc5;'>Rfpnj</b></br>"

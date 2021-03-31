@@ -17,6 +17,11 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>innoxia_hyena_fur</coveringType>
 	
+	<!-- Whether or not this face type can have a beard growing on it.
+	By default, face types allow beards if its race is of either the MAMMAL or BIRD RacialClass. As such, this face type would allow a beard even if this element was omitted (as hyenas are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<facialHairAllowed>true</facialHairAllowed>
+	
 	<!-- The id of the mouth that's associated with this face type. -->
 	<mouthType>innoxia_hyena_mouth</mouthType>
 	
@@ -79,12 +84,17 @@
 			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
 		#ENDIF
 		and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
-		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldHyena(hyena-like face)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] has a [style.boldHyena(flat, hyena-like tongue)].
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldHyena(hyena-like face)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldHyena(flat, hyena-like tongue)].
 	]]></transformationDescription>
 	
 	<!-- How this face is described in a character's description page. -->
 	<bodyDescription><![CDATA[
 		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, hyena-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle.
 	]]></bodyDescription>
+	
+	<!-- Feral variant of the above. -->
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle.
+	]]></bodyDescriptionFeral>
 	
 </face>

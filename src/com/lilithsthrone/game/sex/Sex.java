@@ -228,7 +228,7 @@ public class Sex {
 	/**Maps: Characters performing denials -> Map of characters they've denied mapped to the number of times they were denied. */
 	private Map<GameCharacter, Map<GameCharacter, Integer>> deniedOrgasmsCountMap;
 	private Map<GameCharacter, Map<GameCharacter, Map<SexType, Integer>>> sexCountMap;
-	private Map<GameCharacter, Map<GameCharacter, Integer>> cummedInsideMap;
+	private Map<GameCharacter, Map<GameCharacter, Map<SexAreaInterface, Integer>>> cummedInsideMap;
 
 	
 	// Positioning, requests, tracking:
@@ -1016,7 +1016,7 @@ public class Sex {
 					}
 				}
 			}
-			participant.setLastTimeHadSex(Main.game.getMinutesPassed(), Main.sex.getNumberOfOrgasms(participant)>0);
+			participant.setLastTimeHadSex(Main.game.getMinutesPassed(), false); // Do not need to set orgasm time, as it is set in setNumberOfOrgasms() and incrementNumberOfOrgasms()
 			if(participant instanceof NPC) {
 				((NPC)participant).endSex();
 			}
@@ -1282,7 +1282,6 @@ public class Sex {
 				}
 				if(getNumberOfOrgasms(participant) > 0
 						&& Main.game.isInNewWorld()) {
-					participant.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
 						endSexSB.append("<div class='container-full-width' style='text-align:center;'>"
@@ -1387,7 +1386,8 @@ public class Sex {
 				
 				// Extra effects:
 				if((participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue() || Main.sex.getNumberOfDeniedOrgasms(participant)>0) && getNumberOfOrgasms(participant) == 0) {
-					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, (240*60)+(postSexDialogue.getSecondsPassed()));if(Main.sex.getNumberOfDeniedOrgasms(participant)>0) {
+					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, (240*60)+(postSexDialogue.getSecondsPassed()));
+					if(Main.sex.getNumberOfDeniedOrgasms(participant)>0) {
 						endSexSB.append("<p style='text-align:center'>[style.boldArcane(After being denied [npc.her] orgasm, [npc.name] is left feeling frustrated and horny!)]</p>");
 					} else {
 						endSexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, [npc.name] is left feeling frustrated and horny!)]</p>");
@@ -1395,7 +1395,6 @@ public class Sex {
 				}
 				if(getNumberOfOrgasms(participant) > 0
 						&& Main.game.isInNewWorld()) {
-					participant.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
@@ -1465,25 +1464,22 @@ public class Sex {
 							
 						} else {
 							if(!Main.sex.isDom(participant)) {
-								boolean denialAffectionChange = false;
 								if(participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive()) {
-									if(Main.sex.getNumberOfDeniedOrgasms(participant)==0 && Main.sex.getNumberOfOrgasms(participant)==0) {
+									if(participant.isAbleToOrgasm() && Main.sex.getNumberOfDeniedOrgasms(participant)==0 && Main.sex.getNumberOfOrgasms(participant)==0) {
 										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give or deny [npc.herHim] a single orgasm."));
+											endSexSB.append(participant.incrementAffection(domParticipant, -5f, "[npc.Name] is upset at [npc2.name] for failing to give or deny [npc.herHim] a single orgasm."));
 										}
-										denialAffectionChange = true;
 									}
-								
-								}
-								if(!denialAffectionChange) {
+									
+								} else {
 									int orgasms = Main.sex.getNumberOfOrgasms(participant);
 									if(Main.sex.getNumberOfOrgasms(participant)==0) {
 										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give [npc.herHim] a single orgasm."));
+											endSexSB.append(participant.incrementAffection(domParticipant, -5f, "[npc.Name] is upset at [npc2.name] for failing to give [npc.herHim] a single orgasm."));
 										}
 									} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
 										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -5f,
+											endSexSB.append(participant.incrementAffection(domParticipant, -2.5f,
 													"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
 														+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
 										}
@@ -2306,47 +2302,56 @@ public class Sex {
 			
 		} else if(standardActions) {
 			// Add actions:
-			for (SexActionInterface sexAction : Main.sex.getActionsAvailablePartner(Main.sex.getCharacterPerformingAction(), targetedCharacter)) {
-				if(sexAction.isAddedToAvailableSexActions() && (Main.sex.isCharacterAllowedToUseSelfActions(Main.sex.getCharacterPerformingAction()) || sexAction.getParticipantType()==SexParticipantType.NORMAL)) {
-					
-					// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
-					// Do not add action if action does not correspond to the partner's preferred action pace
-					if((Main.game.isNonConEnabled()
-						&& getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
-						&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING)
-								|| sexAction.getParticipantType()==SexParticipantType.SELF
-								|| (sexAction.getSexPace()==null && sexAction!=PartnerTalk.PARTNER_DIRTY_TALK && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)))) // TODO This is a little terrible
-							|| (sexAction.getSexPace()!=null && sexAction.getSexPace()!=getSexPace(Main.sex.getCharacterPerformingAction()))) {
-//						System.out.println(Main.sex.getCharacterPerformingAction().getNameIgnoresPlayerKnowledge() +": "+ sexAction.getActionTitle());
+			Set<SexActionInterface> actionsAvailableToPartner = Main.sex.getActionsAvailablePartner(Main.sex.getCharacterPerformingAction(), targetedCharacter);
+			if(actionsAvailableToPartner!=null) {
+				for (SexActionInterface sexAction : actionsAvailableToPartner) {
+					if(sexAction.isAddedToAvailableSexActions() && (Main.sex.isCharacterAllowedToUseSelfActions(Main.sex.getCharacterPerformingAction()) || sexAction.getParticipantType()==SexParticipantType.NORMAL)) {
 						
-					} else {
-						// Add action as normal:
-						int weight = ((NPC)Main.sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
-						
-						if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN) || sexAction.getCategory()==SexActionCategory.POSITIONING) { // Positioning actions should always be available
-							switch(sexAction.getPriority()){
-								case LOW:
-									lowPriority.add(sexAction);
-									break;
-								case NORMAL:
-									normalPriority.add(sexAction);
-									break;
-								case HIGH:
-									// High priority positioning actions are added to normal priority so that when there is a favourite positioning action, it doesn't exclude all other normal actions.
-									// High priority is checked in SexManagerDefault's getPartnerSexAction() method, under the section 'Priority 3'
-									if(sexAction.getCategory()==SexActionCategory.POSITIONING) {
+						// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
+						// Do not add action if action does not correspond to the partner's preferred action pace
+						if((Main.game.isNonConEnabled()
+							&& getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
+							&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING)
+									|| sexAction.getParticipantType()==SexParticipantType.SELF
+									|| (sexAction.getSexPace()==null && sexAction!=PartnerTalk.PARTNER_DIRTY_TALK && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)))) // TODO This is a little terrible
+								|| (sexAction.getSexPace()!=null && sexAction.getSexPace()!=getSexPace(Main.sex.getCharacterPerformingAction()))) {
+	//						System.out.println(Main.sex.getCharacterPerformingAction().getNameIgnoresPlayerKnowledge() +": "+ sexAction.getActionTitle());
+							
+						} else {
+							// Add action as normal:
+							int weight = ((NPC)Main.sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
+							
+							if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN) || sexAction.getCategory()==SexActionCategory.POSITIONING) { // Positioning actions should always be available
+								switch(sexAction.getPriority()){
+									case LOW:
+										lowPriority.add(sexAction);
+										break;
+									case NORMAL:
 										normalPriority.add(sexAction);
-									} else {
-										highPriority.add(sexAction);
-									}
-									break;
-								case UNIQUE_MAX:
-									uniqueMax.add(sexAction);
-									break;
+										break;
+									case HIGH:
+										// High priority positioning actions are added to normal priority so that when there is a favourite positioning action, it doesn't exclude all other normal actions.
+										// High priority is checked in SexManagerDefault's getPartnerSexAction() method, under the section 'Priority 3'
+										if(sexAction.getCategory()==SexActionCategory.POSITIONING) {
+											normalPriority.add(sexAction);
+										} else {
+											highPriority.add(sexAction);
+										}
+										break;
+									case UNIQUE_MAX:
+										uniqueMax.add(sexAction);
+										break;
+								}
 							}
 						}
 					}
 				}
+				
+			} else {
+				System.err.println("Warning! Main.sex.getActionsAvailablePartner() is returning null for: "
+						+(Main.sex.getCharacterPerformingAction()==null?"NULL":Main.sex.getCharacterPerformingAction().getId())
+						+", "
+						+(targetedCharacter==null?"NULL":targetedCharacter.getId()));
 			}
 			
 			if(!uniqueMax.isEmpty()) {
@@ -2623,8 +2628,10 @@ public class Sex {
 								stringBuilderForAppendingDescriptions.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice) area, cumProvider.getPenisRawOrgasmCumQuantity()));
 							}
 						}
+						for(SexAreaInterface cummedArea : cummedInAreas) {
+							Main.sex.incrementTimesCummedInside(cumProvider, cumTarget, cummedArea, 1);
+						}
 					}
-					Main.sex.incrementTimesCummedInside(cumProvider, cumTarget, 1);
 				}
 
 				List<CoverableArea> cummedOnAreas = sexAction.getAreasCummedOn(cumProvider, cumTarget);
@@ -2733,7 +2740,7 @@ public class Sex {
 				incrementNumberOfOrgasms(Main.sex.getCharacterPerformingAction(), 1);
 				Main.sex.getCharacterPerformingAction().setArousal(Main.sex.getCharacterPerformingAction().getLust()/4f);
 				if((Main.sex.getCharacterPerformingAction().hasPenis() && Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0)) {
-					stringBuilderForAppendingDescriptions.append(Main.sex.getCharacterPerformingAction().applyOrgasmCumEffect(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE?0.5f:1));
+					stringBuilderForAppendingDescriptions.append(Main.sex.getCharacterPerformingAction().applyOrgasmCumEffect(1));
 				}
 				
 			} else {
@@ -2746,7 +2753,7 @@ public class Sex {
 			
 			// Draining levels:
 			Set<GameCharacter> levelDrains = new HashSet<>();
-			if(!Main.sex.getCharacterPerformingAction().isImmuneToLevelDrain()) {
+			if(!Main.sex.getCharacterPerformingAction().isImmuneToLevelDrain() && !Main.sex.getInitialSexManager().isHidden(Main.sex.getCharacterPerformingAction())) {
 				if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
 					for(GameCharacter sub : Main.sex.getSubmissiveParticipants(true).keySet()) {
 						if(sub.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && ((!sub.isPlayer() && sub.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) || Main.sex.playerLevelDrain)) {
@@ -2807,9 +2814,9 @@ public class Sex {
 							if(entry.getValue().containsKey(characterTarget)) {
 								for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
 									if(entry.getKey().isPenetration()) {
-										if(activeCharacter.equals(targetCharacter)) {
-											System.out.println(activeCharacter.getNameIgnoresPlayerKnowledge());
-										}
+//										if(activeCharacter.equals(targetCharacter)) {
+//											System.out.println(activeCharacter.getNameIgnoresPlayerKnowledge());
+//										}
 										stringBuilderForAppendingDescriptions.append(applyPenetrationEffects(sexAction, character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea));
 									}
 									
@@ -3794,11 +3801,21 @@ public class Sex {
 								}
 								break;
 							case TAIL:
-								if(orifice.isOrifice()) {
-									totalPenetratingDiameter += entry.getKey().getTailDiameter(
-											entry.getKey().getTailLength(false) - entry.getKey().getPenetrationLengthInserted(SexAreaPenetration.TAIL, characterPenetrated, (SexAreaOrifice) orifice));
+								if(entry.getKey().getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+									if(orifice.isOrifice()) {
+										totalPenetratingDiameter += entry.getKey().getLegTailDiameter(
+												entry.getKey().getLegTailLength(false) - entry.getKey().getPenetrationLengthInserted(SexAreaPenetration.TAIL, characterPenetrated, (SexAreaOrifice) orifice));
+									} else {
+										totalPenetratingDiameter += entry.getKey().getLegTailBaseDiameter();
+									}
+									
 								} else {
-									totalPenetratingDiameter += entry.getKey().getTailBaseDiameter();
+									if(orifice.isOrifice()) {
+										totalPenetratingDiameter += entry.getKey().getTailDiameter(
+												entry.getKey().getTailLength(false) - entry.getKey().getPenetrationLengthInserted(SexAreaPenetration.TAIL, characterPenetrated, (SexAreaOrifice) orifice));
+									} else {
+										totalPenetratingDiameter += entry.getKey().getTailBaseDiameter();
+									}
 								}
 								break;
 						}
@@ -4450,10 +4467,14 @@ public class Sex {
 				}
 				break;
 			case TAIL:
-				if(penetrator.getTailType()==TailType.NONE|| penetrator.getTailCount()==0) {
-					return 0;
+				if(penetrator.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					penetrationTypesAvailable = 1;
+				} else {
+					if(penetrator.getTailType()==TailType.NONE|| penetrator.getTailCount()==0) {
+						return 0;
+					}
+					penetrationTypesAvailable = penetrator.getTailCount();
 				}
-				penetrationTypesAvailable = penetrator.getTailCount();
 				break;
 			case TENTACLE:
 				// Standing or not doesn't impact tentacle-legs, as they can always bend half-way to act as both support and a penetrative object
@@ -5096,7 +5117,10 @@ public class Sex {
 	
 	private void addSexAction(GameCharacter character, GameCharacter target, SexActionInteractions interactions, SexActionInterface action, boolean addedForCharacter, boolean addedForTarget) {
 		if(!addedForCharacter) {
-			if(action.getSexAreaInteractions().isEmpty()) {
+			if(action.getSexAreaInteractions().isEmpty()
+					|| action.getSexAreaInteractions().keySet().contains(null)
+					|| action.getSexAreaInteractions().values().contains(null)) {
+				// If no sex interactions are defined, or if there is an "interaction-to-null" defined (signifying that the action is performing a simple availability check), then add the action
 				addedForCharacter = true;
 			} else {
 				outer:
@@ -5118,7 +5142,10 @@ public class Sex {
 		}
 
 		if(!addedForTarget) {
-			if(action.getSexAreaInteractions().isEmpty()) {
+			if(action.getSexAreaInteractions().isEmpty()
+					|| action.getSexAreaInteractions().keySet().contains(null)
+					|| action.getSexAreaInteractions().values().contains(null)) {
+				// If no sex interactions are defined, or if there is an "interaction-to-null" defined (signifying that the action is performing a simple availability check), then add the action
 				addedForTarget = true;
 			} else {
 				outer:
@@ -5428,17 +5455,43 @@ public class Sex {
 		
 		return tooShallowMap;
 	}
-
+	
+	/**
+	 * @param character The character to be checked.
+	 * @param factorInOrgasmBlockers If true, and the character cannot orgasm, then this method does not check for actual satisfaction of this character, and instead returns true if they are simply at their maximum arousal.
+	 *  Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
+	 * @return true if this character has orgasmed enough times to be satisfied.
+	 */
+	public boolean isSatisfiedFromOrgasms(GameCharacter character, boolean factorInOrgasmBlockers) {
+		return isOrgasmCountMet(character, character.getOrgasmsBeforeSatisfied(), factorInOrgasmBlockers);
+	}
+	
+	/**
+	 * @param character The character to be checked.
+	 * @param timesOrgasmed The number of orgasms which the character needs to have had in order for this method to return true.
+	 * @param factorInOrgasmBlockers If true, and the character cannot orgasm, then this method does not check the character's orgasm count, and instead returns true if they are simply at their maximum arousal.
+	 *  Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
+	 * @return true if this character has orgasmed 'timesOrgasmed' times.
+	 */
+	public boolean isOrgasmCountMet(GameCharacter character, int timesOrgasmed, boolean factorInOrgasmBlockers) {
+		if(factorInOrgasmBlockers && !character.isAbleToOrgasm()) {
+			return character.getArousal()>=90f; // Although they stop at 95, some actions might be making them drop a little, so add some leeway down to 90
+		}
+		return getNumberOfOrgasms(character) >= timesOrgasmed;
+	}
+	
 	public int getNumberOfOrgasms(GameCharacter character) {
 		orgasmCountMap.putIfAbsent(character, 0);
 		return orgasmCountMap.get(character);
 	}
 	
 	public void setNumberOfOrgasms(GameCharacter character, int count) {
+		character.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 		orgasmCountMap.put(character, count);
 	}
 	
 	public void incrementNumberOfOrgasms(GameCharacter character, int increment) {
+		character.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 		character.incrementDaysOrgasmCount(increment);
 		character.incrementTotalOrgasmCount(increment);
 		orgasmCountMap.putIfAbsent(character, 0);
@@ -5472,21 +5525,30 @@ public class Sex {
 		deniedOrgasmsCountMap.get(denier).put(target, deniedOrgasmsCountMap.get(denier).get(target)+increment);
 	}
 	
+	/**
+	 * @return The total number of times the character has cum inside the target during the sex scene. Use the other method signatures if you want to check for a specific orifice/penetration.
+	 */
 	public int getTimesCummedInside(GameCharacter character, GameCharacter target) {
 		cummedInsideMap.putIfAbsent(character, new HashMap<>());
-		cummedInsideMap.get(character).putIfAbsent(target, 0);
-		return cummedInsideMap.get(character).get(target);
+		cummedInsideMap.get(character).putIfAbsent(target, new HashMap<>());
+		return cummedInsideMap.get(character).get(target).values().stream().collect(Collectors.summingInt(Integer::intValue));
 	}
 	
-	public void setTimesCummedInside(GameCharacter character, GameCharacter target, int count) {
+	public int getTimesCummedInside(GameCharacter character, GameCharacter target, SexAreaInterface areaCummedIn) {
 		cummedInsideMap.putIfAbsent(character, new HashMap<>());
-		cummedInsideMap.get(character).put(target, count);
+		cummedInsideMap.get(character).putIfAbsent(target, new HashMap<>());
+		cummedInsideMap.get(character).get(target).putIfAbsent(areaCummedIn, 0);
+		return cummedInsideMap.get(character).get(target).get(areaCummedIn);
 	}
 	
-	public void incrementTimesCummedInside(GameCharacter character, GameCharacter target, int increment) {
+	public void setTimesCummedInside(GameCharacter character, GameCharacter target, SexAreaInterface areaCummedIn, int count) {
 		cummedInsideMap.putIfAbsent(character, new HashMap<>());
-		cummedInsideMap.get(character).putIfAbsent(target, 0);
-		cummedInsideMap.get(character).put(target, cummedInsideMap.get(character).get(target)+increment);
+		cummedInsideMap.get(character).putIfAbsent(target, new HashMap<>());
+		cummedInsideMap.get(character).get(target).put(areaCummedIn, count);
+	}
+	
+	public void incrementTimesCummedInside(GameCharacter character, GameCharacter target, SexAreaInterface areaCummedIn, int increment) {
+		setTimesCummedInside(character, target, areaCummedIn, getTimesCummedInside(character, target, areaCummedIn)+increment);
 	}
 	
 	public int getSexTypeCount(GameCharacter performer, GameCharacter partner, SexType sexType) {
@@ -5605,7 +5667,6 @@ public class Sex {
 				return false;
 			}
 		}
-		
 		return !Main.sex.getSexPositionSlot(charactersFeet).isStanding(charactersFeet);
 	}
 	
@@ -5882,5 +5943,16 @@ public class Sex {
 				break;
 		}
 		return true;
+	}
+	
+	/**
+	 * Helper method so that there's a parser hook for generating a SexType.
+	 */
+	public SexType newSexType(SexParticipantType asParticipant, SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
+		return new SexType(asParticipant, performingSexArea, targetedSexArea);
+	}
+	
+	public SexType newSexType(SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
+		return new SexType(SexParticipantType.NORMAL, performingSexArea, targetedSexArea);
 	}
 }

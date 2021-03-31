@@ -4,9 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -33,11 +31,14 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 
 	private boolean mod;
 	private boolean fromExternalFile;
-
+	
 	private String transformationName;
-
+	
 	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
+
+	private boolean facialHairAllowed;
+	
 	private AbstractMouthType mouthType;
 	
 	private List<String> names;
@@ -52,8 +53,42 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	
 	private String faceTransformationDescription;
 	private String faceBodyDescription;
+	private String faceBodyDescriptionFeral = "[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)].";
 
 	private List<BodyPartTag> tags;
+
+	public AbstractFaceType(AbstractBodyCoveringType coveringType,
+			AbstractRace race,
+			AbstractMouthType mouthType,
+			List<String> names,
+			List<String> namesPlural,
+			List<String> descriptorsMasculine,
+			List<String> descriptorsFeminine,
+			String noseName,
+			String noseNamePlural,
+			List<String> noseDescriptorsMasculine,
+			List<String> noseDescriptorsFeminine,
+			String faceTransformationDescription,
+			String faceBodyDescription,
+			List<BodyPartTag> tags) {
+		this(
+			coveringType,
+			race,
+			mouthType,
+			names,
+			namesPlural,
+			descriptorsMasculine,
+			descriptorsFeminine,
+			noseName,
+			noseNamePlural,
+			noseDescriptorsMasculine,
+			noseDescriptorsFeminine,
+			faceTransformationDescription,
+			faceBodyDescription,
+			"",
+			tags
+		);
+	}
 	
 	/**
 	 * @param coveringType What covers this face type (i.e skin/fur/feather type).
@@ -80,7 +115,10 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 			List<String> noseDescriptorsFeminine,
 			String faceTransformationDescription,
 			String faceBodyDescription,
+			String faceBodyDescriptionFeral,
 			List<BodyPartTag> tags) {
+		
+		this.facialHairAllowed = race.getRacialClass().isAnthroHair();
 		
 		this.coveringType = coveringType;
 		this.race = race;
@@ -100,6 +138,9 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 		
 		this.faceTransformationDescription = faceTransformationDescription;
 		this.faceBodyDescription = faceBodyDescription;
+		if (!faceBodyDescriptionFeral.isEmpty()) {
+			this.faceBodyDescriptionFeral = faceBodyDescriptionFeral;
+		}
 		
 		this.tags = tags;
 	}
@@ -107,9 +148,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	public AbstractFaceType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -121,6 +160,11 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 				
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+				
+				this.facialHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("facialHairAllowed").isPresent()) {
+					this.facialHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("facialHairAllowed").getTextContent());
+				}
 				
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				
@@ -171,6 +215,9 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 				
 				this.faceTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
 				this.faceBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				if (coreElement.getOptionalFirstOf("bodyDescriptionFeral").isPresent()) {
+					this.faceBodyDescriptionFeral = coreElement.getMandatoryFirstOf("bodyDescriptionFeral").getTextContent();
+				}
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
@@ -187,6 +234,10 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isFacialHairAllowed() {
+		return facialHairAllowed;
+	}
+
 	public AbstractMouthType getMouthType() {
 		return mouthType;
 	}
@@ -271,7 +322,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	
 //	@Override
 	public String getBodyDescription(GameCharacter owner) {
-		return UtilText.parse(owner, faceBodyDescription);
+		return UtilText.parse(owner, owner.isFeral() ? faceBodyDescriptionFeral : faceBodyDescription);
 	}
 	
 //	@Override
