@@ -33,6 +33,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where arachnid leg descriptions had a parsing error in them. (by Stadler76)
 		Added feature where if an offspring's father and/or mother has generic wings (feathered, leathery or insect) or horns (curled, curved, straight, etc.), the offspring can inherit them. (PR#1370 by Stadler76)
 		Suppressed descriptions of nipples as orifices and transformation options for nipple penetration when that content was turned off in user settings. (PR#1421 by AceXP)
+		Added 'Elasticity depth effects' mechanic: If an orifice's elasticity is at least 'limber', its maximum uncomfortable depth is increased, with greater elasticity values increasing it further. This is off by default, but can be turned on in content settings. (PR#1413 by LightCanadian)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.

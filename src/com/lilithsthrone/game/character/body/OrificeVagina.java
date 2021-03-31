@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
@@ -189,7 +190,11 @@ public class OrificeVagina implements OrificeInterface {
 	
 	@Override
 	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
-		return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepthStart()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.8f);
+		} else {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
+		}
 	}
 
 	@Override
