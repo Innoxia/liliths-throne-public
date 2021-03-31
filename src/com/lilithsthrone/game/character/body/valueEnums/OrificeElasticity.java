@@ -47,7 +47,7 @@ public enum OrificeElasticity {
 	private int value;
 	private float stretchModifier;
 	private float sizeTolerancePercentage;
-	private boolean extendingUncomfortableDepthStart;
+	private boolean extendingUncomfortableDepth;
 	private Colour colour;
 
 	/**
@@ -57,12 +57,12 @@ public enum OrificeElasticity {
 	 * @param sizeTolerancePercentage A percentage corresponding to the default tolerance an orifice has for penetrations being too big.
 	 * @param colour The colour of this elasticity value, mainly used for colouring text related to the elasticity of orifices.
 	 */
-	private OrificeElasticity(String descriptor, int value, float stretchModifier, float sizeTolerancePercentage, boolean extendingUncomfortableDepthStart, Colour colour) {
+	private OrificeElasticity(String descriptor, int value, float stretchModifier, float sizeTolerancePercentage, boolean extendingUncomfortableDepth, Colour colour) {
 		this.descriptor = descriptor;
 		this.value = value;
 		this.stretchModifier = stretchModifier;
 		this.sizeTolerancePercentage = sizeTolerancePercentage;
-		this.extendingUncomfortableDepthStart = extendingUncomfortableDepthStart;
+		this.extendingUncomfortableDepth = extendingUncomfortableDepth;
 		this.colour = colour;
 	}
 
@@ -94,8 +94,8 @@ public enum OrificeElasticity {
 		return sizeTolerancePercentage;
 	}
 
-	public boolean isExtendingUncomfortableDepthStart() {
-		return extendingUncomfortableDepthStart;
+	public boolean isExtendingUncomfortableDepth() {
+		return extendingUncomfortableDepth;
 	}
 
 	public Colour getColour() {

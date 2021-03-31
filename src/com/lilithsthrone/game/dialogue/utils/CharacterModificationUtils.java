@@ -2278,7 +2278,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -2287,7 +2287,7 @@ public class CharacterModificationUtils {
 						"<div id='THROAT_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+"</span>"
 						+ "</div>");
 			}
@@ -2549,7 +2549,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -2558,7 +2558,7 @@ public class CharacterModificationUtils {
 						"<div id='ANUS_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 			}
@@ -3312,7 +3312,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -3321,7 +3321,7 @@ public class CharacterModificationUtils {
 						"<div id='NIPPLE_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 			}
@@ -3346,7 +3346,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -3355,7 +3355,7 @@ public class CharacterModificationUtils {
 						"<div id='NIPPLE_CROTCH_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 			}
@@ -3775,7 +3775,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -3784,7 +3784,7 @@ public class CharacterModificationUtils {
 						"<div id='VAGINA_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 			}
@@ -3996,7 +3996,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -4005,7 +4005,7 @@ public class CharacterModificationUtils {
 						"<div id='VAGINA_URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 			}
@@ -4409,7 +4409,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -4418,7 +4418,7 @@ public class CharacterModificationUtils {
 						"<div id='URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 			}
@@ -5337,7 +5337,7 @@ public class CharacterModificationUtils {
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 				
@@ -5346,7 +5346,7 @@ public class CharacterModificationUtils {
 						"<div id='SPINNERET_ELASTICITY_"+value+"' class='cosmetics-button'>"
 							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
 								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
 							+ "</span>"
 						+ "</div>");
 			}
