@@ -715,7 +715,20 @@ public class CharacterUtils {
 				body.getHorn().setHornRows(blankNPC, father.getHornRows());
 			}
 		}
-		
+
+		// Horn type and length:
+		if (body.getHornType() == HornType.NONE) {
+			if (Math.random() >= takesAfterMotherChance) {
+				if (mother.hasGenericHorns()) {
+					body.getHorn().setTypeAndLength(mother.getHornType(), mother.getHornLength());
+				}
+			} else {
+				if (father.hasGenericHorns()) {
+					body.getHorn().setTypeAndLength(father.getHornType(), father.getHornLength());
+				}
+			}
+		}
+
 		// Penis:
 		boolean inheritsFromMotherPenis = mother.hasPenis();
 		boolean inheritsFromFatherPenis = father.hasPenis();
@@ -825,6 +838,19 @@ public class CharacterUtils {
 					inheritsFromFatherPenis, father.getPenisRawCumStorageValue()));
 		}
 		
+		// Wings:
+		if(!body.getArm().getType().allowsFlight() && body.getWing().getType() == WingType.NONE) { // Do not give back wings to characters who have arm wings.
+			if (Math.random()>=takesAfterMotherChance) {
+				if (mother.hasGenericWings()) {
+					body.getWing().setTypeAndSize(mother.getWingType(), mother.getWingSizeValue());
+				}
+			} else {
+				if (father.hasGenericWings()) {
+					body.getWing().setTypeAndSize(father.getWingType(), father.getWingSizeValue());
+				}
+			}
+		}
+
 		// Tail:
 		if(Math.random()>0.75) {
 			if(Math.random()>=takesAfterMotherChance) {

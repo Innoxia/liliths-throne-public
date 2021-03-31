@@ -165,7 +165,11 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 	public boolean allowsFlight() {
 		return allowsFlight;
 	}
-	
+
+	public boolean isGeneric() {
+		return false;
+	}
+
 	public WingSize getMinimumSize() {
 		return minimumSize;
 	}
