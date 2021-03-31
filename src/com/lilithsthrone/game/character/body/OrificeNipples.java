@@ -149,16 +149,11 @@ public class OrificeNipples implements OrificeInterface {
 	
 	@Override
 	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
-		if( Main.game.isElasticityAffectDepthEnabled()) {
-			if(elasticity<=3 ) {		
-				//Default original value
-				return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 2);			
-			} else {
-				return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.5f);
-			}
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepthStart()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.5f);
 		} else {
-			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 2);
-		}		
+			return getMaximumPenetrationDepthComfortable(owner, depth) * 2;
+		}
 	}
 	
 	@Override

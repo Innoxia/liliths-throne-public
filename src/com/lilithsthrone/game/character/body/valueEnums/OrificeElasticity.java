@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
  * @since 0.1.64
- * @version 0.3.5.5
+ * @version 0.3.21
  * @author Innoxia
  */
 public enum OrificeElasticity {
@@ -15,38 +15,39 @@ public enum OrificeElasticity {
 	/*-------RIGID:---------*/
 
 	/**Is extremely resistant to being stretched out.*/
-	ZERO_UNYIELDING("rigid", 0, 0.025f, 0, PresetColour.GENERIC_SIZE_ONE),
+	ZERO_UNYIELDING("rigid", 0, 0.025f, 0, false, PresetColour.GENERIC_SIZE_ONE),
 	
 	/**Is very resistant to being stretched out.*/
-	ONE_RIGID("stiff", 1, 0.05f, 0.05f, PresetColour.GENERIC_SIZE_TWO),
+	ONE_RIGID("stiff", 1, 0.05f, 0.05f, false, PresetColour.GENERIC_SIZE_TWO),
 	
 	/**Is resistant to being stretched out.*/
-	TWO_FIRM("firm", 2, 0.1f, 0.1f, PresetColour.GENERIC_SIZE_THREE),
+	TWO_FIRM("firm", 2, 0.1f, 0.1f, false, PresetColour.GENERIC_SIZE_THREE),
 
 	/*-------NORMAL:---------*/
 	
 	/**Normal value, along with FOUR_LIMBER. Is quite resistant to being stretched out.*/
-	THREE_FLEXIBLE("flexible", 3, 0.15f, 0.15f, PresetColour.GENERIC_SIZE_FOUR),
+	THREE_FLEXIBLE("flexible", 3, 0.15f, 0.15f, false, PresetColour.GENERIC_SIZE_FOUR),
 
 	/**Normal value, along with THREE_FLEXIBLE. Is somewhat resistant to being stretched out.*/
-	FOUR_LIMBER("limber", 4, 0.2f, 0.2f, PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_LIMBER("limber", 4, 0.2f, 0.2f, true, PresetColour.GENERIC_SIZE_FIVE),
 
 	/*-------STRETCHY:---------*/
 	
 	/**Stretches out fairly quickly.*/
-	FIVE_STRETCHY("stretchy", 5, 0.25f, 0.25f, PresetColour.GENERIC_SIZE_SIX),
+	FIVE_STRETCHY("stretchy", 5, 0.25f, 0.25f, true, PresetColour.GENERIC_SIZE_SIX),
 
 	/**Easily stretches out.*/
-	SIX_SUPPLE("supple", 6, 0.3f, 0.25f, PresetColour.GENERIC_SIZE_SEVEN),
+	SIX_SUPPLE("supple", 6, 0.3f, 0.25f, true, PresetColour.GENERIC_SIZE_SEVEN),
 	
 	/**Very quickly stretches out.*/
-	SEVEN_ELASTIC("elastic", 7, 0.5f, 0.25f, PresetColour.GENERIC_SIZE_EIGHT);
+	SEVEN_ELASTIC("elastic", 7, 0.5f, 0.25f, true, PresetColour.GENERIC_SIZE_EIGHT);
 
 	
 	private String descriptor;
 	private int value;
 	private float stretchModifier;
 	private float sizeTolerancePercentage;
+	private boolean extendingUncomfortableDepthStart;
 	private Colour colour;
 
 	/**
@@ -56,11 +57,12 @@ public enum OrificeElasticity {
 	 * @param sizeTolerancePercentage A percentage corresponding to the default tolerance an orifice has for penetrations being too big.
 	 * @param colour The colour of this elasticity value, mainly used for colouring text related to the elasticity of orifices.
 	 */
-	private OrificeElasticity(String descriptor, int value, float stretchModifier, float sizeTolerancePercentage, Colour colour) {
+	private OrificeElasticity(String descriptor, int value, float stretchModifier, float sizeTolerancePercentage, boolean extendingUncomfortableDepthStart, Colour colour) {
 		this.descriptor = descriptor;
 		this.value = value;
 		this.stretchModifier = stretchModifier;
 		this.sizeTolerancePercentage = sizeTolerancePercentage;
+		this.extendingUncomfortableDepthStart = extendingUncomfortableDepthStart;
 		this.colour = colour;
 	}
 
@@ -90,6 +92,10 @@ public enum OrificeElasticity {
 
 	public float getSizeTolerancePercentage() {
 		return sizeTolerancePercentage;
+	}
+
+	public boolean isExtendingUncomfortableDepthStart() {
+		return extendingUncomfortableDepthStart;
 	}
 
 	public Colour getColour() {

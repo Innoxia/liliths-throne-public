@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -191,13 +190,8 @@ public class OrificeVagina implements OrificeInterface {
 	
 	@Override
 	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
-		if( Main.game.isElasticityAffectDepthEnabled()) {
-			if(elasticity<=3 ) {		
-				//Default original value
-				return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);			
-			} else {
-				return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.8f);
-			}
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepthStart()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.8f);
 		} else {
 			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
 		}

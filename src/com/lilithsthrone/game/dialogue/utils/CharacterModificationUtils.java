@@ -2276,20 +2276,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getFaceElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='THROAT_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+"</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Throat Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] throat."
-						+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] throat will stretch out if a penetrating object is too thick for it."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] throat.":""))
+						+"</i>",
 				"THROAT_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -2539,20 +2547,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getAssElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='ANUS_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Anus Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] asshole."
-						+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] asshole will stretch out if a penetrating object is too thick for it."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] asshole.":""))
+						+"</i>",
 				"ASSHOLE_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -3294,20 +3310,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Nipple Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] nipples."
-						+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] nipples will stretch out if a penetrating object is too thick for them."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] nipples.":""))
+						+"</i>",
 				"NIPPLE_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -3320,20 +3344,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleCrotchElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_CROTCH_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Nipple Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] [npc.crotchNipples]."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] [npc.crotchNipples] will stretch out if a penetrating object is too thick for them."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] [npc.crotchNipples].":""))
+						+"</i>",
 				"NIPPLE_CROTCH_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -3741,20 +3773,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getVaginaElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='VAGINA_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Vagina Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] vagina."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] vagina will stretch out if a penetrating object is too thick for it."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] vagina.":""))
+						+"</i>",
 				"VAGINA_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -3954,20 +3994,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getVaginaUrethraElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='VAGINA_URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Urethra Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] urethra."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] urethra will stretch out if a penetrating object is too thick for it."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] urethra.":""))
+						+"</i>",
 				"VAGINA_URETHRA_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -4359,20 +4407,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getUrethraElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Urethra Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] urethra."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] urethra will stretch out if a penetrating object is too thick for it."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] urethra.":""))
+						+"</i>",
 				"PENIS_URETHRA_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -5279,20 +5335,28 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getSpinneretElasticity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='SPINNERET_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
+								+ Util.capitaliseSentence(value.getDescriptor())
+								+ (value.isExtendingUncomfortableDepthStart() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+							+ "</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Spinneret Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] spinneret."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
+						+ "<br/><i>This determines how quickly [npc.namePos] spinneret will stretch out if a penetrating object is too thick for it."
+						+ (Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?" Values marked with an asterisk increase the maximum uncomfortable depth of [npc.her] spinneret.":""))
+						+"</i>",
 				"SPINNERET_ELASTICITY",
 				contentSB.toString(),
 				true);

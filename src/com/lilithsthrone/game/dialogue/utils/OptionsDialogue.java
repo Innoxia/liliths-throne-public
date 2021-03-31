@@ -2150,8 +2150,9 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"PENETRATION_LIMITATION_DYNAMIC",
 							PresetColour.BASE_PINK_DEEP,
-							"Elasticity Affect Depth",
-							"When enabled, the elasticity of an orifice will affect it's depth so that you can accommodate longuer sizes.(Require Penetrative size-difference)",
+							"Elasticity depth effects",
+							"When enabled, if an orifice has an elasticity of at least 'limber', the maximum 'uncomfortable depth' value will be increased, with greater elasticity values increasing it further."
+									+ " (Note: Only applies when 'Penetrative size-difference' is also turned on.)",
 							Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
