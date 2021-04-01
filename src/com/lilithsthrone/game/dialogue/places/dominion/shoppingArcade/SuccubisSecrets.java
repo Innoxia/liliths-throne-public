@@ -226,7 +226,7 @@ public class SuccubisSecrets {
 	}
 	
 	public static Value<String, String> getCoveringTitleDescription(GameCharacter target, AbstractBodyCoveringType coveringType, List<String> areasList) {
-		String title = Util.capitaliseSentence(coveringType.getName(target));
+		String title = Util.capitaliseSentence(coveringType.getNameTransformation(target));
 		
 		String description = "This is the "+coveringType.getName(target)+" that's currently covering [npc.namePos] "+Util.stringsToStringList(areasList, false)+".";
 		

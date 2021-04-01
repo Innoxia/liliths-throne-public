@@ -1997,6 +1997,35 @@ public enum SexAreaPenetration implements SexAreaInterface {
 					case BREAST_CROTCH:
 						break;
 					case MOUTH:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("[npc.SexPaceVerb] pressing [npc.her] [npc.feet+] against [npc2.namePos] face, [npc.name] got [npc2.herHim] to orally worship them.");
+									break;
+								case SUB_RESISTING:
+									sb.append("Although [npc.she] tried to resist, [npc.name] [npc.was] unable to stop [npc2.name] from orally worshipping [npc.her] [npc.feet+].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.Name] soon started letting out [npc2.moans+] as [npc2.she] [npc.sexPaceVerb] licked and kissed [npc.namePos] [npc.feet+].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" Desperately trying to pull away from [npc.name], [npc2.name] tried, and failed, to stop orally servicing [npc.her] [npc.feet].");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] getting [npc2.name] to orally worship [npc.her] [npc.feet+].");
+						}
 						break;
 					case NIPPLE:
 						break;

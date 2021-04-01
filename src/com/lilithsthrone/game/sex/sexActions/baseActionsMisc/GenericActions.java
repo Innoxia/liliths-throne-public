@@ -2254,8 +2254,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Cocoon [npc2.herHim])]";
+			return "Cocoon [npc2.herHim]";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2294,8 +2298,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Remove webbing)]";
+			return "Remove webbing";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2368,8 +2376,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Tentacle restraint)]";
+			return "Tentacle restraint";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2407,8 +2419,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release tentacles)]";
+			return "Release tentacles";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2433,6 +2449,67 @@ public class GenericActions {
 		}
 	};
 
+	public static final SexAction TENTACLE_SQUEEZE = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.TWO_HORNY,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public String getActionTitle() {
+			return "Tentacle-squeeze";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Take advantage of the fact that you have [npc2.name] fully restrained in your tentacles to firmly squeeze and constrict [npc2.her] body.";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			return (value!=null && value.getKey()==ImmobilisationType.TENTACLE_RESTRICTION)
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue();
+		}
+		@Override
+		public String getDescription() {
+			boolean targetPlayer = Main.sex.getCharacterTargetedForSexAction(this).isPlayer();
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.returnStringAtRandom(
+					"Taking full advantage of the fact that [npc.she] [npc.has] [npc2.name] completely restrained in [npc.her] tentacles, [npc.name] [npc.verb(squeeze)] down and firmly [npc.verb(constrict)] [npc2.her] body,"
+							+ " causing [npc2.herHim] to let out a pathetic, choking gasp.",
+					"Wanting to show [npc2.name] that [npc2.sheIs] completely at [npc.her] mercy, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tentacles down around [npc2.her] body,"
+							+ " which results in [npc2.herHim] making a series of progressively weaker and more desperate gasping noises.",
+					"In a display of complete dominance, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tentacles down around [npc2.namePos] body,"
+							+ " delighting in the desperate, frantic gasps and struggles that [npc.sheIs] able to elicit from "+(targetPlayer?"you.":"[npc.her] partner."),
+					"Greatly enjoying [npc.her] position of dominance, [npc.name] slowly increases the strength of [npc.her] tentacles' grip around [npc2.namePos] body, until "+(targetPlayer?"you're":"[npc.her] partner is")
+						+" able to do nothing but weakly struggle and desperately gasp for breath.",
+					"Firmly tightening [npc.her] tentacles' grip around [npc2.namePos] body, [npc.name] [npc.verb(delight)] in squeezing the breath out of "+(targetPlayer?"your":"[npc.her] partner's")
+						+" lungs, and can't help but let out a dominant [npc.moan] as [npc.she] [npc.verb(feel)] [npc2.name] weakly struggling to break free."));
+
+			sb.append(UtilText.returnStringAtRandom(
+					" Only once [npc2.nameIsFull] starting to go limp [npc.do] [npc.name] finally relent, and by relaxing [npc.her] tentacles somewhat,"
+							+ " [npc.she] [npc.verb(allow)] [npc2.herHim] to catch [npc2.her] breath and come back to [npc2.her] senses.",
+					" Not wanting to go so far as to make [npc2.name] lose consciousness, [npc.name] only [npc.verb(choose)] to relax [npc.her] tentacles at the last moment,"
+							+ " allowing [npc2.name] to take a deep breath and come back from the brink of fainting.",
+					" After some time constricting [npc2.name] in this manner, [npc.name] [npc.verb(feel)] as though [npc.sheHas] pushed [npc2.herHim] far enough, and so after one final, tight squeeze,"
+							+ " [npc.she] [npc.verb(relax)] [npc.her] tentacles and [npc.verb(allow)] [npc2.name] to breathe freely once again.",
+					" Waiting until [npc.she] [npc.verb(sense)] that [npc2.nameIsFull] is about to faint, [npc.name] [npc.verb(let)] out an amused [npc.moan],"
+							+ " before relaxing [npc.her] tentacles and granting [npc2.name] the ability to fill [npc2.her] lungs with oxygen.",
+					" Waiting until [npc2.nameIsFull] about to pass out, [npc.name] [npc.verb(let)] out an amused [npc.moan], before relaxing [npc.her] tentacles and allowing [npc2.name] to take a deep breath and recover from [npc2.her] asphyxiation."));
+			
+			return sb.toString();
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_SADIST);
+			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST);
+			}
+			return null;
+		}
+	};
+	
 	public static final SexAction TENTACLE_BOUND = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ZERO_NONE,
@@ -2519,8 +2596,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Constrict)]";
+			return "Constrict";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2563,8 +2644,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release constriction)]";
+			return "Release constriction";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2586,6 +2671,67 @@ public class GenericActions {
 		@Override
 		public void applyEffects() {
 			Main.sex.removeCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this));
+		}
+	};
+
+	public static final SexAction TAIL_SQUEEZE = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.TWO_HORNY,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public String getActionTitle() {
+			return "Tail-squeeze";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Take advantage of the fact that you have [npc2.name] fully restrained in your tail to firmly squeeze and constrict [npc2.her] body.";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			return (value!=null && value.getKey()==ImmobilisationType.TAIL_CONSTRICTION)
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue();
+		}
+		@Override
+		public String getDescription() {
+			boolean targetPlayer = Main.sex.getCharacterTargetedForSexAction(this).isPlayer();
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.returnStringAtRandom(
+					"Taking full advantage of the fact that [npc.she] [npc.has] [npc2.name] completely restrained in [npc.her] tail, [npc.name] [npc.verb(squeeze)] down and firmly [npc.verb(constrict)] [npc2.her] body,"
+							+ " causing [npc2.herHim] to let out a pathetic, choking gasp.",
+					"Wanting to show [npc2.name] that [npc2.sheIs] completely at [npc.her] mercy, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tail down around [npc2.her] body,"
+							+ " which results in [npc2.herHim] making a series of progressively weaker and more desperate gasping noises.",
+					"In a display of complete dominance, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tail down around [npc2.namePos] body,"
+							+ " delighting in the desperate, frantic gasps and struggles that [npc.sheIs] able to elicit from "+(targetPlayer?"you.":"[npc.her] partner."),
+					"Greatly enjoying [npc.her] position of dominance, [npc.name] slowly increases the strength of [npc.her] tail's grip around [npc2.namePos] body, until "+(targetPlayer?"you're":"[npc.her] partner is")
+						+" able to do nothing but weakly struggle and desperately gasp for breath.",
+					"Firmly tightening [npc.her] tail's grip around [npc2.namePos] body, [npc.name] [npc.verb(delight)] in squeezing the breath out of "+(targetPlayer?"your":"[npc.her] partner's")
+						+" lungs, and can't help but let out a dominant [npc.moan] as [npc.she] [npc.verb(feel)] [npc2.name] weakly struggling to break free."));
+			
+			sb.append(UtilText.returnStringAtRandom(
+					" Only once [npc2.nameIsFull] starting to go limp [npc.do] [npc.name] finally relent, and by relaxing [npc.her] tail somewhat,"
+							+ " [npc.she] [npc.verb(allow)] [npc2.herHim] to catch [npc2.her] breath and come back to [npc2.her] senses.",
+					" Not wanting to go so far as to make [npc2.name] lose consciousness, [npc.name] only [npc.verb(choose)] to relax [npc.her] tail at the last moment,"
+							+ " allowing [npc2.name] to take a deep breath and come back from the brink of fainting.",
+					" After some time constricting [npc2.name] in this manner, [npc.name] [npc.verb(feel)] as though [npc.sheHas] pushed [npc2.herHim] far enough, and so after one final, tight squeeze,"
+							+ " [npc.she] [npc.verb(relax)] [npc.her] tail and [npc.verb(allow)] [npc2.name] to breathe freely once again.",
+					" Waiting until [npc.she] [npc.verb(sense)] that [npc2.nameIsFull] is about to faint, [npc.name] [npc.verb(let)] out an amused [npc.moan],"
+							+ " before relaxing [npc.her] tail and granting [npc2.name] the ability to fill [npc2.her] lungs with oxygen.",
+					" Waiting until [npc2.nameIsFull] about to pass out, [npc.name] [npc.verb(let)] out an amused [npc.moan], before relaxing [npc.her] tail and allowing [npc2.name] to take a deep breath and recover from [npc2.her] asphyxiation."));
+			
+			return sb.toString();
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_SADIST);
+			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST);
+			}
+			return null;
 		}
 	};
 

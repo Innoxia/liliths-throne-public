@@ -285,7 +285,7 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType HARPY_NEST = new AbstractWorldType(WorldRegion.DOMINION,
+	public static AbstractWorldType HARPY_NEST = new AbstractWorldType(WorldRegion.HARPY_NESTS,
 			"Harpy Nests",
 			PresetColour.BASE_CRIMSON,
 			1,

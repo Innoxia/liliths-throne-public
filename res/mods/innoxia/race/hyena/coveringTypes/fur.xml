@@ -7,6 +7,12 @@
 	<!-- The category of this covering type, as defined here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringCategory.java -->
 	<category>MAIN_FUR</category>
 	
+	<!-- The name of this covering as it will appear in transformation menus.
+	This will most likely be the same as what you define in the 'name' element below, and for that reason it's safe to omit this field entirely, in which case the game will simply use the value in 'name' in transformation menus.
+	This can be useful to define if your covering is of the same general type as something else, but specific to one part of the body.
+	For an example of this in use, take a look at the 'race/innoxia/sheep/coveringTypes/wool_face.xml' file.-->
+	<nameTransformation><![CDATA[fur]]></nameTransformation>
+	
 	<!-- The determiner which should be used when describing this covering.
 	For feathers, it would be something like 'a plume of'. -->
 	<determiner><![CDATA[a layer of]]></determiner>

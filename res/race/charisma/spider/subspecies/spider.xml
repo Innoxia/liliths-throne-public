@@ -6,8 +6,8 @@
 	<tertiaryColour>charisma_spider_silk_white</tertiaryColour>
 	<mainSubspecies>true</mainSubspecies>
 	<baseSlaveValue>10000</baseSlaveValue>
-	<attributeItemId>charisma_spider_jet_black_coffee</attributeItemId>
-	<transformativeItemId>charisma_spider_chocolate_coated_cocoa_beans</transformativeItemId>
+	<attributeItemId>charisma_race_spider_jet_black_coffee</attributeItemId>
+	<transformativeItemId>charisma_race_spider_chocolate_coated_cocoa_beans</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
@@ -17,6 +17,9 @@
 			#IF(targetedBody.getPenis().getType()!=PENIS_TYPE_NONE)
 				[#targetedBody.getPenis().addPenisModifier(null, PENETRATION_MODIFIER_OVIPOSITOR)]
 			#ENDIF
+		#ENDIF
+		#IF(targetedBody.getTail().getType()==TAIL_TYPE_charisma_spider_tailFluffy)
+			[#targetedBody.getTail().setType(null, TAIL_TYPE_charisma_spider_tail)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[

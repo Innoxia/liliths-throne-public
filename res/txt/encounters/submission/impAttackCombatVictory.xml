@@ -247,7 +247,7 @@
 			#ELSEIF(npc.hasVagina())
 				As you try to look up and glance behind you, [npc.name] steps forwards and grabs you by the chin, before lifting your head up and pushing [npc.her] groin into your face, [npc.speech(Is this what yer likin'? 'Avin' imp pussy rubbed all over ya face?!)]
 			#ELSE
-				As you try to look up and glance behind you, [npc.name] steps forwards and grabs you by the chin, before lifting your head up and sneering, [npc.speech(Is that so? Ya love nothin' more than spreadin' yer legs fer any imp ya come across?!)]
+				As you try to look up and glance behind you, [npc.name] steps forwards and grabs you by the chin, before lifting your head up and sneering, [npc.speech(Is that so? Ya love nothin' more than #IF(pc.hasLegs())spreadin' yer legs fer#ELSEgettin' railed by#ENDIF any imp ya come across?!)]
 			#ENDIF
 		</p>
 		<p>

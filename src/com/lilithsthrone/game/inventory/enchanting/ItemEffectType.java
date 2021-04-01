@@ -2158,15 +2158,31 @@ public class ItemEffectType {
 			} else if(primaryModifier == TFModifier.CLOTHING_SPECIAL) {
 				List<TFModifier> mods =  Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_SERVITUDE);
 				if(targetItem instanceof AbstractClothing) {
-					 //If this clothing is a 'sex toy' or groin clothing, then allow vibration and orgasm denial enchantments:
-					if(((AbstractClothing)targetItem).getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP) || ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.GROIN) {
+					 //If this clothing is a 'sex toy' or groin/nipple clothing, then allow vibration and orgasm denial enchantments:
+					if(((AbstractClothing)targetItem).getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP)
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.GROIN
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.VAGINA
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PENIS
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.NIPPLE
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.CHEST
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_NIPPLE
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_PENIS
+							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_VAGINA) {
 						mods.add(TFModifier.CLOTHING_VIBRATION);
 						mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
 						
 					} else {
 						for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
 							List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
-							if(tags.contains(ItemTag.ENABLE_SEX_EQUIP) || slot==InventorySlot.GROIN) {
+							if(tags.contains(ItemTag.ENABLE_SEX_EQUIP)
+									|| slot==InventorySlot.GROIN
+									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.VAGINA
+									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PENIS
+									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.NIPPLE
+									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.CHEST
+									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_NIPPLE
+									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_PENIS
+									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_VAGINA) {
 								mods.add(TFModifier.CLOTHING_VIBRATION);
 								mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
 								break;

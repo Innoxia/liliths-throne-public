@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Anus;
 import com.lilithsthrone.game.character.body.Ass;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.Clitoris;
@@ -181,7 +183,8 @@ public enum LegConfiguration {
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
 			return Util.newArrayListOfValues(
-					GenitalArrangement.CLOACA);
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND); // Shouldn't ever spawn by default, but give player the option
 		}
 		@Override
 		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
@@ -306,7 +309,8 @@ public enum LegConfiguration {
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
 			return Util.newArrayListOfValues(
-					GenitalArrangement.CLOACA);
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND); // Shouldn't ever spawn by default, but give player the option
 		}
 		@Override
 		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
@@ -398,6 +402,10 @@ public enum LegConfiguration {
 		@Override
 		public List<Class<? extends BodyPartInterface>> getFeralParts() {
 			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<FootStructure> getPermittedFootStructuresOverride() {
+			return Util.newArrayListOfValues(FootStructure.ARACHNOID);
 		}
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
@@ -803,10 +811,11 @@ public enum LegConfiguration {
 	}
 
 	/**
-	 * @return true If this leg configuration blocks flight from the usual arms or wings.
+	 * @param body The corresponding body.
+	 * @return The minimum WingSize required for flight.
 	 */
-	public WingSize getMinimumWingSizeForFlight() {
-		return minimumWingSizeForFlight;
+	public WingSize getMinimumWingSizeForFlight(Body body) {
+		return body.isFeral() ? WingSize.THREE_LARGE : minimumWingSizeForFlight;
 	}
 
 	public boolean isWingsOnLegConfiguration() {
@@ -835,6 +844,10 @@ public enum LegConfiguration {
 		return numberOfLegs;
 	}
 
+	public List<FootStructure> getPermittedFootStructuresOverride() {
+		return new ArrayList<>();
+	}
+	
 	public boolean isGenitalsExposed(GameCharacter character) {
 		return true;
 	}
