@@ -1,166 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		
-		<!-- How attribution to the mod author (you!) should be displayed in the weapon's tooltip. If left blank or not included, a default attribution based on folder name will be used. (I have commented out this example, as I don't want items created by myself to have author attribution.)-->
-		<authorTag><![CDATA[Underneath the reciever, a small engraving reads "MFD by DSG Forgeworks."]]></authorTag>
-		
-		<!-- How much this weapon is worth. -->
-		<value>2500</value> 
-		
-		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
+		<authorTag><![CDATA[Underneath the receiver, a small engraving reads "MFD by DSG Forgeworks."]]></authorTag>
+		<value>2500</value>
 		<melee>false</melee>
-		
-		<!-- Use "true" if this weapon is two-handed, and thus cannot be simultaneously wielded with an offhand weapon, and "false" if it's one-handed. (Without quotation marks.) -->
 		<twoHanded>true</twoHanded>
-		
-		<!-- What's appended before the weapon's name in an instance of "Innoxia was holding X Demon's Dagger", where X is the determiner. This will usually be either "a" or "an", but for other weapons may be different.
-		An example might be: "Innoxia was holding X scissors", where X (the determiner) would now need to be "a pair of". -->
 		<determiner><![CDATA[a]]></determiner>
-		
-		<!-- The name of this weapon. -->
-		<name appendDamageName="true"><![CDATA[pepperball submachine gun]]></name> <!-- You can leave out the 'appendDamageName' attribute, but if you never want this weapon to be described by its damage type, then set it as false. (i.e. If set to false, this dagger would always be called 'Demon's Dagger' instead of, for example, 'Forceful Demon's Dagger')-->
-		
-		<!-- The plural name of this weapon. If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon. -->
-		<namePlural pluralByDefault="false"><![CDATA[pepperball submachine gun]]></namePlural> 
-		
-		<!-- The description/lore of this weapon. -->
-		<description><![CDATA[Although this weapon looks masterfully crafted, it nonetheless bears all the signs of having been made by hand rather than manufactured. Stamped on the body is an insignia that you don't recognize.]]></description> 
-		
-		<!-- How the weapon is used. This should be a single verb, and is used as the title of attacking actions in combat. -->
+		<name appendDamageName="true"><![CDATA[pepperball submachine gun]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pepperball submachine gun]]></namePlural>
+		<description><![CDATA[Although this weapon looks masterfully crafted, it nonetheless bears all the signs of having been made by hand rather than manufactured. Stamped on the body is an insignia that you don't recognize.]]></description>
 		<attackDescriptor>shoot</attackDescriptor>
-		
-		<!-- The description that's displayed when hovering over the attack action in combat. Follow the same guidelines as equipText (a couple of entries further down this page).
-		As this tooltip is only ever seen from the player's perspective, you can always write in the first-person narrative. (Still use npc2 for the target, though.)-->
 		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your submachine gun.]]></attackTooltipDescription>
-		
-		<!-- The rarity of this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-		<rarity>RARE</rarity> 
-		
-		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<weaponSet/> 
-		
-		<!-- The description that's used when equipping this weapon. The description should be generic, able to be used by both the player and NPCs. Just make sure to use the tag "[npc.verb()]" whenever using a verb, which will then, for example, parse like this:
-		[npc.verb(run)] if npc is player = "run"
-		[npc.verb(run)] if npc is not the player = "runs"
-		Always use the first-person singular verb.
-		The target "npc" OR "npc1" should be used for the character using the weapon. e.g. If the player is the one attacking (and is called Innoxia), then [npc.Name] will return "Innoxia"
-		The target "npc2" should be used for the character being attacked. e.g. If Brax is the one being attacked, then [npc2.Name] will return "Brax"
-		-->
+		<rarity>RARE</rarity>
+		<weaponSet/>
 		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the submachine gun, [npc.verb(load)] a fresh magazine, and [npc.verb(pulls)] the charging handle before disengaging the safety.]]></equipText>
-		
-		<!-- The description that's used when equipping this weapon. Follow the same guidelines as equipText. -->
 		<unequipText><![CDATA[[npc.Name] [npc.verb(open)] the bolt and [npc.verb(check)] to see that the chamber is empty before removing the magazine and putting the submachine gun away.]]></unequipText>
-		
-		<!-- The file name of this weapon's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game. -->
-		<imageName>pbsmg_uneq.svg</imageName> 
-		
-		<!-- The file name of this weapon's image when equipped. Can be (and usually is) the same as the imageName (which in this example would be "dagger_sheathed.svg"). -->
+		<imageName>pbsmg_uneq.svg</imageName>
 		<imageEquippedName>pbsmg.svg</imageEquippedName>
-		
-		<!-- How much natural physical resistance this weapon provides when equipped. Should only really be above 0 for shields or other such protective weapons. -->
-		<physicalResistance>0</physicalResistance> 
-		
-		<!-- The base damage that this weapon deals. -->
+		<physicalResistance>0</physicalResistance>
 		<damage>25</damage>
-		<!-- If you want to define additional AoE damages, use this format (an example of it in use can be found in 'res/weapons/innoxia/lightningGlobe/lightning_globe.xml'): -->
 		<aoe chance="25">5</aoe>
 		<aoe chance="25">5</aoe>
-		
-		
-		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
-		<arcaneCost>2</arcaneCost> 
-		
-		<!-- The variance in base damage when this weapon is actually used to attack. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageVariance.java -->
-		<damageVariance>HIGH</damageVariance> 
-		
-		<!-- The available damage types that this weapon can spawn in with. Values can be found here (MISC should not be used): https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageType.java -->
+		<arcaneCost>2</arcaneCost>
+		<damageVariance>HIGH</damageVariance>
 		<availableDamageTypes>
 			<damageType>FIRE</damageType>
 		</availableDamageTypes>
-		
-		<!-- The spells that are unlocked when equipping this weapon. IF you want to add any, use the format:
-		<spells changeOnReforge="true">
-			<spell damageType="FIRE">FIREBALL</spell>
-			<spell damageType="ICE">ICE_SHARD</spell>
-			<spell damageType="LUST">ARCANE_AROUSAL</spell>
-			<spell damageType="PHYSICAL">SLAM</spell>
-			<spell damageType="POISON">POISON_VAPOURS</spell>
-		</spells>
-		
-		The 'changeOnReforge' variable determines whether this weapon should regenerate spells whenever the player changes the damage type. (i.e. If they reforge a FIRE dagger to an ICE dagger, if 'changeOnReforge' is true, then the granted spell FIREBALL will automatically switch to ICE_SHARD).
-		
-		The 'damageType' variable corresponds to the damageType which causes the spell to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
-		...
-			<spell damageType="FIRE">FIREBALL</spell>
-			<spell damageType="FIRE">FLASH</spell>
-			<spell damageType="FIRE">ICE_SHARD</spell>
-			<spell damageType="FIRE">STEAL</spell>
-		...
-		Note that the damageType does not have to correspond to the spell's school (so FIRE can unlock ICE_SHARD, etc.).
-		
-		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
 		<spells/>
-		
-		<!-- The combat moves that are unlocked when equipping this weapon. IF you want to add any, use the format:
-		<combatMoves changeOnReforge="true">
-			<move damageType="PHYSICAL">ASSAULT_RIFLE_MAG_DUMP</move>
-		</combatMoves>
-		
-		The 'changeOnReforge' variable determines whether this weapon should regenerate combat moves whenever the player changes the damage type. (i.e. If they reforge a PHYSICAL dagger to an ICE dagger, if 'changeOnReforge' is true, then the granted combat move ASSAULT_RIFLE_MAG_DUMP will be lost).
-		
-		The 'damageType' variable corresponds to the damageType which causes the spell to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
-		...
-			<spell damageType="FIRE">FIREBALL</spell>
-			<spell damageType="FIRE">FLASH</spell>
-			<spell damageType="FIRE">ICE_SHARD</spell>
-			<spell damageType="FIRE">STEAL</spell>
-		...
-		
-		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
-		There will be a way to add modded combat moves soon! -->
 		<combatMoves/>
-		
-		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->
 		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
 		
-		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
-		There are two special values for secondaryModifier, which are: RESISTANCE_WEAPON and DAMAGE_WEAPON
-		RESISTANCE_WEAPON applies the related resistance of this weapon's damage type, while DAMAGE_WEAPON applies the related damage type.
-		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
-		<effects> 
-		</effects>
-		
-		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
-		Red is used as base colour for changing the DAMAGE TYPE's colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff2a2a
-			#ff5555
-			#ff8080
-			#ffaaaa
-			#ffd5d5
-		Orange is used as base colour for changing the PRIMARY colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff7f2a
-			#ff9955
-			#ffb380
-			#ffccaa
-			#ffe6d5
-		Yellow is used as base colour for changing the SECONDARY colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ffd42a
-			#ffdd55
-			#ffe680
-			#ffeeaa
-			#fff6d5
-		Green is used as base colour for changing the TERTIARY colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#abc837
-			#bcd35f
-			#cdde87
-			#dde9af
-			#eef4d7
-		As you can see above, weapons differ from clothing in that their 'Red' colour is recoloured based on the weapon's damage type! The "primaryColours", "secondaryColours", and "tertiaryColours" defined below are for recolouring the Orange, Yellow, and Green values, respectively.
-			
-		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
-		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
 		<primaryColours>
 			<colour>CLOTHING_GUNMETAL</colour>
 		</primaryColours>
@@ -170,21 +40,17 @@
 		<tertiaryColours values="JUST_BLACK"/>
 		<tertiaryColoursDye values="ALL_METAL"/>
 		
-		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags>
 			<tag>CONTRABAND_HEAVY</tag>
 		</itemTags>
-		
 	</coreAttributes>
 
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
 		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(squeeze)] off a burst at [npc2.name]. The gelatin capsules burst on impact with [npc2.namePos] aura, splattering [npc2.herHim] with stinging, burning oil.
 		]]></hitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
 		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(squeeze)] off a burst at [npc2.name]. The capsules miss [npc2.herHim] completely and splatters uselessly in the distance.
