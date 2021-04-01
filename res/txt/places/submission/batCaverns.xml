@@ -207,5 +207,96 @@
 	</p>
 	]]>
 	</htmlContent>
+        
+	<htmlContent tag="REBEL_BASE_DISCOVERED"><![CDATA[
+	<p>
+		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate the way, you notice a strange shadow on the cave wall, seemingly floating in midair. As you approach, you can see that this shadow is actually a well hidden door handle jutting out from the rock.
+	</p>
+	<p>
+		Between the dim light and the thick layer of dust on it, you can't tell how old it is or how long it's been there. Briefly glancing around, you can see no obvious seams or hinges that might suggest the presence of a door. This might be a trap.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_HANDLE"><![CDATA[
+	<p>
+		The strange door handle in the cavern wall is still here, only given away by its barely visible lichen-lit shadow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_NO_PASS"><![CDATA[
+	<p>
+		Taking your chances, you grab the handle. To your surprise, the moment you make contact with the cold metal glowing letters appear in the cavern wall spelling out the question "Fiat Justitia?" You give the handle an experimental tug, but it remains fixed in place. Looks like the wall wants an answer, and since you're not sure how to answer there's nothing more that you can do at the moment. The glowing letters fade away when you let go of the handle.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_ONE"><![CDATA[
+	<p>
+		As you carefuly navigate the myriad obstacles offered by the cavern, you almost slip on something beneath your feet. Grumbling to yourself about the responsible disposal of slippery objects in a damp cave, you find the cause of your near-faceplant to be a piece of laminated paper. Strangely, it appears be a page from a journal of some sort that someone laminated after it had already been torn out. Even more strangely, someone tore it in half after going through all the trouble of laminating it. Water has gotten inside the seal and rendered most of the page unreadable but you can still make out an entry.  
+	</p>
+	<p align=right>
+		<i>
+			1st July 1990
+		</i>
+	</p>
+	<p>
+		<i>
+			Under Astrea's command, we have successfully broken through into the Bat Caverns. At last, a way into the wretched heart of Dominion! And not a moment too soon, if news from the other fronts is to be believed. A small hideout hidden in the cave wall will provide us a staging area for the operations to come, and in any case, the cool damp is a welcome relief from the sweltering heat above. The door has been enchanted to only open for those who know the password:</br><center>RUAT C</center>
+		</i>
+	</p>
+	<p>
+		Annoyingly, the rest of the password has been torn away. You'll have to find the half of the page that got torn away.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_TWO"><![CDATA[
+	<p>
+		Taking extra care to not slip on carelessly discarded pieces of slippery plastic as you make your way through the darkness of the Bat Caverns, you see something glinting on a cluster of glowing mushrooms. Taking a closer look, you see that it's the other half of the torn journal page! Like its counterpart, this half is also barely legible.
+	</p>
+	<p align=center>
+		<i>
+			AELUM
+		</i>
+	</p>
+	<p align=right>
+		<i>
+			3rd July 1990
+		</i>
+	</p>
+	<p>
+		<i>
+			Damn Enforcers were waiting for us in the canals! And we've lost one of our lead fighters. She didn't know the password or the exact location of the hideout but it's obvious she broke under interrogation. We found footprints that weren't ours outside this morning. This is going to be much harder than we imagined.
+		</i>
+	</p>
+	<p>
+		Putting together the two pages, you see that the password is <b>RUAT CAELUM</b>.
+	</p>
+	]]>
+	</htmlContent>
+        
+    <htmlContent tag="REBEL_BASE_DOOR_OPENED"><![CDATA[
+	<p>
+		Armed with the complete password, you grab the handle once more. When the letters asking "Fiat Justitia?" appear, you answer [pc.speech(Ruat Caelum)] in the most confident voice you can muster. The handle suddenly loosens and you pull it with all your might. The ground starts to vibrate as you pull, and before you know it a section of the cavern wall has swung open, revealing the entrance to another cave! You can just about see some clusters of glowing mushrooms inside, but nothing else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_EXTERIOR"><![CDATA[
+	<p>
+		The entrance to the other cave sits open. You can just about see some clusters of glowing mushrooms inside, but nothing else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_EXTERIOR_COLLAPSED"><![CDATA[
+	<p>
+		As there is no way back into the cave without digging through tons of rock, this section of the Bat Caverns is no longer any more interesting than any other.
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

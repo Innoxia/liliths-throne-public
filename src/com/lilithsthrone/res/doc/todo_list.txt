@@ -137,6 +137,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Check snake tail sex bondage action works
 		[x] Add squeeze constrict sex action for body bondage
 	
+	HLF Quest
+		Place types -> Darkness.ALWAYS_DARK (some will probably need changing)
+			Entrance exterior
+			Inner places
+	
 	[] Posts
 		[] Artwork
 	

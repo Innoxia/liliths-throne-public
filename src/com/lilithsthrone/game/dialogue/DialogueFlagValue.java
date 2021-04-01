@@ -195,7 +195,7 @@ public enum DialogueFlagValue {
 	wesQuestTalkedAlt(true),
 	wesQuestFlirted(true),
 	wesQuestSex(true),
-	
+       
 	// Helena (romance quest):
 	helenaCheapPaint,
 	helenaGoneHome(true),
@@ -366,6 +366,8 @@ public enum DialogueFlagValue {
 
 	meraxisRepeatDemonTF,
 	
+        rebelBaseInsaneSurvivorEncountered,
+        rebelBaseElleCostumeEncountered,
 	
 	// Rat warrens:
 	

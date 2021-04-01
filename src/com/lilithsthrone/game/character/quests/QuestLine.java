@@ -73,9 +73,18 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.vengarTree),
 
+
 	SIDE_WES("The Rogue Enforcer", "You were able to successfully deal with the Enforcer Quartermaster.",
 			QuestType.SIDE,
 			QuestTree.wesTree),
+        
+        SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
+                        QuestType.SIDE,
+                        QuestTree.rebelBaseTree),
+        
+        SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
+                        QuestType.SIDE,
+                        QuestTree.rebelBaseFirebombTree),
 	
 	// Romance quests:
 	
