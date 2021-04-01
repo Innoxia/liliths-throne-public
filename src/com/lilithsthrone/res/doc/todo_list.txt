@@ -38,6 +38,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added offspring inheritance of ferality. Feral mothers now always birth feral offspring. Offspring which take after the father born to a non-feral mother and feral father will always be fully furry. (PR#1451 by Stadler76, modified by Innoxia)
 		Prevented strap-ons from being equipped when there is one already equipped (in another slot). Also fixed issue where covering colour for an equipped dildo was potentially being incorrectly referenced. (PR#1453 by AceXP)
 		Reduced the minimum wing size for allowing flight for feral quadrupeds to 'THREE_LARGE'. (PR#1454 by Stadler76)
+		The 'Cum Stud' fetish now gives the same affection bonus from the milking slave job as the 'Lactating' fetish. (PR#1460 by Eliria)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
