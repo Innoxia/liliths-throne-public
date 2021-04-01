@@ -137,7 +137,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Check snake tail sex bondage action works
 		[x] Add squeeze constrict sex action for body bondage
 	
-	PRs NOTHING ELSE!!!
+	[] Posts
+		[] Artwork
+	
+	[] phone map breaks when you learn nyans apartment location
 	
 	[] Change prostitution license
 		[] Angel pays for your license, but your first 5000 earnings go to her
@@ -152,8 +155,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Antique shop
 		
 	Jam art
-	
-	Post
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
 		
