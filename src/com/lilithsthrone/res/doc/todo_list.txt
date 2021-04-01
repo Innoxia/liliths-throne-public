@@ -34,8 +34,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added feature where if an offspring's father and/or mother has generic wings (feathered, leathery or insect) or horns (curled, curved, straight, etc.), the offspring can inherit them. (PR#1370 by Stadler76)
 		Suppressed descriptions of nipples as orifices and transformation options for nipple penetration when that content was turned off in user settings. (PR#1421 by AceXP)
 		Added 'Elasticity depth effects' mechanic: If an orifice's elasticity is at least 'limber', its maximum uncomfortable depth is increased, with greater elasticity values increasing it further. This is off by default, but can be turned on in content settings. (PR#1413 by LightCanadian)
-		Increased script performance by adding a memoization cache to compile scripting engine scripts. (PR#1442 by CognitiveMist)
 		Modified UtilText.java to properly handle a few inaccurate British to American translations. (PR#1447 by TadUnlikely)
+		Added offspring inheritance of ferality. Feral mothers now always birth feral offspring. Offspring which take after the father born to a non-feral mother and feral father will always be fully furry. (PR#1451 by Stadler76, modified by Innoxia)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
@@ -65,8 +65,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	[x] Character race not being recalculated upon load
-	[] American parsing works: "[pc.speech(Apologise.)]" but doesn't work: [pc.speech(Apologise.)] 
-	
 	[x] Enforcer bug
 	[x] Gambling den actions are not greyed out
 	[x] Fyrsia sex bug

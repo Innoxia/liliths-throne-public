@@ -10270,6 +10270,7 @@ public class UtilText {
 //	private static final Map<String, CompiledScript> memo = new HashMap<>();
 //	private static final int memo_limit = 500;
 	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason. I commented it out to fix it and will come back and investigate at another time.
+	// TODO when fixed, add as patchnotes: "Increased script performance by adding a memoization cache to compile scripting engine scripts. (PR#1442 by CognitiveMist)"
 	/**
 	 * Added in PR#1442 to increase performance by adding a memoization cache to compile scripting engine scripts.
 	 * <br/>- Adds a cache intended to hold compiled forms of script engine scripts.

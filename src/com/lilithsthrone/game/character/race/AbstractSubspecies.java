@@ -865,7 +865,8 @@ public abstract class AbstractSubspecies {
 	}
 	
 	/**
-	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/><br/>
+	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/>
+	 * <b>Please note:</b> If the mother is feral, this will be overridden in CharacterUtils.generateBody()!<br/><br/>
 	 * 
 	 * <b>Demon breeding</b><br/>
 	 * Lilin<br/>
