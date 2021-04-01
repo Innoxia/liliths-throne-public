@@ -157,7 +157,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				HLF INsurgent not working
 				[#SET_BONUS_dsg_hlf_insurgent.getName()]<br/>[#SE_dsg_set_hlf_insurgent.getName(pc)]
 		[x] Add buttons in spawn menu to spawn all of set type
-	
+		Places
+			
+		
+	TODO:
+		Add mag dump special attack
 	
 	
 	[] Posts

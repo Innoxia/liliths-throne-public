@@ -16,7 +16,7 @@
 	
 	<!-- The name of this move.
 	The character using this move is passed in as the 'npc' target for parsing, so commands such as [npc.name] will work. -->
-	<name><![CDATA[Mag Dump]]></name>
+	<name><![CDATA[Fan the Hammer]]></name>
 	
 	<!-- The description of this move.
 	The character using this move is passed in as the 'npc' target for parsing, so commands such as [npc.name] will work.
@@ -24,12 +24,12 @@
 	'damageInflicted' will parse to the attacker's projected damage of this attack (using the defined 'baseDamage' field defined below).
 	'formattedDamageInflicted' will parse to a formatted damage prediction, taking into account whether or not the target is at maximum lust (therefore taking into account conversion of lust damage to health/mana damage). -->
 	<description><![CDATA[ 
-		#IF(npc.getEssenceCount() < 15)
+		#IF(npc.getEssenceCount() < 6)
 			Fire [style.colorArcane([#npc.getEssenceCount()])]
 		#ELSE
-			Fire all [style.colorArcane(15)]
+			Fire all [style.colorArcane(6)]
 		#ENDIF
-		rounds from [npc.her] pepperball rifle's magazine, dealing a highly variable amount of damage.
+		rounds from [npc.her] pepperball revolver's cylinder, dealing a highly variable amount of damage.
 	]]></description>
 	
 	<!-- The type of damage that this move inflicts. 
@@ -43,12 +43,12 @@
 	The parsing target of 'npc' corresponds to the character who is performing the move. -->
 	<baseDamage><![CDATA[
 		[##var hits = 0]
-		#IF(npc.getEssenceCount() < 15)
-			[##hits = (RND.nextInt(npc.getEssenceCount())+2)]
+		#IF(npc.getEssenceCount() < 6)
+			[##hits = (RND.nextInt(npc.getEssenceCount()))]
 		#ELSE
-			[##hits = (RND.nextInt(14)+2)]			
+			[##hits = (RND.nextInt(6))]			
 		#ENDIF
-		[#hits * 35]
+		[#hits * 20]
 	]]></baseDamage>
 	
 	<!-- How much damage this move blocks.
@@ -92,7 +92,7 @@
 	The 'turnLength' attribute defines for how many combat turns the effect should last.
 	The 'onCrit' attribute determines whether this effect is only applied on a critical hit or not. -->
 	<statusEffects>
-		<effect turnLength="5" onCrit="true">LINGERING_FLAMES</effect>
+		<effect turnLength="3" onCrit="true">LINGERING_FLAMES</effect>
 	</statusEffects>
 	
 	
@@ -103,13 +103,17 @@
 	The parsing target of 'npc' corresponds to the character who is being checked to see if they have this move available to them.
 	All whitespace is stripped from the returned String before it is parsed into a Boolean. -->
 	<availabilityCondition><![CDATA[
-		[#npc.getMainWeapon(0) != null && npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_eep_pbweap_pbrifle) && npc.getEssenceCount() > 2]
+		[#((npc.getMainWeapon(0) != null && 
+		npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_hlfweap_pbrevolver)) || 
+		(npc.getOffhandWeapon(0) != null && 
+		npc.getOffhandWeapon(0).getWeaponType().equals(WEAPON_dsg_hlfweap_pbrevolver))) && 
+		npc.getEssenceCount() > 1]
 	]]>
 	</availabilityCondition>
 	
 	<!-- A short description to let the player know what the conditions are for this move being available to them. -->
 	<availabilityDescription><![CDATA[
-		Available to characters carrying a pepperball rifle with more than 2 essences.
+		Available to characters carrying a pepperball revolver with more than 1 essence.
 	]]></availabilityDescription>
 	
 	<!-- The weighting for this action's chance of being selected by an AI combatant.
@@ -148,22 +152,22 @@
 	'isCritical' will parse to the boolean return value for isCritical, and will therefore be either 'true' or 'false'.
 	-->
 	<movePredictionDescriptionWithTarget><![CDATA[
-		#IF(npc.getEssenceCount() < 15)
+		#IF(npc.getEssenceCount() < 6)
 			Fire [style.colorArcane([#npc.getEssenceCount])]
 		#ELSE
-			Fire all [style.colorArcane(15)]
+			Fire all [style.colorArcane(6)]
 		#ENDIF
-		rounds from [npc.her] pepperball rifle's magazine at [npc2.name], dealing a highly variable amount of damage.
+		rounds from [npc.her] pepperball revolver's magazine at [npc2.name], dealing a highly variable amount of damage.
 	]]></movePredictionDescriptionWithTarget>
 	
 	<!-- This is almost identical to the defined description above, with the difference being that there is no targeted character. As such, the description cannot use any 'npc2' parsing. -->
 	<movePredictionDescriptionNoTarget><![CDATA[
-		#IF(npc.getEssenceCount() < 15)
+		#IF(npc.getEssenceCount() < 6)
 			Fire [style.colorArcane([#npc.getEssenceCount])]
 		#ELSE
-			Fire all [style.colorArcane(15)]
+			Fire all [style.colorArcane(6)]
 		#ENDIF
-		rounds from [npc.her] pepperball rifle's magazine at [npc.her] target, dealing a highly variable amount of damage.
+		rounds from [npc.her] pepperball revolver's magazine at [npc.her] target, dealing a highly variable amount of damage.
 	]]></movePredictionDescriptionNoTarget>
 	
 	<!-- The code that's executed when this move is performed.
@@ -177,15 +181,19 @@
 		<!-- The 'execute' section should be used for the main description of the attack, as well as any extra effects you want to apply.
 		NOTE: The damage is automatically applied to the target, so you don't need to handle parsing of that. -->
 		<execute><![CDATA[
-			Squeezing the trigger as fast as [npc.name] can manage, [npc.she] [npc.verb(manage)] to get [style.colorArcane([#~~(hits)])] hits on [npc2.name]!
+			#IF(hits>0)
+				Fanning the hammer, [npc.name] [npc.verb(manage)] to get [style.colorArcane([#~~(hits)])] hits on [npc2.name]!
+			#ELSE
+				Unfortunately, [npc.name] didn't manage to land a single shot on [npc2.name]!
+			#ENDIF
 			formattedHealthDamage
 			Expending so much ammo costs [npc.herHim] 
-			#IF(npc.getEssenceCount() < 15)
+			#IF(npc.getEssenceCount() < 6)
 				[style.colorArcane([#npc.getEssenceCount])] essences.
 				[##npc.setEssenceCount(0)]
 			#ELSE
-				[style.colorArcane(15)] essences.
-				[##npc.incrementEssenceCount(-15, false)]
+				[style.colorArcane(6)] essences.
+				[##npc.incrementEssenceCount(-6, false)]
 			#ENDIF
 		]]></execute>
 		<critDescription><![CDATA[
