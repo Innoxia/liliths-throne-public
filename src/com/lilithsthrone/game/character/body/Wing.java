@@ -97,16 +97,16 @@ public class Wing implements BodyPartInterface {
 		sb.append(" "+type.getTransformationDescription(owner));
 		
 		if(type!=WingType.NONE) {
-			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
+			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getValue()) {
 				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] delighted to discover that they're [style.colourGood(powerful enough to enable [npc.herHim] to fly)]!"
 						+ "<br/>"
-						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
+						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getName()+"' to enable flight.)]");
 			} else {
 				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] disappointed to discover that they're [style.colourBad(not powerful enough to enable [npc.herHim] to fly)]..."
 						+ "<br/>"
-						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
+						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getName()+"' to enable flight.)]");
 			}
 		}
 		sb.append("</p>");
@@ -169,16 +169,16 @@ public class Wing implements BodyPartInterface {
 		sb.append(UtilText.parse(owner, "[npc.Name] now [npc.has] [style.boldSex([npc.wingSize] [npc.wings])]!"));
 
 		if(type!=WingType.NONE) {
-			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
+			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getValue()) {
 				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] delighted to discover that they're [style.colourGood(powerful enough to enable [npc.herHim] to fly)]!"
 						+ "<br/>"
-						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
+						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getName()+"' to enable flight.)]");
 			} else {
 				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] disappointed to discover that they're [style.colourBad(not powerful enough to enable [npc.herHim] to fly)]..."
 						+ "<br/>"
-						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
+						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getName()+"' to enable flight.)]");
 			}
 		}
 		sb.append("</p>");

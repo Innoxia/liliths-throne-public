@@ -6,6 +6,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Anus;
 import com.lilithsthrone.game.character.body.Ass;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.Clitoris;
@@ -810,10 +811,11 @@ public enum LegConfiguration {
 	}
 
 	/**
-	 * @return true If this leg configuration blocks flight from the usual arms or wings.
+	 * @param body The corresponding body.
+	 * @return The minimum WingSize required for flight.
 	 */
-	public WingSize getMinimumWingSizeForFlight() {
-		return minimumWingSizeForFlight;
+	public WingSize getMinimumWingSizeForFlight(Body body) {
+		return body.isFeral() ? WingSize.THREE_LARGE : minimumWingSizeForFlight;
 	}
 
 	public boolean isWingsOnLegConfiguration() {
