@@ -259,7 +259,9 @@ public class CharacterUtils {
 	
 	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
 		Body body = null;
-		if(father!=null) {
+		
+		// If the mother is feral, preGeneratedBodies are not taken into account, as the offspring must be feral:
+		if(!mother.isFeral() && father!=null) {
 			body = AbstractSubspecies.getPreGeneratedBody(linkedCharacter, startingGender, mother, father);
 		}
 
@@ -310,62 +312,40 @@ public class CharacterUtils {
 				raceFromMother = false;
 			}
 			
-			// If one partner is a human, race stage has a 66% chance to be lowered.
-			if((motherHuman && !fatherHuman) || (!motherHuman && fatherHuman)) {
-				if(stage == RaceStage.GREATER) {
-					double rnd = Math.random();
-					if(rnd<0.33) {
-						stage = RaceStage.PARTIAL_FULL;
-					} else if(rnd<0.66) {
-						stage = RaceStage.LESSER;
-					}
-					
-				} else if(stage == RaceStage.LESSER) {
-					double rnd = Math.random();
-					if(rnd<0.33) {
-						stage = RaceStage.PARTIAL;
-					} else if(rnd<0.66) {
-						stage = RaceStage.PARTIAL_FULL;
-					}
-					
-				} else if(stage == RaceStage.PARTIAL_FULL) {
-					double rnd = Math.random();
-					if(rnd<0.66) {
-						stage = RaceStage.PARTIAL;
+			if(!takesAfterMother && father.isFeral()) { // Offspring from a feral father are always fully furry
+				stage = RaceStage.GREATER;
+				
+			} else {
+				// If one partner is a human, race stage has a 66% chance to be lowered.
+				if((motherHuman && !fatherHuman) || (!motherHuman && fatherHuman)) {
+					if(stage == RaceStage.GREATER) {
+						double rnd = Math.random();
+						if(rnd<0.33) {
+							stage = RaceStage.PARTIAL_FULL;
+						} else if(rnd<0.66) {
+							stage = RaceStage.LESSER;
+						}
+						
+					} else if(stage == RaceStage.LESSER) {
+						double rnd = Math.random();
+						if(rnd<0.33) {
+							stage = RaceStage.PARTIAL;
+						} else if(rnd<0.66) {
+							stage = RaceStage.PARTIAL_FULL;
+						}
+						
+					} else if(stage == RaceStage.PARTIAL_FULL) {
+						double rnd = Math.random();
+						if(rnd<0.66) {
+							stage = RaceStage.PARTIAL;
+						}
 					}
 				}
 			}
 			
-			// Offspring shouldn't take into account these preferences, as otherwise it messes up players' perception of genetics.
-//			switch(startingGender.isFeminine()
-//					?Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(raceTakesAfter)
-//					:Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(raceTakesAfter)) {
-//				case HUMAN:
-//					stage = RaceStage.HUMAN;
-//					break;
-//				case MINIMUM:
-//					if(stage!=RaceStage.HUMAN
-//						|| stage!=RaceStage.PARTIAL) {
-//						stage = RaceStage.PARTIAL;
-//					}
-//					break;
-//				case REDUCED:
-//					if(stage!=RaceStage.HUMAN
-//						|| stage!=RaceStage.PARTIAL
-//						|| stage!=RaceStage.LESSER) {
-//						stage = RaceStage.LESSER;
-//					}
-//					break;
-//				case NORMAL:
-//					break;
-//				case MAXIMUM:
-//					stage = RaceStage.GREATER;
-//					break;
-//			}
-			
 			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
 		}
-
+		
 		linkedCharacter.setGenderIdentity(startingGender);
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
@@ -910,15 +890,9 @@ public class CharacterUtils {
 				}
 			}
 		}
-		
-		if (Math.random()>=takesAfterMotherChance) {
-			if (mother.isFeral()) {
-				body.setFeral(mother.getSubspecies());
-			}
-		} else {
-			if (father.isFeral()) {
-				body.setFeral(father.getSubspecies());
-			}
+
+		if(mother.isFeral()) { // Feral mothers always birth feral offspring. This is done after the genetics section to make sure that the feral offspring is not modified in an unintended manner (such as making them as tall as the father).
+			body.setFeral(raceTakesAfter.isFeralConfigurationAvailable()?raceTakesAfter:mother.getSubspecies());
 		}
 		
 		if(!body.isFeral()
