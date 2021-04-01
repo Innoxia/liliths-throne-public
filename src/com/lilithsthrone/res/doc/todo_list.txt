@@ -141,6 +141,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Place types -> Darkness.ALWAYS_DARK (some will probably need changing)
 			Entrance exterior
 			Inner places
+		Removed comments in clothing xml files
+		Saved svgs as optimised
+		Minor typo fixes in some clothing equip text
+		authorTag Costume supply changed
+	
 	
 	[] Posts
 		[] Artwork
