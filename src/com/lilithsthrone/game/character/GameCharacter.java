@@ -27333,9 +27333,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasPenisIgnoreDildo() {
 		return getCurrentPenis().getType()!=PenisType.NONE && getCurrentPenis().getType()!=PenisType.DILDO;
 	}
-	public boolean hasPenis() {
-		return getCurrentPenis()!=null && getCurrentPenis().getType() != PenisType.NONE;
-	}
+    public boolean hasPenis() {
+        return getCurrentPenis()!=null && getCurrentPenis().getType() != PenisType.NONE;
+    }
+    public boolean hasDildo() {
+        return getCurrentPenis()!=null && getCurrentPenis().getType() == PenisType.DILDO;
+    }
 	public boolean isPenisVirgin() {
 		return getCurrentPenis().isVirgin();
 	}
@@ -27926,9 +27929,14 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(bodyCoveringType==BodyCoveringType.DILDO) {
 			try {
-				return new Covering(bodyCoveringType, this.getClothingInSlot(InventorySlot.PENIS).getColour(0));
+                for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+                    if(c.getItemTags().contains(ItemTag.DILDO_OTHER))
+                    {
+                        return new Covering(bodyCoveringType, this.getClothingInSlot(c.getSlotEquippedTo()).getColour(0));
+                    }
+                }
 			}catch(Exception ex) {
-				System.err.println("Warning! GameCharacter.getCovering(BodyCoveringType bodyCoveringType) is not finding equipped penis clothing for bodyCoveringType 'DILDO'!");
+				System.err.println("Warning! GameCharacter.getCovering(BodyCoveringType bodyCoveringType) is not finding equipped dildo_other item for bodyCoveringType 'DILDO'!");
 				return body.getCoverings().get(bodyCoveringType);
 			}
 		}
