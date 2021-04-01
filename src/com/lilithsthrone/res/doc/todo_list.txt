@@ -49,6 +49,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Tidied up Zaranix's post-combat dialogue and added variations for if non-con is turned off, as well as for the player to request Zaranix to transform into succubus form after swallowing his TF potion.
 		Made it so that Zaranix's oral sex scenes now start without you already sucking his cock, instead of having to wait for him to deal with clothing displacements first.
 		The 'flared' and 'tapered' penetration modifiers are now mutually exclusive with one another.
+		Added 'Set spawns' action in debug menu, so that you can easily spawn in all items of any clothing set.
 	
 	Sex:
 		Added 'tentacle-squeeze' and 'tail-squeeze' as miscellaneous sex actions which can be performed once a character is restricting their partner via their tentacles or serpent-tail. (These sex actions have sadist/masochist fetishes associated with them.)
@@ -64,7 +65,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The starting action for Arthur's hypno-watch quest is now correctly coloured as a side quest.
 		Fixed oral foot worship sex types having no descriptions in quick sex scenes.
 		Fixed bug where maximum penis girth TF from clothing was capped at value 6 instead of 7.
-	
+		Fixed issue where the kitty clothing set bonus wasn't being applied.
 	
 	
 	[x] Character race not being recalculated upon load
@@ -141,10 +142,22 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Place types -> Darkness.ALWAYS_DARK (some will probably need changing)
 			Entrance exterior
 			Inner places
-		Removed comments in clothing xml files
-		Saved svgs as optimised
-		Minor typo fixes in some clothing equip text
-		authorTag Costume supply changed
+		Clothing
+			Removed comments in xml files
+			Saved svgs as optimised
+			Minor typo fixes in some equip text
+			authorTag Costume supply changed
+		Weapons
+			Removed comments in xml files
+			Saved svgs as optimised
+		Set bonuses & status effects
+			Removed comments
+			Test
+				HLF regular not working
+				HLF INsurgent not working
+				[#SET_BONUS_dsg_hlf_insurgent.getName()]<br/>[#SE_dsg_set_hlf_insurgent.getName(pc)]
+		[x] Add buttons in spawn menu to spawn all of set type
+	
 	
 	
 	[] Posts
