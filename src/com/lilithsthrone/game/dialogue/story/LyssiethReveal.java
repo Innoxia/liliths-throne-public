@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -491,6 +492,7 @@ public class LyssiethReveal {
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 10));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), 10));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Arthur.class).incrementAffection(Main.game.getPlayer(), 10));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.firstReactionLiberate, true);
 					}
 				};
 				
@@ -502,6 +504,7 @@ public class LyssiethReveal {
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), 10));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 10));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), 10));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.firstReactionUsurp, true);
 					}
 				};
 				
@@ -514,6 +517,7 @@ public class LyssiethReveal {
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Arthur.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.firstReactionJoin, true);
 					}
 				};
 				
@@ -528,6 +532,7 @@ public class LyssiethReveal {
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Arthur.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.firstReactionNothing, true);
 					}
 				};
 			}
@@ -550,23 +555,43 @@ public class LyssiethReveal {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Impossible", "Ask Lyssieth how you're meant to fight an elder lilin and her army of demonic centaurs.", LAB_ENDING_SIREN_HELP);
+				return new Response("Impossible", "Ask Lyssieth how you're meant to fight an elder lilin and her army of demonic centaurs.", LAB_ENDING_MINOTALLYS);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode LAB_ENDING_SIREN_HELP = new DialogueNode("", "", true, true) {
+	public static final DialogueNode LAB_ENDING_MINOTALLYS = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_MINOTALLYS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Youko?", "Ask Meraxis who the youko are.", LAB_ENDING_SIREN_HELP);
+			}
+			return null;
+		}
+	};
 
+	public static final DialogueNode LAB_ENDING_SIREN_HELP = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(SubmissionCitadelArcanist.class).setPlayerKnowsName(true);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_SIREN_HELP");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -776,7 +801,7 @@ public class LyssiethReveal {
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 						Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 						if(Main.game.getNpc(DarkSiren.class).getAffection(Main.game.getPlayer())<0) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getPlayer(),  0));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getPlayer(), 0));
 						}
 					}
 				};
@@ -804,7 +829,7 @@ public class LyssiethReveal {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setNearestLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_CORRIDOR, false);
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_3_A_FINDING_THE_YOUKO));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_3_ELIS));
 						Main.game.getTextEndStringBuilder().append(
 								"<div class='container-full-width' style='text-align:center;'>"
 										+ "[style.colourExcellent(You have unlocked the world map!)]<br/>"

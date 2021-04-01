@@ -6602,6 +6602,7 @@ public class MainControllerInitMethod {
 					new Value<>("ANAL", PropertyValue.analContent),
 					new Value<>("GAPE", PropertyValue.gapeContent),
 					new Value<>("PENETRATION_LIMITATION", PropertyValue.penetrationLimitations),
+					new Value<>("PENETRATION_LIMITATION_DYNAMIC", PropertyValue.elasticityAffectDepth),
 					new Value<>("FOOT", PropertyValue.footContent),
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),
@@ -7622,7 +7623,7 @@ public class MainControllerInitMethod {
 								case VAGINA:
 									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
 											"Grabbing one of the free tubes connected to the vat of "+fluidOwnerName+" "+fluidName+", you quickly remove the suction device on the end, before screwing on one of the funnel attachments."
-											+ " Guiding the end of the tube between your [pc.legs+], you waste no time in sliding the funnel into your [pc.pussy+]."
+											+ " Guiding the end of the tube #IF(pc.hasLegs())between your [pc.legs+]#ELSEto your groin#ENDIF, you waste no time in sliding the funnel into your [pc.pussy+]."
 											+ " Flicking the switch on the side of the vat from 'suck' to 'pump', you then press the start button, letting out a delighted [pc.moan] as you feel the "+fluidName+" being pumped"
 												+(MilkingRoom.getTargetedCharacter().isVisiblyPregnant()
 													?" into your [pc.pussy]."
@@ -7659,7 +7660,9 @@ public class MainControllerInitMethod {
 								case VAGINA:
 									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
 											"Wanting to pump [npc.namePos] [npc.pussy+] full of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to"
-												+ (!MilkingRoom.getTargetedCharacter().isTaur() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
+												+ (!MilkingRoom.getTargetedCharacter().isTaur()
+													&& MilkingRoom.getTargetedCharacter().hasLegs()
+													&& MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
 														?" sit down on a nearby chair and spread [npc.her] [npc.legs]."
 														:" kneel down and present [npc.herself] to you.")
 												+ " As soon as [npc.she] complies, and [npc.her] [npc.pussy+] is fully on display, you grab one of the free tubes connected to your selected vat of fluid,"

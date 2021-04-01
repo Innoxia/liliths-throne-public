@@ -37,6 +37,8 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 	private String transformationName;
 	
 	private boolean allowsFlight;
+	private boolean generic;
+	
 	private WingSize minimumSize;
 	private WingSize maximumSize;
 
@@ -78,6 +80,7 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 		this.coveringType = coveringType;
 		this.race = race;
 
+		this.generic = false;
 		this.allowsFlight = allowsFlight;
 		
 		this.minimumSize = WingSize.ZERO_TINY;
@@ -113,7 +116,12 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				
 				this.allowsFlight = Boolean.valueOf(coreElement.getMandatoryFirstOf("allowsFlight").getTextContent());
-				
+
+				if(coreElement.getOptionalFirstOf("genericType").isPresent()) {
+					this.generic = Boolean.valueOf(coreElement.getMandatoryFirstOf("genericType").getTextContent());
+				} else {
+					this.generic = false;
+				}
 
 				this.minimumSize = WingSize.ZERO_TINY;
 				if(coreElement.getOptionalFirstOf("minimumSize").isPresent()) {
@@ -165,7 +173,11 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 	public boolean allowsFlight() {
 		return allowsFlight;
 	}
-	
+
+	public boolean isGeneric() {
+		return generic;
+	}
+
 	public WingSize getMinimumSize() {
 		return minimumSize;
 	}

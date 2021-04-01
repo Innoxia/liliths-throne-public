@@ -114,6 +114,10 @@ public class HornType {
 			"circular-curling #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curled #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], circular-curling #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
 	};
 	
 	public static final AbstractHornType SPIRAL = new AbstractHornType(
@@ -128,6 +132,10 @@ public class HornType {
 			"twisted, spiralling #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(spiral #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], spiralling #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
 	};
 	
 	public static final AbstractHornType CURVED = new AbstractHornType(
@@ -142,6 +150,10 @@ public class HornType {
 			"slightly-curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(curved #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], curved #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
 	};
 	
 	public static final AbstractHornType SWEPT_BACK = new AbstractHornType(
@@ -156,6 +168,10 @@ public class HornType {
 			"sleek #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF, before sweeping back and curving over [npc.her] head."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(swept-back #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], swept-back #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
 	};
 	
 	public static final AbstractHornType STRAIGHT = new AbstractHornType(
@@ -170,6 +186,10 @@ public class HornType {
 			"sleek, straight horns."
 					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(straight #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
 			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], straight #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
 	};
 	
 	
@@ -268,43 +288,37 @@ public class HornType {
 	
 	private static Map<AbstractRace, List<AbstractHornType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractHornType> getHornTypes(AbstractRace r, boolean includeNone) {
-		if(typesMap.containsKey(r)) {
-			return typesMap.get(r);
-		}
-		
-		List<AbstractHornType> types = new ArrayList<>();
-		for(AbstractHornType type : HornType.getAllHornTypes()) {
-			if(type.getRace()==r) {
-				types.add(type);
-			}
-		}
-		if(types.isEmpty()) {
+	/**
+	 * 
+	 * @param race The race whose available horn types are to be returned.
+	 * @param retainNone Whether to leave HornType.NONE in the list (true) or remove it if it's present (false).
+	 * @return A list of HornTypes which are available for this race to have <b>via transformation, not by default</b>. If you want to find out what HornTypes a race has by default, use their RacialBody's getHornTypes() method.
+	 */
+	public static List<AbstractHornType> getHornTypes(AbstractRace race, boolean retainNone) {
+		if(!typesMap.containsKey(race)) {
+			List<AbstractHornType> allTypes = new ArrayList<>();
+			
 			for(AbstractHornType type : HornType.getAllHornTypes()) {
-				if(type.getRace()==Race.NONE && (includeNone || type!=HornType.NONE)) {
-					types.add(type);
+				if(type.getRace()==race) {
+					allTypes.add(type);
 				}
 			}
+			if(allTypes.isEmpty()) {
+				allTypes.add(HornType.NONE);
+				for(AbstractHornType type : HornType.getAllHornTypes()) {
+					if(type.isGeneric()) {
+						allTypes.add(type);
+					}
+				}
+			}
+			
+			typesMap.put(race, allTypes);
 		}
-		typesMap.put(r, types);
+		
+		List<AbstractHornType> types = new ArrayList<>(typesMap.get(race));
+		if(!retainNone) {
+			types.remove(HornType.NONE);
+		}
 		return types;
-	
-		
-		
-//		if(typesMap.containsKey(r)) {
-//			return typesMap.get(r);
-//		}
-//		
-//		List<AbstractHornType> types = new ArrayList<>();
-//		for(AbstractHornType type : HornType.getAllHornTypes()) {
-//			if(type.getRace()==r) {
-//				types.add(type);
-//			}
-//		}
-//		if(types.isEmpty()) {
-//			types.add(HornType.NONE);
-//		}
-//		typesMap.put(r, types);
-//		return types;
 	}
 }

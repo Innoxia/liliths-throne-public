@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>MAIN_HAIR</category>
+	
+	<determiner><![CDATA[a layer of]]></determiner>
+	
+	<name><![CDATA[hair]]></name>
+	
+	<namePlural pluralByDefault="false"><![CDATA[hair]]></namePlural> 
+	
+	<naturalCoveringModifiers>
+		<modifier>SHORT</modifier>
+	</naturalCoveringModifiers>
+	
+	<extraCoveringModifiers>
+		<modifier>COARSE</modifier>
+		<modifier>SMOOTH</modifier>
+		<modifier>SILKEN</modifier>
+		<modifier>SHAGGY</modifier>
+		<modifier>FLUFFY</modifier>
+	</extraCoveringModifiers>
+	
+	<naturalPatterns>
+		<pattern weighting="5">NONE</pattern>
+		<pattern weighting="1">SPOTTED</pattern>
+	</naturalPatterns>
+	
+	<extraPatterns>
+		<pattern weighting="1">HIGHLIGHTS</pattern>
+		<pattern weighting="1">STRIPED</pattern>
+		<pattern weighting="1">MOTTLED</pattern>
+		<pattern weighting="1">MARKED</pattern>
+	</extraPatterns>
+	
+	<naturalColoursPrimary>
+		<colour>COVERING_BLACK</colour>
+		<colour>COVERING_GREY</colour>
+		<colour>COVERING_TAN</colour>
+		<colour>COVERING_BROWN</colour>
+		<colour>COVERING_PINK_LIGHT</colour>
+		<colour>COVERING_PINK</colour>
+		<colour>COVERING_PINK_DARK</colour>
+	</naturalColoursPrimary>
+	<extraColoursPrimary values="allCoveringColours"/>
+	
+	<naturalColoursSecondary>
+		<colour>COVERING_BLACK</colour>
+	</naturalColoursSecondary>
+	<extraColoursSecondary values="allCoveringColours"/>
+	
+</coveringType>

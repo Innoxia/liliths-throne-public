@@ -2712,7 +2712,7 @@ public class NyanApartment {
 				UtilText.addSpecialParsingString(ItemEffectType.PREGNANCY_TEST.applyEffect(null, null, null, 0, getNyanMum(), getNyanMum(), null), true);
 			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanCreampied)) {
-				UtilText.addSpecialParsingString(ItemEffectType.PREGNANCY_TEST.applyEffect(null, null, null, 0, getNyan(), getNyan(), null), false);
+				UtilText.addSpecialParsingString(ItemEffectType.PREGNANCY_TEST.applyEffect(null, null, null, 0, getNyan(), getNyan(), null), !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumCreampied));
 			} 
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/nyansApartment/core", "POST_DOUBLE_SEX_KITCHEN"));

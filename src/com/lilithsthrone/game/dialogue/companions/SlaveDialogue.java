@@ -2272,6 +2272,10 @@ public class SlaveDialogue {
 									:"Deciding that you'd like to inspect [npc.namePos] body, you order [npc.herHim] to strip naked, before taking a step back in order to get a better view of [npc.herHim].")
 						+ "</p>"
 						+ "<p>");
+			
+			String legsSpreading = getSlave().hasLegs()
+					?"spread [npc.her] [npc.legs] and present [npc.her] "
+					:"present you with [npc.her] ";
 
 			if(getSlave().getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() || getSlave().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive()) {
 				switch(AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()))) {
@@ -2288,7 +2292,7 @@ public class SlaveDialogue {
 										+ "<p>"
 											+ "Despite [npc.her] angry words, you detect an undercurrent of arousal in [npc.namePos] voice,"
 												+ " and [npc.she] puts up surprisingly little resistance as you command [npc.herHim] to parade around in front of you."
-											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+											+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 												+", and even though this draws yet another angry remark from between your disobedient slave's [npc.lips],"
 												+ " you can tell that [npc.she] secretly enjoyed presenting [npc.herself] to you."
@@ -2305,7 +2309,7 @@ public class SlaveDialogue {
 									+ "<p>"
 										+ "Despite [npc.her] slightly-rebellious tone, you detect an undercurrent of arousal in [npc.namePos] voice,"
 											+ " and [npc.she] puts up surprisingly little resistance as you command [npc.herHim] to parade around in front of you."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 											+", and from [npc.her] disappointed sigh, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
 									+ "</p>");
@@ -2320,7 +2324,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 											+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 										+ " From the way [npc.her] cheeks have flushed, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
@@ -2340,7 +2344,7 @@ public class SlaveDialogue {
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again eagerly carries out."
-											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+											+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 											+", which draws a disappointed sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
@@ -2355,7 +2359,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "After [npc.sheHas] stripped naked, you command [npc.name] to parade around in front of you; an order which [npc.she] again eagerly carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a disappointed sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
@@ -2369,7 +2373,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 										+ " From the way [npc.her] cheeks have flushed, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
 									+ "</p>");
@@ -2388,7 +2392,7 @@ public class SlaveDialogue {
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again happily carries out."
-											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+											+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 												+", which draws a disappointed sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
@@ -2403,7 +2407,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "Ignoring the amorous tone of [npc.her] voice, you command [npc.name] to parade around in front of you; an order which [npc.she] again happily carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a disappointed sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
@@ -2417,7 +2421,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 										+ " From the way [npc.her] cheeks have flushed, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
 									+ "</p>");
@@ -2444,7 +2448,7 @@ public class SlaveDialogue {
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] rebellious words, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
-											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+											+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 												+", drawing yet another angry remark from between your disobedient slave's [npc.lips]."
 										+ "</p>");
@@ -2459,7 +2463,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "Ignoring [npc.her] slightly-rebellious tone, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a relieved sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
@@ -2473,7 +2477,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 									+ "</p>");
 								break;
@@ -2491,7 +2495,7 @@ public class SlaveDialogue {
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
-											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+											+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 												+", which draws a relieved sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
@@ -2506,7 +2510,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "After [npc.sheIs] stripped naked, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a relieved sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
@@ -2520,7 +2524,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 									+ "</p>");
 								break;
@@ -2538,7 +2542,7 @@ public class SlaveDialogue {
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
-											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+											+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
 												+", which draws a relieved sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
@@ -2553,7 +2557,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "Ignoring [npc.her] slightly-rebellious protest, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a relieved sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
@@ -2567,7 +2571,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
-										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
+										+ " After that, you get [npc.herHim] to "+legsSpreading+partInspection()
 										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 									+ "</p>");
 								break;
@@ -2994,14 +2998,14 @@ public class SlaveDialogue {
 							+ " [npc.speech("+firstSpeech+")]"
 						+ "</p>"
 						+ "<p>"
-							+ firstPCReaction+", and, with one [pc.hand] still squeezing [npc.her] [npc.breasts+], you slip the other down between [npc.her] [npc.legs].");
+							+ firstPCReaction+", and, with one [pc.hand] still squeezing [npc.her] [npc.breasts+], you slip the other down #IF(npc.hasLegs())between [npc.her] [npc.legs]#ELSEto [npc.her] groin#ENDIF.");
 			} else {
 				UtilText.nodeContentSB.append(
 						" Your [pc.hands] reach up to run over [npc.her] chest, drawing "+firstCry+" from [npc.namePos] mouth as [npc.she] "+firstReaction+","
 						+ " [npc.speech("+firstSpeech+")]"
 					+ "</p>"
 					+ "<p>"
-						+ firstPCReaction+", and, with one [pc.hand] still pressed against [npc.her] chest, you slip the other down between [npc.her] [npc.legs].");
+						+ firstPCReaction+", and, with one [pc.hand] still pressed against [npc.her] chest, you slip the other down #IF(npc.hasLegs())between [npc.her] [npc.legs]#ELSEto [npc.her] groin#ENDIF.");
 			}
 
 			if(getSlave().hasVagina() && getSlave().hasPenis()) {
@@ -3116,7 +3120,15 @@ public class SlaveDialogue {
 					return UtilText.parse(getSlave(),
 							"<p>"
 								+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
-								+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
+								+ (getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)
+									?"#IF(npc.isTaur())"
+											+ "Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby piece of furniture in a desperate attempt to masturbate and finish what you started."
+										+ "#ELSEIF(npc.hasLegs())"
+											+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
+										+ "#ELSE"
+											+ " [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
+										+ "#ENDIF"
+									:" Forbidden from masturbating, all [npc.she] can do is fruitlessly buck [npc.her] hips towards you and beg for you to give [npc.herHim] an orgasm.")
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech([pc.Name]! I'm still horny!)] [npc.she] cries."

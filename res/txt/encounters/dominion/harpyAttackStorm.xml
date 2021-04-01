@@ -102,27 +102,27 @@
 							#IF(com.getPregnantLitter().isFatherId(npc.getId()))
 								Glancing down at both your and [com.namePos] swollen bellies, the horny [npc.race] exclaims, [npc.speech(I got you two sluts knocked up?! Hah! Seeing as I've laid claim to your wombs already, you horny breeding sluts should just submit for another good fucking right now!)]
 							#ELSE
-								[npc.speech(Looks like I got you knocked up, whore!)] [npc.name] exclaims, looking down at your swollen belly, before glancing over at [com.name]. [npc.speech(And I see your friend's been spreading [com.her] legs as well! Hah! What a pair of sluts! Now submit for a good fucking!)]
+								[npc.speech(Looks like I got you knocked up, whore!)] [npc.name] exclaims, looking down at your swollen belly, before glancing over at [com.name]. [npc.speech(And I see your friend's been #IF(com.hasLegs())spreading [com.her] legs#ELSEgetting creampied#ENDIF as well! Hah! What a pair of sluts! Now submit for a good fucking!)]
 							#ENDIF
 						#ELSE
 							#IF(com.getPregnantLitter().isFatherId(npc.getId()))
-								[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] exclaims, looking down at [com.namePos] swollen belly, before glancing over towards you. [npc.speech(And I see you've been spreading your legs as well! Hah! What a pair of sluts! Now submit for a good fucking!)]
+								[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] exclaims, looking down at [com.namePos] swollen belly, before glancing over towards you. [npc.speech(And I see you've been #IF(pc.hasLegs())spreading your legs#ELSEgetting creampied#ENDIF as well! Hah! What a pair of sluts! Now submit for a good fucking!)]
 							#ELSE
-								[npc.speech(Well, well, well, looks like you two sluts have got yourselves knocked up!)] [npc.name] exclaims, looking down at both your and [com.namePos] swollen bellies. [npc.speech(Seeing as you've clearly got a lot of experience at spreading your legs, you whores should just submit for a good fucking right now!)]
+								[npc.speech(Well, well, well, looks like you two sluts have got yourselves knocked up!)] [npc.name] exclaims, looking down at both your and [com.namePos] swollen bellies. [npc.speech(Seeing as you've clearly got a lot of experience at it, you whores should just submit for a good fucking right now!)]
 							#ENDIF
 						#ENDIF
 					#ELSE
 						#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
 							[npc.speech(Well, well, well, looks like I got you knocked up, slut!)] [npc.name] exclaims, looking down at your swollen belly. [npc.speech(Seeing as you've been put in your place, you should just submit for another good fuck!)]
 						#ELSE
-							[npc.speech(Well, well, well, looks like someone got you knocked up, slut!)] [npc.name] exclaims, looking down at your swollen belly. [npc.speech(Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet! Now it's time for you to spread them for me!)]
+							[npc.speech(Well, well, well, looks like someone got you knocked up, slut!)] [npc.name] exclaims, looking down at your swollen belly. [npc.speech(Been going around town submitting to anyone who wants to pump a load in you, I'll bet! Now it's time for you to spread them for me!)]
 						#ENDIF
 					#ENDIF
 				#ELSE
 					#IF(com.getPregnantLitter().isFatherId(npc.getId()))
 						[npc.speech(Well, well, well, looks like I got you knocked up, slut!)] [npc.name] sneers, looking down at [com.namePos] swollen belly. [npc.speech(L Seeing as you've been put in your place, you should just submit for another good fuck!)]
 					#ELSE
-						[npc.speech(Well, well, well, looks like someone got you knocked up, slut!)] [npc.name] sneers, looking down at [com.namePos] swollen belly. [npc.speech(Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet! Now it's time for you to spread them for me!)]
+						[npc.speech(Well, well, well, looks like someone got you knocked up, slut!)] [npc.name] sneers, looking down at [com.namePos] swollen belly. [npc.speech(Been going around town submitting to anyone who wants to pump a load in you, I'll bet! Now it's time for you to spread them for me!)]
 					#ENDIF
 				#ENDIF
 			#ELSE
@@ -138,10 +138,10 @@
 							[npc.speech(Hah!)] [npc.name] laughs, looking down at both your and [com.namePos] swollen bellies. [npc.speech(You sluts are still pregnant, huh? As you're only good for being bred, you should both just submit for another good fuck right now!)]
 						#ENDIF
 					#ELSE
-						[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love spreading your legs so much, just submit already!)]
+						[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love getting fucked so much, just submit already!)]
 					#ENDIF
 				#ELSE
-					[npc.speech(Hah!)] [npc.name] laughs, looking down at [com.namePos] swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love spreading your legs so much, just submit already!)]
+					[npc.speech(Hah!)] [npc.name] laughs, looking down at [com.namePos] swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love getting fucked so much, just submit already!)]
 				#ENDIF
 			#ENDIF
 		</p>
@@ -339,7 +339,7 @@
 	
 	<htmlContent tag="HARPY_ATTACK_OFFER_COMPANION"><![CDATA[
 	<p>
-		Wanting to avoid a fight, you decide to do the only other thing you can think of, and turn towards [com.name] to ask, [pc.speech(You'll take one for the team, won't you, [com.name]? I don't really want to get into a fight; all you need to do is spread your legs...)]
+		Wanting to avoid a fight, you decide to do the only other thing you can think of, and turn towards [com.name] to ask, [pc.speech(You'll take one for the team, won't you, [com.name]? I don't really want to get into a fight; all you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	<p>
 		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
@@ -417,7 +417,7 @@
 	
 	<htmlContent tag="HARPY_ATTACK_PEACEFUL_OFFER_COMPANION"><![CDATA[
 	<p>
-		Wanting to offer [npc.name] something special, you look over at [com.name] and ask, [pc.speech(You're up for having some fun, aren't you, [com.name]? I don't really want to have sex right now, but I can tell that [npc.name] really needs a good fuck. All you need to do is spread your legs...)]
+		Wanting to offer [npc.name] something special, you look over at [com.name] and ask, [pc.speech(You're up for having some fun, aren't you, [com.name]? I don't really want to have sex right now, but I can tell that [npc.name] really needs a good fuck. All you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	<p>
 		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())

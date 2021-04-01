@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -236,6 +237,12 @@ public enum CaptiveTransformation {
 							+ target.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue())
 							+ target.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
 				}
+				
+				if(!target.hasLegs() && target.getGenitalArrangement()!=GenitalArrangement.CLOACA_BEHIND) {
+					map.put("You's thinkin' I ain't gonna be able ta fuck yer ass from behind, wot with it bein' on the front o' yer [pc.leg]? Well, think again!"
+								+ " Yer gonna 'ave yer asshole in a rear-facin' cloaca, so you's gonna always 'ave ta be fucked from behind from now on! Heh-heh-heh!",
+							target.setGenitalArrangement(GenitalArrangement.CLOACA_BEHIND));
+				}
 			}
 
 			Main.game.getDialogueFlags().setMurkTfStage(target, 3);
@@ -440,6 +447,12 @@ public enum CaptiveTransformation {
 					target.setVaginaCapacity(1, true)
 					+ target.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue())
 					+ target.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+			
+			if(!target.hasLegs() && target.getGenitalArrangement()!=GenitalArrangement.CLOACA_BEHIND) {
+				map.put("You's thinkin' I ain't gonna be able ta fuck yer cunt from behind, wot with it bein' on the front o' yer [pc.leg]? Well, think again!"
+							+ " Yer gonna 'ave yer twat an' asshole in a rear-facin' cloaca, so you's gonna always 'ave ta be fucked from behind from now on! Heh-heh-heh!",
+						target.setGenitalArrangement(GenitalArrangement.CLOACA_BEHIND));
+			}
 			
 			if(Main.game.isAnalContentEnabled()) {
 				Covering covering = target.getCovering(BodyCoveringType.ANUS);

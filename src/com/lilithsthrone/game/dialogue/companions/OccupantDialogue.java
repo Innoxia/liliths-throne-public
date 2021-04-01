@@ -340,7 +340,7 @@ public class OccupantDialogue {
 											+ "<br/>[style.italicsMinorBad(Requires [npc.name] to have an affection of at least '"+AffectionLevel.POSITIVE_FOUR_LOVE.getName()+"' towards you.)]"),
 									null);
 						}
-						return new Response("Pettings", UtilText.parse(occupant(), "Ask [npc.name] about [npc.her] interactions with Lilaya and Rose."), OCCUPANT_PETTINGS) {
+						return new Response("Pettings", UtilText.parse(occupant(), "Give [npc.name] some loving pettings."), OCCUPANT_PETTINGS) {
 							@Override
 							public void effects() {
 								applyReactionReset();

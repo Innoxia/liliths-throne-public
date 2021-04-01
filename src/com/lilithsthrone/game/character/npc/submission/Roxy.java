@@ -334,8 +334,10 @@ public class Roxy extends NPC {
 		this.addItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
 		
 		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
-				this.addItem(Main.game.getItemGen().generateItem(item), false);
+			if(Main.game.isSillyMode() || !item.getItemTags().contains(ItemTag.SILLY_MODE)) {
+				for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
+					this.addItem(Main.game.getItemGen().generateItem(item), false);
+				}
 			}
 		}
 		

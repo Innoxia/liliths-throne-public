@@ -298,139 +298,79 @@ public class Clitoris implements BodyPartInterface {
 		
 		clitModifiers.add(modifier);
 		
-		switch(modifier) {
-			case RIBBED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure building up within your [pc.clit], but before you have a chance to react, a series of [style.boldGrow(hard, fleshy ribs)] grow up all along its length.<br/>"
-								+ "[style.boldSex(Your [pc.clit] is now ribbed!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense pressure builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(hard, fleshy ribs)] grow up all along its length.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] is now ribbed!)]"
-							+ "</p>";
-				}
-			case TENTACLED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a pulsating warmth building up within your [pc.clit], but before you have a chance to react, a series of [style.boldGrow(little wriggling tentacles)] grow up all along its length.<br/>"
-								+ "[style.boldSex(Your [pc.clit] is now covered with little tentacles, which wriggle with a mind of their own!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "A pulsating warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(little wriggling tentacles)] grow up all along its length.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] is now covered with little tentacles, which wriggle with a mind of their own!)]"
-							+ "</p>";
-				}
-			case BARBED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense warmth building up within your [pc.clit], but before you have a chance to react, a series of [style.boldGrow(little fleshy barbs)] grow up all along its length.<br/>"
-								+ "[style.boldSex(Your [pc.clit] is now lined with fleshy, backwards-facing barbs!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(little fleshy barbs)] grow up all along its length.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] is now lined with fleshy, backwards-facing barbs!)]"
-							+ "</p>";
-				}
-			case FLARED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense warmth building up in the tip of your [pc.clit], and before you have a chance to react, the [style.boldGrow(head flares out)], much like that of a horse's cock.<br/>"
-								+ "[style.boldSex(Your [pc.clit] now has a wide, flared head!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, the [style.boldGrow(head flares out)], much like that of a horse's cock.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] now has a wide, flared head!)]"
-							+ "</p>";
-				}
-			case BLUNT:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense warmth building up in the tip of your [pc.clit], and before you have a chance to react, the [style.boldGrow(head smoothes over)], leaving it looking like the head of a reptile's cock.<br/>"
-								+ "[style.boldSex(Your [pc.clit] now has a smooth, blunt head!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, the [style.boldGrow(head smoothes over)], leaving it looking like the head of a reptile's cock.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] now has a smooth, blunt head!)]"
-							+ "</p>";
-				}
-			case KNOTTED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense warmth building up in the base of your [pc.clit], and before you have a chance to react, a [style.boldGrow(fat knot)] quickly grows up there.<br/>"
-								+ "[style.boldSex(Your [pc.clit] now has a fat knot at the base!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense warmth builds up in the base of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, a [style.boldGrow(fat knot)] quickly grows up there.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] now has a fat knot at the base!)]"
-							+ "</p>";
-				}
-			case PREHENSILE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a strange tingling sensation work its way up the length of your [pc.clit], and you suddenly become aware that it's transformed into being [style.boldGrow(prehensile)],"
-									+ " allowing you to twist and move it around just like a primate's tail.<br/>"
-								+ "[style.boldSex(Your [pc.clit] is now prehensile!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "A strange tingling sensation work its way up the length of [npc.namePos] [npc.clit], and [npc.she] suddenly becomes aware that it's transformed into being [style.boldGrow(prehensile)],"
-									+ " allowing [npc.herHim] to twist and move it around just like a primate's tail.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] is now prehensile!)]"
-							+ "</p>";
-				}
-			case SHEATHED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure building up in the base of your [pc.clit], and before you have a chance to react, it pulls back into a brand new [style.boldGrow(sheath)] that's just grown up there.<br/>"
-								+ "[style.boldSex(Your [pc.clit] is now sheathed!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense pressure builds up in the base of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, it pulls back into a brand new [style.boldGrow(sheath)] that's just grown up there.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] is now sheathed!)]"
-							+ "</p>";
-				}
-			case TAPERED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense warmth building up within your [pc.clit], but before you have a chance to react, the shaft suddenly [style.boldGrow(tapers down)].<br/>"
-								+ "[style.boldSex(Your [pc.clit] is now tapered!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, the shaft suddenly [style.boldGrow(tapers down)].<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] is now tapered!)]"
-							+ "</p>";
-				}
-			case VEINY:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense warmth building up within your [pc.clit], but before you have a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length.<br/>"
-								+ "[style.boldSex(Your [pc.clit] is now veiny!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length.<br/>"
-								+ "[style.boldSex([npc.NamePos] [npc.clit] is now veiny!)]"
-							+ "</p>";
-				}
-			case OVIPOSITOR:
-				return "<p>"
-							+ "An intense tingling sensation works its up [npc.namePos] [npc.clit], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now able to lay eggs!)]"
-							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>"
-						+ "</p>";
+		List<String> pmsRemoved = new ArrayList<>();
+		
+		for(PenetrationModifier pm : modifier.getMutuallyExclusivePenetrationModifiers()) {
+			if(hasClitorisModifier(pm)) {
+				pmsRemoved.add(pm.getName());
+				clitModifiers.remove(pm);
+			}
+		}
+		String removedText = "";
+		if(!pmsRemoved.isEmpty()) {
+			removedText = "<br/>[style.italicsMinorBad(Due to being mutually exclusive with the '"+modifier.getName()+"' modifier, [npc.namePos] clit is no longer "+Util.stringsToStringList(pmsRemoved, false)+".)]";
 		}
 		
-		// Catch:
-		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		String returnText = "";
+		
+		switch(modifier) {
+			case RIBBED:
+				returnText = "An intense pressure builds up within [npc.namePos] [npc.clit], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(hard, fleshy ribs)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now ribbed!)]";
+				break;
+			case TENTACLED:
+				returnText = "A pulsating warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(little wriggling tentacles)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now covered with little tentacles, which wriggle with a mind of their own!)]";
+				break;
+			case BARBED:
+				returnText = "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(little fleshy barbs)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now lined with fleshy, backwards-facing barbs!)]";
+				break;
+			case FLARED:
+				returnText = "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.she] [npc.has] a chance to react, the [style.boldGrow(head flares out)], much like that of a horse's."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] now has a wide, flared head!)]";
+				break;
+			case BLUNT:
+				returnText = "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.she] [npc.has] a chance to react, the [style.boldGrow(head smoothes over)], much like that of a reptile's."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] now has a smooth, blunt head!)]";
+				break;
+			case KNOTTED:
+				returnText = "An intense warmth builds up in the base of [npc.namePos] [npc.clit], and before [npc.she] [npc.has] a chance to react, a [style.boldGrow(fat knot)] quickly grows up there."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] now has a fat knot at the base!)]";
+				break;
+			case PREHENSILE:
+				returnText = "A strange tingling sensation works its way up the length of [npc.namePos] [npc.clit], and [npc.she] suddenly becomes aware that it's transformed into being [style.boldGrow(prehensile)],"
+								+ " allowing [npc.herHim] to twist and move it around just like a primate's tail."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now prehensile!)]";
+				break;
+			case SHEATHED:
+				returnText = "An intense pressure builds up in the base of [npc.namePos] [npc.clit], and before [npc.she] [npc.has] a chance to react, it pulls back into a brand new [style.boldGrow(sheath)] that's just grown up there."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now sheathed!)]";
+				break;
+			case TAPERED:
+				returnText = "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] [npc.has] a chance to react, the shaft suddenly [style.boldGrow(tapers down)]."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now tapered!)]";
+				break;
+			case VEINY:
+				returnText = "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now veiny!)]";
+				break;
+			case OVIPOSITOR:
+				returnText = "An intense tingling sensation works its up [npc.namePos] [npc.clit], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now able to lay eggs!)]"
+							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
+				break;
+		}
+		
+		if(returnText.isEmpty()) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
+		return UtilText.parse(owner,
+				"<p>"
+					+returnText
+					+removedText
+				+"</p>");
 	}
 
 	public String removeClitorisModifier(GameCharacter owner, PenetrationModifier modifier) {
