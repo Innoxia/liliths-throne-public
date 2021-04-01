@@ -3007,7 +3007,7 @@ public class Body implements XMLSaving {
 			if(wing.getType().allowsFlight()) {
 				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
 					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
-				} else if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
+				} else if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getValue()) {
 					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
 				} else {
 					sb.append(" They aren't large enough to allow [npc.herHim] to fly.");
@@ -6405,7 +6405,7 @@ public class Body implements XMLSaving {
 	}
 	
 	public boolean isAbleToFlyFromArms() {
-		if(this.getBodyMaterial()==BodyMaterial.SLIME || this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight().getValue()>WingSize.THREE_LARGE.getValue()) {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME || this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight(this).getValue()>WingSize.THREE_LARGE.getValue()) {
 			return false;
 		}
 		return arm.getType().allowsFlight();
@@ -6415,7 +6415,7 @@ public class Body implements XMLSaving {
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 			return false;
 		}
-		return wing.getType().allowsFlight() && wing.getSize().getValue()>=this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight().getValue();
+		return wing.getType().allowsFlight() && wing.getSize().getValue()>=this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight(this).getValue();
 	}
 
 	public boolean isAbleToFlyFromExtraParts() {

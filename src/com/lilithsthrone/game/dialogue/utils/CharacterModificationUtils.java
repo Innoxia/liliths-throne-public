@@ -1246,15 +1246,16 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformWingSizeDiv() {
+		GameCharacter target = BodyChanging.getTarget();
 		contentSB.setLength(0);
 		
 		for(WingSize wingSize : WingSize.values()) {
-			if(BodyChanging.getTarget().getWingType().getMinimumSize().getValue()>wingSize.getValue()
-					|| BodyChanging.getTarget().getWingType().getMaximumSize().getValue()<wingSize.getValue()) {
+			if(target.getWingType().getMinimumSize().getValue()>wingSize.getValue()
+					|| target.getWingType().getMaximumSize().getValue()<wingSize.getValue()) {
 				contentSB.append(
 						"<div class='cosmetics-button disabled'>"
 							+ Util.capitaliseSentence(wingSize.getName())
-							+ (wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")
+							+ (wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")
 						+ "</div>");
 			
 			} else {
@@ -1262,14 +1263,14 @@ public class CharacterModificationUtils {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
-									+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
+									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
 								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
-									+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
+									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
 							+ "</div>");
 				}
 			}
