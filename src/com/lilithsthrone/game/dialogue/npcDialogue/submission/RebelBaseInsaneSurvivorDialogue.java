@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import com.lilithsthrone.game.character.npc.NPC;
@@ -16,8 +11,9 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
- *
- * @author dustland.crow
+ * @since 0.3.21
+ * @version 0.3.21
+ * @author DSG
  */
 public class RebelBaseInsaneSurvivorDialogue {
     

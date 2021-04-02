@@ -104,9 +104,9 @@
 	All whitespace is stripped from the returned String before it is parsed into a Boolean. -->
 	<availabilityCondition><![CDATA[
 		[#((npc.getMainWeapon(0) != null && 
-		npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_hlfweap_pbrevolver)) || 
+		npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_hlf_weap_pbrevolver)) || 
 		(npc.getOffhandWeapon(0) != null && 
-		npc.getOffhandWeapon(0).getWeaponType().equals(WEAPON_dsg_hlfweap_pbrevolver))) && 
+		npc.getOffhandWeapon(0).getWeaponType().equals(WEAPON_dsg_hlf_weap_pbrevolver))) && 
 		npc.getEssenceCount() > 1]
 	]]>
 	</availabilityCondition>

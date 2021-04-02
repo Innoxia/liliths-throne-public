@@ -29,7 +29,7 @@ public class QuestTree {
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
 	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
 	public static TreeNode<Quest> rebelBaseTree = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
-        public static TreeNode<Quest> rebelBaseFirebombTree = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
+	public static TreeNode<Quest> rebelBaseFirebombTree = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
 	
 	
 	static {

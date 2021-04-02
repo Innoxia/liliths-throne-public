@@ -90,8 +90,8 @@ public class Roxy extends NPC {
 			ItemType.PREGNANCY_TEST);
 
 	private static List<AbstractWeaponType> weaponsForSale = new ArrayList<AbstractWeaponType>();
-        
-        static {
+	
+	static {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE)
 					&& (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))
@@ -346,17 +346,18 @@ public class Roxy extends NPC {
 			}
 		}
                 
-                //add a special case for firebombs as they are disposable
-                for (AbstractWeaponType weapon : weaponsForSale) {
-                    if (weapon.getId().equals("dsg_hlf_weap_pbomb")) {
-                        if (!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE)) {
-                            break;
-                        }
-                        this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 10, false, false);
-                    } else {
-                        this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), false);
-                    }
-                }
+	    //add a special case for firebombs as they are disposable
+	    for (AbstractWeaponType weapon : weaponsForSale) {
+	        if (weapon.getId().equals("dsg_hlf_weap_pbomb")) {
+	            if (!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE)) {
+	                break;
+	            }
+	            this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 10, false, false);
+	            
+	        } else {
+	            this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), false);
+	        }
+	    }
 		
 		List<AbstractClothingType> clothingToAdd = new ArrayList<>();
 		

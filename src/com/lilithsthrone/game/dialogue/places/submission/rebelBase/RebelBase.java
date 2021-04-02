@@ -11,7 +11,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.8.9
- * @version 0.3.9
+ * @version 0.3.21
  * @author DSG
  */
 public class RebelBase {

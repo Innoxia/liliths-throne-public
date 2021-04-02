@@ -157,11 +157,33 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				HLF INsurgent not working
 				[#SET_BONUS_dsg_hlf_insurgent.getName()]<br/>[#SE_dsg_set_hlf_insurgent.getName(pc)]
 		[x] Add buttons in spawn menu to spawn all of set type
-		Places
-			
+		Quest definitions
+		Npcs
+		Cave quest
+		Firebomb quest
+		[x] Add mag dump special attack
+		Dialogue
+			[] Should location be random?
+			[] Add a bit of text after pulling handle to say that the player should search for clues
+			[] Dialogue for Bat Caverns tile needs expanding to more than one sentence
+			[] Make it so that the player has 100% chance to find the encounter after 6 encounters which were not it
+			[] Test halves first light then dark text
+			[] Add coloured warning to exit tooltip that leaving will fail the quest
+				Also add warning to entering the cave?
+			[] Mostly Caved-in Room description expansion
+			[] Alter (and add variant for soldier background) "You instantly recognize the disposable nature of the firebombs,	having seen them on the news."
+			[] Add description for when looting the container in the Common Area 
+			[] " the butt of her weapon" -> his
+			[] "you notice that your pockets are totally empty like they were before, but obviously rummaged through,	and let out a sigh"
+			[] "bioluminscent"
+			[] Make places light (from mushrooms)
+			[] You lost ¤292! -> in dialogue after defeat, losing more money?
+			[] "into illegible bits" pieces?
+			[x] Add a small sentence to make it clear that the 20th November 1989 entry is not in chronological order from the entry above. Or is it meant to be 1990?
+			[] "away from the here to train"
+			[] Roxy firebomb selling doesn't restock
+			[] After combat victory, survivor should disappear before end combat scene
 		
-	TODO:
-		Add mag dump special attack
 	
 	
 	[] Posts

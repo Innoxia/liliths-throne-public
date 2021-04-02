@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
@@ -54,10 +49,10 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
-
 /**
- *
- * @author dustland.crow
+ * @since 0.3.21
+ * @version 0.3.21
+ * @author DSG
  */
 public class RebelBaseInsaneSurvivor extends NPC {
     

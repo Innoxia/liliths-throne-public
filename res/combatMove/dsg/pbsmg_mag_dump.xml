@@ -103,7 +103,7 @@
 	The parsing target of 'npc' corresponds to the character who is being checked to see if they have this move available to them.
 	All whitespace is stripped from the returned String before it is parsed into a Boolean. -->
 	<availabilityCondition><![CDATA[
-		[#npc.getMainWeapon(0) != null && npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_hlfweap_pbsmg) && npc.getEssenceCount() > 1]
+		[#npc.getMainWeapon(0) != null && npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_hlf_weap_pbsmg) && npc.getEssenceCount() > 1]
 	]]>
 	</availabilityCondition>
 	

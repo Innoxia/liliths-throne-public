@@ -45,8 +45,8 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.3.9.4
- * @author Innoxia
+ * @version 0.3.21
+ * @author Innoxia, DSG
  */
 public class RoxysShop {
     
