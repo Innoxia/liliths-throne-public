@@ -2,8 +2,8 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.9.4
- * @author Innoxia
+ * @version 0.3.21
+ * @author Innoxia, DSG
  */
 public enum EncounterType {
 
@@ -46,6 +46,11 @@ public enum EncounterType {
 	BAT_CAVERN_LURKER_ATTACK(true),
 	BAT_CAVERN_SLIME_ATTACK(true),
 	BAT_CAVERN_FIND_ITEM,
+	BAT_CAVERN_REBEL_BASE_DISCOVERED,
+	BAT_CAVERN_REBEL_PASSWORD_ONE,
+	BAT_CAVERN_REBEL_PASSWORD_TWO,
+	
+	REBEL_BASE_INSANE_SURVIVOR_ATTACK,
 	
 	VENGAR_CAPTIVE_SERVE,
 	VENGAR_CAPTIVE_GROPED,

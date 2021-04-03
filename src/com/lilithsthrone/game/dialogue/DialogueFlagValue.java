@@ -266,6 +266,8 @@ public enum DialogueFlagValue {
 	zaranixAmberSubdued,
 	zaranixKatherineSubdued,
 	zaranixKellySubdued,
+
+	zaranixTransformedPlayer,
 	
 	amberRepeatEncountered,
 	katherineRepeatEncountered,
@@ -365,6 +367,14 @@ public enum DialogueFlagValue {
 	meraxisRepeatDemonTF,
 	
 	
+	// Rebel base:
+
+	rebelBaseDarkPassFound,
+	rebelBaseLightPassFound,
+    rebelBaseInsaneSurvivorEncountered,
+    rebelBaseElleCostumeEncountered,
+	
+    
 	// Rat warrens:
 	
 	ratWarrensEntry,

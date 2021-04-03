@@ -64,6 +64,7 @@ public enum PropertyValue {
 	
 	cumRegenerationContent(true),
 	penetrationLimitations(true),
+	elasticityAffectDepth(false), // Added in PR#1413
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),

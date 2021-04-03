@@ -172,9 +172,11 @@ import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -525,7 +527,28 @@ public class MainControllerInitMethod {
 				}, false);
 			}
 		}
-		
+
+		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU_SET)) {
+			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
+				id = "SET_BONUS_"+SetBonus.getIdFromSetBonus(sb);
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
+							if(wt.getClothingSet()==sb) {
+								Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(Main.game.getItemGen().generateWeapon(wt));
+							}
+						}
+						for(AbstractClothingType ct : ClothingType.getAllClothing()) {
+							if(ct.getClothingSet()==sb) {
+								Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
+							}
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+					
+				}
+			}
+		}
 		
 		
 		
@@ -6602,6 +6625,7 @@ public class MainControllerInitMethod {
 					new Value<>("ANAL", PropertyValue.analContent),
 					new Value<>("GAPE", PropertyValue.gapeContent),
 					new Value<>("PENETRATION_LIMITATION", PropertyValue.penetrationLimitations),
+					new Value<>("PENETRATION_LIMITATION_DYNAMIC", PropertyValue.elasticityAffectDepth),
 					new Value<>("FOOT", PropertyValue.footContent),
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),

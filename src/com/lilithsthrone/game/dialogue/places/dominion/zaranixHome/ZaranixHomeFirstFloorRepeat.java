@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
@@ -10,9 +13,11 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -335,12 +340,6 @@ public class ZaranixHomeFirstFloorRepeat {
 	};
 	
 	public static final DialogueNode ZARANIX_ROOM = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Zaranix's Lab";
-		}
-
 		@Override
 		public String getContent() {
 			return (UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_OUTSIDE"));
@@ -357,12 +356,6 @@ public class ZaranixHomeFirstFloorRepeat {
 	};
 	
 	public static final DialogueNode ZARANIX_ROOM_EXIT = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Zaranix's Lab";
-		}
-
 		@Override
 		public String getContent() {
 			return (UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_EXIT"));
@@ -379,12 +372,6 @@ public class ZaranixHomeFirstFloorRepeat {
 	};
 	
 	public static final DialogueNode ZARANIX_ROOM_ENTER = new DialogueNode("", "", true, true) {
-
-		@Override
-		public String getLabel() {
-			return "Zaranix's Lab";
-		}
-
 		@Override
 		public String getContent() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixRepeatEncountered)) {
@@ -396,14 +383,6 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			/*
-			- Ask about incubus form
-				- if affection > 50, then can convince to stay as futa succubus Zoelix
-				- scene where you show her how good it feels to stay as a female - Zaranix gains pussy slut and self-breast fetishes
-			- Sex
-				- If incubus, he only accepts blowjobs
-				- If succubus, get full sex
-			 */
 			if(index == 0) {
 				return new Response("Leave", "Say goodbye and step outside into the first-floor corridor once again.", ZARANIX_ROOM_EXIT) {
 					@Override
@@ -437,13 +416,35 @@ public class ZaranixHomeFirstFloorRepeat {
 				};
 				
 			} else if(index == 4) {
-				return new ResponseSex("Offer blowjob", "Ask Zaranix if he'd like a blowjob as way of thanks for letting you have Arthur.",
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					return new Response("Blowjob", "As you are unable to get access to your mouth, you cannot offer to suck Zaranix's cock!", null);
+				}
+				return new ResponseSex("Blowjob", "Ask Zaranix if he'd like a blowjob...",
 						true, true,
 						new SMZaranixCockSucking(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexSlotSitting.SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
 						null,
-						null, AFTER_SEX_ZARANIX_BLOWJOB, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_BLOWJOB"));
+						null,
+						AFTER_SEX_ZARANIX_BLOWJOB,
+						UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_BLOWJOB")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(
+								new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Zaranix.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
+					}
+				};
+				
+			} else if(index == 5) {
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					return new Response("Blowjob (succubus)", "As you are unable to get access to your mouth, you cannot offer to suck Zaranix's cock!", null);
+				}
+				return new Response("Blowjob (succubus)", "Tell Zaranix that if he transforms into his succubus form then you'd be happy to give 'her' a blowjob...", ZARANIX_ROOM_BLOWJOB_TF) {
+					@Override
+					public boolean isSexHighlight() {
+						return true;
+					}
+				};
 				
 			} else {
 				return null;
@@ -452,12 +453,6 @@ public class ZaranixHomeFirstFloorRepeat {
 	};
 	
 	public static final DialogueNode ZARANIX_ROOM_MAIDS = new DialogueNode("", "", true, true) {
-
-		@Override
-		public String getLabel() {
-			return "Zaranix's Lab";
-		}
-
 		@Override
 		public String getContent() {
 			return (UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_MAIDS"));
@@ -474,12 +469,6 @@ public class ZaranixHomeFirstFloorRepeat {
 	};
 	
 	public static final DialogueNode ZARANIX_ROOM_EXPERIMENTS = new DialogueNode("", "", true, true) {
-
-		@Override
-		public String getLabel() {
-			return "Zaranix's Lab";
-		}
-
 		@Override
 		public String getContent() {
 			return (UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_EXPERIMENTS"));
@@ -496,12 +485,6 @@ public class ZaranixHomeFirstFloorRepeat {
 	};
 	
 	public static final DialogueNode ZARANIX_ROOM_INCUBUS_FORM = new DialogueNode("", "", true, true) {
-
-		@Override
-		public String getLabel() {
-			return "Zaranix's Lab";
-		}
-
 		@Override
 		public String getContent() {
 			return (UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_INCUBUS_FORM"));
@@ -516,26 +499,64 @@ public class ZaranixHomeFirstFloorRepeat {
 			}
 		}
 	};
+	
+	public static final DialogueNode ZARANIX_ROOM_BLOWJOB_TF = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_BLOWJOB_TF_START"));
+			((Zaranix)Main.game.getNpc(Zaranix.class)).transformFeminine();
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_BLOWJOB_TF_END"));
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new ResponseSex("Suck cock", "Get started on sucking Zaranix's cock...",
+						true, true,
+						new SMZaranixCockSucking(
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
+						null,
+						null,
+						AFTER_SEX_ZARANIX_BLOWJOB,
+						UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_BLOWJOB_TF_SEX")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(
+								new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Zaranix.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
+					}
+				};
+			}
+			return null;
+		}
+	};
 
-	public static final DialogueNode AFTER_SEX_ZARANIX_BLOWJOB = new DialogueNode("", "", false) {
-
+	public static final DialogueNode AFTER_SEX_ZARANIX_BLOWJOB = new DialogueNode("Finished", "Zaranix has had enough of experiencing your cock-sucking skills for now...", true) {
 		@Override
 		public String getLabel() {
-			return "Zaranix's Lab";
+			return "Finished";
 		}
-
 		@Override
 		public String getContent() {
 			return (UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "AFTER_SEX_ZARANIX_BLOWJOB"));
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new Response("Enter", "Knock on Zaranix's door and step inside.", ZARANIX_ROOM_ENTER);
-			} else {
-				return null;
+				return new Response("Continue", "Continue on your way through Zaranix's mansion...", CORRIDOR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setNearestLocation(WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_CORRIDOR);
+						if(Main.game.getNpc(Zaranix.class).isFeminine()) {
+							Main.game.getNpc(Zaranix.class).setStartingBody(false);
+						}
+					}
+				};
 			}
+			return null;
 		}
 	};
 }
