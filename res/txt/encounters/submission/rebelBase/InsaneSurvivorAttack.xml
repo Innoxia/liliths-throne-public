@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ATTACK"><![CDATA[
+	<p>
+		As you enter the room, you notice a ghostly figure crouched in the corner with [npc.her] back turned to you, mumbling something inaudibly and seemingly unaware of your presence. While you deliberate whether or not to approach [npc.herHim], you must have made some sort of noise since [npc.she] suddenly jumps up and turns to face you. A half-eaten glowing mushroom falls from [npc.her] emaciated hands to the floor.
+	</p>
+	<p>
+		You're not quite sure what to make of the stranger before you. [npc.She] is clearly mostly human, and corporeal at that, but [npc.her] pale complexion and glowing skin can only mean [npc.sheHas] lived far from the sun's rays for a long time on a diet of nothing but the mushrooms growing in the cave. [npc.Her] clothing appears to have been some kind of uniform but is so covered in patches and stains that you're not sure if you've seen the style before or not.
+	</p>
+	<p>
+		Whatever the case, [npc.her] initial shock wears off almost immediately and [npc.she] reflexively points some sort of submachine gun at you.
+	</p>
+	<p>
+		[npc.speech(Come back to get me, huh?)] [npc.she] asks mockingly, [npc.speech(You demonic fuckers always were shit at cleaning up after yourselves. Well, you're not turning me into a <i>fucking animal!</i> And I won't be like you either, I'll die first!)]
+	</p>
+	<p>
+		[npc.She]'s got you square in [npc.her] sights and [npc.her] crazed, wild-eyed, expression gives you the impression [npc.she] might attack you at any moment.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK"><![CDATA[
+	<p>
+		You make no move to defend yourself and instead try to explain calmly that you're not
+		#IF(pc.getRace() != RACE_DEMON)
+		 a demon, to which the unstable stranger seems to take offense.
+		</p>
+		<p>
+			[npc.speech(Do you think I'm a fucking idiot? Your aura says 'demon' or worse all over it. Astrea already tried that bullshit, but that slut never fooled me, and neither will you.)]
+		</p>
+		#ELSE
+		 with Lilith, to which the unstable stranger can only let out a bitter laugh.
+		</p>
+		<p>
+			[npc.speech(A demon with a fucking conscience? Didn't your whore of a mother tell you? You're a goddamn puppet and only Lilith can pull the strings! Even Astrea never tried something <i>that</i> stupid, that slippery little slut.)]
+		</p>
+		#ENDIF
+	<p>
+		Before you can say anything else, a round whizzes by your head. It would seem your attempt at diplomacy is over.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BRIBE"><![CDATA[
+	<p>
+		You make no move to defend yourself and instead calmly offer up a healthy sum of money in exchange for lowering [npc.her] weapon. The unstable stranger blinks, as if not quite believing what you've just said, before letting out a bitter laugh.
+	</p>
+	<p>
+		[npc.speech(Is that some kind of fucking joke? Even <i>you</i> know we're not in this for the pay. Angels' mercy, they really do send the idiots in first.)]
+	</p>
+	<p>
+		Before you can say anything else, a round whizzes by your head. It would seem your attempt at diplomacy is over.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SURRENDER"><![CDATA[
+	<p>
+		You make no move to defend yourself and instead raise your [pc.arms] in a gesture of surrender. The unstable stranger smirks.
+	</p>
+	<p>
+		[npc.speech(Oldest trick in the goddamn book. Nobody's falling for <i>that</i> anymore, demon. Angels' mercy, they really do send the idiots in first. At least have the fucking decency to <i>try</i> putting up a fight.)]
+	</p>
+	<p>
+		Before you can do or say anything else, a round whizzes by your head. It would seem your surrender has been rejected.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICTORY"><![CDATA[
+	<p>
+		The oddly dressed stranger collapses before you, panting. It seems that even in [npc.her] state, [npc.she] is still susceptible to your aura.
+	</p>
+	<p>
+		[npc.speech(No! Not like this! It can't end here!)] [npc.she] says, almost sobbing out the words, [npc.speech(It won't!)]
+	</p>
+	<p>
+		[npc.She] pulls out a strange looking vial filled with a clear liquid and with the last of [npc.her] strength, breaks it open. As soon as the liquid comes into contact with the air, it turns into a cloud of thick, blinding smoke. You think you can hear booted feet running off into distance but by the time the smoke clears, there is no one left in the room except for you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEATED"><![CDATA[
+	<p>
+		You fall to your knees before the oddly dressed stranger. [npc.She] wordlessly walks up to you and sends you into an inky unconsciousness with the butt of [npc.her] weapon...
+	</p>
+	<p>
+		When you wake a good fifteen minutes later, there's no one left in the room except for you. As you get up and dust yourself off, you notice that your pockets are
+		#IF(pc.getMoney() > 20000)
+		 now feeling somewhat lighter
+		#ELSEIF(pc.getMoney() > 10000)
+		 now feeling much lighter
+		#ELSEIF(pc.getMoney() > 5000)
+		 now almost empty
+		#ELSEIF(pc.getMoney() > 0)
+		 now totally empty
+		#ELSE
+		 totally empty like they were before, but obviously rummaged through,
+		#ENDIF
+		 and let out a sigh. Seems for all [npc.her] posturing, [npc.she] was perfectly happy to take your money after knocking you out...
+	</p>
+	]]>
+	</htmlContent>
+
+</dialogue>
