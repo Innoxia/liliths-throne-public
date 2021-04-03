@@ -59,6 +59,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Reduced the minimum wing size for allowing flight for feral quadrupeds to 'THREE_LARGE'. (PR#1454 by Stadler76)
 		The 'Cum Stud' fetish now gives the same affection bonus from the milking slave job as the 'Lactating' fetish. (PR#1460 by Eliria)
 		Added a new 'Winged biped' LegConfiguration for use for feral bats and wyverns. (PR#1486 by Stadler76)
+		Made Enforcer disguises more difficult to pull off and added flavour text for when impersonating (or failing to impersonate) specific Enforcers. (PR#1501 by DSG) 
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
@@ -90,6 +91,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	HLF Quest
+		[] Go over Elle dialogue
 		[] Add Roxy recognition of firebombs if you sold at least one to her
 		[] Weapon special attacks to be unlocked should be shown in tooltip description
 		[] Throwable weapon framework
