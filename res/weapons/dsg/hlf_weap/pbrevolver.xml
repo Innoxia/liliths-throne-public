@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA[On one side of the cylinder, a small engraving reads "MFD by DSG Forgeworks."]]></authorTag>
+		<value>1500</value>
+		<melee>false</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[a]]></determiner>
+		<name appendDamageName="true"><![CDATA[pepperball revolver]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pepperball revolver]]></namePlural>
+		<description><![CDATA[This weapon appears to have been hand modified from something else and shows signs of having sat in pockets rather than in holsters. Stamped on the body is an insignia that you don't recognize.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your revolver.]]></attackTooltipDescription>
+		<rarity>RARE</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the revolver and carefully [npc.verb(load)] it before disengaging the safety.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(swing)] out the cylinder and [npc.verb(gives)] it a shake to make sure that it's empty before putting the revolver away.]]></unequipText>
+		<imageName>pbrevolver.svg</imageName>
+		<imageEquippedName>pbrevolver.svg</imageEquippedName>
+		<physicalResistance>0</physicalResistance>
+		<damage>20</damage>
+		<arcaneCost>1</arcaneCost>
+		<damageVariance>LOW</damageVariance>
+		<availableDamageTypes>
+			<damageType>FIRE</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BROWN_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The gelatin capsule bursts on impact with [npc2.namePos] aura, splattering [npc2.herHim] with stinging, burning oil.
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The capsule misses [npc2.herHim] completely and splatters uselessly in the distance.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

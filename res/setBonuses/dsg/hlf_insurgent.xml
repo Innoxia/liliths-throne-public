@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[HLF Insurgent]]></name>
+	<statusEffect>dsg_set_hlf_insurgent</statusEffect>
+	<numberRequiredForCompleteSet>2</numberRequiredForCompleteSet>
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>TORSO_OVER</slot>
+		<slot>WRIST</slot>
+	</blockedSlotsCountingTowardsFullSet>
+</setBonus>

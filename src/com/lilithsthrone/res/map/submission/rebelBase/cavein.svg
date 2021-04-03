@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="svg32"
+   sodipodi:docname="cavein.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata36">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     id="namedview34"
+     showgrid="false"
+     inkscape:zoom="3.6875"
+     inkscape:cx="-14.468933"
+     inkscape:cy="54.484056"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg32" />
+  <defs
+     id="defs8">
+    <linearGradient
+       id="innoGrad1">
+      <stop
+         offset="0"
+         stop-color="#f55"
+         id="stop2" />
+      <stop
+         offset="1"
+         stop-color="#ff8080"
+         id="stop4" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient15"
+       x1="29.5"
+       x2="44.125"
+       y1="1025.487"
+       y2="1003.362"
+       gradientTransform="matrix(1.28844,0,0,1.29051,-9.225,-1284.675)"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#innoGrad1" />
+  </defs>
+  <ellipse
+     style="fill:url(#linearGradient15);fill-rule:evenodd"
+     id="ellipse10"
+     ry="30.381001"
+     rx="30.382999"
+     cy="32.005981"
+     cx="32" />
+  <polyline
+     transform="matrix(0.2669796,0,0,0.2669796,0.26760568,-4.3854483)"
+     style="fill:#ffffff;stroke-width:3.74560452"
+     points="210.714,113.571 210.714,195 107.286,195 121.857,179 147.286,174.143 142.143,157.571   177.857,157.571 184.714,139 200.429,134.143 210.714,113.571 "
+     id="polyline2" />
+  <polyline
+     transform="matrix(0.2669796,0,0,0.2669796,0.26760568,-4.3854483)"
+     style="fill:#ffffff;stroke-width:3.74560452"
+     points="210.714,77.571 210.714,91.21 193.395,125.85 177.043,130.904 170.89,147.571 142.143,147.571   128.568,147.571 134.418,166.42 116.708,169.803 93.76,195 43,195 61,180.429 79.286,180.429 82.143,161 110.429,155.286   117,134.143 130.143,137.857 134.429,120.429 156.714,113.286 172.714,95.857 196.429,92.143 210.714,77.571 "
+     id="polyline4" />
+  <polyline
+     transform="matrix(0.2669796,0,0,0.2669796,0.26760568,-4.3854483)"
+     style="fill:#ffffff;stroke-width:3.74560452"
+     points="103.857,126.429 106.873,133.034 102.639,146.658 80.163,151.198 73.272,152.59 70.649,170.429   57.459,170.429 27.106,195 27,195 40.714,162.143 57.286,164.143 57.286,141.857 76.143,136.285 92.714,139.571 103.857,126.429 "
+     id="polyline6" />
+  <polygon
+     transform="matrix(0.2669796,0,0,0.2669796,0.26760568,-4.3854483)"
+     style="fill:#ffffff;stroke-width:3.74560452"
+     points="151.286,79.857 133.857,87.286 123.857,79.857 107.286,102.429 80.714,106.714 84.714,120.429 85.739,127.993 88.89,128.618 106.414,107.95 113.127,122.656 122.903,125.419 126.053,112.612 151.139,104.571 162.909,91.75 "
+     id="polygon8" />
+</svg>
