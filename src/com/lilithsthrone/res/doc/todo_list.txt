@@ -60,6 +60,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The 'Cum Stud' fetish now gives the same affection bonus from the milking slave job as the 'Lactating' fetish. (PR#1460 by Eliria)
 		Added a new 'Winged biped' LegConfiguration for use for feral bats and wyverns. (PR#1486 by Stadler76)
 		Made Enforcer disguises more difficult to pull off and added flavour text for when impersonating (or failing to impersonate) specific Enforcers. (PR#1501 by DSG) 
+		Fixed bug where if the game was installed in any folder with 'res' in the name, then viewing book entries for external/modded races in the encyclopedia would throw errors. (by Stadler & AceXP)
+		Fixed issue where place tiles were not being populated with regional subspecies in the world map. (by AceXP)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
@@ -97,11 +99,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Throwable weapon framework
 			[] Test multiple arm rows detection
 			
-	there is a bug when the game is installed in the 'Pictures' folder, or rather any folder with 'res' in the name
-		It's because in AbstractSubspecies.java there is this line bookIdFolderPath = "res"+bookIdFolderPath.split("res")[1];
-		Currently this will pick up any folder with res in it, like pictures or textures or whatever
-		So that regular expression needs to be smarter, or the current working directory of LT should be made known (or determined) in some other way.
-		 The last would be better, because there have been various reports where the res folder can not be found when people use a Mac OS.
 	
 	
 	Memoization:

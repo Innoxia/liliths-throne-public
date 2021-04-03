@@ -432,7 +432,7 @@ public abstract class AbstractSubspecies {
 				this.bookNamePlural = bookName; // There is no need for a plural
 				
 				this.bookIdFolderPath = XMLFile.getParentFile().getAbsolutePath();
-				bookIdFolderPath = "res"+bookIdFolderPath.split("res")[1];
+				bookIdFolderPath = "res"+bookIdFolderPath.split("\\bres\\b")[1];
 //				System.out.println(bookIdFolderPath);
 				this.basicDescriptionId = coreElement.getMandatoryFirstOf("basicDescriptionId").getTextContent();
 				this.advancedDescriptionId = coreElement.getMandatoryFirstOf("advancedDescriptionId").getTextContent();

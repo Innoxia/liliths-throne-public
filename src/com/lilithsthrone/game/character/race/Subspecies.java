@@ -5577,11 +5577,16 @@ public class Subspecies {
 		}
 		if(placeType!=null) {
 			placeSpecies.putIfAbsent(placeType, new HashMap<>());
-			for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> placeEntry : placeSpecies.get(placeType).entrySet()) {
-				if(!map.containsKey(placeEntry.getKey())) {
-					map.put(placeEntry.getKey(), placeEntry.getValue());
-				}
-			}
+		    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> placeEntry : placeSpecies.get(placeType).entrySet()) {
+		        if(!map.containsKey(placeEntry.getKey())) {
+		            map.put(placeEntry.getKey(), placeEntry.getValue());
+		        }
+		    }
+		    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> regionEntry : regionSpecies.get(placeType.getWorldRegion()).entrySet()) {
+		        if(!map.containsKey(regionEntry.getKey())) {
+		            map.put(regionEntry.getKey(), regionEntry.getValue());
+		        }
+		    }
 		}
 		
 		Map<AbstractSubspecies, SubspeciesSpawnRarity> filteredMap = new HashMap<>(map);
