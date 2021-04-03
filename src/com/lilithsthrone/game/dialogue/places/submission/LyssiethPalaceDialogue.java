@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -565,7 +566,13 @@ public class LyssiethPalaceDialogue {
 					};
 					
 				} else {
-					if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CORRUPTION_PERK_5)) {
+					if(!Main.game.getPlayer().hasStatusEffect(StatusEffect.CORRUPTION_PERK_5)) {
+						return new Response("Become a demon", "You are not corrupt enough to be turned into a demon...<br/>[style.italicsBad(Requires corruption of at least 95.)]", null);
+						
+					} else if(Main.game.getPlayer().getLegConfiguration()!=LegConfiguration.BIPEDAL) {
+						return new Response("Become a demon", "You need to have a bipedal leg configuration for Lyssieth to be able to turn you into a demon...", null);
+						
+					} else {
 						return new Response("Become a demon", "Tell Lyssieth that you want her to turn you into a demon.", DEMON_TF) {
 							@Override
 							public void effects() {
@@ -573,9 +580,6 @@ public class LyssiethPalaceDialogue {
 								updateLyssiethPregnancyReactions();
 							}
 						};
-						
-					} else {
-						return new Response("Become a demon", "You are not corrupt enough to be turned into a demon...<br/>[style.italicsBad(Requires corruption of at least 95.)]", null);
 					}
 				}
 				

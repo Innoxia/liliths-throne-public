@@ -15,6 +15,7 @@ public enum WorldRegion {
 	
 	// Cities
 	DOMINION,
+	HARPY_NESTS,
 	SUBMISSION,
 	FIELD_CITY,
 	DESERT_CITY,

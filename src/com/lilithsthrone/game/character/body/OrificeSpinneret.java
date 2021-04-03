@@ -207,7 +207,11 @@ public class OrificeSpinneret implements OrificeInterface {
 	
 	@Override
 	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
-		return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepth()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.8f);
+		} else {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
+		}
 	}
 
 	@Override

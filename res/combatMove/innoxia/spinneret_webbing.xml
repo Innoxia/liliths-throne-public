@@ -96,7 +96,7 @@
 				[##npc2.removeStatusEffectCombat(SE_WEBBED_2)]
 				[##npc2.addStatusEffect(SE_WEBBED_3, 10)]
 				<br/>[style.italicsTerrible([npc2.NameIsFull] almost totally wrapped up in a cocoon, and as such [npc2.is] near to being completely defeated!)]
-				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] webbed again, [npc.she] will be instantly defeated!)]
+				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] webbed again, [npc2.she] will be instantly defeated!)]
 			#ELSEIF(npc2.hasStatusEffect(SE_WEBBED_1))
 				[##npc2.removeStatusEffectCombat(SE_WEBBED_1)]
 				[##npc2.addStatusEffect(SE_WEBBED_2, 10)]

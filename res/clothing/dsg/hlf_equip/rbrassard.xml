@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<authorTag><![CDATA[Sewn into the inside, a tag reads "MFD by Threadworks."]]></authorTag>
+		<value>150</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[canvas brassard]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[canvas brassards]]></namePlural>
+		<description><![CDATA[A band of heavy cotton fabric designed to be worn around the arm and provide easy identification when uniforms are not available or desirable. You have never seen the insignia sewn into it before.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>WRIST</slot>
+		<rarity>RARE</rarity>
+		<clothingSet>dsg_hlf_insurgent</clothingSet>
+		<imageName>rbrassard.svg</imageName>
+		<clothingSet>dsg_hlf_insurgent</clothingSet>
+		<enchantmentLimit/>
+		<effects/> 
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/> 
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_KHAKI</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_WHITE"/> 
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags>
+			<tag>CONTRABAND_LIGHT</tag>
+		</itemTags>
+	</coreAtributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the brassard around [npc.her] arm.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the brassard around [npc2.namePos] arm.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the brassard up around [npc2.namePos] arm.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the brassard off of [npc.her] arm.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the brassard off of [npc2.namePos] arm.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] the brassard off of [npc2.namePos] arm.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

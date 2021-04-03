@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>180</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Pan's Flute]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Pan's Flutes]]></namePlural>
+		<description><![CDATA[A thick glass bottle containing a type of high-quality champagne. The bottle's label declares it to be of the brand 'Pan's Flute', which seems to refer both to the name of a champagne glass and to the brand's symbol of a pan flute.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">goat_pans_flute.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 15% to [style.boldAlcohol(intoxication level)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A soothing wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+			[#npc.incrementAlcoholLevel(0.15)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ALCOHOLIC</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		After releasing the cork with a loud bang, [npc.name] [npc.verb(bring)] the glass bottle of Pan's Flute up to [npc.her] [npc.mouth]. Tilting [npc.her] head back, [npc.she] [npc.verb(start)] drinking the bubbly champagne, and [npc.is] very pleased to discover that it has a truly excellent taste.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		After releasing the cork with a loud bang, [npc.name] [npc.verb(bring)] the glass bottle of Pan's Flute up to [npc2.namePos] waiting [npc2.lips]. Tilting [npc2.her] head back, [npc2.she] [npc2.verb(start)] drinking the bubbly champagne, and [npc2.is] very pleased to discover that it has a truly excellent taste.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

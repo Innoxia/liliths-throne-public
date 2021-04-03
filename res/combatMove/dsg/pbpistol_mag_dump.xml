@@ -107,7 +107,7 @@
 		npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_eep_pbweap_pbpistol)) || 
 		(npc.getOffhandWeapon(0) != null && 
 		npc.getOffhandWeapon(0).getWeaponType().equals(WEAPON_dsg_eep_pbweap_pbpistol))) && 
-		npc.getEssenceCount() > 0]
+		npc.getEssenceCount() > 2]
 	]]>
 	</availabilityCondition>
 	
@@ -183,7 +183,7 @@
 		<execute><![CDATA[
 			Squeezing the trigger as fast as [npc.name] can manage, [npc.she] [npc.verb(manage)] to get [style.colorFire([#~~(hits)])] hits on [npc2.name]!
 			formattedHealthDamage
-			Expending so much ammo costs you 
+			Expending so much ammo costs [npc.herHim] 
 			#IF(npc.getEssenceCount() < 7)
 				[style.colorArcane([#npc.getEssenceCount])] essences.
 				[##npc.setEssenceCount(0)]

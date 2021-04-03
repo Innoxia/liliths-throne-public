@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <race>
 	<racialBody>charisma_spider</racialBody>
-	<applyRaceChanges/>
+	<applyRaceChanges><![CDATA[
+		#IF(RND.nextInt(100)<50 && targetedBody.getRaceStage()==RACE_STAGE_GREATER)
+			[#targetedBody.getArm().setArmRows(null, 3)]
+		#ENDIF
+	]]></applyRaceChanges>
 	<name><![CDATA[spider-morph]]></name>
 	<namePlural><![CDATA[spider-morphs]]></namePlural>
 	<nameFeral>

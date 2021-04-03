@@ -388,10 +388,17 @@
 		#ENDIF
 		#IF(npc2.isAbleToAccessCoverableArea(CA_VAGINA, false))
 			 As [npc2.namePos] genitals are already fully display, [npc.name] is able to greedily reach down and give the [npc2.race]'s groin a good grope.
-		#ELSEIF(npc2.isAbleToAccessCoverableArea(CA_VAGINA, true))
-			 Reaching down between [npc2.namePos] [npc2.legs], [npc.name] quickly displaces the [npc2.race]'s clothing and gives [npc2.her] groin a good grope.
 		#ELSE
-			 Reaching down between [npc2.namePos] [npc2.legs], [npc.name] gives the [npc2.race]'s groin a good grope.
+			#IF(npc2.hasLegs())
+				 Reaching down between [npc2.namePos] [npc2.legs],
+			#ELSE
+				 Reaching down to [npc2.namePos] crotch,
+			#ENDIF
+			#IF(npc2.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 [npc.name] quickly displaces the [npc2.race]'s clothing and gives [npc2.her] groin a good grope.
+			#ELSE
+				 [npc.name] gives the [npc2.race]'s groin a good grope.
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>

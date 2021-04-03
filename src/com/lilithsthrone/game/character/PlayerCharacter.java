@@ -477,7 +477,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								}
 								
 								QuestLine questLine = QuestLine.valueOf(questLineString);
-								Quest quest = Quest.valueOf(questString);
+								Quest quest = Quest.getQuestFromId(questString);
 								
 								List<Quest> questList = new ArrayList<>();
 								TreeNode<Quest> node = questLine.getQuestTree().getFirstNodeWithData(quest);
@@ -508,12 +508,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								continue;
 							}
 							try {
-								Quest quest = Quest.valueOf(questString);
+								Quest quest = Quest.getQuestFromId(questString);
 								List<Quest> questList = new ArrayList<>();
 								
 								int questIncrement=0;
 								while(!questString.isEmpty()) {
-									quest = Quest.valueOf(questString);
+									quest = Quest.getQuestFromId(questString);
 	
 									questList.add(quest);
 									
@@ -544,7 +544,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 						String questLineString = e.getAttribute("questLine");
 						QuestLine questLine = QuestLine.valueOf(questLineString);
 						String questString = e.getAttribute("q");
-						Quest quest = Quest.valueOf(questString);
+						Quest quest = Quest.getQuestFromId(questString);
 						character.questsFailed.put(
 								questLine,
 								quest);

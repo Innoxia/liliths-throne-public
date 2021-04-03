@@ -22,11 +22,21 @@ public enum PenetrationModifier {
 	
 	KNOTTED("knotted", "Grants ability to be pushed inside an orifice at the moment of orgasm, doubling effective diameter and locking partners together. (Requires orifice to be deep enough for knotted base to be inserted.)"),
 	
-	TAPERED("tapered", "Reduces effective diameter by 5%."),
-	
 	BLUNT("blunt", ""),
+
+	TAPERED("tapered", "Reduces effective diameter by 5%. (Mutually exclusive with 'flared'.)") {
+		@Override
+		public List<PenetrationModifier> getMutuallyExclusivePenetrationModifiers() {
+			return Util.newArrayListOfValues(FLARED);
+		}
+	},
 	
-	FLARED("flared", "Increases effective diameter by 5%."),
+	FLARED("flared", "Increases effective diameter by 5%. (Mutually exclusive with 'tapered'.)") {
+		@Override
+		public List<PenetrationModifier> getMutuallyExclusivePenetrationModifiers() {
+			return Util.newArrayListOfValues(TAPERED);
+		}
+	},
 	
 	BARBED("barbed", ""),
 	
@@ -64,6 +74,10 @@ public enum PenetrationModifier {
 		return penetrationModifiers;
 	}
 
+	public List<PenetrationModifier> getMutuallyExclusivePenetrationModifiers() {
+		return new ArrayList<>();
+	}
+	
 	public String getName() {
 		return name;
 	}

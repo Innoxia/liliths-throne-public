@@ -30,7 +30,8 @@ public abstract class AbstractBodyCoveringType {
 	private boolean mod;
 	private boolean fromExternalFile;
 	
-	private BodyCoveringCategory category; 
+	private BodyCoveringCategory category;
+	private String nameTransformation;
 	private String determiner; 
 	private String namePlural;
 	private String nameSingular;
@@ -53,6 +54,8 @@ public abstract class AbstractBodyCoveringType {
 		this.fromExternalFile = false;
 		
 		this.category = category;
+		
+		this.nameTransformation = null;
 		
 		determiner = template.determiner;
 		namePlural = template.namePlural;
@@ -124,10 +127,12 @@ public abstract class AbstractBodyCoveringType {
 		this.fromExternalFile = false;
 		
 		this.category = category;
+
+		this.nameTransformation = null;
 		
 		this.determiner = determiner;
 		this.namePlural = namePlural;
-		this.nameSingular=nameSingular;
+		this.nameSingular = nameSingular;
 		this.isDefaultPlural = isDefaultPlural;
 		
 		if(naturalModifiers == null) {
@@ -215,6 +220,12 @@ public abstract class AbstractBodyCoveringType {
 				this.fromExternalFile = true;
 				
 				this.category = BodyCoveringCategory.valueOf(coreElement.getMandatoryFirstOf("category").getTextContent());
+
+				if(coreElement.getOptionalFirstOf("nameTransformation").isPresent()) {
+					this.nameTransformation = coreElement.getMandatoryFirstOf("nameTransformation").getTextContent();
+				} else {
+					this.nameTransformation = null;
+				}
 				
 				this.determiner = coreElement.getMandatoryFirstOf("determiner").getTextContent();
 				this.nameSingular = coreElement.getMandatoryFirstOf("name").getTextContent();
@@ -377,6 +388,16 @@ public abstract class AbstractBodyCoveringType {
 	
 	public String getNamePlural(GameCharacter gc) {
 		return namePlural;
+	}
+	
+	/**
+	 *  @return THe name of the covering for use in transformation menus. Will most likely return the same as getName(gc)
+	 */
+	public String getNameTransformation(GameCharacter gc) {
+		if(nameTransformation==null) {
+			return getName(gc);
+		}
+		return nameTransformation;
 	}
 	
 	public String getName(GameCharacter gc){

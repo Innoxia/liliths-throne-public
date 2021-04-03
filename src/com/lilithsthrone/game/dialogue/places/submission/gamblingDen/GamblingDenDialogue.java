@@ -1502,7 +1502,7 @@ public class GamblingDenDialogue {
 						};
 						
 					} else {
-						return new Response("<span style='color:"+table.getColour().toWebHexString()+";'>"+gambler.getName(true)+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
+						return new Response(gambler.getName(true)+" ("+UtilText.formatAsMoneyUncoloured(buyIn, "span")+")",
 								"The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
 								+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises. As a result, you don't have enough money to play at this table!",
 								null);

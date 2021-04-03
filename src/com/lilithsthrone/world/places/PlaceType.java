@@ -77,6 +77,7 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.rebelBase.RebelBase;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -1613,7 +1614,7 @@ public class PlaceType {
 	// Harpy Nests:
 	
 	public static final AbstractPlaceType HARPY_NESTS_WALKWAYS = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Walkway",
 			"The harpy nests are connected to one another by means of narrow wooden walkways built on top of Dominion's residential buildings.",
 			null,
@@ -1635,7 +1636,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_WALKWAYS_BRIDGE = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Walkway Bridge",
 			"Here and there, bridges span over the streets below, connecting one set of walkways with another.",
 			"dominion/harpyNests/bridge",
@@ -1668,7 +1669,7 @@ public class PlaceType {
 	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType HARPY_NESTS_HELENAS_NEST = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Helena's nest",
 			"The stunningly beautiful harpy matriarch, Helena, rules over the largest of all the harpy nests.",
 			"dominion/harpyNests/nestHelena",
@@ -1683,7 +1684,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_HARPY_NEST_RED = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Harpy nest",
 			"Diana's nest consists primarily of angry red harpies; their feather colour an attempt to mimic the appearance of their sadistic leader.",
 			"dominion/harpyNests/nestRed",
@@ -1698,7 +1699,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_HARPY_NEST_PINK = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Harpy nest",
 			"Lexi's nest contains a disproportionate amount of harpy males, each of whom hangs around in the hopes of getting to fuck their sex-loving matriarch.",
 			"dominion/harpyNests/nestPink",
@@ -1713,7 +1714,7 @@ public class PlaceType {
 	};
 	
 	public static final AbstractPlaceType HARPY_NESTS_HARPY_NEST_YELLOW = new AbstractPlaceType(
-			WorldRegion.DOMINION,
+			WorldRegion.HARPY_NESTS,
 			"Harpy nest",
 			"Brittany's nest has a considerable population of bleach-blonde-feathered, big-busted, bimbo harpies.",
 			"dominion/harpyNests/nestYellow",
@@ -2016,10 +2017,10 @@ public class PlaceType {
 			Lab.LAB,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lilaya's lab") {
-		@Override
-		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false));
-		}
+//		@Override
+//		public void applyInventoryInit(CharacterInventory inventory) {
+//			inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false));
+//		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
 	
@@ -4554,7 +4555,9 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			BatCaverns.CAVERN_DARK,
-			Darkness.ALWAYS_DARK, Encounter.BAT_CAVERN, "in the Bat Caverns"
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN,
+			"in the Bat Caverns"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -4623,12 +4626,40 @@ public class PlaceType {
 			"submission/batCaverns/cavernLake",
 			PresetColour.BASE_PINK_LIGHT,
 			BatCaverns.SLIME_LAKE,
-			Darkness.ALWAYS_LIGHT, Encounter.BAT_CAVERN, "beside Slime Lake"
+			Darkness.ALWAYS_LIGHT,
+			Encounter.BAT_CAVERN,
+			"beside Slime Lake"
 			).initDangerous()
 			.initWeatherImmune()
 			.initAquatic(Aquatic.MIXED);
 	
+	// HLF Quest places:
 	
+	public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR = new AbstractPlaceType(
+			WorldRegion.SUBMISSION,
+			"Hidden Cave Entrance",
+			"The entrance to a mysterious artificial cave, formerly concealed behind a tight-fitting stone door.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_RED,
+			BatCaverns.REBEL_BASE_ENTRANCE_EXTERIOR,
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN,
+			"beside the entrance to a mysterious artificial cave"
+			).initDangerous()
+			.initWeatherImmune();
+        
+       public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE = new AbstractPlaceType(
+			WorldRegion.SUBMISSION,
+			"Strange Handle",
+			"A strange handle juts out from the rock.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_GREY,
+			BatCaverns.REBEL_BASE_ENTRANCE_HANDLE,
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN,
+			"in the Bat Caverns"
+			).initDangerous()
+			.initWeatherImmune();
 	
 	// Slime queen's island tower:
 
@@ -5133,7 +5164,8 @@ public class PlaceType {
 			PresetColour.BASE_PURPLE_LIGHT,
 			RatWarrensDialogue.VENGARS_BEDROOM,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the Rat Warrens") {
+			null,
+			"in the Rat Warrens") {
 		@Override
 		public Encounter getEncounterType() {
 			if(Main.game.getPlayer().isCaptive()) {
@@ -5155,7 +5187,116 @@ public class PlaceType {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile);
 		}
 	}.initWeatherImmune();
+
+	// HLF Quest places:
 	
+    public static final AbstractPlaceType REBEL_BASE_ENTRANCE = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Entrance",
+			"The only way in or out of the cave is cleverly concealed behind a tight-fitting stone door.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_RED,
+			RebelBase.REBEL_BASE_ENTRANCE,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_CORRIDOR = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Corridor",
+			"An artificial cave lined with questionable wooden supports.",
+			null,
+			PresetColour.BASE_BLACK,
+			RebelBase.REBEL_BASE_CORRIDOR,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_SLEEPING_AREA = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Sleeping Area",
+			"A long abandoned room full of long abandoned beds.",
+			"submission/rebelBase/cache1",
+			PresetColour.BASE_BLUE,
+			RebelBase.REBEL_BASE_SLEEPING_AREA,
+			Darkness.ALWAYS_DARK,
+			Encounter.REBEL_BASE,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_SLEEPING_AREA_SEARCHED = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Sleeping Area",
+			"A long abandoned room full of long abandoned beds.",
+			"submission/rebelBase/cache1",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_SLEEPING_AREA_SEARCHED,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_COMMON_AREA = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Common Area",
+			"The sparsely furnished ruins of a common area.",
+			"submission/rebelBase/cache2",
+			PresetColour.BASE_ORANGE,
+			RebelBase.REBEL_BASE_COMMON_AREA,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_COMMON_AREA_SEARCHED = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Common Area",
+			"The sparsely furnished ruins of a common area.",
+			"submission/rebelBase/cache2",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_COMMON_AREA_SEARCHED,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+
+    public static final AbstractPlaceType REBEL_BASE_ARMORY = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"A Partly Caved-in Room",
+			"A room partly filled with rubble.",
+			"submission/rebelBase/cache3",
+			PresetColour.BASE_GREEN,
+			RebelBase.REBEL_BASE_ARMORY,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_ARMORY_SEARCHED = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"A Partly Caved-in Room",
+			"A room partly filled with rubble.",
+			"submission/rebelBase/cache3",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_ARMORY_SEARCHED,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+     public static final AbstractPlaceType REBEL_BASE_CAVED_IN_ROOM = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"A Mostly Caved-in Room",
+			"A room with nothing but rubble in it.",
+			"submission/rebelBase/cavein",
+			PresetColour.BASE_GREY_DARK,
+			RebelBase.REBEL_BASE_CAVED_IN_ROOM,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
 	
 	
 	

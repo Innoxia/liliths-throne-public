@@ -861,6 +861,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("SHOPPING_ARCADE") || !Main.isVersionOlderThan(loadingVersion, "0.3.14"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
+//                          && !worldType.equals("REBEL_BASE")
 							) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
@@ -4649,6 +4650,10 @@ public class Game implements XMLSaving {
 
 	public boolean isPenetrationLimitationsEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.penetrationLimitations);
+	}
+	
+	public boolean isElasticityAffectDepthEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth);
 	}
 	
 	public boolean isFootContentEnabled() {

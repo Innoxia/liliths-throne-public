@@ -21,101 +21,304 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Contributions:
-		Fixed issue where spider-morph book's front cover icon wasn't visible. (by NeverLucky)
-		Added furred spider tail as a TF option for spider TF potions. (PR#1510 by Stadler76)
+	Bug fixes
+	Zaranix improvements
+	
+	
+	DSG's HLF Quest:
+		Added a new side quest which adds some details of the background lore of the Human Liberation Front (HLF), which was previously explored in Wes's quest.
+		Quest can be triggered when exploring the dark tiles in the Bat Caverns.
+		Added 8 new items of clothing (all of which can be obtained during this quest, and all of which are unisex), and 2 new clothing sets ('HLF Regular' and 'HLF Insurgent'):
+			Skull-patterned bandana (mouth slot).
+			Boonie hat (head slot).
+			Canvas webbing (over-torso slot, HLF Regular set).
+			Vintage fatigue trousers (leg slot, HLF Regular set).
+			Vintage fatigue tunic (torso slot, HLF Regular set).
+			Vintage combat boots (foot slot, HLF Regular set).
+			Canvas brassard (wrist slot, HLF Insurgent set).
+			Canvas bandolier (over-torso slot, HLF Insurgent set).
+		Added 5 new weapons (again, all of which can be obtained during this quest):
+			Arcane firebomb (fire damage, ranged, 2-handed, destroyed after 1 use) - these have an additional associated side quest, the completion of which allows you to get more made. (Innoxia: 'I'll make them 1-handed once I've added throwable weapon framework.')
+			Pepperball submachine gun (fire damage, ranged, 2-handed, requires 2 essences to fire, grants 'Spray 'n Pray' special attack).
+			Pepperball revolver (fire damage, ranged, 2-handed, requires 1 essence to fire, grants 'Fan the Hammer' special attack).
+			Teargas shotgun (poison damage, ranged, 2-handed, requires 4 essences to fire).
+			Pepperball bolt-action rifle (fire damage, ranged, 2-handed, requires 3 essences to fire).
+	
+	Contributors:
+		Fixed issue where Enforcer patrols wouldn't spawn correctly. (by AceXP)
+		Fixed bug where non-human coverings wouldn't appear as recolouring options in Helena's slave creator. (by AceXP)
+		Fixed minor parsing issue with Enforcer Patrol description during arcane storms. (by AceXP)
+		Fixed issue where a background error would something be thrown in sex, softlocking the scene. This was being encountered most frequently in Frysia's sex scene. (by AceXP)
+		Fixed bug where arachnid leg descriptions had a parsing error in them. (by Stadler76)
+		Added feature where if an offspring's father and/or mother has generic wings (feathered, leathery or insect) or horns (curled, curved, straight, etc.), the offspring can inherit them. (PR#1370 by Stadler76)
+		Suppressed descriptions of nipples as orifices and transformation options for nipple penetration when that content was turned off in user settings. (PR#1421 by AceXP)
+		Added 'Elasticity depth effects' mechanic: If an orifice's elasticity is at least 'limber', its maximum uncomfortable depth is increased, with greater elasticity values increasing it further. This is off by default, but can be turned on in content settings. (PR#1413 by LightCanadian)
+		Modified UtilText.java to properly handle a few inaccurate British to American translations. (PR#1447 by TadUnlikely)
+		Added offspring inheritance of ferality. Feral mothers now always birth feral offspring. Offspring which take after the father born to a non-feral mother and feral father will always be fully furry. (PR#1451 by Stadler76, modified by Innoxia)
+		Prevented strap-ons from being equipped when there is one already equipped (in another slot). Also fixed issue where covering colour for an equipped dildo was potentially being incorrectly referenced. (PR#1453 by AceXP)
+		Reduced the minimum wing size for allowing flight for feral quadrupeds to 'THREE_LARGE'. (PR#1454 by Stadler76)
+		The 'Cum Stud' fetish now gives the same affection bonus from the milking slave job as the 'Lactating' fetish. (PR#1460 by Eliria)
 	
 	Engine/Modding:
-		Added parser hook for BodyCoveringCategory using the prefix 'BODY_COVERING_CATEGORY_'.
-		Added BodyPartTag 'TAIL_TAPERING_BULBOUS' for defining the shape of spider abdomen-like tails.
+		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
+		Added 'genericType' fields for Wing and Horn xml files, so that you can define those types as being generic (not associated with any parent race) or not.
 	
 	Other:
-		Added 'hug' and 'pettings' actions to interactions with characters staying in the mansion as your guest.
-		Changed name of spider TF item from 'Chocolate Coated Cocoa Beans' to 'Chocolate Coated Coffee Beans'.
-		Added ability to regrow or remove hymen via the self-TF menu.
-		Added dirty talk variations for tribbing.
+		Zaranix is now still called 'Zaranix' when in his feminine form, instead of 'Zoelix' (as the name change wasn't being mentioned anywhere or referenced at all, and didn't make much sense).
+		Tidied up Zaranix's post-combat dialogue and added variations for if non-con is turned off, as well as for the player to request Zaranix to transform into succubus form after swallowing his TF potion.
+		Made it so that Zaranix's oral sex scenes now start without you already sucking his cock, instead of having to wait for him to deal with clothing displacements first.
+		The 'flared' and 'tapered' penetration modifiers are now mutually exclusive with one another.
+		Added 'Set spawns' action in debug menu, so that you can easily spawn in all items of any clothing set.
+	
+	Sex:
+		Added 'tentacle-squeeze' and 'tail-squeeze' as miscellaneous sex actions which can be performed once a character is restricting their partner via their tentacles or serpent-tail. (These sex actions have sadist/masochist fetishes associated with them.)
 	
 	Bugs:
-		Typos, grammar, and parsing fixes.
-		Fixed bug where trying to set a slave free would throw background errors and cause buttons to become unresponsive.
-		Fixed bug where Helena would sometimes end up trying to sell more slaves than she actually owned.
-		Fixed related issue where Helena's slaves would not be correctly initialised if you were standing on her shop tile at the moment new slaves were generated.
-		The 'Dispel elemental' action now works correctly for companions.
-		Fixed bug where you'd sometimes lose a proportion of your health and aura when loading a saved game.
-		Fixed bug with the new 'Aristocrat' background, where your corruption would double every time you loaded your game. Also fixed related issue where the derived resistances from aristocrat's corruption would be incorrectly saved and loaded.
-		Fixed rare cases where nested else/if statements would parse incorrectly.
-		Fixed issue with some non-bat tails being referred to as 'bat' tails.
-		When freeing Scarlett (and therefore triggering her body to be reset to her harpy form), she now correctly returns to having her default fetishes, and also no longer regains her anal virginity if she'd lost it while being your slave.
-		Fixed issue where spider-morphs with an arachnid leg configuration wouldn't have a spinneret.
-		Spider-morphs will no longer spawn with crotch-boobs by default.
-		Fixed bug where a spinneret's orifice covering wouldn't be coloured according to the character's skin colour.
-		Fixed error log entries related to item spawns being generated when spawning a spider-morph attacker.
-		Fixed the save/load menu having very dark row background colours when in light mode, which was making it impossible to read saved game names.
-		Fixed issue where all clothing stickers would be unlocked by turning debug mode on, instead of the actual sticker unlocks mode.
+		Fixed actions to play dice poker at tables in the gambling den not being greyed out if you didn't have enough money to play.
+		Pate and crackers will now correctly restore 20% health/aura instead of 5%.
+		Fixed issue where Zaranix (and maids) would sometimes not revert to their default bodies after you'd left his home.
+		You will now exit onto the correct tile when leaving Zaranix's home post-combat, instead of exiting onto a random demon home tile.
+		Fixed bug where you could escape from combat with Zaranix.
+		After resolving Zaranix's quest peacefully, Amber will no longer be so angry on your first repeat visit.
+		Fixed bug where you couldn't go upstairs in Zaranix's house before going to encounter Katherine.
+		The starting action for Arthur's hypno-watch quest is now correctly coloured as a side quest.
+		Fixed oral foot worship sex types having no descriptions in quick sex scenes.
+		Fixed bug where maximum penis girth TF from clothing was capped at value 6 instead of 7.
+		Fixed issue where the kitty clothing set bonus wasn't being applied.
 	
 	
-	[x] when you have a guestroom to offer, you can't seem to click on any of the options after you've set them free
-		[x] Test having changed: Main.game.getDialogueFlags().setManagementCompanion(null);
-		[x] Scarlett check
-	[x] Asking Nyan about restaurant date blocked on Friday or Saturday, but tooltip says week days
-	[x] I can't buy some of the slaves at Helena's shop (pre-quest) - Buttons do nothing and nothing in the error.log either
-		[x] Passing time while on Helena's shop tile doens't place slaves on tile at day reset
-			[x] Some kind of error in initialising the character
-	[x] Nyan is surprised that you're related to Lilaya (and calls her aunt) when player has Lyssieth surname
-	[x] Slaves/friendly npc's still can't dispel their elementals in 0.3.18.
-	[x] Whenever I load a save of a player character with a modded race (including the new ones added to the base game by contributors + hyena) the player's health and aura reserves get "damaged",
-	 almost as if the game doesn't account for race bonuses on loading a save. Has been happening ever since race modding was introduced up to the current version as of speaking (0.3.18).
-	[x] The Aristocrat corruption doubling seems to be bugged. Any time you save, then reload, your corruption doubles from the point it was at when you saved.
-		[x] resistances persist?
-	[x] Nested else if not working correctly
-	[x] It really is a travesty that there is no pet action for your kids and guests, a lot of them are just so fluffy and cute how could you not
-	[x] Lyssieth empty dirty talk
-	[x] Spider tail says bat tail?
-	[x] find and replace every instance of "cocoa bean" with "coffee bean" in spider files
-	[x] Scarlett. And I've found out that she keeps the fetishes you give her prior to her being freed all the way throughout the quest and after, but gains her usual 3 fetishes regardless of what you've given her anyway. Also resets anal virginity
-	[x] i wish if we were a slime we could regen our hymen
-	[-] Lilaya stuck pregnant?
-	[x] Tribbing dirty talk?
-	[x] Need to add new tapering type for abdomen
-		[x] TAIL_TAPERING_BULBOUS
-		[x] Add boolean for arachnid spinneret to leg type
-	[x] Spider crotch-boobs
-	[x] Spinneret initial colour scarlet
-	[x] light mode
-	[x] PR abdomen fix merge
-	[x] spider colour
+	[x] Character race not being recalculated upon load
+	[x] Enforcer bug
+	[x] Gambling den actions are not greyed out
+	[x] Fyrsia sex bug
+	[x] Pate and crackers doesn't restore 20% health
 	
+	--- Zaranix ---
 	
-	[] Lilaya lab coat & goggles as 1-time action
+	[x] Zaranix thank sex doesn't start with blowjob or description
+		[x] tidy up combat sex
+			[x] add non-con 
+		[x] test
+			[x] clothing displacement parsing
+			[x] Remove tease from Zaranix combat
+			[x] fetish parsing
+			[x] swallow
+				[x] start swallow as eager
+				[x] test TF [#pc.setSexualOrientation(ORIENTATION_GYNEPHILIC)]
+			[x] spit
+			[x] test non-con off
+			[x] post-sex dialogue missing
+			[x] being thrown out puts player on wrong tile
+			[x] can escape combat!
+			[x] make TF increase throat depth
+	
+	Old reports:
+		[-] Not sure if it's a bug or not, but after you've infiltrated Zaranix's home and retrieved Arthur (with the 'fly over fence' option), you can't knock anymore, regardless of whether or not you actually fought anyone.
+		[-] once you get Arthur the first time, going back to Zaranix's lab will cause a screen lock where you need to shut down
+		[-] Zaranix is a male in the text when you return to his house but the nearby people leaves him in female form
+		[-] It seems Zaranix is both in his lounge and his lab at the same time. You may want to look into that...
+		[x] I have troubles with Zaranix. When I try to 'thanks' him for handing over Arthur, I can't dislocate any of the items. It says that I am not allowed to do that in this sex scene. 
+			Problem is, he wears pants so the option to suck him off is unavailable, and I can't shift aside my clothes to do something while I wait for him to remove his pants. Is this a bug or am I doing something wrong?
+		[x] If you force your way into Zaranix's house, Katherine clearly hears you, but when you meet her she reacts the same as she does if you sneak in. Maybe she should say something about how you must have beaten Amber instead?
+		[x] When I re-visited Zaranix's place, Amber acted as though I broke in, pummeled and raped her and the other maids, and rudely demanded Arthur from Zaranix...
+			 even though I knocked on the door and begged her to let me in, calmly explained my ordeal with Zaranix, thanked her for letting me see him, got roughly fucked for not thanking HIM,
+			  all the while enduring constantly being degraded by her until she finally walked me out. She even gave me an affectionate spank before closing the door!
+		[x] If resolve Zaranix quest peacefully, it makes no sense for Amber to be so angry on repeat visit.
+		[x] When I entered Zaranix's house, it was telling me I needed to respond to the maid before going up the stairs... When she wasn't in the same tile as me and hadn't said anything to me.
+		[x] ZARANIX_ROOM_EXPLANATION_SEXY_THANKS_START
+		
+		Zaranix
+			(limit to once per day)
+				- Giving blowjob +20 affection
+					[x] Should start with giving it
+					[x] Succubus form
+				- Talk +5 affection
+					[x] Improve incubus form dialogue
+				- Help with experiments +10
+					- Oral potion +15
+					- Lipples +25
+					
+		Kelly/Katherine
+			- Talk (increase affection)
+				- Say about how they used to be slaves but after their enslavement expired they decided to continue working as maids
+			- Flirt (increase affection)
+			- Threesome
+	---
+	
+	[x] Make PenetrationModifier mutual exclusives
+		[x] test
+			[x] clit
+			[x] penis
+	[x] Arthur hypno watch quest start action not coloured
+	[x] SexType.getPerformanceDescription() error: No description found for FOOT targeting MOUTH!
+	[x] add an exception to "no furry hair" for hyenas
+		[x] test
+	[-] another small niggling thing, but can you make it so that if a furry doesn't have human hair, its not called "bald"
+	[x] Check snake tail sex bondage action works
+		[x] Add squeeze constrict sex action for body bondage
+	
+	HLF Quest
+		Place types -> Darkness.ALWAYS_DARK (some will probably need changing)
+			Entrance exterior
+			Inner places
+		Clothing
+			Removed comments in xml files
+			Saved svgs as optimised
+			Minor typo fixes in some equip text
+			authorTag Costume supply changed
+		Weapons
+			Removed comments in xml files
+			Saved svgs as optimised
+		Set bonuses & status effects
+			Removed comments
+			Test
+				HLF regular not working
+				HLF INsurgent not working
+				[#SET_BONUS_dsg_hlf_insurgent.getName()]<br/>[#SE_dsg_set_hlf_insurgent.getName(pc)]
+		[x] Add buttons in spawn menu to spawn all of set type
+		Quest definitions
+		Npcs
+		Cave quest
+		Firebomb quest
+		[x] Add mag dump special attack
+		Dialogue
+			[x] Should location be random?
+				[x] Change encounter condition to include distance at least 3 away from entrance
+			[x] Move effects into applyPreParsingEffects
+				[x] Encounter dialogue
+				[x] Check other classes
+					[x] BatCaverns
+					[x] RoxysShop
+			[x] Add a bit of text after pulling handle to say that the player should search for clues
+			[x] Test halves first light then dark text
+				[x] Change encounter so that the password can be obtained by both dark->light and light->dark exploration
+					[x] Test
+			[x] Make pull handle continue dialogue
+			[x] Dialogue for Bat Caverns tile needs expanding to more than one sentence
+				"The strange door handle in the cavern wall is still here, only given away by its barely visible lichen-lit shadow.​"
+			[-] Make places light (from mushrooms)
+			[x] Add explore action to handle tile
+			[-] Make it so that the player has 100% chance to find the encounter after 6 encounters which were not it
+			[x] Add coloured warning to exit tooltip that leaving will fail the quest
+			[x] Mostly Caved-in Room description expansion
+			[-] Alter (and add variant for soldier background) "You instantly recognize the disposable nature of the firebombs,	having seen them on the news."
+			[x] Add description for when looting the container in the Common Area
+			[x] Code formatting fixes
+			[x] " the butt of her weapon" -> his
+			[x] "bioluminscent"
+			[x] Post-combat defeat issues
+				[x] "you notice that your pockets are totally empty like they were before, but obviously rummaged through,	and let out a sigh"
+				[x] You lost ¤292! -> in dialogue after defeat, losing more money?
+			[x] "into illegible bits" pieces?
+			[x] Add a small sentence to make it clear that the 20th November 1989 entry is not in chronological order from the entry above. Or is it meant to be 1990?
+			[x] "away from the here to train"
+			[x] Continue after finding clue in same tile as cave causes response to be Explore
+			[x] Finding password returning wrong description
+			[x] Expand partly caved in room search
+				[x] Prevent normal description from being appended at the end
+			[x] Make journal travel disabled
+			[x] Roxy firebomb selling doesn't restock
+				[x] test
+			[x] Add Roxy quest failure if you have no firebombs left
+				[x] test
+			[x] Test cave explore fail quest
+			[x] After combat victory, survivor should disappear before end combat scene
+				[x] test
+			[x] add a hint when finding the first journal piece along the lines of "The other piece is probably not near here. Perhaps trying the mushroom forest could prove to be a good idea..."
+			[] Add Roxy recognition of firebombs if you sold at least one to her
+			[] Weapon special attacks should be in description
+		Dialogue altered:
+			REBEL_BASE_DISCOVERED (expanded descriptions, added some variations for whether the pc is cowardly or brave)
+			REBEL_BASE_DOOR_NO_PASS (slightly expanded descriptions, made the wall question glowing blue)
+			Password dialogues (split up so that dark/light passwords can be encountered in either order)
+			REBEL_BASE_ENTRANCE_HANDLE (added generic tile text and hint to pull the handle once password is obtained)
+			REBEL_BASE_DOOR_OPENED (added question glowing blue, minor adjustments)
+			REBEL_BASE_CAVED_IN_ROOM (slight expansion to description)
+			
+	[] Throwable weapon framework
+		[] Test multiple arm rows detection
+	
+	[] Bat-boy spawned with all bat parts except arms (which were human)???
+	
+	[] lewd pink lightning spell and a "from the tap" demon stone from Lyssieth
+	
+	[] Lilaya snug
+	
+	[] Posts
+		[] Artwork
+	
+	[] phone map breaks when you learn nyans apartment location
+	
+	[] Change prostitution license
+		[] Angel pays for your license, but your first 5000 earnings go to her
+		[] Can't sell self while dirty
+			[] Add showers
+		
+	[] Add way to earn money by (very simply) working for
+		Ralph (behind counter)
+			Can only start in morning (after work can get fucked by him to double earnings)
+				[] Stockroom 
+				[] Counter
+		Antique shop
+		
+	Jam art
+	
+	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
+		
+	---
+	
+	Map
+		Split into regions?
+	
+	[] deer
+		glade springs - sparkling mineral water
+		tree shoots salad
+		
+	[] latex
 	
 	[] mouse
 	
-	[] damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f); applied twice to special attacks
+	[] PR for Youko self TF
 	
-	[] enchantment cap reduction upgrades for clothing and weapons
+	[] read cultist doc
 	
 	[] Fields content
-		[] Map rework?
-			[] Areas to visit/travel through instead of tiles?
-		[] Set locations
-			[] Farm
-				Work:
-					[] Milk
-					[] Shear
-				Paid for providing:
-					[] Milked
-					[] Sheared
-			[] Centaur transport
-				[] Quick travel Elis to Dominion
-				[] Filly services for free travel
-			[] Otter family ferry
-				[] Quick travel Elis to Dominion
-				[] Fishing services for free travel
+		[-] Map rework
+			[-] Areas to visit/travel through instead of tiles
+		[] Main quest
+			[x] "Maybe you met my friend, youko-girl, in my citadel's lab?"
+			[x] "I guess I head there.​"
+			[x] "back soon, bye, Meraxis"
+			[x] "But otherwise, no, it's all walking.​"
+				[x] change to say there are transportation services
+			[x] Change dialogue so that your task is to head to Elis, and then from there you can find the Youko
+			[x] Change quest name/description
+			[-] Block leaving Dominion until quest stage is met
+			[] Update Foloi fields text
+			[] Demonic futa centaur encounter when get 2 tiles away (one of Lunette's lieutenants)
+				[] First travel (100% chance first time travelling through)
+					[] Lose get fucked
+						[] Made to eat her out then fucked
+					[] Win can fuck
+					[] Meraxis shows up afterwards, if had sex she's clearly been masturbating
+						[] She says mum taught her how to teleport, and she backtracked from Elis
+						[] Says that she's no longer grounded, and says Lyssieth told her to introduce you to the lilin in charge of town
+							[] Add support for Meraxis missing in office
+					[] Mayor meeting
+						[] add Minotallys
+						[] Lilin is extremely soft cow-girl, with an overprotective assistant
+		[] Elis
+			[] Map
+				[] Town Hall
+					[] Mayor's room
+				[] Tavern
+					[] Rent rooms
+				[] Market
+					[] Buy food/drink/clothing
+				[] Enforcer post
 		[] Encounters
 			[] Fields
-				[] Demonic centaurs
-					[] First travel (100% chance first time travelling through)
-						[] Saved by Elis guard (introduces names of characters)
+				[] Demonic centaur(s)
 			[] Grassland
 				[] Snakes
 				[] Demonic centaurs
@@ -126,17 +329,69 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				Night:
 					[] Wolves (pack)
 					[] Owl harpy (attack)
-		[] Elis
-			[] Map
-				[] Tavern
-					[] Rent rooms
-		[] Main quest
-			[] Refine to make it clearer what needs to be done
-			[] Meraxis encounter
-			[] Mayor meeting
+		[] Unique encounters
+			[] Abandoned house in forest
+				Explore and get confronted by a pack of (all sapient) wolves, with a female wolf as their alpha
+				The 'pack' feel like this form is the best for connecting with nature, and have no interest in ever returning to an anthro form
+					- History: Feral TFs aren't a new concept, and a decade or so ago they were a trendy (although still niche) fad, but as tastes changed it fell heavily out of favour, and she says that she bets you haven't even seen ferals like her pack
+				THe TF items are all gone now, but (as she used to be an arcane researcher) she was able to create an unlimited TF-to-feral stone (runestone thing)
+				She willingly allows the player to use the item
+				Can only be used on people who are completely willing to undergo the transformation
+					Can convince centaur transport to TF into feral horses
+		[] Set locations
+			[] Farm
+				Goat-boy as overseer
+					[] Can have sex after building up trust
+				Work (all day):
+					[] Milk
+						[] Impregnate cow-morphs
+					[] Shear
+						[] Sheep group sex - they gossip and chat while taking turns with player
+					[] Plough help
+						[] Horse-boy sex
+						[] Size-queen horse-girl (androphilic)
+							[] If cock not big enough, fingers you or jerks you off
+							[] If big enough, lets you fuck her
+					[] Truffle-hunting (pigs are hired help)
+						[] Pig-morph sex
+					[] Admin (with baphomet daughter of goat-boy)
+						[] Likes pregnant sex
+						[] Sassy
+				Paid for providing:
+					[] Milked
+					[] Sheared
+			[] Centaur transport
+				06:00-20-00, Sunday off
+				Brother/sister shire-horse centaurs transport, takes 1 hour to get to Elis
+					[] Brother - Vronti
+						Stoic, muscular, incredibly strong (reason why demonic centaurs leave the two of them alone), dom
+						Olive skinned, black horse hair
+						Can flirt, doesn't respond
+							Continue teasing, if have seduction perk or high damage, he gets an erection and has to stop
+							Can jerk him off
+							Next time can oral
+							Time after that can get fucked
+						Leaves Dominion on even hours
+					[] Sister - Astrapi
+						Energetic muscular tomboy dom
+						Olive skinned, chestnut horse hair, blonde hair
+						Likes self-denial (says being on the edge gives her more energy)
+							Can flirt, she gets frustrated easily
+							Gives blowjob (claims protein makes her faster)
+							Says after work she could do with some more
+								Have to catch her at Elis station between 20:00-20:15
+								She takes pill - can't afford to get pregnant as she'd have to stop work and can't afford that
+						Leaves Dominion on odd hours (always the first to be met, she says they're starting a new schedule on first trip)
+				[] Quick travel Elis to Dominion
+			[] Otter family ferry
+				Otter dad and son
+					[] Dad is
+				[] Quick travel Elis to Dominion
+				[] Fishing services for discount on fee
+	
 	
 		
-	----- To here, then Fields -----
+	----- Nyan marriage expansion -----
 	
 		Visit:
 			[] Nyan bakes (naked apron)
@@ -199,6 +454,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	--- END NYAN MARRIAGE ---
 	
 	
+	[] Fix slime queen quest not being triggered by bat caverns slimes
+	
+	[] enchantment cap reduction upgrades for clothing and weapons (extremely expensive, via Arthur)
+	
 	[] Suggestion: Combine the +10% race damage perks into one perk that you recieve when you read all the books instead of one perk per book
 	[] Essences need to be generated for every race...
 	
@@ -244,6 +503,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add race fetish preferences
 	
+	Autofellatio or even Auto-insertion with penis types like prehensile
 	
 	[] Sex availability
 		[x] Check for actions blocked
@@ -819,9 +1079,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Being able to fly should allow you to escape combat easier
 	
 	Youko scientist: you can talk to her, be TF'd by her, and eat her out but when Meraxis brings her up the player goes "Who?"
-	
-	I have troubles with Zaranix. 
-		When I try to 'thanks' him for handing over Arthur, I can't dislocate any of the items. It says that I am not allowed to do that in this sex scene. Problem is, he wears pants so the option to suck him off is unavailable, and I can't shift aside my clothes to do something while I wait for him to remove his pants. Is this a bug or am I doing something wrong?
 	
 	Investigate maid duty slaves fucking or not
 	
@@ -1906,8 +2163,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	NPC slimes will attempt to turn you into a slime and the game will tell you its working but you remain human
 	
-	Not sure if bug but the game still refers to Zoelix as Zaranix despite me transforming her.
-	
 	When displacing clothing on a resisting opponent, instead of shock or other distress when their genitals are revealed they instead grin etc like they would in consensual encounters.
 	
 	Appears as age modifier -> potions of age appearance
@@ -2087,16 +2342,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	  When I tried removing different pieces of clothing I would click to "unequip" and then it would shift back to the sex dialogue that already happened.
 	   I was able to work around this using the manage slave inventory thing. Also when I exited the game to restart it and try again it caused me to get stuck in the various menus without being able to back out or close inventory
 	
-	If resolve Zaranix quest peacefully, it makes no sense for Amber to be so angry on repeat visit.
-	
 	(Can't reproduce) it seems that modifying vaginal urethra stats applies to the penile urethra
 	
 	if you don't turn off their permission to wash their body, it wipes their pregnancy when they clean their creampie, and it will display in the phone as ready to birth.
 	
 	So I have an imported character and it always gives me the "you should talk to Lily" text after I defeat someone, but I can't actually talk to her about it anymore. I was pretty sure I already talked to her about it one this save
 
-	When I entered Zaranix's house, it was telling me I needed to respond to the maid before going up the stairs... When she wasn't in the same tile as me and hadn't said anything to me.
-	
 	Loading saves also returns the image of an enchanted hypno-watch to the regular one
 	
 	brittney/lexi/diana will take anything?
@@ -2782,12 +3033,6 @@ Enchantment Suggestion: Emotion Mask - Enchanted clothing piece changes the pers
 	
 	I'd love to be able to give a rose to Lilaya for a hug and a sweet little kiss~
 	
-	When I re-visited Zaranix's place, Amber acted as though I broke in, pummeled and raped her and the other maids, and rudely demanded Arthur from Zaranix... even though I knocked on the door and begged her to let me in, calmly explained my ordeal with Zaranix, thanked her for letting me see him, got roughly fucked for not thanking HIM, all the while enduring constantly being degraded by her until she finally walked me out. She even gave me an affectionate spank before closing the door!
-	
-	I'd like to have Kelly and Katherine like me more, as well as Zaranix, if he doesn't already. I haven't been able to get him alone to find out...
-	
-	It seems Zaranix is both in his lounge and his lab at the same time. You may want to look into that...
-	
 	We need collars that are studded with spikes. You know, the kinds you'd expect to find on a vicious bull-dog.
 	
 	Sometimes, when giving birth, my character "dreams of" a morph of one gender interacting with her, when she only gave birth to the other gender. For example, she'll imagine seeing a wolf-boy, but she gave birth to a single wolf-girl.
@@ -2863,8 +3108,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	If you've read a species book before the recent update you can't get the new boost from said book.
 	
-	Zaranix is a male in the text when you return to his house but the nearby people leaves him in female form
-	
 	Still can´t encounter any harpies in harpies nest whatsoever
 	
 	sort clothing by type first 
@@ -2876,15 +3119,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	Duner's stuff
 	
-	
-	Zaranix
-		- Ask about incubus form
-			- if affection > 50, then can convince to stay as futa succubus Zoelix
-			- scene where you show her how good it feels to stay as a female - Zaranix gains pussy slut and self-breast fetishes
-		- Sex
-			- If incubus, he only accepts blowjobs
-			- If succubus, get full sex
-				
 	Preg reactions (including first time seeing them) for:
 		Pix
 		Amber
@@ -5124,8 +5358,6 @@ BlobHyperSweats1
 	
 	Suggestions:
 
-If you force your way into Zaranix's house, Katherine clearly hears you, but when you meet her she reacts the same as she does if you sneak in. Maybe she should say something about how you must have beaten Amber instead?
-
 You could put in interactions between slave's obedience and affection, for example a slave that loves you but is defiant could gain obedience over time. Conversely, a slave that hates you could see their obedience suffer. I'm not sure if affection should track towards obedience, you could probably make a case either way for that.
 
 NPC dirty talk regarding virginity is a little odd. They will mention that they're a virgin every other sentence, even if you don't have a cock and couldn't possibly take it, but they never mention they're an anal or oral virgin even when you put them on their knees or rub your cock on their ass. They just say "That's right, fuck my ass!", same as anyone else. Maybe they should wait until you actually get your cock out (especially if you're feminine), and have some sort of comment if losing one of their other virginities is apparently imminent.
@@ -5390,11 +5622,7 @@ A girl with the virginity fetish probably shouldn't ask you to fuck her, however
 		I just want an NPC to forcefully break-in my character but no one will do it
 	
 	
-	once you get Arthur the first time, going back to Zaranix's lab will cause a screen lock where you need to shut down
-	
 	small issue with slave descriptions in actions like hugging: "Due to the fact that [...] is friendly you, ..."
-	
-	Not sure if it's a bug or not, but after you've infiltrated Zaranix's home and retrieved Arthur (with the 'fly over fence' option), you can't knock anymore, regardless of whether or not you actually fought anyone. Can still fly over the fence, tho.
 	
 	"I seem to keep getting stuck at Ralph's"
 	
@@ -5492,8 +5720,6 @@ I've found that if you strip someone before sex, take all of their stuff, then h
 	
 	
 	
-	
-	Zaranix finishing touches
 	
 	Molest slave action
 	

@@ -7,9 +7,12 @@ package com.lilithsthrone.game.dialogue;
  */
 public enum DialogueFlagValue {
 	
-	quickTrade,
-	stormTextUpdateRequired,
-	hasSnowedThisWinter,
+	
+	// Main quest:
+	firstReactionLiberate,
+	firstReactionUsurp,
+	firstReactionJoin,
+	firstReactionNothing,
 	
 	
 	// Essence reactions:
@@ -20,6 +23,10 @@ public enum DialogueFlagValue {
 
 	
 	// Misc.:
+	quickTrade,
+	stormTextUpdateRequired,
+	hasSnowedThisWinter,
+	
 	foundHappiness,
 	visitedSubmission,
 	mommyFound,
@@ -126,6 +133,7 @@ public enum DialogueFlagValue {
 	roseToldOnYou,
 	lilayaReactedToPlayerAsDemon,
 	lilayaHug(true),
+	obtainedScientistClothing,
 	
 	readBook1,
 	readBook2,
@@ -258,6 +266,8 @@ public enum DialogueFlagValue {
 	zaranixAmberSubdued,
 	zaranixKatherineSubdued,
 	zaranixKellySubdued,
+
+	zaranixTransformedPlayer,
 	
 	amberRepeatEncountered,
 	katherineRepeatEncountered,
@@ -357,6 +367,14 @@ public enum DialogueFlagValue {
 	meraxisRepeatDemonTF,
 	
 	
+	// Rebel base:
+
+	rebelBaseDarkPassFound,
+	rebelBaseLightPassFound,
+    rebelBaseInsaneSurvivorEncountered,
+    rebelBaseElleCostumeEncountered,
+	
+    
 	// Rat warrens:
 	
 	ratWarrensEntry,

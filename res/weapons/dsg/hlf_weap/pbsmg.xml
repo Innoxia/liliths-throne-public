@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA[Underneath the receiver, a small engraving reads "MFD by DSG Forgeworks."]]></authorTag>
+		<value>2500</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[a]]></determiner>
+		<name appendDamageName="true"><![CDATA[pepperball submachine gun]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pepperball submachine gun]]></namePlural>
+		<description><![CDATA[Although this weapon looks masterfully crafted, it nonetheless bears all the signs of having been made by hand rather than manufactured. Stamped on the body is an insignia that you don't recognize.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your submachine gun.]]></attackTooltipDescription>
+		<rarity>RARE</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the submachine gun, [npc.verb(load)] a fresh magazine, and [npc.verb(pulls)] the charging handle before disengaging the safety.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(open)] the bolt and [npc.verb(check)] to see that the chamber is empty before removing the magazine and putting the submachine gun away.]]></unequipText>
+		<imageName>pbsmg_uneq.svg</imageName>
+		<imageEquippedName>pbsmg.svg</imageEquippedName>
+		<physicalResistance>0</physicalResistance>
+		<damage>25</damage>
+		<aoe chance="25">5</aoe>
+		<aoe chance="25">5</aoe>
+		<arcaneCost>2</arcaneCost>
+		<damageVariance>HIGH</damageVariance>
+		<availableDamageTypes>
+			<damageType>FIRE</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours values="JUST_BLACK"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(squeeze)] off a burst at [npc2.name]. The gelatin capsules burst on impact with [npc2.namePos] aura, splattering [npc2.herHim] with stinging, burning oil.
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(squeeze)] off a burst at [npc2.name]. The capsules miss [npc2.herHim] completely and splatters uselessly in the distance.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

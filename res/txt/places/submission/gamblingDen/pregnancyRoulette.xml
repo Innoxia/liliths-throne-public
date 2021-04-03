@@ -224,7 +224,7 @@
 		[epona.speech(Great!)] Epona happily exclaims, stamping your loyalty card before rushing out from behind her counter. [epona.speech(Right this way!)]
 	</p>
 	<p>
-		Trailing in Epona's footsteps, you're quickly led over to the futa breeding room. The interior of this room is concealed from public view by means of a dark pink canvas privacy screen, which bears a stylised white silhouette of a horse-girl futa sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be spreading your legs for a bunch of horny futas!)]
+		Trailing in Epona's footsteps, you're quickly led over to the futa breeding room. The interior of this room is concealed from public view by means of a dark pink canvas privacy screen, which bears a stylised white silhouette of a horse-girl futa sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be #IF(pc.hasLegs())spreading your legs for#ELSEgetting fucked by#ENDIF a bunch of horny futas!)]
 	</p>
 	<p>
 		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of elegant wooden tables and padded sofas, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
@@ -268,7 +268,7 @@
 		[epona.speech(Great!)] Epona happily exclaims, stamping your loyalty card before rushing out from behind her counter. [epona.speech(Right this way!)]
 	</p>
 	<p>
-		Trailing in Epona's footsteps, you're quickly led over to the male breeding room. The interior of this room is concealed from public view by means of a dark blue canvas privacy screen, which bears a stylised black silhouette of a horse-boy sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be spreading your legs for a bunch of horny guys!)]
+		Trailing in Epona's footsteps, you're quickly led over to the male breeding room. The interior of this room is concealed from public view by means of a dark blue canvas privacy screen, which bears a stylised black silhouette of a horse-boy sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be #IF(pc.hasLegs())spreading your legs for#ELSEgetting fucked by#ENDIF a bunch of horny guys!)]
 	</p>
 	<p>
 		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of basic wooden tables and benches, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
@@ -306,7 +306,7 @@
 		[epona.speech(Great! I'll just note that down,)] Epona replies, producing a notepad and pen, before jotting taking down your selection. [epona.speech(Now, let's get you into position.)]
 	</p>
 	<p>
-		Epona leads you over to the padded bench, before turning around. [epona.speech(Right, so you just slide your legs through there, and wait for me to go give the signal to start! It's up to you whether you want to be on your front or back.)]
+		Epona leads you over to the padded bench, before turning around. [epona.speech(Right, so you just slide your [pc.legs] through there, and wait for me to go give the signal to start! It's up to you whether you want to be on your front or back.)]
 	</p>
 	<p>
 		Stepping towards the bench, you prepare to slide your lower half out into the breeder's room, but first, you need to decide whether to lie on your stomach or back...
@@ -382,7 +382,7 @@
 		As the last of the breeders steps away from your well-used pussy, Epona opens the door and steps forwards into the partitioned area. [epona.speech(Great job, [pc.name]! You're sure to be a Mommy now!)]
 	</p>
 	<p>
-		With the horse-girl's help, you wriggle back out of the opening, feeling the still-hot cum sliding out of your well-used pussy as you stand up on quivering legs. Epona helpfully produces a tissue, and, before you can say anything, leans down to help wipe the excess cum off your legs. As she does this, she explains, [epona.speech(Right, so now I'll just run a pregnancy tester over your belly, and we can see which of the breeder's the father! Now, in the past, some of the breeders have lost their temper when they found out they didn't win, so, for your safety, we'll keep you back here until they're all gone.)]
+		With the horse-girl's help, you wriggle back out of the opening, feeling the still-hot cum sliding out of your well-used pussy as you stand up on quivering [pc.legs]. Epona helpfully produces a tissue, and before you can say anything, leans down to help wipe the excess cum off your [pc.legs]. As she does this, she explains, [epona.speech(Right, so now I'll just run a pregnancy tester over your belly, and we can see which of the breeder's the father! Now, in the past, some of the breeders have lost their temper when they found out they didn't win, so, for your safety, we'll keep you back here until they're all gone.)]
 	</p>
 	<p>
 		[pc.speech(Ok,)] you respond, waiting for Epona to get on with the testing.
@@ -473,7 +473,7 @@
 		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room, [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
 	</p>
 	<p>
-		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly a pair of legs and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
+		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly #IF(npc.hasLegs())a pair of [npc.legs]#ELSEa [npc.legs+]#ENDIF and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
 	</p>
 	<p>
 		[epona.speech(You all look like you're ready!)] the horse-girl exclaims. [epona.speech(Now, I'll roll a dice to see in what order you get to fuck [npc.name] here! [pc.Name], I'll start with you!)]
@@ -504,7 +504,7 @@
 		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room, [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
 	</p>
 	<p>
-		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly a pair of legs and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
+		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly #IF(npc.hasLegs())a pair of [npc.legs]#ELSEa [npc.legs+]#ENDIF and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
 	</p>
 	<p>
 		[epona.speech(You all look like you're ready!)] the horse-girl exclaims. [epona.speech(Now, I'll roll a dice to see in what order you get to fuck [npc.name] here! [pc.Name], I'll start with you!)]
@@ -514,14 +514,14 @@
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_FIRST"><![CDATA[
 	<p>
-		As you rolled a one, you're the first to step up to [npc.name]'s exposed body. Reaching down to take a hold of her legs, you line your [pc.cock+] up to her [npc.pussy+] and prepare to penetrate her...
+		As you rolled a one, you're the first to step up to [npc.name]'s exposed body. Reaching down to take a hold of her [npc.hips], you line your [pc.cock+] up to her [npc.pussy+] and prepare to penetrate her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_MIDDLE"><![CDATA[
 	<p>
-		As you aren't the first to fuck [npc.name], you find yourself looking down at a fresh creampie dripping out of her exposed pussy as you step up to her. Reaching down to take a hold of her legs, you line your [pc.cock+] up to her well-used cunt and prepare to penetrate her...
+		As you aren't the first to fuck [npc.name], you find yourself looking down at a fresh creampie dripping out of her exposed pussy as you step up to her. Reaching down to take a hold of her [npc.hips], you line your [pc.cock+] up to her well-used cunt and prepare to penetrate her...
 	</p>
 	]]>
 	</htmlContent>
@@ -536,7 +536,7 @@
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_FINISHED"><![CDATA[
 	<p>
-		You and the rest of the breeders watch as the volunteer's legs slide back into the other room. You hear Epona talking with her for a moment, before the solitary door opens once more. The horse-girl steps back out into the room that you're in, holding up a pregnancy tester for you all to see:
+		You and the rest of the breeders watch as the volunteer's #IF(npc.hasLegs())[npc.legs] slide#ELSE[npc.leg] slides#ENDIF back into the other room. You hear Epona talking with her for a moment, before the solitary door opens once more. The horse-girl steps back out into the room that you're in, holding up a pregnancy tester for you all to see:
 	</p>
 	]]>
 	</htmlContent>

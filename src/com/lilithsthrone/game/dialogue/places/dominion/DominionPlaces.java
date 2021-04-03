@@ -385,7 +385,7 @@ public class DominionPlaces {
 			if(isCloseToEnforcerHQ()) {
 				sb.append("<p style='text-align:center;'><i>");
 					sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
-					if(Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
+					if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 						sb.append("<br/>However, due to the ongoing arcane storm, there's no chance of encountering any patrols at the moment...");
 					}
 				sb.append("</i></p>");

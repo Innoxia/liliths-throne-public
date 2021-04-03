@@ -60,9 +60,9 @@
 			[npc2.speech(Give me the potion,)] [npc2.name] commands [npc2.her] partner. Quickly producing a bottle of strange liquid, [npc3.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. 
 			#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 			#THEN
-				 [npc3.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				 [npc3.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ELSE
-				 [npc3.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				 [npc3.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ENDIF
 		</p>
 		<p>
@@ -117,9 +117,9 @@
 			[npc2.speech(Give me the potion,)] [npc2.name] commands [npc2.her] partner. Quickly producing a bottle of strange liquid, [npc3.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing [npc.namePos] chin and squeezing [npc.her] cheeks. 
 			#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 			#THEN
-				 [npc2.speech(Open wide, [npc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				 [npc2.speech(Open wide, [npc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ELSE
-				 [npc2.speech(Open wide, [npc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				 [npc2.speech(Open wide, [npc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 			#ENDIF
 		</p>
 		<p>
@@ -198,7 +198,7 @@
 	#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
 	#THEN
 		<p>
-			Finding [npc.herself] down on the floor, and at the mercy of the imps' carnal desires, [npc.name] seems willing enough to go along with whatever they have in store for [npc.herHim], and lets out an encouraging [npc.moan] as [npc.she] prepares to get fucked. Hearing the tell-tale sound of [npc.namePos] willingness to go along with all of this, [npc.name] sneers down at [npc.herHim], [npc2.speech(What a submissive whore you turned out to be! You're just a slut who can't wait to spread [npc.her] [npc.legs] for us imps, aren't you?)]
+			Finding [npc.herself] down on the floor, and at the mercy of the imps' carnal desires, [npc.name] seems willing enough to go along with whatever they have in store for [npc.herHim], and lets out an encouraging [npc.moan] as [npc.she] prepares to get fucked. Hearing the tell-tale sound of [npc.namePos] willingness to go along with all of this, [npc.name] sneers down at [npc.herHim], [npc2.speech(What a submissive whore you turned out to be! You're just a slut who loves getting fucked by imps, aren't you?)]
 		</p>
 		<p>
 			[npc.NamePos] rising arousal gets the better of [npc.herHim], and you can't help but raise your eyebrows as [npc.she] immediately calls out, [npc.speech(Yes! Please, fuck me!)]
@@ -264,7 +264,7 @@
 		[npc2.speech(So what are you waiting for?)] [npc2.Name] snaps at [npc2.her] subordinates. [npc2.speech(Get these [pc.insultPlural] down on their knees!)]
 	</p>
 	<p>
-		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [npc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto your knees. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
+		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [pc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto your knees. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
 	</p>
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
@@ -274,9 +274,9 @@
 				[npc2.speech(Get the potions out!)] [npc2.Name] commands [npc2.her] partner. Quickly producing two bottles of strange liquid, [npc3.name] hands one over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. As [npc2.she] does this, [npc3.name] does the same to [npc.name], and as the potions draw ever closer to your open mouths, [npc.name] snickers,
 				#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 				#THEN
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ELSE
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ENDIF
 			</p>
 			<p>
@@ -289,9 +289,9 @@
 			<p>
 				[npc2.speech(Yeah, just save your potion for the next one,)] [npc2.name] replies.#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 				#THEN
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ELSE
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ENDIF
 			</p>
 			<p>
@@ -308,9 +308,9 @@
 				Quickly producing a bottle of strange liquid, [npc3.name] does as [npc3.her] superior commands, and, pulling the stopper out, [npc3.she] steps forwards, before grabbing [npc.namePos] chin and squeezing [npc.her] cheeks. 
 				#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 				#THEN
-					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ELSE
-					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ENDIF
 			</p>
 			<p>
@@ -432,7 +432,7 @@
 		Not giving you a moment's respite, [npc2.name] snaps [npc2.her] fingers, before pointing at the two of you and ordering [npc.her] subordinates, [npc.speech(Restrain the [pc.insultPlural]! Go on, get them!)]
 	</p>
 	<p>
-		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [npc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto the floor. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
+		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [pc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto the floor. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
 	</p>
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
@@ -442,9 +442,9 @@
 				[npc2.speech(Get them potions out!)] [npc2.Name] snaps at [npc2.her] partner. Quickly producing two bottles of strange liquid, [npc3.name] hands one over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. As [npc2.she] does this, [npc3.name] does the same to [npc.name], and as the potions draw ever closer to your open mouths, [npc.name] snickers,
 				#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 				#THEN
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ELSE
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ENDIF
 			</p>
 			<p>
@@ -458,9 +458,9 @@
 				[npc2.speech(Yeah, just save yer potion for the next cunt we find,)] [npc2.name] snaps.
 				#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 				#THEN
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ELSE
-					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ENDIF
 			</p>
 			<p>
@@ -477,9 +477,9 @@
 				Quickly producing a bottle of strange liquid, [npc3.name] does as [npc3.her] superior commands, and, pulling the stopper out, [npc3.she] steps forwards, before grabbing [npc.namePos] chin and squeezing [npc.her] cheeks. 
 				#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 				#THEN
-					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ELSE
-					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+					 [npc3.speech(Open wide, [npc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so you'll have all the parts we need to have our fun!)]
 				#ENDIF
 			</p>
 			<p>
@@ -499,7 +499,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
 	<p>
-		Finding yourself down on the floor, and at the mercy of the imps' carnal desires, you decide that the best thing for you to do would be to simply go along with whatever they have in store for you. Sensing your willingness to go along with all of this, [npc2.name] sneers down at you, [npc2.speech(What a submissive whore you turned out to be! You're just a slut who can't wait to spread [pc.her] [pc.legs] for us imps, aren't you?)]
+		Finding yourself down on the floor, and at the mercy of the imps' carnal desires, you decide that the best thing for you to do would be to simply go along with whatever they have in store for you. Sensing your willingness to go along with all of this, [npc2.name] sneers down at you, [npc2.speech(What a submissive whore you turned out to be! You're just a slut who loves getting fucked by imps, aren't you?)]
 	</p>
 	<p>
 		Not wanting to cause any trouble by arguing back, you mutter, [pc.speech(Y-Yes... That's right...)]
@@ -527,7 +527,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
 	<p>
-		Finding yourself down on the floor, and at the mercy of the imps' carnal desires, you feel yourself getting immensely turned-on, and can barely contain the [pc.moan+] that drifts out from between your [pc.lips]. Hearing the lewd noise that just came out of your mouth, [npc2.name] sneers down at you, [npc2.speech(What a dirty whore you turned out to be! You're just a slut who can't wait to spread [pc.her] [pc.legs] for us imps, aren't you?)]
+		Finding yourself down on the floor, and at the mercy of the imps' carnal desires, you feel yourself getting immensely turned-on, and can barely contain the [pc.moan+] that drifts out from between your [pc.lips]. Hearing the lewd noise that just came out of your mouth, [npc2.name] sneers down at you, [npc2.speech(What a dirty whore you turned out to be! You're just a slut who loves getting fucked by imps, aren't you?)]
 	</p>
 	<p>
 		Your arousal gets the better of you, and before you can think things through, you call out, [pc.speech(Yes! Please, fuck me!)]
