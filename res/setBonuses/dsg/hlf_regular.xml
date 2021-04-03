@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[HLF Regular]]></name>
+	<statusEffect>dsg_set_hlf_regular</statusEffect>
+	<numberRequiredForCompleteSet>4</numberRequiredForCompleteSet>
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>TORSO_OVER</slot>
+		<slot>TORSO_UNDER</slot>
+		<slot>LEG</slot>
+		<slot>FOOT</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

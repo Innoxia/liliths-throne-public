@@ -232,6 +232,79 @@
 	]]>
 	</htmlContent>
 	
+	<!-- FIREBOMBS -->
+	
+	
+	<htmlContent tag="FIREBOMBS"><![CDATA[
+	<p>
+		You think back to the arcane firebombs you got from the mysterious cave. Knowing that Roxy surely has the right connections to get more, you bring out a firebomb and set it down on the counter.
+	</p>
+	<p>
+		[roxy.speech(What's that yer got there?)] Roxy asks, raising an eyebrow, [roxy.speech(The newest thing y'been jammin' up yer arse?)]
+	</p>
+	<p>
+		Rolling your eyes as Roxy chuckles at her own crude joke, you explain what the firebomb is and what it does. [roxy.speech(Yer mean it breaks when y'use et? 'urts resale value. I'll take it off yer 'ands fer twenty an' not a fuckin' flame more.)]
+	</p>
+	<p>
+		[pc.speech(I'm not interested in just pawning it off to you,)] you reply, [pc.speech(I don't have a way to get more of these. I was wondering if you know anyone who does.)]
+	</p>
+	<p>
+		Roxy frowns slightly at your question. [roxy.speech(I might. I might not. Tha' fuck do I get out ta' this?)]
+	</p>
+	<p>
+		[pc.speech(Nobody up in Dominion is going to carry something like this. Think about it, exclusive goods mean more business.)]
+	</p>
+	<p>
+		You tense up as Roxy grabs the firebomb and holds it perilously close to her lit cigarette while examining it. After a brief pause, she puts it under the counter. [roxy.speech(Yeah, alright, y'made yer fuckin' point. Gimme, say, two days an' I'll set somethin' up. Now, y'gonna buy anythin' or are yer gonna stand there gawpin'?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FIREBOMBS_COMPLETE -->
+	
+	<htmlContent tag="FIREBOMBS_COMPLETE"><![CDATA[
+	<p>
+		Roxy gestures at a wooden crate full of familiar rag-stuffed glass bottles on a nearby shelf when you ask her about the firebomb you gave her. [roxy.speech(Y'blind? They's right there behind yer. Jus' came in, perfect copies o' the one yer gave me. Don't ask where I got 'em. Now, y'gonna buy 'em or wot?)]
+	</p>
+	#IF (!roxy.hasWeaponType(WEAPON_dsg_hlf_weap_pbomb, false))
+		[##roxy.addWeapon(game.getItemGen().generateWeapon(WEAPON_dsg_hlf_weap_pbomb), 10, false, false)]
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FIREBOMBS_COMPLETE -->
+	
+	<htmlContent tag="FIREBOMBS_COMPLETE"><![CDATA[
+	<p>
+		Roxy gestures at a wooden crate full of familiar rag-stuffed glass bottles on a nearby shelf when you ask her about the firebomb you gave her. [roxy.speech(Y'blind? They's right there behind yer. Jus' came in, perfect copies o' the one yer gave me. Don't ask where I got 'em; all ya needs ta know is dat I's gonna be havin' ten o' dem fer sale every day.)]
+	</p>
+	<p>
+		Pausing to take a deep drag on her cigarette, she rudely blows smoke all over you as she cackles, [roxy.speech(Now, y'gonna buy 'em or wot?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FIREBOMBS_FAILED -->
+	
+	<htmlContent tag="FIREBOMBS_FAILED"><![CDATA[
+	<p>
+		Realising that Roxy is likely the only person who's going to be able to help you to get your [pc.hands] on more of those arcane firebombs, you ask the rat-girl if she's got any contacts who could make weapons of questionable legality. Leaning back in her chair and grinning at you, she replies, [roxy.speech(Maybe I 'as, maybe I don't. Wot ya tryin' ta get yer grubby little mits on?)]
+	</p>
+	<p>
+		As you explain to Roxy the nature of the firebombs which you're no longer in possession of, you watch in dismay as the rat-girl's expression turns to one of confusion and annoyance. Despite giving her a clear description of the firebombs' properties, she shakes her head and snarls, [roxy.speech(Don't ya be wastin' me time with that shit. I ain't gonna bother me friends by askin' 'em ta fill a bottle with some kind o' burnin' stuff. An' besides, ain't nobody gonna buy weapons wot breaks when ya use 'em! Don't fuckin' ask me fer such stupid shit again.)]
+	</p>
+	<p>
+		Taking a deep drag on her cigarette to help her calm down, the obnoxious rat-girl blows smoke all over you and sneers, [roxy.speech(Now, ya gonna buy sumthin', or fuck off?)]
+	</p>
+	<p>
+		With your hopes of ever getting more firebombs dashed by Roxy's rude response, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- TRADER_REPLY_NO -->
 	
