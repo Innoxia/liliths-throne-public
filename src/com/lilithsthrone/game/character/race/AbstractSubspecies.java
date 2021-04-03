@@ -1745,6 +1745,16 @@ public abstract class AbstractSubspecies {
 		return availableRaces;
 	}
 
+	public static AbstractSubspecies getRandomSubspeciesFromWeightedMap(Map<AbstractSubspecies, Integer> availableRaces) {
+		return getRandomSubspeciesFromWeightedMap(availableRaces, Subspecies.HUMAN);
+	}
+
+	public static AbstractSubspecies getRandomSubspeciesFromWeightedMap(Map<AbstractSubspecies, Integer> availableRaces, AbstractSubspecies fallback) {
+		AbstractSubspecies species = Util.getRandomObjectFromWeightedMap(availableRaces);
+
+		return species != null ? species : fallback;
+	}
+
 	public static void addToSubspeciesMap(int weight, Gender gender, AbstractSubspecies subspecies, Map<AbstractSubspecies, Integer> map) {
 		addToSubspeciesMap(weight, gender, subspecies, map, null);
 	}

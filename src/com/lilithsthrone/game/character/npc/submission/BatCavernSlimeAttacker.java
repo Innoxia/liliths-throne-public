@@ -33,21 +33,21 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.5.5
  * @author Innoxia
  */
-public class SlimeCavernAttacker extends NPC {
+public class BatCavernSlimeAttacker extends NPC {
 
-	public SlimeCavernAttacker() {
+	public BatCavernSlimeAttacker() {
 		this(Gender.F_V_B_FEMALE, false);
 	}
 	
-	public SlimeCavernAttacker(Gender gender) {
+	public BatCavernSlimeAttacker(Gender gender) {
 		this(gender, false);
 	}
 	
-	public SlimeCavernAttacker(boolean isImported) {
+	public BatCavernSlimeAttacker(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public SlimeCavernAttacker(Gender gender, boolean isImported) {
+	public BatCavernSlimeAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, Subspecies.HUMAN, RaceStage.HUMAN,
