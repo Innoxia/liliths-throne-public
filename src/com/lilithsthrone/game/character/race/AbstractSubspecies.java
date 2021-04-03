@@ -1061,6 +1061,8 @@ public abstract class AbstractSubspecies {
 				return baseName+"-arachne"+(plural?"s":"");
 			case AVIAN:
 				return baseName+"-moa"+(plural?"s":"");
+			case WINGED_BIPED:
+				return baseName+"-demimoa"+(plural?"s":"");
 			case BIPEDAL:
 				break;
 			case CEPHALOPOD:

@@ -439,6 +439,7 @@ public class Subspecies {
 				case TAIL:
 				case TAIL_LONG:
 				case AVIAN:
+				case WINGED_BIPED:
 					return r==Race.HUMAN || r==Race.DEMON
 							?Race.DEMON.getFeralName(legConfiguration, false)
 							:"demonic-"+r.getName(character, true);
@@ -4400,12 +4401,17 @@ public class Subspecies {
 			new FeralAttributes(
 					"bat",
 					"bats",
-					LegConfiguration.QUADRUPEDAL,
+					LegConfiguration.WINGED_BIPED,
 					30,
 					0,
 					1,
 					1,
-					1, false),
+					1, false) {
+				@Override
+				public boolean isArmsOrWingsPresent() {
+					return true;
+				}
+			},
 			"Due to their unique echolocation ability, all bat-morphs have a natural desire to talk as much as possible."
 					+ " Due to this, [npc.name] continuously [npc.verb(play)] out conversations in [npc.her] head, allowing [npc.herHim] to think up new and exciting ways to seduce people before having ever met them.",
 			Util.newHashMapOfValues(
@@ -4474,6 +4480,7 @@ public class Subspecies {
 					0,
 					1,
 					true) {
+				@Override
 				public boolean isArmsOrWingsPresent() {
 					return true;
 				}

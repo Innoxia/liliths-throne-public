@@ -152,7 +152,7 @@
 		
 		<!-- The leg configuration that a feral form of this subspecies has.
 		This determines their overall body shape. -->
-		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<legConfiguration>WINGED_BIPED</legConfiguration>
 		<!-- Whether or not this feral form's size is measured as height from floor to head, as for most mammals (true), or from head to tail (false), as for alligators and other low-lying animals which are far longer than they are tall. -->
 		<sizeHeight>true</sizeHeight>
 		<!-- The height/length of this subspecies' feral form, measured in cm. -->

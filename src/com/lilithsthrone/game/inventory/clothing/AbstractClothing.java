@@ -2476,6 +2476,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2577,6 +2578,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2619,6 +2621,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
