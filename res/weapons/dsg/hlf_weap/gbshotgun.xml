@@ -23,7 +23,7 @@
 		<aoe chance="80">45</aoe>
 		<aoe chance="50">30</aoe> 
 		<aoe chance="50">30</aoe>
-		<arcaneCost>0</arcaneCost>
+		<arcaneCost>4</arcaneCost>
 		<damageVariance>MEDIUM</damageVariance>
 		<availableDamageTypes>
 			<damageType>POISON</damageType>

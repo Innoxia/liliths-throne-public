@@ -4,7 +4,7 @@
 		<authorTag><![CDATA[On one side of the cylinder, a small engraving reads "MFD by DSG Forgeworks."]]></authorTag>
 		<value>1500</value>
 		<melee>false</melee>
-		<twoHanded>true</twoHanded>
+		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[a]]></determiner>
 		<name appendDamageName="true"><![CDATA[pepperball revolver]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[pepperball revolver]]></namePlural>
@@ -19,7 +19,7 @@
 		<imageEquippedName>pbrevolver.svg</imageEquippedName>
 		<physicalResistance>0</physicalResistance>
 		<damage>20</damage>
-		<arcaneCost>2</arcaneCost>
+		<arcaneCost>1</arcaneCost>
 		<damageVariance>LOW</damageVariance>
 		<availableDamageTypes>
 			<damageType>FIRE</damageType>
