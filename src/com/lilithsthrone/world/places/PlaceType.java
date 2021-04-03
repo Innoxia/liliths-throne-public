@@ -4555,7 +4555,9 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			BatCaverns.CAVERN_DARK,
-			Darkness.ALWAYS_DARK, Encounter.BAT_CAVERN, "in the Bat Caverns"
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN,
+			"in the Bat Caverns"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -4631,7 +4633,8 @@ public class PlaceType {
 			.initWeatherImmune()
 			.initAquatic(Aquatic.MIXED);
 	
-	//HLF MOD
+	// HLF Quest places:
+	
 	public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
 			"Hidden Cave Entrance",
@@ -5184,8 +5187,9 @@ public class PlaceType {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile);
 		}
 	}.initWeatherImmune();
+
+	// HLF Quest places:
 	
-    //HLF MOD
     public static final AbstractPlaceType REBEL_BASE_ENTRANCE = new AbstractPlaceType(
  			WorldRegion.SUBMISSION,
 			"Entrance",

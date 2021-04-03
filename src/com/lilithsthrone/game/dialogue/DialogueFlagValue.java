@@ -368,7 +368,9 @@ public enum DialogueFlagValue {
 	
 	
 	// Rebel base:
-	
+
+	rebelBaseDarkPassFound,
+	rebelBaseLightPassFound,
     rebelBaseInsaneSurvivorEncountered,
     rebelBaseElleCostumeEncountered,
 	

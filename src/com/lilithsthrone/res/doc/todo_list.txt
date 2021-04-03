@@ -163,28 +163,64 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Firebomb quest
 		[x] Add mag dump special attack
 		Dialogue
-			[] Should location be random?
-			[] Add a bit of text after pulling handle to say that the player should search for clues
-			[] Dialogue for Bat Caverns tile needs expanding to more than one sentence
-			[] Make it so that the player has 100% chance to find the encounter after 6 encounters which were not it
-			[] Test halves first light then dark text
-			[] Add coloured warning to exit tooltip that leaving will fail the quest
-				Also add warning to entering the cave?
-			[] Mostly Caved-in Room description expansion
-			[] Alter (and add variant for soldier background) "You instantly recognize the disposable nature of the firebombs,	having seen them on the news."
-			[] Add description for when looting the container in the Common Area 
-			[] " the butt of her weapon" -> his
-			[] "you notice that your pockets are totally empty like they were before, but obviously rummaged through,	and let out a sigh"
-			[] "bioluminscent"
-			[] Make places light (from mushrooms)
-			[] You lost ¤292! -> in dialogue after defeat, losing more money?
-			[] "into illegible bits" pieces?
+			[x] Should location be random?
+				[x] Change encounter condition to include distance at least 3 away from entrance
+			[x] Move effects into applyPreParsingEffects
+				[x] Encounter dialogue
+				[x] Check other classes
+					[x] BatCaverns
+					[x] RoxysShop
+			[x] Add a bit of text after pulling handle to say that the player should search for clues
+			[x] Test halves first light then dark text
+				[x] Change encounter so that the password can be obtained by both dark->light and light->dark exploration
+					[x] Test
+			[x] Make pull handle continue dialogue
+			[x] Dialogue for Bat Caverns tile needs expanding to more than one sentence
+				"The strange door handle in the cavern wall is still here, only given away by its barely visible lichen-lit shadow.​"
+			[-] Make places light (from mushrooms)
+			[x] Add explore action to handle tile
+			[-] Make it so that the player has 100% chance to find the encounter after 6 encounters which were not it
+			[x] Add coloured warning to exit tooltip that leaving will fail the quest
+			[x] Mostly Caved-in Room description expansion
+			[-] Alter (and add variant for soldier background) "You instantly recognize the disposable nature of the firebombs,	having seen them on the news."
+			[x] Add description for when looting the container in the Common Area
+			[x] Code formatting fixes
+			[x] " the butt of her weapon" -> his
+			[x] "bioluminscent"
+			[x] Post-combat defeat issues
+				[x] "you notice that your pockets are totally empty like they were before, but obviously rummaged through,	and let out a sigh"
+				[x] You lost ¤292! -> in dialogue after defeat, losing more money?
+			[x] "into illegible bits" pieces?
 			[x] Add a small sentence to make it clear that the 20th November 1989 entry is not in chronological order from the entry above. Or is it meant to be 1990?
-			[] "away from the here to train"
-			[] Roxy firebomb selling doesn't restock
-			[] After combat victory, survivor should disappear before end combat scene
-		
+			[x] "away from the here to train"
+			[x] Continue after finding clue in same tile as cave causes response to be Explore
+			[x] Finding password returning wrong description
+			[x] Expand partly caved in room search
+				[x] Prevent normal description from being appended at the end
+			[x] Make journal travel disabled
+			[x] Roxy firebomb selling doesn't restock
+				[x] test
+			[x] Add Roxy quest failure if you have no firebombs left
+				[x] test
+			[x] Test cave explore fail quest
+			[x] After combat victory, survivor should disappear before end combat scene
+				[x] test
+			[x] add a hint when finding the first journal piece along the lines of "The other piece is probably not near here. Perhaps trying the mushroom forest could prove to be a good idea..."
+			[] Add Roxy recognition of firebombs if you sold at least one to her
+		Dialogue altered:
+			REBEL_BASE_DISCOVERED (expanded descriptions, added some variations for whether the pc is cowardly or brave)
+			REBEL_BASE_DOOR_NO_PASS (slightly expanded descriptions, made the wall question glowing blue)
+			Password dialogues (split up so that dark/light passwords can be encountered in either order)
+			REBEL_BASE_ENTRANCE_HANDLE (added generic tile text and hint to pull the handle once password is obtained)
+			REBEL_BASE_DOOR_OPENED (added question glowing blue, minor adjustments)
+			REBEL_BASE_CAVED_IN_ROOM (slight expansion to description)
+			
 	
+	[] Bat-boy spawned with all bat parts except arms (which were human)???
+	
+	[] lewd pink lightning spell and a "from the tap" demon stone from Lyssieth
+	
+	[] Lilaya snug
 	
 	[] Posts
 		[] Artwork

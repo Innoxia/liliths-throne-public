@@ -101,7 +101,6 @@ public class RebelBaseInsaneSurvivor extends NPC {
             initHealthAndManaToMax();
             this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 3600);
         }
-        
     }
     
     // Do not add tease as nobody wants to see the gyrations of a living crack zombie
@@ -179,8 +178,6 @@ public class RebelBaseInsaneSurvivor extends NPC {
                 this.setEarType(EarType.BAT_MORPH);
                 break;
         }
-        
-        
     }
 
     @Override
@@ -248,7 +245,12 @@ public class RebelBaseInsaneSurvivor extends NPC {
     public int getEscapeChance() {
         return 0;
     }
-    
+
+    @Override
+	public boolean isLootingPlayerAfterCombat() {
+		return false; // Looting is handled in the INSANE_SURVIVOR_DEFEATED effects
+	}
+	
     @Override
     public Response endCombat(boolean applyEffects, boolean victory) {
         if(victory) {

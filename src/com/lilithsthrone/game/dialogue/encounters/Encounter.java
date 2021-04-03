@@ -60,6 +60,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -972,11 +973,11 @@ public enum Encounter {
 		}
 	},
 	
-	BAT_CAVERN() {           
+	BAT_CAVERN() {
         @Override
         public Map<EncounterType, Float> getDialogues() {
             Map<EncounterType, Float> map = new HashMap<>();
-
+            
             map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
             map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
             map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
@@ -985,36 +986,63 @@ public enum Encounter {
                     && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
                     && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
                     && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
-                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
-                    map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 10f);
-                } else {
-                    map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 5f);
-                }
+            	// Make sure that the player is at least a distance of 3 tiles from the entrance before encountering the rebel base:
+            	Vector2i playerLocation = Main.game.getPlayer().getLocation();
+            	Vector2i entranceLocation = Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERN_ENTRANCE).getLocation();
+            	int distanceFromEntrance = (int)playerLocation.getDistanceToVector(entranceLocation);
+            	if(distanceFromEntrance>=3) {
+	                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+	                    map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 10f);
+	                } else {
+	                    map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 5f);
+	                }
+            	}
             }
             
             if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
                     && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
                     && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
-                    && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)
-                    && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
-                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
-                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 5f);
-                } else {
-                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 1f);
-                }
+                    && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)) {
+            	// The player needs to find one password from a dark tile and one from a light tile, so if already found the password in their tile, do not enable Encounter
+            	boolean alreadyFound = (Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseDarkPassFound))
+            			|| (Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseLightPassFound));
+            	
+            	if(!alreadyFound) {
+	            	EncounterType nextEncounter = EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO;
+	            	if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+	                	nextEncounter = EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE;
+	            	}
+	                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+	                    map.put(nextEncounter, 5f);
+	                } else {
+	                    map.put(nextEncounter, 1f);
+	                }
+            	}
             }
             
-            if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
-                    && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
-                    && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_ONE)
-                    && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)
-                    && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT)) {
-                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
-                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 5f);
-                } else {
-                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 1f);
-                }
-            }
+//            if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+//                    && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+//                    && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
+//                    && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)
+//                    && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
+//                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+//                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 5f);
+//                } else {
+//                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 1f);
+//                }
+//            }
+//            
+//            if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+//                    && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+//                    && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_ONE)
+//                    && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)
+//                    && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT)) {
+//                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+//                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 5f);
+//                } else {
+//                    map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 1f);
+//                }
+//            }
             
             return map;
         }
@@ -1066,54 +1094,49 @@ public enum Encounter {
 				} else {
 					randomItem = Main.game.getItemGen().generateItem(ItemType.getBatCavernItems().get(Util.random.nextInt(ItemType.getBatCavernItems().size())));
 				}
-
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
+				
 				return BatCavernsEncounterDialogue.FIND_ITEM;
-                        } else if (node == EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED) {
-
-                                return BatCavernsEncounterDialogue.REBEL_BASE_DISCOVERED;
-                                
-                        } else if (node == EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE) {
-
-                                return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE;
+			
+			} else if (node == EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED) {
+				return BatCavernsEncounterDialogue.REBEL_BASE_DISCOVERED;
+					
+			} else if (node == EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE) {
+				return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE;
 				
 			} else if (node == EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO) {
-
-                                return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO;
-				
-			} else {
-				return null;
+				return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO;
 			}
+			
+			return null;
 		}
 	},
 	
     REBEL_BASE() {
-            @Override
-            public Map<EncounterType, Float> getDialogues() {
-                Map<EncounterType, Float> map = new HashMap<>();
-                if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION) &&
-                        !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseInsaneSurvivorEncountered))
-                {
-                    map.put(EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK, 100f);
-                }               
-                return map;
+        @Override
+        public Map<EncounterType, Float> getDialogues() {
+            Map<EncounterType, Float> map = new HashMap<>();
+            if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION) &&
+                    !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseInsaneSurvivorEncountered)) {
+                map.put(EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK, 100f);
+            }               
+            return map;
+        }
+        @Override
+        protected DialogueNode initialiseEncounter(EncounterType node) {
+            if(node == EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK) {
+                Main.game.setActiveNPC(new RebelBaseInsaneSurvivor(Gender.getGenderFromUserPreferences(false, false)));
+                try {
+                    Main.game.addNPC(Main.game.getActiveNPC(), false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return Main.game.getActiveNPC().getEncounterDialogue();
+                
+            } else {
+                return null;
             }
-            @Override
-            protected DialogueNode initialiseEncounter(EncounterType node) {
-                if(node == EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK) {
-                    Main.game.setActiveNPC(new RebelBaseInsaneSurvivor(Gender.getGenderFromUserPreferences(false, false)));
-                    try {
-                        Main.game.addNPC(Main.game.getActiveNPC(), false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return Main.game.getActiveNPC().getEncounterDialogue();
-                }
-                else
-                {
-                    return null;
-                }
-            }           
+        }           
     },
         
 	// chance of encounters (in likelihood order):

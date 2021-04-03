@@ -83,19 +83,22 @@
 	
 	<htmlContent tag="DEFEATED"><![CDATA[
 	<p>
-		You fall to your knees before the oddly dressed stranger. [npc.She] wordlessly walks up to you and sends you into an inky unconsciousness with the butt of her weapon. When you awake, there is no one left in the room except for you. As you get up and dust yourself off, you notice that your pockets are
+		You fall to your knees before the oddly dressed stranger. [npc.She] wordlessly walks up to you and sends you into an inky unconsciousness with the butt of [npc.her] weapon...
+	</p>
+	<p>
+		When you wake a good fifteen minutes later, there's no one left in the room except for you. As you get up and dust yourself off, you notice that your pockets are
 		#IF(pc.getMoney() > 20000)
-		 feeling somewhat lighter
-		#ELSEIF(pc.getMoney > 10000)
-		 feeling much lighter
-		#ELSEIF(pc.getMoney > 5000)
-		 almost empty
-		#ELSEIF(pc.getMoney > 0)
-		 totally empty
+		 now feeling somewhat lighter
+		#ELSEIF(pc.getMoney() > 10000)
+		 now feeling much lighter
+		#ELSEIF(pc.getMoney() > 5000)
+		 now almost empty
+		#ELSEIF(pc.getMoney() > 0)
+		 now totally empty
 		#ELSE
 		 totally empty like they were before, but obviously rummaged through,
 		#ENDIF
-		 and let out a sigh. Seems for all [npc.her] posturing, [npc.she] was perfectly happy to take your money after knocking you out.
+		 and let out a sigh. Seems for all [npc.her] posturing, [npc.she] was perfectly happy to take your money after knocking you out...
 	</p>
 	]]>
 	</htmlContent>

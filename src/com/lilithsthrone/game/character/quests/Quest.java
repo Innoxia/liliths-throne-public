@@ -1424,16 +1424,16 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "This place is just too creepy, time to get out.";
+			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
+			return getDescription();
 		}
 	},
 
 	REBEL_BASE_FIREBOMBS_START(QuestType.SIDE,
-			5,
+			1,
 			5) {
 		@Override
 		public String getName() {
@@ -1450,7 +1450,7 @@ public enum Quest {
 	},
 
 	REBEL_BASE_FIREBOMBS_FINISH(QuestType.SIDE,
-			5,
+			1,
 			5) {
 		@Override
 		public String getName() {
@@ -1465,7 +1465,23 @@ public enum Quest {
 			return "Somehow, Roxy didn't swindle you and you've gotten yourself a supply of firebombs.";
 		}
 	},
-	
+
+	REBEL_BASE_FIREBOMBS_FAILED(QuestType.SIDE,
+			1,
+			0) {
+		@Override
+		public String getName() {
+			return "Roxy's Reluctance";
+		}
+		@Override
+		public String getDescription() {
+			return "Without an example to give to Roxy, she either couldn't understand or didn't want to be bothered with trying to replicate the firebombs you found...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
         
 	// Romance quests:
 

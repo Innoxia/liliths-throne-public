@@ -46,7 +46,6 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -61,7 +60,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.submission.SARoxySpecials;
 import com.lilithsthrone.main.Main;
@@ -89,8 +87,6 @@ public class Roxy extends NPC {
 			ItemType.MOTHERS_MILK,
 			ItemType.PREGNANCY_TEST);
 
-	private static List<AbstractWeaponType> weaponsForSale = new ArrayList<AbstractWeaponType>();
-	
 	static {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE)
@@ -346,18 +342,10 @@ public class Roxy extends NPC {
 			}
 		}
                 
-	    //add a special case for firebombs as they are disposable
-	    for (AbstractWeaponType weapon : weaponsForSale) {
-	        if (weapon.getId().equals("dsg_hlf_weap_pbomb")) {
-	            if (!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE)) {
-	                break;
-	            }
-	            this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 10, false, false);
-	            
-	        } else {
-	            this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), false);
-	        }
-	    }
+	    // Add a special case for firebombs
+        if (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)) {
+            this.addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbomb"), 10, false, false);
+        }
 		
 		List<AbstractClothingType> clothingToAdd = new ArrayList<>();
 		

@@ -2,7 +2,7 @@ package com.lilithsthrone.utils;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.21
  * @author Innoxia
  */
 public class Vector2i {
@@ -32,6 +32,10 @@ public class Vector2i {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public float getDistanceToVector(Vector2i destination) {
+		return (float) Math.sqrt(Math.pow(this.getX()-destination.getX(), 2) + Math.pow(this.getY()-destination.getY(), 2));
 	}
 	
 	public static float getDistance(Vector2i point1, Vector2i point2) {
