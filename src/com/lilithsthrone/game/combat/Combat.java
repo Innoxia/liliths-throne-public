@@ -463,8 +463,10 @@ public class Combat {
 			
 			int money = Main.game.getPlayer().getMoney();
 			int moneyLoss = (-enemyLeader.getLootMoney()/2)*enemies.size();
-			Main.game.getPlayer().incrementMoney(moneyLoss);
-			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
+			if(moneyLoss>0 && enemyLeader.isLootingPlayerAfterCombat()) {
+				Main.game.getPlayer().incrementMoney(moneyLoss);
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
+			}
 			
 			for(NPC enemy : enemies) {
 				enemy.setWonCombatCount(enemy.getWonCombatCount()+1);

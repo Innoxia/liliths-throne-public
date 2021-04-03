@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA[Underneath the stock, a small engraving reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+		<value>3000</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[a]]></determiner>
+		<name appendDamageName="true"><![CDATA[pepperball bolt-action rifle]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pepperball bolt-action rifle]]></namePlural>
+		<description><![CDATA[The bolt-action predecessor to the modern pepperball rifle, it uses gelatin instead of solid capsules which reduce its damage. Although it bears Enforcer markings, they have been scratched out and replaced with insignia you don't recognize.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your rifle.]]></attackTooltipDescription>
+		<rarity>RARE</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the shotgun, carefully [npc.verb(load)] it, and [npc.verb(crank)] the bolt once before disengaging the safety. The needle on the gauge moves to the green zone as the internal gas reservoir self-pressurizes.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(open)] the bolt and [npc.verb(check)] to see that the chamber is empty before putting the rifle away.]]></unequipText>
+		<imageName>pbboltrifle_uneq.svg</imageName>
+		<imageEquippedName>pbboltrifle.svg</imageEquippedName>
+		<physicalResistance>0</physicalResistance>
+		<damage>35</damage>
+		<arcaneCost>3</arcaneCost>
+		<damageVariance>MEDIUM</damageVariance>
+		<availableDamageTypes>
+			<damageType>FIRE</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The gelatin capsule bursts on impact with [npc2.namePos] aura, splattering [npc2.herHim] with stinging, burning oil.
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The capsule misses [npc2.herHim] completely and splatters uselessly in the distance.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

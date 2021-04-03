@@ -37,8 +37,10 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -194,6 +196,9 @@ public class DebugDialogue {
 					
 				} else if (index == 9) {
 					return new Response("Race resets", "View the race reset options.", BODY_PART_RACE_RESET);
+					
+				} else if (index == 10) {
+					return new Response("Set spawns", "View all of the clothing/weapon sets in the game and spawn them.", SPAWN_MENU_SET);
 					
 				} else if (index == 10) {
 					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
@@ -854,8 +859,8 @@ public class DebugDialogue {
 		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
+	
 	public static final DialogueNode SPAWN_MENU = new DialogueNode("Spawn Menu", "Access the spawn menu.", false) {
-
 		@Override
 		public String getHeaderContent() {
 			inventorySB.setLength(0);
@@ -978,14 +983,6 @@ public class DebugDialogue {
 			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
 			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; opacity:0; cursor:default; color:"+PresetColour.BASE_GREEN_DARK.toWebHexString()+";'>Cheats</div>");
 
-//			inventorySB.append("<hr/>");
-//			
-//			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
-//				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
-//				inventorySB.append(sb.getName());
-//				inventorySB.append("</div>");
-//			}
-			
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();
@@ -1001,6 +998,37 @@ public class DebugDialogue {
 			return DEBUG_MENU.getResponseTabTitle(index);
 		}
 		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode SPAWN_MENU_SET = new DialogueNode("Set spawns", "", false) {
+		@Override
+		public String getHeaderContent() {
+			inventorySB.setLength(0);
+			
+			inventorySB.append("<div class='container-full-width'>");
+			
+			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
+				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:23%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
+				inventorySB.append(sb.getName());
+				inventorySB.append("</div>");
+			}
+			
+			inventorySB.append("</div>");
+			
+			return inventorySB.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return DEBUG_MENU.getResponse(responseTab, index);

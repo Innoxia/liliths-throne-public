@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA["MFD by DSG Beverages GmbH" is engraved into the bottle]]></authorTag>
+		<value>30</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[an]]></determiner>
+		<name appendDamageName="true"><![CDATA[arcane firebomb]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[arcane firebombs]]></namePlural>
+		<description><![CDATA[A glass bottle filled with highly flammable fish oil and a rag, designed to shatter on impact and shower the immediate area with burning oil.]]></description>
+		<attackDescriptor>immolate</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Throw your arcane firebomb at [npc2.name].]]></attackTooltipDescription>
+		<rarity>UNCOMMON</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(grab)] the arcane firebomb. The rag stuffed down the bottle's neck immediately ignites but the arcane flames don't seem to be consuming it.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] the arcane firebomb away. The rag immediately extinguishes itself.]]></unequipText>
+		<imageName>pbomb_uneq.svg</imageName>
+		<imageEquippedName>pbomb.svg</imageEquippedName>
+		<physicalResistance>0</physicalResistance>
+		<damage>100</damage>
+		<aoe chance="80">80</aoe> 
+		<aoe chance="80">80</aoe>
+		<aoe chance="60">40</aoe> 
+		<aoe chance="60">40</aoe>
+		<arcaneCost>0</arcaneCost>
+		<damageVariance>HIGH</damageVariance>
+		<availableDamageTypes>
+			<damageType>FIRE</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[[style.boldFire(Lingering Flames)] for 6 turns on hit.]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (!npc2.hasStatusEffect(SE_LINGERING_FLAMES))
+				[##npc2.addStatusEffect(SE_LINGERING_FLAMES, 6)] The burning oil pools around [npc2.name], [style.boldFire(causing the flames to lick at [npc2.her] [npc2.feet]!)]
+			#ENDIF 
+			#IF (npc.getMainWeapon(0) != null && npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_hlf_weap_pbomb))
+				[##npc.unequipMainWeaponIntoVoid(0, true)]
+			#ELSEIF (npc.getOffhandWeapon(0) != null && npc.getOffhandWeapon(0).getWeaponType().equals(WEAPON_dsg_hlf_weap_pbomb))
+				[##npc.unequipOffhandWeaponIntoVoid(0, true)]
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect/>
+		
+		<primaryColours recolouringAllowed="false"> 
+			<colour>CLOTHING_OLIVE</colour>
+		</primaryColours>
+		<primaryColoursDye/>
+		
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(throw)] the firebomb at [npc2.name]. The bottle shatters on impact with [npc2.namePos] aura, engulfing [npc2.herHim] in fire!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(throw)] the firebomb at [npc2.name]. The bottle misses [npc2.herHim] completely and shatters in the distance, creating an impressive but useless fireball.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

@@ -747,12 +747,21 @@ public class PhoneDialogue {
 			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
 				if(questLine.getType()==QuestType.SIDE) {
 					sideQuestsFound = true;
-
+					
 					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
 					int index = questList.size()-1;
 					Quest q = questList.get(index);
 					
-					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
+					if(Main.game.getPlayer().isQuestFailed(questLine)) {
+						journalSB.append(
+								"<details>"
+								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.getShades()[1] + ";'>"
+									+ "Failed - " + questLine.getName()
+								+ "</summary>");
+						journalSB.append(getQuestBoxDivFailed(Main.game.getPlayer().getQuestsFailed().get(questLine)));
+//						journalSB.append(getQuestBoxDiv(q, true)); // Do not append, as this was the failed Quest
+						
+					} else if(Main.game.getPlayer().isQuestCompleted(questLine)) {
 						journalSB.append(
 								"<details>"
 								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
@@ -779,20 +788,55 @@ public class PhoneDialogue {
 	
 					journalSB.append("</details>");
 				}
-			}
-			for(Entry<QuestLine, Quest> questsFailed : Main.game.getPlayer().getQuestsFailed().entrySet()) {
-				if(questsFailed.getKey().getType()==QuestType.SIDE) {
-					sideQuestsFound = true;
-					
-					journalSB.append(
-							"<details open>"
-								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
-									+ "Failed - "+questsFailed.getKey().getName()
-								+ "</summary>");
-					journalSB.append(getQuestBoxDiv(questsFailed.getValue(), false));
-					
-					journalSB.append("</details>");
-				}
+			
+//				if(questLine.getType()==QuestType.SIDE) {
+//					sideQuestsFound = true;
+//
+//					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
+//					int index = questList.size()-1;
+//					Quest q = questList.get(index);
+//					
+//					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
+//						journalSB.append(
+//								"<details>"
+//								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
+//									+ "Completed - " + questLine.getName()
+//								+ "</summary>");
+//						journalSB.append(getQuestBoxDiv(q, true));
+//						
+//					} else{
+//						journalSB.append(
+//								"<details open>"
+//									+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
+//										+ questLine.getName()
+//									+ "</summary>");
+//						journalSB.append(getQuestBoxDiv(q, false));
+//					}
+//					
+//					index--;
+//						
+//					while(index>=0) {
+//						q = questList.get(index);
+//						journalSB.append(getQuestBoxDiv(q, true));
+//						index--;
+//					}
+//	
+//					journalSB.append("</details>");
+//				}
+//			}
+//			for(Entry<QuestLine, Quest> questsFailed : Main.game.getPlayer().getQuestsFailed().entrySet()) {
+//				if(questsFailed.getKey().getType()==QuestType.SIDE) {
+//					sideQuestsFound = true;
+//					
+//					journalSB.append(
+//							"<details open>"
+//								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
+//									+ "Failed - "+questsFailed.getKey().getName()
+//								+ "</summary>");
+//					journalSB.append(getQuestBoxDiv(questsFailed.getValue(), false));
+//					
+//					journalSB.append("</details>");
+//				}
 			}
 			
 			if(!sideQuestsFound) {
@@ -840,7 +884,7 @@ public class PhoneDialogue {
 
 			boolean relationshipQuestFound = false;
 			
-			// Side Quests:
+			// Romance Quests:
 			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
 				if(questLine.getType()==QuestType.RELATIONSHIP) {
 					relationshipQuestFound = true;
@@ -852,7 +896,7 @@ public class PhoneDialogue {
 					if(Main.game.getPlayer().isQuestFailed(questLine)) {
 						journalSB.append(
 								"<details>"
-								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.toWebHexString() + ";'>"
+								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.getShades()[1] + ";'>"
 									+ "Failed - " + questLine.getName()
 								+ "</summary>");
 						journalSB.append(getQuestBoxDivFailed(Main.game.getPlayer().getQuestsFailed().get(questLine)));

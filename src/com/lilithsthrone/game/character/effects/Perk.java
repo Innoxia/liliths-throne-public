@@ -542,6 +542,23 @@ public class Perk {
 					"The pressure of having to make sure [npc.her] business is successful has caused [npc.name] to have to do a lot of work, building up [npc.her] resistances in the process.");
 		}
 	};
+        
+	public static AbstractPerk JOB_NPC_REBEL_FIGHTER = new AbstractPerk(20,
+			true,
+			"rebel fighter",
+			PerkCategory.JOB,
+			"perks/jobs/npc_rebel_fighter",
+			PresetColour.CLOTHING_RED_DARK,
+			Util.newHashMapOfValues(
+				new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+				new Value<>(Attribute.RESISTANCE_LUST, 20),
+				new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] training has given [npc.herHim] some defence against Lilith's forces.");
+		}
+	};
 
 	public static AbstractPerk JOB_NPC_OFFICE_WORKER = new AbstractPerk(20,
 			true,
