@@ -5575,6 +5575,11 @@ public class Subspecies {
 					map.put(placeEntry.getKey(), placeEntry.getValue());
 				}
 			}
+			for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> regionEntry : regionSpecies.get(placeType.getWorldRegion()).entrySet()) {
+				if(!map.containsKey(regionEntry.getKey())) {
+					map.put(regionEntry.getKey(), regionEntry.getValue());
+				}
+			}
 		}
 		
 		Map<AbstractSubspecies, SubspeciesSpawnRarity> filteredMap = new HashMap<>(map);

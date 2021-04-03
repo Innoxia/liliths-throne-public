@@ -195,6 +195,51 @@ public class DebugDialogue {
 				} else if (index == 9) {
 					return new Response("Race resets", "View the race reset options.", BODY_PART_RACE_RESET);
 					
+				} else if (index == 10) {
+					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
+						@Override
+						public void effects() {
+							spawnrateSB = new StringBuilder("<table><tr><th>Race Name</th><th>Overall</th><th>Masculine</th><th>Feminine</th><th>Race Name</th><th>Overall</th><th>Masculine</th><th>Feminine</th></tr>");
+							spawnTotal = 0;
+							spawnTotalMasculine = 0;
+							spawnTotalFeminine = 0;
+							float spawn;
+							float spawnMasculine;
+							float spawnFeminine;
+							for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+								if (Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).containsKey(s)) {
+									spawn = (1000 * Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).get(s).getChanceMultiplier());
+									spawnTotalMasculine += (spawn * Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s).getValue());
+									spawnTotalFeminine += (spawn * Main.getProperties().getSubspeciesFemininePreferencesMap().get(s).getValue());
+									spawnTotal = spawnTotalMasculine + spawnTotalFeminine;
+								}
+							}
+							boolean even = false;
+							for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+								if (Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).containsKey(s)) {
+									spawn = (1000 * Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).get(s).getChanceMultiplier());
+									spawnMasculine = (spawn * Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s).getValue());
+									spawnFeminine = (spawn * Main.getProperties().getSubspeciesFemininePreferencesMap().get(s).getValue());
+									if (!even) {
+										spawnrateSB.append("<tr>");
+									}
+									spawnrateSB.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(Util.capitaliseSentence(s.getNamePlural(null))).append("</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", (((spawnMasculine + spawnFeminine) * 100) / spawnTotal))).append("%</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", ((spawnMasculine * 100) / spawnTotalMasculine))).append("%</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", ((spawnFeminine * 100) / spawnTotalFeminine))).append("%</td>");
+									if (even) {
+										spawnrateSB.append("</tr>");
+									}
+									even = !even;
+								}
+							}
+							if (!even) {
+								spawnrateSB.append("</tr>");
+							}
+							spawnrateSB.append("</table>");
+						}
+					};
+					
 				} else if (index == 11) {
 					return new Response(UtilText.formatAsMoney(100_000, "span"), "Add 100,000 flames.", DEBUG_MENU){
 						@Override
@@ -1997,6 +2042,23 @@ public class DebugDialogue {
 				}
 			}
 			return null;
+		}
+	};
+	
+	private static StringBuilder spawnrateSB;
+	private static float spawnTotal, spawnTotalMasculine, spawnTotalFeminine;
+	public static final DialogueNode SPAWN_RATES = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return spawnrateSB.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
 		}
 	};
 
