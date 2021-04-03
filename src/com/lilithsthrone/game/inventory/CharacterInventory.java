@@ -2196,6 +2196,7 @@ public class CharacterInventory implements XMLSaving {
 				case TAIL:
 				case TAIL_LONG:
 				case AVIAN:
+				case WINGED_BIPED:
 					// Crotch-boobs are concealed by stomach clothing for all but taurs:
 //					return isAbleToAccessCoverableArea(character, CoverableArea.STOMACH, false);
 					return isCoverableAreaExposed(character, CoverableArea.STOMACH, justVisible);
@@ -2258,6 +2259,7 @@ public class CharacterInventory implements XMLSaving {
 				case TAIL:
 				case TAIL_LONG:
 				case AVIAN:
+				case WINGED_BIPED:
 					// Crotch-boobs are concealed by stomach clothing for all but taurs:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
 					break;
@@ -2299,6 +2301,7 @@ public class CharacterInventory implements XMLSaving {
 				case TAIL:
 				case TAIL_LONG:
 				case AVIAN:
+				case WINGED_BIPED:
 					// Crotch-boobs are concealed by stomach clothing for all but taurs:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
 					break;

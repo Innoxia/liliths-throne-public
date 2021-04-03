@@ -439,6 +439,7 @@ public class Subspecies {
 				case TAIL:
 				case TAIL_LONG:
 				case AVIAN:
+				case WINGED_BIPED:
 					return r==Race.HUMAN || r==Race.DEMON
 							?Race.DEMON.getFeralName(legConfiguration, false)
 							:"demonic-"+r.getName(character, true);

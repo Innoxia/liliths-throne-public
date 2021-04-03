@@ -265,19 +265,6 @@
 	
 	<htmlContent tag="FIREBOMBS_COMPLETE"><![CDATA[
 	<p>
-		Roxy gestures at a wooden crate full of familiar rag-stuffed glass bottles on a nearby shelf when you ask her about the firebomb you gave her. [roxy.speech(Y'blind? They's right there behind yer. Jus' came in, perfect copies o' the one yer gave me. Don't ask where I got 'em. Now, y'gonna buy 'em or wot?)]
-	</p>
-	#IF (!roxy.hasWeaponType(WEAPON_dsg_hlf_weap_pbomb, false))
-		[##roxy.addWeapon(game.getItemGen().generateWeapon(WEAPON_dsg_hlf_weap_pbomb), 10, false, false)]
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	
-	<!-- FIREBOMBS_COMPLETE -->
-	
-	<htmlContent tag="FIREBOMBS_COMPLETE"><![CDATA[
-	<p>
 		Roxy gestures at a wooden crate full of familiar rag-stuffed glass bottles on a nearby shelf when you ask her about the firebomb you gave her. [roxy.speech(Y'blind? They's right there behind yer. Jus' came in, perfect copies o' the one yer gave me. Don't ask where I got 'em; all ya needs ta know is dat I's gonna be havin' ten o' dem fer sale every day.)]
 	</p>
 	<p>

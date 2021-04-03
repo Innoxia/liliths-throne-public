@@ -690,7 +690,8 @@ public enum LegConfiguration {
 	},
 
 	/**
-	 * This LegConfiguration is a configuration for feral biped-ish races with wings instead of forelegs.
+	 * This LegConfiguration is a configuration for feral biped-ish races with wings instead of forelegs.<br/>
+	 * <b>This should only ever be used for ferals!</b>
 	 */
 	WINGED_BIPED("winged-biped",
 			0,
@@ -700,8 +701,8 @@ public enum LegConfiguration {
 			WingSize.THREE_LARGE,
 			false,
 			2,
-			"A configuration in which the character's legs and groin are replaced by the body of the associated animal-morph."
-					+ " The most common examples of this are feral wyverns and feral bats, in which the arms are replaced by wings, though they tend to walk on all fours by using their wings like forelegs.",
+			"A configuration in which the character's legs and groin are replaced by the body of the associated animal-morph, while their arm-wings are used in place of forelegs."
+					+ " The most common examples of this are feral wyverns and feral bats, which both have wings instead of arms, and which use these arm-wings to walk on all fours.",
 			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
 			TFModifier.TF_MOD_LEG_CONFIG_WINGED_BIPED,
 			"statusEffects/race/raceBackgroundLegAvian") {
