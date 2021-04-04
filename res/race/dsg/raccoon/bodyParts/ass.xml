@@ -57,7 +57,7 @@
 	<!-- The description which is shown when a character transforms to obtain this ass type.
 	This description immediately follows a brief description of the ass type undergoing a transformation. -->
 	<transformationDescription><![CDATA[
-		[npc.She] now [npc.has] a [style.boldRacoon(raccoon-like)], [npc.assholeFullDescription].
+		[npc.She] now [npc.has] a [style.boldRaccoon(raccoon-like)], [npc.assholeFullDescription].
 	]]></transformationDescription>
 	
 	<!-- How this ass is described in a character's description page.
