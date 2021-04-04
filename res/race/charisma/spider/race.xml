@@ -12,7 +12,7 @@
 		<name legConfiguration="ARACHNID"><![CDATA[spider]]></name>
 	</nameFeral>
 	<nameFeralPlural>
-		<name legConfiguration="ARACHNID"><![CDATA[spider]]></name>
+		<name legConfiguration="ARACHNID"><![CDATA[spiders]]></name>
 	</nameFeralPlural>
 	<defaultTransformName><![CDATA[spider]]></defaultTransformName>
 	<colour>charisma_spider_silk_white</colour>

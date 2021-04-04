@@ -25,7 +25,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Zaranix improvements
 	
 	
-	DSG's HLF Quest:
+	DSG's HLF Quest (PR#1398):
 		Added a new side quest which adds some details of the background lore of the Human Liberation Front (HLF), which was previously explored in Wes's quest.
 		Quest can be triggered when exploring the dark tiles in the Bat Caverns.
 		Added 8 new items of clothing (all of which can be obtained during this quest, and all of which are unisex), and 2 new clothing sets ('HLF Regular' and 'HLF Insurgent'):
@@ -65,6 +65,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed some issues with hard-coded values for NPC spawning in the Bat Caverns, allowing spiders to spawn down there too. (PR#1514 by Stadler)
 		Fixed issue with spider-morphs sometimes incorrectly spawning as the tarantula subspecies. (included in PR#1514 by Stadler, fix by Charisma)
 		Added correct self-transformation options for youko (and any other applicable races with self-TF powers). Added special youko tail perks to track youko tail counts. Also enabled changing secondary coverings colours for Elementals, and changed ice description to glittering instead of shimmering. (PR#1506 by AceXP)
+		Refactored code to automatically generate essences for all races. (PR#1507 by AceXP)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
@@ -95,8 +96,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	[x] NPCs not taking money after combat loss...
-	
 	HLF Quest
 		[] Go over Elle dialogue
 		[] Add Roxy recognition of firebombs if you sold at least one to her
@@ -104,8 +103,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Throwable weapon framework
 			[] Test multiple arm rows detection
 			
-	
-	
 	Memoization:
 		-        return script.eval();
 		+        return script.eval(((NashornScriptEngine)engine).getContext());
@@ -150,8 +147,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] latex
 	
 	[] mouse
-	
-	[] PR for Youko self TF
 	
 	[] read cultist doc
 	
@@ -332,7 +327,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] enchantment cap reduction upgrades for clothing and weapons (extremely expensive, via Arthur)
 	
 	[] Suggestion: Combine the +10% race damage perks into one perk that you recieve when you read all the books instead of one perk per book
-	[] Essences need to be generated for every race...
 	
 	Jaguar subspecies
 		Black big cats should be panthers
