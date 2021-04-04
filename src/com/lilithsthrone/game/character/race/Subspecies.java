@@ -312,6 +312,10 @@ public class Subspecies {
 			// As Elder Lilin will always have a SubspeciesOverride, there is no need to set any conditional weighting for it.
 			return 0;
 		}
+		@Override
+		public AbstractAttribute getDamageMultiplier() {
+			return Attribute.DAMAGE_LILIN;
+		}
 	};
 	
 	public static AbstractSubspecies LILIN = new AbstractSubspecies(false,
@@ -369,6 +373,10 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			// As Elder Lilin will always have a SubspeciesOverride, there is no need to set any conditional weighting for it.
 			return 0;
+		}
+		@Override
+		public AbstractAttribute getDamageMultiplier() {
+			return Attribute.DAMAGE_LILIN;
 		}
 	};
 	

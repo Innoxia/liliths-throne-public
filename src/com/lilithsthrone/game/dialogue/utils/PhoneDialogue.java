@@ -1185,10 +1185,26 @@ public class PhoneDialogue {
 			for(AbstractRace race : raceListSorted) {
 				AbstractAttribute attribute = Attribute.racialAttributes.get(race);
 				int damageModifier = (int) Main.game.getPlayer().getAttributeValue(attribute);
-				UtilText.nodeContentSB.append(
-						getAttributeBox(Main.game.getPlayer(), attribute,
-								"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
-								true));
+				if(race==Race.DEMON) {
+					// DEMON is split in IMP, DEMON and LILIN damage
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_IMP,
+									"Increases damage vs imps by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_IMP))+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), attribute,
+									"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LILIN,
+									"Increases damage vs lilin by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LILIN))+"%</b>",
+									true));
+				} else {
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), attribute,
+									"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
+									true));
+				}
 			}
 			
 //			List<AbstractAttribute> encounteredAttributes = new ArrayList<>();
