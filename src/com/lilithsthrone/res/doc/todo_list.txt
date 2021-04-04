@@ -72,6 +72,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
 		Added 'genericType' fields for Wing and Horn xml files, so that you can define those types as being generic (not associated with any parent race) or not.
+		Fixed spelling error of 'DISBALE_' instead of 'DISABLE_' in SubspeciesFlag values (I added a catch for this in the code so even if your mod has the incorrect spelling it won't break).
 	
 	Other:
 		Zaranix is now still called 'Zaranix' when in his feminine form, instead of 'Zoelix' (as the name change wasn't being mentioned anywhere or referenced at all, and didn't make much sense).

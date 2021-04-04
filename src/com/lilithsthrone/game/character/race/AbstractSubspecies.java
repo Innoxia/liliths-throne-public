@@ -696,7 +696,7 @@ public abstract class AbstractSubspecies {
 				
 				this.flags = new ArrayList<>();
 				for(Element e : coreElement.getMandatoryFirstOf("flags").getAllOf("flag")) {
-					flags.add(SubspeciesFlag.valueOf(e.getTextContent()));
+					flags.add(SubspeciesFlag.getSubspeciesFlagFromString(e.getTextContent()));
 				}
 				
 			} catch(Exception ex) {
@@ -1702,14 +1702,14 @@ public abstract class AbstractSubspecies {
 	 * @return true if this subspecies can have its FurryPreference modified in the furry preferences options screen.
 	 */
 	public boolean isFurryPreferencesEnabled() {
-		return !this.hasFlag(SubspeciesFlag.DISBALE_FURRY_PREFERENCE);
+		return !this.hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
 	}
 
 	/**
 	 * @return true if this subspecies can have its spawn frequency modified in the furry preferences options screen.
 	 */
 	public boolean isSpawnPreferencesEnabled() {
-		return !this.hasFlag(SubspeciesFlag.DISBALE_SPAWN_PREFERENCE);
+		return !this.hasFlag(SubspeciesFlag.DISABLE_SPAWN_PREFERENCE);
 	}
 	
 	public int getBaseSlaveValue(GameCharacter character) {

@@ -1794,7 +1794,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
@@ -1931,7 +1931,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
@@ -2058,7 +2058,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
@@ -4544,8 +4544,8 @@ public class Subspecies {
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.FOUR_COMMON),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-				SubspeciesFlag.DISBALE_SPAWN_PREFERENCE,
-				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+				SubspeciesFlag.DISABLE_SPAWN_PREFERENCE,
+				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public String getName(GameCharacter character) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
@@ -4666,7 +4666,7 @@ public class Subspecies {
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour ravenColour = PresetColour.COVERING_BLACK;
@@ -4771,7 +4771,7 @@ public class Subspecies {
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
@@ -4875,7 +4875,7 @@ public class Subspecies {
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
@@ -4991,7 +4991,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			CoveringPattern pattern = CoveringPattern.OMBRE;
