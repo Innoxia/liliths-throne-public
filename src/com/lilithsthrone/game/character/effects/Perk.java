@@ -2990,7 +2990,167 @@ public class Perk {
 		}
 	};
 
-	
+	public static AbstractPerk SINGLE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Single tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail1",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] one arcane tail.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk TWO_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Two tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail2",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] two arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk THREE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Three tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail3",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] three arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk FOUR_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Four tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail4",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] four arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk FIVE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Five tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail5",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] five arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk SIX_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Six tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail6",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] six arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk SEVEN_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Seven tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail7",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] seven arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk EIGHT_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Eight tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail8",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] eight arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk NINE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Nine tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail9",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] nine arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
 	

@@ -116,8 +116,8 @@ public class BodyCoveringTemplateFactory {
 				null,
 				naturalColours,
 				PresetColour.allCoveringColours,
-				null,
-				null);
+				naturalColours,
+				PresetColour.allCoveringColours);
 	}
 	
 	public static BodyCoveringTemplate createOrificeSkin(CoveringPattern pattern) {
