@@ -1506,14 +1506,8 @@ public class GenericOrgasms {
 				if (!targetAreaClothingCummedOn.isEmpty()) {
 					return getClothingCummedOnText(characterOrgasming, areasCummedOn, targetAreaClothingCummedOn);
 				} else {
-					if(characterOrgasming.isPlayer()) {
-						return UtilText.parse(characterOrgasming,
-								" all over your [pc.hands].");
-					} else {
-						return UtilText.parse(characterOrgasming,
-								" all over [npc.namePos] [npc.hands].");
-
-					}
+					return UtilText.parse(characterOrgasming,
+							" all over [npc.namePos] [npc.hands].");
 				}
 				
 			case LILAYA_PANTIES:
@@ -2211,11 +2205,11 @@ public class GenericOrgasms {
 		if(nakedAreas.isEmpty()) {
 			return UtilText.parse(characterOrgasming,
 					" all over [npc.her] "+Util.clothesToStringList(clothing, false)+"."
-							+ " [npc.She] lets out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
+							+ " [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
 		} else {
 			return UtilText.parse(characterOrgasming,
 					" all over [npc.her] "+Util.clothesToStringList(clothing, false)+", as well as [npc.her] exposed "+Util.inventorySlotsToParsedStringList(nakedAreas, characterOrgasming)+"."
-							+ " [npc.She] lets out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
+							+ " [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
 		}
 	}
 	
@@ -2307,11 +2301,7 @@ public class GenericOrgasms {
 	private static String getGenericVaginaOrgasmDescription(SexActionInterface sexAction, GameCharacter characterOrgasming, OrgasmCumTarget targetArea) {
 		genericOrgasmSB.setLength(0);
 		
-		if(characterOrgasming.isPlayer()) {
-			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from your [npc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
-		} else {
-			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc.namePos] [npc.pussy+], and [npc.she] lets out a manic squeal as a blinding wave of pure ecstasy washes over [npc.herHim].");
-		}
+		genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc.namePos] [npc.pussy+], and [npc.she] [npc.verb(let)] out a manic squeal as a blinding wave of pure ecstasy washes over [npc.herHim].");
 		
 		GameCharacter characterPenetrating = null;
 		if(Main.sex.getCharacterOngoingSexArea(characterOrgasming, SexAreaOrifice.VAGINA).size()>0) {
@@ -2977,9 +2967,9 @@ public class GenericOrgasms {
 
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(cumProvider.equals(Main.sex.getCharacterPerformingAction()) &&
-					((cumTarget.equals(Main.sex.getTargetedPartner(cumProvider)) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumTarget).isEmpty() ) ||
-					 (cumTarget.equals(cumProvider) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumProvider).isEmpty() ))) {
+			if(cumProvider.equals(Main.sex.getCharacterPerformingAction())
+					&& ((cumTarget.equals(Main.sex.getTargetedPartner(cumProvider)) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumTarget).isEmpty())
+						|| (cumTarget.equals(cumProvider) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumProvider).isEmpty()))) {
 				SexAreaInterface areaContacted = getAreaToBeCreampied();
 				
 				if(!areaContacted.isOrifice()) {
