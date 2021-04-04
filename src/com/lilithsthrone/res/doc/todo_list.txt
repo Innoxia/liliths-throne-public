@@ -62,6 +62,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Made Enforcer disguises more difficult to pull off and added flavour text for when impersonating (or failing to impersonate) specific Enforcers. (PR#1501 by DSG) 
 		Fixed bug where if the game was installed in any folder with 'res' in the name, then viewing book entries for external/modded races in the encyclopedia would throw errors. (by Stadler & AceXP)
 		Fixed issue where place tiles were not being populated with regional subspecies in the world map. (by AceXP)
+		Fixed some issues with hard-coded values for NPC spawning in the Bat Caverns, allowing spiders to spawn down there too. (PR#1514 by Stadler)
+		Fixed issue with spider-morphs sometimes incorrectly spawning as the tarantula subspecies. (included in PR#1514 by Stadler, fix by Charisma)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
@@ -91,6 +93,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the kitty clothing set bonus wasn't being applied.
 	
 	
+	
+	[x] NPCs not taking money after combat loss...
 	
 	HLF Quest
 		[] Go over Elle dialogue
