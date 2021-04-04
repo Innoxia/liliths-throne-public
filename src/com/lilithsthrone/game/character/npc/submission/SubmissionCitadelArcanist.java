@@ -134,6 +134,7 @@ public class SubmissionCitadelArcanist extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		
 		PerkManager.initialisePerks(this,

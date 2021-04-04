@@ -512,7 +512,7 @@ public class GenericActions {
 
 		@Override
 		public String getActionDescription() {
-			return "Use your demonic powers to grow a cock for yourself. <b>You will automatically transform the grown cock away when sex ends.</b>";
+			return "Use your transformative powers to grow a cock for yourself. <b>You will automatically transform the grown cock away when sex ends.</b>";
 		}
 
 		@Override
@@ -525,10 +525,13 @@ public class GenericActions {
 		@Override
 		public String getDescription() {//TODO resisting variations
 			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
-				return "Deciding to use your transformative powers to give yourself a thick demonic cock, you grin at [npc2.name] as you [npc.moanVerb],"
+				return "Deciding to use your transformative powers to give yourself a thick demonic cock, you start grinning as you [npc.moanVerb],"
+						+ " [npc.speech(You're going to love this!)]";
+			} else if (Main.game.getPlayer().isYouko()){
+				return "Deciding to use your transformative powers to give yourself a thick knotted fox cock, you start grinning as you [npc.moanVerb],"
 						+ " [npc.speech(You're going to love this!)]";
 			} else {
-				return "Deciding to use your transformative powers to give yourself a thick slimy cock, you grin at [npc2.name] as you [npc.moanVerb],"
+				return "Deciding to use your transformative powers to give yourself a thick slimy cock, you start grinning as you [npc.moanVerb],"
 						+ " [npc.speech(You're going to love this!)]";
 			}
 		}
@@ -540,6 +543,8 @@ public class GenericActions {
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
+			} else if (Main.game.getPlayer().isYouko()){
+				sb.append(Main.game.getPlayer().setPenisType(PenisType.FOX_MORPH));
 			} else {
 				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Main.game.getPlayer().getFleshSubspecies().getRace()).getPenisType()));
 			}
@@ -583,6 +588,8 @@ public class GenericActions {
 			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
 					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				return "Get [npc2.name] to use [npc2.her] demonic self-transformative powers to grow [npc2.herself] a demonic cock.";
+			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
+				return "Get [npc2.name] to use [npc2.her] innate self-transformative powers to grow [npc2.herself] a fox cock.";
 			} else {
 				return "Get [npc2.name] to use [npc2.her] slimy body's self-transformative powers to grow [npc2.herself] a slimy cock.";
 			}
@@ -610,6 +617,16 @@ public class GenericActions {
 									+Main.sex.getCharacterTargetedForSexAction(this).getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()+"."
 									+ " Before you have any time to change your mind, [npc2.she] lets out [npc2.a_moan+], and you realise that [npc2.sheHas] now got a huge demonic cock hiding beneath [npc2.her] clothing.");
 				
+			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
+				return "Grinning down at [npc2.name], you tease, [npc.speech(How about you use your transformative powers to grow a nice thick fox cock, so that we can have even more fun!)]"
+						+ "<br/><br/>"
+						+(Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.PENIS)
+						?"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] naked groin, you see a large bump start to form beneath [npc2.her] [npc2.skin]."
+						+ " Before you have any time to change your mind, it quickly grows out into a fox cock, and as you stare down at its throbbing length,"
+						+ " a bead of precum seeps out and drips from the tip."
+						:"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] groin, you see a huge bulge quickly forming in [npc2.her] "
+						+Main.sex.getCharacterTargetedForSexAction(this).getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()+"."
+						+ " Before you have any time to change your mind, [npc2.she] lets out [npc2.a_moan+], and you realise that [npc2.sheHas] now got a huge fox cock hiding beneath [npc2.her] clothing.");
 			} else {
 				return "Grinning down at [npc2.name], you tease, [npc.speech(How about you use your transformative powers to grow a nice thick slimy cock, so that we can have even more fun!)]"
 						+ "<br/><br/>"
@@ -630,6 +647,8 @@ public class GenericActions {
 			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
 					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
+			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.FOX_MORPH));
 			} else {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Main.sex.getCharacterTargetedForSexAction(this).getFleshSubspecies().getRace()).getPenisType()));
 			}
