@@ -53,7 +53,7 @@
 	<useDescriptions>
 		<selfUse><![CDATA[
 		[npc.Name] [npc.verb(open)] the box and quickly [npc.verb(peel)] one of the eggs before swallowing it
-		#IF(npc.getFaceType()==FACE_TYPE_NoStepOnSnek_snake_face)
+		#IF(npc.getFaceType().getRace()==RACE_NoStepOnSnek_snake)
 			 whole.
 		#ELSE
 			 in just a couple bites.
@@ -62,7 +62,7 @@
 		]]></selfUse>
 		<otherUse><![CDATA[
 		[npc.Name] [npc.verb(open)] the box to offer [npc2.name] some nice eggs in these trying times. [npc2.Name] [npc2.verb(take)] and quickly [npc.verb(peel)] one of them before swallowing it
-		#IF(npc2.getFaceType()==FACE_TYPE_NoStepOnSnek_snake_face)
+		#IF(npc2.getFaceType().getRace()==RACE_NoStepOnSnek_snake)
 			 whole.
 		#ELSE
 			 in just a couple bites.
