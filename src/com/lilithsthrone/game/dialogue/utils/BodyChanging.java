@@ -656,19 +656,19 @@ public class BodyChanging {
 						if (!BodyChanging.getTarget().isYouko()) {
 							UtilText.nodeContentSB.append(
 								"<div style='clear:left;'>"
-								+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
-								+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
+									+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
+									+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
 								+"</div>"
 
 								+"<div style='clear:left;'>"
-								+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
-									(getTarget().isElemental())
-										?allRaces
-										:(!removeNoneFromWingChoices()
-											?Util.newArrayListOfValues(Race.DEMON)
-											:getMinorPartsDemonRaces(true)),
-									removeNoneFromWingChoices())
-								+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
+									+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
+										(getTarget().isElemental())
+											?allRaces
+											:(!removeNoneFromWingChoices()
+												?Util.newArrayListOfValues(Race.DEMON)
+												:getMinorPartsDemonRaces(true)),
+										removeNoneFromWingChoices())
+									+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 								+"</div>"
 							);
 						}

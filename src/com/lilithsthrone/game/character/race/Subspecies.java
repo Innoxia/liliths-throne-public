@@ -1795,8 +1795,7 @@ public class Subspecies {
 		public int getBaseSlaveValue(GameCharacter character) {
 			if(character==null) {
 				return 15000;
-			}
-			else {
+			} else {
 				return 15000 * character.getMaxTailCount();
 			}
 		}
@@ -1823,6 +1822,7 @@ public class Subspecies {
 
 		@Override
 		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
+			//TODO move the variable racial bonuses out of Subspecies and put them in the special youko perks
 			if(character!=null && character.getMaxTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
@@ -1835,7 +1835,7 @@ public class Subspecies {
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<>(Attribute.MAJOR_ARCANE, 100f),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<>(Attribute.SPELL_COST_MODIFIER, 60f),
 						new Value<>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
@@ -1932,8 +1932,7 @@ public class Subspecies {
 		public int getBaseSlaveValue(GameCharacter character) {
 			if(character==null) {
 				return 15000;
-			}
-			else {
+			} else {
 				return 15000 * character.getMaxTailCount();
 			}
 		}
@@ -1975,7 +1974,7 @@ public class Subspecies {
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<>(Attribute.MAJOR_ARCANE, 100f),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<>(Attribute.SPELL_COST_MODIFIER, 60f),
 						new Value<>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
@@ -2060,8 +2059,7 @@ public class Subspecies {
 		public int getBaseSlaveValue(GameCharacter character) {
 			if(character==null) {
 				return 15000;
-			}
-			else {
+			} else {
 				return 15000 * character.getMaxTailCount();
 			}
 		}
@@ -2112,7 +2110,7 @@ public class Subspecies {
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<>(Attribute.MAJOR_ARCANE, 100f),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<>(Attribute.SPELL_COST_MODIFIER, 60f),
 						new Value<>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}

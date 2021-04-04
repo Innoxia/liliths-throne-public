@@ -193,15 +193,15 @@ public class Tail implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC) &&
-				tailCount > getMaxTailCount(owner) &&
-				!overrideYoukoLimitations) {
+		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC)
+				&& tailCount > getMaxTailCount(owner)
+				&& !overrideYoukoLimitations) {
 				return "<p style='text-align:center;'>"
-						+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
-						+ (this.tailCount == 1
-						? "tail absorbs and nullifies"
-						: "tails absorb and nullify")
-						+ " the transformative effect, preventing any alteration to the number of tails [npc.she] [npc.has]!)]"
+							+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
+							+ (this.tailCount == 1
+								? "tail absorbs and nullifies"
+								: "tails absorb and nullify")
+							+ " the transformative effect, preventing any alteration to the number of tails [npc.she] [npc.has]!)]"
 						+ "</p>";
 		}
 

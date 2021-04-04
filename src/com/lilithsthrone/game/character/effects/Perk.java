@@ -3001,7 +3001,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] one arcane tail.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] one arcane tail.");
 		}
 
 		@Override
@@ -3019,7 +3019,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] two arcane tails.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] two arcane tails.");
 		}
 
 		@Override
@@ -3037,7 +3037,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] three arcane tails.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] three arcane tails.");
 		}
 
 		@Override
@@ -3055,7 +3055,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] four arcane tails.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] four arcane tails.");
 		}
 
 		@Override
@@ -3073,7 +3073,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] five arcane tails.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] five arcane tails.");
 		}
 
 		@Override
@@ -3091,7 +3091,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] six arcane tails.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] six arcane tails.");
 		}
 
 		@Override
@@ -3109,7 +3109,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] seven arcane tails.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] seven arcane tails.");
 		}
 
 		@Override
@@ -3127,7 +3127,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] eight arcane tails.");
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] eight arcane tails.");
 		}
 
 		@Override
@@ -3145,7 +3145,8 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin."); }
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] nine arcane tails.");
+		}
 
 		@Override
 		public boolean isHiddenPerk() {	return true; }

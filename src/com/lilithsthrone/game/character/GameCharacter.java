@@ -28245,15 +28245,15 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public boolean isYouko() {
         for(AbstractPerk perk : this.getSpecialPerks()) {
-            if (perk.equals(Perk.SINGLE_TAILED_YOUKO) ||
-                perk.equals(Perk.TWO_TAILED_YOUKO) ||
-                perk.equals(Perk.THREE_TAILED_YOUKO) ||
-                perk.equals(Perk.FOUR_TAILED_YOUKO) ||
-                perk.equals(Perk.FIVE_TAILED_YOUKO) ||
-                perk.equals(Perk.SIX_TAILED_YOUKO) ||
-                perk.equals(Perk.SEVEN_TAILED_YOUKO) ||
-                perk.equals(Perk.EIGHT_TAILED_YOUKO) ||
-                perk.equals(Perk.NINE_TAILED_YOUKO)) {
+            if (perk.equals(Perk.SINGLE_TAILED_YOUKO)
+            		|| perk.equals(Perk.TWO_TAILED_YOUKO)
+            		|| perk.equals(Perk.THREE_TAILED_YOUKO)
+            		|| perk.equals(Perk.FOUR_TAILED_YOUKO)
+            		|| perk.equals(Perk.FIVE_TAILED_YOUKO)
+            		|| perk.equals(Perk.SIX_TAILED_YOUKO)
+            		|| perk.equals(Perk.SEVEN_TAILED_YOUKO)
+            		|| perk.equals(Perk.EIGHT_TAILED_YOUKO)
+            		|| perk.equals(Perk.NINE_TAILED_YOUKO)) {
                 return true;
             }
         }
