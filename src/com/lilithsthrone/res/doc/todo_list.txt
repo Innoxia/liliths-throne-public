@@ -66,6 +66,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue with spider-morphs sometimes incorrectly spawning as the tarantula subspecies. (included in PR#1514 by Stadler, fix by Charisma)
 		Added correct self-transformation options for youko (and any other applicable races with self-TF powers). Added special youko tail perks to track youko tail counts. Also enabled changing secondary coverings colours for Elementals, and changed ice description to glittering instead of shimmering. (PR#1506 by AceXP)
 		Refactored code to automatically generate essences for all races. (PR#1507 by AceXP)
+		Relocated patch notes to HTML files. (PR#1511 by Stadler76)
 	
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.

@@ -619,6 +619,9 @@ public class Main extends Application {
 							default:
 								patchNotes += contentHTML;
 						}
+						
+						fis.close();
+						
 					} catch (FileNotFoundException ex) {
 						ex.printStackTrace();
 					}
