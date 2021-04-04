@@ -482,7 +482,7 @@ public class Penis implements BodyPartInterface {
 
 	public String addPenisModifier(GameCharacter owner, PenetrationModifier modifier) {
 		if(hasPenisModifier(modifier)) {
-			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+			return owner == null ? "" : "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
 		if(owner==null || owner.getBody()==null) {
