@@ -596,7 +596,7 @@ public class AlleywayProstituteDialogue {
 				
 			} else if (index == 5) {
 				return new ResponseSex("Submit",
-						UtilText.parse(getProstitute(), "You feel bad for having beaten [npc.name]. Perhaps submitting to [npc.herHim] and letting [npc.herHim] dominantly fuck you would mak e[npc.herHim] feel better?"),
+						UtilText.parse(getProstitute(), "You feel bad for having beaten [npc.name]. Perhaps submitting to [npc.herHim] and letting [npc.herHim] dominantly fuck you would make [npc.herHim] feel better?"),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
 						new SMGeneric(
