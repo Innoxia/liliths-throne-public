@@ -1,8 +1,8 @@
 package com.lilithsthrone.game.character.body;
 
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.utils.Util;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * Container class for the combination of the LegConfiguration and the boolean aquatic.
@@ -29,8 +29,9 @@ public class LegConfigurationAquatic {
 	}
 
 	public static HashMap<LegConfigurationAquatic, String> getFeralNamesMap(HashMap<LegConfigurationAquatic, String> list, LegConfiguration legConfiguration, String feralName) {
-		list.put(new LegConfigurationAquatic(legConfiguration, false), feralName);
-		list.put(new LegConfigurationAquatic(legConfiguration, true), feralName);
+		for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
+			list.put(new LegConfigurationAquatic(legConfiguration, isAquatic), feralName);
+		}
 		return list;
 	}
 

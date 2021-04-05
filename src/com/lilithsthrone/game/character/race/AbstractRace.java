@@ -17,7 +17,6 @@ import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -114,22 +113,18 @@ public abstract class AbstractRace {
 		this.nameSillyMode = name;
 		this.namePluralSillyMode = namePlural;
 		this.nameFeral = nameFeral;
-		if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false))) {
-			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and aquatic = false!");
-			this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), name);
-		}
-		if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
-			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and aquatic = true!");
-			this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), name);
+		for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
+			if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
+				System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and aquatic = "+String.valueOf(isAquatic)+"!");
+				this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), name);
+			}
 		}
 		this.nameFeralPlural = nameFeralPlural;
-		if (!nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false))) {
-			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = false!");
-			this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), namePlural);
-		}
-		if (!nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
-			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = true!");
-			this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), namePlural);
+		for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
+			if (!nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
+				System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = "+String.valueOf(isAquatic)+"!");
+				this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), namePlural);
+			}
 		}
 		this.defaultTransformName = defaultTransformName;
 		
@@ -191,20 +186,16 @@ public abstract class AbstractRace {
 				if(coreElement.getOptionalFirstOf("nameFeral").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("nameFeral").getAllOf("name")) {
 						try {
-							LegConfigurationAquatic configAquatic;
-							LegConfigurationAquatic configNotAquatic;
 							String loadedFeralName = e.getTextContent();
 							if(anyFeralName.isEmpty()) {
 								anyFeralName = loadedFeralName;
 							}
 							if (e.getAttribute("isAquatic").isEmpty()) {
-								configAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), true);
-								configNotAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), false);
-								if (!this.nameFeral.containsKey(configAquatic)) {
-									this.nameFeral.put(configAquatic, loadedFeralName);
-								}
-								if (!this.nameFeral.containsKey(configNotAquatic)) {
-									this.nameFeral.put(configNotAquatic, loadedFeralName);
+								for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
+									LegConfigurationAquatic configAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), isAquatic);
+									if (!this.nameFeral.containsKey(configAquatic)) {
+										this.nameFeral.put(configAquatic, loadedFeralName);
+									}
 								}
 							} else {
 								this.nameFeral.put(new LegConfigurationAquatic(
@@ -218,13 +209,10 @@ public abstract class AbstractRace {
 						}
 					}
 				}
-				if(!this.nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false))) {
-//					System.err.println("Warning: AbstractRace '"+this.name+"' did not have a definition for nameFeral BIPEDAL and aquatic = false!");
-					this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), anyFeralName);
-				}
-				if(!this.nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
-//					System.err.println("Warning: AbstractRace '"+this.name+"' did not have a definition for nameFeral BIPEDAL and aquatic = true!");
-					this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), anyFeralName);
+				for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
+					if(!this.nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
+						this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), anyFeralName);
+					}
 				}
 
 				this.nameFeralPlural = new HashMap<>();
@@ -232,20 +220,16 @@ public abstract class AbstractRace {
 				if(coreElement.getOptionalFirstOf("nameFeralPlural").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("nameFeralPlural").getAllOf("name")) {
 						try {
-							LegConfigurationAquatic configAquatic;
-							LegConfigurationAquatic configNotAquatic;
 							String loadedFeralName = e.getTextContent();
 							if(anyFeralName.isEmpty()) {
 								anyFeralName = loadedFeralName;
 							}
 							if (e.getAttribute("isAquatic").isEmpty()) {
-								configAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), true);
-								configNotAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), false);
-								if (!this.nameFeralPlural.containsKey(configAquatic)) {
-									this.nameFeralPlural.put(configAquatic, loadedFeralName);
-								}
-								if (!this.nameFeralPlural.containsKey(configNotAquatic)) {
-									this.nameFeralPlural.put(configNotAquatic, loadedFeralName);
+								for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
+									LegConfigurationAquatic configAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), isAquatic);
+									if (!this.nameFeralPlural.containsKey(configAquatic)) {
+										this.nameFeralPlural.put(configAquatic, loadedFeralName);
+									}
 								}
 							} else {
 								this.nameFeralPlural.put(new LegConfigurationAquatic(
@@ -259,13 +243,10 @@ public abstract class AbstractRace {
 						}
 					}
 				}
-				if(!this.nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false))) {
-//					System.err.println("Warning: AbstractRace '"+this.name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = false!");
-					this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), anyFeralName);
-				}
-				if(!this.nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
-//					System.err.println("Warning: AbstractRace '"+this.name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = true!");
-					this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), anyFeralName);
+				for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
+					if(!this.nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
+						this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), anyFeralName);
+					}
 				}
 				
 				this.defaultTransformName = coreElement.getMandatoryFirstOf("defaultTransformName").getTextContent();
