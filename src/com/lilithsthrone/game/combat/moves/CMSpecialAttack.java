@@ -699,7 +699,7 @@ public class CMSpecialAttack {
                             +damageValue.getKey(),
                     "[npc2.Name] took " + getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust) + " damage!",
                     (isCrit
-                            ?"[npc.Name] immediately slashes again after breaking through [npc2.namePos] block!"+critDamageValue.getKey()
+                            ?"[npc.Name] immediately [npc.verb(slash)] again after breaking through [npc2.namePos] block!"+critDamageValue.getKey()
                             :null),
                     "[npc2.Name] took an additional " + getFormattedDamage(damageType, critDamageValue.getValue(), target, true, maxLust) + " damage!");
         }
