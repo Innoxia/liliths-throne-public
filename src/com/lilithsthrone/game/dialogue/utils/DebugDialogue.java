@@ -199,7 +199,7 @@ public class DebugDialogue {
 					
 				} else if (index == 10) {
 					return new Response("Set spawns", "View all of the clothing/weapon sets in the game and spawn them.", SPAWN_MENU_SET);
-
+					
 				} else if (index == 11) {
 					return new Response(UtilText.formatAsMoney(100_000, "span"), "Add 100,000 flames.", DEBUG_MENU){
 						@Override
