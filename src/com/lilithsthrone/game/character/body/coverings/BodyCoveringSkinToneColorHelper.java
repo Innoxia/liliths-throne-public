@@ -2,11 +2,11 @@ package com.lilithsthrone.game.character.body.coverings;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
 import com.lilithsthrone.utils.Util;
@@ -65,7 +65,7 @@ public class BodyCoveringSkinToneColorHelper {
 		if (NOT_FOR_THESE_BCTS.contains(bct)) {
 			return new FilteredColours(new ArrayList<>(), new ArrayList<>());
 		}
-		return filteredColours.computeIfAbsent(tone, ignored -> new HashMap<>()).computeIfAbsent(bct, ignored -> {
+		return filteredColours.computeIfAbsent(tone, ignored -> new ConcurrentHashMap<>()).computeIfAbsent(bct, ignored -> {
 			Set<Colour> colourApplicationListPrimary = new HashSet<>();
 
 			colourApplicationListPrimary.addAll(bct.getNaturalColoursPrimary());

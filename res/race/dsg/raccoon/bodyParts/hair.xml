@@ -52,7 +52,7 @@
 	This description immediately follows a brief description of the hair type beginning to transform. -->
 	<transformationDescription><![CDATA[
 		The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.
-		<br/>[npc.Name] now [npc.has] [npc.hairColour] [style.boldRacoon(raccoon hair)].
+		<br/>[npc.Name] now [npc.has] [npc.hairColour] [style.boldRaccoon(raccoon hair)].
 	]]></transformationDescription>
 	
 	<!-- How this hair is described in a character's description page. -->

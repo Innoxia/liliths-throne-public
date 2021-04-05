@@ -1003,6 +1003,10 @@ public class Game implements XMLSaving {
 										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
 									}
 								}
+								if(Main.isVersionOlderThan(loadingVersion, "0.4")) {
+									className = className.replace("BatMorphCavernAttacker", "BatCavernLurkerAttacker");
+									className = className.replace("SlimeCavernAttacker", "BatCavernSlimeAttacker");
+								}
 								if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 									className = className.replace("FortressDemonLeader", "DarkSiren");
 								}

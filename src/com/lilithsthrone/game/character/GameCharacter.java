@@ -28234,13 +28234,31 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getTailCount() {
 		return body.getTail().getTailCount();
 	}
+	public int getMaxTailCount() {
+        return body.getTail().getMaxTailCount(this);
+    }
 	public String setTailCount(int tailCount, boolean overrideYoukoLimitations) {
 		return body.getTail().setTailCount(this, tailCount, overrideYoukoLimitations);
 	}
 	public String incrementTailCount(int increment, boolean overrideYoukoLimitations) {
 		return body.getTail().setTailCount(this, getTailCount() + increment, overrideYoukoLimitations);
 	}
-	
+	public boolean isYouko() {
+        for(AbstractPerk perk : this.getSpecialPerks()) {
+            if (perk.equals(Perk.SINGLE_TAILED_YOUKO)
+            		|| perk.equals(Perk.TWO_TAILED_YOUKO)
+            		|| perk.equals(Perk.THREE_TAILED_YOUKO)
+            		|| perk.equals(Perk.FOUR_TAILED_YOUKO)
+            		|| perk.equals(Perk.FIVE_TAILED_YOUKO)
+            		|| perk.equals(Perk.SIX_TAILED_YOUKO)
+            		|| perk.equals(Perk.SEVEN_TAILED_YOUKO)
+            		|| perk.equals(Perk.EIGHT_TAILED_YOUKO)
+            		|| perk.equals(Perk.NINE_TAILED_YOUKO)) {
+                return true;
+            }
+        }
+        return false;
+    };
 	
 	
 	// ------------------------------ Tentacle: ------------------------------ //

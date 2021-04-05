@@ -7707,7 +7707,7 @@ public class UtilText {
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNamePlural(character));
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"tailCount",
@@ -7722,7 +7722,22 @@ public class UtilText {
 				return Util.intToString(character.getTailCount());
 			}
 		});
-		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailMaxCount",
+						"tailsMaxCount"),
+				true,
+				false,
+				"",
+				"Returns the maximum number of (Youko) tails this character can have.",
+				BodyPartType.TAIL){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getMaxTailCount());
+			}
+		});
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"tailGirth",

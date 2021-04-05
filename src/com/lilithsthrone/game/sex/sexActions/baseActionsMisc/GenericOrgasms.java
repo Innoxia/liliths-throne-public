@@ -1501,6 +1501,14 @@ public class GenericOrgasms {
 						
 					}
 				}
+
+			case SELF_HANDS:
+				if (!targetAreaClothingCummedOn.isEmpty()) {
+					return getClothingCummedOnText(characterOrgasming, areasCummedOn, targetAreaClothingCummedOn);
+				} else {
+					return UtilText.parse(characterOrgasming,
+							" all over [npc.namePos] [npc.hands].");
+				}
 				
 			case LILAYA_PANTIES:
 				LilayasRoom.lilayasPanties.setDirty(null, true);
@@ -2197,11 +2205,11 @@ public class GenericOrgasms {
 		if(nakedAreas.isEmpty()) {
 			return UtilText.parse(characterOrgasming,
 					" all over [npc.her] "+Util.clothesToStringList(clothing, false)+"."
-							+ " [npc.She] lets out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
+							+ " [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
 		} else {
 			return UtilText.parse(characterOrgasming,
 					" all over [npc.her] "+Util.clothesToStringList(clothing, false)+", as well as [npc.her] exposed "+Util.inventorySlotsToParsedStringList(nakedAreas, characterOrgasming)+"."
-							+ " [npc.She] lets out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
+							+ " [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
 		}
 	}
 	
@@ -2293,11 +2301,7 @@ public class GenericOrgasms {
 	private static String getGenericVaginaOrgasmDescription(SexActionInterface sexAction, GameCharacter characterOrgasming, OrgasmCumTarget targetArea) {
 		genericOrgasmSB.setLength(0);
 		
-		if(characterOrgasming.isPlayer()) {
-			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from your [npc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
-		} else {
-			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc.namePos] [npc.pussy+], and [npc.she] lets out a manic squeal as a blinding wave of pure ecstasy washes over [npc.herHim].");
-		}
+		genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc.namePos] [npc.pussy+], and [npc.she] [npc.verb(let)] out a manic squeal as a blinding wave of pure ecstasy washes over [npc.herHim].");
 		
 		GameCharacter characterPenetrating = null;
 		if(Main.sex.getCharacterOngoingSexArea(characterOrgasming, SexAreaOrifice.VAGINA).size()>0) {
@@ -2963,7 +2967,9 @@ public class GenericOrgasms {
 
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(cumProvider.equals(Main.sex.getCharacterPerformingAction()) && cumTarget.equals(Main.sex.getTargetedPartner(cumProvider))) {
+			if(cumProvider.equals(Main.sex.getCharacterPerformingAction())
+					&& ((cumTarget.equals(Main.sex.getTargetedPartner(cumProvider)) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumTarget).isEmpty())
+						|| (cumTarget.equals(cumProvider) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumProvider).isEmpty()))) {
 				SexAreaInterface areaContacted = getAreaToBeCreampied();
 				
 				if(!areaContacted.isOrifice()) {
@@ -4922,7 +4928,7 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
-					return "Handjob onto own groin";
+					return "Handjob (own groin)";
 				}
 				return "Pull out (own groin)";
 			}
@@ -5040,7 +5046,7 @@ public class GenericOrgasms {
 			}
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
-					return "Handjob onto own "+breasts;
+					return "Handjob (own "+breasts+")";
 				}
 				return "Pull out (own "+breasts+")";
 			}
@@ -5141,7 +5147,7 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
-					return "Handjob onto own face";
+					return "Handjob (own face)";
 				}
 				return "Pull out (own face)";
 			}
@@ -5177,7 +5183,55 @@ public class GenericOrgasms {
 			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.SELF_FACE, false).isEndsSex();
 		}
 	};
-	
+
+	public static final SexAction GENERIC_ORGASM_SELF_HANDS = new SexAction(GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return isCumTargetRequirementsMet(OrgasmCumTarget.SELF_HANDS);
+		}
+
+		@Override
+		public String getActionTitle() {
+			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
+				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
+					return "Handjob (own hands)";
+				}
+				return "Pull out (own hands)";
+			}
+			return "Cum on own hands";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your [npc.hands].";
+		}
+
+		@Override
+		public String getDescription() {
+			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.SELF_HANDS, false).getDescription();
+		}
+
+		@Override
+		public void applyEffects() {
+			applyGenericPullOutEffects(this, OrgasmCumTarget.SELF_HANDS);
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.equals(Main.sex.getCharacterPerformingAction()) && cumProvider.equals(cumTarget)) {
+				return Util.newArrayListOfValues(
+						CoverableArea.HANDS);
+			}
+			return null;
+		}
+
+		@Override
+		public boolean endsSex() {
+			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.SELF_HANDS, false).isEndsSex();
+		}
+	};
+
 	public static final SexAction GENERIC_ORGASM_HAIR = new SexAction(GENERIC_ORGASM_FLOOR) {
 		@Override
 		public SexParticipantType getParticipantType() {
@@ -5293,7 +5347,7 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
-					return "Handjob onto own stomach";
+					return "Handjob (own stomach)";
 				}
 				return "Pull out (own stomach)";
 			}
@@ -5393,7 +5447,7 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
-					return "Handjob onto own [npc.legs]";
+					return "Handjob (own [npc.legs])";
 				}
 				return "Pull out (own [npc.legs])";
 			}
@@ -5494,7 +5548,7 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
-					return "Handjob onto own [npc.feet]";
+					return "Handjob (own [npc.feet])";
 				}
 				return "Pull out (own [npc.feet])";
 			}
