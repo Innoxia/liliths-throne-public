@@ -297,11 +297,11 @@ public class TailType {
 					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] alligator tails, which [npc.she] can swipe from side to side with considerable force."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					BodyPartTag.TAIL_PREHENSILE,
 					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_SCALES,
-					BodyPartTag.TAIL_TAPERING_LINEAR), false) {
+					BodyPartTag.TAIL_TAPERING_LINEAR,
+					BodyPartTag.TAIL_ATTACK), false) {
 	};
 	
 	public static final AbstractTailType BAT_MORPH = new AbstractTailType(
@@ -706,7 +706,8 @@ public class TailType {
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_FEATHER,
-					BodyPartTag.TAIL_TAPERING_NONE), false) {
+					BodyPartTag.TAIL_TAPERING_NONE,
+					BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION), false) {
 	};
 	
 	public static final AbstractTailType HORSE_MORPH = new AbstractTailType(
@@ -861,7 +862,8 @@ public class TailType {
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_TYPE_FUR,
-					BodyPartTag.TAIL_TAPERING_NONE), false) {
+					BodyPartTag.TAIL_TAPERING_NONE,
+					BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION), false) {
 	};
 	
 	public static final AbstractTailType REINDEER_MORPH = new AbstractTailType(

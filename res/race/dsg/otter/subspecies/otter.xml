@@ -169,8 +169,9 @@
 	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
 	<statusEffectAttributeModifiers>
 		<attribute value="15">MAJOR_PHYSIQUE</attribute>
-		<attribute value="5">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
-		<attribute value="40">CRITICAL_DAMAGE</attribute>
+		<attribute value="15">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="20">CRITICAL_DAMAGE</attribute>
+		<attribute value="3">RESISTANCE_ICE</attribute>
 		<attribute value="-3">RESISTANCE_POISON</attribute>
 	</statusEffectAttributeModifiers>
 	
@@ -218,7 +219,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

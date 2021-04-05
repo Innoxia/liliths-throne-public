@@ -54,7 +54,7 @@
 		 Just like the rest of [npc.her] body, they're made out of [npc.earFullDescription],
 		#ENDIF
 		 and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new raccoon-like ears back and forth.
-		<br/>[npc.Name] now [npc.has] [style.boldRacoon(large, raccoon-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+		<br/>[npc.Name] now [npc.has] [style.boldRaccoon(large, raccoon-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
 	]]></transformationDescription>
 	
 	<!-- How this ear is described in a character's description page. -->

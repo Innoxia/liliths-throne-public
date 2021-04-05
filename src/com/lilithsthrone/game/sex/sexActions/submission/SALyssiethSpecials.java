@@ -193,7 +193,8 @@ public class SALyssiethSpecials {
 			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
 					&& Main.sex.getPosition()==SexPosition.STANDING
-					&& Main.sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.game.isAnalContentEnabled();
 		}
 		
 		@Override
@@ -685,7 +686,8 @@ public class SALyssiethSpecials {
 					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
 					&& Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
+					&& Main.game.isAnalContentEnabled();
 		}
 		
 		@Override

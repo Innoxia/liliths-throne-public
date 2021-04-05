@@ -29,6 +29,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -928,12 +929,12 @@ public class InventoryDialogue {
 					+ item.getExtraDescription(owner, owner)
 					+ (owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-									? inventoryNPC.willBuy(item) && item.getItemType().isAbleToBeSold()
-											? "<p>"
-												+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getBuyModifier())) + "."
-											+ "</p>" 
-											: inventoryNPC.getName("The") + " doesn't want to buy this."
-										: "")
+									? "<p>"
+										+(inventoryNPC.willBuy(item) && item.getItemType().isAbleToBeSold()
+											?inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getBuyModifier())) + "."
+											:inventoryNPC.getName("The") + " doesn't want to buy this.")
+										+"</p>"
+									: "")
 							:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
 								? "<p>"
 										+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(item.getPrice(inventoryNPC.getSellModifier(item))) + "."
@@ -1113,7 +1114,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -1370,7 +1371,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -1756,7 +1757,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2510,17 +2511,30 @@ public class InventoryDialogue {
 		
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			List<String> extraDescriptions = weapon.getExtraDescriptions(owner);
+			if(!extraDescriptions.isEmpty()) {
+				sb.append("<p>");
+					for(int i=0 ; i<extraDescriptions.size() ; i++) {
+						sb.append(extraDescriptions.get(i));
+						if(i<extraDescriptions.size()-1) {
+							sb.append("<br/>");
+						}
+					}
+				sb.append("</p>");
+			}
 			return getItemDisplayPanel(weapon.getSVGString(),
 					weapon.getDisplayName(true),
 					weapon.getDescription(owner)
+					+ sb.toString()
 					+ (owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-									? inventoryNPC.willBuy(weapon)
-											? "<p>"
-												+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(weapon.getPrice(inventoryNPC.getBuyModifier())) + "."
-											+ "</p>" 
-											: inventoryNPC.getName("The") + " doesn't want to buy this."
-										: "")
+									? "<p>" 
+										+(inventoryNPC.willBuy(weapon)
+											?inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(weapon.getPrice(inventoryNPC.getBuyModifier())) + "."
+											:inventoryNPC.getName("The") + " doesn't want to buy this.")
+										+"</p>"
+									: "")
 							:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
 								? "<p>"
 										+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(weapon.getPrice(inventoryNPC.getSellModifier(weapon))) + "."
@@ -2709,7 +2723,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2890,7 +2904,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3113,7 +3127,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3691,12 +3705,12 @@ public class InventoryDialogue {
 			sb.append("</p>");
 			sb.append((owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-							? inventoryNPC.willBuy(clothing)
-									? "<p>"
-										+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getBuyModifier())) + "."
-									+ "</p>" 
-									: inventoryNPC.getName("The") + " doesn't want to buy this."
-								: "")
+							? "<p>"
+								+(inventoryNPC.willBuy(clothing)
+									? inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getBuyModifier())) + "."
+									: inventoryNPC.getName("The") + " doesn't want to buy this.")
+								+"</p>"
+							: "")
 					:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
 						? "<p>"
 								+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getSellModifier(clothing))) + "."
@@ -3923,7 +3937,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4108,7 +4122,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4462,7 +4476,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -5212,7 +5226,6 @@ public class InventoryDialogue {
 	
 	public static final DialogueNode WEAPON_EQUIPPED = new DialogueNode("Weapon equipped", "", true) {
 		
-
 		@Override
 		public String getLabel() {
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
@@ -5229,9 +5242,22 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			List<String> extraDescriptions = weapon.getExtraDescriptions(owner);
+			if(!extraDescriptions.isEmpty()) {
+				sb.append("<p>");
+					for(int i=0 ; i<extraDescriptions.size() ; i++) {
+						sb.append(extraDescriptions.get(i));
+						if(i<extraDescriptions.size()-1) {
+							sb.append("<br/>");
+						}
+					}
+				sb.append("</p>");
+			}
 			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
 					weapon.getDisplayName(true),
-					 weapon.getDescription(owner));
+					weapon.getDescription(owner)
+					 	+sb.toString());
 		}
 
 		public String getResponseTabTitle(int index) {

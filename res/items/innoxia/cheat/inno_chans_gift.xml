@@ -39,6 +39,7 @@
 				[style.italicsDisabled(This item does not work on non-slave unique characters...)]
 			#ELSEIF(npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT && npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT_ARCTIC && npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT_FENNEC)
 				[##game.getCharacterUtils().reassignBody(npc, npc.getBody(), npc.getGender(), SUBSPECIES_FOX_ASCENDANT, RACE_STAGE_PARTIAL_FULL, true)]
+				[#npc.setTailCount(1, true)]
 				[style.italicsFox([npc.NameIsFull] now [npc.a_race]!)]
 			#ELSE
 				[#npc.incrementTailCount(1, true)]

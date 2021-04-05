@@ -17,7 +17,6 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -163,7 +162,7 @@ public class GenericActions {
 			if(sub.hasPenis() && !subBanned.contains(SexAreaPenetration.PENIS) && sub.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
 				
-			} else if(sub.hasTail() && !subBanned.contains(SexAreaPenetration.TAIL) && sub.getTailType().isSuitableForPenetration()){
+			} else if(sub.hasTail() && !subBanned.contains(SexAreaPenetration.TAIL) && sub.isTailSuitableForPenetration()){
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TAIL);
 				
 			} else {
@@ -513,7 +512,7 @@ public class GenericActions {
 
 		@Override
 		public String getActionDescription() {
-			return "Use your demonic powers to grow a cock for yourself. <b>You will automatically transform the grown cock away when sex ends.</b>";
+			return "Use your transformative powers to grow a cock for yourself. <b>You will automatically transform the grown cock away when sex ends.</b>";
 		}
 
 		@Override
@@ -526,10 +525,13 @@ public class GenericActions {
 		@Override
 		public String getDescription() {//TODO resisting variations
 			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
-				return "Deciding to use your transformative powers to give yourself a thick demonic cock, you grin at [npc2.name] as you [npc.moanVerb],"
+				return "Deciding to use your transformative powers to give yourself a thick demonic cock, you start grinning as you [npc.moanVerb],"
+						+ " [npc.speech(You're going to love this!)]";
+			} else if (Main.game.getPlayer().isYouko()){
+				return "Deciding to use your transformative powers to give yourself a thick knotted fox cock, you start grinning as you [npc.moanVerb],"
 						+ " [npc.speech(You're going to love this!)]";
 			} else {
-				return "Deciding to use your transformative powers to give yourself a thick slimy cock, you grin at [npc2.name] as you [npc.moanVerb],"
+				return "Deciding to use your transformative powers to give yourself a thick slimy cock, you start grinning as you [npc.moanVerb],"
 						+ " [npc.speech(You're going to love this!)]";
 			}
 		}
@@ -541,8 +543,10 @@ public class GenericActions {
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
+			} else if (Main.game.getPlayer().isYouko()){
+				sb.append(Main.game.getPlayer().setPenisType(PenisType.FOX_MORPH));
 			} else {
-				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(Main.game.getPlayer()).getRace()).getPenisType()));
+				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Main.game.getPlayer().getFleshSubspecies().getRace()).getPenisType()));
 			}
 			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
 				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
@@ -584,6 +588,8 @@ public class GenericActions {
 			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
 					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				return "Get [npc2.name] to use [npc2.her] demonic self-transformative powers to grow [npc2.herself] a demonic cock.";
+			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
+				return "Get [npc2.name] to use [npc2.her] innate self-transformative powers to grow [npc2.herself] a fox cock.";
 			} else {
 				return "Get [npc2.name] to use [npc2.her] slimy body's self-transformative powers to grow [npc2.herself] a slimy cock.";
 			}
@@ -611,6 +617,16 @@ public class GenericActions {
 									+Main.sex.getCharacterTargetedForSexAction(this).getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()+"."
 									+ " Before you have any time to change your mind, [npc2.she] lets out [npc2.a_moan+], and you realise that [npc2.sheHas] now got a huge demonic cock hiding beneath [npc2.her] clothing.");
 				
+			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
+				return "Grinning down at [npc2.name], you tease, [npc.speech(How about you use your transformative powers to grow a nice thick fox cock, so that we can have even more fun!)]"
+						+ "<br/><br/>"
+						+(Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.PENIS)
+						?"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] naked groin, you see a large bump start to form beneath [npc2.her] [npc2.skin]."
+						+ " Before you have any time to change your mind, it quickly grows out into a fox cock, and as you stare down at its throbbing length,"
+						+ " a bead of precum seeps out and drips from the tip."
+						:"[npc2.Name] lets out a little giggle, and as you look down at [npc2.her] groin, you see a huge bulge quickly forming in [npc2.her] "
+						+Main.sex.getCharacterTargetedForSexAction(this).getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()+"."
+						+ " Before you have any time to change your mind, [npc2.she] lets out [npc2.a_moan+], and you realise that [npc2.sheHas] now got a huge fox cock hiding beneath [npc2.her] clothing.");
 			} else {
 				return "Grinning down at [npc2.name], you tease, [npc.speech(How about you use your transformative powers to grow a nice thick slimy cock, so that we can have even more fun!)]"
 						+ "<br/><br/>"
@@ -631,8 +647,10 @@ public class GenericActions {
 			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
 					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
+			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.FOX_MORPH));
 			} else {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(Main.sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType()));
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Main.sex.getCharacterTargetedForSexAction(this).getFleshSubspecies().getRace()).getPenisType()));
 			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawCumStorageValue() < 150) {
 				Main.sex.getCharacterTargetedForSexAction(this).setPenisCumStorage(150);
@@ -1118,7 +1136,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isAnyOngoingActionHappening()
+			return Main.sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())
 					&& Main.sex.getAllParticipants(false).size()>2
 					&& !Main.sex.isMasturbation()
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
@@ -2255,8 +2273,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Cocoon [npc2.herHim])]";
+			return "Cocoon [npc2.herHim]";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2295,8 +2317,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Remove webbing)]";
+			return "Remove webbing";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2369,8 +2395,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Tentacle restraint)]";
+			return "Tentacle restraint";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2408,8 +2438,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release tentacles)]";
+			return "Release tentacles";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2434,6 +2468,67 @@ public class GenericActions {
 		}
 	};
 
+	public static final SexAction TENTACLE_SQUEEZE = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.TWO_HORNY,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public String getActionTitle() {
+			return "Tentacle-squeeze";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Take advantage of the fact that you have [npc2.name] fully restrained in your tentacles to firmly squeeze and constrict [npc2.her] body.";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			return (value!=null && value.getKey()==ImmobilisationType.TENTACLE_RESTRICTION)
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue();
+		}
+		@Override
+		public String getDescription() {
+			boolean targetPlayer = Main.sex.getCharacterTargetedForSexAction(this).isPlayer();
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.returnStringAtRandom(
+					"Taking full advantage of the fact that [npc.she] [npc.has] [npc2.name] completely restrained in [npc.her] tentacles, [npc.name] [npc.verb(squeeze)] down and firmly [npc.verb(constrict)] [npc2.her] body,"
+							+ " causing [npc2.herHim] to let out a pathetic, choking gasp.",
+					"Wanting to show [npc2.name] that [npc2.sheIs] completely at [npc.her] mercy, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tentacles down around [npc2.her] body,"
+							+ " which results in [npc2.herHim] making a series of progressively weaker and more desperate gasping noises.",
+					"In a display of complete dominance, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tentacles down around [npc2.namePos] body,"
+							+ " delighting in the desperate, frantic gasps and struggles that [npc.sheIs] able to elicit from "+(targetPlayer?"you.":"[npc.her] partner."),
+					"Greatly enjoying [npc.her] position of dominance, [npc.name] slowly increases the strength of [npc.her] tentacles' grip around [npc2.namePos] body, until "+(targetPlayer?"you're":"[npc.her] partner is")
+						+" able to do nothing but weakly struggle and desperately gasp for breath.",
+					"Firmly tightening [npc.her] tentacles' grip around [npc2.namePos] body, [npc.name] [npc.verb(delight)] in squeezing the breath out of "+(targetPlayer?"your":"[npc.her] partner's")
+						+" lungs, and can't help but let out a dominant [npc.moan] as [npc.she] [npc.verb(feel)] [npc2.name] weakly struggling to break free."));
+
+			sb.append(UtilText.returnStringAtRandom(
+					" Only once [npc2.nameIsFull] starting to go limp [npc.do] [npc.name] finally relent, and by relaxing [npc.her] tentacles somewhat,"
+							+ " [npc.she] [npc.verb(allow)] [npc2.herHim] to catch [npc2.her] breath and come back to [npc2.her] senses.",
+					" Not wanting to go so far as to make [npc2.name] lose consciousness, [npc.name] only [npc.verb(choose)] to relax [npc.her] tentacles at the last moment,"
+							+ " allowing [npc2.name] to take a deep breath and come back from the brink of fainting.",
+					" After some time constricting [npc2.name] in this manner, [npc.name] [npc.verb(feel)] as though [npc.sheHas] pushed [npc2.herHim] far enough, and so after one final, tight squeeze,"
+							+ " [npc.she] [npc.verb(relax)] [npc.her] tentacles and [npc.verb(allow)] [npc2.name] to breathe freely once again.",
+					" Waiting until [npc.she] [npc.verb(sense)] that [npc2.nameIsFull] is about to faint, [npc.name] [npc.verb(let)] out an amused [npc.moan],"
+							+ " before relaxing [npc.her] tentacles and granting [npc2.name] the ability to fill [npc2.her] lungs with oxygen.",
+					" Waiting until [npc2.nameIsFull] about to pass out, [npc.name] [npc.verb(let)] out an amused [npc.moan], before relaxing [npc.her] tentacles and allowing [npc2.name] to take a deep breath and recover from [npc2.her] asphyxiation."));
+			
+			return sb.toString();
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_SADIST);
+			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST);
+			}
+			return null;
+		}
+	};
+	
 	public static final SexAction TENTACLE_BOUND = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ZERO_NONE,
@@ -2520,8 +2615,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_BLUE_STEEL;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourBlueSteel(Constrict)]";
+			return "Constrict";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2564,8 +2663,12 @@ public class GenericActions {
 			return SexActionCategory.MISCELLANEOUS;
 		}
 		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_GREEN_LIME;
+		}
+		@Override
 		public String getActionTitle() {
-			return "[style.colourGreenLime(Release constriction)]";
+			return "Release constriction";
 		}
 		@Override
 		public String getActionDescription() {
@@ -2587,6 +2690,67 @@ public class GenericActions {
 		@Override
 		public void applyEffects() {
 			Main.sex.removeCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this));
+		}
+	};
+
+	public static final SexAction TAIL_SQUEEZE = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.TWO_HORNY,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public String getActionTitle() {
+			return "Tail-squeeze";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Take advantage of the fact that you have [npc2.name] fully restrained in your tail to firmly squeeze and constrict [npc2.her] body.";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			return (value!=null && value.getKey()==ImmobilisationType.TAIL_CONSTRICTION)
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue();
+		}
+		@Override
+		public String getDescription() {
+			boolean targetPlayer = Main.sex.getCharacterTargetedForSexAction(this).isPlayer();
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.returnStringAtRandom(
+					"Taking full advantage of the fact that [npc.she] [npc.has] [npc2.name] completely restrained in [npc.her] tail, [npc.name] [npc.verb(squeeze)] down and firmly [npc.verb(constrict)] [npc2.her] body,"
+							+ " causing [npc2.herHim] to let out a pathetic, choking gasp.",
+					"Wanting to show [npc2.name] that [npc2.sheIs] completely at [npc.her] mercy, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tail down around [npc2.her] body,"
+							+ " which results in [npc2.herHim] making a series of progressively weaker and more desperate gasping noises.",
+					"In a display of complete dominance, [npc.name] firmly [npc.verb(squeeze)] [npc.her] tail down around [npc2.namePos] body,"
+							+ " delighting in the desperate, frantic gasps and struggles that [npc.sheIs] able to elicit from "+(targetPlayer?"you.":"[npc.her] partner."),
+					"Greatly enjoying [npc.her] position of dominance, [npc.name] slowly increases the strength of [npc.her] tail's grip around [npc2.namePos] body, until "+(targetPlayer?"you're":"[npc.her] partner is")
+						+" able to do nothing but weakly struggle and desperately gasp for breath.",
+					"Firmly tightening [npc.her] tail's grip around [npc2.namePos] body, [npc.name] [npc.verb(delight)] in squeezing the breath out of "+(targetPlayer?"your":"[npc.her] partner's")
+						+" lungs, and can't help but let out a dominant [npc.moan] as [npc.she] [npc.verb(feel)] [npc2.name] weakly struggling to break free."));
+			
+			sb.append(UtilText.returnStringAtRandom(
+					" Only once [npc2.nameIsFull] starting to go limp [npc.do] [npc.name] finally relent, and by relaxing [npc.her] tail somewhat,"
+							+ " [npc.she] [npc.verb(allow)] [npc2.herHim] to catch [npc2.her] breath and come back to [npc2.her] senses.",
+					" Not wanting to go so far as to make [npc2.name] lose consciousness, [npc.name] only [npc.verb(choose)] to relax [npc.her] tail at the last moment,"
+							+ " allowing [npc2.name] to take a deep breath and come back from the brink of fainting.",
+					" After some time constricting [npc2.name] in this manner, [npc.name] [npc.verb(feel)] as though [npc.sheHas] pushed [npc2.herHim] far enough, and so after one final, tight squeeze,"
+							+ " [npc.she] [npc.verb(relax)] [npc.her] tail and [npc.verb(allow)] [npc2.name] to breathe freely once again.",
+					" Waiting until [npc.she] [npc.verb(sense)] that [npc2.nameIsFull] is about to faint, [npc.name] [npc.verb(let)] out an amused [npc.moan],"
+							+ " before relaxing [npc.her] tail and granting [npc2.name] the ability to fill [npc2.her] lungs with oxygen.",
+					" Waiting until [npc2.nameIsFull] about to pass out, [npc.name] [npc.verb(let)] out an amused [npc.moan], before relaxing [npc.her] tail and allowing [npc2.name] to take a deep breath and recover from [npc2.her] asphyxiation."));
+			
+			return sb.toString();
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_SADIST);
+			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST);
+			}
+			return null;
 		}
 	};
 

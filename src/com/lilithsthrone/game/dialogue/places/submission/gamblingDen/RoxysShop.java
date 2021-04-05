@@ -11,6 +11,8 @@ import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.Dice;
@@ -24,6 +26,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -36,15 +40,19 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.3.9.4
- * @author Innoxia
+ * @version 0.3.21
+ * @author Innoxia, DSG
  */
 public class RoxysShop {
+    
+        public static final String REBEL_BASE_ROXY_TIMER = "rebel_base_roxy_timer";
 
 	private static boolean isAddictedToRoxy() {
 		Addiction ratGCumAdd = Main.game.getPlayer().getAddiction(FluidType.GIRL_CUM_RAT_MORPH);
@@ -195,13 +203,111 @@ public class RoxysShop {
 			} else if(index==3 && Main.game.getNpc(Vengar.class).isSlave()) {
 				return new Response("Vengar", "Ask Roxy if you can talk to Vengar.", VENGAR);
 				
+				
+			} else if(index==4
+					&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.roxyIntroduced)
+					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)
+					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)
+					&& !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)) {
+				if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.REBEL_BASE_FIREBOMBS_FINISH)) {
+					if(Main.game.getPlayer().hasWeaponType(WeaponType.getWeaponTypeFromId("dsg_hlf_weap_pbomb"), true)) {
+						return new Response("Firebombs", "Show Roxy the firebombs you recovered to see if she has a way of getting or making more.<br/>[style.boldBad(You will lose one firebomb.)] ", FIREBOMBS) {
+							@Override
+							public void effects() {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.REBEL_BASE_FIREBOMBS_FINISH));
+								Main.game.getDialogueFlags().setSavedLong(REBEL_BASE_ROXY_TIMER, Main.game.getMinutesPassed());
+								
+								// Shuffle at least one instance of the arcane firebomb into the player's inventory if they've got one equipped but none in their inventory
+								if (!Main.game.getPlayer().hasWeaponType(WeaponType.getWeaponTypeFromId("dsg_hlf_weap_pbomb"), false)) {
+									int armRow = 0;
+									boolean fireBombShuffled = false;
+									for (AbstractWeapon weapon : Main.game.getPlayer().getMainWeaponArray()) {
+										if (weapon.getWeaponType().equals(WeaponType.getWeaponTypeFromId("dsg_hlf_weap_pbomb"))) {
+											Main.game.getPlayer().unequipMainWeapon(armRow, false, false);
+											break;
+										}
+										armRow++;
+									}
+									if (!fireBombShuffled) {
+										for (AbstractWeapon weapon : Main.game.getPlayer().getOffhandWeaponArray()) {
+											if (weapon.getWeaponType().equals(WeaponType.getWeaponTypeFromId("dsg_hlf_weap_pbomb"))) {
+												Main.game.getPlayer().unequipOffhandWeapon(armRow, false, false);
+												break;
+											}
+											armRow++;
+										}
+									}
+								}
+								
+								Main.game.getPlayer().removeWeapon(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_hlf_weap_pbomb")));
+							}
+						};
+						
+					} else {
+						return new Response("Firebombs", "As you don't have any firebombs left, you're going to have to try describing them to Roxy in the hopes that she can find someone to replicate them.", FIREBOMBS_FAILED) {
+							@Override
+							public Colour getHighlightColour() {
+								return PresetColour.GENERIC_BAD;
+							}
+						};
+					}
+					
+				} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.REBEL_BASE_FIREBOMBS_START)) {
+					if((Main.game.getMinutesPassed() - Main.game.getDialogueFlags().getSavedLong(REBEL_BASE_ROXY_TIMER)) < 2880) { // Roxy needs 2 days to get firebombs
+						return new Response("Firebombs", "Roxy hasn't had enough time to get more firebombs yet.", null);
+					} else {
+						return new Response("Firebombs", "It's been two days since you asked Roxy about getting more firebombs, better check in.", FIREBOMBS_COMPLETE);
+					}
+				}
 			}
 			
 			return null;
 		}
 	};
 	
-	public static final DialogueNode TRADER_REPLY_NO = new DialogueNode("Roxy's Fun Box", "", false, true) {
+	public static final DialogueNode FIREBOMBS = new DialogueNode("Roxy's Fun Box", "", true, true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "FIREBOMBS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return TRADER.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode FIREBOMBS_COMPLETE = new DialogueNode("Roxy's Fun Box", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+               Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.SIDE_UTIL_COMPLETE));
+            Main.game.getNpc(Roxy.class).addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbomb"), 10, false, false);
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "FIREBOMBS_COMPLETE");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return TRADER.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode FIREBOMBS_FAILED = new DialogueNode("Roxy's Fun Box", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.SIDE_REBEL_BASE_FIREBOMBS, Quest.REBEL_BASE_FIREBOMBS_FAILED));
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "FIREBOMBS_FAILED");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return TRADER.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode TRADER_REPLY_NO = new DialogueNode("Roxy's Fun Box", "", true, true) {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_REPLY_NO");

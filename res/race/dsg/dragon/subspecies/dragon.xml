@@ -11,7 +11,7 @@
 	The 'secondaryColour' and 'tertiaryColour' are used alongside 'colour' in recolouring this subspecies' icon and background. -->
 	<colour>dsg_dragonRed</colour>
 	<secondaryColour>dsg_dragonBone</secondaryColour>
-	<tertiaryColour/>
+	<tertiaryColour>dsg_dragonRed</tertiaryColour>
 	
 	<!-- Whether or not this subspecies is considered the 'main' subspecies of its parent race.
 	One subspecies, no more, of each race should have this set as true. -->
@@ -57,14 +57,12 @@
 		#IF(targetedBody.getWingSizeValue() < WING_SIZE_THREE_LARGE)
 			[#targetedBody.setWingSize(WING_SIZE_THREE_LARGE)]
 		#ENDIF
-		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
-			#IF(RND.nextInt(100) < 33)
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
-			#ELSEIF(RND.nextInt(100) < 50)
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurved)]
-			#ELSE
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurled)]
-			#ENDIF
+		#IF(targetedBody.getHornType().isOneOf(HORN_TYPE_dsg_dragon_hornAntlers, HORN_TYPE_NONE))
+			[#targetedBody.setHornType(targetedBody.randomTypeFrom(
+				HORN_TYPE_dsg_dragon_horn,
+				HORN_TYPE_dsg_dragon_hornCurved,
+				HORN_TYPE_dsg_dragon_hornCurled
+			))]
 		#ENDIF
 		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tailSpaded)
 			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tailSpaded)]
@@ -187,10 +185,11 @@
 	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
 	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
 	<statusEffectAttributeModifiers>
-		<attribute value="20">MAJOR_PHYSIQUE</attribute>
-		<attribute value="20">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
-		<attribute value="5">DAMAGE_FIRE</attribute>
-		<attribute value="10">CRITICAL_DAMAGE</attribute>
+		<attribute value="60">MAJOR_PHYSIQUE</attribute>
+		<attribute value="50">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="20">DAMAGE_FIRE</attribute>
+		<attribute value="30">RESISTANCE_FIRE</attribute>
+		<attribute value="30">RESISTANCE_PHYSICAL</attribute>
 		<attribute value="-10">RESISTANCE_LUST</attribute>
 	</statusEffectAttributeModifiers>
 	
@@ -234,7 +233,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

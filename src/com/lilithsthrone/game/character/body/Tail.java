@@ -3,11 +3,13 @@ package com.lilithsthrone.game.character.body;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -149,6 +151,37 @@ public class Tail implements BodyPartInterface {
 		return tailCount;
 	}
 
+	public int getMaxTailCount(GameCharacter owner) {
+		if(owner.hasPerkAnywhereInTree(Perk.SINGLE_TAILED_YOUKO)) {
+			return 1;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.TWO_TAILED_YOUKO)) {
+			return 2;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.THREE_TAILED_YOUKO)) {
+			return 3;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.FOUR_TAILED_YOUKO)) {
+			return 4;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.FIVE_TAILED_YOUKO)) {
+			return 5;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.SIX_TAILED_YOUKO)) {
+			return 6;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.SEVEN_TAILED_YOUKO)) {
+			return 7;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.EIGHT_TAILED_YOUKO)) {
+			return 8;
+		}
+		if(owner.hasPerkAnywhereInTree(Perk.NINE_TAILED_YOUKO)) {
+			return 9;
+		}
+		return tailCount;
+	}
+
 	public String setTailCount(GameCharacter owner, int tailCount, boolean overrideYoukoLimitations) {
 		tailCount = Math.max(1, Math.min(tailCount, MAXIMUM_COUNT));
 		if(!Main.game.isStarted() || owner==null) {
@@ -156,27 +189,90 @@ public class Tail implements BodyPartInterface {
 			return "";
 		}
 		
-		if(owner.getTailCount() == tailCount) {
+		if(owner.getTailCount() == tailCount && !overrideYoukoLimitations) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC) && !overrideYoukoLimitations) {
-			return "<p style='text-align:center;'>"
-						+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
-							+(this.tailCount==1
-								?"tail absorbs and nullifies"
-								:"tails absorb and nullify")
-							+" the transformative effect, preventing any alteration to the number of tails [npc.she] [npc.has]!)]"
-					+ "</p>";
+		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC)
+				&& tailCount > getMaxTailCount(owner)
+				&& !overrideYoukoLimitations) {
+				return "<p style='text-align:center;'>"
+							+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
+							+ (this.tailCount == 1
+								? "tail absorbs and nullifies"
+								: "tails absorb and nullify")
+							+ " the transformative effect, preventing any alteration to the number of tails [npc.she] [npc.has]!)]"
+						+ "</p>";
 		}
-		
+
 		owner.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
 		
 		boolean removingTails = owner.getTailCount() > tailCount;
 		this.tailCount = tailCount;
 
 		owner.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
-		
+
+		if(overrideYoukoLimitations) {
+			if(owner.hasPerkAnywhereInTree(Perk.SINGLE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.SINGLE_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.TWO_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.TWO_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.THREE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.THREE_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.FOUR_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.FOUR_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.FIVE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.FIVE_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.SIX_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.SIX_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.SEVEN_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.SEVEN_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.EIGHT_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.EIGHT_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.NINE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.NINE_TAILED_YOUKO);
+			}
+			if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC)) {
+				switch (owner.getTailCount()) {
+					case 1:
+						owner.addSpecialPerk(Perk.SINGLE_TAILED_YOUKO);
+						break;
+					case 2:
+						owner.addSpecialPerk(Perk.TWO_TAILED_YOUKO);
+						break;
+					case 3:
+						owner.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
+						break;
+					case 4:
+						owner.addSpecialPerk(Perk.FOUR_TAILED_YOUKO);
+						break;
+					case 5:
+						owner.addSpecialPerk(Perk.FIVE_TAILED_YOUKO);
+						break;
+					case 6:
+						owner.addSpecialPerk(Perk.SIX_TAILED_YOUKO);
+						break;
+					case 7:
+						owner.addSpecialPerk(Perk.SEVEN_TAILED_YOUKO);
+						break;
+					case 8:
+						owner.addSpecialPerk(Perk.EIGHT_TAILED_YOUKO);
+						break;
+					case 9:
+						owner.addSpecialPerk(Perk.NINE_TAILED_YOUKO);
+						break;
+				}
+			}
+		}
+
 		if (owner.getTailType() == TailType.NONE) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -305,7 +401,22 @@ public class Tail implements BodyPartInterface {
 	public int getLength(GameCharacter owner) {
 		return (int) (owner.getHeightValue() * getLengthAsPercentageOfHeight());
 	}
-	
+
+	/**
+	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
+	 */
+	public boolean isSuitableForPenetration() {
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION)) {
+			return false;
+		}
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)) {
+			return this.getType().isPrehensile() || this.getLengthAsPercentageOfHeight()>=0.5f;
+			
+		} else if(Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)) {
+			return this.getType().isPrehensile();
+		}
+		return false;
+	}
 	
 	// Diameter:
 
@@ -325,7 +436,7 @@ public class Tail implements BodyPartInterface {
 	 * @return The diameter.
 	 */
 	public float getDiameter(GameCharacter owner, float atLength) {
-		float baseDiameter = (owner.getHeightValue() * 0.08f) * (1f + this.getGirth().getDiameterPercentageModifier());
+		float baseDiameter = (owner.getHeightValue() * 0.08f) * (1f + this.getGirth().getDiameterPercentageModifier()); // Default linear tapering
 		float lengthPercentage = Math.min(1, atLength / this.getLength(owner));
 		
 		if(this.getType().getTags().contains(BodyPartTag.TAIL_TAPERING_EXPONENTIAL)) { // Exponential diameter tapering:

@@ -194,16 +194,10 @@
 		 you ask, looking around for any sign of a trap.
 	</p>
 	<p>
-		[zaranix.speech(Not at all!)]
-		 Zaranix booms, before stepping forwards, grabbing your [pc.hand], and giving it a firm shake.
-		 [zaranix.speech(I couldn't harbour any ill will towards one of Lilaya's relatives!)]
+		[zaranix.speech(Not at all!)] Zaranix booms, before stepping forwards, grabbing your [pc.hand], and giving it a firm shake. [zaranix.speech(I couldn't harbour any ill will towards one of Lilaya's relatives! You'll put in a good word of me with her, won't you?)]
 	</p>
 	<p>
-		[pc.speech(Well, that's good to hear,)]
-		 you say, smiling at the friendly incubus as he finally releases your [pc.hand].
-	</p>
-	<p>
-		[zaranix.speech(So, what can old Zaranix do for you this time, [pc.name]?)]
+		Making a non-committal response, you smile at the friendly incubus as he finally releases your [pc.hand] and asks, [zaranix.speech(So, what can I do for you this time, [pc.name]?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -238,7 +232,7 @@
 		 you say, smiling at the friendly incubus as he finally releases your [pc.hand].
 	</p>
 	<p>
-		[zaranix.speech(So, what can old Zaranix do for you this time, [pc.name]?)]
+		[zaranix.speech(So, what can I do for you this time, [pc.name]?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -336,73 +330,114 @@
 	
 	<htmlContent tag="ZARANIX_ROOM_INCUBUS_FORM"><![CDATA[
 	<p>
-		[pc.speech(Almost all of the demons that I see are succubi. In fact, you're the only incubus that I've had any significant contact with,)]
-		 you say as you lead up to asking Zaranix why he isn't like the vast majority of demons.
+		[pc.speech(Almost all of the demons that I see are succubi. In fact, you're the only incubus that I've had any significant contact with,)] you say as you lead up to asking Zaranix why he isn't like the vast majority of demons.
 	</p>
 	<p>
-		Sensing the incoming question, Zaranix chuckles as he cuts you short.
-		 [zaranix.speech(Why do I choose to stay as an incubus?
-		 To tell the truth, I'm not really too attached to one form or another, but staying as a male has its advantages.)]
+		Sensing the incoming question, Zaranix chuckles as he cuts you short, [zaranix.speech(Why do I choose to stay as an incubus? To tell the truth, I'm not really too attached to one form or another, but I just feel most comfortable in this masculine body.)]
 	</p>
 	<p>
-		[pc.speech(Such as?)]
+		[pc.speech(Do you ever change into your succubus form?)] you ask.
 	</p>
 	<p>
-		Zaranix grins and glances down at his crotch.
-		 [zaranix.speech(Well, I am partial to a bit of oral sex, so not having to grow myself a cock every time I get horny sure is good! Hah!)]
-		 he booms, the grin on his face widening into a big smile.
-		 [zaranix.speech(Anything else you want to talk about?)]
+		A sly smirk settles on the incubus's face as he replies, [zaranix.speech(Well, I do agree to change into that form if it's for a partner's preference... Anyway, is there anything else you wanted?)]
 	</p>
-	<p>
-	
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ZARANIX_ROOM_BLOWJOB"><![CDATA[
+	#IF(zaranix.getSexCount(pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_MOUTH))>0)
+		<p>
+			[pc.speech(Well, I did come here with something on my mind...)] you say in your most seductive tone. Pointedly looking down at the bulge between Zaranix's legs, you tease him by not-so-subtly suggesting that you could give him another blowjob.
+		</p>
+		<p>
+			[zaranix.speech(Well, I'm not going to say no to that,)] Zaranix replies with a smirk on his face. Taking a step back, he sits down on a nearby chair and teases, [zaranix.speech(You sure do like sucking my cock, huh?)]
+		</p>
+		<p>
+			Responding in the affirmative, you [pc.step] forwards and drop down between the imposing incubus's legs. Impatient to get started and have another taste of his big cock, you find yourself quickly going through the familiar motion of undoing Zaranix's trousers, and after pulling both them and his underwear down, you're rewarded by the sight of his rapidly-hardening cock. Letting out a breathless sigh, you immediately lean forwards and start kissing and licking the girthy purple dick. As your [pc.tongue+] slides over the hard, fleshy ribs which encircle his erect length, Zaranix grunts, [zaranix.speech(Don't hold back; I know you like the taste of my balls too...)]
+		</p>
+		<p>
+			Moving your head down, you show Zaranix that he's right by spending a couple of minutes licking and kissing his huge, heavy balls. Eventually, however, the two of you are keen to move onto the main event, and so after once again lifting your head up, you part your [pc.lips+] and take the incubus's hot cock into your mouth. Lewd, wet gagging noises are soon filling the room as you bob your head up and down and eagerly give Zaranix a blowjob...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Well, I did come here with something on my mind...)] you say in your most seductive tone. Pointedly looking down at the bulge between Zaranix's legs, you tease him by not-so-subtly suggesting that you could give him a blowjob.
+		</p>
+		<p>
+			[zaranix.speech(Well, I'm not going to say no to that,)] Zaranix replies with a smirk on his face. Taking a step back, he sits down on a nearby chair and reveals, [zaranix.speech(I'll have you know that I'm particularly fond of receiving oral, and those lips of yours sure look good...)]
+		</p>
+		<p>
+			Grinning, you [pc.step] forwards and drop down between the imposing incubus's legs. Clearly impatient to get started, Zaranix quickly undoes his trousers, and after pulling both them and his underwear down, he exposes his rapidly-hardening cock to you. Although a hefty [zaranix.cockLengthValues] in length, his girthy, [zaranix.cockColour] shaft is relatively plain for a demon, as its only uncommon attribute is being circled by a series of hard, fleshy ribs. As a bead of slimy precum starts to ooze from his urethra, the incubus teases, [zaranix.speech(Go on, have a taste...)]
+		</p>
+		<p>
+			Letting out a breathless sigh, you obligingly lean forwards and start kissing and licking his girthy purple cock. As your [pc.tongue+] slides over the hard, fleshy ribs which encircle his erect length, Zaranix grunts, [zaranix.speech(Don't hold back; I know you'll like the taste of my balls too...)]
+		</p>
+		<p>
+			Moving your head down, you show Zaranix that he's right by spending a couple of minutes licking and kissing his huge, heavy balls. Eventually, however, the two of you are keen to move onto the main event, and so after once again lifting your head up, you part your [pc.lips+] and take the incubus's hot cock into your mouth. Lewd, wet gagging noises are soon filling the room as you bob your head up and down and eagerly give Zaranix a blowjob...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ZARANIX_ROOM_BLOWJOB_TF_START"><![CDATA[
+	#IF(zaranix.getSexCount(pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_MOUTH))>0)
+		<p>
+			[pc.speech(Well, I did come here with something on my mind...)] you say in your most seductive tone. Pointedly looking down at the bulge between Zaranix's legs, you tease him by not-so-subtly suggesting that you could give him another blowjob.
+		</p>
+		<p>
+			[zaranix.speech(Well, I'm not going to say no to that,)] Zaranix replies with a smirk on his face. Taking a step back, he sits down on a nearby chair and teases, [zaranix.speech(You sure do like sucking my cock, huh?)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Well, I did come here with something on my mind...)] you say in your most seductive tone. Pointedly looking down at the bulge between Zaranix's legs, you tease him by not-so-subtly suggesting that you could give him a blowjob.
+		</p>
+		<p>
+			[zaranix.speech(Well, I'm not going to say no to that,)] Zaranix replies with a smirk on his face. Taking a step back, he sits down on a nearby chair and reveals, [zaranix.speech(I'll have you know that I'm particularly fond of receiving oral, and those lips of yours sure look good... How about we get started then?)]
+		</p>
+	#ENDIF
 	<p>
-		[pc.speech(Well, I did come here with something on my mind...)]
-		 you say in your most seductive tone.
-		 [pc.speech(I really am grateful that you let me take control of Arthur, and I was wondering if you'd let me show you my <i>appreciation</i>.)]
+		Instead of answering Zaranix's question, you inform him that there is one condition to your offer; he'll have to transform into his succubus form before you suck 'her' cock. Letting out an amused huff, the incubus agrees to do as you ask, [zaranix.speech(Fine, I don't particularly object to taking on my succubus form, and if it's so that I can get a blowjob, then I'm more than happy to do it!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ZARANIX_ROOM_BLOWJOB_TF_END"><![CDATA[
+	<p>
+		As you watch, Zaranix's masculine features start to soften and become distinctly more feminine, and while she retains her muscles and short, black hair, she shrinks down a little and gains more mass around her hips, ass, and chest. Within a few moments, Zaranix has completely transformed into her tomboyish succubus form, and after clearing her throat, she teases, [zaranix.speech(You prefer me like this then? Do these get you turned on too?)]
 	</p>
 	<p>
-		[zaranix.speech(Oh, really? Well, this is a pleasant revelation!)]
-		 Zaranix smirks, taking a step back and sitting down on a nearby chair.
-		 [zaranix.speech(I am partial to a bit of oral, and those lips of yours sure look good.)]
+		With that, the succubus unbuttons her shirt and reveals her breasts to you. While extremely small by succubus standards, they're still about a [zaranix.cupSize]-cup, and sport large, dark-purple nipples on each of their perky tips. Liking Zaranix's new form far more than the one she had before, you find yourself lustfully gazing first at her chest, and then down to her groin, where there's still a large bulge pressing out from beneath her trousers. Seeing what it is you're looking at, the succubus laughs and teases, [zaranix.speech(I've fulfilled my end of the bargain, so let's get started...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ZARANIX_ROOM_BLOWJOB_TF_SEX"><![CDATA[
+	<p>
+		After dropping a flirtatious compliment on Zaranix's new appearance, you [pc.step] forwards and drop down between the succubus's legs. Clearly impatient to get started, Zaranix quickly undoes her trousers, and after pulling both them and her underwear down, she exposes her rapidly-hardening cock to you. Although a hefty [zaranix.cockLengthValues] in length, her girthy, [zaranix.cockColour] shaft is relatively plain for a demon, as its only uncommon attribute is being circled by a series of hard, fleshy ribs. As a bead of slimy precum starts to ooze from her urethra, the succubus teases, [zaranix.speech(Go on, have a taste...)]
 	</p>
 	<p>
-		Grinning, you step forwards and sink to your knees before the imposing incubus.
-		 [pc.speech(That sounds good to me! Now sit back and relax. I'll take care of you...)]
+		Letting out a breathless sigh, you obligingly lean forwards and start kissing and licking her girthy purple cock. As your [pc.tongue+] slides over the hard, fleshy ribs which encircle her erect length, Zaranix grunts, [zaranix.speech(Don't hold back; I know you'll like the taste of my balls too...)]
+	</p>
+	<p>
+		Moving your head down, you show Zaranix that she's right by spending a couple of minutes licking and kissing her huge, heavy balls. Eventually, however, the two of you are keen to move onto the main event, and so after once again lifting your head up, you part your [pc.lips+] and take the succubus's hot cock into your mouth. Lewd, wet gagging noises are soon filling the room as you bob your head up and down and eagerly give Zaranix a blowjob...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX_ZARANIX_BLOWJOB"><![CDATA[
 	<p>
-		Zaranix pats you on the head, before standing up and getting his clothes back in order.
-		 [zaranix.speech(Thanks, [pc.name]. That was just what I needed!
-		 I really should get on with these experiments now, but if you're ever in the neighbourhood again, do drop in and say hello!
-		 I'd love to get another feel of those lips wrapped around my cock. Hah!)]
+		Zaranix pats you on the head, before standing up and getting [zaranix.her] clothes back in order. [zaranix.speech(Thanks, [pc.name]; that was just what I needed! I really should get on with these experiments now, but if you're ever in the neighbourhood again, do drop in and say hello. I'd love to get another feel of those lips wrapped around my cock...)]
 	</p>
 	<p>
-		Smiling at Zaranix, you stand up and step back.
-		 [pc.speech(Sure thing, Zaranix! I had a good time with you today.)]
+		Smiling at Zaranix, you stand up and step back, before telling [zaranix.herHim] that you'll be sure to drop by some again time.
 	</p>
 	<p>
-		[zaranix.speech(Likewise,)]
-		 the imposing incubus states, grinning at you.
-		 [zaranix.speech(Do please visit again! Oh, and if you could, put in a good word with Lilaya about me, hmm?)]
+		[zaranix.speech(Oh, and if you could, put in a good word with Lilaya about me, hmm?)] [zaranix.she] asks.
 	</p>
 	<p>
-		[pc.speech(I will,)]
-		 you say, heading towards the door.
-		 [pc.speech(Bye!)]
+		Making a non-committal response, you head to the door and [pc.step] out into the corridor. As you close the door, Zaranix calls out behind you, [zaranix.speech(Oh, and don't let Amber be too harsh on you, ok?!)]
 	</p>
 	<p>
-		[zaranix.speech(Goodbye! Oh, and don't let Amber be too harsh on you, ok?)]
-		 Zaranix waves, before turning his back on you and returning to his experiments.
-	</p>
-	<p>
-		Pushing open the bedroom door, you step back outside into the corridor, wondering where to go next...
+		Heading out into the corridor, and with the taste of Zaranix's cock still on your tongue, you wonder where to go next...
 	</p>
 	]]>
 	</htmlContent>

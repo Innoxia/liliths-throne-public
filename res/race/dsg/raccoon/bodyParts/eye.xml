@@ -44,7 +44,7 @@
 	This description immediately follows a brief description of the eye type undergoing a transformation. -->
 	<transformationDescription><![CDATA[
 		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into raccoon-like eyes, with large irises and pupils.
-		<br/>[npc.Name] now [npc.has] [style.boldRacoon(raccoon-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].
+		<br/>[npc.Name] now [npc.has] [style.boldRaccoon(raccoon-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].
 	]]></transformationDescription>
 	
 	<!-- How this eye is described in a character's description page. -->

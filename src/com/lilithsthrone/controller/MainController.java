@@ -45,6 +45,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -291,6 +292,9 @@ public class MainController implements Initializable {
 	}
 
 	public boolean isInventoryDisabled() {
+		if(!Main.game.isInNewWorld() && !Main.game.isInSex()) {
+			return true;
+		}
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY
 				|| Main.game.isInCombat()
 				/*|| Main.game.isInSex()*/) {
@@ -309,7 +313,7 @@ public class MainController implements Initializable {
 
 	public void openInventory() {
 		if(!Main.game.isInNewWorld() && !Main.game.isInSex()) {
-			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
+			//openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
 			if(Main.combat.getTargetedCombatant().isPlayer()) {
@@ -391,7 +395,7 @@ public class MainController implements Initializable {
 		if(!Main.game.isStarted()) {
 			return;
 		}
-		
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.coveringChangeListenersRequired, true);
 		if(characterViewed!=null && characterViewed != CharactersPresentDialogue.characterViewed) {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
 //					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
@@ -492,7 +496,13 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							Main.sex.getTargetedPartner(Main.game.getPlayer()).generateSexChoices(true, Main.game.getPlayer());
+							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
+							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
+							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);
+//							for(NPC npc : Main.game.getCharactersTreatingCellAsHome()) {
+//								System.out.println(npc.getNameIgnoresPlayerKnowledge()+npc.getClass().getName());
+//							}
+//							Main.sex.getTargetedPartner(Main.game.getPlayer()).generateSexChoices(true, Main.game.getPlayer());
 //							Main.game.getPlayer().setFeral(Subspecies.HORSE_MORPH);
 //							UtilText.addSpecialParsingString("true", true);
 //							System.out.println(UtilText.parse("#IF([#SPECIAL_PARSE_0]):3#ELSE:(#ENDIF"));
@@ -566,7 +576,9 @@ public class MainController implements Initializable {
 						
 						// Name selections:
 						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHallDemographics.NAME_CHANGE){
-							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameMasculineInput') === document.activeElement")
+									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameAndrogynousInput') === document.activeElement")
+									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameFeminineInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;

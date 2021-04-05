@@ -503,6 +503,13 @@ public class Attribute {
 			return "Increases damage vs imps.";
 		}
 	};
+
+	public static AbstractAttribute DAMAGE_LILIN = new AbstractAttribute(true, 0, -100, 100, "lilin damage", "Lilin damage", "swordIcon", PresetColour.RACE_LILIN, "lilin-obliteration", "lilin-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs lilin.";
+		}
+	};
 //	public static AbstractAttribute DAMAGE_REINDEER_MORPH = new AbstractAttribute(true, 0, -100, 100, "reindeer-morph damage", "Reindeer-morph damage", "swordIcon", PresetColour.RACE_REINDEER_MORPH, "reindeer-morph-obliteration", "reindeer-morph-mercy", null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -576,16 +583,27 @@ public class Attribute {
 	public static List<AbstractAttribute> allAttributes;
 	
 	public static Map<AbstractRace, AbstractAttribute> racialAttributes = new HashMap<>();
+
+	private static Map<String, AbstractAttribute> oldConversionMapping = new HashMap<>();
+	static {
+		oldConversionMapping.put("CORRUPTION", Attribute.MAJOR_CORRUPTION);
+		oldConversionMapping.put("STRENGTH", Attribute.MAJOR_PHYSIQUE);
+		oldConversionMapping.put("MAJOR_STRENGTH", Attribute.MAJOR_PHYSIQUE);
+		oldConversionMapping.put("INTELLIGENCE", Attribute.MAJOR_ARCANE);
+		oldConversionMapping.put("RESISTANCE_ATTACK", Attribute.RESISTANCE_PHYSICAL);
+		oldConversionMapping.put("RESISTANCE_MANA", Attribute.RESISTANCE_LUST);
+		oldConversionMapping.put("RESISTANCE_PURE", Attribute.ENERGY_SHIELDING);
+	}
 	
 	public static AbstractAttribute getAttributeFromId(String attributeId) {
 		if(attributeId.startsWith("RESISTANCE_ELEMENTAL")) {
 			attributeId = "RESISTANCE_ELEMENTAL";
 		} else if(attributeId.startsWith("DAMAGE_ELEMENTAL")) {
 			attributeId = "DAMAGE_ELEMENTAL";
-		} else if(attributeId.equals("CORRUPTION")) {
-			attributeId = "MAJOR_CORRUPTION";
-		} else if(attributeId.equals("STRENGTH") || attributeId.equals("MAJOR_STRENGTH")) {
-			attributeId = "MAJOR_PHYSIQUE";
+		}
+		
+		if(oldConversionMapping.containsKey(attributeId)) {
+			return oldConversionMapping.get(attributeId);
 		}
 
 		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet());

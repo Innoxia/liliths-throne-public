@@ -867,6 +867,22 @@
 	</htmlContent>
 	
 	
+	<!-- LILAYA_SCIENTIST_OUTFIT -->
+	
+	<htmlContent tag="LILAYA_SCIENTIST_OUTFIT"><![CDATA[
+	<p>
+		Liking the look of Lilaya's lab coat, you compliment her on her appearance, before asking if she has a spare lying around which you could have.
+	</p>
+	<p>
+		[lilaya.speech(Well, in this instance, flattery will get you somewhere after all,)] she responds with a smile on her face. Striding over to a cabinet on the far side of the room, she slides open one of the drawers and retrieves the white lab coat you've asked for. Walking back over to you, she hands you the garment and says, [lilaya.speech(Don't get carried away and start thinking you're a real arcane researcher; it takes years of study to get to that level.)]
+	</p>
+	<p>
+		As you thank your [lilaya.relation(pc)], she hands you something else which she'd just retrieved from the same drawer, and you look down to see that it's a pair of safety goggles. Flashing you another smile, Lilaya says, [lilaya.speech(If you're trying to get the look right, you'll need these too. Anyway, is there anything else you want?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- LAB_LILAYA_HUG -->
 	
 	<htmlContent tag="LAB_LILAYA_HUG"><![CDATA[
@@ -1584,13 +1600,13 @@
 	
 	<htmlContent tag="LILAYA_FRIEND_ACCOMMODATION"><![CDATA[
 	<p>
-		Wanting to ask Lilaya about the possibility of inviting your new friend to come and live here, you take a step towards your demonic [lilaya.relation(pc)] and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
+		Wanting to ask Lilaya about the possibility of inviting guests to come and live here, you take a step towards your demonic [lilaya.relation(pc)] and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
 	</p>
 	<p>
 		[lilaya.speech(Mmm, what about them?)] she answers, raising one eyebrow as she peers at you over the top of her glasses.
 	</p>
 	<p>
-		[pc.speech(Well, I've got a friend, you see, and they're in a pretty rough situation. I was wondering if they'd be able to stay here for a while, until they've got back on their feet.)]
+		[pc.speech(Well, I was wondering if I'd be able to use some of them for guests to stay in.)]
 	</p>
 	<p>
 		Lilaya lets out a sigh, and, placing her hands on her hips, asks, [lilaya.speech(Who's going to be the one paying for their food and cleaning bills? I trust your judgement, so I don't mind your friends using the spare rooms, but I'm certainly not going to be the one to foot the bill.)]

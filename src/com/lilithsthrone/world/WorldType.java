@@ -285,7 +285,7 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType HARPY_NEST = new AbstractWorldType(WorldRegion.DOMINION,
+	public static AbstractWorldType HARPY_NEST = new AbstractWorldType(WorldRegion.HARPY_NESTS,
 			"Harpy Nests",
 			PresetColour.BASE_CRIMSON,
 			1,
@@ -338,7 +338,7 @@ public class WorldType {
 	
 	public static AbstractWorldType BOUNTY_HUNTER_LODGE = new AbstractWorldType(WorldRegion.DOMINION,
 			"The Rusty Collar",
-			PresetColour.BASE_RED_DARK,
+			PresetColour.BASE_COPPER,
 			1,
 			false,
 			false,
@@ -356,7 +356,7 @@ public class WorldType {
 	
 	public static AbstractWorldType BOUNTY_HUNTER_LODGE_UPSTAIRS = new AbstractWorldType(WorldRegion.DOMINION,
 			"The Rusty Collar (Upstairs)",
-			PresetColour.BASE_RED_DARK,
+			PresetColour.BASE_COPPER,
 			1,
 			false,
 			false,
@@ -1049,6 +1049,33 @@ public class WorldType {
 		}
 	};
 	
+        public static AbstractWorldType REBEL_BASE = new AbstractWorldType(WorldRegion.SUBMISSION,
+        		"Mysterious Cave",
+				PresetColour.BASE_GREY,
+				1,
+				false,
+				false,
+				TeleportPermissions.BOTH,
+				"/com/lilithsthrone/res/map/submission/rebelBase/rebelBase.png",
+				PlaceType.WORLD_MAP_DOMINION,
+				PlaceType.REBEL_BASE_ENTRANCE,
+				Util.newHashMapOfValues(
+						new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+						new Value<>(new Color(0xed1c24), PlaceType.REBEL_BASE_ENTRANCE),
+						new Value<>(new Color(0x22b14c), PlaceType.REBEL_BASE_CORRIDOR),
+						new Value<>(new Color(0xf8941d), PlaceType.REBEL_BASE_SLEEPING_AREA),
+						new Value<>(new Color(0x662d91), PlaceType.REBEL_BASE_COMMON_AREA),
+                        new Value<>(new Color(0x6dd0f7), PlaceType.REBEL_BASE_ARMORY),
+                        new Value<>(new Color(0x3f48cc), PlaceType.REBEL_BASE_CAVED_IN_ROOM))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "A structurally superfluous cave is hardly the place for sex!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
 	private static List<AbstractWorldType> allWorldTypes = new ArrayList<>();
 	private static Map<AbstractWorldType, String> worldToIdMap = new HashMap<>();

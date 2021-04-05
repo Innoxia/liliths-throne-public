@@ -1640,7 +1640,7 @@ public interface SexActionInterface {
 						return false;
 					break;
 				case TAIL:
-					if(performingCharacter.getLegConfiguration()!=LegConfiguration.TAIL_LONG && !performingCharacter.getTailType().isSuitableForPenetration()) {
+					if(performingCharacter.getLegConfiguration()!=LegConfiguration.TAIL_LONG && !performingCharacter.isTailSuitableForPenetration()) {
 						return false;
 					}
 					break;

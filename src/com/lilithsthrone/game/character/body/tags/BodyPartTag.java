@@ -48,7 +48,13 @@ public enum BodyPartTag {
 	
 	/** Pointy, triangular shark teeth (Currently NYI, but planned for the (far?) future) */
 	FACE_SHARK_TEETH,
+	
+	/** When the CMSpecialAttack 'BITE' is used, characters with venomous teeth apply the 'poisoned' effect. */
+	FACE_VENOMOUS_TEETH,
 
+	/** When the CMSpecialAttack 'BITE' is used, characters with venomous teeth apply the 'lust poisoned' effect. */
+	FACE_VENOMOUS_TEETH_LUST,
+	
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for mammalian races. */
 	FACE_NATURAL_BALDNESS_FURRY,
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for avian races. */
@@ -74,16 +80,27 @@ public enum BodyPartTag {
 	/** Tags the hair as being naturally styled into a mane. */
 	HAIR_NATURAL_MANE,
 	
+	/** Tags the hair type as always being present on furry and scaly heads, even if the player has 'furry hair' turned off. (USeful for races such as hyenas which have a hair-type mane.)*/
+	HAIR_IGNORE_PLAYER_SETTINGS,
+	
 	
 	// Tail (these are also used for tentacles):
-
+	/** Prehensile tails are those which can be manipulated into being used like an extra limb (e.g. monkey tails) */
 	TAIL_PREHENSILE,
 	
+	/** This tail is never suitable for penetration, even if the player has furry tail penetration turned on (e.g. rabbit or harpy tails) */
+	TAIL_NEVER_SUTABLE_FOR_PENETRATION,
+	
+	/** Whether this tail is suitable for penetrating orifices (e.g demon tails). Note that furry tails should not be marked with this, as that relies on the player's furry penetration settings and is determined from whether the tail is prehensile. */
 	TAIL_SUTABLE_FOR_PENETRATION,
 	
+	/** Whether this tail can be curled up and hugged when falling asleep. */
 	TAIL_SLEEP_HUGGING,
 	
+	/** Whether this tail unlocks the 'tail swipe' special attack (e.g. alligator or dragon tails) */
+	TAIL_ATTACK,
 	
+	// Tail types:
 	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, rat.*/
 	TAIL_TYPE_SKIN,
 
@@ -105,12 +122,15 @@ public enum BodyPartTag {
 	/** Of a type which doesn't fit into other categories. Used for girth descriptors and descriptions. Examples would be bat.*/
 	TAIL_TYPE_GENERIC,
 	
-	
+	// Tail tapering (only use one of these at a time!):
 	/** The tail's diameter rapidly tapers off from the base. An example would be for demonic tails. */
 	TAIL_TAPERING_EXPONENTIAL,
 	
 	/** The tail's diameter tapers off at a steady rate from the base. An example would be for alligator tails. */
 	TAIL_TAPERING_LINEAR,
+
+	/** The tail's diameter expands from from the base and then tapers off, creating a bulbous, oval shape. Examples would be for spider-morph abdomen-tails. */
+	TAIL_TAPERING_BULBOUS,
 	
 	/** The tail's diameter does not taper off from the base. Examples would be for cat, dog, rat tails. */
 	TAIL_TAPERING_NONE

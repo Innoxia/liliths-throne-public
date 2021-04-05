@@ -214,7 +214,7 @@
 			#IF(pcIsMother)
 				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
@@ -251,7 +251,7 @@
 			#IF(pcIsMother)
 				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
@@ -288,7 +288,7 @@
 			#IF(pcIsMother)
 				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>

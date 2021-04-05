@@ -37,8 +37,10 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -195,6 +197,9 @@ public class DebugDialogue {
 				} else if (index == 9) {
 					return new Response("Race resets", "View the race reset options.", BODY_PART_RACE_RESET);
 					
+				} else if (index == 10) {
+					return new Response("Set spawns", "View all of the clothing/weapon sets in the game and spawn them.", SPAWN_MENU_SET);
+					
 				} else if (index == 11) {
 					return new Response(UtilText.formatAsMoney(100_000, "span"), "Add 100,000 flames.", DEBUG_MENU){
 						@Override
@@ -213,6 +218,22 @@ public class DebugDialogue {
 					
 				} else if (index == 13) {
 					return new Response("Very long action text for testing", "Very long action text for testing.", null);
+					
+				} else if (index == 14) {
+					return new Response("Sticker unlocks: ",
+							"Unlocks availability of all stickers for clothing. This is done by ignoring stickers' unavailabilityText and availabilityText, so if you're trying to test those, having this on will be a problem!",
+							DEBUG_MENU){
+						@Override
+						public String getTitle() {
+							return "Sticker unlocks: "+(Main.game.isAllStickersUnlocked()?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+						}
+						
+						@Override
+						public void effects() {
+							Main.getProperties().setValue(PropertyValue.allStickersUnlocked, !Main.game.isAllStickersUnlocked());
+							Main.getProperties().savePropertiesAsXML();
+						}
+					};
 					
 				}
 				
@@ -557,6 +578,7 @@ public class DebugDialogue {
 							}
 						}
 					};
+					
 				} else if(index==18) {
 					return new Response("Moo mode",
 							"Every feminine NPC will have their breast size incremented by 5,"
@@ -583,6 +605,26 @@ public class DebugDialogue {
 							}
 						}
 					};
+				} else if(index==19) {
+					return new Response("Rat mode", "Turn every NPC in the game into a greater rat-morph.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.RACE_RAT_MORPH;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								Main.game.getCharacterUtils().reassignBody(
+										npc,
+										npc.getBody(),
+										npc.getGender(),
+										Subspecies.RAT_MORPH,
+										RaceStage.GREATER,
+										false);
+							}
+						}
+					};
+					
 				}
 				
 			} else if(responseTab == 3) {
@@ -708,13 +750,13 @@ public class DebugDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			for(NPC npc : Main.game.getOffspring(true, true)) {
+			for(NPC npc : Main.game.getOffspring(true)) {
 				boolean isBorn = true;
 				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
 				}
 				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
-						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies()+")"
+						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies().getName(npc)+")"
 						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			if(activeOffspring!=null) {
@@ -734,11 +776,11 @@ public class DebugDialogue {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
-			} else if(index-1 < Main.game.getOffspring(true, true).size()) {
-				return new Response(Main.game.getOffspring(true, true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
+			} else if(index-1 < Main.game.getOffspring(true).size()) {
+				return new Response(Main.game.getOffspring(true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
 					@Override
 					public void effects() {
-						activeOffspring = Main.game.getOffspring(true, true).get(index-1);
+						activeOffspring = Main.game.getOffspring(true).get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
 							activeOffspring.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 						}
@@ -772,8 +814,8 @@ public class DebugDialogue {
 		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
+	
 	public static final DialogueNode SPAWN_MENU = new DialogueNode("Spawn Menu", "Access the spawn menu.", false) {
-
 		@Override
 		public String getHeaderContent() {
 			inventorySB.setLength(0);
@@ -896,14 +938,6 @@ public class DebugDialogue {
 			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
 			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; opacity:0; cursor:default; color:"+PresetColour.BASE_GREEN_DARK.toWebHexString()+";'>Cheats</div>");
 
-//			inventorySB.append("<hr/>");
-//			
-//			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
-//				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
-//				inventorySB.append(sb.getName());
-//				inventorySB.append("</div>");
-//			}
-			
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();
@@ -919,6 +953,37 @@ public class DebugDialogue {
 			return DEBUG_MENU.getResponseTabTitle(index);
 		}
 		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode SPAWN_MENU_SET = new DialogueNode("Set spawns", "", false) {
+		@Override
+		public String getHeaderContent() {
+			inventorySB.setLength(0);
+			
+			inventorySB.append("<div class='container-full-width'>");
+			
+			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
+				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:23%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
+				inventorySB.append(sb.getName());
+				inventorySB.append("</div>");
+			}
+			
+			inventorySB.append("</div>");
+			
+			return inventorySB.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return DEBUG_MENU.getResponse(responseTab, index);
@@ -1077,6 +1142,7 @@ public class DebugDialogue {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		attacker.setLocation(Main.game.getPlayer(), true);
 		Main.game.setActiveNPC(attacker);
 	}
 	
@@ -1111,9 +1177,13 @@ public class DebugDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<AbstractSubspecies> availableSubspecies = new ArrayList<>();
-			availableSubspecies.addAll(Subspecies.getAllSubspecies());
-			availableSubspecies.removeIf(s->s.getRace()==Race.ELEMENTAL);
+			List<AbstractSubspecies> availableSubspecies = new ArrayList<>(Subspecies.getAllSubspecies());
+			availableSubspecies.removeIf(s->
+					s.getRace()==Race.ELEMENTAL
+//					|| s==Subspecies.LILIN
+//					|| s==Subspecies.ELDER_LILIN
+//					|| s==Subspecies.ANGEL
+					);
 			
 			if (index!=0 && index<availableSubspecies.size()+1) {
 				AbstractSubspecies subspecies = availableSubspecies.get(index - 1);
@@ -1153,6 +1223,11 @@ public class DebugDialogue {
 									stage,
 									false);
 						}
+
+						attacker.resetInventory(true);
+						attacker.clearNonEquippedInventory(false);
+						Main.game.getCharacterUtils().generateItemsInInventory(attacker);
+						attacker.equipClothing();
 						
 						Main.game.setContent(new Response("", "", attacker.getEncounterDialogue()));
 					}

@@ -59,7 +59,6 @@ public abstract class AbstractSubspecies {
 	
 	private int baseSlaveValue;
 	private int subspeciesOverridePriority;
-	private static AbstractSubspecies fleshSubspecies = null;
 	
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
@@ -383,9 +382,11 @@ public abstract class AbstractSubspecies {
 
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
 				
+				String secondaryColourText = coreElement.getMandatoryFirstOf("secondaryColour").getTextContent();
+				String tertiaryColourText = coreElement.getMandatoryFirstOf("tertiaryColour").getTextContent();
 				this.colour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("colour").getTextContent());
-				this.secondaryColour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("secondaryColour").getTextContent());
-				this.tertiaryColour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("tertiaryColour").getTextContent());
+				this.secondaryColour = secondaryColourText.isEmpty() ? this.colour : PresetColour.getColourFromId(secondaryColourText);
+				this.tertiaryColour = tertiaryColourText.isEmpty() ? this.colour : PresetColour.getColourFromId(tertiaryColourText);
 				
 				this.mainSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("mainSubspecies").getTextContent());
 				this.baseSlaveValue = Integer.valueOf(coreElement.getMandatoryFirstOf("baseSlaveValue").getTextContent());
@@ -431,7 +432,7 @@ public abstract class AbstractSubspecies {
 				this.bookNamePlural = bookName; // There is no need for a plural
 				
 				this.bookIdFolderPath = XMLFile.getParentFile().getAbsolutePath();
-				bookIdFolderPath = "res"+bookIdFolderPath.split("res")[1];
+				bookIdFolderPath = "res"+bookIdFolderPath.split("\\bres\\b")[1];
 //				System.out.println(bookIdFolderPath);
 				this.basicDescriptionId = coreElement.getMandatoryFirstOf("basicDescriptionId").getTextContent();
 				this.advancedDescriptionId = coreElement.getMandatoryFirstOf("advancedDescriptionId").getTextContent();
@@ -695,7 +696,7 @@ public abstract class AbstractSubspecies {
 				
 				this.flags = new ArrayList<>();
 				for(Element e : coreElement.getMandatoryFirstOf("flags").getAllOf("flag")) {
-					flags.add(SubspeciesFlag.valueOf(e.getTextContent()));
+					flags.add(SubspeciesFlag.getSubspeciesFlagFromString(e.getTextContent()));
 				}
 				
 			} catch(Exception ex) {
@@ -724,7 +725,6 @@ public abstract class AbstractSubspecies {
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
 	public void applySpeciesChanges(Body body) {
-		fleshSubspecies = null;
 		if(this.isFromExternalFile() && Main.game.isStarted()) {
 			UtilText.setBodyForParsing("targetedBody", body);
 			UtilText.parse(applySubspeciesChanges);
@@ -752,15 +752,13 @@ public abstract class AbstractSubspecies {
 		return backup;
 	}
 	
-	/**
-	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
-	 */
-	public static AbstractSubspecies getFleshSubspecies(GameCharacter character) {
-		if (fleshSubspecies == null) {
-			fleshSubspecies = getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
-		}
-		return fleshSubspecies;
-	}
+//	/**
+//	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
+//	 */
+//	public static AbstractSubspecies getFleshSubspecies(GameCharacter character) {
+//		return character.getFleshSubspecies();
+////		return getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+//	}
 	
 	/**
 	 * @param body The body being checked.
@@ -867,7 +865,8 @@ public abstract class AbstractSubspecies {
 	}
 	
 	/**
-	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/><br/>
+	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/>
+	 * <b>Please note:</b> If the mother is feral, this will be overridden in CharacterUtils.generateBody()!<br/><br/>
 	 * 
 	 * <b>Demon breeding</b><br/>
 	 * Lilin<br/>
@@ -1062,6 +1061,8 @@ public abstract class AbstractSubspecies {
 				return baseName+"-arachne"+(plural?"s":"");
 			case AVIAN:
 				return baseName+"-moa"+(plural?"s":"");
+			case WINGED_BIPED:
+				return baseName+"-demimoa"+(plural?"s":"");
 			case BIPEDAL:
 				break;
 			case CEPHALOPOD:
@@ -1356,7 +1357,11 @@ public abstract class AbstractSubspecies {
 	public String getPathName() {
 		return pathName;
 	}
-
+	
+	public int getIconSize() {
+		return iconSize;
+	}
+	
 	public String getBackgroundPathName() {
 		return backgroundPathName;
 	}
@@ -1451,8 +1456,8 @@ public abstract class AbstractSubspecies {
 						sb.append(line);
 					}
 					SVGStringUncoloured = sb.toString();
-					float iconResizeBorder = (100-iconSize)/2f;
-					SVGStringUncoloured = "<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
+					float iconResizeBorder = (100-getIconSize())/2f;
+					SVGStringUncoloured = "<div style='width:"+getIconSize()+"%;height:"+getIconSize()+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
 					
 				} else {
 					InputStream is = this.getClass().getResourceAsStream(getPathName() + ".svg");
@@ -1697,14 +1702,14 @@ public abstract class AbstractSubspecies {
 	 * @return true if this subspecies can have its FurryPreference modified in the furry preferences options screen.
 	 */
 	public boolean isFurryPreferencesEnabled() {
-		return !this.hasFlag(SubspeciesFlag.DISBALE_FURRY_PREFERENCE);
+		return !this.hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
 	}
 
 	/**
 	 * @return true if this subspecies can have its spawn frequency modified in the furry preferences options screen.
 	 */
 	public boolean isSpawnPreferencesEnabled() {
-		return !this.hasFlag(SubspeciesFlag.DISBALE_SPAWN_PREFERENCE);
+		return !this.hasFlag(SubspeciesFlag.DISABLE_SPAWN_PREFERENCE);
 	}
 	
 	public int getBaseSlaveValue(GameCharacter character) {
@@ -1738,6 +1743,16 @@ public abstract class AbstractSubspecies {
 		}
 		
 		return availableRaces;
+	}
+
+	public static AbstractSubspecies getRandomSubspeciesFromWeightedMap(Map<AbstractSubspecies, Integer> availableRaces) {
+		return getRandomSubspeciesFromWeightedMap(availableRaces, Subspecies.HUMAN);
+	}
+
+	public static AbstractSubspecies getRandomSubspeciesFromWeightedMap(Map<AbstractSubspecies, Integer> availableRaces, AbstractSubspecies fallback) {
+		AbstractSubspecies species = Util.getRandomObjectFromWeightedMap(availableRaces);
+
+		return species != null ? species : fallback;
 	}
 
 	public static void addToSubspeciesMap(int weight, Gender gender, AbstractSubspecies subspecies, Map<AbstractSubspecies, Integer> map) {

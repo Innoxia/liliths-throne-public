@@ -107,13 +107,13 @@ public class EyeType {
 			Race.COW_MORPH,
 			1,
 			EyeShape.ROUND,
-			EyeShape.ROUND,
+			EyeShape.HORIZONTAL,
 			"cow",
 			"eye",
 			"eyes",
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
-			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into cow-like eyes, with large pupils and irises."
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into cow-like eyes, with large pupils and horizontal irises."
 				+ "<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldCowMorph(cow-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] cow-like eyes, the irises and pupils of which are larger than a regular human's."

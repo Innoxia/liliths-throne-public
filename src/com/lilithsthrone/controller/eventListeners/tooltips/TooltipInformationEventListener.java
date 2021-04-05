@@ -927,6 +927,7 @@ public class TooltipInformationEventListener implements EventListener {
 								break;
 							case BIPEDAL:
 							case QUADRUPEDAL:
+							case WINGED_BIPED:
 								tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" "+owner.getFootStructure().getName()+" legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case CEPHALOPOD:
@@ -966,7 +967,7 @@ public class TooltipInformationEventListener implements EventListener {
 						}
 						if (owner.getAntennaType() != AntennaType.NONE) {
 							//TODO might need changing if made like horn count:
-							tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getAntennaRows()*2))+" antennae", owner.getAntennaRace(), owner.getAntennaCovering(), owner.isAntennaFeral()));
+							tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getAntennaRows()*owner.getAntennaePerRow()))+" antennae", owner.getAntennaRace(), owner.getAntennaCovering(), owner.isAntennaFeral()));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Antennae", "None"));
 						}

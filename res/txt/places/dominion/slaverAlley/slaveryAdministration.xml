@@ -159,10 +159,52 @@
 		[pc.speech(I see,)] you say, wondering if any demons prowling the alleyways of Dominion have been marked for enslavement.
 	</p>
 	<p>
-		[finch.speech(Normally, non-demons wouldn't even be permitted to own demonic slaves, but as you're related to Lilaya herself, I've gone ahead and marked your license as the extended coverage type, meaning that you'll get no trouble from any Enforcers if you do end up owning some demon slaves,)] Finch states, giving you a friendly wink before leaning back and crossing his arms.
+		[finch.speech(Normally, non-demons wouldn't even be permitted to own demonic slaves, but as you're related to Lilaya herself, I've gone ahead and marked your license as the extended coverage type, meaning that you'll get no trouble from any Enforcers if you do end up owning some demon slaves,)] Finch states, giving you a friendly wink before leaning back and crossing his arms. [finch.speech(One last thing; if you get soft and want to set your slave free, you're going to need a 'Freedom Certification' to do so. That's basically an official document that allows you to declare one of your slaves as being freed. Now, they don't come cheap, as we can't have criminals coming along to easily buy their convicted friends out of their punishment. If you can cough up enough flames, then you can buy them from me.)]
 	</p>
 	<p>
 		Thanking him for explaining things to you, you put your new slaver license safely away, but before you're able to turn and leave, the cat-boy has some final words, [finch.speech(Now that you've got that license, I can sell you some slave collars if you'd like. I've also got a few more fun things in stock...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_FREEDOM_TALK -->
+	
+	<htmlContent tag="SLAVE_FREEDOM_TALK"><![CDATA[
+	<p>
+		Wanting to know what sort of process you'd have to go through to set a slave free, you ask Finch if you're able to simply let your slaves go if you don't want them anymore.
+	</p>
+	<p>
+		[finch.speech(That's not how it works,)] the cat-boy replies, [finch.speech(If you let your slave go, they're still registered with us as being a slave, so if an Enforcer patrol bumps into them, they're going to have a collar clasped around their neck and returned to you, along with a bill for their time and effort. Anyway, unless you've managed to convince someone to enter into a willing slave contract, your slaves are going to be criminals or other scum. You really want to set people like that free?)]
+	</p>
+	<p>
+		Finch lets out a disapproving grunt as you reply by saying that it's a possibility, but despite his reaction, he tells you what you want to know, [finch.speech(Getting a slave freed requires you to go through the courts and get a Freedom Certification issued to the slave in question. Unless your slave's an important demon, that process is going to take at least a year to get through, and at the end of it you're more likely than not to have your request for your slave's freedom rejected. The state can't afford to be letting criminals back onto the streets all the time, can it? What would happen to society if that were to happen...)]
+	</p>
+	<p>
+		While he's been explaining this to you, Finch has been repeatedly glancing over at a nearby dog-boy who's been loitering within earshot of your conversation. As this stranger turns around and leaves, Finch's final sentence trails off, and he lowers his voice and hisses, [finch.speech(You want to free your slaves? I can get all the paperwork done right here from behind my desk, <i>and</i> register everything as being one-hundred percent official and legit. Of course, skipping over the whole judicial process isn't exactly legal, but if you rat me out then you'll be even more screwed than I will be; you'll have Lilaya's mother, an elder lilin, pissed at you for bringing shame to her family...)]
+	</p>
+	<p>
+		Realising that this is the only realistic way in which you'll be able to set any of your slaves free, you ask Finch how much it'll cost you.
+	</p>
+	<p>
+		[finch.speech(You're a sharp one,)] Finch replies with a big grin on his face. Still keeping his voice down to barely louder than a whisper, he reveals, [finch.speech(I've got to grease some palms every time I do this, so these Freedom Certifications aren't going to come cheap. It's going to be at least [#SPECIAL_PARSE_0] flames, and that's not even including my cut. I'm not running a charity here, so you can add about fifty percent on top of that.)]
+	</p>
+	<p>
+		At that moment, Finch's eyes flick over to track another stranger who's just entered the building, and he raises his voice to a normal volume to say, [finch.speech(Yeah, so anyway, just let me know if you want to buy anything. Is there anything else I can do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_FREEDOM_TALK_END"><![CDATA[
+	<p>
+		Knowing that you can now purchase Freedom Certifications from Finch, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_FREEDOM_TALK_END_START_ACCOMMODATION_QUEST"><![CDATA[
+	<p>
+		Knowing that you can now purchase Freedom Certifications from Finch, you wonder whether you'd be able to convince any slaves to stay with you as your guest after freeing them. Of course, that would require Lilaya's permission to house guests in her mansion, so you make a mental note to bring that up with her before wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>

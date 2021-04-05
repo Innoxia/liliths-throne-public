@@ -11,6 +11,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -273,7 +274,15 @@ public class Loppy extends NPC {
 	public void endSex() {
 		this.returnToHome();
 	}
-
+	
+	@Override
+	public boolean isKnowsCharacterArea(CoverableArea area, GameCharacter target) {
+		if(target.equals(Main.game.getNpc(Bunny.class))) {
+			return true;
+		}
+		return super.isKnowsCharacterArea(area, target);
+	}
+	
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(!user.equals(target)) { // Item is not being self-used:

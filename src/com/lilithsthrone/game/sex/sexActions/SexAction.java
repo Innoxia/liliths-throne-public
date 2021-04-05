@@ -367,7 +367,7 @@ public abstract class SexAction implements SexActionInterface {
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
 				for(CoverableArea area : cummedOnList) {
 					switch(area) {
-						case NONE:
+						case NONE: case TAIL:
 							break;
 						case ANUS: case ASS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
@@ -431,7 +431,7 @@ public abstract class SexAction implements SexActionInterface {
 				
 				for(CoverableArea area : cummedOnList) {
 					switch(area) {
-						case NONE:
+						case NONE: case TAIL:
 							break;
 						case ANUS: case ASS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);

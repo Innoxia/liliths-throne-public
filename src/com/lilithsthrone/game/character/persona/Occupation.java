@@ -72,7 +72,7 @@ public enum Occupation {
 	NPC_GANG_BODY_GUARD(Perk.JOB_GANG_BODY_GUARD, "gang body guard", "[npc.NameIsFull] a personal body guard of her gang's leader.", OccupationTag.HAS_PREREQUISITES),
 	NPC_GANG_MEMBER(Perk.JOB_GANG_MEMBER, "gang member", "[npc.NameIsFull] a member of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_STABLE_MISTRESS(Perk.JOB_NPC_STABLE_MISTRESS, "stable mistress", "[npc.NameIsFull] responsible for the training and care of a large number of centaur slaves.") {
+	NPC_STABLE_MISTRESS(Perk.JOB_NPC_STABLE_MISTRESS, "stable mistress", "[npc.NameIsFull] responsible for the training and care of a large number of centaur slaves.", OccupationTag.HAS_PREREQUISITES) {
 		@Override
 		public String getName(GameCharacter character) {
 			if(character==null) {
@@ -97,6 +97,7 @@ public enum Occupation {
 	
 	NPC_CAPTIVE(Perk.JOB_CAPTIVE, "captive", "[npc.NameHasFull] been kidnapped and is being illegally held against [npc.her] will.", OccupationTag.HAS_PREREQUISITES),
 	
+	NPC_REBEL_FIGHTER(Perk.JOB_NPC_REBEL_FIGHTER, "rebel fighter", "[npc.NameIsFull] a fighter serving a rebel cause.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_PROSTITUTE(Perk.JOB_PROSTITUTE, "prostitute", "[npc.NameIsFull] a prostitute, making a living by selling [npc.her] body.", OccupationTag.LOWLIFE),
 	
@@ -268,6 +269,11 @@ public enum Occupation {
 	ATHLETE(Perk.JOB_ATHLETE,
 			"athlete",
 			"You're an athlete, and are currently training for your next big event.",
+			OccupationTag.PLAYER_ONLY),
+
+	ARISTOCRAT(Perk.JOB_ARISTOCRAT,
+			"aristocrat",
+			"You've never had to work a day in your life, thanks to the fact that you're a member of an old, and exceedingly wealthy, aristocratic family.",
 			OccupationTag.PLAYER_ONLY),
 	
 	MAID(Perk.JOB_MAID,

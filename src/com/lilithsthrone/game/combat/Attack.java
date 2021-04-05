@@ -305,8 +305,9 @@ public enum Attack {
 
 		// Round float value to nearest 1 decimal place:
 		minDamage = (Math.round(minDamage*10))/10f;
-		
-		minDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
+
+		// Attribute.DAMAGE_UNARMED is already taken into account in GameCharacter.getUnarmedDamage()
+		//minDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return minDamage;
 	}
@@ -316,7 +317,8 @@ public enum Attack {
 		// Round float value to nearest 1 decimal place:
 		maxDamage = (Math.round(maxDamage*10))/10f;
 
-		maxDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
+		// Attribute.DAMAGE_UNARMED is already taken into account in GameCharacter.getUnarmedDamage()
+		//maxDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return maxDamage;
 	}
@@ -395,7 +397,8 @@ public enum Attack {
 							}
 
 						} else {
-							damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
+							// Attribute.DAMAGE_UNARMED is already taken into account in GameCharacter.getUnarmedDamage()
+							//damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
 						}
 				}
 				

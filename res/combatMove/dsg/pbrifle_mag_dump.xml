@@ -44,7 +44,7 @@
 	<baseDamage><![CDATA[
 		[##var hits = 0]
 		#IF(npc.getEssenceCount() < 15)
-			[##hits = (RND.nextInt(getEssenceCount())+2)]
+			[##hits = (RND.nextInt(npc.getEssenceCount())+2)]
 		#ELSE
 			[##hits = (RND.nextInt(14)+2)]			
 		#ENDIF
@@ -103,13 +103,13 @@
 	The parsing target of 'npc' corresponds to the character who is being checked to see if they have this move available to them.
 	All whitespace is stripped from the returned String before it is parsed into a Boolean. -->
 	<availabilityCondition><![CDATA[
-		[#npc.getMainWeapon(0) != null && npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_eep_pbweap_pbrifle) && npc.getEssenceCount() > 0]
+		[#npc.getMainWeapon(0) != null && npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_eep_pbweap_pbrifle) && npc.getEssenceCount() > 2]
 	]]>
 	</availabilityCondition>
 	
 	<!-- A short description to let the player know what the conditions are for this move being available to them. -->
 	<availabilityDescription><![CDATA[
-		Available to characters carrying a Pepperball Rifle with more than 2 essences.
+		Available to characters carrying a pepperball rifle with more than 2 essences.
 	]]></availabilityDescription>
 	
 	<!-- The weighting for this action's chance of being selected by an AI combatant.
@@ -179,7 +179,7 @@
 		<execute><![CDATA[
 			Squeezing the trigger as fast as [npc.name] can manage, [npc.she] [npc.verb(manage)] to get [style.colorArcane([#~~(hits)])] hits on [npc2.name]!
 			formattedHealthDamage
-			Expending so much ammo costs you 
+			Expending so much ammo costs [npc.herHim] 
 			#IF(npc.getEssenceCount() < 15)
 				[style.colorArcane([#npc.getEssenceCount])] essences.
 				[##npc.setEssenceCount(0)]

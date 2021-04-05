@@ -113,6 +113,15 @@ public class Arm implements BodyPartInterface {
 	}
 
 	public String setArmRows(GameCharacter owner, int armRows) {
+		if(!Main.game.isStarted() || owner==null) {
+			armRows = Math.max(1, Math.min(armRows, MAXIMUM_ROWS));
+			this.armRows = armRows;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		int currentArmRows = getArmRows();
 		armRows = Math.max(1, Math.min(armRows, MAXIMUM_ROWS));
 		if (armRows == currentArmRows) {

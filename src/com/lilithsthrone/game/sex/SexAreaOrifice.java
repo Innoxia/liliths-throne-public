@@ -2105,6 +2105,9 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
+			if(owner!=null && owner.hasTailSpinneret()) {
+				return CoverableArea.TAIL;
+			}
 			return CoverableArea.ASS;
 		}
 		@Override

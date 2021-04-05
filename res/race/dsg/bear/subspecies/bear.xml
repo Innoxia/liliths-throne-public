@@ -171,7 +171,7 @@
 		<attribute value="25">MAJOR_PHYSIQUE</attribute>
 		<attribute value="5">DAMAGE_PHYSICAL</attribute>
 		<attribute value="5">RESISTANCE_PHYSICAL</attribute>
-		<attribute value="30">HEALTH_MAXIMUM</attribute>
+		<attribute value="20">HEALTH_MAXIMUM</attribute>
 	</statusEffectAttributeModifiers>
 	
 	<!-- Any extra effects which should be listed in this subspecies' status effect tooltip.
@@ -218,7 +218,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

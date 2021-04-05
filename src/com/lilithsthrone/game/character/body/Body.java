@@ -27,10 +27,12 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
@@ -41,6 +43,7 @@ import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -478,6 +481,7 @@ public class Body implements XMLSaving {
 							|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
 							&& this.coverings.get(bct).getPrimaryColour()!=PresetColour.COVERING_NONE)
 					|| bct == BodyCoveringType.EYE_PUPILS
+					|| bct.getCategory()==BodyCoveringCategory.FLUID
 					|| bct == getBodyHairCoveringType(this.getRace())) {
 				Element element = doc.createElement("bodyCovering");
 				bodyCore.appendChild(element);
@@ -774,6 +778,7 @@ public class Body implements XMLSaving {
 				XMLUtil.addAttribute(doc, clitModifiers, pm.toString(), "true");
 			}
 			XMLUtil.addAttribute(doc, bodyVagina, "pierced", String.valueOf(this.vagina.pierced));
+			XMLUtil.addAttribute(doc, bodyVagina, "eggLayer", String.valueOf(this.vagina.eggLayer));
 			
 			XMLUtil.addAttribute(doc, bodyVagina, "wetness", String.valueOf(this.vagina.orificeVagina.wetness));
 			XMLUtil.addAttribute(doc, bodyVagina, "depth", String.valueOf(this.vagina.orificeVagina.depth));
@@ -1291,7 +1296,7 @@ public class Body implements XMLSaving {
 			configuration = LegConfiguration.getValueFromString(leg.getAttribute("configuration"));
 		} catch(Exception ex) {}
 		
-		FootStructure footStructure = legType.getDefaultFootStructure();
+		FootStructure footStructure = legType.getDefaultFootStructure(configuration);
 		try {
 			footStructure = FootStructure.valueOf(leg.getAttribute("footStructure"));
 		} catch(Exception ex) {}
@@ -1490,28 +1495,32 @@ public class Body implements XMLSaving {
 		
 		// **************** Tentacle **************** //
 
+		Tentacle importedTentacle = new Tentacle(TentacleType.NONE);	
+		
 		Element tentacle = (Element)parentElement.getElementsByTagName("tentacle").item(0);
-		AbstractTentacleType tentacleType = TentacleType.getTentacleTypeFromId(tentacle.getAttribute("type"));
-
-		Tentacle importedTentacle = new Tentacle(tentacleType);
-		
-		importedTentacle.tentacleCount = (Integer.valueOf(tentacle.getAttribute("count")));
-		
-		if(tentacle.getAttribute("girth") != null && !tentacle.getAttribute("girth").isEmpty()) {
-			int tentacleGirth = Integer.valueOf(tentacle.getAttribute("girth"));
-			importedTentacle.girth = tentacleGirth;
+		if(tentacle!=null) {
+			AbstractTentacleType tentacleType = TentacleType.getTentacleTypeFromId(tentacle.getAttribute("type"));
+	
+			importedTentacle = new Tentacle(tentacleType);
+			
+			importedTentacle.tentacleCount = (Integer.valueOf(tentacle.getAttribute("count")));
+			
+			if(tentacle.getAttribute("girth") != null && !tentacle.getAttribute("girth").isEmpty()) {
+				int tentacleGirth = Integer.valueOf(tentacle.getAttribute("girth"));
+				importedTentacle.girth = tentacleGirth;
+			}
+			
+			if(tentacle.getAttribute("length")!=null && !tentacle.getAttribute("length").isEmpty()) {
+				float tentacleLength = Float.valueOf(tentacle.getAttribute("length"));
+				importedTentacle.lengthAsPercentageOfHeight = tentacleLength;
+			} else {
+				importedTentacle.lengthAsPercentageOfHeight = tentacleType.getDefaultLengthAsPercentageOfHeight();
+			}
+			
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Tentacle: "
+					+ "<br/>type: "+importedTentacle.getType()
+					+ "<br/>count: "+importedTentacle.getTentacleCount());
 		}
-		
-		if(tentacle.getAttribute("length")!=null && !tentacle.getAttribute("length").isEmpty()) {
-			float tentacleLength = Float.valueOf(tentacle.getAttribute("length"));
-			importedTentacle.lengthAsPercentageOfHeight = tentacleLength;
-		} else {
-			importedTentacle.lengthAsPercentageOfHeight = tentacleType.getDefaultLengthAsPercentageOfHeight();
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Tentacle: "
-				+ "<br/>type: "+importedTentacle.getType()
-				+ "<br/>count: "+importedTentacle.getTentacleCount());
 		
 		
 		// **************** Vagina **************** //
@@ -1549,6 +1558,13 @@ public class Body implements XMLSaving {
 		}
 		
 		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
+		
+		if(vagina.hasAttribute("eggLayer")) {
+			importedVagina.eggLayer = (Boolean.valueOf(vagina.getAttribute("eggLayer")));
+		} else if(vagina.getAttribute("type").equals("DEMON_EGGS") || vagina.getAttribute("type").equals("NoStepOnSnek_snake_vagina_e")){ // Removed egg-laying vagina variants in 0.4
+			importedVagina.eggLayer = true;
+		}
+		
 		importedVagina.orificeVagina.stretchedCapacity = handleCapacityLoading(Float.valueOf(vagina.getAttribute("stretchedCapacity")));
 		try {
 			importedVagina.orificeVagina.squirter = (Boolean.valueOf(vagina.getAttribute("squirter")));
@@ -2117,6 +2133,7 @@ public class Body implements XMLSaving {
 				}
 				break;
 			case BIPEDAL:
+			case WINGED_BIPED:
 				break;
 			case TAIL:
 				if(owner.isFeral()) {
@@ -2796,8 +2813,10 @@ public class Body implements XMLSaving {
 				}
 			}
 			
-			sb.append(" [npc.Her] [npc.arms] are "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))
-					+", and are <span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>"+owner.getFemininity().getName(false)+" in appearance.");
+			if (!(owner.isFeral() && owner.getArmType().allowsFlight())) {
+				sb.append(" [npc.Her] [npc.arms] are "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))
+						+", and are <span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>"+owner.getFemininity().getName(false)+" in appearance.");
+			}
 			
 			if(arm.getType().allowsFlight()) {
 				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
@@ -2836,6 +2855,9 @@ public class Body implements XMLSaving {
 					case TAIL_TAPERING_NONE:
 						sb.append(" The girth of each one does not taper off from the base, and so each tentacle has a constant diameter all the way to the [npc.tentacleTip].");
 						break;
+					case TAIL_TAPERING_BULBOUS:
+						sb.append(" The girth of each one expands, then tapers off, at a steady rate from the base so as to make a bulbous, oval shape.");
+						break;
 					default:
 						break;
 				}
@@ -2871,6 +2893,7 @@ public class Body implements XMLSaving {
 					}
 					break;
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
@@ -2899,6 +2922,7 @@ public class Body implements XMLSaving {
 					sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 					break;
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
@@ -2922,6 +2946,9 @@ public class Body implements XMLSaving {
 					break;
 				case UNGULIGRADE:
 					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] hoofs.");
+					break;
+				case ARACHNOID:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] [npc.verb(walk)] on the ends of [npc.her] segmented arachnoid legs.");
 					break;
 			}
 		}
@@ -2984,7 +3011,7 @@ public class Body implements XMLSaving {
 			if(wing.getType().allowsFlight()) {
 				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
 					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
-				} else if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
+				} else if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getValue()) {
 					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
 				} else {
 					sb.append(" They aren't large enough to allow [npc.herHim] to fly.");
@@ -3010,6 +3037,9 @@ public class Body implements XMLSaving {
 				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_LINEAR)) {
 					sb.append(" It tapers off at a steady rate from the base, and so at the [npc.tailTip], it is [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
 					
+				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_BULBOUS)) {
+					sb.append(" Its girth expands, then tapers off, at a steady rate from the base so as to make a bulbous, oval shape.");
+					
 				} else {
 					sb.append(" It does not taper off from the base, and is a constant diameter all the way to the [npc.tailTip].");
 				}
@@ -3022,12 +3052,15 @@ public class Body implements XMLSaving {
 				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_LINEAR)) {
 					sb.append(" They taper off at a steady rate from the base, and so at their [npc.tailTips], they are [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
 					
+				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_BULBOUS)) {
+					sb.append(" Their girth expands, then tapers off, at a steady rate from the base so as to make them into bulbous, oval shapes.");
+					
 				} else {
 					sb.append(" They do not taper off from the base, and are a constant diameter all the way to the [npc.tailTips].");
 				}
 			}
 			
-			if(owner.getTailType().isSuitableForPenetration()) {
+			if(owner.isTailSuitableForPenetration()) {
 				sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 			} else {
 				sb.append(" It is not suitable for penetrating orifices.");
@@ -3182,7 +3215,7 @@ public class Body implements XMLSaving {
 
 		halfDemonSubspecies = null; // reset so it will be recalculated when accessed
 
-		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
+		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>=this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
 			this.setSubspeciesOverride(subspecies);
 		}
 		
@@ -3406,7 +3439,15 @@ public class Body implements XMLSaving {
 	public Penis getPenis() {
 		return penis;
 	}
-	
+
+	public AbstractPenisType getPenisType() {
+		return penis.getType();
+	}
+
+	public boolean hasPenis() {
+		return penis.getType() != PenisType.NONE;
+	}
+
 	public Penis getSecondPenis() {
 		return secondPenis;
 	}
@@ -3443,6 +3484,14 @@ public class Body implements XMLSaving {
 		return vagina;
 	}
 
+	public AbstractVaginaType getVaginaType() {
+		return vagina.getType();
+	}
+
+	public boolean hasVagina() {
+		return vagina.getType() != VaginaType.NONE;
+	}
+
 	public Wing getWing() {
 		return wing;
 	}
@@ -3469,6 +3518,14 @@ public class Body implements XMLSaving {
 
 	public String setArmType(GameCharacter owner, AbstractArmType type) {
 		return this.arm.setType(owner, type);
+	}
+
+	public String setArmRows(int armRows) {
+		return this.arm.setArmRows(null, armRows);
+	}
+
+	public String setArmRows(GameCharacter owner, int armRows) {
+		return this.arm.setArmRows(owner, armRows);
 	}
 
 	public void setAss(Ass ass) {
@@ -3571,6 +3628,22 @@ public class Body implements XMLSaving {
 		this.penis = penis;
 	}
 
+	public String setPenisType(AbstractPenisType type) {
+		return this.penis.setType(null, type);
+	}
+
+	public String setPenisType(GameCharacter owner, AbstractPenisType type) {
+		return this.penis.setType(owner, type);
+	}
+
+	public String addPenisModifier(PenetrationModifier modifier) {
+		return this.penis.addPenisModifier(null, modifier);
+	}
+
+	public String addPenisModifier(GameCharacter owner, PenetrationModifier modifier) {
+		return this.penis.addPenisModifier(owner, modifier);
+	}
+
 	public void setSecondPenis(Penis secondPenis) {
 		this.secondPenis = secondPenis;
 	}
@@ -3595,6 +3668,14 @@ public class Body implements XMLSaving {
 		this.vagina = vagina;
 	}
 
+	public String setVaginaType(AbstractVaginaType type) {
+		return this.vagina.setType(null, type);
+	}
+
+	public String setVaginaType(GameCharacter owner, AbstractVaginaType type) {
+		return this.vagina.setType(owner, type);
+	}
+
 	public void setWing(Wing wing) {
 		this.wing = wing;
 	}
@@ -3615,6 +3696,11 @@ public class Body implements XMLSaving {
 		return this.wing.setType(owner, type);
 	}
 
+	public void applyLegConfigurationTransformation(AbstractLegType legType, LegConfiguration legConfiguration, boolean applyFullEffects) {
+		this.setLegType(legType);
+		this.leg.getType().applyLegConfigurationTransformation(this, legConfiguration, applyFullEffects);
+	}
+
 	public Boolean hasTongueModifier(TongueModifier modifier) {
 		return face.getTongue().hasTongueModifier(modifier);
 	}
@@ -3629,6 +3715,14 @@ public class Body implements XMLSaving {
 
 	public void resetTongueModifiers() {
 		face.getTongue().resetTongueModifiers();
+	}
+
+	public boolean hasWings() {
+		return getWingType() != WingType.NONE;
+	}
+
+	public boolean isFaceHuman() {
+		return face.getType().getRace() == Race.HUMAN;
 	}
 
 	// Descriptions:
@@ -4794,10 +4888,10 @@ public class Body implements XMLSaving {
 		
 		descriptionSB.append(viewedVagina.getType().getBodyDescription(owner));
 		
-		if(viewedVagina.getType().isEggLayer()) {
-			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] lays eggs instead of giving birth to live young.");
+		if(owner.isVaginaEggLayer()) {
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] [style.colourEgg([npc.verb(lay)] eggs instead of giving birth to live young)].");
 		} else {
-			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] gives birth to live young.");
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] [style.colourSex([npc.verb(give)] birth to live young)].");
 		}
 		
 		if(owner.isFeral()) {
@@ -6055,12 +6149,13 @@ public class Body implements XMLSaving {
 	 * @param feralAttributes Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(AbstractSubspecies subspecies) {
-		FeralAttributes attributes = subspecies.getFeralAttributes();
+		this.feral = subspecies!=null;
+		
+		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes();
 		if(attributes==null) {
 			System.err.println("Error in Body.setFeral(): subspecies '"+Subspecies.getIdFromSubspecies(subspecies)+"' does not support FeralAttributes!");
 			return;
 		}
-		this.feral = subspecies!=null;
 		
 		// Set body to full subspecies:
 		Main.game.getCharacterUtils().reassignBody(
@@ -6260,6 +6355,8 @@ public class Body implements XMLSaving {
 			updateVaginaColouring();
 			
 			updatePenisColouring();
+			
+			updateSpinneretColouring();
 		}
 	}
 	
@@ -6342,9 +6439,13 @@ public class Body implements XMLSaving {
 			coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, PresetColour.ORIFICE_INTERIOR, false));
 		}
 	}
+
+	public void updateSpinneretColouring() {
+		coverings.put(BodyCoveringType.SPINNERET, new Covering(BodyCoveringType.SPINNERET, CoveringPattern.ORIFICE_SPINNERET, coverings.get(BodyCoveringType.VAGINA).getPrimaryColour(), false, PresetColour.ORIFICE_INTERIOR, false));
+	}
 	
 	public boolean isAbleToFlyFromArms() {
-		if(this.getBodyMaterial()==BodyMaterial.SLIME || this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight().getValue()>WingSize.THREE_LARGE.getValue()) {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME || this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight(this).getValue()>WingSize.THREE_LARGE.getValue()) {
 			return false;
 		}
 		return arm.getType().allowsFlight();
@@ -6354,16 +6455,11 @@ public class Body implements XMLSaving {
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 			return false;
 		}
-		return wing.getType().allowsFlight() && wing.getSize().getValue()>=this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight().getValue();
+		return wing.getType().allowsFlight() && wing.getSize().getValue()>=this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight(this).getValue();
 	}
 
 	public boolean isAbleToFlyFromExtraParts() {
-		for(BodyPartInterface bpi : getAllBodyParts()) {
-			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
-				return true;
-			}
-		}
-		return false;
+		return getAllBodyParts().stream().anyMatch(bpi -> bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT));
 	}
 
 	/**
@@ -6386,4 +6482,13 @@ public class Body implements XMLSaving {
 		this.takesAfterMother = takesAfterMother;
 	}
 
+	/**
+	 * Returns a randomly chosen BodyPart-type from the list of types (e. g. multiple WingTypes)
+	 * provided as parameters. To give one or more types more weight these types can be repeated.
+	 * @param values List of BodyPartTypes to choose from randomly
+	 * @return The randomly chosen type of the corresponding BodyPart
+	 */
+	public BodyPartTypeInterface randomTypeFrom(BodyPartTypeInterface... values) {
+		return Util.randomItemFrom(Util.newArrayListOfValues(values));
+	}
 }

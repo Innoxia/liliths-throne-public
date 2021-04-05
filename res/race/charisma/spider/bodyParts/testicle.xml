@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	<race>charisma_spider</race>
+	<coveringType>charisma_spider_chitinSmooth</coveringType>
+	<fluidType>charisma_spider_cum</fluidType>
+	<internal>true</internal>
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+</testicle>

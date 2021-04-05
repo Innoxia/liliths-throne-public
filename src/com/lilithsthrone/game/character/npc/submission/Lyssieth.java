@@ -342,12 +342,12 @@ public class Lyssieth extends NPC {
 		return true;
 	}
 	
-	@Override
-	public void turnUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this)) {
-			this.setStartingBody(false);
-		}
-	}
+//	@Override
+//	public void turnUpdate() {
+//		if(!Main.game.getCharactersPresent().contains(this)) {
+//			this.setStartingBody(false);
+//		}
+//	}
 	
 	@Override
 	protected Set<GameCharacter> getChildren() {
@@ -978,7 +978,7 @@ public class Lyssieth extends NPC {
 	@Override
 	public String getDirtyTalkVaginaPenetrated(GameCharacter target, boolean isPlayerDom){
 		if(!isPlayersMommy()) {
-			return super.getDirtyTalkMouthPenetrated(target, isPlayerDom);
+			return super.getDirtyTalkVaginaPenetrated(target, isPlayerDom);
 		}
 		String returnedLine = "";
 		
@@ -1106,7 +1106,7 @@ public class Lyssieth extends NPC {
 						availableLines.add(UtilText.returnStringAtRandom(
 								"Yes! Keep sucking mommy's cock, like a good [npc2.girl]! Just like that!",
 								"Oh yes! Wrap those lips of yours around mommy's cock! Keep going!",
-								"Keep sucking mommy's cock! Yes! Good [npc2girl]!"));
+								"Keep sucking mommy's cock! Yes! Good [npc2.girl]!"));
 						break;
 					case NIPPLE:
 						availableLines.add(UtilText.returnStringAtRandom(

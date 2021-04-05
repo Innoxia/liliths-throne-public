@@ -555,7 +555,7 @@
 		Getting up off [npc.namePos] bed, you turn to face [npc.herHim] and pointedly ask what [npc.she] did in order to have earned a [#SPECIAL_PARSE_0] flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
-		Having already got what you wanted from [npc.herHim], you continue with your plan to get rid of [npc.name], and casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As the [npc.race] turns to look at you with a shocked expression on [npc.her] face, you tell [npc.herHim] that you're looking forwards to finding out, before heading towards the door and stating your intention to report [npc.herHim] to the nearest constable.
+		Having already got what you wanted from [npc.herHim], you continue with your plan to get rid of [npc.name], and casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As the [npc.race] turns to look at you with a shocked expression on [npc.her] face, you tell [npc.herHim] that you're looking forward to finding out, before heading towards the door and stating your intention to report [npc.herHim] to the nearest constable.
 	</p>
 	<p>
 		Frantically grabbing [npc.her] bag and stuffing [npc.her] personal possessions into it, [npc.name]
@@ -576,7 +576,7 @@
 		Not wanting this lowlife hanging around in this area for any longer, you pointedly ask what [npc.she] did in order to have earned a [#SPECIAL_PARSE_0] flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
-		Continuing with your plan to get rid of [npc.name], you casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As a shocked expression quickly settles on the [npc.race]'s face, you tell [npc.herHim] that you're looking forwards to finding out, before starting to walk off and call out your intention to report [npc.herHim] to the nearest constable.
+		Continuing with your plan to get rid of [npc.name], you casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As a shocked expression quickly settles on the [npc.race]'s face, you tell [npc.herHim] that you're looking forward to finding out, before starting to walk off and call out your intention to report [npc.herHim] to the nearest constable.
 	</p>
 	<p>
 		[npc.NamePos] look of complete disbelief is quickly replaced by one of fear and anger as [npc.she] hears what it is you're saying, and as you [pc.walk] off, [npc.she]
@@ -672,7 +672,12 @@
 		Staggering back, [npc.name] collapses to the floor, completely defeated. [npc.She] looks up at you, and you see that there's a desperate, wild look in [npc.her] [npc.eyes]. Making a pitiful little whining noise, [npc.she] begs, [npc.speech(Do what you want with me! Just, please, I don't want to be a slave! Don't hand me over to the Enforcers!)]
 	</p>
 	<p>
-		Despite the awful situation that [npc.she] finds [npc.herself] in, it appears as though your powerful arcane aura is having a strong effect on [npc.name]. Even as [npc.she] begs for you to have mercy, you see [npc.herHim] glance down hungrily at your body. Seemingly unaware of what [npc.sheIs] doing, [npc.her] [npc.hands] suddenly drop down between [npc.her] [npc.legs], and [npc.she] lets out [npc.a_moan+] as [npc.she] starts touching [npc.herself]...
+		Despite the awful situation that [npc.she] finds [npc.herself] in, it appears as though your powerful arcane aura is having a strong effect on [npc.name]. Even as [npc.she] begs for you to have mercy, you see [npc.herHim] glance down hungrily at your body.
+		#IF(npc.isTaur())
+			 Seemingly unaware of what [npc.sheIs] doing, [npc.she] starts rubbing [npc.her] rear-end up against a nearby downpipe, and [npc.she] lets out [npc.a_moan+] as [npc.she] uses it to masturbate...
+		#ELSE
+			 Seemingly unaware of what [npc.sheIs] doing, [npc.her] [npc.hands] suddenly drop down to [npc.her] groin, and [npc.she] lets out [npc.a_moan+] as [npc.she] starts touching [npc.herself]...
+		#ENDIF
 	</p>
 	<p>
 		<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that [style.italicsMinorBad(this will be the last time you ever see [npc.herHim])], as [npc.sheIs] sure to move on once you leave.</i>
@@ -951,7 +956,14 @@
 			#ENDIF
 			, sinks to the floor with a deep sigh. Looking up at you, a satisfied smile settles on [npc.her] face, and you realise that you ended up giving [npc.herHim] exactly what [npc.she] wanted.
 		#ELSE
-			Having had your fun, you and [com.name] step back from [npc.name], who sinks to the floor with a frustrated sigh. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			Having had your fun, you and [com.name] step back from [npc.name], who sinks to the floor with a frustrated sigh.
+			#IF(npc.isTaur())
+				 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby downpipe in a desperate attempt to masturbate and finish what you started.
+			#ELSEIF(npc.hasLegs())
+				 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ELSE
+				 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -970,7 +982,14 @@
 			#ENDIF
 			. Looking up at [com.name], a satisfied smile settles on [npc.her] face, and you realise that your [com.companion] ended up giving [npc.herHim] exactly what [npc.she] wanted.
 		#ELSE
-			As [com.name] steps back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that your [com.companion] has finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			As [com.name] steps back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that your [com.companion] has finished.
+			#IF(npc.isTaur())
+				 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby downpipe in a desperate attempt to masturbate and finish what you started.
+			#ELSEIF(npc.hasLegs())
+				 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ELSE
+				 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -983,13 +1002,20 @@
 		#IF(npc.isSatisfiedFromLastSex())
 			As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her]
 			#IF(sex.getNumberOfOrgasms(npc)>1)
-				 orgasms
+				 orgasms.
 			#ELSE
-				 orgasm
+				 orgasm.
 			#ENDIF
-			. Looking up at you, a satisfied smile settles on [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
+			 Looking up at you, a satisfied smile settles on [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
 		#ELSE
-			As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished.
+			#IF(npc.isTaur())
+				 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby downpipe in a desperate attempt to masturbate and finish what you started.
+			#ELSEIF(npc.hasLegs())
+				 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ELSE
+				 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>

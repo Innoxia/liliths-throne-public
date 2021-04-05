@@ -343,7 +343,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_GROPE_CONTENT"><![CDATA[
 	<p>
-		Slipping your [pc.hand] down between [npc.her] [npc.legs], you start groping and stroking [npc.her] groin.
+		Slipping your [pc.hand] down over [npc.her] [npc.legs], you start groping and stroking [npc.her] groin.
 		#IF npc.hasPenis()
 		#THEN Running your [pc.fingers] over the [npc.penisSize] bulge of [npc.her] cock, you let out a cheeky laugh before giving it a few firm strokes.
 		#ENDIF
@@ -371,7 +371,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_MAIN_GROPE_REJECTED"><![CDATA[
 	<p>
-		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,
+		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down to [npc.her] groin. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,
 		#IF npc.isShy()
 		#THEN [npc.speech(S-Stop it! That's too much!)]
 		#ELSE
@@ -451,13 +451,14 @@
 	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE"><![CDATA[
 	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
-			Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
-			#IF npc.isShy()
-			#THEN [npc.She] starts to blush in response to your sudden touch, and, shuffling around on [npc.her] seat, [npc.she] shyly smiles at you and bites [npc.her] [npc.lip].
+			Moving your [pc.foot] under the table, you slowly run it up the length of [npc.namePos] [npc.legs].
+			#IF(npc.isShy())
+				 [npc.She] starts to blush in response to your sudden touch, and, shuffling around on [npc.her] seat, [npc.she] shyly smiles at you and bites [npc.her] [npc.lip].
 			#ELSE
-				#IF npc.isConfident()
-				#THEN [npc.She] lets out a playful laugh in response to your sudden touch, before eagerly spreading [npc.her] [npc.legs] in order to entice you into taking it a step further.
-				#ELSE [npc.She] playfully smiles at you in response to your sudden touch, and, spreading [npc.her] [npc.legs], [npc.she] bites [npc.her] [npc.lip] and encourages you to take it a step further.
+				#IF(npc.isConfident())
+					 [npc.She] lets out a playful laugh in response to your sudden touch, before eagerly [npc.spreadingHerLegs] in order to entice you into taking it a step further.
+				#ELSE
+					 [npc.She] playfully smiles at you in response to your sudden touch, and, [npc.spreadingHerLegs], [npc.she] bites [npc.her] [npc.lip] and encourages you to take it a step further.
 				#ENDIF
 			#ENDIF
 		</p>
@@ -483,7 +484,7 @@
 	#ELSE
 		#IF(!npc.isTaur())
 			<p>
-				Leaning your humanoid upper body in against [npc.name], you slip your [pc.hand] down between [npc.her] [npc.legs], before starting to grope and stroke [npc.her] groin.
+				Leaning your humanoid upper body in against [npc.name], you slip your [pc.hand] down over [npc.her] [npc.legs], before starting to grope and stroke [npc.her] groin.
 				#IF(npc.hasPenis())
 					 Running your [pc.fingers] over the [npc.penisSize] bulge of [npc.her] cock, you let out a cheeky laugh before giving it a few firm strokes.
 				#ENDIF
@@ -545,7 +546,7 @@
 	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE_REJECTED"><![CDATA[
 	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
-			Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
+			Moving your [pc.foot] under the table, you slowly run it up the length of [npc.namePos] [npc.legs].
 			#IF(npc.isShy())
 				 [npc.She] instantly blushes, and, desperately shuffling away on [npc.her] seat, [npc.she] shyly stutters, [npc.speech(D-Don't do that please!)]
 			#ELSE
@@ -562,7 +563,7 @@
 	#ELSE
 		#IF(!npc.isTaur())
 			<p>
-				Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs].
+				Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down to [npc.her] groin.
 				#IF npc.isShy()
 					 [npc.She] instantly blushes, and, desperately shuffling away on [npc.her] seat, [npc.she] shyly stutters, [npc.speech(D-Don't do that please!)]
 				#ELSE
@@ -947,7 +948,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_BAR_GROPE_REJECTED"><![CDATA[
 	<p>
-		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,#IF npc.isShy()
+		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down to [npc.her] groin. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,#IF npc.isShy()
 		#THEN [npc.speech(S-Stop it! That's too much!)]
 		#ELSE
 			#IF npc.isConfident()
@@ -1400,11 +1401,20 @@
 		Sensing that Kruger wants to have some physical contact with you, and desperately craving the feeling of his strong hands running over your body, you shuffle up against him, before very suggestively placing a hand on his inner-thigh. Instantly, Kruger's hands are all over you, and you let out [pc.a_moan+] as he starts dominantly groping and squeezing your [pc.breasts+].
 	</p>
 	<p>
-		The zebra-girl on the other side of you leans across, reaching down to take hold of your thigh and giving it a sharp tug as she snaps, [genericFemale.speech(Spread your legs, slut.)]
+		#IF(pc.hasLegs())
+			The zebra-girl on the other side of you leans across, reaching down to take hold of your thigh and giving it a sharp tug as she snaps, [genericFemale.speech(Spread your legs, slut.)]
+		#ELSE
+			The zebra-girl on the other side of you leans across and reaches down to give your [pc.leg] a smack as she snaps, [genericFemale.speech(Present yourself, slut.)]
+		#ENDIF
 	</p>
 	#IF(!pc.isTaur())
 		<p>
-			Doing as you're told, you lean back on the sofa and part your [pc.legs] for Kruger, who instantly reaches down with his free hand to stroke and stimulate
+			#IF(pc.hasLegs())
+				Doing as you're told, you lean back on the sofa and part your [pc.legs] for Kruger,
+			#ELSE
+				Doing as you're told, you lean back on the sofa and present yourself to Kruger,
+			#ENDIF
+			 who instantly reaches down with his free hand to stroke and stimulate
 			#IF pc.hasPenis() && pc.hasVagina()
 			#THEN both your cock and pussy.
 			#ELSE
@@ -1422,10 +1432,10 @@
 			[kruger.speech(Good [pc.girl]...)] Kruger growls into your [pc.ear]. [kruger.speech(You're loving this, aren't you?)]
 		</p>
 		<p>
-			You desperately [pc.moan] in the affirmative, bucking your [pc.hips+] up against the dominant lion's hand as he continues stroking up and down between your [pc.legs]. After a while of this, he finally pulls back, grinning at you in delight.
+			You desperately [pc.moan] in the affirmative, bucking your [pc.hips+] up against the dominant lion's hand as he continues stroking up and down. After a while of this, he finally pulls back, grinning at you in delight.
 		</p>
 		<p>
-			As the excitement comes to an end, the girl who told you open your legs leans in over your shoulder, before whispering in your [pc.ear], [genericFemale.speech(Go on, bitch, let Kruger fuck you like the desperate slut you are.)]
+			As the excitement comes to an end, the zebra-girl who told you present yourself leans in over your shoulder, before whispering in your [pc.ear], [genericFemale.speech(Go on, bitch, let Kruger fuck you like the desperate slut you are.)]
 		</p>
 	#ELSE
 		<p>
@@ -1579,7 +1589,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_GROPE_REJECTED"><![CDATA[
 	<p>
-		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the noise of the dance floor,
+		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down to [npc.her] groin. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the noise of the dance floor,
 		#IF npc.isShy()
 		#THEN [npc.speech(S-Stop it! That's too much!)]
 		#ELSE
@@ -2500,22 +2510,22 @@
 		#THEN
 			<p>
 				#IF npc.isKind()
-				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to gently rub at your [pc.pussy+]. Letting out an amused chuckle, [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You getting wet down there? Perhaps we could go back to my place soon. I'll make sure to take care of you...)]
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to gently rub at your [pc.pussy+]. Letting out an amused chuckle, [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You getting wet down there? Perhaps we could go back to my place soon. I'll make sure to take care of you...)]
 				#ELSE
 					#IF npc.isSelfish()
-					#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
-					#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
+					#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
+					#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
 					#ENDIF
 				#ENDIF
 			</p>
 		#ELSE
 			<p>
 				#IF npc.isKind()
-				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to gently rub at your genderless mound. Pulling back a little and biting [npc.her] [npc.lip], [npc.she] sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Perhaps we could go back to my place soon...)]
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to gently rub at your genderless mound. Pulling back a little and biting [npc.her] [npc.lip], [npc.she] sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Perhaps we could go back to my place soon...)]
 				#ELSE
 					#IF npc.isSelfish()
-					#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
-					#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
+					#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
+					#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
 					#ENDIF
 				#ENDIF
 			</p>
@@ -2749,15 +2759,15 @@
 		#THEN
 			<p>
 				#IF npc.isSelfish()
-				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
-				#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this in public! Fuck, I can't wait to fuck you tonight...)]
+				#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
 				#ENDIF
 			</p>
 		#ELSE
 			<p>
 				#IF npc.isSelfish()
-				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
-				#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
+				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
+				#ELSE As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to your groin, before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
 				#ENDIF
 			</p>
 		#ENDIF
@@ -2924,7 +2934,7 @@
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_ACCEPT"><![CDATA[
 	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
-			Happy to let [npc.name] do as [npc.she] wants, you spread your [pc.legs] and sink down on your seat a little lower, pushing your groin out towards [npc.herHim] beneath the table. Biting your [pc.lip] and putting on your most seductive smile, you softly [pc.moanVerb], [pc.speech(Yes... Keep going...)]
+			Happy to let [npc.name] do as [npc.she] wants, you [pc.spreadYourLegs] and sink down on your seat a little lower, pushing your groin out towards [npc.herHim] beneath the table. Biting your [pc.lip] and putting on your most seductive smile, you softly [pc.moanVerb], [pc.speech(Yes... Keep going...)]
 		</p>
 		<p>
 			Seemingly eager to do as you ask, [npc.name] runs [npc.her] [npc.foot] up the inside of your thigh, but before [npc.she] presses forwards into your groin, [npc.she] suddenly pulls back. Alarmed at [npc.her] sudden change in direction, you let out a pleading [pc.moan], which is exactly what [npc.name] was hoping for, as [npc.she] lets out yet another playful laugh, [npc.speech(Haha! You want me to continue, huh?)]
@@ -2933,7 +2943,12 @@
 			[pc.speech(Yes!)] you instantly reply, the enthusiasm in your voice causing a huge grin to break out over [npc.namePos] face. 
 		</p>
 		<p>
-			[npc.speech(Well, if you insist,)] [npc.she] says, teasing [npc.her] [npc.foot+] up the length of your [npc.leg], before running down the inside of your thigh. Spreading your [pc.legs] a little wider, you again bite your [pc.lip] and plead for [npc.name] to continue. This time, your partner does exactly what you're asking for, and quickly pushes forwards to press [npc.her] [npc.foot] directly into your crotch.
+			#IF(pc.hasLegs())
+				[npc.speech(Well, if you insist,)] [npc.she] says, teasing [npc.her] [npc.foot+] up the length of your [pc.leg], before running down the inside of your thigh. Spreading your [pc.legs] a little wider, you again bite your [pc.lip] and plead for [npc.name] to continue.
+			#ELSE
+				[npc.speech(Well, if you insist,)] [npc.she] says, teasing [npc.her] [npc.foot+] up the length of your [pc.leg]. Feeling [npc.herHim] getting closer to your groin, you again bite your [pc.lip] and plead for [npc.name] to continue.
+			#ENDIF
+			 This time, your partner does exactly what you're asking for, and quickly pushes forwards to press [npc.her] [npc.foot] directly into your crotch.
 		</p>
 		#IF(pc.hasPenis())
 			<p>
@@ -3004,18 +3019,18 @@
 				#THEN
 					<p>
 						#IF(npc.isSelfish())
-							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this! Fuck, I can't wait to fuck you tonight...)]
+							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down to your groin, before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your [pc.pussy+]. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You're getting wet down there, aren't you, slut? What a whore, letting yourself get used like this! Fuck, I can't wait to fuck you tonight...)]
 						#ELSE
-							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
+							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down to your groin, before curling [npc.her] [npc.fingers] up and starting to firmly rub at your [pc.pussy+]. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You're getting wet, aren't you [pc.name]? Fuck, you're so fucking hot...)]
 						#ENDIF
 					</p>
 				#ELSE
 					<p>
 						#IF(npc.isSelfish())
 						#THEN
-							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
+							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down to your groin, before curling [npc.her] [npc.fingers] up and starting to dominantly rub at your genderless mound. Leaning in towards you, [npc.she] lets out a commanding growl, [npc.speech(You haven't got any genitals, huh? Well, I can still use your mouth and ass. Fuck, I can't wait to see what your orgasms are like, what with having nothing down there...)]
 						#ELSE
-							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
+							As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] down to your groin, before curling [npc.her] [npc.fingers] up and starting to firmly rub at your genderless mound. Letting out a horny [npc.moan], [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Fuck, you're so fucking hot...)]
 						#ENDIF
 					</p>
 				#ENDIF

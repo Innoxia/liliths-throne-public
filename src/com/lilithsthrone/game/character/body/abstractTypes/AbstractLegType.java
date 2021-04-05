@@ -2,7 +2,9 @@ package com.lilithsthrone.game.character.body.abstractTypes;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Document;
 
@@ -45,6 +47,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.1
@@ -61,7 +64,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 	private String transformationName;
 	
-	private FootStructure defaultFootStructure;
+	private Map<LegConfiguration, FootStructure> defaultFootStructure;
 	private AbstractFootType footType;
 	
 	private String determiner;
@@ -130,7 +133,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 		this.transformationName = null; // Use default race transformation name
 		
-		this.defaultFootStructure = defaultFootStructure;
+		this.defaultFootStructure = Util.newHashMapOfValues(new Value<>(LegConfiguration.BIPEDAL, defaultFootStructure));
 		this.footType = footType;
 		
 		this.allowedLegConfigurations = allowedLegConfigurations;
@@ -176,7 +179,15 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				
-				this.defaultFootStructure = FootStructure.valueOf(coreElement.getMandatoryFirstOf("defaultFootStructure").getTextContent());
+				this.defaultFootStructure = new HashMap<>();
+				FootStructure defaultStructure = FootStructure.valueOf(coreElement.getMandatoryFirstOf("defaultFootStructure").getTextContent());
+				for(LegConfiguration config : LegConfiguration.values()) {
+					this.defaultFootStructure.put(config, defaultStructure);
+				}
+				for(Element e : coreElement.getAllOf("additionalFootStructure")) {
+					this.defaultFootStructure.put(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), FootStructure.valueOf(e.getTextContent()));
+				}
+				
 				this.footType = FootType.getFootTypeFromId(coreElement.getMandatoryFirstOf("footType").getTextContent());
 				this.spinneret = Boolean.valueOf(coreElement.getMandatoryFirstOf("spinneret").getTextContent());
 				
@@ -288,6 +299,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				case AVIAN:
 				case BIPEDAL:
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					return "leg";
 				case CEPHALOPOD:
 					return "tentacle";
@@ -307,6 +319,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				case AVIAN:
 				case BIPEDAL:
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					return "legs";
 				case CEPHALOPOD:
 					return "tentacles";
@@ -346,8 +359,11 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		return footType;
 	}
 
-	public FootStructure getDefaultFootStructure() {
-		return defaultFootStructure;
+	public FootStructure getDefaultFootStructure(LegConfiguration legConfiguration) {
+		if(!defaultFootStructure.containsKey(legConfiguration)) {
+			return defaultFootStructure.get(LegConfiguration.BIPEDAL);
+		}
+		return defaultFootStructure.get(legConfiguration);
 	}
 	
 	
@@ -603,6 +619,22 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							+ "[npc.NamePos] lower body transforms into that of a huge "+feralRaceName+"'s tail, with [npc.her] genitals and asshole shifting to sit within a front-facing cloaca,"
 									+ " located in the equivalent place to where [npc.her] regular intercrural genitalia would be.<br/>"
 							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(huge tail)] of <b style='color:"+raceColorString+";'>"+feralRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
+						+ "</p>");
+				break;
+			case WINGED_BIPED:
+				if(applyEffects) {
+					applyExtraLegConfigurationTransformations(body, legConfiguration, true, applyFullEffects);
+					AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
+					body.setGenitalArrangement(startingBodyType.getGenitalArrangement());
+				}
+
+				feralStringBuilder.append(
+						"<p>"
+							+ "[npc.NamePos] lower body transforms back into a bipedal configuration, with [npc.her] genitals shifting back to their normal position between [npc.her] [npc.legs]."
+							+ " Letting out a surprised cry, [npc.name] [npc.verb(bend)] down and [npc.verb(stoop)] over as [npc.her] spine rapidly reshapes itself."
+							+ " The transformation is over within a matter of moments, leaving [npc.name] to naturally use [npc.her] [npc.arms] in place of forelegs so as to support [npc.her] newly-shaped body.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldTfGeneric(bipedal)] <b style='color:"+raceColorString+";'>"+this.getTransformName()+" legs</b>, which are covered in [npc.legFullDescription],"
+									+ " and [style.boldTfGeneric([npc.verb(use)] [npc.her] [npc.arms] as forelegs)]."
 						+ "</p>");
 				break;
 			case QUADRUPEDAL:

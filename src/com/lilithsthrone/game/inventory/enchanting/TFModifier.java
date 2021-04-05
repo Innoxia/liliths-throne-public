@@ -314,6 +314,13 @@ public enum TFModifier {
 			"modifier_circle_vibration",
 			PresetColour.BASE_PINK,
 			Rarity.EPIC),
+
+	CLOTHING_ORGASM_PREVENTION("orgasm prevention",
+			"Makes the wearer unable to orgasm.",
+			"orgasm prevention",
+			"modifier_circle_orgasm_prevention",
+			PresetColour.BASE_CRIMSON,
+			Rarity.EPIC),
 	
 	// Racial parts:
 
@@ -645,6 +652,13 @@ public enum TFModifier {
 	TF_MOD_LEG_CONFIG_AVIAN("avian body",
 			"Applies an effect to give the user an avian body.",
 			"avian body",
+			"modifier_circle_tf_legConfig_avian",
+			PresetColour.BASE_YELLOW,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_LEG_CONFIG_WINGED_BIPED("winged bipedal body",
+			"Applies an effect to give the user a winged bipedal body.",
+			"winged bipedal body",
 			"modifier_circle_tf_legConfig_avian",
 			PresetColour.BASE_YELLOW,
 			Rarity.LEGENDARY),
@@ -1126,8 +1140,14 @@ public enum TFModifier {
 			"modifier_circle_squirter",
 			PresetColour.BASE_AQUA,
 			Rarity.COMMON),
-
 	
+	TF_MOD_VAGINA_EGG_LAYER("egg-layer",
+			"Applies an effect related to making someone lay eggs.",
+			"egg-laying",
+			"modifier_circle_vagina_eggLayer",
+			PresetColour.EGG,
+			Rarity.COMMON),
+
 	TF_MOD_HYMEN("hymen",
 			"Applies an effect related to growing or removing a hymen.",
 			"hymen",

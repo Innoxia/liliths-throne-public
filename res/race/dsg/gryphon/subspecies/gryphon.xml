@@ -18,7 +18,7 @@
 	<mainSubspecies>true</mainSubspecies>
 	
 	<!-- The base value of this subspecies when sold as a slave. -->
-	<baseSlaveValue>50000</baseSlaveValue>
+	<baseSlaveValue>90000</baseSlaveValue>
 	
 	<!-- The id of the item associated with this race which can be enchanted to modify attributes.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_vanilla_water'. -->
@@ -168,17 +168,19 @@
 	
 	<!-- The description which is shown to the player in this subspecies' status effect tooltip. -->
 	<statusEffectDescription><![CDATA[
-		[npc.NamePos] gryphon-like body is quick and strong, and as a mythological creature [npc.she] [npc.has] a close arcane affinity with both the strengths and weaknesses that it brings.
+		[npc.NamePos] gryphon-like body possesses graceful strength befitting a mythological creature, but [npc.her] closeness to the arcane also brings weaknesses.
 	]]></statusEffectDescription>
 	
 	<!-- The core attributes which a character of this subspecies benefits from.
 	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
 	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
 	<statusEffectAttributeModifiers>
-		<attribute value="15">MAJOR_PHYSIQUE</attribute>
-		<attribute value="15">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
-		<attribute value="25">CRITICAL_DAMAGE</attribute>
-		<attribute value="-10">RESISTANCE_LUST</attribute>
+		<attribute value="55">MAJOR_PHYSIQUE</attribute>
+		<attribute value="25">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="40">CRITICAL_DAMAGE</attribute>
+		<attribute value="10">DAMAGE_UNARMED</attribute>
+		<attribute value="25">RESISTANCE_PHYSICAL</attribute>
+		<attribute value="-5">RESISTANCE_LUST</attribute>
 	</statusEffectAttributeModifiers>
 	
 	<!-- Any extra effects which should be listed in this subspecies' status effect tooltip.
@@ -227,7 +229,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

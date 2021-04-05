@@ -32,7 +32,7 @@
 	This description immediately follows a brief description of the torso type beginning to transform. -->
 	<transformationDescription><![CDATA[
 		After just a few moments, the transformation comes to an end, and [npc.she] [npc.verb(let)] out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with raccoon-like fur. [npc.Her] new fur is a little shaggy around [npc.her] joints and is quite densely packed.
-		<br/>[npc.Name] now [npc.has] [style.boldRacoon(raccoon-like)], [npc.skinFullDescription].
+		<br/>[npc.Name] now [npc.has] [style.boldRaccoon(raccoon-like)], [npc.skinFullDescription].
 	]]></transformationDescription>
 	
 	<!-- How this torso is described in a character's description page. -->

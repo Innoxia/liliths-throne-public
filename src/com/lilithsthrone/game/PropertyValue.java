@@ -10,6 +10,7 @@ public enum PropertyValue {
 	debugMode(false),
 	mapReveal(false),
 	concealedSlotsReveal(false),
+	allStickersUnlocked(false),
 	
 	enchantmentLimits(true),
 	levelDrain(true),
@@ -49,7 +50,7 @@ public enum PropertyValue {
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
-	furryHairContent(true),
+	furryHairContent(false),
 	scalyHairContent(false),
 	
 	nonConContent(false, true),
@@ -63,6 +64,7 @@ public enum PropertyValue {
 	
 	cumRegenerationContent(true),
 	penetrationLimitations(true),
+	elasticityAffectDepth(false), // Added in PR#1413
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),

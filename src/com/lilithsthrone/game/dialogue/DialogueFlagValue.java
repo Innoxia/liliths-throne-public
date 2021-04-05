@@ -7,9 +7,12 @@ package com.lilithsthrone.game.dialogue;
  */
 public enum DialogueFlagValue {
 	
-	quickTrade,
-	stormTextUpdateRequired,
-	hasSnowedThisWinter,
+	
+	// Main quest:
+	firstReactionLiberate,
+	firstReactionUsurp,
+	firstReactionJoin,
+	firstReactionNothing,
 	
 	
 	// Essence reactions:
@@ -20,6 +23,10 @@ public enum DialogueFlagValue {
 
 	
 	// Misc.:
+	quickTrade,
+	stormTextUpdateRequired,
+	hasSnowedThisWinter,
+	
 	foundHappiness,
 	visitedSubmission,
 	mommyFound,
@@ -48,6 +55,7 @@ public enum DialogueFlagValue {
 	ashleyIntroduced,
 	ralphIntroduced,
 	nyanIntroduced,
+	nyanmumIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
 	vanessaIntroduced,
@@ -65,6 +73,8 @@ public enum DialogueFlagValue {
 
 	
 	// City hall:
+	cityHallLodgerBoardSeen,
+	
 	vanessaHelped,
 	vanessaDailyHelped,
 	vanessaDailyMassage,
@@ -89,18 +99,25 @@ public enum DialogueFlagValue {
 	nyanFirstKissed,
 	nyanRestaurantDateRequested,
 	nyanRestaurantDateCompleted,
+	nyanmumInterviewPassed,
+	nyanmumDateCompleted,
+	nyanWeekendDated, // Reset every Monday in Nyan's dailyUpdate() method
+	nyanmumGirlfriend,
+	nyanApologised, // Apologise for her mum's behaviour
+	nyanCreampied,
+	nyanmumCreampied,
+	nyanAnalTalk,
+	nyanmumAnalTalk,
 	
 	nyanTalkedTo(true),
 	nyanComplimented(true),
 	nyanFlirtedWith(true),
 	nyanHeadPatted(true),
 	nyanKissed(true),
-	
+	nyanTummyRubbed(true),
 	nyanWalked(true),
-	
 	nyanMakeOut(true),
 	nyanSex(true),
-	
 	nyanGift(true),
 	
 	// Lilaya's Home:
@@ -116,6 +133,7 @@ public enum DialogueFlagValue {
 	roseToldOnYou,
 	lilayaReactedToPlayerAsDemon,
 	lilayaHug(true),
+	obtainedScientistClothing,
 	
 	readBook1,
 	readBook2,
@@ -150,6 +168,8 @@ public enum DialogueFlagValue {
 	
 	// Slaver Alley:
 	finchIntroduced,
+	finchFreedomTalk,
+	
 	seanIntroduced,
 	seanSeenBrax,
 	statueTruthRevealed,
@@ -246,6 +266,8 @@ public enum DialogueFlagValue {
 	zaranixAmberSubdued,
 	zaranixKatherineSubdued,
 	zaranixKellySubdued,
+
+	zaranixTransformedPlayer,
 	
 	amberRepeatEncountered,
 	katherineRepeatEncountered,
@@ -345,6 +367,14 @@ public enum DialogueFlagValue {
 	meraxisRepeatDemonTF,
 	
 	
+	// Rebel base:
+
+	rebelBaseDarkPassFound,
+	rebelBaseLightPassFound,
+    rebelBaseInsaneSurvivorEncountered,
+    rebelBaseElleCostumeEncountered,
+	
+    
 	// Rat warrens:
 	
 	ratWarrensEntry,
