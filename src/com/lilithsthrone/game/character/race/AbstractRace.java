@@ -76,12 +76,8 @@ public abstract class AbstractRace {
 			boolean affectedByFurryPreference) {
 		this(name,
 				namePlural,
-				Util.newHashMapOfValues(
-					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), nameFeral),
-					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), nameFeral)),
-				Util.newHashMapOfValues(
-					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), nameFeralPlural),
-					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), nameFeralPlural)),
+				LegConfigurationAquatic.getFeralNamesMap(new HashMap(), LegConfiguration.BIPEDAL, nameFeral),
+				LegConfigurationAquatic.getFeralNamesMap(new HashMap(), LegConfiguration.BIPEDAL, nameFeralPlural),
 				defaultTransformName,
 				colour,
 				disposition,

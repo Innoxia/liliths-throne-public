@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -14,11 +15,6 @@ public class LegConfigurationAquatic {
 	private final LegConfiguration legConfiguration;
 	private final boolean aquatic;
 
-	public LegConfigurationAquatic(LegConfiguration legConfiguration) {
-		this.legConfiguration = legConfiguration;
-		this.aquatic = false;
-	}
-
 	public LegConfigurationAquatic(LegConfiguration legConfiguration, boolean aquatic) {
 		this.legConfiguration = legConfiguration;
 		this.aquatic = aquatic;
@@ -30,6 +26,12 @@ public class LegConfigurationAquatic {
 
 	public boolean isAquatic() {
 		return aquatic;
+	}
+
+	public static HashMap<LegConfigurationAquatic, String> getFeralNamesMap(HashMap<LegConfigurationAquatic, String> list, LegConfiguration legConfiguration, String feralName) {
+		list.put(new LegConfigurationAquatic(legConfiguration, false), feralName);
+		list.put(new LegConfigurationAquatic(legConfiguration, true), feralName);
+		return list;
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class LegConfigurationAquatic {
 	@Override
 	public int hashCode() {
 		int hash = 17;
-		hash = 31 * hash + Objects.hashCode(this.legConfiguration);
+		hash = 31 * hash + this.legConfiguration.hashCode();
 		hash = 31 * hash + (this.aquatic ? 1 : 0);
 		return hash;
 	}

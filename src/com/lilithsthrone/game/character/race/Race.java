@@ -111,36 +111,31 @@ public class Race {
 	};
 
 	// DEMON:
-	public static HashMap<LegConfigurationAquatic, String> addAllLegConfigurationAquatic(HashMap<LegConfigurationAquatic, String> list, LegConfiguration legConfiguration, String feralName) {
-		list.put(new LegConfigurationAquatic(legConfiguration, false), feralName);
-		list.put(new LegConfigurationAquatic(legConfiguration, true), feralName);
-		return list;
-	}
 	private static HashMap<LegConfigurationAquatic, String> generateDemonNameFeralMap() {
-		HashMap<LegConfigurationAquatic, String> demonNameFeral = new HashMap<>();
-		demonNameFeral = addAllLegConfigurationAquatic(demonNameFeral, LegConfiguration.BIPEDAL, "demon");
-		demonNameFeral = addAllLegConfigurationAquatic(demonNameFeral, LegConfiguration.ARACHNID, "demonic-spider");
-		demonNameFeral = addAllLegConfigurationAquatic(demonNameFeral, LegConfiguration.CEPHALOPOD, "demonic-octopus");
-		demonNameFeral = addAllLegConfigurationAquatic(demonNameFeral, LegConfiguration.QUADRUPEDAL, "demonic-horse");
-		demonNameFeral = addAllLegConfigurationAquatic(demonNameFeral, LegConfiguration.AVIAN, "demonic-eagle");
-		demonNameFeral = addAllLegConfigurationAquatic(demonNameFeral, LegConfiguration.TAIL, "demonic-fish");
-		demonNameFeral = addAllLegConfigurationAquatic(demonNameFeral, LegConfiguration.TAIL_LONG, "demonic-snake");
-		demonNameFeral.put(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpent");
+		HashMap<LegConfigurationAquatic, String> names = new HashMap<>();
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.BIPEDAL, "demon");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.ARACHNID, "demonic-spider");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.CEPHALOPOD, "demonic-octopus");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.QUADRUPEDAL, "demonic-horse");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.AVIAN, "demonic-eagle");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL, "demonic-fish");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL_LONG, "demonic-snake");
+		names.put(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpent");
 
-		return demonNameFeral;
+		return names;
 	}
 	private static HashMap<LegConfigurationAquatic, String> generateDemonNameFeralPluralMap() {
-		HashMap<LegConfigurationAquatic, String> demonNameFeralPlural = new HashMap<>();
-		demonNameFeralPlural = addAllLegConfigurationAquatic(demonNameFeralPlural, LegConfiguration.BIPEDAL, "demons");
-		demonNameFeralPlural = addAllLegConfigurationAquatic(demonNameFeralPlural, LegConfiguration.ARACHNID, "demonic-spiders");
-		demonNameFeralPlural = addAllLegConfigurationAquatic(demonNameFeralPlural, LegConfiguration.CEPHALOPOD, "demonic-octopuses");
-		demonNameFeralPlural = addAllLegConfigurationAquatic(demonNameFeralPlural, LegConfiguration.QUADRUPEDAL, "demonic-horses");
-		demonNameFeralPlural = addAllLegConfigurationAquatic(demonNameFeralPlural, LegConfiguration.AVIAN, "demonic-eagles");
-		demonNameFeralPlural = addAllLegConfigurationAquatic(demonNameFeralPlural, LegConfiguration.TAIL, "demonic-fish");
-		demonNameFeralPlural = addAllLegConfigurationAquatic(demonNameFeralPlural, LegConfiguration.TAIL_LONG, "demonic-snakes");
-		demonNameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpents");
+		HashMap<LegConfigurationAquatic, String> names = new HashMap<>();
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.BIPEDAL, "demons");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.ARACHNID, "demonic-spiders");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.CEPHALOPOD, "demonic-octopuses");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.QUADRUPEDAL, "demonic-horses");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.AVIAN, "demonic-eagles");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL, "demonic-fish");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL_LONG, "demonic-snakes");
+		names.put(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpents");
 
-		return demonNameFeralPlural;
+		return names;
 	}
 	public static AbstractRace DEMON = new AbstractRace("demon",
 			"demons",
