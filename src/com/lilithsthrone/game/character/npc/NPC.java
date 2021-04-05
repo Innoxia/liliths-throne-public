@@ -925,6 +925,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return (int) ((getLevel() * 25) * (1 + Math.random() - 0.5f));
 	}
 	
+	public boolean isLootingPlayerAfterCombat() {
+		return true;
+	}
+	
 	public List<AbstractCoreItem> getLootItems() {
 		double rnd = Math.random();
 		

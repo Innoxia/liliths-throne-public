@@ -331,10 +331,27 @@
 		This seems to be too much for the cat-boy to handle, as he steps back and holds up his hands to try and tell Elle that she's going too far. Clearly not being one to take no for an answer, the [elle.race] steps aside to let the cat-boy pass, but as he does so, she gives his ass a firm slap and calls out after him loud enough for you to hear, [elle.speech(You're to report to my office first thing tomorrow morning! I've got a <i>thorough</i> debriefing planned for you!)]
 	</p>
 	<p>
-		As the cat-boy hurries past you with an apprehensive look on his face, Elle's attention is suddenly drawn to you. Quickly recognising the fact that you're no ordinary member of the public, she fixes her gleaming pink eyes onto you and waits for you to approach. Realising that you're past the point of no return, you make your move and [pc.walk] over to where Elle is waiting for you.
+		As the cat-boy hurries past you with an apprehensive look on his face, Elle's attention is suddenly drawn to you.
+		#IF(pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent))
+		 She glances over your salvaged gear and immediately tenses up. Her hands glow with arcane power before her gleaming pink eyes fix themselves on your face. She studies you intently for a brief moment and, apparently deciding that you're more of a curiosity than a threat, relaxes while the spell she was preparing fades. She takes a more causal stance, waiting for you to approach.
+		 [##game.getDialogueFlags().setFlag(FLAG_rebelBaseElleCostumeEncountered)]
+		#ELSE
+		 Quickly recognising the fact that you're no ordinary member of the public, she fixes her gleaming pink eyes onto you and waits for you to approach.
+		#ENDIF
+		 Realising that you're past the point of no return, you make your move and [pc.walk] over to where Elle is waiting for you.
 	</p>
 	<p>
-		[elle.speech(So, who are you?)] she bluntly asks, and you tell both from her tone of voice and from her curious gaze that she's deciding whether to treat you in a seductive or hostile manner.
+		#IF(pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent))
+			#IF(game.getDateNow().getMonthValue()==10)
+			[elle.speech(Nice costume,)] she says with a wry smirk on her face, [elle.speech(So, who are you?)]
+			#ENDIF
+			[elle.speech(Nice costume,)] she says with a wry smirk on her face, [elle.speech(But it's a little early, don't you think? So, who are you?)]
+			#ENDIF
+		#ELSE
+		[elle.speech(So, who are you?)] she bluntly asks.
+		#ENDIF
+		 You can tell both from her tone of voice and from her curious gaze that she's deciding whether to treat you in a seductive or hostile manner.
+		
 	</p>
 	<p>
 		After simply telling her your name, Elle displays her quick-thinking by immediately responding, [elle.speech(So <i>you're</i> [pc.name]. Yes, I know about you. I read the report on the pacification of the Harpy Nests, and, if I may say so, you did a most excellent job up there.)]
@@ -482,7 +499,18 @@
 		[wes.speech(Elle?! What have you done with that contractor pass I told you to put in here?!)] he calls out.
 	</p>
 	<p>
-		[elle.speech(Oh, I didn't realise you were back!)] the familiar voice of Elle replies from somewhere within the maze of shelving units which fill the vast storage area behind the counter. A moment later, the [elle.race] steps into view, and you see that while she looks just as she did the last time you saw her, she's now wearing a metal slave collar and slutty fancy-dress Enforcer uniform. Catching sight of you waiting behind the counter, the horny slave remarks, [elle.speech(What's this, Wes? You've finally brought me someone to fuck other than you?)]
+		[elle.speech(Oh, I didn't realise you were back!)] the familiar voice of Elle replies from somewhere within the maze of shelving units which fill the vast storage area behind the counter. A moment later, the [elle.race] steps into view, and you see that while she looks just as she did the last time you saw her, she's now wearing a metal slave collar and slutty fancy-dress Enforcer uniform. Catching sight of you waiting behind the counter,
+		#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent)))
+			 her eyes narrow for an instant as she glances over your salvaged gear and arcane power briefly flashes over her hands before she decides you're no threat after all and relaxes. [elle.speech(What's this, Wes?] the horny slave remarks,)]
+			#IF(game.getDateNow().getMonthValue()==10)
+			 [elle.speech(You've finally brought me someone to fuck other than you? And my, does [pc.she] have a peculiar taste in costumes.)]
+			#ELSE
+			 [elle.speech(You've finally brought me someone to fuck other than you? And my, does [pc.she] have a peculiar sense of fashion.)]
+			#ENDIF
+			[##game.getDialogueFlags().setFlag(FLAG_rebelBaseElleCostumeEncountered)]
+		#ELSE
+		  the horny slave remarks, [elle.speech(What's this, Wes? You've finally brought me someone to fuck other than you?)]
+		#ENDIF
 	</p>
 	<p>
 		[wes.speech(Just tell me where the pass is, Elle,)] the fox-boy sighs in frustration.
@@ -541,7 +569,18 @@
 	
 	<htmlContent tag="INTRO_HQ_ELLE_ARRIVE"><![CDATA[
 	<p>
-		Thankfully, you aren't kept waiting long, as less than five minutes after you've entered the waiting area, the familiar figure of Elle appears from out of the guarded door on the far side of the room. Looking around and catching sight of you, she flashes you a cheeky grin, before beckoning you forwards and calling out, [elle.speech(Please, come right this way!)]
+		Thankfully, you aren't kept waiting long, as less than five minutes after you've entered the waiting area, the familiar figure of Elle appears from out of the guarded door on the far side of the room. Looking around and catching sight of you,
+		#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent)))
+			 her eyes narrow for an instant as she glances over your salvaged gear before she recognises you. She grins wryly at you, before beckoning you forwards and calling out,
+			#IF(game.getDateNow().getMonthValue()==10)
+			 [elle.speech(Nice costume. Please, come right this way!)]
+			#ELSE
+			 [elle.speech(Nice costume, but it's a little early for that. Please, come right this way!)]
+			#ENDIF
+			[##game.getDialogueFlags().setFlag(FLAG_rebelBaseElleCostumeEncountered)]
+		#ELSE
+		 she flashes you a cheeky grin, before beckoning you forwards and calling out, [elle.speech(Please, come right this way!)]
+		#ENDIF
 	</p>
 	<p>
 		Deciding to do as Elle says, you [pc.walk] over to the [elle.race] and offer her your greetings. Stepping forwards so as to playfully brush up against you, the horny Enforcer reveals, [elle.speech(I've got a lot to thank you for, [pc.name]. Please do follow me on through to my office, and I'll explain all that's happened once we get there.)]
@@ -654,7 +693,26 @@
 			Wanting to talk to Elle, you ring the counter's bell, causing her to look over towards the counter and see you standing there. Turning back to whisper something into Wes's ear, she slides her hand out from the fox-boy's boxers, before giving his groin a firm squeeze and then turning to walk over towards you.
 		</p>
 		<p>
-			Stepping up to the counter, the [elle.race] puts on her most seductive look, before teasing, [elle.speech(You caught me in the middle of disciplining my slave... So, what can I do for you this time, [pc.name]?)]
+			Stepping up to the counter, the [elle.race] puts on her most seductive look, before teasing,
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent)))
+			 [elle.speech(You caught me in the middle of disciplining my slave...)] Her voice trails off as she notices your salvaged gear and her face shifts into a suspicious expression for an instant shifting right back.
+				#IF(game.getDateNow().getMonthValue()==10)
+					#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)
+					 [elle.speech(Nice costume. You really do have the kinkiest roleplaying ideas,)] she says. Before you can ask what she means by that, she changes subject with a giggle, [elle.speech(So, what can I do for you this time, [pc.name]?)]
+					#ELSE
+					 [elle.speech(Nice costume, did you get that just for me? You really do have the kinkiest roleplaying ideas,)] she says before changing the subject with a giggle, [elle.speech(So, what can I do for you this time, [pc.name]?)] 
+					#ENDIF 
+				#ELSE
+					#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)
+						 [elle.speech(Nice costume, even if it's a little early. You really do have the kinkiest roleplaying ideas,)] she says. Before you can ask what she means by that, she changes subject with a giggle, [elle.speech(So, what can I do for you this time, [pc.name]?)]
+					#ELSE
+						  [elle.speech(Nice costume, even if it's a little early. Did you get that just for me? You really do have the kinkiest roleplaying ideas,)] she says before changing the subject with a giggle, [elle.speech(So, what can I do for you this time, [pc.name]?)] 
+					#ENDIF 
+				#ENDIF
+				[##game.getDialogueFlags().setFlag(FLAG_rebelBaseElleCostumeEncountered)]
+			#ELSE
+			 [elle.speech(You caught me in the middle of disciplining my slave... So, what can I do for you this time, [pc.name]?)]
+			#ENDIF			
 		</p>
 	#ELSE
 		<p>
@@ -1491,7 +1549,12 @@
 		#IF(pc.isTaur())
 			 Happy enough to do as you suggest, Elle pushes you down so that you're lying on your animalistic stomach, before moving around in front of you and preparing to use your mouth. Kneeling down behind your feral [pc.legRace]'s body, Wes joins his slave in getting ready to dominantly fuck you...
 		#ELSE
-			 Happy enough to do as you suggest, Elle pushes you down onto the floor so that you're lying on your back, before kneeling down and planting her groin over your face. Kneeling down between your legs, Wes joins his slave in getting ready to dominantly fuck you...
+			 Happy enough to do as you suggest, Elle pushes you down onto the floor so that you're lying on your back, before kneeling down and planting her groin over your face.
+			 #IF(pc.hasLegs())
+				 Kneeling down between your legs, Wes joins his slave in getting ready to dominantly fuck you...
+			 #ELSE
+				 Kneeling down over your groin, Wes joins his slave in getting ready to dominantly fuck you...
+			 #ENDIF
 		#ENDIF
 	</p>
 	]]>

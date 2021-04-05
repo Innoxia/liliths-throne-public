@@ -152,7 +152,7 @@
 			#ENDIF
 		#ELSE
 			#IF(npc.hasFetish(FETISH_IMPREGNATION))
-				[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like someone got you knocked up, huh, slut?! Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet!)]
+				[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like someone got you knocked up, huh, slut?! Been going around town submitting to anyone who wants to pump a load in you, I'll bet!)]
 			#ELSE
 				[npc.speech(Heh, you've got yourself knocked up, huh?)] [npc.name] asks, grinning as [npc.she] looks down at your swollen belly. [npc.speech(Don't think that'll make me go easy on you! I'm still gonna need your cash!)]
 			#ENDIF
@@ -164,9 +164,9 @@
 	<htmlContent tag="TUNNEL_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
 	<p>
 		#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
-			[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still carrying my kids around, slut! Seeing as you like spreading your legs and being bred so much, you should just submit for another good fuck!)]
+			[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still carrying my kids around, slut! Seeing as you like being bred so much, you should just submit for another good fuck!)]
 		#ELSE
-			[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still knocked up, huh slut?! Seeing as you like spreading your legs so much, you should just submit for a good fuck!)]
+			[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still knocked up, huh slut?! Seeing as you like being bred so much, you should just submit for a good fuck!)]
 		#ENDIF
 	</p>
 	]]>
@@ -1072,7 +1072,14 @@
 	
 	<htmlContent tag="AFTER_SEX_VICTORY_NO_ORGASM"><![CDATA[
 	<p>
-		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished.
+		#IF(npc.isTaur())
+			 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby smooth protrusion of rock in a desperate attempt to masturbate and finish what you started.
+		#ELSEIF(npc.hasLegs())
+			 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+		#ELSE
+			 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

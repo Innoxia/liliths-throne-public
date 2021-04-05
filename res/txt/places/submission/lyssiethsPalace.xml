@@ -502,13 +502,13 @@
 	<p>
 		[lyssieth.speech(Mmm, yes,)] Lyssieth eagerly replies, grabbing hold of your [pc.arms] and spinning you around. With a quick step forwards, she pushes you down so that you're lying back over the top of her desk. Looking down between her legs, you see a thick bulge start to press out against the fabric of her skirt, and, biting her lip, she softly moans, 
 		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
-			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
+			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... #IF(pc.hasLegs())Spread your legs#ELSEPresent yourself#ENDIF for her now...)]
 		#ELSE
-			 [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
+			 [lyssieth.speech(My big cock's aching to be inside of you... #IF(pc.hasLegs())Spread your legs#ELSEPresent yourself#ENDIF for me now...)]
 		#ENDIF
 	</p>
 	<p>
-		Doing as the elder lilin says, you spread your legs and get ready to receive a good fucking...
+		Doing as the elder lilin says, you #IF(pc.hasLegs())spread your legs#ELSEpresent yourself#ENDIF and get ready to receive a good fucking...
 	</p>
 	]]>
 	</htmlContent>
@@ -578,13 +578,13 @@
 	<p>
 		[lyssieth.speech(Mmm, yes,)] Lyssieth eagerly replies, grabbing hold of your [pc.arms] and spinning you around. With a quick step forwards, she pushes you down so that you're lying back over the top of her desk. Looking down between her legs, you see a thick bulge start to press out against the fabric of her skirt, and, biting her lip, she softly moans, 
 		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
-			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
+			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... #IF(pc.hasLegs())Spread your legs#ELSEPresent yourself#ENDIF for her now...)]
 		#ELSE
-			 [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
+			 [lyssieth.speech(My big cock's aching to be inside of you... #IF(pc.hasLegs())Spread your legs#ELSEPresent yourself#ENDIF for me now...)]
 		#ENDIF
 	</p>
 	<p>
-		Wanting to be fucked by Lyssieth in her true form, however, you keep your legs closed, before commanding, [pc.speech(If you want to fuck me, you're going to take on your true form for me.)]
+		Wanting to be fucked by Lyssieth in her true form, however you refuse to do as she says and instead command, [pc.speech(If you want to fuck me, you're going to take on your true form for me.)]
 	</p>
 	<p>
 		#IF(pc.hasFetish(FETISH_INCEST))
@@ -611,9 +611,9 @@
 	</p>
 	<p>
 		#IF(pc.hasFetish(FETISH_INCEST))
-			[lyssieth.speech(Go on then,)] Lyssieth teases, reaching down to stroke your inner-thigh, [lyssieth.speech(Be a good [pc.girl] and spread your legs for Mommy's fat demonic cock...)]
+			[lyssieth.speech(Go on then,)] Lyssieth teases, reaching down to stroke your inner-thigh, [lyssieth.speech(Be a good [pc.girl] and #IF(pc.hasLegs())spread your legs#ELSEpresent yourself#ENDIF for Mommy's fat demonic cock...)]
 		#ELSE
-			[lyssieth.speech(Go on then,)] Lyssieth teases, reaching down to stroke your inner-thigh, [lyssieth.speech(Spread your legs for my fat demonic cock...)]
+			[lyssieth.speech(Go on then,)] Lyssieth teases, reaching down to stroke your inner-thigh, [lyssieth.speech(#IF(pc.hasLegs())Spread your legs#ELSEPresent yourself#ENDIF for my fat demonic cock...)]
 		#ENDIF
 	</p>
 	]]>
@@ -706,10 +706,10 @@
 	<p>
 		[lyssieth.speech(In that case, the last thing you need to know is that this aura corruption can only be done at the moment of orgasm, meaning that we need to have sex in order for this to be done,)] Lyssieth states, and, while she still sounds a little uncertain about the whole thing, you can detect a hint of arousal in her voice as she tells you this, [lyssieth.speech(Also, as I mentioned before, I need to take on my true form to do this, and I should inform you that I have a habit of... erm... losing myself a little when I'm like that. Depending on how dominantly you act, I imagine that I'll end up transforming you into
 		#IF pc.isFeminine()
-		#THEN either a succubus, or a futa succubus
-		#ELSE a succubus, a succubus trap, or an incubus
+		#THEN either a succubus, or a futa succubus,
+		#ELSE a succubus, a succubus trap, or an incubus,
 		#ENDIF
-		, although you can always use your demonic powers to transform into whatever form you like afterwards.)]
+		 although you can always use your demonic powers to transform into whatever form you like afterwards.)]
 	</p>
 	<p>
 		You can tell that she's still not entirely happy with wanting to do this, but from the rising lust in her voice, you aren't sure for how long she'll resist. Giving you a big smile, she steps up close to you and finally says, [lyssieth.speech(Oh, and of course, all demons are expected to treat the lilin who transformed them as their new mother.

@@ -6,17 +6,33 @@
 	<tertiaryColour>charisma_spider_silk_white</tertiaryColour>
 	<mainSubspecies>true</mainSubspecies>
 	<baseSlaveValue>10000</baseSlaveValue>
-	<attributeItemId>charisma_spider_jet_black_coffee</attributeItemId>
-	<transformativeItemId>charisma_spider_chocolate_coated_cocoa_beans</transformativeItemId>
+	<attributeItemId>charisma_race_spider_jet_black_coffee</attributeItemId>
+	<transformativeItemId>charisma_race_spider_chocolate_coated_cocoa_beans</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getVagina().getType()!=VAGINA_TYPE_NONE)
-			#IF(targetedBody.getPenis().getType()!=PENIS_TYPE_NONE)
-				[#targetedBody.getPenis().addPenisModifier(null, PENETRATION_MODIFIER_OVIPOSITOR)]
-			#ENDIF
+		#IF(targetedBody.getFace().getType()!=FACE_TYPE_HUMAN)
+			[#targetedBody.getFace().setType(null, FACE_TYPE_charisma_spider_face)]
+		#ENDIF
+		#IF(targetedBody.getArm().getType()==ARM_TYPE_charisma_spider_armFluffy)
+			[#targetedBody.getArm().setType(null, ARM_TYPE_charisma_spider_arm)]
+		#ENDIF
+		#IF(targetedBody.getLeg().getType()==LEG_TYPE_charisma_spider_legFluffy)
+			[#targetedBody.getLeg().setType(null, LEG_TYPE_charisma_spider_leg)]
+		#ENDIF
+		#IF(targetedBody.getTail().getType()==TAIL_TYPE_charisma_spider_tailFluffy)
+			[#targetedBody.getTail().setType(null, TAIL_TYPE_charisma_spider_tail)]
+		#ENDIF
+		#IF(targetedBody.getTorso().getType()==TORSO_TYPE_charisma_spider_torsoFluffy)
+			[#targetedBody.getTorso().setType(null, TORSO_TYPE_charisma_spider_torso)]
+		#ENDIF
+		#IF(targetedBody.hasVagina() && targetedBody.hasPenis())
+			[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+		#ENDIF
+		#IF(targetedBody.getTailType()==TAIL_TYPE_charisma_spider_tailFluffy)
+			[#targetedBody.setTailType(TAIL_TYPE_charisma_spider_tail)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[

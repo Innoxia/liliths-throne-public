@@ -40,7 +40,7 @@
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(start)] to feel stronger...
 			</p>
-			[#npc.addPotionEffect(MAJOR_PHYSIQUE, 2)]
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
 		]]></applyEffects>
 		
 		<itemTags>
@@ -52,16 +52,16 @@
 	<useDescriptions>
 		<selfUse><![CDATA[
 		[npc.Name] [npc.verb(remove)] the glass cover and [npc.verb(marvel)] at the exquisite marbling of the fatty tuna meat. Unable to resist the delicious looking seafood inside, [npc.she]
-		#IF(npc.getFaceType()==FACE_TYPE_dsg_shark)
-			 [npc.verb(tip)] the plate towards [npc.her] cavernous shark mouth and ungracefully dumps the contents inside, swallowing it all without much difficulty...or chewing.
+		#IF(npc.getFaceType()==FACE_TYPE_dsg_shark_face)
+			 [npc.verb(tip)] the plate towards [npc.her] cavernous shark mouth and ungracefully dumps the contents inside, swallowing it all without much difficulty... or chewing.
 		#ELSE
 			 [npc.verb(savor)] every wasabi-tinged bite, and in a matter of moments [npc.has] completely emptied the plate.
 		#ENDIF
 		]]></selfUse>
 		<otherUse><![CDATA[
 		[npc.Name] [npc.verb(remove)] glass cover from the plate and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to marvel at the exquisite marbling of the fatty tuna meat. Unable to resist the delicious-looking seafood inside, [npc2.she]
-		#IF(npc.getFaceType()==FACE_TYPE_dsg_shark)
-			 [npc2.verb(tip)] the plate towards [npc2.her] cavernous shark mouth and ungracefully dumps the contents inside, swallowing it all without much difficulty...or chewing.
+		#IF(npc.getFaceType()==FACE_TYPE_dsg_shark_face)
+			 [npc2.verb(tip)] the plate towards [npc2.her] cavernous shark mouth and ungracefully dumps the contents inside, swallowing it all without much difficulty... or chewing.
 		#ELSE
 			 [npc2.verb(savor)] every wasabi-tinged bite, and in a matter of moments [npc2.has] completely emptied the plate.
 		#ENDIF

@@ -38,6 +38,7 @@
 		<tag>TAIL_TYPE_SCALES</tag>
 		<tag>TAIL_TAPERING_LINEAR</tag>
 		<tag>TAIL_SLEEP_HUGGING</tag>
+		<tag>TAIL_ATTACK</tag>
 	</tags>
 	
 	<!-- The singular and plural determiners of this tail type.

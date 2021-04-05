@@ -4041,7 +4041,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public int getAgeValue() {
-		int age = (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow());
+		int age = Math.max(0, (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow()));
 		if(this.isPlayer()) {
 			return Math.max(MINIMUM_AGE, age);
 		} else { // All non-player characters start as 18.
@@ -16940,7 +16940,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(sb.length()>0) {
 				sb.append("</br>");
 			}
-			sb.append("[style.italicsPinkDeep(The size of [npc.namePos] cock is causing [npc2.namePos] stomach to bulge!)]");
+			sb.append("[style.italicsPinkDeep(The size of [npc.namePos] "+(penetrationType.getName(characterPenetrating))+" is causing [npc2.namePos] stomach to bulge!)]");
 		}
 		
 		return UtilText.parse(characterPenetrating, characterPenetrated, sb.toString());
@@ -17021,7 +17021,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(sb.length()>0) {
 				sb.append("</br>");
 			}
-			sb.append("[style.italicsPinkDeep(The size of [npc.namePos] cock is causing [npc2.namePos] stomach to bulge!)]");
+			sb.append("[style.italicsPinkDeep(The size of [npc.namePos] "+(penetrationType.getName(characterPenetrating))+" is causing [npc2.namePos] stomach to bulge!)]");
 		}
 		
 		if(sb.length()!=0) {
@@ -17036,7 +17036,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getStopPenetrationDescription(GameCharacter characterPerformer, SexAreaInterface performerArea, GameCharacter characterTarget, SexAreaInterface targetArea) {
 		if(characterPerformer.equals(characterTarget)) {
 			if(performerArea.isPenetration()) {
-				if(targetArea.isPenetration()) {
+				if(targetArea.isPenetration()
+                        || (!Main.game.isNipplePenEnabled() && (targetArea==SexAreaOrifice.NIPPLE || targetArea==SexAreaOrifice.NIPPLE_CROTCH))) {
 					return UtilText.parse(characterPerformer,
 							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc.her] "+targetArea.getName(characterPerformer)+".");
 				} else {
@@ -17055,7 +17056,8 @@ public abstract class GameCharacter implements XMLSaving {
 			
 		} else {
 			if(performerArea.isPenetration()) {
-				if(targetArea.isPenetration()) {
+				if(targetArea.isPenetration()
+				    || (!Main.game.isNipplePenEnabled() && (targetArea==SexAreaOrifice.NIPPLE || targetArea==SexAreaOrifice.NIPPLE_CROTCH))){
 					return UtilText.parse(characterPerformer, characterTarget,
 							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc2.namePos] "+targetArea.getName(characterTarget)+".");
 				} else {
@@ -18156,6 +18158,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return equippedMoves;
 	}
 	
+	/**
+	 * You shouldn't override this to define combat moves available to an NPC. Instead, override resetDefaultMoves(), as that gets called at the start of combat for each NPC.
+	 */
 	public void equipBasicCombatMoves() {
 		equipMove("strike");
 		equipMove("twin-strike");
@@ -18320,6 +18325,17 @@ public abstract class GameCharacter implements XMLSaving {
 				break;
 			}
 			if(move.getAssociatedSpell()!=null && this.getAllSpells().contains(move.getAssociatedSpell())) {
+				equippedMoves.add(move);
+			}
+		}
+	}
+	
+	public void equipAllSpecialMoves() {
+		for(AbstractCombatMove move : knownMoves) {
+			if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+				break;
+			}
+			if(move.getCategory()==CombatMoveCategory.SPECIAL) {
 				equippedMoves.add(move);
 			}
 		}
@@ -26734,6 +26750,9 @@ public abstract class GameCharacter implements XMLSaving {
 	// ------------------------------ Genital arrangement: ------------------------------ //
 	
 	// Type:
+	public boolean isNormalGenitals() {
+		return getGenitalArrangement()==GenitalArrangement.NORMAL;
+	}
 	public GenitalArrangement getGenitalArrangement() {
 		if(!Main.getProperties().hasValue(PropertyValue.bipedalCloaca) && this.getLegConfiguration()==LegConfiguration.BIPEDAL) {
 			return GenitalArrangement.NORMAL;
@@ -26785,7 +26804,6 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return sb.toString();
 	}
-	
 	
 	
 	// ------------------------------ Hair: ------------------------------ //
@@ -26898,6 +26916,13 @@ public abstract class GameCharacter implements XMLSaving {
 	// Misc.:
 	public boolean hasHorns() {
 		return body.getHorn().getType() != HornType.NONE;
+	}
+	/**
+	 * Checks, if the character has generic horns aka horns that aren't linked to a specific race.
+	 * @return true, if the character has generic horns
+	 */
+	public boolean hasGenericHorns() {
+		return body.getHorn().getType().isGeneric();
 	}
 	public boolean isHornsAbleToBeUsedAsHandlesInSex() {
 		return this.hasHorns() && HornLength.getLengthFromInt(this.getHornLength()).isSuitableAsHandles();
@@ -27308,9 +27333,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasPenisIgnoreDildo() {
 		return getCurrentPenis().getType()!=PenisType.NONE && getCurrentPenis().getType()!=PenisType.DILDO;
 	}
-	public boolean hasPenis() {
-		return getCurrentPenis()!=null && getCurrentPenis().getType() != PenisType.NONE;
-	}
+    public boolean hasPenis() {
+        return getCurrentPenis()!=null && getCurrentPenis().getType() != PenisType.NONE;
+    }
+    public boolean hasDildo() {
+        return getCurrentPenis()!=null && getCurrentPenis().getType() == PenisType.DILDO;
+    }
 	public boolean isPenisVirgin() {
 		return getCurrentPenis().isVirgin();
 	}
@@ -27901,9 +27929,14 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(bodyCoveringType==BodyCoveringType.DILDO) {
 			try {
-				return new Covering(bodyCoveringType, this.getClothingInSlot(InventorySlot.PENIS).getColour(0));
+                for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+                    if(c.getItemTags().contains(ItemTag.DILDO_OTHER))
+                    {
+                        return new Covering(bodyCoveringType, this.getClothingInSlot(c.getSlotEquippedTo()).getColour(0));
+                    }
+                }
 			}catch(Exception ex) {
-				System.err.println("Warning! GameCharacter.getCovering(BodyCoveringType bodyCoveringType) is not finding equipped penis clothing for bodyCoveringType 'DILDO'!");
+				System.err.println("Warning! GameCharacter.getCovering(BodyCoveringType bodyCoveringType) is not finding equipped dildo_other item for bodyCoveringType 'DILDO'!");
 				return body.getCoverings().get(bodyCoveringType);
 			}
 		}
@@ -28201,13 +28234,31 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getTailCount() {
 		return body.getTail().getTailCount();
 	}
+	public int getMaxTailCount() {
+        return body.getTail().getMaxTailCount(this);
+    }
 	public String setTailCount(int tailCount, boolean overrideYoukoLimitations) {
 		return body.getTail().setTailCount(this, tailCount, overrideYoukoLimitations);
 	}
 	public String incrementTailCount(int increment, boolean overrideYoukoLimitations) {
 		return body.getTail().setTailCount(this, getTailCount() + increment, overrideYoukoLimitations);
 	}
-	
+	public boolean isYouko() {
+        for(AbstractPerk perk : this.getSpecialPerks()) {
+            if (perk.equals(Perk.SINGLE_TAILED_YOUKO)
+            		|| perk.equals(Perk.TWO_TAILED_YOUKO)
+            		|| perk.equals(Perk.THREE_TAILED_YOUKO)
+            		|| perk.equals(Perk.FOUR_TAILED_YOUKO)
+            		|| perk.equals(Perk.FIVE_TAILED_YOUKO)
+            		|| perk.equals(Perk.SIX_TAILED_YOUKO)
+            		|| perk.equals(Perk.SEVEN_TAILED_YOUKO)
+            		|| perk.equals(Perk.EIGHT_TAILED_YOUKO)
+            		|| perk.equals(Perk.NINE_TAILED_YOUKO)) {
+                return true;
+            }
+        }
+        return false;
+    };
 	
 	
 	// ------------------------------ Tentacle: ------------------------------ //
@@ -28692,6 +28743,13 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public boolean hasWings() {
 		return body.hasWings();
+	}
+	/**
+	 * Checks, if the NPC has generic wings aka wings that allow flight, but aren't linked to a specific race.
+	 * @return true, if the NPC has generic wings
+	 */
+	public boolean hasGenericWings() {
+		return getWingType().isGeneric();
 	}
 	// Type:
 	public AbstractWingType getWingType() {

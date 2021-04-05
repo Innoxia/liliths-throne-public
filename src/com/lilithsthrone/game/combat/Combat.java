@@ -463,8 +463,10 @@ public class Combat {
 			
 			int money = Main.game.getPlayer().getMoney();
 			int moneyLoss = (-enemyLeader.getLootMoney()/2)*enemies.size();
-			Main.game.getPlayer().incrementMoney(moneyLoss);
-			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
+			if(moneyLoss!=0 && enemyLeader.isLootingPlayerAfterCombat()) {
+				Main.game.getPlayer().incrementMoney(moneyLoss);
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
+			}
 			
 			for(NPC enemy : enemies) {
 				enemy.setWonCombatCount(enemy.getWonCombatCount()+1);
@@ -738,21 +740,7 @@ public class Combat {
 				}
 				return null;
 			}
-			if(Main.game.getPlayer().isStunned()) {
-				if (index == 1) {
-					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							combatContent.put(Main.game.getPlayer(), Util.newArrayListOfValues("You are stunned, and are unable to make a move!"));
-							endCombatTurn();
-						}
-					};
-					
-				} else {
-					return null;
-				}
-				
-			} else if(escaped) {
+			if(escaped) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
@@ -783,7 +771,7 @@ public class Combat {
 				} else
 					return null;
 				
-			}  else if(isAlliedPartyDefeated()) {
+			} else if(isAlliedPartyDefeated()) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Defeat", "You have been defeated!"){
 						@Override
@@ -795,6 +783,20 @@ public class Combat {
 					};
 				} else
 					return null;
+				
+			} else if(Main.game.getPlayer().isStunned()) {
+				if (index == 1) {
+					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							combatContent.put(Main.game.getPlayer(), Util.newArrayListOfValues("You are stunned, and are unable to make a move!"));
+							endCombatTurn();
+						}
+					};
+					
+				} else {
+					return null;
+				}
 				
 			} else if(isCombatantDefeated(Main.game.getPlayer())) {
 				if (index == 1) {

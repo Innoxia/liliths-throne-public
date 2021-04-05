@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 
 /**
  * @since 0.3.1
@@ -123,7 +124,10 @@ public abstract class AbstractFootType {
 
 	public abstract String getFootNailPolishDescription(GameCharacter owner);
 	
-	public List<FootStructure> getPermittedFootStructures() {
-		return permittedFootStructures;
+	public List<FootStructure> getPermittedFootStructures(LegConfiguration legConfiguration) {
+		if(legConfiguration==null || legConfiguration.getPermittedFootStructuresOverride().isEmpty()) {
+			return permittedFootStructures;
+		}
+		return legConfiguration.getPermittedFootStructuresOverride();
 	}
 }

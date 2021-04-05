@@ -83,11 +83,11 @@ public class EnforcerPatrol extends NPC {
 				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
 					continue;
 				}
-				if(Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).containsKey(s)) {
-					AbstractSubspecies.addToSubspeciesMap((int) (5000 * Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				if(Subspecies.getWorldSpecies(WorldType.DOMINION, null, false, Subspecies.SLIME).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap((int) (5000 * Subspecies.getWorldSpecies(WorldType.DOMINION, null, false, Subspecies.SLIME).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false).containsKey(s)) { // Add Submission races at only 20% of the chance of Dominion races
-					AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false, Subspecies.SLIME).containsKey(s)) { // Add Submission races at only 20% of the chance of Dominion races
+					AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false, Subspecies.SLIME).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			
@@ -96,10 +96,14 @@ public class EnforcerPatrol extends NPC {
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
 				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
 			}
+			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
-				Main.game.getCharacterUtils().applyTaurConversion(this);
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+				// Check for race's leg type as taur, otherwise NPCs which sapwn with human legs won't be affected by taur conversion rate:
+				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
+					this.setLegType(this.getRace().getRacialBody().getLegType());
+					Main.game.getCharacterUtils().applyTaurConversion(this);
+				}
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));

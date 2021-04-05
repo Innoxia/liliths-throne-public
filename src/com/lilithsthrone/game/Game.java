@@ -861,6 +861,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("SHOPPING_ARCADE") || !Main.isVersionOlderThan(loadingVersion, "0.3.14"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
+//                          && !worldType.equals("REBEL_BASE")
 							) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
@@ -1001,6 +1002,10 @@ public class Game implements XMLSaving {
 									if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
 										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
 									}
+								}
+								if(Main.isVersionOlderThan(loadingVersion, "0.4")) {
+									className = className.replace("BatMorphCavernAttacker", "BatCavernLurkerAttacker");
+									className = className.replace("SlimeCavernAttacker", "BatCavernSlimeAttacker");
 								}
 								if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 									className = className.replace("FortressDemonLeader", "DarkSiren");
@@ -4649,6 +4654,10 @@ public class Game implements XMLSaving {
 
 	public boolean isPenetrationLimitationsEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.penetrationLimitations);
+	}
+	
+	public boolean isElasticityAffectDepthEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth);
 	}
 	
 	public boolean isFootContentEnabled() {

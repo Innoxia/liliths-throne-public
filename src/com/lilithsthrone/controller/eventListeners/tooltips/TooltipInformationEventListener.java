@@ -929,6 +929,7 @@ public class TooltipInformationEventListener implements EventListener {
 								break;
 							case BIPEDAL:
 							case QUADRUPEDAL:
+							case WINGED_BIPED:
 								tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" "+owner.getFootStructure().getName()+" legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case CEPHALOPOD:
