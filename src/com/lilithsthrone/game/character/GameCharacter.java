@@ -5336,27 +5336,24 @@ public abstract class GameCharacter implements XMLSaving {
 
 	protected Set<GameCharacter> getChildren() {
 		HashSet<GameCharacter> result = new HashSet<>();
-		GameCharacter gc;
 
 		for(Litter litter : getLittersBirthed()) {
 			for(String id : litter.getOffspring()) {
 				try {
-					gc = Main.game.getNPCById(id);
+					result.add(Main.game.getNPCById(id));
 				} catch (Exception ex) {
 					continue;
 				}
-				result.add(gc);
 			}
 		}
 
 		for(Litter litter : getLittersFathered()) {
 			for(String id : litter.getOffspring()) {
 				try {
-					gc = Main.game.getNPCById(id);
+					result.add(Main.game.getNPCById(id));
 				} catch (Exception ex) {
 					continue;
 				}
-				result.add(gc);
 			}
 		}
 
