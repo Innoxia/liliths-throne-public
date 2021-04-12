@@ -3869,6 +3869,10 @@ public class Subspecies {
 			new FeralAttributes(
 					"alligator",
 					"alligators",
+					"alligator",
+					"alligator",
+					"alligators",
+					"alligators",
 					LegConfiguration.QUADRUPEDAL,
 					false,
 					180,
