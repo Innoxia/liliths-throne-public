@@ -22848,6 +22848,27 @@ public abstract class GameCharacter implements XMLSaving {
 		body.setFeral(subspecies);
 		postTransformationCalculation();
 	}
+
+	public void setFeral(boolean power, RaceStage stage) {		//Amarok Code
+		AbstractSubspecies subspecies = body.getSubspecies();
+		if (!subspecies.getFeralAttributes().isBreastsPresent() && this.hasIncubationLitter(SexAreaOrifice.NIPPLE)) {
+			this.endIncubationPregnancy(SexAreaOrifice.NIPPLE, true);
+			System.err.println("Warning: Nipple egg pregnancy was ended (with birth) as feral form '"
+					+ subspecies.getFeralName(this) + "' was applied, which does not have breasts.");
+		}
+		body.setFeral(power, stage);
+		postTransformationCalculation();
+	}
+	public void setFeral(boolean power) {		//Amarok Code
+		AbstractSubspecies subspecies = body.getSubspecies();
+		if (!subspecies.getFeralAttributes().isBreastsPresent() && this.hasIncubationLitter(SexAreaOrifice.NIPPLE)) {
+			this.endIncubationPregnancy(SexAreaOrifice.NIPPLE, true);
+			System.err.println("Warning: Nipple egg pregnancy was ended (with birth) as feral form '"
+					+ subspecies.getFeralName(this) + "' was applied, which does not have breasts.");
+		}
+		body.setFeral(power, null);
+		postTransformationCalculation();
+	}
 	
 	public boolean isFeral() {
 		return getBody().isFeral();

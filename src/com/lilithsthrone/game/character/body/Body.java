@@ -6202,6 +6202,32 @@ public class Body implements XMLSaving {
 		CharacterModificationUtils.resetCoveringsToBeApplied();
 	}
 
+	/** 
+	 * @param power When true, will turn this character into a feral, version of their current supspecies. When false, will turn this character into their anthro form. will not engage if subspecies cannot be made feral, eg. humans, demons, angles
+	 * @param stage Racial stage to set character to when changing from feral to anthro form, will be greater by default
+	 */
+	public void setFeral(boolean power, RaceStage stage) { //Amarok Custom Code
+		//subspecies calls a spupecies.xml file, such as NoStepOnSnek/snake/subspecies/lLamia.xml
+		//getferalattributes returns feralattributes, which acsesses, said container in the xml file
+		AbstractSubspecies subspecies = this.getSubspecies();
+		AbstractRacialBody rb = RacialBody.valueOfRace(this.getRace());
+		FeralAttributes attributes = subspecies == null ? null : subspecies.getFeralAttributes();
+		if (attributes == null) {
+			System.err.println("Error in Body.setFeral(): subspecies '" + Subspecies.getIdFromSubspecies(subspecies)
+					+ "' does not support FeralAttributes!");
+			return;
+		} else {
+			if(power) {
+				this.setFeral(subspecies);
+			} else {
+				this.feral = false;
+				if(stage == null) {stage = RaceStage. GREATER;}
+				Main.game.getCharacterUtils().reassignBody(null, this, this.getGender(), subspecies, stage, false);
+				this.setHeight(this.getGender().isFeminine() ? rb.getFemaleHeight() : rb.getMaleHeight());
+			}
+		}
+	}
+
 	public void removeAllMakeup() {
 		for(AbstractBodyCoveringType makeup : BodyCoveringType.allMakeupTypes) {
 			if(coverings.containsKey(makeup)) {
