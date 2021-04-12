@@ -7,43 +7,46 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
+import com.lilithsthrone.world.WorldRegion;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractGlobalPlaceType extends AbstractPlaceType {
 
-	public AbstractGlobalPlaceType(String name,
+	public AbstractGlobalPlaceType(WorldRegion worldRegion,
+			String name,
 			String SVGPath,
 			String tooltipDescription,
-			String colourString,
+			Colour colour,
 			DialogueNode dialogue,
-			Encounter encounterType,
-			String virginityLossDescription) {
-		this(name, tooltipDescription, SVGPath, colourString, null, dialogue, encounterType, virginityLossDescription);
+			Encounter encounterType, String virginityLossDescription) {
+		this(worldRegion, name, tooltipDescription, SVGPath, colour, colour, dialogue, encounterType, virginityLossDescription);
 	}
 	
-	public AbstractGlobalPlaceType(String name,
+	public AbstractGlobalPlaceType(WorldRegion worldRegion,
+			String name,
 			String tooltipDescription,
 			String SVGPath,
-			String colourString,
-			String backgroundColourString,
+			Colour colour,
+			Colour backgroundColour,
 			DialogueNode dialogue,
-			Encounter encounterType,
-			String virginityLossDescription) {
-		super(name, tooltipDescription, null, null, dialogue, encounterType, virginityLossDescription);
+			Encounter encounterType, String virginityLossDescription) {
+		super(worldRegion, name, tooltipDescription, null, null, dialogue, Darkness.DAYLIGHT, encounterType, virginityLossDescription);
 		
 		this.name = name;
 		
-		this.colourString = colourString;
+		this.colour = colour;
 		
-		if(backgroundColourString==null) {
-			this.backgroundColourString = colourString;
+		if(backgroundColour==null) {
+			this.backgroundColour = PresetColour.MAP_BACKGROUND;
 		} else {
-			this.backgroundColourString = backgroundColourString;
+			this.backgroundColour = backgroundColour;
 		}
 		
 		this.encounterType = encounterType;
@@ -61,7 +64,7 @@ public abstract class AbstractGlobalPlaceType extends AbstractPlaceType {
 				String s = Util.inputStreamToString(is);
 				
 				try {
-					s = SvgUtil.colourReplacement("placeColour"+colourReplacementId, colourString, s);
+					s = SvgUtil.colourReplacement("placeColour"+colourReplacementId, colour, s);
 					colourReplacementId++;
 				} catch(Exception ex) {
 					System.err.println(SVGPath+" error!");
@@ -86,10 +89,16 @@ public abstract class AbstractGlobalPlaceType extends AbstractPlaceType {
 	}
 
 	@Override
+	public AbstractGlobalPlaceType initAquatic(Aquatic aquatic) {
+		this.aquatic = aquatic;
+		return this;
+	}
+
+	@Override
 	public AbstractGlobalPlaceType initItemsPersistInTile() {
 		this.itemsDisappear = false;
 		return this;
 	}
 	
-	public abstract WorldType getGlobalLinkedWorldType();
+	public abstract AbstractWorldType getGlobalLinkedWorldType();
 }

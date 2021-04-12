@@ -1,23 +1,30 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
- * @version 0.3.6.6
+ * @version 0.4
  * @author Innoxia
  */
 public enum PenetrationGirth {
 
-	ZERO_THIN(0, -0.2f, "thin", Colour.GENERIC_SIZE_ONE),
+	ZERO_THIN(0, -0.8f, "thin", PresetColour.GENERIC_SIZE_ONE),
 	
-	ONE_SLENDER(1, -0.1f, "slender", Colour.GENERIC_SIZE_TWO),
+	ONE_SLENDER(1, -0.4f, "slender", PresetColour.GENERIC_SIZE_TWO),
 	
-	TWO_AVERAGE(2, 0, "averagely-girthed", Colour.GENERIC_SIZE_THREE),
+	TWO_NARROW(2, -0.2f, "narrow", PresetColour.GENERIC_SIZE_THREE),
 	
-	THREE_THICK(3, 0.1f, "thick", Colour.GENERIC_SIZE_FOUR),
+	THREE_AVERAGE(3, 0, "averagely-girthed", PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_FAT(4, 0.2f, "fat", Colour.GENERIC_SIZE_FIVE);
+	FOUR_GIRTHY(4, 0.2f, "girthy", PresetColour.GENERIC_SIZE_FIVE),
+	
+	FIVE_THICK(5, 0.4f, "thick", PresetColour.GENERIC_SIZE_SIX),
+	
+	SIX_CHUBBY(6, 0.6f, "chubby", PresetColour.GENERIC_SIZE_SEVEN),
+	
+	SEVEN_FAT(7, 0.8f, "fat", PresetColour.GENERIC_SIZE_EIGHT);
 	
 	
 	private int value;
@@ -56,14 +63,10 @@ public enum PenetrationGirth {
 		return ZERO_THIN;
 	}
 	
-	public static int getLargest() {
-		int largest = ZERO_THIN.value;
-		for(PenetrationGirth ls : PenetrationGirth.values()) {
-			largest = Math.max(largest, ls.value);
-		}
-		return largest;
+	public static int getMaximum() {
+		return SEVEN_FAT.getValue();
 	}
-
+	
 	public Colour getColour() {
 		return colour;
 	}

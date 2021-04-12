@@ -9,9 +9,10 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -20,6 +21,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -32,25 +34,28 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.KaysWarehouse;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.99
- * @version 0.3.5.5
+ * @version 0.4
  * @author Innoxia
  */
 public class SupplierLeader extends NPC {
@@ -61,13 +66,13 @@ public class SupplierLeader extends NPC {
 	
 	public SupplierLeader(boolean isImported) {
 		super(isImported, new NameTriplet("Wolfgang", "Wolfgang", "Winifred"), "Meyer",
-				"Wolfgang is the senior of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.",
+				"Wolfgang is the senior partner of the dobermann bounty-hunter duo which you first met at Kay's Textiles.",
 				30, Month.DECEMBER, 4,
 				12,
 				null, null, null,
 				new CharacterInventory(10),
-				WorldType.SUPPLIER_DEN,
-				PlaceType.SUPPLIER_DEPOT_OFFICE,
+				WorldType.TEXTILES_WAREHOUSE,
+				PlaceType.TEXTILE_WAREHOUSE_OVERSEER_STATION,
 				true);
 		
 		if(!isImported) {
@@ -83,7 +88,6 @@ public class SupplierLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		this.setDescription("Wolfgang is the senior of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.");
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(12);
 		}
@@ -95,6 +99,10 @@ public class SupplierLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.14")) {
+			this.setStartingBody(true);
+		}
+		this.setDescription("Wolfgang is the senior partner of the dobermann bounty-hunter duo which you first met at Kay's Textiles.");
 	}
 
 	@Override
@@ -111,22 +119,32 @@ public class SupplierLeader extends NPC {
 	}
 
 	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+		equipMove("strike");
+		equipMove("offhand-strike");
+		equipMove("twin-strike");
+		equipMove("block");
+		this.equipAllSpellMoves();
+	}
+	
+	@Override
 	public void setStartingBody(boolean setPersona) {
-		
 		// Persona:
-
 		if(setPersona) {
+			this.setCombatBehaviour(CombatBehaviour.ATTACK);
+			
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.SELFISH);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setHistory(Occupation.NPC_MUGGER);
+			this.setHistory(Occupation.NPC_BOUNTY_HUNTER);
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_CUM_STUD);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+			this.addFetish(Fetish.FETISH_CUM_STUD);
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.ONE_DISLIKE);
@@ -143,25 +161,25 @@ public class SupplierLeader extends NPC {
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DOG_MORPH, Colour.EYE_BROWN));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DOG_MORPH, PresetColour.EYE_BROWN));
 		
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_CANINE_FUR, Colour.COVERING_BLACK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_CANINE_FUR, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_CANINE_FUR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_CANINE_FUR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PURPLE));
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PURPLE));
 		
 		// Face:
 		this.setFaceVirgin(true);
@@ -194,13 +212,16 @@ public class SupplierLeader extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 
 		this.unequipAllClothingIntoVoid(true, true);
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
+		
+		AbstractClothing aviators = Main.game.getItemGen().generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_GOLD, false);
+		this.equipClothingFromNowhere(aviators, true, this);
+		this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.EYES), DisplacementType.PULLS_UP, true, true, this);
+		
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 
@@ -208,7 +229,12 @@ public class SupplierLeader extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
-
+	
+	@Override
+	public String getSpeechColour() {
+		return "#d2ab77";
+	}
+	
 	@Override
 	public void endSex() {
 		setPendingClothingDressing(true);
@@ -228,21 +254,41 @@ public class SupplierLeader extends NPC {
 		return null;
 	}
 
+	public void moveToBountyHunterLodge() {
+		this.setLocation(WorldType.BOUNTY_HUNTER_LODGE_UPSTAIRS, PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_DOBERMANNS, true);
+		if(Main.game.getHourOfDay()<2 || Main.game.getHourOfDay()>=10) {
+			Vector2i barLocation = Main.game.getWorlds().get(WorldType.BOUNTY_HUNTER_LODGE).getCell(PlaceType.BOUNTY_HUNTER_LODGE_BAR).getLocation();
+			this.setLocation(WorldType.BOUNTY_HUNTER_LODGE, new Vector2i(barLocation.getX()-1, barLocation.getY()), true);
+		}
+	}
+
+	@Override
+	public void turnUpdate() {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS)
+				&& !Main.game.getCharactersPresent().contains(this)
+				&& this.getMinutesSinceLastTimeHadSex()>15) {
+			this.moveToBountyHunterLodge();
+		}
+		if(!this.hasStatusEffect(StatusEffect.RECENTLY_SMOKED) && Main.game.getDayMinutes()%15==0 && Math.random()<0.25f) {
+			this.useItem(Main.game.getItemGen().generateItem(ItemType.CIGARETTE), this, false);
+		}
+	}
+	
 	// Combat:
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", SupplierDepot.SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_VICTORY) {
+			return new Response("", "", KaysWarehouse.DOBERMANNS_COMBAT_PLAYER_VICTORY) {
 				@Override
 				public void effects() {
-					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
-						SupplierDepot.applySuppliersBeatenEffects();
+					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
+						KaysWarehouse.applySuppliersBeatenEffects();
 					}
 				}
 			};
 		} else {
-			return new Response("", "", SupplierDepot.SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_LOSS);
+			return new Response("", "", KaysWarehouse.DOBERMANNS_COMBAT_PLAYER_LOSS);
 		}
 	}
 	
@@ -252,7 +298,13 @@ public class SupplierLeader extends NPC {
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {
-		return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH));
+		return Util.newArrayListOfValues(Main.game.getItemGen().generateItem("innoxia_race_dog_canine_crunch"));
+	}
+	
+	// Sex:
+
+	public GameCharacter getPreferredSexTarget() {
+		return Main.game.getPlayer();
 	}
 	
 }

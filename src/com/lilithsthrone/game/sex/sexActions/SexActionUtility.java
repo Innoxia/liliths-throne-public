@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -249,6 +250,44 @@ public class SexActionUtility {
 				
 		}
 	};
+	
+	public static final SexAction PARTNER_SELF_EQUIP_CLOTHING = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		private Value<AbstractClothing, String> getSexClothingBeingUsed() {
+			return ((NPC) Main.sex.getCharacterPerformingAction()).getSexClothingToSelfEquip(Main.sex.getClothingSelfEquipInformation().getValue().getKey(), false);
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
+					&& getSexClothingBeingUsed()!=null;
+		}
+		@Override
+		public String getActionTitle() {
+			if(getSexClothingBeingUsed()!=null) {
+				return "Equip "+getSexClothingBeingUsed().getKey().getName();
+			}
+			return "Equip clothing";
+		}
+		@Override
+		public String getActionDescription() {
+			return "";
+		}
+		@Override
+		public String getDescription() {
+			return getSexClothingBeingUsed().getValue();
+		}
+		@Override
+		public String applyEffectsString() {
+			return "<p>"
+						+ Main.sex.getCharacterPerformingAction().equipClothingFromInventory(getSexClothingBeingUsed().getKey(), true, Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterPerformingAction())
+					+ "</p>";
+		}
+	};
 
 	public static final SexAction PARTNER_USE_ITEM = new SexAction(
 			SexActionType.SPECIAL,
@@ -286,7 +325,9 @@ public class SexActionUtility {
 			GameCharacter target = Main.sex.getItemUseInformation().getValue().getKey();
 			
 			if(target.equals(Main.sex.getCharacterPerformingAction())) { // If self-use, their use description forms part of the getSexItemBeingUsed() description.
-				return Main.sex.getCharacterPerformingAction().useItem(getSexItemBeingUsed().getKey(), target, false, true); // Append only effects
+				Value<AbstractItem, String> itemBeingUsed = getSexItemBeingUsed();
+				Main.sex.addItemUseDenial(Main.sex.getCharacterPerformingAction(), target, itemBeingUsed.getKey().getItemType()); // Don't use the same item more than once in a scene
+				return Main.sex.getCharacterPerformingAction().useItem(itemBeingUsed.getKey(), target, false, true); // Append only effects
 			}
 			
 			// If using on NPC, the target is responsible for accepting or not:

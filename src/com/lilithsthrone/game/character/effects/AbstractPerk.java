@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractPerk {
@@ -34,7 +34,7 @@ public abstract class AbstractPerk {
 	private SpellSchool school;
 
 	// Attributes modified by this Virtue:
-	private HashMap<Attribute, Integer> attributeModifiers;
+	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 
 	private PerkCategory perkCategory;
 
@@ -51,7 +51,7 @@ public abstract class AbstractPerk {
 			PerkCategory perkCategory,
 			String pathName,
 			Colour colour,
-			HashMap<Attribute, Integer> attributeModifiers,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects) {
 		this(renderingPriority,
 				major,
@@ -73,7 +73,7 @@ public abstract class AbstractPerk {
 			PerkCategory perkCategory,
 			String pathName,
 			Colour colour,
-			HashMap<Attribute, Integer> attributeModifiers,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			Spell spell,
 			SpellUpgrade spellUpgrade,
@@ -97,7 +97,7 @@ public abstract class AbstractPerk {
 			PerkCategory perkCategory,
 			String pathName,
 			List<Colour> colours,
-			HashMap<Attribute, Integer> attributeModifiers,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			Spell spell,
 			SpellUpgrade spellUpgrade,
@@ -206,16 +206,15 @@ public abstract class AbstractPerk {
 		modifiersList.clear();
 		
 		if (this.getAttributeModifiers(character) != null) {
-			for (Entry<Attribute, Integer> e : this.getAttributeModifiers(character).entrySet()) {
-				modifiersList.add("<b>"+ (e.getValue() > 0 ? "+" : "")+ e.getValue()+ "</b>"
-						+ " <b style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</b>");
+			for (Entry<AbstractAttribute, Integer> e : this.getAttributeModifiers(character).entrySet()) {
+				modifiersList.add(e.getKey().getFormattedValue(e.getValue()));
 			}
 		}
 		
 		return Util.mergeLists(modifiersList, getExtraEffects());
 	}
 
-	public HashMap<Attribute, Integer> getAttributeModifiers(GameCharacter character) {
+	public HashMap<AbstractAttribute, Integer> getAttributeModifiers(GameCharacter character) {
 		return attributeModifiers;
 	}
 

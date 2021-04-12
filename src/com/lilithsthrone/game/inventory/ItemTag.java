@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.main.Main;
@@ -7,52 +8,91 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.6
+ * @version 0.3.9.5
  * @author Innoxia
  */
 public enum ItemTag {
 
-	HIDDEN_IN_DEBUG_SPAWNER(false),
+	CHEAT_ITEM, // Cheat items are hidden in the debug spawner, and are also not added to the Encyclopedia.
+	SILLY_MODE, // Silly mode items only appear in shopkeepers inventories when silly mode is on.
 	
-	REMOVE_FROM_DEBUG_SPAWNER(false),
-
-	NOT_FOR_SALE(false),
+	REMOVE_FROM_DEBUG_SPAWNER,
+	NOT_FOR_SALE,
 	
-	REINDEER_GIFT(false), // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
-	SOLD_BY_RALPH(false), // Will also be used for any future consumable and miscellaneous item vendors.
-	SOLD_BY_NYAN(false), // Clothing
-	SOLD_BY_KATE(false), // Jewellery
-	SOLD_BY_FINCH(false), // BDSM and sex-related stuff
-	SOLD_BY_VICKY(false), // Weapons
-
-	SPELL_BOOK(false),
-	SPELL_SCROLL(false),
-	ESSENCE(false),
-	ATTRIBUTE_TF_ITEM(false),
-	RACIAL_TF_ITEM(false),
-	MISC_TF_ITEM(false), // Fetish or non-racial body part transformations
-	BOOK(false), 
-	GIFT(false),
-	DOMINION_ALLEYWAY_SPAWN(false),
-	SUBMISSION_TUNNEL_SPAWN(false),
-	BAT_CAVERNS_SPAWN(false),
+	REINDEER_GIFT, // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
+	SOLD_BY_RALPH, // Will also be used for any future consumable and miscellaneous item vendors.
+	SOLD_BY_NYAN, // Clothing
+	SOLD_BY_KATE, // Jewellery
+	SOLD_BY_FINCH, // BDSM and sex-related stuff
+	SOLD_BY_VICKY, // Weapons
+	
+	SPELL_BOOK,
+	SPELL_SCROLL,
+	ESSENCE,
+	ATTRIBUTE_TF_ITEM,
+	RACIAL_TF_ITEM,
+	MISC_TF_ITEM, // Fetish or non-racial body part transformations
+	BOOK, 
+	GIFT,
+	DOMINION_ALLEYWAY_SPAWN,
+	SUBMISSION_TUNNEL_SPAWN,
+	BAT_CAVERNS_SPAWN,
+	ALCOHOLIC, // For easy detection of alcoholic items in some scenes
+	
+	CONTRABAND_LIGHT(// 'Restricted' items will not be bought by honest shopkeepers
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Restricted)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]"),
+			false),
+	CONTRABAND_MEDIUM(// 'Illegal' items will not be bought by honest shopkeepers and will be confiscated by Enforcers
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Illegal)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]",
+					"[style.colourBad(Enforcers will confiscate this)]"),
+			false),
+	CONTRABAND_HEAVY(// 'Highly Illegal' items will not be bought by honest shopkeepers and Enforcers will arrest anyone possessing them
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Highly Illegal)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]",
+					"[style.colourTerrible(Enforcers will arrest people possessing this)]"),
+			false),
 	
 	//-------------- WEAPONS & CLOTHING --------------//
-
-	REVEALS_CONCEALABLE_SLOT(false), // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
+	
+	/** Excludes this clothing from being randomly chosen to equip on an NPC in automatic outfit generation.
+	 *  Also excludes the clothing from randomly spawning as tile-exploration loot.
+	 *  This only really affects common-rarity clothing, as all clothing of a rarity higher than common are typically only able to be added to characters directly. */
+	NO_RANDOM_SPAWN,
+	
+	NIGHT_VISION_SELF(  // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
+			Util.newArrayListOfValues(
+					"[style.colourGood(Negates 'Darkness' effect)]"),
+			false),
+	
+	NIGHT_VISION_AREA( // Makes this clothing or weapon provide immunity to the darkness debuff for all characters in the area in which the wearer is located while equipped
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Negates 'Darkness' effect for all nearby characters)]"),
+			false),
+	
+	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 
 	TRANSPARENT( // This item of clothing does not conceal any areas. Used for chastity cages & condoms (so penis is still visible). Could also be used for sheer clothing material.
 			Util.newArrayListOfValues(
 					"[style.colourSex(Cannot conceal any body parts)]"),
 			false),
-	
-	WEAPON_BLADE(false), // Should be added to all weapons that use an arcane blade
-	
-	WEAPON_UNARMED(false), // Should be added to all weapons that should use unarmed damage calculations instead of melee
-	
-	DRESS(false), // For helping to generate clothing in CharacterUtils
 
-	PROVIDES_KEY( // The person whi equips this clothing will get an unlock key, making the removal cost for jinxes equal to 0
+	WEAPON_FERAL_EQUIPPABLE( // Allows ferals to equip this weapon (as they cannot equip weapons by default)
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Can be equipped by ferals)]"),
+			false),
+	
+	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
+	
+	WEAPON_UNARMED, // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	
+	DRESS, // For helping to generate clothing in CharacterUtils
+
+	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
 			Util.newArrayListOfValues(
 					"[style.colourGood(Provides equipper with key)]"),
 			false),
@@ -79,6 +119,11 @@ public enum ItemTag {
 					"[style.colourTerrible(Blocks non-flight combat escape)]"),
 			false),
 
+	PREVENTS_COMBAT_ESCAPE(  // Prevents the character from escaping from combat
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Prevents combat escape)]"),
+			false),
+	
 	DISCARDED_WHEN_UNEQUIPPED( //  Makes the clothing be thrown away when unequipped. E.g. Condoms
 			Util.newArrayListOfValues(
 					"[style.colourMinorBad(Discarded when unequipped)]"),
@@ -114,45 +159,45 @@ public enum ItemTag {
 	// These 'FITS' tags are used to check for whether clothing is suitable for certain body parts. They should be pretty self-explanatory.
 	FITS_HOOFS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits hoofs)]"),
+					"[style.colourFeral(Only fits hoofs)]"),
 			false),
 	FITS_HOOFS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits hoofs)]"),
+					"[style.colourFeral(Fits hoofs)]"),
 			false),
 	
 	FITS_TALONS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits talons)]"),
+					"[style.colourFeral(Only fits talons)]"),
 			false),
 	FITS_TALONS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits talons)]"),
+					"[style.colourFeral(Fits talons)]"),
 			false),
 	
 	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits feathered arm-wings)]"),
+					"[style.colourTfGeneric(Only fits feathered arm-wings)]"),
 			false),
 	FITS_FEATHERED_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits feathered arm-wings)]"),
+					"[style.colourTfGeneric(Fits feathered arm-wings)]"),
 			false),
 	FITS_LEATHERY_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits leathery arm-wings)]"),
+					"[style.colourTfGeneric(Only fits leathery arm-wings)]"),
 			false),
 	FITS_LEATHERY_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits leathery arm-wings)]"),
+					"[style.colourTfGeneric(Fits leathery arm-wings)]"),
 			false),
 	FITS_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits arm-wings)]"),
+					"[style.colourTfGeneric(Only fits arm-wings)]"),
 			false),
 	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits arm-wings)]"),
+					"[style.colourTfGeneric(Fits arm-wings)]"),
 			false),
 	
 	FITS_NON_BIPED_BODY_HUMANOID(
@@ -161,21 +206,70 @@ public enum ItemTag {
 			false),
 	FITS_TAUR_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits taur bodies)]"),
+					"[style.colourTfGeneric(Only fits quadrupedal bodies)]"),
 			false),
 	FITS_LONG_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits long-tailed bodies)]"),false), //lamia, eels
+					"[style.colourTfGeneric(Only fits long-tailed bodies)]"),false), //lamia, eels
 	FITS_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits tailed bodies)]"),false), //mermaids
+					"[style.colourTfGeneric(Only fits tailed bodies)]"),false), //mermaids
 	FITS_ARACHNID_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits arachnid bodies)]"),false), //spiders and scorpions
+					"[style.colourTfGeneric(Only fits arachnid bodies)]"),false), //spiders and scorpions
 	FITS_CEPHALOPOD_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits cephalopod bodies)]"),false), //octopuses and squids
-
+					"[style.colourTfGeneric(Only fits cephalopod bodies)]"),false), //octopuses and squids
+	FITS_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourTfGeneric(Only fits avian bodies)]"),false), //bird-taurs
+	
+	// These tags are non-exclusive, so clothing with them can additionally be equipped by non-ferals:
+	FITS_FERAL_ALL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits all feral bodies)]"),false), //All feral bodies can equip clothing marked with this tag.
+	FITS_FERAL_QUADRUPED_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits quadrupedal feral bodies)]"),false), //Quadrupedal feral bodies can equip clothing marked with this tag
+	FITS_FERAL_LONG_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits long-tailed feral bodies)]"),false), //Long-tailed feral bodies can equip clothing marked with this tag
+	FITS_FERAL_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits tailed feral bodies)]"),false), //Tailed feral bodies can equip clothing marked with this tag
+	FITS_FERAL_ARACHNID_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits arachnid feral bodies)]"),false), //Arachnid feral bodies can equip clothing marked with this tag
+	FITS_FERAL_CEPHALOPOD_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits cephalopod feral bodies)]"),false), //Cephalopod feral bodies can equip clothing marked with this tag
+	FITS_FERAL_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits avian feral bodies)]"),false), //Avian feral bodies can equip clothing marked with this tag
+	// These tags are exclusive, so clothing with them can ONLY be equipped by the corresponding body type (unless the clothing additionally has other permissive tags):
+	ONLY_FITS_FERAL_ALL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits feral bodies)]"),false),
+	ONLY_FITS_FERAL_QUADRUPED_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits quadrupedal feral bodies)]"),false),
+	ONLY_FITS_FERAL_LONG_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits long-tailed feral bodies)]"),false),
+	ONLY_FITS_FERAL_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits tailed feral bodies)]"),false),
+	ONLY_FITS_FERAL_ARACHNID_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits arachnid feral bodies)]"),false),
+	ONLY_FITS_FERAL_CEPHALOPOD_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits cephalopod feral bodies)]"),false),
+	ONLY_FITS_FERAL_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits avian feral bodies)]"),false),
+	
+	
 	RIGID_MATERIAL( // The clothing is made out of a rigid material, and as such, groping actions cannot be performed on it. Used for chastity cages/belts.
 			Util.newArrayListOfValues(
 					"[style.colourTerrible(Blocks groping actions)]"),
@@ -195,6 +289,15 @@ public enum ItemTag {
 	/**<b>IMPORTANT</b> This tag should only ever be given to clothing going into the PENIS InventorySlot, as otherwise it will throw errors.*/
 	CONDOM(true), // Gives this clothing condom behaviour
 	
+	CHOKER_SNAP( // Snaps (into wearer's inventory) if throat stretches.
+			Util.newArrayListOfValues(
+					"[style.colourSex(Snaps if throat bulges too much during sex)]"),
+			true),
+	
+	CHASTITY( // Tags the clothing as being some form of chastity device, meaning that it will apply the 'CHASTITY_1' status effect when equipped
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Chastity device)]"),
+			true),
 	
 	// To detect whether creampies should leak out or not:
 	
@@ -202,7 +305,7 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Plugs asshole (does not get dirty from creampies))]"),
 			true),
-	SEALS_ANUS( // Counts as sealing(false), but not inserted into(false), the wearer's anus. E.g. Tape
+	SEALS_ANUS( // Counts as sealing, but not inserted into, the wearer's anus. E.g. Tape
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals asshole (does not get dirty from creampies))]"),
 			true),
@@ -233,35 +336,34 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals nipples (does not get dirty from creampies))]"),
 			true),
-
 	
-	DILDO_TINY( // 3 inches
+	MILKING_EQUIPMENT(
 			Util.newArrayListOfValues(
-					"[style.colourSex(3-inch dildo)]"),
+					"[style.colourMilk(Milking equipment (drains creampies))]"),
 			true),
-	DILDO_AVERAGE( // 6 inches
+	
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(6-inch dildo)]"),
+					"[style.colourSub(Insertable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_LARGE( // 10 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(10-inch dildo)]"),
+					"[style.colourDom(Wearable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_HUGE( // 14 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(14-inch dildo)]"),
+					"[style.colourSex(Fuckable onahole)]"),
 			true),
-	DILDO_ENORMOUS( // 18 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(18-inch dildo)]"),
-			true),
-	DILDO_GIGANTIC( // 22 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(22-inch dildo)]"),
-			true),
-	DILDO_STALLION( // 32 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(32-inch dildo)]"),
+					"[style.colourSex(Wearable onahole)]"),
 			true),
 	;
 
@@ -283,11 +385,22 @@ public enum ItemTag {
 		this.clothingTooltipAdditions = null;
 		this.sexToy = sexToy;
 	}
-
-	public List<String> getClothingTooltipAdditions() {
-		return clothingTooltipAdditions;
+	
+	private ItemTag() {
+		this.clothingTooltipAdditions = null;
+		this.sexToy = false;
 	}
 
+	public List<String> getClothingTooltipAdditions() {
+		if(clothingTooltipAdditions==null) {
+			return new ArrayList<>();
+		}
+		return clothingTooltipAdditions;
+	}
+	
+	/**
+	 * @return true if this tag makes the clothing to which it is applied a sex toy, meaning that NPCs will not remove it during sex unless it is blocking the part they wish to access.
+	 */
 	public boolean isSexToy() {
 		return sexToy;
 	}

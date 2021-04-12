@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -24,9 +23,9 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -94,9 +93,9 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -115,12 +114,6 @@ public class VengarCaptiveDialogue {
 		for(VengarCompanionBehaviour cb : VengarCompanionBehaviour.values()) {
 			dailyCompanionBehaviours.put(cb, cb.getChanceOfOccurance());
 		}
-		
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveCompanionGivenBirth, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveRoomCleaned, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveVengarSatisfied, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveShadowSatisfied, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveSilenceSatisfied, false);
 	}
 	
 	private static GameCharacter getMainCompanion() {
@@ -141,7 +134,7 @@ public class VengarCaptiveDialogue {
 			rat.setLevel(4+Util.random.nextInt(5));
 			rat.setLocation(Main.game.getPlayer(), true);
 			String[] names = new String[] {"thug", "gangster", "gang-member", "mobster"};
-			CharacterUtils.setGenericName(rat, Util.randomItemFrom(names), null);
+			Main.game.getCharacterUtils().setGenericName(rat, Util.randomItemFrom(names), null);
 			return rat;
 
 		} catch (Exception e) {
@@ -224,7 +217,7 @@ public class VengarCaptiveDialogue {
 		return sb.toString();
 	}
 	
-	private static String applyTransformation(GameCharacter target) { //TODO returning emptry string
+	private static String applyTransformation(GameCharacter target) { //TODO returning empty string
 		StringBuilder sb = new StringBuilder();
 		
 		if(target.isAbleToHaveRaceTransformed()) {
@@ -233,7 +226,7 @@ public class VengarCaptiveDialogue {
 				case NORMAL:
 				case MAXIMUM:
 					// face, skin
-					target.setSkinType(SkinType.RAT_MORPH);
+					target.setTorsoType(TorsoType.RAT_MORPH);
 					target.setFaceType(FaceType.RAT_MORPH);
 				//$FALL-THROUGH$
 				case REDUCED:
@@ -301,7 +294,7 @@ public class VengarCaptiveDialogue {
 	}
 	
 	private static void applyTattoo(GameCharacter target, String text) {
-		Tattoo tattoo = new Tattoo(TattooType.NONE, Colour.CLOTHING_GREY, null, null, false, new TattooWriting(text, Colour.BASE_PINK, false), null);
+		Tattoo tattoo = new Tattoo(TattooType.NONE, PresetColour.CLOTHING_GREY, null, null, false, new TattooWriting(text, PresetColour.BASE_PINK, false), null);
 		tattoo.setName("'"+text+"' tattoo");
 		target.addTattoo(InventorySlot.GROIN, tattoo);
 	}
@@ -728,7 +721,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Wait", "Loiter around in the hall, waiting to see is something will be asked of you.", PlaceType.RAT_WARRENS_VENGARS_HALL.getDialogue(true, true)) {
+				return new Response("Wait", "Loiter around in the hall, waiting to see is something will be asked of you.", Main.game.getDefaultDialogue(true, true)) {
 					@Override
 					public int getSecondsPassed() {
 						return 30*60;
@@ -2182,16 +2175,18 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
-				return new Response("Bedroom",
-						"Follow Shadow and Silence into the bedroom.",
-						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-					}
-				};
+				if(index==1) {
+					return new Response("Bedroom",
+							"Follow Shadow and Silence into the bedroom.",
+							VENGARS_HALL_DELIVERY_BIRTHING) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+							Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+							Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+						}
+					};
+				}
 					
 			} else {
 				if(index==1) {
@@ -2224,7 +2219,7 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getVaginaType().isEggLayer()) {
+			if(Main.game.getPlayer().isVaginaEggLayer()) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "VENGARS_HALL_DELIVERY_BIRTHING_EGGS");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "VENGARS_HALL_DELIVERY_BIRTHING");
@@ -2233,7 +2228,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getPlayer().getVaginaType().isEggLayer()) {
+				if(Main.game.getPlayer().isVaginaEggLayer()) {
 					return new Response("Protect the eggs!", "You spend some time recovering from your ordeal...", VENGARS_HALL_DELIVERY_BIRTHING_EGG_PROTECTION) {
 						@Override
 						public void effects() {
@@ -2308,7 +2303,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Wait", "Loiter around in the bed-chambers in an attempt to pass the time without having to work in the hall...", PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS.getDialogue(true, true)) {
+				return new Response("Wait", "Loiter around in the bed-chambers in an attempt to pass the time without having to work in the hall...", Main.game.getDefaultDialogue(true, true)) {
 					@Override
 					public int getSecondsPassed() {
 						return 30*60;
@@ -3760,7 +3755,7 @@ public class VengarCaptiveDialogue {
 					@Override
 					public void effects() {
 						RatWarrensCaptiveDialogue.restoreInventories();
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+						Main.game.getPlayer().setCaptive(false);
 						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT);
 						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT);
 						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT);

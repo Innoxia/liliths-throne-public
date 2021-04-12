@@ -2,45 +2,59 @@ package com.lilithsthrone.game.character.body.types;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public enum BodyPartType {
 	
 	GENERIC("generic"),
 	
-	ANTENNA("antenna"),
+	// Limbs/body:
 	ARM("arms"),
+	LEG("legs"),
+	SKIN("skin"),
+	TAIL("tail"),
+	TENTACLE("tentacle"),
+	WING("wings"),
+	
+	// Ass:
 	ASS("ass"),
 	ANUS("anus"),
-	
+
+	// Breasts:
 	BREAST("breasts"),
 	NIPPLES("nipples"),
 	MILK("milk"),
 	
+	// Crotch-boobs:
 	BREAST_CROTCH("crotch-breasts"),
 	NIPPLES_CROTCH("crotch-nipples"),
 	MILK_CROTCH("crotch-breast-milk"),
 	
+	// Head:
+	ANTENNA("antenna"),
 	EAR("ears"),
 	EYE("eyes"),
 	FACE("face"),
 	MOUTH("mouth"),
+	TONGUE("tongue"),
 	HAIR("hair"),
 	HORN("horns"),
-	LEG("legs"),
+	
+	// Penis:
 	PENIS("penis"),
 	SECOND_PENIS("second penis"),
 	TESTICLES("testicles"),
 	CUM("cum"),
-	SKIN("skin"),
-	TAIL("tail"),
-	TENTACLE("tentacle"),
-	TONGUE("tongue"),
+	
+	// Vagina:
 	CLIT("clitoris"),
 	VAGINA("vagina"),
 	GIRL_CUM("girl cum"),
-	WING("wings");
+	
+	// Spinneret:
+
+	SPINNERET("spinneret");
 	
 	private String name;
 	private BodyPartType(String name){

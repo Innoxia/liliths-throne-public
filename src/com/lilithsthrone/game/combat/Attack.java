@@ -6,9 +6,9 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
@@ -48,12 +48,8 @@ public enum Attack {
 	 * @return Hit chance from 0 to 1, representing % chance to hit.
 	 */
 	public static float getHitChance(GameCharacter attacker, GameCharacter defender) {
-
 		// Calculate hit:
-		float chanceToHit = 1;//(100 - Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.MISS_CHANCE), 100))/100f;
-		
-//		chanceToHit *= (1 - (Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.DODGE_CHANCE), 100)/100f));
-		
+		float chanceToHit = 1;
 		return chanceToHit > 1 ? 1 : (chanceToHit < 0 ? 0 : chanceToHit);
 	}
 	
@@ -66,13 +62,16 @@ public enum Attack {
 	 * @return
 	 */
 	public static float getBaseWeaponDamage(GameCharacter attacker, AbstractWeapon weapon) {
-		if (attacker == null) {
+		if(attacker == null) {
 			return 0;
 		}
-		if (weapon == null) {
+		if(weapon == null) {
 			return attacker.getUnarmedDamage();
 			
 		} else {
+			if(weapon.getWeaponType().isUsingUnarmedCalculation()) {
+				return weapon.getWeaponType().getDamage() + attacker.getUnarmedDamage();
+			}
 			return weapon.getWeaponType().getDamage();
 		}
 	}
@@ -104,6 +103,19 @@ public enum Attack {
 
 		return Math.round(damage);
 	}
+
+	public static int calculateDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, int damage, boolean critical) {
+		float finalDamage = getMinimumDamage(attacker, defender, attackType, weapon, damage);
+
+		// Add variation:
+		if (getMaximumDamage(attacker, defender, attackType, weapon, damage) - getMinimumDamage(attacker, defender, attackType, weapon, damage) > 0) {
+			float difference = getMaximumDamage(attacker, defender, attackType, weapon, damage) - getMinimumDamage(attacker, defender, attackType, weapon, damage);
+			
+			finalDamage += Math.random()*difference;
+		}
+
+		return applyFinalDamageModifiers(attacker, defender, finalDamage, critical);
+	}
 	
 	public static int calculateDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, boolean critical) {
 		float damage = getMinimumDamage(attacker, defender, attackType, weapon);
@@ -130,7 +142,7 @@ public enum Attack {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Main.combat.getTurn()==0) {
 			return 2 * Math.round(damage);
 		} else {
 			return Math.round(damage);
@@ -160,16 +172,20 @@ public enum Attack {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Main.combat.getTurn()==0) {
 			return 2 * Math.round(finalDamage);
 		} else {
 			return Math.round(finalDamage);
 		}
 	}
-	
+
 	public static int calculateSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
-		float minimumDamage = getMinimumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance);
-		float maximumDamage = getMaximumSpecialAttackDamage(attacker, defender, damageType, damage, damageVariance);
+		return calculateSpecialAttackDamage(attacker, defender, CombatMoveType.ATTACK, damageType, damage, damageVariance, critical);
+	}
+
+	public static int calculateSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
+		float minimumDamage = getMinimumSpecialAttackDamage(attacker, defender, combatMoveType, damageType, damage, damageVariance);
+		float maximumDamage = getMaximumSpecialAttackDamage(attacker, defender, combatMoveType, damageType, damage, damageVariance);
 
 		float difference = maximumDamage - minimumDamage;
 		float finalDamage = minimumDamage;
@@ -190,7 +206,7 @@ public enum Attack {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Main.combat.getTurn()==0) {
 			return 2 * Math.round(finalDamage);
 		} else {
 			return Math.round(finalDamage);
@@ -198,25 +214,26 @@ public enum Attack {
 	}
 
 	/**
-	 * Returns a value that represents the minimum possible damage done to the
-	 * defender. The only mechanic not taken into consideration is critical
-	 * chance/damage, which is handled in the calculateDamage() method.
-	 * 
-	 * @param attacker
-	 *            The attacking character.
-	 * @param defender
-	 *            The defending character.
-	 * @param attackType
-	 *            Type of this attack.
-	 * @param weapon
-	 *            The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
-	 * @return Minimum damage possible for this attack.
+	 * @see Attack.getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage)
 	 */
 	public static int getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon) {
+		return getMinimumDamage(attacker, defender, attackType, weapon, getBaseWeaponDamage(attacker, weapon));
+	}
+	
+	/**
+	 * Returns a value that represents the minimum possible damage done to the defender. The only mechanic not taken into consideration is critical chance/damage, which is handled in the calculateDamage() method.
+	 * 
+	 * @param attacker The attacking character.
+	 * @param defender The defending character.
+	 * @param attackType Type of this attack.
+	 * @param weapon The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
+	 * @param baseDamage Optional argument to define the amount of damage which should be considered to be the base damage. If this argument is not used, then getBaseWeaponDamage(attacker, weapon) is used as the base damage.
+	 * @return Minimum damage possible for this attack.
+	 */
+	public static int getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage) {
 		float damage = 0;
 		
-		if (attackType == MAIN
-				|| attackType == OFFHAND) {
+		if(attackType == MAIN || attackType == OFFHAND) {
 			damage = getModifiedDamage(attacker,
 					defender,
 					attackType,
@@ -224,9 +241,9 @@ public enum Attack {
 					(weapon == null
 						? attacker.getBodyMaterial().getUnarmedDamageType()
 						: weapon.getDamageType()),
-					getBaseWeaponDamage(attacker, weapon) * (weapon == null
-																? 1f - DamageVariance.MEDIUM.getPercentage()
-																: 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
+					baseDamage * (weapon == null
+										? 1f - DamageVariance.MEDIUM.getPercentage()
+										: 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 			
 		} else {
 			damage = (getModifiedDamage(attacker, defender, attackType, weapon, DamageType.LUST, getSeductionDamage(attacker) * 0.9f)); // TODO why is it 90%?
@@ -236,28 +253,28 @@ public enum Attack {
 	}
 
 	/**
-	 * Returns a value that represents the maximum possible damage done to the
-	 * defender. The only mechanic not taken into consideration is critical
-	 * chance/damage, which is handled in the calculateDamage() method.
-	 * 
-	 * @param attacker
-	 *            The attacking character.
-	 * @param defender
-	 *            The defending character.
-	 * @param attackType
-	 *            Type of this attack.
-	 * @param weapon
-	 *            The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
-	 * @return Minimum damage possible for this attack.
+	 * @see Attack.getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage)
 	 */
 	public static int getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon) {
+		return getMaximumDamage(attacker, defender, attackType, weapon, getBaseWeaponDamage(attacker, weapon));
+	}
 
+	/**
+	 * Returns a value that represents the maximum possible damage done to the defender. The only mechanic not taken into consideration is critical chance/damage, which is handled in the calculateDamage() method.
+	 * 
+	 * @param attacker The attacking character.
+	 * @param defender The defending character.
+	 * @param attackType Type of this attack.
+	 * @param weapon The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
+	 * @param baseDamage Optional argument to define the amount of damage which should be considered to be the base damage. If this argument is not used, then getBaseWeaponDamage(attacker, weapon) is used as the base damage.
+	 * @return Maximum damage possible for this attack.
+	 */
+	public static int getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage) {
 		float damage = 0;
 		
-		if (attackType == MAIN
-				|| attackType == OFFHAND) {
+		if(attackType == MAIN || attackType == OFFHAND) {
 			damage = getModifiedDamage(attacker, defender, attackType, weapon, (weapon == null ? attacker.getBodyMaterial().getUnarmedDamageType() : weapon.getDamageType()),
-					getBaseWeaponDamage(attacker, weapon) * (weapon == null ? 1f + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
+					baseDamage * (weapon == null ? 1f + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 			
 		} else {
 			damage = (getModifiedDamage(attacker, defender, attackType, weapon, DamageType.LUST, getSeductionDamage(attacker) * 1.1f));
@@ -283,40 +300,44 @@ public enum Attack {
 		return maxDamage;
 	}
 	
-	public static float getMinimumSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance) {
-		float minDamage = getModifiedDamage(attacker, defender, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 - damageVariance.getPercentage()));
+	public static float getMinimumSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, DamageType damageType, float damage, DamageVariance damageVariance) {
+		float minDamage = getModifiedDamage(attacker, defender, combatMoveType, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 - damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		minDamage = (Math.round(minDamage*10))/10f;
 		
-		minDamage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
+		minDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return minDamage;
 	}
-	public static float getMaximumSpecialAttackDamage(GameCharacter caster, GameCharacter target, DamageType damageType, float damage, DamageVariance damageVariance) {
-		float maxDamage = getModifiedDamage(caster, target, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 + damageVariance.getPercentage()));
+	public static float getMaximumSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, DamageType damageType, float damage, DamageVariance damageVariance) {
+		float maxDamage = getModifiedDamage(attacker, defender, combatMoveType, Attack.SPECIAL_ATTACK, null, damageType, damage * (1 + damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		maxDamage = (Math.round(maxDamage*10))/10f;
 
-		maxDamage *= 1 + Util.getModifiedDropoffValue(caster.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
+		maxDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return maxDamage;
+	}
+
+	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, DamageType damageType, float attackersDamage) {
+		return getModifiedDamage(attacker, defender, CombatMoveType.ATTACK, attackType, weapon, damageType, attackersDamage);
 	}
 	
 	/**
 	 * Applies attacker bonuses to the supplied attack value, then returns the result.
 	 * 
-	 * 
-	 * @param attacker
-	 *            The attacking character.
-	 * @param defender
-	 *            The defending character.
-	 * @param attackType
-	 *            Type of this attack.
+	 * @param attacker         The attacking character.
+	 * @param defender         The defending character.
+	 * @param combatMoveType   The type of the combat move.
+	 * @param attackType       Type of this attack.
+	 * @param weapon           The weapon being used (if any).
+	 * @param damageType       The damage type.
+	 * @param attackersDamage  The unmodified damage.
 	 * @return Modified damage value.
 	 */
-	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, DamageType damageType, float attackersDamage) {
+	public static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, CombatMoveType combatMoveType, Attack attackType, AbstractWeapon weapon, DamageType damageType, float attackersDamage) {
 		float damage = 0;
 		boolean damageDoubledFromElemental = false;
 		
@@ -357,31 +378,31 @@ public enum Attack {
 			}
 			
 			if(attacker!=null) { // Attacker modifiers:
-				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
+				damage += attackersDamage * (attacker.getAttributeValue(damageType.getMultiplierAttribute())/100f);
 				
-				if(weapon!=null && !weapon.getWeaponType().isUsingUnarmedCalculation()) {
-					if(weapon.getWeaponType().isMelee()) {
-						damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), 100)/100f);
-					} else {
-						damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), 100)/100f);
-					}
-					
-				} else {
-					damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f);
+				switch (combatMoveType) {
+					case SPELL:
+					case POWER:
+						damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_SPELLS)/100f);
+						break;
+
+					default:
+						if(weapon!=null && !weapon.getWeaponType().isUsingUnarmedCalculation()) {
+							if(weapon.getWeaponType().isMelee()) {
+								damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON)/100f);
+							} else {
+								damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON)/100f);
+							}
+
+						} else {
+							damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
+						}
 				}
 				
 				if (damage < 1) {
 					damage = 1;
 				}
 			}
-
-//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) { // Defender modifiers:
-//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
-//				
-//				if (damage < 1) {
-//					damage = 1;
-//				}
-//			}
 			
 		} else if(attackType == SPELL) {
 			if(damageDoubledFromElemental) {
@@ -391,17 +412,13 @@ public enum Attack {
 			}
 			
 			if (attacker!=null) { // Attacker modifiers:
-				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_SPELLS), 100)/100f);
-				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
+				damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_SPELLS)/100f);
+				damage += attackersDamage * (attacker.getAttributeValue(damageType.getMultiplierAttribute())/100f);
 			}
-
-//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
-//			}
 			
 		} else {
 			if (attacker!=null) { // Attacker modifiers:
-				damage += attackersDamage * (1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_LUST), 100)/100f);
+				damage += attackersDamage * (1 + attacker.getAttributeValue(Attribute.DAMAGE_LUST)/100f);
 				
 				if(defender!=null) {
 					if((attacker.hasTrait(Perk.FEMALE_ATTRACTION, true) && defender.isFeminine())
@@ -419,7 +436,6 @@ public enum Attack {
 
 			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
-//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				if(attacker!=null) {
 					if((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
 							|| (attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine())) {
@@ -438,12 +454,7 @@ public enum Attack {
 		
 		if (attacker!=null && defender!=null) {
 			// Modifiers based on race damage:
-			damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier()), 100)/100f);
-			
-			// Modifiers based on level:
-//			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;
-//			levelBoost = Util.getModifiedDropoffValue(levelBoost, 100)/100f;
-//			damage = damage * (1 + (levelBoost/100));
+			damage += attackersDamage * (attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier())/100f);
 		}
 		
 		return damage;

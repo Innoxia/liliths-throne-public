@@ -2322,6 +2322,14 @@ border-radius:5px;
 	left:2px;
 }
 
+.item-icon{
+	position:absolute;
+	height:33%;
+	width:33%;
+	bottom:2px;
+	left:2px;
+}
+
 @-webkit-keyframes flashColour {
     0%   {opacity:0.4;}
     50%  {opacity:0.95;}

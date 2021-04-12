@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[cryoprism guns]]></namePlural> 
 		
-		<description><![CDATA[Having the longest reach in the Enforcer arsenal, the cryoprism gun uses a <span style='color:#85C6FF;'>freezing</span> <span style='color:#FFCC00;'>clear demonstone</span> as the active medium of an otherwise normal quad-pumped solid state laser. The result turns a mildly annoying laser beam into a powerful freeze ray with a perfectly flat trajectory.]]></description> 
+		<description><![CDATA[Having the longest reach in the Enforcer arsenal, the cryoprism gun uses a [style.colourIce(freezing)] [style.colourLegendary(clear demonstone)] as the active medium of an otherwise normal quad-pumped solid state laser. The result turns a mildly annoying laser beam into a powerful freeze ray with a perfectly flat trajectory.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		
@@ -46,7 +46,23 @@
 		
 		<enchantmentLimit>5</enchantmentLimit>
 		
-		<effects/> 
+		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[[style.boldIce("Freezing Fog")] on critical hit.]]></effect>
+		</extraEffects>
+		
+		<onHitEffect/>
+		
+		<onCriticalHitEffect><![CDATA[
+		#IF (!npc2.hasStatusEffect(SE_FREEZING_FOG))
+			[##npc2.addStatusEffect(SE_FREEZING_FOG, 4)] A [style.boldIce(freezing fog)] settles around around [npc2.name]!
+		#ELSEIF (npc2.hasStatusEffect(SE_FREEZING_FOG) && !npc2.hasStatusEffect(SE_FROZEN))
+			[##npc2.addStatusEffect(SE_FROZEN, 2)]
+			[##npc2.removeStatusEffect(SE_FREEZING_FOG)]
+			The [style.colourIce(fog)] around [npc2.name] flash-freezes [style.boldIce(thin layer of ice)]!
+		#ENDIF
+		]]></onCriticalHitEffect>
 		
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL_WITH_METALS"/>
@@ -54,19 +70,21 @@
 			<colour>CLOTHING_GREY_DARK</colour>
 		</secondaryColours>
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_BLACK"/> 
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. A bright blue beam of light smashes into [npc2.namePos] aura, leaving behind a trail of snowflakes in the air as it fades.
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. A bright blue beam of light smashes into [npc2.her] aura. A faint trail of snowflakes flutters delicately in the air as the light fades.
 		]]></hitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
 		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The shot goes wide! The beam uselessly creates a large patch of ice some distance away.

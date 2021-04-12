@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Look in the mods folder for a commented version of this. -->
+<outfit>
+	<coreAttributes>
+		<name><![CDATA[generic imp mugger (masculine)]]></name>
+		
+		<description><![CDATA[Crude clothing and weapons...]]></description>
+		
+		<femininity>MASCULINE</femininity>
+		
+		<worldTypes>
+			<world>SUBMISSION</world>
+			<world>IMP_FORTRESS_ALPHA</world>
+			<world>IMP_FORTRESS_DEMON</world>
+			<world>IMP_FORTRESS_FEMALES</world>
+			<world>IMP_FORTRESS_MALES</world>
+			<world>RAT_WARRENS</world>
+		</worldTypes>
+		
+		<outfitTypes>
+		  <type>MUGGER</type>
+		</outfitTypes>
+		
+		<acceptableLegConfigurations/>
+		
+		<conditional><![CDATA[npc.getSubspecies()==SUBSPECIES_IMP || npc.getSubspecies()==SUBSPECIES_IMP_ALPHA]]></conditional>
+		
+		<weight>100</weight>
+	</coreAttributes>
+	
+	<generationAttributes>
+		<condAlphaImp constant="true"><![CDATA[npc.getSubspecies()==SUBSPECIES_IMP_ALPHA]]></condAlphaImp>
+		<condExhibitionist constant="true"><![CDATA[npc.hasFetish(FETISH_EXHIBITIONIST)]]></condExhibitionist>
+		
+		<condSpellcaster constant="true"><![CDATA[!npc.getAllSpells().isEmpty()]]></condSpellcaster>
+		<condHandWraps constant="true"><![CDATA[RND.nextInt(100)<=50]]></condHandWraps>
+		<condSarachi constant="true"><![CDATA[RND.nextInt(100)<=75]]></condSarachi>
+		
+		<condBow constant="true"><![CDATA[RND.nextInt(100)<=25]]></condBow>
+		<condShield constant="true"><![CDATA[RND.nextInt(100)<=80]]></condShield>
+		
+		<condTunnelsAlpha constant="true"><![CDATA[npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_SUBMISSION_IMP_TUNNELS_ALPHA)]]></condTunnelsAlpha>
+		<condTunnelsFemales constant="true"><![CDATA[npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_SUBMISSION_IMP_TUNNELS_FEMALES)]]></condTunnelsFemales>
+		<condTunnelsMales constant="true"><![CDATA[npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_SUBMISSION_IMP_TUNNELS_MALES)]]></condTunnelsMales>
+		<condTunnelsDemon constant="true"><![CDATA[npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_SUBMISSION_IMP_TUNNELS_DEMON)]]></condTunnelsDemon>
+		
+		<condGenericTunnels constant="true"><![CDATA[!condTunnelsAlpha && !condTunnelsFemales && !condTunnelsMales && !condTunnelsDemon]]></condGenericTunnels>
+		
+		
+		<presetColourGroup1>
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_GREEN_DRAB</randomColour>
+			<randomColour>CLOTHING_OLIVE</randomColour>
+			<randomColour>CLOTHING_DESATURATED_BROWN</randomColour>
+			<randomColour>CLOTHING_BLUE_VERY_DARK</randomColour>
+		</presetColourGroup1>
+		
+        <mainWeapons>
+			<weapon>
+				<conditional><![CDATA[condSpellcaster]]></conditional>
+				<type>innoxia_arcanistStaff_arcanist_staff</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[!condSpellcaster && (condAlphaImp || condTunnelsMales || condGenericTunnels) && !condTunnelsFemales && !condBow]]></conditional>
+				<types>
+					<type>innoxia_pipe_pipe</type>
+					<type>innoxia_bat_wooden</type>
+					<type>innoxia_bat_metal</type>
+					<type>innoxia_bow_pistol_crossbow</type>
+				</types>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[!condSpellcaster && condAlphaImp && !condTunnelsFemales && condBow]]></conditional>
+				<types>
+					<type>innoxia_bow_shortbow</type>
+				</types>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+        </mainWeapons>
+		
+        <offhandWeapons>
+			<weapon>
+				<conditional><![CDATA[!condSpellcaster && (condAlphaImp || condGenericTunnels) && !condTunnelsFemales && !condBow && condShield]]></conditional>
+				<types>
+					<type>innoxia_crudeShield_crude_shield</type>
+				</types>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[!condSpellcaster && (condAlphaImp || condGenericTunnels) && !condTunnelsFemales && !condBow && !condShield]]></conditional>
+				<types>
+					<type>innoxia_bow_pistol_crossbow</type>
+				</types>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+        </offhandWeapons>
+		
+		
+		<guaranteedClothingEquips/>
+		
+		<clothingType>
+			<conditional><![CDATA[condSpellcaster]]></conditional>
+			<types>
+				<type>innoxia_impArcanist_arcanist_hat</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[!condExhibitionist]]></conditional>
+			<types>
+				<type>GROIN_BOXERS</type>
+				<type>GROIN_BRIEFS</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[!condExhibitionist]]></conditional>
+			<types>
+				<type>innoxia_loinCloth_loin_cloth</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Accessories: -->
+		
+		<clothingType>
+			<conditional><![CDATA[condHandWraps]]></conditional>
+			<types>
+				<type>HAND_WRAPS</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[condSarachi]]></conditional>
+			<types>
+				<type>STOMACH_SARASHI</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		
+		<clothingType>
+			<conditional><![CDATA[condSpellcaster]]></conditional>
+			<types>
+				<type>innoxia_neck_demonstone_necklace</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[condAlphaImp]]></conditional> <!-- Alpha-imps are walking, not flying, so they wear foot wraps. -->
+			<types>
+				<type>innoxia_loinCloth_foot_wraps</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[condAlphaImp]]></conditional>
+			<types>
+				<type>innoxia_finger_ring</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+	</generationAttributes>
+
+</outfit>

@@ -117,7 +117,7 @@
 	</p>
 	<p>
 		#IF(daddy.isFeminine())
-			[daddy.speech(You're back?!)] she exclaims in surprise, before quickly recovering her composure and flashing you a captivating smile. Leaning against the door-frame, she then asks, [daddy.speech(So, have you changed your mind yet? Come on, it wouldn't be so bad having me as your mom now, would it? Just say yes, and your new mommy'll take you out for dinner!)]
+			[daddy.speech(You're back?!)] she exclaims in surprise, before quickly recovering her composure and flashing you a captivating smile. Leaning against the door-frame, she then asks, [daddy.speech(So, have you changed your mind yet? Come on, it wouldn't be so bad having me as your mum now, would it? Just say yes, and your new mommy'll take you out for dinner!)]
 		#ELSE
 			[daddy.speech(You're back?!)] he exclaims in surprise, before quickly recovering his composure and flashing you a charming smile. Leaning against the door-frame, he then asks, [daddy.speech(So, have you changed your mind yet? Come on, it wouldn't be so bad having me as your dad now, would it? Just say yes, and your new daddy'll take you out for dinner!)]
 		#ENDIF
@@ -347,7 +347,7 @@
 	
 	<htmlContent tag="MEETING_AGREE"><![CDATA[
 	<p>
-		Deciding to accept [daddy.namePos] offer of dinner, you step back and allow [daddy.herHim] to exit his apartment, before informing him both of your name, and that while you're willing to hear him out, you're ultimately here to let him know that Lilaya doesn't want to be bothered by him again. Not being deterred by this information in the slightest, he happily leads you out of the apartment building and across the street, towards a restaurant bearing the name 'Temptation'.
+		Deciding to accept [daddy.namePos] offer of dinner, you step back and allow [daddy.herHim] to exit [daddy.her] apartment, before informing him both of your name, and that while you're willing to hear him out, you're ultimately here to let him know that Lilaya doesn't want to be bothered by him again. Not being deterred by this information in the slightest, he happily leads you out of the apartment building and across the street, towards a restaurant bearing the name 'Temptation'.
 	</p>
 	<p>
 		As you approach, it's quite clear that this eatery must have an excellent reputation, as not only can you see through its large windows that all the tables are taken, but there's also a small queue lining up outside the front door. Asking [daddy.name] if he's intending to have you wait in this queue with him, he simply smirks across at you, before leading you past the line of potential diners and directly towards the entrance.
@@ -757,7 +757,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[daddy.speech(Yeah, yeah, I know marriages aren't exactly a fashionable thing, but there's something deep inside me that just wants the two of us to be together forever,)] [daddy.name] replies, his voice taking on an uncharacteristically sincere tone, [daddy.speech(So ever since that moment I first saw her, I've been working towards making my dream a reality. I quickly found out that she only likes humans, hence this appearance I choose to take on, and, rather unfortunately, that she secludes herself in that fortified palace down in Submission. I tried countless times to get an audience with her, but those guards at the front gate made it quite clear that such a thing would be 'absolutely impossible'. It was then that I realised I was only trying to take on half of my future responsibilities; once we're married, I'll have to look after not only Lyssieth, but also all of her recognised children. Realising this, I decided to set out and convince her daughters that I'd make a suitable father for them. If I'm able to do that, Lyssieth will definitely want to meet me!)]
+		[daddy.speech(Yeah, yeah, I know marriages aren't exactly a fashionable thing, but there's something deep inside me that just wants the two of us to be together forever,)] [daddy.name] replies, [daddy.her] voice taking on an uncharacteristically sincere tone, [daddy.speech(So ever since that moment I first saw her, I've been working towards making my dream a reality. I quickly found out that she only likes humans, hence this appearance I choose to take on, and, rather unfortunately, that she secludes herself in that fortified palace down in Submission. I tried countless times to get an audience with her, but those guards at the front gate made it quite clear that such a thing would be 'absolutely impossible'. It was then that I realised I was only trying to take on half of my future responsibilities; once we're married, I'll have to look after not only Lyssieth, but also all of her recognised children. Realising this, I decided to set out and convince her daughters that I'd make a suitable father for them. If I'm able to do that, Lyssieth will definitely want to meet me!)]
 	</p>
 	<p>
 		[pc.speech(So why are you focused on Lilaya, and not also attempting to convince Meraxis?)] you ask.
@@ -838,7 +838,7 @@
 		[daddy.speech(In any case, you're directly related to her,)] [daddy.name] says, [daddy.speech(so I need you to accept me as your mother. That includes you calling me '[daddy.daddy]'.)]
 	</p>
 	<p>
-		You're caught off-guard by this demand suddenly being made of you, and before you're able to think of a response, [daddy.name] continues, [daddy.speech(It wouldn't be so bad having me as your new mom, would it? If you agree to help me like this, I'll give you all of my old arcane spell books and scrolls.)]
+		You're caught off-guard by this demand suddenly being made of you, and before you're able to think of a response, [daddy.name] continues, [daddy.speech(It wouldn't be so bad having me as your new mum, would it? If you agree to help me like this, I'll give you all of my old arcane spell books and scrolls.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1004,7 +1004,7 @@
 		[daddy.speech(Ah...)] [daddy.name] sighs, dropping [daddy.her] shoulders and casting [daddy.her] eyes down at the table surface. This display of anguish only lasts a moment, however, as [daddy.she] quickly looks back up and smiles at the two of you, before saying, [daddy.speech(Well, I'll just have to try extra hard to become the sort of person she'll want as her [daddy.husband]! Even if it takes a thousand years, one day I'll be by her side, and until then, I've got the two of you to take care of!)]
 	</p>
 	<p>
-		As she hears this, Lilaya blushes a little, before saying, [lilaya.speech(Don't worry, you don't need to do anything special to take care of me, I'm just looking forwards to having a... a [daddy.dad] I can visit now and again...)]
+		As she hears this, Lilaya blushes a little, before saying, [lilaya.speech(Don't worry, you don't need to do anything special to take care of me, I'm just looking forward to having a... a [daddy.dad] I can visit now and again...)]
 	</p>
 	<p>
 		[daddy.speech(Well, you can certainly do that with me! Come and visit me here in Demon Home as often as you like!)] [daddy.name] happily exclaims.
@@ -1070,7 +1070,7 @@
 			With your evening out coming to an end, you exit the restaurant with [daddy.namePos] arm around your waist, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] pulls you close as [daddy.she] asks, [daddy.speech(So, you want to come back to my place for a little more fun?)]
 		#ELSE
 			#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forwards to meeting Lilaya when you bring her with you.)]
+				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forward to meeting Lilaya when you bring her with you.)]
 			#ELSE
 				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and we can do this again.)]
 			#ENDIF
@@ -1120,7 +1120,7 @@
 			With your evening out coming to an end, you exit the restaurant with [daddy.namePos] arm around your waist, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] pulls you close as [daddy.she] asks, [daddy.speech(So, you want to come back to my place for some special 'dessert'?)]
 		#ELSE
 			#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forwards to meeting Lilaya when you bring her with you.)]
+				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and I'm looking forward to meeting Lilaya when you bring her with you.)]
 			#ELSE
 				With your evening out coming to an end, you exit the restaurant by [daddy.namePos] side, and are soon stepping back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at you, [daddy.she] smiles as [daddy.she] says, [daddy.speech(You know, I really enjoyed this evening with you, [pc.name]. Please do come and visit me any other evening you like, and we can do this again.)]
 			#ENDIF
@@ -1229,7 +1229,7 @@
 		[genericFemale.speech(Of course,)] she replies, giving you and your [lilaya.relation(pc)] one last questioning glance before heading off to do as she's asked.
 	</p>
 	<p>
-		Continuing to flirt with [daddy.herHim] as [daddy.she] settles the bill, you and Lilaya smile at one another as [daddy.name] slips his arms down around your waists, before leading the two of you back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at Lilaya, and then over at you, [daddy.she] pulls you both close as [daddy.she] asks, [daddy.speech(I'm sure you two weren't satisfied from your 'dessert', were you? How about you both come back to my place for seconds?)]
+		Continuing to flirt with [daddy.herHim] as [daddy.she] settles the bill, you and Lilaya smile at one another as [daddy.name] slips [daddy.her] arms down around your waists, before leading the two of you back out into the streets of Demon Home. Looking [daddy.heightDown(pc)] at Lilaya, and then over at you, [daddy.she] pulls you both close as [daddy.she] asks, [daddy.speech(I'm sure you two weren't satisfied from your 'dessert', were you? How about you both come back to my place for seconds?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1240,7 +1240,7 @@
 	<htmlContent tag="DINNER_END_REFUSE"><![CDATA[
 	<p>
 		#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-			Not feeling in the mood to go back to [daddy.her] place, you make your excuses and decline [daddy.namePos] offer. In a disappointed tone, [daddy.name] replies, [daddy.speech(Ok, well, I'm just happy that you accepted me as your new [daddy.dad]. I really had a lot of fun tonight, and I'm looking forwards to meeting Lilaya when you bring her with you.)]
+			Not feeling in the mood to go back to [daddy.her] place, you make your excuses and decline [daddy.namePos] offer. In a disappointed tone, [daddy.name] replies, [daddy.speech(Ok, well, I'm just happy that you accepted me as your new [daddy.dad]. I really had a lot of fun tonight, and I'm looking forward to meeting Lilaya when you bring her with you.)]
 		#ELSE
 			Not feeling in the mood to go back to [daddy.her] place, you make your excuses and decline [daddy.namePos] offer. In a disappointed tone, [daddy.name] replies, [daddy.speech(Ok, well, come back and visit me any evening you want. I really had a lot of fun tonight.)]
 		#ENDIF
@@ -1269,7 +1269,7 @@
 		Rubbing up against your [daddy.daddy], you tell [daddy.herHim] that you'd love to go back to [daddy.her] place, and that you can't wait to find out what [daddy.sheIs] got in store for you. Moving [daddy.her] grip down from your waist, [daddy.name] gives your [pc.ass+] a firm squeeze, before saying, [daddy.speech(I'm going to show you how your [daddy.daddy] treats [daddy.her] good little [pc.girl]...)]
 	</p>
 	<p>
-		Hurriedly crossing the street, [daddy.name] leads you inside [daddy.her] apartment building and up the flight of stairs, before unlocking his door and pulling you into [daddy.her] apartment. Immediately, your hands are all over one another, and as [daddy.her] name press against yours, you feel [daddy.her] touch roam down to grope between your [pc.legs].
+		Hurriedly crossing the street, [daddy.name] leads you inside [daddy.her] apartment building and up the flight of stairs, before unlocking [daddy.her] door and pulling you into [daddy.her] apartment. Immediately, your hands are all over one another, and as [daddy.her] [daddy.lips+] press against yours, you feel [daddy.her] touch roam down to grope between your [pc.legs].
 	</p>
 	<p>
 		In your haste to move forwards into the apartment's lounge, the hallway table is bumped into and sent crashing to the ground, but you're so caught up in your passion that neither of you care. Stripping your [daddy.daddy]'s t-shirt off, you press your lips down against [daddy.her] [daddy.breasts+], kissing [daddy.her] [daddy.nipples+] as you reach down to slip off your own clothing.
@@ -1291,7 +1291,7 @@
 		...)]
 	</p>
 	<p>
-		Hurriedly crossing the street, [daddy.name] leads you inside [daddy.her] apartment building and up the flight of stairs, before unlocking his door and pulling you both into [daddy.her] apartment. Immediately, your hands are all over one another, and as [daddy.namePos] hot lips plant kisses on both your and Lilaya's mouths, you feel [daddy.her] touch roam down to grope between your [pc.legs].
+		Hurriedly crossing the street, [daddy.name] leads you inside [daddy.her] apartment building and up the flight of stairs, before unlocking [daddy.her] door and pulling you both into [daddy.her] apartment. Immediately, your hands are all over one another, and as [daddy.name] alternates between kissing you and Lilaya, you feel [daddy.her] touch roam down to grope between your [pc.legs].
 	</p>
 	<p>
 		In your haste to move forwards into the apartment's lounge, the hallway table is bumped into and sent crashing to the ground, but you're all so caught up in your passion that none of you care. Stripping your [daddy.daddy]'s t-shirt off, you press your lips down against [daddy.her] [daddy.breasts+], kissing [daddy.her] [daddy.nipples+] as your [lilaya.relation(pc)] thrusts her tongue into [daddy.her] mouth. Reaching across, you help Lilaya to slip off her plunge dress, revealing a matching pair of lacy black panties and bra. Pulling back to return the favour, Lilaya runs her hands over your body, helping you to strip off your outer layers as your [daddy.daddy] gives you your turn of having [daddy.her] tongue thrust into your mouth.
@@ -1356,7 +1356,7 @@
 		[pc.speech(Please,)] you [pc.moan], [pc.speech(Come and fuck me!)]
 	</p>
 	<p>
-		Not needing to be told twice, [daddy.name] climbs up onto the bed behind you, bumping the [daddy.cockHead+] of his throbbing dick against your [pc.ass+] in the process. Letting out yet another [pc.moan+], you prepare to get fucked by your [daddy.daddy]...
+		Not needing to be told twice, [daddy.name] climbs up onto the bed behind you, bumping the [daddy.cockHead+] of [daddy.her] throbbing dick against your [pc.ass+] in the process. Letting out yet another [pc.moan+], you prepare to get fucked by your [daddy.daddy]...
 	</p>
 	]]>
 	</htmlContent>
@@ -1489,7 +1489,7 @@
 	<p>
 		After lying next to one another for a while, you eventually decide that it's time for you to leave, and, after putting your clothes back on, [daddy.name] leads you back to [daddy.her] front door. Leaning in to plant one last kiss on your [pc.lips+] [daddy.she] says,
 		#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
-			 [daddy.speech(I really had a lot of fun tonight, [pc.name]. Please come and visit me again soon, and I'm looking forwards to meeting Lilaya when you bring her with you!)]
+			 [daddy.speech(I really had a lot of fun tonight, [pc.name]. Please come and visit me again soon, and I'm looking forward to meeting Lilaya when you bring her with you!)]
 		#ELSE
 			 [daddy.speech(I really had a lot of fun tonight, [pc.name]. Please come and visit me again soon!)]
 		#ENDIF

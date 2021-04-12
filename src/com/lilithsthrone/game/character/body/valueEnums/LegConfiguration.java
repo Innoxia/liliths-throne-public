@@ -14,16 +14,19 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.4.0
  * @author Innoxia
  */
 public enum LegConfiguration {
@@ -39,31 +42,39 @@ public enum LegConfiguration {
 			WingSize.THREE_LARGE,
 			false,
 			2,
-			0,
 			"The most common type of lower body; the character's legs and groin are in the same configuration as that of a regular human.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] abdomen,") {
+			"Above [npc.her] groin, occupying the lower region of [npc.her] abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL,
+			"") {
 		@Override
-		public boolean isGenitalConfigurationTransformable() {
-			return true;
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.NORMAL,
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND);
 		}
 		@Override
-		public List<Class<? extends BodyPartInterface>> getBestialParts() {
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
 			return Util.newArrayListOfValues();
 		}
 		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
 			return null; // Bipedal configuration doesn't block any slots by default.
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
 			character.setLegType(LegType.DEMON_COMMON);
 		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return false;
+		}
 	},
-
+	
 	/**
 	 * This LegConfiguration is available for almost every mammalian race, with some notable exceptions being humans, demons, and angels.
 	 */
-	TAUR("taur",
+	QUADRUPEDAL("quadrupedal",
 			-50,
 			0,
 			false,
@@ -71,58 +82,86 @@ public enum LegConfiguration {
 			WingSize.FOUR_HUGE,
 			true,
 			4,
-			0,
-			"A configuration in which the character's legs and groin are replaced by the quadrupedal, bestial body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
+			"A configuration in which the character's legs and groin are replaced by the quadrupedal, feral body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 				+ " The most common example of this is the 'centaur', in which the character's legs and groin are replaced by the body and genitals of a horse.",
-			"Down beneath the groin on [npc.her] animal body,") {
-
-			@Override
-			public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-				return new BodyPartClothingBlock(
-						Util.newArrayListOfValues(
-								InventorySlot.LEG,
-								InventorySlot.GROIN),
-						character.getLegType().getRace(),
-						"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only taur-suitable clothing can be worn in this slot.",
-						Util.newArrayListOfValues(
-								ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-								ItemTag.FITS_TAUR_BODY));
+			"Down beneath the groin of [npc.her] feral body,",
+			TFModifier.TF_MOD_LEG_CONFIG_TAUR,
+			"statusEffects/race/raceBackgroundLegQuadrupedal") {
+		@Override
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, BreastCrotch.class, Leg.class, Tail.class, Tentacle.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.NORMAL,
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.TORSO_OVER,
+											InventorySlot.TORSO_UNDER,
+											InventorySlot.CHEST,
+											InventorySlot.STOMACH,
+											InventorySlot.HAND,
+											InventorySlot.HIPS,
+											InventorySlot.LEG,
+											InventorySlot.FOOT,
+											InventorySlot.SOCK,
+											InventorySlot.GROIN),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for quadrupedal-taurs or quadrupedal-ferals can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_TAUR_BODY,
+											ItemTag.FITS_FERAL_ALL_BODY,
+											ItemTag.FITS_FERAL_QUADRUPED_BODY,
+											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
+											ItemTag.ONLY_FITS_FERAL_QUADRUPED_BODY)),
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+				
+			} else {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.LEG,
+											InventorySlot.GROIN),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only taur-suitable clothing can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
+											ItemTag.FITS_TAUR_BODY)));
 			}
-			@Override
-			public void setLegsToDemon(GameCharacter character) {
-				character.setLegType(LegType.DEMON_HOOFED);
-			}
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_HORSE_HOOFED);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return false;
+		}
 	},
-
-//	/**
-//	 * This LegConfiguration is available for almost every mammalian race, with some notable exceptions being humans, demons, and angels.
-//	 */
-//	TAUR_WINGED("winged taur",
-//			true,
-//			true,
-//			false,
-//			"A configuration in which the character's legs and groin are replaced by the quadrupedal, winged, bestial body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
-//				+ " The most common example of this is the 'pegatuar', in which the character's legs and groin are replaced by the body and genitals of a winged horse.",
-//			"Down beneath the groin on [npc.her] animal body,") {
-//
-//		@Override
-//		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-//			return new BodyPartClothingBlock(
-//					Util.newArrayListOfValues(
-//							InventorySlot.LEG,
-//							InventorySlot.GROIN),
-//					character.getLegType().getRace(),
-//					"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only taur-suitable clothing can be worn in this slot.",
-//					Util.newArrayListOfValues(
-//							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-//							ItemTag.FITS_TAUR_BODY));
-//		}
-//	},
 
 	/**
 	 * This LegConfiguration is available for snakes and eels.
 	 */
-	TAIL_LONG("long-tailed",
+	TAIL_LONG("serpent-tailed",
 			0,
 			0,
 			true,
@@ -130,52 +169,213 @@ public enum LegConfiguration {
 			WingSize.FOUR_HUGE,
 			false,
 			0,
-			0,
 			"A configuration in which the character's legs and groin are replaced by an extremely long tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
 				+ " The most common example of this is the 'lamia', in which the character's legs and groin are replaced by the body and genitals of a snake.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
-
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG,
+			"statusEffects/race/raceBackgroundLegTailLong") {
 		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-			return new BodyPartClothingBlock(
-					Util.newArrayListOfValues(
-							InventorySlot.LEG,
-							InventorySlot.GROIN),
-					character.getLegType().getRace(),
-					"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only long-tail-suitable clothing can be worn in this slot.",
-					Util.newArrayListOfValues(
-							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-							ItemTag.FITS_LONG_TAIL_BODY));
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.CLOACA);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.TORSO_OVER,
+											InventorySlot.TORSO_UNDER,
+											InventorySlot.CHEST,
+											InventorySlot.STOMACH,
+											InventorySlot.HAND,
+											InventorySlot.HIPS,
+											InventorySlot.LEG,
+											InventorySlot.FOOT,
+											InventorySlot.SOCK,
+											InventorySlot.GROIN),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for long-tails or long-tail-ferals can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_LONG_TAIL_BODY,
+											ItemTag.FITS_FERAL_ALL_BODY,
+											ItemTag.FITS_FERAL_LONG_TAIL_BODY,
+											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
+											ItemTag.ONLY_FITS_FERAL_LONG_TAIL_BODY)),
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new BodyPartClothingBlock(
+								Util.newArrayListOfValues(
+										InventorySlot.LEG,
+										InventorySlot.GROIN),
+								character.getLegType().getRace(),
+								"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only long-tail-suitable clothing can be worn in this slot.",
+								Util.newArrayListOfValues(
+										ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
+										ItemTag.FITS_LONG_TAIL_BODY)));
+			}
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_SNAKE);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return true;
+		}
+		@Override
+		public boolean isAbleToGrowTail() {
+			return false;
+		}
+		@Override
+		public boolean isThighSexAvailable() {
+			return false;
+		}
+		@Override
+		public String getMovementVerbPresentFirstPersonSingular() {
+			return "slither";
+		}
+		@Override
+		public String getMovementVerbPresentThirdPersonSingular() {
+			return "slithers";
+		}
+		@Override
+		public String getMovementVerbPresentParticiple() {
+			return "slithering";
+		}
+		@Override
+		public String getMovementVerbPastParticiple() {
+			return "slithered";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentFirstPersonSingular() {
+			return "slide";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentThirdPersonSingular() {
+			return "slides";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentParticiple() {
+			return "sliding";
+		}
+		@Override
+		public String getIndividualMovementVerbPastParticiple() {
+			return "slid";
 		}
 	},
 
 	/**
 	 * This LegConfiguration is available for fish.
 	 */
-	TAIL("tailed",
-			200,
-			-90,
+	TAIL("mer-tailed",
+			25,
+			-95,
 			true,
 			true,
 			WingSize.THREE_LARGE,
 			false, 
-			0, 
 			0,
 			"A configuration in which the character's legs and groin are replaced by a tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
 					+ " The most common example of this is the 'mermaid', in which the character's legs and groin are replaced by the body and genitals of a fish.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
-
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_TAIL,
+			"statusEffects/race/raceBackgroundLegTailShort") {
 		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-			return new BodyPartClothingBlock(
-					Util.newArrayListOfValues(
-							InventorySlot.LEG,
-							InventorySlot.GROIN),
-					character.getLegType().getRace(),
-					"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only tail-suitable clothing can be worn in this slot.",
-					Util.newArrayListOfValues(
-							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-							ItemTag.FITS_TAIL_BODY));
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.CLOACA);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) { // Tail races will never be feral, but just in case...
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.TORSO_OVER,
+											InventorySlot.TORSO_UNDER,
+											InventorySlot.CHEST,
+											InventorySlot.STOMACH,
+											InventorySlot.HAND,
+											InventorySlot.HIPS,
+											InventorySlot.LEG,
+											InventorySlot.FOOT,
+											InventorySlot.SOCK,
+											InventorySlot.GROIN),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for tails or tail-ferals can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_TAIL_BODY,
+											ItemTag.FITS_FERAL_ALL_BODY,
+											ItemTag.FITS_FERAL_TAIL_BODY,
+											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
+											ItemTag.ONLY_FITS_FERAL_TAIL_BODY)),
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+				
+			} else if(character.hasStatusEffect(StatusEffect.AQUATIC_POSITIVE)) {
+				return Util.newArrayListOfValues(
+						new BodyPartClothingBlock(
+								Util.newArrayListOfValues(
+										InventorySlot.LEG,
+										InventorySlot.GROIN),
+								character.getLegType().getRace(),
+								"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only tail-suitable clothing can be worn in this slot.",
+								Util.newArrayListOfValues(
+										ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
+										ItemTag.FITS_TAIL_BODY)));
+				
+			} else {
+				return null; // When in bipedal configuration, doesn't block any slots.
+			}
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_FISH);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return true;
+		}
+		@Override
+		public boolean isAbleToGrowTail() {
+			return false;
+		}
+		@Override
+		public boolean isThighSexAvailable() {
+			return false;
 		}
 	},
 
@@ -190,27 +390,88 @@ public enum LegConfiguration {
 			WingSize.FOUR_HUGE,
 			true,
 			8,
-			0,
-			"A configuration in which the character's legs and groin are replaced by the eight-legged, bestial body of the associated arachnid-morph, with their genitals shifting to be found in the same place as their animal equivalent."
+			"A configuration in which the character's legs and groin are replaced by the eight-legged, feral body of the associated arachnid-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 					+ " The most common example of this is the 'arachne', in which the character's legs and groin are replaced by the body and genitals of a spider.",
-			"Occupying the lower region of [npc.her] humanoid abdomen,") {
-
+			"Occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_ARACHNID,
+			"statusEffects/race/raceBackgroundLegArachnid") {
 		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-			return new BodyPartClothingBlock(
-					Util.newArrayListOfValues(
-							InventorySlot.LEG,
-							InventorySlot.GROIN),
-					character.getLegType().getRace(),
-					"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only arachnid-suitable clothing can be worn in this slot.",
-					Util.newArrayListOfValues(
-							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-							ItemTag.FITS_ARACHNID_BODY));
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
 		}
-		
 		@Override
-		public boolean isGenitalsExposed(GameCharacter character) { // When genitals are in a cloaca (i.e. beneath the arachnid body), they are not visible.
-			return character.getGenitalArrangement()==GenitalArrangement.NORMAL;
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.NORMAL);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.TORSO_OVER,
+											InventorySlot.TORSO_UNDER,
+											InventorySlot.CHEST,
+											InventorySlot.STOMACH,
+											InventorySlot.HAND,
+											InventorySlot.HIPS,
+											InventorySlot.LEG,
+											InventorySlot.FOOT,
+											InventorySlot.SOCK,
+											InventorySlot.GROIN),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for arachnids or arachnid-ferals can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_ARACHNID_BODY,
+											ItemTag.FITS_FERAL_ALL_BODY,
+											ItemTag.FITS_FERAL_ARACHNID_BODY,
+											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
+											ItemTag.ONLY_FITS_FERAL_ARACHNID_BODY)),
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new BodyPartClothingBlock(
+								Util.newArrayListOfValues(
+										InventorySlot.LEG,
+										InventorySlot.GROIN,
+		//								InventorySlot.ANKLE,
+										InventorySlot.FOOT,
+										InventorySlot.SOCK),
+								character.getLegType().getRace(),
+								"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only arachnid-suitable clothing can be worn in this slot.",
+								Util.newArrayListOfValues(
+										ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
+										ItemTag.FITS_ARACHNID_BODY)));
+			}
+		}
+		@Override
+		public boolean isGenitalsExposed(GameCharacter character) { // As genitals are beneath the arachnid body, they are not easily visible.
+			return false;
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_SPIDER);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return true;
+		}
+		@Override
+		public boolean isThighSexAvailable() {
+			return false;
 		}
 	},
 
@@ -240,28 +501,182 @@ public enum LegConfiguration {
 			true,
 			WingSize.THREE_LARGE,
 			false,
-			0,
 			8,
 			// I believe that "tentacled" is technically incorrect as a catch-all term for cephalopods, as octopuses have eight 'arms', while squids have eight arms plus two tentacles. Oh well.
-			"A configuration in which the character's legs and groin are replaced by the tentacled, bestial body of the associated cephalopod-morph, with their genitals shifting to be found in the same place as their animal equivalent."
+			"A configuration in which the character's legs and groin are replaced by the tentacled, feral body of the associated cephalopod-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 					+ " The most common example of this is the 'kraken', in which the character's legs and groin are replaced by the body and genitals of a squid.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
-
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD,
+			"statusEffects/race/raceBackgroundLegCephalopod") {
 		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-			return new BodyPartClothingBlock(
-					Util.newArrayListOfValues(
-							InventorySlot.LEG,
-							InventorySlot.GROIN),
-					character.getLegType().getRace(),
-					"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only cephalopod-suitable clothing can be worn in this slot.",
-					Util.newArrayListOfValues(
-							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-							ItemTag.FITS_CEPHALOPOD_BODY));
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, Leg.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.CLOACA);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.TORSO_OVER,
+											InventorySlot.TORSO_UNDER,
+											InventorySlot.CHEST,
+											InventorySlot.STOMACH,
+											InventorySlot.HAND,
+											InventorySlot.HIPS,
+											InventorySlot.LEG,
+											InventorySlot.FOOT,
+											InventorySlot.SOCK,
+											InventorySlot.GROIN),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for cephalopods or cephalopod-ferals can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_CEPHALOPOD_BODY,
+											ItemTag.FITS_FERAL_ALL_BODY,
+											ItemTag.FITS_FERAL_CEPHALOPOD_BODY,
+											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
+											ItemTag.ONLY_FITS_FERAL_CEPHALOPOD_BODY)),
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new BodyPartClothingBlock(
+								Util.newArrayListOfValues(
+										InventorySlot.LEG,
+										InventorySlot.GROIN,
+		//								InventorySlot.ANKLE,
+										InventorySlot.FOOT,
+										InventorySlot.SOCK),
+								character.getLegType().getRace(),
+								"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only cephalopod-suitable clothing can be worn in this slot.",
+								Util.newArrayListOfValues(
+										ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
+										ItemTag.FITS_CEPHALOPOD_BODY)));
+			}
 		}
 		
 		@Override
 		public boolean isGenitalsExposed(GameCharacter character) { // Genitals are under tentacles, so are not visible even when naked.
+			return false;
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_OCTOPUS);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return true;
+		}
+	},
+	
+
+	/**
+	 * This LegConfiguration is a 'tauric' configuration for bird races.
+	 */
+	AVIAN("avian",
+			0,
+			0,
+			false,
+			true,
+			WingSize.THREE_LARGE,
+			true,
+			2,
+			"A configuration in which the character's legs and groin are replaced by the avian body of the associated animal-morph, with their genitals shifting to be found in a rear-facing cloaca."
+					+ " The most common example of this is the 'harpy-moa', in which a regular harpy's legs and groin are replaced by the feral body and genitals of a bird.",
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_AVIAN,
+			"statusEffects/race/raceBackgroundLegAvian") {
+		@Override
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.CLOACA_BEHIND);
+		}
+		@Override
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, BreastCrotch.class, Leg.class, Tail.class, Tentacle.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.TORSO_OVER,
+											InventorySlot.TORSO_UNDER,
+											InventorySlot.CHEST,
+											InventorySlot.STOMACH,
+											InventorySlot.HAND,
+											InventorySlot.HIPS,
+											InventorySlot.LEG,
+											InventorySlot.FOOT,
+											InventorySlot.SOCK,
+											InventorySlot.GROIN),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for avians or avian-ferals can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_CEPHALOPOD_BODY,
+											ItemTag.FITS_FERAL_ALL_BODY,
+											ItemTag.FITS_FERAL_CEPHALOPOD_BODY,
+											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
+											ItemTag.ONLY_FITS_FERAL_CEPHALOPOD_BODY)),
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new BodyPartClothingBlock(
+								Util.newArrayListOfValues(
+										InventorySlot.LEG,
+										InventorySlot.GROIN),
+								character.getLegType().getRace(),
+								"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only avian-suitable clothing can be worn in this slot.",
+								Util.newArrayListOfValues(
+										ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
+										ItemTag.FITS_AVIAN_BODY))
+//						new BodyPartClothingBlock(
+//								Util.newArrayListOfValues(
+//										InventorySlot.FOOT,
+//										InventorySlot.SOCK),
+//								character.getLegType().getRace(),
+//								"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only avian-suitable clothing can be worn in this slot.",
+//								Util.newArrayListOfValues(
+//										ItemTag.FITS_TALONS_EXCLUSIVE,
+//										ItemTag.FITS_TALONS))
+						);
+			}
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_EAGLE);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
 			return false;
 		}
 	};
@@ -275,11 +690,14 @@ public enum LegConfiguration {
 	private WingSize minimumWingSizeForFlight;
 	private boolean wingsOnLegConfiguration;
 	
-	int numberOfLegs;
-	int numberOfTentacles;
+	private int numberOfLegs;
 	
 	private String genericDescription;
 	private String crotchBoobLocationDescription;
+
+	private TFModifier tfModifier;
+
+	private String subspeciesStatusEffectBackgroundPath;
 	
 	private LegConfiguration(
 			String name,
@@ -290,9 +708,10 @@ public enum LegConfiguration {
 			WingSize minimumWingSizeForFlight,
 			boolean wingsOnLegConfiguration,
 			int numberOfLegs,
-			int numberOfTentacles,
 			String genericDescription,
-			String crotchBoobLocationDescription) {
+			String crotchBoobLocationDescription,
+			TFModifier tfModifier,
+			String subspeciesStatusEffectBackgroundPath) {
 		
 		this.name = name;
 		
@@ -306,33 +725,75 @@ public enum LegConfiguration {
 		this.wingsOnLegConfiguration=wingsOnLegConfiguration;
 		
 		this.numberOfLegs = numberOfLegs;
-		this.numberOfTentacles = numberOfTentacles;
 		
 		this.genericDescription = genericDescription;
 		this.crotchBoobLocationDescription = crotchBoobLocationDescription;
+
+		this.tfModifier = tfModifier;
+		
+		this.subspeciesStatusEffectBackgroundPath = subspeciesStatusEffectBackgroundPath;
 	}
 
-	// I didn't implement this in the end, as upon further reflection, I came to the conclusion that blocking the player's choices for the sake of more 'realistic' taur bodies is a bad idea.
-	// All of the pre-generated ones will be accurate anyway, so all this would do is limit the player unnecessarily.
-//	/**
-//	 * @return A list of BodyPartInterface classes of whose <b>type</b> cannot be transformed outside of the LegType's Race while the character has this LegConfiguration.
-//	 *  Their other modifiers can still be freely transformed. Penis and Vagina can still be set to NONE.
-//	 */
-//	public List<Class<? extends BodyPartInterface>> getBlockedTransformations() {
-//		return getBestialParts();
-//	}
-
+	public static LegConfiguration getValueFromString(String configuration) {
+		if(configuration.equalsIgnoreCase("TAUR")) {
+			configuration = "QUADRUPEDAL";
+		}
+		return LegConfiguration.valueOf(configuration);
+	}
+	
 	/**
 	 * @return A list of BodyPartInterface classes which are considered to be fully animalistic as part of this LegConfiguration. e.g. A taur's Tail, Ass, BreastCrotch, Penis, and Vagina are all animalistic.
 	 */
-	public List<Class<? extends BodyPartInterface>> getBestialParts() {
-		return Util.newArrayListOfValues(Ass.class, Anus.class, BreastCrotch.class, Leg.class, Tail.class, Tentacle.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+	public abstract List<Class<? extends BodyPartInterface>> getFeralParts();
+	
+	/**
+	 * @return true if this LegConfiguration removes the character's tail when applying its transformation.
+	 */
+	public abstract boolean isTailLostOnInitialTF();
+	
+	/**
+	 * @return true if this LegConfiguration prevents the character from growing a tail.
+	 */
+	public boolean isAbleToGrowTail() {
+		return true;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
 
+	public String getMovementVerbPresentFirstPersonSingular() {
+		return "walk";
+	}
+
+	public String getMovementVerbPresentThirdPersonSingular() {
+		return "walks";
+	}
+
+	public String getMovementVerbPresentParticiple() {
+		return "walking";
+	}
+
+	public String getMovementVerbPastParticiple() {
+		return "walked";
+	}
+
+	public String getIndividualMovementVerbPresentFirstPersonSingular() {
+		return "step";
+	}
+
+	public String getIndividualMovementVerbPresentThirdPersonSingular() {
+		return "steps";
+	}
+
+	public String getIndividualMovementVerbPresentParticiple() {
+		return "stepping";
+	}
+
+	public String getIndividualMovementVerbPastParticiple() {
+		return "stepped";
+	}
+	
 	public int getLandSpeedModifier() {
 		return landSpeedModifier;
 	}
@@ -365,22 +826,20 @@ public enum LegConfiguration {
 	public boolean isBipedalPositionedCrotchBoobs() {
 		return bipedalPositionedCrotchBoobs;
 	}
+
+	public boolean isThighSexAvailable() {
+		return true;
+	}
 	
 	public int getNumberOfLegs() {
 		return numberOfLegs;
-	}
-
-	public int getNumberOfTentacles() {
-		return numberOfTentacles;
 	}
 
 	public boolean isGenitalsExposed(GameCharacter character) {
 		return true;
 	}
 
-	public boolean isGenitalConfigurationTransformable() {
-		return false;
-	}
+	public abstract List<GenitalArrangement> getAvailableGenitalConfigurations();
 
 	public String getGenericDescription() {
 		return genericDescription;
@@ -389,9 +848,21 @@ public enum LegConfiguration {
 	public String getCrotchBoobLocationDescription() {
 		return crotchBoobLocationDescription;
 	}
+
+	public TFModifier getTFModifier() {
+		return tfModifier;
+	}
 	
 	public void setLegsToDemon(GameCharacter character) {
 		throw new IllegalArgumentException("Demon legs for this leg configuration is not yet implemented!");
+	}
+
+	public void setLegsToAvailableDemonLegs(GameCharacter character, AbstractLegType legType) {
+		this.setLegsToAvailableDemonLegs(character, legType, LegType.DEMON_COMMON);
+	}
+
+	public void setLegsToAvailableDemonLegs(GameCharacter character, AbstractLegType legType, AbstractLegType fallBackLegType) {
+		character.setLegType(legType.isAvailableForSelfTransformMenu(character) ? legType : fallBackLegType);
 	}
 
 	public void setWingsToDemon(GameCharacter character) {
@@ -400,7 +871,18 @@ public enum LegConfiguration {
 	}
 
 	/**
-	 * @return A BodyPartClothingBlock object which defines how this LegConfiguration is blocking InventorySlots. Returns null if it doesn't affect inventorySlots in any way.
+	 * @return A list of BodyPartClothingBlock objects which define how this LegConfiguration is blocking InventorySlots. Returns null if it doesn't affect inventorySlots in any way.
 	 */
-	public abstract BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character);
+	public abstract List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character);
+
+	public String getSubspeciesStatusEffectBackgroundPath() {
+		return subspeciesStatusEffectBackgroundPath;
+	}
+	
+	/**
+	 * @return How many times longer a character's serpent tail is than their height.
+	 */
+	public static int getDefaultSerpentTailLengthMultiplier() {
+		return 5;
+	}
 }

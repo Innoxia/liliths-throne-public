@@ -531,6 +531,14 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
+.stretchIcon{
+	position:absolute;
+	width:40%;
+	height:40%;
+	left:0;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
 .concealedIcon{
 	position:absolute;
 	width:40%;
@@ -544,6 +552,15 @@ h6{
 	width:40%;
 	height:40%;
 	right:0;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
+.lipstickIcon{
+	position:absolute;
+	width:40%;
+	height:40%;
+	right:0;
+	bottom:0;
 	pointer-events: none;
 	-webkit-user-select: none;
 }

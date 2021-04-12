@@ -3,7 +3,7 @@ package com.lilithsthrone.game.dialogue.eventLog;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -32,9 +32,9 @@ public class EventLogEntry implements XMLSaving {
 		Element element = doc.createElement("eventLogEntry");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "time", String.valueOf(time));
-		CharacterUtils.addAttribute(doc, element, "name", name);
-		CharacterUtils.addAttribute(doc, element, "description", description);
+		XMLUtil.addAttribute(doc, element, "time", String.valueOf(time));
+		XMLUtil.addAttribute(doc, element, "name", name);
+		XMLUtil.addAttribute(doc, element, "description", description);
 		
 		return element;
 	}

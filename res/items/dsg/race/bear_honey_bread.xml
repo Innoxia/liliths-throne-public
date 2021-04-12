@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the plate reads 'Packed by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>250</value> 
+		<determiner><![CDATA[a plate of]]></determiner>
+		<name><![CDATA[Honey Bread]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Honey Bread]]></namePlural>
+		<description><![CDATA[A plate of gingerbread made with honey split by a layer of plum jam and frosted with sugar frosting all underneath a glass cover. On the label is a pastoral painting of a bear-girl asleep at her kitchen table while raw dough sits out in the open and snow falls outside.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName>bear_honey_bread.svg</imageName>
+		
+		<colourPrimary>dsg_bearBrown</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[bear]]></potionDescriptor>
+		<associatedRace>dsg_bear</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 20% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[If body size is less than "large", increases body size by 1]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel heavier...
+			</p>
+			#IF (npc.getBodySize() < 3)
+				[#npc.incrementBodySize(1)]
+			#ENDIF
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the glass cover and [npc.verb(savor)] the scent of the bread and its sugar frosting. Unable to resist the delicious looking confectionery inside, [npc.she] [npc.verb(start)] shoving pieces into [npc.her] mouth until the entire plate has been emptied.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] glass cover from the plate and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to savor the scent of the bread and its sugar frosting. Unable to resist the delicious-looking confectionery inside, [npc2.she] [npc2.verb(start)] shoving pieces into [npc2.her] mouth until the entire plate has been emptied.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hair>
+	<race>NoStepOnSnek_snake</race>
+	<transformationName><![CDATA[snake]]></transformationName>
+	<coveringType>NoStepOnSnek_snake_hair</coveringType>
+	<tags>
+		<tag>HAIR_HANDLES_IN_SEX</tag>
+	</tags>
+	<determiner><![CDATA[a head of]]></determiner>
+	<name><![CDATA[hair]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[hairs]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor>coarse</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>coarse</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		The transformation only lasts a matter of moments, leaving [npc.herHim] with coarse hair.
+		<br/>[npc.Name] now [npc.has] [npc.hairColour] [style.boldSnake(snake hair)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)] hair
+	]]></bodyDescription>
+</hair>

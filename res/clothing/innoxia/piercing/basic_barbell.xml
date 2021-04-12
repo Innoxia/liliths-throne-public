@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>60</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[basic barbell]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[basic barbells]]></namePlural>
+		<description><![CDATA[A thin cylinder of metal, with an unscrewable sphere on either end. It could be slid into place through either a pierced tongue or an 'industrial' ear piercing.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		  <slot>PIERCING_TONGUE</slot>
+		  <slot>PIERCING_EAR</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>basic_barbell.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList slot="PIERCING_TONGUE">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="PIERCING_EAR">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="PIERCING_TONGUE"/>
+		<incompatibleSlots slot="PIERCING_EAR"/>
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="PIERCING_TONGUE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbell into [npc.her] [npc.tongue] piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbell into [npc2.namePos] [npc2.tongue] piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the barbell into [npc2.namePos] [npc2.tongue] piercing.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="PIERCING_TONGUE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] barbell out of [npc.her] [npc.tongue] piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] barbell out of [npc2.her] [npc2.tongue] piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] barbell out of [npc2.her] [npc2.tongue] piercing.]]>
+    </otherRough>
+  </displacementText>
+
+  <replacementText slot="PIERCING_EAR" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbell into [npc.her] [npc.ear]'s industrial piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbell into [npc2.namePos] [npc2.ear]'s industrial piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the barbell into [npc2.namePos] [npc2.ear]'s industrial piercing.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="PIERCING_EAR" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] barbell out of [npc.her] [npc.ear]'s industrial piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] barbell out of [npc2.her] [npc2.ear]'s industrial piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] barbell out of [npc2.her] [npc2.ear]'s industrial piercing.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

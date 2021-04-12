@@ -26,12 +26,12 @@ public class SMAltarMissionarySealed extends SexManagerDefault {
 	
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
-		return !Main.sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterImmobilised(character);
 	}
 
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		return !Main.sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterImmobilised(character);
 	}
 	
 	@Override

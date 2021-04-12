@@ -32,7 +32,9 @@
 		
 		<imageEquippedName>lightning_globe.svg</imageEquippedName>
 		
-		<damage>15</damage> 
+		<damage>25</damage> 
+		<aoe chance="50">10</aoe>
+		<aoe chance="25">5</aoe>
 		
 		<arcaneCost>1</arcaneCost> 
 		
@@ -50,16 +52,16 @@
 		<enchantmentLimit>10</enchantmentLimit>
 		
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
 		</effects>
 		
 		<primaryColours>
@@ -69,7 +71,9 @@
 		<secondaryColours/> 
 		<secondaryColoursDye/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>WEAPON_FERAL_EQUIPPABLE</tag>
+		</itemTags>
 		
 	</coreAttributes>
 	
@@ -78,10 +82,18 @@
 		Harnessing the power of the arcane lightning globe, [npc.name] [npc.verb(unleash)] a blast of bright pink lightning directly at [npc2.name]!
 		]]></hitText>
 		<hitText><![CDATA[
-		Using the power of the small crystal globe clenched tightly in [npc.her] [npc.hand], [npc.name] [npc.verb(launch)] a dazzling strike of arcane lightning directly at [npc2.name]!
+		#IF(npc.isFeral())
+			Using the power of the small crystal globe, [npc.name] [npc.verb(launch)] a dazzling strike of arcane lightning directly at [npc2.name]!
+		#ELSE
+			Using the power of the small crystal globe clenched tightly in [npc.her] [npc.hand], [npc.name] [npc.verb(launch)] a dazzling strike of arcane lightning directly at [npc2.name]!
+		#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
-		A bright pink flash of arcane lightning streaks out from [npc.namePos] outstretched [npc.hand], hitting [npc2.name] directly in the chest!
+		#IF(npc.isFeral())
+			A bright pink flash of arcane lightning streaks out from [npc.namePos] crystal globe, hitting [npc2.name] directly in the chest!
+		#ELSE
+			A bright pink flash of arcane lightning streaks out from [npc.namePos] outstretched [npc.hand], hitting [npc2.name] directly in the chest!
+		#ENDIF
 		]]></hitText>
 	</hitDescriptions>
 

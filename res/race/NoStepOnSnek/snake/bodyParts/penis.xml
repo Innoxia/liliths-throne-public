@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<penis>
+	<race>NoStepOnSnek_snake</race>
+	<transformationName><![CDATA[snake]]></transformationName>
+	<coveringType>PENIS</coveringType>
+	<testicleType>NoStepOnSnek_snake_testicle</testicleType>
+	<additionalTransformationEffect/>
+	<namesMasculine>
+		<name><![CDATA[snake-]]></name>
+	</namesMasculine>
+	<namesPluralMasculine>
+		<name><![CDATA[snake-]]></name>
+	</namesPluralMasculine>
+	<namesFeminine>
+		<name><![CDATA[snake-]]></name>
+	</namesFeminine>
+	<namesPluralFeminine>
+		<name><![CDATA[snake-]]></name>
+	</namesPluralFeminine>
+	<descriptors/>
+	<defaultPenetrationModifiers>
+		<modifier>TAPERED</modifier>
+	</defaultPenetrationModifiers>
+	<transformationDescription><![CDATA[
+		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as [npc.her] shaft grows erect. As [npc.she] [npc.verb(pant)] and [npc.verb(gasp)] for air, the tip of [npc.her] cock narrows down as it tapers into its new form.
+		<br/>[npc.She] now [npc.has] a [style.boldSnake(snake-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldSnake([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldSnake(snake cum)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.a_cockGirth], [npc.cockLengthValue] snake cock, which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].
+	]]></bodyDescription>
+</penis>

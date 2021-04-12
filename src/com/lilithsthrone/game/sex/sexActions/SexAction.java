@@ -24,7 +24,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public abstract class SexAction implements SexActionInterface {
@@ -62,7 +62,6 @@ public abstract class SexAction implements SexActionInterface {
 			CorruptionLevel minimumCorruptionNeeded,
 			Map<SexAreaInterface, SexAreaInterface> sexAreaInteractions,
 			SexParticipantType participantType) {
-		
 		this(sexActionType,
 				selfArousalGain,
 				targetArousalGain,
@@ -180,7 +179,7 @@ public abstract class SexAction implements SexActionInterface {
 	public abstract String getDescription();
 
 	private static String formatFlavour(String input) {
-		return "<p style='margin:0; padding:0; text-align:center;'><i>"
+		return "<p style='text-align:center; margin:0; padding:0;'><i>"
 				+ input
 			+ "</i></p>";
 	}
@@ -486,7 +485,6 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			
 			List<SexAreaInterface> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);
 			if(cummedInList != null) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
@@ -532,6 +530,7 @@ public abstract class SexAction implements SexActionInterface {
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_RECEIVING);
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
 								break;
+							case SPINNERET:
 							case URETHRA_PENIS:
 							case URETHRA_VAGINA:
 								break;
@@ -615,6 +614,7 @@ public abstract class SexAction implements SexActionInterface {
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_GIVING);
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
 								break;
+							case SPINNERET:
 							case URETHRA_PENIS:
 							case URETHRA_VAGINA:
 								break;

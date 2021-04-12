@@ -11,8 +11,8 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -51,26 +51,27 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.dominion.DaddySexActions;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.3.10
- * @version 0.3.3.10
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Daddy extends NPC {
+
+	public static final String DADDY_RESET_TIMER_ID = "daddy_reset_timer";
 	
 	public Daddy() {
 		this(false);
@@ -81,7 +82,7 @@ public class Daddy extends NPC {
 				"First encountered as an unwelcome guest being turned away from Lilaya's home, the demon [npc.name] has the lofty goal of winning the love and affection of none other than the elder Lilin, Lyssieth.",
 				57, Month.JANUARY, 17,
 				25, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		if(!isImported) {
 			this.setGenericName("unwelcome incubus");
@@ -103,6 +104,9 @@ public class Daddy extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.BRAVE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
 		}
 	}
 
@@ -163,26 +167,26 @@ public class Daddy extends NPC {
 			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 			// Coverings:
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_VIOLET));
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_VIOLET));
 			
-			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_LIGHT), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_LIGHT), true);
 
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_WHITE), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, PresetColour.COVERING_WHITE), true);
 			this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 			this.setHairStyle(HairStyle.WAVY);
 
-			this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_WHITE), false);
+			this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, PresetColour.COVERING_WHITE), false);
 			this.setUnderarmHair(BodyHair.ZERO_NONE);
 			this.setAssHair(BodyHair.TWO_MANICURED);
 			this.setPubicHair(BodyHair.ZERO_NONE);
 			this.setFacialHair(BodyHair.ZERO_NONE);
 
-//			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-//			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
-//			this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-//			this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//			this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK));
+//			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_RED));
+//			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_RED));
+//			this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//			this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+//			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//			this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PINK));
 			
 			// Face:
 			this.setFaceVirgin(false);
@@ -215,12 +219,13 @@ public class Daddy extends NPC {
 			
 			// Penis:
 			this.setPenisVirgin(false);
-			this.setPenisGirth(PenetrationGirth.FOUR_FAT);
+			this.setPenisGirth(PenetrationGirth.FIVE_THICK);
 			this.setPenisSize(25);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(250);
 			this.fillCumToMaxStorage();
 			this.clearPenisModifiers();
+			this.setTesticleCount(2);
 			
 			// Vagina:
 			// No vagina
@@ -236,26 +241,26 @@ public class Daddy extends NPC {
 			this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 
 			// Coverings:
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_VIOLET));
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_VIOLET));
 			
-			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_LIGHT), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_LIGHT), true);
 
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_WHITE), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, PresetColour.COVERING_WHITE), true);
 			this.setHairLength(HairLength.ONE_VERY_SHORT.getMedianValue());
 			this.setHairStyle(HairStyle.STRAIGHT);
 
-			this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_WHITE), false);
+			this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, PresetColour.COVERING_WHITE), false);
 			this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 			this.setAssHair(BodyHair.FOUR_NATURAL);
 			this.setPubicHair(BodyHair.FOUR_NATURAL);
 			this.setFacialHair(BodyHair.THREE_TRIMMED);
 
-//			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-//			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
-//			this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-//			this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//			this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK));
+//			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_RED));
+//			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_RED));
+//			this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//			this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+//			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//			this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PINK));
 			
 			// Face:
 			this.setFaceVirgin(false);
@@ -288,7 +293,7 @@ public class Daddy extends NPC {
 			
 			// Penis:
 			this.setPenisVirgin(false);
-			this.setPenisGirth(PenetrationGirth.FOUR_FAT);
+			this.setPenisGirth(PenetrationGirth.FIVE_THICK);
 			this.setPenisSize(25);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(250);
@@ -312,19 +317,24 @@ public class Daddy extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
 		if(this.getGenderIdentity().isFeminine()) { 
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_sweatband", Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_sweatband", PresetColour.CLOTHING_BLACK, false), true, this);
 		}
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_GREY, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", Colour.CLOTHING_BLUE_GREY, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_tshirt", Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", Colour.CLOTHING_TAN, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_GREY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLUE_GREY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_tshirt", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_TAN, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
 
 	}
 	
 	@Override
 	public boolean isUnique() {
+		return true;
+	}
+
+	@Override
+	public boolean isAddedToContacts() {
 		return true;
 	}
 	
@@ -391,7 +401,7 @@ public class Daddy extends NPC {
 	public static boolean isAvailable() {
 		return Main.game.getHourOfDay()>=getHourAvailableStart()
 				&& Main.game.getHourOfDay()<getHourAvailableEnd()
-				&& Main.game.getSecondsPassed()>Main.game.getDialogueFlags().daddyResetTimer+(60*60*12);
+				&& Main.game.getSecondsPassed()>Main.game.getDialogueFlags().getSavedLong(DADDY_RESET_TIMER_ID)+(60*60*12);
 	}
 	
 	public static String getAvailabilityText() {
@@ -404,7 +414,7 @@ public class Daddy extends NPC {
 //					:"");
 		
 		return " [daddy.SheIsFull] only at home between the hours of "+Units.time(LocalTime.of(Daddy.getHourAvailableStart(), 00))+" and "+Units.time(LocalTime.of(Daddy.getHourAvailableEnd(), 00))
-				+(Main.game.getSecondsPassed()<Main.game.getDialogueFlags().daddyResetTimer+(60*60*3)
+				+(Main.game.getSecondsPassed()<Main.game.getDialogueFlags().getSavedLong(DADDY_RESET_TIMER_ID)+(60*60*3)
 						?". [style.colourBad(Due to recently meeting [daddy.herHim], [daddy.she] will not be available again until tomorrow.)]"
 						:", and as such, [daddy.sheIs] currently "
 							+(Daddy.isAvailable()

@@ -1,0 +1,19 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#linearGradient15)" fill-rule="evenodd"/>
+ <ellipse cx="32" cy="32.006" rx="13.079" ry="13.078" fill="none" stroke="#fff" stroke-width="2"/>
+ <ellipse cx="32" cy="32.006" rx="11.024" ry="11.023" fill="#fff" fill-rule="evenodd" stroke-width=".36284"/>
+ <g transform="matrix(1.534 0 0 1.534 -6.7881 -24.374)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m14.526 43.918c-0.27278 0.61998-0.9761 0.52799-1.2826-7.02e-4 -0.41332-0.71286 0.52113-1.9975 0.35024-14.358 0.26286 13.367 1.3662 13.373 0.9324 14.359z" fill="#fff"/>
+  <path d="m12.083 29.587c-0.07097 1.8654-0.02168 3.7598 0.83564 3.8518 0.81317 0.0873 0.09612 0.02575 1.2824 0.01235 1.1838-0.0134 1.0849-1.4101 1.0968-3.877" fill="none"/>
+ </g>
+ <g transform="matrix(-1.534 0 0 1.534 62.998 -25.718)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m8.9182 44.791c-0.27278 0.61998-0.9761 0.52799-1.2826-7.02e-4 -0.41332-0.71286 0.52113-1.9975 0.35024-14.358 0.26286 13.367 1.3662 13.373 0.9324 14.359z"/>
+  <path d="m7.9858 30.433c0.00807-1.0001 0.42143-0.76808 0.94496 0.10775 0.43665 0.73048 1.2844 4.2481 0.2419 6.1475l-1.1248 0.05786c0.19931-2.6102-0.0089419-3.5627-0.062105-6.3131z"/>
+ </g>
+</svg>

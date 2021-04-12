@@ -7,18 +7,20 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -34,7 +36,7 @@ public class Perk {
 			"Misc",
 			PerkCategory.JOB,
 			"perks/jobs/prostitute",
-			Colour.BASE_PINK,
+			PresetColour.BASE_PINK,
 			Util.newHashMapOfValues(),
 			null) {
 		@Override
@@ -48,11 +50,11 @@ public class Perk {
 			"queen of the skies",
 			PerkCategory.JOB,
 			"perks/jobs/npc_harpy_matriarch",
-			Colour.RACE_HARPY,
+			PresetColour.RACE_HARPY,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 5),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -65,11 +67,11 @@ public class Perk {
 			"pecking order",
 			PerkCategory.JOB,
 			"perks/jobs/npc_harpy_flock_member",
-			Colour.RACE_HARPY,
+			PresetColour.RACE_HARPY,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
+					new Value<>(Attribute.DAMAGE_LUST, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 5),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -85,13 +87,13 @@ public class Perk {
 			"Enforcer: Patrol Inspector",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_inspector",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 5),
+					new Value<>(Attribute.DAMAGE_UNARMED, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 10),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -100,9 +102,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -113,12 +115,12 @@ public class Perk {
 			"Enforcer: Patrol Sergeant",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_sergeant",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -127,9 +129,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -140,12 +142,12 @@ public class Perk {
 			"Enforcer: Patrol Constable",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_constable",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 1),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -154,9 +156,65 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_SWORD_SUPER = new AbstractPerk(20,
+			true,
+			"Enforcer: SWORD Superintendent",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_superintendent",
+			PresetColour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_UNARMED, 35),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 35),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 35)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Superintendent' in the Enforcer's 'Special Weapons and Operations Response Department', and has received an extensive amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_SWORD_CHIEF_INSPECTOR = new AbstractPerk(20,
+			true,
+			"Enforcer: SWORD Chief Inspector",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_chief_inspector",
+			PresetColour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 20),
+					new Value<>(Attribute.MAJOR_ARCANE, 20),
+					new Value<>(Attribute.DAMAGE_UNARMED, 30),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 30),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 30)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Chief Inspector' in the Enforcer's 'Special Weapons and Operations Response Department', and has received an extensive amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -167,13 +225,13 @@ public class Perk {
 			"Enforcer: SWORD Inspector",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_inspector",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.DAMAGE_UNARMED, 25),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -182,9 +240,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -195,13 +253,13 @@ public class Perk {
 			"Enforcer: SWORD Sergeant",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_sergeant",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 20)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.DAMAGE_UNARMED, 20),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 20),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 20)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -210,9 +268,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -223,13 +281,13 @@ public class Perk {
 			"Enforcer: SWORD Constable",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_constable",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 15)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 5),
+					new Value<>(Attribute.DAMAGE_UNARMED, 15),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 15)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -238,9 +296,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -251,15 +309,15 @@ public class Perk {
 			"Enforcer: ORICL Inspector",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_inspector",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.DAMAGE_UNARMED, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 10),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -268,9 +326,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -281,15 +339,15 @@ public class Perk {
 			"Enforcer: ORICL Sergeant",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_sergeant",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_ARCANE, 20),
+					new Value<>(Attribute.DAMAGE_POISON, 20),
+					new Value<>(Attribute.DAMAGE_LUST, 20),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -298,9 +356,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -311,15 +369,15 @@ public class Perk {
 			"Enforcer: ORICL Constable",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_constable",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.DAMAGE_POISON, 15),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -328,9 +386,9 @@ public class Perk {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(owner.isFeminine()) {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_PINK));
 			} else {
-				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE));
 			}
 			return super.getSVGString(owner);
 		}
@@ -341,16 +399,16 @@ public class Perk {
 			"Worshipper of Lilith",
 			PerkCategory.JOB,
 			"perks/jobs/npc_cultist",
-			Colour.CLOTHING_BLACK,
+			PresetColour.CLOTHING_BLACK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.DAMAGE_SPELLS, 25),
+					new Value<>(Attribute.DAMAGE_LUST, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameIsFull] a full-time member of the 'Cult of Lilith', and in order to properly worship [npc.her] goddess, [npc.she] has spent an inordinate amount of time training both [npc.her] spell-casting and seductive powers.");
+					"[npc.NameIsFull] a full-time member of the 'Cult of Lilith', and in order to properly worship [npc.her] goddess, [npc.sheHasFull] spent an inordinate amount of time training both [npc.her] spell-casting and seductive powers.");
 		}
 	};
 
@@ -359,11 +417,11 @@ public class Perk {
 			"shady overseer",
 			PerkCategory.JOB,
 			"perks/jobs/npc_slave_admin",
-			Colour.CLOTHING_BLACK_STEEL,
+			PresetColour.CLOTHING_BLACK_STEEL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 100),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.RESISTANCE_LUST, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -377,11 +435,11 @@ public class Perk {
 			"bouncer",
 			PerkCategory.JOB,
 			"perks/jobs/npc_bouncer",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
+					new Value<>(Attribute.DAMAGE_UNARMED, 15),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 15),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -395,10 +453,10 @@ public class Perk {
 			"barmaid",
 			PerkCategory.JOB,
 			"perks/jobs/npc_barmaid",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -422,10 +480,10 @@ public class Perk {
 			"beauty ideal",
 			PerkCategory.JOB,
 			"perks/jobs/npc_beautician",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -439,9 +497,9 @@ public class Perk {
 			"the boss",
 			PerkCategory.JOB,
 			"perks/jobs/npc_nightclub_owner",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+					new Value<>(Attribute.DAMAGE_LUST, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -455,11 +513,11 @@ public class Perk {
 			"secrets of the arcane",
 			PerkCategory.JOB,
 			"perks/jobs/npc_arcane_researcher",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 50),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_SPELLS, 50),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -473,10 +531,10 @@ public class Perk {
 			"manager",
 			PerkCategory.JOB,
 			"perks/jobs/npc_shop_manager",
-			Colour.CURRENCY_GOLD,
+			PresetColour.CURRENCY_GOLD,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 1)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.ENERGY_SHIELDING, 1)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -485,15 +543,29 @@ public class Perk {
 		}
 	};
 
+	public static AbstractPerk JOB_NPC_OFFICE_WORKER = new AbstractPerk(20,
+			true,
+			"It's just good business",
+			PerkCategory.JOB,
+			"perks/jobs/npc_office_worker",
+			PresetColour.CURRENCY_GOLD,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "The constant pressure of meeting targets and managing difficult colleagues and clients has built up [npc.namePos] endurance.");
+		}
+	};
+
 	public static AbstractPerk JOB_NPC_REINDEER_OVERSEER = new AbstractPerk(20,
 			true,
 			"winter-proof",
 			PerkCategory.JOB,
 			"perks/jobs/npc_reindeer_overseer",
-			Colour.RACE_REINDEER_MORPH,
+			PresetColour.RACE_REINDEER_MORPH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.RESISTANCE_ICE, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -507,23 +579,24 @@ public class Perk {
 			"untouchable",
 			PerkCategory.JOB,
 			"perks/jobs/elder_lilin",
-			Colour.RACE_LILIN,
+			PresetColour.RACE_LILIN,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 100),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 100),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 100)),
+					new Value<>(Attribute.DAMAGE_UNARMED, 100),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 100),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 100),
+					new Value<>(Attribute.DAMAGE_SPELLS, 100),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 100),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 100),
+					new Value<>(Attribute.DAMAGE_FIRE, 100),
+					new Value<>(Attribute.DAMAGE_ICE, 100),
+					new Value<>(Attribute.DAMAGE_POISON, 100),
+					new Value<>(Attribute.DAMAGE_LUST, 100),
+					new Value<>(Attribute.ENERGY_SHIELDING, 250),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 250),
+					new Value<>(Attribute.RESISTANCE_FIRE, 250),
+					new Value<>(Attribute.RESISTANCE_ICE, 250),
+					new Value<>(Attribute.RESISTANCE_POISON, 250),
+					new Value<>(Attribute.RESISTANCE_LUST, 250)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -537,9 +610,9 @@ public class Perk {
 			"royal jelly",
 			PerkCategory.JOB,
 			"perks/jobs/npc_slime_queen",
-			Util.newArrayListOfValues(Colour.CLOTHING_GOLD, Colour.CLOTHING_RED_VERY_DARK, Colour.CLOTHING_GOLD),
+			Util.newArrayListOfValues(PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_GOLD),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+					new Value<>(Attribute.DAMAGE_LUST, 50)),
 			null,
 			null,
 			null,
@@ -556,10 +629,10 @@ public class Perk {
 			"slime servant",
 			PerkCategory.JOB,
 			"perks/jobs/npc_slime_queen_guard",
-			Colour.RACE_REINDEER_MORPH,
+			PresetColour.RACE_REINDEER_MORPH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 25),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -573,10 +646,10 @@ public class Perk {
 			"fertility queen",
 			PerkCategory.JOB,
 			"perks/jobs/npc_epona",
-			Colour.BASE_PINK,
+			PresetColour.BASE_PINK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.FERTILITY, 100),
-					new Value<Attribute, Integer>(Attribute.VIRILITY, 100)),
+					new Value<>(Attribute.FERTILITY, 100),
+					new Value<>(Attribute.VIRILITY, 100)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -591,14 +664,14 @@ public class Perk {
 			PerkCategory.JOB,
 			"perks/jobs/npc_rat_gang",
 			Util.newArrayListOfValues(
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_GOLD),
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_GOLD),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 50),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 25),
+					new Value<>(Attribute.RESISTANCE_POISON, 10)),
 			null,
 			null, null, null) {
 		@Override
@@ -614,14 +687,14 @@ public class Perk {
 			PerkCategory.JOB,
 			"perks/jobs/npc_rat_gang",
 			Util.newArrayListOfValues(
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_SILVER),
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_SILVER),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_POISON, 10)),
 			null,
 			null, null, null) {
 		@Override
@@ -637,20 +710,41 @@ public class Perk {
 			PerkCategory.JOB,
 			"perks/jobs/npc_rat_gang",
 			Util.newArrayListOfValues(
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_COPPER),
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_COPPER),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 5)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<>(Attribute.RESISTANCE_POISON, 5)),
 			null,
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 					"[npc.NameIsFull] a member of a criminal gang, and as such, has seen [npc.her] fair share of fights.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_STABLE_MISTRESS = new AbstractPerk(20,
+			true,
+			"horse trainer",
+			PerkCategory.JOB,
+			"perks/jobs/npc_stable_mistress",
+			Util.newArrayListOfValues(
+					PresetColour.RACE_HORSE_MORPH),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 10),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"As a result of working hard to train and care for a huge number of centaur slaves, [npc.nameIsFull] very fit and healthy, and knows exactly how to deal with any unruly individuals.");
 		}
 	};
 	
@@ -660,14 +754,14 @@ public class Perk {
 			PerkCategory.JOB,
 			"perks/jobs/npc_lyssieth_guard",
 			Util.newArrayListOfValues(
-					Colour.DAMAGE_TYPE_PHYSICAL,
-					Colour.CLOTHING_STEEL,
-					Colour.CLOTHING_BLACK),
+					PresetColour.DAMAGE_TYPE_PHYSICAL,
+					PresetColour.CLOTHING_STEEL,
+					PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
 			null,
 			null, null, null) {
 		@Override
@@ -685,11 +779,11 @@ public class Perk {
 			"A life of servitude",
 			PerkCategory.JOB,
 			"perks/jobs/slave",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 2),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -702,10 +796,10 @@ public class Perk {
 			"Kidnapped",
 			PerkCategory.JOB,
 			"perks/jobs/npc_captive",
-			Colour.BASE_RED,
+			PresetColour.BASE_RED,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, -25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -718,11 +812,11 @@ public class Perk {
 			"The oldest profession",
 			PerkCategory.JOB,
 			"perks/jobs/prostitute",
-			Colour.BASE_PINK,
+			PresetColour.BASE_PINK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 50),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Doubles)] all slave and self-prostitution income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -735,14 +829,30 @@ public class Perk {
 			"Outlaw",
 			PerkCategory.JOB,
 			"perks/jobs/mugger",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 15)),
 			Util.newArrayListOfValues("[style.boldExcellent(Triples)] all mugging income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.Name] [npc.verb(live)] a life of crime, stealing from the rich and poor alike.");
+		}
+	};
+	
+	public static AbstractPerk JOB_BOUNTY_HUNTER = new AbstractPerk(20,
+			true,
+			"No Escape",
+			PerkCategory.JOB,
+			"perks/jobs/bounty_hunter",
+			PresetColour.BASE_CRIMSON,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 15)),
+			Util.newArrayListOfValues("[style.boldExcellent(-50%)] chance of enemy escape")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] an expert at tracking down and capturing fugitives, and as such, enemies have a hard time escaping from [npc.herHim] in combat.");
 		}
 	};
 	
@@ -751,10 +861,10 @@ public class Perk {
 			"Builder",
 			PerkCategory.JOB,
 			"perks/jobs/npc_construction",
-			Util.newArrayListOfValues(Colour.CLOTHING_YELLOW, Colour.CLOTHING_BLACK),
+			Util.newArrayListOfValues(PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 15)),
 			null,
 			null, null, null) {
 		@Override
@@ -768,10 +878,10 @@ public class Perk {
 			"Matter manipulation",
 			PerkCategory.JOB,
 			"perks/jobs/npc_construction",
-			Util.newArrayListOfValues(Colour.CLOTHING_PURPLE, Colour.CLOTHING_BLACK),
+			Util.newArrayListOfValues(PresetColour.CLOTHING_PURPLE, PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 25)),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MANA_MAXIMUM, 25)),
 			null,
 			null, null, null) {
 		@Override
@@ -790,11 +900,11 @@ public class Perk {
 			"NEET",
 			PerkCategory.JOB,
 			"perks/jobs/unemployed",
-			Colour.BASE_RED,
+			PresetColour.BASE_RED,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 2),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues("[style.boldExcellent(Boosts)] 'Well Rested' bonus")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -808,9 +918,9 @@ public class Perk {
 			"The Salaryman",
 			PerkCategory.JOB,
 			"perks/jobs/officeWorker",
-			Colour.BASE_BROWN,
+			PresetColour.BASE_BROWN,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 50)),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(+25%)] all slave income")) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -832,9 +942,9 @@ public class Perk {
 			"Student Discount",
 			PerkCategory.JOB,
 			"perks/jobs/student",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10)),
+					new Value<>(Attribute.MAJOR_ARCANE, 10)),
 			Util.newArrayListOfValues("[style.boldExcellent(25%)] discount in all stores")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -848,9 +958,9 @@ public class Perk {
 			"Arcane Composition",
 			PerkCategory.JOB,
 			"perks/jobs/musician",
-			Colour.BASE_GREY,
+			PresetColour.BASE_GREY,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)),
+					new Value<>(Attribute.DAMAGE_LUST, 25)),
 			Util.newArrayListOfValues("[style.boldExcellent(Double)] length of all spell effects")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -864,9 +974,9 @@ public class Perk {
 			"In Control",
 			PerkCategory.JOB,
 			"perks/jobs/teacher",
-			Colour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_BLUE_LIGHT,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 10)),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10)),
 			Util.newArrayListOfValues("[style.boldExcellent(Triple)] all slave obedience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -880,9 +990,9 @@ public class Perk {
 			"Meditations",
 			PerkCategory.JOB,
 			"perks/jobs/writer",
-			Colour.BASE_PURPLE,
+			PresetColour.BASE_PURPLE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25)),
+					new Value<>(Attribute.DAMAGE_SPELLS, 25)),
 			Util.newArrayListOfValues("[style.boldExcellent(+25%)] to all experience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -896,10 +1006,12 @@ public class Perk {
 			"Fine Taste",
 			PerkCategory.JOB,
 			"perks/jobs/chef",
-			Colour.BASE_ORANGE,
+			PresetColour.BASE_ORANGE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 25)),
-			Util.newArrayListOfValues("[style.boldExcellent(Double)] all potions effects' strength and length")) {
+					new Value<>(Attribute.RESISTANCE_POISON, 25)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Double)] duration of all potion effects",
+					"[style.boldExcellent(Doubles)] potion effect limit")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make culinary marvels out of basic ingredients.");
@@ -911,11 +1023,11 @@ public class Perk {
 			"Project Manager",
 			PerkCategory.JOB,
 			"perks/jobs/construction",
-			Util.newArrayListOfValues(Colour.CLOTHING_YELLOW, Colour.CLOTHING_BLACK),
+			Util.newArrayListOfValues(PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues("[style.boldExcellent(Halves)] cost of all room upgrades"),
 			null, null, null) {
 		@Override
@@ -931,12 +1043,12 @@ public class Perk {
 			"Controlled Aggression",
 			PerkCategory.JOB,
 			"perks/jobs/soldier",
-			Colour.BASE_GREEN,
+			PresetColour.BASE_GREEN,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10)),
 			Util.newArrayListOfValues("Your first strike in combat deals [style.boldExcellent(double)] damage")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -950,9 +1062,9 @@ public class Perk {
 			"Ten-Second Barrier",
 			PerkCategory.JOB,
 			"perks/jobs/athlete",
-			Colour.BASE_TEAL,
+			PresetColour.BASE_TEAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10)),
 			Util.newArrayListOfValues("All non-zero escape chances in combat are boosted to [style.boldExcellent(100%)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -960,15 +1072,36 @@ public class Perk {
 		}
 	};
 
+	public static AbstractPerk JOB_ARISTOCRAT = new AbstractPerk(20,
+			true,
+			"Blue Blood",
+			PerkCategory.JOB,
+			"perks/jobs/aristocrat",
+			PresetColour.BASE_GOLD,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
+			Util.newArrayListOfValues(
+					"All [style.colourCorruption(corruption)] gains are [style.colourBad(doubled)]",
+					"[style.colourGood(+0.25)] to [style.colourExcellent(all resistances)] per 1 corruption")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] from an ancient aristocratic family, and [npc.has] been given the best education money can buy."
+					+ " Insufferably arrogant, [npc.name] [npc.verb(know)] that [npc.sheIsFull] better than everyone else, and won't let any filthy peasant get the better of [npc.herHim]!");
+		}
+	};
+	
+	
 	public static AbstractPerk JOB_MAID = new AbstractPerk(20,
 			true,
 			"Housekeeper",
 			PerkCategory.JOB,
 			"perks/jobs/maid",
-			Colour.BASE_PINK_LIGHT,
+			PresetColour.BASE_PINK_LIGHT,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+					new Value<>(Attribute.DAMAGE_LUST, 5),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Boosted)] Maid's set bonuses",
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
@@ -984,17 +1117,35 @@ public class Perk {
 			"Legacy of Jeeves",
 			PerkCategory.JOB,
 			"perks/jobs/butler",
-			Colour.BASE_BLUE_STEEL,
+			PresetColour.BASE_BLUE_STEEL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.RESISTANCE_LUST, 25)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Boosted)] Butler's set bonuses",
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.name] [npc.is] the perfect example of a hard-working butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
+			return UtilText.parse(owner, "[npc.Name] [npc.is] the perfect example of a hard-working butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
 					+ " [npc.She] also [npc.verb(know)] how to train maids and other butlers to be exceptional at their jobs.");
+		}
+	};
+
+	public static AbstractPerk JOB_TOURIST = new AbstractPerk(20,
+			true,
+			"I'm an American!",
+			PerkCategory.JOB,
+			"perks/jobs/tourist",
+			PresetColour.BASE_BLUE_DARK,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
+			Util.newArrayListOfValues(
+					"All incorrect English spellings are [style.boldExcellent(automatically fixed)]",
+					"Enemies are blinded by your [style.colourFreedom(freedom)] for [style.colourExcellent(-1)] <span style='color:"+Attribute.ACTION_POINTS.getColour().toWebHexString()+";'>"+Attribute.ACTION_POINTS.getName()+"</span>",
+					"Burger effects are [style.colourGood(doubled)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.speech(Excuse me! I'm an American! Do you speak English?! My visa expires in four days, where's the embassy?!)]");
 		}
 	};
 	
@@ -1005,8 +1156,8 @@ public class Perk {
 			"natural fitness",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 
 		@Override
@@ -1020,8 +1171,8 @@ public class Perk {
 			"critical power",
 			PerkCategory.PHYSICAL,
 			"perks/critical_power",
-			Colour.BASE_ORANGE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+			PresetColour.BASE_ORANGE,
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1034,8 +1185,8 @@ public class Perk {
 			"critical power",
 			PerkCategory.PHYSICAL,
 			"perks/critical_power",
-			Colour.BASE_ORANGE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+			PresetColour.BASE_ORANGE,
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1048,8 +1199,8 @@ public class Perk {
 			"critical power",
 			PerkCategory.PHYSICAL,
 			"perks/critical_power",
-			Colour.BASE_ORANGE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+			PresetColour.BASE_ORANGE,
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1062,8 +1213,8 @@ public class Perk {
 			"physically fit",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength1",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 
 		@Override
@@ -1077,8 +1228,8 @@ public class Perk {
 			"physically fit",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength1",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 
 		@Override
@@ -1092,8 +1243,8 @@ public class Perk {
 			"physically fit",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 
 		@Override
@@ -1107,8 +1258,8 @@ public class Perk {
 			"striker",
 			PerkCategory.PHYSICAL,
 			"perks/strike",
-			Colour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 1)),
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 1)),
 			null) {
 
 		@Override
@@ -1122,8 +1273,8 @@ public class Perk {
 			"hand-to-hand",
 			PerkCategory.PHYSICAL,
 			"perks/unarmed_damage",
-			Colour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5)),
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_UNARMED, 5)),
 			null) {
 
 		@Override
@@ -1137,8 +1288,8 @@ public class Perk {
 			"melee weapons expert",
 			PerkCategory.PHYSICAL,
 			"perks/melee_damage",
-			Colour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5)),
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5)),
 			null) {
 
 		@Override
@@ -1152,8 +1303,8 @@ public class Perk {
 			"sharp-shooter",
 			PerkCategory.PHYSICAL,
 			"perks/ranged_damage",
-			Colour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 
 		@Override
@@ -1167,13 +1318,13 @@ public class Perk {
 			"berserk",
 			PerkCategory.PHYSICAL,
 			"perks/beserk",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 20),
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, -2),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, -15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, -15)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 20),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 20),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -2),
+					new Value<>(Attribute.DAMAGE_SPELLS, -15),
+					new Value<>(Attribute.DAMAGE_LUST, -15)),
 			null) {
 
 		@Override
@@ -1187,8 +1338,8 @@ public class Perk {
 			"defender",
 			PerkCategory.PHYSICAL,
 			"perks/shield",
-			Colour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 1)),
 			null) {
 
 		@Override
@@ -1202,8 +1353,8 @@ public class Perk {
 			"spell power",
 			PerkCategory.ARCANE,
 			"perks/arcane_power_1",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 1)), null) {
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1216,8 +1367,8 @@ public class Perk {
 			"spell mastery",
 			PerkCategory.ARCANE,
 			"perks/arcane_power_3",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1230,8 +1381,8 @@ public class Perk {
 			"spell efficiency",
 			PerkCategory.ARCANE,
 			"perks/spell_efficiency",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 1)), null) {
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1244,8 +1395,8 @@ public class Perk {
 			"aura reserves",
 			PerkCategory.ARCANE,
 			"perks/resource_boost",
-			Colour.ATTRIBUTE_MANA,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 5)),
+			PresetColour.ATTRIBUTE_MANA,
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 5)),
 			null) {
 
 		@Override
@@ -1259,8 +1410,8 @@ public class Perk {
 			"energy reserves",
 			PerkCategory.PHYSICAL,
 			"perks/resource_boost",
-			Colour.ATTRIBUTE_HEALTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 5)),
+			PresetColour.ATTRIBUTE_HEALTH,
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5)),
 			null) {
 
 		@Override
@@ -1274,10 +1425,10 @@ public class Perk {
 			"aura shielding",
 			PerkCategory.PHYSICAL,
 			"perks/resource_boost_drain_aura",
-			Colour.ATTRIBUTE_HEALTH,
+			PresetColour.ATTRIBUTE_HEALTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 20),
+					new Value<>(Attribute.MANA_MAXIMUM, -25)),
 			null) {
 
 		@Override
@@ -1291,11 +1442,11 @@ public class Perk {
 			"elemental striker",
 			PerkCategory.LUST,
 			"perks/elemental_damage",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 5),
+					new Value<>(Attribute.DAMAGE_ICE, 5),
+					new Value<>(Attribute.DAMAGE_POISON, 5)),
 			null) {
 
 		@Override
@@ -1309,11 +1460,11 @@ public class Perk {
 			"elemental striker",
 			PerkCategory.LUST,
 			"perks/elemental_damage",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 5),
+					new Value<>(Attribute.DAMAGE_ICE, 5),
+					new Value<>(Attribute.DAMAGE_POISON, 5)),
 			null) {
 
 		@Override
@@ -1327,11 +1478,11 @@ public class Perk {
 			"elemental striker",
 			PerkCategory.LUST,
 			"perks/elemental_damage",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 5),
+					new Value<>(Attribute.DAMAGE_ICE, 5),
+					new Value<>(Attribute.DAMAGE_POISON, 5)),
 			null) {
 
 		@Override
@@ -1345,11 +1496,11 @@ public class Perk {
 			"elemental defender",
 			PerkCategory.LUST,
 			"perks/elemental_defence",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1),
+					new Value<>(Attribute.RESISTANCE_ICE, 1),
+					new Value<>(Attribute.RESISTANCE_POISON, 1)),
 			null) {
 
 		@Override
@@ -1364,14 +1515,14 @@ public class Perk {
 			"natural arcane power",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
 		
 		@Override
-		public HashMap<Attribute, Integer> getAttributeModifiers(GameCharacter character) {
+		public HashMap<AbstractAttribute, Integer> getAttributeModifiers(GameCharacter character) {
 			if(character!=null && character.isPlayer()) {
-				return Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 20));
+				return Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 20));
 			} else {
 				return super.getAttributeModifiers(character);
 			}
@@ -1392,8 +1543,8 @@ public class Perk {
 			"arcane training",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence1",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
 
 		@Override
@@ -1407,8 +1558,8 @@ public class Perk {
 			"arcane training",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
 
 		@Override
@@ -1422,8 +1573,8 @@ public class Perk {
 			"arcane affinity",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5)),
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 5)),
 			null) {
 
 		@Override
@@ -1438,10 +1589,10 @@ public class Perk {
 			"lewd knowledge",
 			PerkCategory.LUST,
 			"perks/lewd_knowledge",
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
+					new Value<>(Attribute.RESISTANCE_LUST, 1),
+					new Value<>(Attribute.DAMAGE_LUST, 5)),
 			null) {
 
 		@Override
@@ -1455,8 +1606,8 @@ public class Perk {
 			"seductive",
 			PerkCategory.LUST,
 			"perks/attSeduction1",
-			Colour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+			PresetColour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1469,8 +1620,8 @@ public class Perk {
 			"seductive",
 			PerkCategory.LUST,
 			"perks/attSeduction1",
-			Colour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+			PresetColour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1483,8 +1634,8 @@ public class Perk {
 			"seductive",
 			PerkCategory.LUST,
 			"perks/attSeduction1",
-			Colour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+			PresetColour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1497,8 +1648,8 @@ public class Perk {
 			"seductive",
 			PerkCategory.LUST,
 			"perks/attSeduction5",
-			Colour.BASE_PINK_DEEP,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)), null) {
+			PresetColour.BASE_PINK_DEEP,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1511,8 +1662,8 @@ public class Perk {
 			"resistance",
 			PerkCategory.LUST,
 			"perks/shield",
-			Colour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1)), null) {
+			PresetColour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1525,8 +1676,8 @@ public class Perk {
 			"virile",
 			PerkCategory.LUST,
 			"perks/virile",
-			Colour.BASE_BLUE_LIGHT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 15)), null) {
+			PresetColour.BASE_BLUE_LIGHT,
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, 15)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1539,8 +1690,8 @@ public class Perk {
 			"virile",
 			PerkCategory.LUST,
 			"perks/virile",
-			Colour.GENERIC_EXCELLENT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 25)), null) {
+			PresetColour.GENERIC_EXCELLENT,
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, 25)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1553,12 +1704,12 @@ public class Perk {
 			"fertile",
 			PerkCategory.LUST,
 			"perks/fertile",
-			Colour.BASE_PINK_LIGHT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 15)), null) {
+			PresetColour.BASE_PINK_LIGHT,
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 15)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NamePos] body is very fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
+			return UtilText.parse(owner, "[npc.NamePos] body is very fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.herHim] pregnant.");
 		}
 	};
 
@@ -1567,12 +1718,12 @@ public class Perk {
 			"fertile",
 			PerkCategory.LUST,
 			"perks/fertile",
-			Colour.GENERIC_EXCELLENT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 25)), null) {
+			PresetColour.GENERIC_EXCELLENT,
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 25)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NamePos] body is incredibly fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
+			return UtilText.parse(owner, "[npc.NamePos] body is incredibly fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.herHim] pregnant.");
 		}
 	};
 	
@@ -1582,10 +1733,10 @@ public class Perk {
 			"arcane combatant",
 			PerkCategory.ARCANE,
 			"perks/physical_brawler",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 10)),
+					new Value<>(Attribute.DAMAGE_SPELLS, 10),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10)),
 			null) {
 
 		@Override
@@ -1599,10 +1750,10 @@ public class Perk {
 			"sacrificial shielding",
 			PerkCategory.ARCANE,
 			"perks/sacrificial_shielding",
-			Colour.ATTRIBUTE_MANA,
+			PresetColour.ATTRIBUTE_MANA,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, -10),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 2)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -10),
+					new Value<>(Attribute.ENERGY_SHIELDING, 2)),
 			null) {
 
 		@Override
@@ -1616,9 +1767,9 @@ public class Perk {
 			"arcane vampyrism",
 			PerkCategory.ARCANE,
 			"perks/arcane_vampyrism",
-			Colour.ATTRIBUTE_MANA,
+			PresetColour.ATTRIBUTE_MANA,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+					new Value<>(Attribute.MANA_MAXIMUM, -25)),
 			Util.newArrayListOfValues(
 					"[style.colourExcellent(Absorb 50%)] of any combatant's remaining [style.colourMana("+Attribute.MANA_MAXIMUM.getName()+")] when they are defeated")) {
 
@@ -1634,13 +1785,13 @@ public class Perk {
 			"ferocious warrior",
 			PerkCategory.PHYSICAL,
 			"perks/physical_brawler",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			null) {
 
 		@Override
@@ -1655,10 +1806,10 @@ public class Perk {
 			"observant",
 			PerkCategory.PHYSICAL,
 			"perks/misc_observant",
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			PresetColour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
-					"<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>")) {
+					"<span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -1687,9 +1838,9 @@ public class Perk {
 			"arcane precision",
 			PerkCategory.ARCANE,
 			"perks/physical_accurate",
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_COMBAT.toWebHexString()+ ";'>Critical</span> spells apply <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Arcane weakness</b>")) {
+			PresetColour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 5)),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_COMBAT.toWebHexString()+ ";'>Critical</span> spells apply <b style='color:"+PresetColour.ATTRIBUTE_LUST.toWebHexString()+";'>Arcane weakness</b>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -1713,9 +1864,9 @@ public class Perk {
 //			"arcane telepathy",
 //			PerkCategory.ARCANE,
 //			"perks/misc_observant",
-//			Colour.GENERIC_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
-//			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Telepathic seduction</span>")) {
+//			PresetColour.GENERIC_ARCANE,
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5)),
+//			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Telepathic seduction</span>")) {
 //		@Override
 //		public String applyPerkGained(GameCharacter character) {
 //			return UtilText.parsePlayerThought("");
@@ -1741,8 +1892,8 @@ public class Perk {
 //			"arcane power",
 //			PerkCategory.ARCANE,
 //			"perks/arcane_power_1",
-//			Colour.ATTRIBUTE_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
+//			PresetColour.ATTRIBUTE_ARCANE,
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 5)), null) {
 //
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -1757,8 +1908,8 @@ public class Perk {
 //			"arcane conduit",
 //			PerkCategory.ARCANE,
 //			"perks/arcane_power_2",
-//			Colour.ATTRIBUTE_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10)), null) {
+//			PresetColour.ATTRIBUTE_ARCANE,
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 10)), null) {
 //
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -1773,8 +1924,8 @@ public class Perk {
 //			"arcane mastery",
 //			PerkCategory.ARCANE,
 //			"perks/arcane_power_3",
-//			Colour.ATTRIBUTE_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15)), null) {
+//			PresetColour.ATTRIBUTE_ARCANE,
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 15)), null) {
 //
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -1790,8 +1941,8 @@ public class Perk {
 			"firebrand",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence3",
-			Colour.DAMAGE_TYPE_FIRE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5)), null) {
+			PresetColour.DAMAGE_TYPE_FIRE,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1807,10 +1958,10 @@ public class Perk {
 			"incendiary",
 			PerkCategory.ARCANE,
 			"perks/arcane_fire_1",
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1)), null) {
+					new Value<>(Attribute.DAMAGE_FIRE, 10),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1826,8 +1977,8 @@ public class Perk {
 			"frosty",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence3",
-			Colour.DAMAGE_TYPE_COLD,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5)), null) {
+			PresetColour.DAMAGE_TYPE_COLD,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1843,10 +1994,10 @@ public class Perk {
 			"ice cold",
 			PerkCategory.ARCANE,
 			"perks/arcane_ice_1",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1)),
+					new Value<>(Attribute.DAMAGE_ICE, 10),
+					new Value<>(Attribute.RESISTANCE_ICE, 1)),
 			null) {
 
 		@Override
@@ -1863,8 +2014,8 @@ public class Perk {
 			"venomous",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence3",
-			Colour.DAMAGE_TYPE_POISON,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)), null) {
+			PresetColour.DAMAGE_TYPE_POISON,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1880,10 +2031,10 @@ public class Perk {
 			"toxic",
 			PerkCategory.ARCANE,
 			"perks/arcane_poison_1",
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.DAMAGE_TYPE_POISON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.DAMAGE_POISON, 10),
+					new Value<>(Attribute.RESISTANCE_POISON, 1)),
 			null) {
 
 		@Override
@@ -1901,9 +2052,9 @@ public class Perk {
 			"runner",
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 3)),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1919,9 +2070,9 @@ public class Perk {
 			"cardio champion",
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner_2",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 5)),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5)),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
 		@Override
 		public String getName(GameCharacter character) {
 			if (character!=null && character.isFeminine()) {
@@ -1942,8 +2093,8 @@ public class Perk {
 			"combat regeneration",
 			PerkCategory.PHYSICAL,
 			"perks/regeneration",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, -25)),
 			Util.newArrayListOfValues("[style.boldExcellent(Regenerate 5%)] total [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")] per turn in combat")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1957,9 +2108,9 @@ public class Perk {
 			"martial artist",
 			PerkCategory.PHYSICAL,
 			"perks/unarmed_training",
-			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues("Base unarmed damage value is <span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>boosted to 8</span>")) {
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 25)),
+			Util.newArrayListOfValues("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(doubled)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
@@ -1971,9 +2122,9 @@ public class Perk {
 			"ladykiller",
 			PerkCategory.LUST,
 			"perks/fitness_female_attraction",
-			Colour.FEMININE,
+			PresetColour.FEMININE,
 			null, Util.newArrayListOfValues("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
-					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>")) {
+					+ " vs <span style='color:" + PresetColour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -1986,7 +2137,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] very flirtatious, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce women than men.");
+			return UtilText.parse(owner, "[npc.NameIsFull] very flirtatious, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.her] advances are particularly effective against feminine people.");
 		}
 
 	};
@@ -1996,9 +2147,9 @@ public class Perk {
 			"minx",
 			PerkCategory.LUST,
 			"perks/fitness_male_attraction",
-			Colour.MASCULINE,
+			PresetColour.MASCULINE,
 			null, Util.newArrayListOfValues("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
-					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>")) {
+					+ " vs <span style='color:" + PresetColour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -2011,7 +2162,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce men than women.");
+			return UtilText.parse(owner, "[npc.NameIsFull] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.her] advances are particularly effective against masculine people.");
 		}
 	};
 	
@@ -2020,10 +2171,12 @@ public class Perk {
 			"irresistible appeals",
 			PerkCategory.LUST,
 			"perks/convincing_requests",
-			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.BASE_GOLD),
+			Util.newArrayListOfValues(PresetColour.GENERIC_SEX, PresetColour.BASE_GOLD),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
-			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants"),
+					new Value<>(Attribute.DAMAGE_LUST, 1)),
+			Util.newArrayListOfValues(
+					"Requests made during normal sex scenes are always granted",
+					"Unlocks positioning actions in all normal sex scenes"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2036,9 +2189,9 @@ public class Perk {
 			"object of desire",
 			PerkCategory.LUST,
 			"perks/object_of_desire",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
+					new Value<>(Attribute.DAMAGE_LUST, 1)),
 			Util.newArrayListOfValues("All partners in sex require [style.colourSex(+1 orgasm)] before being satisfied")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2052,7 +2205,7 @@ public class Perk {
 			"orgasmic level drain",
 			PerkCategory.LUST,
 			"perks/orgasmic_level_drain",
-			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.GENERIC_EXPERIENCE),
+			Util.newArrayListOfValues(PresetColour.GENERIC_SEX, PresetColour.GENERIC_EXPERIENCE),
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(
 					"[style.boldTerrible(-95% to all)] [style.boldExperience(experience gains)]",
@@ -2076,10 +2229,10 @@ public class Perk {
 			"nymphomaniac",
 			PerkCategory.LUST,
 			"perks/fitness_nymphomaniac",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -2)),
-			Util.newArrayListOfValues("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
+					new Value<>(Attribute.RESISTANCE_LUST, -2)),
+			Util.newArrayListOfValues("Doubles <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2095,8 +2248,8 @@ public class Perk {
 			"lustpyre",
 			PerkCategory.LUST,
 			"perks/lustful_leech",
-			Colour.ATTRIBUTE_MANA,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 2)),
+			PresetColour.ATTRIBUTE_MANA,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Absorb 2%)] of target's maximum "+Attribute.MANA_MAXIMUM.getName()+" on each attack which deals [style.boldLust("+Attribute.DAMAGE_LUST.getName()+")]")) {
 		
 		@Override
@@ -2110,8 +2263,8 @@ public class Perk {
 			"pure thoughts",
 			PerkCategory.LUST,
 			"perks/pure_mind",
-			Colour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+			PresetColour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Regain 2%)] of your maximum "+Attribute.MANA_MAXIMUM.getName()+" on each attack in which you take [style.boldLust("+Attribute.DAMAGE_LUST.getName()+")]")) {
 		
 		@Override
@@ -2127,9 +2280,9 @@ public class Perk {
 			"arcane weaver",
 			PerkCategory.ARCANE,
 			"perks/arcaneWeaver",
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>")) {
+			PresetColour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 15)),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2142,9 +2295,9 @@ public class Perk {
 			"arcane smith",
 			PerkCategory.PHYSICAL,
 			"perks/arcaneSmith",
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all weapon enchantments</span>")) {
+			PresetColour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 15)),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all weapon enchantments</span>")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2157,8 +2310,8 @@ public class Perk {
 			"stable enchantments",
 			PerkCategory.ARCANE,
 			"perks/enchantment_stability",
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			PresetColour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 5)),
 			null) {
 
 		@Override
@@ -2172,8 +2325,8 @@ public class Perk {
 			"stable enchantments",
 			PerkCategory.ARCANE,
 			"perks/enchantment_stability",
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			PresetColour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 5)),
 			null) {
 
 		@Override
@@ -2187,16 +2340,13 @@ public class Perk {
 			"barren",
 			PerkCategory.PHYSICAL,
 			"perks/barren",
-			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -200)), null) {
+			PresetColour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, -200)),
+			Util.newArrayListOfValues("While "+Attribute.FERTILITY.getName()+" value is 0 or less, pregnancy is [style.colourTerrible(impossible)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You are very infertile, and are highly unlikely to ever get pregnant.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] is highly unlikely to get pregnant.");
-			}
+			return UtilText.parse(owner, "[npc.NameIsFull] very infertile, and as a result, is highly unlikely to ever get pregnant.");
 		}
 	};
 	
@@ -2205,8 +2355,9 @@ public class Perk {
 			"sterile",
 			PerkCategory.PHYSICAL,
 			"perks/firing_blanks",
-			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -200)), null) {
+			PresetColour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, -200)),
+			Util.newArrayListOfValues("While "+Attribute.VIRILITY.getName()+" value is 0 or less, impregnation is [style.colourTerrible(impossible)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2221,9 +2372,9 @@ public class Perk {
 			"broodmother",
 			PerkCategory.LUST,
 			"fetishes/fetish_broodmother",
-			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 20)),
-			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>")) {
+			PresetColour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 20)),
+			Util.newArrayListOfValues("2x <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2247,9 +2398,9 @@ public class Perk {
 			"seeder",
 			PerkCategory.LUST,
 			"fetishes/fetish_seeder",
-			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 20)),
-			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>")) {
+			PresetColour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, 20)),
+			Util.newArrayListOfValues("2x <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2271,11 +2422,11 @@ public class Perk {
 			"chuuni",
 			PerkCategory.ARCANE,
 			"perks/misc_chuuni",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 20),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 20)),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Embarrassing spell dialogue</span>")) {
+					new Value<>(Attribute.DAMAGE_SPELLS, 20),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 20)),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Embarrassing spell dialogue</span>")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2289,12 +2440,12 @@ public class Perk {
 			"The Dark Siren",
 			PerkCategory.ARCANE,
 			"perks/dark_siren",
-			Colour.ATTRIBUTE_LUST,
+			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 100),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 100),
-					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 100)),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 100),
+					new Value<>(Attribute.MANA_MAXIMUM, 100),
+					new Value<>(Attribute.ENCHANTMENT_LIMIT, 100)),
 			null) {
 
 		@Override
@@ -2312,10 +2463,10 @@ public class Perk {
 			"Arcane Tattooist",
 			PerkCategory.ARCANE,
 			"perks/tattoo",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.ENCHANTMENT_LIMIT, 50)),
 			null) {
 
 		@Override
@@ -2333,9 +2484,9 @@ public class Perk {
 			"masculine clothing indifference",
 			PerkCategory.PHYSICAL,
 			"perks/clothingIndifferenceMasculinity",
-			Util.newArrayListOfValues(Colour.MASCULINE, Colour.CLOTHING_GREY),
+			Util.newArrayListOfValues(PresetColour.MASCULINE, PresetColour.CLOTHING_GREY),
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to 'clothing too masculine' status effect</span>"),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to 'clothing too masculine' status effect</span>"),
 			null, null, null) {
 
 		@Override
@@ -2353,9 +2504,9 @@ public class Perk {
 			"feminine clothing indifference",
 			PerkCategory.PHYSICAL,
 			"perks/clothingIndifferenceFemininity",
-			Util.newArrayListOfValues(Colour.FEMININE, Colour.CLOTHING_GREY),
+			Util.newArrayListOfValues(PresetColour.FEMININE, PresetColour.CLOTHING_GREY),
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to 'clothing too feminine' status effect</span>"),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to 'clothing too feminine' status effect</span>"),
 			null, null, null) {
 
 		@Override
@@ -2375,9 +2526,9 @@ public class Perk {
 			"dirty-minded",
 			PerkCategory.ARCANE,
 			"statusEffects/attCorruption5",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25)),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 25)),
 			null) {
 
 		@Override
@@ -2399,10 +2550,10 @@ public class Perk {
 			"slut",
 			PerkCategory.ARCANE,
 			"perks/attSeduction3",
-			Colour.ATTRIBUTE_LUST,
+			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 40)),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 40)),
 			null) {
 
 		@Override
@@ -2424,10 +2575,10 @@ public class Perk {
 			"debauched",
 			PerkCategory.ARCANE,
 			"perks/attSeduction3",
-			Colour.ATTRIBUTE_LUST,
+			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 75)),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 75)),
 			null) {
 
 		@Override
@@ -2449,10 +2600,10 @@ public class Perk {
 			"arcane training",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence3",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 20)),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.DAMAGE_SPELLS, 20)),
 			null) {
 
 		@Override
@@ -2474,12 +2625,12 @@ public class Perk {
 			"exceptional arcanist",
 			PerkCategory.ARCANE,
 			"perks/special_arcane_lightning",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 100),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.MANA_MAXIMUM, 100),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 25),
+					new Value<>(Attribute.DAMAGE_SPELLS, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2500,9 +2651,9 @@ public class Perk {
 			"arcane allergy",
 			PerkCategory.ARCANE,
 			"perks/arcane_allergy",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, -50)),
+					new Value<>(Attribute.MAJOR_ARCANE, -50)),
 			null) {
 
 		@Override
@@ -2524,9 +2675,9 @@ public class Perk {
 			"health fanatic",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25)),
 			null) {
 
 		@Override
@@ -2548,9 +2699,9 @@ public class Perk {
 			"martial background",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10)),
 			null) {
 
 		@Override
@@ -2572,9 +2723,9 @@ public class Perk {
 			"melee expert",
 			PerkCategory.PHYSICAL,
 			"perks/melee_damage",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -2596,9 +2747,9 @@ public class Perk {
 			"ranged expert",
 			PerkCategory.PHYSICAL,
 			"perks/ranged_damage",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -2620,9 +2771,9 @@ public class Perk {
 			"doomguy",
 			PerkCategory.ARCANE,
 			"perks/imp_slayer",
-			Colour.RACE_IMP,
+			PresetColour.RACE_IMP,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_IMP, 100)),
+					new Value<>(Attribute.DAMAGE_IMP, 100)),
 			null) {
 
 		@Override
@@ -2650,9 +2801,9 @@ public class Perk {
 			"Lirecea's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin1",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
 
 		@Override
@@ -2675,9 +2826,9 @@ public class Perk {
 			"Lovienne's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin2",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2700,9 +2851,9 @@ public class Perk {
 			"Lasielle's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin3",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2725,9 +2876,9 @@ public class Perk {
 			"Lyssieth's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin4",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]",
 					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
@@ -2752,9 +2903,9 @@ public class Perk {
 			"Lunette's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin5",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2777,9 +2928,9 @@ public class Perk {
 			"Lyxias's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin6",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2802,9 +2953,9 @@ public class Perk {
 			"Lisophia's Power",
 			PerkCategory.ARCANE,
 			"perks/lilin7",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2826,132 +2977,135 @@ public class Perk {
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
 	
-	public static AbstractPerk ELEMENTAL_BOUND_EARTH = new AbstractPerk(20,
-			true,
-			"Bound to Earth",
-			PerkCategory.JOB,
-			"combat/spell/elemental_earth",
-			Colour.SPELL_SCHOOL_EARTH,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Earth, [npc.name] has gained a strong, tough body that is extremely resilient to physical damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using physical attacks.");
-		}
-	};
+//	public static AbstractPerk ELEMENTAL_BOUND_EARTH = new AbstractPerk(20,
+//			true,
+//			"Bound to Earth",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_earth",
+//			PresetColour.SPELL_SCHOOL_EARTH,
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 50),
+//					new Value<>(Attribute.DAMAGE_PHYSICAL, 50),
+//					new Value<>(Attribute.RESISTANCE_PHYSICAL, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Earth, [npc.name] has gained a strong, tough body that is extremely resilient to physical damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using physical attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_FIRE = new AbstractPerk(20,
+//			true,
+//			"Bound to Fire",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_fire",
+//			PresetColour.SPELL_SCHOOL_FIRE,
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+//					new Value<>(Attribute.DAMAGE_FIRE, 50),
+//					new Value<>(Attribute.RESISTANCE_FIRE, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Fire, [npc.name] has gained an ethereal body that is extremely resilient to fire damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using fire-based attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_WATER = new AbstractPerk(20,
+//			true,
+//			"Bound to Water",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_water",
+//			PresetColour.SPELL_SCHOOL_WATER,
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 20),
+//					new Value<>(Attribute.DAMAGE_ICE, 50),
+//					new Value<>(Attribute.RESISTANCE_ICE, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Water, [npc.name] has gained "+(owner.getBodyMaterial()==BodyMaterial.WATER?"a liquid-like ":"an ice-like ")+"body that is extremely resilient to ice damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using ice-based attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_AIR = new AbstractPerk(20,
+//			true,
+//			"Bound to Air",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_air",
+//			PresetColour.SPELL_SCHOOL_AIR,
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+//					new Value<>(Attribute.DAMAGE_POISON, 50),
+//					new Value<>(Attribute.RESISTANCE_POISON, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Air, [npc.name] has gained an ethereal body that is extremely resilient to poison damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using poison-based attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_ARCANE = new AbstractPerk(20,
+//			true,
+//			"Bound to Arcane",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_arcane",
+//			PresetColour.SPELL_SCHOOL_AIR,
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+//					new Value<>(Attribute.DAMAGE_LUST, 50),
+//					new Value<>(Attribute.DAMAGE_SPELLS, 25),
+//					new Value<>(Attribute.SPELL_COST_MODIFIER, 25),
+//					new Value<>(Attribute.RESISTANCE_LUST, -50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Arcane, [npc.name] has gained an ethereal body that capable of inflicting great damage by using lust-based attacks."
+//					+ " [npc.She] has also become more adept at casting spells, but the arcane's arousing power has left [npc.herHim] more susceptible to lust-based attacks.");
+//		}
+//	};
 
-	public static AbstractPerk ELEMENTAL_BOUND_FIRE = new AbstractPerk(20,
+	public static AbstractPerk ELEMENTAL_CORE_OCCUPATION = new AbstractPerk(20,
 			true,
-			"Bound to Fire",
-			PerkCategory.JOB,
-			"combat/spell/elemental_fire",
-			Colour.SPELL_SCHOOL_FIRE,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Fire, [npc.name] has gained an ethereal body that is extremely resilient to fire damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using fire-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_BOUND_WATER = new AbstractPerk(20,
-			true,
-			"Bound to Water",
-			PerkCategory.JOB,
-			"combat/spell/elemental_water",
-			Colour.SPELL_SCHOOL_WATER,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Water, [npc.name] has gained "+(owner.getBodyMaterial()==BodyMaterial.WATER?"a liquid-like ":"an ice-like ")+"body that is extremely resilient to ice damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using ice-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_BOUND_AIR = new AbstractPerk(20,
-			true,
-			"Bound to Air",
-			PerkCategory.JOB,
-			"combat/spell/elemental_air",
-			Colour.SPELL_SCHOOL_AIR,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Air, [npc.name] has gained an ethereal body that is extremely resilient to poison damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using poison-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_BOUND_ARCANE = new AbstractPerk(20,
-			true,
-			"Bound to Arcane",
-			PerkCategory.JOB,
-			"combat/spell/elemental_arcane",
-			Colour.SPELL_SCHOOL_AIR,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Arcane, [npc.name] has gained an ethereal body that capable of inflicting great damage by using lust-based attacks."
-					+ " [npc.She] has also become more adept at casting spells, but the arcane's arousing power has left [npc.herHim] more susceptible to lust-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_CORE = new AbstractPerk(20,
-			false,
 			"elemental",
-			PerkCategory.LUST,
-			"perks/elemental/core",
-			Colour.GENERIC_ARCANE,
+			PerkCategory.JOB,
+			"perks/elemental/coreOccupation",
+			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100)
+					new Value<>(Attribute.MAJOR_ARCANE, 50),
+					new Value<>(Attribute.DAMAGE_SPELLS, 25),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 100),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 100)
 					), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "As beings of pure arcane energy, all elementals are very competent spell casters, and rival even the most powerful of demons in their ability to harness the arcane.");
+			return UtilText.parse(owner,
+					"As beings of pure arcane energy, elementals are able to effortlessly harness the arcane in order to cast spells."
+					+ " Due to the lustful nature of the arcane, they are also incredibly perverted, and are always willing and ready to have sex...");
 		}
 	};
 
-	public static AbstractPerk ELEMENTAL_CORRUPTION = new AbstractPerk(20,
-			false,
-			"elemental",
-			PerkCategory.LUST,
-			"perks/elemental/coreCorruption",
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100)
-					), null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "Even if their summoner is completely pure and innocent, the lustful nature of the arcane causes all elementals to be incredibly perverted."
-					+ " If nothing else, they can always be relied upon to be willing and ready to have sex with anyone or anything...");
-		}
-	};
+//	public static AbstractPerk ELEMENTAL_CORRUPTION = new AbstractPerk(20,
+//			false,
+//			"elemental",
+//			PerkCategory.LUST,
+//			"perks/elemental/coreCorruption",
+//			PresetColour.GENERIC_ARCANE,
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 100)
+//					), null) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "Even if their summoner is completely pure and innocent, the lustful nature of the arcane causes all elementals to be incredibly perverted."
+//					+ " If nothing else, they can always be relied upon to be willing and ready to have sex with anyone or anything...");
+//		}
+//	};
 	
 	// ELEMENTAL FIRE
 
@@ -2960,7 +3114,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FIREBALL,
@@ -2974,7 +3128,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -2994,7 +3148,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FIREBALL,
@@ -3008,7 +3162,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3028,7 +3182,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FIREBALL,
@@ -3042,7 +3196,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3062,7 +3216,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FIREBALL,
@@ -3076,7 +3230,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3096,7 +3250,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FLASH,
@@ -3110,7 +3264,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -3130,7 +3284,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FLASH,
@@ -3144,7 +3298,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3164,7 +3318,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FLASH,
@@ -3178,7 +3332,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3198,7 +3352,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.FLASH,
@@ -3212,7 +3366,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3232,7 +3386,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.CLOAK_OF_FLAMES,
@@ -3246,7 +3400,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -3266,7 +3420,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.CLOAK_OF_FLAMES,
@@ -3280,7 +3434,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3300,7 +3454,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.CLOAK_OF_FLAMES,
@@ -3314,7 +3468,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3334,7 +3488,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.CLOAK_OF_FLAMES,
@@ -3348,7 +3502,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3368,10 +3522,10 @@ public class Perk {
 			"ignition",
 			PerkCategory.ARCANE_FIRE,
 			"perks/elemental/fire1",
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1)),
+					new Value<>(Attribute.DAMAGE_FIRE, 1),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1)),
 			null) {
 
 		@Override
@@ -3385,10 +3539,10 @@ public class Perk {
 			"ablaze",
 			PerkCategory.ARCANE_FIRE,
 			"perks/elemental/fire2",
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 3)),
+					new Value<>(Attribute.DAMAGE_FIRE, 3),
+					new Value<>(Attribute.RESISTANCE_FIRE, 3)),
 			null) {
 
 		@Override
@@ -3403,10 +3557,10 @@ public class Perk {
 			"conflagration",
 			PerkCategory.ARCANE_FIRE,
 			"perks/elemental/fire3",
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 6)),
+					new Value<>(Attribute.DAMAGE_FIRE, 6),
+					new Value<>(Attribute.RESISTANCE_FIRE, 6)),
 			null) {
 
 		@Override
@@ -3420,11 +3574,11 @@ public class Perk {
 			"incineration",
 			PerkCategory.ARCANE_FIRE,
 			"perks/elemental/fire4",
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 20),
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 50)),
+					new Value<>(Attribute.DAMAGE_FIRE, 20),
+					new Value<>(Attribute.RESISTANCE_FIRE, 20),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 50)),
 			null) {
 
 		@Override
@@ -3440,7 +3594,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SLAM,
@@ -3454,7 +3608,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -3474,7 +3628,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SLAM,
@@ -3488,7 +3642,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3508,7 +3662,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SLAM,
@@ -3522,7 +3676,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3542,7 +3696,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SLAM,
@@ -3556,7 +3710,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3576,7 +3730,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEKENETIC_SHOWER,
@@ -3590,7 +3744,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -3610,7 +3764,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEKENETIC_SHOWER,
@@ -3624,7 +3778,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3644,7 +3798,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEKENETIC_SHOWER,
@@ -3658,7 +3812,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3678,7 +3832,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEKENETIC_SHOWER,
@@ -3692,7 +3846,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3712,7 +3866,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.STONE_SHELL,
@@ -3726,7 +3880,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -3746,7 +3900,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.STONE_SHELL,
@@ -3760,7 +3914,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3780,7 +3934,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.STONE_SHELL,
@@ -3794,7 +3948,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3814,7 +3968,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.STONE_SHELL,
@@ -3828,7 +3982,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3848,10 +4002,10 @@ public class Perk {
 			"impact",
 			PerkCategory.PHYSICAL_EARTH,
 			"perks/elemental/earth1",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 1),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 1)),
 			null) {
 
 		@Override
@@ -3865,10 +4019,10 @@ public class Perk {
 			"building pressure",
 			PerkCategory.PHYSICAL_EARTH,
 			"perks/elemental/earth2",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 3)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 3),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 3)),
 			null) {
 
 		@Override
@@ -3883,10 +4037,10 @@ public class Perk {
 			"seismic activity",
 			PerkCategory.PHYSICAL_EARTH,
 			"perks/elemental/earth3",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 6)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 6),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 6)),
 			null) {
 
 		@Override
@@ -3900,11 +4054,11 @@ public class Perk {
 			"epicentre",
 			PerkCategory.PHYSICAL_EARTH,
 			"perks/elemental/earth4",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 50)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 20),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 20),
+					new Value<>(Attribute.DAMAGE_UNARMED, 50)),
 			null) {
 
 		@Override
@@ -3920,7 +4074,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ICE_SHARD,
@@ -3934,7 +4088,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -3954,7 +4108,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ICE_SHARD,
@@ -3968,7 +4122,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -3988,7 +4142,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ICE_SHARD,
@@ -4002,7 +4156,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4022,7 +4176,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ICE_SHARD,
@@ -4036,7 +4190,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4056,7 +4210,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.RAIN_CLOUD,
@@ -4070,7 +4224,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -4090,7 +4244,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.RAIN_CLOUD,
@@ -4104,7 +4258,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4124,7 +4278,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.RAIN_CLOUD,
@@ -4138,7 +4292,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4158,7 +4312,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.RAIN_CLOUD,
@@ -4172,7 +4326,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4192,7 +4346,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SOOTHING_WATERS,
@@ -4206,7 +4360,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -4226,7 +4380,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SOOTHING_WATERS,
@@ -4240,7 +4394,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4260,7 +4414,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SOOTHING_WATERS,
@@ -4274,7 +4428,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4294,7 +4448,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.SOOTHING_WATERS,
@@ -4308,7 +4462,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4328,10 +4482,10 @@ public class Perk {
 			"chill",
 			PerkCategory.PHYSICAL_WATER,
 			"perks/elemental/water1",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1)),
+					new Value<>(Attribute.DAMAGE_ICE, 1),
+					new Value<>(Attribute.RESISTANCE_ICE, 1)),
 			null) {
 
 		@Override
@@ -4345,10 +4499,10 @@ public class Perk {
 			"frost",
 			PerkCategory.PHYSICAL_WATER,
 			"perks/elemental/water2",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 3)),
+					new Value<>(Attribute.DAMAGE_ICE, 3),
+					new Value<>(Attribute.RESISTANCE_ICE, 3)),
 			null) {
 
 		@Override
@@ -4363,10 +4517,10 @@ public class Perk {
 			"freeze",
 			PerkCategory.PHYSICAL_WATER,
 			"perks/elemental/water3",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 6)),
+					new Value<>(Attribute.DAMAGE_ICE, 6),
+					new Value<>(Attribute.RESISTANCE_ICE, 6)),
 			null) {
 
 		@Override
@@ -4380,11 +4534,11 @@ public class Perk {
 			"ice-age",
 			PerkCategory.PHYSICAL_WATER,
 			"perks/elemental/water4",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_ICE, 20),
+					new Value<>(Attribute.RESISTANCE_ICE, 20),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -4400,7 +4554,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.POISON_VAPOURS,
@@ -4414,7 +4568,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -4434,7 +4588,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.POISON_VAPOURS,
@@ -4448,7 +4602,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4468,7 +4622,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.POISON_VAPOURS,
@@ -4482,7 +4636,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4502,7 +4656,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.POISON_VAPOURS,
@@ -4516,7 +4670,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4536,7 +4690,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.VACUUM,
@@ -4550,7 +4704,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -4570,7 +4724,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.VACUUM,
@@ -4584,7 +4738,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4604,7 +4758,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.VACUUM,
@@ -4618,7 +4772,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4638,7 +4792,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.VACUUM,
@@ -4652,7 +4806,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4672,7 +4826,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.PROTECTIVE_GUSTS,
@@ -4686,7 +4840,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -4706,7 +4860,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.PROTECTIVE_GUSTS,
@@ -4720,7 +4874,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4740,7 +4894,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.PROTECTIVE_GUSTS,
@@ -4754,7 +4908,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4774,7 +4928,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.PROTECTIVE_GUSTS,
@@ -4788,7 +4942,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4808,10 +4962,10 @@ public class Perk {
 			"breeze",
 			PerkCategory.ARCANE_AIR,
 			"perks/elemental/air1",
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.DAMAGE_POISON, 1),
+					new Value<>(Attribute.RESISTANCE_POISON, 1)),
 			null) {
 
 		@Override
@@ -4825,10 +4979,10 @@ public class Perk {
 			"gale",
 			PerkCategory.ARCANE_AIR,
 			"perks/elemental/air2",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 3)),
+					new Value<>(Attribute.DAMAGE_POISON, 3),
+					new Value<>(Attribute.RESISTANCE_POISON, 3)),
 			null) {
 
 		@Override
@@ -4843,10 +4997,10 @@ public class Perk {
 			"storm",
 			PerkCategory.ARCANE_AIR,
 			"perks/elemental/air3",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 6)),
+					new Value<>(Attribute.DAMAGE_POISON, 6),
+					new Value<>(Attribute.RESISTANCE_POISON, 6)),
 			null) {
 
 		@Override
@@ -4860,11 +5014,11 @@ public class Perk {
 			"supercell",
 			PerkCategory.ARCANE_AIR,
 			"perks/elemental/air4",
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_POISON, 20),
+					new Value<>(Attribute.RESISTANCE_POISON, 20),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -4881,7 +5035,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_AROUSAL,
@@ -4895,7 +5049,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -4915,7 +5069,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_AROUSAL,
@@ -4929,7 +5083,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4949,7 +5103,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_AROUSAL,
@@ -4963,7 +5117,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -4983,7 +5137,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_AROUSAL,
@@ -4997,7 +5151,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -5017,7 +5171,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEPATHIC_COMMUNICATION,
@@ -5031,7 +5185,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -5051,7 +5205,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEPATHIC_COMMUNICATION,
@@ -5065,7 +5219,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -5085,7 +5239,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEPATHIC_COMMUNICATION,
@@ -5099,7 +5253,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -5119,7 +5273,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.TELEPATHIC_COMMUNICATION,
@@ -5133,7 +5287,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -5153,7 +5307,7 @@ public class Perk {
 			"Spell",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_CLOUD,
@@ -5167,7 +5321,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Gain spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " when bound to <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSchool().getName()+"</span>");
 		}
 		
@@ -5187,7 +5341,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_CLOUD,
@@ -5201,7 +5355,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -5221,7 +5375,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_CLOUD,
@@ -5235,7 +5389,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -5255,7 +5409,7 @@ public class Perk {
 			"Upgrade",
 			PerkCategory.LUST,
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(""),
 			Spell.ARCANE_CLOUD,
@@ -5269,7 +5423,7 @@ public class Perk {
 
 		@Override
 		public List<String> getExtraEffects() {
-			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
+			return Util.newArrayListOfValues("Upgrades spell '<span style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>"+getSpell().getName()+"</span>'"
 					+ " with <span style='color:"+ getSchool().getColour().toWebHexString()+ ";'>"+getSpellUpgrade().getName()+"</span>");
 		}
 		
@@ -5289,10 +5443,10 @@ public class Perk {
 			"arousal",
 			PerkCategory.LUST,
 			"perks/elemental/arcane1",
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1)),
+					new Value<>(Attribute.DAMAGE_LUST, 1),
+					new Value<>(Attribute.RESISTANCE_LUST, 1)),
 			null) {
 
 		@Override
@@ -5306,10 +5460,10 @@ public class Perk {
 			"passion",
 			PerkCategory.LUST,
 			"perks/elemental/arcane2",
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 3)),
+					new Value<>(Attribute.DAMAGE_LUST, 3),
+					new Value<>(Attribute.RESISTANCE_LUST, 3)),
 			null) {
 
 		@Override
@@ -5324,10 +5478,10 @@ public class Perk {
 			"infatuation",
 			PerkCategory.LUST,
 			"perks/elemental/arcane3",
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 6)),
+					new Value<>(Attribute.DAMAGE_LUST, 6),
+					new Value<>(Attribute.RESISTANCE_LUST, 6)),
 			null) {
 
 		@Override
@@ -5341,11 +5495,11 @@ public class Perk {
 			"nympholepsy",
 			PerkCategory.LUST,
 			"perks/elemental/arcane4",
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 20),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.DAMAGE_LUST, 20),
+					new Value<>(Attribute.RESISTANCE_LUST, 20),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			null) {
 
 		@Override
@@ -5363,7 +5517,12 @@ public class Perk {
 	public static Map<AbstractPerk, String> perkToIdMap = new HashMap<>();
 	public static Map<String, AbstractPerk> idToPerkMap = new HashMap<>();
 	
+	private static boolean subspeciesPerksGenerated = false;
+	
 	public static AbstractPerk getPerkFromId(String id) {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 //		System.out.print("ID: "+id);
 		if(id.equalsIgnoreCase("MERAXIS")
 				|| id.equalsIgnoreCase("ARCANE_TATTOOIST")
@@ -5381,6 +5540,9 @@ public class Perk {
 	}
 	
 	public static String getIdFromPerk(AbstractPerk perk) {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 		return perkToIdMap.get(perk);
 	}
 
@@ -5413,24 +5575,31 @@ public class Perk {
 			}
 		}
 		
-		List<Attribute> resistancesAdded = new ArrayList<>();
-		for(Subspecies sub : Subspecies.values()) {
+		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
+	}
+	
+	private static void generateSubspeciesPerks() {
+		List<AbstractAttribute> resistancesAdded = new ArrayList<>();
+		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
 			if(!resistancesAdded.contains(sub.getDamageMultiplier())) {
 				resistancesAdded.add(sub.getDamageMultiplier());
-				Subspecies subToUse = sub.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(sub.getRace()).getDamageMultiplier()?Subspecies.getMainSubspeciesOfRace(sub.getRace()):sub;
+				boolean mainSubspecies = sub.getDamageMultiplier()==AbstractSubspecies.getMainSubspeciesOfRace(sub.getRace()).getDamageMultiplier();
+				AbstractSubspecies subToUse = mainSubspecies
+												?AbstractSubspecies.getMainSubspeciesOfRace(sub.getRace())
+												:sub;
 				
 				AbstractPerk racePerk = new AbstractPerk(20,
 						false,
-						Util.capitaliseSentence(subToUse.getName(null))+" knowledge",
+						Util.capitaliseSentence(mainSubspecies?sub.getRace().getName(false):subToUse.getName(null))+" knowledge",
 						PerkCategory.LUST,
 						null,
-						Colour.BASE_WHITE,
+						PresetColour.BASE_WHITE,
 						Util.newHashMapOfValues(
-								new Value<Attribute, Integer>(subToUse.getDamageMultiplier(), 10)),
+								new Value<>(subToUse.getDamageMultiplier(), 10)),
 						null) {
 					@Override
 					public String getDescription(GameCharacter owner) {
-						return UtilText.parse(owner, "[npc.NameHasFull] advanced knowledge of "+subToUse.getNamePlural(null)+", and can therefore do increased damage when fighting them.");
+						return UtilText.parse(owner, "[npc.NameHasFull] advanced knowledge of "+(mainSubspecies?sub.getRace().getNamePlural(false):subToUse.getNamePlural(null))+", and can therefore do increased damage when fighting them.");
 					}
 					@Override
 					public String getSVGString(GameCharacter owner) {
@@ -5446,30 +5615,40 @@ public class Perk {
 					}
 				};
 //				System.out.println(subToUse.toString()+" "+racePerk.getName(null)+" "+racePerk.hashCode());
-				perkToIdMap.put(racePerk, subToUse.toString());
-				idToPerkMap.put(subToUse.toString(), racePerk);
+				perkToIdMap.put(racePerk, Subspecies.getIdFromSubspecies(subToUse));
+				idToPerkMap.put(Subspecies.getIdFromSubspecies(subToUse), racePerk);
 				allPerks.add(racePerk);
 				hiddenPerks.add(racePerk);
 			}
 		}
-		
+		subspeciesPerksGenerated = true;
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}
 	
-	public static AbstractPerk getSubspeciesRelatedPerk(Subspecies subspecies) {
-		Subspecies subToUse = 
-				subspecies.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(subspecies.getRace()).getDamageMultiplier()
-					?Subspecies.getMainSubspeciesOfRace(subspecies.getRace())
+	public static AbstractPerk getSubspeciesRelatedPerk(AbstractSubspecies subspecies) {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
+		
+		AbstractSubspecies subToUse = 
+				subspecies.getDamageMultiplier()==AbstractSubspecies.getMainSubspeciesOfRace(subspecies.getRace()).getDamageMultiplier()
+					?AbstractSubspecies.getMainSubspeciesOfRace(subspecies.getRace())
 					:subspecies;
 		
-		return Perk.getPerkFromId(subToUse.toString());
+		return Perk.getPerkFromId(Subspecies.getIdFromSubspecies(subToUse));
 	}
 	
 	public static List<AbstractPerk> getAllPerks() {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 		return allPerks;
 	}
 	
 	public static List<AbstractPerk> getHiddenPerks() {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 		return hiddenPerks;
 	}
 }

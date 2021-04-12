@@ -12,23 +12,25 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public enum Occupation {
 	
 	// Unique:
 	
-	ELEMENTAL_EARTH(Perk.ELEMENTAL_BOUND_EARTH, "earth elemental", "[npc.NameIsFull] currently bound to the arcane school of Earth.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_FIRE(Perk.ELEMENTAL_BOUND_FIRE, "fire elemental", "[npc.NameIsFull] currently bound to the arcane school of Fire.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_WATER(Perk.ELEMENTAL_BOUND_WATER, "water elemental", "[npc.NameIsFull] currently bound to the arcane school of Water.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_AIR(Perk.ELEMENTAL_BOUND_AIR, "air elemental", "[npc.NameIsFull] currently bound to the arcane school of Air.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_ARCANE(Perk.ELEMENTAL_BOUND_ARCANE, "arcane elemental", "[npc.NameIsFull] currently bound to the arcane school of Arcane.", OccupationTag.HAS_PREREQUISITES),
+	ELEMENTAL(Perk.ELEMENTAL_CORE_OCCUPATION, "elemental", "[npc.NameIsFull] a construct of pure arcane energy and is a physical manifestation of [npc.her] summoner's aura.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_FIRE(Perk.ELEMENTAL_BOUND_FIRE, "fire elemental", "[npc.NameIsFull] currently bound to the arcane school of Fire.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_WATER(Perk.ELEMENTAL_BOUND_WATER, "water elemental", "[npc.NameIsFull] currently bound to the arcane school of Water.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_AIR(Perk.ELEMENTAL_BOUND_AIR, "air elemental", "[npc.NameIsFull] currently bound to the arcane school of Air.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_ARCANE(Perk.ELEMENTAL_BOUND_ARCANE, "arcane elemental", "[npc.NameIsFull] currently bound to the arcane school of Arcane.", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 
+	NPC_ENFORCER_SWORD_SUPER(Perk.JOB_NPC_ENFORCER_SWORD_SUPER, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+	NPC_ENFORCER_SWORD_CHIEF_INSPECTOR(Perk.JOB_NPC_ENFORCER_SWORD_CHIEF_INSPECTOR, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
 	NPC_ENFORCER_SWORD_INSPECTOR(Perk.JOB_NPC_ENFORCER_SWORD_INSPECTOR, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
 	NPC_ENFORCER_SWORD_SERGEANT(Perk.JOB_NPC_ENFORCER_SWORD_SERGEANT, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
 	NPC_ENFORCER_SWORD_CONSTABLE(Perk.JOB_NPC_ENFORCER_SWORD_CONSTABLE, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
@@ -57,6 +59,7 @@ public enum Occupation {
 	NPC_GYM_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "gym owner", "[npc.NameIs] the owner of a gym.", OccupationTag.HAS_PREREQUISITES),
 	NPC_STORE_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "store owner", "[npc.NameIs] the owner of a shop.", OccupationTag.HAS_PREREQUISITES),
 	NPC_CASINO_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "casino owner", "[npc.NameIs] the owner of a casino.", OccupationTag.HAS_PREREQUISITES),
+	NPC_BUSINESS_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "business owner", "[npc.NameIs] the owner of their own business.", OccupationTag.HAS_PREREQUISITES),
 	
 	REINDEER_OVERSEER(Perk.JOB_NPC_REINDEER_OVERSEER, "overseer", "[npc.NameIs] an overseer of one of the reindeer workgangs which migrate to Dominion during the winter.", OccupationTag.HAS_PREREQUISITES),
 
@@ -68,7 +71,19 @@ public enum Occupation {
 	NPC_GANG_LEADER(Perk.JOB_GANG_LEADER, "gang leader", "[npc.NameIsFull] the leader of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
 	NPC_GANG_BODY_GUARD(Perk.JOB_GANG_BODY_GUARD, "gang body guard", "[npc.NameIsFull] a personal body guard of her gang's leader.", OccupationTag.HAS_PREREQUISITES),
 	NPC_GANG_MEMBER(Perk.JOB_GANG_MEMBER, "gang member", "[npc.NameIsFull] a member of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
-
+	
+	NPC_STABLE_MISTRESS(Perk.JOB_NPC_STABLE_MISTRESS, "stable mistress", "[npc.NameIsFull] responsible for the training and care of a large number of centaur slaves.", OccupationTag.HAS_PREREQUISITES) {
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return "stable manager";
+			} else if(character.isFeminine()) {
+				return "stable mistress";
+			}
+			return "stable master";
+		}
+	},
+	
 	NPC_LYSSIETH_GUARD(Perk.JOB_LYSSIETH_GUARD, "Lyssieth's guard", "[npc.NameIsFull] one of Lyssieth's unrecognised daughters, and has been assigned to guard her mother's palace.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "[npc.NameIs] one of the seven elder lilin; the recognised daughters of Lilith herself.", OccupationTag.HAS_PREREQUISITES),
@@ -110,6 +125,8 @@ public enum Occupation {
 	NPC_FITNESS_INSTRUCTOR(Perk.JOB_MISC, "fitness instructor", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_MUGGER(Perk.JOB_MUGGER, "mugger", "[npc.NameIsFull] a mugger, and [npc.verb(make)] a living by stealing other people's possessions.", OccupationTag.LOWLIFE),
+
+	NPC_BOUNTY_HUNTER(Perk.JOB_BOUNTY_HUNTER, "bounty hunter", "[npc.NameIsFull] a bounty hunter, who earns a wage by tracking down and capturing wanted criminals.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_CONSTRUCTION_WORKER(Perk.JOB_CONSTRUCTION_WORKER, "construction worker", "-"),
 	NPC_CONSTRUCTION_WORKER_ARCANE(Perk.JOB_CONSTRUCTION_WORKER_ARCANE, "arcane construction worker", "-", OccupationTag.HAS_PREREQUISITES),
@@ -160,7 +177,17 @@ public enum Occupation {
 		}
 	},
 
-	NPC_OFFICE_WORKER(Perk.JOB_MISC, "office worker", "-"),
+	NPC_OFFICE_WORKER(Perk.JOB_NPC_OFFICE_WORKER, "office worker", "[npc.NameHasFull] works for a large business, and [npc.has] manage [npc.her] subordinates, company finances, and difficult customers on a daily basis.") {
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return "office worker";
+			} else if(character.isFeminine()) {
+				return "businesswoman";
+			}
+			return "businessman";
+		}
+	},
 	
 	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "-"),
 	
@@ -242,6 +269,11 @@ public enum Occupation {
 			"athlete",
 			"You're an athlete, and are currently training for your next big event.",
 			OccupationTag.PLAYER_ONLY),
+
+	ARISTOCRAT(Perk.JOB_ARISTOCRAT,
+			"aristocrat",
+			"You've never had to work a day in your life, thanks to the fact that you're a member of an old, and exceedingly wealthy, aristocratic family.",
+			OccupationTag.PLAYER_ONLY),
 	
 	MAID(Perk.JOB_MAID,
 		"maid",
@@ -260,6 +292,16 @@ public enum Occupation {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();
+		}
+	},
+	
+	TOURIST(Perk.JOB_TOURIST,
+			"American tourist",
+			"For your vacation this year, you've decided to visit England.",
+			OccupationTag.PLAYER_ONLY) {
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return Main.game.isSillyModeEnabled();
 		}
 	};
 	
@@ -334,7 +376,7 @@ public enum Occupation {
 		return associatedPerk;
 	}
 	
-	public String getName() {
+	public String getName(GameCharacter character) {
 		return name;
 	}
 

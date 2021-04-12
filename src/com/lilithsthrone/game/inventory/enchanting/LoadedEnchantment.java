@@ -65,8 +65,6 @@ public class LoadedEnchantment {
 		this.effects = effects;
 	}
 	
-	
-
 	public String getName() {
 		return name;
 	}
@@ -85,7 +83,7 @@ public class LoadedEnchantment {
 			
 		} else if(clothingType!=null) {
 			List<AbstractClothing> clothingList = new ArrayList<>();
-			for(AbstractClothing c :  Main.game.getPlayer().getAllClothingInInventory().keySet()) {
+			for(AbstractClothing c : Main.game.getPlayer().getAllClothingInInventory().keySet()) {
 				if(c.getClothingType().equals(clothingType) && c.isEnchantmentKnown()) {
 					if(c.getEffects().isEmpty()) {
 						return c;
@@ -99,10 +97,18 @@ public class LoadedEnchantment {
 			}
 			
 		} else if(weaponType!=null) {
-			for(AbstractWeapon w :  Main.game.getPlayer().getAllWeaponsInInventory().keySet()) {
-				if(w.getWeaponType().equals(weaponType) && w.getEffects().isEmpty()) {
-					return w;
+			List<AbstractWeapon> weaponList = new ArrayList<>();
+			for(AbstractWeapon w : Main.game.getPlayer().getAllWeaponsInInventory().keySet()) {
+				if(w.getWeaponType().equals(weaponType) ) {
+					if (w.getEffects().isEmpty()) {
+						return w;
+					} else {
+						weaponList.add(w);
+					}
 				}
+			}
+			if(!weaponList.isEmpty()) {
+				return weaponList.get(0);
 			}
 			
 		} else if(tattooType!=null) {

@@ -8,12 +8,9 @@ package com.lilithsthrone.game.sex.sexActions;
 public abstract class SexActionOrgasmOverride {
 	
 	private boolean endsSex;
-	private String description;
 	
-	public SexActionOrgasmOverride(boolean endsSex, String description) {
-		super();
+	public SexActionOrgasmOverride(boolean endsSex) {
 		this.endsSex = endsSex;
-		this.description = description;
 	}
 
 	public abstract void applyEffects();
@@ -25,7 +22,5 @@ public abstract class SexActionOrgasmOverride {
 		return endsSex;
 	}
 
-	public String getDescription() {
-		return description;
-	}
+	public abstract String getDescription();
 }

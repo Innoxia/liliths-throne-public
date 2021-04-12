@@ -10,8 +10,8 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -22,9 +22,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -54,15 +53,15 @@ public class Pazu extends NPC {
 				 */
 				25, Month.JUNE, 1, //TODO
 				1, Gender.M_P_MALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(1), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				new CharacterInventory(1), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_PINK));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_LILAC), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_LILAC), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_PINK));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_LILAC), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_LILAC), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
 	
 			this.setAssVirgin(true);
 			this.setFaceVirgin(true);
@@ -82,7 +81,7 @@ public class Pazu extends NPC {
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 	
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_shorts", Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_shorts", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 	}
 	

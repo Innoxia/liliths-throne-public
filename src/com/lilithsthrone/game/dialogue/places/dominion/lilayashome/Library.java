@@ -1,11 +1,18 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
@@ -13,28 +20,83 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.78
- * @version 0.3
+ * @version 0.4
  * @author Innoxia, Rfpnj
  */
 public class Library {
 	
-	public static final DialogueNode LIBRARY = new DialogueNode("", "", false) {
+	private enum LibraryAisle {
+		DEMON,
+		DOMINION,
+		FIELDS,
+		JUNGLE,
+		MOUNTAIN,
+		SEA,
+		DESERT;
+	}
+	
+	private static Set<AbstractSubspecies> getAisleSubspecies(LibraryAisle aisle) {
+		Set<AbstractSubspecies> aisleSubspecies = new HashSet<>();
 
-		@Override
-		public String getLabel() {
-			return "Library";
+		for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+			List<WorldRegion> mostCommonRegion = Util.newArrayListOfValues(WorldRegion.DOMINION);
+			SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE;
+			for(Entry<WorldRegion, SubspeciesSpawnRarity> entry : subspecies.getRegionLocations().entrySet()) {
+				if(entry.getValue().getChanceMultiplier()>=highestRarity.getChanceMultiplier()) {
+					if(entry.getValue().getChanceMultiplier()>highestRarity.getChanceMultiplier()) {
+						mostCommonRegion.clear();
+					}
+					mostCommonRegion.add(entry.getKey());
+					highestRarity = entry.getValue();
+				}
+			}
+			boolean add = false;
+			boolean demonic = subspecies.getRace()==Race.DEMON || subspecies.getRace()==Race.ANGEL || subspecies.getRace()==Race.ELEMENTAL;
+			switch(aisle) {
+				case DEMON:
+					add = demonic;
+					break;
+				case DESERT:
+					add = !demonic && (mostCommonRegion.contains(WorldRegion.SAVANNAH) || mostCommonRegion.contains(WorldRegion.DESERT) || mostCommonRegion.contains(WorldRegion.DESERT_CITY) || mostCommonRegion.contains(WorldRegion.VOLCANO));
+					break;
+				case DOMINION:
+					add = !demonic && (mostCommonRegion.contains(WorldRegion.DOMINION) || mostCommonRegion.contains(WorldRegion.SUBMISSION));
+					break;
+				case FIELDS:
+					add = !demonic && (mostCommonRegion.contains(WorldRegion.WOODLAND) || mostCommonRegion.contains(WorldRegion.FIELDS) || mostCommonRegion.contains(WorldRegion.FIELD_CITY) || mostCommonRegion.contains(WorldRegion.RIVER));
+					break;
+				case JUNGLE:
+					add = !demonic && (mostCommonRegion.contains(WorldRegion.JUNGLE) || mostCommonRegion.contains(WorldRegion.JUNGLE_CITY));
+					break;
+				case MOUNTAIN:
+					add = !demonic && (mostCommonRegion.contains(WorldRegion.MOUNTAINS) || mostCommonRegion.contains(WorldRegion.YOUKO_FOREST) || mostCommonRegion.contains(WorldRegion.SNOW));
+					break;
+				case SEA:
+					add = !demonic && (mostCommonRegion.contains(WorldRegion.SEA) || mostCommonRegion.contains(WorldRegion.SEA_CITY));
+					break;
+			}
+			if(add) {
+				aisleSubspecies.add(subspecies);
+			}
 		}
-
+		
+		return aisleSubspecies;
+	}
+	
+	public static final DialogueNode LIBRARY = new DialogueNode("", "", false) {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -188,12 +250,15 @@ public class Library {
 					};
 	
 				} else if(index>=6 && index-6<charactersPresent.size()) {
-					NPC character = charactersPresent.get(index-6);
-					
-					return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					NPC slave = charactersPresent.get(index-6);
+					return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+						@Override
+						public Colour getHighlightColour() {
+							return slave.getFemininity().getColour();
+						}
 						@Override
 						public void effects() {
-							SlaveDialogue.initDialogue(character, false);
+							SlaveDialogue.initDialogue(slave, false);
 						}
 					};
 				}
@@ -234,13 +299,16 @@ public class Library {
 					return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
 
 				} else if (index == 4) {
-					return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
+					return new Response("Mountains", "A section of the library dedicated to books on the area known as the Mountains of the Moon.", MOUNTAIN_BOOKS);
 
 				} else if (index == 5) {
-					return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
+					return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea.", SEA_BOOKS);
 
 				} else if (index == 6) {
-					return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
+					return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle.", JUNGLE_BOOKS);
+
+				} else if (index == 7) {
+					return new Response("The Desert", "A section of the library dedicated to books about the desert to the south of Lilith's Realm.", DESERT_BOOKS);
 				}
 			}
 			
@@ -258,12 +326,6 @@ public class Library {
 	}
 
 	public static final DialogueNode SPELL_BOOK = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "";
@@ -281,12 +343,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode ARCANE_AROUSAL = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -332,12 +388,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode LILITHS_DYNASTY = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -372,29 +422,29 @@ public class Library {
 					+ "<p style='text-align:center;'>"
 						+ "In the book's centre-fold, there's a table which shows how demonic breeding works:<br/><br/>"
 						+ "<table style='margin: 0px auto;'>"
-						+ "<tr style='font-weight:bold; text-align:left; color:"+Colour.MASCULINE.toWebHexString()+";'>"
+						+ "<tr style='font-weight:bold; text-align:left; color:"+PresetColour.MASCULINE.toWebHexString()+";'>"
 							+ "<td>[style.boldFeminine(Mother)]/[style.boldMasculine(Father)]</td><td>Lilin</td><td>Demon</td><td>Half-demon</td><td>Human half-demon</td><td>Non-demon</td><td>Human</td><td>Imp</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Lilin</td><td>[style.boldtfGreater(Ln)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Lilin</td><td>[style.boldtfGreater(Ln)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human half-demon</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Human half-demon</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Non-demon</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Non-demon</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "</table>"
 						+ "<br/><br/>"
@@ -433,12 +483,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode DOMINION_HISTORY = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -474,12 +518,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode PREGNANCY_INFO = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -516,12 +554,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode DOMINION_MAP = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -550,12 +582,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode ELDER_RACES = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -575,27 +601,21 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==3) {
-				if (index == 1) {
-					return bookResponse(Subspecies.ANGEL);
-	
-				} else if (index == 2) {
-					return bookResponse(Subspecies.ELDER_LILIN);
-	
-				} else if (index == 3) {
-					return bookResponse(Subspecies.LILIN);
-	
-				} else if (index == 4) {
-					return bookResponse(Subspecies.DEMON);
-	
-				} else if (index == 5) {
-					return bookResponse(Subspecies.HALF_DEMON);
-	
-				} else if (index == 0) {
+				List<Response> raceResponses = new ArrayList<>();
+				Set<AbstractItemType> booksAdded = new HashSet<>();
+				for(AbstractSubspecies subspecies : getAisleSubspecies(LibraryAisle.DEMON)) {
+					if(booksAdded.add(ItemType.getLoreBook(subspecies))) {
+						raceResponses.add(bookResponse(ELDER_RACES, subspecies));
+					}
+				}
+				if(index == 0) {
 					return new Response("Back", "Return to the race index.", LIBRARY);
 					
-				} else {
-					return null;
+				} else if(index>0 && index-1<raceResponses.size()) {
+					return raceResponses.get(index-1);
 				}
+				
+				return null;
 				
 			} else {
 				return LIBRARY.getResponse(responseTab, index);
@@ -605,12 +625,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode DOMINION_RACES = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -636,45 +650,21 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==3) {
-				if (index == 1) {
-					return bookResponse(Subspecies.HARPY);
-	
-				} else if (index == 2) {
-					return bookResponse(Subspecies.DOG_MORPH);
-	
-				} else if (index == 3) {
-					return bookResponse(Subspecies.CAT_MORPH);
-	
-				} else if (index == 4) {
-					return bookResponse(Subspecies.HORSE_MORPH);
-	
-				} else if (index == 5) {
-					return bookResponse(Subspecies.WOLF_MORPH);
-	
-				} else if (index == 6) {
-					return bookResponse(Subspecies.HUMAN);
-	
-				} else if (index == 7) {
-					return bookResponse(Subspecies.ALLIGATOR_MORPH);
-	
-				} else if (index == 8) {
-					return bookResponse(Subspecies.BAT_MORPH);
-	
-				} else if (index == 9) {
-					return bookResponse(Subspecies.IMP);
-	
-				} else if (index == 10) {
-					return bookResponse(Subspecies.SLIME);
-	
-				} else if (index == 11) {
-					return bookResponse(Subspecies.RAT_MORPH);
-	
-				} else if (index == 0) {
+				List<Response> raceResponses = new ArrayList<>();
+				Set<AbstractItemType> booksAdded = new HashSet<>();
+				for(AbstractSubspecies subspecies : getAisleSubspecies(LibraryAisle.DOMINION)) {
+					if(booksAdded.add(ItemType.getLoreBook(subspecies))) {
+						raceResponses.add(bookResponse(DOMINION_RACES, subspecies));
+					}
+				}
+				if(index == 0) {
 					return new Response("Back", "Return to the race index.", LIBRARY);
 					
-				} else {
-					return null;
+				} else if(index>0 && index-1<raceResponses.size()) {
+					return raceResponses.get(index-1);
 				}
+				
+				return null;
 				
 			} else {
 				return LIBRARY.getResponse(responseTab, index);
@@ -684,12 +674,6 @@ public class Library {
 	};
 	
 	public static final DialogueNode FIELDS_BOOKS = new DialogueNode("", "", false) {
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -711,40 +695,198 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==3) {
-				if (index == 1) {
-					return bookResponse(Subspecies.SQUIRREL_MORPH);
-	
-				} else if (index == 2) {
-					return bookResponse(Subspecies.COW_MORPH);
-	
-				} else if (index == 3) {
-					return bookResponse(Subspecies.RABBIT_MORPH);
-	
-				} else if (index == 4) {
-					return bookResponse(Subspecies.FOX_MORPH);
-	
-				} else if (index == 5) {
-					return bookResponse(Subspecies.REINDEER_MORPH);
-	
-				} else if (index == 0) {
+				List<Response> raceResponses = new ArrayList<>();
+				Set<AbstractItemType> booksAdded = new HashSet<>();
+				for(AbstractSubspecies subspecies : getAisleSubspecies(LibraryAisle.FIELDS)) {
+					if(booksAdded.add(ItemType.getLoreBook(subspecies))) {
+						raceResponses.add(bookResponse(FIELDS_BOOKS, subspecies));
+					}
+				}
+				if(index == 0) {
 					return new Response("Back", "Return to the race index.", LIBRARY);
 					
-				} else {
-					return null;
+				} else if(index>0 && index-1<raceResponses.size()) {
+					return raceResponses.get(index-1);
 				}
+				
+				return null;
 				
 			} else {
 				return LIBRARY.getResponse(responseTab, index);
 			}
 		}
-	
+	};
+
+	public static final DialogueNode JUNGLE_BOOKS = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "The aisle you find yourself [pc.walking] down has had an arcane enchantment placed upon it, which is creating a hot, humid atmosphere."
+						+ " The shelves to either side of you have been formed from huge, living pieces of dark wood, and here and there, small tropical plants are growing from its surface."
+					+ "</p>"
+					+ "<p>"
+						+ "Thanks once again to the arcane enchantment, this environment doesn't seem to be damaging the many books which are on display, and as you pass them by, you see that they're almost exclusively related to jungle topics."
+						+ " Coming to a halt half-way down the aisle, you see that some of the nearby books are related to the many races found in the northern jungles, and you wonder whether you should stop and read some of them..."
+					+ "</p>";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==3) {
+				List<Response> raceResponses = new ArrayList<>();
+				Set<AbstractItemType> booksAdded = new HashSet<>();
+				for(AbstractSubspecies subspecies : getAisleSubspecies(LibraryAisle.JUNGLE)) {
+					if(booksAdded.add(ItemType.getLoreBook(subspecies))) {
+						raceResponses.add(bookResponse(JUNGLE_BOOKS, subspecies));
+					}
+				}
+				if(index == 0) {
+					return new Response("Back", "Return to the race index.", LIBRARY);
+					
+				} else if(index>0 && index-1<raceResponses.size()) {
+					return raceResponses.get(index-1);
+				}
+				
+				return null;
+				
+			} else {
+				return LIBRARY.getResponse(responseTab, index);
+			}
+		}
+	};
+
+	public static final DialogueNode MOUNTAIN_BOOKS = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "[pc.Walking] down one of the many aisles in Lilaya's library, you become aware of the fact that the air around you is significantly colder and thinner than it should be."
+						+ " Realising that it must be due to an arcane enchantment of some sort, you look around at the shelves to either side of you and see that they're made out of roughly-hewn rock."
+						+ " The books sitting upon them seem to all be related to mountainous topics, letting you know that the arcane enchantment must be to give a sense of atmosphere to the high-altitude theme of this area."
+					+ "</p>"
+					+ "<p>"
+						+ "A collection of books near to hand appear to be related to the many races which call the Mountains of the Moon their home, and you wonder whether you should stop and read some of them..."
+					+ "</p>";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==3) {
+				List<Response> raceResponses = new ArrayList<>();
+				Set<AbstractItemType> booksAdded = new HashSet<>();
+				for(AbstractSubspecies subspecies : getAisleSubspecies(LibraryAisle.MOUNTAIN)) {
+					if(booksAdded.add(ItemType.getLoreBook(subspecies))) {
+						raceResponses.add(bookResponse(MOUNTAIN_BOOKS, subspecies));
+					}
+				}
+				if(index == 0) {
+					return new Response("Back", "Return to the race index.", LIBRARY);
+					
+				} else if(index>0 && index-1<raceResponses.size()) {
+					return raceResponses.get(index-1);
+				}
+				
+				return null;
+				
+			} else {
+				return LIBRARY.getResponse(responseTab, index);
+			}
+		}
 	};
 	
-	private static Response bookResponse(Subspecies subspecies) {
+	public static final DialogueNode SEA_BOOKS = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "The faint sound of waves lapping on the shore can be heard as you [pc.walk] down one of the many aisles of books in Lilaya's library."
+						+ " breathing in the refreshing, salty smell of the sea, you realise that this section has had an arcane enchantment placed upon it."
+						+ " With the shelves made out of what appears to be living coral and pieces of driftwood, you're given all the clues you need to deduce that this aisle is dedicated to books on the topic of the sea."
+					+ "</p>"
+					+ "<p>"
+						+ "Stopping to take a closer look at some of the tomes on offer, you see that there are several related to the many races found in the Endless Sea, and you wonder whether you should take some time out to do a spot of reading..."
+					+ "</p>";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==3) {
+				List<Response> raceResponses = new ArrayList<>();
+				Set<AbstractItemType> booksAdded = new HashSet<>();
+				for(AbstractSubspecies subspecies : getAisleSubspecies(LibraryAisle.SEA)) {
+					if(booksAdded.add(ItemType.getLoreBook(subspecies))) {
+						raceResponses.add(bookResponse(SEA_BOOKS, subspecies));
+					}
+				}
+				if(index == 0) {
+					return new Response("Back", "Return to the race index.", LIBRARY);
+					
+				} else if(index>0 && index-1<raceResponses.size()) {
+					return raceResponses.get(index-1);
+				}
+				
+				return null;
+				
+			} else {
+				return LIBRARY.getResponse(responseTab, index);
+			}
+		}
+	};
+	
+	public static final DialogueNode DESERT_BOOKS = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "[pc.Walking] down one of the library's many aisles, you can't help but notice how the air is significantly hotter and drier than elsewhere in the room."
+						+ " The arcane enchantment responsible for this effect seems to have been created to fit with the theme of the books on the shelves, as they appear to all be about topics related to the desert to the south of Lilith's Realm."
+						+ " The shelves themselves are also in keeping with this theme, as they're built out of thick blocks of marble, with curious hieroglyphics carved into their surface."
+					+ "</p>"
+					+ "<p>"
+						+ "Stopping half-way down the aisle, you look over the books and see that several of them are related to the races found in the desert."
+						+ " Wondering if they may contain useful information, you think that it may be a good idea to stop and read through them..."
+					+ "</p>";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==3) {
+				List<Response> raceResponses = new ArrayList<>();
+				Set<AbstractItemType> booksAdded = new HashSet<>();
+				for(AbstractSubspecies subspecies : getAisleSubspecies(LibraryAisle.DESERT)) {
+					if(booksAdded.add(ItemType.getLoreBook(subspecies))) {
+						raceResponses.add(bookResponse(DESERT_BOOKS, subspecies));
+					}
+				}
+				if(index == 0) {
+					return new Response("Back", "Return to the race index.", LIBRARY);
+					
+				} else if(index>0 && index-1<raceResponses.size()) {
+					return raceResponses.get(index-1);
+				}
+				
+				return null;
+				
+			} else {
+				return LIBRARY.getResponse(responseTab, index);
+			}
+		}
+	};
+	
+	private static Response bookResponse(DialogueNode nodeToReturnTo, AbstractSubspecies subspecies) {
 		AbstractItemType book = ItemType.getLoreBook(subspecies);
 		
 		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
-			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
+			return new Response(book.getName(false), book.getDescription(), nodeToReturnTo) {
 				@Override
 				public void effects() {
 					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));

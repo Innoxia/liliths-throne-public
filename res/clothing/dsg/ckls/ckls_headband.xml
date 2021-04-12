@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[Metallic embroidery on the underside of the headband reads 'MFD by DSG Costume Supply Co, Ltd'.]]></clothingAuthorTag>
+		<value>50</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[kitty headband]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[cat headbands]]></namePlural>
+		<description><![CDATA[A headband with stylized cat ears attached to the top, designed to keep the wearer's hair pushed back out of their face.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HEAD</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_kitty</clothingSet>
+		<imageName>ckls_headband.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		
+		<effects>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="BLACK_OR_WHITE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_TAN</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(place)] the headband onto [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(place)] the headband onto [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the headband onto [npc2.namePos] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] headband.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] headband.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] headband.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

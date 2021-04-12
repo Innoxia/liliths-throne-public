@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>20</value> 
+		<determiner><![CDATA[a pot of]]></determiner>
+		<name><![CDATA[Bubble Cream]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Bubble Creams]]></namePlural>
+		<description><![CDATA[A small pot of yoghurt, with a black-and-white cow-pattern styled onto the lid.  A label on the side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/cow/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">cow_bubble_cream.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_COW_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[bovine]]></potionDescriptor>
+		<associatedRace>COW_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(3)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 3)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] back the foil lid to reveal the Bubble Cream's contents. Despite this product being called 'Cream', it's actually a thick yoghurt that's contained within. Detaching the tiny wooden spoon that was stuck to one side, [npc.name] eagerly [npc.verb(dig)] in to the creamy mixture, letting out satisfied little humming noises as [npc.she] [npc.verb(discover)] that it's quite possibly the most delicious yoghurt that [npc.sheHas] ever tasted.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] back the foil lid to reveal the Bubble Cream's contents, before handing it over to [npc2.name] for [npc2.herHim] to eat. Despite this product being called 'Cream', it's actually a thick yoghurt that's contained within. Detaching the tiny wooden spoon that was stuck to one side, [npc2.name] eagerly [npc2.verb(dig)] in to the creamy mixture, letting out satisfied little humming noises as [npc2.she] [npc2.verb(discover)] that it's quite possibly the most delicious yoghurt that [npc2.sheHas] ever tasted.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

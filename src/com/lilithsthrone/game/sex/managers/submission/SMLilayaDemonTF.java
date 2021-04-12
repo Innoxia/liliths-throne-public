@@ -36,7 +36,7 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		if(partner instanceof Lyssieth) { // Lyssieth stops sex once everyone's orgasmed:
 			for(GameCharacter character : Main.sex.getAllParticipants(false)) {
-				if(Main.sex.getNumberOfOrgasms(character)==0) {
+				if(Main.sex.getNumberOfOrgasms(character)==0 && character.isAbleToOrgasm()) {
 					return false;
 				}
 			}

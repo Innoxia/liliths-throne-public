@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.69.1
- * @version 0.3.5.5
+ * @version 0.3.7
  * @author Innoxia
  */
 public class SexFlags {
@@ -22,6 +22,9 @@ public class SexFlags {
 	public static List<GameCharacter> playerPreparedForCharactersOrgasm;
 	/** Typically use the key as a flag, and the value for any integer you want associated with the flag. */
 	public static Map<String, Integer> genericFlags;
+	
+	
+	//TODO remove these values and move them into DialogueFlags so that it's all in one place:
 	
 	// Brax: TODO Temporary awaiting Brax rewrite
 	public static boolean braxCumOnChest;
@@ -39,6 +42,7 @@ public class SexFlags {
 	// Claire:
 	public static boolean claireSexInterrupted;
 	public static int claireSexInterruptedTurn;
+	
 	
 	
 	public SexFlags() {

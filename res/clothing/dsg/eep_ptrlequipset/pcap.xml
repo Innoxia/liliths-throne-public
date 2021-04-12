@@ -1,117 +1,261 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+
 <clothing>
-	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!
-	Your clothing's id (which is very important to the game), is calculated from your clothing's folder and .xml name using the following code:
-		modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]
-	This results in this particular item's id being: "innoxia_rentalMommy_rental_mommy".
-	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!-->
-	
+
 	<coreAtributes>
 		
 		<authorTag><![CDATA[On the inside of the hat's crown, faint rubberised ink reads "Official Enforcer Issue, MFD by DSG Threadworks."]]></authorTag>
-		
-		<!-- The base value of this clothing. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
+
 		<value>850</value> 
-		
-		<!-- The determiner that's displayed before this item's name. While usually 'a' or 'an', for things like socks or gloves, you'll want to use 'a pair of'. I use the CDATA tag for all text values, as it allows html markup to be embedded without causing issues.-->
-		<determiner><![CDATA[an]]></determiner>
-		
-		<!-- The name of this clothing. -->
-		<name><![CDATA[Enforcer's cap]]></name>
-		
-		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whther this item is naturally referred to as a plural (use true for things like socks or gloves).-->
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[cap]]></name>
+
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's caps]]></namePlural> 
-		
-		<!-- The description that's shown in tooltips and on the item's inspection page. -->
+
 		<description><![CDATA[A cap with a flat circular top and a short polished visor. It is standard issue headgear for Enforcers on patrol duty.]]></description> 
-		
-		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
+
 		<physicalResistance>0</physicalResistance> 
-		
-		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
+
 		<femininity>MASCULINE</femininity> 
-		
-		<!-- The slot that this clothing fits into. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+
 		<slot>HEAD</slot> 
-		
-		<!-- The rarity of this item. Anything less than EPIC may end up being modified in the code. Possible rarities are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+
 		<rarity>EPIC</rarity> 
-		
-		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
-		
-		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
-		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
+
+		<clothingSet/>
+
 		<imageName>pcap.svg</imageName> 
-		
-		<!-- The file path for this clothing's image while equipped. It's only used by condoms in the base game at the moment (so an unequipped condom in your inventory has a different image than while being worn). -->
+
 		<imageEquippedName/>
 		
-		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 5, and is calculated as:
-			int base = (getClothingSet()==null?5:10);
-			return base + getIncompatibleSlots().size()*base;-->
-		<enchantmentLimit/>
-		
-		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
-		<effects/> 
-		
-		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
-		<blockedPartsList> 
-		
-			<!-- You can add as many blockedParts elements as you like, but they should each have a different 'displacementType', and THERE SHOULD BE AT LEAST ONE, OF TYPE 'REMOVE_OR_EQUIP'.-->
-			<blockedParts>
+		<stickers>
 			
-				<!-- If this clothing is displaced in the following way (in this case, by being removed), then the 'blockedBodyParts', 'clothingAccessBlocked', and 'concealedSlots' will all be revealed. If multiple 'blockedParts' block or conceal the same slot, only one 'blockedParts' needs to be displaced to reveal it. (e.g. If a pair of trousers has 'UNZIPS' and 'PULLS_DOWN' displacementTypes, and both of these contain the 'concealedSlots' 'slot' 'PENIS', then the penis will be revealed if either UNZIPS or PULLS_DOWN is activated.)
-				A full list of displacementTypes can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+			<category id="badge" priority="1"> 
+				<categoryName><![CDATA[Cap Badge]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="badge_dominion" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="DAMAGE_TYPE_LUST"> 
+					<stickerName><![CDATA[Dominion]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Dominion Patrol Enforcer ]]></namePrefix> 
+					<namePostfix/> 
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the badge of the Dominion Frontline Patrol attached to it.</i>]]></descriptionModification> 
+					<imageName>pcap_st_badge_dominion.svg</imageName> 
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded> 
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved> 
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_PATROL))
+							Only Patrol Enforcers can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText> 
+					<availabilityText>
+						As a Patrol Enforcer, you can freely use this cap badge.
+					</availabilityText> 
+				</sticker>
+				<sticker id="badge_elis" priority="2" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="DAMAGE_TYPE_PHYSICAL"> 
+					<stickerName><![CDATA[Elis]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Elis Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the badge of the Elis Frontline Patrol attached to it.</i>]]></descriptionModification>
+					<imageName>pcap_st_badge_elis.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_PATROL))
+							Only Patrol Enforcers can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As a Patrol Enforcer, you can freely use this cap badge.
+					</availabilityText>
+				</sticker>
+				<sticker id="badge_thinis" priority="3" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="DAMAGE_TYPE_FIRE">
+					<stickerName><![CDATA[Thinis]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Thinis Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the badge of the Thinis Frontline Patrol attached to it.</i>]]></descriptionModification>
+					<imageName>pcap_st_badge_thinis.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_PATROL))
+							Only Patrol Enforcers can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As a Patrol Enforcer, you can freely use this cap badge.
+					</availabilityText>
+				</sticker>
+				<sticker id="badge_itzaaak" priority="4" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="DAMAGE_TYPE_POISON">
+					<stickerName><![CDATA[Itza'aak]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Itza'aak Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the badge of the Itza'aak Frontline Patrol attached to it.</i>]]></descriptionModification>
+					<imageName>pcap_st_badge_itzaaak.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_PATROL))
+							Only Patrol Enforcers can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As a Patrol Enforcer, you can freely use this cap badge.
+					</availabilityText>
+				</sticker>
+				<sticker id="badge_lyonesse" priority="5" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="DAMAGE_TYPE_COLD">
+					<stickerName><![CDATA[Lyonesse]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Lyonesse Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the badge of the Lyonesse Frontline Patrol attached to it.</i>]]></descriptionModification>
+					<imageName>pcap_st_badge_lyonesse.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_PATROL))
+							Only Patrol Enforcers can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As a Patrol Enforcer, you can freely use this cap badge.
+					</availabilityText>
+				</sticker>
+				<sticker id="badge_cm" priority="6" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_PURPLE">
+					<stickerName><![CDATA[Commissioner]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Commissioner ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the badge of the Commissioner's Office attached to it.</i>]]></descriptionModification>
+					<imageName>pcap_st_badge_cm.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(true)
+							Only Enforcers who hold a rank of Commissioner can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Commissioner, you can freely use this cap badge.
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="oakleaves" priority="2">
+				<categoryName><![CDATA[Oak Leaves]]></categoryName>
+				<sticker id="None" priority="0" defaultSticker="true" zLayer="2" colourSelected="TEXT_GREY">
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="oakleaves_dm" priority="1" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_PURPLE">
+					<stickerName><![CDATA[Deputy Commissioner]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the single row of oak leaves of a Deputy Commissioner.</i>]]></descriptionModification>
+					<imageName>pcap_st_oakleaves_dm.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(true)
+							Only Enforcers who hold a rank of Deputy Commissioner can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Deputy Commissioner, you can freely use this cap badge.
+					</availabilityText>
+				</sticker>
+				<sticker id="oakleaves_cm" priority="2" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_PURPLE">
+					<stickerName><![CDATA[Commissioner]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>pcap_st_oakleaves_cm.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(true)
+							Only Enforcers who hold a rank of Commissioner can use this cap badge!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Commissioner, you can freely use this cap badge.
+					</availabilityText>
+				</sticker>
+			</category>
+		</stickers>
+
+		<enchantmentLimit/>
+
+		<effects/> 
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
-				<!-- The access required to perform this displacementType. clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+
 				<clothingAccessRequired>
 					<clothingAccess>HEAD</clothingAccess>
 				</clothingAccessRequired> 
-				
-				<!-- The body parts that are blocked by this 'displacementType'. bodyPart values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+
 				<blockedBodyParts>
 					<bodyPart>HAIR</bodyPart>
 				</blockedBodyParts>
-				<!-- Use the tag 'bodyPart' for values inserted here. -->
-				
-				<!-- The access that this 'displacementType' blocks. Again, clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-				<clothingAccessBlocked/> <!-- Use the tag 'clothingAccess' for values inserted here. -->
-				
-				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
-				<concealedSlots/> <!-- Use the tag 'slot' for values inserted here. -->
+
+				<clothingAccessBlocked/> 
+
+				<concealedSlots/> 
 			</blockedParts>
 			
 		</blockedPartsList>
-		
-		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+
 		<incompatibleSlots/> 
-		
-		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours, secondaryColours, and tertiaryColours can all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
-		Red is used as base colour for changing the primary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff2a2a
-			#ff5555
-			#ff8080
-			#ffaaaa
-			#ffd5d5
-		Orange is used as base colour for changing the secondary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff7f2a
-			#ff9955
-			#ffb380
-			#ffccaa
-			#ffe6d5
-		Yellow is used as base colour for changing the tertiary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ffd42a
-			#ffdd55
-			#ffe680
-			#ffeeaa
-			#fff6d5
-		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
-		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours>
@@ -120,73 +264,34 @@
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="JUST_GOLD"/>
 		<tertiaryColoursDye values="ALL_METAL"/>
-		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
-		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java
-		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
-		
-		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+
 		<itemTags> 
-			
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
-	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take the cap off.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You take [npc.name]'s cap off.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You slap [npc.name]'s cap off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] cap off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] takes your cap off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] slaps your cap off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] takes [npc2.name]'s cap off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] slaps [npc2.name]'s cap off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You put the cap on.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You put the cap on [npc.name]'s head.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You force the cap down on [npc.name]'s head.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] puts the cap on [npc.her] head.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] puts the cap on your head.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] forces the cap down on your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] puts the cap on [npc2.name]'s head.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] forces the cap down on [npc2.name]'s head.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the peaked cap on.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the peaked cap on [npc2.namePos] head.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] the peaked cap down on [npc2.namePos] head.]]>
+		</otherRough>
 	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(take)] [npc.her] peaked cap off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] peaked cap off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(slap)] [npc2.namePos] peaked cap off.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

@@ -11,8 +11,8 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -44,6 +44,8 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -52,18 +54,21 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Ralph extends NPC {
+	
+	public static final String RALPH_DISCOUNT_TIMER_ID = "ralph_discount_timer";
 	
 	public Ralph() {
 		this(false);
@@ -93,6 +98,12 @@ public class Ralph extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.5")) {
+			this.setPenisSize(30);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
+			this.setPenisCumStorage(250);
 		}
 	}
 
@@ -129,27 +140,27 @@ public class Ralph extends NPC {
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_BROWN));
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
 		this.setHairLength(HairLength.TWO_SHORT);
 		this.setHairStyle(HairStyle.LOOSE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.THREE_TRIMMED);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PURPLE));
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PURPLE));
 		
 		// Face:
 		this.setFaceVirgin(true);
@@ -183,10 +194,10 @@ public class Ralph extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_FAT);
-		this.setPenisSize(20);
+		this.setPenisGirth(PenetrationGirth.FIVE_THICK);
+		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(65);
+		this.setPenisCumStorage(250);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		
@@ -201,10 +212,10 @@ public class Ralph extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_GOLD, false), true, this);
 
 	}
 
@@ -217,10 +228,10 @@ public class Ralph extends NPC {
 	 * Discount is active for three days after earning it.
 	 */
 	public boolean isDiscountActive(){
-		if(Main.game.getDialogueFlags().ralphDiscountStartTime == -1 || Main.game.getDialogueFlags().ralphDiscount <= 0) {
+		if(Main.game.getDialogueFlags().getSavedLong(RALPH_DISCOUNT_TIMER_ID) == -1 || Main.game.getDialogueFlags().ralphDiscount <= 0) {
 			return false;
 		} else {
-			return (Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) < (60*24*3);
+			return (Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(RALPH_DISCOUNT_TIMER_ID)) < (60*24*3);
 		}
 	}
 
@@ -228,34 +239,43 @@ public class Ralph extends NPC {
 	public void dailyUpdate() {
 		clearNonEquippedInventory(false);
 		
-		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false, false);
-		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
+		this.addItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), 25, false, false);
+		this.addItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
 		
 		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
-				this.addItem(AbstractItemType.generateItem(item), 6+Util.random.nextInt(12), false, false);
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
+					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
+			}
+		}
+
+		for(AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
+			if(weapon.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
+					&& (!weapon.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+				this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 1+Util.random.nextInt(5), false, false);
 			}
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
-				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
-					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
-					Colour condomColourSec = Colour.CLOTHING_BLACK;
-					Colour condomColourTer = Colour.CLOTHING_BLACK;
+			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)
+					&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+				if(clothing.isDefaultSlotCondom()) {
+					Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
+					Colour condomColourSec = PresetColour.CLOTHING_BLACK;
+					Colour condomColourTer = PresetColour.CLOTHING_BLACK;
 					
-					if(!clothing.getAvailableSecondaryColours().isEmpty()) {
-						condomColourSec = Util.randomItemFrom(clothing.getAvailableSecondaryColours());
+					if(clothing.getColourReplacement(1)!=null) {
+						condomColourSec = clothing.getColourReplacement(1).getRandomOfDefaultColours();
 					}
-					if(!clothing.getAvailableTertiaryColours().isEmpty()) {
-						condomColourTer = Util.randomItemFrom(clothing.getAvailableTertiaryColours());
+					if(clothing.getColourReplacement(2)!=null) {
+						condomColourTer = clothing.getColourReplacement(2).getRandomOfDefaultColours();
 					}
 					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()==Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
-						this.addClothing(AbstractClothingType.generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
+						this.addClothing(Main.game.getItemGen().generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
 					}
 					
 				} else {
-					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+					this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
 				}
 			}
 		}
@@ -283,7 +303,7 @@ public class Ralph extends NPC {
 	
 	@Override
 	public String getTraderDescription() {
-		if(Main.game.getDialogueFlags().ralphDiscountStartTime>0){
+		if(Main.game.getDialogueFlags().getSavedLong(RALPH_DISCOUNT_TIMER_ID)>0){
 			StringBuilder descriptionSB = new StringBuilder();
 			
 			descriptionSB.append("<p>"
@@ -291,8 +311,8 @@ public class Ralph extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "Although the memory of you submissively pleasuring Ralph's huge horse-cock is still fresh in both of your minds, he treats you with the utmost respect and politely lists off the prices of the transformative consumables on display."
-						+ (this.hasItemType(ItemType.PROMISCUITY_PILL)
-								?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.PROMISCUITY_PILL.getNamePlural(false)+"' appear to be unreasonably pricy,"
+						+ (this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
+								?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.getItemTypeFromId("innoxia_pills_sterility").getNamePlural(false)+"' appear to be unreasonably pricy,"
 								+ " and Ralph once again notes that there's a huge tax levied on their sale."
 							+ "</p>"
 							+ "<p>"
@@ -303,7 +323,7 @@ public class Ralph extends NPC {
 			
 			if(isDiscountActive()){
 				descriptionSB.append("<p>"
-						+ "<b>Ralph is giving you a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+Main.game.getDialogueFlags().ralphDiscount+"%</b> <b>discount!</b>"
+						+ "<b>Ralph is giving you a</b> <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>"+Main.game.getDialogueFlags().ralphDiscount+"%</b> <b>discount!</b>"
 							+ "</p>");
 			}else{
 				descriptionSB.append("<p>"
@@ -320,8 +340,8 @@ public class Ralph extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "After a brief greeting, you ask him about the transformative consumables on display. He politely informs you that they're all for sale and quickly lists off their prices."
-						+ (this.hasItemType(ItemType.PROMISCUITY_PILL)
-							?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.PROMISCUITY_PILL.getNamePlural(false)+"' appear to be unreasonably pricy,"
+						+ (this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
+							?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.getItemTypeFromId("innoxia_pills_sterility").getNamePlural(false)+"' appear to be unreasonably pricy,"
 									+ " and after asking Ralph about their high cost, he explains that there's a huge tax levied on their sale."
 								+ "</p>"
 								+ "<p>"
@@ -342,7 +362,7 @@ public class Ralph extends NPC {
 	public float getSellModifier(AbstractCoreItem item) {
 		float base = 1.5f;
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType()==ItemType.PROMISCUITY_PILL) {
+			if(((AbstractItem)item).getItemType()==ItemType.getItemTypeFromId("innoxia_pills_sterility")) {
 				base*=10;
 			}
 		}
@@ -351,12 +371,17 @@ public class Ralph extends NPC {
 	
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
+		if(item.getItemTags().contains(ItemTag.CONTRABAND_LIGHT)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_HEAVY)) {
+			return false;
+		}
 		if(item instanceof AbstractItem) {
 			return true;
 		}
 		if(item instanceof AbstractClothing) {
 			AbstractClothingType type = ((AbstractClothing)item).getClothingType();
-			return type.isCondom(type.getEquipSlots().get(0));
+			return type.isDefaultSlotCondom();
 		}
 		
 		return false;
@@ -386,22 +411,30 @@ public class Ralph extends NPC {
 	}
 	
 	@Override
-	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
-			if(Main.sex.getSexManager().getPosition() == SexPosition.OVER_DESK) {
+			if(Main.sex.getSexManager().getPosition() == SexPosition.OVER_DESK && target.equals(this)) {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
+				if(clothing!=null && clothing.isCondom()) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
-					inventory.resetEquipDescription();
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, he slaps it away and grunts,"
+							+ " [npc2.speech(I don't think so! You agreed to let me breed you, and that's exactly what I'm going to do!)]");
 				}
 				return UtilText.parse(target,
 						"<p>"
-							+ "You pull out a condom and try to give it to [npc.name], but he simply swats it away and dismissively grunts,"
+							+ "You pull out a condom and hold it out to Ralph, but as he sees what it is you've got, he grabs it and tears it in two, before dismissively grunting,"
 							+ " [npc.speech(I don't think so! You agreed to let me breed you, and that's exactly what I'm going to do!)]"
 						+ "</p>");
 			}
 			
 			if(!target.isPlayer()) {
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return null;
+				}
 				if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return "<p>"
 							+ "You pull out a condom from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
@@ -434,13 +467,7 @@ public class Ralph extends NPC {
 				}
 			}
 		}
-		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
-				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+		return null;
 	}
 	
 	
@@ -470,11 +497,11 @@ public class Ralph extends NPC {
 	// Vagina:
 	
 	@Override
-	public String getStretchingDescription(GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
+	public String getStretchingDescription(boolean initialPenetration, GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
 		switch(orifice) {
 			case MOUTH:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+					return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 				} else {
 					return UtilText.returnStringAtRandom(
 							"You feel tears streaming down your face as you force the [ralph.cock+] down your throat.",
@@ -484,16 +511,16 @@ public class Ralph extends NPC {
 				}
 			case VAGINA:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+					return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 				} else {
 					return UtilText.returnStringAtRandom(
 							"You squirm about uncomfortably on the counter-top as Ralph's [ralph.cock+] struggles to fit in your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] painfully stretches you out as it rams its way in and out of your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] is too large for your [pc.pussyCapacity] [pc.pussy], and you let out an uncomfortable whine as it stretches you out.",
-							"Your [pc.pussyCapacity] little [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+].");
+							"Your [pc.pussyCapacity] [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+].");
 				}
 			default:
-				return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+				return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 		}
 	}
 	
@@ -514,13 +541,13 @@ public class Ralph extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+			if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				itemOwner.useItem(item, target, false);
 				
 				if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "You pull out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
+								+ "You pull out a "+item.getName(false, false)+" from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
 								+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 								+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy, although somewhat muffled, giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");
@@ -528,7 +555,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a '[#ITEM_VIXENS_VIRILITY.getName(false)]'."
+								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a "+item.getName(false, false)+"."
 								+ " Suppressing your moans, you turn back, holding out your hand as you ask him to swallow it."
 								+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 								+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -542,7 +569,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 								"<p>"
-									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a '[#ITEM_VIXENS_VIRILITY.getName(false)]'."
+									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a "+item.getName(false, false)+"."
 									+ " Suppressing your groans, you turn back, holding out your hand as you ask him to swallow it."
 									+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 									+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -552,7 +579,7 @@ public class Ralph extends NPC {
 				} else {
 					return new Value<>(true,
 							"<p>"
-								+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
+								+ "Producing a "+item.getName(false, false)+" from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
 									+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 									+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");

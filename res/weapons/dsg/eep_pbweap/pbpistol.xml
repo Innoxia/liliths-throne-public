@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>pbpistol.svg</imageEquippedName>
 		
-		<damage>15</damage> 
+		<damage>25</damage> 
 		
 		<arcaneCost>1</arcaneCost> 
 		
@@ -55,7 +55,9 @@
 		</secondaryColours>
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_MEDIUM</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

@@ -1,6 +1,7 @@
 package com.lilithsthrone.utils.time;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * https://en.wikipedia.org/wiki/Twilight
@@ -11,15 +12,15 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum DayPeriod {
 	
-	DAY("day-time", Colour.BASE_BLUE_LIGHT),
+	DAY("day-time", PresetColour.BASE_BLUE_LIGHT),
 	
-	CIVIL_TWILIGHT("civil twilight", Colour.BASE_PURPLE_LIGHT),
+	CIVIL_TWILIGHT("civil twilight", PresetColour.BASE_PURPLE_LIGHT),
 	
-	NAUTICAL_TWILIGHT("nautical twilight", Colour.BASE_PURPLE),
+	NAUTICAL_TWILIGHT("nautical twilight", PresetColour.BASE_PURPLE),
 	
-	ASTRONOMICAL_TWILIGHT("astronomical twilight", Colour.BASE_BLUE_STEEL),
+	ASTRONOMICAL_TWILIGHT("astronomical twilight", PresetColour.BASE_BLUE_STEEL),
 	
-	NIGHT("night-time", Colour.BASE_BLUE_DARK);
+	NIGHT("night-time", PresetColour.BASE_BLUE_DARK);
 	
 	
 	private String name;

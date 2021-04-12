@@ -213,7 +213,7 @@
 			#ELSE
 				Your vagina is already exposed, and, after looking down at it for a moment, Lilaya lets out a little humming noise,
 			#ENDIF
-			#IF(pc.getVaginaType().isEggLayer())
+			#IF(pc.isVaginaEggLayer())
 				 [lilaya.speech(Ooh, you're going to be laying some eggs, how exciting! I'm sure you're already feeling it, but some incredibly strong maternal instincts are going to be kicking in pretty soon, and you're only going to feel comfortable doing this in a very personal area. I think using your room would be the best bet, follow me!)]
 			#ELSE
 				 [lilaya.speech(Ok, so you're going to be giving birth to live young. I've got a room set up for just that purpose, follow me!)]
@@ -451,6 +451,7 @@
 	<p>
 		You wake up some time later, lying in your bed. With a groan, you sit up, pushing the covers back as you rub sleep from your eyes.
 	</p>
+		#IF(pc.hasVagina())
 	<p>
 		The first thing you notice is how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
 	</p>
@@ -460,6 +461,14 @@
 	<p>
 		Glancing across to your bedside cabinet, the final thing you discover is a note from Lilaya. Picking it up, you glance over the contents:
 	</p>
+		#ELSE
+	<p>
+		You notice how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
+	</p>
+	<p>
+		Glancing across to your bedside cabinet, you discover a note from Lilaya. Picking it up, you glance over the contents:
+	</p>
+	    #ENDIF
 	<p style='text-align:center;'>
 	<i>
 		Hey [pc.name], congratulations! Everything went perfectly!

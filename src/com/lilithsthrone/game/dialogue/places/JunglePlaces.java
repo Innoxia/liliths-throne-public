@@ -2,9 +2,6 @@ package com.lilithsthrone.game.dialogue.places;
 
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -107,12 +104,7 @@ public class JunglePlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Dominion", "Travel to Dominion. (This will be added later!)", null){
-					@Override
-					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_NORTH, true);
-					}
-				};
+				return new Response("Dominion", "Travel to Dominion. (This will be added later!)", null);
 
 			} else {
 				return null;

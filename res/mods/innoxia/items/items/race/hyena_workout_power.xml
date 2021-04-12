@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>200</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Workout Power]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Workout Powers]]></namePlural>
+		<description><![CDATA[A plastic, turquoise drink bottle, of the sort typically used during exercise. A small sticker on the bottom names the pre-filled energy drink 'Workout Power', and declares that it's the ideal formula for hyena-morphs looking to gain muscle.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<!-- There is a fully commented example of this in 'hyena_bone_crunchers.xml' -->
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">hyena_workout_power.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		After first popping up the cap, [npc.name] [npc.verb(bring)] the bottle of Workout Power up to [npc.her] [npc.mouth]. A very artificial smell of tropical fruits rises from the opening, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the cool liquid, [npc.she] [npc.verb(discover)] that it tastes exactly the same as its smell.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		After first popping up the cap, [npc.name] [npc.verb(bring)] the bottle of Workout Power up to [npc2.namePos] waiting [npc2.lips]. A very artificial smell of tropical fruits rises from the opening, and as [npc2.she] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the cool liquid, [npc2.she] [npc2.verb(discover)] that it tastes exactly the same as its smell.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

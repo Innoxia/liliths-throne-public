@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>1200</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[aviators]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[aviators]]></namePlural>
+		<description><![CDATA[A pair of aviator sunglasses. The large, reflective lenses are slightly convex and filter out a significant portion of incoming light.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>EYES</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>aviators.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>EYES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_ORANGE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the aviators.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the aviators onto [npc2.namePos] face.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] the aviators onto [npc2.namePos] face.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] aviators.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] aviators.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] aviators and roughly [npc.verb(pull)] them off.]]>
+		</otherRough>
+	</displacementText>
+  
+</clothing>

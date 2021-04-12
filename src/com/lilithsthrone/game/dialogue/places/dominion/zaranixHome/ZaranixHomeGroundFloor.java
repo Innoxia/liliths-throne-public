@@ -57,6 +57,23 @@ public class ZaranixHomeGroundFloor {
 		((ZaranixMaidKatherine)Main.game.getNpc(ZaranixMaidKatherine.class)).setStartingBody(false);
 		((ZaranixMaidKelly)Main.game.getNpc(ZaranixMaidKelly.class)).setStartingBody(false);
 	}
+
+	private static void travelFromEntranceToLounge() {
+		for(Cell c : Pathing.aStarPathing(
+				Main.game.getWorlds().get(WorldType.ZARANIX_HOUSE_GROUND_FLOOR).getCellGrid(),
+				Main.game.getWorlds().get(WorldType.ZARANIX_HOUSE_GROUND_FLOOR).getCell(PlaceType.ZARANIX_GF_ENTRANCE).getLocation(),
+				Main.game.getWorlds().get(WorldType.ZARANIX_HOUSE_GROUND_FLOOR).getCell(PlaceType.ZARANIX_GF_LOUNGE).getLocation(),
+				false)) {
+			c.setDiscovered(true);
+			c.setTravelledTo(true);
+		}
+		Main.game.getNpc(Amber.class).setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
+		Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
+		
+		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
+			companion.setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+		}
+	}
 	
 	public static final DialogueNode OUTSIDE = new DialogueNode("", "", true) {
 		
@@ -110,14 +127,12 @@ public class ZaranixHomeGroundFloor {
 					return new Response("Fly over fence", "Fly over the garden's fence and see if there's a way in through there.", GARDEN_ENTRY) {
 						@Override
 						public void effects() {
-							Main.mainController.moveGameWorld(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_GARDEN_ENTRY, true);
+							Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_GARDEN_ENTRY, false);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "A small fence like the one before you is no obstacle for someone who can fly."
-										+ " Spreading your wings, you take a little run up before launching yourself into the air."
-										+ " Quickly gaining altitude, you wheel around and swoop down into the garden adjoining Zaranix's home."
-									+ "</p>");
+							Main.game.getTextStartStringBuilder()
+								.append("<p>A small fence like the one before you is no obstacle for someone who can fly.")
+								.append(!Main.game.getPlayer().isAbleToFlyFromExtraParts() ? " Spreading your wings, you" : "You")
+								.append(" take a little run up before launching yourself into the air. Quickly gaining altitude, you wheel around and swoop down into the garden adjoining Zaranix's home.</p>");
 						}
 					};
 				}
@@ -127,7 +142,7 @@ public class ZaranixHomeGroundFloor {
 				return new Response("Climb fence", "Climb over the garden's fence and see if there's a way in through there.", GARDEN_ENTRY) {
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_GARDEN_ENTRY, true);
+						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_GARDEN_ENTRY, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
 						Main.game.getTextStartStringBuilder().append(
 							"<p>"
@@ -153,7 +168,7 @@ public class ZaranixHomeGroundFloor {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKickedDownDoor, true);
-							Main.mainController.moveGameWorld(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, true);
+							Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
 							Main.game.getNpc(Amber.class).setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
 						}
 					};
@@ -264,10 +279,8 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 2) {
 				return new Response("Beg", "Beg the maid to let you in.", OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG,
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), CorruptionLevel.THREE_DIRTY, null, null, null);
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -294,48 +307,68 @@ public class ZaranixHomeGroundFloor {
 					}
 				};
 
-			} else if (index == 1) {
-				return new Response("Reluctant lick", "If this is what it's going to take to finally meet Arthur, you suppose that you'll do it, even though you're quite reluctant about the whole thing.",
-						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_RELUCTANT_LICK,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.TWO_HORNY, null, null, null) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
-					}
-				};
-
-			} else if (index == 2) {
-				return new Response("Eager lick", "Immediately drop down onto all fours and enthusiastically lick the maid's shoes.",
-						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_EAGER_LICK,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.FOUR_LUSTFUL, null, null, null) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
-					}
-				};
-
-			} else {
-				return null;
 			}
+			if(!Main.game.isFootContentEnabled()) {
+				if(index == 1) {
+					return new Response("Good doggy", "Do as this dominant succubus says and drop down onto all fours, before telling her that you're a good doggy.",
+							OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_GOOD_DOGGY,
+							Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST), CorruptionLevel.TWO_HORNY, null, null, null) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
+						}
+					};
+				}
+				
+			} else {
+				if(index == 1) {
+					return new Response("Reluctant lick", "If this is what it's going to take to finally meet Arthur, you suppose that you'll do it, even though you're quite reluctant about the whole thing.",
+							OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_RELUCTANT_LICK,
+							Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.TWO_HORNY, null, null, null) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
+						}
+					};
+	
+				} else if(index == 2) {
+					return new Response("Eager lick", "Immediately drop down onto all fours and enthusiastically lick the maid's shoes.",
+							OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_EAGER_LICK,
+							Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.FOUR_LUSTFUL, null, null, null) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
+						}
+					};
+				}
+			}
+			
+			return null;
 		}
 	};
 	
-	private static void travelFromEntranceToLounge() {
-		for(Cell c : Pathing.aStarPathing(
-				Main.game.getWorlds().get(WorldType.ZARANIX_HOUSE_GROUND_FLOOR).getCellGrid(),
-				Main.game.getWorlds().get(WorldType.ZARANIX_HOUSE_GROUND_FLOOR).getCell(PlaceType.ZARANIX_GF_ENTRANCE).getLocation(),
-				Main.game.getWorlds().get(WorldType.ZARANIX_HOUSE_GROUND_FLOOR).getCell(PlaceType.ZARANIX_GF_LOUNGE).getLocation(),
-				false)) {
-			c.setDiscovered(true);
-			c.setTravelledTo(true);
+	public static final DialogueNode OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_GOOD_DOGGY = new DialogueNode("", "", true, true) {
+		@Override
+		public String getLabel() {
+			return "Zaranix's Home";
 		}
-		Main.game.getNpc(Amber.class).setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
-		Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
-		
-		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
-			companion.setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_ENTRANCE, false);
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_GOOD_DOGGY");
 		}
-	}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Inside", "Crawl alongside Amber as she leads you into the house.", MEETING_ZARANIX) {
+					@Override
+					public void effects() {
+						travelFromEntranceToLounge();
+					}
+				};
+			}
+			return null;
+		}
+	};
 	
 	public static final DialogueNode OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_RELUCTANT_LICK = new DialogueNode("", "", true, true) {
 
@@ -358,10 +391,8 @@ public class ZaranixHomeGroundFloor {
 						travelFromEntranceToLounge();
 					}
 				};
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	

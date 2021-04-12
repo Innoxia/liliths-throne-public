@@ -298,24 +298,42 @@
 
 	<htmlContent tag="CAT_MORPH_BASIC"><![CDATA[
 	<p>
-		Cat-morphs are one of the more common anthropomorphic races found in this world.
-		 A sleek tail, upright ears, and cat-like eyes identify a cat-morph.
+		Cat-morphs are one of the more common anthropomorphic races found in this world. A sleek tail, upright ears, and cat-like eyes identify a cat-morph.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="CAT_MORPH_ADVANCED"><![CDATA[
 	<p>
-		Like all the other common races, a cat-morph's personality can vary wildly from person to person, although they do have some typical characteristics.
-		 Cat-morphs are usually quite delicate in their mannerisms, and although they often try to hide it, they can get extremely curious about things they haven't encountered before.
-		 Most cat-morphs are very feminine, and it's quite common for cat-boys to err more towards androgyny than masculinity.
+		Like all the other common races, a cat-morph's personality can vary wildly from person to person, although they do have some typical characteristics. Cat-morphs are usually quite delicate in their mannerisms, and although they often try to hide it, they can get extremely curious about things they haven't encountered before.
 	</p>
 	<p>
-		Cat-morphs, like the other common races, get heavily affected by arcane storms.
-		 Being exposed to arcane thunder will make cat-boys seek out a partner to mate with, while cat-girls will go into heat.
+		Cat-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make cat-boys seek out a partner to mate with, while cat-girls will go into heat.
 	</p>
 	<p>
 		A cat-morph's offspring will be a mixture of cat-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- PANTHER-MORPHS -->
+
+	<htmlContent tag="PANTHER_MORPH_BASIC"><![CDATA[
+	<p>
+		The larger and more powerful cousins of regular cat-morphs, panther-morphs come in several varieties, most of which are found in jungle or savannah regions. A long, fluffy tail, upright ears, and a heavy-set, cat-like face identify a panther-morph.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="PANTHER_MORPH_ADVANCED"><![CDATA[
+	<p>
+		While panther-morphs' personalities vary wildly from person to person, they do have some typical characteristics. They are usually quite dominant in their mannerisms, and although they often try to hide it, they can get extremely curious about things they haven't encountered before. Most panther-morphs will not back away from a fight, and will use their strong bodies to quickly settle arguments by force, if necessary.
+	</p>
+	<p>
+		Panther-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make panther-boys seek out a partner to mate with, while panther-girls will go into heat.
+	</p>
+	<p>
+		A panther-morph's offspring will be a mixture of panther-morphs and offspring of their partner's race.
 	</p>
 	]]>
 	</htmlContent>
@@ -524,7 +542,7 @@
 		Alligator-morph pregnancies are a mix between mammalian and reptilian reproduction.
 		 They are impregnated in much the same way as a human, but instead of giving birth to live young, a clutch of eggs will grow inside an alligator-girl's womb once she's been fertilised.
 		 Pregnancy advances just like that of other common races, but when it comes time to give birth, the alligator-girl will seek out a safe place to lay her eggs.
-		 After incubating her clutch for for approximately eighteen to twenty-four hours, the alligator-morph's young will hatch, with the resulting offspring being a mixture of alligator-morphs and offspring of their partner's race.
+		 After incubating her clutch for approximately eighteen to twenty-four hours, the alligator-morph's young will hatch, with the resulting offspring being a mixture of alligator-morphs and offspring of their partner's race.
 	</p>
 	]]>
 	</htmlContent>
@@ -533,14 +551,14 @@
 
 	<htmlContent tag="SLIME_BASIC"><![CDATA[
 	<p>
-		Slimes are one of the rarer races of this world. The vast majority of their population resides in the watery undercity of Submission, but they can also be found in small numbers all over the world. Slimes are very easy to identify, as their entire body is made out of gooey slime, with a glowing core in the place where their heart should be. In place of skin, they have a soft, hydrophobic membrane, allowing them to safely enter water or other bodies of liquid without dissolving. It also prevents any unwanted sperm from entering their bodes and impregnating them.
+		Slimes are one of the rarer races of this world. The vast majority of their population resides in the watery undercity of Submission, but they can also be found in small numbers all over the world. Slimes are very easy to identify, as their entire body is made out of gooey slime, with a glowing core in the place where their heart should be. In place of skin, they have a soft, hydrophobic membrane, allowing them to safely enter water or other bodies of liquid without dissolving. It also prevents any unwanted sperm from entering their bodies and impregnating them.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="SLIME_ADVANCED"><![CDATA[
 	<p>
-		Just like most races, the personality of slimes differs greatly from individual to individual, with the vast majority being pleasant, law-abiding citizens. There are a minority, however, who believe that their diet should consist solely of sexual fluids, and these troublemakers have show no hesitation in attacking innocent travellers to milk for their next meal...
+		Just like most races, the personality of slimes differs greatly from individual to individual, with the vast majority being pleasant, law-abiding citizens. There are a minority, however, who believe that their diet should consist solely of sexual fluids, and these troublemakers have shown no hesitation in attacking innocent travellers to milk for their next meal...
 	</p>
 	<p>
 		Slimes survive entirely on a liquid diet, transforming any fluid that they ingest (or extract out of absorbed solids) into more slime. Just like any other liquid, their slimy bodies evaporate over time, requiring them to maintain a regular fluid intake.

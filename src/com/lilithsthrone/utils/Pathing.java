@@ -17,6 +17,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -28,14 +29,14 @@ import com.lilithsthrone.world.places.PlaceType;
  * It was useful later on.
  * 
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public class Pathing {
 	
 	private static List<Cell> pathingCells = new ArrayList<>();
 	private static Vector2i endPoint = new Vector2i(0, 0);
-	private static WorldType destinationWorld = WorldType.DOMINION;
+	private static AbstractWorldType destinationWorld = WorldType.DOMINION;
 	
 	private static int travelTime = 0;
 	private static int dangerousTiles = 0;
@@ -143,7 +144,7 @@ public class Pathing {
 							// Deny diagonals unless in main world map
 							Cell c = grid[n.getX() + i][n.getY() + j];
 
-							int time = Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), (c.getPlace().getPlaceType().getDialogue(false)!=null? c.getPlace().getPlaceType().getDialogue(false).getSecondsPassed() : 10000));
+							int time = Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), (c.getDialogue(false)!=null? c.getDialogue(false).getSecondsPassed() : 10000));
 							
 							int g = ((i == 0 || j == 0) ? 10 : c.getType().equals(WorldType.WORLD_MAP)?12:1_000_000)
 									+ time
@@ -194,7 +195,7 @@ public class Pathing {
 		int totalTimePassed = 0;
 		for(Cell c : getPathingCells()) {
 			Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
-			DialogueNode dialogue = c.getPlace().getDialogue(true);
+			DialogueNode dialogue = c.getDialogue(true);
 			
 			if(dialogue!=null) {
 				totalTimePassed += Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), dialogue.getSecondsPassed());
@@ -222,7 +223,9 @@ public class Pathing {
 				}
 				
 				if(totalTimePassed>=2*60*60) { // Every 2 hours, perform an end turn. I didn't encounter any lag when just ending the turn on every tile moved, but I'm sure it could lag when moving huge distances.
+					Main.game.getPlayer().setActive(false);
 					Main.game.endTurn(totalTimePassed);
+					Main.game.getPlayer().setActive(true);
 					totalTimePassed = 0;
 				}
 			}
@@ -232,9 +235,11 @@ public class Pathing {
 		Cell destination = getPathingCells().get(getPathingCells().size()-1);
 		Main.game.getPlayer().setLocation(destination.getType(), destination.getLocation(), false);
 
+		Main.game.getPlayer().setActive(false);
 		Main.game.endTurn(totalTimePassed);
-		
-		return new Response("", "", destination.getPlace().getDialogue(false));
+		Main.game.getPlayer().setActive(true);
+
+		return new Response("", "", destination.getDialogue(false));
 	}
 	
 	public static void initPathingVariables() {
@@ -270,7 +275,7 @@ public class Pathing {
 	private static int calculateTravelTime(List<Cell> cellRoute, boolean withModifiedTravelTime) {
 		int seconds = 0;
 		for(Cell c : cellRoute) {
-			DialogueNode dialogue = c.getPlace().getDialogue(false);
+			DialogueNode dialogue = c.getDialogue(false);
 			if(dialogue!=null) {
 				if(withModifiedTravelTime) {
 					seconds += Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), dialogue.getSecondsPassed());
@@ -296,7 +301,7 @@ public class Pathing {
 	 * @param endPoint New endPoint.
 	 * @param worldForRecalculatingFlyTime Pass in null if you don't want to recalculate the flight time.
 	 */
-	public static void setEndPoint(Vector2i endPoint, Cell cell, WorldType worldForRecalculatingFlyTime) {
+	public static void setEndPoint(Vector2i endPoint, Cell cell, AbstractWorldType worldForRecalculatingFlyTime) {
 		Pathing.endPoint = endPoint;
 		if(worldForRecalculatingFlyTime!=null) {
 			List<Cell> route = Pathing.aStarPathing(Main.game.getWorlds().get(worldForRecalculatingFlyTime).getCellGrid(), Main.game.getPlayer().getLocation(), endPoint, false);
@@ -330,7 +335,7 @@ public class Pathing {
 		return travelTime;
 	}
 
-	public static WorldType getDestinationWorld() {
+	public static AbstractWorldType getDestinationWorld() {
 		return destinationWorld;
 	}
 

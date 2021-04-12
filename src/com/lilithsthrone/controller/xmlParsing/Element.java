@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 
@@ -50,7 +49,7 @@ public class Element {
 	public static Element getDocumentRootElement(File xmlFile) throws XMLLoadException{
 		try{
 			String fileDirectory = xmlFile.getAbsolutePath();
-			Document parsedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
+			Document parsedDocument = Main.getDocBuilder().parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
 			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
 			
@@ -211,7 +210,9 @@ public class Element {
 		org.w3c.dom.NodeList nl = innerElement.getChildNodes();
 		List<Element> returnList = new ArrayList<>();
 		for (int i = 0; i < nl.getLength(); i++) {
-			returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
+			if(nl.item(i) instanceof org.w3c.dom.Element) {
+				returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
+			}
 		}
 		return returnList;
 	}

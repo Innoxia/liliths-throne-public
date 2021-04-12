@@ -60,8 +60,11 @@ public abstract class DialogueNode {
 	 * <b>Note:</b> In almost all instances, this is overridden by the Response class's getTitle() method.
 	 */
 	public String getLabel() {
-		if(Main.game.isStarted() && (label==null || label.isEmpty())) {
-			return Main.game.getPlayerCell().getPlace().getName();
+		if(label==null || label.isEmpty()) {
+			try {
+				return Main.game.getPlayerCell().getPlace().getName();
+			} catch(Exception ex) {
+			}
 		}
 		return label;
 	}
@@ -144,7 +147,7 @@ public abstract class DialogueNode {
 	/**
 	 * @return The author of the scene.
 	 */
-	public String getAuthor(){
+	public String getAuthor() {
 		return "Innoxia";
 	}
 
@@ -161,10 +164,16 @@ public abstract class DialogueNode {
 	public boolean reloadOnRestore() {
 		return false;
 	}
-
+	
 	/**
 	 * This method is called before the getContent() method is called.
 	 */
 	public void applyPreParsingEffects() {
+	}
+	
+	public final void specialPreParsingEffects() {
+		if(Main.game.isStarted()) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.coveringChangeListenersRequired, false);
+		}
 	}
 }

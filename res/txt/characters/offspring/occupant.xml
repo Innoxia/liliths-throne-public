@@ -656,9 +656,9 @@
 	</p>
 	<p>
 		#IF(pc.isFeminine())
-			[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder and seductively biting your [pc.lip].
+			[pc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder and seductively biting your [pc.lip].
 		#ELSE
-			[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder to give [npc.name] a charming grin.
+			[pc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder to give [npc.name] a charming grin.
 		#ENDIF
 	</p>
 	<p>
@@ -798,6 +798,91 @@
 	</htmlContent>
 	
 	
+	<!-- OCCUPANT_HUG -->
+	
+	<htmlContent tag="OCCUPANT_HUG"><![CDATA[
+	<p>
+		Wanting to show [npc.name] some physical affection, and knowing that [npc.she] likes you enough not to object to it, you [pc.step] forwards and pull [npc.her] into a big hug.
+		#IF(npc.isShy())
+			 Shyly blushing as [npc.she] suddenly finds [npc.herself] in your embrace, [npc.name] starts to return your hug, and although [npc.she] seems nervous about it at first, [npc.she] soon lets out a deep sigh and leans heavily into you. 
+		#ELSE
+			 Caught a little off-guard as [npc.she] suddenly finds [npc.herself] in your embrace, [npc.name] takes a moment before returning your hug, but after letting out a deep sigh [npc.she] soon starts to lean heavily into you.
+		#ENDIF
+	</p>
+	<p>
+		After spending a good a few minutes in your [pc.arms], [npc.name] finally seems to have had enough of your hug, and after slowly pulling back, [npc.she]
+		#IF(npc.isMute())
+			 silently smiles and gazes at you with a look of adoration in [npc.her] [npc.eyes+].
+		#ELSE
+			 smiles at you and says, [npc.speech(Thanks, [pc.name]. I really needed that today...)]
+		#ENDIF
+	</p>
+	<p>
+		Feeling good about what you've just done, you wonder what to say to [npc.name] now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OCCUPANT_PETTINGS -->
+	
+	<htmlContent tag="OCCUPANT_PETTINGS"><![CDATA[
+	<p>
+		Knowing that [npc.name] really likes you, and so would be willing to indulge you in some intimate physical contact, you reach forwards and give the top of [npc.her] head a loving stroke.
+		#IF(npc.isShy())
+			#IF(npc.isMute())
+				 Instantly, the mute [npc.race] starts to blush, and although [npc.she] shyly casts her gaze down to the floor and shuffles [npc.her] [npc.feet], [npc.she] makes no attempt to pull away or stop you from touching [npc.herHim] like this.
+			#ELSE
+				 Instantly, the [npc.race] starts to blush, and [npc.she] shyly casts her gaze down to the floor and shuffles [npc.her] [npc.feet] as [npc.she] mutters, [npc.speech([pc.Name]... This is kind of embarrassing... But keep going...)]
+			#ENDIF
+		#ELSE
+			#IF(npc.isMute())
+				 Throwing an amused smile your way, [npc.name] playfully rolls [npc.her] eyes and lets out a sigh, but despite this, [npc.she] makes no attempt to pull away or stop you from touching [npc.herHim].
+			#ELSE
+				 Throwing an amused smile your way, [npc.name] playfully rolls [npc.her] eyes and sighs, [npc.speech(You know that this is kind of embarrassing, right? Seeing as it's you, I guess I'll put up with it...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Encouraged by [npc.namePos] reaction, you continue petting
+		#IF(npc.hasHair())
+			 the top of [npc.her] head, and at [npc.her] request, you move on to stroke [npc.her] [npc.hair+].
+		#ELSE
+			 the top of [npc.her] head, and after just a moment [npc.she] starts leaning into your touch.
+		#ENDIF
+		#IF(npc.getEarCovering().getCategory()==BODY_COVERING_CATEGORY_MAIN_FUR)
+			 Unable to resist, you then move your [pc.fingers] down to [npc.namePos] furry ears and start playfully petting and stroking them.
+		#ELSEIF(npc.getEarCovering().getCategory()==BODY_COVERING_CATEGORY_MAIN_FEATHER)
+			 Unable to resist, you then move your [pc.fingers] down to [npc.namePos] ear feathers and start playfully stroking them.
+		#ENDIF
+		#IF(npc.isMute())
+			 Clearly liking this attention, [npc.name] closes [npc.her] eyes and starts letting out contented little sighs.
+		#ELSE
+			 Clearly liking this attention, [npc.name] closes [npc.her] eyes and starts letting out contented little sighs, before muttering, [npc.speech(More... Yes, like that...)]
+		#ENDIF
+	</p>
+	#IF(npc.getTailType().isSuitableForSleepHugging())
+		<p>
+			#IF(npc.getTailCount()>1)
+				 While petting [npc.namePos] head, you've noticed how [npc.her] [npc.tail+] has been slowly swishing from side to side behind [npc.herHim]. Knowing that [npc.name] is sure to indulge you in your desire, you move your attention away from [npc.her] head and reach down to give [npc.her] [npc.tail+] a loving stroke. Opening [npc.her] [npc.eyes] and gasping in shock, [npc.name] instinctively lifts up [npc.her] tail, which inadvertently allows you to stroke it even more. Quickly calming down as [npc.she] takes in the situation, [npc.name] willingly turns around and pushes [npc.her] [npc.tail] back towards you, allowing you to spend the next several minutes stroking and hugging it.
+			#ELSE
+				 While petting [npc.namePos] head, you've noticed how [npc.her] [npc.tails+] have been slowly swishing from side to side behind [npc.herHim]. Knowing that [npc.name] is sure to indulge you in your desire, you move your attention away from [npc.her] head and reach down to give the closet of [npc.her] [npc.tails+] a loving stroke. Opening [npc.her] [npc.eyes] and gasping in shock, [npc.name] instinctively lifts up [npc.her] tails, which inadvertently allows you to stroke
+				#IF(npc.getTailCount()==2)
+					 both of them
+				#ELSE
+					 all of them
+				#ENDIF
+				of them at the same time. Quickly calming down as [npc.she] takes in the situation, [npc.name] willingly turns around and pushes [npc.her] [npc.tails] back towards you, allowing you to spend the next several minutes stroking and hugging them.
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		After ten minutes of petting [npc.name] in this manner, you finally sense that [npc.sheHas] had enough, and after [pc.stepping] back and giving [npc.herHim] some personal space, you wonder what to say to [npc.her] next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- OCCUPANT_JOB_SUGGESTION -->
 	
 	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_CHANGE"><![CDATA[
@@ -922,7 +1007,7 @@
 		You feel as though the time has come to kick [npc.name] out. Stepping towards [npc.herHim], you put on your most authoritative tone as you state, [pc.speech(You're going to have to leave, [npc.name]. I can't support you here any longer.)]
 	</p>
 	<p>
-		[npc.speech(I understand,)] [npc.name] replies, casting [npc.her] gaze down at the floor as [npc.she] quickly gathers what few possessions [npc.she] has. Having got all of [npc.her] things together in less than a minute, [npc.she] turns to face you with a big smile on [npc.her] face. [npc.speech(Thank you for everything, [npc.pcName]! I've been thinking ever since I got here about what I'll do next, and I've decided to leave Dominion for good. I'm not sure where I'll go, but anywhere's better than city.)]
+		[npc.speech(I understand,)] [npc.name] replies, casting [npc.her] gaze down at the floor as [npc.she] quickly gathers what few possessions [npc.sheHasFull]. Having got all of [npc.her] things together in less than a minute, [npc.she] turns to face you with a big smile on [npc.her] face. [npc.speech(Thank you for everything, [npc.pcName]! I've been thinking ever since I got here about what I'll do next, and I've decided to leave Dominion for good. I'm not sure where I'll go, but anywhere's better than city.)]
 	</p>
 	<p>
 		You escort [npc.name] down to the front entrance, where [npc.she] turns to say one final farewell, [npc.speech(Really, thank you, [npc.pcName]. You've helped me to start a new chapter in my life, and I'll always remember you.)]

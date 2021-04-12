@@ -71,8 +71,7 @@ public class SMDaddyDinnerOral extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return (partner instanceof Daddy)
-				&& Main.sex.getNumberOfOrgasms(partner)>=1;
+		return (partner instanceof Daddy) && Main.sex.getNumberOfOrgasms(partner)>=1;
 	}
 
 	@Override

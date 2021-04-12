@@ -16,7 +16,6 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
-import com.lilithsthrone.game.character.npc.submission.Murk;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
@@ -24,6 +23,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -56,9 +56,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -72,13 +73,11 @@ public class GamblingDenDialogue {
 	private static final int REWARD_AMOUNT = 50_000;
 	
 	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance", "", false) {
-		
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelIntroduced)
 					|| Main.game.getPlayer().getQuest(QuestLine.SIDE_VENGAR)==Quest.VENGAR_THREE_END;
 		}
-		
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_VENGAR)==Quest.VENGAR_THREE_END) {
@@ -226,9 +225,9 @@ public class GamblingDenDialogue {
 				} else if(index==3) {
 					// Cage on/off
 					if(Main.game.getNpc(Axel.class).getClothingInSlot(InventorySlot.PENIS)!=null) {
-						return new Response("Uncage",
-								"Take off [axel.namePos] chastity cage."
-										+ "<br/>[style.italicsMinorGood(You can put [axel.namePos] cage back on at any time.)]",
+						return new Response("Cage: [style.colourMinorGood(Equipped)]",
+								"[axel.Name] is currently wearing [axel.her] chastity cage. You could take it off of [axel.herHim], if you wanted to..."
+										+ "<br/>[style.italicsMinorGood(You can freely equip and remove [axel.namePos] cage at any time.)]",
 								OFFICE_WITH_LEXA_CAGE) {
 							@Override
 							public void effects() {
@@ -238,9 +237,9 @@ public class GamblingDenDialogue {
 						};
 						
 					} else {
-						return new Response("Cage",
-								"Get [axel.name] to put [axel.her] chastity cage back on."
-										+ "<br/>[style.italicsMinorGood(You can take [axel.namePos] cage off at any time.)]",
+						return new Response("Cage: [style.colourMinorBad(Unequipped)]",
+								"[axel.Name] is currently not wearing [axel.her] chastity cage. You could change that, if you wanted to..."
+										+ "<br/>[style.italicsMinorGood(You can freely equip and remove [axel.namePos] cage at any time.)]",
 								OFFICE_WITH_LEXA_CAGE) {
 							@Override
 							public void effects() {
@@ -556,7 +555,7 @@ public class GamblingDenDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "OFFICE_WITH_LEXA_FEMINISE_APPLY_ZERO"));
-						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.ONE_SLENDER, PenisLength.ZERO_MICROSCOPIC, TesticleSize.ZERO_VESTIGIAL, CumProduction.ONE_TRICKLE);
+						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.TWO_NARROW, PenisLength.ZERO_MICROSCOPIC, TesticleSize.ZERO_VESTIGIAL, CumProduction.ONE_TRICKLE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
 				};
@@ -568,7 +567,7 @@ public class GamblingDenDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "OFFICE_WITH_LEXA_FEMINISE_APPLY_HALF"));
-						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.TWO_AVERAGE, PenisLength.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, CumProduction.ONE_TRICKLE);
+						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.THREE_AVERAGE, PenisLength.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, CumProduction.ONE_TRICKLE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
 				};
@@ -580,7 +579,7 @@ public class GamblingDenDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "OFFICE_WITH_LEXA_FEMINISE_APPLY_FULL"));
-						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.FOUR_FAT, PenisLength.FOUR_HUGE, TesticleSize.FOUR_HUGE, CumProduction.FOUR_LARGE);
+						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.FIVE_THICK, PenisLength.FOUR_HUGE, TesticleSize.FOUR_HUGE, CumProduction.FOUR_LARGE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
 				};
@@ -821,12 +820,11 @@ public class GamblingDenDialogue {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelMentionedVengar) && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)) { // Initial asking/quest start:
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
 						return new Response("Offer help",
-								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-										+"<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
+								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar.",
 								AXEL_VENGAR) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.QUEST_SIDE;
+								return PresetColour.QUEST_SIDE;
 							}
 							@Override
 							public void effects() {
@@ -851,7 +849,7 @@ public class GamblingDenDialogue {
 						return new Response("Visit Vengar", "Tell [axel.name] that you're ready to go with [axel.herHim] to visit Vengar now.", AXEL_VENGAR_VISIT) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.QUEST_SIDE;
+								return PresetColour.QUEST_SIDE;
 							}
 							@Override
 							public void effects() {
@@ -957,7 +955,7 @@ public class GamblingDenDialogue {
 				return new Response("Visit Vengar", "Tell [axel.name] that you're ready to go with [axel.herHim] to visit Vengar now.", AXEL_VENGAR_VISIT) {
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.QUEST_SIDE;
+						return PresetColour.QUEST_SIDE;
 					}
 					@Override
 					public void effects() {
@@ -1028,7 +1026,7 @@ public class GamblingDenDialogue {
 						AXEL_VENGAR_VISIT_SISSIFIED) {
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.ANDROGYNOUS;
+						return PresetColour.ANDROGYNOUS;
 					}
 					@Override
 					public void effects() {
@@ -1192,39 +1190,82 @@ public class GamblingDenDialogue {
 	
 	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN = new DialogueNode("", "", true) {
 		@Override
-		public void applyPreParsingEffects() {
-			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-			Main.game.getNpc(Axel.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-		}
-		@Override
 		public int getSecondsPassed() {
-			return 10*60;
+			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN");
+			return ""; // Appended by lead-in dialogues
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Prepare",
-						"Prepare to make a decision as to how to react to this huge gang of rats.",
+				return new Response("Continue",
+						"Continue on your way through the tunnels...",
+						AXEL_VENGAR_VISIT_RETURN_NEXT);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_NEXT = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
+			Main.game.getNpc(Silence.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_NEXT");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Escorted",
+						"The Enforcer escorts you and [axel.name] to the nearest Enforcer post...",
 						AXEL_VENGAR_VISIT_RETURN_ENFORCERS);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_ENFORCERS = new DialogueNode("", "", true) {
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_ENFORCERS = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).returnToHome();
+			Main.game.getNpc(Silence.class).returnToHome();
+			Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+			Main.game.getNpc(Axel.class).setLocation(Main.game.getPlayer(), false);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 3*60*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_ENFORCERS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Gambling Den",
+						"Escort [axel.name] back to the Gambling Den...",
+						AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			RatWarrensDialogue.applyRatWarrensRaid();
 			Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE);
 			Main.game.getNpc(Axel.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE);
-//			Main.game.getNpc(Shadow.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-//			Main.game.getNpc(Silence.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-			//TODO Test:
-			Main.game.getNpc(Murk.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
-			RatWarrensDialogue.banishMilkers();
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1232,7 +1273,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_ENFORCERS");
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1242,8 +1283,9 @@ public class GamblingDenDialogue {
 						AXEL_VENGAR_VISIT_RETURN_FINISH) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-						Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+						((Shadow)Main.game.getNpc(Shadow.class)).moveToBountyHunterLodge();
+						((Silence)Main.game.getNpc(Silence.class)).moveToBountyHunterLodge();
+						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(REWARD_AMOUNT));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Axel.class).setAffection(Main.game.getPlayer(), 40));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.SIDE_UTIL_COMPLETE));
@@ -1294,7 +1336,7 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							
-							Map<Subspecies, Integer> slotMachineValues = Util.newHashMapOfValues(
+							Map<AbstractSubspecies, Integer> slotMachineValues = Util.newHashMapOfValues(
 									new Value<>(Subspecies.HUMAN, 5),
 									new Value<>(Subspecies.IMP, 10),
 									new Value<>(Subspecies.DOG_MORPH, 25),
@@ -1303,7 +1345,7 @@ public class GamblingDenDialogue {
 									new Value<>(Subspecies.DEMON, 100),
 									new Value<>(Subspecies.ELEMENTAL_ARCANE, 500));
 							
-							Map<Subspecies, Integer> slotMachineValueProbabilities = Util.newHashMapOfValues(
+							Map<AbstractSubspecies, Integer> slotMachineValueProbabilities = Util.newHashMapOfValues(
 									new Value<>(Subspecies.HUMAN, 16),
 									new Value<>(Subspecies.IMP, 8),
 									new Value<>(Subspecies.DOG_MORPH, 2),
@@ -1327,13 +1369,13 @@ public class GamblingDenDialogue {
 								Main.game.getTextEndStringBuilder().append("<div class='container-half-width' style='position:relative; text-align:center;'>"
 										+ "<p style='width:100%'><b>Slot Machine Results:</b></p>");
 								
-								List<Subspecies> races = new ArrayList<>(slotMachineValues.keySet());
+								List<AbstractSubspecies> races = new ArrayList<>(slotMachineValues.keySet());
 								
-								List<Subspecies> results = new ArrayList<>();
+								List<AbstractSubspecies> results = new ArrayList<>();
 	
 								boolean winner = false;
 								if(Math.random()<0.32f) {
-									Subspecies s = Util.getRandomObjectFromWeightedMap(slotMachineValueProbabilities);
+									AbstractSubspecies s = Util.getRandomObjectFromWeightedMap(slotMachineValueProbabilities);
 									for(int i=0; i<3; i++) {
 										results.add(s);
 									}
@@ -1341,7 +1383,7 @@ public class GamblingDenDialogue {
 									
 								} else {
 									for(int i=0; i<3; i++) {
-										Subspecies s = races.get(Util.random.nextInt(races.size()));
+										AbstractSubspecies s = races.get(Util.random.nextInt(races.size()));
 										results.add(s);
 										if(i==0) {
 											races.remove(s);
@@ -1350,9 +1392,9 @@ public class GamblingDenDialogue {
 									Collections.shuffle(results);
 								}
 								
-								for(Subspecies r : results) {
+								for(AbstractSubspecies r : results) {
 									Main.game.getTextEndStringBuilder().append(
-											"<div class='modifier-icon' style='width:31.3%; margin:0 1%; border:3px solid "+(winner?Colour.GENERIC_EXCELLENT.toWebHexString():"")+"; display:inline-block;'>"
+											"<div class='modifier-icon' style='width:31.3%; margin:0 1%; border:3px solid "+(winner?PresetColour.GENERIC_EXCELLENT.toWebHexString():"")+"; display:inline-block;'>"
 													+"<div class='modifier-icon-content'>"+r.getSVGString(null)+"</div>"
 											+ "</div>");
 								}
@@ -1372,7 +1414,7 @@ public class GamblingDenDialogue {
 								Main.game.getTextEndStringBuilder().append("<div class='container-half-width' style='position:relative; text-align:center;'>"
 										+"<p style='text-align:center;'>");
 							
-									for(Entry<Subspecies, Integer> entry : slotMachineValues.entrySet()) {
+									for(Entry<AbstractSubspecies, Integer> entry : slotMachineValues.entrySet()) {
 										Main.game.getTextEndStringBuilder().append("<span style='color:"+entry.getKey().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getNamePlural(null))+"</span>: "
 												+UtilText.formatAsMoney(entry.getValue(), "span")+"<br/>");
 									}

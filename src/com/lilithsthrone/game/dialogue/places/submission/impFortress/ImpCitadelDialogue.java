@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -24,10 +24,11 @@ import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -38,14 +39,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
@@ -55,9 +53,10 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -138,12 +137,11 @@ public class ImpCitadelDialogue {
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL));
 		}
 		
-		Main.game.getDialogueFlags().impFortressDemonDefeatedTime = Main.game.getMinutesPassed();
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonDefeated, true);
-		
-		Main.game.getDialogueFlags().impFortressAlphaDefeatedTime = Main.game.getMinutesPassed();
-		Main.game.getDialogueFlags().impFortressFemalesDefeatedTime = Main.game.getMinutesPassed();
-		Main.game.getDialogueFlags().impFortressMalesDefeatedTime = Main.game.getMinutesPassed();
+
+		Main.game.getDialogueFlags().setSavedLong(ImpFortressDialogue.FORTRESS_ALPHA_CLEAR_TIMER_ID, Main.game.getMinutesPassed());
+		Main.game.getDialogueFlags().setSavedLong(ImpFortressDialogue.FORTRESS_MALES_CLEAR_TIMER_ID, Main.game.getMinutesPassed());
+		Main.game.getDialogueFlags().setSavedLong(ImpFortressDialogue.FORTRESS_FEMALES_CLEAR_TIMER_ID, Main.game.getMinutesPassed());
 		
 		// Move NPCs out of hiding:
 		for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
@@ -182,19 +180,19 @@ public class ImpCitadelDialogue {
 			}
 			
 			for(int i=0; i<impCount; i++) {
-				Subspecies subspecies = i<3?Subspecies.IMP_ALPHA:Subspecies.IMP;
+				AbstractSubspecies subspecies = i<3?Subspecies.IMP_ALPHA:Subspecies.IMP;
 				
 				ImpAttacker imp = new ImpAttacker(subspecies, Gender.getGenderFromUserPreferences(false, false), false);
 				imp.setLevel(12-(i*2)+Util.random.nextInt(3));
 				Main.game.addNPC(imp, false);
 				if(i==0) {
 					imp.setGenericName("alpha-imp leader");
-					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
-					imp.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield")));
+					imp.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
+					imp.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield")));
 					
 				} else if(i==1) {
 					imp.setGenericName("alpha-imp archer");
-					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW));
+					imp.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_shortbow"));
 					
 				} else if(i==2) {
 					imp.setGenericName("alpha-imp arcanist");
@@ -205,8 +203,8 @@ public class ImpCitadelDialogue {
 					imp.addSpell(Spell.TELEKENETIC_SHOWER);
 					
 				} else {
-					impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
-					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
+					impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
+					imp.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 				}
 				impGroup.add(imp);
 			}
@@ -521,7 +519,7 @@ public class ImpCitadelDialogue {
 		public String getResponseTabTitle(int index) {
 			if(!getImpGroup().isEmpty()) {
 				if(index==0) {
-					return "Standard";
+					return "Interactions";
 					
 				} else if(index==1) {
 					return "Inventories";
@@ -664,7 +662,7 @@ public class ImpCitadelDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
-								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps. (Start sex in the gentle pace.)"),
+								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps."),
 								true,
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -676,7 +674,7 @@ public class ImpCitadelDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Solo sex (Rough)",
-								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps. (Start sex in the rough pace.)"),
+								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps."),
 								true,
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1232,14 +1230,18 @@ public class ImpCitadelDialogue {
 
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1000));
 
-							Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
-							AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+							TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+							AbstractItem potion = EnchantingUtils.craftItem(
+								Main.game.getItemGen().generateItem(effects.getItemType()),
+								effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 							potion.setName("Foxy Fuck");
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
 							
 							if(isCompanionDialogue()) {
 								effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
-								potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+								potion = EnchantingUtils.craftItem(
+									Main.game.getItemGen().generateItem(effects.getItemType()),
+									effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 								potion.setName("Foxy Fuck");
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
 							}
@@ -1339,8 +1341,10 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
-						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							Main.game.getItemGen().generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX", getAllCharacters()));
@@ -1348,7 +1352,7 @@ public class ImpCitadelDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.TRANSFORMATION_GENERIC;
+						return PresetColour.TRANSFORMATION_GENERIC;
 					}
 				};
 
@@ -1420,8 +1424,10 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 						
-						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
-						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							Main.game.getItemGen().generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_COMPANION_TF_OFFER_SEX", getAllCharacters()));
@@ -1429,7 +1435,7 @@ public class ImpCitadelDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.TRANSFORMATION_GENERIC;
+						return PresetColour.TRANSFORMATION_GENERIC;
 					}
 				};
 
@@ -1515,14 +1521,18 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
-						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							Main.game.getItemGen().generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF", getAllCharacters()));
 
 						effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
-						potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						potion = EnchantingUtils.craftItem(
+							Main.game.getItemGen().generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_BOTH_TF_OFFER_SEX", getAllCharacters()));
@@ -1530,7 +1540,7 @@ public class ImpCitadelDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.TRANSFORMATION_GENERIC;
+						return PresetColour.TRANSFORMATION_GENERIC;
 					}
 				};
 				
@@ -1781,17 +1791,17 @@ public class ImpCitadelDialogue {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(15000));
 						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(
-										AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_amulet"), Colour.CLOTHING_RED_VERY_DARK, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_PURPLE_DARK, false),
+										Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_amulet"), PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_PURPLE_DARK, false),
 										false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(
-								AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_cloak"), Colour.CLOTHING_BLACK, Colour.CLOTHING_RED_VERY_DARK, Colour.CLOTHING_STEEL, false),
+								Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_cloak"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_STEEL, false),
 								false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(
-								AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_seal"), Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false),
+								Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_seal"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, false),
 								false));
 
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(
-								AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_RED_DARK),
+								Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_RED_DARK)),
 								false));
 					}
 				};
@@ -1946,7 +1956,7 @@ public class ImpCitadelDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_POST_FIGHT_RING_TRICK", getAllCharacters()));
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
-						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
+						Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
 						clearFortress();
 					}
 				};
@@ -1985,7 +1995,7 @@ public class ImpCitadelDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_DUEL_RING_TRICK", getAllCharacters()));
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
-						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
+						Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
 						clearFortress();
 					}
 				};
@@ -2467,12 +2477,12 @@ public class ImpCitadelDialogue {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
 						
 						// Equip collar and wrist restraints
-						Colour c = Colour.CLOTHING_PINK_HOT;
+						Colour c = PresetColour.CLOTHING_PINK_HOT;
 						if(isPrisonerFemale()) {
-							c = Colour.CLOTHING_BLACK;
+							c = PresetColour.CLOTHING_BLACK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
 						
 						//TODO siren wants to watch them fuck your face(s)
 						if(getOwner() instanceof FortressFemalesLeader) {
@@ -2519,12 +2529,12 @@ public class ImpCitadelDialogue {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
 
 						// Equip collar and wrist restraints
-						Colour c = Colour.CLOTHING_PINK_LIGHT;
+						Colour c = PresetColour.CLOTHING_PINK_LIGHT;
 						if(isPrisonerFemale()) {
-							c = Colour.CLOTHING_BROWN_DARK;
+							c = PresetColour.CLOTHING_BROWN_DARK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
 						
 					}
 				};
@@ -2680,7 +2690,7 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			/* It's ok if some are randomised. I don't mind players save/loading to try to get different events.
 			(Maximum times/day)Events:
-				(1) Fucked by demon - unjinxes clothing one at a time
+				(1) Fucked by demon - unseals clothing one at a time
 				(-) Fucked by imps
 				(1) Siren summon
 					Use as trophy foot-rest

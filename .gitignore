@@ -9,6 +9,8 @@ target/
 *.log
 *.iml
 *.jar
+desktop.ini
+nbactions.xml
 
 # Ignore all generic character images
 res/images/characters/generic/

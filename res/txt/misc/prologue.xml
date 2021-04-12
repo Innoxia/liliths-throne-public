@@ -112,7 +112,7 @@
 
 	<htmlContent tag="SEX_CLOTHING_MANAGEMENT_TIP"><![CDATA[
 	<div class='container-full-width' style='text-align:center;'>
-		<i>You can click on both your and [prologueFemale.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>
+		<i>You can click on both your and [npc.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>
 	</div>
 	]]>
 	</htmlContent>
@@ -608,7 +608,7 @@
 	</p>
 
 	<p>
-		As you step inside, you see a rather panic-stricken girl, no older than you, desperately looking at Lilaya for guidance. She's wearing a complete French-Maid's uniform, and you're rather shocked that this world's version of your aunt can afford to hire a personal maid. Like the other people you've seen so far, she seems to be some kind of human-animal hybrid, and has a pair of sleek, black cat-ears sitting amongst her fur-like hair. A black cat-like tail is sticking straight up behind her, and her cat-like eyes glance nervously between you and Lilaya as she hops back and forth on her feet.
+		As you step inside, you see a rather panic-stricken girl, who appears to be in her late teens, desperately looking at Lilaya for guidance. She's wearing a complete French-Maid's uniform, and you're rather shocked that this world's version of your aunt can afford to hire a personal maid. Like the other people you've seen so far, she seems to be some kind of human-animal hybrid, and has a pair of sleek, black cat-ears sitting amongst her fur-like hair. A black cat-like tail is sticking straight up behind her, and her cat-like eyes glance nervously between you and Lilaya as she hops back and forth on her feet.
 	</p>
 
 	<p>
@@ -735,10 +735,10 @@
 		[lilaya.speech(Right, so let's try out this demonstone! Just hold out your hand, yes, like that,)] Lilaya instructs. [lilaya.speech(Now, when I place it on your palm, just let the energy flow into you. Don't worry, you can draw it back out at any time, but for now, just let it in...)]
 	</p>
 	<p>
-		Lilaya flicks a switch on one of the spotlights, and the pink mist vanishes from sight. Stepping forwards, you see that she's holding a strange shard of crystal, and you look on in wonder as you see its surface glittering and swirling with images of flames. She takes hold of your wrist with one hand, and with the other, places this 'demonstone' into your open palm. As its surprisingly cool surface comes into contact with your skin, you feel a gentle pulsing force pushing against you, trying to push its way in. You do as Lilaya instructed, and with surprising ease, you allow the demonstone to melt down into arcane energy and enter your body.
+		Lilaya flicks a switch on one of the spotlights, and the pink mist vanishes from sight. Stepping forwards, you see that she's holding a strange shard of crystal, and you look on in wonder as you see its surface glittering and swirling with [#SPECIAL_PARSE_0]. She takes hold of your wrist with one hand, and with the other, places this 'demonstone' into your open palm. As its surprisingly cool surface comes into contact with your skin, you feel a gentle pulsing force pushing against you, trying to push its way in. You do as Lilaya instructed, and with surprising ease, you allow the demonstone to melt down into arcane energy and enter your body.
 	</p>
 	<p>
-		As a soothing warmth spreads up your arm, it feels like you've done this a thousand times before. You instinctively know that you're able to harness its power into what you'd once have called magic, and that its the same sort of arcane power that's found in that strange thunderstorm, and, indeed, all throughout this world. Eager to try out this new power, you twist your hand, and a swirling vortex of flame immediately materialises around your arm. With another motion, you dispel it, and look up to see Lilaya beaming at you in excitement.
+		As a soothing warmth spreads up your arm, it feels like you've done this a thousand times before. You instinctively know that you're able to harness its power into what you'd once have called magic, and that its the same sort of arcane power that's found in that strange thunderstorm, and, indeed, all throughout this world. Eager to try out this new power, you twist your hand, and a swirling vortex of [#SPECIAL_PARSE_1] immediately materialises around your arm. With another motion, you dispel it, and look up to see Lilaya beaming at you in excitement.
 	</p>
 	]]>
 	</htmlContent>
@@ -754,7 +754,7 @@
 		[pc.speech(Erm... Did you want this thing back?)] you ask, knowing that if you concentrate, you can draw the energy back out of your arm to re-form the demonstone that Lilaya gave you.
 	</p>
 	<p>
-		[lilaya.speech(What? Oh, no, that's fine, you keep it!)] Lilaya exclaims, still piling books up on the table. [lilaya.speech(You should be able to cast Fireball while you've got that absorbed! If you want to permanently learn how to cast spells, you'll need to reference a spell tome. I know I've got a tome for Ice Shard somewhere around here. I'll get Rose to deliver it to you once I find it!)]
+		[lilaya.speech(What? Oh, no, that's fine, you keep it!)] Lilaya exclaims, still piling books up on the table. [lilaya.speech(You should be able to cast [#SPECIAL_PARSE_0] while you've got that absorbed! If you want to permanently learn how to cast spells, you'll need to reference a spell tome. I know I've got a spare tome somewhere around here. I'll get Rose to deliver it to you once I find it!)]
 	</p>
 	<p>
 		[pc.speech(Ok, thanks Lilaya. So... What now?)] you ask.

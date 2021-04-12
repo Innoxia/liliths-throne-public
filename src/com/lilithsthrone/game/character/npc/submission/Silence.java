@@ -12,8 +12,8 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -50,32 +50,27 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
-import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -185,27 +180,27 @@ public class Silence extends NPC {
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RAT, CoveringPattern.EYE_IRISES, Colour.EYE_PINK, true, Colour.EYE_PINK, false));
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_WHITE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PALE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_PALE), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RAT, CoveringPattern.EYE_IRISES, PresetColour.EYE_PINK, true, PresetColour.EYE_PINK, false));
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_WHITE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PALE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_PALE), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_WHITE), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_WHITE), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.PONYTAIL);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_WHITE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_WHITE), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PINK_LIGHT));
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PINK_LIGHT));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_PINK_LIGHT));
-//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK), true);
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK), true);
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_PINK_LIGHT));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_PINK_LIGHT));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_PINK_LIGHT));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK), true);
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PINK), true);
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -256,38 +251,38 @@ public class Silence extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			AbstractWeapon weapon = AbstractWeaponType.generateWeapon("innoxia_feather_epic", DamageType.POISON);
+			AbstractWeapon weapon = Main.game.getItemGen().generateWeapon("innoxia_feather_epic", DamageType.POISON);
 			weapon.setEffects(new ArrayList<>());
 			this.equipMainWeaponFromNowhere(weapon);
 			
-			weapon = AbstractWeaponType.generateWeapon("innoxia_feather_epic", DamageType.POISON);
+			weapon = Main.game.getItemGen().generateWeapon("innoxia_feather_epic", DamageType.POISON);
 			weapon.setEffects(new ArrayList<>());
 			this.equipOffhandWeaponFromNowhere(weapon);
 		}
 
 		if(settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
-			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_BLACK_JET, false, null, null));
+			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), PresetColour.CLOTHING_BLACK_JET, PresetColour.CLOTHING_BLACK_JET, PresetColour.CLOTHING_BLACK_JET, false, null, null));
 		}
 		
 		this.setPiercedEar(true);
 		this.setPiercedVagina(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("norin_piercings_piercing_vertical_hood", Colour.CLOTHING_SILVER, Colour.CLOTHING_PINK_HOT, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_piercings_piercing_vertical_hood", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_HOT, null, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_skirt", Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_skirt", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, PresetColour.CLOTHING_WHITE, false), true, this);
 
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("norin_tail_ribbon_tail_ribbon", Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		AbstractClothing scrunchie = AbstractClothingType.generateClothing("norin_hair_accessories_hair_scrunchie", Colour.CLOTHING_PINK_LIGHT, false);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_tail_ribbon_tail_ribbon", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		AbstractClothing scrunchie = Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_PINK_LIGHT, false);
 		scrunchie.setPattern("none");
 		this.equipClothingFromNowhere(scrunchie, true, this);
 		
 		
-		AbstractClothing demonStoneNecklace = AbstractClothingType.generateClothing("innoxia_neck_demonstone_necklace", Colour.CLOTHING_PINK_DARK, Colour.CLOTHING_SILVER, null, false);
+		AbstractClothing demonStoneNecklace = Main.game.getItemGen().generateClothing("innoxia_neck_demonstone_necklace", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_SILVER, null, false);
 		
 		demonStoneNecklace.clearEffects();
 		
@@ -319,8 +314,8 @@ public class Silence extends NPC {
 		sb.append("<br/>"
 				+ "Thanks to this inability of hers to talk, she's been given the name 'Silence', but what she lacks in verbal communication she more than compensates for in her sexual appetite."
 				+ " Seemingly in a perpetual state of horniness, this lewd rat-girl can often be found riding a stranger's cock, or even more commonly, forcing them to perform oral on her.");
-		
-		if(this.getHomeLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS) {
+
+		if(this.getHomeWorldLocation()==WorldType.BOUNTY_HUNTER_LODGE_UPSTAIRS) {
 			sb.append("<br/>"
 					+ "No longer a personal bodyguard for Vengar, Silence is now a professional bounty hunter."
 					+ " Joined by her long-time companion, Shadow, she can be found in Slaver Alley's 'Bounty Hunter Lodge'.");
@@ -349,7 +344,15 @@ public class Silence extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
+	}
+
+	public void moveToBountyHunterLodge() {
+		this.setLocation(WorldType.BOUNTY_HUNTER_LODGE_UPSTAIRS, PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_SHADOW_SILENCE, true);
+		if(Main.game.getHourOfDay()<2 || Main.game.getHourOfDay()>=10) {
+			this.setLocation(WorldType.BOUNTY_HUNTER_LODGE, PlaceType.BOUNTY_HUNTER_LODGE_STAIRS, false);
+			this.setNearestLocation(WorldType.BOUNTY_HUNTER_LODGE, PlaceType.BOUNTY_HUNTER_LODGE_SEATING, false);
+		}
 	}
 	
 	@Override
@@ -366,7 +369,9 @@ public class Silence extends NPC {
 			}
 
 		} else {
-			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+			if(!Main.game.getCharactersPresent().contains(this)) {
+				this.moveToBountyHunterLodge();
+			}
 		}
 	}
 	
@@ -396,7 +401,7 @@ public class Silence extends NPC {
 	public CombatBehaviour getCombatBehaviour() {
 		if(Main.game.isInCombat()) {
 			boolean spellsAvailable = false;
-			for(GameCharacter character : Combat.getAllCombatants(true)) {
+			for(GameCharacter character : Main.combat.getAllCombatants(true)) {
 				if(!getWeightedSpellsAvailable(character).keySet().stream().filter(s->s!=Spell.ELEMENTAL_AIR).collect(Collectors.toList()).isEmpty()) {
 					spellsAvailable = true;
 					break;
@@ -410,7 +415,7 @@ public class Silence extends NPC {
 	}
 	
 	@Override
-	public float getMoveWeight(CombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	public float getMoveWeight(AbstractCombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		if(move.getAssociatedSpell()==Spell.ELEMENTAL_AIR) {
 			return 0;
 		}

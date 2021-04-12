@@ -75,13 +75,14 @@
 	</p>
 	<p>
 		The usual pair of zebra-boys are standing guard at the front of the queue, and as you enter, Jules sees you and calls out over the faint background bass of the club's music system,
-		#IF game.getDialogueFlags().hasFlag(FLAG_suckedJulesCock)
-		#THEN[jules.speech(Hey, my little cocksucker's back! Come over here and get on your knees, and you can skip the queue again!)]
-		#ELSE[jules.speech(Hey, it's you again! You gonna suck my cock this time, or what?)]
+		#IF(game.getDialogueFlags().hasFlag(FLAG_suckedJulesCock))
+			 [jules.speech(Hey, my little cocksucker's back! Come over here and get on your knees, and you can skip the queue again!)]
+		#ELSE
+			 [jules.speech(Hey, it's you again! You gonna suck my cock this time, or what?)]
 		#ENDIF
 	</p>
 	<p>
-		The other zebra-boy sighs and leans back against the wall. [genericMale.speech(Damn it, Jules...)]
+		The other zebra-boy leans back against the wall and sighs, [genericMale.speech(Damn it, Jules...)]
 	</p>
 	<p>
 		It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
@@ -194,7 +195,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_CONTACTS"><![CDATA[
 	<p>
-		Wondering if you can find a particular somebody who you said you'd see in the club again, you set about searching through the crowds for them...
+		Although there's a seemingly endless supply of new people to meet in the club, you find yourself wanting to spend some more time with one of your previous partners. With this thought in mind, you start looking through the crowds to see if you can find your friend...
 	</p>
 	]]>
 	</htmlContent>
@@ -683,7 +684,7 @@
 			</p>
 		#ELSE
 			<p>
-				Eager to have sex with [npc.name], you tell [npc.herHim] that it's time the two of you had some real fun. Taking [npc.her] excited [npc.moan] as an indication that [npc.sheIs] just as impatient to get started as you are, you waste no time in telling [npc.her] to stand up and turn around, so that [npc.sheIs] presenting [npc.her] animalistic groin to you.
+				Eager to have sex with [npc.name], you tell [npc.herHim] that it's time the two of you had some real fun. Taking [npc.her] excited [npc.moan] as an indication that [npc.sheIs] just as impatient to get started as you are, you waste no time in telling [npc.herHim] to stand up and turn around, so that [npc.sheIs] presenting [npc.her] animalistic groin to you.
 			</p>
 			<p>
 				Upon receiving your further instructions for [npc.herHim] to lower [npc.her] hind-quarters into your lap, [npc.name] does as you command, before looking back over [npc.her] shoulder and [npc.moaning],
@@ -1231,7 +1232,7 @@
 		Agreeing with the happy lioness, you stand up and walk along beside her as you both head back out past the pair of lion bouncers. Turning to plant a kiss on your cheek, Kalahari laughs, before whispering into your ear, [kalahari.speech(I really can't wait for the next time!)]
 	</p>
 	<p>
-		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area. 
+		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area.
 	</p>
 	]]>
 	</htmlContent>
@@ -1250,7 +1251,7 @@
 		Agreeing with the demanding lioness, you stand up and walk along beside her as you both head back out past the pair of lion bouncers. Turning to plant a kiss on your cheek, Kalahari laughs, before whispering into your ear, [kalahari.speech(I really can't wait for the next time!)]
 	</p>
 	<p>
-		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area. 
+		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area.
 	</p>
 	]]>
 	</htmlContent>
@@ -1645,20 +1646,23 @@
 	
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_USING"><![CDATA[
 	<p>
-		#IF pc.hasPenis()
-		#THENDoing as [npc.name] says, you step up to the glory hole, preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		Having already waited long enough, you quickly step up to the glory hole,
+		#IF(pc.hasPenis())
+			 preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		#ELSEIF(pc.hasVagina())
+			 preparing to have your [pc.pussy+] licked by the stranger on the other side.
 		#ELSE
-			#IF pc.hasVagina()
-			#THENDoing as [npc.name] says, you step up to the glory hole, preparing to have your [pc.pussy+] licked by the stranger on the other side.
-			#ELSEDoing as [npc.name] says, you step up to the glory hole, preparing to have your genderless mound licked by the stranger on the other side.
-			#ENDIF
+			 preparing to have your genderless mound licked by the stranger on the other side.
 		#ENDIF
 	</p>
 	<p>
-		As [npc.she] sees your approach through the hole, [npc.name] lets out [npc.a_moan+], before encouraging you to get started, [game.random(
-		[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
-		|[npc.speech(Mmm, oh yeah! Let's get started!)]
-		|[npc.speech(Oh yeah babe! I'll show you how much of a slut I am!)])]
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		#IF(!npc.isMute())
+			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
+			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
+			|[npc.speech(~Mmm!~ Oh yeah! Let's get started!)]
+			|[npc.speech(Oh yeah, babe! I'll show you how much of a slut I am!)])]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -1850,6 +1854,13 @@
 	</p>
 	<p>
 		After you've finished, you turn to face the room and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -2156,7 +2167,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_CONTACTS_DOM"><![CDATA[
 	<p>
-		Wondering if you can find a particular somebody who you said you'd see in the club again, you set about searching through the crowds for them...
+		Although there's a seemingly endless supply of new people to meet in the club, you find yourself wanting to spend some more time with one of your previous partners. With this thought in mind, you start looking through the crowds to see if you can find your friend...
 	</p>
 	]]>
 	</htmlContent>
@@ -2573,11 +2584,11 @@
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS"><![CDATA[
 	<p>
 		#IF npc.isKind()
-		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 		#ELSE
 			#IF npc.isSelfish()
-			#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
-			#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+			#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
+			#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2652,7 +2663,7 @@
 		You roll your [pc.eyes] and let out a sigh, making it quite clear that you have no interest in talking about [npc.namePos] mundane everyday activities. [npc.She] doesn't take the hint at first, and continues trying to talk with you for a couple more minutes, but your persistent, dismissive humming noises and deep sighs soon cause [npc.herHim] to fall silent.
 	</p>
 	<p>
-		Hoping that [npc.she] has something a little more fun planned for this evening, you wait to find out what [npc.she]'ll want to do next...
+		Hoping that [npc.sheHasFull] something a little more fun planned for this evening, you wait to find out what [npc.she]'ll want to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -2774,8 +2785,8 @@
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS"><![CDATA[
 	<p>
 		#IF npc.isSelfish()
-		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
-		#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
+		#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 		#ENDIF
 	</p>
 	]]>
@@ -3122,7 +3133,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS"><![CDATA[
 	<p>
-		Shuffling around on the seat until [npc.sheIs] pressing against you, [npc.name] tilts [npc.her] head to one side, before leaning in and trying to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		Shuffling around on the seat until [npc.sheIs] pressing against you, [npc.name] tilts [npc.her] head to one side, before leaning in and trying to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 	</p>
 	]]>
 	</htmlContent>
@@ -3257,7 +3268,7 @@
 		You roll your [pc.eyes] and let out a sigh, making it quite clear that you have no interest in talking about [npc.namePos] mundane everyday activities. [npc.She] doesn't take the hint at first, and continues trying to talk with you for a couple more minutes, but your persistent, dismissive humming noises and deep sighs soon cause [npc.herHim] to fall silent.
 	</p>
 	<p>
-		Hoping that [npc.she] has something a little more fun planned for this evening, you wait to find out what [npc.she]'ll want to do next...
+		Hoping that [npc.sheHasFull] something a little more fun planned for this evening, you wait to find out what [npc.she]'ll want to do next...
 	</p>
 	]]>
 	</htmlContent>

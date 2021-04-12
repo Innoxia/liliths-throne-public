@@ -70,7 +70,7 @@
 		[npc2.speech(Are you sure about this?)] [npc2.name] asks, stepping forwards in preparation to defend you from [npc.namePos] advances.
 	</p>
 	<p>
-		[pc.speech(Don't worry, [npc2.name],)] you reply, reaching out to take hold of [npc2.her] [npc2.arm], before firmly pushing [npc2.her] to one side. [pc.speech(I've got this. You just keep a lookout for anyone else.)]
+		[pc.speech(Don't worry, [npc2.name],)] you reply, reaching out to take hold of [npc2.her] [npc2.arm], before firmly pushing [npc2.herHim] to one side. [pc.speech(I've got this. You just keep a lookout for anyone else.)]
 	</p>
 	<p>
 		Much to your delight, your would-be attacker isn't put off by [npc2.namePos] interruption, and reaches up to grab you by the [pc.arms], before pulling you forwards into a tight embrace. Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling, [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch? Your little friend over there can watch me fuck you senseless!)]
@@ -323,7 +323,7 @@
 	#IF(npc.isCharacterPossiblyFather(pc.getId()))
 		#IF(npc.hasFetish(FETISH_PREGNANCY))
 			<p>
-				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE
@@ -343,7 +343,7 @@
 	#ELSEIF(npc.isCharacterPossiblyFather(npc2.getId()))
 		#IF(npc.hasFetish(FETISH_PREGNANCY))
 			<p>
-				[npc.speech(Yeah, before you ask, it was you, [npc2.name]! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that [npc2.nameIs] the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was you, [npc2.name]! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that [npc2.nameIs] the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -361,7 +361,7 @@
 	#ELSE
 		#IF(npc.hasFetish(FETISH_PREGNANCY))
 			<p>
-				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -776,7 +776,7 @@
 		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so, so much, [pc.name]! You have no idea how much this will help!)]
 	</p>
 	<p>
-		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to care of yourself, ok?)]
+		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to take care of yourself, ok?)]
 	</p>
 	<p>
 		[npc.speech(I will! Thank you! In fact, I'm going to go buy myself some food right now. Thank you so much!)]
@@ -1285,7 +1285,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_TF_AND_FETISH"><![CDATA[
 	<p>
-		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.she] has plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
+		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.sheHasFull] plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another pair of bottles, before shoving their necks into [npc2.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]
@@ -1295,7 +1295,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_TF"><![CDATA[
 	<p>
-		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.she] has plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
+		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.sheHasFull] plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another bottle, before shoving its neck into [npc2.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]
@@ -1305,7 +1305,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_FETISH"><![CDATA[
 	<p>
-		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.she] has plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect partner for me!)]
+		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.sheHasFull] plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect partner for me!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another bottle, before shoving its neck into [npc2.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]
@@ -1441,7 +1441,7 @@
 	
 	<htmlContent tag="RAPE_BOTH"><![CDATA[
 	<p>
-		[npc.speech(I hope the two of you are looking forwards to this as much as I am!)] [npc.name] exclaims, the tone [npc.her] voice dripping with lust, [npc.speech(And if not, then too bad! I'm going to have my fun fucking both of you at once, and that's all that matters!)]
+		[npc.speech(I hope the two of you are looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust, [npc.speech(And if not, then too bad! I'm going to have my fun fucking both of you at once, and that's all that matters!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you and [npc2.name] into position...
@@ -1451,7 +1451,7 @@
 	
 	<htmlContent tag="OFFER_SEX_BOTH"><![CDATA[
 	<p>
-		[npc.speech(You two want to have some fun with me now, right?)] [npc.name] asks, the tone [npc.her] voice dripping with lust, [npc.speech(I mean, I'm not going to force you or anything, but a threesome sure would be hot!)]
+		[npc.speech(You two want to have some fun with me now, right?)] [npc.name] asks, the tone of [npc.her] voice dripping with lust, [npc.speech(I mean, I'm not going to force you or anything, but a threesome sure would be hot!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and awaits your answer...
@@ -1461,7 +1461,7 @@
 	
 	<htmlContent tag="RAPE_PLAYER_SOLO"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you into position, leaving [npc2.name] to look on...
@@ -1471,7 +1471,7 @@
 	
 	<htmlContent tag="OFFER_SEX_SOLO"><![CDATA[
 	<p>
-		[npc.speech(You want to have some fun with me now, right?)] [npc.name] asks, the tone [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(I mean, I'm not going to force you or anything, but some sex sure would be hot right now! Your little friend over there can even watch us while we do it!)]
+		[npc.speech(You want to have some fun with me now, right?)] [npc.name] asks, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(I mean, I'm not going to force you or anything, but some sex sure would be hot right now! Your little friend over there can even watch us while we do it!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and awaits your answer, leaving [npc2.name] to look on...
@@ -1481,7 +1481,7 @@
 	
 	<htmlContent tag="RAPE_COMPANION"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone [npc.her] voice dripping with lust as [npc.she] steps towards [npc2.name] and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards [npc2.name] and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move your companion into position, leaving you to look on...
@@ -1491,7 +1491,7 @@
 	
 	<htmlContent tag="OFFER_SEX_COMPANION"><![CDATA[
 	<p>
-		[npc.speech(You want to have some fun with me now, right?)] [npc.name] asks, the tone [npc.her] voice dripping with lust as [npc.she] steps towards [npc2.name] and continues, [npc.speech(I mean, I'm not going to force you or anything, but some sex sure would be hot right now! Your little friend over there can even watch us while we do it!)]
+		[npc.speech(You want to have some fun with me now, right?)] [npc.name] asks, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards [npc2.name] and continues, [npc.speech(I mean, I'm not going to force you or anything, but some sex sure would be hot right now! Your little friend over there can even watch us while we do it!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and awaits [npc2.namePos] answer, leaving you to look on...
@@ -1501,7 +1501,7 @@
 	
 	<htmlContent tag="RAPE_PLAYER"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you into position...
@@ -1511,7 +1511,7 @@
 	
 	<htmlContent tag="OFFER_SEX"><![CDATA[
 	<p>
-		[npc.speech(You want to have some fun with me now, right?)] [npc.name] asks, the tone [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(I mean, I'm not going to force you or anything, but some sex sure would be hot right now!)]
+		[npc.speech(You want to have some fun with me now, right?)] [npc.name] asks, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(I mean, I'm not going to force you or anything, but some sex sure would be hot right now!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and awaits your answer...
@@ -1716,7 +1716,10 @@
 	
 	<htmlContent tag="AFTER_SEX_VICTORY_RAPE"><![CDATA[
 	<p>
-		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished. [npc.She] starts frantically gathering [npc.her] belongings, obviously quite keen to make [npc.her] exit before you decide to do anything else...
+		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished. Obviously quite keen to make [npc.her] exit before you decide to do anything else to [npc.herHim], [npc.she] starts frantically gathering [npc.her] belongings.
+	</p>
+	<p>
+		Getting your own things in order, you [pc.step] forwards and smirk down at the still-sobbing [npc.race], wondering what you should do with [npc.herHim] now...
 	</p>
 	]]>
 	</htmlContent>
@@ -1743,6 +1746,9 @@
 	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
 	<p>
 		As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm. Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
+	</p>
+	<p>
+		Getting your things in order, you [pc.step] forwards and smirk down at the panting [npc.race], wondering what you should do with [npc.herHim] now...
 	</p>
 	]]>
 	</htmlContent>

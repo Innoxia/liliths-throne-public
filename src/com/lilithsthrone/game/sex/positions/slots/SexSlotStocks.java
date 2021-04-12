@@ -64,6 +64,58 @@ public class SexSlotStocks {
 	};
 
 	
+	public static final SexSlot HUMPING = new SexSlot(
+			"Humping",
+			"humping",
+			"[npc1.Name] [npc1.verb(buck)] [npc.her] hips forwards, thrusting into [npc2.namePos] groin and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			false,
+			SexSlotTag.HUMPING_STOCKS);
+	public static final SexSlot HUMPING_TWO = new SexSlot(HUMPING) {
+		@Override
+		public String getDescription() {
+			return "humping (2nd)";
+		}
+	};
+	public static final SexSlot HUMPING_THREE = new SexSlot(HUMPING) {
+		@Override
+		public String getDescription() {
+			return "humping (3rd)";
+		}
+	};
+	public static final SexSlot HUMPING_FOUR = new SexSlot(HUMPING) {
+		@Override
+		public String getDescription() {
+			return "humping (4th)";
+		}
+	};
+	
+	
+	public static final SexSlot BENEATH_STOCKS = new SexSlot(
+			"All fours",
+			"all fours",
+			"[npc1.Name] [npc1.verb(buck)] [npc.her] hips back, thrusting into [npc2.namePos] groin and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			false,
+			SexSlotTag.ALL_FOURS);
+	public static final SexSlot BENEATH_STOCKS_TWO = new SexSlot(BENEATH_STOCKS) {
+		@Override
+		public String getDescription() {
+			return "all fours (2nd)";
+		}
+	};
+	public static final SexSlot BENEATH_STOCKS_THREE = new SexSlot(BENEATH_STOCKS) {
+		@Override
+		public String getDescription() {
+			return "all fours (3rd)";
+		}
+	};
+	public static final SexSlot BENEATH_STOCKS_FOUR = new SexSlot(BENEATH_STOCKS) {
+		@Override
+		public String getDescription() {
+			return "all fours (4th)";
+		}
+	};
+
+	
 	public static final SexSlot PERFORMING_ORAL = new SexSlot(
 			"Performing oral",
 			"performing oral",

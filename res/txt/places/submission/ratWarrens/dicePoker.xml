@@ -38,7 +38,7 @@
 
 	<htmlContent tag="ROLL_LOSING"><![CDATA[
 	<p>
-		Both you and [npc.name] roll all five of your dice to get the game started. As they clatter to a halt, your opponent lets out a triumphant laugh as [npc.she] sees that [npc.she] has a better hand. [npc.speech(Hah! This is just the start, and I'm already winning! Now, you gonna' call, or you want to raise the stakes?)]
+		Both you and [npc.name] roll all five of your dice to get the game started. As they clatter to a halt, your opponent lets out a triumphant laugh as [npc.she] sees that [npc.sheHasFull] a better hand. [npc.speech(Hah! This is just the start, and I'm already winning! Now, you gonna' call, or you want to raise the stakes?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -152,9 +152,9 @@
 		As the dice come clattering to a halt, both you and [npc.name] sigh in unison as you see that your hands are identical in value. With the game being a draw, you split the money pool in half and take your leave...
 	</p>
 	<p style='text-align:center;'>
-		<i>You <b>drew</b>! You split the pool of +UtilText.formatAsMoney(moneyPool, span)+ 50/50.</i>
+		<i>You <b>drew</b>! You split the pool of [#SPECIAL_PARSE_0] 50/50.</i>
 	</p>
-	[#SPECIAL_PARSE_0]
+	[#SPECIAL_PARSE_1]
 	]]>
 	</htmlContent>
 	
@@ -163,9 +163,9 @@
 		As both you and [npc.name] choose not to reroll any dice, you sigh in unison as you resign yourselves to having identically valued hands. With the game being a draw, you split the money pool in half and take your leave...
 	</p>
 	<p style='text-align:center;'>
-		<i>You <b>drew</b>! You split the pool of +UtilText.formatAsMoney(moneyPool, span)+ 50/50.</i>
+		<i>You <b>drew</b>! You split the pool of [#SPECIAL_PARSE_0] 50/50.</i>
 	</p>
-	[#SPECIAL_PARSE_0]
+	[#SPECIAL_PARSE_1]
 	]]>
 	</htmlContent>
 	

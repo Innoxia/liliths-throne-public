@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>200</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[hoop earring]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[hoop earrings]]></namePlural>
+		<description><![CDATA[A pair of basic hoop earrings. Each one is fashioned from a thin band of metal, which has been curled around to form a circle.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>PIERCING_EAR</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>ear_hoops.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the hoop earrings into [npc.her] [npc.ears].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the hoop earrings into [npc2.namePos] [npc2.ears].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(clip)] the hoop earrings into [npc2.namePos] [npc2.ears].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] hoop earrings and [npc.verb(take)] them out.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] hoop earrings and [npc.verb(take)] them out.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] hoop earrings and roughly [npc.verb(pull)] them out.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

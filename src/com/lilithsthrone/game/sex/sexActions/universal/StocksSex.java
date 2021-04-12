@@ -65,6 +65,52 @@ public class StocksSex {
 					Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotStocks.LOCKED_IN_STOCKS))));
 		}
 	};
+
+	public static final SexAction SWITCH_TO_BENEATH = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.ALL_FOURS)
+					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getTotalParticipantCount(false)==2;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "All fours";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Drop down on all fours beneath [npc2.name] and push your [npc.ass+] up against [npc2.her] groin, ready to be fucked by [npc2.herHim].";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Wanting to get fucked by [npc2.name], [npc.name] [npc.verb(drop)] down onto all fours and [npc.verb(crawl)] forwards beneath [npc2.her] stocks."
+					+ " Shuffling around to get into a comfortable position, [npc.she] [npc.verb(lift)] [npc.her] [npc.hips+] and [npc.verb(push)] [npc.her] [npc.ass+] back against [npc2.her] groin."
+					+ " With an excited [npc.moan], [npc.name] [npc.verb(call)] out,"
+					+ " [npc.speech(Lucky you! I'm going to let you fuck me!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Main.sex.setSexManager(new SMStocks(
+					!Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.VAGINA),
+					!Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.ANUS),
+					!Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.MOUTH),
+					Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotStocks.BENEATH_STOCKS)),
+					Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotStocks.LOCKED_IN_STOCKS))));
+		}
+	};
 	
 	public static final SexAction SWITCH_TO_GIVING_ORAL = new SexAction(
 			SexActionType.POSITIONING,

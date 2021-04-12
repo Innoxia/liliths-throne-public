@@ -1,0 +1,2 @@
+If you want to add modded patterns, then use the same folder structure as that which contains this text file.
+For examples of how patterns are defined, please look in the 'res/patterns' folder.

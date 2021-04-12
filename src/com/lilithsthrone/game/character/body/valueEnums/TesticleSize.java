@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Arbitrary measurements in increments of 1, going from 0 to 7.
@@ -12,28 +13,28 @@ import com.lilithsthrone.utils.Colour;
 public enum TesticleSize {
 
 	/**Little bumps under the skin.*/
-	ZERO_VESTIGIAL("vestigial", 0, Colour.GENERIC_SIZE_ONE),
+	ZERO_VESTIGIAL("vestigial", 0, PresetColour.GENERIC_SIZE_ONE),
 
 	/**Small for a human.*/
-	ONE_TINY("tiny", 1, Colour.GENERIC_SIZE_TWO),
+	ONE_TINY("tiny", 1, PresetColour.GENERIC_SIZE_TWO),
 	
 	/**Average for a human.*/
-	TWO_AVERAGE("average-sized", 2, Colour.GENERIC_SIZE_THREE),
+	TWO_AVERAGE("average-sized", 2, PresetColour.GENERIC_SIZE_THREE),
 
 	/**Large for a human. Average for a dog or wolf-morph.*/
-	THREE_LARGE("large", 3, Colour.GENERIC_SIZE_FOUR),
+	THREE_LARGE("large", 3, PresetColour.GENERIC_SIZE_FOUR),
 
 	/**Unrealistically large for a human. Average for a horse-morph.*/
-	FOUR_HUGE("huge", 4, Colour.GENERIC_SIZE_FIVE),
+	FOUR_HUGE("huge", 4, PresetColour.GENERIC_SIZE_FIVE),
 
 	/**Large for a horse-morph.*/
-	FIVE_MASSIVE("massive", 5, Colour.GENERIC_SIZE_SIX),
+	FIVE_MASSIVE("massive", 5, PresetColour.GENERIC_SIZE_SIX),
 
 	/**Getting pretty absurd.*/
-	SIX_GIGANTIC("gigantic", 6, Colour.GENERIC_SIZE_SEVEN),
+	SIX_GIGANTIC("gigantic", 6, PresetColour.GENERIC_SIZE_SEVEN),
 
 	/**"Extreme proportion" content.*/
-	SEVEN_ABSURD("absurdly enormous", 7, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_ABSURD("absurdly enormous", 7, PresetColour.GENERIC_SIZE_EIGHT);
 
 	private int value;
 	private String descriptor;

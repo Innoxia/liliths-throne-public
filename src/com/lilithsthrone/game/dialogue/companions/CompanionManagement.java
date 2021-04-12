@@ -3,31 +3,31 @@ package com.lilithsthrone.game.dialogue.companions;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
-import com.lilithsthrone.game.character.body.BodyPartInterface;
-import com.lilithsthrone.game.character.body.Eye;
-import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Skin;
-import com.lilithsthrone.game.character.body.Vagina;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -37,15 +37,21 @@ import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobHours;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobHours;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.5.1
@@ -68,6 +74,9 @@ public class CompanionManagement {
 	}
 
 	public static void initManagement(DialogueNode coreNode, int defaultResponseTab, NPC targetedCharacter) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
+			Main.game.saveDialogueNode();
+		}
 		CompanionManagement.coreNode = coreNode;
 		CompanionManagement.defaultResponseTab = defaultResponseTab;
 		Main.game.getDialogueFlags().setManagementCompanion(targetedCharacter);
@@ -94,6 +103,13 @@ public class CompanionManagement {
 		return CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS;
 	}
 	
+	public static DialogueNode getSlaveryManagementSlaveCosmeticsDialogue(NPC slave) {
+		Main.game.getDialogueFlags().setManagementCompanion(slave);
+		CharactersPresentDialogue.resetContent(slave);
+//		coreNode = Main.game.getCurrentDialogueNode();
+		return CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_MAKEUP;
+	}
+	
 	public static NPC characterSelected() {
 		return Main.game.getDialogueFlags().getManagementCompanion();
 	}
@@ -113,13 +129,13 @@ public class CompanionManagement {
 							+ "Location"
 						+ "</div>"
 						+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
-							+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
+							+ "<b style='color:"+PresetColour.AFFECTION.toWebHexString()+";'>Affection</b>"
 						+"</div>"
 						+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
-							+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
+							+ "<b style='color:"+PresetColour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-							+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
+							+ "<b style='color:"+PresetColour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
 						+"</div>"
 						+ "<div style='width:15%; float:left; font-weight:bold; margin:0; padding:0;'>"
 							+ "Value"
@@ -127,20 +143,20 @@ public class CompanionManagement {
 					+ "</div>"
 					+"<div class='container-full-width inner' style='margin-top:0; border-radius: 0 5px 5px; 0'>"
 						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+character.getLocationPlace().getColourString()+";'>"+character.getLocationPlace().getName()+"</b>"
+							+ "<b style='color:"+character.getLocationPlace().getColour().toWebHexString()+";'>"+character.getLocationPlace().getName()+"</b>"
 							+",<br/>"
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
 						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+character.getAffection(Main.game.getPlayer())+ "</b>"
-							+ "<br/><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+							+ "<br/><span style='color:"+(affectionChange==0?PresetColour.BASE_GREY:(affectionChange>0?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
 								+decimalFormat.format(affectionChange)+"</span>/day"
 							+ "<br/>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+ "</b>"
-							+ "<br/><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+							+ "<br/><span style='color:"+(obedienceChange==0?PresetColour.BASE_GREY:(obedienceChange>0?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
 								+decimalFormat.format(obedienceChange)+"</span>/day"
 							+ "<br/>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
@@ -317,7 +333,7 @@ public class CompanionManagement {
 							null);
 					
 				} else {
-					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned())) {
+					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned() && !Main.game.getPlayer().isElementalSummoned())) {
 						return new ResponseEffectsOnly(
 								characterSelected().isElemental()
 									?"Dispel"
@@ -357,7 +373,7 @@ public class CompanionManagement {
 								}
 								Main.game.getPlayer().removeCompanion(characterSelected());
 								characterSelected().returnToHome();
-
+								
 								Main.game.setResponseTab(0);
 								CharactersPresentDialogue.resetContent(Main.game.getCharactersPresent().get(0));
 							}
@@ -382,7 +398,7 @@ public class CompanionManagement {
 					return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 						@Override
 						public void effects() {
-							SpellManagement.setTarget(characterSelected(), coreNode);
+							SpellManagement.setSpellOwner(characterSelected(), coreNode);
 						}
 					};
 					
@@ -402,8 +418,8 @@ public class CompanionManagement {
 						return new Response("Dispel elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode){
 							@Override
 							public void effects() {
-								characterSelected().removeCompanion(characterSelected().getElemental());
 								characterSelected().getElemental().returnToHome();
+								characterSelected().setElementalSummoned(false);
 							}
 						};
 					}
@@ -508,7 +524,7 @@ public class CompanionManagement {
 				}
 				return new Response("Set names", UtilText.parse(characterSelected(), "Change [npc.namePos] name or tell [npc.herHim] to call you by a different name."), OCCUPANT_CHOOSE_NAME);
 				
-			} else if(index==10) {
+			} else if(index==10 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 				return new Response("Send home", UtilText.parse(characterSelected(), "[npc.Name] isn't in your party, so you can't send [npc.herHim] home..."), null);
 				
 			} else if(index==11) {
@@ -526,7 +542,7 @@ public class CompanionManagement {
 				return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						SpellManagement.setTarget(characterSelected(), coreNode);
+						SpellManagement.setSpellOwner(characterSelected(), coreNode);
 					}
 				};
 				
@@ -544,6 +560,59 @@ public class CompanionManagement {
 					};
 				}
 				
+			} else if(index==14) {
+				if(!Main.game.getPlayer().hasItemType("innoxia_slavery_freedom_certification")) {
+					return new Response("Set free",
+							UtilText.parse(characterSelected(),
+									"You do not have a Freedom Certification, so you cannot set [npc.name] free..."
+									+ "<br/><i>Freedom Certifications can be purchased from Finch in Slaver Alley's Slaver Administration building.</i>"),
+							null);
+					
+				} else {
+					if(characterSelected() instanceof Scarlett) {
+						return new Response("Set free",
+								UtilText.parse(characterSelected(),
+										"Fill out a Freedom Certification and set [npc.name] free!"
+										+ "<br/>If you do this, [npc.she] will undoubtedly immediately leave and return to Helena's nest..."),
+								SET_SLAVE_FREE_SCARLETT);
+					}
+					if(characterSelected() instanceof Brax) {
+						return new Response("Set free",
+								UtilText.parse(characterSelected(),
+										"You cannot set [npc.name] free...<br/><i>(This will be added later when I add more content for Brax!)</i>"),
+								null);
+					}
+					
+					String unavailableGuestDescription = "";
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
+						unavailableGuestDescription = "[style.italicsMinorBad(As you do not have Lilaya's permission to house guests, you will be unable to invite [npc.name] to stay here in the mansion after freeing [npc.herHim]!)]";
+						
+					} else if(!characterSelected().isAffectionHighEnoughToInviteHome()) {
+						unavailableGuestDescription = "[style.italicsBad([npc.Name] does not like you enough to consider staying with you after being set free!)]";
+						
+					} else if(!OccupancyUtil.isFreeRoomAvailableForOccupant()) {
+						unavailableGuestDescription = "[style.italicsMinorBad(As you do not have a free guest room for [npc.name] to move in to, you will be unable to invite [npc.herHim] to stay here in the mansion after freeing [npc.herHim]!)]";
+					}
+					String thanksjava = unavailableGuestDescription;
+					
+					return new Response("Set free",
+							UtilText.parse(characterSelected(),
+									"Fill out a Freedom Certification and set [npc.name] free!"
+									+ "<br/>"
+									+ (thanksjava.isEmpty()
+										?"[style.italicsMinorGood([npc.Name] likes you enough to accept an offer of staying here to live with you, so after freeing [npc.herHim] you can offer to let [npc.herHim] stay in one of the free guest rooms!)]"
+										:thanksjava+"<br/>[style.italicsBad(This will permanently remove [npc.herHim] (and everything in [npc.her] inventory) from the game!)]")),
+							SET_SLAVE_FREE) {
+						@Override
+						public Colour getHighlightColour() {
+							if(thanksjava.isEmpty()) {
+								return PresetColour.GENERIC_MINOR_GOOD;
+							}
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
+					};
+				}
+				
 			} else if(index == 0) {
 				if(coreNode==OccupantManagementDialogue.SLAVE_LIST) {
 					return new Response("Back", "Return to the occupant list overview.", coreNode) {
@@ -554,7 +623,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		
 		} else { // Friendly occupant or null character not currently in the player's party:
@@ -656,7 +731,7 @@ public class CompanionManagement {
 				}
 				return new Response("Set names", UtilText.parse(characterSelected(), "Tell [npc.name] to call you by a different name."), OCCUPANT_CHOOSE_NAME);
 				
-			} else if(index==10) {
+			} else if(index==10 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 				if(characterSelected() == null) {
 					return new Response("Send home", "You haven't selected anyone...", null);
 				}
@@ -680,7 +755,7 @@ public class CompanionManagement {
 				return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						SpellManagement.setTarget(characterSelected(), coreNode);
+						SpellManagement.setSpellOwner(characterSelected(), coreNode);
 					}
 				};
 				
@@ -711,7 +786,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		}
 		
@@ -745,7 +826,7 @@ public class CompanionManagement {
 			
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"
-							+ "<h6 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Inspection</h6>"
+							+ "<h6 style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Inspection</h6>"
 							+ "<div class='container-full-width inner'>"
 								+character.getCharacterInformationScreen(false)
 							+"</div>"
@@ -822,11 +903,10 @@ public class CompanionManagement {
 				}
 				UtilText.nodeContentSB.append(String.format("%02d", i)+":00</div>");
 			}
-			float fatigue = character.getSlaveJobTotalFatigue();
+			float stamina = character.getDailySlaveJobStamina();
 			UtilText.nodeContentSB.append(
 								"<div style='width:100%;margin-top:8px;'>"
-//										+ "<b>Presets</b>"
-									+"<i>Current daily fatigue: "+(fatigue<=0?"[style.colourGood(":"[style.colourBad(")+fatigue+")]</i>"
+									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+SlaveJob.BASE_STAMINA+"</i>"
 								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
 									UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
@@ -840,7 +920,7 @@ public class CompanionManagement {
 			// Jobs:
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
-						+ "<h6 style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+"; text-align:center;'>Job Settings & Related Information</h6>"
+						+ "<h6 style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+"; text-align:center;'>Job Settings & Related Information</h6>"
 						+"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
 								+ "Job"
@@ -849,14 +929,14 @@ public class CompanionManagement {
 								+ "<b>Workers</b>"
 							+"</div>"
 							+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-								+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
+								+ "<b style='color:"+PresetColour.AFFECTION.toWebHexString()+";'>Affection</b>"
 							+"</div>"
 							+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-								+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
+								+ "<b style='color:"+PresetColour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
 							+"</div>"
 							+ "<div style='float:left; width:40%; font-weight:bold; margin:0; padding:0;'>"
-								+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
-										+ " (+<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience Bonus</b>)"
+								+ "<b style='color:"+PresetColour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
+										+ " (+<b style='color:"+PresetColour.OBEDIENCE.toWebHexString()+";'>Obedience Bonus</b>)"
 							+"</div>"
 						+ "</div>");
 			
@@ -867,7 +947,7 @@ public class CompanionManagement {
 				boolean isCurrentJob = character.hasSlaveJobAssigned(job);
 				
 				UtilText.nodeContentSB.append(
-						"<div class='container-full-width inner' "+(isCurrentJob?"style='background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"")+">"
+						"<div class='container-full-width inner' "+(isCurrentJob?"style='background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'":"")+">"
 							+ "<div style='width:5%; float:left; margin:0; padding:0;'>"
 								+ "<div class='title-button no-select' id='SLAVE_JOB_INFO_"+job+"' style='position:relative; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 							+ "</div>"
@@ -881,16 +961,16 @@ public class CompanionManagement {
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (affectionChange>0
-										?"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>+"+decimalFormat.format(affectionChange)+ "</b>"
+										?"<b style='color:"+PresetColour.AFFECTION.toWebHexString()+";'>+"+decimalFormat.format(affectionChange)+ "</b>"
 										:(affectionChange<0
-												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(affectionChange)+ "</b>"
+												?"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(affectionChange)+ "</b>"
 												:"[style.colourDisabled(0)]"))+"/hour"
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (obedienceChange>0
-										?"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>+"+decimalFormat.format(obedienceChange)+ "</b>"
+										?"<b style='color:"+PresetColour.OBEDIENCE.toWebHexString()+";'>+"+decimalFormat.format(obedienceChange)+ "</b>"
 										:(obedienceChange<0
-												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>"
+												?"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>"
 												:"[style.colourDisabled(0)]"))+"/hour"
 							+"</div>"
 							+ "<div style='float:left; width:40%; margin:0; padding:0;'>"
@@ -900,7 +980,11 @@ public class CompanionManagement {
 										?"[style.colourObedience("+job.getObedienceIncomeModifier()+")]"
 										:"[style.colourDisabled("+job.getObedienceIncomeModifier()+")]")
 										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+"</span>)"
-								+ " = "+UtilText.formatAsMoney(income, "b", (income>0?null:Colour.GENERIC_BAD))+"/hour"
+								+ " = "
+								+(income>0
+									?UtilText.formatAsMoney(income, "b")
+									:UtilText.formatAsMoney(income, "b", PresetColour.GENERIC_BAD))
+								+"/hour"
 							+"</div>"
 							);
 				
@@ -993,10 +1077,10 @@ public class CompanionManagement {
 			// Permissions:
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
-						+ "<h6 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Permissions</h6>");
+						+ "<h6 style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Permissions</h6>");
 			
 			for(SlavePermission permission : SlavePermission.values()) {
-				UtilText.nodeContentSB.append("<div class='container-full-width inner' style='box-sizing:border-box; position:relative; width:98%; margin:4px 1%; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+				UtilText.nodeContentSB.append("<div class='container-full-width inner' style='box-sizing:border-box; position:relative; width:98%; margin:4px 1%; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>");
 				
 				// Job Settings:
 				for(SlavePermissionSetting setting : permission.getSettings()) {
@@ -1047,12 +1131,9 @@ public class CompanionManagement {
 		}
 	};
 	
-
-	private static Map<BodyCoveringType, List<String>> CoveringsNamesMap;
-	
 	private static Response getCosmeticsResponse(int responseTab, int index) {
 		if (index == 1) {
-			if(!BodyChanging.getTarget().getBodyMaterial().isAbleToWearMakeup()) {
+			if(!BodyChanging.getTarget().isAbleToWearMakeup()) {
 				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "As [npc.namePos] body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!"), null);
 				
 			} else {
@@ -1083,39 +1164,7 @@ public class CompanionManagement {
 					SLAVE_MANAGEMENT_COSMETICS_COVERINGS){
 				@Override
 				public void effects() {
-					
-					CoveringsNamesMap = new LinkedHashMap<>();
-
-					if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
-						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
-					} else {
-						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
-							if(bp.getBodyCoveringType(BodyChanging.getTarget())!=null
-									&& !(bp instanceof Hair)
-									&& !(bp instanceof Eye)) {
-								
-								String name = bp.getName(BodyChanging.getTarget());
-								if(bp instanceof Skin) {
-									name = "torso";
-								} else if(bp instanceof Vagina) {
-									name = "vagina";
-								}
-								
-								if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(BodyChanging.getTarget()))) {
-									CoveringsNamesMap.get(bp.getBodyCoveringType(BodyChanging.getTarget())).add(name);
-								} else {
-									CoveringsNamesMap.put(bp.getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
-								}
-							}
-						}
-						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
-						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
-						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
-						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
-						if(BodyChanging.getTarget().hasBreastsCrotch()) {
-							CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
-						}
-					}
+					SuccubisSecrets.initCoveringsMap(BodyChanging.getTarget());
 				}
 			};
 
@@ -1127,6 +1176,16 @@ public class CompanionManagement {
 					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SLAVE_MANAGEMENT_TATTOOS);
 
 		} else if (index == 0) {
+			if(coreNode==OccupantManagementDialogue.SLAVE_LIST) {
+				return new Response("Back", "Return to the occupant list overview.", coreNode) {
+					@Override
+					public void effects() {
+						Main.game.setResponseTab(defaultResponseTab);
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
+			}
 			return new Response("Back", "Return to the slave management screen.", coreNode) {
 				@Override
 				public void effects() {
@@ -1159,22 +1218,22 @@ public class CompanionManagement {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+							true, Race.NONE, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
 					
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+							true, Race.NONE, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+							true, Race.NONE, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+							true, Race.NONE, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on [npc.namePos] [npc.hands].", true, true)
+							true, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on [npc.namePos] [npc.hands].", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on [npc.namePos] [npc.feet].", true, true)
+							true, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on [npc.namePos] [npc.feet].", true, true)
 					);
 		}
 		
@@ -1215,13 +1274,13 @@ public class CompanionManagement {
 					"<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair], the more styles are available.")
+					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair(true)], the more styles are available.")
 
-					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair] length.")
+					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair(true)] length.")
 					
 					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 						?CharacterModificationUtils.getKatesDivCoveringsNew(
-								true, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(),
+								true, BodyChanging.getTarget().getHairType().getRace(), BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(),
 								UtilText.parse(BodyChanging.getTarget(), "[npc.Hair] Colour"),
 								"All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 						:"")
@@ -1260,27 +1319,12 @@ public class CompanionManagement {
 		
 		@Override
 		public String getHeaderContent() {
-			
 			return UtilText.parse(BodyChanging.getTarget(),
 					"<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.EAR, "Ear Piercing", "Ears are the most common area of the body that are pierced, and enable the equipping of earrings and other ear-related jewellery.")
-
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NOSE, "Nose Piercing", "Having a nose piercing will allow [npc.name] to equip jewellery such as nose rings or studs.")
-				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.LIP, "Lip Piercing", "A lip piercing will allow [npc.name] to wear lip rings.")
-				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NAVEL, "Navel Piercing", "Getting [npc.her] navel (belly button) pierced will allow [npc.name] to equip navel-related jewellery.")
-				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.TONGUE, "Tongue Piercing", "Getting a tongue piercing will allow [npc.name] to equip tongue bars.")
-				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NIPPLE, "Nipple Piercing", "Nipple piercings will allow [npc.name] to equip nipple bars.")
-				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.PENIS, "Penis Piercing", "Having a penis piercing will allow [npc.name] to equip penis-related jewellery.")
-				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.VAGINA, "Vagina Piercing", "Having a vagina piercing will allow [npc.name] to equip vagina-related jewellery."));
+					
+				+CharacterModificationUtils.getKatesDivPiercings(false));
 		}
 		
 		@Override
@@ -1322,13 +1366,22 @@ public class CompanionManagement {
 					+ "</h6>"
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyChanging.getTarget().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+							true, BodyChanging.getTarget().getEyeType().getRace(), BodyChanging.getTarget().getEyeCovering(),
+							"Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+							true, Race.NONE,
+							BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH
+								?BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), BodyCoveringCategory.EYE_PUPIL)
+								:BodyCoveringType.EYE_PUPILS,
+							"Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_SCLERA, "Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
+							true, Race.NONE,
+							BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH
+								?BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), BodyCoveringCategory.EYE_SCLERA)
+								:BodyCoveringType.EYE_SCLERA,
+							"Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
 		}
 		
 		@Override
@@ -1368,54 +1421,22 @@ public class CompanionManagement {
 									+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 								+ "</h6>");
 			
-			for(Entry<BodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()){
-				BodyCoveringType bct = entry.getKey();
-				
-				String title = Util.capitaliseSentence(bct.getName(BodyChanging.getTarget()));
-				String description = "This is the "+bct.getName(BodyChanging.getTarget())+" that's currently covering [npc.namePos] "+Util.stringsToStringList(entry.getValue(), false)+".";
-				
-				if(bct == BodyCoveringType.ANUS) {
-					title = "Anus";
-					description = "This is the skin that's currently covering [npc.namePos] anal rim. The secondary colour determines what [npc.her] anus's inner-walls look like.";
-					
-				} else if(bct == BodyCoveringType.VAGINA) {
-					title = "Vagina";
-					description = "This is the skin that's currently covering [npc.namePos] labia. The secondary colour determines what [npc.her] vagina's inner-walls look like.";
-					
-				} else if(bct == BodyCoveringType.PENIS) {
-					title = "Penis";
-					description = "This is the skin that's currently covering [npc.namePos] penis. The secondary colour determines what the inside of [npc.her] urethra looks like (if it's fuckable).";
-					
-				} else if(bct == BodyCoveringType.NIPPLES) {
-					title = "Nipples";
-					description = "This is the skin that's currently covering [npc.namePos] nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
-					
-				} else if(bct == BodyCoveringType.NIPPLES_CROTCH) {
-					title = "Crotch Nipples";
-					description = "This is the skin that's currently covering the nipples and areolae on [npc.namePos] [npc.crotchBoobs]. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
-					
-				} else if(bct == BodyCoveringType.MOUTH) {
-					title = "Lips & Throat";
-					if(BodyChanging.getTarget().getFaceType() == FaceType.HARPY) {
-						description = "This is the colour of [npc.namePos] beak. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
-					} else {
-						description = "This is the skin that's currently covering [npc.namePos] lips. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
-					}
-					
-				} else if(bct == BodyCoveringType.TONGUE) {
-					title = "Tongue";
-					description = "This is the skin that's currently covering [npc.namePos] tongue.";
-				}
+			for(Entry<AbstractBodyCoveringType, Value<AbstractRace, List<String>>> entry : SuccubisSecrets.coveringsNamesMap.entrySet()){
+				AbstractBodyCoveringType bct = entry.getKey();
+				AbstractRace race = entry.getValue().getKey();
+				GameCharacter target = BodyChanging.getTarget();
+
+				Value<String, String> titleDescription = SuccubisSecrets.getCoveringTitleDescription(target, bct, entry.getValue().getValue());
 				
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-						true, 
+						true,
+						race,
 						bct,
-						title,
-						description,
+						titleDescription.getKey(),
+						UtilText.parse(target, titleDescription.getValue()),
 						true,
 						true));
 			}
-			
 			
 			return UtilText.parse(BodyChanging.getTarget(), UtilText.nodeContentSB.toString());
 		}
@@ -1457,7 +1478,7 @@ public class CompanionManagement {
 			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
+					+CharacterModificationUtils.getKatesDivAnalBleaching()
 
 					+(Main.game.isFacialHairEnabled()
 							? CharacterModificationUtils.getKatesDivFacialHair(true, "Facial hair", "The body hair found on [npc.namePos] face." 
@@ -1477,14 +1498,13 @@ public class CompanionManagement {
 							:"")
 					);
 			
-			for(BodyCoveringType bct : BodyCoveringType.values()) {
+			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
 				if((Main.game.isFacialHairEnabled() && BodyChanging.getTarget().getFacialHairType().getType()==bct)
 						|| (Main.game.isBodyHairEnabled() && BodyChanging.getTarget().getUnderarmHairType().getType()==bct)
 						|| (Main.game.isAssHairEnabled() && BodyChanging.getTarget().getAssHairType().getType()==bct)
 						|| (Main.game.isPubicHairEnabled() && BodyChanging.getTarget().getPubicHairType().getType()==bct)) {
 					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, bct, "Body hair", "Your body hair.", true, true));
-					
+							true, Race.NONE, bct, "Body hair", "Your body hair.", true, true));
 				}
 			}
 			
@@ -1532,8 +1552,8 @@ public class CompanionManagement {
 					@Override
 					public String getTitle() {
 						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)
-									?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
-									:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+									?"<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+									:"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
 					}
 					
 					@Override
@@ -1677,81 +1697,102 @@ public class CompanionManagement {
 
 				UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
 					"<p>"
-						+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.her] to call you by a different name or title."
+						+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
 						+ " As [npc.sheIs] your slave, you could also change [npc.her] name to whatever you'd like it to be..."
 					+ "</p>"));
 				
 				UtilText.nodeContentSB.append(
-					"<div class='container-full-width inner' style='padding:8px;'>"
-						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0; text-align:center;'>"
-							+ "Name and Surname"
+					"<div class='container-full-width' style='padding:8px 16px;'>"
+						+ "<div style='width:18%; float:left; font-weight:bold; margin:0 13% 0 0; padding:0; text-align:center;'>"
+							+ "Name"
 						+ "</div>"
-						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0; text-align:center;'>"
+						+ "<div style='width:18%; float:left; font-weight:bold; margin:0 13% 0 0; padding:0; text-align:center;'>"
+							+ "Surname"
+						+ "</div>"
+						+ "<div style='width:20%; float:left; font-weight:bold; margin:0 18% 0 0; padding:0; text-align:center;'>"
 							+ UtilText.parse(characterSelected(), "What [npc.she] calls you")
 						+ "</div>"
-						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 1% 0 0; padding:0;'>"
-							+ "<form style='float:left; width:39%; margin:0; padding:0;'><input type='text' id='slaveNameInput' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getName(false))+ "' style='width:100%; margin:0; padding:0;'></form>"
-							+ "<div class='normal-button' id='"+characterSelected().getId()+"_RENAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 1% 0 1%; padding:0; text-align:center;'>"
-								+ "&#10003;"
-							+ "</div>"
-							+ "<form style='float:left; width:40%; margin:0; padding:0;'><input type='text' id='slaveSurnameInput' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getSurname())+ "' style='width:100%; margin:0; padding:0;'></form>"
-							+ "<div class='normal-button' id='"+characterSelected().getId()+"_RENAME_SURNAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0; text-align:center;'>"
-								+ "&#10003;"
-							+ "</div>"
+						
+						+ "<form style='float:left; width:18%; margin:0; padding:0;'><input type='text' id='slaveNameInput'"
+							+ " value='"+ UtilText.parseForHTMLDisplay(characterSelected().getName(false))+ "' style='width:100%; margin:0; padding:0;'></form>"
+						+ "<div class='normal-button' id='"+characterSelected().getId()+"_RENAME' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
 						+ "</div>"
-						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 0 0 1%; padding:0;'>"
-							+ "<form style='float:left; width:50%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getPetName(Main.game.getPlayer()))
-								+ "' style='width:100%; margin:0; padding:0;'></form>"
-							+ "<div class='normal-button' id='"+characterSelected().getId()+"_CALLS_PLAYER' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0; text-align:center;'>"
-								+ "&#10003;"
-							+ "</div>"
-							+ " <div class='normal-button' id='GLOBAL_CALLS_PLAYER' style='float:left; width:39%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0; text-align:center;'>"
-								+ "All Slaves"
-							+ "</div>"
+						+ "<div class='normal-button' id='"+characterSelected().getId()+"_RENAME_RANDOM' style='float:left; width:5%; height:28px; line-height:28px; margin:0 2% 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#127922;"
+						+ "</div>"
+							
+						+ "<form style='float:left; width:18%; margin:0; padding:0;'><input type='text' id='slaveSurnameInput'"
+							+ " value='"+ UtilText.parseForHTMLDisplay(characterSelected().getSurname())+ "' style='width:100%; margin:0; padding:0;'></form>"
+						+ "<div class='normal-button' id='"+characterSelected().getId()+"_RENAME_SURNAME' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
+						+ "</div>"
+						+ "<div class='normal-button' id='"+characterSelected().getId()+"_RENAME_SURNAME_RANDOM' style='float:left; width:5%; height:28px; line-height:28px; margin:0 2% 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#127922;"
+						+ "</div>"
+						
+						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getPetName(Main.game.getPlayer()))
+							+ "' style='width:100%; margin:0; padding:0;'></form>"
+						+ "<div class='normal-button' id='"+characterSelected().getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
+						+ "</div>"
+						+ " <div class='normal-button' id='GLOBAL_CALLS_PLAYER' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "All Slaves"
 						+ "</div>");
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
 						"<p>"
-							+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.her] to call you by a different name or title."
+							+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
 							+ " As [npc.sheIs] not your slave, you can't get [npc.herHim] to change [npc.her] name."
 						+ "</p>"));
+				
 
 				UtilText.nodeContentSB.append(
-					"<div class='container-full-width inner' style='padding:8px;'>"
-						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0; text-align:center;'>"
-							+ "Name and Surname"
+					"<div class='container-full-width' style='padding:8px 16px;'>"
+						+ "<div style='width:18%; float:left; font-weight:bold; margin:0 13% 0 0; padding:0; text-align:center;'>"
+							+ "Name"
 						+ "</div>"
-						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0; text-align:center;'>"
+						+ "<div style='width:18%; float:left; font-weight:bold; margin:0 13% 0 0; padding:0; text-align:center;'>"
+							+ "Surname"
+						+ "</div>"
+						+ "<div style='width:20%; float:left; font-weight:bold; margin:0 18% 0 0; padding:0; text-align:center;'>"
 							+ UtilText.parse(characterSelected(), "What [npc.she] calls you")
 						+ "</div>"
-						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 1% 0 0; padding:0;'>"
-							+ "<form style='float:left; width:39%; margin:0; padding:0;'><input type='text' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getName(false))+ "' style='width:100%; margin:0; padding:0;' disabled></form>"
-							+ "<div class='normal-button disabled' style='float:left; width:9%; height:28px; line-height:28px; margin:0 1% 0 1%; padding:0; text-align:center;'>"
-								+ "&#10003;"
-							+ "</div>"
-							+ "<form style='float:left; width:40%; margin:0; padding:0;'><input type='text' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getSurname())+ "' style='width:100%; margin:0; padding:0;' disabled></form>"
-							+ "<div class='normal-button disabled' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0; text-align:center;'>"
-								+ "&#10003;"
-							+ "</div>"
+						
+						+ "<form style='float:left; width:18%; margin:0; padding:0;'><input type='text' id='slaveNameInput'"
+							+ " value='"+ UtilText.parseForHTMLDisplay(characterSelected().getName(false))+ "' style='width:100%; margin:0; padding:0;' disabled></form>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
 						+ "</div>"
-						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 0 0 1%; padding:0;'>"
-							+ "<form style='float:left; width:50%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getPetName(Main.game.getPlayer()))
-								+ "' style='width:100%; margin:0; padding:0;'></form>"
-							+ "<div class='normal-button' id='"+characterSelected().getId()+"_CALLS_PLAYER' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0; text-align:center;'>"
-								+ "&#10003;"
-							+ "</div>"
-							+ " <div class='normal-button disabled' style='float:left; width:39%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0; text-align:center;'>"
-								+ "All Slaves"
-							+ "</div>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 2% 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#127922;"
+						+ "</div>"
+							
+						+ "<form style='float:left; width:18%; margin:0; padding:0;'><input type='text' id='slaveSurnameInput'"
+							+ " value='"+ UtilText.parseForHTMLDisplay(characterSelected().getSurname())+ "' style='width:100%; margin:0; padding:0;' disabled></form>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
+						+ "</div>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 2% 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#127922;"
+						+ "</div>"
+						
+						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getPetName(Main.game.getPlayer()))
+							+ "' style='width:100%; margin:0; padding:0;'></form>"
+						+ "<div class='normal-button' id='"+characterSelected().getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
+						+ "</div>"
+						+ " <div class='normal-button disabled' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "All Slaves"
 						+ "</div>");
 			}
 			
 			UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
-						"<div class='container-full-width inner'>"
+						"<p style='text-align:center; margin-top:4px;'>"
 							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
 							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
-						+ "</div>"
+						+ "</p>"
 					+ "</div>"));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
@@ -1769,4 +1810,179 @@ public class CompanionManagement {
 			return coreNode.getResponse(responseTab, index);
 		}
 	};
+	
+	private static boolean isFreedSlaveAvailableAsGuest() {
+		return characterSelected().isAffectionHighEnoughToInviteHome()
+				&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)
+				&& OccupancyUtil.isFreeRoomAvailableForOccupant();
+	}
+
+	public static final DialogueNode SET_SLAVE_FREE_SCARLETT = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().removeSlave(characterSelected());
+			characterSelected().getPetNameMap().remove(Main.game.getPlayer().getId());// Reset pet name
+			Main.game.getTextEndStringBuilder().append(characterSelected().incrementAffection(Main.game.getPlayer(), 25));
+			
+			Main.game.getNpc(Scarlett.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+			Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());
+			((Scarlett)Main.game.getNpc(Scarlett.class)).resetName();
+			((Scarlett)Main.game.getNpc(Scarlett.class)).completeBodyReset();
+
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_SCARLETT", characterSelected()));
+			Main.game.getDialogueFlags().setManagementCompanion(null);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue",
+						"With Scarlett having run off, there's nothing more for you to do except continue with your day...",
+						Main.game.getDefaultDialogue(false));
+			}
+			return null;
+		}
+	};
+	
+	private static boolean freedSlaveDeleted;
+	
+	public static final DialogueNode SET_SLAVE_FREE = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().removeSlave(characterSelected());
+			if(!isFreedSlaveAvailableAsGuest()) {
+				freedSlaveDeleted = true;
+				if(!characterSelected().isAffectionHighEnoughToInviteHome()) {
+					Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_DISLIKE", characterSelected()));
+					
+				} else if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION) || !OccupancyUtil.isFreeRoomAvailableForOccupant()) {
+					Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_NO_GUEST", characterSelected()));
+					
+				}
+				Main.game.banishNPC(characterSelected());
+				Main.game.getDialogueFlags().setManagementCompanion(null);
+				
+			} else {
+				freedSlaveDeleted = false;
+				characterSelected().getPetNameMap().remove(Main.game.getPlayer().getId());// Reset pet name
+				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_GUEST_CHOICE", characterSelected()));
+				Main.game.getTextEndStringBuilder().append(characterSelected().incrementAffection(Main.game.getPlayer(), 25));
+			}
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(freedSlaveDeleted) {
+				if(index == 1) {
+					return new Response("Continue",
+							"Now that your slave has been freed and left your life for good, there's little else for you to do except continue with your other plans for the day...",
+							Main.game.getDefaultDialogue(false));
+				}
+				
+			} else {
+				if(index == 1) {
+					return new Response("Offer room",
+							UtilText.parse(characterSelected(), "Ask [npc.name] if [npc.she] would like to stay in the mansion as a guest."),
+							SET_SLAVE_FREE_GUEST_ROOM) {
+						@Override
+						public void effects() {
+							Cell c = OccupancyUtil.getFreeRoomForOccupant();
+							characterSelected().setLocation(c.getType(), c.getLocation(), true);
+							Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
+							Main.game.getPlayer().addFriendlyOccupant(characterSelected());
+							Main.game.getTextEndStringBuilder().append(characterSelected().incrementAffection(Main.game.getPlayer(), 25));
+						}
+					};
+					
+				} else if(index == 2) {
+					return new Response("Goodbye",
+							UtilText.parse(characterSelected(), "Say goodbye to [npc.name]...<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
+							SET_SLAVE_FREE_END_NO_CONTENT) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_GOODBYE", characterSelected()));
+							Main.game.banishNPC(characterSelected());
+							Main.game.getDialogueFlags().setManagementCompanion(null);
+						}
+					};
+					
+				} else if(index == 3) {
+					return new Response("Throw out",
+							UtilText.parse(characterSelected(), "Call for Rose to unceremoniously throw [npc.name] out of the mansion...<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
+							SET_SLAVE_FREE_END_NO_CONTENT) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_THROWN_OUT", characterSelected()));
+							Main.game.banishNPC(characterSelected());
+							Main.game.getDialogueFlags().setManagementCompanion(null);
+						}
+					};
+				}
+				
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode SET_SLAVE_FREE_END_NO_CONTENT = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode SET_SLAVE_FREE_GUEST_ROOM = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_GUEST_ROOM", characterSelected());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", UtilText.parse(characterSelected(), "Having left [npc.name] to get settled into [npc.her] new room, you continue with your plans for the day..."), Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	
 }

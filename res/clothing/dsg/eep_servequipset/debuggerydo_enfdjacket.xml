@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+	
+		<authorTag><![CDATA[A small tag sewn into the side seam reads "Official Enforcer Issue, MFD by DSG Threadworks."]]></authorTag>
+
+		<value>850</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[test coat]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[test coats]]></namePlural> 
+
+		<description><![CDATA[A dress uniform coat with four pockets.]]></description> 
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>ANDROGYNOUS</femininity> 
+
+		<slot>TORSO_OVER</slot> 
+
+		<rarity>EPIC</rarity> 
+
+		<clothingSet>dsg_enforcer_service</clothingSet> 
+
+		<imageName>enfdjacket_base.svg</imageName> 
+
+		<imageEquippedName/>
+		
+		<stickers>
+			
+			<category id="collar" priority="1"> 
+				<categoryName><![CDATA[Collar Tabs]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[Enforcer]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="tab_pc" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> 
+					<stickerName><![CDATA[Police Constable]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Constable ]]></namePrefix> 
+					<namePostfix/> 
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Police Constable attached to it.</i>]]></descriptionModification> 
+					<imageName>enfdjacket_st_tab_pc.svg</imageName> 
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded> 
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved> 
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText> 
+					<availabilityText>
+						As an Enforcer who holds the rank of Police Constable, you can freely use these collar tabs.
+					</availabilityText> 
+				</sticker>
+				<sticker id="tab_sg" priority="2" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> 
+					<stickerName><![CDATA[Sergeant]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Sergeant ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Sergeant attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_sg.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Sergeant, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_ip" priority="3" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Inspector]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Inspector ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of an Inspector attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_ip.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Inspector, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_ci" priority="4" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Inspector]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Chief Inspector ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Chief Inspector attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_ci.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Inspector, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_su" priority="4" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Superintendent]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Superintendent ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Superintendent attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_su.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Superintendent, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_cs" priority="5" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Superintendent]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Chief Superintendent ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Chief Superintendent attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_cs.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Superintendent, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_cm" priority="5" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Commissioner]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Commissioner ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of the Commissioner attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_cm.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Commissioner, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="name" priority="2"> 
+				<categoryName><![CDATA[Name Plate]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="2" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="name_pc" priority="2" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Police Constable]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_pc.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Police Constable, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_sg" priority="2" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Sergeant]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_sg.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Sergeant, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_ip" priority="3" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Inspector]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_ip.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Inspector, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_su" priority="4" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Superintendent]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_su.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Superintendent, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_cs" priority="5" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Superintendent]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_cs.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Superintendent, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_brax" priority="6" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="ADB4FF">
+					<stickerName><![CDATA[Brax]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Brax's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Brax.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_brax.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Look at you, hacker.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_candi" priority="7" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="FEMININE_PLUS">
+					<stickerName><![CDATA[Candi]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Candi's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Candi.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_candi.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						A pathetic creature of meat and bone.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_claire" priority="8" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="FEMININE">
+					<stickerName><![CDATA[Claire]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Claire's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Claire.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_claire.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(pc.getId() != claire.getId())
+							You can't use Claire's name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						Panting and sweating as you run through my corridors.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_elle" priority="9" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="d69423">
+					<stickerName><![CDATA[Elle]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Elle's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Elle.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_elle.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						How can you challenge a perfect immortal machine?
+					</availabilityText>
+				</sticker>
+				<sticker id="name_wesley" priority="10" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="d6c19c">
+					<stickerName><![CDATA[Wes]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Wes' ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Wes.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_wesley.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Welcome to my DEATH MACHINE, interloper!
+					</availabilityText>
+				</sticker>
+				<sticker id="name_nysa" priority="11" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_ORANGE">
+					<stickerName><![CDATA[Nysa]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Nysa's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Nysa.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_nysa.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						I have nothing more to say to you, hacker
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="ribbon" priority="3">
+				<categoryName><![CDATA[Ribbon Rack]]></categoryName>
+				<sticker id="None" priority="0" defaultSticker="true" zLayer="3" colourSelected="TEXT_GREY">
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="ribbon_brax" priority="1" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="ADB4FF">
+					<stickerName><![CDATA[Brax]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_brax.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						My plans have come to fruition prematurely, but quite to my satisfaction.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_candi" priority="2" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="FEMININE_PLUS">
+					<stickerName><![CDATA[Candi]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_candi.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						You have my thanks, hacker.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_claire" priority="3" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="FEMININE">
+					<stickerName><![CDATA[Claire]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_claire.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Let me show you the destruction you have brought upon the planet Earth.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_elle" priority="4" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="d69423">
+					<stickerName><![CDATA[Elle]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_elle.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Make yourself comfortable, Hacker.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_wes" priority="5" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="d6c19c">
+					<stickerName><![CDATA[Wes]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_wesley.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Stay a while.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_nysa" priority="6" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_ORANGE">
+					<stickerName><![CDATA[Nysa]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_nysa.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						I have nothing more to say to you, hacker
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="qual" priority="4">
+				<categoryName><![CDATA[Qualification Badge]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="4" colourSelected="TEXT_GREY">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="qual_flyer" priority="0" defaultSticker="false" zLayer="4" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_PURPLE_LIGHT">
+					<stickerName><![CDATA[Combat Flyer]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_qual_flyer.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who has a Combat Flyer qualification, you can freely wear this badge!
+					</availabilityText>
+				</sticker>
+				<sticker id="qual_diver" priority="0" defaultSticker="false" zLayer="4" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE_GREY">
+					<stickerName><![CDATA[Combat Diver]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_qual_diver.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who has a Combat Diver qualification, you can freely wear this badge!
+					</availabilityText>
+				</sticker>	
+			</category>
+			<category id="aig" priority="5">
+				<categoryName><![CDATA[Aiguillette]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="5" colourSelected="TEXT_GREY">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="aig_cm" priority="1" defaultSticker="false" zLayer="5" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Commissioner]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_aig_cm.svg</imageName>
+					<imageName zLayer="-1">enfdjacket_st_aig_cm_backing.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Commissioner, you can freely use this aiguillette.
+					</availabilityText>
+				</sticker>
+			</category>
+		</stickers>
+
+		<enchantmentLimit/>
+
+		<effects/>
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart> 
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked> 
+
+				<concealedSlots/>
+			</blockedParts>
+
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+
+		<incompatibleSlots/> 
+
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLUE</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_GOLD"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+
+		<customColours>
+			
+			<customColour copyColourIndex="3" c0="#483737" c1="#6c5353" c2="#916f6f" c3="#ac9393" c4="#c8b7b7">
+				<defaultColours>
+					<colour>CLOTHING_GOLD</colour>
+				</defaultColours> 
+				<extraColours values="ALL_METAL"/>
+			</customColour>
+		</customColours>
+
+		<itemTags> 
+			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>CHEAT_ITEM</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc.her] arms through the coat's sleeves and [npc.verb(button)] up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the coat's sleeves and [npc.verb(button)] up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] arms through the coat's sleeves and hastily [npc.verb(button)] up the front.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc.her] coat and [npc.verb(pull)] [npc.her] arms out of the sleeves.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc2.namePos] coat and [npc.verb(help)] [npc2.her] [npc2.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on the front of [npc2.namePos] coat and roughly [npc.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc.namePos] coat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc2.namePos] coat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(button)] up the front of [npc2.namePos] coat.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] coat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] coat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on [npc2.namePos] coat.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

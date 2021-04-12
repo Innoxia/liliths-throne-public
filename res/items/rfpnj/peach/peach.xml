@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>25</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[peach]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[peaches]]></namePlural>
+		<description><![CDATA[A delicate, juicy fruit of the peach tree, which is often cultivated in temperate climates. It kind of looks like a butt if you squint...]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>LEGENDARY</rarity> 
+		
+		<imageName>peach.svg</imageName> 
+		
+		<colourPrimary>BASE_PINK_SALMON</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldTfGrow(+1)] [style.boldTfSex(ass size)]]]></line>
+			<line><![CDATA[[style.boldTfGrow(+1)] [style.boldTfSex(hip size)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		[#npc.incrementAssSize(1)]
+		[#npc.incrementHipSize(1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>SILLY_MODE</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(wipe)] off the peach and [npc.verb(take)] a big bite out of it. The sweet taste of the juicy fruit encourages [npc.herHim] to keep on going, and within a matter of moments [npc.sheHas] eaten the entire thing.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(wipe)] off the peach and [npc.verb(make)] [npc2.name] take a big bite out of it. The sweet taste of the juicy fruit encourages [npc2.herHim] to keep on going, and within a matter of moments [npc2.sheHas] eaten the entire thing.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

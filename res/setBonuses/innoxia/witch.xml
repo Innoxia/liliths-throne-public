@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Witch]]></name>
+	
+	<statusEffect>SET_WITCH</statusEffect>
+	
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HEAD</slot>
+		<slot>TORSO_UNDER</slot>
+		<slot>FOOT</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

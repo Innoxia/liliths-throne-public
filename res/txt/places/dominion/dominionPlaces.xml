@@ -1,6 +1,316 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- STREET -->
+	
+	<htmlContent tag="STREET"><![CDATA[
+	#IF(game.isDayTime())
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			<p>
+				Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place. The paved roads which are normally home to horse or centaur-pulled wooden carts are currently deserted. Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps. The tree's branches sway wildly in the storm's wind as it howls down the empty streets. The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes.
+			</p>
+			 <p>
+				Due to the ongoing storm, the entire city seems to be almost totally deserted. Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen. The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.
+				#IF(pc.getRace()==RACE_DEMON)
+					 They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.
+				#ELSE
+					 They sometimes cast a curious glance your way, but most are content to simply ignore you.
+				#ENDIF
+			</p>
+			<p>
+				The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way. Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust. If they catch you, they'll be sure to force you into a fight.
+			</p>
+		#ELSE
+			<p>
+				Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place. Instead of cars and trucks, the paved roads are home to wooden carts being pulled by either horses or centaur slaves.
+				#IF(game.getCurrentWeather()==WEATHER_CLEAR)
+					 Rows of trees and marble benches line either side of the pedestrianised streets, offering shade and a place to rest for weary shoppers. On either side of you, the building's clean façades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_CLOUD)
+					 Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest. On either side of you, the building's clean façades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_MAGIC_STORM_GATHERING)
+					 Marble benches line either side of the pedestrianised streets, granted shade from the summer sun by rows of trees. The tree's branches sway as the wind starts to pick up, and the rustling of leaves can be head over the steady hum of the busy crowds. On either side of you, the glass frontages of the recently renovated buildings reflect the darkening sky.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+					 Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest and cover from the rain. On either side of you, large canvas awnings have been extended from the buildings, shielding passersby from the sudden downpour.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
+					 Large white snowflakes continue to fall all around you as you walk past the rows of trees and marble benches that line either side of the pedestrianised streets.
+				#ENDIF
+			</p>
+			<p>
+				The streets are very busy at this time of day, and are packed with people hurrying to and fro. Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way. You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and all the other sorts that you'd find in any old city. As the streets are so busy at this time, you find yourself having to occasionally push your way through the dense crowds.
+			</p>
+			<p>
+				Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well. Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race. The rarest races that you see are humans and demons. The latter are very easy to spot, as wherever they walk, people hurriedly move to make way.
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			<p>
+				Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place. The paved roads which are normally home to horse or centaur-pulled wooden carts are currently deserted. Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps. The tree's branches sway wildly in the storm's wind as it howls down the empty streets. The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes.
+			</p>
+			<p>
+				Due to the ongoing storm, the entire city seems to be almost totally deserted. Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen. The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.
+				#IF(pc.getRace()==RACE_DEMON)
+					 They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.
+				#ELSE
+					 They sometimes cast a curious glance your way, but most are content to simply ignore you.
+				#ENDIF
+			</p>
+			<p>
+				The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way. Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust. If they catch you, they'll be sure to force you into a fight.
+			</p>
+		#ELSE
+			<p>
+				Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place. Even at this time of night, the paved roads are home to numerous wooden carts being pulled by either horses or centaur slaves. Marble benches line both sides of the pedestrianised streets, and are interspersed by rows of trees, softly illuminated by the amber glow of arcane-powered street lamps.
+				#IF(game.getCurrentWeather()==WEATHER_CLEAR)
+					  On either side of you, lights shine out from the windows of the tall buildings.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_CLOUD)
+					  On either side of you, lights shine out from the windows of the tall buildings.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_MAGIC_STORM_GATHERING)
+					 The tree's branches sway as the wind starts to pick up, and the rustling of leaves fills the still night air.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+					 On either side of you, large canvas awnings have been extended from the buildings, shielding passersby from the sudden downpour.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
+					 Large fluffy snowflakes continue to fall all around you; their haphazard paths illuminated by the lights shining out from the windows of the tall buildings.
+				#ENDIF
+			</p>
+			<p>
+				Although the streets are noticeably quieter than during the day, there are still plenty of people hurrying to and fro. Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way. You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and all the other sorts that you'd find in any old city. As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds.
+			</p>
+			<p>
+				Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well. Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race. The rarest races that you see are humans and demons. The latter are very easy to spot, as wherever they walk, people hurriedly move to make way.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STREET_EVENT_OCTOBER"><![CDATA[
+	<p>
+		[style.boldOrange(October;)] [style.boldArcane(Lilith's Month:)]
+		<br/>Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule. The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STREET_EVENT_SNOW"><![CDATA[
+	<p>
+		[style.boldBlueLight(Snow:)]
+		<br/>The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white. You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS_SAFE -->
+	
+	<htmlContent tag="BACK_ALLEYS_SAFE"><![CDATA[
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			The back alleys in this particular section of Dominion are not only considerably cleaner and wider than those found throughout the rest of the city, but they are also usually far more frequently travelled. As there's an ongoing arcane storm, however, they are currently just as deserted as any other.
+		#ELSE
+			The back alleys in this particular section of Dominion are not only considerably cleaner and wider than those found throughout the rest of the city, but they are also far more frequently travelled.
+			#IF(pc.getRace()==RACE_DEMON)
+				 While significantly less busy than the main streets of the city, you still often find yourself encountering groups of slow-moving shoppers, who invariably hurry to one side to let you pass as they see that you're [pc.a_race].
+			#ELSE
+				 While significantly less busy than the main streets of the city, you still often find yourself having to weave your way past groups of slow-moving shoppers, which greatly slows down your progress through these twisting passageways.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			While there is usually a large Enforcer presence in this area, it doesn't appear to be considered important enough to warrant the presence of demon officers, and so until the arcane storm passes, there will be nobody to come to your aid should you be attacked...
+		#ELSE
+			The reason for this alleyway being treated as a safe passage is due to an unusually large Enforcer presence in the area. A uniformed officer never seems to be more than one or two corners away, ready to rush to the aid of anyone who would call for it.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS -->
+	
+	<htmlContent tag="BACK_ALLEYS"><![CDATA[
+	<p>
+		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress.
+	</p>
+	<p>
+		#IF(game.getNonCompanionCharactersPresent().isEmpty())
+			Due to the abundance of hiding places from which an ambush could be sprung, you recognise this as being a [style.colourBad(dangerous)] area, and you realise that you could be attacked at any moment...
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSE
+			#IF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Due to the abundance of hiding places from which an ambush could be sprung, you recognise this as being a [style.colourBad(dangerous)] area, and you realise that you could be attacked at any moment...
+			#ELSE
+				Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS -->
+	
+	<htmlContent tag="DARK_ALLEYS"><![CDATA[
+	<p>
+		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress.
+	</p>
+	<p>
+		#IF(game.getNonCompanionCharactersPresent().isEmpty())
+			Due to the abundance of hiding places from which an ambush could be sprung, as well as your significant distance from any of Dominion's main streets, you recognise this as being a [style.colourTerrible(very dangerous)] area, and you realise that you could be attacked at any moment...
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSEIF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			Due to the abundance of hiding places from which an ambush could be sprung, as well as your significant distance from any of Dominion's main streets, you recognise this as being a [style.colourTerrible(very dangerous)] area, and you realise that you could be attacked at any moment...
+		#ELSE
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS_CANAL -->
+	
+	<htmlContent tag="BACK_ALLEYS_CANAL"><![CDATA[
+	<p>
+		At the junction between the canal and Dominion's dingy back-alleys, a series of crude wooden walkways criss-cross over the water. Providing a bridge between the numerous passageways set into the flanking buildings on both sides of the waterway, these makeshift constructs are quite clearly the work of the denizens that haunt this area.
+	</p>
+	<p>
+		#IF(game.getNonCompanionCharactersPresent().isEmpty())
+			Cautiously glancing around your deserted, [style.colourBad(dangerous)] surroundings, you half-expect to see a shadowy figure emerge from one of the gloomy openings, but much to your relief, there doesn't seem to be anyone waiting in ambush. Letting out a sigh, you continue on your way, happy that you didn't run into any of the lowlifes that operate in this area...
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSEIF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			Cautiously glancing around your deserted, [style.colourBad(dangerous)] surroundings, you half-expect to see a shadowy figure emerge from one of the gloomy openings, but much to your relief, there doesn't seem to be anyone waiting in ambush. Letting out a sigh, you continue on your way, happy that you didn't run into any of the lowlifes that operate in this area...
+		#ELSE
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BOULEVARD -->
+	
+	<htmlContent tag="BOULEVARD"><![CDATA[
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city. Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble façades decorated with countless flags bearing the black pentagram of Lilith. Thanks to the ongoing arcane storm, these wide, paved roads which are normally home to horse or centaur-pulled wooden carts are almost completely deserted.
+		</p>
+		<p>
+			The only people who you see out and about all seem to be demons, including the occasional smartly-dressed Enforcer. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down quiet boulevard. There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace...
+		</p>
+	#ELSE
+		<p>
+			You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city. Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble façades decorated with countless flags bearing the black pentagram of Lilith. A never-ending stream of horse and centaur-pulled carts trundle back and forth down the middle of the wide, paved street as they transport all manner of goods to and from the countless businesses and residences found throughout the city.
+		</p>
+		<p>
+			#IF(game.isDayTime())
+				Being one of Dominion's main thoroughfares, this boulevard is packed with pedestrians, and you walk past individuals of all different races and appearances as you continue onwards through the crowds. Although dog, cat and horse-morphs are the most common races that you see, there are a significant number of demons and other more exotic races mixed in with the crowds here. Demons and half-demons in particular are very easy to spot, as wherever they walk, people hurriedly move to make way for them.
+			#ELSE
+				Despite the fact that it's night-time, this boulevard is packed with pedestrians, and you walk past individuals of all different races and appearances as you continue onwards through the crowds. Although dog, cat and horse-morphs are the most common races that you see, there are a significant number of demons and other more exotic races mixed in with the crowds here. Demons and half-demons in particular are very easy to spot, as wherever they walk, people hurriedly move to make way for them.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_HOTEL -->
+	
+	<htmlContent tag="HELENAS_HOTEL"><![CDATA[
+	<p>
+		[style.boldGold(The Golden Feather:)]
+		<br/>Helena's hotel, 'The Golden Feather', is located in this area. Now that you're aware of its existence, you could head inside and make use of the elevator to travel directly up to Helena's nest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STREET_SHADED -->
+
+	<htmlContent tag="STREET_SHADED"><![CDATA[
+	<p>
+		[style.boldHarpy(Harpy Nests:)]
+		<br/>The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets. Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CANAL -->
+
+	<htmlContent tag="CANAL"><![CDATA[
+	#IF(game.isDayTime())
+		<p>
+			#IF(pc.hasCompanions())
+				You and [com.name] find yourselves travelling down the narrow dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ELSE
+				You find yourself travelling down the narrow dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ENDIF
+			 While the track occasionally widens out or runs past small clearings and gardens, it is for the most part closely flanked by dark, red-bricked buildings. Despite the fact that these high walls create a gloomy, oppressive atmosphere, you find yourself preferring to be in their presence rather than that of the more spacious, foliage-filled areas, as their leafy bushes, wooden fences, and waist-high walls provide ample hiding places from which muggers could launch an ambush.
+		</p>
+		<p>
+			Unlike the city's back-alleys, this canal-side path is not completely deserted, as every now and then you come across a harmless citizen, who invariably averts their gaze as they hurry past you. The wide waterway itself is also extremely busy, with a seemingly never-ending procession of barges slowly trawling past on their way to destinations unknown. While several of them seem to be for recreational purposes, the vast majority of these narrow boats are hauling cargo of one sort or another; their long decks are stacked high with crates, packed with industrial machinery, or filled with tarpaulin-covered mounds of raw materials.
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.hasCompanions())
+				You and [com.name] find yourselves travelling down the narrow, dimly-lit dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ELSE
+				You find yourself travelling down the narrow, dimly-lit dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ENDIF
+			 While the track occasionally widens out or runs past small clearings and gardens, it is for the most part closely flanked by dark, red-bricked buildings. Despite the fact that the flickering arcane lights fixed to these high walls create a gloomy, sinister atmosphere, you find yourself preferring to be in their presence rather than that of the more spacious, foliage-filled areas, as their leafy bushes, wooden fences, and waist-high walls provide ample pitch-black hiding places from which muggers could launch an ambush.
+		</p>
+		<p>
+			Due to the fact that it's currently night-time, this canal-side path is completely deserted. The wide waterway itself is also far less busy than it is during the day, with just the occasional arcane spotlight sweeping over the gloomy waterway as the barge it's fixed to slowly trawls past. While there may be the infrequent recreational narrow boat to be seen during daylight hours, these night-time barges are invariably hauling cargo of one sort or another; their long decks are stacked high with crates, packed with industrial machinery, or filled with tarpaulin-covered mounds of raw materials.
+		</p>
+	#ENDIF
+	<p>
+		#IF(game.getNonCompanionCharactersPresent().isEmpty())
+			#IF(game.isDayTime())
+				Despite the high level of traffic on the canal itself, you get the feeling that nobody would come to your aid if you were to be attacked while travelling on this path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+			#ELSE
+				Despite the fact that there are people keeping a lookout up on the decks of these barges, you get the feeling that none of them would come to your aid if you were to be attacked while travelling on this poorly-lit path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+			#ENDIF
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSEIF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			#IF(game.isDayTime())
+				Despite the high level of traffic on the canal itself, you get the feeling that nobody would come to your aid if you were to be attacked while travelling on this path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+			#ELSE
+				Despite the fact that there are people keeping a lookout up on the decks of these barges, you get the feeling that none of them would come to your aid if you were to be attacked while travelling on this poorly-lit path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+			#ENDIF
+		#ELSE
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+
+	<!-- CANAL_END -->
+
+	<htmlContent tag="CANAL_END"><![CDATA[
+	<p>
+		<i>The path before you abruptly ends, and although the canal continues on its way to the outskirts of the city, there's no way for you to continue onwards...</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CITY_EXIT_SEWERS -->
+
 	<htmlContent tag="CITY_EXIT_SEWERS"><![CDATA[
 	<p>
 		A large stone bridge has been built over Dominion's canal, and as you walk over it, you hear the unmistakable sound of rushing water coming from below. Peering over the side, you see the origin of the noise; a huge, brick-lined opening, covered in metal bars, has been dug out on one side of the waterway, and it's into this that the water from the canal is flowing. Looking closer, you see that on the other side of the bars, there's a wide set of stone steps leading down into the gloom below.

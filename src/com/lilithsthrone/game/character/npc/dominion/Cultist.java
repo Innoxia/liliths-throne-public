@@ -9,11 +9,10 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -38,8 +37,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -48,9 +45,10 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -90,7 +88,7 @@ public class Cultist extends NPC {
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
 				this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 			}
@@ -98,7 +96,7 @@ public class Cultist extends NPC {
 				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 
 			this.setHistory(Occupation.NPC_CULTIST);
 			
@@ -183,15 +181,15 @@ public class Cultist extends NPC {
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		List<Colour> colours = new ArrayList<>();
-		colours.add(Colour.CLOTHING_ORANGE);
-		colours.add(Colour.CLOTHING_BLACK);
-		colours.add(Colour.CLOTHING_PURPLE);
-		colours.add(Colour.CLOTHING_PURPLE_LIGHT);
+		colours.add(PresetColour.CLOTHING_ORANGE);
+		colours.add(PresetColour.CLOTHING_BLACK);
+		colours.add(PresetColour.CLOTHING_PURPLE);
+		colours.add(PresetColour.CLOTHING_PURPLE_LIGHT);
 		Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
 
 		colours.clear();
-		colours.add(Colour.CLOTHING_WHITE);
-		colours.add(Colour.CLOTHING_BLACK);
+		colours.add(PresetColour.CLOTHING_WHITE);
+		colours.add(PresetColour.CLOTHING_BLACK);
 		Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
 		
 		
@@ -199,45 +197,45 @@ public class Cultist extends NPC {
 		
 		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
 		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
-		clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_lacy_plunge_bra"));
 		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_sock_thighhigh_socks"));
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
 
-		equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
 		if(Math.random()<0.5) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
 		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
 		}
 		if(Math.random()>0.5f) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots", witchColour, false), true, this);
 		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots_thigh_high", witchColour, false), true, this);
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_cleaning_witch_broom"));
 		}
 		
 		// Makeup:
 		colours = Util.newArrayListOfValues(
-				Colour.COVERING_NONE,
-				Colour.COVERING_ORANGE,
-				Colour.COVERING_PURPLE,
-				Colour.COVERING_BLACK);
+				PresetColour.COVERING_NONE,
+				PresetColour.COVERING_ORANGE,
+				PresetColour.COVERING_PURPLE,
+				PresetColour.COVERING_BLACK);
 		
 		Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
 		Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
 		
 		setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
-		setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+		setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
 		setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
 		setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
 		
@@ -287,41 +285,45 @@ public class Cultist extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_sterility"))) {
 				if(Main.sex.isDom(Main.game.getPlayer())) {
 					Main.game.getPlayer().useItem(item, target, false);
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " [npc.She] lets out an angry huff, but as [npc.sheIs] in no position to refuse, [npc.she] reluctantly does as you ask,"
-								+ " [npc.speech(This is an insult to Lilith herself...)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_innoxia_pills_sterility.getName(false)]' to [npc2.name], you tell [npc2.herHim] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " [npc2.She] lets out an angry huff, but as [npc2.sheIs] in no position to refuse, [npc2.she] reluctantly does as you ask,"
+									+ " [npc2.speech(This is an insult to Lilith herself...)]")
 							+ "</p>");
 				} else {
-					itemOwner.removeItemByType(ItemType.PROMISCUITY_PILL);
+					itemOwner.removeItemByType(ItemType.getItemTypeFromId("innoxia_pills_sterility"));
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " With an angry huff, [npc.she] slaps the pill out of your hand,"
-								+ " [npc.speech(How dare you! Lilith demands that her followers' seed remain strong!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_innoxia_pills_sterility.getName(false)]' to [npc2.name], you ask [npc2.herHim] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " With an angry huff, [npc2.she] slaps the pill out of your hand,"
+									+ " [npc2.speech(How dare you! Lilith demands that her followers' seed remain strong!)]")
 							+ "</p>");
 				}
 					
-			} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+			} else if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				Main.game.getPlayer().useItem(item, target, false);
 				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you tell [npc.her] to swallow it."
-								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-								+ " [npc.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a "+item.getName(false, false)+" to [npc2.name], you tell [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little "+item.getColour(0).getName()+" pill,"
+									+ " [npc2.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 					
 				} else {
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you ask [npc.her] to swallow it."
-								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-								+ " [npc.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a "+item.getName(false, false)+" to [npc2.name], you ask [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little "+item.getColour(0).getName()+" pill,"
+									+ " [npc2.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 				}
 			}
@@ -362,7 +364,7 @@ public class Cultist extends NPC {
 	// ****************** Sex & Dirty talk: ***************************
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		return true;
 	}
 
@@ -404,9 +406,12 @@ public class Cultist extends NPC {
 	}
 	
 	@Override
-	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return null;
+				}
 				return UtilText.parse(target,
 						"<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
@@ -415,9 +420,14 @@ public class Cultist extends NPC {
 						+ "</p>");
 			} else if (!target.isPlayer()){
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
+				if(clothing!=null && clothing.isCondom(InventorySlot.PENIS)) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
-					inventory.resetEquipDescription();
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, [npc2.name] [npc2.verb(slap)] it away and [npc2.verb(growl)],"
+							+ " [npc2.speech(I don't think so! You're going to take my seed, and you're going to love it!)]");
 				}
 				return UtilText.parse(target,
 						"<p>"
@@ -426,178 +436,9 @@ public class Cultist extends NPC {
 						+ "</p>");
 			}
 		}
-		
-		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
-				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+		return null;
 	}
 	
-//	// Losing virginity: TODO
-//	private static StringBuilder StringBuilderSB;
-//	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-//		if(isPlayerDom || Main.sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)==PenetrationType.TAIL) {
-//			return super.getPlayerVaginaVirginityLossDescription(isPlayerDom);
-//		}
-//		
-//		StringBuilderSB = new StringBuilder();
-//		
-//		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-//			StringBuilderSB.append(
-//							"<p>"
-//								+ "As the dominant succubus drives her "+Sex.getPartner().getPenisName(true)+" deep into your "+Main.game.getPlayer().getVaginaName(true)
-//									+", your vision explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
-//								+ " Due to the fact that you're still a virgin, the sudden, violent penetration is like nothing you've ever felt before,"
-//									+ " and your shriek turns into a shuddering cry as you collapse back against the wall in pure agony."
-//							+ "</p>"
-//							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)?"<p>"
-//									+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-//									+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-//									+ "</p>":"")
-//							+"<p>"
-//								+ "Glancing down, you see a small trickle of blood flowing out of your now-broken-in pussy, and you realise that your hymen has been completely torn."
-//								+ " As you let out a desperate sigh, you hear the succubus giggling at your reaction."
-//							+ "</p>"
-//							+"<p>"
-//								+ "Looking up at her, you see a wild, crazed look in her eyes."
-//								+ " Another jolt of pain shoots up between your legs as she drives her bumpy, demonic cock even deeper into your "+Main.game.getPlayer().getVaginaName(true)+"."
-//								+ " Leaning into you, she pulls you into a sloppy kiss, and with a final, violent thrust into your groin, you feel the base of her cock grind up against your outer labia."
-//							+ "</p>"
-//							+ "<p>"
-//								+ "Still keeping her demonic cock fully hilted in your "+Main.game.getPlayer().getVaginaName(true)+", she breaks off the kiss, raising her hand to cover your mouth as she muffles your painful cries."
-//								+ " Playfully biting her lip, she starts taunting you, clearly getting incredibly excited about being the one to take your virginity."
-//							+ "</p>"
-//							+ "<p>"
-//								+ UtilText.parseSpeechNoEffects("~Mmm!~ Doesn't that feel good?! Aww, I wonder if you were saving yourself for someone,", Main.sex.getPartner())
-//								+" she pauses for a moment to let out a mocking laugh, before continuing, "
-//								+ UtilText.parseSpeechNoEffects("Well, I guess you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.", Main.sex.getPartner())
-//							+ "</p>"
-//							+ "<p>"
-//								+ "You let out a protesting moan, but the succubus just presses her hand down even tighter over your mouth as she continues, "
-//								+ UtilText.parseSpeechNoEffects("What's that? You want me to do it again?!", Main.sex.getPartner())
-//							+ "</p>"
-//							+ "<p>"
-//								+ "Letting out a manic laugh, the succubus suddenly drops her hips, allowing her "+Sex.getPartner().getPenisName(true)+" to slide fully out of your "+Main.game.getPlayer().getVaginaName(true)+"."
-//								+ " Lining herself up once more, she wastes no time before violently thrusting up into you for a second time."
-//								+ " Although still uncomfortable enough to cause you to cry out into the palm of her hand, it's nothing like the agony you experienced on the first thrust,"
-//									+ " and as you feel her throbbing length filling you up once more, you find yourself letting out a desperate little moan."
-//							+ "</p>"
-//							+ "<p>"
-//								+ "The succubus looks delighted at your reaction, and leans in as she continues teasing you, "
-//								+ UtilText.parseSpeechNoEffects("~Ooh!~ So, you're a slut for demon dick? Can you feel it, pushing <i>deep</i>, claiming your precious little virginity?!", Main.sex.getPartner())
-//							+ "</p>"
-//							+ "<p>"
-//								+ "Dropping her hips a little, she starts thrusting in and out of your "+Main.game.getPlayer().getVaginaName(true)
-//									+", taking her hand away from your mouth as you find yourself letting out a series of lewd moans."
-//								+ " Moving her hands down to take hold of your waist, she carries on taunting you,"
-//									+ " repeating that you'll always remember this moment as the time you discovered that you're just a slut for big, thick demon cock."
-//								+ " As the pain between your legs fades away into a dull ache, you find yourself letting out moan after desperate moan, and you start to worry that the succubus might be right..."
-//							+ "</p>");
-//		} else {
-//			StringBuilderSB.append(
-//					"<p>"
-//						+ "As the dominant succubus drives her "+Sex.getPartner().getPenisName(true)+" deep into your "+Main.game.getPlayer().getVaginaName(true)
-//							+", your vision explodes in stars, and a desperate, high-pitched wail escapes from between your lips."
-//						+ " Due to the fact that you're still a virgin, the sudden, violent penetration is like nothing you've ever felt before,"
-//							+ " and your wail turns into a shuddering cry as you collapse back against the wall."
-//					+ "</p>"
-//					+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)?"<p>"
-//							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-//							+ " The discomfort between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-//							+ "</p>":"")
-//					+"<p>"
-//						+ "Letting out a sigh as you realise that your hymen is now completely torn, you look up at the succubus, and see a wild, crazed look in her eyes."
-//						+ " Another little painful jolt shoots up between your legs as she drives her bumpy, demonic cock even deeper into your "+Main.game.getPlayer().getVaginaName(true)+"."
-//						+ " Leaning into you, she pulls you into a sloppy kiss, and with a final, violent thrust into your groin, you feel the base of her cock grind up against your outer labia."
-//					+ "</p>"
-//					+ "<p>"
-//						+ "Still keeping her demonic cock fully hilted in your "+Main.game.getPlayer().getVaginaName(true)+", she breaks off the kiss, raising her hand to cover your mouth as she muffles your desperate cries."
-//						+ " Playfully biting her lip, she starts taunting you, clearly getting incredibly excited about being the one to take your virginity."
-//					+ "</p>"
-//					+ "<p>"
-//						+ UtilText.parseSpeechNoEffects("~Mmm!~ Doesn't that feel good?! Aww, I wonder if you were saving yourself for someone,", Main.sex.getPartner())
-//						+" she pauses for a moment to let out a mocking laugh, before continuing, "
-//						+ UtilText.parseSpeechNoEffects("Well, I guess you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.", Main.sex.getPartner())
-//					+ "</p>"
-//					+ "<p>"
-//						+ "You let out a protesting moan, but the succubus just presses her hand down even tighter over your mouth as she continues, "
-//						+ UtilText.parseSpeechNoEffects("What's that? You want me to do it again?!", Main.sex.getPartner())
-//					+ "</p>"
-//					+ "<p>"
-//						+ "Letting out a manic laugh, the succubus suddenly drops her hips, allowing her "+Sex.getPartner().getPenisName(true)+" to slide fully out of your "+Main.game.getPlayer().getVaginaName(true)+"."
-//						+ " Lining herself up once more, she wastes no time before violently thrusting up into you for a second time."
-//						+ " Although still uncomfortable enough to cause you to cry out into the palm of her hand, it's nothing like the pain you experienced on the first thrust,"
-//							+ " and as you feel her throbbing length filling you up once more, you find yourself letting out a desperate little moan."
-//					+ "</p>"
-//					+ "<p>"
-//						+ "The succubus looks delighted at your reaction, and leans in as she continues teasing you, "
-//						+ UtilText.parseSpeechNoEffects("~Ooh!~ So, you're a slut for demon dick? Can you feel it, pushing <i>deep</i>, claiming your precious little virginity?!", Main.sex.getPartner())
-//					+ "</p>"
-//					+ "<p>"
-//						+ "Dropping her hips a little, she starts thrusting in and out of your "+Main.game.getPlayer().getVaginaName(true)
-//							+", taking her hand away from your mouth as you find yourself letting out a series of lewd moans."
-//						+ " Moving her hands down to take hold of your waist, she carries on taunting you,"
-//							+ " repeating that you'll always remember this moment as the time you discovered that you're just a slut for big, thick demon cock."
-//						+ " As the pain between your legs fades away into a dull ache, you find yourself letting out moan after desperate moan, and you start to worry that the succubus might be right..."
-//					+ "</p>");
-//			
-//		}
-//		
-//		StringBuilderSB.append(formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
-//		
-//		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN))
-//			StringBuilderSB.append("<p style='text-align:center;'>"
-//					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
-//				+ "</p>"
-//				+ "<p>"
-//					+ "As the succubus carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
-//				+ "</p>"
-//				+ "<p style='text-align:center;'>"
-//					+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
-//							+ "To... <b>her</b>?!")
-//				+ "</p>"
-//				+ "<p>"
-//					+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
-//					+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the succubus is telling you."
-//				+ "</p>"
-//				+ "<p style='text-align:center;'>"
-//				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
-//						+ "Just a slut for demon cock...<br/>"
-//						+ "She's right, I'm just another easy fuck for someone like her...")
-//				+ "</p>"
-//				+ "<p>"
-//				+ "You're vaguely aware of the succubus's taunts fading away as she starts to focus her concentration on fucking you."
-//				+ " With a desperate moan, you start bucking your hips back against her, resigning yourself to the fact that now you're nothing more than a"
-//				+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-//				+ "</p>");
-//		
-//		return UtilText.parse(Main.sex.getPartner(),
-//				StringBuilderSB.toString());
-//	}
-//	
-//	// Dirty talk:
-//	
-//	@Override
-//	public String getDirtyTalkNoPenetration(boolean isPlayerDom){
-//		List<String> speech = new ArrayList<>();
-//		
-//		if(isPlayerDom){
-//			speech.add("Come on, fuck me already!");
-//			speech.add("Come on! What's taking so long?!");
-//			speech.add("Fuck me already!");
-//			speech.add("Let's get started! Come on!");
-//		} else {
-//			speech.add("I'm gonna turn you into a slut for demon cock!");
-//			speech.add("You ever been fucked by a demon?");
-//			speech.add("You're going to be begging for my cum before the end!");
-//			speech.add("You're going to be a good little bitch!");
-//		}
-//		
-//		return speech.get(Util.random.nextInt(speech.size()));
-//	}
-//	
+	//TODO UNique virginity loss/dirty talk needed. Was previously using the same as DominionSuccubusAttacker, which didn't fit the situation.
 	
 }

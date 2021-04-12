@@ -13,7 +13,7 @@
 				Travelling further up the road, you notice that there are curious amount of demons walking around in this area, and, what's more, you notice that most of them are carrying shopping bags of some sort or another. The cause of this unusual gathering is soon made apparent, as up ahead you see a huge shopping centre, with yet more demons loitering around the ornate entranceway.
 			</p>
 			<p>
-				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all still [style.colourGood(open)] for business, despite the storm currently raging overhead. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(all shops within the arcade are open from 06:00 to 22:00)].
+				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all still [style.colourGood(open)] for business, despite the storm currently raging overhead. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				You wonder if you should take this opportunity to go and do some shopping...
@@ -23,7 +23,7 @@
 				Travelling further up the road, you notice that there are several signs advertising the presence of 'Dominion's Largest Shopping Arcade'. Just as these signs promised, you soon catch sight of a huge shopping centre, and after just a few moments more, you find yourself standing outside the ornate entranceway.
 			</p>
 			<p>
-				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(all shops within the arcade are open from 06:00 to 22:00)].
+				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				Despite the fact that the shops within are closed, the doors leading into the arcade itself are not locked, and you wonder if you should go inside to take a look around...
@@ -35,7 +35,7 @@
 				The streets in this part of Dominion seem to be busier than usual, and you notice that many of the people surrounding you are holding shopping bags of all shapes and sizes. The cause of this unusual increase in traffic is soon made apparent, as up ahead you see a huge shopping centre, with yet more people loitering around the ornate entranceway.
 			</p>
 			<p>
-				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all [style.colourGood(open)] for business. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(all shops within the arcade are open from 06:00 to 22:00)].
+				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all [style.colourGood(open)] for business. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				You wonder if you should take this opportunity to go and do some shopping...
@@ -45,7 +45,7 @@
 				Travelling further up the road, you notice that there are several signs advertising the presence of 'Dominion's Largest Shopping Arcade'. Just as these signs promised, you soon catch sight of a huge shopping centre, and after just a few moments more, you find yourself standing outside the ornate entranceway.
 			</p>
 			<p>
-				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(all shops within the arcade are open from 06:00 to 22:00)].
+				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				Despite the fact that the shops within are closed, the doors leading into the arcade itself are not locked, and you wonder if you should go inside to take a look around...
@@ -92,6 +92,30 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ARCADE_WES_REMINDER"><![CDATA[
+	<p><i>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestMet))
+			While this is the place where you can meet Wes, you've already refused to help him today, and so you'll be unable to see him again until tomorrow at the earliest...
+		#ELSEIF(game.getHourOfDay()==13)
+			This is both the time and place in which to
+			#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestRefused))
+				 [style.colourMinorGood(meet Wes)],
+			#ELSE
+				 [style.colourMinorGood(meet the mysterious Enforcer)],
+			#ENDIF
+			 so if you were to look around for him for a while, you'd likely be able to get in contact with him...
+		#ELSE
+			While this is the place where 
+			#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestRefused))
+				 Wes
+			#ELSE
+				 the mysterious Enforcer
+			#ENDIF
+			 told you to meet him, he said that he'd only be here between the hours of [style.colourMinorBad([units.time(13)] and [units.time(14)])], so you'll have to come back then... 
+		#ENDIF
+	</i></p>
+	]]>
+	</htmlContent>
 	
 	<!-- GENERIC_SHOP -->
 	
@@ -107,6 +131,404 @@
 	</htmlContent>
 	
 	
+	<!-- RESTAURANT -->
 	
+	<htmlContent tag="RESTAURANT"><![CDATA[
+	<p>
+		Tucked away in one corner of the Shopping Arcade, the restaurant 'The Oaken Glade' proudly displays its name in flowing gold lettering above its front door. The establishment's large windows allow you to look in on an incredible scene; the vast interior has been manipulated by some form of arcane-powered illusion, making it appear as though the restaurant is a portal directly into the middle of a summer-time forest clearing.
+		#IF(game.isDayTime())
+			 Bright sunlight shines down through the leaves of the huge oak trees which border this clearing, covering the tables and chairs in a soft, dappled-green glow.
+		#ELSEIF(game.getCurrentDayPeriod()==DAY_PERIOD_NIGHT)
+			 Glowing lanterns have been hung from the branches of the huge oak trees which border this clearing, casting the tables and chairs in a soft, orange glow.
+		#ENDIF
+	</p>
+	<p>
+		The scene is so fascinating that it's able to draw in a continuous stream of passersby. Walking up to the menu displayed next to the entrance, these potential customers are almost all immediately turned away by what they see. Moving up to take a look yourself, you see the reason for their swift departure; the cheapest item on the menu is a three-course meal that's priced at almost one-thousand flames. The wine menu is even more outrageously expensive, and you imagine that it would be all too easy for a couple to generate an evening's bill of close to ten thousand flames.
+	</p>
+	<p>
+		The glass of the window beside the front door has been elaborately etched with decorative, flowing patterns, and in the middle of this, there's some writing which declares this restaurant to be
+		#IF(game.getHourOfDay()>=18 && game.getHourOfDay()<23)
+			 [style.colourMinorGood('Open every evening, [unit.time(18)]-[unit.time(23)]. <b>Reservations only.</b>')], meaning that it is currently [style.colourGood(open)].
+		#ELSE
+			 [style.colourMinorBad('Open every evening, [unit.time(18)]-[unit.time(23)]. <b>Reservations only.</b>')], meaning that it is currently [style.colourBad(closed)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ANTIQUES -->
+	
+	<htmlContent tag="ANTIQUES"><![CDATA[
+	<p>
+		While most of the shops in the arcade have at least three large windows in which to display their goods, the store that you find yourself standing in front of has just the one, making it the smallest shop in all of the arcade. Looking through this solitary sheet of glass, you see that the store's gloomy interior is filled with all sorts of old furniture and miscellaneous items. This odd-looking arrangement is explained by an amphora-shaped sign hanging above the shop's entrance, which bears the words 'Antiques & Collectables'.
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			A small sign hanging in the door's glass window declares this antiques shop to be [style.colourMinorGood('Open every day, [unit.time(6)]-[unit.time(22)]')], meaning that the store is currently [style.colourGood(open)].
+		#ELSE
+			A small sign hanging in the door's glass window declares this antiques shop to be [style.colourMinorBad('Open every day, [unit.time(6)]-[unit.time(22)]')], meaning that the store is currently [style.colourBad(closed)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ANTIQUES_INTERIOR -->
+	
+	<htmlContent tag="ANTIQUES_INTERIOR"><![CDATA[
+	<p>
+		A small bell positioned above the door rings out to announce your entrance as you step inside the antiques shop. Finding that the interior isn't quite as dimly lit as it appeared to be when looking in from the outside, you're able to see that what the store lacks in width, it more than makes up for in depth, with the back wall being a considerable distance from where you're currently standing.
+	</p>
+	<p>
+		As you join several other customers in ambling throughout the store, you end up passing an eclectic mix of creaky old furniture, obsolete arcane instruments, and all manner of outdated miscellaneous items. While they may be of some interest to dedicated collectors, these curious artefacts really are of no use to you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT"><![CDATA[
+	<p>
+		You aren't here to shop for antiques, however, and as you walk down the narrow aisles formed between piles of old furniture, you look out for any possible sign of Scarlett's presence. Although your search for the elusive harpy proves to be fruitless, you're not out of options just yet, as you could always go and ask the employee behind the store's counter about her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_END"><![CDATA[
+	<p>
+		With nothing in here warranting your attention, there's little to do except turn around and leave via the same way you came...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_START"><![CDATA[
+	<p>
+		As there's no obvious sign of Scarlett anywhere in the store, you head over to the cat-girl employee standing behind the counter and ask her if she knows anything about the harpy you're looking for. As you mention your quarry's name, the cat-girl nervously glances over towards a nearby door marked as 'staff only', before revealing, [style.speechFeminine(Yes, she's a slave here, although she's not been allowed out of the storage room since she attacked that one customer...)]
+	</p>
+	<p>
+		Relieved to discover that the harpy is close at hand, you ask the cat-girl if you could speak to Scarlett's owner. Happily nodding her head, she says, [style.speechFeminine(If you're here to do something about her, I'm sure the boss would want to talk to you. He's back there in the storage room at the moment; I think he's trying to train Scarlett to not be so rude to customers...)]
+	</p>
+	<p>
+		Asking you to wait for just a moment, the cat-girl quickly steps over to the door, before pushing it ajar and poking her head into the room beyond, calling, [style.speechFeminine(Laurence! There's someone here who wants to talk to you about Scarlett!)]
+	</p>
+	<p>
+		A flustered-sounding voice calls back, [style.speechMasculine(Thank goodness! The owner of that slave shop must have changed their mind about giving me a refund! Send them in!)] 
+	</p>
+	<p>
+		Holding the door open, the cat-girl waves you on through, waiting until you've [pc.stepped] forwards into the storage room before quickly returning to her place behind the counter. As the door swings shut behind you, the room's two occupants turn to face you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_TRANSFORMED"><![CDATA[
+	<p>
+		You immediately recognise the figure furthest away from the door as being the harpy you're looking for. Although you'd transformed her before selling her, Scarlett has somehow managed to get her feathered hands on some transformation potions of her own, as she now looks exactly like she did the first time you met her. As the raven-harpy catches sight of you, she narrows her [scarlett.eyeColour] eyes and sneers, [scarlett.speech(Well, if it isn't the cunt who sold me! You've come back to beg for my forgiveness, have you, you fucking [pc.bitch]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT"><![CDATA[
+	<p>
+		You immediately recognise the figure furthest away from the door as being the exact raven-harpy you're looking for. As Scarlett catches sight of you, she narrows her [scarlett.eyeColour] eyes and sneers, [scarlett.speech(Well, if it isn't the cunt who sold me! You've come back to beg for my forgiveness, have you, you fucking [pc.bitch]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_END"><![CDATA[
+	<p>
+		#IF(scarlett.getObedienceValue()>25)
+			Displaying no sign of her former obedience, Scarlett has clearly reverted to her old ways, and snarls menacingly at you as you turn to face her new owner, who takes the form of an extremely weary-looking squirrel-boy.
+		#ELSE
+			As insolent as ever, Scarlett snarls menacingly at you as you turn to face her new owner, who takes the form of an extremely weary-looking squirrel-boy.
+		#ENDIF
+		 Realising from Scarlett's outburst that you might not be the person he was expecting, Laurence sighs, [style.speechMasculine(Please tell me that you're here from that blasted shop, and that you're going to give me a refund! This slave isn't at all what she was advertised as!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ANTIQUES_INTERIOR_SCARLETT_EXPLAIN -->
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_EXPLAIN"><![CDATA[
+	<p>
+		Ignoring Scarlett's sneers, you explain to her owner that while you're not here to offer him a refund, you <i>are</i> interested in buying her freedom. As you reveal this fact, the insolent harpy steps in front of the squirrel-boy, cutting him off as she rudely asks, [scarlett.speech(Why the fuck would you want to do that?! Is this some kind of fucking trick?!)]
+	</p>
+	<p>
+		[style.speechMasculine(Scarlett, please, could you just-)] Laurence starts to say, but the harpy simply turns around and shoots him a withering look, which turns out to be enough to immediately silence him.
+	</p>
+	<p>
+		Realising that you're not going to get anywhere with Scarlett acting in this manner, you tell her that the reason you're here to free her is so that Helena can employ her as her personal assistant. Upon hearing her old matriarch's name, the harpy lets out a defeated sigh and collapses down into a nearby chair, much to the dismay of Laurence, who objects, [style.speechMasculine(Scarlett! Please, don't sit on that! It's a one of a kind, and was made specially for Lyssieth herself!)]
+	</p>
+	<p>
+		[scarlett.speech(Like I give a fuck,)] Scarlett replies, [scarlett.speech(Just get on with selling me already so I can get out of here.)]
+	</p>
+	<p>
+		Wringing his hands, the distraught squirrel-boy turns back towards you and complains, [style.speechMasculine(Look what I've been having to put up with; she's been an absolute nightmare! That salesman told me that she was well trained and always eager to work! I'm never buying any slaves ever again!)]
+	</p>
+	<p>
+		Pointing out to him that you'll be doing him a favour by taking Scarlett off his hands, you ask Laurence how much he's going to be asking for her. Letting out a weary sigh, he reveals, [style.speechMasculine(I paid twenty thousand for her, but I'm so desperate to get rid of her that I'll let you have her for just half that. Ten thousand, and she's all yours...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ANTIQUES_INTERIOR_SCARLETT_PURCHASED -->
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_PURCHASED"><![CDATA[
+	<p>
+		Deciding that you want to get this over and done with as quickly as possible, you produce the ten thousand flames which Laurence is asking for. Upon receiving Scarlett's ownership documentation in return, you make the necessary corrections to the information in order to declare her a free citizen once more. Handing these papers over to the harpy herself, you tell her that while she's now free, her matriarch is expecting to see her back in Slaver Alley right away.
+	</p>
+	<p>
+		[scarlett.speech(Yeah, yeah, I know what I'm supposed to be doing,)] she insolently replies as she pushes past you and swiftly exits the store.
+	</p>
+	<p>
+		[style.speechMasculine(Thank goodness,)] Laurence sighs, [style.speechMasculine(I never have to see her again...)]
+	</p>
+	<p>
+		Saying farewell to the unfortunate squirrel-boy, you follow in Scarlett's footsteps, and after quickly exiting the store room, you continue on back out into the Shopping Arcade. Looking around, you see no sign of the rude harpy, and assume that she must have immediately flown off back to Helena's shop. Thinking that it would be best to return there yourself as quickly as possible, you set off on your way once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ANTIQUES_INTERIOR_SCARLETT_HAGGLE -->
+	
+	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_HAGGLE"><![CDATA[
+	<p>
+		Thinking that ten thousand flames is a high price to be paying for a slave as poorly-trained as Scarlett, you tell Laurence that he's going to have to offer you a more reasonable deal if he wants you to take the harpy off his hands. As the two of you start haggling over her value, Scarlett loudly complains, [scarlett.speech(Can you two hurry the fuck up? I want to get out of this dump as quickly as possible.)]
+	</p>
+	<p>
+		Turning to face his slave, no doubt with the intention of asking her to be quiet, the squirrel-boy instead lets out a distressed cry as he sees that Scarlett has put her bird-like feet up on the antique coffee table sitting in front of her. Clearly not at all bothered by her owner's reaction, Scarlett sinks down into the chair, and as she does so, her talons make a loud scratching noise as they run over the table's wooden surface.
+	</p>
+	<p>
+		[style.speechMasculine(No!)] Laurence shouts, [style.speechMasculine(Stop it! You're destroying it!)]
+	</p>
+	<p>
+		[scarlett.speech(Shut the fuck up, I'm trying to relax here,)] Scarlett replies, sneering at her owner as she purposefully digs her talons into the table's surface.
+	</p>
+	<p>
+		Clearly not being strong-willed enough to deal with this type of behaviour, the squirrel-boy turns towards you and pleads, [style.speechMasculine(Please, just take her away! I don't even want any flames! Just get her out of here!)]
+	</p>
+	<p>
+		Agreeing to take Scarlett off of his hands, you wait as Laurence frantically retrieves Scarlett's ownership documentation and signs her over to you. After making the necessary corrections to the information in order to declare her a free citizen once more, you hand these papers over to the harpy herself, telling her that while she's now free, her matriarch is expecting to see her back in Slaver Alley right away.
+	</p>
+	<p>
+		[scarlett.speech(Yeah, yeah, I know what I'm supposed to be doing,)] she insolently replies as she pushes past you and swiftly exits the store.
+	</p>
+	<p>
+		[style.speechMasculine(Thank goodness,)] Laurence sighs, [style.speechMasculine(I never have to see her again...)]
+	</p>
+	<p>
+		Saying farewell to the unfortunate squirrel-boy, you follow in Scarlett's footsteps, and after quickly exiting the store room, you continue on back out into the Shopping Arcade. Looking around, you see no sign of the rude harpy, and assume that she must have immediately flown off back to Helena's shop. Thinking that it would be best to return there yourself as quickly as possible, you set off on your way once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS -->
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		Conveniently located near to the entrance of the Arcade, these public toilets appear to be very regularly maintained, as they are nothing short of being spotlessly clean. They're also of a higher quality than a regular public restroom, as the walls, floor, and sinks are all made out of what appears to be marble. The dozen-or-so stalls are expertly crafted out of varnished, wooden panelling, while the excellent ventilation ensures that the air is always fresh and odour-free.
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			Due to the current time, these toilets are completely deserted. As you walk past the open stalls, you see that the wall separating the two at the far end has had a glory hole cut into it. While a piece of cardboard has been taped over this hole, there's really nothing that would be stopping someone from peeling this barrier off and making use of it...
+		#ELSE
+			A few of the stalls are currently occupied, while a couple of members of the public are making use of the sinks before heading back out into the Arcade to continue their shopping. As you walk past these people, you see that the wall separating two of the stalls has had a glory hole cut into it. While a piece of cardboard has been taped over this hole, there's really nothing that would be stopping someone from peeling this barrier off and making use of it...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_USE -->
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		Stepping into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet. After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_WASH -->
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_DOM -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM"><![CDATA[
+	<p>
+		Deciding that it would be fun to get serviced at the glory hole, you peel off the cardboard that's covering it up, before
+		#IF(pc.hasCompanions())
+			 telling [com.name] to wait outside and then locking the stall's door behind you.
+		#ELSE
+			  locking the stall's door behind you.
+		#ENDIF
+		#IF(game.isExtendedWorkTime())
+			 With the room being as relatively busy as it is, you know that you won't have to wait long before a stranger turns up who'll choose to service you through the glory hole...
+		#ELSE
+			 With the room being completely deserted, you have little choice but to patiently wait and hope that a stranger turns up who'll choose to service you through the glory hole...
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			Twenty
+		#ELSE
+			Five
+		#ENDIF
+		 minutes later, you finally hear someone enter the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger chooses to immediately kneel down
+		#IF(npc.isMute())
+			 and push [npc.her] open mouth up to the hole. With an impatient tap on the wall to let you know that [npc.sheIs] there, the stranger prepares to orally service you.
+		#ELSE
+			 and call out through the hole,
+			#IF(pc.hasPenis())
+				 [npc.speech(Come on then! Put your cock through here and I'll give it a good suck!)]
+			#ELSEIF(pc.hasVagina())
+				 [npc.speech(Come on then! Push your pussy up against the hole and I'll eat you out!)]
+			#ELSE
+				 [npc.speech(Come on then! Give me something to suck already!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about receiving oral from some random stranger, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly step up to the glory hole,
+		#IF(pc.hasPenis())
+			 preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		#ELSEIF(pc.hasVagina())
+			 preparing to have your [pc.pussy+] licked by the stranger on the other side.
+		#ELSE
+			 preparing to have your genderless mound licked by the stranger on the other side.
+		#ENDIF
+	</p>
+	<p>
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		#IF(!npc.isMute())
+			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
+			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
+			|[npc.speech(~Mmm!~ Oh yeah! Let's get started!)]
+			|[npc.speech(Oh yeah, babe! I'll show you how much of a slut I am!)])]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_DOM_POST_SEX -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning as you hear [npc.name] let out a happy little [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the horny slut's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and step back out into the toilets, you see that [npc.name] has already left. With absolutely no idea as to who just orally serviced you, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_SUB -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB"><![CDATA[
+	<p>
+		Feeling horny and eager to pleasure some stranger's cock, you peel off the tape that's covering up the glory hole, before
+		#IF(pc.hasCompanions())
+			 telling [com.name] to wait outside and then locking the stall's door behind you.
+		#ELSE
+			  locking the stall's door behind you.
+		#ENDIF
+		#IF(game.isExtendedWorkTime())
+			 With the room being as relatively busy as it is, you know that you won't have to wait long before a stranger turns up who'll want you to orally service them...
+		#ELSE
+			 With the room being completely deserted, you have little choice but to patiently wait and hope that a stranger turns up who'll want you to orally service them...
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			Twenty
+		#ELSE
+			Five
+		#ENDIF
+		 minutes later, and you finally hear someone enter the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger immediately steps up to it and starts shifting their clothing out of the way. Just a moment later, and their [npc.cockDescriptive(true)] is being pushed through the hole. Before you can make a move, [npc.name]
+		#IF(npc.isMute())
+			 impatiently taps the wall, encouraging you to get started on sucking [npc.her] cock...
+		#ELSE
+			#IF(npc.isSelfish())
+				#IF(npc.isFeminine())
+					 barks out a sharp command,
+				#ELSE
+					 lets out a deep growl,
+				#ENDIF
+				 [game.random(
+				[npc.speech(Come on, slut, get to work!)]
+				|[npc.speech(Start sucking, slut!)]
+				|[npc.speech(Come on, you dirty slut, get started already!)])]
+			#ELSE
+				#IF(npc.isFeminine())
+					 sensually [npc.moansVerb],
+				#ELSE
+					 lets out a deep grunt,
+				#ENDIF
+				 [game.random(
+				[npc.speech(Come on then, show me what you can do!)]
+				|[npc.speech(Get your lips wrapped around my cock!)]
+				|[npc.speech(Come on, get started already!)])]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about servicing some random stranger's cock, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly kneel down in front of the glory hole,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 before opening your mouth and leaning in towards [npc.namePos] [npc.cock+].
+		#ELSE
+			 but as your mouth is blocked, all you can prepare to do is give [npc.name] a handjob.
+		#ENDIF
+	</p>
+	<p>
+		Hearing you drop down in front of [npc.herHim], [npc.name] lets out an eager [npc.moan], and as [npc.her] cock starts to stiffen, [npc.she] impatiently bucks [npc.her] [npc.hips] up against the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_SUB_POST_SEX -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning to yourself as you hear [npc.name] letting out a satisfied [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the stranger's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and step back out into the toilets, you see that [npc.name] has already left. With absolutely no idea as to whose cock you just serviced, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

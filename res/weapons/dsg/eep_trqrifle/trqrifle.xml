@@ -12,15 +12,15 @@
 		
 		<determiner><![CDATA[a]]></determiner>
 		
-		<name><![CDATA[revolving tranquilizer rifle]]></name>
+		<name><![CDATA[revolving tranquiliser rifle]]></name>
 		
-		<namePlural pluralByDefault="false"><![CDATA[revolving tranquilizer rifles]]></namePlural> 
+		<namePlural pluralByDefault="false"><![CDATA[revolving tranquiliser rifles]]></namePlural> 
 		
 		<description><![CDATA[Firing aura-piercing fin-stabilized discarding sabot darts filled with a potent sleeping potion, this rifle is not a true sniping weapon. Rather, it is designed to extend the reach of a standard Enforcer squad. Unlike most dart rifles, it uses a six-shot revolving autoloader.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		
-		<attackTooltipDescription>Shoot [npc2.name] with your tranquilizer rifle.</attackTooltipDescription>
+		<attackTooltipDescription>Shoot [npc2.name] with your tranquiliser rifle.</attackTooltipDescription>
 		
 		<rarity>EPIC</rarity> 
 		
@@ -46,25 +46,41 @@
 		
 		<enchantmentLimit>5</enchantmentLimit>
 		
-		<effects/> 
+		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[[style.boldPoison("Negative Arcane Duality")] on critical hit.]]></effect>
+		</extraEffects>
+		
+		<onHitEffect/>
+		
+		<onCriticalHitEffect><![CDATA[
+		#IF !npc2.hasStatusEffect(SE_ARCANE_DUALITY_NEGATIVE)
+		#THEN [##npc2.addStatusEffect(SE_ARCANE_DUALITY_NEGATIVE, 6)] [npc2.Name] [style.boldPoison([npc2.verb(struggle)] to defend [npc2.herself])] as [npc2.her] eyelids grow visibly heavier. 
+		#ENDIF
+		]]></onCriticalHitEffect>
 		
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL_WITH_METALS"/>
 		<secondaryColours values="JUST_GREY"/>
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The needle on the end of the dart embeds itself in [npc2.namePos] [npc2.materialSkin] and releases its contents. [npc2.NamePos] eyelids grow visibly heavier.
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The needle on the end of the dart embeds itself in [npc2.namePos] aura and releases its contents.
 		]]></hitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
 		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The shot goes wide! The dart clatters uselessly on the ground.

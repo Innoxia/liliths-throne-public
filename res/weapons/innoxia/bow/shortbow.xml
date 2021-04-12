@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>3500</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[arcane shortbow]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[arcane shortbows]]></namePlural>
+		<description><![CDATA[This shortbow is infused with a potent arcane enchantment, which, once the string is drawn back, extracts an arcane essence out of the user's aura, before converting it into a bolt of energy to be fired at the target.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription>Shoot at [npc.name] with your shortbow.</attackTooltipDescription>
+		<rarity>COMMON</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] shortbow.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] shortbow away.]]></unequipText>
+		<imageName>shortbow.svg</imageName> 
+		<imageEquippedName/>
+		<damage>25</damage>
+		<arcaneCost>1</arcaneCost>
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>10</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
+		</effects>
+		
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours> 
+			<colour>CLOTHING_GREY</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/> 
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Drawing back [npc.her] arcane shortbow and firing an ethereal arrow, [npc.name] [npc.verb(hit)] [npc2.name] right in the chest, causing [npc2.herHim] to gasp and stagger back from the blow.
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(use)] [npc.her] arcane shortbow to fire an ethereal arrow at [npc2.name], and [npc.verb(manage)] to [npc2.herHim] right in the chest!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(aim)] at [npc2.name] with [npc.her] arcane shortbow and [npc.verb(let)] loose, sending an ethereal arrow to cut through the air and hit [npc2.herHim] right in the chest!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Aiming and firing [npc.her] arcane shortbow, [npc.name] [npc.verb(miss)] [npc2.name]!
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(use)] [npc.her] arcane shortbow to fire an ethereal arrow at [npc2.name], but [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(aim)] at [npc2.name] with [npc.her] arcane shortbow and [npc.verb(let)] loose, but [npc.she] [npc.verb(end)] up missing [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

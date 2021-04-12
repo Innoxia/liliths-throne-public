@@ -1,66 +1,128 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.5.1
- * @version 0.3.5.1
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public class SpellManagement {
 
-    private static GameCharacter target;
+    private static GameCharacter spellOwner;
+    private static GameCharacter spellTarget;
     private static DialogueNode dialogueReturn;
     
-    public static GameCharacter getTarget() {
-        if(target==null) {
+    private static DialogueNode spellScreenAfterCasting;
+    
+    private static Spell spell;
+    
+    public static GameCharacter getSpellOwner() {
+        if(spellOwner==null) {
             return Main.game.getPlayer();
         }
-        return target;
+        return spellOwner;
     }
 
-    public static void setTarget(GameCharacter target, DialogueNode dialogueReturn) {
-        SpellManagement.target = target;
+    public static GameCharacter getSpellTarget() {
+        if(spellTarget==null) {
+            return Main.game.getPlayer();
+        }
+        return spellTarget;
+    }
+
+    public static DialogueNode getDialogueReturn() {
+        return dialogueReturn;
+    }
+    
+    public static void setSpellOwner(GameCharacter spellOwner, DialogueNode dialogueReturn) {
+        SpellManagement.spellOwner = spellOwner;
+        SpellManagement.spellTarget = spellOwner;
         SpellManagement.dialogueReturn = dialogueReturn;
     }
     
-    private static Response getResponses1To5(int index) {
+    public static DialogueNode castSpell(Spell spell) {
+    	SpellManagement.spellScreenAfterCasting = Main.game.getCurrentDialogueNode();
+    	SpellManagement.spell = spell;
+    	
+    	spell.performOnSelection(0, getSpellOwner(), getSpellTarget(), null, getSpellOwner().getParty()); // Handles aura cost
+    	
+		Main.game.getTextStartStringBuilder().append(
+				"<p style='text-align:center;'>"
+					+ "<b>Casting '<span style='color:"+spell.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(spell.getName())+"</span>':</b>"
+					+ "<br/>"
+					+spell.applyEffect(getSpellOwner(), getSpellTarget(), true, false)
+				+"</p>");
+		
+    	return SPELL_CAST_DIALOGUE;
+    }
+    
+    private static Response getResponses1To6(int index) {
     	if(index==1) {
     		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_EARTH) {
-    			return new Response("Earth", UtilText.parse(getTarget(), "You are already viewing [npc.namePos] Earth spells!"), null);
+    			return new Response("Earth", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Earth spells!"), null);
     		}
-			return new Response("Earth", UtilText.parse(getTarget(), "View [npc.namePos] spells and upgrades in the school of Earth."), CHARACTER_SPELLS_EARTH);
+			return new Response("Earth", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Earth."), CHARACTER_SPELLS_EARTH);
 			
 		} else if(index==2) {
     		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_WATER) {
-    			return new Response("Water", UtilText.parse(getTarget(), "You are already viewing [npc.namePos] Water spells!"), null);
+    			return new Response("Water", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Water spells!"), null);
     		}
-			return new Response("Water", UtilText.parse(getTarget(), "View [npc.namePos] spells and upgrades in the school of Water."), CHARACTER_SPELLS_WATER);
+			return new Response("Water", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Water."), CHARACTER_SPELLS_WATER);
 			
 		} else if(index==3) {
     		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_FIRE) {
-    			return new Response("Fire", UtilText.parse(getTarget(), "You are already viewing [npc.namePos] Fire spells!"), null);
+    			return new Response("Fire", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Fire spells!"), null);
     		}
-			return new Response("Fire", UtilText.parse(getTarget(), "View [npc.namePos] spells and upgrades in the school of Fire."), CHARACTER_SPELLS_FIRE);
+			return new Response("Fire", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Fire."), CHARACTER_SPELLS_FIRE);
 			
 		} else if(index==4) {
     		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_AIR) {
-    			return new Response("Air", UtilText.parse(getTarget(), "You are already viewing [npc.namePos] Air spells!"), null);
+    			return new Response("Air", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Air spells!"), null);
     		}
-			return new Response("Air", UtilText.parse(getTarget(), "View [npc.namePos] spells and upgrades in the school of Air."), CHARACTER_SPELLS_AIR);
+			return new Response("Air", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Air."), CHARACTER_SPELLS_AIR);
 			
 		} else if(index==5) {
     		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_ARCANE) {
-    			return new Response("Arcane", UtilText.parse(getTarget(), "You are already viewing [npc.namePos] Arcane spells!"), null);
+    			return new Response("Arcane", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Arcane spells!"), null);
     		}
-			return new Response("Arcane", UtilText.parse(getTarget(), "View [npc.namePos] spells and upgrades in the school of Arcane."), CHARACTER_SPELLS_ARCANE);
+			return new Response("Arcane", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Arcane."), CHARACTER_SPELLS_ARCANE);
+			
+		} else if(index==6) {
+			return new ResponseEffectsOnly(
+					UtilText.parse(getSpellTarget(), "Target: <b style='color:"+getSpellTarget().getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
+					"Cycle the targeted character for casting spells on.") {
+				@Override
+				public void effects() {
+					List<GameCharacter> companions = Util.newArrayListOfValues(Main.game.getPlayer());
+					companions.addAll(Main.game.getPlayer().getCompanions());
+					if(!companions.isEmpty()) {
+						for(int i=0; i<companions.size();i++) {
+							if(companions.get(i).equals(getSpellTarget())) {
+								if(i==companions.size()-1) {
+									spellTarget = companions.get(0);
+									break;
+									
+								} else {
+									spellTarget = companions.get(i+1);
+									break;
+								}
+							}
+						}
+					}
+					Main.game.updateResponses();
+				}
+			};
 		}
     	return null;
     }
@@ -73,14 +135,14 @@ public class SpellManagement {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
 						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
-							+Spell.getSpellTreesDisplay(SpellSchool.ARCANE, target)
+							+Spell.getSpellTreesDisplay(SpellSchool.ARCANE, getSpellOwner(), getSpellTarget())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
 							+SpellSchool.ARCANE.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldArcane(School of Arcane ability:)] "
-								+(!target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)
+								+(!getSpellOwner().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)
 									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Arcane school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.ARCANE.getPassiveBuff()+")]")
 						+ "</div>"
@@ -96,53 +158,14 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=5) {
-				return getResponses1To5(index);
-				
-			} else if(index==6) {
-				if(target.hasSpell(Spell.ELEMENTAL_ARCANE)) {
-					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Arcane Elemental", "You cannot summon elementals while in captivity!", null);
-						
-					} else if(Main.game.isInCombat()) {
-						return new Response("Arcane Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
-						
-					} else if(dialogueReturn.getDialogueNodeType()!=DialogueNodeType.OCCUPANT_MANAGEMENT && !Main.game.isSavedDialogueNeutral()) {
-						return new Response("Arcane Elemental", "Elementals can only be summoned in a neutral scene!", null);
-					
-					} else if(target.getMana()<Spell.ELEMENTAL_ARCANE.getModifiedCost(target)) {
-						return new Response("Arcane Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.verb(need)] at least <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(target)+"</b> [style.boldMana(aura)] in order to cast this spell!"), null);
-						
-					} else {
-						return new Response("Arcane Elemental",
-								(getTarget().isPlayer()
-									?"Summon your elemental by binding it to the school of Arcane!"
-									:UtilText.parse(getTarget(), "Get [npc.name] to summon [npc.her] elemental by binding it to the school of Arcane!"))
-								+ " This will cost <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(target)+"</b> [style.boldMana(aura)]!",
-								CHARACTER_SPELLS_ARCANE) {
-							@Override
-							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogue(false);
-							}
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+Spell.ELEMENTAL_ARCANE.applyEffect(target, target, true, false)
-										+"</p>");
-							}
-						};
-					}
-					
-				} else {
-					return new Response("Arcane Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.do]n't know how to bind your elemental to the school of Arcane! (Requires spell: '"+Spell.ELEMENTAL_ARCANE.getName()+"')"), null);
-				}
+			if(index>=1 && index<=6) {
+				return getResponses1To6(index);
 				
 			} else if(index==11) {
-				return new Response("Reset Arcane", UtilText.parse(getTarget(), "Reset [npc.namePos] Arcane upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_ARCANE) {
+				return new Response("Reset Arcane", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Arcane upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_ARCANE) {
 					@Override
 					public void effects() {
-						target.resetSpellUpgrades(SpellSchool.ARCANE);
+						getSpellOwner().resetSpellUpgrades(SpellSchool.ARCANE);
 					}
 				};
 				
@@ -156,7 +179,7 @@ public class SpellManagement {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
-			if(target.isPlayer()) {
+			if(getSpellOwner().isPlayer()) {
 				return DialogueNodeType.PHONE;
 			}
 			return DialogueNodeType.OCCUPANT_MANAGEMENT;
@@ -173,14 +196,14 @@ public class SpellManagement {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
 						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
-							+Spell.getSpellTreesDisplay(SpellSchool.EARTH, target)
+							+Spell.getSpellTreesDisplay(SpellSchool.EARTH, getSpellOwner(), getSpellTarget())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
 							+SpellSchool.EARTH.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldEarth(School of Earth ability:)] "
-								+(!target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+								+(!getSpellOwner().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
 									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Earth school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.EARTH.getPassiveBuff()+")]")
 						+ "</div>"
@@ -196,57 +219,18 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=5) {
-				return getResponses1To5(index);
+			if(index>=1 && index<=6) {
+				return getResponses1To6(index);
 				
-			} else if(index==6) {
-				if(target.hasSpell(Spell.ELEMENTAL_EARTH)) {
-					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Earth Elemental", "You cannot summon elementals while in captivity!", null);
-						
-					} else if(Main.game.isInCombat()) {
-						return new Response("Earth Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
-						
-					} else if(dialogueReturn.getDialogueNodeType()!=DialogueNodeType.OCCUPANT_MANAGEMENT && !Main.game.isSavedDialogueNeutral()) {
-						return new Response("Earth Elemental", "Elementals can only be summoned in a neutral scene!", null);
-					
-					} else if(target.getMana()<Spell.ELEMENTAL_EARTH.getModifiedCost(target)) {
-						return new Response("Earth Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.verb(need)] at least <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(target)+"</b> [style.boldMana(aura)] in order to cast this spell!"), null);
-						
-					} else {
-						return new Response("Earth Elemental",
-								(getTarget().isPlayer()
-										?"Summon your elemental by binding it to the school of Earth!"
-										:UtilText.parse(getTarget(), "Get [npc.name] to summon [npc.her] elemental by binding it to the school of Earth!"))
-									+ " This will cost <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(target)+"</b> [style.boldMana(aura)]!",
-								CHARACTER_SPELLS_EARTH) {
-							@Override
-							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogue(false);
-							}
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+Spell.ELEMENTAL_EARTH.applyEffect(target, target, true, false)
-										+"</p>");
-							}
-						};
-					}
-					
-				} else {
-					return new Response("Earth Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.do]n't know how to bind your elemental to the school of Earth! (Requires spell: '"+Spell.ELEMENTAL_EARTH.getName()+"')"), null);
-				}
-				
-			}  else  if(index==11) {
-				return new Response("Reset Earth", UtilText.parse(getTarget(), "Reset [npc.namePos] Earth upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_EARTH) {
+			}  else if(index==11) {
+				return new Response("Reset Earth", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Earth upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						target.resetSpellUpgrades(SpellSchool.EARTH);
+						getSpellOwner().resetSpellUpgrades(SpellSchool.EARTH);
 					}
 				};
 				
-			} else if (index == 0) {
+			} else if(index == 0) {
 				return new Response("Back", "Return to the previous screen.", dialogueReturn);
 			
 			} else {
@@ -256,7 +240,7 @@ public class SpellManagement {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
-			if(target.isPlayer()) {
+			if(getSpellOwner().isPlayer()) {
 				return DialogueNodeType.PHONE;
 			}
 			return DialogueNodeType.OCCUPANT_MANAGEMENT;
@@ -273,14 +257,14 @@ public class SpellManagement {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
 						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
-							+Spell.getSpellTreesDisplay(SpellSchool.WATER, target)
+							+Spell.getSpellTreesDisplay(SpellSchool.WATER, getSpellOwner(), getSpellTarget())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
 							+SpellSchool.WATER.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldWater(School of Water ability:)] "
-								+(!target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
+								+(!getSpellOwner().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Water school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.WATER.getPassiveBuff()+")]")
 						+ "</div>"
@@ -296,54 +280,14 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=5) {
-				return getResponses1To5(index);
-				
-			} else if(index==6) {
-				if(target.hasSpell(Spell.ELEMENTAL_WATER)) {
-					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Water Elemental", "You cannot summon elementals while in captivity!", null);
-						
-					} else if(Main.game.isInCombat()) {
-						return new Response("Water Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
-						
-					} else if(dialogueReturn.getDialogueNodeType()!=DialogueNodeType.OCCUPANT_MANAGEMENT && !Main.game.isSavedDialogueNeutral()) {
-						return new Response("Water Elemental", "Elementals can only be summoned in a neutral scene!", null);
-					
-						
-					} else if(target.getMana()<Spell.ELEMENTAL_WATER.getModifiedCost(target)) {
-						return new Response("Water Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.verb(need)] at least <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(target)+"</b> [style.boldMana(aura)] in order to cast this spell!"), null);
-						
-					} else {
-						return new Response("Water Elemental",
-								(getTarget().isPlayer()
-										?"Summon your elemental by binding it to the school of Water!"
-										:UtilText.parse(getTarget(), "Get [npc.name] to summon [npc.her] elemental by binding it to the school of Water!"))
-									+ " This will cost <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(target)+"</b> [style.boldMana(aura)]!",
-								CHARACTER_SPELLS_WATER) {
-							@Override
-							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogue(false);
-							}
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+Spell.ELEMENTAL_WATER.applyEffect(target, target, true, false)
-										+"</p>");
-							}
-						};
-					}
-					
-				} else {
-					return new Response("Water Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.do]n't know how to bind your elemental to the school of Water! (Requires spell: '"+Spell.ELEMENTAL_WATER.getName()+"')"), null);
-				}
+			if(index>=1 && index<=6) {
+				return getResponses1To6(index);
 				
 			} else if(index==11) {
-				return new Response("Reset Water", UtilText.parse(getTarget(), "Reset [npc.namePos] Water upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_WATER) {
+				return new Response("Reset Water", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Water upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_WATER) {
 					@Override
 					public void effects() {
-						target.resetSpellUpgrades(SpellSchool.WATER);
+						getSpellOwner().resetSpellUpgrades(SpellSchool.WATER);
 					}
 				};
 				
@@ -357,7 +301,7 @@ public class SpellManagement {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
-			if(target.isPlayer()) {
+			if(getSpellOwner().isPlayer()) {
 				return DialogueNodeType.PHONE;
 			}
 			return DialogueNodeType.OCCUPANT_MANAGEMENT;
@@ -374,14 +318,14 @@ public class SpellManagement {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
 						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
-							+Spell.getSpellTreesDisplay(SpellSchool.AIR, target)
+							+Spell.getSpellTreesDisplay(SpellSchool.AIR, getSpellOwner(), getSpellTarget())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
 							+SpellSchool.AIR.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldAir(School of Air ability:)] "
-								+(!target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.AIR)
+								+(!getSpellOwner().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.AIR)
 									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Air school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.AIR.getPassiveBuff()+")]")
 						+ "</div>"
@@ -397,54 +341,14 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=5) {
-				return getResponses1To5(index);
-				
-			} else if(index==6) {
-				if(target.hasSpell(Spell.ELEMENTAL_AIR)) {
-					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Air Elemental", "You cannot summon elementals while in captivity!", null);
-						
-					} else if(Main.game.isInCombat()) {
-						return new Response("Air Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
-						
-					} else if(dialogueReturn.getDialogueNodeType()!=DialogueNodeType.OCCUPANT_MANAGEMENT && !Main.game.isSavedDialogueNeutral()) {
-						return new Response("Air Elemental", "Elementals can only be summoned in a neutral scene!", null);
-					
-						
-					} else if(target.getMana()<Spell.ELEMENTAL_AIR.getModifiedCost(target)) {
-						return new Response("Air Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.verb(need)] at least <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(target)+"</b> [style.boldMana(aura)] in order to cast this spell!"), null);
-						
-					} else {
-						return new Response("Air Elemental",
-								(getTarget().isPlayer()
-										?"Summon your elemental by binding it to the school of Air!"
-										:UtilText.parse(getTarget(), "Get [npc.name] to summon [npc.her] elemental by binding it to the school of Air!"))
-									+ " This will cost <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(target)+"</b> [style.boldMana(aura)]!",
-								CHARACTER_SPELLS_AIR) {
-							@Override
-							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogue(false);
-							}
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+Spell.ELEMENTAL_AIR.applyEffect(target, target, true, false)
-										+"</p>");
-							}
-						};
-					}
-					
-				} else {
-					return new Response("Air Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.do]n't know how to bind your elemental to the school of Air! (Requires spell: '"+Spell.ELEMENTAL_AIR.getName()+"')"), null);
-				}
+			if(index>=1 && index<=6) {
+				return getResponses1To6(index);
 				
 			}  else if(index==11) {
-				return new Response("Reset Air", UtilText.parse(getTarget(), "Reset [npc.namePos] Air upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_AIR) {
+				return new Response("Reset Air", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Air upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_AIR) {
 					@Override
 					public void effects() {
-						target.resetSpellUpgrades(SpellSchool.AIR);
+						getSpellOwner().resetSpellUpgrades(SpellSchool.AIR);
 					}
 				};
 				
@@ -458,7 +362,7 @@ public class SpellManagement {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
-			if(target.isPlayer()) {
+			if(getSpellOwner().isPlayer()) {
 				return DialogueNodeType.PHONE;
 			}
 			return DialogueNodeType.OCCUPANT_MANAGEMENT;
@@ -467,7 +371,6 @@ public class SpellManagement {
 	
 	public static final DialogueNode CHARACTER_SPELLS_FIRE = new DialogueNode("Fire Spells", "", true) {
 
-
 		@Override
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -475,14 +378,14 @@ public class SpellManagement {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
 						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
-							+Spell.getSpellTreesDisplay(SpellSchool.FIRE, target)
+							+Spell.getSpellTreesDisplay(SpellSchool.FIRE, getSpellOwner(), getSpellTarget())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
 							+SpellSchool.FIRE.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldFire(School of Fire ability:)] "
-								+(!target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE)
+								+(!getSpellOwner().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE)
 									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Fire school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.FIRE.getPassiveBuff()+")]")
 						+ "</div>"
@@ -498,55 +401,14 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=5) {
-				return getResponses1To5(index);
-				
-			} else if(index==6) {
-				if(target.hasSpell(Spell.ELEMENTAL_FIRE)) {
-					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Fire Elemental", "You cannot summon elementals while in captivity!", null);
-						
-					} else if(Main.game.isInCombat()) {
-						return new Response("Fire Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
-						
-					} else if(dialogueReturn.getDialogueNodeType()!=DialogueNodeType.OCCUPANT_MANAGEMENT && !Main.game.isSavedDialogueNeutral()) {
-						return new Response("Fire Elemental", "Elementals can only be summoned in a neutral scene!", null);
-						
-					} else {
-						String description =(getTarget().isPlayer()
-								?"Summon your elemental by binding it to the school of Arcane!"
-								:UtilText.parse(getTarget(), "Get [npc.name] to summon [npc.her] elemental by binding it to the school of Arcane!"));
-								
-						String cost = " This will cost <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(target)+"</b> [style.boldMana(aura)]!";
-						if(target.getMana()<Spell.ELEMENTAL_FIRE.getModifiedCost(target)) {
-							cost = " This will cost <b>"+Math.round(Spell.ELEMENTAL_FIRE.getModifiedCost(target)*0.25f)+"</b> [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]!";
-						}
-						return new Response("Fire Elemental",
-								description+cost,
-								CHARACTER_SPELLS_FIRE) {
-							@Override
-							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogue(false);
-							}
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+Spell.ELEMENTAL_FIRE.applyEffect(target, target, true, false)
-										+"</p>");
-							}
-						};
-					}
-					
-				} else {
-					return new Response("Fire Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.do]n't know how to bind your elemental to the school of Fire! (Requires spell: '"+Spell.ELEMENTAL_FIRE.getName()+"')"), null);
-				}
+			if(index>=1 && index<=6) {
+				return getResponses1To6(index);
 				
 			} else if(index==11) {
-				return new Response("Reset Fire", UtilText.parse(getTarget(), "Reset [npc.namePos] Fire upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_FIRE) {
+				return new Response("Reset Fire", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Fire upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_FIRE) {
 					@Override
 					public void effects() {
-						target.resetSpellUpgrades(SpellSchool.FIRE);
+						getSpellOwner().resetSpellUpgrades(SpellSchool.FIRE);
 					}
 				};
 				
@@ -560,7 +422,37 @@ public class SpellManagement {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
-			if(target.isPlayer()) {
+			if(getSpellOwner().isPlayer()) {
+				return DialogueNodeType.PHONE;
+			}
+			return DialogueNodeType.OCCUPANT_MANAGEMENT;
+		}
+	};
+	
+
+	public static final DialogueNode SPELL_CAST_DIALOGUE = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 1*60;
+		}
+		@Override
+		public String getLabel() {
+			return Util.capitaliseSentence(spell.getName());
+		}
+		@Override
+		public String getContent(){
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Return to the spell management screen.", spellScreenAfterCasting);
+			}
+			return null;
+		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			if(getSpellOwner().isPlayer()) {
 				return DialogueNodeType.PHONE;
 			}
 			return DialogueNodeType.OCCUPANT_MANAGEMENT;

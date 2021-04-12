@@ -13,7 +13,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -278,7 +277,7 @@ public class HarpyNestDominant {
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false, true));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false, true));
 							
 							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
@@ -360,7 +359,7 @@ public class HarpyNestDominant {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false, true));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false, true));
 						
 						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
@@ -484,7 +483,7 @@ public class HarpyNestDominant {
 					+ "<p>"
 						+ "[harpyDominant.Name] shuffles closer, letting out a submissive little mewling sound as she responds,"
 						+ " [harpyDominant.speech(Yes "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! I'll do as you command!"
-								+ " I'll be your good girl! Please, "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+", take special perfume as a sign of my submission to you!)]"
+								+ " I'll be your good girl! Please, "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+", take this special perfume as a sign of my submission to you!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Producing a dark red bottle of perfume, [harpyDominant.name] holds it out towards you."
@@ -792,7 +791,7 @@ public class HarpyNestDominant {
 					+ "You can't help but grin as the harpies all call out in agreement."
 					+ " With her flock now firmly under your control, [harpyDominant.Name] shuffles closer, letting out a submissive little mewling sound."
 					+ " [harpyDominant.speech(M-"+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! I'll do as you command!"
-							+ " I'll be your good girl! Please, take special perfume as a sign of my submission to you!)]"
+							+ " I'll be your good girl! Please, take this special perfume as a sign of my submission to you!)]"
 				+ "</p>"
 				+ "<p>"
 					+ "Producing a dark red bottle of perfume, [harpyDominant.name] holds it out towards you."

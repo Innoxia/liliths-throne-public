@@ -1,6 +1,203 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- OUTSIDE -->
+	
+	<htmlContent tag="OUTSIDE"><![CDATA[
+	<p>
+		An arrow-shaped sign sits in the middle of the street, and as you approach, you see that it's sporting the words <i>'Harpy Nests'</i>. Looking to the side of the road in the direction that the arrow is pointing, you find yourself looking up at one of the tallest buildings in Dominion.
+	</p>
+	<p>
+		At eight stories in height, it's not exactly a sky-scraper, but with the larger of Dominion's buildings typically only being four or five stories tall, this structure is large enough to clearly stand out as a building of some importance. Despite its unusual height, the only other feature setting it apart from all the other buildings in this area are the pair of huge glass doors set into its frontage.
+	</p>
+	<p>
+		Looking through the doors, you see a brightly-lit, extravagantly-decorated lobby. Rows of elevators are set into either side of the room, and you notice that there are an unusual amount of harpies loitering around on the many comfortable-looking sofas that litter the area.
+	</p>
+	<p>
+		#IF(pc.isAbleToFly())
+			#IF(pc.hasCompanions() && !pc.isPartyAbleToFly())
+				It's obvious from even a cursory glance that this building is the entrance to the rooftop Harpy Nests, and you wonder if you and [com.name] should step inside and make use of one of the elevators.
+			#ELSE
+				It's obvious from even a cursory glance that this building is the entrance to the rooftop Harpy Nests, but seeing as you're able to fly, you don't really have much use for the elevators inside.
+			#ENDIF
+		#ELSE 
+			It's obvious from even a cursory glance that this building is the entrance to the rooftop Harpy Nests, and you wonder if you should step inside and make use of one of the elevators.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_ENTRY"><![CDATA[
+	#IF(pc.isPartyAbleToFly())
+		<p>
+			#IF(pc.hasCompanions())
+				Telling [com.name] to follow along, you #IF(!pc.isAbleToFlyFromExtraParts())spread your wings and #ENDIFdash into a forwards sprint, and with a little jump#IF(!pc.isAbleToFlyFromExtraParts()) and a few powerful flaps,#ENDIF you take off into the air. Quickly gaining altitude, you circle back towards the tall building, looking for an easy spot to land. Thankfully, the structure's steepled roof has had a flat platform built over the top of it, and#IF(!pc.isAbleToFlyFromExtraParts()) with another flap of your wings,#ENDIF you and your [com.companion] swoop down to land on top of it.
+			#ELSE
+				#IF(!pc.isAbleToFlyFromExtraParts())Spreading your wings, you#ELSEYou#ENDIF dash into a forwards sprint, and with a little jump#IF(!pc.isAbleToFlyFromExtraParts()) and a powerful flap#ENDIF, you take off into the air. Quickly gaining altitude, you circle back towards the tall building, looking for an easy spot to land. Thankfully, the structure's steepled roof has had a flat platform built over the top of it, and#IF(!pc.isAbleToFlyFromExtraParts()) with another flap of your wings,#ENDIF you gracefully swoop down to land on top of it.
+			#ENDIF
+		</p>
+		<p>
+			Looking around, you see that the only exit from the platform is a ramp that leads straight down into the building's top floor, and a sign above the opening reads <i>'Harpy entrance'</i>. Walking down the ramp, you push open a little door and step inside.
+		</p>
+	#ELSE
+		<p>
+			Pushing open one of the large glass doors, you step forwards into the lobby. Although there's a front desk, it's currently surrounded by a group of bickering harpies, and from what snippets of conversation you can catch, it sounds like they're arguing with the receptionist, and each other, over what colour of feather is the most attractive.
+		</p>
+		<p>
+			Looking around, you don't see any other members of the building's staff, and so assuming that they're available for anyone to use, you head over to one of the elevators and step inside. Pressing the button on the control panel marked 'up', the automatic doors slide shut, and with a hum of arcane energy, the lift lurches into motion.
+		</p>
+		<p>
+			After quickly transporting you up to the top of the building, the elevator's doors ping open, allowing you to [pc.step] out into the building's top floor.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_ENFORCER_POST -->
+	
+	<htmlContent tag="ENTRANCE_ENFORCER_POST"><![CDATA[
+	<p>
+		You find yourself standing in yet another large, open-plan lobby, but this one has quite a different atmosphere than the one on the ground floor. Everywhere you look, uniformed Enforcers are standing guard, carefully tracking each passer-by with a suspicious gaze. A large desk, manned by yet more Enforcers, sits between you and the door marked <i>'Harpy Nests Entrance'</i>.
+	</p>
+	#IF(!game.getDialogueFlags().hasFlag(FLAG_hasHarpyNestAccess))
+		<p>
+			Although none of them are really paying you any attention at the moment, it looks like you're going to have to talk to one of these Enforcers if you want to get past that desk and out into the Harpy Nests.
+		</p>
+	#ELSE
+		<p>
+			As you've already spoken to one of the Enforcers and secured a pass, you're free to come and go from the Harpy Nests as you please.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_ENFORCER_POST_ASK_FOR_ACCESS -->
+	
+	<htmlContent tag="ENTRANCE_ENFORCER_POST_ASK_FOR_ACCESS"><![CDATA[
+	<p>
+		As you approach the desk, a wolf-girl Enforcer catches your eye and calls out, [style.speechFeminine(Hey you, yeah <i>you</i>, come here!)]
+	</p>
+	#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_1_E_REPORT_TO_HELENA)
+		<p>
+			You do as the wolf-girl asks and walk over to where she's sitting behind the desk. Flashing you a suspicious glance, she says that if you're planning on entering the Harpy Nests, you'll have to tell her what your business here is. Not seeing any reason to lie, you inform the Enforcer that you're here to find a harpy matriarch called 'Helena'.
+		</p>
+		<p>
+			A look of surprise crosses the wolf-girl's face as you mention that name, and she warns, [style.speechFeminine(Hey, if you haven't met her before, then listen up. You've no doubt seen Helena in fashion magazines before, right? Well, she's nothing like they make her out to be; you say one wrong word to her, and she goes from beloved celebrity to psycho bitch before you get the chance to apologise. You watch what you say to her, ok?)]
+		</p>
+		<p>
+			Thanking the wolf-girl for the warning, you step away from her desk and prepare to be on your way, but before you leave, she has a few last things to say, [style.speechFeminine(Wait, hold on a moment. I don't know if you know what happened here recently, but I'd better inform you of the facts before you go out there. Basically, some idiot dog-girl decided to say to Helena that she wasn't as pretty as another matriarch she'd seen. Well, after Helena got her flock to fuck that dog-girl into a broken mess, she decided to go and see how pretty this other matriarch was. One thing led to another, and within about twenty minutes we almost had a full-blown riot on our hands.)]
+		</p>
+		<p>
+			The wolf-girl leans back in her chair, before gesturing to the room for emphasis as she continues, [style.speechFeminine(It took near enough every single one of us here to get things back under control. Tensions are still running high in the Nests, so make sure you don't do anything to offend any of the matriarchs, ok? These harpies may look weak, but they're no joke if you piss them off, so remember to mind your manners out there!)]
+		</p>
+		<p>
+			She bends down to retrieve something from under her desk, and after straightening back up, she holds out a little booklet towards you. Reaching out to take it, you look down to see the words 'All about Harpies' on the front cover. Leaning back in her chair once again, the helpful Enforcer sighs, [style.speechFeminine(For your own sake, you should read up on harpy behaviour if you're planning on travelling through the nests. Oh, and please do try to be careful out there!)]
+		</p>
+		<p>
+			After you've thanked the wolf-girl once again for her warning, she gives you a pass to show to any other Enforcers who try to stop you from going out into the nests. Finally being given the go-ahead to continue on your way, you step away from the desk and prepare to track down this 'Helena' character...
+		</p>
+	#ELSE
+		<p>
+			You do as the wolf-girl asks and walk over to where she's sitting behind the desk. Flashing you a suspicious glance, she says that if you're planning on entering the Harpy Nests, you'll have to tell her what your business here is. Not having any particular reason to be up here, you inform the Enforcer that you simply wanted to take a look around.
+		</p>
+		<p>
+			Letting out an exasperated groan, the wolf-girl narrows her eyes and asks, [style.speechFeminine(So you fancy yourself some kind of tourist, huh? Do you know <i>anything</i> about what it's like out there?)]
+		</p>
+		<p>
+			Not having been in the Harpy Nests before, you find yourself replying in the negative. Rolling her eyes and letting out yet another annoyed groan, the wolf-girl explains, [style.speechFeminine(Well, it's my job to make sure nobody goes out there unprepared, so listen up! I don't know if you know what happened here recently, but some idiot dog-girl decided to say to one flock's matriarch that she wasn't as pretty as another matriarch she'd seen. Well, after Helena got her flock to fuck that dog-girl into a broken mess, she decided to go and see how pretty this other matriarch was. One thing led to another, and within about twenty minutes we almost had a full-blown riot on our hands.)]
+		</p>
+		<p>
+			The wolf-girl leans back in her chair, before gesturing to the room for emphasis as she continues, [style.speechFeminine(It took near enough every single one of us here to get things back under control. Tensions are still running high in the Nests, so make sure you don't do anything to offend any of the matriarchs, ok? These harpies may look weak, but they're no joke if you piss them off, so remember to mind your manners out there!)]
+		</p>
+		<p>
+			She bends down to retrieve something from under her desk, and after straightening back up, she holds out a little booklet towards you. Reaching out to take it, you look down to see the words 'All about Harpies' on the front cover. Leaning back in her chair once again, the Enforcer sighs, [style.speechFeminine(For your own sake, you should read up on harpy behaviour if you're planning on travelling through the nests. Oh, and please do try to be careful out there!)]
+		</p>
+		<p>
+			After you've thanked the wolf-girl for her warning, she gives you a pass to show to any other Enforcers who try to stop you from going out into the nests. Finally being given the go-ahead to continue on your way, you step away from the desk and prepare to explore the Harpy Nests...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS -->
+	
+	<htmlContent tag="ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS"><![CDATA[
+	<p>
+		Curious to find out more about the recent unrest in the harpy nests, you quickly scan the room for the most senior-looking Enforcer. A tall, muscular horse-boy, with chevrons on his uniform marking him as a sergeant, fits the bill, and you start to walk over towards him. He's currently giving orders to a pair of cat-girls, and you hang around for a moment, waiting for him to finish his business.
+	</p>
+	<p>
+		[style.speechMasculineStrong(Alright, report back here as soon as you get that warrant,)] you hear him say, [style.speechMasculineStrong(These harpies are getting out of control... Oh, and Alice, before you go, if I hear just <i>one more</i> rumour about you shirking your duties to go visit your boyfriend, I'll fuck you myself! Now get out of my sight!)]
+	</p>
+	<p>
+		[style.speechFeminine(Yes sir!)] the cat-girls call out in unison, before running off.
+	</p>
+	<p>
+		Seeing your opportunity to find out more about what's going on in the Harpy Nests, you walk up to the muscular horse-boy. Noticing your approach, he grunts, [style.speechMasculineStrong(What is it now? If one of those harpy bitches out there did something, I don't have the time to help you. You should have known the risks before going out there!)]
+	</p>
+	<p>
+		Telling the horse-boy that you couldn't help but overhear how much trouble he and the rest of the Enforcers are having with these harpies, you ask if there's anything you can do to help.
+	</p>
+	<p>
+		[style.speechMasculineStrong(Hah!)] the horse-boy laughs, [style.speechMasculineStrong(Do you really think that you can do what I can't?!)]
+	</p>
+	<p>
+		Choosing not to answer his question, you wait for the horse-boy to continue talking, and after a moment of trying to stare you down, he throws his arms up in the air and exclaims, [style.speechMasculineStrong(Fine! I can't believe it's come to this, but I've run out of ideas.)]
+	</p>
+	<p>
+		Stepping over to push open a nearby door, he beckons for you to follow him inside. Doing so, you find yourself entering a small office, and as you close the door behind you, the horse-boy steps around to the other side of a solid wooden desk, before sinking down into his chair. Leafing through the pile of papers in front of him, he pulls out three separate sheets, before handing them over to you. Leafing through them, you see that there's a portrait of an exceptionally beautiful harpy on each one, and as you take a closer look, the Enforcer explains, [style.speechMasculineStrong(So, as everyone's aware, the Harpy Nests are exceptionally dangerous right now. The more prominent of the matriarchs have been at each other's throats ever since that business with the dog-girl.)]
+	</p>
+	<p>
+		Clenching his fists and gritting his teeth for a moment, he angrily admits, [style.speechMasculineStrong(We managed to come to an agreement with Helena, who, if you didn't know, is the most important and powerful of all the Nests' matriarchs. Those other three you're looking at, however, are refusing to cooperate.)]
+	</p>
+	<p>
+		You flick between the papers as he continues, [style.speechMasculineStrong(That one with the blonde feathers is [bimboHarpy.name], the mean-looking one is [dominantHarpy.name], and the other one is called [nymphoHarpy.name]. They outright refuse to get along with one another, and their ongoing feud is causing the Nests to descend into absolute anarchy. Every day we get a half-dozen new reports of harpies attacking travellers in broad daylight! No matter how many patrols we send out, nothing changes. As much as I hate to admit it, it's the matriarchs who are the ones responsible for keeping law and order up here.)]
+	</p>
+	<p>
+		[pc.speech(So you need someone to get these matriarchs under control?)] you ask.
+	</p>
+	<p>
+		[style.speechMasculineStrong(If we tried sending Enforcers in to do that, it'd be seen as an insult to all the harpy flocks. Helena would certainly get involved again, which is the last thing we need right now. I hate asking for help like this, but if by some miracle you're able to subdue those three,)] he points to the papers in your hand again, [style.speechMasculineStrong(I could offer a five thousand flame reward.)]
+	</p>
+	<p>
+		Telling the horse-boy that you'll get it done, you turn to take your leave. Ignoring the his dismissive grunt as he sinks down into his chair, you exit the sergeant's office and [pc.step] back out into the Enforcer Post...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION -->
+	
+	<htmlContent tag="ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION"><![CDATA[
+	<p>
+		You walk over towards the office where you first accepted the horse-boy Enforcer's request to pacify the Harpy Nests. As you approach, the door opens, and a vaguely familiar, exhausted-looking cat-girl steps out. She shuffles off in the direction of the elevators, and before the door swings shut, you step forwards into the office.
+	</p>
+	<p>
+		[style.speechMasculineStrong(Hah! Hungry for more, Alice? Oh! It's you!)] the horse-boy calls out, tucking in his shirt as he sits down in his chair. Smirking at you, he grunts, [style.speechMasculineStrong(I heard what you've been up to out there!)]
+	</p>
+	<p>
+		Ignoring the smell of sex that's saturating the room, you tell him that you've successfully convinced all three of the troublesome matriarchs to calm down. As you finish saying this, the horse-boy slaps his leg and laughs, [style.speechMasculineStrong(Hah! I don't know how you managed to pull it off, but we've received messages from each one of those matriarchs, not only saying that they'll stop causing a problem, but also apologising for the trouble they've caused us!)]
+	</p>
+	<p>
+		The muscular horse-boy produces a little brass key from out of one of his pockets, and after bending down to unlock a heavy iron safe that's sitting beneath his desk, he retrieves a bag of flames. Setting it down in front of him, he grins and exclaims, [style.speechMasculineStrong(I still can't believe that you actually managed to do it! As promised, here's your five thousand flame reward!)]
+	</p>
+	<p>
+		Stepping forwards, you take the offered bag of money, before thanking the Enforcer sergeant. He seems to be in very high spirits, and lets out another happy exclamation as he leans back in his chair, [style.speechMasculineStrong(Hah! We're going to start regular patrols of the walkways to make sure another incident like this doesn't happen again. Thanks to your efforts, the Harpy Nests will once again be safe for anyone to travel through!)]
+	</p>
+	<p>
+		Having received your reward, you say farewell to the happy horse-boy, and after walking out of his office, you once again find yourself standing in the Enforcer Post...
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsExcellent(The Harpy Nests are now safe to travel through!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_ENFORCER_POST_CANDIS_LOLLIPOPS -->
+	
 	<htmlContent tag="ENTRANCE_ENFORCER_POST_CANDIS_LOLLIPOPS"><![CDATA[
 	<p>
 		Wanting to retrieve these 'contraband lollipops' and return to Candi as quickly as possible, you walk up to the nearest Enforcer, who takes the form of a particularly bored-looking dog-boy. As he looks up to see who it is who's approaching him, you tell him that you're here to collect the lollipops and return them to the Enforcer headquarters.
@@ -22,7 +219,70 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	
+	<!-- WALKWAY -->
+	
+	<htmlContent tag="WALKWAY"><![CDATA[
+	<p>
+		You find yourself walking down a winding, narrow walkway; part of an interconnected system of pathways, stairs, and ladders that have been built into the rooftops of Dominion. Being able to fly, the harpies that live up here have no use for them, and there aren't many people willing to risk a harpy's wrath just for the sake of taking a stroll through the nests. As a result, these links between the sprawling network of harpy nests are completely deserted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WALKWAY_CORE"><![CDATA[
+	<p>
+		Although these walkways don't lead directly through any nests, you're still able to observe them as you pass. Each nest takes the form of a series of platforms, built on top of, and into, the roofs and upper floors of Dominion's residences. While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one another; evidence that the matriarch of that particular nest is extremely important.
+	</p>
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			Due to the ongoing arcane storm, each flock has taken shelter in the building below their nest. The only movement to be seen in the deserted nests takes the form of canvas coverings, erected to protect the harpies from the elements, billowing in the wind. Peering over the side of the railing, you see that the streets below are similarly abandoned, with only the occasional demon to be seen wandering through the area.
+		</p>
+		<p>
+			#IF(!game.getNonCompanionCharactersPresent().isEmpty() && npc.isRelatedTo(pc))
+				Despite the potential for a lust-crazed to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+			#ELSEIF(!game.getNonCompanionCharactersPresent().isEmpty() && !npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Despite the potential for a lust-crazed harpy to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+			#ELSE
+				While the arcane storm raging overhead has sent most harpies into hiding, there's a chance that you'll run into one which is being affected by its lust-inducing effects, making the Nests a [style.colourBad(dangerous)] place to be travelling through for as long as it lasts...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			#IF(game.getCurrentWeather()==WEATHER_RAIN)
+				Due to the ongoing rain, each flock has taken shelter in the building below their nest, or beneath the canvas coverings that have been erected to protect the harpies from the elements. The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader. Peering over the side of the railing, you see that the people walking down the streets below are similarly huddling beneath any shelter they can find, desperate to get out of the rain.
+			#ELSEIF(game.isDayTime())
+				The members of each flock are sprawled out over their nest's platforms. Most are simply lounging about beneath canvas coverings, but there are plenty to be seen sunbathing or talking in little groups. The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader. Peering over the side of the railing, you see the people walking down the streets below, oblivious to what's going on high above them.
+			#ELSE
+				The members of each flock are sprawled out over their nest's platforms. Even at night, there are still plenty of harpies to be seen lounging about or talking in little groups, their brightly-coloured feathers illuminated by a series of bright lights that cover the rooftops. The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader. Peering over the side of the railing, you see the people walking down the streets below, oblivious to what's going on high above them.
+			#ENDIF
+		</p>
+		<p>
+			#IF(game.getNonCompanionCharactersPresent().isEmpty())
+				As you continue travelling down the [style.colourBad(dangerous)] walkways, you can't help but shake the feeling that you're being watched. An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest. It's probably only a matter of time before one of them decides to openly confront you...
+			#ELSEIF(npc.isRelatedTo(pc))
+				Despite the potential for a harpy to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+			#ELSEIF(!npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Despite the potential for a harpy to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+			#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_HARPY_PACIFICATION))
+				You sometimes see an Enforcer patrolling a walkway off in the distance, reminding you that it's now [style.colourGood(safe)] for people to be travelling throughout the Harpy Nests. Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble...
+			#ELSE
+				As you continue travelling down the [style.colourBad(dangerous)] walkways, you can't help but shake the feeling that you're being watched. An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest. It's probably only a matter of time before one of them decides to openly confront you...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WALKWAY_BRIDGE -->
+	
+	<htmlContent tag="WALKWAY_BRIDGE"><![CDATA[
+	<p>
+		You find yourself walking over a narrow wooden bridge; part of an interconnected system of pathways, stairs, and ladders that have been built into the rooftops of Dominion. Being able to fly, the harpies that live up here have no use for them, and there aren't many people willing to risk a harpy's wrath just for the sake of taking a stroll through the nests. As a result, these links between the sprawling network of harpy nests are completely deserted.
+	</p>
+	]]>
+	</htmlContent>
 	
 	
 </dialogue>

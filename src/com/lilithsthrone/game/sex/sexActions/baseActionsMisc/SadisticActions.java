@@ -14,20 +14,22 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.4
- * @version 0.3.5.8
+ * @version 0.4
  * @author Innoxia
  */
 public class SadisticActions {
 	
 	public static final SexAction SLAP_ASS = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
 		
@@ -47,13 +49,13 @@ public class SadisticActions {
 				assFinger = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(target))
 						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.ASS);
 			} catch(Exception ex) {
-				// No available finger-ass actions, so can't reach face
+				// No available finger-ass actions, so can't reach ass
 			}
 			try {
 				assFingerReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(target)).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
 						.getInteractions().get(SexAreaOrifice.ASS).contains(SexAreaPenetration.FINGER);
 			} catch(Exception ex) {
-				// No available finger-ass actions, so can't reach face
+				// No available finger-ass actions, so can't reach ass
 			}
 			return SexAreaPenetration.FINGER.isFree(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.isDom(target)
@@ -81,27 +83,21 @@ public class SadisticActions {
 			String tailSpecial1 = "", tailSpecial2 = "";
 			
 			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
-				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
-					case NONE:
-						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(reach)] down and roughly [npc.verb(grope)] [npc2.her] [npc2.ass+],"
-								+ " before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
-						break;
-					default:
-						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], [npc.name] roughly [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(yank)] upwards,"
-											+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
-						break;
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(reach)] down and roughly [npc.verb(grope)] [npc2.her] [npc2.ass+],"
+							+ " before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
+				} else {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], [npc.name] roughly [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(yank)] upwards,"
+									+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
 				}
-				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
-					case NONE:
-						tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.verb(growl)] down that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
-								+ " before starting make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
-						break;
-					default:
-						tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
-											+ " roughly yanking [npc2.her] [npc2.ass+] up high in the air before starting to aggressively slap [npc2.her] exposed cheeks.";
-						break;
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.verb(growl)] down that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
+							+ " before starting make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
+				} else {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
+										+ " roughly yanking [npc2.her] [npc2.ass+] up high in the air before starting to aggressively slap [npc2.her] exposed cheeks.";
 				}
-			
+				
 				return UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -114,25 +110,19 @@ public class SadisticActions {
 									+ " growling in glee as [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] under [npc.her] stinging blows.");
 				
 			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
-				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
-					case NONE:
-						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(reach)] down and roughly [npc.verb(grope)] [npc2.her] [npc2.ass+],"
-								+ " before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
-						break;
-					default:
-						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], [npc.name] roughly [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(yank)] upwards,"
-											+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
-						break;
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(reach)] down and roughly [npc.verb(grope)] [npc2.her] [npc2.ass+],"
+							+ " before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
+				} else {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], [npc.name] roughly [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(yank)] upwards,"
+										+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
 				}
-				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
-					case NONE:
-						tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.verb(growl)] down that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
-								+ " before starting make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
-						break;
-					default:
-						tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
-											+ " roughly yanking [npc2.her] [npc2.ass+] up high in the air before starting to aggressively slap [npc2.her] exposed cheeks.";
-						break;
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.verb(growl)] down that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
+							+ " before starting make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
+				} else {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
+										+ " roughly yanking [npc2.her] [npc2.ass+] up high in the air before starting to aggressively slap [npc2.her] exposed cheeks.";
 				}
 			
 				return UtilText.returnStringAtRandom(
@@ -147,25 +137,19 @@ public class SadisticActions {
 									+ " growling in glee as [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] under [npc.her] stinging blows.");
 			
 			} else {
-				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
-					case NONE:
-						tailSpecial1 = "Growling down into [npc2.namePos] [npc2.ear+], [npc.name] [npc.verb(reach)] down and [npc.verb(grab)] [npc2.her] waist, using one hand to hold [npc2.herHim] still,"
-											+ " while using [npc.her] other to deliver a series of stinging slaps to [npc2.her] [npc2.ass+].";
-						break;
-					default:
-						tailSpecial1 = "Growling down into [npc2.namePos] [npc2.ear], [npc.name] roughly [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(yank)] upwards,"
-									+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
-						break;
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial1 = "Growling down into [npc2.namePos] [npc2.ear+], [npc.name] [npc.verb(reach)] down and [npc.verb(grab)] [npc2.her] waist, using one hand to hold [npc2.herHim] still,"
+										+ " while using [npc.her] other to deliver a series of stinging slaps to [npc2.her] [npc2.ass+].";
+				} else {
+					tailSpecial1 = "Growling down into [npc2.namePos] [npc2.ear], [npc.name] roughly [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(yank)] upwards,"
+								+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc2.her] exposed cheeks.";
 				}
-				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
-					case NONE:
-						tailSpecial2 = "[npc.Name] [npc.verb(reach)] down and [npc.verb(grab)] [npc2.namePos] waist with one hand,"
-								+ " holding [npc2.herHim] firmly in [npc.her] grip as [npc.she] [npc.verb(start)] to aggressively slap [npc2.her] exposed cheeks.";
-						break;
-					default:
-						tailSpecial2 = "[npc.Name] [npc.verb(reach)] down and [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+], causing [npc2.herHim] to let out a surprised yelp as [npc.she] roughly [npc.verb(yank)] upwards,"
-											+ " forcing [npc2.herHim] to push [npc2.her] [npc2.ass+] up high in the air as [npc.name] [npc.verb(start)] to aggressively slap [npc2.her] exposed cheeks.";
-						break;
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial2 = "[npc.Name] [npc.verb(reach)] down and [npc.verb(grab)] [npc2.namePos] waist with one hand,"
+							+ " holding [npc2.herHim] firmly in [npc.her] grip as [npc.she] [npc.verb(start)] to aggressively slap [npc2.her] exposed cheeks.";
+				} else {
+					tailSpecial2 = "[npc.Name] [npc.verb(reach)] down and [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+], causing [npc2.herHim] to let out a surprised yelp as [npc.she] roughly [npc.verb(yank)] upwards,"
+										+ " forcing [npc2.herHim] to push [npc2.her] [npc2.ass+] up high in the air as [npc.name] [npc.verb(start)] to aggressively slap [npc2.her] exposed cheeks.";
 				}
 			
 				return UtilText.returnStringAtRandom(
@@ -185,11 +169,11 @@ public class SadisticActions {
 	};
 	
 	public static final SexAction SLAP_FACE = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.FOUR_LUSTFUL,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
 		
@@ -378,11 +362,11 @@ public class SadisticActions {
 	};
 	
 	public static final SexAction CHOKE = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.FOUR_LUSTFUL,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
 		

@@ -21,6 +21,7 @@
 	]]>
 	</htmlContent>
 	
+	
 	<!-- CLAIRE -->
 	
 	<htmlContent tag="CLAIRE"><![CDATA[
@@ -90,7 +91,7 @@
 		[pc.speech(I wanted to ask you what you know about Lyssieth,)] you reply, noting how Claire's cheerful expression shifts into one of concern as she hears that name.
 	</p>
 	<p>
-		[claire.speech(Well, as you might already know, Lyssieth is the Elder Lilin who's in charge of all of Submission. We Enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce,)] Claire explains, uncomfortably shifting about a little as she finishes talking. Her small movements cause her huge breasts to start swaying from side to side in a pendulous manner, and you can;t help but glance at them as she continues, [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
+		[claire.speech(Well, as you might already know, Lyssieth is the Elder Lilin who's in charge of all of Submission. We Enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce,)] Claire explains, uncomfortably shifting about a little as she finishes talking. Her small movements cause her huge breasts to start swaying from side to side in a pendulous manner, and you can't help but glance at them as she continues, [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
 	</p>
 	<p>
 		[pc.speech(I'll be careful of them,)] you reply, before continuing, [pc.speech(but you mentioned Lyssieth setting special rules; what are those?)]
@@ -120,12 +121,24 @@
 	<p>
 		[pc.speech(You must have worked hard in order to be chosen as the one to be using them then,)] you reply, hoping to encourage the proud cat-girl to reveal some more information about teleportation.
 	</p>
-	<p>
-		[claire.speech(Thank you, yes I did!)] she replies, letting out a happy, contented little sigh as she hears you recognising her hard work, [claire.speech(I really put everything I've got into this job, and it all paid off when I was the one chosen to have such an important assignment! Hey, you know what, how about I show you the pads some time? I can tell you're really interested in them, and it really would do some good to show the general public that we're not all trigger-happy maniacs like those SWORD guys.)]
-	</p>
-	<p>
-		After telling her that you'd be happy to take a look at the teleportation pads some time when she's free, Claire smiles happily at you and exclaims, [claire.speech(Great! Just tell me whenever you're ready!)]
-	</p>
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_SLIME_QUEEN))
+		<p>
+			[claire.speech(Thank you, yes I did!)] she replies, letting out a happy, contented little sigh as she hears you recognising her hard work, [claire.speech(I really put everything I've got into this job, and it all paid off when I was the one chosen to have such an important assignment! Hey, you know what, how about I show you the pads some time? I can tell you're really interested in them, and seeing as you've helped us out with that slime queen problem, my superior is sure to give you special permission to see them!)]
+		</p>
+		<p>
+			After telling her that you'd be happy to take a look at the teleportation pads some time when she's free, Claire smiles happily at you and exclaims, [claire.speech(Great! Just tell me whenever you're ready!)]
+		</p>
+	#ELSE
+		<p>
+			[claire.speech(Thank you, yes I did!)] she replies, letting out a happy, contented little sigh as she hears you recognising her hard work, [claire.speech(I really put everything I've got into this job, and it all paid off when I was the one chosen to have such an important assignment! I'd love to show you the teleportation pads some time, but I really don't think my superior will give you permission...)]
+		</p>
+		<p>
+			Coming to the end of her explanation about teleportation, Claire smiles happily at you and asks, [claire.speech(So, is there anything else you wanted, [pc.name]?)]
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(You will be unable to visit the teleportation pads until you've completed the 'Slime Queen' side quest.)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -138,9 +151,9 @@
 	</p>
 	<p>
 		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_TELEPORTATION))
-			[claire.speech(Well, after that business in their warehouse, I think you already know as about SWORD as you need to,)] Claire replies with sigh, [claire.speech(But just to give you a rundown again, the 'Special Weapons and Operations Response Department', are the ones who get all the heavy weapons and dangerous assignments. They're the guys who deal with stuff like hostage rescue, tracking down serious criminals, and conducting raids on criminal hideouts. They've got a pretty well-earned reputation for being trigger-happy, and it's us Frontline Patrol units who end up getting all the flak from members of the public when we have to go in and clean up after they've finished their operations...)]
+			[claire.speech(Well, after that business in their warehouse, I think you already know enough about SWORD,)] Claire replies with sigh, [claire.speech(But just to give you a rundown again, the 'Special Weapons and Operations Response Department' are the ones who get all the heavy weapons and dangerous assignments. They're the guys who deal with stuff like hostage rescue, tracking down serious criminals, and conducting raids on criminal hideouts. They've got a pretty well-earned reputation for being trigger-happy, and it's us Frontline Patrol units who end up getting all the flak from members of the public when we have to go in and clean up after they've finished their operations...)]
 		#ELSE
-			[claire.speech(Yeah, of course,)] Claire replies, [claire.speech(So, just like their full name, 'Special Weapons and Operations Response Department', suggests, SWORD are the ones who get all the heavy weapons and dangerous assignments. They're the guys who deal with stuff like hostage rescue, tracking down serious criminals, and conducting raids on criminal hideouts. They've got a pretty well-earned reputation for being trigger-happy, and it's us Frontline Patrol units who end up getting all the flak from members of the public when we have to go in and clean up after they've finished their operations...)]
+			[claire.speech(Yeah, of course,)] Claire replies, [claire.speech(The 'Special Weapons and Operations Response Department', just as their name suggests, are the ones who get all the heavy weapons and dangerous assignments. They're the guys who deal with stuff like hostage rescue, tracking down serious criminals, and conducting raids on criminal hideouts. They've got a pretty well-earned reputation for being trigger-happy, and it's us Frontline Patrol units who end up getting all the flak from members of the public when we have to go in and clean up after they've finished their operations...)]
 		#ENDIF
 	</p>
 	<p>
@@ -181,13 +194,13 @@
 		[pc.speech(So you want me to go down there and find evidence of the Slime Queen?)] you ask, guessing where this conversation is headed.
 	</p>
 	<p>
-		[claire.speech(W-What? No! It's far too dangerous!)] Claire quickly replies, flustered by your response. [claire.speech(There are bat-morphs which can swoop down on you at any moment, aggressive slimes who'd just love to attack you, and the whole place is completely pitch-black! Well, there are patches of bioluminescent fungi, but it's still really dark and scary down there!)]
+		[claire.speech(What? No! It's far too dangerous!)] Claire quickly replies, flustered by your response. [claire.speech(There are bat-morphs which can swoop down on you at any moment, aggressive slimes who'd just love to attack you, and the whole place is completely pitch-black! Well, there are patches of bioluminescent fungi, but it's still really dark and scary down there!)]
 	</p>
 	<p>
-		[pc.speech(Well, if I were to go down there and find a Slime Queen, that'd help you out, right?)] You ask, ignoring Claire's warnings.
+		[pc.speech(Well, if I were to go down there and find a Slime Queen, that'd help you out, right?)] you ask, ignoring Claire's warnings.
 	</p>
 	<p>
-		[claire.speech(W-Well, yes. I don't like to tell anyone, as I don't want to encourage people to seek out danger, but we do have a twenty-thousand flame reward for anyone who's able to put an end to this slime transformation problem.)] Claire says, wringing her hands with worry. [claire.speech(So if you're able to find and convince this Queen to stop, you'll have earned that reward. But please don't go looking for danger down there! I need to get back on with work now, but promise me you'll be careful before I go!)]
+		[claire.speech(Well, I suppose so, yes... I don't like to tell anyone, as I don't want to encourage people to seek out danger, but we do have a twenty-thousand flame reward for anyone who's able to put an end to this slime transformation problem.)] Claire says, wringing her hands with worry. [claire.speech(So if you're able to find and convince this Queen to stop, you'll have earned that reward. But please don't go looking for danger down there! I need to get back on with work now, but promise me you'll be careful before I go!)]
 	</p>
 	<p>
 		[pc.speech(Don't worry so much,)] you reply, [pc.speech(I'm always careful.)]
@@ -224,7 +237,11 @@
 		[pc.speech(You're welcome,)] you reply, smiling at the little cat-girl.
 	</p>
 	<p>
-		[claire.speech(So, is there anything else I can help you with?)] Claire happily asks.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_claireAskedTeleportation))
+			[claire.speech(Hey, now that you've helped us Enforcers out with this, I'm sure that I could get permission from my superior to let you see the teleportation pads!)] Claire happily exclaims, before asking, [claire.speech(So, would you like to see them now, or is there anything else I can help you with?)]
+		#ELSE
+			[claire.speech(So, is there anything else I can help you with?)] Claire happily asks.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -255,7 +272,11 @@
 		[pc.speech(You're welcome,)] you reply, smiling at the little cat-girl.
 	</p>
 	<p>
-		[claire.speech(So, is there anything else I can help you with?)] Claire happily asks.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_claireAskedTeleportation))
+			[claire.speech(Hey, now that you've helped us Enforcers out with this, I'm sure that I could get permission from my superior to let you see the teleportation pads!)] Claire happily exclaims, before asking, [claire.speech(So, would you like to see them now, or is there anything else I can help you with?)]
+		#ELSE
+			[claire.speech(So, is there anything else I can help you with?)] Claire happily asks.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -588,7 +609,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="TUNNEL_IMP_CONTROL"><![CDATA[
-	<p style='color:[#pc.getLocationPlace().getPlaceType().getColourString()];'>
+	<p style='color:[#pc.getLocationPlace().getPlaceType().getColour().toWebHexString()];'>
 		<i>This tunnel is part of a network that's currently being controlled by an imp fortress! Until the fortress is cleared, anyone who calls these tunnels home is sure to remain in hiding...</i>
 	</p>
 	]]>

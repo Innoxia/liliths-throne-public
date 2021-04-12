@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.95
@@ -9,11 +10,11 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum WingSize {
 
-	ZERO_TINY(0, "tiny", Colour.GENERIC_SIZE_ONE),
-	ONE_SMALL(1, "small", Colour.GENERIC_SIZE_TWO),
-	TWO_AVERAGE(2, "average-sized", Colour.GENERIC_SIZE_THREE),
-	THREE_LARGE(3, "large", Colour.GENERIC_SIZE_FOUR),
-	FOUR_HUGE(4, "huge", Colour.GENERIC_SIZE_FIVE);
+	ZERO_TINY(0, "tiny", PresetColour.GENERIC_SIZE_ONE),
+	ONE_SMALL(1, "small", PresetColour.GENERIC_SIZE_TWO),
+	TWO_AVERAGE(2, "average-sized", PresetColour.GENERIC_SIZE_THREE),
+	THREE_LARGE(3, "large", PresetColour.GENERIC_SIZE_FOUR),
+	FOUR_HUGE(4, "huge", PresetColour.GENERIC_SIZE_FIVE);
 	
 	
 	private int value;

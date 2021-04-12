@@ -10,8 +10,8 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -47,7 +47,6 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -60,14 +59,12 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -102,7 +99,7 @@ public class Vengar extends NPC {
 			setStartingBody(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_LIGHT), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_LIGHT), false);
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 			this.addPersonalityTrait(PersonalityTrait.LEWD);
 			if(!this.isSlave()) {
@@ -162,16 +159,16 @@ public class Vengar extends NPC {
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_HAZEL), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_LIGHT), false);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_HAZEL), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -203,7 +200,7 @@ public class Vengar extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
@@ -216,35 +213,37 @@ public class Vengar extends NPC {
 		// Foot shape
 	}
 
-	public void applySissification() {
+	public String applySissification() {
+		StringBuilder sb = new StringBuilder();
+		
 		this.clearFetishes();
 		this.clearFetishDesires();
 		
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_PENIS_RECEIVING);
+		sb.append(this.addFetish(Fetish.FETISH_SUBMISSIVE));
+		sb.append(this.addFetish(Fetish.FETISH_ANAL_RECEIVING));
+		sb.append(this.addFetish(Fetish.FETISH_PENIS_RECEIVING));
 		this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
 		
-		this.setHeight(177);
-		this.setFemininity(65);
+		sb.append(this.setHeight(177));
+		sb.append(this.setFemininity(65));
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_HAZEL), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_BROWN), false);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN), false);
-		this.setHairLength(HairLength.FOUR_MID_BACK);
+		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_HAZEL), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_BROWN), false);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN), false);
+		sb.append(this.setHairLength(HairLength.FOUR_MID_BACK));
 		this.setHairStyle(HairStyle.PONYTAIL);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.ZERO_NONE);
@@ -252,72 +251,78 @@ public class Vengar extends NPC {
 
 		// Face:
 		this.setFaceVirgin(true);
-		this.setLipSize(LipSize.TWO_FULL);
+		sb.append(this.setLipSize(LipSize.TWO_FULL));
 		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.B.getMeasurement());
+		sb.append(this.setBreastSize(CupSize.B.getMeasurement()));
 		this.setBreastShape(BreastShape.ROUND);
-		this.setNippleSize(NippleSize.THREE_LARGE);
-		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
+		sb.append(this.setNippleSize(NippleSize.THREE_LARGE));
+		sb.append(this.setAreolaeSize(AreolaeSize.THREE_LARGE));
 		
 		// Ass:
 		this.setAssVirgin(true);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.THREE_NORMAL);
-		this.setHipSize(HipSize.THREE_GIRLY);
+		sb.append(this.setAssSize(AssSize.THREE_NORMAL));
+		sb.append(this.setHipSize(HipSize.THREE_GIRLY));
 		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
-		this.setAssWetness(Wetness.TWO_MOIST);
+		sb.append(this.setAssWetness(Wetness.TWO_MOIST));
 		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.TWO_AVERAGE);
-		this.setPenisSize(6);
-		this.setTesticleSize(TesticleSize.ONE_TINY);
+		sb.append(this.setPenisGirth(PenetrationGirth.THREE_AVERAGE));
+		sb.append(this.setPenisSize(6));
+		sb.append(this.setTesticleSize(TesticleSize.ONE_TINY));
 		this.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue());
 		this.fillCumToMaxStorage();
 		
-		AbstractClothing cage = AbstractClothingType.generateClothing("innoxia_bdsm_ornate_chastity_cage", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_WHITE, Colour.CLOTHING_BRASS, false);
-		cage.setSealed(false);
-		this.equipClothingFromNowhere(cage, true, Main.game.getNpc(Roxy.class));
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_buttPlugs_butt_plug_heart", Colour.CLOTHING_SILVER, Colour.CLOTHING_PINK_LIGHT, null, false), true, Main.game.getNpc(Roxy.class));
+		equipClothing();
 		
+		return sb.toString();
 	}
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false, null, null));
-		
-		this.setScar(InventorySlot.CHEST, new Scar(ScarType.CLAW_MARKS, true));
-		this.setScar(InventorySlot.TORSO_OVER, new Scar(ScarType.JAGGED_SCAR, false));
-		this.setScar(InventorySlot.MOUTH, new Scar(ScarType.STRAIGHT_SCAR, false));
+		if(this.isFeminine()) {
+			AbstractClothing cage = Main.game.getItemGen().generateClothing("innoxia_bdsm_ornate_chastity_cage", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_BRASS, false);
+			cage.setSealed(false);
+			this.equipClothingFromNowhere(cage, true, Main.game.getNpc(Roxy.class));
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_buttPlugs_butt_plug_heart", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_LIGHT, null, false), true, Main.game.getNpc(Roxy.class));
+			
+		} else {
+			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, false, null, null));
+			
+			this.setScar(InventorySlot.CHEST, new Scar(ScarType.CLAW_MARKS, true));
+			this.setScar(InventorySlot.TORSO_OVER, new Scar(ScarType.JAGGED_SCAR, false));
+			this.setScar(InventorySlot.MOUTH, new Scar(ScarType.STRAIGHT_SCAR, false));
 
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_knuckleDusters_knuckle_dusters", DamageType.PHYSICAL));
-		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_knuckleDusters_knuckle_dusters", DamageType.PHYSICAL));
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLUE_GREY, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, Colour.CLOTHING_BLACK, false), true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fingerless_gloves", Colour.CLOTHING_DESATURATED_BROWN, false), true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
-		this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_UNDER), DisplacementType.UNBUTTONS, true, true, this);
-		
-		AbstractClothing cargo = AbstractClothingType.generateClothing("innoxia_leg_cargo_trousers", Colour.CLOTHING_BLACK, false);
-		cargo.setPattern("multi_camo");
-		cargo.setPatternColour(Colour.CLOTHING_BLACK);
-		cargo.setPatternSecondaryColour(Colour.CLOTHING_BLACK_JET);
-		cargo.setPatternTertiaryColour(Colour.CLOTHING_GREY);
-		this.equipClothingFromNowhere(cargo, true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_BLACK_STEEL, false), true, this);
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_knuckleDusters_knuckle_dusters", DamageType.PHYSICAL));
+			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_knuckleDusters_knuckle_dusters", DamageType.PHYSICAL));
+			
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLUE_GREY, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
+			
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_fingerless_gloves", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
+			
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_UNDER), DisplacementType.UNBUTTONS, true, true, this);
+			
+			AbstractClothing cargo = Main.game.getItemGen().generateClothing("innoxia_leg_cargo_trousers", PresetColour.CLOTHING_BLACK, false);
+			cargo.setPattern("multi_camo");
+			cargo.setPatternColour(0, PresetColour.CLOTHING_BLACK);
+			cargo.setPatternColour(1, PresetColour.CLOTHING_BLACK_JET);
+			cargo.setPatternColour(2, PresetColour.CLOTHING_GREY);
+			this.equipClothingFromNowhere(cargo, true, this);
+			
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		}
 	}
 	
 	@Override
@@ -352,7 +357,7 @@ public class Vengar extends NPC {
 
 	@Override
 	public void turnUpdate() {
-		if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+		if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 			this.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER);
 			
 		} else {
@@ -396,8 +401,8 @@ public class Vengar extends NPC {
 			return new Response("", "", RatWarrensDialogue.VENGAR_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-					Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+					((Shadow)Main.game.getNpc(Shadow.class)).moveToBountyHunterLodge();
+					((Silence)Main.game.getNpc(Silence.class)).moveToBountyHunterLodge();
 				}
 			};
 

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public enum DialogueNodeType {
@@ -17,9 +17,11 @@ public enum DialogueNodeType {
 	
 	CHARACTERS_PRESENT("characters present"),
 
-	OCCUPANT_MANAGEMENT("slavery management"),
+	OCCUPANT_MANAGEMENT("character management"),
 	
-	OPTIONS("options");
+	OPTIONS("options"),
+	
+	GIFT("gifts");
 
 	private String name;
 
