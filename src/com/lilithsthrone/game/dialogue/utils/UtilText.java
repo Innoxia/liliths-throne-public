@@ -1309,6 +1309,32 @@ public class UtilText {
 	
 	static{
 
+		// Amarok Specials:
+
+		commandsList.add(new ParserCommand(Util.newArrayListOfValues("heightValueAmarok"), false, false, "(boolean)",
+				"Sets, then returns the character's height in the long, localised format.") {
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target,
+					GameCharacter character) {
+				if (arguments != null && (arguments.equalsIgnoreCase("true"))) {
+					character.setHeight(285);
+				}
+				
+				return Units.size(character.getHeightValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+			}
+		});
+
+		commandsList.add(new ParserCommand(Util.newArrayListOfValues("parseFromModdedXML"), false, false, "(address, tag)",
+				"finds a xml file and parses the text") {
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target,
+					GameCharacter character) {
+				String pathName = arguments.split(", ")[0].replaceAll("\"|\'", "");
+				String tag = arguments.split(", ")[1].replaceAll("\"|\'", "");
+				return UtilText.parseFromXMLFile(new ArrayList<>(), "res/txt/", pathName, tag, new ArrayList<>());	//	res/mods/
+			}
+		});
+
 		// Parsing:
 		
 		commandsList.add(new ParserCommand(
