@@ -100,7 +100,7 @@ public class Main extends Application {
 	
 	private static Properties properties;
 	
-	public static String patchNotes = "";
+	private static String patchNotes = "";
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 
@@ -125,10 +125,6 @@ public class Main extends Application {
 	
 	public static List<CreditsSlot> credits = new ArrayList<>();
 
-	static {
-		loadPatchNotes();
-	}
-	
 	// World generation:
 	public static Generation gen;
 	@Override
@@ -588,14 +584,18 @@ public class Main extends Application {
 		return docBuilder;
 	}
 
-	private static void loadPatchNotes() {
+	public static String getPatchNotes() {
+		if (!patchNotes.isEmpty()) {
+			return patchNotes;
+		}
+
 		String prefaceText = "";
 		StringBuilder patchNotesText = new StringBuilder();
 
 		File patchNotesFolder = new File("res/patchNotes");
 		if (!patchNotesFolder.exists() || !patchNotesFolder.isDirectory()) {
 			System.err.println("Folder 'res/patchNotes' could not be loaded!");
-			return;
+			return "";
 		}
 
 		File[] fileList = patchNotesFolder.listFiles((dir, name) -> name.endsWith(".html"));
@@ -625,6 +625,8 @@ public class Main extends Application {
 			}
 		}
 		patchNotes = prefaceText + patchNotesText;
+
+		return patchNotes;
 	}
 
 	public static void main(String[] args) {

@@ -1144,7 +1144,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getContent(){
-			return Main.patchNotes;
+			return Main.getPatchNotes();
 		}
 		
 		@Override
