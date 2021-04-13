@@ -3,18 +3,20 @@ package com.lilithsthrone.main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
-import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
 import com.lilithsthrone.game.PropertyValue;
@@ -587,49 +589,42 @@ public class Main extends Application {
 	}
 
 	private static void loadPatchNotes() {
-		// toc.xml parsing
-		File tocXMLFile = new File("res/patchnotes/toc.xml");
-		if (!tocXMLFile.exists()) {
-			System.err.println("File 'res/patchnotes/toc.xml' could not be loaded!");
-		} else {
-			try {
-				Document doc = Main.getDocBuilder().parse(tocXMLFile);
+		String prefaceText = "";
+		StringBuilder patchNotesText = new StringBuilder();
 
-				// Cast magic:
-				doc.getDocumentElement().normalize();
+		File patchNotesFolder = new File("res/patchNotes");
+		if (!patchNotesFolder.exists() || !patchNotesFolder.isDirectory()) {
+			System.err.println("Folder 'res/patchNotes' could not be loaded!");
+			return;
+		}
 
-				Element coreElement = Element.getDocumentRootElement(tocXMLFile);
+		File[] fileList = patchNotesFolder.listFiles((dir, name) -> name.endsWith(".html"));
+		Arrays.sort(fileList, Collections.reverseOrder());
 
-				for (Element e : coreElement.getAllOf("section")) {
-					String type = e.getAttribute("type");
-					String fileName = e.getTextContent();
+		for (File file : fileList) {
+			Matcher matcher = Pattern.compile("^\\d{8}-(preface|patchnotes)-", Pattern.CASE_INSENSITIVE).matcher(file.getName());
+			if (!matcher.find()) {
+				continue;
+			}
 
-					try {
-						FileInputStream fis = new FileInputStream("res/patchnotes/" + fileName + ".html");
-						String contentHTML = Util.inputStreamToString(fis);
-
-						switch (type) {
-							case "patchnotes":
-								patchNotes += "<br />\n<div class=\"list\">\n";
-								patchNotes += contentHTML;
-								patchNotes += "</div>\n";
-								break;
-
-							case "preface":
-							default:
-								patchNotes += contentHTML;
+			try (FileInputStream fis = new FileInputStream(file)) {
+				String contentHTML = Util.inputStreamToString(fis);
+				switch (matcher.group(1).toLowerCase()) {
+					case "preface":
+						if (prefaceText.isEmpty()) {
+							prefaceText = contentHTML;
 						}
-						
-						fis.close();
-						
-					} catch (FileNotFoundException ex) {
-						ex.printStackTrace();
-					}
+						break;
+
+					case "patchnotes":
+						patchNotesText.append("<br />\n<div class=\"list\">\n").append(contentHTML).append("</div>\n");
+						break;
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (IOException ex) {
+				ex.printStackTrace();
 			}
 		}
+		patchNotes = prefaceText + patchNotesText;
 	}
 
 	public static void main(String[] args) {
