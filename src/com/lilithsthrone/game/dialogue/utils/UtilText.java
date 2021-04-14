@@ -9156,7 +9156,11 @@ public class UtilText {
 				System.err.println("Scripting parsing error: "+command);
 				System.err.println(e.getMessage());
 //				e.printStackTrace();
-				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
+				if(Main.game.isDebugMode()) {
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!: " + command.toString() + ")</i>";
+				} else {
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
+				}
 			}
 			
 		} else if(Main.game.isStarted()) { //TODO test:
