@@ -10134,8 +10134,9 @@ public class UtilText {
 				return character.getBody().getVagina().getGirlcum();
 			case WING:
 				return character.getBody().getWing();
+			case SPINNERET:
+				return character.getBody().getSpinneret();
 			case GENERIC:
-			case SPINNERET: //TODO?
 				return null;
 		}
 		return null;

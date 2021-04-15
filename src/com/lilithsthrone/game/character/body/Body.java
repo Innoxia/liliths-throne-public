@@ -5324,6 +5324,18 @@ public class Body implements XMLSaving {
 		}
 		descriptionSB.append("[npc.she] [npc.has] a [npc.spinneretFullDescription(true)]. It is not only capable of producing strong webbing, but can also be used as a sexual orifice.");
 		
+		if(owner.isFeral()) {				//Added by Amarok
+			descriptionSB.append(" [style.colourFeral(As is to be expected, [npc.her] [npc.spinneret] is entirely feral in form, and is no different to that of a normal)]");
+		} else if(ass.isFeral(owner)) {		//TODO spinneret still in weird position of hybrid part/orifice
+			descriptionSB.append(" [style.colourFeral(As it is located on the lower, animalistic part of [npc.her] body, [npc.her] [npc.spinneret] is no different to that of a feral)]");
+		}
+		
+		if(owner.hasLegSpinneret()) {
+			descriptionSB.append(" [style.colourFeral([npc.legRace]'s.)]");
+		} else {
+			descriptionSB.append(" [style.colourFeral([npc.tailRace]'s.)]");
+		}
+		
 		// Virgin/capacity:
 		if(spinneret.isVirgin()) {
 			descriptionSB.append(" [npc.She] [npc.has] [style.colourExcellent(retained [npc.her] spinneret virginity)].");
