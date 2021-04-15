@@ -2154,15 +2154,18 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"mommy",
+						"mummy",
 						"daddy"),
 				true,
 				true,
 				"",
-				"Returns either 'daddy' or 'mommy' based on the character's femininity."){
+				"Returns either 'daddy' or 'mommy' based on the character's femininity. Will return 'mummy' instead of 'mommy' when the setting <i>Parental Teminology<i/> is active."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.isFeminine()) {
+				if(character.isFeminine() && Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {
 					return "mommy";
+				} else if(character.isFeminine() && !Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {		//Added by Amarok
+					return "mummy";
 				} else {
 					return "daddy";
 				}
@@ -2177,11 +2180,13 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns either 'dad' or 'mom' based on the character's femininity."){
+				"Returns either 'dad' or 'mom' based on the character's femininity. Will return 'mum' instead of 'mom' when the setting <i>Parental Teminology<i/> is active."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.isFeminine()) {
+				if(character.isFeminine() && Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {
 					return "mom";
+				} else if(character.isFeminine() && !Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {		//Added by Amarok
+					return "mum";
 				} else {
 					return "dad";
 				}
