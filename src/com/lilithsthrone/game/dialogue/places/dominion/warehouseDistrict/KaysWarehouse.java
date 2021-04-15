@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -2263,12 +2264,23 @@ public class KaysWarehouse {
 						+ "All Slaves"
 					+ "</div>");
 			
-			UtilText.nodeContentSB.append(UtilText.parse(kay,
+			if(Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {			//Modified by Amarok
+				UtilText.nodeContentSB.append(UtilText.parse(kay, 
 						"<p style='text-align:center; margin-top:4px;'>"
-							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
+							+ "<i>If [npc.name] is told to call you 'Mum' or 'Dad', 'Mummy' or 'Daddy',"
+							+ " 'Mama' or 'Papa', 'My Lady' or 'My Lord', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
 							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
 						+ "</p>"
 					+ "</div>"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parse(kay, 
+						"<p style='text-align:center; margin-top:4px;'>"
+							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy',"
+							+ " 'Mama' or 'Papa', 'My Lady' or 'My Lord', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
+							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
+						+ "</p>"
+					+ "</div>"));
+			}
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			
