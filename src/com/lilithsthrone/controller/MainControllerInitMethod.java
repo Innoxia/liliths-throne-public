@@ -6643,7 +6643,8 @@ public class MainControllerInitMethod {
 					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
 					new Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
 					new Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
-					new Value<>("SHARED_ENCYCLOPEDIA", PropertyValue.sharedEncyclopedia)
+					new Value<>("SHARED_ENCYCLOPEDIA", PropertyValue.sharedEncyclopedia),
+					new Value<>("MOM_MUM", PropertyValue.useCommonwealthMum)						//Added by Amarok
 					);
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
