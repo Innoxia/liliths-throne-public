@@ -2341,7 +2341,7 @@ public class UtilText {
 				if(character.isFeminine()) {
 					return UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank");
 				} else {
-					return UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker");
+					return UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker", "wanker");
 				}
 			}
 		});
@@ -2360,7 +2360,7 @@ public class UtilText {
 				if(character.isFeminine()) {
 					return UtilText.returnStringAtRandom("bitches", "sluts", "cunts", "whores", "skanks");
 				} else {
-					return UtilText.returnStringAtRandom("assholes", "bastards", "fuckfaces", "fuckers");
+					return UtilText.returnStringAtRandom("assholes", "bastards", "fuckfaces", "fuckers", "wankers");
 				}
 			}
 		});
@@ -3683,7 +3683,9 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Description of method"){//TODO
+				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will be moaning, while if they are masculine, they will be groaning."
+				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobbing' or 'crying'."
+				+ " <b>Provides an appropriate <i>gerund verb</i> version of 'moan'.</b>"){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
@@ -3717,7 +3719,10 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Description of method"){//TODO
+				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will be moaning, while if they are masculine, they will be groaning."
+				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobbing' or 'crying'."
+				+ " <b>Expansion of 'moaning' command:</b> This command will append a suitable descriptor before the 'moaning' noise. e.g. 'lewd squealing', or 'eager grunting'."
+				+ " <b>Provides an appropriate <i>gerund verb</i> version of 'moan'.</b>"){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
