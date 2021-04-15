@@ -3949,15 +3949,23 @@ public abstract class GameCharacter implements XMLSaving {
 		return petNameMap;
 	}
 	
-	public String getPetName(GameCharacter target) {
+	public String getPetName(GameCharacter target) {				//Modified by Amarok, true should return mum value, and be at top. pet name used in name picking pcName
 		String petName = getPetNameMap().get(target.getId());
 		
 		if(petName!=null) {
-			if(petName.equalsIgnoreCase("Mom") || petName.equalsIgnoreCase("Dad")) {
-				return target.isFeminine()?"mom":"dad";
+			if(petName.equalsIgnoreCase("Mom") || petName.equalsIgnoreCase("Mum") || petName.equalsIgnoreCase("Dad")) {
+				if(Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {
+					return target.isFeminine()?"mum":"dad";
+				} else {
+					return target.isFeminine()?"mom":"dad";
+				}
 				
-			} else if (petName.equalsIgnoreCase("Mommy") || petName.equalsIgnoreCase("Daddy")) {
-				return target.isFeminine()?"mommy":"daddy";
+			} else if (petName.equalsIgnoreCase("Mommy") || petName.equalsIgnoreCase("Mummy") || petName.equalsIgnoreCase("Daddy")) {
+				if(Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {
+					return target.isFeminine()?"mummy":"daddy";
+				} else {
+					return target.isFeminine()?"mommy":"daddy";
+				}
 				
 			} else if (petName.equalsIgnoreCase("Mistress") || petName.equalsIgnoreCase("Master")) {
 				return target.isFeminine()?"Mistress":"Master";
@@ -3985,7 +3993,11 @@ public abstract class GameCharacter implements XMLSaving {
 					return target.isFeminine()?"grandma":"grandad";
 				case Parent:
 				case IncubatorParent:
-					return target.isFeminine()?"mom":"dad";
+					if(Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {
+						return target.isFeminine()?"mum":"dad";
+					} else {
+						return target.isFeminine()?"mom":"dad";
+					}
 				case GrandPibling:
 				case Pibling:
 					return target.isFeminine()?"auntie":"uncle";
