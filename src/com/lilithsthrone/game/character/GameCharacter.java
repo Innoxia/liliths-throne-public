@@ -3970,6 +3970,9 @@ public abstract class GameCharacter implements XMLSaving {
 			} else if (petName.equalsIgnoreCase("Mama") || petName.equalsIgnoreCase("Papa")) {
 				return target.isFeminine()?"mama":"papa";
 			
+			}else if (petName.equalsIgnoreCase("Mother") || petName.equalsIgnoreCase("Father")) {
+				return target.isFeminine()?"mother":"father";
+			
 			} else if (petName.equalsIgnoreCase("My Lady") || petName.equalsIgnoreCase("My Lord")) {
 				return target.isFeminine()?"My Lady":"My Lord";
 			

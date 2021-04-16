@@ -1955,9 +1955,9 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,		//Added by Amarok
 								"MOM_MUM",
-								PresetColour.FEMININE,
-								"Parental Terminology",
-								"Replace most instances of 'Mom' and 'Mommy' with 'Mum' and 'Mummy'. Currently in development, expect bugs and issues.",
+								PresetColour.FEMININE_PLUS,
+								"Maternal Terms",
+								"Replace most instances of 'Mom' and 'Mommy' with 'Mum' and 'Mummy'.",
 								Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,

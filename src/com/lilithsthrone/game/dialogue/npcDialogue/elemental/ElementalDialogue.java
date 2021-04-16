@@ -479,20 +479,49 @@ public class ElementalDialogue {
 			if(Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {			//Modified by Amarok
 				UtilText.nodeContentSB.append(UtilText.parse(getElemental(), 
 						"<p style='text-align:center; margin-top:4px;'>"
-							+ "<i>If [npc.name] is told to call you 'Mum' or 'Dad', 'Mummy' or 'Daddy',"
-							+ " 'Mama' or 'Papa', 'My Lady' or 'My Lord', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
-							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
-						+ "</p>"
-					+ "</div>"));
+								+ "<i>If [npc.name] is told to call you 'Mum' or 'Dad', 'Mummy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir' and so on,"
+								+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
+							+ "</p>"
+						+ "</div>"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parse(getElemental(), 
 						"<p style='text-align:center; margin-top:4px;'>"
-							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy',"
-							+ " 'Mama' or 'Papa', 'My Lady' or 'My Lord', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
+							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir' and so on,"
 							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
 						+ "</p>"
 					+ "</div>"));
 			}
+			
+			UtilText.nodeContentSB.append(UtilText.parse(getElemental(),""
+			//		+ "<div class='container-full-width' style='width:50%; float:centre; margin:0 0% 0 25%; padding:12 8 0; text-align:center;'>"
+			//			+ "<i>Full list of paired names available</i>"
+			//			+ "<hr/>"
+			//		+ "</div>"
+					+ "<div class='container-full-width' style='width:25%; float:left; font-weight:bold; margin:0 0% 0 25%; padding:0 8 8; text-align:right;'>"
+						+ "[style.colourFeminineStrong(Feminine)]<br/>"
+						+ "#IF(game.isCommonwealthMum())"
+							+ "Mum<br/>"
+							+ "Mummy<br/>"
+						+ "#ELSE"
+							+ "Mom<br/>"
+							+ "Mommy<br/>"
+						+ "#ENDIF"
+						+ "Mama<br/>"
+						+ "Mother<br/>"
+						+ "My Lady<br/>"
+						+ "Mistress<br/>"
+						+ "Ma'am<br/>"
+					+ "</div>"
+					+ "<div  class='container-full-width' style='width:25%; float:right; font-weight:bold; margin:0 25% 0 0; padding:0 8 8; text-align:left;'>"
+						+ "[style.colourMasculineStrong(Masculine)]<br/>"
+						+ "Dad<br/>"
+						+ "Daddy<br/>"
+						+ "Papa<br/>"
+						+ "Father<br/>"
+						+ "My Lord<br/>"
+						+ "Master<br/>"
+						+ "Sir<br/>"
+					+ "</div>"));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			
