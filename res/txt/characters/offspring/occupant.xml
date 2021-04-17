@@ -861,9 +861,9 @@
 			 Clearly liking this attention, [npc1.name] closes [npc1.her] eyes and starts letting out contented little sighs, before muttering, [npc1.speech(More... Yes, like that...)]
 		#ENDIF
 	</p>
-	#IF(npc1.getTailType().isSuitableForSleepHugging())
+	#IF(npc1.getTailType().isSuitableForSleepHugging()&&npc1.getTailCount()>=1)
 		<p>
-			#IF(npc1.getTailCount()>1)
+			#IF(npc1.getTailCount()==1)
 				 While petting [npc1.namePos] head, you've noticed how [npc1.her] [npc1.tail+] has been slowly swishing from side to side behind [npc1.herHim]. Knowing that [npc1.name] is sure to indulge you in your desire, you move your attention away from [npc1.her] head and reach down to give [npc1.her] [npc1.tail+] a loving stroke. Opening [npc1.her] [npc1.eyes] and gasping in shock, [npc1.name] instinctively lifts up [npc1.her] tail, which inadvertently allows you to stroke it even more. Quickly calming down as [npc1.she] takes in the situation, [npc1.name] willingly turns around and pushes [npc1.her] [npc1.tail] back towards you, allowing you to spend the next several minutes stroking and hugging it.
 			#ELSE
 				 While petting [npc1.namePos] head, you've noticed how [npc1.her] [npc1.tails+] have been slowly swishing from side to side behind [npc1.herHim]. Knowing that [npc1.name] is sure to indulge you in your desire, you move your attention away from [npc1.her] head and reach down to give the closet of [npc1.her] [npc1.tails+] a loving stroke. Opening [npc1.her] [npc1.eyes] and gasping in shock, [npc1.name] instinctively lifts up [npc1.her] tails, which inadvertently allows you to stroke
@@ -872,7 +872,7 @@
 				#ELSE
 					 all of them
 				#ENDIF
-				of them at the same time. Quickly calming down as [npc1.she] takes in the situation, [npc1.name] willingly turns around and pushes [npc1.her] [npc1.tails] back towards you, allowing you to spend the next several minutes stroking and hugging them.
+				 at the same time. Quickly calming down as [npc1.she] takes in the situation, [npc1.name] willingly turns around and pushes [npc1.her] [npc1.tails] back towards you, allowing you to spend the next several minutes stroking and hugging them.
 			#ENDIF
 		</p>
 	#ENDIF
