@@ -5457,16 +5457,23 @@ public abstract class GameCharacter implements XMLSaving {
 //            result.add(Relationship.GrandGrandChild);
 
 		Set<String> commonParents = new HashSet<>();
-		if(this.getFatherId()!=null && !this.getFatherId().isEmpty() && this.getFatherId().equals(character.getFatherId())) {
+		if(this.getFatherId()!=null && !this.getFatherId().isEmpty() && this.getFatherId().equals(character.getFatherId())) {	//This one's dad is that one's dad
 			commonParents.add(this.getFatherId());
 		}
-		if(this.getMotherId()!=null && !this.getMotherId().isEmpty() && this.getMotherId().equals(character.getMotherId())) {
+		if(this.getMotherId()!=null && !this.getMotherId().isEmpty() && this.getMotherId().equals(character.getMotherId())) {	//This one's mum is that one's mum
 			commonParents.add(this.getMotherId());
 		}
-		if(commonParents.size() == 2 || (commonParents.size() == 1 && character.getFatherId().equals(character.getMotherId()))) {
+		Set<String> reversedParents = new HashSet<>();
+		if(this.getFatherId()!=null && !this.getFatherId().isEmpty() && this.getFatherId().equals(character.getMotherId())) {	//This one's dad is that one's mum
+			reversedParents.add(this.getFatherId());
+		}
+		if(this.getMotherId()!=null && !this.getMotherId().isEmpty() && this.getMotherId().equals(character.getFatherId())) {	//This one's mum is that one's dad
+			reversedParents.add(this.getMotherId());
+		}
+		if(commonParents.size() == 2 || reversedParents.size() == 2 || ((commonParents.size() == 1 || reversedParents.size() == 1) && character.getFatherId().equals(character.getMotherId()))) {	//either have both parents in common, even if they play differnt roles, or just one parent in common, even if playing differnt roles, and the relative is a selfcest kid
 			result.add(Relationship.Sibling);
 			
-		} else if(commonParents.size() == 1) {
+		} else if((commonParents.size() == 1 && reversedParents.size() == 0) || (commonParents.size() == 0 && reversedParents.size() == 1)) {	//exclusive or is needed, only half siblings will have only one parent in common, even if playing a differnt role. if a character were to have both one common and one reversed prarent, it would imply they are a selfcest kid
 			result.add(Relationship.HalfSibling);
 		}
 
