@@ -485,49 +485,27 @@ public class SexActionPresets {
 		sexActions.add(ClitAnus.class);
 		
 		// Self actions:
-		//TODO convert player/partner classes into combined classes
-		
+		selfActions.add(SelfNoPen.class);
+		selfActions.add(SelfFingerAnus.class);
+		selfActions.add(SelfFingerBreasts.class);
+		selfActions.add(SelfFingerCrotchNipple.class);
+		selfActions.add(SelfFingerMouth.class);
+		selfActions.add(SelfFingerNipple.class);
 		selfActions.add(SelfFingerPenis.class);
-		
-		selfActions.add(PartnerSelfNoPen.class);
-		selfActions.add(PartnerSelfFingerAnus.class);
-		selfActions.add(PartnerSelfFingerMouth.class);
-		selfActions.add(PartnerSelfFingerBreasts.class);
-		selfActions.add(PartnerSelfFingerNipple.class);
-		selfActions.add(PartnerSelfFingerVagina.class);
-		selfActions.add(PartnerSelfPenisAnus.class);
-		selfActions.add(PartnerSelfPenisMouth.class);
-		selfActions.add(PartnerSelfPenisNipple.class);
-		selfActions.add(PartnerSelfPenisVagina.class);
-		selfActions.add(PartnerSelfTailAnus.class);
-		selfActions.add(PartnerSelfTailMouth.class);
-		selfActions.add(PartnerSelfTailNipple.class);
-		selfActions.add(PartnerSelfTailVagina.class);
-		selfActions.add(PartnerSelfTongueAnus.class);
-		selfActions.add(PartnerSelfTongueMouth.class);
-		selfActions.add(PartnerSelfTongueNipple.class);
-		selfActions.add(PartnerSelfTongueVagina.class);
+		selfActions.add(SelfFingerVagina.class);
+		selfActions.add(SelfPenisAnus.class);
+		selfActions.add(SelfPenisMouth.class);
+		selfActions.add(SelfPenisNipple.class);
+		selfActions.add(SelfPenisVagina.class);
+		selfActions.add(SelfTailAnus.class);
+		selfActions.add(SelfTailMouth.class);
+		selfActions.add(SelfTailNipple.class);
+		selfActions.add(SelfTailVagina.class);
+		selfActions.add(SelfTongueAnus.class);
+		selfActions.add(SelfTongueMouth.class);
+		selfActions.add(SelfTongueNipple.class);
+		selfActions.add(SelfTongueVagina.class);
 
-		selfActions.add(PlayerSelfNoPen.class);
-		selfActions.add(PlayerSelfFingerAnus.class);
-		selfActions.add(PlayerSelfFingerMouth.class);
-		selfActions.add(PlayerSelfFingerBreasts.class);
-		selfActions.add(PlayerSelfFingerNipple.class);
-		selfActions.add(PlayerSelfFingerVagina.class);
-		selfActions.add(PlayerSelfPenisAnus.class);
-		selfActions.add(PlayerSelfPenisMouth.class);
-		selfActions.add(PlayerSelfPenisNipple.class);
-		selfActions.add(PlayerSelfPenisVagina.class);
-		selfActions.add(PlayerSelfTailAnus.class);
-		selfActions.add(PlayerSelfTailMouth.class);
-		selfActions.add(PlayerSelfTailNipple.class);
-		selfActions.add(PlayerSelfTailVagina.class);
-		selfActions.add(PlayerSelfTongueAnus.class);
-		selfActions.add(PlayerSelfTongueMouth.class);
-		selfActions.add(PlayerSelfTongueNipple.class);
-		selfActions.add(PlayerSelfTongueVagina.class);
-		
-		
 		allCommonActions = Util.mergeLists(miscActions, sexActions, selfActions);
 	}
 }
