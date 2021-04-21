@@ -6208,7 +6208,7 @@ public class Body implements XMLSaving {
 	 */
 	public void setFeral(boolean power, RaceStage stage) { //Amarok Custom Code
 		//subspecies calls a spupecies.xml file, such as NoStepOnSnek/snake/subspecies/lLamia.xml
-		//getferalattributes returns feralattributes, which acsesses, said container in the xml file
+		//getferalattributes returns feralattributes, which accesses, said container in the xml file
 		AbstractSubspecies subspecies = this.getSubspecies();
 		AbstractRacialBody rb = RacialBody.valueOfRace(this.getRace());
 		FeralAttributes attributes = subspecies == null ? null : subspecies.getFeralAttributes();
@@ -6221,7 +6221,7 @@ public class Body implements XMLSaving {
 				this.setFeral(subspecies);
 			} else {
 				this.feral = false;
-				if(stage == null) {stage = RaceStage. GREATER;}
+				if(stage == null) {stage = RaceStage.GREATER;}
 				Main.game.getCharacterUtils().reassignBody(null, this, this.getGender(), subspecies, stage, false);
 				this.setHeight(this.getGender().isFeminine() ? rb.getFemaleHeight() : rb.getMaleHeight());
 			}
