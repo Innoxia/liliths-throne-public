@@ -21,9 +21,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
-import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
@@ -32,7 +30,7 @@ import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.npc.misc.SlaveForSale;
 import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -135,9 +133,8 @@ public class SlaverAlleyDialogue {
 		
 		// Female stall:
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
-		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-			slave.setHistory(Occupation.NPC_SLAVE);
+		for (Gender gender : genders) {
+			NPC slave = new SlaveForSale(gender, false);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -148,14 +145,13 @@ public class SlaverAlleyDialogue {
 			slave.resetInventory(true);
 			slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_GOLD, false), true, Main.game.getNpc(Finch.class));
 			Main.game.getNpc(Finch.class).addSlave(slave);
-			slave.setPlayerKnowsName(true);
 			
 			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
 			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
 			slave.removePersonalityTraits(PersonalityCategory.SPEECH);
 			slave.removePersonalityTrait(PersonalityTrait.SHY);
-			if(Math.random()<0.5f) {
+			if (Math.random() < 0.5f) {
 				slave.addPersonalityTrait(PersonalityTrait.LEWD);
 			}
 			slave.setObedience(100);
@@ -163,9 +159,8 @@ public class SlaverAlleyDialogue {
 
 		// Male stall:
 		genders = new Gender[] {Gender.M_P_MALE, Gender.M_P_MALE, Gender.M_P_MALE};
-		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-			slave.setHistory(Occupation.NPC_SLAVE);
+		for (Gender gender : genders) {
+			NPC slave = new SlaveForSale(gender, false);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -173,24 +168,20 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES, true);
-			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			Main.game.getNpc(Finch.class).addSlave(slave);
-			slave.setPlayerKnowsName(true);
 			
 			slave.addFetish(Fetish.FETISH_DOMINANT);
 			slave.addFetish(Fetish.FETISH_CUM_STUD);
 			slave.removePersonalityTrait(PersonalityTrait.COWARDLY);
-			if(Math.random()<0.5f) {
+			if (Math.random() < 0.5f) {
 				slave.addPersonalityTrait(PersonalityTrait.BRAVE);
 			}
 			slave.setObedience(75);
 		}
 
 		// Anal stall:
-		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-			slave.setHistory(Occupation.NPC_SLAVE);
+		for (int i=0; i<3; i++) {
+			NPC slave = new SlaveForSale(Gender.getGenderFromUserPreferences(false, false), false);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -198,9 +189,7 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ANAL, true);
-			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
-			if(i==0) {
+			if (i==0) {
 				slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getNpc(Finch.class));
 			} else if(i==1) {
 				slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_jewel"), false), true, Main.game.getNpc(Finch.class));
@@ -208,7 +197,6 @@ public class SlaverAlleyDialogue {
 				slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"), false), true, Main.game.getNpc(Finch.class));
 			}
 			Main.game.getNpc(Finch.class).addSlave(slave);
-			slave.setPlayerKnowsName(true);
 			
 			slave.setAssWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
 			slave.setAssBleached(true);
@@ -222,9 +210,8 @@ public class SlaverAlleyDialogue {
 		}
 
 		// Vaginal stall:
-		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-			slave.setHistory(Occupation.NPC_SLAVE);
+		for (int i=0; i<3; i++) {
+			NPC slave = new SlaveForSale(Gender.getGenderFromUserPreferences(true, false), false);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -232,10 +219,7 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL, true);
-			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			Main.game.getNpc(Finch.class).addSlave(slave);
-			slave.setPlayerKnowsName(true);
 			
 			slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
 			slave.setVaginaCapacity(Util.random.nextInt((int) Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue(false)), true);
@@ -247,9 +231,8 @@ public class SlaverAlleyDialogue {
 		}
 
 		// Oral stall:
-		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-			slave.setHistory(Occupation.NPC_SLAVE);
+		for (int i=0; i<3; i++) {
+			NPC slave = new SlaveForSale(Gender.getGenderFromUserPreferences(false, false), false);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -257,13 +240,10 @@ public class SlaverAlleyDialogue {
 			}
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL, true);
-			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
-			if(Math.random()<0.5f) {
+			if (Math.random()<0.5f) {
 				slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getNpc(Finch.class));
 			}
 			Main.game.getNpc(Finch.class).addSlave(slave);
-			slave.setPlayerKnowsName(true);
 
 			slave.setFaceWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
 			slave.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
