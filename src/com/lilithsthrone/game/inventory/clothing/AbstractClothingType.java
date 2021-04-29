@@ -502,8 +502,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				System.out.println("4");
 			}
 			
-			this.displacementDescriptionsPlayer = new HashMap<>();
-			this.displacementDescriptionsNPC = new HashMap<>();
 			this.displacementDescriptions = new HashMap<>();
 
 			Consumer<String> loadItemMoveDescriptions = repositionDescListTag -> {
@@ -517,16 +515,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						slot = this.getEquipSlots().get(0);
 					}
 
-					displacementDescriptionsPlayer.putIfAbsent(slot, new HashMap<>());
-					displacementDescriptionsNPC.putIfAbsent(slot, new HashMap<>());
 					displacementDescriptions.putIfAbsent(slot, new HashMap<>());
 					
-					displacementDescriptionsPlayer.get(slot).putIfAbsent(type, new HashMap<>());
-					displacementDescriptionsNPC.get(slot).putIfAbsent(type, new HashMap<>());
 					displacementDescriptions.get(slot).putIfAbsent(type, new HashMap<>());
 					
-					Map<DisplacementDescriptionType, String> playerMap = displacementDescriptionsPlayer.get(slot).get(type);
-					Map<DisplacementDescriptionType, String> npcMap = displacementDescriptionsNPC.get(slot).get(type);
 					Map<DisplacementDescriptionType, String> universalMap = displacementDescriptions.get(slot).get(type);
 
 					Function<Map<DisplacementDescriptionType, String>, Consumer<String>> putTagContentTo = mapToPutIn -> tagName ->{ // try to get element by tag, if it exists, put in specified map
@@ -534,31 +526,23 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						.ifPresent(desc -> 
 						mapToPutIn.put(DisplacementDescriptionType.byTagsPath(repositionDescListTag+" "+desc.getTagName()), desc.getTextContent()));
 					};
-					Consumer<String> toPlayerMap = putTagContentTo.apply(playerMap);
-					Consumer<String> toNPCMap = putTagContentTo.apply(npcMap);
 					Consumer<String> toUniversalMap = putTagContentTo.apply(universalMap);
 					//TODO this is messing up
-					toPlayerMap.accept("playerNPC");
-					toPlayerMap.accept("playerNPCRough");
-					toPlayerMap.accept("playerSelf");
+					toUniversalMap.accept("playerNPC");
+					toUniversalMap.accept("playerNPCRough");
+					toUniversalMap.accept("playerSelf");
 
-					toNPCMap.accept("NPCPlayer");
-					toNPCMap.accept("NPCPlayerRough");
-					toNPCMap.accept("NPCSelf");
+					toUniversalMap.accept("NPCPlayer");
+					toUniversalMap.accept("NPCPlayerRough");
+					toUniversalMap.accept("NPCSelf");
 
-					toNPCMap.accept("NPCOtherNPC");
-					toNPCMap.accept("NPCOtherNPCRough");
+					toUniversalMap.accept("NPCOtherNPC");
+					toUniversalMap.accept("NPCOtherNPCRough");
 					
 					toUniversalMap.accept("self");
 					toUniversalMap.accept("other");
 					toUniversalMap.accept("otherRough");
 
-					if(displacementDescriptionsPlayer.get(slot).get(type).isEmpty()) {
-						displacementDescriptionsPlayer.get(slot).remove(type);
-					}
-					if(displacementDescriptionsNPC.get(slot).get(type).isEmpty()) {
-						displacementDescriptionsNPC.get(slot).remove(type);
-					}
 					if(displacementDescriptions.get(slot).get(type).isEmpty()) {
 						displacementDescriptions.get(slot).remove(type);
 					}
@@ -1436,30 +1420,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			try {
 				if (clothingEquipper.isPlayer()) {
 					if(clothingOwner.isPlayer()) {
-						if(displacementDescriptionsPlayer!=null
-								&& displacementDescriptionsPlayer.get(slotToEquipInto)!=null
-								&& displacementDescriptionsPlayer.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-								&& displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
-							return displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF);
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotToEquipInto)!=null
+								&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+							return displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF);
 						}
 						return "You equip the "+clothing.getName()+".";
 						
 					} else {
 						if(rough) {
-							if(displacementDescriptionsPlayer!=null
-									&& displacementDescriptionsPlayer.get(slotToEquipInto)!=null
-									&& displacementDescriptionsPlayer.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-									&& displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-								return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotToEquipInto)!=null
+									&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+									&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+								return UtilText.parse(clothingOwner, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 							}
 							return UtilText.parse(clothingOwner, "You roughly force "+clothing.getName(true)+" onto [npc.name].");
 							
 						} else {
-							if(displacementDescriptionsPlayer!=null
-									&& displacementDescriptionsPlayer.get(slotToEquipInto)!=null
-									&& displacementDescriptionsPlayer.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-									&& displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-								return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotToEquipInto)!=null
+									&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+									&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+								return UtilText.parse(clothingOwner, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
 							}
 							return UtilText.parse(clothingOwner, "You put "+clothing.getName(true)+" on [npc.name].");
 						}
@@ -1468,49 +1452,49 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				} else {
 					if (clothingOwner.isPlayer()) {
 						if(rough) {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotToEquipInto)!=null
-									&& displacementDescriptionsNPC.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-									&& displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-								return UtilText.parse(clothingEquipper, displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotToEquipInto)!=null
+									&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+									&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+								return UtilText.parse(clothingEquipper, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 							}
 							return UtilText.parse(clothingEquipper, "[npc.Name] roughly forces "+clothing.getName(true)+" onto you.");
 							
 						} else {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotToEquipInto)!=null
-									&& displacementDescriptionsNPC.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-									&& displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-								return UtilText.parse(clothingEquipper, displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotToEquipInto)!=null
+									&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+									&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+								return UtilText.parse(clothingEquipper, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
 							}
 							return UtilText.parse(clothingEquipper, "[npc.Name] puts "+clothing.getName(true)+" on you.");
 						}
 					} else {
 						if(clothingOwner.equals(clothingEquipper)) {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotToEquipInto)!=null
-									&& displacementDescriptionsNPC.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-									&& displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
-								return UtilText.parse(clothingOwner, displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotToEquipInto)!=null
+									&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+									&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+								return UtilText.parse(clothingOwner, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF));
 							}
 							return UtilText.parse(clothingOwner, "[npc.Name] equips "+clothing.getName(true)+".");
 							
 						} else {
 							if(rough) {
-								if(displacementDescriptionsNPC!=null
-										&& displacementDescriptionsNPC.get(slotToEquipInto)!=null
-										&& displacementDescriptionsNPC.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-										&& displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH)) {
-									return UtilText.parse(clothingEquipper, clothingOwner,displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH));
+								if(displacementDescriptions!=null
+										&& displacementDescriptions.get(slotToEquipInto)!=null
+										&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+										&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH)) {
+									return UtilText.parse(clothingEquipper, clothingOwner,displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH));
 								}
 								return UtilText.parse(clothingEquipper, clothingOwner, "[npc.Name] roughly forces [npc2.name] to equip "+clothing.getName(true)+".");
 								
 							} else {
-								if(displacementDescriptionsNPC!=null
-										&& displacementDescriptionsNPC.get(slotToEquipInto)!=null
-										&& displacementDescriptionsNPC.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-										&& displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT)) {
-									return UtilText.parse(clothingEquipper, clothingOwner,displacementDescriptionsNPC.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT));
+								if(displacementDescriptions!=null
+										&& displacementDescriptions.get(slotToEquipInto)!=null
+										&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+										&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT)) {
+									return UtilText.parse(clothingEquipper, clothingOwner,displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT));
 								}
 								return UtilText.parse(clothingEquipper, clothingOwner, "[npc.Name] gets [npc2.name] to equip "+clothing.getName(true)+".");
 							}
@@ -1561,29 +1545,29 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		} else {
 			if (clothingRemover.isPlayer()) {
 				if(clothingOwner.isPlayer()) {
-					if(displacementDescriptionsPlayer!=null
-							&& displacementDescriptionsPlayer.get(slotToUnequipFrom)!=null
-							&& displacementDescriptionsPlayer.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-							&& displacementDescriptionsPlayer.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
-						return displacementDescriptionsPlayer.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_SELF);
+					if(displacementDescriptions!=null
+							&& displacementDescriptions.get(slotToUnequipFrom)!=null
+							&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+						return displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_SELF);
 					}
 					return "You unequip the "+clothing.getName()+".";
 					
 				} else {
 					if(rough) {
-						if(displacementDescriptionsPlayer!=null
-								&& displacementDescriptionsPlayer.get(slotToUnequipFrom)!=null
-								&& displacementDescriptionsPlayer.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-								&& displacementDescriptionsPlayer.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
-							return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotToUnequipFrom)!=null
+								&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingOwner, displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 						}
 						return UtilText.parse(clothingOwner, "You roughly take off [npc.namePos] "+clothing.getName()+".");
 					} else {
-						if(displacementDescriptionsPlayer!=null
-								&& displacementDescriptionsPlayer.get(slotToUnequipFrom)!=null
-								&& displacementDescriptionsPlayer.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-								&& displacementDescriptionsPlayer.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
-							return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotToUnequipFrom)!=null
+								&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+							return UtilText.parse(clothingOwner, displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
 						}
 						return UtilText.parse(clothingOwner, "You take off [npc.namePos] "+clothing.getName()+".");
 					}
@@ -1592,48 +1576,48 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if (clothingOwner.isPlayer()) {
 					if(rough) {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom)!=null
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotToUnequipFrom)!=null
+								&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 						}
 						return UtilText.parse(clothingRemover, "[npc.Name] roughly takes off your "+clothing.getName()+".");
 					} else {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom)!=null
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotToUnequipFrom)!=null
+								&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
 						}
 						return UtilText.parse(clothingRemover, "[npc.Name] takes off your "+clothing.getName()+".");
 					}
 				} else {
 					if(clothingOwner.equals(clothingRemover)) {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom)!=null
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-								&& displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
-							return UtilText.parse(clothingOwner, displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_SELF));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotToUnequipFrom)!=null
+								&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+							return UtilText.parse(clothingOwner, displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_SELF));
 						}
 						return UtilText.parse(clothingOwner, "[npc.Name] unequips [npc.her] "+clothing.getName()+".");
 						
 					} else {
 						if(rough) {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotToUnequipFrom)!=null
-									&& displacementDescriptionsNPC.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-									&& displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH)) {
-								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotToUnequipFrom)!=null
+									&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+									&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH)) {
+								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH));
 							}
 							return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly forces [npc2.name] to equip "+clothing.getName(true)+".");
 							
 						} else {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotToUnequipFrom)!=null
-									&& displacementDescriptionsNPC.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
-									&& displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT)) {
-								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotToUnequipFrom)!=null
+									&& displacementDescriptions.get(slotToUnequipFrom).containsKey(DisplacementType.REMOVE_OR_EQUIP)
+									&& displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT)) {
+								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptions.get(slotToUnequipFrom).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT));
 							}
 							return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] gets [npc2.name] to equip "+clothing.getName(true)+".");
 						}
@@ -1680,28 +1664,28 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		} else {
 			if (clothingRemover.isPlayer()) {
 				if(clothingOwner.isPlayer()) {
-					if(displacementDescriptionsPlayer!=null
-							&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo)!=null
-							&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).containsKey(dt)
-							&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
-						return displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_SELF);
+					if(displacementDescriptions!=null
+							&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+							&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+							&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+						return displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_SELF);
 					}
 					return "You "+dt.getDescription()+" your "+this.getName()+".";
 				} else {
 					if(rough) {
-						if(displacementDescriptionsPlayer!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
-							return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingOwner, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 						}
 						return UtilText.parse(clothingOwner, "You roughly "+dt.getDescription()+" [npc.namePos] "+this.getName()+".");
 					} else {
-						if(displacementDescriptionsPlayer!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
-							return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+							return UtilText.parse(clothingOwner, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT));
 						}
 						return UtilText.parse(clothingOwner, "You "+dt.getDescription()+" [npc.namePos] "+this.getName()+".");
 					}
@@ -1710,49 +1694,49 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if (clothingOwner.isPlayer()) {
 					if(rough) {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 						}
 						return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
 						
 					} else {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT));
 						}
 						return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
 					}
 				} else {
 					if(clothingOwner.equals(clothingRemover)) {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_SELF));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_SELF));
 						}
 						return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
 						
 					} else {
 						if(rough) {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH)) {
-								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH)) {
+								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH));
 							}
 							return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 							
 						} else {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT)) {
-								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT)) {
+								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT));
 							}
 							return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 						}
@@ -1798,28 +1782,28 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		} else {
 			if (clothingRemover.isPlayer()) {
 				if(clothingOwner.isPlayer()) {
-					if(displacementDescriptionsPlayer!=null
-							&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo)!=null
-							&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).containsKey(dt)
-							&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
-						return displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_SELF);
+					if(displacementDescriptions!=null
+							&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+							&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+							&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+						return displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_SELF);
 					}
 					return "You "+dt.getOppositeDescription()+" your "+this.getName()+".";
 				} else {
 					if(rough) {
-						if(displacementDescriptionsPlayer!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-							return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingOwner, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 						}
 						return UtilText.parse(clothingOwner, "You roughly "+dt.getOppositeDescription()+" [npc.namePos] "+this.getName()+".");
 					} else {
-						if(displacementDescriptionsPlayer!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-							return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+							return UtilText.parse(clothingOwner, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT));
 						}
 						return UtilText.parse(clothingOwner, "You "+dt.getOppositeDescription()+" [npc.namePos] "+this.getName()+".");
 					}
@@ -1828,49 +1812,49 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if (clothingOwner.isPlayer()) {
 					if(rough) {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 						}
 						return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
 						
 					} else {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT));
 						}
 						return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
 					}
 				} else {
 					if(clothingOwner.equals(clothingRemover)) {
-						if(displacementDescriptionsNPC!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-								&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
-							return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_SELF));
+						if(displacementDescriptions!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+								&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+							return UtilText.parse(clothingRemover, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.REPLACEMENT_SELF));
 						}
 						return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
 						
 					} else {
 						if(rough) {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH)) {
-								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH)) {
+								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH));
 							}
 							return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 							
 						} else {
-							if(displacementDescriptionsNPC!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo)!=null
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).containsKey(dt)
-									&& displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT)) {
-								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT));
+							if(displacementDescriptions!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo)!=null
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).containsKey(dt)
+									&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT)) {
+								return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT));
 							}
 							return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc2.namePos] "+this.getName()+".");
 						}
