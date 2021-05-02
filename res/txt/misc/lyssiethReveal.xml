@@ -683,7 +683,7 @@
 	
 	<htmlContent tag="LAB_ENDING_MINOTALLYS"><![CDATA[
 	<p>
-		[pc.speech(There's no way that I'll stand a chance against that!)] you exclaim, [pc.speech(Not would I have to defeat who-knows how many centaurs all at once, but I'd also have to fight an elder lilin at the same time?! All it took for you to incapacitate me was to use that arcane order. What's to stop Lunette from doing the same?)]
+		[pc.speech(There's no way that I'll stand a chance against that!)] you exclaim, [pc.speech(Not only would I have to defeat who-knows how many centaurs all at once, but I'd also have to fight an elder lilin at the same time?! All it took for you to incapacitate me was to use that arcane order. What's to stop Lunette from doing the same?)]
 	</p>
 	<p>
 		[lyssieth.speech(Once I've granted you my essence it will render you immune to Lilith's Command spell, so Lunette will have to face you in combat,)] Lyssieth says, [lyssieth.speech(And as for her centaurs, you should be able to get some help from the lilin Minotallys; she's the mayor of the town of Elis. That's the largest settlement in the fields, and they've been having quite a hard time due to Lunette's rampaging centaurs. It might not be wise to mention to Minotallys all that we've discussed here. Despite being too kind-hearted for her own good, she's always been nothing but completely devoted and loyal to Lilith, and would doubtless betray you to her.)]
@@ -795,7 +795,7 @@
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
 	</p>
 	<p>
-		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of consciousness...
+		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you. Before you can react to this feeling, a huge surge of energy jolts throughout your entire body, causing you to slip out of consciousness...
 	</p>
 	]]>
 	</htmlContent>
@@ -819,7 +819,7 @@
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
 	</p>
 	<p>
-		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of consciousness...
+		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you. Before you can react to this feeling, a huge surge of energy jolts throughout your entire body, causing you to slip out of consciousness...
 	</p>
 	]]>
 	</htmlContent>

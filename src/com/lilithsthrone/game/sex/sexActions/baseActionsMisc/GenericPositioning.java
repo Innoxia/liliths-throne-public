@@ -2115,6 +2115,7 @@ public class GenericPositioning {
 			case CEPHALOPOD:
 			case QUADRUPEDAL:
 			case AVIAN:
+			case WINGED_BIPED:
 				return true;
 		}
 		return true;

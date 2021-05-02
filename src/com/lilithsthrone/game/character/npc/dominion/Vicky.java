@@ -543,8 +543,10 @@ public class Vicky extends NPC {
 		
 //		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(AbstractItemType itemType : ItemType.getEssences()) {
-				AbstractItem item = Main.game.getItemGen().generateItem(itemType);
-				itemsForSale.put(item, 500+Util.random.nextInt(251));
+				if (!itemType.getItemTags().contains(ItemTag.CONTRABAND_HEAVY)) {
+					AbstractItem item = Main.game.getItemGen().generateItem(itemType);
+					itemsForSale.put(item, 500+Util.random.nextInt(251));
+				}
 			}
 //		}
 	}

@@ -55,7 +55,7 @@
 		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 18)]
 		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_SPOTTED)]
 		#IF(targetedBody.isFeminine())
-			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.05)]
+			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.12)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	
@@ -272,7 +272,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

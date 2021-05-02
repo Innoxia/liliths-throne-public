@@ -1,7 +1,10 @@
 package com.lilithsthrone.world.places;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,9 +12,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -23,7 +34,10 @@ import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.population.AbstractPopulationType;
 import com.lilithsthrone.world.population.Population;
+import com.lilithsthrone.world.population.PopulationDensity;
+import com.lilithsthrone.world.population.PopulationType;
 
 /**
  * @since 0.3.1
@@ -31,6 +45,10 @@ import com.lilithsthrone.world.population.Population;
  * @author Innoxia
  */
 public class AbstractPlaceType {
+
+	private boolean mod;
+	private boolean fromExternalFile;
+	private String author;
 
 	protected WorldRegion worldRegion;
 	
@@ -40,11 +58,18 @@ public class AbstractPlaceType {
 	protected Colour colour;
 	protected Colour backgroundColour;
 	protected DialogueNode dialogue;
-	protected Encounter encounterType;
+	protected AbstractEncounter encounterType;
 
 	protected boolean globalMapTile;
 	protected boolean dangerous;
 	protected boolean itemsDisappear;
+	private boolean furniturePresentOverride;
+	private boolean furniturePresent;
+	private boolean loiteringEnabledOverride;
+	private boolean loiteringEnabled;
+	
+	private String sexBlockedReason;
+	private boolean sexBlockedFromCharacterPresent;
 	
 	protected Aquatic aquatic;
 	protected Darkness darkness;
@@ -58,6 +83,18 @@ public class AbstractPlaceType {
 	protected static Map<String, String> SVGOverrides = new HashMap<>(); 
 	
 	protected static int colourReplacementId = 0;
+
+	// Used in place types from external files:
+	
+	protected String dangerousString;
+	protected String itemsDisappearString;
+	protected String aquaticString;
+	protected String darknessString;
+	protected String inventoryInitString;
+	
+	protected List<Population> populations = new ArrayList<>();
+	
+	protected String copyPlaceTypePopulationId;
 	
 	public AbstractPlaceType(WorldRegion worldRegion,
 			String name,
@@ -66,7 +103,7 @@ public class AbstractPlaceType {
 			Colour colour,
 			DialogueNode dialogue,
 			Darkness darkness,
-			Encounter encounterType,
+			AbstractEncounter encounterType,
 			String virginityLossDescription) {
 		this.worldRegion = worldRegion;
 		
@@ -84,6 +121,15 @@ public class AbstractPlaceType {
 		this.dangerous = false;
 		this.itemsDisappear = true;
 		this.globalMapTile = false;
+		
+		this.furniturePresentOverride = false;
+		this.furniturePresent = false;
+
+		this.loiteringEnabledOverride = false;
+		this.loiteringEnabled = false;
+		
+		this.sexBlockedReason = "";
+		this.sexBlockedFromCharacterPresent = true;
 		
 		this.aquatic = Aquatic.LAND;
 		this.darkness = darkness;
@@ -105,14 +151,251 @@ public class AbstractPlaceType {
 				}
 				
 				SVGString = s;
-	
+				
 				is.close();
-	
+				
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		} else {
 			SVGString = null;
+		}
+	}
+	
+	public AbstractPlaceType(File XMLFile, String author, String id, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in AbstractWorldType files it's <worldType>
+				
+				this.mod = mod;
+				this.fromExternalFile = true;
+				this.author = author;
+				
+				this.worldRegion = WorldRegion.valueOf(coreElement.getMandatoryFirstOf("worldRegion").getTextContent());
+
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				if(!Boolean.valueOf(coreElement.getMandatoryFirstOf("name").getAttribute("noCapitalisation"))) {
+					String[] nameSplit = this.name.split(" ");
+					StringBuilder sb = new StringBuilder();
+					for(String s : nameSplit) {
+						sb.append(Util.capitaliseSentence(s));
+						sb.append(" ");
+					}
+					this.name = sb.toString();
+				}
+				
+				this.tooltipDescription = coreElement.getMandatoryFirstOf("tooltipDescription").getTextContent();
+				this.virginityLossDescription = coreElement.getMandatoryFirstOf("virginityLossDescription").getTextContent();
+
+				if(coreElement.getOptionalFirstOf("sexBlockedReason").isPresent()) {
+					sexBlockedReason = coreElement.getMandatoryFirstOf("sexBlockedReason").getTextContent();
+				} else {
+					sexBlockedReason = null;
+				}
+
+				this.sexBlockedFromCharacterPresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("sexBlockedFromCharacterPresent").getTextContent().trim());
+				
+				String colourId = coreElement.getMandatoryFirstOf("colour").getTextContent();
+				if(colourId.startsWith("#")) {
+					this.colour = new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
+				} else {
+					this.colour = PresetColour.getColourFromId(colourId);
+				}
+
+				colourId = coreElement.getMandatoryFirstOf("backgroundColour").getTextContent();
+				if(colourId.startsWith("#")) {
+					this.backgroundColour = new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
+				} else {
+					this.backgroundColour = PresetColour.getColourFromId(colourId);
+				}
+				
+				this.encounterType = null;
+				if(coreElement.getOptionalFirstOf("encounterType").isPresent()) {
+					String encounterId = coreElement.getMandatoryFirstOf("encounterType").getTextContent().trim();
+					if(!encounterId.equals("null") && !encounterId.isEmpty()) {
+						this.encounterType = Encounter.getEncounterFromId(coreElement.getMandatoryFirstOf("encounterType").getTextContent().trim());
+					}
+				}
+				
+				this.dialogue = DialogueManager.getDialogueFromId(coreElement.getMandatoryFirstOf("dialogue").getTextContent());
+
+				populations = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("populationPresent").isPresent()) {
+					if(!coreElement.getMandatoryFirstOf("populationPresent").getAttribute("copyPlaceType").isEmpty()) {
+						copyPlaceTypePopulationId = coreElement.getMandatoryFirstOf("populationPresent").getAttribute("copyPlaceType");
+						
+					} else {
+						for(Element population : coreElement.getMandatoryFirstOf("populationPresent").getAllOf("population")) {
+							int startMinutes = -1;
+							int endMinutes = -1;
+							boolean usingDaylightHours = false;
+							boolean inclusiveRange = true;
+							if(Boolean.valueOf(population.getAttribute("night"))) {
+								usingDaylightHours = true;
+								inclusiveRange = false;
+								
+							} else if(Boolean.valueOf(population.getAttribute("day"))) {
+								usingDaylightHours = true;
+								
+							} else {
+								if(!population.getAttribute("startMinutes").isEmpty()) {
+									startMinutes = Integer.valueOf(population.getAttribute("startMinutes"));
+								}
+								if(!population.getAttribute("endMinutes").isEmpty()) {
+									endMinutes = Integer.valueOf(population.getAttribute("endMinutes"));
+								}
+								if(!population.getAttribute("inclusiveRange").isEmpty()) {
+									inclusiveRange = Boolean.valueOf(population.getAttribute("inclusiveRange"));
+								}
+							}
+							String conditional = "";
+							if(population.getOptionalFirstOf("conditional").isPresent()) {
+								conditional = population.getMandatoryFirstOf("conditional").getTextContent();
+							}
+							
+							String populationTypeString = population.getMandatoryFirstOf("populationType").getTextContent();
+							boolean plural = Boolean.valueOf(population.getMandatoryFirstOf("populationType").getAttribute("plural"));
+							PopulationDensity density = PopulationDensity.valueOf(population.getMandatoryFirstOf("populationType").getAttribute("density"));
+							AbstractPopulationType popType;
+							if(PopulationType.hasId(populationTypeString)) {
+								popType = PopulationType.getPopulationTypeFromId(populationTypeString);
+							} else {
+								popType = new AbstractPopulationType(populationTypeString, populationTypeString) {};
+							}
+							
+							if(population.getMandatoryFirstOf("subspeciesPresent").getAttribute("worldType").isEmpty()) {
+								List<String> subspeciesIds = new ArrayList<>();
+								for(Element subspecies : population.getMandatoryFirstOf("subspeciesPresent").getAllOf("subspecies")) {
+									String subId = subspecies.getTextContent();
+									subspeciesIds.add(subId);
+								}
+								
+								Population pop = new Population(plural, popType, density, null);
+								pop.setConditional(conditional);
+								pop.setSubspeciesIdToAdd(subspeciesIds);
+								
+								pop.setDayStartOverride(startMinutes);
+								pop.setDayEndOverride(endMinutes);
+								pop.setUsingDaylightHours(usingDaylightHours);
+								pop.setInclusiveTimeRange(inclusiveRange);
+								
+								populations.add(pop);
+								
+							} else {
+								String popDaySubspeciesWorldTypeId = population.getMandatoryFirstOf("subspeciesPresent").getAttribute("worldType");
+								List<String> subspeciesIds = new ArrayList<>();
+								for(Element subspecies : population.getMandatoryFirstOf("subspeciesPresent").getAllOf("subspeciesToRemove")) {
+									subspeciesIds.add(subspecies.getTextContent());
+								}
+								
+								Population pop = new Population(plural, popType, density, null);
+								pop.setConditional(conditional);
+								pop.setSubspeciesPlaceTypeId(id);
+								pop.setSubspeciesWorldTypeId(popDaySubspeciesWorldTypeId);
+								pop.setSubspeciesIdToRemove(subspeciesIds);
+								
+								pop.setDayStartOverride(startMinutes);
+								pop.setDayEndOverride(endMinutes);
+								pop.setUsingDaylightHours(usingDaylightHours);
+								pop.setInclusiveTimeRange(inclusiveRange);
+								
+								populations.add(pop);
+							}
+						}
+					}
+				}
+				
+				if(coreElement.getOptionalFirstOf("furniturePresent").isPresent()) {
+					this.furniturePresentOverride = true;
+					this.furniturePresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("furniturePresent").getTextContent().trim());
+				} else {
+					this.furniturePresentOverride = false;
+					this.furniturePresent = false;
+				}
+				
+				if(coreElement.getOptionalFirstOf("loiteringEnabled").isPresent()) {
+					this.loiteringEnabledOverride = true;
+					this.loiteringEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("loiteringEnabled").getTextContent().trim());
+				} else {
+					this.loiteringEnabledOverride = false;
+					this.loiteringEnabled = false;
+				}
+				
+				this.globalMapTile = Boolean.valueOf(coreElement.getMandatoryFirstOf("globalMapTile").getTextContent().trim());
+				this.dangerousString = coreElement.getMandatoryFirstOf("dangerous").getTextContent().trim();
+				this.itemsDisappearString = coreElement.getMandatoryFirstOf("itemsDisappear").getTextContent().trim();
+				this.aquaticString = coreElement.getMandatoryFirstOf("aquatic").getTextContent().trim();
+				this.darknessString = coreElement.getMandatoryFirstOf("darkness").getTextContent().trim();
+				
+				this.teleportPermissions = TeleportPermissions.valueOf(coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent());
+				
+				this.weatherImmunities = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("weatherImmunities").isPresent()) {
+					if(Boolean.valueOf(coreElement.getMandatoryFirstOf("weatherImmunities").getAttribute("immuneToAll").trim())) {
+						initWeatherImmune();
+					} else {
+						for(Element e : coreElement.getMandatoryFirstOf("weatherImmunities").getAllOf("weather")) {
+							try {
+								weatherImmunities.add(Weather.valueOf(e.getTextContent().trim()));
+							} catch(Exception ex) {
+								System.err.println("PlaceType loading error in '"+XMLFile.getName()+"': Weather '"+e.getTextContent()+"' not recognised! (Not added)");
+							}
+						}
+					}
+				}
+				
+				if(coreElement.getOptionalFirstOf("applyInventoryInit").isPresent()) {
+					inventoryInitString = coreElement.getMandatoryFirstOf("applyInventoryInit").getTextContent();
+				} else {
+					inventoryInitString = "";
+				}
+				
+				String svgPath = XMLFile.getAbsolutePath().replace(".xml", ".svg");
+				if(coreElement.getOptionalFirstOf("svgName").isPresent() && !coreElement.getMandatoryFirstOf("svgName").getTextContent().isEmpty()) {
+					svgPath = XMLFile.getAbsolutePath().replace(XMLFile.getName(), coreElement.getMandatoryFirstOf("svgName").getTextContent()+".svg");
+//					System.out.println("1: "+svgPath + " | "+XMLFile.getName());
+				}
+//				
+				if(new File(svgPath).exists()) {
+					try {
+						// Background circle:
+						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/map/iconBackground.svg");
+						SVGString = Util.inputStreamToString(is);
+						is.close();
+						
+						// Icon:
+						List<String> lines = Files.readAllLines(Paths.get(svgPath));
+						StringBuilder sb = new StringBuilder();
+						
+						sb.append("<div style='width:100%;height:100%;position:absolute;left:0;top:0;margin:0;padding:0;'>");
+							sb.append(SVGString);
+						sb.append("</div>");
+						
+						sb.append("<div style='width:70%;height:70%;position:absolute;left:15%;top:15%;margin:0;padding:0;'>");
+							for(String line : lines) {
+								sb.append(line);
+							}
+						sb.append("</div>");
+						
+						SVGString = sb.toString();
+						SVGString = SvgUtil.colourReplacement(XMLFile.getName().replace("\\.svg", ""), colour, PresetColour.BASE_WHITE, null, SVGString);
+						
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					SVGString = null;
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("PlaceType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
 		}
 	}
 	
@@ -160,6 +443,27 @@ public class AbstractPlaceType {
 		this.teleportPermissions = teleportPermissions;
 		return this;
 	}
+
+	public AbstractPlaceType initSexNotBlockedFromCharacterPresent() {
+		this.sexBlockedFromCharacterPresent = false;
+		return this;
+	}
+
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public String getId() {
+		return PlaceType.getIdFromPlaceType(this);
+	}
 	
 	public WorldRegion getWorldRegion() {
 		return worldRegion;
@@ -170,7 +474,7 @@ public class AbstractPlaceType {
 	}
 
 	public String getTooltipDescription() {
-		return tooltipDescription;
+		return UtilText.parse(tooltipDescription);
 	}
 
 	public Colour getColour() {
@@ -184,8 +488,21 @@ public class AbstractPlaceType {
 		return backgroundColour;
 	}
 
-	public Encounter getEncounterType() {
-		return encounterType;
+	public AbstractEncounter getEncounterType() {
+		List<AbstractEncounter> possibleEncounters = new ArrayList<>();
+		
+		if(encounterType!=null) {
+			possibleEncounters.add(encounterType);
+		}
+		possibleEncounters.addAll(Encounter.getAddedEncounters(this.getId()));
+		
+		if(possibleEncounters.isEmpty()) {
+			return null;
+		}
+		
+		// Need to always return the same encounter in case it gets triggered multiple times in logic somewhere
+		Util.random.setSeed(Main.game.getSecondsPassed());
+		return Util.randomItemFrom(possibleEncounters);
 	}
 	
 	protected DialogueNode getBaseDialogue(Cell cell) {
@@ -211,7 +528,22 @@ public class AbstractPlaceType {
 	}
 	
 	public List<Population> getPopulation() {
-		return new ArrayList<>();
+		List<Population> returnPopulation = new ArrayList<>();
+		
+		if(fromExternalFile) {
+			if(copyPlaceTypePopulationId!=null && !copyPlaceTypePopulationId.isEmpty()) {
+				return PlaceType.getPlaceTypeFromId(copyPlaceTypePopulationId).getPopulation();
+				
+			} else {
+				for(Population pop : populations) {
+					if(pop.isAvailableFromConditional() && pop.isAvailableFromCurrentTime()) {
+						returnPopulation.add(pop);
+					}
+				}
+			}
+		}
+		
+		return returnPopulation;
 	}
 	
 	public boolean isPopulated() {
@@ -225,6 +557,10 @@ public class AbstractPlaceType {
 		return false;
 	}
 
+	public boolean isStormImmune() {
+		return weatherImmunities.contains(Weather.MAGIC_STORM);
+	}
+
 	public boolean isLand() {
 		return getAquatic().isLand();
 	}
@@ -234,22 +570,30 @@ public class AbstractPlaceType {
 	}
 	
 	public boolean isDangerous() {
+		if(this.isFromExternalFile()) {
+			return Boolean.valueOf(UtilText.parse(dangerousString));
+		}
 		return dangerous;
-	}
-
-	public boolean isStormImmune() {
-		return weatherImmunities.contains(Weather.MAGIC_STORM);
 	}
 	
 	public boolean isItemsDisappear() {
+		if(this.isFromExternalFile()) {
+			return Boolean.valueOf(UtilText.parse(itemsDisappearString));
+		}
 		return itemsDisappear;
 	}
 
 	public Aquatic getAquatic() {
+		if(this.isFromExternalFile()) {
+			return Aquatic.valueOf(UtilText.parse(aquaticString));
+		}
 		return aquatic;
 	}
 
 	public Darkness getDarkness() {
+		if(this.isFromExternalFile()) {
+			return Darkness.valueOf(UtilText.parse(darknessString));
+		}
 		return darkness;
 	}
 	
@@ -295,7 +639,10 @@ public class AbstractPlaceType {
 	}
 	
 	public void applyInventoryInit(CharacterInventory inventory) {
-		
+		if(this.isFromExternalFile() && !inventoryInitString.isEmpty()) {
+			UtilText.setInventoryForParsing("inventory", inventory);
+			UtilText.parse(inventoryInitString);
+		}
 	}
 	
 	// For determining where this place should be placed:
@@ -332,6 +679,21 @@ public class AbstractPlaceType {
 		return new ArrayList<>();
 	}
 
+	public boolean isSexBlockedOverride(GameCharacter character) {
+		return getSexBlockedReason(character)!=null;
+	}
+	
+	public boolean isSexBlocked(GameCharacter character) {
+		return getSexBlockedReason(character)!=null && !getSexBlockedReason(character).isEmpty();
+	}
+	
+	public String getSexBlockedReason(GameCharacter character) {
+		if(this.isFromExternalFile()) {
+			return UtilText.parse(character, sexBlockedReason);
+		}
+		return sexBlockedReason;
+	}
+	
 	public String getVirginityLossDescription() {
 		return virginityLossDescription;
 	}
@@ -345,5 +707,37 @@ public class AbstractPlaceType {
 	 */
 	public TeleportPermissions getTeleportPermissions() {
 		return teleportPermissions;
+	}
+
+	/**
+	 * @return true if this place type's isFurniturePresent() method should be used instead of the parent world type's.
+	 */
+	public boolean isFurniturePresentOverride() {
+		return furniturePresentOverride;
+	}
+
+	/**
+	 * @return true if over-desk and on chair sex positions are available in this location. This overrides AbstractWorldType's method of the same name.
+	 */
+	public boolean isFurniturePresent() {
+		return furniturePresent;
+	}
+
+	/**
+	 * @return true if this place type's isLoiteringEnabled() method should be used instead of the parent world type's.
+	 */
+	public boolean isLoiteringEnabledOverride() {
+		return loiteringEnabledOverride;
+	}
+
+	/**
+	 * @return true if the player is able to loiter in this location. This overrides AbstractWorldType's method of the same name.
+	 */
+	public boolean isLoiteringEnabled() {
+		return loiteringEnabled;
+	}
+
+	public boolean isSexBlockedFromCharacterPresent() {
+		return sexBlockedFromCharacterPresent;
 	}
 }

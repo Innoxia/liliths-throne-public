@@ -68,8 +68,8 @@
 	This description immediately follows a brief description of the penis type beginning to transform. -->
 	<transformationDescription><![CDATA[
 		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick sheath suddenly grows around the base of [npc.her] shaft. As [npc.she] [npc.verb(pant)] and [npc.verb(gasp)] for air, the tip of [npc.her] cock narrows down as it tapers into its new form.
-		<br/>[npc.She] now [npc.has] a [style.boldRacoon(raccoon-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
-		<br/>[npc.She] [npc.has] [style.boldRacoon([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldRacoon(raccoon cum)].
+		<br/>[npc.She] now [npc.has] a [style.boldRaccoon(raccoon-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldRaccoon([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldRaccoon(raccoon cum)].
 	]]></transformationDescription>
 	
 	<!-- How this penis is described in a character's description page. -->

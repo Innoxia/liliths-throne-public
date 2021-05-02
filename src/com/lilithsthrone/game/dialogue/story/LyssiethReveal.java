@@ -631,6 +631,7 @@ public class LyssiethReveal {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX_HUMAN"));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 						}
 					};
 				} else {
@@ -640,6 +641,7 @@ public class LyssiethReveal {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX"));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 						}
 					};
 				}
@@ -801,7 +803,7 @@ public class LyssiethReveal {
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 						Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 						if(Main.game.getNpc(DarkSiren.class).getAffection(Main.game.getPlayer())<0) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getPlayer(),  0));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getPlayer(), 0));
 						}
 					}
 				};

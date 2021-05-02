@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>70</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>INVENTORY</category>
+	<beneficial>BENEFICIAL</beneficial>
+	<combatEffect>false</combatEffect>
+	<sexEffect>false</sexEffect>
+	<tags/>
+	<name><![CDATA[Benevolent Blessing]]></name>
+	<description><![CDATA[
+		By wearing the benevolent set, [npc.nameIs] filled with a sense of peaceful tranquility. [npc.name] [npc.verb(feel)] as though [npc.she] can save the world!
+	]]></description>
+	<imageName>benevolent_set.svg</imageName>
+	<colourPrimary>CLOTHING_RED_DARK</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="20.0">DAMAGE_RANGED_WEAPON</modifier>
+		<modifier value="20.0">CRITICAL_DAMAGE</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects/>
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[
+		[#SET_BONUS_c4mg1rl_benevolent.isCharacterWearingCompleteSet(npc)]
+	]]></applicationCondition>
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+</statusEffect>

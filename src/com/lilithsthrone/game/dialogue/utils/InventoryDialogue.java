@@ -29,6 +29,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -182,10 +183,12 @@ public class InventoryDialogue {
 				return "Inventory";
 			}
 		}
+
 		@Override
 		public String getHeaderContent() {
 			return inventoryView();
 		}
+
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -1111,7 +1114,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -1368,7 +1371,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -1754,7 +1757,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2720,7 +2723,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2901,7 +2904,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3124,7 +3127,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3934,7 +3937,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4119,7 +4122,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4473,7 +4476,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {

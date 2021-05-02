@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>	
+	<coreAttributes>
+		<value>6000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[mitsugake]]></name> 
+		<namePlural pluralByDefault="false"><![CDATA[mitsugake]]></namePlural>
+		<description><![CDATA[A glove ordinarily meant to assist beginners to youko archery. This one, however, has been enchanted to summon stronger arcane arrows]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>HAND</slot>
+		</equipSlots>
+		<rarity>LEGENDARY</rarity> 
+		<clothingSet>c4mg1rl_benevolent</clothingSet>
+		<imageName>mitsugake.svg</imageName>
+		<imageEquippedName/>
+		<stickers/>
+		<enchantmentLimit/>
+		<effects> 
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_BOOST" timer="3500" type="CLOTHING"/>
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_BOOST" timer="3500" type="CLOTHING"/>
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="BOOST" timer="3500" type="CLOTHING"/>
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="BOOST" timer="3500" type="CLOTHING"/>
+		</effects>
+		<blockedPartsList slot="HAND"> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots slot="HAND"/>
+		<primaryColours recolouringAllowed="true" values="JUST_TAN"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_BLUE_VERY_DARK"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_GOLD"/>
+		<tertiaryColoursDye values="ALL"/>
+		<customColours>
+		</customColours>
+		<itemTags> 
+		</itemTags>
+	</coreAttributes>
+	<replacementText slot="HAND" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the mitsugake on to cover [npc.her] [npc.hand] before wrapping and securing the wrist strap.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the mitsugake onto [npc2.namePos] [npc2.hand] before wrapping and securing the wrist strap.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the mitsugake onto [npc2.namePos] [npc2.hand] before wrapping and securing the wrist strap.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="HAND" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the mitsugake off of [npc.her] [npc.hand] after unwrapping the wrist strap.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the mitsugake off of [npc2.namePos] [npc2.hand] after unwrapping the wrist strap.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the mitsugake off of [npc2.namePos] [npc2.hand] after unwrapping the wrist strap.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

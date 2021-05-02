@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Benevolent Blessing]]></name>
+	<statusEffect>c4mg1rl_benevolent_set</statusEffect>
+	<numberRequiredForCompleteSet>2</numberRequiredForCompleteSet>
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HAND</slot>
+	</blockedSlotsCountingTowardsFullSet>
+</setBonus>

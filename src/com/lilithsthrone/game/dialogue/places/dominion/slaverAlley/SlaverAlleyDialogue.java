@@ -1043,11 +1043,17 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE"));
+			
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.statueTruthRevealed)) {
-				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE_TRUTH");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE_TRUTH"));
 			} else {
-				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE_IGNORANCE"));
 			}
+			
+			return sb.toString();
 		}
 
 		@Override

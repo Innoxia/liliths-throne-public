@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/town_hall_f0.xml' dialogue nodes. -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		You find yourself [pc.walking] down the corridor which links all of the offices on the ground floor of Elis's town hall.
+		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+			 Although it's wide enough to accommodate several people walking abreast, the town hall is currently closed to members of the public, and as such there's nobody here apart from you.
+		#ELSE
+			 Although it's wide enough to accommodate several people walking abreast, there aren't many other people to be seen in this corridor, and as such neither you nor anyone else ever has to adjust course in order to avoid a collision.
+		#ENDIF
+	</p>
+	<p>
+		Positioned in between the exposed wooden beams of the high ceiling, long arcane lamps cast this area in an unnatural pale glow. With the old wooden floorboards creaking under your weight as you [pc.walk] over them, there's very little to do here except continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		The public entrance to the town hall takes the form of a pair of large, heavy wooden doors.
+		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+			 As the town hall is currently closed, these doors are securely shut and locked. Thankfully, it appears as though it's just a simple matter of operating the door's latch in order to open them, and so you could freely exit the building if you wanted to...
+		#ELSE
+			 These doors are currently propped wide open, allowing both you and other members of the public to come and go as you please.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Having concluded your business within the town hall, you
+		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+			 operate the latch and open the door, before [pc.stepping]
+		#ELSE
+			 [pc.walk] through the open doors and head
+		#ENDIF
+		 back out into the streets of Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INFO"><![CDATA[
+	<p>
+		Situated immediately in front of the town hall's entrance, the long desk before you carries a sign which identifies it as the reception and information desk.
+		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+			 Due to the fact that the town hall is currently closed, there's nobody sitting behind the desk, leaving you with nothing to do in this area...
+		#ELSE
+			 Several receptionists are sitting behind this desk, waiting for a member of the public to ask them about the town hall's services...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INFO_MINOTALLYS"><![CDATA[
+	<p>
+		[pc.Stepping] up to the information desk, you ask one of the receptionists what she can tell you about Minotallys. Upon hearing that name, she lets out a dreary sigh and drones, [style.feminineSpeech(The mayor is far too busy to see anyone. Come back in a couple of weeks and try again.)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
+			Although you start to explain that you're already able to meet with Minotallys, and you were just wondering what sort of public reputation she has,
+		#ELSE
+			Although you start to explain that you were just wondering what sort of public reputation Minotallys has,
+		#ENDIF
+		 the receptionist rudely cuts you off with a long, drawn-out sigh and flatly states, [style.feminineSpeech(If there's nothing else, please move away from the desk so that I can help other people.)]
+	</p>
+	<p>
+		Realising that you're not going to learn anything useful from here, you [pc.step] away from the receptionist and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		The door before you has a couple of words etched into its frosted glass, which reveal its use to be limited to 'Staff Only'. Due to this, it's shut tight and securely locked, although looking over at the sign beside this door, you don't think you'd be interested in the town hall's 'Accounting, Planning, and Waste Management' offices even if you were able to access them.
+	</p>
+	<p>
+		Turning away from the door, you wonder where to head to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		The door before you provides access to one of the many offices located throughout the town hall's ground floor. A sign next to this door reveals the type of services offered within, but they're all things related to residential affairs, and as such are of no interest to you.
+	</p>
+	<p>
+		Turning away from the door, you wonder where to head to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		Before you stands a wide, twisting staircase, which is signposted as providing access to all four of the upper stories of the town hall's tower, which includes Minotallys's office. A demon Enforcer is standing guard beside this staircase, and as they see you approach, they pointedly tap a sign next to them which reads: 'No Public Access'
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
+			Thanks to the pass which you obtained from Minotallys, you know that you could easily get past this Enforcer and head up the stairs if you wanted to...
+		#ELSE
+			From the stern expression on this Enforcer's face, as well as the fact that their hand is hovering close to the taser on their hip, you think it best not to try and force your way past them. If you wanted to meet Minotallys, you should seek out Meraxis in 'The Red Dragon' tavern and ask her to introduce you to her.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_UP"><![CDATA[
+	<p>
+		Showing your pass to the demonic Enforcer, and receiving a brief nod and a wave of their hand in return, you head up the stairs into the town hall's tower. With the first few stories not offering anything of interest, you continue up the stairs all the way to the top, where you're stopped by another two, heavily-armed demonic Enforcers. After having to show them your pass, you finally gain access to the tower's top floor, where Minotallys's office is located...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		A sign attached to the front of the door before you reveals that the room beyond houses the town hall's toilet facilities. Unfortunately for you and any other member of the public, there's a sign on this door which reveals it to be limited to 'Staff Only'. Giving it a quick push just to make sure, you discover that the door to the toilets is securely locked, and so with little else to do, you turn around and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOURISM"><![CDATA[
+	<p>
+		Just like all of the other offices to be found throughout the town hall's ground floor, this one has a sign attached to the wall beside the door, which in this case declares it to be the home of the 'Elis tourism board'. Although you don't have any business with the tourism board at the moment, it's good to know where it's located in case you ever find yourself needing their services in the future...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WAITING_ROOM"><![CDATA[
+	<p>
+		With one of its walls completely open to the corridor, you're able to easily see that this room contains numerous seats and low coffee tables, and is signposted as being a waiting area for the general public.
+		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+			 As the town hall is currently closed, the room's lights have been turned off, but even in the dark you can see that there's nobody in here.
+		#ELSE
+			 Looking around, you see that there are several members of the public sitting in this area, and from the bored expressions on each of their faces, they look like they've had enough of having their patience put to the test.
+		#ENDIF
+	</p>
+	<p>
+		With no reason to sit and wait for anything, and not being tempted in the slightest to read any of the months-old magazines that are on offer, you turn around and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

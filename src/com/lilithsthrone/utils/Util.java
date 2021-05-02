@@ -1426,13 +1426,18 @@ public class Util {
 		List<Any> list = new ArrayList<>(set);
 		return randomItemFrom(list);
 	}
-	
+
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
 
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
+	}
+
+	@SafeVarargs
+	public static <Any> Any randomItemFromValues(Any... values) {
+		return values[Util.random.nextInt(values.length)];
 	}
 
 	/**
@@ -1462,7 +1467,9 @@ public class Util {
 		if(distance>0) { // Only show error message if difference is more than just capitalisation differences
 			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
 		}
-//		new IllegalArgumentException().printStackTrace(System.err);
+		if(Main.DEBUG) {
+			new IllegalArgumentException().printStackTrace(System.err);
+		}
 		return closestString;
 	}
 

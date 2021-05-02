@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[waiting room]]></name>
+	<tooltipDescription><![CDATA[One of two waiting rooms positioned near to the town hall's entrance, this is the place where members of the public have their patience put to the test.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in one of the waiting rooms in Elis's town hall]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BROWN</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_town_hall_f0_waiting_room</dialogue>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="SEVERAL">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

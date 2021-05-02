@@ -1,10 +1,12 @@
 package com.lilithsthrone.world.places;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
@@ -18,6 +20,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
@@ -64,7 +67,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
-import com.lilithsthrone.game.dialogue.places.global.GlobalFoloiFields;
+import com.lilithsthrone.game.dialogue.places.fields.FieldsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
@@ -77,6 +80,7 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.rebelBase.RebelBase;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -314,7 +318,6 @@ public class PlaceType {
 			PresetColour.BASE_PINK_LIGHT,
 			DominionPlaces.BOULEVARD,
 			Darkness.ALWAYS_LIGHT, Encounter.DOMINION_BOULEVARD, "in the streets of Dominion") {
-
 		@Override
 		public List<Population> getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -736,7 +739,8 @@ public class PlaceType {
 			PresetColour.BASE_BLACK,
 			DominionPlaces.BACK_ALLEYS,
 			Darkness.DAYLIGHT, Encounter.DOMINION_ALLEY, "in one of Dominion's backalleys"
-			).initDangerous();
+			).initDangerous()
+			.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType DOMINION_DARK_ALLEYS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -746,7 +750,8 @@ public class PlaceType {
 			PresetColour.BASE_PURPLE,
 			DominionPlaces.DARK_ALLEYS,
 			Darkness.DAYLIGHT, Encounter.DOMINION_DARK_ALLEY, "in one of Dominion's dark alleyways"
-			).initDangerous();
+			).initDangerous()
+			.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType DOMINION_ALLEYS_CANAL_CROSSING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -1629,10 +1634,10 @@ public class PlaceType {
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 				return super.getPopulation();
 			} else {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.HARPY, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.HARPY, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, false, false)));
 			}
 		}
-	};
+	}.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType HARPY_NESTS_WALKWAYS_BRIDGE = new AbstractPlaceType(
 			WorldRegion.HARPY_NESTS,
@@ -1650,7 +1655,7 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
 		}
-	};
+	}.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType HARPY_NESTS_ENTRANCE_ENFORCER_POST = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -3202,7 +3207,7 @@ public class PlaceType {
 				if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_6_ADVERTISING)) {
 					if(Main.game.getNpc(Helena.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
 						return Util.newArrayListOfValues(
-								new Population(true, PopulationType.HARPY, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, true)),
+								new Population(true, PopulationType.HARPY, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, false, false)),
 								new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
 								new Population(true, PopulationType.FAN, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					} else {
@@ -3344,7 +3349,7 @@ public class PlaceType {
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_CORRIDOR = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Corridor",
-			"A narrow corridor links all the rooms on teh tavern's first floor.",
+			"A narrow corridor links all the rooms on the tavern's first floor.",
 			null,
 			PresetColour.BASE_BLACK,
 			BountyHunterLodge.UPSTAIRS_CORRIDOR,
@@ -3893,7 +3898,8 @@ public class PlaceType {
 			SubmissionGenericPlaces.TUNNEL,
 			Darkness.ALWAYS_DARK, Encounter.SUBMISSION_TUNNELS, "in Submission"
 			).initDangerous()
-			.initWeatherImmune();
+			.initWeatherImmune()
+			.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType SUBMISSION_BAT_CAVERNS = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -3905,7 +3911,8 @@ public class PlaceType {
 			Darkness.ALWAYS_LIGHT,
 			null, "in Submission"
 			).initWeatherImmune()
-			.initAquatic(Aquatic.MIXED);
+			.initAquatic(Aquatic.MIXED)
+			.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType SUBMISSION_RAT_WARREN = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4018,7 +4025,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels1Icon", PresetColour.BASE_RED);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType FORTRESS_ALPHA_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4093,7 +4101,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels2Icon", PresetColour.BASE_PURPLE);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType FORTRESS_DEMON_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4283,7 +4292,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels3Icon", PresetColour.BASE_PINK_LIGHT);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType FORTRESS_FEMALES_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4358,7 +4368,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels4Icon", PresetColour.BASE_BLUE_LIGHT);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType FORTRESS_MALES_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4554,7 +4565,9 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			BatCaverns.CAVERN_DARK,
-			Darkness.ALWAYS_DARK, Encounter.BAT_CAVERN, "in the Bat Caverns"
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN,
+			"in the Bat Caverns"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -4623,12 +4636,40 @@ public class PlaceType {
 			"submission/batCaverns/cavernLake",
 			PresetColour.BASE_PINK_LIGHT,
 			BatCaverns.SLIME_LAKE,
-			Darkness.ALWAYS_LIGHT, Encounter.BAT_CAVERN, "beside Slime Lake"
+			Darkness.ALWAYS_LIGHT,
+			Encounter.BAT_CAVERN,
+			"beside Slime Lake"
 			).initDangerous()
 			.initWeatherImmune()
 			.initAquatic(Aquatic.MIXED);
 	
+	// HLF Quest places:
 	
+	public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR = new AbstractPlaceType(
+			WorldRegion.SUBMISSION,
+			"Hidden Cave Entrance",
+			"The entrance to a mysterious artificial cave, formerly concealed behind a tight-fitting stone door.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_RED,
+			BatCaverns.REBEL_BASE_ENTRANCE_EXTERIOR,
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN,
+			"beside the entrance to a mysterious artificial cave"
+			).initDangerous()
+			.initWeatherImmune();
+        
+       public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE = new AbstractPlaceType(
+			WorldRegion.SUBMISSION,
+			"Strange Handle",
+			"A strange handle juts out from the rock.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_GREY,
+			BatCaverns.REBEL_BASE_ENTRANCE_HANDLE,
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN,
+			"in the Bat Caverns"
+			).initDangerous()
+			.initWeatherImmune();
 	
 	// Slime queen's island tower:
 
@@ -5097,7 +5138,7 @@ public class PlaceType {
 			Darkness.ALWAYS_LIGHT,
 			null, "in the Rat Warrens") {
 		@Override
-		public Encounter getEncounterType() {
+		public AbstractEncounter getEncounterType() {
 			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_HALL;
 			}
@@ -5133,9 +5174,10 @@ public class PlaceType {
 			PresetColour.BASE_PURPLE_LIGHT,
 			RatWarrensDialogue.VENGARS_BEDROOM,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the Rat Warrens") {
+			null,
+			"in the Rat Warrens") {
 		@Override
-		public Encounter getEncounterType() {
+		public AbstractEncounter getEncounterType() {
 			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_BEDROOM;
 			}
@@ -5155,7 +5197,116 @@ public class PlaceType {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile);
 		}
 	}.initWeatherImmune();
+
+	// HLF Quest places:
 	
+    public static final AbstractPlaceType REBEL_BASE_ENTRANCE = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Entrance",
+			"The only way in or out of the cave is cleverly concealed behind a tight-fitting stone door.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_RED,
+			RebelBase.REBEL_BASE_ENTRANCE,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_CORRIDOR = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Corridor",
+			"An artificial cave lined with questionable wooden supports.",
+			null,
+			PresetColour.BASE_BLACK,
+			RebelBase.REBEL_BASE_CORRIDOR,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_SLEEPING_AREA = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Sleeping Area",
+			"A long abandoned room full of long abandoned beds.",
+			"submission/rebelBase/cache1",
+			PresetColour.BASE_BLUE,
+			RebelBase.REBEL_BASE_SLEEPING_AREA,
+			Darkness.ALWAYS_DARK,
+			Encounter.REBEL_BASE,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_SLEEPING_AREA_SEARCHED = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Sleeping Area",
+			"A long abandoned room full of long abandoned beds.",
+			"submission/rebelBase/cache1",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_SLEEPING_AREA_SEARCHED,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_COMMON_AREA = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Common Area",
+			"The sparsely furnished ruins of a common area.",
+			"submission/rebelBase/cache2",
+			PresetColour.BASE_ORANGE,
+			RebelBase.REBEL_BASE_COMMON_AREA,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_COMMON_AREA_SEARCHED = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"Abandoned Common Area",
+			"The sparsely furnished ruins of a common area.",
+			"submission/rebelBase/cache2",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_COMMON_AREA_SEARCHED,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+
+    public static final AbstractPlaceType REBEL_BASE_ARMORY = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"A Partly Caved-in Room",
+			"A room partly filled with rubble.",
+			"submission/rebelBase/cache3",
+			PresetColour.BASE_GREEN,
+			RebelBase.REBEL_BASE_ARMORY,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+    public static final AbstractPlaceType REBEL_BASE_ARMORY_SEARCHED = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"A Partly Caved-in Room",
+			"A room partly filled with rubble.",
+			"submission/rebelBase/cache3",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_ARMORY_SEARCHED,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
+    
+     public static final AbstractPlaceType REBEL_BASE_CAVED_IN_ROOM = new AbstractPlaceType(
+ 			WorldRegion.SUBMISSION,
+			"A Mostly Caved-in Room",
+			"A room with nothing but rubble in it.",
+			"submission/rebelBase/cavein",
+			PresetColour.BASE_GREY_DARK,
+			RebelBase.REBEL_BASE_CAVED_IN_ROOM,
+			Darkness.ALWAYS_DARK,
+			null,
+			"in a mysterious artificial cave")
+	            .initWeatherImmune();
 	
 	
 	
@@ -5265,11 +5416,34 @@ public class PlaceType {
 			"global/dominion",
 			PresetColour.BASE_PURPLE,
 			new Colour(Util.newColour(0x826B85)),
-			GlobalFoloiFields.DOMINION_EXTERIOR,
+			FieldsDialogue.DOMINION_EXTERIOR,
 			null, "in the outskirts of Dominion") {
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.leftDominionFirstTime)) {
+				return FieldsDialogue.DOMINION_EXTERIOR;
+			} else {
+				return FieldsDialogue.DOMINION_EXTERIOR_FIRST_TIME_LEAVING;
+			}
+		}
 		@Override
 		public AbstractWorldType getGlobalLinkedWorldType() {
 			return WorldType.DOMINION;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			List<Population> pop = new ArrayList<>();
+			
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getDominionStormImmuneSpecies(true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+			} else {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			
+			return pop;
 		}
 	}.initAquatic(Aquatic.MIXED);
 
@@ -5279,7 +5453,7 @@ public class PlaceType {
 			null,
 			"The grassland wilderness is home to many different races, the vast majority of which are just as wild and untamed as the land they inhabit.",
 			new Colour(Util.newColour(0x688255)),
-			GlobalFoloiFields.GRASSLAND_WILDERNESS,
+			FieldsDialogue.GRASSLAND_WILDERNESS,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5293,7 +5467,7 @@ public class PlaceType {
 			null,
 			"The farmland surrounding Dominion is known as the 'Foloi fields', and is primarily inhabited by farmyard animal-morphs.",
 			new Colour(Util.newColour(0xB9E3A1)),
-			GlobalFoloiFields.FOLOI_FIELDS,
+			FieldsDialogue.FOLOI_FIELDS,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5308,7 +5482,7 @@ public class PlaceType {
 			"global/forest",
 			new Colour(Util.newColour(0x51A468)),
 			new Colour(Util.newColour(0x5E685E)),
-			GlobalFoloiFields.FOLOI_FOREST,
+			FieldsDialogue.FOLOI_FOREST,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5323,7 +5497,7 @@ public class PlaceType {
 			"global/elis",
 			new Colour(Util.newColour(0xd544ae)),
 			new Colour(Util.newColour(0x859871)),
-			GlobalFoloiFields.ELIS,
+			FieldsDialogue.ELIS,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5338,7 +5512,7 @@ public class PlaceType {
 			"global/river",
 			new Colour(Util.newColour(0x61BDFF)),
 			new Colour(Util.newColour(0x98B4CD)),
-			GlobalFoloiFields.RIVER_HUBUR,
+			FieldsDialogue.RIVER_HUBUR,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5535,6 +5709,48 @@ public class PlaceType {
 	}
 	
 	static {
+		// Modded place types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", "placeTypes", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey().replace("_placeTypes", "");
+					AbstractPlaceType placeType = new AbstractPlaceType(innerEntry.getValue(), entry.getKey(), id, true) {};
+					allPlaceTypes.add(placeType);
+					placeToIdMap.put(placeType, id);
+					idToPlaceMap.put(id, placeType);
+//					System.out.println("modded PT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading modded place type failed at 'PlaceType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// External res place types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/maps", "placeTypes", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = "innoxia_"+innerEntry.getKey().replace("_placeTypes", "");
+					AbstractPlaceType placeType = new AbstractPlaceType(innerEntry.getValue(), entry.getKey(), id, false) {};
+					allPlaceTypes.add(placeType);
+					placeToIdMap.put(placeType, id);
+					idToPlaceMap.put(id, placeType);
+//					System.out.println("res PT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading place type failed at 'PlaceType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+
+		// Hard-coded place types (all those up above):
+		
 		Field[] fields = PlaceType.class.getFields();
 		
 		for(Field f : fields) {

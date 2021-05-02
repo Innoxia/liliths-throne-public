@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<authorTag><![CDATA['MFD by DSG Threadworks' has been printed onto the inside of the bandolier's backing.]]></authorTag>
+		<value>500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name appendColourName="true"><![CDATA[canvas bandolier]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[canvas bandoliers]]></namePlural>
+		<description><![CDATA[A messenger-style bandolier made from heavy cotton fabric with nine pouches designed for long and thin magazines.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>TORSO_OVER</slot>
+		</equipSlots>
+		<rarity>RARE</rarity>
+		<clothingSet>dsg_hlf_insurgent</clothingSet>
+		<imageName>rbandolier.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts> 
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/> 
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_KHAKI</colour>
+		</primaryColours>		
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+
+		<itemTags>
+			<tag>CONTRABAND_LIGHT</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the bandolier and securely [npc.verb(tighten)] the strap around [npc.her] shoulder.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] the [npc.verb(wrap)] the bandolier around [npc2.name] and [npc.verb(tighten)] the strap around [npc2.her] shoulder.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(shove)] the bandolier onto [npc2.name] and [npc.verb(yank)] the strap around [npc2.her] shoulder.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the bandolier's strap from [npc.her] shoulder and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the bandolier's strap from [npc2.namePos] shoulder and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tears)] the bandolier from [npc2.namePos] torso.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>
