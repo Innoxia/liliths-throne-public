@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_town_entry_east -->
+	
+	<scene id="entry_east">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'LEAVE_ELIS'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/generic">EXTERNAL_ROAD</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Leave Elis and head back out into the Foloi Fields.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="WORLD_MAP_FIELDS_CITY"/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_WORLD_MAP_FIELDS_CITY)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'EXIT_TO_WORLD_MAP'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_entry_west -->
+	
+	<scene id="entry_west">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'LEAVE_ELIS'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/generic">EXTERNAL_ROAD</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Leave Elis and head back out into the Foloi Fields.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="WORLD_MAP_FIELDS_CITY"/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_WORLD_MAP_FIELDS_CITY)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'EXIT_TO_WORLD_MAP'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_alley -->
+	<scene id="alley">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">ALLEY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_bank -->
+	<scene id="bank">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">BANK</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_cult -->
+	<scene id="cult">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">CULT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_enforcers -->
+	<scene id="enforcers">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">ENFORCERS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_fields -->
+	<scene id="fields">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			#IF(pc.isAtMapEdge())
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'LEAVE_ELIS'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/generic">FIELDS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<!-- Edge of map leave (index 1): -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isAtMapEdge()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Leave Elis and head back out into the Foloi Fields.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="WORLD_MAP_FIELDS_CITY"/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_WORLD_MAP_FIELDS_CITY)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'EXIT_TO_WORLD_MAP'))]
+				]]></effects>
+			</response>
+			<!-- Near walls fly (index 1): -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isAbleToFly() && pc.getNearestCellDistance(PLACE_TYPE_innoxia_fields_elis_town_wall)<3 && !pc.getNearestCellDistance(PLACE_TYPE_innoxia_fields_elis_town_tower)<3]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fly onto wall]]></responseTitle>
+				<responseTooltip><![CDATA[As you're capable of flight, you could fly on up onto the walls of Elis from here.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_wall"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_town_wall)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'FIELDS_FLY_TO_WALL'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isAbleToFly() && !pc.getNearestCellDistance(PLACE_TYPE_innoxia_fields_elis_town_wall)<3 && pc.getNearestCellDistance(PLACE_TYPE_innoxia_fields_elis_town_tower)<3]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fly onto tower]]></responseTitle>
+				<responseTooltip><![CDATA[As you're capable of flight, you could fly on up onto the nearest tower from here.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_tower"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_town_tower)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'FIELDS_FLY_TO_TOWER'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_gatehouse_east -->
+	<scene id="gatehouse_east">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">GATEHOUSE</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<!-- The player is not travelling along the walls (index 1): -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getLastPlaceType()!=PLACE_TYPE_innoxia_fields_elis_town_wall]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enforcers]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the Enforcers who're guarding the gatehouse.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- The player IS travelling along the walls (index 1): -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getLastPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_wall]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enforcer]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the Enforcer who's guarding the portcullis.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_gatehouse_west -->
+	<scene id="gatehouse_west">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">GATEHOUSE</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<!-- The player is not travelling along the walls (index 1): -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getLastPlaceType()!=PLACE_TYPE_innoxia_fields_elis_town_wall]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enforcers]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the Enforcers who're guarding the gatehouse.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- The player IS travelling along the walls (index 1): -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getLastPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_wall]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enforcer]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the Enforcer who's guarding the portcullis.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_lake -->
+	<scene id="lake">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">LAKE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Back]]></responseTitle>
+				<responseTooltip><![CDATA[Turn away from the lake's shore and head back into the fields.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_fields"/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(pc.getLastCell())]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Swim]]></responseTitle>
+				<responseTooltip><![CDATA[Swim out into the middle of the lake.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Skip stones]]></responseTitle>
+				<responseTooltip><![CDATA[Start skipping stones over the surface of the lake.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_lake_deep -->
+	<scene id="lake_deep">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">LAKE_DEEP</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_market -->
+	<scene id="market">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">MARKET</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Information sign]]></responseTitle>
+				<responseTooltip><![CDATA[Take a moment to read one of the information signs positioned at each of the entrances to the market.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_generic_market_info</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="market_info">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">MARKET_INFO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Back]]></responseTitle>
+				<responseTooltip><![CDATA[You've finished reading and so [pc.step] away from the sign.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_market"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_pond -->
+	<scene id="pond">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">POND</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Loiter]]></responseTitle>
+				<responseTooltip><![CDATA[You aren't afraid of a so-called pond monster! Loiter about and see if it decides to show itself.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_road_east -->
+	<scene id="road_east">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">EXTERNAL_ROAD</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_road_west -->
+	<scene id="road_west">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">EXTERNAL_ROAD</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_shops -->
+	<scene id="shops">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">SHOPS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wall's End]]></responseTitle>
+				<responseTooltip><![CDATA[Head into the shopping precinct.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_exit)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_street -->
+	<scene id="street">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">STREET</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_tavern -->
+	<scene id="tavern">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">TAVERN</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Use one of the tavern's entrances to head inside.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_f0_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setRandomLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f0, PLACE_TYPE_innoxia_fields_elis_tavern_f0_exit)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'TAVERN_ENTER'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_tavern_seedy -->
+	<scene id="tavern_seedy">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">TAVERN_SEEDY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_tavern_taur -->
+	<scene id="tavern_taur">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">TAVERN_TAUR</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_tower -->
+	<scene id="tower">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">TOWER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isAbleToFly()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fly down]]></responseTitle>
+				<responseTooltip><![CDATA[As you're capable of flight, you could fly down into the fields from here.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_fields"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_town_fields)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'TOWER_FLY_TO_FIELDS'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_town_hall -->
+	<scene id="town_hall">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">TOWN_HALL</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<21)
+						Use the door marked as the 'public entrance' to head inside Elis's town hall.
+					#ELSE
+						As the town hall is closed at this hour, you're unable to head inside...
+					#ENDIF
+					]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<21)
+						innoxia_places_fields_elis_town_hall_f0_exit
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setRandomLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f0, PLACE_TYPE_innoxia_fields_elis_town_hall_f0_exit)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'TOWN_HALL_ENTER'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_wall -->
+	<scene id="wall">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">WALL</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isAbleToFly()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fly down]]></responseTitle>
+				<responseTooltip><![CDATA[As you're capable of flight, you could fly down into the fields from here.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_fields"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_town_fields)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'WALL_FLY_TO_FIELDS'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_wood_hut -->
+	<scene id="wood_hut">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">WOOD_HUT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Knock]]></responseTitle>
+				<responseTooltip><![CDATA[Knock on the door to the log cabin and introduce yourself to its occupant.<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_woods -->
+	<scene id="woods">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">WOODS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explore]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_woodland.isAnyEncounterAvailable())
+						Spend some time exploring the surrounding woodland to see if you can find anything of interest.
+					#ELSE
+						You get the feeling that you're not going to find anything interesting in the surrounding woodland, so there's no reason to waste your time exploring...
+						<br/>
+						<i>Perhaps if you came back tomorrow there'd be something worth finding.</i>
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_woodland.isAnyEncounterAvailable())
+						defaultForceEncounter
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

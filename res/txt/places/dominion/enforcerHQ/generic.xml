@@ -7,6 +7,11 @@
 	<p>
 		Being built in an extremely imposing example of brutalist architecture, the vast structure before you is strikingly different from the usual residential buildings which Dominion is mostly comprised of. A wide courtyard, paved in drab, grey flagstones and cordoned off with chain bollards, separates the street on which you're standing from this unusual property. Looking up at the façade, which is made almost entirely out of sheets of reflective glass and thick pillars of grey concrete, you see that there's a sign bearing the words 'Enforcer Headquarters, Greyhaven Park'.
 	</p>
+	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+		<p>
+			Shaking your head at what you assume to be a prime example of English architecture, you sigh, [pc.speech(I just feel really sad looking at it...)]
+		</p>
+	#ENDIF
 	<p>
 		As if the sign wasn't enough to reveal this establishment's purpose to any passersby, there are also numerous groups of smartly-dressed
 		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)

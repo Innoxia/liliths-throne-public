@@ -1,6 +1,13 @@
 package com.lilithsthrone.world.population;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.12
@@ -61,4 +68,48 @@ public class PopulationType {
 	public static AbstractPopulationType RECEPTIONIST = new AbstractPopulationType("receptionist", "receptionists") {};
 
 	public static AbstractPopulationType GANG_MEMBER = new AbstractPopulationType("gang member", "gang members") {};
+	
+
+	private static List<AbstractPopulationType> allPopulationTypes = new ArrayList<>();
+	private static Map<AbstractPopulationType, String> populationToIdMap = new HashMap<>();
+	private static Map<String, AbstractPopulationType> idToPlaceMap = new HashMap<>();
+
+	public static List<AbstractPopulationType> getAllPopulationTypes() {
+		return allPopulationTypes;
+	}
+	
+	public static boolean hasId(String id) {
+		return idToPlaceMap.keySet().contains(id);
+	}
+	
+	public static AbstractPopulationType getPopulationTypeFromId(String id) {
+		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());
+		return idToPlaceMap.get(id);
+	}
+
+	public static String getIdFromPopulationType(AbstractPopulationType populationType) {
+		return populationToIdMap.get(populationType);
+	}
+	
+	static {
+		// Hard-coded population types (all those up above):
+		
+		Field[] fields = PopulationType.class.getFields();
+		
+		for(Field f : fields) {
+			if(AbstractPopulationType.class.isAssignableFrom(f.getType())) {
+				AbstractPopulationType populationType;
+				try {
+					populationType = ((AbstractPopulationType) f.get(null));
+
+					populationToIdMap.put(populationType, f.getName());
+					idToPlaceMap.put(f.getName(), populationType);
+					allPopulationTypes.add(populationType);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

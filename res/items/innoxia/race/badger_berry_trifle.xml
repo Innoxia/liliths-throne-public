@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>40</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Berry Trifle]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Berry Trifles]]></namePlural>
+		<description><![CDATA[A small plastic pot, containing a delicious-looking berry trifle. A stylised pair of white stripes streak across the lid's black background, and from the description printed on the pot's side, you can safely deduce that this trifle is advertised towards badger-morphs.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/badger/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">badger_berry_trifle.svg</imageName> <!-- Thanks to DSG for making this svg! -->
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>innoxia_badger</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[badger]]></potionDescriptor>
+		<associatedRace>innoxia_badger</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot healthier...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] off the film lid to the pot of Berry Trifle, before starting to eat the combination of fruit, cream, and custard contained within. The masterful combination of berries makes this treat an absolutely delicious one, and it only takes [npc.herHim] a moment to finish off the entire pot.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] off the film lid to the pot of Berry Trifle, before presenting it to [npc2.name] and getting [npc2.herHim] to start eating the combination of fruit, cream, and custard contained within. The masterful combination of berries makes this treat an absolutely delicious one, and it only takes [npc2.name] a moment to finish off the entire pot.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

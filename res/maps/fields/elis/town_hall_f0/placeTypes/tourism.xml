@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Elis tourism board]]></name>
+	<tooltipDescription><![CDATA[This particular office is signposted as being home to the 'Elis tourism board'.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the office of the 'Elis tourism board' in the town hall]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>office</svgName>
+	<colour>BASE_BLUE_STEEL</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_town_hall_f0_tourism</dialogue>
+	<populationPresent/>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

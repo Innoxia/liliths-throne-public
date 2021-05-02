@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- OUTSIDE -->
+	
+	<htmlContent tag="OUTSIDE"><![CDATA[
+	<p>
+		A giant spire, built out of dark black stone, dominates Dominion's skyline. Finding yourself standing near the base, you notice an increase in the amount of Enforcers patrolling this area.
+	</p>
+	<p>
+		An elaborate golden archway links the tower's grounds to the street that you're standing on. A single word inscribed into the metalwork reads 'Lilith', leaving you with little doubt as to the identity of the demon who lives here.
+	</p>
+	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+		<p>
+			Puzzled by the appearance of the seat of the English government, you mutter to yourself, [pc.speech(
+			[game.random(Sure don't look like it did in the brochure...
+			| Wasn't there supposed to be a big clock somewhere... Maybe it's like a big sundial?)]
+			)]
+		</p>
+	#ENDIF
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area. There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LILITHS_DISTRICT_APPROACH -->
+	
+	<htmlContent tag="LILITHS_DISTRICT_APPROACH"><![CDATA[
+	<p>
+		You walk up to the archway, but as you approach, a pair of elite demon Enforcers seem to appear from out of nowhere, blocking your way. Even if you felt confident enough to beat them, you know that you'd stand no chance in combat against the sheer number of Enforcers that would quickly arrive as backup.
+	</p>
+	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+		<p>
+			Not wanting to leave this area empty-handed, you decide to take a picture for the folks back home. Making sure to get the Enforcers in the background, you pose for a selfie and smile for the camera. Suspicious of your activity, two of the Enforcers step forwards and ask what you're doing, to which you reply, [pc.speech(There's nothing to worry about. I'm an American.)]
+		</p>
+		<p>
+			Slightly annoyed by the look of confusion on the Enforcers' faces, you briefly inform them that America is the greatest country in the world, before shaking your head at their ignorance and taking your leave...
+		</p>
+	#ENDIF
+	<p>
+		<b>Content for Lilith's Tower will be added much later, sometime around version 0.8.0.</b>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

@@ -1,0 +1,160 @@
+<h2>v0.4</h2>
+
+<ul>
+	<h3>DSG's HLF Quest (PR#1398):</h3>
+	<li>Added a new side quest which adds some details of the background lore of the Human Liberation Front (HLF), which was previously explored in Wes's quest.</li>
+	<li>Quest can be triggered when exploring the dark tiles in the Bat Caverns.</li>
+	<li>Added 8 new items of clothing (all of which can be obtained during this quest, and all of which are unisex), and 2 new clothing sets ('HLF Regular' and 'HLF Insurgent'):</li>
+	<li>Skull-patterned bandana (mouth slot).</li>
+	<li>Boonie hat (head slot).</li>
+	<li>Canvas webbing (over-torso slot, HLF Regular set).</li>
+	<li>Vintage fatigue trousers (leg slot, HLF Regular set).</li>
+	<li>Vintage fatigue tunic (torso slot, HLF Regular set).</li>
+	<li>Vintage combat boots (foot slot, HLF Regular set).</li>
+	<li>Canvas brassard (wrist slot, HLF Insurgent set).</li>
+	<li>Canvas bandolier (over-torso slot, HLF Insurgent set).</li>
+	<li>Added 5 new weapons (again, all of which can be obtained during this quest):</li>
+	<li>Arcane firebomb (fire damage, ranged, 2-handed, destroyed after 1 use) - these have an additional associated side quest, the completion of which allows you to get more made. (Innoxia: 'I'll make them 1-handed once I've added throwable weapon framework.')</li>
+	<li>Pepperball submachine gun (fire damage, ranged, 2-handed, requires 2 essences to fire, grants 'Spray 'n Pray' special attack).</li>
+	<li>Pepperball revolver (fire damage, ranged, 2-handed, requires 1 essence to fire, grants 'Fan the Hammer' special attack).</li>
+	<li>Teargas shotgun (poison damage, ranged, 2-handed, requires 4 essences to fire).</li>
+	<li>Pepperball bolt-action rifle (fire damage, ranged, 2-handed, requires 3 essences to fire).</li>
+</ul>
+
+<ul>
+	<h3>Jam's artwork (https://twitter.com/JamDrawers):</h3>
+	<li>Added 3 images for Helena.</li>
+	<li>Added 4 images for Angel.</li>
+	<li>Added 4 images for Epona.</li>
+</ul>
+
+<ul>
+	<h3>KT80's artwork (https://twitter.com/KT80AT):</h3>
+	<li>Added 2 images for Claire.</li>
+	<li>Added 3 images for Bunny.</li>
+	<li>Added 3 images for Loppy.</li>
+</ul>
+
+<ul>
+	<h3>Contributors:</h3>
+	<li>Fixed issue where Enforcer patrols wouldn't spawn correctly. (by AceXP)</li>
+	<li>Fixed bug where non-human coverings wouldn't appear as recolouring options in Helena's slave creator. (by AceXP)</li>
+	<li>Fixed minor parsing issue with Enforcer Patrol description during arcane storms. (by AceXP)</li>
+	<li>Fixed issue where a background error would something be thrown in sex, softlocking the scene. This was being encountered most frequently in Frysia's sex scene. (by AceXP)</li>
+	<li>Fixed bug where arachnid leg descriptions had a parsing error in them. (by Stadler76)</li>
+	<li>Added feature where if an offspring's father and/or mother has generic wings (feathered, leathery or insect) or horns (curled, curved, straight, etc.), the offspring can inherit them. (PR#1370 by Stadler76)</li>
+	<li>Suppressed descriptions of nipples as orifices and transformation options for nipple penetration when that content was turned off in user settings. (PR#1421 by AceXP)</li>
+	<li>Added 'Elasticity depth effects' mechanic: If an orifice's elasticity is at least 'limber', its maximum uncomfortable depth is increased, with greater elasticity values increasing it further. This is off by default, but can be turned on in content settings. (PR#1413 by LightCanadian)</li>
+	<li>Modified UtilText.java to properly handle a few inaccurate British to American translations. (PR#1447 by TadUnlikely)</li>
+	<li>Added offspring inheritance of ferality. Feral mothers now always birth feral offspring. Offspring which take after the father born to a non-feral mother and feral father will always be fully furry. (PR#1451 by Stadler76, modified by Innoxia)</li>
+	<li>Prevented strap-ons from being equipped when there is one already equipped (in another slot). Also fixed issue where covering colour for an equipped dildo was potentially being incorrectly referenced. (PR#1453 by AceXP)</li>
+	<li>Reduced the minimum wing size for allowing flight for feral quadrupeds to 'THREE_LARGE'. (PR#1454 by Stadler76)</li>
+	<li>The 'Cum Stud' fetish now gives the same affection bonus from the milking slave job as the 'Lactating' fetish. (PR#1460 by Eliria)</li>
+	<li>Added a new 'Winged biped' LegConfiguration for use for feral bats and wyverns. (PR#1486 by Stadler76)</li>
+	<li>Made Enforcer disguises more difficult to pull off and added flavour text for when impersonating (or failing to impersonate) specific Enforcers. (PR#1501 by DSG) </li>
+	<li>Fixed bug where if the game was installed in any folder with 'res' in the name, then viewing book entries for external/modded races in the encyclopedia would throw errors. (by Stadler & AceXP)</li>
+	<li>Fixed issue where place tiles were not being populated with regional subspecies in the world map. (by AceXP)</li>
+	<li>Fixed some issues with hard-coded values for NPC spawning in the Bat Caverns, allowing spiders to spawn down there too. (PR#1514 by Stadler)</li>
+	<li>Fixed issue with spider-morphs sometimes incorrectly spawning as the tarantula subspecies. (included in PR#1514 by Stadler, fix by Charisma)</li>
+	<li>Added correct self-transformation options for youko (and any other applicable races with self-TF powers). Added special youko tail perks to track youko tail counts. Also enabled changing secondary coverings colours for Elementals, and changed ice description to glittering instead of shimmering. (PR#1506 by AceXP)</li>
+	<li>Refactored code to automatically generate essences for all races. (PR#1507 by AceXP)</li>
+	<li>Relocated patch notes to HTML files. (PR#1511 by Stadler76)</li>
+	<li>Fix numerous parser errors and typo fixes, mostly with external race files. (PR#1515 by AceXP)</li>
+	<li>Added 'UNENCHANTABLE' as a new item tag, which greys out an item's enchant button in the inventory as if it were a normally unenchantable item type. (PR#1517 by cimds)</li>
+	<li>Fixed bug where 'handjob climax' sex action was describing the orgasming character cumming into their own hands, but their partner's hands were the ones that ended up dirty. Also added handjob climax action to masturbation scenes. Fixed some parser errors with Bunny and Loppy at Angel's brothel. Added wash action after seeing a client at Angel's brothel. (PR#1528 by AceXP)</li>
+	<li>Fixed issue with loading NPCs introduced in 0.4. (PR#1529 by AlacoGit)</li>
+	<li>Tidied up some code and simplified some methods for easier race modding. (PR#1523 by Stadler76)</li>
+	<li>Hyena lore book typo fixes, adjusted spotted hyena heights to fit in with lore. (by Manwhore)</li>
+	<li>Fixed issue where starting a new game would sometimes throw background errors. (by Stadler76)</li>
+	<li>Added some flavour text at Lilith's Tower, Enforcer HQ, and the statue in Slaver Alley for if the player has the tourist occupation. (by DSG)</li>
+</ul>
+
+<ul>
+	<h3>DSG's clothing contributions:</h3>
+	<li>Added 'women's leather jacket' (over-torso slot, feminine, sold by Nyan). (by DSG) (The women's leather jacket already in the game has been renamed to 'Women's fashionable leather jacket'.)</li>
+	<li>Added 'vintage field jacket' (over-torso slot, masculine, sold by Nyan). (by DSG)</li>
+</ul>
+
+<ul>
+	<h3>C4MG1RL's 'Benevolent Blessing' clothing & weapon set contribution:</h3>
+	<li>Added status effect and set bonus for 'Benevolent Blessing'. These three clothing items are all unisex and part of this Benevolent Blessing set. These items will be used along with the trickster set during the youko content later on, so can only be spawned via the debug menu for now.</li>
+	<li>Added 'kyudogi' (torso slot).</li>
+	<li>Added 'mitsugake' (hand slot).</li>
+	<li>Added 'benevolent necklace' (neck/wrists slot).</li>
+	<li>Added weapon 'Hama Yumi' (ranged, two-handed, ice/fire/poison damage types).</li>
+</ul>
+
+<ul>
+	<h3>Sage's 'Latex Lover' clothing set contribution:</h3>
+	<li>Added status effect and set bonus for 'Latex Lover'. All of the following are sold by Finch.</li>
+	<li>Added 'latex crop top' (torso slot, unisex)</li>
+	<li>Added 'latex zip bra' (chest slot, feminine) </li>
+	<li>Added 'latex corset' (stomach slot, feminine)</li>
+	<li>Added 'latex panties' (groin slot, feminine)</li>
+	<li>Added 'latex elbow-length gloves' (hands slot, unisex) </li>
+	<li>Added 'latex arm warmers' (hands/wrists slot, unisex)</li>
+	<li>Added 'latex thigh-high stockings' (calves slot, unisex)</li>
+	<li>Added 'latex open thigh-high stockings' (calves slot, unisex)</li>
+	<li>Added 'latex bodysuit' (stomach slot, feminine)</li>
+</ul>
+
+<ul>
+	<h3>Engine/Modding:</h3>
+	<li>Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.</li>
+	<li>Added 'genericType' fields for Wing and Horn xml files, so that you can define those types as being generic (not associated with any parent race) or not.</li>
+	<li>Fixed spelling error of 'DISBALE_' instead of 'DISABLE_' in SubspeciesFlag values (I added a catch for this in the code so even if your mod has the incorrect spelling it won't break).</li>
+	<li>Added 'flags' as a parser target for quicker access to 'game.getDialogueFlags()'.</li>
+	<li>Added 'CORRUPTION_LEVEL_' prefix as a parsing hook to the CorruptionLevel enum.</li>
+	<li>Added a few methods to the game class  to give you hooks to some useful UtilText methods: parseFromFile(); addSpecialParsingString(); and clearSpecialParsingStrings().</li>
+	<li>Added support for defining maps (both WorldType and PlaceType classes) as external xml files, which will (soon - hopefully in 0.4.1) allow for map modding.</li>
+	<li>Added support for defining DialogueNodes and Encounters as external xml files, which, like the maps, will (soon - hopefully in 0.4.1) allow for scene modding.</li>
+</ul>
+
+<ul>
+	<h3>Gameplay:</h3>
+	<li>Updated descriptions of fields, river, woods, grassland, and Dominion tiles in the world map.</li>
+	<li>Added maps for Elis, Elis's shopping precinct, The Red Dragon tavern (both floors), and Elis town hall (both floors).</li>
+	<li>Added several new unique NPCs for Elis content.</li>
+	<li>The arcane storm status effect message will no longer interrupt scenes if the player character is not within Dominion itself.</li>
+	<li>Added badger race, along with 'Black Stripes Perry' and 'Berry Trifle' as the related drink and food consumables. (Thanks to DSG for creating the trifle image!)</li>
+</ul>
+
+<ul>
+	<h3>Weapons:</h3>
+	<li>Added 'dory' spear (melee, one-handed). (Thanks to DSG for svg edits.)</li>
+</ul>
+
+<ul>
+	<h3>Sex:</h3>
+	<li>Added 'tentacle-squeeze' and 'tail-squeeze' as miscellaneous sex actions which can be performed once a character is restricting their partner via their tentacles or serpent-tail. (These sex actions have sadist/masochist fetishes associated with them.)</li>
+</ul>
+
+<ul>
+	<h3>Other:</h3>
+	<li>Zaranix is now still called 'Zaranix' when in his feminine form, instead of 'Zoelix' (as the name change wasn't being mentioned anywhere or referenced at all, and didn't make much sense).</li>
+	<li>Tidied up Zaranix's post-combat dialogue and added variations for if non-con is turned off, as well as for the player to request Zaranix to transform into succubus form after swallowing his TF potion.</li>
+	<li>Made it so that Zaranix's oral sex scenes now start with you already sucking his cock, instead of having to wait for him to deal with clothing displacements first.</li>
+	<li>The 'flared' and 'tapered' penetration modifiers are now mutually exclusive with one another.</li>
+	<li>Added 'Set spawns' action in debug menu, so that you can easily spawn in all items of any clothing set.</li>
+	<li>Added 'light brown' as a covering colour.</li>
+	<li>Added elder lilin damage attribute so as to separate lilin and elder lilin damage perks.</li>
+	<li>Added functionality to sort saved games by date or alphabetically.</li>
+	<li>Changed 'men's hakama' from being masculine to unisex, and changed the name to just 'hakama'.</li>
+	<li>Added light green as a covering colour.</li>
+</ul>
+
+<ul>
+	<h3>Bugs:</h3>
+	<li>Minor typo and parsing fixes.</li>
+	<li>Fixed actions to play dice poker at tables in the gambling den not being greyed out if you didn't have enough money to play.</li>
+	<li>Pate and crackers will now correctly restore 20% health/aura instead of 5%.</li>
+	<li>Fixed issue where Zaranix (and maids) would sometimes not revert to their default bodies after you'd left his home.</li>
+	<li>You will now exit onto the correct tile when leaving Zaranix's home post-combat, instead of exiting onto a random demon home tile.</li>
+	<li>Fixed bug where you could escape from combat with Zaranix.</li>
+	<li>After resolving Zaranix's quest peacefully, Amber will no longer be so angry on your first repeat visit.</li>
+	<li>Fixed bug where you couldn't go upstairs in Zaranix's house before going to encounter Katherine.</li>
+	<li>The starting action for Arthur's hypno-watch quest is now correctly coloured as a side quest.</li>
+	<li>Fixed oral foot worship sex types having no descriptions in quick sex scenes.</li>
+	<li>Fixed bug where maximum penis girth TF from clothing was capped at value 6 instead of 7.</li>
+	<li>Fixed issue where the kitty clothing set bonus wasn't being applied.</li>
+</ul>
