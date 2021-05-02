@@ -4632,6 +4632,10 @@ public class Game implements XMLSaving {
 	public boolean isDebugMode() {
 		return Main.getProperties().hasValue(PropertyValue.debugMode);
 	}
+	
+	public boolean isCommonwealthMum() {										//Amarok adition
+		return Main.getProperties().hasValue(PropertyValue.useCommonwealthMum);
+	}
 
 	public boolean isLightTheme() {
 		return Main.getProperties().hasValue(PropertyValue.lightTheme);

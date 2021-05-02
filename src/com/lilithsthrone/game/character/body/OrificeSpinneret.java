@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
@@ -23,7 +24,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.4
  * @author Innoxia
  */
-public class OrificeSpinneret implements OrificeInterface {
+public class OrificeSpinneret implements OrificeInterface, BodyPartInterface {
 
 	protected int wetness;
 	protected float capacity;
@@ -470,6 +471,44 @@ public class OrificeSpinneret implements OrificeInterface {
 	
 	public void clearOrificeModifiers() {
 		orificeModifiers.clear();
+	}
+
+	@Override
+	public BodyPartTypeInterface getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDeterminer(GameCharacter gc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName(GameCharacter gc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getNameSingular(GameCharacter gc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getNamePlural(GameCharacter gc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isFeral(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(OrificeSpinneret.class) && getType().getRace().isFeralPartsAvailable());
 	}
 
 }

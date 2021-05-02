@@ -1971,6 +1971,13 @@ public class OptionsDialogue {
 				UtilText.nodeContentSB.append("</div></div>");
 			}
 			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,		//Added by Amarok
+								"MOM_MUM",
+								PresetColour.FEMININE_PLUS,
+								"Maternal Terms",
+								"Replace most instances of 'Mom' and 'Mommy' with 'Mum' and 'Mummy'.",
+								Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)));
+
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 								"ENCHANTMENT_LIMITS",
 								PresetColour.GENERIC_ARCANE,

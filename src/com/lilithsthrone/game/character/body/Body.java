@@ -5324,6 +5324,18 @@ public class Body implements XMLSaving {
 		}
 		descriptionSB.append("[npc.she] [npc.has] a [npc.spinneretFullDescription(true)]. It is not only capable of producing strong webbing, but can also be used as a sexual orifice.");
 		
+		if(owner.isFeral()) {				//Added by Amarok
+			descriptionSB.append(" [style.colourFeral(As is to be expected, [npc.her] [npc.spinneret] is entirely feral in form, and is no different to that of a normal)]");
+		} else if(ass.isFeral(owner)) {		//TODO spinneret still in weird position of hybrid part/orifice
+			descriptionSB.append(" [style.colourFeral(As it is located on the lower, animalistic part of [npc.her] body, [npc.her] [npc.spinneret] is no different to that of a feral)]");
+		}
+		
+		if(owner.hasLegSpinneret()) {
+			descriptionSB.append(" [style.colourFeral([npc.legRace]'s.)]");
+		} else {
+			descriptionSB.append(" [style.colourFeral([npc.tailRace]'s.)]");
+		}
+		
 		// Virgin/capacity:
 		if(spinneret.isVirgin()) {
 			descriptionSB.append(" [npc.She] [npc.has] [style.colourExcellent(retained [npc.her] spinneret virginity)].");
@@ -6200,6 +6212,32 @@ public class Body implements XMLSaving {
 		removeAllMakeup();
 		
 		CharacterModificationUtils.resetCoveringsToBeApplied();
+	}
+
+	/** 
+	 * @param power When true, will turn this character into a feral, version of their current supspecies. When false, will turn this character into their anthro form. will not engage if subspecies cannot be made feral, eg. humans, demons, angles
+	 * @param stage Racial stage to set character to when changing from feral to anthro form, will be greater by default
+	 */
+	public void setFeral(boolean power, RaceStage stage) { //Amarok Custom Code
+		//subspecies calls a spupecies.xml file, such as NoStepOnSnek/snake/subspecies/lLamia.xml
+		//getferalattributes returns feralattributes, which accesses, said container in the xml file
+		AbstractSubspecies subspecies = this.getSubspecies();
+		AbstractRacialBody rb = RacialBody.valueOfRace(this.getRace());
+		FeralAttributes attributes = subspecies == null ? null : subspecies.getFeralAttributes();
+		if (attributes == null) {
+			System.err.println("Error in Body.setFeral(): subspecies '" + Subspecies.getIdFromSubspecies(subspecies)
+					+ "' does not support FeralAttributes!");
+			return;
+		} else {
+			if(power) {
+				this.setFeral(subspecies);
+			} else {
+				this.feral = false;
+				if(stage == null) {stage = RaceStage.GREATER;}
+				Main.game.getCharacterUtils().reassignBody(null, this, this.getGender(), subspecies, stage, false);
+				this.setHeight(this.getGender().isFeminine() ? rb.getFemaleHeight() : rb.getMaleHeight());
+			}
+		}
 	}
 
 	public void removeAllMakeup() {

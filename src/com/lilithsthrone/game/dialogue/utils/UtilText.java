@@ -1306,6 +1306,63 @@ public class UtilText {
 		return input;
 	}
 
+	//Special utility parsing commands to expand capibilities of XML based modding
+	//Allows xml files with long sequences to acsess custom xml files in res/mods/AUTHORNAME/txt
+
+	// public String getTesting(String test) {			//yeah, shit finally works
+	// 	return test;
+	// }
+
+	// public String parsePlayerThought(String text, GameCharacter gc) {
+	// 	return parseThought(text, gc);
+	// }
+
+	// public String getMoarTesting() {
+	// 	return parseFromXMLFile("characters/dominion/rentalMommy", "ENCOUNTER");
+	// }
+
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public String getTextFromXMLFile(String pathName, String tag) {
+		return parseFromXMLFile(new ArrayList<>(), "res/txt/", pathName, tag, new ArrayList<>());
+	}
+
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public String getTextFromXMLFile(List<ParserTag> parserTags, String pathName, String tag) {
+		return parseFromXMLFile(parserTags, "res/txt/", pathName, tag, new ArrayList<>());
+	}
+	
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public String getTextFromXMLFile(String pathName, String tag, GameCharacter... specialNPCs) {
+		return parseFromXMLFile(new ArrayList<>(), "res/txt/", pathName, tag, Util.newArrayListOfValues(specialNPCs));
+	}
+	
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public String getTextFromXMLFile(List<ParserTag> parserTags, String pathName, String tag, GameCharacter... specialNPCs) {
+		return parseFromXMLFile(parserTags, "res/txt/", pathName, tag, Util.newArrayListOfValues(specialNPCs));
+	}
+	
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public String getTextFromXMLFile(String pathName, String tag, List<GameCharacter> specialNPC) {
+		return parseFromXMLFile(new ArrayList<>(), "res/txt/", pathName, tag, specialNPC);
+	}
+	
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public String getTextFromXMLFile(List<ParserTag> parserTags, String folderPath, String pathName, String tag, List<GameCharacter> specialNPC) {
+		return parseFromXMLFile(parserTags, folderPath, pathName, tag, specialNPC);
+	}
+
 	
 	public static List<ParserCommand> commandsList = new ArrayList<>();
 	public static Map<BodyPartType, List<ParserCommand>> commandsMap = new EnumMap<>(BodyPartType.class);
@@ -2102,14 +2159,17 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"mommy",
+						"mummy",
 						"daddy"),
 				true,
 				true,
 				"",
-				"Returns either 'daddy' or 'mommy' based on the character's femininity."){
+				"Returns either 'daddy' or 'mommy' based on the character's femininity. Will return 'mummy' instead of 'mommy' when the setting <i>Maternal Terms<i/> is active."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.isFeminine()) {
+				if(character.isFeminine() && Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {
+					return "mummy";
+				} else if(character.isFeminine() && !Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {		//Added by Amarok
 					return "mommy";
 				} else {
 					return "daddy";
@@ -2125,10 +2185,12 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns either 'dad' or 'mom' based on the character's femininity."){
+				"Returns either 'dad' or 'mom' based on the character's femininity. Will return 'mum' instead of 'mom' when the setting <i>Maternal Terms<i/> is active."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.isFeminine()) {
+				if(character.isFeminine() && Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {
+					return "mum";
+				} else if(character.isFeminine() && !Main.getProperties().hasValue(PropertyValue.useCommonwealthMum)) {		//Added by Amarok
 					return "mom";
 				} else {
 					return "dad";
@@ -2289,7 +2351,7 @@ public class UtilText {
 				if(character.isFeminine()) {
 					return UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank");
 				} else {
-					return UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker");
+					return UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker", "wanker");
 				}
 			}
 		});
@@ -2308,7 +2370,7 @@ public class UtilText {
 				if(character.isFeminine()) {
 					return UtilText.returnStringAtRandom("bitches", "sluts", "cunts", "whores", "skanks");
 				} else {
-					return UtilText.returnStringAtRandom("assholes", "bastards", "fuckfaces", "fuckers");
+					return UtilText.returnStringAtRandom("assholes", "bastards", "fuckfaces", "fuckers", "wankers");
 				}
 			}
 		});
@@ -3631,7 +3693,9 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Description of method"){//TODO
+				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will be moaning, while if they are masculine, they will be groaning."
+				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobbing' or 'crying'."
+				+ " <b>Provides an appropriate <i>gerund verb</i> version of 'moan'.</b>"){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
@@ -3665,7 +3729,10 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Description of method"){//TODO
+				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will be moaning, while if they are masculine, they will be groaning."
+				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobbing' or 'crying'."
+				+ " <b>Expansion of 'moaning' command:</b> This command will append a suitable descriptor before the 'moaning' noise. e.g. 'lewd squealing', or 'eager grunting'."
+				+ " <b>Provides an appropriate <i>gerund verb</i> version of 'moan'.</b>"){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
@@ -9161,7 +9228,11 @@ public class UtilText {
 				System.err.println("Scripting parsing error: "+command);
 				System.err.println(e.getMessage());
 //				e.printStackTrace();
-				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
+				if(Main.game.isDebugMode()) {
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!: " + command.toString() + ")</i>";
+				} else {
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
+				}
 			}
 			
 		} else if(Main.game.isStarted()) { //TODO test:
@@ -9332,8 +9403,10 @@ public class UtilText {
 		engine.put("properties", Main.getProperties());
 		engine.put("RND", Util.random);
 		engine.put("itemGen", Main.game.getItemGen());
+    engine.put("utility", Main.utility);						//Amarok utility addtion to parser
 		engine.put("flags", Main.game.getDialogueFlags());
 		engine.put("dialogueManager", Main.game.getDialogueManager());
+
 		
 		// Java classes:
 		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
@@ -10150,8 +10223,9 @@ public class UtilText {
 				return character.getBody().getVagina().getGirlcum();
 			case WING:
 				return character.getBody().getWing();
+			case SPINNERET:
+				return character.getBody().getSpinneret();
 			case GENERIC:
-			case SPINNERET: //TODO?
 				return null;
 		}
 		return null;

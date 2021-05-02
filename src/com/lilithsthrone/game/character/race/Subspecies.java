@@ -158,6 +158,7 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical human.",
 			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.OLD_WORLD, SubspeciesSpawnRarity.FOUR_COMMON),
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
 					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
@@ -3869,6 +3870,10 @@ public class Subspecies {
 			"alligator-girls",
 			new FeralAttributes(
 					"alligator",
+					"alligators",
+					"alligator",
+					"alligator",
+					"alligators",
 					"alligators",
 					LegConfiguration.QUADRUPEDAL,
 					false,

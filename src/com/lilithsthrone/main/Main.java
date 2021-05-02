@@ -33,6 +33,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;				//Amarok utility addtion to parser
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Util;
@@ -71,6 +72,7 @@ public class Main extends Application {
 	public static Game game;
 	public static Sex sex;
 	public static Combat combat;
+	public static UtilText utility;					//Amarok utility addtion to parser
 
 	public static TransformerFactory transformerFactory = TransformerFactory.newInstance();
 	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -477,6 +479,7 @@ public class Main extends Application {
 		Main.game = new Game();
 		Main.sex = new Sex();
 		Main.combat = new Combat();
+		Main.utility = new UtilText();				//Amarok utility addtion to parser
 		
 		loader = new FXMLLoader(getClass().getResource("/com/lilithsthrone/res/fxml/main.fxml"));
 		try {
