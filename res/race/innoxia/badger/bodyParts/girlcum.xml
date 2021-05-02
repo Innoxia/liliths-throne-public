@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>innoxia_badger</race>
+	
+	<transformationName><![CDATA[badger]]></transformationName>
+	
+	<baseFluidType>GIRLCUM</baseFluidType>
+	
+	<flavour>GIRL_CUM</flavour>
+	
+	<namesMasculine/>
+	
+	<namesFeminine/>
+	
+	<descriptorsMasculine>
+		<name><![CDATA[badger]]></name>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<name><![CDATA[badger]]></name>
+	</descriptorsFeminine>
+	
+	<defaultFluidModifiers>
+		<modifier>SLIMY</modifier>
+	</defaultFluidModifiers>
+	
+</fluid>

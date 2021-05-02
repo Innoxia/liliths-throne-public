@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.69
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public enum BaseColour {
@@ -37,6 +37,7 @@ public enum BaseColour {
 	ROSE_GOLD(Util.newColour(0xE7C1BB), Util.newColour(0xE7C1BB)),
 	
 	TAN(Util.newColour(0xEDC491), Util.newColour(0xDC8D2E)),
+	BROWN_LIGHT(Util.newColour(0xd9b6a3), Util.newColour(0xbd7e5b)),
 	BROWN(Util.newColour(0xD0A38B), Util.newColour(0xB5714A)),
 	BROWN_DARK(Util.newColour(0x9F775B), Util.newColour(0x785945)),
 	AUBURN(Util.newColour(0xCF6654), Util.newColour(0xBB4935)),

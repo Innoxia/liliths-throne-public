@@ -186,6 +186,12 @@ public class Cell implements XMLSaving {
 	public Aquatic getAquatic() {
 		return getPlace().getPlaceType().getAquatic();
 	}
+
+	public boolean isFurniturePresent() {
+		return getPlace().getPlaceType().isFurniturePresentOverride()
+				?getPlace().getPlaceType().isFurniturePresent()
+				:getType().isFurniturePresent();
+	}
 	
 	public DialogueNode getDialogue(boolean withRandomEncounter) {
 		return getPlace().getDialogue(this, withRandomEncounter, false);

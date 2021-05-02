@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>10000</value> 
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[the]]></determiner>
+		<name appendDamageName="false"><![CDATA[Hama Yumi]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Cheater's Yumi]]></namePlural> 
+		<description><![CDATA[A yumi crafted for the youko lilin to smite those who threaten the weak. Arcane arrows fired from this weapon strike hard, strike true, and with grace to match.]]></description> 
+		<attackDescriptor>loose</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Loose an etherial arrow at [npc2.name].]]></attackTooltipDescription>
+		<rarity>LEGENDARY</rarity> 
+		<weaponSet>c4mg1rl_benevolent</weaponSet>
+		<equipText><![CDATA[[npc.Name] [npc.verb(draw)] the Hama Yumi, readying it for combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] puts away [npc.her] yumi.]]></unequipText>
+		<imageName>hama_yumi.svg</imageName> 
+		<imageEquippedName>hama_yumi.svg</imageEquippedName>
+		<physicalResistance>0</physicalResistance> 
+		<damage>50</damage>
+		<arcaneCost>2</arcaneCost> 
+		<damageVariance>NONE</damageVariance> 
+		<availableDamageTypes>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+		</effects>
+		<extraEffects/>
+		<onHitEffect/>
+		<onCriticalHitEffect/>
+		<primaryColours recolouringAllowed="true" values="JUST_BROWN"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_TAN"/> 
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_SILVER"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<itemTags/>
+		
+	</coreAttributes>
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Taking aim with [npc.her] yumi, [npc.name] [npc.verb(manage)] to strike [npc2.name] in the chest; the ethereal arcane arrow passing through [npc2.her] torso to drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		Taking aim with [npc.her] yumi, [npc.name] [npc.verb(manage)] to strike through [npc2.her] [npc2.arm] with the ethereal arrow and drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a bated breath, [npc.name] looses an etherial arrow at [npc2.name], sinking into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
+		]]></hitText>
+		<criticalHitText><![CDATA[
+		With focused breath [npc.name] let loose a charged arrow delivering a devastating shot to [npc2.her] neck!
+		]]></criticalHitText>
+	</hitDescriptions>
+	<missDescriptions>
+		<missText><![CDATA[
+		Taking aim with [npc.her] yumi, [npc.name] [npc.verb(attempt)] to strike [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Taking aim at [npc2.name] with [npc.her] yumi, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a bated breath, [npc.name] looses an etherial arrow at [npc2.name] with [npc.her] yumi, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

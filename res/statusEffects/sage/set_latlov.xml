@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>70</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>INVENTORY</category>
+	<beneficial>NEUTRAL</beneficial>
+	<combatEffect>false</combatEffect>
+	<sexEffect>false</sexEffect>
+	<name><![CDATA[Latex Lover]]></name>
+	<description><![CDATA[
+		[npc.NameIsFull] currently wearing items of clothing made from skin tight latex; the shiny, buttery-smooth material serves to enhance [npc.her] features and increase lust damage. However, due to its tightness it's also making [npc.name] more horny...
+	]]></description>
+	<imageName>set_latlov.svg</imageName>
+	<colourPrimary>CLOTHING_RED</colourPrimary> 
+	<colourSecondary/> 
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="25.0">DAMAGE_LUST</modifier>
+		<modifier value="5.0">RESISTANCE_FIRE</modifier>
+		<modifier value="-10.0">RESISTANCE_LUST</modifier>
+		<modifier value="25.0">RESTING_LUST</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects/>
+	<applicationCondition><![CDATA[
+		[#SET_BONUS_sage_ltxset.isCharacterWearingCompleteSet(npc)]
+	]]></applicationCondition>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+</statusEffect>

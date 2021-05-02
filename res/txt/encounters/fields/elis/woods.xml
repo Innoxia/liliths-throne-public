@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Finding berries encounter: -->
+
+	<htmlContent tag="FIND_BERRIES"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_berries_encountered))
+		<p>
+			While [pc.walking] through the woods and observing the local flora, you suddenly spot another one of those curious berry bushes which you've previously happened upon. Being no more than a small shrub, it's not the plant's diminutive size which draws your attention, nor its rather plain-looking oval green leaves. Instead, what leads you to stoop down and take a closer look at this botanical specimen is the luminosity and size of the red and purple berries which hang off of it.
+		</p>
+		<p>
+			As you take a closer look, you see that the red berries have grown into the shape of hearts, while the purple ones have taken the form of small stars. With the shape of the berries strongly hinting at the possibility of this plant not being a product of natural evolution, you assume that it must have been designed and grown for commercial use, although how it ended up growing here in the middle of these woods will likely forever remain a complete mystery.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_berries_eaten))
+				Knowing from previous experience that these berries are not only edible, but extremely delicious, you begin to wonder whether you should take advantage of your discovery and help yourself to the plant's bounty. Reaching out to touch the closest of the red berries, you're once again amazed to see that it starts to glow a bright pink the closer you move it to its purple companions. While you know that eating either the red or purple berries should be safe, consuming both types at once is surely going to be a bad idea.
+			#ELSE
+				Although it'd typically be a terrible idea to taste wild, unidentified produce of any kind, the sweet, somehow-familiar smell which these berries are giving off gives you a strong feeling that they're edible. Reaching out to touch the closest of the red ones, you're amazed to see that it starts to glow a bright pink the closer you move it to its purple companions. While you're confident that eating either the red or purple berries should be safe, consuming both types at once is surely going to be a bad idea.
+			#ENDIF
+		</p>
+		<p>
+			Toying with the berries for a moment longer, you wonder whether to eat them or simply leave them behind and continue on your way...
+		</p>
+	#ELSE
+		<p>
+			While [pc.walking] through the woods and observing the local flora, you suddenly happen to spot a most unusual looking plant. Being no more than a small shrub, it's not the plant's diminutive size which draws your attention, nor its rather plain-looking oval green leaves. Instead, what leads you to stoop down and take a closer look at this botanical specimen is the luminosity and size of the red and purple berries which hang off of it.
+		</p>
+		<p>
+			As you take a closer look, you see that the red berries have grown into the shape of hearts, while the purple ones have taken the form of small stars. With the shape of the berries strongly hinting at the possibility of this plant not being a product of natural evolution, you assume that it must have been designed and grown for commercial use, although how it ended up growing here in the middle of these woods will likely forever remain a complete mystery.
+		</p>
+		<p>
+			Although it'd typically be a terrible idea to taste wild, unidentified produce of any kind, the sweet, somehow-familiar smell which these berries are giving off gives you a strong feeling that they're edible. Reaching out to touch the closest of the red ones, you're amazed to see that it starts to glow a bright pink the closer you move it to its purple companions. While you're confident that eating either the red or purple berries should be safe, consuming both types at once is surely going to be a bad idea.
+		</p>
+		<p>
+			Toying with the berries for a moment longer, you wonder whether to eat them or simply leave them behind and continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BERRIES_IGNORE"><![CDATA[
+	<p>
+		Deciding that it's best not to eat berries from a random bush in the middle of the woods, you stand up and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EAT_BERRIES_RED"><![CDATA[
+	<p>
+		Deciding to try your luck with the red berries, you pick one from the plant and experimentally break it open to give it a lick, noting that there are no seeds within as you do so. The flavour is similar to its smell; a sweet, vaguely strawberry-like taste, it compels you to pop the rest of the berry into your mouth and swallow it down. Immediately, you're overcome with an intense desire to eat the rest of the red berries, and within a couple of minutes you've done just that.
+	</p>
+	<p>
+		Left with a craving for more of these delicious fruits, you turn your attention towards the purple specimens, only to see that they're rapidly withering up and falling from the plant as inedible husks. Wondering if this behaviour is the reason why you've never seen this plant being cultivated before, you stand up and scan your surroundings for any more of them.
+	</p>
+	<p>
+		While your quick search unfortunately proves to be fruitless, your craving for more of the red berries is quickly replaced by a wonderful feeling of health and vigour spreading out from your body's core, which also washes away any negative thoughts you were having.
+		#IF(pc.hasLegs())
+			 With a spring in your step,
+		#ELSE
+			 Smiling happily to yourself,
+		#ENDIF
+		 you set off on your way through the woods, making sure to keep a lookout for any more of those berry bushes as you go...
+	</p>
+	[#SPECIAL_PARSE_0]
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EAT_BERRIES_PURPLE"><![CDATA[
+	<p>
+		Deciding to try your luck with the purple berries, you pick one from the plant and experimentally break it open to give it a lick, noting that there are no seeds within as you do so. The flavour is similar to its smell; a sweet, vaguely raspberry-like taste, it compels you to pop the rest of the berry into your mouth and swallow it down. Immediately, you're overcome with an intense desire to eat the rest of the purple berries, and within a couple of minutes you've done just that.
+	</p>
+	<p>
+		Left with a craving for more of these delicious fruits, you turn your attention towards the red specimens, only to see that they're rapidly withering up and falling from the plant as inedible husks. Wondering if this behaviour is the reason why you've never seen this plant being cultivated before, you stand up and scan your surroundings for any more of them.
+	</p>
+	<p>
+		While your quick search unfortunately proves to be fruitless, your craving for more of the purple berries is quickly replaced by a wonderful feeling of clear-mindedness, which also washes away any negative thoughts you were having.
+		#IF(pc.hasLegs())
+			 With a spring in your step,
+		#ELSE
+			 Smiling happily to yourself,
+		#ENDIF
+		 you set off on your way through the woods, making sure to keep a lookout for any more of those berry bushes as you go...
+	</p>
+	[#SPECIAL_PARSE_0]
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EAT_BERRIES_BOTH"><![CDATA[
+	<p>
+		Despite your instincts telling you that the behaviour of the berries to glow bright pink when in close proximity to one another is a bad sign, you decide to eat both the red and purple ones at the same time. Quickly picking a pair of them from the plant, you experimentally break them both open to give each one a lick, noting that there are no seeds within either of them as you do so. The flavour of the berries is similar to their smell; a sweet, vaguely strawberry-like taste for the red one, and hints of raspberry for its purple counterpart.
+	</p>
+	<p>
+		As the tastes of the two berries combine on your tongue, you suddenly find your mouth filled with an intensely sweet cherry-like flavour. The result of combining the berries doesn't end there, as you're suddenly overcome with an intense desire to eat as many of them as possible, and after popping the ones in your [pc.hands] into your mouth, you spend the next couple of minutes ravenously devouring every last one of both the red and purple berries.
+	</p>
+	<p>
+		What follows next is an intense, sudden spike of arousal, the strength of which causes you to let out [pc.a_moan+].
+		#IF(pc.hasPenis())
+			 Your [pc.cock+] immediately rises to attention,
+			#IF(pc.hasVagina())
+				 while beneath it
+				#IF(pc.getVaginaWetness().getArousalNeededToGetVaginaWet()>0)
+					 you feel your [pc.pussyWetness] [pc.pussy] starting to drip from excitement.
+				#ELSE
+					 you feel your [pc.girlcum+] start to stream out of your [pc.pussyWetness] [pc.pussy].
+				#ENDIF
+			#ELSE
+				 and you're struck by the sudden urge to masturbate right here in the middle of the woods.
+			#ENDIF
+		#ELSEIF(pc.hasVagina())
+			#IF(pc.getVaginaWetness().getArousalNeededToGetVaginaWet()>0)
+				 Your [pc.pussyWetness] [pc.pussy] immediately starts to drip from excitement,
+			#ELSE
+				 You feel your [pc.girlcum+] immediately start to stream out of your [pc.pussyWetness] [pc.pussy],
+			#ENDIF
+			 and you're struck by the sudden urge to masturbate right here in the middle of the woods.
+		#ELSE
+			 Despite lacking genitalia, you're immediately struck by the sudden urge to masturbate right here in the middle of the woods.
+		#ENDIF
+		#IF(pc.isTaur())
+			 Although unable to reach your genitals due to their distant location on your [pc.legRace]'s body, you feel as though you wouldn't need much stimulation to orgasm right now. As you start to decide how best to masturbate,
+		#ELSE
+			  As your [pc.hands] drop down towards your genitals,
+		#ENDIF
+		 you're able to gain a moment of clarity, and use it to quickly decide whether or not to give in and pleasure yourself...
+	</p>
+	[#SPECIAL_PARSE_0]
+	[#SPECIAL_PARSE_1]
+	[#SPECIAL_PARSE_2]
+	[#SPECIAL_PARSE_3]
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EAT_BERRIES_BOTH_CALM_DOWN"><![CDATA[
+	<p>
+		Not wanting to masturbate in the middle of the woods, you take control of your emotions and focus on calming down.
+		#IF(pc.hasPenis())
+			 Although your throbbing erection
+			#IF(pc.hasVagina())
+				 and wet pussy don't make it easy,
+			#ELSE
+				 doesn't make it easy,
+			#ENDIF
+		#ELSEIF(pc.hasVagina())
+			 Although your wet pussy doesn't make it easy,
+		#ELSE
+			 Although it's not easy,
+		#ENDIF
+		 you're able to successfully subdue your near-overwhelming lust, and after what aspires to be almost ten minutes of steadily breathing and doing your best to not fantasise about
+		#IF(pc.getSexualOrientation().isAttractedToFeminine())
+			 the berry bush transforming into a sexy dryad,
+		#ELSE
+			 a hot satyr appearing from out of the bushes,
+		#ENDIF
+		 your intense arousal is firmly under control.
+	</p>
+	<p>
+		Looking down at the cause of this unexpected near-sexual experience, you see that there are already tiny little red and purple berries starting to regrow on the bush. Not wanting to wait around for who-knows how many hours or days it will take for them to reach full maturity, there's little else for you to do here, and so you set off on your way through the woods once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BERRIES_MASTURBATING_START"><![CDATA[
+	<p>
+		Deciding that it's best to address your overwhelming arousal in the most direct manner possible, you let out [pc.a_moan+] and prepare to start masturbating right here in the middle of the woods...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BERRIES_AFTER_MASTURBATING"><![CDATA[
+	#IF(sex.getNumberOfOrgasms(pc)>0)
+		<p>
+			Satisfied from
+			#IF(sex.getNumberOfOrgasms(pc)>1)
+				 experiencing multiple orgasms,
+			#ELSE
+				 bringing yourself to an orgasm,
+			#ENDIF
+			 you let out a sigh and take a quick look around to make sure that nobody's snuck up on you while you were distracted.
+			#IF(pc.hasFetish(FETISH_EXHIBITIONIST))
+				 Much to your disappointment, there's no sign of anyone having watched your lewd display,
+			#ELSE
+				 Much to your relief, there's absolutely no sign of anyone in the woods around you,
+			#ENDIF
+			 and so with little else to do here you prepare to move off and continue on your way.
+		</p>
+		<p>
+			Before you go, however, you take one last glance down at the berry bush which provided you with this unexpected source of pleasure. Much to your amazement, it seems to have somehow reacted to your orgasm, as in the place where each of the red and purple berries were hanging just a short time ago, a bulbous, brown seed pod has rapidly grown. Not looking in the least bit appetising, you decide to leave the plant's newly-acquired seeds behind; after all, if ever you had a need or desire to gather these seeds, you now know roughly where to find these berry bushes and how to entice them into producing seeds. 
+		</p>
+		<p>
+			With one final sigh, you leave the bush behind and continue on your way through the woods...
+		</p>
+	#ELSE
+		<p>
+			Although not satisfied due to failing to experience even a single orgasm, you find yourself losing your will to masturbate, and so put an end to your lewd activities. After letting out a frustrated sigh, you take a quick look around to make sure that nobody's snuck up on you while you were distracted.
+			#IF(pc.hasFetish(FETISH_EXHIBITIONIST))
+				 Much to your disappointment, there's no sign of anyone having watched your lewd display,
+			#ELSE
+				 Much to your relief, there's absolutely no sign of anyone in the woods around you,
+			#ENDIF
+			 and so with little else to do here you prepare to move off and continue on your way.
+		</p>
+		<p>
+			Before you go, however, you take one last glance down at the berry bush which provided you with this unexpected experience. Much to your amazement, you see that there are already tiny little red and purple berries starting to regrow on the plant's green stems. Not wanting to wait around for who-knows how many hours or days it will take for them to reach full maturity, you let out one final sigh and set off on your way through the woods once again...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Finding clearing encounter: -->
+	
+	<htmlContent tag="FIND_CLEARING"><![CDATA[
+	<p>
+		Although the patches of woodland surrounding Elis aren't large by any stretch of the imagination, they're still big enough to conceal many interesting terrain features, such as small ponds, rocky depressions, and tranquil clearings. It's into one of these clearings which you find yourself inadvertently entering, and thanks to the
+		#IF(game.isDayTime())
+			 sunlight
+		#ELSE
+			 moonlight
+		#ENDIF
+		 which is streaming down through the break in the canopy, you're able to immediately identify a couple of fallen trees which look suitable for you to use as a place to sit down and get some rest.
+	</p>
+	<p>
+		#IF(game.getSeason()==SEASON_WINTER)
+			Although there isn't much foliage to be seen at this time of year, there are a few nearby coniferous trees which add a welcome splash of green to the otherwise monotone landscape.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+				 Although the clearing's floor is covered in deep snow, there are several animal tracks which criss-cross the area, which would allow you to easily approach the fallen trees and take a break, if you should so desire...
+			#ELSE
+				 With winter's first snow not yet having fallen, the frozen ground is covered in browning grass, and as you take a moment to 
+				#IF(game.isDayTime())
+					 listen to the occasional chirp of birdsong,
+				#ELSE
+					 appreciate the quiet of the night,
+				#ENDIF
+				 you wonder whether to stop here and take a short break...
+			#ENDIF
+		#ELSEIF(game.getSeason()==SEASON_AUTUMN)
+			Due to the time of year, the leaves on the surrounding trees can be seen in all sorts of beautiful shades of red, orange, yellow, and green. The clearing's floor is painted in these same colours, and with a pleasant, moist scent of autumnal mulch in the air, you take a moment to
+			#IF(game.isDayTime())
+				 listen to the birdsong
+			#ELSE
+				 appreciate the quiet of the night
+			#ENDIF
+			 and wonder whether to stop here and take a short break...
+		#ELSE
+			Although a gentle breeze causes the surrounding trees to rhythmically sway to and fro, the wind's strength is depleted by the time it reaches the clearing's floor, allowing the wild grasses and flowers before you to remain all but motionless. These pretty flowers bestow a delicate floral scent to this area, and you can't help but stop and take a moment to appreciate both the scene before you and the
+			#IF(game.isDayTime())
+				 harmonious sound of birdsong.
+			#ELSE
+				 quiet of the night.
+			#ENDIF
+			 Letting out a satisfied sigh, you wonder whether to stop here and take a short break...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLEARING_RELAX"><![CDATA[
+	<p>
+		Deciding that you deserve a break, you head over to the fallen trees and find a comfortable spot upon which to sit. Letting your mind wander, you spend about half an hour relaxing in this tranquil clearing, after which you feel remarkably refreshed and well rested. Wondering if your rejuvenation is due to some sort of benevolent arcane spell, or if it's simply the calming nature of this clearing at work, you stand back up and set off on your way once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLEARING_LEAVE"><![CDATA[
+	<p>
+		You don't have time to relax in the clearing, and so quickly pass over to the other side and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

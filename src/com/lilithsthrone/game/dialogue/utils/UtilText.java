@@ -23,7 +23,6 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
-import jdk.nashorn.api.scripting.NashornScriptEngine;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -152,8 +151,12 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
+import com.lilithsthrone.game.dialogue.AbstractDialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
+import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
+import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.SetBonus;
@@ -190,6 +193,7 @@ import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
+import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
@@ -208,6 +212,7 @@ public class UtilText {
 	private static AbstractClothingType clothingTypeForParsing;
 	private static Body body;
 	private static AbstractRace race;
+	private static CharacterInventory inventory;
 	
 //	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise;
@@ -9250,6 +9255,12 @@ public class UtilText {
 		return null;
 	}
 
+	public static GameCharacter findFirstCharacterFromParserTarget(String target) {
+		ParserTarget parserTarget = findParserTargetWithTag(target);
+		
+		return parserTarget.getCharacter(target, new ArrayList<>(Main.game.getCharactersPresent()));
+	}
+
 	private static ParserCommand findCommandWithTag(String command) {
 		for(ParserCommand cmd : commandsList) {
 			for(String s : cmd.getTags()) {
@@ -9321,6 +9332,8 @@ public class UtilText {
 		engine.put("properties", Main.getProperties());
 		engine.put("RND", Util.random);
 		engine.put("itemGen", Main.game.getItemGen());
+		engine.put("flags", Main.game.getDialogueFlags());
+		engine.put("dialogueManager", Main.game.getDialogueManager());
 		
 		// Java classes:
 		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
@@ -9520,6 +9533,10 @@ public class UtilText {
 		for(AbstractAttribute att : Attribute.getAllAttributes()) {
 			engine.put("ATTRIBUTE_"+Attribute.getIdFromAttribute(att), att);
 		}
+		for(CorruptionLevel corruption : CorruptionLevel.values()) {
+			engine.put("CORRUPTION_LEVEL_"+corruption.toString(), corruption);
+		}
+		
 		
 		// Combat:
 		for(DamageType damageType : DamageType.values()) {
@@ -9562,8 +9579,8 @@ public class UtilText {
 		for(DayPeriod dayPeriod : DayPeriod.values()) {
 			engine.put("DAY_PERIOD_"+dayPeriod.toString(), dayPeriod);
 		}
-		for(DialogueFlagValue flag : DialogueFlagValue.values()) {
-			engine.put("FLAG_"+flag.toString(), flag);
+		for(AbstractDialogueFlagValue flag : DialogueFlagValue.getAllDialogueFlagValues()) {
+			engine.put("FLAG_"+flag.getId(), flag);
 		}
 		for(NPCFlagValue flag : NPCFlagValue.values()) {
 			engine.put("NPC_FLAG_"+flag.toString(), flag);
@@ -9615,6 +9632,9 @@ public class UtilText {
 		}
 		for(AbstractPlaceUpgrade upgrade : PlaceUpgrade.getAllPlaceUpgrades()) {
 			engine.put("PLACE_UPGRADE_"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade), upgrade);
+		}
+		for(AbstractEncounter encounter : Encounter.getAllEncounters()) {
+			engine.put("ENCOUNTER_"+Encounter.getIdFromEncounter(encounter), encounter);
 		}
 
 		
@@ -10280,6 +10300,18 @@ public class UtilText {
 			initScriptEngine();
 		}
 		engine.put(tag, getRaceForParsing());
+	}
+
+	public static CharacterInventory getInventoryForParsing() {
+		return inventory;
+	}
+	
+	public static void setInventoryForParsing(String tag, CharacterInventory inventory) {
+		UtilText.inventory = inventory;
+		if(engine==null) {
+			initScriptEngine();
+		}
+		engine.put(tag, getInventoryForParsing());
 	}
 	
 //	private static final Map<String, CompiledScript> memo = new HashMap<>();

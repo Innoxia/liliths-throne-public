@@ -498,7 +498,7 @@ public class EnforcerWarehouse {
 		@Override
 		public String getContent() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireWarning)) {
-				NPC guard = Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_WAREHOUSE).getNearestCell(PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST, Main.game.getPlayer().getLocation())).get(0);
+				NPC guard = Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_WAREHOUSE).getClosestCell(Main.game.getPlayer().getLocation(), PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST)).get(0);
 				return UtilText.parseFromXMLFile("places/dominion/enforcerWarehouse/generic", "CLAIRE_WARNING", guard);
 			} else {
 				return CORRIDOR.getContent();

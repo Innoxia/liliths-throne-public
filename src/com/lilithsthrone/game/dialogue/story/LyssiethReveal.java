@@ -631,6 +631,7 @@ public class LyssiethReveal {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX_HUMAN"));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 						}
 					};
 				} else {
@@ -640,6 +641,7 @@ public class LyssiethReveal {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX"));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 						}
 					};
 				}

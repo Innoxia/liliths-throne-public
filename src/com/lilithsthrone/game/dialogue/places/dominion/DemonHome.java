@@ -51,7 +51,6 @@ public class DemonHome {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -69,7 +68,6 @@ public class DemonHome {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
 						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
@@ -120,7 +118,6 @@ public class DemonHome {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -138,7 +135,6 @@ public class DemonHome {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
 						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
