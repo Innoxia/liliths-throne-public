@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueFlags>
+	<!-- Additional dialogue flags for use in the game.
+	The 'dailyReset' value determines whether or not the flag gets reset to false at midnight every day.
+	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
+	 i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
+	
+	<!-- Elis -->
+	
+	<!-- Woods -->
+	<flag dailyReset="true">elis_berries_found</flag>
+	<flag dailyReset="false">elis_berries_eaten</flag>
+	<flag dailyReset="false">elis_berries_encountered</flag>
+	
+	<!-- Town -->
+	<flag dailyReset="false">elis_blacksmith_visited</flag>
+	<flag dailyReset="false">elis_clothing_visited</flag>
+	<flag dailyReset="false">elis_convenience_visited</flag>
+	<flag dailyReset="false">elis_toilets_hole_ever_made</flag>
+	<flag dailyReset="true">elis_toilets_hole_made</flag>
+	
+	<!-- NPC introductions -->
+	<flag dailyReset="false">elis_minotallys_introduced</flag>
+	<flag dailyReset="false">elis_flash_introduced</flag>
+	<flag dailyReset="false">elis_jess_introduced</flag>
+	
+	
+</dialogueFlags>

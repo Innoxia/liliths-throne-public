@@ -65,7 +65,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
+import com.lilithsthrone.game.sex.managers.universal.SMMasturbation;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -309,8 +309,14 @@ public class PhoneDialogue {
 					if(Main.game.getPlayerCell().getPlace().isDangerous()) {
 						return new Response(title, "You can only loiter to pass the time when in a safe area!", null);
 					}
-					if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-						return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+					if(Main.game.getPlayer().getLocationPlace().getPlaceType().isLoiteringEnabledOverride()) {
+						if(!Main.game.getPlayer().getLocationPlace().getPlaceType().isLoiteringEnabled()) {
+							return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+						}
+					} else {
+						if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
+							return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+						}
 					}
 					return new Response(title, "Think about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
 					
@@ -1186,7 +1192,7 @@ public class PhoneDialogue {
 				AbstractAttribute attribute = Attribute.racialAttributes.get(race);
 				int damageModifier = (int) Main.game.getPlayer().getAttributeValue(attribute);
 				if(race==Race.DEMON) {
-					// DEMON is split in IMP, DEMON and LILIN damage
+					// DEMON is split in IMP, DEMON, LILIN, and ELDER_LILIN damage
 					UtilText.nodeContentSB.append(
 							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_IMP,
 									"Increases damage vs imps by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_IMP))+"%</b>",
@@ -1198,6 +1204,10 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LILIN,
 									"Increases damage vs lilin by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LILIN))+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ELDER_LILIN,
+									"Increases damage vs elder lilin by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ELDER_LILIN))+"%</b>",
 									true));
 				} else {
 					UtilText.nodeContentSB.append(

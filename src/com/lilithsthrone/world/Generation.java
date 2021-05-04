@@ -2,6 +2,7 @@ package com.lilithsthrone.world;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -45,7 +46,13 @@ public class Generation extends Task<Boolean> {
 //		System.out.println(worldType);
 		if(worldType.isUsesFile()) {
 			try {
-				BufferedImage img = ImageIO.read((getClass().getResource(worldType.getFileLocation())));
+				
+				BufferedImage img;
+				if(worldType.isFromExternalFile()) {
+					img = ImageIO.read(new File(worldType.getFileLocation()));
+				} else {
+					img = ImageIO.read((getClass().getResource(worldType.getFileLocation())));
+				}
 				
 				World world = new World(img.getWidth(), img.getHeight(), null, worldType);
 //				Main.game.getWorlds().put(worldType, world);

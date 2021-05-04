@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.dominion;
+package com.lilithsthrone.game.sex.managers.universal;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1406,7 +1406,7 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
-				if(!Main.game.isWeatherInterruptionsEnabled()) {
+				if(!Main.game.isWeatherInterruptionsEnabled() || !Main.game.getPlayer().getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION)) {
 					return "";
 				}
 				
@@ -1522,7 +1522,7 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
-				if(!Main.game.isWeatherInterruptionsEnabled()) {
+				if(!Main.game.isWeatherInterruptionsEnabled() || !Main.game.getPlayer().getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION)) {
 					return "";
 				}
 				
@@ -1591,7 +1591,7 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
-				if(!Main.game.isWeatherInterruptionsEnabled()) {
+				if(!Main.game.isWeatherInterruptionsEnabled() || !Main.game.getPlayer().getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION)) {
 					return "";
 				}
 				

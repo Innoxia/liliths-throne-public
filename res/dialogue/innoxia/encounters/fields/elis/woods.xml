@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Note: I use the words 'dialogue node' and 'scene' interchangeably in these comments, as the game's 'dialogue nodes' are simply different scenes which are presented to the player. -->
+	
+	<!-- Each one of these xml files can contain any number of dialogue nodes, each one of which is encompassed by 'node' element tags. -->
+	<scene id ="berries_found">
+		
+		<!-- What name you'd like to use to claim credit for creating this scene.
+		If omitted or left blank, then your mod's folder name will be used instead. -->
+		<author><![CDATA[Innoxia]]></author>
+		
+		<!-- The title of this scene, which will be displayed as the title at the the top-centre of the UI.
+		This can be omitted entirely, and is done so in most of the game's scenes, as when omitted the game instead uses the name of the tile which the player is current in as the title. -->
+		<title><![CDATA[Berry bounty]]></title>
+		
+		<!-- A scene's tooltip is almost always defined within a response to the scene which precedes it, and as such this field is almost never used or seen by the player.
+		The only time where this is actually used is when a scene immediately follows on from a sex scene, in which case this is seen as the tooltip to the action which ends sex.
+		As such, don't worry about filling this out (you can even omit it entirely). -->
+		<tooltip><![CDATA[You find berries!]]></tooltip>
+		
+		<!-- This is a conditional statement which is executed before the scene's dialogue is parsed.
+		This allows you to make any gameplay changes before the scene is presented to the player (which can be very useful for making sure that transformed characters get parsed correctly).
+		You may sometimes find yourself wishing to apply gameplay changes, then parsing some text, making more changes, then parsing that text.
+			e.g. Move a masculine character into a new tile, parse their dialogue, transform their femininity, parse their dialogue - which would now be pink after the transformation.
+			If you require that behaviour, then leave the 'content' element below blank (so that no text is parsed by default), and using the game.appendToTextStartStringBuilder() and game.appendToTextEndStringBuilder() methods within this 'preParsingEffects' element.
+			If you want to use the above methods with text that's parsed from an xml file, use:
+				game.parseFromFile(String pathName, String tag, GameCharacter... specialNPCs)
+				e.g.: [#game.parseFromFile('txt/encounters/fields/elis/woods', 'FIND_BERRIES')]
+				And in the appendToTextStartStringBuilder method: [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'FIND_BERRIES'))]
+		The conditional statements which you put into this element will only ever be parsed once, immediately before the scene is displayed to the player.
+		If you require effects to be parsed after the scene, then use the effects element in responses. -->
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_elis_berries_found, true)]
+			[#flags.setFlag(FLAG_innoxia_elis_berries_encountered, true)]
+		]]></preParsingEffects>
+		
+		<!-- This is where the scene's content is defined - it's not directly located within these dialogue files as splitting the framework from the content makes everything a lot easier to read and debug (as changes to the dialogue can be reflected and therefore tested without needing to recompile or restart the game).
+		The 'folderPath' attribute is the path from your lilithsthrone/res folder to the xml file in which your content is written.
+			The game should recognise forward slashes as appropriate file separators for the player's operating system, so even if you don't normally use forward slashes, please use them in 'folderPath' definitions.
+		The text value within this 'content' element (in this case 'FIND_BERRIES') points to the actual piece of dialogue within the file specified in 'folderPath'.
+			This value is defined as the 'tag' attribute in the dialogue's 'htmlContent' element.
+		You can leave this element blank (or omit it entirely) if you are instead relying on the game.appendToTextStartStringBuilder() and game.appendToTextEndStringBuilder() methods to parse text.-->
+		<content folderPath="txt/encounters/fields/elis/woods">FIND_BERRIES</content>
+		
+		<!-- How many seconds are passed during this scene.
+		You can set the 'minutes' attribute to true to make your value represent minutes instead of seconds - in this example, 5 minutes will be passed, but if 'minutes' was false, then 5 seconds would be passed.
+			This is just so that it's easier to input values, so you don't need to calculate your minutes*60 for every scene. -->
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		
+		<!-- This defines whether or not this scene carries on from the one before it (so that the scene is appended to the end of the previous scene, allowing the player to scoll up and re-read what's happened prior to this scene).
+		I usually define this as true when the scene forms part of a multi-scene conversation, or in any other case when this scene is logically part of whatever has happened prior to it.
+		I don't want an encounter to display the tile's default dialogue above it (which is what would be the scene prior to this), so I'll leave this as false.
+		Please use either 'true' or 'false' for the values here.
+		You can also omit this value entirely, in which case it will default to false. -->
+		<continuesDialogue>false</continuesDialogue>
+		
+		<!-- This defines whether or not this scene disables the player's ability to move, and should be defined as true when you want to prevent the player from simply walking away from the scene without choosing a response.
+		Please use either 'true' or 'false' for the values here.
+		You can also omit this value entirely, in which case it will default to false. -->
+		<travelDisabled>true</travelDisabled>
+		
+		<!-- This defines whether or not the player's inventory is disabled.
+		You can omit this value entirely if you want, in which case it will default to false (or true if travelDisabled is true).
+			NOTE: This will always be true regardless of what you put here if the 'travelDisabled' element above is true (this is because some items could potentially move the player out of the scene, so if a scene's travel is disabled, items must be too.)
+		Please use either 'true' or 'false' for the values here. -->
+		<inventoryDisabled>true</inventoryDisabled>
+		
+		<!-- This defines whether the player's health and aura regenerate as normal during this scene.
+		This should almost always be false unless you have a specific reason for not letting the player recover their health/aura.
+		Please use either 'true' or 'false' for the values here. -->
+		<regenerationDisabled>false</regenerationDisabled>
+		
+		<!-- Responses: -->
+		<!-- The actual content and handling of a scene is only half of what a dialogue node is about.
+		As equally important as what the player reads is what choices you give to them next.
+		That's handled by 'response' elements, which determine which dialogue node is shown to the player next, and which can also apply effects.
+		Note: I use 'response' as the name for actions which are presented to the payer in scenes, so 'response' and 'action' can be used interchangeably. -->
+		
+		<!-- You can define tabs for responses here (tabs being the same 'self', 'sex actions' etc. tabs that are present during sex scenes).
+		Important note: If you don't use consecutive indexing for your tabs, then those that come after a missing tab will not work!
+			i.e. You need to define tabs of index of 0 and 1 in order to have a tab with index of 2. -->
+		<responseTabs>
+			<!-- This dialogue node doesn't require any tabs, but I've added this one to present you with an example.
+			The 'index' attribute determines the position of the tab, and starts at 0 and goes up to a MAXIMUM of 4. (Any values over 4 will be discarded.)
+			The contents of this element supports conditional statements, and if an empty value is returned (whitespace is not taken into account) then the tab will not be present in the scene.
+			Whatever text is returned by this element will be the tab's title. -->
+			<tab index="0"><![CDATA[
+				#IF(false)
+					This will never be seen!
+				#ENDIF
+			]]></tab>
+			<tab index="1"><![CDATA[
+				#IF(false)
+					Neither will this!
+				#ENDIF
+			]]></tab>
+		</responseTabs>
+		
+		<!-- Finally, this is the section in which the actual responses to the scene are defined.
+		You can have as many responses as you'd like.
+		With that being said, please bear in mind:
+			The response in index 0 is displayed as the bottom-right action to the player, which I often reserve for 'back'/'return' actions.
+			Responses of an index of 15 or higher will only be displayed to the player if the previous 14 actions are used, and will be on the next 'page' of responses, which are unlikely to get as much attention from the player as the actions on the first page.
+				As such, you should really try to limit your number of responses to under 15. -->
+		<responses>
+			<!-- Sometimes you might want to vary the properties of a response based on gameplay variables.
+			As such, all of the elements within a response support conditional statements. -->
+			<response>
+				<!-- You can define a conditional here to allow this response to be presented to the player or not.
+				You can omit this entirely, in which case this response will always be available.
+				It should return either 'true' or 'false' (trailing or leading whitespace is ignored). -->
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+			
+				<!-- The index of the responseTab in which this response can be found.
+				This must be either 0 (default value) or an index of a tab that you've defined up above in the 'responseTabs' element. -->
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				
+				<!-- The position of this response within the actions panel at the bottom of the UI.
+				Please return a positive integer, ideally within the range of 0-14.
+				Multiple responses can have the same index, provided that the 'availabilityConditional' above is configured in such a way as to make them mutually exclusive. -->
+				<index><![CDATA[1]]></index>
+				
+				<!-- The title of this response, as seen by the player on the action button. -->
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				
+				<!-- The tooltip contents of this response, as seen by the player when they hover their mouse over this response's action button. -->
+				<responseTooltip><![CDATA[You don't think that eating wild berries is a very wise thing to do, and so decide to leave them untouched and continue on you way.]]></responseTooltip>
+				
+				<!-- The colour of the title's text, which should most likely be omitted or left blank, as action colouring should only be used to let the player know the action leads to combat, sex, trade, or a quest (which apart from quests are handled automatically).
+				You can define this as either a PresetColour value or a raw colour hex.
+				If defining a raw colour hex, use this format: <colour>#cafe69</colour>
+				Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+				<colour><![CDATA[TEXT]]></colour>
+				
+				<!-- The next dialogue node to progress to after selecting this action.
+				The values 'default' and 'defaultWithEncounter' are special values which correspond to:
+					'default': The default dialogue in which the player is located. This will not generate any random encounter.
+					'defaultWithEncounter': The default dialogue in which the player is located. This has the tile's standard chance of generating a random encounter.
+					'defaultForceEncounter': The default dialogue in which the player is located. This will guarantee that a random encounter is generated, if one is available. This is useful for 'Explore' actions.
+					'null' and 'empty': No dialogue will be linked, in which case the button will appear to the player but be greyed-out.
+				You can add an attribute named 'defaultPlaceType' if you want this response to link to a default dialogue of another place type.
+					To use, simply define the 'defaultPlaceType' attribute as an id of the PlaceType you want to link to.
+					The dialogue will not have a random encounter.
+					e.g.: <nextDialogue defaultPlaceType="innoxia_fields_elis_tavern"/>
+				You can also choose to leave this element blank or omit it entirely, in which case this response will act as an 'effects only' response, and will not proceed into a new scene.
+					While this can be useful for applying effects without transitioning into a new scene, you're probably not ever going to need to use this behaviour.
+				The 'stripContent' attribute, when defined as 'true', leads into the defined dialogue node as usual, but doesn't display its usual content to the player.
+					This can be useful to do if you want a response to lead into a pre-defined dialogue node, but you want to change the usual content via using the 'game.appendToTextStartStringBuilder()' or 'game.appendToTextEndStringBuilder()' methods.
+					A typical example of this is when leading back into the tile's default dialogue node, but you want to display a description of the player continuing on their journey instead of the tile's usual content.
+					This will only have an effect if this response is not a trading, combat, or sex response.
+				You can also define an additional 'forceContinue' attribute, which if set to 'true' will make the next dialogue node act as though its 'continuesDialogue' variable is true.
+					i.e. If I defined this field as such:
+						<nextDialogue forceContinue="true"><![CDATA[default]]></nextDialogue>
+						Then the next scene would have the default tile's content appended to the end of the current content, even though the default dialogue likely has 'continuesDialogue' set to false. -->
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				
+				<!-- This is an optional element which, when included, takes priority over the next dialogue node's 'secondsPassed' value.
+					i.e. If a dialogue node declares 60 seconds to pass, but a response which leads into that dialogue node instead declares 30 seconds to pass, then 30 seconds will pass when the player selects the response instead of 60.
+				The 'minutes' attribute works exactly like the 'secondsPassed' element for the dialogue node above. -->
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		
+				<!-- This is executed once when selecting the response, before the next dialogue node's preParsingEffects are called.
+				You can use this to define special effects as a result of selecting this response.
+				Effects are applied *before* the next scene is loaded. -->
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'BERRIES_IGNORE'))]
+				]]></effects>
+				
+				<!-- The player will require just one of the defined fetishes in order to unlock this response.
+				This can be omitted.
+				Note: The player can enable 'fetish bypass' for responses, which means that they will be able to use this response even if they don't have the fetish (although they will gain corruption by doing so).
+				If you use a conditional statement, either return a fetish name or nothing.
+				This action does not have any associated fetishes, but if you wanted to add one or more, just use this format:
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_TRANSFORMATION_RECEIVING]]></fetish>
+					<requiredFetishes>
+				Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/fetishes/Fetish.java
+				-->
+				<requiredFetishes/>
+				
+				<!-- When choosing this action, the player will gain corruption if their corruption is lower than the specified level.
+				This can be omitted.
+				If you use a conditional statement, either return a corruption level name (as they appear in the CorruptionLevel.java class) or nothing.
+				This action does not have an associated corruption level, but if you wanted to add it, just use this format:
+					<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
+				Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/CorruptionLevel.java
+				-->
+				<corruptionLevel/>
+				
+				<!-- Very similar to the 'requiredFetishes' element above, the player will require just one of the defined perks in order to unlock this response (if the perk is an equippable trait, that trait must be equipped).
+				This can be omitted.
+				If you use a conditional statement, either return a perk name (as they appear in the Perk.java class) or nothing.
+				This action does not have any associated perks, but if you wanted to add one or more, just use this format:
+					<requiredPerks>
+						<perk><![CDATA[PERK_OBSERVANT]]></perk>
+					<requiredPerks>
+				Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/Perk.java
+				-->
+				<requiredPerks/>
+				
+				<!-- The player will need to be of the specified femininity in order to use this action.
+				This can be omitted.
+				Note: A 'requiredFemininity' of FEMININE will also be passed by a FEMININE_STRONG character, and the same for MASCULINE - MASCULINE_STRONG.
+					A 'requiredFemininity' of FEMININE_STRONG will NOT be passed by a FEMININE character, and the same for MASCULINE_STRONG - MASCULINE.
+					A 'requiredFemininity' of ANDROGYNOUS will ONLY be passed by ANDROGYNOUS characters.
+				If you use a conditional statement, either return a femininity name (as they appear in the Femininity.java class) or nothing.
+				This action does not have an associated femininity, but if you wanted to add it, just use this format:
+					<requiredFemininity><![CDATA[FEMININE_STRONG]]></requiredFemininity>
+				values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Femininity.java
+				-->
+				<requiredFemininity/>
+				
+				<!-- The player will need to be classified as (or appearing as, if the player is a demon with racial TF abilities) one of the defined subspecies in order to use this action.
+				This can be omitted.
+				If you use a conditional statement, either return a subspecies id (either as they appear in the Subspecies.java class or, if from an external file, their generated id) or nothing.
+				This action does not have any associated subspecies requirements, but if you wanted to add them, just use this format:
+					<requiredSubspecies>
+						<subspecies><![CDATA[WOLF_MORPH]]></subspecies>
+						<subspecies><![CDATA[innoxia_panther_subspecies_snow_leopard]]></subspecies>
+					</requiredSubspecies>
+				-->
+				<requiredSubspecies/>
+				
+				
+				<!-- Important note: Responses can be NO MORE THAN ONE of the following: trading response, combat response, sex response.
+				Enabling more than one of the special variable sections below will result in only one of them actually taking effect (with any others being ignored). -->
+				
+				<!-- Trade variables: -->
+				
+				<!-- Opening a trade window with an NPC (who is defined as a trader) is initiated via a response, and as such you can define the small amount of required information here to make a response lead into a trading scene.
+				If your response doesn't lead into a trading scene, you need to either delete this section or set the 'enabled' attribute to false (as I've done - I've added that attribute so that I can show you a full example without it actually affecting the response).
+				Note: Trade scenes do not take into account any of the requirements above, nor the 'nextDialogue' element.
+					Only the 'index', 'title', and 'tooltip' elements are used from those defined above.
+				Additional note: The parser targets 'npc', 'npc2', etc. correspond to characters who are present in the player's tile, which are sorted by level and then by name.
+				Do not pass in the player character here ('pc' or 'player'), otherwise you'll get a NPE and the game will freeze and/or crash. -->
+				<tradingVariables enabled="false">
+					<tradePartner><![CDATA[nyan]]></tradePartner>
+				</tradingVariables>
+				
+				
+				<!-- Combat variables: -->
+				
+				<!-- Combat is initiated via a response, and as such you can define the required information here to make a response lead into a combat scene.
+				If your response doesn't lead into a combat scene, you need to either delete this section or set the 'enabled' attribute to false (as I've done - I've added that attribute so that I can show you a full example without it actually affecting the response).
+				Note: Combat scenes do not take into account any of the requirements above, nor the 'nextDialogue' element (as the next dialogue to be shown is the combat engine's dialogue).
+					Only the 'index', 'title', and 'tooltip' elements are used from those defined above. -->
+				<combatVariables enabled="false">
+					<!-- The dialogue node which the game will progress to if the player wins combat.
+					This element does not support the special 'default' values like the 'nextDialogue' element above, as you should be leading into a specific scene after combat, even if it's just a simple paragraph or two. -->
+					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_elis_berries_fight_won]]></nextDialoguePlayerVictory>
+					<!-- The dialogue node which the game will progress to if the player loses combat.
+					This element also does not support the special 'default' values. -->
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_elis_berries_fight_won]]></nextDialoguePlayerDefeat>
+					<!-- A list of allies who will be on your side during the fight.
+					If the 'companionsAreAllies' attribute is true, the player's companions are included as allies. -->
+					<allies companionsAreAllies="true">
+						<ally><![CDATA[nyan]]></ally>
+					</allies>
+					<!-- A list of enemies who you'll be fighting during the fight. -->
+					<enemies>
+						<!-- Just one enemy should have the 'leader' attributed defined as true.
+						If you miss this out, then a random enemy will end up as the leader. -->
+						<enemy leader="true"><![CDATA[brax]]></enemy>
+					</enemies>
+					<!-- An optional element where you can define custom text for the opening dialogue for each character.
+					You can omit this section entirely, or omit as many of the combatants as you want (in which case they'll use a generic opening dialogue). -->
+					<openingDescriptions>
+						<combatant id="nyan"><![CDATA[Nyan points her minigun at Brax and exclaims, [nyan.speech(I've had enough!)]]]></combatant>
+						<combatant id="brax"><![CDATA[Brax looks rather worried and stutters, [brax.speech(W-Why am I always the one being picked on?)]]]></combatant>
+					</openingDescriptions>
+				</combatVariables>
+				
+				
+				<!-- Sex variables: -->
+				
+				<!-- Responses can, of course, lead into the start of a sex scene.
+				As such, there are several elements here which provide the required information to the sex code to get a sex scene started.
+				If your response doesn't lead into a sex scene, you need to either delete this section or set the 'enabled' attribute to false (as I've done - I've added that attribute so that I can show you a full example without it actually affecting the response).
+				Note: Unlike combat scenes, the requirements above are all taken into account, except for the 'nextDialogue' element (as the next dialogue to be shown is the sex engine's dialogue).
+				Additional note: Modded sex managers are not supported yet, so custom sex scenes cannot be added.
+					As such, you're limited to generic ones (with starting behaviour determined by the 'tags' element below), which should nevertheless be suitable for most sex scenes. -->
+				<sexVariables enabled="false">
+					<!-- Whether this is a consensual scene or not.
+					You should be using the game.isNonConEnabled() method somewhere (likely in the 'availabilityConditional' element above) to make sure you aren't displaying non-con scenes to players who have that content turned off. -->
+					<consensual><![CDATA[true]]></consensual>
+					<!-- Whether the submissive partner(s) in this sex scene have the same level of control as the dominant(s), thereby allowing them to end sex or change positions. -->
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<!-- A list of the dominant partners in this sex scene.
+					Don't forget to define the player as either a dom or sub (or a spectator)! -->
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<!-- A list of the submissive partners in this sex scene. -->
+					<submissives>
+						<character><![CDATA[lilaya]]></character>
+					</submissives>
+					<!-- A list of the dominant spectators in this sex scene. -->
+					<dominantSpectators>
+						<character><![CDATA[rose]]></character>
+					</dominantSpectators>
+					<!-- A list of the submissive spectators in this sex scene. -->
+					<submissiveSpectators>
+						<character><![CDATA[meraxis]]></character>
+					</submissiveSpectators>
+					<!-- The dialogue node which the game will progress to after sex.
+					Note: The dialogue node which is next should be defining a proper 'tooltip' element, as this is the only case in which that tooltip is ever seen by the player.
+					This element does not support the special 'default' values. -->
+					<postSexDialogue><![CDATA[innoxia_encounters_elis_fields_berries_after_sex]]></postSexDialogue>
+					<!-- This is where the sex scene's opening content is defined.
+					The 'folderPath' attribute is the path from your lilithsthrone/res folder to the xml file in which your content is written.
+						The game should recognise forward slashes as appropriate file separators for the player's operating system, so even if you don't normally use forward slashes, please use them in 'folderPath' definitions.
+					The text value within this 'content' element (in this case 'WOODLAND_SEX_START') points to the actual piece of dialogue within the file specified in 'folderPath'.
+						This value is defined as the 'tag' attribute in the dialogue's 'htmlContent' element. -->
+					<sexStartContent folderPath="txt/encounters/fields/elis/woods">WOODLAND_SEX_START</sexStartContent>
+					<!-- A list of ResponseTags which alter the behaviour of the sex scene.
+					Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/responses/ResponseTag.java -->
+					<tags>
+						<tag>PREFER_ORAL</tag>
+					</tags>
+				</sexVariables>
+			</response>
+			
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Eat red berries]]></responseTitle>
+				<responseTooltip><![CDATA[Decide to eat the red berries and leave the purple ones behind.]]></responseTooltip>
+				<nextDialogue>innoxia_encounters_fields_elis_woods_berries_eaten</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setHealthPercentage(1)]
+					[#game.addSpecialParsingString(pc.addPotionEffect(ATTRIBUTE_HEALTH_MAXIMUM, 10, true), true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'EAT_BERRIES_RED'))]
+				]]></effects>
+			</response>
+			
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Eat purple berries]]></responseTitle>
+				<responseTooltip><![CDATA[Decide to eat the purple berries and leave the red ones behind.]]></responseTooltip>
+				<nextDialogue>innoxia_encounters_fields_elis_woods_berries_eaten</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setManaPercentage(1)]
+					[#game.addSpecialParsingString(pc.addPotionEffect(ATTRIBUTE_MANA_MAXIMUM, 10, true), true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'EAT_BERRIES_PURPLE'))]
+				]]></effects>
+			</response>
+			
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<colour><![CDATA[ATTRIBUTE_CORRUPTION]]></colour>
+				<responseTitle><![CDATA[Eat all berries]]></responseTitle>
+				<responseTooltip><![CDATA[Decide to eat both the red and purple berries, despite your instincts telling you that doing so will have [style.colourCorruption(corruptive effects)]!]]></responseTooltip>
+				<nextDialogue>innoxia_encounters_fields_elis_woods_berries_eaten_both</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString(pc.addPotionEffect(ATTRIBUTE_HEALTH_MAXIMUM, 15, true), true)]
+					[#game.addSpecialParsingString(pc.addPotionEffect(ATTRIBUTE_MANA_MAXIMUM, 15, true), false)]
+					[#game.addSpecialParsingString(pc.incrementAttribute(ATTRIBUTE_MAJOR_CORRUPTION, 1+RND.nextInt(3)), false)]
+					[#game.addSpecialParsingString(pc.incrementLust(100, false), false)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'EAT_BERRIES_BOTH'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="berries_eaten">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_elis_berries_eaten, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having consumed the berries and gained their effects, you're ready to continue on your way.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="berries_eaten_both">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_elis_berries_eaten, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Calm down]]></responseTitle>
+				<responseTooltip><![CDATA[Spend some time calming down, before continuing on your way through the woods.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'EAT_BERRIES_BOTH_CALM_DOWN'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementLust(-50, false))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Masturbate]]></responseTitle>
+				<responseTooltip><![CDATA[You can't control yourself! Besides, there'd be no harm in masturbating here in the middle of the woods.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_woods_berries_after_masturbating]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/elis/woods">BERRIES_MASTURBATING_START</sexStartContent>
+					<tags/>
+				</sexVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="berries_after_masturbating">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've had enough of masturbating, and so put a stop to it and prepare to move on...]]></tooltip>
+		<preParsingEffects/>
+		<content folderPath="txt/encounters/fields/elis/woods">BERRIES_AFTER_MASTURBATING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Continue on your way through the woods.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Clearing: -->
+	
+	<scene id="clearing">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<content folderPath="txt/encounters/fields/elis/woods">FIND_CLEARING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have time to relax, and so continue on your way past the clearing.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'CLEARING_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Relax]]></responseTitle>
+				<responseTooltip><![CDATA[Spend some time relaxing in the idyllic clearing.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[35]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'CLEARING_RELAX'))]
+					[#pc.applySleep(35)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

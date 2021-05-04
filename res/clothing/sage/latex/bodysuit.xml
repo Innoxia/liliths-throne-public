@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<value>3900</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[latex bodysuit]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[latex bodysuits]]></namePlural>
+		<description><![CDATA[A tight shiny latex bodysuit worn by high ranking members of the church of Lilith, it looks like liquid oil and conforms to every curve in an almost sinful way.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>STOMACH</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>sage_ltxset</clothingSet> 
+		<imageName>bodysuit.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>6</enchantmentLimit>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>ASS</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>MOUND</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>TESTICLES</bodyPart>
+					<bodyPart>BREASTS_CROTCH</bodyPart>
+					<bodyPart>NIPPLES_CROTCH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>ANUS</slot>
+					<slot>GROIN</slot>
+					<slot>PENIS</slot>
+					<slot>VAGINA</slot>
+					<slot>PIERCING_NIPPLE</slot>
+					<slot>PIERCING_VAGINA</slot>
+					<slot>PIERCING_PENIS</slot>
+				</concealedSlots> 
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired />
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>BREASTS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>NIPPLE</slot>
+					<slot>CHEST</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>SHIFTS_ASIDE</displacementType>
+				<clothingAccessRequired />
+				<blockedBodyParts>
+					<bodyPart>ASS</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>MOUND</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>TESTICLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>ANUS</slot>
+					<slot>GROIN</slot>
+					<slot>PENIS</slot>
+					<slot>VAGINA</slot>
+					<slot>PIERCING_VAGINA</slot>
+					<slot>PIERCING_PENIS</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots>
+			<slot>GROIN</slot>
+			<slot>CHEST</slot>
+		</incompatibleSlots>
+		
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_BLACK"/>
+		<tertiaryColoursDye values="ALL"/>
+
+		<itemTags> 
+			<tag>SOLD_BY_FINCH</tag>
+		</itemTags>
+	</coreAtributes>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You fully unbuckle your bodysuit and pull it off.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You fully unbuckle [npc.name]'s bodysuit and pull it off.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you fully unbuckle [npc.her] bodysuit and roughly pull it off.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] fully unbuckles [npc.her] bodysuit and pulls it off.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] fully unbuckles your bodysuit and pulls it off.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] fully unbuckles your bodysuit and roughly pulls it off.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] fully unbuckles [npc2.name]'s bodysuit and pulls it off.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] fully unbuckles [npc2.her] bodysuit and roughly pulls it off.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You pull on your bodysuit and buckle yourself up.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You guide [npc.name] into the bodysuit and buckle [npc.herHim] up.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you roughly force [npc.herHim] into the bodysuit, before buckling [npc.herHim] up.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] pulls on [npc.her] bodysuit and buckles [npc.herself] up.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] guides you into the bodysuit and buckles you up.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] roughly forces you into the bodysuit, before buckling you up.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] guides [npc2.name] into the bodysuit and buckles [npc2.herHim] up.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces [npc2.herHim] into the bodysuit, before buckling [npc2.herHim] up.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+	
+</clothing>

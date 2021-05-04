@@ -3041,20 +3041,25 @@ public class ItemType {
 								?"impish"
 								:(mainSubspecies.getRace()==Race.DEMON && override >= 5 && override <= 20
 									?"demonic"
-									:(mainSubspecies.getRace()==Race.DEMON && override >= 5000
+									:(mainSubspecies==Subspecies.LILIN
 										?"lilin"
-										:raceName.toLowerCase()))))
+										:(mainSubspecies==Subspecies.ELDER_LILIN
+											?"elder lilin"
+											:raceName.toLowerCase())))))
 							+ " intuition",
 						null,
 						mainSubspecies.getColour(null),
 						true,
 						Util.newHashMapOfValues(new Util.Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
 								new Util.Value<>(
-									(mainSubspecies.getRace()==Race.DEMON && override <= 2
+									mainSubspecies.getRace()==Race.DEMON && override <= 2
 										?Attribute.DAMAGE_IMP
-										:mainSubspecies.getRace()==Race.DEMON && override >= 5000
-										?Attribute.DAMAGE_LILIN
-										:Attribute.getRacialDamageAttribute(mainSubspecies.getRace())), 25f)),
+										:(mainSubspecies==Subspecies.LILIN
+											?Attribute.DAMAGE_LILIN
+											:mainSubspecies==Subspecies.ELDER_LILIN
+												?Attribute.DAMAGE_ELDER_LILIN
+												:Attribute.getRacialDamageAttribute(mainSubspecies.getRace())),
+									25f)),
 						null) {
 					@Override
 					public String getDescription(GameCharacter target) {
