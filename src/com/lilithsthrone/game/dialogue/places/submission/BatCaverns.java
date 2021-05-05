@@ -1,9 +1,11 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import com.lilithsthrone.game.character.effects.Perk;
 import java.time.DayOfWeek;
 
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.encounters.BatCavernsEncounterDialogue;
@@ -11,8 +13,11 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @since 0.2.3
@@ -94,6 +99,40 @@ public class BatCaverns {
 						
 			} else if(index==2) {
 				return getElleSearchResponse();
+			} else if(index==3
+				    && (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+				    || Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+					if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseDarkPassFound)) {
+					    if (Util.random.nextInt(100) <= 20 + (Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT) ? 30 : 0)) {
+						if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+						    return new Response("Search for password", 
+									"Peer into the darkness and search harder for the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE);
+						}
+						else {
+						    return new Response("Search for password", 
+									"Peer into the darkness and search harder for the rest of the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO);
+						}
+					    }
+					    else {
+						return new Response("Search for password", 
+									"Peer into the darkness and search harder for the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SEARCH_FAILED);
+					    }
+					} else {
+					    return new Response("Search for password", 
+							    "You've already found the password in this area.", 
+							    null);
+					}
+			} else if(index==4
+				&& Main.game.isSillyMode()
+				&& (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+				|| Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+				    return new Response("I'm a busy [pc.man]!", 
+							    "This is such a waste of time."
+								    + "<br/>[style.boldBad(This will skip all content and rewards for the Grave Robbing quest!)]", 
+							    BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SILLY);
 			}
 			return null;
 		}
@@ -127,6 +166,40 @@ public class BatCaverns {
 						
 			} else if(index==2) {
 				return getElleSearchResponse();
+			} else if(index==3
+				    && (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+				    || Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+					if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseLightPassFound)) {
+					    if (Util.random.nextInt(100) <= 20 + (Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT) ? 30 : 0)) {
+						if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+						    return new Response("Search for password", 
+									"Poke around the mushrooms and search harder for the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE);
+						}
+						else {
+						    return new Response("Search for password", 
+									"Poke around the mushrooms and search harder for the rest of the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO);
+						}
+					    }
+					    else {
+						return new Response("Search for password", 
+									"Poke around the mushrooms and search harder for the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SEARCH_FAILED);
+					    }
+					} else {
+					    return new Response("Search for password", 
+							    "You've already found the password in this area.", 
+							    null);
+					}
+			} else if(index==4
+				&& Main.game.isSillyMode()
+				&& (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+				|| Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+				    return new Response("I'm a busy [pc.man]!", 
+							    "This is such a waste of time."
+								    + "<br/>[style.boldBad(This will skip all content and rewards for the Grave Robbing quest!)]", 
+							    BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SILLY);
 			}
 			return null;
 		}
@@ -392,7 +465,6 @@ public class BatCaverns {
 						}
 					};
 				}
-				
 			} else {
 				return CAVERN_DARK.getResponse(responseTab, index-1);
 			}

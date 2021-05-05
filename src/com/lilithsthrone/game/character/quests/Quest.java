@@ -1441,7 +1441,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "The firebombs you got from the mysterious cave could come in handy, if only you had a way to get more.";
+			return "The firebombs you got from the mysterious cave could come in handy in a fight. You'll need to find someone who can either make or acquire more.";
 		}
 		@Override
 		public String getCompletedDescription() {
