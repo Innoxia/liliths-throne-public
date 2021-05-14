@@ -6,8 +6,7 @@
 		This area of the bat caverns is home to the staircase that leads back up to Submission. A wooden sign next to the staircase warns any traveller against consuming the mushrooms found in certain parts of the caverns. A picture of some glowing blue mushrooms is displayed next to this warning, and beneath that, there's some information that identifies this particular fungi to be an exception. Apparently, it's the only edible type of mushroom that grows down here, and is highly sought-after by the slimes which inhabit these caverns. Apparently, eating these mushrooms has caused the slimes down here to glow, and also causes them to experience psychedelic effects, which makes their behaviour highly unpredictable.
 	</p>
 	<p>
-		Looking up towards the top of the staircase, you see the relatively bright lighting of Submission's tunnels shining down to illuminate the top dozen or so steps.
-		 Perhaps because of that ever-present source of light, this area seems entirely deserted...
+		Looking up towards the top of the staircase, you see the relatively bright lighting of Submission's tunnels shining down to illuminate the top dozen or so steps. Perhaps because of that ever-present source of light, this area seems entirely deserted...
 	</p>
 	]]>
 	</htmlContent>
@@ -177,7 +176,12 @@
 	
 	<htmlContent tag="FIND_MUSHROOMS_DARK"><![CDATA[
 	<p>
-		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you see a faint glimmer of light on the floor up ahead. Approaching this irregularity, you find that the light source is in fact a small cluster of glowing blue mushrooms. Crouching down, you take a look at this peculiar fungi, and, comparing it to the mushrooms on the sign at the entrance to the Bat Caverns, you're certain that these are the ones that are edible.
+		#IF(pc.hasLegs())
+			With the weight of each of your footsteps
+		#ELSE
+			With the weight of your [pc.legs]
+		#ENDIF
+		 causing the carpet of bioluminescent lichen to light up and just about illuminate your way, you continue [pc.walking] through the otherwise dark caverns. As you continue to make forwards progress, you suddenly see a faint glimmer of light on the floor up ahead. Approaching this irregularity, you discover that this light source is in fact a small cluster of glowing blue mushrooms. Crouching down, you take a look at this peculiar fungi, and after mentally comparing it to the mushrooms on the sign at the entrance to the Bat Caverns, you're certain that these are the ones which are edible.
 	</p>
 	]]>
 	</htmlContent>
@@ -187,7 +191,7 @@
 		As you travel through the underground mushroom forest, you see a splash of bright purple slime sprayed up the side of a nearby mushroom-tree. First glancing around to check that the slime who left this mark is long gone, you then take a step towards this purple goo in order to investigate further.
 	</p>
 	<p>
-		As you approach, you see that there's a similar patch of glowing slime on the floor at the base of the tree, but unlike the goo splashed up the trunk, this slime is a bright orange. Beside this pool of orange goo, you see that one of the participants of what you assume to have been a sexual encounter has dropped a little package.
+		As you approach, you see that there's a similar patch of glowing slime on the floor at the base of the tree, but unlike the goo splashed up the trunk, this slime is a bright orange. Beside this pool of orange goo, you see that one of the participants of what you assume to have been a sexual encounter has dropped some sort of a package.
 	</p>
 	<p>
 		Opening this package reveals:
@@ -197,15 +201,199 @@
 	
 	<htmlContent tag="FIND_ITEM_DARK"><![CDATA[
 	<p>
-		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you see a splash of bright pink slime sprayed up the side of the wall up ahead. First glancing around to check that the slime who left this mark is long gone, you then take a step towards this pink goo in order to investigate further.
+		#IF(pc.hasLegs())
+			With the weight of each of your footsteps
+		#ELSE
+			With the weight of your [pc.legs]
+		#ENDIF
+		 causing the carpet of bioluminescent lichen to light up and just about illuminate your way, you continue [pc.walking] through the otherwise dark caverns. As you continue to move forwards, you suddenly see a splash of bright pink slime sprayed up the side of the wall up ahead. First glancing around to check that the slime who left this mark is long gone, you take a step towards this pink goo in order to investigate further.
 	</p>
 	<p>
-		As you approach, you see that there's a similar patch of glowing slime on the floor at the base of the wall, but unlike the goo which first drew your attention, this slime is a bright green. Beside this pool of green goo, you see that one of the participants of what you assume to have been a sexual encounter has dropped a little package.
+		As you approach, you see that there's a similar patch of glowing slime on the floor at the base of the wall, but unlike the goo which first drew your attention, this slime is a bright green. Beside this pool of green goo, you see that one of the participants of what you assume to have been a sexual encounter has dropped some sort of a package.
 	</p>
 	<p>
 		Opening this package reveals:
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- In the BatCavernsEncounterDialogue.java class -->
+	
+	<!-- REBEL_BASE_DISCOVERED -->
+	
+	<htmlContent tag="REBEL_BASE_DISCOVERED"><![CDATA[
+	<p>
+		#IF(pc.hasLegs())
+			With the weight of each of your footsteps
+		#ELSE
+			With the weight of your [pc.legs]
+		#ENDIF
+		 causing the carpet of bioluminescent lichen to light up and just about illuminate your way, you continue [pc.walking] through the otherwise dark caverns. By a stroke of exceptional luck, as you pass by what at first appears to be yet another featureless cave wall, you just so happen to notice a sliver of a shadow that's being cast onto it by the dim light of the surrounding bioluminescent fungi. While a shadow ordinarily wouldn't be enough to catch your interest, this one has a suspiciously straight edge to it. With your curiosity piqued, you take a moment to investigate, and after approaching it you can see that this shadow is being cast by a well-hidden door handle that's just barely jutting out from the rock.
+	</p>
+	<p>
+		Between the dim light and the thick layer of dust on it, you can't tell how old this handle is or how long it's been here. Briefly glancing around, you can see no obvious seams or hinges that might suggest the presence of a door.
+		#IF(pc.isCowardly())
+			 Your cowardly mind immediately jumps to the conclusion that this handle might activate some sort of trap. Nervously gulping, you fret to yourself about whether or not to try pulling it...
+		#ELSEIF(pc.isBrave())
+			 Although a part of you recognises the fact that this handle might activate some sort of trap, you're far too brave to let such a possibility deter you from pulling it, aren't you?
+		#ELSE
+			 Although this handle might activate some sort of trap, you're not sure whether you can leave such an extraordinary find behind without at least trying to pull it... 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REBEL_BASE_DOOR_NO_PASS -->
+	
+	<htmlContent tag="REBEL_BASE_DOOR_NO_PASS"><![CDATA[
+	<p>
+		Taking your chances, you grab the handle. To your surprise, the moment in which you make contact with what turns out to be cold metal, a series of glowing, light-blue letters materialise across the cavern wall before you, spelling out the question [style.glowBlueLight('Fiat Justitia?')]
+	</p>
+	<p>
+		Steeling yourself for whatever might happen next, you proceed to give the handle an experimental tug, but much to your disappointment it remains fixed in place. It looks like the wall wants an answer to its question, and since you're not sure what the correct response would be there's nothing more that you can do at the moment. Letting go of the handle, you watch as the glowing letters rapidly fade away and return to their invisible, dormant state.
+	</p>
+	<p>
+		[pc.Stepping] away from the handle, you think to yourself that surely by carrying out a thorough search of the vicinity will reveal some clues...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REBEL_BASE_DOOR_PASS_ONE -->
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_DARK"><![CDATA[
+	<p>
+		As you carefully navigate the myriad obstacles offered by the twisting passages of the cavern, you suddenly almost slip on something beneath your feet.
+		#IF(pc.isFeminine())
+			 Sighing
+		#ELSE
+			 Grumbling
+		#ENDIF
+		 to yourself about the responsible disposal of slippery objects in a damp cave, you find the cause of your near-faceplant to be a piece of laminated paper.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_LIGHT"><![CDATA[
+	<p>
+		[pc.Walking] through the bioluminescent forest, you find yourself passing by an absolutely gigantic specimen of mushroom-tree, as as you do so, you just so happen to see something glinting by its base. Taking a closer look, you push a small patch of mushrooms aside to see that the source of the reflected light is a piece of laminated paper.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_ONE"><![CDATA[
+	<p>
+		Picking up the paper to take a closer look, you see that it appears be a page from a journal of some sort that someone laminated after it had already been torn out. Even more strangely, someone tore it in half after going through all the trouble of laminating it. Water has gotten inside the seal and rendered most of the page unreadable but you can still make out an entry:
+	</p>
+	<p align=right>
+		<i>
+			1st July 1990
+		</i>
+	</p>
+	<p>
+		<i>
+			Under Astrea's command, we have successfully broken through into the Bat Caverns. At last, a way into the wretched heart of Dominion! And not a moment too soon, if news from the other fronts is to be believed. A small hideout hidden in the cave wall will provide us a staging area for the operations to come, and in any case, the cool damp is a welcome relief from the sweltering heat above. The door has been enchanted to only open for those who know the password:</br><center>RUAT C</center>
+		</i>
+	</p>
+	<p>
+		Annoyingly, the rest of the password has been torn away. You'll have to find the half of the page which matches up with this one in order to complete the password.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_rebelBaseDarkPassFound))
+			 You get the feeling that this missing half won't be found in these dark tunnels. Perhaps you should head into another part of the Bat Caverns and look in a place that's a little brighter?
+		#ELSE
+			 You get the feeling that this missing half won't be found in this bioluminescent forest. Perhaps you should head into another part of the Bat Caverns and look in a place that's a little darker?
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REBEL_BASE_DOOR_PASS_TWO -->
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_TWO"><![CDATA[
+	<p>
+		Immediately recognising it as the other half of the torn journal page, you thank your lucky stars for this miraculously good stroke of fortune and quickly pick it up. Like its counterpart, this laminated sheet has been heavily damaged and is also barely legible, yet after brushing off the layer of muck which was obscuring most of the text, you breathe a sigh of relief as you see that the second part of the password can still be read:
+	</p>
+	<p align=center>
+		<i>
+			AELUM
+		</i>
+	</p>
+	<p align=right>
+		<i>
+			3rd July 1990
+		</i>
+	</p>
+	<p>
+		<i>
+			Damn Enforcers were waiting for us in the canals! And we've lost one of our lead fighters. She didn't know the password or the exact location of the hideout but it's obvious she broke under interrogation. We found footprints that weren't ours outside this morning. This is going to be much harder than we imagined.
+		</i>
+	</p>
+	<p>
+		Putting together the two pages, you see that the password is <b>RUAT CAELUM</b>.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- In the BatCaverns.java dialogue class -->
+	
+	<!-- REBEL_BASE_ENTRANCE_EXTERIOR (CAVERN_DARK.getContent() is appended before these) -->
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_EXTERIOR"><![CDATA[
+	<p>
+		Once again you find yourself passing by the entrance to the once-hidden cave. Nobody seems to have passed by this way since you were last here, or if they did then they decided not to explore the cave, as by looking through the still-open doorway you can just about see a layer of completely undisturbed glowing mushrooms inside, but nothing else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_EXTERIOR_COLLAPSED"><![CDATA[
+	<p>
+		Once again you find yourself passing by the caved-in entrance to the once-hidden cave. As there's no way back inside without digging through several hundred tonnes of rock, this section of the Bat Caverns is no longer any more interesting than any other.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REBEL_BASE_ENTRANCE_HANDLE (CAVERN_DARK.getContent() is appended before this) -->
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_HANDLE"><![CDATA[
+	<p>
+		Once again you find yourself passing by the wall onto which the strange door handle is attached. If you didn't already know it was there, it'd be almost impossible to find, as it's only given away by its barely visible lichen-lit shadow.
+		#IF(pc.isQuestProgressLessThan(QUEST_LINE_SIDE_REBEL_BASE, QUEST_REBEL_BASE_PASSWORD_COMPLETE))
+			 As you're not yet in possession of the required password, trying to pull the handle again will undoubtedly prove to be a fruitless endeavour...
+		#ELSE
+			 As you're now in possession of the password, you could try pulling the handle again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REBEL_BASE_DOOR_OPENED -->
+    
+    <htmlContent tag="REBEL_BASE_DOOR_OPENED"><![CDATA[
+	<p>
+		Armed with the complete password, you [pc.step] forwards and grab the handle once more. Just as before, the series of glowing letters light up across the wall in front of you, spelling out, [style.glowBlueLight('Fiat Justitia?')]
+	</p>
+	<p>
+		#IF(pc.isMute())
+			Being unable to talk, you trace one of your [pc.fingers] over the wall so as to spell out the words 'Ruat Caelum'.
+		#ELSE
+			[pc.speech(Ruat Caelum,)] you answer
+			#IF(pc.isConfident() || pc.isBrave())
+				 in your supremely-confident voice.
+			#ELSEIF(pc.isCowardly())
+				 in a cowardly tone.
+			#ELSE
+				 in the most confident voice you can muster.
+			#ENDIF
+		#ENDIF
+		 The handle suddenly loosens and you pull it with all your might. The ground starts to vibrate as you pull, and before you know it a section of the cavern wall has swung open, revealing the entrance to another cave! You can just about see some clusters of glowing mushrooms inside, but nothing else.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 </dialogue>

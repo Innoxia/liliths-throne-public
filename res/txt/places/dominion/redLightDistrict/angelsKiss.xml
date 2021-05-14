@@ -419,12 +419,12 @@
 		You're not kept waiting for long, and after less than two minutes, Bunny bounds back into the room. Following in her footsteps, and looking every bit as excited as her sister, is Loppy.
 		#IF(loppy.isVisiblyPregnant())
 			#IF(!loppy.isCharacterReactedToPregnancy(pc))
-				 As she's that it's you, Loppy grins and points down to her clearly-swollen belly, before exclaiming, [loppy.speech(Hey there, [pc.name]! Look at what you went and did; you got me knocked up! Anyway, Bunny's told me all about your naughty plan... Fucking us both at the same time? Let's show my sis' how our kids were conceived!)]
+				 As she sees that it's you, Loppy grins and points down to her clearly-swollen belly, before exclaiming, [loppy.speech(Hey there, [pc.name]! Look at what you went and did; you got me knocked up! Anyway, Bunny's told me all about your naughty plan... Fucking us both at the same time? Let's show my sis' how our kids were conceived!)]
 			#ELSE
-				 As she's that it's you, Loppy grins and points down to her swollen belly, before exclaiming, [loppy.speech([pc.Name], look, I'm still pregnant! Anyway, Bunny's told me all about your naughty plan... Fucking us both at the same time? Let's show my sis' how our kids were conceived!)]
+				 As she sees that it's you, Loppy grins and points down to her swollen belly, before exclaiming, [loppy.speech([pc.Name], look, I'm still pregnant! Anyway, Bunny's told me all about your naughty plan... Fucking us both at the same time? Let's show my sis' how our kids were conceived!)]
 			#ENDIF
 		#ELSE
-			 As she's that it's you, Loppy grins and exclaims, [loppy.speech(Hey there, [pc.name]! Bunny's told me all about your naughty plan... Fucking us both at the same time? This is going to be good!)]
+			 As she sees that it's you, Loppy grins and exclaims, [loppy.speech(Hey there, [pc.name]! Bunny's told me all about your naughty plan... Fucking us both at the same time? This is going to be good!)]
 		#ENDIF
 	</p>
 	<p>
@@ -471,7 +471,7 @@
 	
 	<htmlContent tag="AFTER_SEX_BUNNY_THREESOME"><![CDATA[
 	<p>
-		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion. As they realise that you've finished with them, Loppy is the first to make a move, and, turning over to lie on her back, she props herself up on her elbows and calls out, [pc.speech([pc.Name], that was amazing! My sis' and I haven't had this much fun in forever!)]
+		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion. As they realise that you've finished with them, Loppy is the first to make a move, and, turning over to lie on her back, she props herself up on her elbows and calls out, [loppy.speech([pc.Name], that was amazing! My sis' and I haven't had this much fun in forever!)]
 	</p>
 	<p>
 		Following her sister's lead, Bunny pushes herself up onto her knees, and, turning towards you, giggles, [bunny.speech(Loppy's right, that was really fantastic! You'll come back again soon, right?)]
@@ -554,7 +554,7 @@
 			#ENDIF
 		</p>
 		<p>
-			Doing as the mother of your children asks, you [pc.step] over to where she's still standing beside the window and reach down to give her swollen belly a loving rub. Thanks to the fact that she's wearing a miniskirt and cami top in place of her usual tight-fitting bodysuit, you're able to run your hands over Loppy's exposed skin, making her let out a happy little moan and tease, [bunny.speech(You'd like to fuck a pregnant bunny, wouldn't you, [pc.name]? Come on, just hand over your flames and we can do a recreation of how our kids were conceived...)]
+			Doing as the mother of your children asks, you [pc.step] over to where she's still standing beside the window and reach down to give her swollen belly a loving rub. Thanks to the fact that she's wearing a miniskirt and cami top in place of her usual tight-fitting bodysuit, you're able to run your hands over Loppy's exposed skin, making her let out a happy little moan and tease, [loppy.speech(You'd like to fuck a pregnant bunny, wouldn't you, [pc.name]? Come on, just hand over your flames and we can do a recreation of how our kids were conceived...)]
 		</p>
 		<p>
 			Leaning into you, Loppy strokes her feminine fingers up the length of your thigh, before seductively smiling at you and waiting to hear your answer. You could pay her for sex, or make an excuse and take your leave...
@@ -585,13 +585,13 @@
 	
 	<htmlContent tag="BEDROOM_LOPPY_SEX_SUBMISSIVE"><![CDATA[
 	<p>
-		You hand over two-thousand five-hundred flames to Loppy, who, instead of giggling in excitement as you anticipated, calmly places the money to one side, before grinning. [bunny.speech(So, you want to get dominated by this bunny's cock, huh?)]
+		You hand over two-thousand five-hundred flames to Loppy, who, instead of giggling in excitement as you anticipated, calmly places the money to one side, before grinning. [loppy.speech(So, you want to get dominated by this bunny's cock, huh?)]
 	</p>
 	<p>
 		You open your mouth to respond, but Loppy quickly raises her hand and presses it over your lips. [loppy.speech(Naughty, naughty... I didn't give you permission to speak!)]
 	</p>
 	<p>
-		Pressing herself up against you, Loppy uses her free hand to reach around behind your back, and, grabbing a handful of your [pc.ass+], she laughs, [bunny.speech(Mmm, yeah, I'm going to enjoy pounding this cute little ass of yours...)]
+		Pressing herself up against you, Loppy uses her free hand to reach around behind your back, and, grabbing a handful of your [pc.ass+], she laughs, [loppy.speech(Mmm, yeah, I'm going to enjoy pounding this cute little ass of yours...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -637,12 +637,12 @@
 		You're not kept waiting for long, and after less than two minutes, Loppy bounds back into the room. Following in her footsteps, and looking every bit as excited as her sister, is Bunny.
 		#IF(bunny.isVisiblyPregnant())
 			#IF(!bunny.isCharacterReactedToPregnancy(pc))
-				 As she's that it's you, Bunny lets out an excited squeal and points down to her clearly-swollen belly, before exclaiming, [bunny.speech([pc.name]! Look at what you did; you got me knocked up! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
+				 As she sees that it's you, Bunny lets out an excited squeal and points down to her clearly-swollen belly, before exclaiming, [bunny.speech([pc.name]! Look at what you did; you got me knocked up! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
 			#ELSE
-				 As she's that it's you, Bunny lets out an excited squeal and points down to her swollen belly, before exclaiming, [bunny.speech([pc.Name], look, I'm still pregnant! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
+				 As she sees that it's you, Bunny lets out an excited squeal and points down to her swollen belly, before exclaiming, [bunny.speech([pc.Name], look, I'm still pregnant! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
 			#ENDIF
 		#ELSE
-			 As she's that it's you, Bunny lets out an excited squeal, [bunny.speech(Hey there, [pc.name]! Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's get started!)]
+			 As she sees that it's you, Bunny lets out an excited squeal, [bunny.speech(Hey there, [pc.name]! Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's get started!)]
 		#ENDIF
 	</p>
 	<p>
@@ -673,7 +673,7 @@
 	
 	<htmlContent tag="BEDROOM_LOPPY_AFTER_THREESOME"><![CDATA[
 	<p>
-		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion. As they realise that you've finished with them, Loppy is the first to make a move, and, turning over to lie on her back, she props herself up on her elbows and calls out, [pc.speech([pc.Name], that was amazing! My sis' and I haven't had this much fun in forever!)]
+		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion. As they realise that you've finished with them, Loppy is the first to make a move, and, turning over to lie on her back, she props herself up on her elbows and calls out, [loppy.speech([pc.Name], that was amazing! My sis' and I haven't had this much fun in forever!)]
 	</p>
 	<p>
 		Following her sister's lead, Bunny pushes herself up onto her knees, and, turning towards you, giggles, [bunny.speech(Loppy's right, that was really fantastic! You'll come back again soon, right?)]

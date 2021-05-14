@@ -171,7 +171,7 @@ public interface SexManagerInterface {
 				SexPosition.LYING_DOWN,
 				SexPosition.STANDING);
 		
-		if(Main.game.getPlayerCell().getType().isFurniturePresent()) {
+		if(Main.game.getPlayerCell().isFurniturePresent()) {
 			positions.add(SexPosition.OVER_DESK);
 			positions.add(SexPosition.SITTING);
 		}

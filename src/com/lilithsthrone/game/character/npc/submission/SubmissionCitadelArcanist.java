@@ -130,10 +130,14 @@ public class SubmissionCitadelArcanist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20") && !Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_ELIS)) {
 			this.setPlayerKnowsName(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4")) {
+			this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		
 		PerkManager.initialisePerks(this,

@@ -107,7 +107,7 @@
 		npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_eep_pbweap_pbpistol)) || 
 		(npc.getOffhandWeapon(0) != null && 
 		npc.getOffhandWeapon(0).getWeaponType().equals(WEAPON_dsg_eep_pbweap_pbpistol))) && 
-		npc.getEssenceCount() > 0]
+		npc.getEssenceCount() > 2]
 	]]>
 	</availabilityCondition>
 	

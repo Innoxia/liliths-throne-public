@@ -22,11 +22,11 @@
 	
 	<!-- The id of the item associated with this race which can be enchanted to modify attributes.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_vanilla_water'. -->
-	<attributeItemId>dsg_race_raccoon_popcorn</attributeItemId>
+	<attributeItemId>dsg_race_raccoon_cotton_candy_soda</attributeItemId>
 	
 	<!-- The id of the item associated with this race which can be enchanted to create a transformation potion.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_bread_roll'. -->
-	<transformativeItemId>dsg_race_raccoon_cotton_candy_soda</transformativeItemId>
+	<transformativeItemId>dsg_race_raccoon_popcorn</transformativeItemId>
 	
 	<!-- An integer representing how important this Subspecies is to be defined as a character's Subspecies override (meaning that this Subspecies will always be their true Subspecies, no matter the race of their body parts).
 	The default value is 0, which, along with any negative integer value, means that this Subspecies does not set an Override.
@@ -86,12 +86,12 @@
 	<bookIconName>raccoonicon</bookIconName>
 	
 	<!-- The name for the book. -->
-	<bookName>Foraging Racoons</bookName>
+	<bookName>Foraging Raccoons</bookName>
 	
 	<!-- The element names which contain the book's basic and advanced descriptions.
 	These should be entered into the 'bookEntries.xml' file in the same folder location as this file. -->
-	<basicDescriptionId>RACOON_BASIC</basicDescriptionId>
-	<advancedDescriptionId>RACOON_ADVANCED</advancedDescriptionId>
+	<basicDescriptionId>RACCOON_BASIC</basicDescriptionId>
+	<advancedDescriptionId>RACCOON_ADVANCED</advancedDescriptionId>
 	
 	<!-- The default preference for this subspecies spawning.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
@@ -224,7 +224,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

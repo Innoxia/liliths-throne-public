@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.script.CompiledScript;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
@@ -150,8 +151,12 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
+import com.lilithsthrone.game.dialogue.AbstractDialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
+import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
+import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.SetBonus;
@@ -188,12 +193,13 @@ import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
+import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
  * @version 0.4
- * @author Innoxia, Pimvgd, AlacoGit
+ * @author Innoxia, Pimvgd, AlacoGit, Tad Unlikely
  */
 public class UtilText {
 
@@ -206,6 +212,7 @@ public class UtilText {
 	private static AbstractClothingType clothingTypeForParsing;
 	private static Body body;
 	private static AbstractRace race;
+	private static CharacterInventory inventory;
 	
 //	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise;
@@ -220,14 +227,14 @@ public class UtilText {
 	private static Map<String, String> americanEnglishConversions = Util.newHashMapOfValues(
 			// -our to -or:
 			new Value<>("armour", "armor"),
-			new Value<>("armoury", "armoury"),
+			new Value<>("armoury", "armory"),
 			new Value<>("behaviour", "behavior"),
 			new Value<>("candour", "candor"),
 			new Value<>("clamour", "clamor"),
 			new Value<>("colour", "color"),
 			new Value<>("demeanour", "demeanor"),
 			new Value<>("endeavour", "endeavor"),
-			new Value<>("favourite", "favourite"),
+			new Value<>("favourite", "favorite"),
 			new Value<>("flavour", "flavor"),
 			new Value<>("glamour", "glamor"),
 			new Value<>("harbour", "harbor"),
@@ -236,12 +243,13 @@ public class UtilText {
 			new Value<>("labour", "labor"),
 			new Value<>("neighbour", "neighbor"),
 			new Value<>("odour", "odor"),
+			new Value<>("parlour", "parlor"),
 			new Value<>("rancour", "rancor"),
 			new Value<>("rigour", "rigor"),
 			new Value<>("rumour", "rumor"),
 			new Value<>("saviour", "savior"),
 			new Value<>("savour", "savor"),
-			new Value<>("savoury", "savoury"),
+			new Value<>("savoury", "savory"),
 			new Value<>("splendour", "splendor"),
 			new Value<>("valour", "valor"),
 			new Value<>("vapour", "vapor"),
@@ -257,7 +265,7 @@ public class UtilText {
 			new Value<>("litre", "liter"),
 			new Value<>("louvre", "louver"),
 			new Value<>("lustre", "luster"),
-			new Value<>("manoeuvre", "manoeuver"),
+			new Value<>("manoeuvre", "maneuver"),
 			new Value<>("meagre", "meager"),
 			new Value<>("metre", "meter"),
 			new Value<>("millimetre", "millimeter"),
@@ -306,10 +314,10 @@ public class UtilText {
 
 			// -ae and -oe words change to -e:
 			new Value<>("diarrhoea", "diarrhea"),
-			new Value<>("oestrogen", "oestrgen"),
+			new Value<>("oestrogen", "estrogen"),
 			new Value<>("foetus", "fetus"),
-			new Value<>("manoeuvre", "maneuvre"),
-			new Value<>("mementoes", "mementes"),
+			//new Value<>("manoeuvre", "maneuver"),
+			new Value<>("mementoes", "mementos"),
 			new Value<>("anaemia", "anemia"),
 			new Value<>("caesarean", "cesarean"),
 			new Value<>("gynaecology", "gynecology"),
@@ -319,6 +327,7 @@ public class UtilText {
 			new Value<>("paediatric", "pediatric"),
 
 			// -ise words change to -ize:
+			new Value<>("apologise", "apologize"),
 			new Value<>("appetiser", "appetizer"),
 			new Value<>("authorise", "authorize"),
 			new Value<>("capitalise", "capitalize"),
@@ -377,7 +386,8 @@ public class UtilText {
 			new Value<>("pyjamas", "pajamas"),
 			new Value<>("sceptic", "skeptic"),
 			new Value<>("phial", "vial"),
-			new Value<>("whisky", "whiskey")
+			new Value<>("whisky", "whiskey"),
+			new Value<>("queue", "line")
 			);
 	
 	/**
@@ -7276,7 +7286,7 @@ public class UtilText {
 				false,
 				false,
 				"(short)",
-				"Returns the localized, formatted size of the penis with long singular units ('centimetre'). Pass in true to return as short measurement ('cm').",
+				"Returns the localized, formatted size of the penis with long *singular* units ('centimetre'). Pass in true to return as short measurement ('cm').",
 				BodyPartType.PENIS) {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -7284,6 +7294,26 @@ public class UtilText {
 					return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.SHORT);
 				}
 				return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"cockValues",
+						"cockLengthValues",
+						"penisValues",
+						"penisLengthValues"),
+				false,
+				false,
+				"(short)",
+				"Returns the localized, formatted size of the penis with long *plural* units ('centimetres'). Pass in true to return as short measurement ('cm').",
+				BodyPartType.PENIS) {
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null && arguments.equalsIgnoreCase("true")) {
+					return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.SHORT);
+				}
+				return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			}
 		});
 		
@@ -7682,7 +7712,7 @@ public class UtilText {
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNamePlural(character));
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"tailCount",
@@ -7697,7 +7727,22 @@ public class UtilText {
 				return Util.intToString(character.getTailCount());
 			}
 		});
-		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailMaxCount",
+						"tailsMaxCount"),
+				true,
+				false,
+				"",
+				"Returns the maximum number of (Youko) tails this character can have.",
+				BodyPartType.TAIL){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getMaxTailCount());
+			}
+		});
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"tailGirth",
@@ -9107,10 +9152,10 @@ public class UtilText {
 				commandWithVariableCalls.append(command);
 				
 				if(suppressOutput) {
-					engine.eval(commandWithVariableCalls.toString());
+					evaluate(commandWithVariableCalls.toString());
 					return "";
 				}
-				return String.valueOf(engine.eval(commandWithVariableCalls.toString()));
+				return String.valueOf(evaluate(commandWithVariableCalls.toString()));
 				
 			} catch (ScriptException e) {
 				System.err.println("Scripting parsing error: "+command);
@@ -9210,6 +9255,12 @@ public class UtilText {
 		return null;
 	}
 
+	public static GameCharacter findFirstCharacterFromParserTarget(String target) {
+		ParserTarget parserTarget = findParserTargetWithTag(target);
+		
+		return parserTarget.getCharacter(target, new ArrayList<>(Main.game.getCharactersPresent()));
+	}
+
 	private static ParserCommand findCommandWithTag(String command) {
 		for(ParserCommand cmd : commandsList) {
 			for(String s : cmd.getTags()) {
@@ -9281,6 +9332,8 @@ public class UtilText {
 		engine.put("properties", Main.getProperties());
 		engine.put("RND", Util.random);
 		engine.put("itemGen", Main.game.getItemGen());
+		engine.put("flags", Main.game.getDialogueFlags());
+		engine.put("dialogueManager", Main.game.getDialogueManager());
 		
 		// Java classes:
 		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
@@ -9480,6 +9533,10 @@ public class UtilText {
 		for(AbstractAttribute att : Attribute.getAllAttributes()) {
 			engine.put("ATTRIBUTE_"+Attribute.getIdFromAttribute(att), att);
 		}
+		for(CorruptionLevel corruption : CorruptionLevel.values()) {
+			engine.put("CORRUPTION_LEVEL_"+corruption.toString(), corruption);
+		}
+		
 		
 		// Combat:
 		for(DamageType damageType : DamageType.values()) {
@@ -9522,8 +9579,8 @@ public class UtilText {
 		for(DayPeriod dayPeriod : DayPeriod.values()) {
 			engine.put("DAY_PERIOD_"+dayPeriod.toString(), dayPeriod);
 		}
-		for(DialogueFlagValue flag : DialogueFlagValue.values()) {
-			engine.put("FLAG_"+flag.toString(), flag);
+		for(AbstractDialogueFlagValue flag : DialogueFlagValue.getAllDialogueFlagValues()) {
+			engine.put("FLAG_"+flag.getId(), flag);
 		}
 		for(NPCFlagValue flag : NPCFlagValue.values()) {
 			engine.put("NPC_FLAG_"+flag.toString(), flag);
@@ -9576,12 +9633,15 @@ public class UtilText {
 		for(AbstractPlaceUpgrade upgrade : PlaceUpgrade.getAllPlaceUpgrades()) {
 			engine.put("PLACE_UPGRADE_"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade), upgrade);
 		}
+		for(AbstractEncounter encounter : Encounter.getAllEncounters()) {
+			engine.put("ENCOUNTER_"+Encounter.getIdFromEncounter(encounter), encounter);
+		}
 
 		
 		
 		// static methods don't work unless initialised like so:
 //		try {
-//			engine.eval("var sex = Java.type('com.lilithsthrone.game.sex.Sex');");
+//			evaluate("var sex = Java.type('com.lilithsthrone.game.sex.Sex');");
 //		} catch (ScriptException e) {
 //			e.printStackTrace();
 //		}
@@ -9659,7 +9719,7 @@ public class UtilText {
 		}
 		conditionalStatementWithVariables.append(conditionalStatement);
 		
-		return (boolean)engine.eval(conditionalStatementWithVariables.toString());
+		return (boolean)evaluate(conditionalStatementWithVariables.toString());
 	}
 	
 	
@@ -10241,5 +10301,46 @@ public class UtilText {
 		}
 		engine.put(tag, getRaceForParsing());
 	}
+
+	public static CharacterInventory getInventoryForParsing() {
+		return inventory;
+	}
 	
+	public static void setInventoryForParsing(String tag, CharacterInventory inventory) {
+		UtilText.inventory = inventory;
+		if(engine==null) {
+			initScriptEngine();
+		}
+		engine.put(tag, getInventoryForParsing());
+	}
+	
+//	private static final Map<String, CompiledScript> memo = new HashMap<>();
+//	private static final int memo_limit = 500;
+	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason. I commented it out to fix it and will come back and investigate at another time.
+	// TODO when fixed, add as patchnotes: "Increased script performance by adding a memoization cache to compile scripting engine scripts. (PR#1442 by CognitiveMist)"
+	/**
+	 * Added in PR#1442 to increase performance by adding a memoization cache to compile scripting engine scripts.
+	 * <br/>- Adds a cache intended to hold compiled forms of script engine scripts.
+	 * <br/>- Cache capacity set to 500, and will stop adding new entries at that limit (tests did not exceed 100, but mods affect this).
+	 * <br/>- Tests showed scripting engine calls take 50% less time on average.
+	 * <br/>- WARNING: adds one more nashorn warning.
+	 * @param command
+	 * @return
+	 * @throws ScriptException
+	 */
+	private static Object evaluate(String command) throws ScriptException {
+		CompiledScript script;
+//		if (!memo.containsKey(command)) {
+			script = ((NashornScriptEngine)engine).compile(command);
+//			if (memo.size() < memo_limit) {
+//				memo.put(command, script);
+//				if (memo.size() == memo_limit) {
+//					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
+//				}
+//			}
+//		} else {
+//			script = memo.get(command);
+//		}
+		return script.eval();
+	}
 }

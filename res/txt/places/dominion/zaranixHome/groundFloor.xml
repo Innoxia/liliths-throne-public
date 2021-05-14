@@ -950,6 +950,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="CORRIDOR_MAID_KATHERINE_ENCOUNTER_FOUGHT_AMBER"><![CDATA[
+	<p>
+		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet. She doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works.
+	</p>
+	<p>
+		Before you have a chance to take any action, however, she realises that there's someone behind her, and mistaking you for her colleague she starts to say, [katherine.speech(Oh, Amber, what was that at the front door? It sounded like someone was breaking-)]
+	</p>
+	<p>
+		The maid's eyes narrow down as she sees that you're an unexpected stranger, and she correctly surmises, [katherine.speech(You're the one who's responsible for that crashing noise! I don't know what you've done to Amber, but I'll stop you!)]
+	</p>
+	<p>
+		Without giving you any opportunity to talk yourself out of this conflict, the maid suddenly launches herself at you, seemingly very eager to show you what she does to intruders in her master's house.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="CORRIDOR_MAID_KATHERINE_ENCOUNTER"><![CDATA[
 	<p>
 		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet.

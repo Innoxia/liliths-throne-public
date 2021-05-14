@@ -11,9 +11,18 @@ public enum SubspeciesFlag {
 	HIDDEN_FROM_PREFERENCES,
 	
 	/** Prevents this Subspecies from having its furry stage preference changed in the content options. */
-	DISBALE_FURRY_PREFERENCE,
+	DISABLE_FURRY_PREFERENCE,
 
 	/** Prevents this Subspecies from having its spawn rate changed in the content options. */
-	DISBALE_SPAWN_PREFERENCE,
+	DISABLE_SPAWN_PREFERENCE;
 	
+	
+	/**
+	 * <b>Use this instead of valueOf()</b>
+	 */
+	public static SubspeciesFlag getSubspeciesFlagFromString(String value) {
+		value = value.replaceAll("DISBALE_", "DISABLE_");
+		
+		return valueOf(value);
+	}
 }

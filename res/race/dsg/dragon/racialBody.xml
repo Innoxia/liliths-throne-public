@@ -49,7 +49,7 @@
 	<genitalArrangement>NORMAL</genitalArrangement>
 	
 	<!-- The following values are slightly randomised upon a character of this race being spawned to give some variation.
-	e.g. A newly-spawned hyena-girl might be 179cm tall (which would have been randomised based on teh defined height of 175).
+	e.g. A newly-spawned hyena-girl might be 179cm tall (which would have been randomised based on the defined height of 175).
 	
 	Height is defined in cm, and should be no smaller than 61 and no larger than 366.
 	Values associated with height can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Height.java

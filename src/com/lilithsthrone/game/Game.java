@@ -102,6 +102,12 @@ import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.npc.fields.Arion;
+import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Jess;
+import com.lilithsthrone.game.character.npc.fields.Minotallys;
+import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
@@ -142,6 +148,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
@@ -264,6 +271,7 @@ public class Game implements XMLSaving {
 	
 	private boolean started;
 	
+	private DialogueManager dialogueManager;
 	private DialogueFlags dialogueFlags;
 	
 	private static Map<String, CharacterInventory> savedInventories; // Map of ID to inventory
@@ -314,6 +322,7 @@ public class Game implements XMLSaving {
 		renderAttributesSection = false;
 		renderMap = false;
 
+		dialogueManager = new DialogueManager();
 		dialogueFlags = new DialogueFlags();
 
 		started = false;
@@ -861,6 +870,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("SHOPPING_ARCADE") || !Main.isVersionOlderThan(loadingVersion, "0.3.14"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
+//                          && !worldType.equals("REBEL_BASE")
 							) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
@@ -1001,6 +1011,10 @@ public class Game implements XMLSaving {
 									if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
 										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
 									}
+								}
+								if(Main.isVersionOlderThan(loadingVersion, "0.4")) {
+									className = className.replace("BatMorphCavernAttacker", "BatCavernLurkerAttacker");
+									className = className.replace("SlimeCavernAttacker", "BatCavernSlimeAttacker");
 								}
 								if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 									className = className.replace("FortressDemonLeader", "DarkSiren");
@@ -1561,7 +1575,12 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Wes.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
 					Main.game.getNpc(Elle.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
 				}
-						
+				
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.4") && Main.game.getPlayer().getWorldLocation()==WorldType.WORLD_MAP) {
+					Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_PLAZA); //TODO remove for 0.4.1!!!!!
+				}
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -1956,6 +1975,36 @@ public class Game implements XMLSaving {
 				getNpc(Silence.class).getAffectionMap().remove(getNpc(Silence.class).getId());
 			}
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Murk.class))) { addNPC(new Murk(), false); addedNpcs.add(Murk.class); }
+			
+			// Elis:
+
+			// The Red Dragon:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Flash.class))) { addNPC(new Flash(), false); addedNpcs.add(Flash.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Jess.class))) { addNPC(new Jess(), false); addedNpcs.add(Jess.class); }
+
+			if(addedNpcs.contains(Flash.class) || addedNpcs.contains(Jess.class)) {
+				Main.game.getNpc(Jess.class).setAffection(Main.game.getNpc(Flash.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				Main.game.getNpc(Flash.class).setAffection(Main.game.getNpc(Jess.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
+			
+			// Astrapi/Vronti:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Astrapi.class))) { addNPC(new Astrapi(), false); addedNpcs.add(Astrapi.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Vronti.class))) { addNPC(new Vronti(), false); addedNpcs.add(Vronti.class); }
+
+			if(addedNpcs.contains(Astrapi.class) || addedNpcs.contains(Vronti.class)) {
+				Main.game.getNpc(Astrapi.class).setAffection(Main.game.getNpc(Vronti.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				Main.game.getNpc(Vronti.class).setAffection(Main.game.getNpc(Astrapi.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			
+			// Minotallys/Arion
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Arion.class))) { addNPC(new Arion(), false); addedNpcs.add(Arion.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Minotallys.class))) { addNPC(new Minotallys(), false); addedNpcs.add(Minotallys.class); }
+
+			if(addedNpcs.contains(Arion.class) || addedNpcs.contains(Minotallys.class)) {
+				Main.game.getNpc(Arion.class).setAffection(Main.game.getNpc(Minotallys.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+				Main.game.getNpc(Minotallys.class).setAffection(Main.game.getNpc(Arion.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2571,8 +2620,12 @@ public class Game implements XMLSaving {
 		return (hours/24)+" days, "+hours%24+" hours, "+minutes%60+" minutes";
 	}
 	
-	public Weather getCurrentWeather() {
+	public Weather getWeather() {
 		return currentWeather;
+	}
+	
+	public Weather getCurrentWeather() { // An old name for the method above, still used in xml files so don't delete
+		return getWeather();
 	}
 	
 	/**
@@ -2660,7 +2713,11 @@ public class Game implements XMLSaving {
 				String headerContent = node.getHeaderContent();
 				String content;
 				try {
-					content = node.getContent();
+					if(response.isStripContent()) {
+						content = "";
+					} else {
+						content = node.getContent();
+					}
 				} catch(Exception ex) {
 					content = "<p style='text-align:center;'>"
 								+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+node.getLabel()+"')]"
@@ -2669,7 +2726,7 @@ public class Game implements XMLSaving {
 				}
 
 				if (currentDialogueNode != null) {
-					if (node.isContinuesDialogue()) {
+					if (node.isContinuesDialogue() || response.isForceContinue()) {
 						if(Main.game.isInSex()) {
 							dialogueTitle = UtilText.parse(node.getLabel());
 						}
@@ -2747,7 +2804,7 @@ public class Game implements XMLSaving {
 				}
 				
 				
-				if (node.isContinuesDialogue()) {
+				if (node.isContinuesDialogue() || response.isForceContinue()) {
 					currentDialogue = 
 								"<div id='main-content'>"
 									+ getTitleDiv(dialogueTitle)
@@ -2804,7 +2861,7 @@ public class Game implements XMLSaving {
 
 //				Main.mainController.unbindListeners();
 				setMainContentRegex(
-						(node.isContinuesDialogue() && isContentScroll(node)
+						((node.isContinuesDialogue() || response.isForceContinue()) && isContentScroll(node)
 							?"<body onLoad='scrollToElement()'>"
 							+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
 						:"<body>"),
@@ -2875,7 +2932,11 @@ public class Game implements XMLSaving {
 		String headerContent = node.getHeaderContent();
 		String content;
 		try {
-			content = node.getContent();
+			if(response.isStripContent()) {
+				content = "";
+			} else {
+				content = node.getContent();
+			}
 		} catch(Exception ex) {
 			content = "<p style='text-align:center;'>"
 						+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+node.getLabel()+"')]"
@@ -2907,7 +2968,7 @@ public class Game implements XMLSaving {
 		}
 		
 		if (currentDialogueNode != null) {
-			if (node.isContinuesDialogue()) {
+			if (node.isContinuesDialogue() || response.isForceContinue()) {
 				if(Main.game.isInSex()) {
 					dialogueTitle = UtilText.parse(node.getLabel());
 				}
@@ -2984,7 +3045,7 @@ public class Game implements XMLSaving {
 		}
 
 
-		if (node.isContinuesDialogue()) {
+		if (node.isContinuesDialogue() || response.isForceContinue()) {
 			currentDialogue = "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<div class='div-center' id='content-block'>"
@@ -3041,7 +3102,7 @@ public class Game implements XMLSaving {
 		Main.mainController.setFlashMessageText(flashMessageText);
 
 		//-------------------- MEMORY LEAK PROBLEM
-		setMainContentRegex(node.isContinuesDialogue()
+		setMainContentRegex(node.isContinuesDialogue() || response.isForceContinue()
 				?(isContentScroll(node)
 					?"<body onLoad='scrollToElement()'>"
 						+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
@@ -3909,6 +3970,16 @@ public class Game implements XMLSaving {
 				+1;
 	}
 	
+	public int getSunriseTimeInMinutes() {
+		LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+		return sunriseSunset[0].get(ChronoField.MINUTE_OF_DAY);
+	}
+
+	public int getSunsetTimeInMinutes() {
+		LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+		return sunriseSunset[1].get(ChronoField.MINUTE_OF_DAY);
+	}
+	
 	public LocalDateTime getStartingDate() {
 		return startingDate;
 	}
@@ -4403,8 +4474,34 @@ public class Game implements XMLSaving {
 					&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM_LOST;
 	}
 	
+	/**
+	 * For use in external res files as a way to get a hook to UtilText.parseFromXMLFile
+	 */
+	public String parseFromFile(String pathName, String tag, GameCharacter... specialNPCs) {
+		return getDialogueManager().getDialogueFromFile(pathName, tag, specialNPCs);
+	}
+	
+	/**
+	 * For use in external res files as a way to get a hook to UtilText.addSpecialParsingString
+	 */
+	public void addSpecialParsingString(String content, boolean clearListBeforeAdding) {
+		UtilText.addSpecialParsingString(content, clearListBeforeAdding);
+	}
+
+	/**
+	 * For use in external res files as a way to get a hook to UtilText.clearSpecialParsingStrings
+	 */
+	public void clearSpecialParsingStrings() {
+		UtilText.clearSpecialParsingStrings();
+	}
+	
+	
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;
+	}
+
+	public void appendToTextStartStringBuilder(String text) {
+		textStartStringBuilder.append(UtilText.parse(text));
 	}
 	
 	public void appendToTextStartStringBuilder(GameCharacter npc, String text) {
@@ -4421,6 +4518,10 @@ public class Game implements XMLSaving {
 
 	public StringBuilder getTextEndStringBuilder() {
 		return textEndStringBuilder;
+	}
+
+	public void appendToTextEndStringBuilder(String text) {
+		textEndStringBuilder.append(UtilText.parse(text));
 	}
 	
 	public void appendToTextEndStringBuilder(GameCharacter npc, String text) {
@@ -4504,6 +4605,10 @@ public class Game implements XMLSaving {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation());
 	}
 
+	public DialogueManager getDialogueManager() {
+		return dialogueManager;
+	}
+
 	public DialogueFlags getDialogueFlags() {
 		return dialogueFlags;
 	}
@@ -4528,6 +4633,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.debugMode);
 	}
 
+	public boolean isLightTheme() {
+		return Main.getProperties().hasValue(PropertyValue.lightTheme);
+	}
+	
 	public boolean isAllStickersUnlocked() {
 		return Main.getProperties().hasValue(PropertyValue.allStickersUnlocked);
 	}
@@ -4649,6 +4758,10 @@ public class Game implements XMLSaving {
 
 	public boolean isPenetrationLimitationsEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.penetrationLimitations);
+	}
+	
+	public boolean isElasticityAffectDepthEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth);
 	}
 	
 	public boolean isFootContentEnabled() {

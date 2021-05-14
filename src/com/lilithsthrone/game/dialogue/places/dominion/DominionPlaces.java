@@ -385,7 +385,7 @@ public class DominionPlaces {
 			if(isCloseToEnforcerHQ()) {
 				sb.append("<p style='text-align:center;'><i>");
 					sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
-					if(Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
+					if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 						sb.append("<br/>However, due to the ongoing arcane storm, there's no chance of encountering any patrols at the moment...");
 					}
 				sb.append("</i></p>");
@@ -675,7 +675,6 @@ public class DominionPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -1127,6 +1126,9 @@ public class DominionPlaces {
 				return "<p>"
 						+ "A pair of elite demon Enforcers are keeping a close watch on everyone who enters or leaves the city."
 						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
+					+ "</p>"
+					+ "<p>"
+						+ "[style.italicsMinorBad(Innoxia's note: World map travel has been temporarily disabled until the next version so that I can get the Elis & Fields content into a presentable state!)]" //TODO remove for 0.4.1
 					+ "</p>";
 				
 			} else {
@@ -1144,13 +1146,15 @@ public class DominionPlaces {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().isDiscoveredWorldMap()) {
-					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
-						}
-					};
+					 //TODO revert for 0.4.1
+					return new Response("World travel", "Exit Dominion and head out into the wide world...<br/>[style.italicsBad(This has been temporarily disabled until the next version so that Elis/Fields content can be finished!)]", null);
+//					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
+//						@Override
+//						public void effects() {
+//							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
+//							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
+//						}
+//					};
 					
 				} else {
 					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);

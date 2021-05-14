@@ -7,12 +7,14 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.69
- * @version 0.2.4
+ * @version 0.4
  * @author Innoxia
  */
 public class ResponseCombat extends Response {
@@ -22,6 +24,16 @@ public class ResponseCombat extends Response {
 	private List<NPC> enemies;
 	
 	private Map<GameCharacter, String> openingDescriptions;
+	
+	// For use when response is loaded from external file:
+
+	private List<String> alliesIds;
+	private String enemyLeaderId;
+	private List<String> enemiesIds;
+	
+	private String nextDialoguePlayerVictoryId;
+	private String nextDialoguePlayerDefeatId;
+	
 	
 	public ResponseCombat(String title, String tooltipText, NPC opponent) {
 		super(title, tooltipText, null);
@@ -110,6 +122,19 @@ public class ResponseCombat extends Response {
 			this.openingDescriptions = openingDescriptions;
 		}
 	}
+	
+	
+	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, String enemyLeaderId, List<String> enemiesIds, Map<GameCharacter, String> openingDescriptions) {
+		super(title, tooltipText, null);
+		
+		this.alliesIds = alliesIds;
+		this.enemyLeaderId = enemyLeaderId;
+		this.enemiesIds = enemiesIds;
+		
+		if(openingDescriptions!=null) {
+			this.openingDescriptions = openingDescriptions;
+		}
+	}
 
 	@Override
 	public boolean isCombatHighlight() {
@@ -117,12 +142,82 @@ public class ResponseCombat extends Response {
 	}
 
 	public DialogueNode initCombat() {
-		Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
+		if(enemyLeaderId!=null && !enemyLeaderId.isEmpty()) {
+			this.allies = new ArrayList<>();
+			for(String allyId : alliesIds) {
+				String id = UtilText.parse(allyId).trim();
+				if(!id.isEmpty()) {
+					this.allies.add((NPC) UtilText.findFirstCharacterFromParserTarget(id));
+				}
+			}
+			
+			this.enemyLeader = (NPC) UtilText.findFirstCharacterFromParserTarget(UtilText.parse(enemyLeaderId).trim());
+			
+			this.enemies = new ArrayList<>();
+			for(String enemyId : enemiesIds) {
+				String id = UtilText.parse(enemyId).trim();
+				if(!id.isEmpty()) {
+					this.enemies.add((NPC) UtilText.findFirstCharacterFromParserTarget(id));
+				}
+			}
+			if(!enemies.contains(enemyLeader)) {
+				enemies.add(enemyLeader);
+			}
+			
+			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
+			Main.combat.setPlayerPostVictoryDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerVictoryId)));
+			Main.combat.setPlayerPostDefeatDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerDefeatId)));
+			
+		} else {
+			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
+		}
+		
+		
 		return Main.combat.startCombat();
 	}
 	
 	@Override
 	public boolean disabledOnNullDialogue(){
 		return false;
+	}
+
+	public List<String> getAlliesIds() {
+		return alliesIds;
+	}
+
+	public void setAlliesIds(List<String> alliesIds) {
+		this.alliesIds = alliesIds;
+	}
+
+	public String getEnemyLeaderId() {
+		return enemyLeaderId;
+	}
+
+	public void setEnemyLeaderId(String enemyLeaderId) {
+		this.enemyLeaderId = enemyLeaderId;
+	}
+
+	public List<String> getEnemiesIds() {
+		return enemiesIds;
+	}
+
+	public void setEnemiesIds(List<String> enemiesIds) {
+		this.enemiesIds = enemiesIds;
+	}
+
+	public String getNextDialoguePlayerVictoryId() {
+		return nextDialoguePlayerVictoryId;
+	}
+
+	public void setNextDialoguePlayerVictoryId(String nextDialoguePlayerVictoryId) {
+		this.nextDialoguePlayerVictoryId = nextDialoguePlayerVictoryId;
+	}
+
+	public String getNextDialoguePlayerDefeatId() {
+		return nextDialoguePlayerDefeatId;
+	}
+
+	public void setNextDialoguePlayerDefeatId(String nextDialoguePlayerDefeatId) {
+		this.nextDialoguePlayerDefeatId = nextDialoguePlayerDefeatId;
 	}
 }
