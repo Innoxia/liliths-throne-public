@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Latex Lover]]></name>
+	<statusEffect>sage_set_latlov</statusEffect>
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>SOCK</slot>
+	</blockedSlotsCountingTowardsFullSet>
+</setBonus>

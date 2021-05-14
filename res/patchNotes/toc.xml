@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toc>
-	<section type="preface">preface-0.3.20</section>
+	<section type="preface">preface-0.4</section>
+	<section type="patchnotes">patchnotes-0.4</section>
 	<section type="patchnotes">patchnotes-0.3.20</section>
 	<section type="patchnotes">patchnotes-0.3.19</section>
 	<section type="patchnotes">patchnotes-0.3.18</section>

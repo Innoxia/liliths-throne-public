@@ -474,6 +474,7 @@ public class Lyssieth extends NPC {
 					if(applyExtraEffects) {
 						Main.game.getPlayer().setArousal(50);
 					}
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 				}
 			};
 			

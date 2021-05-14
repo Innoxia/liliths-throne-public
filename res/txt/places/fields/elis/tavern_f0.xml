@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/tavern_f0.xml' dialogue nodes. -->
+	
+	<htmlContent tag="BAR"><![CDATA[
+	<p>
+		Situated against the far wall, the long, wooden bar before you serves as the source of food and drink for the tavern's patrons. The shelves behind this bar are stocked full of a dazzling array of bottles and glasses, and right in the middle of them there's a large chalkboard which lists the meals that are being served today. Over to one side of the bar, a door carries a sign reading: 'Kitchen: Staff Only'
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			As this is the busiest time of day,
+			#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_flash_introduced))
+				 there are a couple of employees behind the bar, with Flash himself joining them in serving drinks to the customers.
+			#ELSE
+				 there are a few employees behind the bar, with one of them acting in an authoritative manner which suggests that he's the tavern's owner.
+			#ENDIF
+			 This greater badger-morph has a stern expression on his face, and as he turns to place a freshly-poured pint of beer on the counter, you estimate that he must be in his early forties. Standing at just under six feet tall, 
+			#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_flash_introduced))
+				 Flash
+			#ELSE
+				 this badger-boy
+			#ENDIF
+			 has a sturdy, muscular body, and as he looks around to see who's going to be his next customer, you see his [#flash.topClothing(CA_NIPPLES)] straining to contain his wide chest and thick biceps. If you wanted to order a drink or something to eat, you could quite easily get his attention.
+		#ELSE
+			As this is the quiet time of day, there's only one employee behind the bar, who's currently engaged in idle talk with one of the establishment's regular customers. If you wanted to order a drink or something to eat, you could quite easily get their attention.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Leading off from the far side of the tavern, this narrow corridor is clearly signposted as providing access to the toilets and stairs to the upper floor. Apart from some pictures of rural scenes and old farming implements hanging from the walls, this corridor is devoid of any furnishings.
+	</p>
+	<p>
+		An emergency fire escape is situated beside a glass window at the end of the corridor, and to either side of that are the toilets and staircase. From here you could approach one of these two places, or head down the corridor and return to the main floor of the tavern.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You find yourself standing beside one of the two entrances to this tavern, which takes the form of a sturdy wooden door. A thick doormat is recessed into the floor in front of this door, and bears the words: 'Please wipe your feet before entering'
+	</p>
+	<p>
+		Over to one side of this door there's a squat metal umbrella rack,
+		#IF(game.getCurrentWeather()==WEATHER_RAIN)
+			 which, due to the fact that it's currently raining outside, is full of wet umbrellas.
+		#ELSE
+			 which, due to the fact that it's not currently raining outside, only has a few umbrellas stored in it.
+		#ENDIF
+		 From here, you could either [pc.step] forwards into the main area of the tavern, or instead make use of the door to head back out into Elis. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Deciding that it's time for you to leave, you push open the door and head back outside, before continuing forwards into the street outside the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GARDEN"><![CDATA[
+	<p>
+		A modestly-sized beer garden is situated to the rear of the tavern, and it's within this outdoor area that you currently find yourself standing.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			 Both the paved patio and the numerous wooden picnic tables which are located in this area are covered in a thick blanket of snow. The tavern's timber-framed wall forms the southern and eastern sides of this garden, while the other two are formed by large snow-capped hedgerows.
+		#ELSE
+			 Consisting of a paved patio adjoining a wide strip of neatly-mown lawn, this beer garden is home to numerous wooden picnic tables. The tavern's timber-framed wall forms the southern and eastern sides of this garden, while the other two are formed by large leafy hedgerows.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getSeason()==SEASON_WINTER)
+			Due to the cold outdoor temperature, you're the only person who's currently out here. Apart from taking a moment to enjoy the peace of the outdoors and get a fresh breath of air, there's nothing for you to do out here except head back inside...
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			Due to the fact that it's raining, you're the only person who's currently out here. Apart from taking a moment to enjoy the soothing sound of the falling rain and get a fresh breath of air, there's nothing for you to do out here except head back inside...
+		#ELSEIF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			Due to the busy time of day, there are quite a lot of people out here sitting at the tables or standing around drinking. Although those around you seem to be having a good time, there's little for you to do out here except get a fresh breath of air and then head back inside...
+		#ELSE
+			Due to the quiet time of day, there are only a few people out here sitting at the tables or standing around drinking. Although those around you seem to be having a good time, there's little for you to do out here except get a fresh breath of air and then head back inside...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GARDEN_DOOR"><![CDATA[
+	<p>
+		A glass conservatory connects the tavern's main floor to its beer garden, and it's within this area that you find yourself standing. Unlike the rest of the tavern, there's no place in here for customers to sit and drink, as almost all of the available space is filled with potted herbs and other edible plants.
+	</p>
+	<p>
+		A sign above the conservatory's glass doors informs you that the adjoining beer garden is available for all customers to enjoy,
+		#IF(game.getSeason()==SEASON_WINTER)
+			 although due to the cold outdoor temperature, you can see the garden is completely deserted...
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			 although due to the rain, you can see the garden is completely deserted...
+		#ELSEIF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 and due to the busy time of day, you can see that there are quite a lot of people out in there...
+		#ELSE
+			 although due to the quiet time of day, you can see that there are only a few people out in there...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		The tavern's kitchen is where the food is prepared. <i>You shouldn't be able to get here...</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(meraxis))
+			As usual, Meraxis has occupied the sofa in this corner of the tavern, and has several of the local succubi fawning over her. She's so caught up in regaling her companions with one of her exaggerated tales that she hasn't seen you approach, affording you the opportunity to turn around and leave. Then again, if you had things to talk to her about, you could always continue forwards and greet her.
+		#ELSE
+			Although the sofa in this corner of the tavern is Meraxis's favourite spot, she's nowhere to be seen at the moment. She's likely either upstairs in her room or over at the town hall bothering Minotallys. If you wanted to speak with her, you'll have to try finding her at one of those two places.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING"><![CDATA[
+	<p>
+		Positioned along the far sides of the tavern, several sofas and low coffee tables have been arranged so as to provide a more relaxed seating area than those offered by the wooden tables and chairs.
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 At this busy time of the day all of the available space is already taken, and so even if you wanted to sit down on one of the comfortable sofas you wouldn't be able to.
+		#ELSE
+			 At this quiet time of the day there's plenty of available space on the comfortable sofas, although you're not sure if you want to spend any time sitting down and taking a rest.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		The staircase before you is signposted as leading up to the tavern's rooms for rent, and winds around in a clockwise fashion up to the first floor. While it's quite wide, the steps are rather steep, which seems to be the reason why an additional sign has been placed beneath the first one, reading: 'To avoid any further accidents, please don't run up or down the stairs!'
+	</p>
+	<p>
+		From here you could travel up to the tavern's first floor, or instead [pc.walk] down the corridor and head back into the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_UP"><![CDATA[
+	<p>
+		Deciding to head on up to the first floor, you climb the steep staircase and soon find yourself at the top...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES"><![CDATA[
+	<p>
+		Almost the entire of the ground floor of 'The Red Dragon' consists of one huge room, in which you currently find yourself standing. Thanks to the large wooden floorboards and overhead beams, as well as the decorative, antiquated farm equipment which is displayed on the walls, this tavern's interior has a very rustic feel to it.
+	</p>
+	<p>
+		A large number of wooden tables and chairs fill most of the space before you,
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 and thanks to the fact that it's currently the busy time of the day, almost all of these tables are occupied by people drinking, eating, and making merry.
+		#ELSE
+			 and thanks to the fact that it's currently the quiet time of the day, only a few of these tables are occupied by people drinking, eating, and making merry.
+		#ENDIF
+		 The smell of alcohol and good, hearty food fills the air, making you look over to the bar and wonder whether you should order anything...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		You find yourself standing before the door to the tavern's toilets, and subsequently find yourself with the rather limited options of either heading inside or turning around and returning to the corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_INTERIOR"><![CDATA[
+	<p>
+		Deciding to make use of the tavern's toilets, you push open the door and head inside. Consisting of several stalls and a few sinks, these facilities are very basic, although what they lack in appearance they fortunately make up for in their impressive level of cleanliness.
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			Due to the busy time of day there are a few other people in here, and so if you wanted to use one of the toilets it looks like you'll have to wait for a minute or two before one of the occupied stalls becomes available.
+		#ELSE
+			Due to the quiet time of day there's nobody else in here, and so if you wanted to use one of the toilets there's nothing stopping you from entering one of the free stalls.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_LEAVE"><![CDATA[
+	<p>
+		Having no further need of the tavern's toilet facilities, you swiftly head over to the door and make your exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			After waiting for a couple of minutes, one of the stalls becomes available, and so after [pc.stepping] into it and locking the door behind you, you make use of the toilet.
+		#ELSE
+			[pc.Stepping] into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet.
+		#ENDIF
+		 After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

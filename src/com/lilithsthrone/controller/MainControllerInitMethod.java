@@ -7119,7 +7119,7 @@ public class MainControllerInitMethod {
 		
 		// Save/load:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
-			for (File f : Main.getSavedGames()) {
+			for (File f : Main.getSavedGames(false)) {
 				String fileIdentifier = Util.getFileIdentifier(f);
 				String fileName = Util.getFileName(f);
 				
