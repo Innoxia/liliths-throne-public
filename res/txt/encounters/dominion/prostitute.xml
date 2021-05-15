@@ -464,7 +464,7 @@
 	
 	<htmlContent tag="ALLEY_PROSTITUTE_QUESTION_APARTMENT"><![CDATA[
 	<p>
-		As you lie back on [npc.namePos] bed, you find yourself wondering why [npc.she] is choosing to work in these dangerous alleyways, and so you look over and ask [npc.herHim] why [npc.she] doesn't try to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red light district.
+		As you lie back on [npc.namePos] bed, you find yourself wondering why [npc.she] is choosing to work in these dangerous alleyways, and so you look over and ask [npc.herHim] why [npc.she] doesn't try to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red-light district.
 	</p>
 	<p>
 		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking [#SPECIAL_PARSE_0] flame fine!)]
@@ -473,11 +473,11 @@
 		As you confirm to [npc.name] that you're not an Enforcer, you can't help but notice how [npc.she] lets out a sigh of relief. Turning [npc.her] attention back to getting [npc.her] clothes in order, [npc.she] admits, [npc.speech(Look, let's just say that I prefer to work in places where I'm not likely to be found. Anyway, your time's almost up, so please get ready to leave...)]
 	</p>
 	<p>
-		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
+		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this
 		#IF(game.getDialogueFlags().hasFlag(FLAG_prostitutionLicenseObtained))
-			, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
+			area, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
 		#ELSE
-			...
+			area...
 		#ENDIF
 	</p>
 	]]></htmlContent>
@@ -488,7 +488,7 @@
 	#ENDVAR
 	
 	<p>
-		Wondering why [npc.name] is choosing to work in these dangerous alleyways, you ask [npc.herHim] why [npc.she] isn't trying to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red light district.
+		Wondering why [npc.name] is choosing to work in these dangerous alleyways, you ask [npc.herHim] why [npc.she] isn't trying to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red-light district.
 	</p>
 	<p>
 		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking [#SPECIAL_PARSE_0] flame fine!)]
@@ -502,11 +502,11 @@
 		#ENDIF
 	</p>
 	<p>
-		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
+		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this
 		#IF(game.getDialogueFlags().hasFlag(FLAG_prostitutionLicenseObtained))
-			, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
+			area, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
 		#ELSE
-			...
+			area...
 		#ENDIF
 	</p>
 	]]></htmlContent>

@@ -633,7 +633,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType DOMINION_RED_LIGHT_DISTRICT = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Red Light District",
+			"Red-Light District",
 			"As easy as sex is to come by in Dominion, there's no guarantee that a partner has any skill in the bedroom. It's in this area that professional, obligation-free lovers can be hired.",
 			"dominion/brothel",
 			PresetColour.BASE_MAGENTA,
@@ -2583,7 +2583,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ANGELS_KISS_OFFICE = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Angel's Office",
-			"The room in which Angel does all of the paperwork required of her as the red light district's 'Enforcer-sanctioned administration centre'.",
+			"The room in which Angel does all of the paperwork required of her as the red-light district's 'Enforcer-sanctioned administration centre'.",
 			"dominion/angelsKiss/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			RedLightDistrict.ANGELS_KISS_OFFICE,
@@ -5508,7 +5508,7 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_RIVER = new AbstractGlobalPlaceType(
 			WorldRegion.RIVER,
 			"river Hubur",
-			"The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.",
+			"The river Hubur runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.",
 			"global/river",
 			new Colour(Util.newColour(0x61BDFF)),
 			new Colour(Util.newColour(0x98B4CD)),

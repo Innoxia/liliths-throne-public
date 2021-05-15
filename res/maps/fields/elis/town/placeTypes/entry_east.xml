@@ -13,7 +13,7 @@
 	<name><![CDATA[Eastern road]]></name>
 	
 	<!-- The information displayed to the player in the tooltip when hovering over this place type in the map UI. -->
-	<tooltipDescription><![CDATA[This road leads out of the eastern gate of Elis, and after a few miles it links up with the well-maintained highway which runs alongside the river Huber.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[This road leads out of the eastern gate of Elis, and after a few miles it links up with the well-maintained highway which runs alongside the river Hubur.]]></tooltipDescription>
 	
 	<!-- The description which is used when describing a character's virginity loss within this place type.
 	It should follow the generic format of "in/at/on X", with no initial capitalisation or ending punctuation. -->

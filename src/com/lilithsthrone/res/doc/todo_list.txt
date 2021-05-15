@@ -477,7 +477,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[] Loss results in being transformed, they play up to your fetishes and after sex they leave
 						[] BE: 'One of Us' Kept for days having your fantasies indulged, while being fed fetish TF potions so that you end up as one of them
 		[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated, says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
-		[] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
+		[x] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
 		[] Elis
 			[] Map
 				[] Town Hall
