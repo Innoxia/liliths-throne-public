@@ -104,6 +104,7 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Eisek;
 import com.lilithsthrone.game.character.npc.fields.Flash;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
@@ -2004,6 +2005,9 @@ public class Game implements XMLSaving {
 				Main.game.getNpc(Arion.class).setAffection(Main.game.getNpc(Minotallys.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 				Main.game.getNpc(Minotallys.class).setAffection(Main.game.getNpc(Arion.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 			}
+			
+			//Farmer's Market
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Eisek.class))) { addNPC(new Eisek(), false); addedNpcs.add(Eisek.class); }
 			
 			
 		} catch (Exception e) {

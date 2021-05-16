@@ -5,10 +5,12 @@
  */
 package com.lilithsthrone.game.character.npc.fields;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -45,6 +47,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
@@ -129,7 +132,8 @@ public class Eisek extends NPC {
 	this.setSkinCovering(new Covering(BodyCoveringType.TONGUE, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE_LIGHT, false, PresetColour.ORIFICE_INTERIOR, false), true);
 	this.setSkinCovering(new Covering("dsg_dragon_scales", CoveringPattern.MARKED, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_WHITE, false), true);
 
-	this.setHairCovering(new Covering("dsg_dragon_hairMane", CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false), false);
+	this.setHairCovering(new Covering("dsg_dragon_hair", PresetColour.COVERING_WHITE, PresetColour.COVERING_WHITE), false);
+	this.setHairType(HairType.getHairTypeFromId("dsg_dragon_hairMane"));
 	this.setHairLength(11);
 	this.setHairStyle(HairStyle.NONE);
 
@@ -212,7 +216,21 @@ public class Eisek extends NPC {
     }
     
     @Override
+    //TODO: Add meeting and banishment check
     public void dailyUpdate() {
+	if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
+	    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market"));
+	} else {
+	    this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+	}
+    }
+    
+    @Override
+    public String getSpeechColour() {
+            if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
+                    return "#55a2d5";
+            }
+            return "#55a2d5";
     }
     
 }
