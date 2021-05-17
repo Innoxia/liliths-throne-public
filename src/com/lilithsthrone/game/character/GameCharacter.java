@@ -19606,6 +19606,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return littersBirthed.get(littersBirthed.size() - 1);
 	}
 	
+	public Litter getLastLitterIncubated() {
+		if(incubatedLitters.isEmpty()) {
+			return null;
+		}
+		return incubatedLitters.get(incubatedLitters.size() - 1);
+	}
+	
 	public List<Litter> getLittersFathered() {
 		return littersFathered;
 	}
