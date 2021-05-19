@@ -78,13 +78,21 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.wesTree),
         
-    SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
-            QuestType.SIDE,
-            QuestTree.rebelBaseTree),
+	SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
+			QuestType.SIDE,
+			QuestTree.rebelBaseTree),
     
-    SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
-            QuestType.SIDE,
-            QuestTree.rebelBaseFirebombTree),
+	SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
+		    QuestType.SIDE,
+		    QuestTree.rebelBaseFirebombTree),
+	
+	SIDE_EISEK_STALL("Fix 'Er Upper", "You've helped Eisek fix up his stall.",
+		    QuestType.SIDE,
+		    QuestTree.eisekStallTree),
+	
+	SIDE_EISEK_MOB("Mob Mentality", "You've convinced the mob that was hounding Eisek to leave him alone.",
+		    QuestType.SIDE,
+		    QuestTree.eisekMobTree),
 	
 	// Romance quests:
 	

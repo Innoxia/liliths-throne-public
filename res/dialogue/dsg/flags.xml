@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueFlags>
+	<!-- Additional dialogue flags for use in the game.
+	The 'dailyReset' value determines whether or not the flag gets reset to false at midnight every day.
+	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
+	 i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
+	
+	<!-- Eisek -->
+	<!-- additional numerical flag not stored here: elis_eisek_talk_score -->
+	
+	<flag dailyReset="false">elis_eisek_introduced</flag>
+	<flag dailyReset="false">elis_eisek_banished</flag>
+	
+	<flag dailyReset="false">elis_eisek_asked_family</flag>
+	<flag dailyReset="false">elis_eisek_asked_why_elis</flag>
+	<flag dailyReset="false">elis_eisek_asked_other_dragons</flag>
+	<flag dailyReset="false">elis_eisek_asked_business</flag>
+	<flag dailyReset="false">elis_eisek_asked_himself</flag>
+	
+	<flag dailyReset="false">elis_eisek_mob_quest_intimidate</flag>
+	<flag dailyReset="false">elis_eisek_mob_quest_intimidate_arcane</flag>
+	<flag dailyReset="false">elis_eisek_mob_quest_persuade</flag>
+	<flag dailyReset="false">elis_eisek_mob_quest_seduce</flag>
+	<flag dailyReset="false">elis_eisek_mob_quest_failed</flag>
+	
+	<flag dailyReset="false">elis_eisek_talk_post_mob_quest</flag>
+	
+</dialogueFlags>

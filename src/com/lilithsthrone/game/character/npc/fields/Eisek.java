@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -32,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -44,6 +46,8 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -81,6 +85,7 @@ public class Eisek extends NPC {
 	if(!isImported) {
 	    this.setPlayerKnowsName(false);
             setDescription(UtilText.parse(this, "[npc.Name] runs a produce stall in the Elis Farmer's Market. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of."));
+	    Main.game.getDialogueFlags().setSavedLong("elis_eisek_talk_score", 0);
 	}
     }
     
@@ -121,6 +126,8 @@ public class Eisek extends NPC {
 	this.setFemininity(5);
 	this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 	this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+	this.setWingType(WingType.getWingTypeFromId("dsg_dragon_wing"));
+	this.setWingSize(WingSize.THREE_LARGE.getValue());
 
 	// Coverings:
 	this.setEyeCovering(new Covering("dsg_dragon_eye", PresetColour.EYE_ORANGE));
@@ -216,13 +223,15 @@ public class Eisek extends NPC {
     }
     
     @Override
-    //TODO: Add meeting and banishment check
     public void dailyUpdate() {
-	if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
-	    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market"));
-	} else {
-	    this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+	if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {
+	    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
+		this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market"));
+	    } else {
+		this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+	    }
 	}
+	
     }
     
     @Override
