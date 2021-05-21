@@ -85,7 +85,6 @@ public class Eisek extends NPC {
 	if(!isImported) {
 	    this.setPlayerKnowsName(false);
             setDescription(UtilText.parse(this, "[npc.Name] runs a produce stall in the Elis Farmer's Market. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of."));
-	    Main.game.getDialogueFlags().setSavedLong("elis_eisek_talk_score", 0);
 	}
     }
     

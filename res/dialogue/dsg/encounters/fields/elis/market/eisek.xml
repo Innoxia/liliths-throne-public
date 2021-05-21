@@ -207,6 +207,7 @@
 				<secondsPassed/>
 				<effects><![CDATA[
 					[##eisek.incrementAffection(pc, 5)]
+					[##flags.setSavedLong("elis_eisek_talk_score", 0)]
 				]]></effects>
 			</response>
 			<response>
