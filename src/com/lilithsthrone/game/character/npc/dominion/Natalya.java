@@ -124,6 +124,9 @@ public class Natalya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setStartingBody(false);
 		}
+		if(this.getClothingInSlot(InventorySlot.LEG)==null) {
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+		}
 	}
 
 	@Override
