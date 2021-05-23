@@ -863,16 +863,16 @@
 	</p>
 	#IF(npc.getTailType().isSuitableForSleepHugging())
 		<p>
-			#IF(npc.getTailCount()>1)
+			#IF(npc.getTailCount()==1)
 				 While petting [npc.namePos] head, you've noticed how [npc.her] [npc.tail+] has been slowly swishing from side to side behind [npc.herHim]. Knowing that [npc.name] is sure to indulge you in your desire, you move your attention away from [npc.her] head and reach down to give [npc.her] [npc.tail+] a loving stroke. Opening [npc.her] [npc.eyes] and gasping in shock, [npc.name] instinctively lifts up [npc.her] tail, which inadvertently allows you to stroke it even more. Quickly calming down as [npc.she] takes in the situation, [npc.name] willingly turns around and pushes [npc.her] [npc.tail] back towards you, allowing you to spend the next several minutes stroking and hugging it.
 			#ELSE
-				 While petting [npc.namePos] head, you've noticed how [npc.her] [npc.tails+] have been slowly swishing from side to side behind [npc.herHim]. Knowing that [npc.name] is sure to indulge you in your desire, you move your attention away from [npc.her] head and reach down to give the closet of [npc.her] [npc.tails+] a loving stroke. Opening [npc.her] [npc.eyes] and gasping in shock, [npc.name] instinctively lifts up [npc.her] tails, which inadvertently allows you to stroke
+				 While petting [npc.namePos] head, you've noticed how [npc.her] [npc.tails+] have been slowly swishing from side to side behind [npc.herHim]. Knowing that [npc.name] is sure to indulge you in your desire, you move your attention away from [npc.her] head and reach down to give the closest of [npc.her] [npc.tails+] a loving stroke. Opening [npc.her] [npc.eyes] and gasping in shock, [npc.name] instinctively lifts up [npc.her] tails, which inadvertently allows you to stroke
 				#IF(npc.getTailCount()==2)
 					 both of them
 				#ELSE
 					 all of them
 				#ENDIF
-				of them at the same time. Quickly calming down as [npc.she] takes in the situation, [npc.name] willingly turns around and pushes [npc.her] [npc.tails] back towards you, allowing you to spend the next several minutes stroking and hugging them.
+				 at the same time. Quickly calming down as [npc.she] takes in the situation, [npc.name] willingly turns around and pushes [npc.her] [npc.tails] back towards you, allowing you to spend the next several minutes stroking and hugging them.
 			#ENDIF
 		</p>
 	#ENDIF
