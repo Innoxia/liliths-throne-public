@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -2517,10 +2518,22 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_ARMPIT_RECEIVING);
 		}
 		
-		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
-			Fetish f = Util.randomItemFrom(availableFetishes);
+		Map<Fetish, Integer> fetishMap = new HashMap<>();
+		for(Fetish fetish : availableFetishes) {
+			// Allow for weight to be increased by stacking a fetish in availableFetishes
+			if(fetishMap.containsKey(fetish)) {
+				int weight = fetishMap.get(fetish) + FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove();
+				fetishMap.put(fetish, weight);
+			} else {
+				if(FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove()!=0) {
+					fetishMap.put(fetish, FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove());
+				}
+			}
+		}
+		while(fetishesAssigned < numberOfFetishes && !fetishMap.isEmpty()) {
+			Fetish f = Util.getRandomObjectFromWeightedMap(fetishMap);
 			character.addFetish(f);
-			while(availableFetishes.remove(f)) {}
+			fetishMap.remove(f);
 			fetishesAssigned++;
 		}
 		
@@ -2571,10 +2584,18 @@ public class CharacterUtils {
 		
 		int desiresAssigned = 0;
 		List<Fetish> fetishesLiked = new ArrayList<>(character.getFetishes(false));
-		while(desiresAssigned < numberOfPositiveDesires && !availableFetishes.isEmpty()) {
-			Fetish f = Util.randomItemFrom(availableFetishes);
+		
+		Map<Fetish, Integer> desireMap = new HashMap<>();
+		for(Fetish fetish : availableFetishes) {
+			if(FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike()!=0) {
+				desireMap.put(fetish, FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike());
+			}
+		}
+		while(desiresAssigned < numberOfPositiveDesires && !desireMap.isEmpty()) {
+			Fetish f = Util.getRandomObjectFromWeightedMap(desireMap);
 			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
 			availableFetishes.remove(f);
+			desireMap.remove(f);
 			fetishesLiked.add(f);
 			desiresAssigned++;
 		}
@@ -2636,16 +2657,24 @@ public class CharacterUtils {
 		availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
 		availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
 		
-		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
-			Fetish f = Util.randomItemFrom(availableFetishes);
-			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
+		Map<Fetish, Integer> negativeMap = new HashMap<>();
+		for(Fetish fetish : availableFetishes) {
+			FetishPreference fp = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish));
+			if(fp.getDislike() + fp.getHate()!=0) {
+				negativeMap.put(fetish, fp.getDislike() + fp.getHate());
+			}
+		}
+		while(desiresAssigned < numberOfNegativeDesires && !negativeMap.isEmpty()) {
+			Fetish f = Util.getRandomObjectFromWeightedMap(negativeMap);
+			int rnd = Util.random.nextInt(negativeMap.get(f))+1;
+			character.setFetishDesire(f, rnd>FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(f)).getHate()?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
 			if(f == Fetish.FETISH_DOMINANT) {
-				availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
+				negativeMap.remove(Fetish.FETISH_SUBMISSIVE);
 			}
 			if(f == Fetish.FETISH_SUBMISSIVE) {
-				availableFetishes.remove(Fetish.FETISH_DOMINANT);
+				negativeMap.remove(Fetish.FETISH_DOMINANT);
 			}
-			availableFetishes.remove(f);
+			negativeMap.remove(f);
 			desiresAssigned++;
 		}
 	}
