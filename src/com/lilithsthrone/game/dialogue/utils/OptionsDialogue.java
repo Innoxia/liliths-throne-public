@@ -1393,8 +1393,8 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"
 							+ "These options will determine the likely hood of random NPCs having these fetishes & preferences."
-							+ " Some NPCs have pre-determined fetishes, but your preferences will be taken into account wherever possible.<br/>"
-							+ " Disabled content will always override these settings."
+							+ " Some races are more likely to get specific fetishes, but your preferences will be taken into account wherever possible.<br/>"
+							+ " Content settings will enable/disable related fetishes."
 							+ "</div>"
 							
 							+ "<div class='container-full-width' style='text-align:center;'>");
@@ -1491,7 +1491,8 @@ public class OptionsDialogue {
 				disabledMsg="Foot Content";
 			}
 			if(disabledMsg!=null) {
-				Main.getProperties().fetishPreferencesMap.put(fetish, FetishPreference.ZERO_DISABLED.getValue());
+				// Disabled fetishes to default, the fetish won't be a valid option for the generator anyway
+				Main.getProperties().fetishPreferencesMap.put(fetish, fetish.getFetishPreferenceDefault().getValue());
 				sb.append("<div style='display:inline-block;'><span class='option-disabled'>Fetish forcibly disabled due to "+disabledMsg+" setting!</span></div>");
 				break;
 			} else {

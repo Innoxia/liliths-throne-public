@@ -7,11 +7,11 @@ import java.util.Map;
 
 public enum FetishPreference {
 	ZERO_DISABLED("disabled", 0, 0, 0, 0, 0, "This fetish will not be appear unless special conditions are met."),
-	ONE_HATE("hate", 1, 5, 3, 0, 0, "NPCs with this desire will only dislike or hate unless special conditions are met."),
-	TWO_DISLIKE("dislike", 2, 3, 5, 2, 1, "NPCs with this desire will more likely dislike/hate but can still like/love it."),
-	THREE_NEUTRAL("neutral", 3, 1, 1, 1, 1, "NPCs are more likely to have non-neutral desires."),
-	FOUR_LIKE("like", 4, 1, 2, 5, 3, "NPCs with this desire will more likely like/love but can still dislike/hate it."),
-	FIVE_LOVE("love", 5, 0, 0, 3, 5, "NPCs with this desire will only like or love.");
+	ONE_HATE("hate", 1, 10, 5, 0, 0, "NPCs will only dislike or hate this fetish unless special conditions are met."),
+	TWO_DISLIKE("dislike", 2, 5, 10, 3, 1, "NPCs will more likely dislike/hate this fetish but can still like/love it."),
+	THREE_NEUTRAL("neutral", 3, 3, 3, 3, 3, "No preference either way."),
+	FOUR_LIKE("like", 4, 1, 3, 10, 5, "NPCs will more likely like/love this fetish but can still dislike/hate it."),
+	FIVE_LOVE("love", 5, 0, 0, 3, 5, "NPCs will only like or love this fetish.");
 	
 	private String name;
 	private int value;
