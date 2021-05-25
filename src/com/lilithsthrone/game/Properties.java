@@ -1003,7 +1003,7 @@ public class Properties {
 					}
 				}
 				
-				// Sexual orientation preferences:
+				// Fetish preferences:
 				nodes = doc.getElementsByTagName("fetishPreferences");
 				element = (Element) nodes.item(0);
 				if(element!=null && element.getElementsByTagName("preference")!=null) {

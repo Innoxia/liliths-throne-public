@@ -1508,7 +1508,7 @@ public class OptionsDialogue {
 		
 		return sb.toString();
 	}
-
+	
 	private static String getGenderRepresentation() {
 		
 		float total=0;
