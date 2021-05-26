@@ -591,6 +591,30 @@ public enum LegConfiguration {
 		public boolean isTailLostOnInitialTF() {
 			return true;
 		}
+		@Override
+		public String getMovementVerbPresentFirstPersonSingular() { return "crawl"; }
+		@Override
+		public String getMovementVerbPresentThirdPersonSingular() {	return "crawls"; }
+		@Override
+		public String getMovementVerbPresentParticiple() {
+			return "crawling";
+		}
+		@Override
+		public String getMovementVerbPastParticiple() {
+			return "crawled";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentFirstPersonSingular() {
+			return "slide";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentThirdPersonSingular() {
+			return "slides";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentParticiple() { return "sliding"; }
+		@Override
+		public String getIndividualMovementVerbPastParticiple() { return "slid"; }
 	},
 	
 
