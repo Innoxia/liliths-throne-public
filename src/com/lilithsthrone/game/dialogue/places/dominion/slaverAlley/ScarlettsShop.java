@@ -48,6 +48,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaHotel;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -2220,6 +2221,9 @@ public class ScarlettsShop {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.ROLLED_UP_POSTERS), false));
+			if(Main.getProperties().addItemDiscovered(ItemType.ROLLED_UP_POSTERS)) {
+				Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(ItemType.ROLLED_UP_POSTERS.getName(false), ItemType.ROLLED_UP_POSTERS.getRarity().getColour()), true);
+			}
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_6_ADVERTISING));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(100));
 		}
