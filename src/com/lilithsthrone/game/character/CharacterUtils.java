@@ -2439,11 +2439,23 @@ public class CharacterUtils {
 				}
 				
 			} else if (f==Fetish.FETISH_INCEST) {
-				if(Main.getProperties().hasValue(PropertyValue.incestContent))
+				if(Main.game.isIncestEnabled())
 					allowedFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_LACTATION_OTHERS || f==Fetish.FETISH_LACTATION_SELF) {
 				if(Main.game.isLactationContentEnabled())
+					allowedFetishes.add(f);
+				
+			} else if (f==Fetish.FETISH_ANAL_GIVING || f==Fetish.FETISH_ANAL_RECEIVING) {
+				if(Main.game.isAnalContentEnabled())
+					allowedFetishes.add(f);
+
+			} else if (f==Fetish.FETISH_FOOT_GIVING || f==Fetish.FETISH_FOOT_RECEIVING) {
+				if(Main.game.isFootContentEnabled())
+					allowedFetishes.add(f);
+				
+			} else if (f==Fetish.FETISH_SIZE_QUEEN) {
+				if(Main.game.isPenetrationLimitationsEnabled())
 					allowedFetishes.add(f);
 				
 			} else if (f.getFetishesForAutomaticUnlock().isEmpty()){
@@ -2491,43 +2503,18 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_KINK_GIVING);
 		}
 		
-		if(character.getRace()==Race.COW_MORPH && availableFetishes.contains(Fetish.FETISH_BREASTS_SELF)) {
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-		}
-		
-		if(!Main.getProperties().hasValue(PropertyValue.analContent)) {
-			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
-			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
-		}
-
-		if(!Main.game.isPenetrationLimitationsEnabled()) {
-			availableFetishes.remove(Fetish.FETISH_SIZE_QUEEN);
-		}
-		
-		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
-			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
-			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
-		}
-
-		if(!Main.game.isArmpitContentEnabled()) {
-			availableFetishes.remove(Fetish.FETISH_ARMPIT_GIVING);
-			availableFetishes.remove(Fetish.FETISH_ARMPIT_RECEIVING);
-		}
-		
 		Map<Fetish, Integer> fetishMap = new HashMap<>();
+		Map<Fetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
 		for(Fetish fetish : availableFetishes) {
-			// Allow for weight to be increased by stacking a fetish in availableFetishes
-			if(fetishMap.containsKey(fetish)) {
-				int weight = fetishMap.get(fetish) + FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove();
-				fetishMap.put(fetish, weight);
+			int weight = 0;
+			if(raceModifiers.containsKey(fetish)) {
+				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove() * raceModifiers.get(fetish).getOrDefault("love", 1);
 			} else {
-				if(FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove()!=0) {
-					fetishMap.put(fetish, FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove());
-				}
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove();
+			}
+			if(weight!=0) {
+				fetishMap.put(fetish, weight);
 			}
 		}
 		while(fetishesAssigned < numberOfFetishes && !fetishMap.isEmpty()) {
@@ -2537,13 +2524,6 @@ public class CharacterUtils {
 			fetishesAssigned++;
 		}
 		
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasVagina()) {
-			character.addFetish(Fetish.FETISH_PREGNANCY);
-		}
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasPenis()) {
-			character.addFetish(Fetish.FETISH_IMPREGNATION);
-		}
-		
 		generateDesires(character);
 	}
 	
@@ -2551,7 +2531,6 @@ public class CharacterUtils {
 		
 		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		availableFetishes.removeAll(character.getFetishes(false));
-		availableFetishes.removeIf((f) -> !f.getFetishesForAutomaticUnlock().isEmpty()); //Do not allow derived fetishes
 		for(Fetish f : character.getFetishes(false)) {
 			switch(f) {
 				default:
@@ -2566,16 +2545,6 @@ public class CharacterUtils {
 			}
 		}
 
-		if(!Main.getProperties().hasValue(PropertyValue.analContent)) {
-			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
-			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
-		}
-
-		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
-			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
-			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
-		}
-		
 		// Desires:
 		int[] posDesireProb = new int[] {1, 1, 2, 2, 2, 3, 3};
 		int[] negDesireProb = new int[] {3, 3, 4, 4, 4, 5, 5};
@@ -2586,9 +2555,17 @@ public class CharacterUtils {
 		List<Fetish> fetishesLiked = new ArrayList<>(character.getFetishes(false));
 		
 		Map<Fetish, Integer> desireMap = new HashMap<>();
+		Map<Fetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
 		for(Fetish fetish : availableFetishes) {
-			if(FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike()!=0) {
-				desireMap.put(fetish, FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike());
+			int weight = 0;
+			if(raceModifiers.containsKey(fetish)) {
+				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike() * raceModifiers.get(fetish).getOrDefault("like", 1);
+			} else {
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike();
+			}
+			if(weight!=0) {
+				desireMap.put(fetish, weight);
 			}
 		}
 		while(desiresAssigned < numberOfPositiveDesires && !desireMap.isEmpty()) {
@@ -2599,14 +2576,6 @@ public class CharacterUtils {
 			fetishesLiked.add(f);
 			desiresAssigned++;
 		}
-		
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasVagina() && availableFetishes.contains(Fetish.FETISH_PREGNANCY)) {
-			character.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.THREE_LIKE);
-		}
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasPenis() && availableFetishes.contains(Fetish.FETISH_IMPREGNATION)) {
-			character.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
-		}
-		
 		
 		// Disliked fetishes:
 		// Related fetishes cannot be liked and disliked at the same time:
@@ -2647,10 +2616,6 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
 			availableFetishes.remove(Fetish.FETISH_BREASTS_OTHERS);
 		}
-		if(character.getRace()==Race.RABBIT_MORPH) {
-			availableFetishes.remove(Fetish.FETISH_PREGNANCY);
-			availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
-		}
 		
 		// Remove 'natural' fetish dislikes:
 		availableFetishes.remove(Fetish.FETISH_CUM_STUD);
@@ -2659,15 +2624,27 @@ public class CharacterUtils {
 		
 		Map<Fetish, Integer> negativeMap = new HashMap<>();
 		for(Fetish fetish : availableFetishes) {
+			int weight = 0;
 			FetishPreference fp = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish));
-			if(fp.getDislike() + fp.getHate()!=0) {
-				negativeMap.put(fetish, fp.getDislike() + fp.getHate());
+			if(raceModifiers.containsKey(fetish)) {
+				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
+				weight = fp.getDislike() * raceModifiers.get(fetish).getOrDefault("dislike", 1);
+				weight += fp.getHate() * raceModifiers.get(fetish).getOrDefault("hate", 1);
+			} else {
+				weight = fp.getDislike() + fp.getHate();
+			}
+			if(weight!=0) {
+				negativeMap.put(fetish, weight);
 			}
 		}
 		while(desiresAssigned < numberOfNegativeDesires && !negativeMap.isEmpty()) {
 			Fetish f = Util.getRandomObjectFromWeightedMap(negativeMap);
 			int rnd = Util.random.nextInt(negativeMap.get(f))+1;
-			character.setFetishDesire(f, rnd>FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(f)).getHate()?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
+			int weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(f)).getHate();
+			if(raceModifiers.containsKey(f)) {
+				weight *= raceModifiers.get(f).getOrDefault("hate", 1);
+			}
+			character.setFetishDesire(f, rnd>weight?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
 			if(f == Fetish.FETISH_DOMINANT) {
 				negativeMap.remove(Fetish.FETISH_SUBMISSIVE);
 			}
