@@ -936,7 +936,7 @@ public class GenericOrgasms {
 						break;
 					case FINGER:
 						if(characterOrgasming.equals(characterTargeted)) {
-							genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] thrusting [npc.her] [npc.cock+] into [npc.her] [npc.hand], letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
+							genericOrgasmSB.append(" [npc.She] [npc.verb(continue)] pumping [npc.her] [npc.cock+] with [npc.her] [npc.hand], letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
 							
 						} else {
 							genericOrgasmSB.append(" [npc.Name] [npc.verb(continue)] thrusting [npc.her] [npc.cock+] into [npc2.namePos] [npc2.hand], letting out [npc.a_moan+] as [npc.she] [npc.verb(feel)] it start to twitch.");
@@ -1904,7 +1904,7 @@ public class GenericOrgasms {
 							switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 								case SIX_EXTREME:
 								case SEVEN_MONSTROUS:
-									cumTargetSB.append(" And after a few seconds, [npc.her] [npc.hands+] are absolutely drenched in [npc.cum+].");
+									cumTargetSB.append(" After a few seconds, [npc.her] [npc.hands+] are absolutely drenched in [npc.cum+].");
 									break;
 								default:
 									break;
