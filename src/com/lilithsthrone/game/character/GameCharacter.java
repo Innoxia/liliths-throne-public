@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19150,12 +19151,12 @@ public abstract class GameCharacter implements XMLSaving {
 					numberOfChildren *= 2;
 				}
 				
-				List<NPC> offspring = new ArrayList<>(numberOfChildren);
+				List<OffspringSeed> offspring = new ArrayList<>(numberOfChildren);
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
-					NPC npc = new NPCOffspring(this, partner);
-					offspring.add(npc);
+					OffspringSeed os = new OffspringSeed(this, partner);
+					offspring.add(os);
 					try {
-						Main.game.addNPC(npc, false);
+						Main.game.addOffspringSeed(os, false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -19235,12 +19236,12 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				int numberOfChildren = minimumNumberOfChildren + Util.random.nextInt((maximumNumberOfChildren-minimumNumberOfChildren)+1);
 				
-				List<NPC> offspring = new ArrayList<>(numberOfChildren);
+				List<OffspringSeed> offspring = new ArrayList<>(numberOfChildren);
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
-					NPC npc = new NPCOffspring(this, null, partnerSubspecies, partnerHalfDemonSubspecies);
-					offspring.add(npc);
+					OffspringSeed os = new OffspringSeed(this, null, partnerSubspecies, partnerHalfDemonSubspecies);
+					offspring.add(os);
 					try {
-						Main.game.addNPC(npc, false);
+						Main.game.addOffspringSeed(os, false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -19322,9 +19323,9 @@ public abstract class GameCharacter implements XMLSaving {
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
-						NPC npc = (NPC) Main.game.getNPCById(id);
-						npc.setConceptionDate(birthedLitter.getConceptionDate());
-						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
+						OffspringSeed os = Main.game.getOffspringSeedById(id);
+						os.setConceptionDate(birthedLitter.getConceptionDate());
+						os.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
 					} catch(Exception e) {
 						Util.logGetNpcByIdError("endPregnancy()", id);
 					}
@@ -19339,14 +19340,14 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			// Remove NPCs if not related to the player:
 			if(!this.isPlayer() && (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
-				for(String npc : birthedLitter.getOffspring()) {
-					Main.game.removeNPC(npc);
+				for(String os : birthedLitter.getOffspring()) {
+					Main.game.removeOffspringSeed(os);
 				}
 			}
 			
 		} else {
-			for(String npc : pregnantLitter.getOffspring()) {
-				Main.game.removeNPC(npc);
+			for(String os : pregnantLitter.getOffspring()) {
+				Main.game.removeOffspringSeed(os);
 			}
 		}
 		

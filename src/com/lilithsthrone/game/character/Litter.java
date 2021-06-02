@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -58,7 +59,7 @@ public class Litter implements XMLSaving {
 	private AbstractSubspecies motherRace;
 	private AbstractSubspecies fatherRace;
 
-	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<NPC> offspring) {
+	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<OffspringSeed> offspring) {
 		this.id = mother.getId()+mother.getLittersGenerated();
 		
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
@@ -82,16 +83,16 @@ public class Litter implements XMLSaving {
 		daughtersFather = 0;
 		this.offspring = new ArrayList<>();
 		
-		for(NPC npc : offspring) {
-			this.offspring.add(npc.getId());
-			if(npc.isFeminine()) {
-				if(npc.isTakesAfterMother()) {
+		for(OffspringSeed os : offspring) {
+			this.offspring.add(os.getId());
+			if(os.isFeminine()) {
+				if(os.isTakesAfterMother()) {
 					daughtersMother++;
 				} else {
 					daughtersFather++;
 				}
 			} else {
-				if(npc.isTakesAfterMother()) {
+				if(os.isTakesAfterMother()) {
 					sonsMother++;
 				} else {
 					sonsFather++;
@@ -419,14 +420,15 @@ public class Litter implements XMLSaving {
 		
 		for(String id : this.getOffspring()) {
 			try {
-				GameCharacter character = Main.game.getNPCById(id);
+				
+				OffspringSeed character = Main.game.getOffspringSeedById(id);
 				AbstractSubspecies subspecies = character.getSubspecies();
-				if(Main.game.getNPCById(id).isFeminine()) {
-					String nameId = subspecies.getSingularFemaleName(character)+"|"+subspecies.getPluralFemaleName(character);
+				if(character.isFeminine()) {
+					String nameId = subspecies.getSingularFemaleName(null)+"|"+subspecies.getPluralFemaleName(null);
 					daughters.putIfAbsent(nameId, 0);
 					daughters.put(nameId, daughters.get(nameId)+1);
 				} else {
-					String nameId = subspecies.getSingularMaleName(character)+"|"+subspecies.getPluralMaleName(character);
+					String nameId = subspecies.getSingularMaleName(null)+"|"+subspecies.getPluralMaleName(null);
 					sons.putIfAbsent(nameId, 0);
 					sons.put(nameId, sons.get(nameId)+1);
 				}

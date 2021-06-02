@@ -108,16 +108,7 @@ import com.lilithsthrone.game.character.npc.fields.Flash;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.npc.misc.LodgerImport;
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
-import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
-import com.lilithsthrone.game.character.npc.misc.PrologueMale;
-import com.lilithsthrone.game.character.npc.misc.SlaveImport;
+import com.lilithsthrone.game.character.npc.misc.*;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
@@ -245,9 +236,12 @@ public class Game implements XMLSaving {
 	// NPCs:
 	private NPC activeNPC;
 	private AtomicInteger npcTally = new AtomicInteger(0);
+	private AtomicInteger offspringSeedTally = new AtomicInteger(0);
 
 	//Note : this is a ConcurrentHashMap
 	private Map<String, NPC> NPCMap;
+	private Map<String, OffspringSeed> OffspringSeedMap;
+	
 	/** Key is the world to which the Enforcers patrol. Value is a List of Enforcer groups who are patrolling. */
 	private Map<AbstractWorldType, List<List<String>>> savedEnforcers;
 	
@@ -328,6 +322,7 @@ public class Game implements XMLSaving {
 		started = false;
 
 		NPCMap = new ConcurrentHashMap<>();
+		OffspringSeedMap = new ConcurrentHashMap<>();
 		
 		savedEnforcers = new HashMap<>();
 		
@@ -4409,6 +4404,51 @@ public class Game implements XMLSaving {
 			npc.getHomeCell().removeCharacterHomeId(npc.getId());
 			NPCMap.remove(npc.getId());
 		}
+	}
+	
+	public OffspringSeed getOffspringSeedById(String id) {
+		if(id==null || id.isEmpty()) {
+			throw new NullPointerException();
+		}
+		if(!OffspringSeedMap.containsKey(id)) {
+			throw new NullPointerException();
+		}
+		return OffspringSeedMap.get(id);
+	}
+	
+	public String addOffspringSeed(OffspringSeed os, boolean isImported) throws Exception {
+		if(isImported) {
+			int tallyCount;
+			String rawId = os.getId();
+			tallyCount = Integer.parseInt(rawId.split(",")[0]);
+			
+			offspringSeedTally.updateAndGet(x -> Math.max(x, tallyCount));
+			
+		} else {
+			int id = offspringSeedTally.incrementAndGet();
+			os.setId(id+","+(os.getClass().getSimpleName()));
+		}
+		
+		if(OffspringSeedMap.keySet().contains(os.getId())) {
+			throw new Exception("OffspringSeed map already contained an OffspringSeed with this Id ("+os.getId()+"). SOMETHING HAS GONE HORRIBLY WRONG! PANIC!");
+		}
+		
+		OffspringSeedMap.put(os.getId(), os);
+		
+		return os.getId();
+	}
+	
+	public void removeOffspringSeed(String id) {
+		try {
+			removeOffspringSeed(Main.game.getOffspringSeedById(id));
+		} catch (Exception e) {
+			System.err.println("Trying to remove an OffspringSeed that doesn't exist?");
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeOffspringSeed(OffspringSeed os) {
+		OffspringSeedMap.remove(os.getId());
 	}
 	
 	public int getNumberOfWitches() {
