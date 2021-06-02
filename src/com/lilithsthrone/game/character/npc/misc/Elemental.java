@@ -83,7 +83,7 @@ public class Elemental extends NPC {
 					:summoner.getBirthMonth(),
 				summoner==null
 					?1
-					:summoner.getDayOfBirth(),
+					:summoner.getBirthMonth()==Month.FEBRUARY&&summoner.getDayOfBirth()==29?28:summoner.getDayOfBirth(),
 				20,
 				gender,
 				Subspecies.DEMON, RaceStage.GREATER,
