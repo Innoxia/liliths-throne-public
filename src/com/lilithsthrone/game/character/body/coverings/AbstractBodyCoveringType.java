@@ -391,7 +391,7 @@ public abstract class AbstractBodyCoveringType {
 	}
 	
 	/**
-	 *  @return THe name of the covering for use in transformation menus. Will most likely return the same as getName(gc)
+	 *  @return The name of the covering for use in transformation menus. Will most likely return the same as getName(gc)
 	 */
 	public String getNameTransformation(GameCharacter gc) {
 		if(nameTransformation==null) {

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	
+	
+	<coreAtributes>
+	
+		<authorTag><![CDATA[The tag sewn into the inner lining has is barely legible. You can just about make out the letters "DSG".]]></authorTag>
+			
+		<value>1200</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+				
+		<name><![CDATA[vintage field jacket]]></name>
+				
+		<namePlural pluralByDefault="false"><![CDATA[vintage field jackets]]></namePlural> 
+				
+		<description><![CDATA[Made from heavy sateen fabric, this military-style jacket has long been replaced on the battlefield.]]></description> 
+				
+		<physicalResistance>1</physicalResistance> 
+				
+		<femininity>MASCULINE</femininity> 
+				
+		<slot>TORSO_OVER</slot> 
+				
+		<rarity>COMMON</rarity> 
+				
+		<clothingSet/> 
+		
+		<imageName>m65jacket.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 		
+			
+			<blockedParts>
+			
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked> 
+				
+				<concealedSlots/> 
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				
+				
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_GREY_DARK</colour>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+			<colour>CLOTHING_BROWN</colour>
+			<colour>CLOTHING_BROWN_DARK</colour>
+			<colour>CLOTHING_BROWN_VERY_DARK</colour>
+			<colour>CLOTHING_TAN</colour>
+			<colour>CLOTHING_KHAKI</colour>
+			<colour>CLOTHING_OLIVE</colour>
+			<colour>CLOTHING_GREEN_DRAB</colour>
+			<colour>CLOTHING_GREEN_DARK</colour>
+			<colour>CLOTHING_GREEN_VERY_DARK</colour>
+			<colour>CLOTHING_BLUE_GREY</colour>
+			<colour>CLOTHING_BLUE_NAVY</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+			<colour>CLOTHING_STEEL</colour>
+			<colour>CLOTHING_IRON</colour>
+			<colour>CLOTHING_BRASS</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] jacket.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] jacket.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] practically [npc.verb(rip)] off [npc2.namePos] jacket.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] on [npc.her] jacket.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(pull)] the rest of it over [npc.her] shoulders.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(yank)] the rest of it over [npc.her] shoulders.]]>
+		</otherRough>
+	</replacementText>
+
+	<replacementText type="UNZIPS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(zip)] up [npc.her] jacket.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(zip)] up [npc2.namePos] jacket.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(zip)] up [npc2.namePos] jacket.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] [npc.her] jacket.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] [npc2.namePos] jacket.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] the zipper on [npc2.namePos] jacket open.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

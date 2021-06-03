@@ -6,6 +6,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Anus;
 import com.lilithsthrone.game.character.body.Ass;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.Clitoris;
@@ -686,6 +687,66 @@ public enum LegConfiguration {
 		public boolean isTailLostOnInitialTF() {
 			return false;
 		}
+	},
+
+	/**
+	 * This LegConfiguration is a configuration for feral biped-ish races with wings instead of forelegs.<br/>
+	 * <b>This should only ever be used for ferals!</b>
+	 */
+	WINGED_BIPED("winged-biped",
+			0,
+			0,
+			true,
+			true,
+			WingSize.THREE_LARGE,
+			false,
+			2,
+			"A configuration in which the character's legs and groin are replaced by the body of the associated animal-morph, while their arm-wings are used in place of forelegs."
+					+ " The most common examples of this are feral wyverns and feral bats, which both have wings instead of arms, and which use these arm-wings to walk on all fours.",
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_WINGED_BIPED,
+			"statusEffects/race/raceBackgroundLegAvian") {
+		@Override
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.NORMAL,
+					GenitalArrangement.CLOACA,
+					GenitalArrangement.CLOACA_BEHIND);
+		}
+		@Override
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, BreastCrotch.class, Leg.class, Tail.class, Tentacle.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_ARM_WINGS,
+											ItemTag.FITS_ARM_WINGS_EXCLUSIVE)));
+				
+			} else {
+				return null; // This is a feral only leg configuration.
+			}
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			character.setLegType(LegType.DEMON_COMMON);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return false;
+		}
 	};
 
 	private String name;
@@ -810,10 +871,11 @@ public enum LegConfiguration {
 	}
 
 	/**
-	 * @return true If this leg configuration blocks flight from the usual arms or wings.
+	 * @param body The corresponding body.
+	 * @return The minimum WingSize required for flight.
 	 */
-	public WingSize getMinimumWingSizeForFlight() {
-		return minimumWingSizeForFlight;
+	public WingSize getMinimumWingSizeForFlight(Body body) {
+		return body.isFeral() ? WingSize.THREE_LARGE : minimumWingSizeForFlight;
 	}
 
 	public boolean isWingsOnLegConfiguration() {

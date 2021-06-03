@@ -9,19 +9,20 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  */
 public enum CoveringModifier {
 
-	EYE("eye"),
-	FLUID("fluid"),
-	MAKEUP("makeup"),
-	GLOSSY("glossy"),
-	MATTE("matte"),
-	SPARKLY("sparkly"),
-	METALLIC("metallic"),
+	EYE("eye", false),
+	FLUID("fluid", false),
+	MAKEUP("makeup", false),
+	GLOSSY("glossy", false),
+	MATTE("matte", false),
+	SPARKLY("sparkly", false),
+	METALLIC("metallic", false),
 
-	BLAZING("blazing"),
-	SHIMMERING("shimmering"),
-	SWIRLING("swirling"),
+	BLAZING("blazing", false),
+	SHIMMERING("shimmering", false),
+	GLITTERING("glittering", false),
+	SWIRLING("swirling", false),
 	
-	GOOEY("gooey") {
+	GOOEY("gooey", false) {
 		@Override
 		public String getName() {
 			return UtilText.returnStringAtRandom(
@@ -32,27 +33,36 @@ public enum CoveringModifier {
 	},
 	
 	// Generic:
-	SMOOTH("smooth"),
-	ROUGH("rough"),
+	SMOOTH("smooth", false),
+	ROUGH("rough", false),
 	
 	//Skin:
-	LEATHERY("leathery"),
+	LEATHERY("leathery", false),
 	
 	// Fur/hair:
-	SHORT("short"),
-	SILKEN("silken"),
-	FLUFFY("fluffy"),
-	SHAGGY("shaggy"),
-	FURRY("fur-like"),
-	COARSE("coarse");
+	SHORT("short", true),
+	SILKEN("silken", true),
+	FLUFFY("fluffy", true),
+	SHAGGY("shaggy", true),
+	FURRY("fur-like", true),
+	COARSE("coarse", true);
 	
 	private String descriptor;
+	private boolean furryModifier;
 
-	private CoveringModifier(String descriptor) {
+	private CoveringModifier(String descriptor, boolean furryModifier) {
 		this.descriptor = descriptor;
+		this.furryModifier = furryModifier;
 	}
 
 	public String getName() {
 		return descriptor;
+	}
+	
+	/**
+	 * @return true if this is a modifier which is typically assigned to furry or hairy coverings.
+	 */
+	public boolean isFurryModifier() {
+		return furryModifier;
 	}
 }

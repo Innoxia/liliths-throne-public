@@ -364,20 +364,21 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 			}
 			
-			if((Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_GIVING_START)
-							&& partner.calculateSexTypeWeighting(PenisFoot.FOOT_JOB_SINGLE_GIVING_START.getAsSexType(), targetedCharacter, null)>0)
-					|| (Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START)
-							&& partner.calculateSexTypeWeighting(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START.getAsSexType(), targetedCharacter, null)>0)) {
-				partnerAreasToBeExposed.add(CoverableArea.FEET);
+			if(Main.sex.getActionsAvailablePartner(partner, targetedCharacter)!=null) {
+				if((Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_GIVING_START)
+								&& partner.calculateSexTypeWeighting(PenisFoot.FOOT_JOB_SINGLE_GIVING_START.getAsSexType(), targetedCharacter, null)>0)
+						|| (Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START)
+								&& partner.calculateSexTypeWeighting(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START.getAsSexType(), targetedCharacter, null)>0)) {
+					partnerAreasToBeExposed.add(CoverableArea.FEET);
+				}
+	
+				if((Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_RECEIVING_START)
+							&& partner.calculateSexTypeWeighting(PenisFoot.FOOT_JOB_SINGLE_RECEIVING_START.getAsSexType(), targetedCharacter, null)>0)
+					|| (Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START)
+							&& partner.calculateSexTypeWeighting(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START.getAsSexType(), targetedCharacter, null)>0)) {
+					targetAreasToBeExposed.add(CoverableArea.FEET);
+				}
 			}
-
-			if((Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_RECEIVING_START)
-						&& partner.calculateSexTypeWeighting(PenisFoot.FOOT_JOB_SINGLE_RECEIVING_START.getAsSexType(), targetedCharacter, null)>0)
-				|| (Main.sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START)
-						&& partner.calculateSexTypeWeighting(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START.getAsSexType(), targetedCharacter, null)>0)) {
-				targetAreasToBeExposed.add(CoverableArea.FEET);
-			}
-			
 			partnerAreasToBeExposed.removeIf((area) -> (partner.isCoverableAreaExposed(area) || !partner.isAbleToAccessCoverableArea(area, true))
 					|| (area==CoverableArea.PENIS && !partner.hasPenis())
 					|| (area==CoverableArea.VAGINA && !partner.hasVagina()));
@@ -498,6 +499,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							}
 							break;
 						// No virginity to lose:
+						case ARMPITS:
 						case ASS:
 						case BREAST:
 						case BREAST_CROTCH:
@@ -553,6 +555,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 								}
 								break;
 							// No virginity to lose:
+							case ARMPITS:
 							case ASS:
 							case BREAST:
 							case BREAST_CROTCH:
@@ -752,51 +755,53 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		List<SexActionInterface> returnableActions = new ArrayList<>();
 		
 		boolean isSexPenetrationPossible = false;
-		actionLoop:
-		for(SexActionInterface action : Main.sex.getActionsAvailablePartner(performingCharacter, targetedCharacter)) {
-//		for(SexActionInterface action : availableActions) { //TODO need to check this
-			boolean penetrationAction = false;
-			boolean sexOrifice = false;
-			if(action.getParticipantType()!=SexParticipantType.SELF
-					&& (action.getActionType()==SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING)
-					&& performingCharacter.calculateSexTypeWeighting(action.getAsSexType(), targetedCharacter, null)>0
-					&& (action.isAddedToAvailableSexActions() || action.isAbleToAccessParts(performingCharacter))) {
-				if(debugFullActionList) {
-					System.out.println("A ");
-				}
-				for(SexAreaPenetration pen : action.getPerformingCharacterPenetrations()) {
-					if(pen.isTakesVirginity()) {
-						penetrationAction = true;
+		if(Main.sex.getActionsAvailablePartner(performingCharacter, targetedCharacter)!=null && !Main.sex.getActionsAvailablePartner(performingCharacter, targetedCharacter).isEmpty()) {
+			actionLoop:
+			for(SexActionInterface action : Main.sex.getActionsAvailablePartner(performingCharacter, targetedCharacter)) {
+	//		for(SexActionInterface action : availableActions) { //TODO need to check this
+				boolean penetrationAction = false;
+				boolean sexOrifice = false;
+				if(action.getParticipantType()!=SexParticipantType.SELF
+						&& (action.getActionType()==SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING)
+						&& performingCharacter.calculateSexTypeWeighting(action.getAsSexType(), targetedCharacter, null)>0
+						&& (action.isAddedToAvailableSexActions() || action.isAbleToAccessParts(performingCharacter))) {
+					if(debugFullActionList) {
+						System.out.println("A ");
 					}
-				}
-				for(SexAreaPenetration pen : action.getTargetedCharacterPenetrations()) {
-					if(pen.isTakesVirginity()) {
-						penetrationAction = true;
-					}
-				}
-				if(penetrationAction) {
-					for(SexAreaOrifice orifice : action.getPerformingCharacterOrifices()) {
-						if(orifice.isInternalOrifice()) {
-							sexOrifice = true;
+					for(SexAreaPenetration pen : action.getPerformingCharacterPenetrations()) {
+						if(pen.isTakesVirginity()) {
+							penetrationAction = true;
 						}
 					}
-					for(SexAreaOrifice orifice : action.getTargetedCharacterOrifices()) {
-						if(orifice.isInternalOrifice()) {
-							sexOrifice = true;
+					for(SexAreaPenetration pen : action.getTargetedCharacterPenetrations()) {
+						if(pen.isTakesVirginity()) {
+							penetrationAction = true;
 						}
 					}
-					if(sexOrifice) {
-						isSexPenetrationPossible = true;
-						break actionLoop;
+					if(penetrationAction) {
+						for(SexAreaOrifice orifice : action.getPerformingCharacterOrifices()) {
+							if(orifice.isInternalOrifice()) {
+								sexOrifice = true;
+							}
+						}
+						for(SexAreaOrifice orifice : action.getTargetedCharacterOrifices()) {
+							if(orifice.isInternalOrifice()) {
+								sexOrifice = true;
+							}
+						}
+						if(sexOrifice) {
+							isSexPenetrationPossible = true;
+							break actionLoop;
+						}
+					}
+				} else {
+					if(debugFullActionList) {
+						System.out.print("U ");
 					}
 				}
-			} else {
 				if(debugFullActionList) {
-					System.out.print("U ");
+					System.out.print("action: "+action.getActionTitle()+"\n");
 				}
-			}
-			if(debugFullActionList) {
-				System.out.print("action: "+action.getActionTitle()+"\n");
 			}
 		}
 		if(isSexPenetrationPossible) {

@@ -24,6 +24,5 @@
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[
 		[npc.she] [npc.has] #IF(npc.isPiercedVagina())a pierced#ELSEa#ENDIF snake-pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.
-		<br>[npc.She] [npc.is] viviparous.<br>
 	]]></bodyDescription>
 </vagina>

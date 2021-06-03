@@ -80,6 +80,9 @@ public enum BodyPartTag {
 	/** Tags the hair as being naturally styled into a mane. */
 	HAIR_NATURAL_MANE,
 	
+	/** Tags the hair type as always being present on furry and scaly heads, even if the player has 'furry hair' turned off. (USeful for races such as hyenas which have a hair-type mane.)*/
+	HAIR_IGNORE_PLAYER_SETTINGS,
+	
 	
 	// Tail (these are also used for tentacles):
 	/** Prehensile tails are those which can be manipulated into being used like an extra limb (e.g. monkey tails) */

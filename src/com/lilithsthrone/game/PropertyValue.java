@@ -59,11 +59,13 @@ public enum PropertyValue {
 	urethralContent(false, true),
 	analContent(true, true),
 	footContent(true, true),
+	armpitContent(true, true),
 	nipplePenContent(true, true),
 	gapeContent(true, true),
 	
 	cumRegenerationContent(true),
 	penetrationLimitations(true),
+	elasticityAffectDepth(false), // Added in PR#1413
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),

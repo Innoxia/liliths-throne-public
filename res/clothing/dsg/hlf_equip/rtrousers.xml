@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<authorTag><![CDATA[A small tag sewn into the waist reads "MFD by DSG Threadworks".]]></authorTag>
+		<value>250</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[vintage fatigue trousers]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[vintage fatigue trousers]]></namePlural>
+		<description><![CDATA[A pair of trousers made of cotton twill, it has a variety of pockets for storing all sorts of things.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>LEG</slot>
+		<rarity>RARE</rarity>
+		<clothingSet>dsg_hlf_regular</clothingSet>
+		<imageName>rtrousers.svg</imageName>
+		<imageEquippedName/> 
+		
+		<stickers>
+			<category id="wearntear" priority="1"> 
+				<categoryName><![CDATA[Wear and Tear]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix priority="1"><![CDATA[]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="patched" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BROWN"> 
+					<stickerName><![CDATA[Patched]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Patched ]]></namePrefix> 
+					<namePostfix/> 
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has been repeatedly patched up, and you don't even want to think about the stains.</i>]]></descriptionModification> 
+					<imageName>rtrousers_st_ragged.svg</imageName> 
+					<itemTagsAdded/> 
+					<itemTagsRemoved/> 
+					<unavailabilityText/> 
+					<availabilityText>
+						If you really want that vintage look...
+					</availabilityText> 
+				</sticker>
+			</category>
+		</stickers>
+		
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked> 
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_ANKLES_FROM_TROUSERS"/> 
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>PENIS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_UNZIPS_GROIN"/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>GROIN</slot>
+					<slot>VAGINA</slot>
+					<slot>ANUS</slot>
+					<slot>PENIS</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>PIERCING_VAGINA</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_OLIVE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_BROWN_DARK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+	</coreAtributes>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] trousers down and [npc.verb(kick)] them off [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] trousers down and [npc.verb(slide)] them off [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] trousers down and [npc.verb(toss)] them aside.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(step)] into [npc.her] trousers before pulling them up to [npc.her] waist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the trousers up [npc2.namePos] [npc2.legs] and [npc.verb(button)] them up around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] [npc2.legs] into the trousers and [npc.verb(yank)] them up around [npc2.her] waist.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="UNZIPS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] [npc.her] trousers.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] [npc2.namePos] trousers.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unzip)] [npc2.namePos] trousers.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="UNZIPS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(zip)] up [npc.her] trousers.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(zip)] up [npc2.namePos] trousers.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(zip)] up [npc2.namePos] trousers.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] trousers down.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] trousers down.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] trousers down.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up [npc.her] trousers.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up [npc2.namePos] trousers.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcefully [npc.verb(pull)] up [npc2.namePos] trousers.]]>
+		</otherRough>
+	</replacementText>
+	
+</clothing>

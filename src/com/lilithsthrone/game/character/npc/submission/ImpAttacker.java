@@ -347,7 +347,7 @@ public class ImpAttacker extends NPC {
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		AbstractItemType itemType = target.getSubspecies().getTransformativeItem(target);
-        if(itemType==null) {
+        if(itemType==null || itemType.equals(ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher"))) {
             itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
         }
 		

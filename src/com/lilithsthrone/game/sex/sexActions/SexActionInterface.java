@@ -466,7 +466,8 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBasicCoreRequirementsMet() {
-		if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent) && this.isSadisticAction()) {
+		if(this.isSadisticAction()
+				&& (!Main.getProperties().hasValue(PropertyValue.sadisticSexContent) || !Main.sex.isSadisticActionsAllowed())) {
 			return false;
 		}
 		
@@ -615,10 +616,23 @@ public interface SexActionInterface {
 				&& isPhysicallyPossible()
 				&& !isBannedFromSexManager()
 				&& !Main.sex.getPosition().isActionBlocked(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), this)) {
-			
+
+			// Forbid self actions if control is limited to NONE:
 			if(this.getParticipantType()==SexParticipantType.SELF
 					&& !this.getActionType().isOrgasmOption()
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
+				return null;
+			}
+			
+			// Forbid non-self actions if control is limited to SELF:
+			if(this.getParticipantType()!=SexParticipantType.SELF
+					&& (this.getActionType()==SexActionType.REQUIRES_EXPOSED
+							 || this.getActionType()==SexActionType.REQUIRES_NO_PENETRATION
+							 || this.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
+							 || this.getActionType()==SexActionType.START_ADDITIONAL_ONGOING
+							 || this.getActionType()==SexActionType.START_ONGOING)
+					&& !this.getActionType().isOrgasmOption()
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()<=SexControl.SELF.getValue()) {
 				return null;
 			}
 			
@@ -663,6 +677,7 @@ public interface SexActionInterface {
 								return null;
 							}
 							break;
+						case ARMPITS:
 						case BREAST_CROTCH:
 						case ANUS:
 						case ASS:
@@ -1524,17 +1539,17 @@ public interface SexActionInterface {
 	
 	public default boolean isBannedFromSexManager() {
 		for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
-			if (Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()) != null
-					&& Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()).contains(sArea)) {
-				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterPerformingAction())) {
+			if (Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()) != null
+					&& Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()).contains(sArea)) {
+				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getInitialSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterPerformingAction())) {
 					return true;
 				}
 			}
 		}
 		for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
-			if (Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)) != null
-					&& Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
-				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterTargetedForSexAction(this))) {
+			if (Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)) != null
+					&& Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
+				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getInitialSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return true;
 				}
 			}
@@ -1667,6 +1682,7 @@ public interface SexActionInterface {
 		// Things that make *any* actions related to the orifice ***physically impossible***:
 		if(performingArea != null && performingArea.isOrifice()) {
 			switch((SexAreaOrifice) performingArea){
+				case ARMPITS:
 				case ANUS:
 				case ASS:
 				case MOUTH:
@@ -1726,9 +1742,13 @@ public interface SexActionInterface {
 		return true;
 	}
 	
-	public default List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
+	public default List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		return null;
+	}
 
-	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
+	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		return null;
+	}
 
 	// This is in the SexAction Interface, as it might be necessary in some special actions to override this to prevent condom breaks.
 	public default CondomFailure getCondomFailure(GameCharacter condomWearer, GameCharacter cumTarget) {

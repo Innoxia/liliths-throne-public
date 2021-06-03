@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<authorTag><![CDATA['MFD by DSG Threadworks' has been printed onto the inside of the webbing's backing.]]></authorTag>
+		<value>500</value>
+		<determiner><![CDATA[a set of]]></determiner>
+		<name appendColourName="true"><![CDATA[canvas webbing]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[canvas webbing]]></namePlural>
+		<description><![CDATA[Consisting of a belt, suspenders, and two generously sized pouches, this piece of equipment allows the wearer to carry and quickly access loads that would be otherwise too awkward or heavy.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>TORSO_OVER</slot>
+		</equipSlots>
+		<rarity>RARE</rarity>
+		<clothingSet>dsg_hlf_regular</clothingSet>
+		<imageName>rwebbing.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts> 
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_KHAKI</colour>
+		</primaryColours>		
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags>
+			<tag>CONTRABAND_LIGHT</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the webbing and securely [npc.verb(buckle)] the belt around [npc.her] waist.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] the webbing onto [npc2.name] and [npc.verb(buckle)] the belt around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the webbing onto [npc2.name] and roughly [npc.verb(buckle)] the belt around [npc2.her] waist.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unbuckle)] the belt and [npc.verb(take)] off the webbing.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unbuckle)] the belt from around [npc2.namePos] waist and [npc.verb(take)] off the webbing.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(unbuckle)] the belt from around [npc2.namePos] waist and [npc.verb(tears)] the webbing from [npc2.namePos] torso.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>
