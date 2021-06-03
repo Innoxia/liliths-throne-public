@@ -439,15 +439,6 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue murkLectured = new AbstractDialogueFlagValue(true);
 	public static AbstractDialogueFlagValue murkSpanked = new AbstractDialogueFlagValue(true);
 	
-	//Felicia
-	public static AbstractDialogueFlagValue feliciaAskedArthurPersonality = new AbstractDialogueFlagValue(false);
-	public static AbstractDialogueFlagValue feliciaAskedArthurHobbies = new AbstractDialogueFlagValue(false);
-	public static AbstractDialogueFlagValue feliciaAskedAboutHerPlace = new AbstractDialogueFlagValue(false);
-	public static AbstractDialogueFlagValue feliciaAskedAboutHerFur = new AbstractDialogueFlagValue(false);
-	public static AbstractDialogueFlagValue feliciaAskedAboutHerFavoriteStore = new AbstractDialogueFlagValue(false);
-	public static AbstractDialogueFlagValue feliciaToldAboutArthur = new AbstractDialogueFlagValue(false);
-	public static AbstractDialogueFlagValue feliciaLewdTalkAborted = new AbstractDialogueFlagValue(false);
-	public static AbstractDialogueFlagValue feliciaRejectedPlayer = new AbstractDialogueFlagValue(false);
 	
 	// Fields area:
 	
