@@ -1,17 +1,18 @@
 package com.lilithsthrone.game.dialogue.responses;
 
 /**
+ * As of 0.4.1, all of the following tags are used exclusively by sex responses.
+ * 
  * @since 0.2.11
- * @version 0.3.4
+ * @version 0.4.1
  * @author Innoxia
  */
 public enum ResponseTag {
-
-	// All of the following tags are used exclusively by sex responses:
 	
-	/** All positioning actions will be disabled during the sex scene. */
-	DISABLE_POSITIONING,
-
+	DISABLE_POSITIONING, // Disables positioning actions
+	
+	// Positioning and paces:
+	
 	/** These four will affect what the starting sex position is. */
 	PREFER_ORAL,
 	PREFER_MISSIONARY,

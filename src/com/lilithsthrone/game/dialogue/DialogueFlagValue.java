@@ -461,9 +461,14 @@ public class DialogueFlagValue {
 	
 	/**
 	 * @param id Will be in the format of: 'innoxia_elis_berries_found'.
+	 * @return The flag that has an id closest to the supplied id. <b>Will return null</b> if the matching distance is greater than 3 (which typically will be more than enough to catch spelling errors, indicating that the flag has been removed).
 	 */
 	public static AbstractDialogueFlagValue getDialogueFlagValueFromId(String id) {
 		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet());
+		
+		if(Util.getLastStringMatchDistance()>3) {
+			return null;
+		}
 		
 		return idToDialogueFlagValueMap.get(id);
 	}

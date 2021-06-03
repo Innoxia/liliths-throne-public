@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()
+		&& !meraxis.hasFetish(FETISH_ANAL_RECEIVING)
+		&& (sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ANUS, PENETRATION_TONGUE).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ANUS, PENETRATION_PENIS).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ASS, PENETRATION_PENIS).contains(pc))]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_KINK_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_KINK_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#meraxis.addFetish(FETISH_ANAL_RECEIVING, true)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Butt slut]]></title>
+	<tooltip><![CDATA[
+		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ANUS, PENETRATION_TONGUE).contains(pc))
+			Make Meraxis admit to you that she's a dirty buttslut as you make her cum from anilingus.
+		#ELSEIF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ANUS, PENETRATION_PENIS).contains(pc))
+			Make Meraxis admit to you that she's a dirty buttslut as you make her cum from anal.
+		#ELSE
+			Make Meraxis admit to you that she's a dirty buttslut as you make her cum from being hotdogged.
+		#ENDIF
+		<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_ANAL_RECEIVING.getName(meraxis)]' fetish from this!)]
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ANUS, PENETRATION_TONGUE).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing that Meraxis is on the verge of orgasming, you pull back and stop licking her asshole to tease, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop giving her anilingus, Meraxis desperately tries to push her ass back against your face as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards receiving anal, you lean forwards and plant a big, wet kiss on her [meraxis.asshole+]. Smirking at the desperate moan she lets out in response to your touch, you make your demand, [pc.speech(Tell me that you're a dirty little buttslut, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you lean in and give her asshole another lick, she relents and cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little buttslut! Now let me cum!)]
+				<br/><br/>
+				Burying your face in her ass, you continue where you left off, and greedily lick, kiss, and nuzzle into Meraxis's asshole. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+				<br/><br/>
+				With that, Meraxis reaches her climax,
+				#IF(meraxis.isVaginaSquirter())
+					 and as her pussy clenches and squirts out a copious amount of girlcum,
+				#ELSE
+					 and as her pussy clenches and quivers,
+				#ENDIF
+				 you make sure to continue performing anilingus on her, driving her completely over the edge and giving her an absolutely mind-blowing orgasm. As she starts to come down from her climax, you pull back and ask, [pc.speech(So, what are you, Meraxis?)]
+				<br/><br/>
+				Much to your delight, she instantly pants in response, [meraxis.speechNoEffects(I'm... I'm a dirty buttslut... Fuck, I never knew it could feel so good to orgasm from having my ass used...)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ANUS, PENETRATION_PENIS).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing that Meraxis is on the verge of orgasming, you slide your [pc.cock+] out of her ass, before rubbing the [pc.cockHead+] over her asshole and teasing, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop fucking her ass, Meraxis desperately tries to push her asshole back against your cock as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards receiving anal, you push forwards and slide just the tip of your [pc.cock+] into her [meraxis.asshole+]. Smirking at the desperate moan she lets out in response to your limited penetration, you make your demand, [pc.speech(Tell me that you're a dirty little buttslut, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and start to slide your cock out of her ass, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little buttslut! Now let me cum!)]
+				<br/><br/>
+				Pushing forwards and driving your [pc.cock+] back into her ass, you continue where you left off, and dominantly pump your [pc.cock+] in and out of Meraxis's asshole. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+				<br/><br/>
+				With that, Meraxis reaches her climax,
+				#IF(meraxis.isVaginaSquirter())
+					 and as her pussy clenches and squirts out a copious amount of girlcum,
+				#ELSE
+					 and as her pussy clenches and quivers,
+				#ENDIF
+				 you make sure to continue rapidly fucking her ass, driving her completely over the edge and giving her an absolutely mind-blowing orgasm. As she starts to come down from her climax, you hilt your [pc.cock+] in her [meraxis.asshole+] and ask, [pc.speech(So, what are you, Meraxis?)]
+				<br/><br/>
+				Much to your delight, she instantly pants in response, [meraxis.speechNoEffects(I'm... I'm a dirty buttslut... Fuck, I never knew it could feel so good to orgasm from anal...)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ASS, PENETRATION_PENIS).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing that Meraxis is on the verge of orgasming, you stop sliding your [pc.cock+] over her ass, before teasing, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop hotdogging her ass, Meraxis desperately tries to push back against your cock as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards receiving anal, you push forwards and slide just the tip of your [pc.cock+] over her [meraxis.ass+]. Smirking at the desperate moan she lets out in response to your touch, you make your demand, [pc.speech(Tell me that you're a dirty little buttslut, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and slap your hard cock against her ass a couple of times, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little buttslut! Now let me cum!)]
+				<br/><br/>
+				Pushing forwards and driving your [pc.cock+] up between her ass cheeks, you continue where you left off, and dominantly slide your [pc.cock+] back and forth over Meraxis's asshole. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+				<br/><br/>
+				With that, Meraxis reaches her climax,
+				#IF(meraxis.isVaginaSquirter())
+					 and as her pussy clenches and squirts out a copious amount of girlcum,
+				#ELSE
+					 and as her pussy clenches and quivers,
+				#ENDIF
+				 you make sure to continue rapidly hotdogging her ass, driving her completely over the edge and giving her an absolutely mind-blowing orgasm. As she starts to come down from her climax, you rub your [pc.cock+] over her [meraxis.asshole+] and ask, [pc.speech(So, what are you, Meraxis?)]
+				<br/><br/>
+				Much to your delight, she instantly pants in response, [meraxis.speechNoEffects(I'm... I'm a dirty buttslut... Fuck, I never knew it could feel so good to orgasm from ass stuff...)]
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

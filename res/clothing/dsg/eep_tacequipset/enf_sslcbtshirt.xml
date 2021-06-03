@@ -49,7 +49,9 @@
 					<clothingAccess>HEAD</clothingAccess>
 				</clothingAccessRequired>
 
-				<blockedBodyParts/> 
+				<blockedBodyParts>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
 
 				<clothingAccessBlocked/> 
 

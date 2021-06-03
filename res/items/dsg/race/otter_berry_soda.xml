@@ -3,7 +3,7 @@
 	<coreAttributes>
 		<authorTag><![CDATA[A faint inscription underneath the bottle reads 'Distilled by DSG Foodstuffs LLC']]></authorTag>
 		
-		<value>150</value> 
+		<value>15</value> 
 		<determiner><![CDATA[a can of]]></determiner>
 		<name><![CDATA[Berry Soda]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Grogs]]></namePlural>

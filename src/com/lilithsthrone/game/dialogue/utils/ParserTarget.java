@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -121,6 +123,12 @@ public enum ParserTarget {
 				}
 			},
 	
+	/**
+	 * The main parser tag for getting a hook on npcs when using UtilText's {@code parseFromXMLFile()} methods.
+	 * <br/><b>Important note:</b> When trying to access npcs for parsing in external files, this method is likely to be unreliable and return npcs which you did not want.
+	 * You should instead use the 'ncom' (standing for Non-COMpanion) parser tags to access npcs which are not members of the player's party, and 'com' (standing for COMpanion) tags for npcs which are members of the player's party.
+	 * These parser tags will always return characters in the same order, so they are far safer to use than this 'npc' tag, which should only be used in the context of UtilText's {@code parseFromXMLFile()} method.
+	 */
 	NPC(Util.newArrayListOfValues(
 			"npc",
 			"npc1",
@@ -176,6 +184,10 @@ public enum ParserTarget {
 				}
 			},
 	
+	/**
+	 * Returns npcs which are members of the player's party.
+	 * Ordering is based on the order in which companions were added to the party.
+	 */
 	COMPANION(Util.newArrayListOfValues(
 			"com",
 			"com1",
@@ -185,7 +197,7 @@ public enum ParserTarget {
 			"com5",
 			"com6"),
 			"The companions of the player.<br/>"
-			+"<b>The tag 'companion' can be extended with a number, starting at 1, to signify which companion it is referring to!</b> e.g. 'com1' is the first companion, 'com2' is the second, etc.") {
+			+"<b>The tag 'com' can be extended with a number, starting at 1, to signify which companion it is referring to!</b> e.g. 'com1' is the first companion, 'com2' is the second, etc.") {
 				@Override
 				public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) throws NullPointerException {
 					if(Main.game.getPlayer().getCompanions().size()>=1) {
@@ -196,6 +208,40 @@ public enum ParserTarget {
 							int index = Integer.parseInt(tag.substring(tag.length()-1));
 							if(Main.game.getPlayer().getCompanions().size()>=index) {
 								return Main.game.getPlayer().getCompanions().get(Math.max(0, index-1));
+							}
+						}
+					}
+					throw new NullPointerException();
+				}
+			},
+
+	/**
+	 * Returns npcs which are not members of the player's party and which are present in the player's cell.
+	 * Ordering is based on the npcs' id, so ordering will remain consistent across multiple parsing calls.
+	 */
+	NON_COMPANION(Util.newArrayListOfValues(
+			"ncom",
+			"ncom1",
+			"ncom2",
+			"ncom3",
+			"ncom4",
+			"ncom5",
+			"ncom6"),
+			"The non-unique npcs who are in the player's cell and who are not members of the player's party.<br/>"
+			+"<b>The tag 'ncom' can be extended with a number, starting at 1, to signify which npc it is referring to!</b> e.g. 'ncom1' is the first npc, 'ncom2' is the second, etc.") {
+				@Override
+				public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) throws NullPointerException {
+					if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
+						List<NPC> npcs = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+						npcs.removeIf(npc->npc.isUnique());
+						Collections.sort(npcs, (n1, n2)->n1.getId().compareTo(n2.getId()));
+						if(tag.equalsIgnoreCase("ncom")) {
+							return npcs.get(0);
+							
+						} else {
+							int index = Integer.parseInt(tag.substring(tag.length()-1));
+							if(npcs.size()>=index) {
+								return npcs.get(Math.max(0, index-1));
 							}
 						}
 					}

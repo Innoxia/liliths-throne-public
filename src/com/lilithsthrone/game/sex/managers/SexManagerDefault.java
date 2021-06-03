@@ -499,6 +499,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							}
 							break;
 						// No virginity to lose:
+						case ARMPITS:
 						case ASS:
 						case BREAST:
 						case BREAST_CROTCH:
@@ -554,6 +555,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 								}
 								break;
 							// No virginity to lose:
+							case ARMPITS:
 							case ASS:
 							case BREAST:
 							case BREAST_CROTCH:

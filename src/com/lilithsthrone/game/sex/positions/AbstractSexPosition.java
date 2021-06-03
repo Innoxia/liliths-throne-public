@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -65,7 +66,7 @@ public abstract class AbstractSexPosition {
 	}
 	
 	public String getName() {
-		return name;
+		return UtilText.parse(name);
 	}
 
 	public boolean isAddStandardActions() {

@@ -2457,7 +2457,7 @@ public class Perk {
 	public static AbstractPerk BARREN = new AbstractPerk(20,
 			true,
 			"barren",
-			PerkCategory.PHYSICAL,
+			PerkCategory.LUST,
 			"perks/barren",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, -200)),
@@ -2472,7 +2472,7 @@ public class Perk {
 	public static AbstractPerk FIRING_BLANKS = new AbstractPerk(20,
 			true,
 			"sterile",
-			PerkCategory.PHYSICAL,
+			PerkCategory.LUST,
 			"perks/firing_blanks",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, -200)),
@@ -5829,7 +5829,20 @@ public class Perk {
 				|| id.equalsIgnoreCase("HEALTH_FANATIC")
 				|| id.equalsIgnoreCase("MARTIAL_BACKGROUND")) {
 			id = "SPECIAL_"+id;
+		} else if(id.equalsIgnoreCase("BRAWLER")) {
+			id = "FEROCIOUS_WARRIOR";
+		} else if(id.equalsIgnoreCase("ARCANE_BASE_NPC")) {
+			id = "ARCANE_BASE";
+		} else if(id.equalsIgnoreCase("PHYSIQUE_5")) {
+			id = "PHYSIQUE_BOOST_MAJOR";
+		} else if(id.equalsIgnoreCase("ARCANE_5")) {
+			id = "ARCANE_BOOST_MAJOR";
+		} else if(id.equalsIgnoreCase("SPELL_DAMAGE_5")) {
+			id = "SPELL_DAMAGE_MAJOR";
+		} else if(id.equalsIgnoreCase("ELEMENTALIST_5")) {
+			id = "ELEMENTAL_BOOST";
 		}
+		
 		
 		id = Util.getClosestStringMatch(id, idToPerkMap.keySet());
 //		System.out.println("  set to: "+id);
