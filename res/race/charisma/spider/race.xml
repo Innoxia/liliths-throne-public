@@ -3,7 +3,7 @@
 	<racialBody>charisma_spider</racialBody>
 	<applyRaceChanges><![CDATA[
 		#IF(RND.nextInt(100)<50 && targetedBody.getRaceStage()==RACE_STAGE_GREATER)
-			[#targetedBody.getArm().setArmRows(null, 3)]
+			[#targetedBody.setArmRows(3)]
 		#ENDIF
 	]]></applyRaceChanges>
 	<name><![CDATA[spider-morph]]></name>
@@ -12,7 +12,7 @@
 		<name legConfiguration="ARACHNID"><![CDATA[spider]]></name>
 	</nameFeral>
 	<nameFeralPlural>
-		<name legConfiguration="ARACHNID"><![CDATA[spider]]></name>
+		<name legConfiguration="ARACHNID"><![CDATA[spiders]]></name>
 	</nameFeralPlural>
 	<defaultTransformName><![CDATA[spider]]></defaultTransformName>
 	<colour>charisma_spider_silk_white</colour>

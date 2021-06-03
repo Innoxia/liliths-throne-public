@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f1_assistant_room -->
+	<scene id="assistant_room">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f1">ASSISTANT_ROOM</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Knock]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Knock on the door and wait for an answer.
+					<br/>[style.italicsMinorBad(This will be added soon!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f1_corridor -->
+	<scene id="corridor">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f1">CORRIDOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f1_minotallys_office -->
+	<scene id="minotallys_office">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f1">MINOTALLYS_OFFICE</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Knock]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Knock on the door and wait for an answer.
+					<br/>[style.italicsMinorBad(This will be added soon!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f1_minotallys_room -->
+	<scene id="minotallys_room">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f1">MINOTALLYS_ROOM</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Knock]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Knock on the door and wait for an answer.
+					<br/>[style.italicsMinorBad(This will be added soon!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f1_records -->
+	<scene id="records">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f1">RECORDS</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f1_stairs -->
+	<scene id="stairs">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f1">STAIRS</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Downstairs]]></responseTitle>
+				<responseTooltip><![CDATA[Head down the staircase to the ground floor of the town hall.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_hall_f1_stairs"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f0, PLACE_TYPE_innoxia_fields_elis_town_hall_f0_stairs)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f1', 'STAIRS_DOWN'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

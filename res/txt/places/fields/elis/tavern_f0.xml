@@ -1,0 +1,1204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/tavern_f0.xml' dialogue nodes. -->
+	
+	<!-- First entry dialogues -->
+	
+	<htmlContent tag="FIRST_ENTRY"><![CDATA[
+	<p>
+		As this is your first time entering The Red Dragon, you stop at the entrance and take a look at your new surroundings. Before you, you see that the entire of the ground floor consists of one huge room, which is filled with numerous wooden tables and chairs, and which has a long bar running along the wall on the side opposite to where you've entered. Thanks to the large wooden floorboards and overhead beams, as well as the decorative, antiquated farm equipment which is displayed on the walls, this tavern's interior has a very rustic feel to it. The smell of alcohol and good, hearty food fills the air,
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 and thanks to the fact that it's currently the busy time of the day, almost all of the tables are occupied by people drinking, eating, and making merry.
+		#ELSE
+			 but due to the fact that it's currently the quiet time of the day, only a few of the tables are occupied by people drinking, eating, and making merry.
+		#ENDIF
+	</p>
+	<p>
+		Any further observation of the tavern's interior is brought to a swift and sudden end, for as you look over to your left, you see the familiar form of Meraxis happily skipping over towards you. As she approaches, she calls over to the bar, [meraxis.speech(Flash! [pc.NameIs] here! Come and say hello!)]
+	</p>
+	<p>
+		Looking over in the direction of the bar, you see a greater badger-morph step out from behind it. Wearing a stern expression, this badger-morph looks to be in his early forties, and as he strides over to where you and Meraxis are standing, you see that he's
+		#IF(game.isMetricSizes())
+			 just under six feet tall,
+		#ELSE
+			 about 180cm tall,
+		#ENDIF
+		 and has a sturdy, muscular body. His [flash.topClothing(NIPPLES)] strains to contain his wide chest and thick biceps, and as he comes to a halt before you, he speaks in a deep, gruff voice which perfectly matches his physical appearance, [flash.speech(Took you long enough to get here. So you're the one Meraxis told me about, eh? I'm Flash, the owner of this place. You're not going to try and challenge me to a duel as well, are you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_ENTRY_INTRODUCTION"><![CDATA[
+	#IF(pc.hasTraitActivated(PERK_CHUUNI))
+		<p>
+			Letting out a suitably-intimidating laugh, you strike a heroic pose and reply, [pc.speech(I am [pc.name]; the most powerful being ever to have lived! Although Meraxis might have failed to defeat you in a duel, know that you stand no chance against me!)]
+		</p>
+		<p>
+			[flash.speech(Oh great, you're just like she is...)] Flash sighs, but before he can say anything else, Meraxis lets out one of her own laughs and interrupts him.
+		</p>
+		<p>
+			[meraxis.speech(Mwhahaha! You think that I would lose a duel?!)] she declares in a voice loud enough to make the tavern's nearby patrons turn their heads and look. Striking a pose to match yours, she continues, [meraxis.speech(Although a formidable opponent, I defeated Flash with ease! With the price of defeat being my eternal servitude to his dark desires, I was forced to unleash my full power, against which no mortal being can triumph!)]
+		</p>
+	#ELSE
+		<p>
+			Telling Flash that you have no intention of challenging him to a duel, you introduce yourself as [pc.name], to which the badger-morphs replies, [flash.speech(Right, nice to meet you.)]
+		</p>
+		<p>
+			[meraxis.speech(You disappoint me, my nemesis; you should have challenged Flash to a duel, as I did!)] Meraxis declares in a voice loud enough to make the tavern's nearby patrons turn their heads and look. Striking a heroic pose, she continues, [meraxis.speech(Although a formidable opponent, I defeated him with ease! With the price of defeat being my eternal servitude to his dark desires, I was forced to unleash my full power, against which no mortal being can triumph!)]
+		</p>
+	#ENDIF
+	<p>
+		[flash.speech(What do you mean, my 'dark desires'?)] Flash grunts in annoyance, before turning to you and explaining, [flash.speech(This little [meraxis.race] came barging into my tavern and challenged me to a fight in front of all my regulars. Like the damn fool I am, I accepted her terms and said that she'd have to work as one of my dish washers for a year if she lost. I didn't really care what she was demanding, as she looks so weak that I was sure the fight'd be over before it even began...)]
+	</p>
+	<p>
+		[meraxis.speech(That'll teach you to underestimate me!)] Meraxis interjects, before finishing the rest of the story by saying, [meraxis.speech(I demanded that Flash would have to surrender two rooms to me if he lost. To his credit, he dared not break our sinister contract, and after I swiftly annihilated him, he agreed to give me the two rooms which were promised!)]
+	</p>
+	<p>
+		[flash.speech(I'm not one to break my word,)] Flash grunts, [flash.speech(And besides, it'd be a fool who'd betray a recognised daughter of an elder lilin. Anyway, now that I know that [pc.name] here is the one who'll be using the other room, I've got things to do. See you around, [pc.name], and don't cause any trouble in here.)]
+	</p>
+	<p>
+		With that, Flash turns around and walks back over to the bar, leaving Meraxis to turn towards you and declare, [meraxis.speech(Mwhahaha! As you can see, my mission to secure accommodation for you has been a success! Now I shall introduce you to my new minions, and then I shall reveal the secret path to your room!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_ENTRY_MINIONS"><![CDATA[
+	<p>
+		Curious to find out what Meraxis means by her 'minions', and relying on her to show you to your room, you follow the chuuni [meraxis.race] as she skips across to one corner of the tavern. Several sofas and low coffee tables have been arranged in this area, and lounging about on a couple of these seats are half a dozen scantily-dressed succubi. As they see Meraxis approach they immediately start fawning over her, with the nearest one even asking if she'd would like to use her as a foot stool.
+	</p>
+	<p>
+		[meraxis.speech(Silence, minions!)] Meraxis declares, before doing a complete spin on the spot and striking a rather unblanced-looking pose. Letting out a brief laugh, she introduces you by declaring, [meraxis.speech(This is [pc.name]; my arch-nemesis!)]
+	</p>
+	<p>
+		Taking Meraxis's words far too seriously, the succubi all start angrily glaring at you, before one of them asks the [meraxis.race] if she'd like them to attack you. Laughing in response, Meraxis defuses the situation by explaining, [meraxis.speech(I am the one fated to defeat [pc.name]! None of you would stand a chance against [pc.her] supreme might, so don't even try!)]
+	</p>
+	<p>
+		Turning towards you, Meraxis then explains, [meraxis.speech(My minions here witnessed my supreme power as I effortlessly defeated Flash in a duel outside this very tavern. Realising that I am none other than Lyssieth's recognised daughter, and seeing my ultimate arcane mastery for themselves, these succubi have pledged themselves to be my minions!)]
+	</p>
+	<p>
+		Looking back over towards these succubi, you realise that they must be wanting to move up Elis's social hierarchy by being associated with a recognised daughter of an elder lilin. Before you can ssk them if this is their intention, however, Meraxis grabs hold of your [pc.arm(true)] and pulls you away, saying, [meraxis.speech(Come on, [pc.name], I shall reveal to you the hidden paths which lead to your new evil lair!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_ENTRY_ROOM"><![CDATA[
+	<p>
+		Internally translating Meraxis's words as meaning that she wants to show you to your new room, you allow her to pull you along after her as she crosses the tavern and heads towards a corridor that leads off from one side of the bar. Travelling down this short passageway, you're then led up a spiral staircase and down yet another corridor, before finally arriving at a locked door. Pointing down to the end of the corridor, Meraxis reveals, [meraxis.speech(My own dark lair is there; right next to yours. If I'm in there, it means I'm sleeping, which I usually do from about one to nine in the morning, so don't disturb me unless there's an emergency, ok?)]
+	</p>
+	<p>
+		Replying in the affirmative, you take the key which Meraxis then hands to you, before listening as the chuuni [meraxis.race] reveals, [meraxis.speech(I've also done the other thing mommy asked of me; I've gone and met Minotallys and told her that you want to meet her about the situation with Lunette. I know we've also got the plan of getting help from the youko, but we can think about that after your meeting with Minotallys. Just let me know when you're ready to go and meet with her!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_ENTRY_ROOM_END"><![CDATA[
+	<p>
+		Thanking Meraxis for all that she's done, you can't help but smile as the [meraxis.race] blushes a little and proclaims, [meraxis.speech(Yes, well, I <i>am</i> the greatest, so it's only natural for me to have got all of this sorted for you! Anyway, come and find me if you feel brave enough to challenge me to a duel, my nemesis! I shall surely deliver a crushing defeat upon you! Mwhahaha!)]
+	</p>
+	<p>
+		With that, Meraxis spins around, and with a theatrical swish of her cloak, she runs off down the corridor, leaving you to unlock the door to your new room and head inside to take a look...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Place dialogues -->
+	
+	<htmlContent tag="BAR"><![CDATA[
+	<p>
+		Situated against the far wall, the long, wooden bar before you serves as the source of food and drink for the tavern's patrons. The shelves behind this bar are stocked full of a dazzling array of bottles and glasses, and right in the middle of them there's a large chalkboard which lists the meals that are being served today. At the bottom of this blackboard, a large sign clearly reads: 'Alcohol and Hot food <b>only</b> served between
+		#IF(game.getHourOfDay()<8)
+			 [style.colourMinorBad([units.time(8)]-[units.time(0)])].'
+		#ELSE
+			 [style.colourMinorGood([units.time(8)]-[units.time(0)])].'
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(flash))
+			#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+				As this is the busiest time of day, there are a couple of employees behind the bar, with Flash himself joining them in serving drinks to the customers.
+			#ELSE
+				As this is the busiest time of day, the only person working at the bar is Flash, who's in the middle of serving a customer.
+			#ENDIF
+			 This greater badger-morph has a stern expression on his face, and as he turns to place a freshly-poured pint of beer on the counter, you estimate that he must be in his early forties. Standing at
+			#IF(game.isMetricSizes())
+				 just under six feet tall,
+			#ELSE
+				 about 180cm tall,
+			#ENDIF
+			 Flash has a sturdy, muscular body, and as he looks around to see who's going to be his next customer, you see his [flash.topClothing(NIPPLES)] straining to contain his wide chest and thick biceps. If you wanted to order a drink or something to eat, you could quite easily get his attention.
+		#ELSE
+			Due to the current hour, you suppose that Flash must be sleeping in his room upstairs, as there's only one badger-boy employee to be seen working behind the bar. He looks to be engaged in idle talk with one of the establishment's regular customers, although if you wanted to order a drink or something to eat, you could quite easily get his attention. However, due to the fact that the kitchen is closed at this time, and that alcohol isn't being served, your choices will be somewhat limited...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK"><![CDATA[
+	<p>
+		Wanting to pass some time, you engage Flash in conversation, asking him whether anything of note has happened in the local area recently. Although his stern expression doesn't soften, the badger-boy seems to be more than happy to talk with you, and tells you what's been happening in Elis over the past few days. While none of it is particularly interesting, you do enjoy spending your time talking with Flash, and so after he's exhausted his knowledge of local affairs, you move on to asking him what he thinks of the recent weather.
+	</p>
+	<p>
+		After you've finished discussing the weather, you move on to talking about a wide range of trivial matters, and in this manner the two of you continue idly talking with one another for quite some time. Although he's sometimes interrupted by a customer who wants to place an order, Flash always swiftly returns to continue your conversation, and before you know it you've spent fifteen minutes making small talk.
+	</p>
+	<p>
+		The arrival of a large group of customers at the bar signals an end to your conversation, and after telling you that he enjoyed your talk, Flash steps over to start taking their orders, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_MERAXIS"><![CDATA[
+	<p>
+		Wanting to know what Flash's opinion of Meraxis is, you get his attention and ask him what he thinks about the chuuni [meraxis.race]. Letting out a deep sigh, he grunts, [flash.speech(I guess she's not really too bad. I've only got myself to blame for agreeing to fight her. I had no idea she was the daughter of an elder lilin at the time...)]
+	</p>
+	<p>
+		Asking Flash what happened, you listen as he recalls, [flash.speech(Well, she burst into my tavern and starting shouting that she was here to challenge the owner, which would be me, to a duel. She looked so weak that most of the regulars at the bar burst out laughing, and they told her that she'd stand no chance against me. I'm not known to act in a reckless manner, but with all of my regulars telling me to deal with her, and Meraxis continuing to throw out challenges and insults at me, I foolishly agreed to fight her.)]
+	</p>
+	<p>
+		With the badger-boy now at the most interesting part of the story, you wait for him to quickly serve a waiting customer, and then listen as he continues, [flash.speech(So, she was demanding that I'd surrender two rooms to her if she won, and so I said she'd have to work as a dish washer for a year if she lost. We went outside to have this 'duel', and she suddenly pulled out a huge scythe from mid-air. That's when I knew I'd fucked up... Pardon my language... I thought I'd just grab her and shake her about a bit until she surrendered, but before I even knew what was happening she was swinging that huge thing at me and casting all manner of spells. I couldn't land even one hit on her before I was on my back...)]
+	</p>
+	<p>
+		As she'd done this to secure accommodation for you, you can't help but feel somewhat responsible for Meraxis's behaviour. Asking Flash if the loss of two rooms is a serious problem for him, you're surprised to see a big smile break out across the badger-boy's face, and he chuckles as he replies, [flash.speech(Losing those two rooms is a small price to pay for what I've gained from all this. Sure, my ego took a beating and I lost a bit of respect from my regulars, but I was fortunate enough to have our duel witnessed by those succubbi.)]
+	</p>
+	<p>
+		Flash motions over towards Meraxis's corner, and you look over to see what she calls her 'minions' lounging about on the sofas. Leaning down over the counter, Flash lowers his voice and reveals, [flash.speech(Those succubi are recognised daughters of one lilin or another, and they're not only what passes for the social elite here in Elis, but they're also filthy rich. They can be a little demanding on my staff, but between them they spend far more than I ever earned from renting those two rooms out upstairs.)]
+	</p>
+	<p>
+		Standing up straight again, Flash concludes, [flash.speech(So I don't harbour any ill-will towards Meraxis. She's not a bad girl, and so long as she thinks that she's the most important person in the room, she's surprisingly polite and well-mannered.)]
+	</p>
+	<p>
+		At that moment, several customers step up to the bar and call for Flash to serve them. With your conversation having reached its end, the badger-boy gives you a nod and steps over to start taking their orders, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_LUNETTE"><![CDATA[
+	<p>
+		Curious to find out what Flash knows of Lunette, you get his attention and ask him if he's ever had dealings with the elder lilin or her demonic centaurs. Letting out a sigh, he replies, [flash.speech(Thankfully, I've never run into her or any of her thugs; I'd moved here to Elis long before she started to really get out of control.)]
+	</p>
+	<p>
+		Sensing a slightly angry tone in the badger-boy's voice, you push him a little and ask him what his opinion of Lunette is. Shaking his head, he grunts, [flash.speech(As everyone with any sense will tell you, she's pure evil. My extended family were driven out of our ancestral clan sett by her centaur thugs. Luckily, I was in a position here in Elis to get them jobs either here at the tavern or elsewhere in the town, but we'll never forgive or forget Lunette for what she's done.)]
+	</p>
+	<p>
+		As he talks, Flash's voice starts to sound angrier and angrier, and you decide that it would be best to drop the subject for now. As the badger-boy steps over to serve another customer, you wonder how many other people in Elis are victims of Lunette's indiscriminate raiding. Letting out a sigh and looking around the tavern, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_MINOTALLYS"><![CDATA[
+	<p>
+		Wanting to know what Flash has to say about the town's mayor, you get his attention and ask him what he knows of Minotallys. Shrugging his shoulders, he reveals, [flash.speech(Truth be told, I don't really know much about her other than what's common knowledge. She's supposed to be kind and considerate, but whatever her personality's like, I can tell you that her policies of low taxation and limited regulation are very popular amongst those of us who run businesses. Of course, there's only so much she can do within the confines of the laws of the Realm, but I think that most of Elis's residents would agree that she's a strong force for good in this town.)]
+	</p>
+	<p>
+		Curious to find out if Flash has ever met Minotallys, you ask him if his role as one of Elis's business owners has ever brought him into contact with her. Nodding his head, he confirms, [flash.speech(Yes, I've met her a few times during meetings for business owners, but as I said, I still don't know much about her. During those meetings it was mainly her assistant who was doing the talking, and I couldn't ask Minotallys any questions directly, so I didn't get to find out what she's really like.)]
+	</p>
+	<p>
+		Asking Flash about Minotallys's assistant, you listen as he explains, [flash.speech(Yeah, 'Arion' is his name; he's an alicorn, and one who's particularly adept at harnessing the arcane from what I hear. There's no doubt that he's extremely intelligent and competent at his job, but he struck me as being a bit over-protective of Minotallys. He insisted that he was simply carrying out the instructions of his boss, but I wonder how much influence he really has over this town's management...)]
+	</p>
+	<p>
+		At that moment a particularly demanding customer draws Flash's attention, and as your conversation was already coming to an end, he gives you a curt nod and steps over to deal with them, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_HISTORY"><![CDATA[
+	<p>
+		Wanting to find out about Flash's history, you catch his attention and ask him how he came to own this tavern. After spending a moment wondering where to start, the badger-boy says, [flash.speech(Well, I used to run a tavern similar to this one out in the Fields, a short distance from where my family's sett was. I eventually decided that I wanted to do something new, so I left my old tavern in the hands of one of my younger brothers and moved here to Elis.)]
+	</p>
+	<p>
+		After then being briefly interrupted by a customer asking for service, Flash steps back over to you and resumes his story, [flash.speech(I didn't intend to take over this place, but I guess fate wanted me to continue running a tavern... When I arrived in Elis, I decided to rent a room for a few days here in The Red Dragon, and it was while I was staying here that the owner, who was a tired old sheep-boy, revealed to me that he wanted to sell this place and go travelling. I decided to help him out and offered to buy this place from him, and a few days later I was the new owner and he was setting off on his travels.)]
+	</p>
+	<p>
+		Curious to find out more about the tavern's previous owner, you ask Flash what this sheep-boy was like, to which he responds, [flash.speech(Well, as I say, he was getting on in years and seemed to be pretty fed up with running this place. I found out that he was a direct descendant of the sheep-boy who originally built this tavern several centuries ago. The story goes that this original sheep-boy was an ordinary farmer, and then one day a huge, red dragon appeared and offered him a great pile of golden treasure. All the farmer had to do in exchange was hand over his tools and teach this dragon how to farm, if you can believe that! Of course, the farmer agreed, and with his new fortune he had this tavern built. That's how this place got its name, from the red dragon in the story.)]
+	</p>
+	<p>
+		Wanting to know what became of the tavern's previous owner, you ask Flash if he ever returned to Elis. Shaking his head, the badger-boy reveals, [flash.speech(He never returned, no. That was over five years ago now. He told me that he wanted to travel up into the mountains of the moon and try to find the red dragon who gave his ancestor his fortune. Dragons can live for a very long time, from what I understand, so I suppose it's not entirely unreasonable to think that this red dragon might still be alive up there. Well, whatever the case may be, there's been no word of the previous owner of this place, nor of the red dragon.)]
+	</p>
+	<p>
+		Thanking Flash for the information, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_YOUKO"><![CDATA[
+	<p>
+		Wanting to find out if Flash knows anything about the youko who live in the Shinrin Highlands, you catch his attention and ask him if he's ever had dealings with them. Shaking his head, he replies, [flash.speech(Although it's very rare, we do sometimes get a youko or two passing through here, but they almost always keep to themselves. I've never been into the highlands, but from what I've heard from customers who have, then running into a youko can either be the best or worst thing to ever happen to you.)]
+	</p>
+	<p>
+		At that moment a pair of demanding customers interrupt Flash, and you're forced to wait as the badger-boy quickly deals with them. Returning to you, he continues, [flash.speech(Sorry about that. Anyway, as I was saying, apparently the youko will sometimes bestow gifts and knowledge upon travellers, and even provide them with a safe place to rest. Other times, they'll lead you on a wild goose chase through the forest, taunting and laughing at you the whole time. Someone passed through here a few weeks ago who'd been on the receiving end of that; he didn't say a word to anyone the whole time he was here, but one of his friends he was with told me that he'd been trapped in the youko's forest for almost two years, and had to survive on scraps of food thrown to him by his tormentors. If you're thinking of going into the Shinrin Highlands, I'd advise you not to do it unless you've got a guide...)]
+	</p>
+	<p>
+		At that moment, another customer calls for Flash's attention, and he steps away to deal with them, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_JESS"><![CDATA[
+	<p>
+		Wanting to know what Flash can tell you about Jess, you call him over and ask him about the alluring fox-girl. Shaking his head, he grunts, [flash.speech(Sorry, but out of respect for her privacy, I can't tell you much about her. All I can say is that I've given her permission to work here, so long as she doesn't give this place a bad reputation.)]
+	</p>
+	<p>
+		Pointing out that he's also given her a room upstairs, you ask Flash if he has a soft spot for fox-girls. Letting out a laugh, he replies, [flash.speech(No, it's nothing like that, and we don't have any familial relation to one another either. I just found myself in a position where I had to take responsibility for her. That's all there is to it.)]
+	</p>
+	<p>
+		Realising that Flash isn't going to tell you anything about Jess, you suppose that the only information you'll be able to find out about her is that which she'll tell you directly. Thanking Flash for his time, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Ordering drinks: -->
+	
+	<htmlContent tag="BAR_DRINK_WATER"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(flash))
+			Feeling thirsty, you get Flash's attention and ask him for a glass of water. Grabbing a clean glass from under the bar, he quickly fills it with clean, cold water, before placing it down before you and grunting, [flash.speech(The water's free here. Just leave the glass on the bar once you've finished.)]
+		#ELSE
+			Feeling thirsty, you get the badger-boy's attention and ask him for a glass of water. Grabbing a clean glass from under the bar, he quickly fills it with clean, cold water, before placing it down before you and saying, [style.speechMasculine(There's no charge for water here.)]
+		#ENDIF
+	</p>
+	<p>
+		Bringing the glass up to your waiting [pc.lips], you quickly gulp down the cool, refreshing water. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_ORANGE_JUICE"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(flash))
+			Feeling thirsty, you get Flash's attention and ask him for a glass of orange juice. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a can of carbonated orange juice. Using his big, furry fingers to fold down the tab, he opens the can and pours the fizzy beverage into the glass, saying, [flash.speech(That'll be twenty flames. Just leave the glass on the bar once you've finished.)]
+		#ELSE
+			Feeling thirsty, you get the badger-boy's attention and ask him for a glass of orange juice. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a can of carbonated orange juice. Using his big, furry fingers to fold down the tab, he opens the can and pours the fizzy beverage into the glass, saying, [style.speechMasculine(That'll be twenty flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the twenty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_BERRY_SODA"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(flash))
+			Feeling thirsty, you get Flash's attention and ask him for a glass of berry soda. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a can of berry soda. Using his big, furry fingers to fold down the tab, he opens the can and pours the fizzy beverage into the glass, saying, [flash.speech(That'll be twenty flames. Just leave the glass on the bar once you've finished.)]
+		#ELSE
+			Feeling thirsty, you get the badger-boy's attention and ask him for a glass of berry soda. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a can of berry soda. Using his big, furry fingers to fold down the tab, he opens the can and pours the fizzy beverage into the glass, saying, [style.speechMasculine(That'll be twenty flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the twenty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_COLA"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(flash))
+			Feeling thirsty, you get Flash's attention and ask him for a glass of cola. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of fizzy cola. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the brown beverage into the glass, saying, [flash.speech(That'll be twenty-five flames. Just leave the glass on the bar once you've finished.)]
+		#ELSE
+			Feeling thirsty, you get the badger-boy's attention and ask him for a glass of cola. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of fizzy cola. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the brown beverage into the glass, saying, [style.speechMasculine(That'll be twenty-five flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the twenty-five flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_COFFEE"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(flash))
+			Feeling thirsty, you get Flash's attention and ask him for a glass of cold-brew coffee. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of dark black coffee. Using his big, furry fingers to twist off the cap, he pours the caffeinated beverage into the glass, saying, [flash.speech(That'll be thirty flames. Just leave the glass on the bar once you've finished.)]
+		#ELSE
+			Feeling thirsty, you get the badger-boy's attention and ask him for a glass of cold-brew coffee. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of dark black coffee. Using his big, furry fingers to twist off the cap, he pours the caffeinated beverage into the glass, saying, [style.speechMasculine(That'll be thirty flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the thirty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_BEER"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a pint of beer. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Canine Crush'. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_CIDER"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a pint of cider. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Qquine Cider'. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_PERRY"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a pint of pear cider. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Black Stripes Perry'. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_WINE_RED"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a glass of red wine. Grabbing a clean wine glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of red wine. Using his big, furry fingers to operate a bottle opener, he removes the cork and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be sixty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the sixty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_WINE_WHITE"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a glass of white wine. Grabbing a clean wine glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of white wine. Using his big, furry fingers to operate a bottle opener, he removes the cork and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be sixty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the sixty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_VODKA"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a glass of vodka. Grabbing a clean glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of vodka. Using his big, furry fingers to unscrew the cap, he pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be a hundred flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the hundred flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious, highly-alcoholic beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_RUM"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a glass of rum. Grabbing a clean glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of rum. Using his big, furry fingers to unscrew the cap, he pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be a hundred and twenty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the one hundred and twenty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious, highly-alcoholic beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_WHISKEY"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a glass of whiskey. Grabbing a clean glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of whiskey. Using his big, furry fingers to unscrew the cap, he pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be a hundred and twenty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the one hundred and twenty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious, highly-alcoholic beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_CHAMPAGNE"><![CDATA[
+	<p>
+		Feeling thirsty, you get Flash's attention and ask him for a glass of champagne. Grabbing a clean champagne flute, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Pan's Flute'. Using his big, furry fingers to twist off the cork, he opens the bottle with a loud pop, before pouring the fizzy beverage into the glass, saying, [flash.speech(That'll be a hundred and sixty flames. Just leave the glass on the bar once you've finished.)]
+	</p>
+	<p>
+		Handing over the one hundred and sixty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Ordering food: -->
+	
+	<htmlContent tag="BAR_FOOD_BREAD"><![CDATA[
+	#IF(game.getCharactersPresent().contains(flash))
+		<p>
+			Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'bread basket', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be fifty flames.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One bread basket ready!)]
+		</p>
+		<p>
+			Pointing over at you, Flash watches as this badger-girl sets the bread basket down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+		</p>
+		<p>
+			Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the freshly-baked bread rolls...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'bread basket', you call over the badger-boy behind the bar and place your order. Nodding as you give him your order, he smiles and says, [style.speechMasculine(That'll be fifty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the badger-boy hurries into the kitchen, and then a minute later he returns carrying your order. Setting the bread basket down on the counter in front of you, he flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious bread rolls...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_NUTS"><![CDATA[
+	#IF(game.getCharactersPresent().contains(flash))
+		<p>
+			Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'mixed nuts', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be fifty flames.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of mixed nuts ready!)]
+		</p>
+		<p>
+			Pointing over at you, Flash watches as this badger-girl sets the bowl down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+		</p>
+		<p>
+			Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious assortment of mixed nuts...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'mixed nuts', you call over the badger-boy behind the bar and place your order. Nodding as you give him your order, he smiles and says, [style.speechMasculine(That'll be fifty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the badger-boy hurries into the kitchen, and then a minute later he returns carrying your order. Setting the bowl down on the counter in front of you, he flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious assortment of mixed nuts...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_FRIES"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'curly fries', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be fifty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of curly fries ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the bowl down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious bowl of greasy, curly fries...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_SHRIMP"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'shrimp cocktail', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be seventy-five flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of shrimp cocktail ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the glass down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious shrimp cocktail...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_PATE"><![CDATA[
+	#IF(game.getCharactersPresent().contains(flash))
+		<p>
+			Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'pâté and crackers', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be eighty flames.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of pâté and crackers ready!)]
+		</p>
+		<p>
+			Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+		</p>
+		<p>
+			Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious plate of meat pâté and crackers...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something from the 'starters & sides' menu. Settling on the 'pâté and crackers', you call over the badger-boy behind the bar and place your order. Nodding as you give him your order, he smiles and says, [style.speechMasculine(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the badger-boy hurries into the kitchen, and then a minute later he returns carrying your order. Setting the plate down on the counter in front of you, he flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious plate of meat pâté and crackers...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_FISH_CHIPS"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order a meal from the main menu. Settling on the 'fish & chips', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be a hundred and fifty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of fish and chips ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious plate of freshly-cooked fish and chips...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_SAUSAGES"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order a meal from the main menu. Settling on the 'sausages', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be a hundred and fifty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of sausages ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious plate of freshly-cooked, high-quality sausages...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_BURGER"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order a meal from the main menu. Settling on the 'burger', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be a hundred and fifty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One burger ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious burger...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_CHICKEN_PIE"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order a meal from the main menu. Settling on the 'chicken pie', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be a hundred and eighty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of chicken pie ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious, freshly-cooked chicken pie...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_STEAK"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order a meal from the main menu. Settling on the 'steak', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be two hundred and fifty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One steak ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious, freshly-cooked steak...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_FRUIT_SALAD"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something from the dessert menu. Settling on the 'fruit salad', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be eighty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of fruit salad ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the bowl down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the bowl of delicious, refreshing fruit salad...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HONEY_BREAD"><![CDATA[
+	#IF(game.getCharactersPresent().contains(flash))
+		<p>
+			Feeling a little hungry, you decide to order something from the dessert menu. Settling on the 'honey bread', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be eighty flames.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of honey bread ready!)]
+		</p>
+		<p>
+			Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+		</p>
+		<p>
+			Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious plate of honey bread...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something from the dessert menu. Settling on the 'honey bread', you call over the badger-boy behind the bar and place your order. Nodding as you give him your order, he smiles and says, [style.speechMasculine(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the badger-boy hurries into the kitchen, and then a minute later he returns carrying your order. Setting the plate down on the counter in front of you, he flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious plate of honey bread...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_BERRY_TRIFLE"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something from the dessert menu. Settling on the 'berry trifle', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be eighty flames.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One order of berry trifle ready!)]
+	</p>
+	<p>
+		Pointing over at you, Flash watches as this badger-girl sets the bowl down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+	</p>
+	<p>
+		Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the bowl of delicious berry trifle...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_BROWNIE"><![CDATA[
+	#IF(game.getCharactersPresent().contains(flash))
+		<p>
+			Feeling a little hungry, you decide to order something from the dessert menu. Settling on the 'brownie', you call over Flash and place your order. Jotting your order down on a little notepad, he grunts, [flash.speech(That'll be eighty flames.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a badger-girl steps out from the kitchen door and calls out, [style.speechFeminine(One brownie ready!)]
+		</p>
+		<p>
+			Pointing over at you, Flash watches as this badger-girl sets the plate down on the counter in front of you, before grunting at her, [flash.speech(Thanks, sis.)]
+		</p>
+		<p>
+			Smiling at Flash, the badger-girl skips back into the kitchen, leaving you to tuck in to the delicious chocolate brownie...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something from the dessert menu. Settling on the 'brownie', you call over the badger-boy behind the bar and place your order. Nodding as you give him your order, he smiles and says, [style.speechMasculine(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the badger-boy hurries into the kitchen, and then a minute later he returns carrying your order. Setting the plate down on the counter in front of you, he flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious chocolate brownie...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Leading off from the far side of the tavern, this narrow corridor is clearly signposted as providing access to the toilets and stairs to the upper floor. Apart from some pictures of rural scenes and old farming implements hanging from the walls, this corridor is devoid of any furnishings.
+	</p>
+	<p>
+		An emergency fire escape is situated beside a glass window at the end of the corridor, and to either side of that are the toilets and staircase. From here you could approach one of these two places, or head down the corridor and return to the main floor of the tavern.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You find yourself standing beside one of the two entrances to this tavern, which takes the form of a sturdy wooden door. A thick doormat is recessed into the floor in front of this door, and bears the words: 'Please wipe your feet before entering'
+	</p>
+	<p>
+		Over to one side of this door there's a squat metal umbrella rack,
+		#IF(game.getCurrentWeather()==WEATHER_RAIN)
+			 which, due to the fact that it's currently raining outside, is full of wet umbrellas.
+		#ELSE
+			 which, due to the fact that it's not currently raining outside, only has a few umbrellas stored in it.
+		#ENDIF
+		 From here, you could either [pc.step] forwards into the main area of the tavern, or instead make use of the door to head back out into Elis. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_FAST_TRAVEL_ENTRANCE"><![CDATA[
+	<p>
+		Having finished your business in your room, you exit out into the corridor, and after locking your door behind you, you travel down through the tavern to the front entrance...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Deciding that it's time for you to leave, you push open the door and head back outside, before continuing forwards into the street outside the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GARDEN"><![CDATA[
+	<p>
+		A modestly-sized beer garden is situated to the rear of the tavern, and it's within this outdoor area that you currently find yourself standing.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			 Both the paved patio and the numerous wooden picnic tables which are located in this area are covered in a thick blanket of snow. The tavern's timber-framed wall forms the southern and eastern sides of this garden, while the other two are formed by large snow-capped hedgerows.
+		#ELSE
+			 Consisting of a paved patio adjoining a wide strip of neatly-mown lawn, this beer garden is home to numerous wooden picnic tables. The tavern's timber-framed wall forms the southern and eastern sides of this garden, while the other two are formed by large leafy hedgerows.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getSeason()==SEASON_WINTER)
+			Due to the cold outdoor temperature, you're the only person who's currently out here. Apart from taking a moment to enjoy the peace of the outdoors and get a fresh breath of air, there's nothing for you to do out here except head back inside...
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			Due to the fact that it's raining, you're the only person who's currently out here. Apart from taking a moment to enjoy the soothing sound of the falling rain and get a fresh breath of air, there's nothing for you to do out here except head back inside...
+		#ELSEIF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			Due to the busy time of day, there are quite a lot of people out here sitting at the tables or standing around drinking. Although those around you seem to be having a good time, there's little for you to do out here except get a fresh breath of air and then head back inside...
+		#ELSE
+			Due to the quiet time of day, there are only a few people out here sitting at the tables or standing around drinking. Although those around you seem to be having a good time, there's little for you to do out here except get a fresh breath of air and then head back inside...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GARDEN_DOOR"><![CDATA[
+	<p>
+		A glass conservatory connects the tavern's main floor to its beer garden, and it's within this area that you find yourself standing. Unlike the rest of the tavern, there's no place in here for customers to sit and drink, as almost all of the available space is filled with potted herbs and other edible plants.
+	</p>
+	<p>
+		A sign above the conservatory's glass doors informs you that the adjoining beer garden is available for all customers to enjoy,
+		#IF(game.getSeason()==SEASON_WINTER)
+			 although due to the cold outdoor temperature, you can see the garden is completely deserted...
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			 although due to the rain, you can see the garden is completely deserted...
+		#ELSEIF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 and due to the busy time of day, you can see that there are quite a lot of people out in there...
+		#ELSE
+			 although due to the quiet time of day, you can see that there are only a few people out in there...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		Over to one side of the bar, a door carries a sign that reads 'Kitchen: Staff Only'. [pc.Stepping] over to this door, you look through its circular window and see that the tavern's kitchen looks to be both impressively clean and well organised.
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			As it's currently the busy time of the day, there are several people working in the kitchen, and you watch them for a moment as they prepare ingredients, stir pots, and move food in and out of the ovens.
+		#ELSE
+			As it's currently the quiet time of the day, there's only one person working in the kitchen, and you watch them for a moment as they take their time preparing ingredients, stirring pots, and moving food in and out of the ovens.
+		#ENDIF
+		 Respecting the sign on the door, and not wanting to disturb the tavern's cooking staff, you soon decide to [pc.step] away from the door and return to the bar...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(meraxis))
+			As usual, Meraxis has occupied the sofa in this corner of the tavern, and has several of the local succubi fawning over her. She's so caught up in regaling her companions with one of her
+			#IF(pc.hasTraitActivated(PERK_CHUUNI))
+				 impressive tales
+			#ELSE
+				 exaggerated tales
+			#ENDIF
+			 that she hasn't seen you approach, affording you the opportunity to turn around and leave. Then again, if you had things to talk to her about, you could always continue forwards and greet her.
+		#ELSE
+			Although the sofa in this corner of the tavern is Meraxis's favourite spot, neither she nor her succubi followers are anywhere to be seen at the moment. If you wanted to speak with her, you'll have to head upstairs and see if she's in her room.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_APPROACH"><![CDATA[
+	#IF(pc.hasTraitActivated(PERK_CHUUNI))
+		<p>
+			As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make a dramatic entrance without interrupting her. [pc.Stepping] forwards so as to stand right in front of your nemesis, you strike an intimidating pose and ask, [pc.speech(What dark acts of sorcery have you prepared for me this time, my arch-nemesis?)]
+		</p>
+		<p>
+			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and matching your pose with one of her own. Flashing you a sinister smirk, she exclaims,
+			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
+				 [meraxis.speech(I would never reveal my secret techniques to you! Now, as much as I would love to challenge you to yet another duel, my awesome powers are at risk of being fully unleashed upon this world if I were to do so! To avoid a cataclysm the likes of which this universe has never seen, I shall need time to seal away my powers. We can duel again tomorrow... Unless there's something else you were here for?)]
+			#ELSE
+				 [meraxis.speech(I would never reveal my secret techniques to you! Now, I formally challenge you to a duel; let us decide once and for all who the supreme ruler of this universe shall be! That is, unless there's something else you were here for?)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make your entrance without interrupting her. [pc.Stepping] forwards so as to catch her attention, you offer Meraxis a friendly greeting and ask her if she has a moment to talk.
+		</p>
+		<p>
+			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and striking what she must think is an intimidating pose. Flashing you a sinister smirk, she exclaims,
+			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
+				 [meraxis.speech(I would never reveal my secret techniques to you! Now, as much as I would love to challenge you to yet another duel, my awesome powers are at risk of being fully unleashed upon this world if I were to do so! To avoid a cataclysm the likes of which this universe has never seen, I shall need time to seal away my powers. We can duel again tomorrow... Unless there's something else you were here for?)]
+			#ELSE
+				 [meraxis.speech(I would never reveal my secret techniques to you! Now, I formally challenge you to a duel; let us decide once and for all who the supreme ruler of this universe shall be! That is, unless there's something else you were here for?)]
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		Both Meraxis and her succubi followers all wait to hear your response...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_TALK_TAKAHASHI"><![CDATA[
+	<p>
+		Recalling what Meraxis suggested to Lyssieth, you ask her if she's had any luck tracking down the youko who used to work for her in her Submission citadel. Shaking her head, the chuuni [meraxis.race] replies, [meraxis.speech(I must unfortunately report that my mystical divinations have not yet produced results. It was aeons ago that we first met, but thanks to my unparalleled memory I can say for certain that it was in this very tavern where Takahashi and I had our first, fateful encounter. I was hoping that she'd sense my malevolent presence and return to find me here, but alas, that has proven not to be the case...)]
+	</p>
+	<p>
+		As Takahashi was supposed to be your guide for finding the youko, you press Meraxis on the matter and ask her if she has any leads. Leaning back on the sofa, she sighs and says, [meraxis.speech(When the youko wish not to be found, you will never be able to track them down. All we can do is wait for a celestial portent to indicate that fate will lead us to her! Besides, mommy said that you should meet Minotallys before worrying about the youko...)]
+	</p>
+	<p>
+		Seeing the smirks on her minions' faces as she uses the word 'mommy', Meraxis blushes and covers up her embarrassment by pointing at you and declaring, [meraxis.speech(Begone, my nemesis, unless you have something further you wish to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_LEAVE"><![CDATA[
+	<p>
+		Not having anything more to discuss with Meraxis, you say goodbye and [pc.step] away from her and her minions, leaving them to continue talking with one another.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_DEMON_TF_START"><![CDATA[
+	<p>
+		Deciding that the time has come for Meraxis to become a full demon, you ask, [pc.speech(Have you thought any more about going through with the same demonic transformation as Lilaya?)]
+	</p>
+	<p>
+		[siren.speech(O-Of course I have,)] Meraxis replies, standing up from where's she's sitting. Placing her hands on her hips, she boasts, [siren.speech(I'm not afraid of doing it, I just needed to seal my volatile arcane power so that the process doesn't destroy the universe! I-In fact, I'm ready to do it right now!)]
+	</p>
+	<p>
+		As if to prove herself to you, the chuuni [meraxis.race] grabs your [pc.hand], before declaring, [meraxis.speech(Now I shall show you the true meaning of power! Hold on tight, lest you be transported into oblivion! Mwhahaha!)]
+	</p>
+	<p>
+		At that moment, a bright flash of purple light envelops the two of you, and the next thing you know both you and Meraxis are standing in your mother's office. With this being exactly what you wanted, you smile as your little [siren.relation(pc)] releases her grip on your [pc.hand] and joins you in turning to face Lyssieth.
+	</p>
+	<p>
+		[lyssieth.speech(Oh, why if it isn't my dear [pc.name] and Meraxis. What's caused you to teleport into my office without announcing your arrival beforehand?)] the elder lilin asks, standing up and smiling at the two of you.
+	</p>
+	<p>
+		Releasing your hand, Meraxis points at the elder lilin, striking a heroic pose as she commands, [siren.speech(Mommy, I demand to be turned into a full demon! Summon my sister and proceed with the ritual!)]
+	</p>
+	<p>
+		Letting out a deep sigh, Lyssieth nevertheless consents, [lyssieth.speech(Very well... I did promise that I'd transform the two of you... Your sister will want to be present for this.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_DEMON_TF_FINISHED"><![CDATA[
+	<p>
+		With an accompanying flash of purple light, you and Meraxis instantaneously reappear in the upstairs corridor of The Red Dragon. Seeing that you're right outside Meraxis's room, you ask her if she was intending to get some rest after what must have been an exhausting experience for her.
+	</p>
+	#IF(game.isHourBetween(1, 9))
+		<p>
+			[meraxis.speech(You speak sense, my nemesis,)] Meraxis replies, before stifling a yawn and continuing, [meraxis.speech(I shall enter my dark slumber, from which I may not awaken for a thousand years!)]
+		</p>
+		<p>
+			After unlocking the door to her room, the chuuni demon turns to face you and mumbles, [meraxis.speech(Oh, and... Well, thanks, [pc.name]... I've kind of always wanted to be a demon, but I wasn't able to do it alone...)]
+		</p>
+		<p>
+			Not wanting you to see her in this embarrassed state for too long, Meraxis quickly darts inside her room, and before you can even respond she slams the door shut after her. Smiling to yourself, you turn away from the locked door to her room and prepare to continue on your way...
+		</p>
+	#ELSE
+		<p>
+			[meraxis.speech(You dare try to trick me, my nemesis?)] Meraxis replies, before striking a heroic pose and continuing, [meraxis.speech(I shall not waste time by sleeping! I must go and show my minions my new form! Mwhahaha!)]
+		</p>
+		<p>
+			Before leaving, however, the chuuni demon turns to face you and mumbles, [meraxis.speech(Oh, and... Well, thanks, [pc.name]... I've kind of always wanted to be a demon, but I wasn't able to do it alone...)]
+		</p>
+		<p>
+			Not wanting you to see her in this embarrassed state for too long, Meraxis quickly darts off down the corridor, and before you can even respond she disappears around the corner at the far end. Smiling to yourself, you prepare to continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING"><![CDATA[
+	<p>
+		Positioned along the far sides of the tavern, several sofas and low coffee tables have been arranged so as to provide a more relaxed seating area than those offered by the wooden tables and chairs.
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 At this busy time of the day all of the available space is already taken, and so even if you wanted to sit down on one of the comfortable sofas you wouldn't be able to.
+		#ELSE
+			 At this quiet time of the day there's plenty of available space on the comfortable sofas, although you're not sure if you want to spend any time sitting down and taking a rest.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		The staircase before you is signposted as leading up to the tavern's rooms for rent, and winds around in a clockwise fashion up to the first floor. While it's quite wide, the steps are rather steep, which seems to be the reason why an additional sign has been placed beneath the first one, reading: 'To avoid any further accidents, please don't run up or down the stairs!'
+	</p>
+	<p>
+		From here you could travel up to the tavern's first floor, or instead [pc.walk] down the corridor and head back into the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_UP"><![CDATA[
+	<p>
+		Deciding to head on up to the first floor, you climb the steep staircase and soon find yourself at the top...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES"><![CDATA[
+	<p>
+		Almost the entire of the ground floor of 'The Red Dragon' consists of one huge room, in which you currently find yourself standing. Thanks to the large wooden floorboards and overhead beams, as well as the decorative, antiquated farm equipment which is displayed on the walls, this tavern's interior has a very rustic feel to it.
+	</p>
+	<p>
+		A large number of wooden tables and chairs fill most of the space before you,
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 and thanks to the fact that it's currently the busy time of the day, almost all of these tables are occupied by people drinking, eating, and making merry.
+		#ELSE
+			 and thanks to the fact that it's currently the quiet time of the day, only a few of these tables are occupied by people drinking, eating, and making merry.
+		#ENDIF
+		 The smell of alcohol and good, hearty food fills the air, making you look over to the bar and wonder whether you should order anything.
+	</p>
+	#IF(game.getCharactersPresent().contains(jess))
+		<p>
+			#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+				The beautiful, orange-furred fox-girl, Jess, who looks to be in her early twenties, is sitting alone at one of the tables. As you pass, she turns towards you and leans forwards, flashing you her DD-cup cleavage as she seductively suggests, [jess.speech(Hey [pc.name], if you've got two-hundred and fifty flames, then I could give you some company again...)]
+			#ELSE
+				A beautiful, orange-furred fox-girl, who looks to be in her early twenties, is sitting alone at one of the tables. As you pass, she turns towards you and leans forwards, flashing you her DD-cup cleavage as she seductively suggests, [jess.speech(Hey babe, I'm Jess! If you've got two-hundred and fifty flames, then I could give you some company...)]
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Jess: -->
+	
+	<htmlContent tag="JESS_START"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+		<p>
+			Wanting to spend some more time with Jess, you [pc.walk] over to her table and say hello. Flashing you a sly grin, she rubs her fingers together and teases, [jess.speech(My company's not free, you know...)]
+		</p>
+	#ELSE
+		<p>
+			Liking the sound of what this pretty fox-girl is offering, you [pc.walk] over to her table and say hello. Flashing you a sly grin, she rubs her fingers together and teases, [jess.speech(Hey there, cutie! I already told you that my name's Jess, so it's only fair that you share yours.)]
+		</p>
+		<p>
+			After you've given Jess your name, she pouts at you and whines, [jess.speech(I'm sorry, [pc.name], but my company's in high demand around here. If you want to sit and chat, then it's going to cost you...)]
+		</p>
+	#ENDIF
+	<p>
+		Producing the two hundred and fifty flames which she's after, you pay the beautiful fox-girl and sit down at the table next to her. Jess's [jess.eyeColour] eyes light up as she sees the money, and after quickly seizing the flames and putting them away in her purse, she winks at you and asks, [jess.speech(So, [pc.name], what do ya want to talk about? Or maybe talk's not enough for you... If you've got another two hundred and fifty flames then the two of us can go find a quiet corner in which to get more intimate with one another...)]
+	</p>
+	<p>
+		Letting out a girly giggle, Jess moves her chair up closer to yours, before teasing her exceptionally-fluffy fox-tail over your lap. Biting her lip and fluttering her eyelids at you, the playful fox-girl waits to hear what it is you want to do with her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_TALK"><![CDATA[
+	<p>
+		Deciding to enjoy your time in Jess's company by making small talk, you ask her about her day and how she is. Happily responding in a very positive manner, the fox-girl quickly reverses the conversation and gets you to start talking to her about yourself. With a seemingly unlimited amount of patience, Jess gazes at you in adoration as you tell her about the recent events in your life, and whether or not it's because you've paid her to do so, she acts as though she's genuinely interested in your life.
+	</p>
+	<p>
+		As you talk, Jess curls her fluffy tail around to rest it in your lap, and briefly interrupts your conversation to say, [jess.speech(You can stroke it if you'd like; I've been told that it's very relaxing to do...)] 
+	</p>
+	<p>
+		This time you're absolutely convinced that your payment has nothing to do with Jess's offer, as you can see what looks like desperation in the fox-girl's pretty [jess.eyeColour] eyes as she flicks her fluffy tail towards your [pc.hands]. Giving her what she wants, you idly stroke her tail as you continue your conversation, and before you know it almost fifteen minutes have passed by...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_TALK_HISTORY"><![CDATA[
+	<p>
+		Thanks to your repeated transactions with Jess, you've managed to build up a high level of trust with her, and so feeling that now is the right time to do so, you ask Jess about her history and what led to her working here in The Red Dragon. Letting out a wistful sigh as she hears you ask this, the pretty fox-girl allows a heavy silence to fall between the two of you, but just as you're about to tell her not to worry about it, she starts talking, [jess.speech(For most of my life I worked as a prostitute in Dominion's red light district. To say that life was hard would be a bit of an understatement; the brothel where I worked was one of the worst, and almost every night me and the other girls would suffer some kind of abuse...)]
+	</p>
+	<p>
+		Not letting these painful memories get her down, Jess perks up and smiles at you as she continues, [jess.speech(I don't tell this story to just anyone, [pc.name], but as you've been so good to me I know that I can trust you. Anyway, one night I overheard the girl who I considered to be my only friend discussing how to rob me after work with one of her regular clients. I stuffed what little belongings I had into my bag and walked out the door, never to return...)]
+	</p>
+	<p>
+		At that moment, the fox-girl lets out a genuine laugh, and admits, [jess.speech(Ok, I'm making it sound more theatrical than it really was; I grabbed my stuff and ran out into the street before those two could carry out their plan. At first I thought I'd head east like everyone else who's sick of Dominion; apparently there's a boat at the coast which takes you to a new land, but I've never been good around water. I thought I may as well try my luck in another city in the Realm, and at the flip of a coin I chose Elis to be my destination.)]
+	</p>
+	<p>
+		Interested in Jess's story, you ask her what her journey here was like, to which she sighs and replies, [jess.speech(Well, all this happened as Lunette's raiding was really getting crazy. I think I had to stop and offer freebies to her demonic centaurs five times... or was it six? Anyway, it was nothing I hadn't done before. The thing which really hurt was when they took all my money. I arrived at Elis with nothing but the clothes on my back... 'Course, those were soon coming off as I set about earning a living in the alleyways to the north of the town.)]
+	</p>
+	<p>
+		Although she lets out a laugh as she says this, Jess's face quickly takes on a sad expression as she continues, [jess.speech(After a few nights of working and sleeping out rough in the alleyways, the Enforcers found me. Luckily for me, they're nowhere near as brutal as those in Dominion, and instead of enslaving me they gave me a fine and warned me not to be caught whoring myself out again. Unluckily for me, that fine took away everything I'd earned... At that point I got really desperate, and snuck in to the kitchen here at this tavern to try and steal some food.)]
+	</p>
+	<p>
+		Feeling as though she's coming to the end of her story, you ask Jess if that's when she first met Flash. At the mention of his name, a big smile breaks out across the fox-girl's face, and she confirms, [jess.speech(That's right! One of the staff here saw me stealing some bread, and they chased me out through the tavern, right into the arms of the same Enforcers who'd fined me the day before. 'Course, Flash, being the big softie he really is, insisted on knowing what the Enforcers planned on doing to me. When they said I was going to be enslaved for a year or so, he said that he didn't want to press charges, and that he'd take responsibility for making sure I didn't cause trouble in the town again. After hearing what I'd been through, he offered me a deal; I don't do anything to give The Red Dragon a bad reputation, and he not only lets me work here, but also lets me rent a room <i>and</i> gives me three square meals a day. I guess I really landed on my feet here...)]
+	</p>
+	<p>
+		Having now discovered what led to Jess working here, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_TAIL_FLUFFED"><![CDATA[
+	<p>
+		Jess's tail is far fluffier and more voluminous than that of a regular fox-morph, and you find your attention being inexorably drawn towards it. Seeing what it is you're after, the fox-girl lets out a playfully giggle, before demonstrating that she's got a high level of control over it by swishing the mass of soft, orange fur around in front of you. Biting her lip, she seductively teases, [jess.speech(So, you've got a thing for big, fluffy tails, have you? Go on then, you can touch my fluffy tail...)]
+	</p>
+	<p>
+		As you reach out and take hold of her tail, Jess inadvertently lets out a soft, sexual moan, revealing that she's just as excited about this contact as you are. Breathlessly encouraging you to stroke, tease, and huff her fluffy tail, Jess can't help but moan, [jess.speech(That's it... ~Mmm!~ You sure know how to please a vixen... ~Ooh!~ You know, I use special conditioner on my tail to get it to be so fluffy...)]
+	</p>
+	<p>
+		For the next ten minutes, you indulge yourself in Jess's fantastically-fluffy tail. Stroking its silky-soft length, fluffing it up, and running your [pc.fingers] through it, you both thoroughly enjoy yourself and give Jess what seems to be an almost orgasmic experience. All good things must come to an end, however, and as you finally feel as though you've played with her tail enough, you wonder what to do with Jess next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_BEERS"><![CDATA[
+	<p>
+		Feeling like you'll enjoy yourself more if you were to share a drink with Jess, you offer to buy her something, to which the fox-girl excitedly demands, [jess.speech(I want a beer! You should have one too, [pc.name]!)]
+	</p>
+	<p>
+		Not wanting to let her down, you do as Jess suggests and order two pints of beer from the bar. Handing over eighty flames in exchange, you take the glasses back to your table, where you and Jess set about drinking your delicious, alcoholic beverages.
+	</p>
+	<p>
+		[jess.speech(Thanks, [pc.name],)] Jess says, before smiling at you and using her long, flat tongue to lick the froth from her fox-like nose. Letting out a contented sigh, she asks, [jess.speech(So, what's your life been like back in Dominion?)]
+	</p>
+	<p>
+		For the next fifteen minutes the two of you talk about all manner of topics, starting with life in Dominion and progressing through the weather, fashion, and how Elis compares to the capital city. Eventually, the two of you finish both your drinks and your conversation, leaving you wondering what to do with Jess now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_INTIMATE"><![CDATA[
+	<p>
+		Wanting more than to just sit with Jess and make idle conversation, you hand her another two hundred and fifty flames and tell her that you'd like to get more intimate with her. Flashing you a delighted grin, she swiftly scoops the coins into her purse before standing up and taking hold of your [pc.hand(true)]. Seductively biting her lip at you, she teases, [jess.speech(Come on, let's find a quiet corner in which we can do some naughty things...)]
+	</p>
+	<p>
+		Wanting to find out what sot of naughty things she has in mind, you allow the horny fox-girl to lead you over to one of the seating areas at the sides of the tavern, before gently pushing you down onto an unoccupied sofa. Letting out a playful giggle, she slides down into your lap and whispers into your ear, [jess.speech(You know, I can use my tail to hide my lower body. If you wanted to get a feel of my hot little pussy, nobody's going to see... Then again, if you wanted more than just a feel of it, I can give you a very personal tour of my room for just two thousand flames...)]
+	</p>
+	<p>
+		Pressing her [jess.cupSize]-cup breasts into your body, the hot fox-girl hikes up her microskirt and starts playfully grinding her exposed panties up and down over your [pc.leg(true)]. As Jess leans in towards you, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_KISSING"><![CDATA[
+	<p>
+		Tilting your head to one side, you press your [pc.lips+] against Jess's mouth and start kissing her. Letting out a delighted, muffled moan in response, the sexy fox-girl presses her [jess.cupSize]-cup breasts against you as she leans in to passionately return your kiss. Grinding her groin down against your [pc.leg(true)], she briefly pulls back to breathlessly pant, [jess.speech(Come on, give my tits love too...)]
+	</p>
+	<p>
+		Leaning forwards and continuing to desperately kiss you, Jess takes hold of your [pc.hands] and guides them up under her sweater. Giving her what she wants, you start groping and squeezing the fox-girls big boobs as she makes out with you in your lap.
+	</p>
+	<p>
+		Caught up in your intimate embrace, the two of you spend the next fifteen minutes making out with one another in this manner, before you finally decide to pull back and do something else with Jess...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_GROPED"><![CDATA[
+	<p>
+		Deciding to take Jess up on her offer, you slip your [pc.hand(true)] down between her legs and start tracing your [pc.fingers] over her lacy thong. Letting out an excited squeal, Jess curls her fluffy fox-tail up so as to conceal her groin from the rest of the room. Leaning in to you, she teases, [jess.speech(Go on, shift them aside... ~Mmm!~ I want you to feel how wet I'm getting...)]
+	</p>
+	<p>
+		More than happy to do as she asks, you shift Jess's lacy thong aside, before teasing your [pc.fingers] over her [jess.labia+]. Taking a moment to play with her sensitive little clit, and causing Jess to let out a series of horny little moans in the process, you slide your touch down and sink your [pc.fingers] into her wet cunt. Bucking her hips against you, Jess leans in to once again suggest, [jess.speech(I can let you do far more than this, you know... ~Aah!~ Just two thousand flames, and the two of us can be up in my room... ~Mmm!~ I'll let you fuck me however you like, [pc.name]...)]
+	</p>
+	<p>
+		Continuing to play with Jess's wet pussy, you wonder whether to take her up on her offer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_LEAVE"><![CDATA[
+	<p>
+		Deciding that you've had enough of Jess's company for now, you thank her for the enjoyable time and say goodbye. Playfully pouting at you, she teases, [jess.speech(I hope that next time we'll take things all the way up to my bedroom... See you around, [pc.name!])]
+	</p>
+	<p>
+		Smiling at the promiscuous fox-girl, you [pc.step] away form her table and wonder where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_ROOM"><![CDATA[
+	<p>
+		Finding yourself immensely turned on at the thought of having sex with Jess, you eagerly hand over the two thousand flames she's asked for. Flashing you a delighted smile, the fox-girl takes hold of your [pc.hand(true)] and teases, [jess.speech(Come on then, let me give you the full tour of my room...)]
+	</p>
+	<p>
+		Allowing her to lead you across the tavern and up the stairs, you soon find yourself at teh door to Jess's bedroom. Producing a key from out of her purse, she unlocks the door and leads you inside, where you see that the fox-girl's room is painted in a very feminine shade of pink. The double-size bed looks to have been recently and smartly made with fresh, clean white sheets, while a wooden desk, wardrobe, and chest of drawers constitute the remainder of the room's furniture. Posters of scantily-clad fashion icons are hung up on the walls, with some of them even being enchanted so as to make their subjects move and blow you the occasional kiss.
+	</p>
+	<p>
+		Locking the door behind you, Jess strides over the wooden floor to pull the blinds half-closed, granting the two of you complete privacy. Turning to seductively bite her lip at you, the fox-girl curls her tail up and strokes it as she asks, [jess.speech(So, [pc.name], do you want to take the lead, or would you rather submit to me?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_START_SEX_AS_DOM"><![CDATA[
+	<p>
+		Wanting to be the one in charge, you tell Jess that she's going to submit to you. Letting out a horny moan as you say this, the fox-girl flashes you a seductive look as you [pc.step] forwards and pull her into a passionate kiss.
+	</p>
+	<p>
+		Running your [pc.hands] over her sexy body, you pull back from the kiss and wonder how you're going to fuck her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_START_SEX_AS_SUB"><![CDATA[
+	<p>
+		Not wanting to be the one in charge, you tell Jess that you want to submit to her. Letting out a horny moan as you say this, the fox-girl flashes you a seductive look as she steps forwards and forcefully pulls you into a passionate kiss.
+	</p>
+	<p>
+		Running her hands over your body, Jess pulls back from the kiss as she wonders how she's going to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_AFTER_SEX"><![CDATA[
+	<p>
+		With your sexual encounter coming to an end, you and Jess pull back from one another. 
+		#IF(jess.isSatisfiedFromLastSex())
+			 Letting out a genuinely-satisfied sigh, the fox-girl lies back on her bed and remarks, [jess.speech(Wow... I almost feel like I should be the one paying you for that!)]
+		#ELSE
+			 Letting out a happy sigh, the fox-girl lies back on her bed and remarks, [jess.speech(I had a lot of fun there, [pc.name]...)]
+		#ENDIF
+	</p>
+	<p>
+		Smiling at Jess, you get your things together and prepare to leave. Sitting up on her bed, the sexy fox-girl grins at you and says, [jess.speech(If you want to do this again some time, then you know where to find me... And how much it costs!)]
+	</p>
+	<p>
+		Winking at you, Jess stands up and moves over to unlock her bedroom door, before saying, [jess.speech(I need to take a shower and get my bed cleaned. I'll see you around, [pc.name]...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Saying goodbye, you [pc.step] out of Jess's room and wonder where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Toilets: -->
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		You find yourself standing before the door to the tavern's toilets, and subsequently find yourself with the rather limited options of either heading inside or turning around and returning to the corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_INTERIOR"><![CDATA[
+	<p>
+		Deciding to make use of the tavern's toilets, you push open the door and head inside. Consisting of several stalls and a few sinks, these facilities are very basic, although what they lack in appearance they fortunately make up for in their impressive level of cleanliness.
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			Due to the busy time of day there are a few other people in here, and so if you wanted to use one of the toilets it looks like you'll have to wait for a minute or two before one of the occupied stalls becomes available.
+		#ELSE
+			Due to the quiet time of day there's nobody else in here, and so if you wanted to use one of the toilets there's nothing stopping you from entering one of the free stalls.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_LEAVE"><![CDATA[
+	<p>
+		Having no further need of the tavern's toilet facilities, you swiftly head over to the door and make your exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			After waiting for a couple of minutes, one of the stalls becomes available, and so after [pc.stepping] into it and locking the door behind you, you make use of the toilet.
+		#ELSE
+			[pc.Stepping] into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet.
+		#ENDIF
+		 After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

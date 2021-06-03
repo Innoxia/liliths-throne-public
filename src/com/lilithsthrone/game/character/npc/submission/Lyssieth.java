@@ -427,20 +427,7 @@ public class Lyssieth extends NPC {
 	}
 	
 	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass) {
-		Main.game.getNpc(daughterClass).setAssType(AssType.DEMON_COMMON);
-		Main.game.getNpc(daughterClass).setBreastType(BreastType.DEMON_COMMON);
-		Main.game.getNpc(daughterClass).setArmType(ArmType.DEMON_COMMON);
-		Main.game.getNpc(daughterClass).getLegConfiguration().setLegsToDemon(Main.game.getNpc(daughterClass));
-		Main.game.getNpc(daughterClass).setTorsoType(TorsoType.DEMON_COMMON);
-		Main.game.getNpc(daughterClass).setFaceType(FaceType.DEMON_COMMON);
-		Main.game.getNpc(daughterClass).setSubspeciesOverride(Subspecies.DEMON);
-
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED, PresetColour.SKIN_RED_DARK), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.MOUTH, PresetColour.SKIN_RED, PresetColour.SKIN_RED_DARK), false);
+		setDaughterDemonicBodyParts(Main.game.getNpc(daughterClass));
 		
 		Main.game.getNpc(Lilaya.class).setArousal(100);
 		Main.game.getPlayer().setArousal(100, true);
@@ -449,6 +436,23 @@ public class Lyssieth extends NPC {
 		}
 		
 		Main.game.getNpc(daughterClass).loadImages(true);
+	}
+	
+	public static void setDaughterDemonicBodyParts(GameCharacter daughter) {
+		daughter.setAssType(AssType.DEMON_COMMON);
+		daughter.setBreastType(BreastType.DEMON_COMMON);
+		daughter.setArmType(ArmType.DEMON_COMMON);
+		daughter.getLegConfiguration().setLegsToDemon(daughter);
+		daughter.setTorsoType(TorsoType.DEMON_COMMON);
+		daughter.setFaceType(FaceType.DEMON_COMMON);
+		daughter.setSubspeciesOverride(Subspecies.DEMON);
+
+		daughter.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
+		daughter.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
+		daughter.setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
+		daughter.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_RED_DARK, PresetColour.SKIN_RED_DARK), false);
+		daughter.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED, PresetColour.SKIN_RED_DARK), false);
+		daughter.setSkinCovering(new Covering(BodyCoveringType.MOUTH, PresetColour.SKIN_RED, PresetColour.SKIN_RED_DARK), false);
 	}
 	
 	@Override
@@ -474,6 +478,7 @@ public class Lyssieth extends NPC {
 					if(applyExtraEffects) {
 						Main.game.getPlayer().setArousal(50);
 					}
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 				}
 			};
 			
@@ -1092,6 +1097,7 @@ public class Lyssieth extends NPC {
 								"Oh yes, let mommy fuck your cute little butt! Yes, yes, yes!",
 								"Oh yes! Good [npc2.girl]! Mommy loves your ass!"));
 						break;
+					case ARMPITS:
 					case ASS:
 						break;
 					case BREAST_CROTCH:
@@ -1162,6 +1168,7 @@ public class Lyssieth extends NPC {
 								"Oh yes! Let mommy lick your ass! Yes, yes, yes!",
 								"Oh yes! I love licking ass! Let mommy get her [npc1.tongue] nice and deep!"));
 						break;
+					case ARMPITS:
 					case ASS:
 						break;
 					case BREAST_CROTCH:

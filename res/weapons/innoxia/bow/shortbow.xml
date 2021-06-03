@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<value>3500</value>
+		<value>1000</value>
 		<melee>false</melee>
 		<twoHanded>true</twoHanded>
 		<determiner><![CDATA[an]]></determiner>

@@ -40,8 +40,7 @@
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(start)] to feel stronger...
 			</p>
-			[#npc.addPotionEffect(MAJOR_PHYSIQUE, 1)]
-			#ENDIF
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
 		]]></applyEffects>
 		
 		<itemTags>

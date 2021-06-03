@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <item>
 	<coreAttributes>
-		<value>200</value> 
+		<value>25</value> 
 		<determiner><![CDATA[a bottle of]]></determiner>
 		<name><![CDATA[Jet Black Coffee]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Jet Black Coffees]]></namePlural>

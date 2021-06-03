@@ -675,7 +675,6 @@ public class DominionPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."

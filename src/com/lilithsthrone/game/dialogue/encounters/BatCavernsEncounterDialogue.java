@@ -26,30 +26,30 @@ public class BatCavernsEncounterDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR) || Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT)) {
-				if(((AbstractItem) Encounter.getRandomItem()).getItemType()==ItemType.MUSHROOM) {
+				if(((AbstractItem) AbstractEncounter.getRandomItem()).getItemType()==ItemType.MUSHROOM) {
 					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_MUSHROOMS_LIGHT")
 							+ "<p style='text-align:center;'>"
-								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+								+ "<b>"+ AbstractEncounter.getRandomItem().getDisplayName(true)+ "</b>"
 							+ "</p>";
 					
 				} else {
 					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_ITEM_LIGHT")
 							+ "<p style='text-align:center;'>"
-								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+								+ "<b>"+ AbstractEncounter.getRandomItem().getDisplayName(true)+ "</b>"
 							+ "</p>";
 				}
 				
 			} else {
-				if(((AbstractItem) Encounter.getRandomItem()).getItemType()==ItemType.MUSHROOM) {
+				if(((AbstractItem) AbstractEncounter.getRandomItem()).getItemType()==ItemType.MUSHROOM) {
 					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_MUSHROOMS_DARK")
 							+ "<p style='text-align:center;'>"
-								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+								+ "<b>"+ AbstractEncounter.getRandomItem().getDisplayName(true)+ "</b>"
 							+ "</p>";
 					
 				} else {
 					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_ITEM_DARK")
 							+ "<p style='text-align:center;'>"
-								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+								+ "<b>"+ AbstractEncounter.getRandomItem().getDisplayName(true)+ "</b>"
 							+ "</p>";
 				}
 			}
@@ -57,15 +57,15 @@ public class BatCavernsEncounterDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", Main.game.getDefaultDialogue(false)){
+				return new Response("Take", "Add the " + AbstractEncounter.getRandomItem().getName() + " to your inventory.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem((AbstractItem) Encounter.getRandomItem(), true, true));
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem((AbstractItem) AbstractEncounter.getRandomItem(), true, true));
 					}
 				};
 				
 			} else if (index == 2) {
-				return new Response("Leave", "Leave the " + Encounter.getRandomItem().getName() + " on the floor.", Main.game.getDefaultDialogue(false));
+				return new Response("Leave", "Leave the " + AbstractEncounter.getRandomItem().getName() + " on the floor.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;

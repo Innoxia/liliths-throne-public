@@ -3,7 +3,7 @@
 	<coreAttributes>
 		<authorTag><![CDATA[A faint inscription underneath the can reads 'Canned by DSG Foodstuffs LLC']]></authorTag>
 		
-		<value>150</value> 
+		<value>15</value> 
 		<determiner><![CDATA[a can of]]></determiner>
 		<name><![CDATA[Fizzy Orange Juice]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Fizzy Orange Juices]]></namePlural>

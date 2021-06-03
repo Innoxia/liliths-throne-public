@@ -82,7 +82,7 @@
 	This description immediately follows a brief description of the arm type beginning to transform. -->
 	<transformationDescription><![CDATA[
 		Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down, [npc.she] [npc.verb(see)] [npc.her] new fur growing over the backs of [npc.her] hands as sharp claws push out to replace [npc.her] fingernails. [npc.Her] palms rapidly transform to be [npc.materialDescriptor] tough leathery pads, and at [npc.her] upper-biceps, [npc.her] fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.
-		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldRacoon(raccoon-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldRaccoon(raccoon-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
 	]]></transformationDescription>
 	
 	<!-- How these arms are described in a character's description page. -->

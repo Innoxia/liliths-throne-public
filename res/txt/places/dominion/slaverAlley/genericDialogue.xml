@@ -350,7 +350,7 @@
 	
 	<!-- MARKET_STALL_STATUE -->
 	
-	<htmlContent tag="MARKET_STALL_STATUE_TRUTH"><![CDATA[
+	<htmlContent tag="MARKET_STALL_STATUE"><![CDATA[
 	<p>
 		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a buxom female fallen angel, with wide hips and massive, GG-cup breasts.
 	</p>
@@ -366,36 +366,30 @@
 	<p>
 		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
 	</p>
+	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+		<p>
+			Letting out a low whistle, you remark to yourself, [pc.speech(
+			[game.random(This must be one of them Baroque pieces I read about...
+			| Europeans sure are blasé about nudity...)]
+			)]
+		</p>
+	#ENDIF
 	<p>
 		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
-	</p>
-	<p>
-		From what Lyssieth told you, this is no ordinary statue, and is in fact the petrified form of the corrupted archangel Marlel. Lyssieth's eldest sister, Lirecea, is responsible for her current situation, and you wonder if you'll be able to force the elder lilin to revert the petrification process when you inevitably end up confronting her. Possessing no way to release Marlel from her stone prison, you let out a sigh, and, taking one last look at her lewd visage, you continue on your way...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="MARKET_STALL_STATUE"><![CDATA[
-	<p>
-		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a female fallen angel.
-	</p>
-	<p>
-		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her
-		#IF(game.isGapeContentEnabled())
-			 tentacled, gaping pussy
-		#ELSE
-			 tentacled pussy
-		#ENDIF
-		 for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
-	</p>
-	<p>
-		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
-	</p>
-	<p>
-		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
-	</p>
+	<htmlContent tag="MARKET_STALL_STATUE_IGNORANCE"><![CDATA[
 	<p>
 		Nobody in the square seems to be paying much attention to the statue, and you doubt that there's anybody here who would know of the creator or what this piece of their art is meant to represent, other than what's apparent from the words inscribed upon the base. Letting out a sigh, you take one last look at the lewd visage of the fallen angel before you, before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_STATUE_TRUTH"><![CDATA[
+	<p>
+		From what Lyssieth told you, this is no ordinary statue, and is in fact the petrified form of the corrupted archangel Marlel. Lyssieth's eldest sister, Lirecea, is responsible for her current situation, and you wonder if you'll be able to force the elder lilin to revert the petrification process when you inevitably end up confronting her. Possessing no way to release Marlel from her stone prison, you let out a sigh, and, taking one last look at her lewd visage, you continue on your way...
 	</p>
 	]]>
 	</htmlContent>

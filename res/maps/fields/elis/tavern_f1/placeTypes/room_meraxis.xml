@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Meraxis's room]]></name>
+	<tooltipDescription><![CDATA[Having lost a duel to Meraxis, the tavern's owner has surrendered possession of this room to the chuuni [meraxis.race].]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Meraxis's room at 'The Red Dragon' tavern]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>room</svgName>
+	<colour>BASE_PURPLE</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_tavern_f1_room_meraxis</dialogue>
+	<populationPresent/>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
@@ -2132,6 +2133,7 @@ public class Body implements XMLSaving {
 				}
 				break;
 			case BIPEDAL:
+			case WINGED_BIPED:
 				break;
 			case TAIL:
 				if(owner.isFeral()) {
@@ -2891,6 +2893,7 @@ public class Body implements XMLSaving {
 					}
 					break;
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
@@ -2919,6 +2922,7 @@ public class Body implements XMLSaving {
 					sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 					break;
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
@@ -3211,7 +3215,7 @@ public class Body implements XMLSaving {
 
 		halfDemonSubspecies = null; // reset so it will be recalculated when accessed
 
-		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
+		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>=this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
 			this.setSubspeciesOverride(subspecies);
 		}
 		
@@ -3435,7 +3439,15 @@ public class Body implements XMLSaving {
 	public Penis getPenis() {
 		return penis;
 	}
-	
+
+	public AbstractPenisType getPenisType() {
+		return penis.getType();
+	}
+
+	public boolean hasPenis() {
+		return penis.getType() != PenisType.NONE;
+	}
+
 	public Penis getSecondPenis() {
 		return secondPenis;
 	}
@@ -3476,6 +3488,10 @@ public class Body implements XMLSaving {
 		return vagina.getType();
 	}
 
+	public boolean hasVagina() {
+		return vagina.getType() != VaginaType.NONE;
+	}
+
 	public Wing getWing() {
 		return wing;
 	}
@@ -3502,6 +3518,14 @@ public class Body implements XMLSaving {
 
 	public String setArmType(GameCharacter owner, AbstractArmType type) {
 		return this.arm.setType(owner, type);
+	}
+
+	public String setArmRows(int armRows) {
+		return this.arm.setArmRows(null, armRows);
+	}
+
+	public String setArmRows(GameCharacter owner, int armRows) {
+		return this.arm.setArmRows(owner, armRows);
 	}
 
 	public void setAss(Ass ass) {
@@ -3602,6 +3626,22 @@ public class Body implements XMLSaving {
 
 	public void setPenis(Penis penis) {
 		this.penis = penis;
+	}
+
+	public String setPenisType(AbstractPenisType type) {
+		return this.penis.setType(null, type);
+	}
+
+	public String setPenisType(GameCharacter owner, AbstractPenisType type) {
+		return this.penis.setType(owner, type);
+	}
+
+	public String addPenisModifier(PenetrationModifier modifier) {
+		return this.penis.addPenisModifier(null, modifier);
+	}
+
+	public String addPenisModifier(GameCharacter owner, PenetrationModifier modifier) {
+		return this.penis.addPenisModifier(owner, modifier);
 	}
 
 	public void setSecondPenis(Penis secondPenis) {
@@ -5666,6 +5706,7 @@ public class Body implements XMLSaving {
 							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] womb just yet.";
 						}
 						break;
+					case ARMPITS:
 					case ASS:
 					case BREAST:
 					case BREAST_CROTCH:
@@ -5747,6 +5788,7 @@ public class Body implements XMLSaving {
 						case VAGINA:
 							areaEgged = "womb";
 							break;
+						case ARMPITS:
 						case ASS:
 						case BREAST:
 						case BREAST_CROTCH:

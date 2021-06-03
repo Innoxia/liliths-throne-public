@@ -23,7 +23,7 @@
 		</p>
 		#IF(!game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateCompleted))
 			<p style='text-align:center;'>
-				<i>From your conversation with Nyan, you're reminded that [style.italicsMinorGood(her favourite book is called 'One Night in June')].</i>
+				<i>From your conversation with Nyan, you're reminded that [style.italicsMinorGood(her favourite book is called 'One Day in June')].</i>
 			</p>
 		#ENDIF
 	#ELSE
@@ -37,7 +37,7 @@
 			Continuing to question Nyan about these books, you soon discover that she's quite the bibliophile, and while she's happy to read books of any genre, she has a particular love for romance novels. From what she says, it sounds as though she's read almost everything ever published in this genre, and has a signed copy of every book ever written by her favourite author.
 		</p>
 		<p style='text-align:center;'>
-			<i>From your conversation with Nyan, you learn that [style.italicsMinorGood(her favourite book is called 'One Night in June')].</i>
+			<i>From your conversation with Nyan, you learn that [style.italicsMinorGood(her favourite book is called 'One Day in June')].</i>
 		</p>
 	#ENDIF
 	<p>

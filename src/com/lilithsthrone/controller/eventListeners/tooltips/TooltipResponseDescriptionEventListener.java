@@ -98,7 +98,9 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				
 				if(!response.hasRequirements()) {
 					if(response instanceof ResponseSex) {
-						if(((ResponseSex)response).isPlayerInDominantSlot()) {
+						if(((ResponseSex)response).isMasturbation()) {
+							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Masturbation</span></div>");
+						} else if(((ResponseSex)response).isPlayerInDominantSlot()) {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span></div>");
 						} else {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span></div>");

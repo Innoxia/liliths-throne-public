@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/town_hall_f1.xml' dialogue nodes. -->
+	
+	<htmlContent tag="ASSISTANT_ROOM"><![CDATA[
+	<p>
+		Clearly not wanting to leave Minotallys's side even while she's sleeping, Arion has had his living quarters relocated to the room next to hers. A sign on the door informs you of this fact, as it simply reads: 'Arion; Minotallys's Assistant - Private!'
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(arion))
+			With Minotallys's office being closed at this time of day, you're sure that Arion must be inside his room. Knowing how rude he can be towards anyone who isn't his boss, you don't think it's a good idea to disturb his rest...
+		#ELSE
+			With Minotallys's office being open at this time of day, you're sure that Arion isn't inside his room. Knowing that he'll be by his boss's side, you should [pc.step] over to the office if you wanted to speak with him...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		This landing surrounds the tower's central staircase, and separates it from the rooms which are located on all four sides. The slightly-uneven wooden floorboards, along with the exposed wooden beams which hold up the high ceiling, give the impression that this is a very old structure.
+	</p>
+	<p>
+		The two demonic Enforcers standing guard at the top of the stairs keep a close eye on you as you [pc.walk] around this landing...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(minotallys))
+			The door before you leads into Minotallys's office, and thanks to the fact that it's been propped open, you can look inside and see that the minotauress is sitting at her desk. Busily reading over a mountain of paperwork, she hasn't noticed you standing at the entrance to her office, although this isn't the case for her ever-present assistant, Arion, who looks over at you with a slightly annoyed expression on his face.
+		#ELSE
+			Having finished work for the day, both Minotallys and Arion have retired to their respective rooms, leaving the door to the office before you securely closed and locked.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_ROOM"><![CDATA[
+	<p>
+		Due to her overwhelming workload, Minotallys has had her living quarters relocated to one of the rooms opposite her office. A sign on the door before you lets you know that this is the minotauress's room, as it reads: 'Minotallys - Private!'
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(minotallys))
+			With her office being closed at this time of day, you're sure that Minotallys must be inside her room. Knowing that she sleeps almost all of the time while not working, you don't think it's a good idea to disturb her much-needed rest...
+		#ELSE
+			With Minotallys's office being open at this time of day, you're sure that she isn't inside her room. If you wanted to speak with the minotauress, you should [pc.step] over to her office...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECORDS"><![CDATA[
+	<p>
+		The wooden door before you is propped open, allowing you to look inside the room beyond. A large number of shelves are arrayed into rows within, with each one of them being stacked full of old papers and books. A sign on the door informs you that this room is home to records on the administrative history of Elis.
+	</p>
+	<p>
+		Having no need for any of the information stored within these archives, you prepte to [pc.step] away from the door and return to the landing...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		You find yourself at the top of the tower's staircase, with a pair of demonic Enforcers standing very close by. Carrying rifles and looking like they're itching to use them, these Enforcers seem prepared to defend the town's mayor from any unsolicited visitors.
+	</p>
+	<p>
+		Having been given permission to come and go as you please, you have nothing to fear from these guards, and from here you could either head down the stairs or [pc.walk] on over to Minotallys's office...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_DOWN"><![CDATA[
+	<p>
+		Having finished your business at the top of the tower, you head back down the stairs and find yourself at the ground floor of Elis's town hall once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

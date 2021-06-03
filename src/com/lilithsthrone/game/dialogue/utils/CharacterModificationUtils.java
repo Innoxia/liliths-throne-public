@@ -122,7 +122,6 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -745,6 +744,8 @@ public class CharacterModificationUtils {
 							BodyChanging.getTarget().setAssVirgin(false);
 						}
 						break;
+					case ARMPITS:
+						break;
 					case ASS:
 						break;
 					case BREAST:
@@ -1030,11 +1031,13 @@ public class CharacterModificationUtils {
 				if(!BodyChanging.getTarget().getLegConfiguration().isAbleToGrowTail() && tail!=TailType.NONE) {
 					continue;
 				}
-				if(BodyChanging.getTarget().getTailType()==TailType.FOX_MORPH_MAGIC && tail!=TailType.FOX_MORPH_MAGIC) {
-					continue;
-				}
-				if(BodyChanging.getTarget().getTailType()!=TailType.FOX_MORPH_MAGIC && tail==TailType.FOX_MORPH_MAGIC) {
-					continue;
+				if (!BodyChanging.getTarget().isYouko()) {
+					if(BodyChanging.getTarget().getTailType()==TailType.FOX_MORPH_MAGIC && tail!=TailType.FOX_MORPH_MAGIC) {
+						continue;
+					}
+					if(BodyChanging.getTarget().getTailType()!=TailType.FOX_MORPH_MAGIC && tail==TailType.FOX_MORPH_MAGIC) {
+						continue;
+					}
 				}
 				Colour c = PresetColour.TEXT_GREY;
 				
@@ -1103,11 +1106,7 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformTailCountDiv() {
 		contentSB.setLength(0);
-		
-		boolean isYouko = (BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT
-				|| BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-				|| BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC);
-		
+
 		if(!BodyChanging.getTarget().hasTail()) {
 			contentSB.append(
 					"<div class='cosmetics-button disabled'>"
@@ -1123,7 +1122,7 @@ public class CharacterModificationUtils {
 							+ "</div>");
 					
 				} else {
-					if(!BodyChanging.isDebugMenu() && isYouko) {
+					if(!BodyChanging.isDebugMenu() && (BodyChanging.getTarget().isYouko() && i > BodyChanging.getTarget().getMaxTailCount())) {
 						contentSB.append(
 								"<div class='cosmetics-button disabled'>"
 									+ Util.capitaliseSentence(Util.intToString(i))
@@ -1143,8 +1142,8 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(),
 						!BodyChanging.getTarget().hasTail()
 							?"As [npc.name] [npc.do] not have a tail, [npc.she] cannot change how many [npc.she] [npc.has]!"
-							:((isYouko
-								?"As [npc.nameIsFull] a youko, [npc.she] cannot change the number of tails [npc.she] [npc.has]!"
+							:((BodyChanging.getTarget().isYouko()
+								?"As [npc.nameIsFull] a youko, [npc.she] can change the number of tails [npc.she] [npc.verb(appear)] to have!"
 								:"Change how many [npc.tails] [npc.name] [npc.has].")
 							+ "<br/><i>The number of tails is taken into consideration when checking to see if there's a tail available for penetrative actions during sex.</i>")),
 				"TAIL_COUNT",

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>innoxia_badger</race>
+	<colour>innoxia_badger</colour>
+	<secondaryColour>BASE_WHITE</secondaryColour>
+	<tertiaryColour>BASE_WHITE</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>12000</baseSlaveValue>
+	<attributeItemId>innoxia_race_badger_black_stripes_perry</attributeItemId>
+	<transformativeItemId>innoxia_race_badger_berry_trifle</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges/>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_innoxia_badger)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">icon</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>icon</bookIconName>
+	<bookName>Moonlit Stripes</bookName>
+	<basicDescriptionId>BADGER_BASIC</basicDescriptionId>
+	<advancedDescriptionId>BADGER_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[badger-morph]]></name>
+	<namePlural><![CDATA[badger-morphs]]></namePlural>
+	<singularMaleName><![CDATA[badger-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[badger-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[badger-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[badger-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic badger, known as a 'badger-morph' when bipedal, and a 'badgertaur' when the lower body is that of a feral badger.]]></description>
+	<feralAttributes>
+		<feralName><![CDATA[badger]]></feralName>
+		<feralNamePlural><![CDATA[badger]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[badger]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[badger]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[badgers]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[badgers]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>false</sizeHeight>
+		<size>90</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>3</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] body is quite strong, and is also slightly resistant to both natural and arcane cold.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="10">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="5">RESISTANCE_ICE</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="10">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="5">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="ZERO_EXTREMELY_RARE">DOMINION</region>
+		<region rarity="FOUR_COMMON">FIELDS</region>
+		<region rarity="FOUR_COMMON">FIELD_CITY</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ZERO_EXTREMELY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

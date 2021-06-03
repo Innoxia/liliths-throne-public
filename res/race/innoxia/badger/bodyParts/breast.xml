@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<breast>
+	<race>innoxia_badger</race>
+	
+	<transformationName><![CDATA[badger]]></transformationName>
+	
+	<coveringType>innoxia_badger_fur</coveringType>
+	
+	<nippleType>innoxia_badger_nipple</nippleType>
+	
+	<fluidType>innoxia_badger_milk</fluidType>
+	
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+	
+	<namesFlat/>
+	<namesPluralFlat/>
+	<descriptorsFlat/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldBadger(badger-like)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBadger(badger milk)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] badger-like, [npc.nipplesFullDescription].
+	]]></bodyDescription>
+	
+	<crotchBoobsTransformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldBadger(badger-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBadger(badger milk)].
+	]]></crotchBoobsTransformationDescription>
+	
+	<crotchBoobsBodyDescription><![CDATA[
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] badger-like, [npc.crotchNipplesFullDescription].
+	]]></crotchBoobsBodyDescription>
+</breast>

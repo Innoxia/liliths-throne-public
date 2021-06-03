@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_corridor -->
+	<scene id="corridor">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">CORRIDOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_exit -->
+	<scene id="exit">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the town hall and head back out into the streets of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_town_hall)]
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_street)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f0', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_info -->
+	<scene id="info">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">INFO</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Minotallys]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Approach the information desk and ask one of the receptionists about Minotallys.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_town_hall_f0_info_minotallys]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="info_minotallys">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">INFO_MINOTALLYS</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Minotallys]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You are already asking one of the receptionists about Minotallys!
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_locked_door -->
+	<scene id="locked_door">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">LOCKED_DOOR</content>
+		<secondsPassed><![CDATA[20]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_office -->
+	<scene id="office">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">OFFICE</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_stairs -->
+	<scene id="stairs">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">STAIRS</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Upstairs]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Head up the staircase into the town hall's tower.
+					<br/>[style.italicsBad(You don't have permission to go upstairs!)]
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<!--<nextDialogue defaultPlaceType="innoxia_fields_elis_town_hall_f1_stairs"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f1, PLACE_TYPE_innoxia_fields_elis_town_hall_f1_stairs)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f0', 'STAIRS_UP'))]
+				]]></effects>-->
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_toilets -->
+	<scene id="toilets">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">TOILETS</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_tourism -->
+	<scene id="tourism">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">TOURISM</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Knock]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Knock on the door and wait for an answer.
+					<br/>[style.italicsMinorBad(This will be added soon!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_town_hall_f0_waiting_room -->
+	<scene id="waiting_room">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f0">WAITING_ROOM</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+</dialogueNodes>

@@ -6627,6 +6627,7 @@ public class MainControllerInitMethod {
 					new Value<>("PENETRATION_LIMITATION", PropertyValue.penetrationLimitations),
 					new Value<>("PENETRATION_LIMITATION_DYNAMIC", PropertyValue.elasticityAffectDepth),
 					new Value<>("FOOT", PropertyValue.footContent),
+					new Value<>("ARMPIT", PropertyValue.armpitContent),
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),
 					new Value<>("COMPANION", PropertyValue.companionContent),
@@ -7119,7 +7120,7 @@ public class MainControllerInitMethod {
 		
 		// Save/load:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
-			for (File f : Main.getSavedGames()) {
+			for (File f : Main.getSavedGames(false)) {
 				String fileIdentifier = Util.getFileIdentifier(f);
 				String fileName = Util.getFileName(f);
 				
