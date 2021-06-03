@@ -6,10 +6,14 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -17,7 +21,6 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -36,7 +39,9 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -59,18 +64,26 @@ public class Vronti extends NPC {
 		super(isImported, new NameTriplet("Vronti"), "Grigori",
 				"The older brother of the only two centaurs brave enough to keep their Dominion-to-Elis transport business running, Vronti has the body of a Greek god, and a stern, stoic personality to match.",
 				29, Month.AUGUST, 15,
-				20, Gender.F_V_B_FEMALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL,
+				20, Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				true);
 		
+		this.setGenericName("muscular centaur");
+		
 		if(!isImported) {
+			this.setPlayerKnowsName(false);
 		}
 	}
 
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.5")) {
+			this.equipClothing();
+			this.setStartingBody(true);
+			this.setPlayerKnowsName(false);
+		}
 	}
 
 	@Override
@@ -105,23 +118,29 @@ public class Vronti extends NPC {
 		
 		
 		// Body:
+		setBody(Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL, false);
 		
 		// Core:
 		this.setHeight(210);
 		this.setFemininity(0);
-		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setMuscle(95);
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
+		// Parts changes:
+		this.setHairType(HairType.HUMAN);
+		this.setEarType(EarType.HUMAN);
+		this.setEyeType(EyeType.HUMAN);
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_BROWN));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_BROWN));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
 
 		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_EBONY), false);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BROWN), true);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
 		this.setHairLength(HairLength.TWO_SHORT.getMedianValue());
 		this.setHairStyle(HairStyle.CURLY);
 
@@ -170,7 +189,7 @@ public class Vronti extends NPC {
 		// Penis:
 		this.setPenisVirgin(true);
 		this.setPenisGirth(PenetrationGirth.FIVE_THICK);
-		this.setPenisSize(44);
+		this.setPenisSize(48);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(350);
 		this.setPenisCumExpulsion(85);
@@ -201,9 +220,36 @@ public class Vronti extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BRONZE, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BRONZE, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
 		
-		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_spear_dory", DamageType.PHYSICAL));
+	}
+
+	/**
+	 * Equips weapon, ready for transport.
+	 */
+	public void applyWeapon(boolean equip) {
+		if(equip) {
+			// Weapon:
+			AbstractWeapon spear = null;
+			for(AbstractWeapon w : this.getAllWeaponsInInventory().keySet()) {
+				if(w.getWeaponType()==WeaponType.getWeaponTypeFromId("innoxia_spear_dory")) {
+					spear = w;
+					break;
+				}
+			}
+			if(spear!=null) {
+				this.equipMainWeaponFromInventory(spear, this);
+			} else {
+				this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_spear_dory", DamageType.PHYSICAL));
+			}
+
+		} else {
+			// Weapon:
+			AbstractWeapon spear = this.getMainWeapon(0);
+			if(spear!=null) {
+				this.unequipWeapon(InventorySlot.WEAPON_MAIN_1, spear, false, false);
+			}
+		}
 	}
 	
 	@Override
@@ -211,10 +257,13 @@ public class Vronti extends NPC {
 		return true;
 	}
 	
-//	@Override
-//	public String getSpeechColour() {
-//		return "#e4a1e0";
-//	}
+	@Override
+	public String getSpeechColour() {
+		if(Main.game.isLightTheme()) {
+			return "#1c5583";
+		}
+		return "#37a5ff";
+	}
 	
 	@Override
 	public void changeFurryLevel(){

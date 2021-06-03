@@ -351,7 +351,6 @@
 		[elle.speech(So, who are you?)] she bluntly asks.
 		#ENDIF
 		 You can tell both from her tone of voice and from her curious gaze that she's deciding whether to treat you in a seductive or hostile manner.
-		
 	</p>
 	<p>
 		After simply telling her your name, Elle displays her quick-thinking by immediately responding, [elle.speech(So <i>you're</i> [pc.name]. Yes, I know about you. I read the report on the pacification of the Harpy Nests, and, if I may say so, you did a most excellent job up there.)]

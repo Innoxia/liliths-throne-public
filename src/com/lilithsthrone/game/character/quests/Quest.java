@@ -296,7 +296,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_ELIS(QuestType.MAIN, 20, 250) {
+	MAIN_3_ELIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Destination Elis";
@@ -304,25 +304,44 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
-					+ "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
 					+ " Meraxis additionally mentioned enlisting the aid of the youko, but that can wait until after you've arrived in Elis itself.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After encountering a particularly aggressive demonic centaur, you once again met Meraxis and then finally made it to Elis, where you introduced yourself to the lilin, Minotallys.";
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " To this end, you left Dominion for the first time...";
 		}
 	},
 	
-	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {//TODO
+	MAIN_3_B_MEETING_MERAXIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "-";
+			return "To The Red Dragon";
 		}
 
 		@Override
 		public String getDescription() {
-			return "-";
+			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You met Meraxis in 'The Red Dragon' tavern, where she's managed to secure accommodation for you in the form of a rented room on the tavern's first floor.";
+		}
+	},
+	
+	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Meeting Minotallys";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
+					+ "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis.";
 		}
 
 		@Override

@@ -23,6 +23,7 @@
 				</clothingAccessRequired>
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked> 
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>

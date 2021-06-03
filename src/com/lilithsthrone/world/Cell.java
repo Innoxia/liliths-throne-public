@@ -193,6 +193,18 @@ public class Cell implements XMLSaving {
 				:getType().isFurniturePresent();
 	}
 	
+	public boolean isWallsPresent() {
+		return getPlace().getPlaceType().isWallsPresentOverride()
+				?getPlace().getPlaceType().isWallsPresent()
+				:getType().isWallsPresent();
+	}
+	
+	public String getWallName() {
+		return getPlace().getPlaceType().isWallNameOverride()
+				?getPlace().getPlaceType().getWallName()
+				:getType().getWallName();
+	}
+	
 	public DialogueNode getDialogue(boolean withRandomEncounter) {
 		return getPlace().getDialogue(this, withRandomEncounter, false);
 	}
