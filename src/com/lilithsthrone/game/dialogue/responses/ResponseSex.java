@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -20,7 +21,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.managers.SexManagerExternal;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
+import com.lilithsthrone.game.sex.managers.SexManagerLoader;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
@@ -30,6 +33,7 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotManager;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
@@ -40,7 +44,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69
- * @version 0.4
+ * @version 0.4.1
  * @author Innoxia
  */
 public class ResponseSex extends Response {
@@ -57,6 +61,10 @@ public class ResponseSex extends Response {
 	// For use in externally loaded responses:
 	
 	private boolean isFromExternalFile = false;
+	private boolean isUsingExternalManager = false;
+	
+	private String sexManagerId;
+	private String sexPositionId;
 	
 	private String consensualId;
 	private String subHasEqualControlId;
@@ -66,6 +74,9 @@ public class ResponseSex extends Response {
 	private List<String> dominantSpectatorIds;
 	private List<String> submissiveSpectatorIds;
 
+	private Map<String, String> dominantPositionIds;
+	private Map<String, String> submissivePositionIds;
+	
 	private String postSexDialogueId;
 	
 	private String sexStartFolderPath;
@@ -489,6 +500,63 @@ public class ResponseSex extends Response {
 		this.postSexDialogue = postSexDialogue;
 		this.sexStartDescription = sexStartDescription;
 	}
+
+	/**
+	 * Only for use with externally defined sex responses.
+	 */
+	public ResponseSex(String title,
+			String tooltipText,
+			String secondsPassedString,
+			boolean asMinutes,
+			String colourId,
+			String effectsString,
+			List<String> fetishesForUnlock,
+			String corruptionBypass,
+			List<String> perksRequired,
+			String femininityRequired,
+			List<String> subspeciesRequired,
+			String sexManagerId,
+			String sexPositionId,
+			Map<String, String> dominantPositionIds,
+			Map<String, String> submissivePositionIds,
+			List<String> dominantSpectatorIds,
+			List<String> submissiveSpectatorIds,
+			String postSexDialogueId,
+			String sexStartFolderPath,
+			String sexStartDialogueTag) {
+		super(title, tooltipText, null,
+				secondsPassedString, asMinutes,
+				colourId, effectsString,
+				fetishesForUnlock, corruptionBypass,
+				perksRequired, femininityRequired, subspeciesRequired);
+		
+		this.isFromExternalFile = true;
+		this.isUsingExternalManager = true;
+		
+		this.sexManager = null;
+		this.sexManagerId = sexManagerId;
+		this.sexPositionId = sexPositionId;
+
+		this.dominantPositionIds = dominantPositionIds;
+		this.submissivePositionIds = submissivePositionIds;
+		
+		if(dominantSpectatorIds==null) {
+			this.dominantSpectatorIds = new ArrayList<>();
+		} else {
+			this.dominantSpectatorIds = dominantSpectatorIds;
+		}
+
+		if(submissiveSpectatorIds==null) {
+			this.submissiveSpectatorIds = new ArrayList<>();
+		} else {
+			this.submissiveSpectatorIds = submissiveSpectatorIds;
+		}
+		
+		this.postSexDialogueId = postSexDialogueId;
+		
+		this.sexStartFolderPath = sexStartFolderPath;
+		this.sexStartDialogueTag = sexStartDialogueTag;
+	}
 	
 	@Override
 	public String getTooltipText() {
@@ -539,7 +607,11 @@ public class ResponseSex extends Response {
 	
 	public boolean isMasturbation() {
 		if(isFromExternalFile) {
-			return dominantIds==null || submissiveIds==null || (dominantIds.size() + submissiveIds.size()==1);
+			if(isUsingExternalManager) {
+				return dominantPositionIds==null || submissivePositionIds==null || (dominantPositionIds.size() + submissivePositionIds.size()==1);
+			} else {
+				return dominantIds==null || submissiveIds==null || (dominantIds.size() + submissiveIds.size()==1);
+			}
 			
 		} else {
 			return sexManager!=null
@@ -549,7 +621,11 @@ public class ResponseSex extends Response {
 	
 	public boolean isPlayerInDominantSlot() {
 		if(isFromExternalFile) {
-			return !Collections.disjoint(dominantIds, ParserTarget.PC.getTags()) || !Collections.disjoint(dominantSpectatorIds, ParserTarget.PC.getTags());
+			if(isUsingExternalManager) {
+				return !Collections.disjoint(dominantPositionIds.keySet(), ParserTarget.PC.getTags()) || !Collections.disjoint(dominantSpectatorIds, ParserTarget.PC.getTags());
+			} else {
+				return !Collections.disjoint(dominantIds, ParserTarget.PC.getTags()) || !Collections.disjoint(dominantSpectatorIds, ParserTarget.PC.getTags());
+			}
 			
 		} else {
 			return (sexManager!=null && sexManager.isPlayerDom()) || dominantSpectators.contains(Main.game.getPlayer());
@@ -562,41 +638,86 @@ public class ResponseSex extends Response {
 	
 	public DialogueNode initSex() {
 		if(isFromExternalFile) {
-			this.consensual = Boolean.valueOf(UtilText.parse(consensualId).trim());
-			this.subHasEqualControl = Boolean.valueOf(UtilText.parse(subHasEqualControlId).trim());
-			
-			List<GameCharacter> dominants = new ArrayList<>();
-			for(String id : dominantIds) {
-				dominants.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
-			}
+			if(isUsingExternalManager) {
 
-			List<GameCharacter> submissives = new ArrayList<>();
-			for(String id : submissiveIds) {
-				submissives.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
-			}
+				Map<GameCharacter, SexSlot> dominantPositions = new HashMap<>();
+				for(Entry<String, String> entry : dominantPositionIds.entrySet()) {
+					dominantPositions.put(
+							UtilText.findFirstCharacterFromParserTarget(UtilText.parse(entry.getKey()).trim()),
+							SexSlotManager.getSexSlotFromId(UtilText.parse(entry.getValue()).trim()));
+				}
 
-			// Spectators:
-			
-			List<GameCharacter> dominantSpecs = new ArrayList<>();
-			for(String id : dominantSpectatorIds) {
-				dominantSpecs.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
-			}
-			this.dominantSpectators = dominantSpecs;
+				Map<GameCharacter, SexSlot> submissivePositions = new HashMap<>();
+				for(Entry<String, String> entry : submissivePositionIds.entrySet()) {
+					submissivePositions.put(
+							UtilText.findFirstCharacterFromParserTarget(UtilText.parse(entry.getKey()).trim()),
+							SexSlotManager.getSexSlotFromId(UtilText.parse(entry.getValue()).trim()));
+				}
+				
+				// Spectators:
+				
+				List<GameCharacter> dominantSpecs = new ArrayList<>();
+				for(String id : dominantSpectatorIds) {
+					dominantSpecs.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
+				}
+				this.dominantSpectators = dominantSpecs;
 
-			List<GameCharacter> submissiveSpecs = new ArrayList<>();
-			for(String id : submissiveSpectatorIds) {
-				submissiveSpecs.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
+				List<GameCharacter> submissiveSpecs = new ArrayList<>();
+				for(String id : submissiveSpectatorIds) {
+					submissiveSpecs.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
+				}
+				this.submissiveSpectators = submissiveSpecs;
+				
+				this.postSexDialogue = DialogueManager.getDialogueFromId(UtilText.parse(postSexDialogueId).trim());
+				
+				this.sexStartDescription = "";
+				if(sexStartFolderPath!=null && !sexStartFolderPath.isEmpty()) {
+					this.sexStartDescription = UtilText.parseFromXMLFile(new ArrayList<>(), "res", sexStartFolderPath, sexStartDialogueTag, new ArrayList<>());
+				}
+				
+				this.sexManager = SexManagerLoader.getSexManagerFromId(sexManagerId);
+				((SexManagerExternal)this.sexManager).initManager(SexPosition.getSexPositionFromId(UtilText.parse(sexPositionId).trim()), dominantPositions, submissivePositions);
+				
+				this.consensual = ((SexManagerExternal)this.sexManager).isConsensual();
+				this.subHasEqualControl = ((SexManagerExternal)this.sexManager).isSubHasEqualControl();
+				
+			} else {
+				this.consensual = Boolean.valueOf(UtilText.parse(consensualId).trim());
+				this.subHasEqualControl = Boolean.valueOf(UtilText.parse(subHasEqualControlId).trim());
+				
+				List<GameCharacter> dominants = new ArrayList<>();
+				for(String id : dominantIds) {
+					dominants.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
+				}
+
+				List<GameCharacter> submissives = new ArrayList<>();
+				for(String id : submissiveIds) {
+					submissives.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
+				}
+
+				// Spectators:
+				
+				List<GameCharacter> dominantSpecs = new ArrayList<>();
+				for(String id : dominantSpectatorIds) {
+					dominantSpecs.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
+				}
+				this.dominantSpectators = dominantSpecs;
+
+				List<GameCharacter> submissiveSpecs = new ArrayList<>();
+				for(String id : submissiveSpectatorIds) {
+					submissiveSpecs.add(UtilText.findFirstCharacterFromParserTarget(UtilText.parse(id).trim()));
+				}
+				this.submissiveSpectators = submissiveSpecs;
+				
+				this.postSexDialogue = DialogueManager.getDialogueFromId(UtilText.parse(postSexDialogueId).trim());
+				
+				this.sexStartDescription = "";
+				if(sexStartFolderPath!=null && !sexStartFolderPath.isEmpty()) {
+					this.sexStartDescription = UtilText.parseFromXMLFile(new ArrayList<>(), "res", sexStartFolderPath, sexStartDialogueTag, new ArrayList<>());
+				}
+				
+				initTagsSetup(dominants, submissives);
 			}
-			this.submissiveSpectators = submissiveSpecs;
-			
-			this.postSexDialogue = DialogueManager.getDialogueFromId(UtilText.parse(postSexDialogueId).trim());
-			
-			this.sexStartDescription = "";
-			if(sexStartFolderPath!=null && !sexStartFolderPath.isEmpty()) {
-				this.sexStartDescription = UtilText.parseFromXMLFile(new ArrayList<>(), "res", sexStartFolderPath, sexStartDialogueTag, new ArrayList<>());
-			}
-			
-			initTagsSetup(dominants, submissives);
 		}
 		
 		return Main.sex.initialiseSex(consensual, subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription, getInitialSexActions());

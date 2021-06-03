@@ -16,7 +16,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
-import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
@@ -79,7 +79,7 @@ public class GloryHole {
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_FUCKED
 							|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED)
 					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| ((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionUnique.GLORY_HOLE, SexSlotUnique.GLORY_HOLE_KNEELING, Main.game.getPlayer()));
+							|| ((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPosition.GLORY_HOLE, SexSlotUnique.GLORY_HOLE_KNEELING, Main.game.getPlayer()));
 		}
 		
 		@Override
@@ -116,14 +116,14 @@ public class GloryHole {
 				participants.remove(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()));
 
 				Main.sex.setSexManager(new SMGloryHole(
-						SexPositionUnique.GLORY_HOLE,
+						SexPosition.GLORY_HOLE,
 						Util.newHashMapOfValues(
 								new Value<>(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
 								new Value<>(participants.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_KNEELING))));
 			} else {
 				Main.sex.setSexManager(new SMGloryHole(
-						SexPositionUnique.GLORY_HOLE,
+						SexPosition.GLORY_HOLE,
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_KNEELING))));
 			}
@@ -196,7 +196,7 @@ public class GloryHole {
 				GameCharacter characterFucking = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
 				
 				Main.sex.setSexManager(new SMGloryHole(
-						SexPositionUnique.GLORY_HOLE_SEX,
+						SexPosition.GLORY_HOLE_SEX,
 						Util.newHashMapOfValues(
 								new Value<>(characterFucking, SexSlotUnique.GLORY_HOLE_FUCKING),
 								new Value<>(participants.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
@@ -205,7 +205,7 @@ public class GloryHole {
 				
 			} else {
 				Main.sex.setSexManager(new SMGloryHole(
-						SexPositionUnique.GLORY_HOLE_SEX,
+						SexPosition.GLORY_HOLE_SEX,
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_FUCKING)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED))));
 			}
@@ -279,7 +279,7 @@ public class GloryHole {
 				GameCharacter characterFucking = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
 				
 				Main.sex.setSexManager(new SMGloryHole(
-						SexPositionUnique.GLORY_HOLE_SEX,
+						SexPosition.GLORY_HOLE_SEX,
 						Util.newHashMapOfValues(
 								new Value<>(characterFucking, SexSlotUnique.GLORY_HOLE_FUCKING),
 								new Value<>(participants.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
@@ -288,7 +288,7 @@ public class GloryHole {
 				
 			} else {
 				Main.sex.setSexManager(new SMGloryHole(
-						SexPositionUnique.GLORY_HOLE_SEX,
+						SexPosition.GLORY_HOLE_SEX,
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_FUCKING)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_FUCKED))));
 			}
@@ -304,7 +304,7 @@ public class GloryHole {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionUnique.GLORY_HOLE_SEX,
+				SexPosition.GLORY_HOLE_SEX,
 				Util.newArrayListOfValues(SexSlotUnique.GLORY_HOLE_FUCKED),
 				Util.newArrayListOfValues(SexSlotUnique.GLORY_HOLE_FUCKING, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
 		
@@ -353,7 +353,7 @@ public class GloryHole {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionUnique.GLORY_HOLE_SEX,
+				SexPosition.GLORY_HOLE_SEX,
 				Util.newArrayListOfValues(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED),
 				Util.newArrayListOfValues(SexSlotUnique.GLORY_HOLE_FUCKING, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
 		
@@ -402,7 +402,7 @@ public class GloryHole {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionUnique.GLORY_HOLE,
+				SexPosition.GLORY_HOLE,
 				Util.newArrayListOfValues(SexSlotUnique.GLORY_HOLE_KNEELING),
 				Util.newArrayListOfValues(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO));
 		

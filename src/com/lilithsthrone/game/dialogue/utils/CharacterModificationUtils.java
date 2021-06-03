@@ -744,6 +744,8 @@ public class CharacterModificationUtils {
 							BodyChanging.getTarget().setAssVirgin(false);
 						}
 						break;
+					case ARMPITS:
+						break;
 					case ASS:
 						break;
 					case BREAST:

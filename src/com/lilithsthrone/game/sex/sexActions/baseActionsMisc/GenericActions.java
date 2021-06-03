@@ -999,6 +999,16 @@ public class GenericActions {
 										"<br/>[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(stop)] using [npc2.her] [npc2.ass+]."));
 							}
 							break;
+						case ARMPITS:
+							if (Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterTargetedForSexAction(this), ot).contains(character)) {
+								UtilText.nodeContentSB.append(UtilText.parse(character, Main.sex.getCharacterTargetedForSexAction(this),
+										"<br/>[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(stop)] fucking [npc2.her] [npc2.armpit+]."));
+							}
+							if (Main.sex.getCharacterOngoingSexArea(character, ot).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
+								UtilText.nodeContentSB.append(UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this), character,
+										"<br/>[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(stop)] fucking [npc2.her] [npc2.armpit+]."));
+							}
+							break;
 						case BREAST:
 							if (Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterTargetedForSexAction(this), ot).contains(character)) {
 								UtilText.nodeContentSB.append(UtilText.parse(character, Main.sex.getCharacterTargetedForSexAction(this),
@@ -1164,6 +1174,14 @@ public class GenericActions {
 							}
 							if (Main.sex.getCharacterOngoingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 								UtilText.nodeContentSB.append("<br/>[npc.A_moan+] drifts out from between your [npc.lips+] as you stop stimulating your [npc.ass+].");
+							}
+							break;
+						case ARMPITS:
+							if (Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterTargetedForSexAction(this), ot).contains(Main.game.getPlayer())) {
+								UtilText.nodeContentSB.append("<br/>[npc2.Name] lets out [npc2.a_moan+] as you stop fucking [npc2.her] [npc2.armpit+].");
+							}
+							if (Main.sex.getCharacterOngoingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
+								UtilText.nodeContentSB.append("<br/>[npc.A_moan+] drifts out from between your [npc.lips+] as you stop stimulating your [npc.armpits+].");
 							}
 							break;
 						case BREAST:
@@ -1975,37 +1993,48 @@ public class GenericActions {
 
 		@Override
 		public String getActionTitle() {
+			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) {
+				return "Stop watching";
+			}
 			return Main.sex.isMasturbation()
 					?"Stop masturbating"
 					:"Stop sex";
 		}
-
 		@Override
 		public String getActionDescription() {
+			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) {
+				return "Back out and stop watching the sex scene unfold before you."
+						+ "<br/>This will still [style.boldSex(apply all applicable effects)] to the other sex participants as though the sex scene had fully taken place.";
+			}
 			return Main.sex.isMasturbation()
 					?"Put an end to your masturbation session."
 					:"Stop having sex with [npc2.name].";
 		}
-
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getInitialSexManager().isPlayerAbleToStopSex()
 					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
-
 		@Override
 		public String getDescription() {
-			return Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).getGenericEndSexDescription(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
+			return "Having had enough of the show, you turn away and stop watching the sex scene unfold before you...";
 		}
-		
 		@Override
 		public SexParticipantType getParticipantType() {
-			return Main.sex.isMasturbation()?SexParticipantType.SELF:SexParticipantType.NORMAL;
+			return Main.sex.isMasturbation() || Main.sex.isSpectator(Main.game.getPlayer())
+					?SexParticipantType.SELF
+					:SexParticipantType.NORMAL;
 		}
-		
 		@Override
 		public boolean endsSex() {
 			return true;
+		}
+		@Override
+		public String applyEndEffects(){
+			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) { // Generate effects when ending sex as hidden spectator
+				quickSexDescription = generateQuickSexDescription();
+			}
+			return "";
 		}
 	};
 	

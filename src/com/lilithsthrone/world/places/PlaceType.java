@@ -13,12 +13,14 @@ import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Wes;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -4510,8 +4512,17 @@ public class PlaceType {
 			PresetColour.BASE_CRIMSON,
 			LyssiethPalaceDialogue.SIREN_OFFICE,
 			Darkness.ALWAYS_LIGHT,
-			null, "in Lyssieth's Palace"
-			).initWeatherImmune();
+			null, "in Lyssieth's Palace") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()!=WorldType.LYSSIETH_PALACE) {
+				return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE,
+						Util.newHashMapOfValues(
+								new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return super.getPopulation();
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType LYSSIETH_PALACE_STAIRS_1 = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -5411,7 +5422,7 @@ public class PlaceType {
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_DOMINION = new AbstractGlobalPlaceType(
 			WorldRegion.DOMINION,
-			"Dominion",
+			"Dominion Suburbs",
 			"The capital city of Lilith's realm, Dominion is the succubus queen's seat of power.",
 			"global/dominion",
 			PresetColour.BASE_PURPLE,
@@ -5423,7 +5434,7 @@ public class PlaceType {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.leftDominionFirstTime)) {
 				return FieldsDialogue.DOMINION_EXTERIOR;
 			} else {
-				return FieldsDialogue.DOMINION_EXTERIOR_FIRST_TIME_LEAVING;
+				return DialogueManager.getDialogueFromId("innoxia_places_fields_leaving_dominion_start");
 			}
 		}
 		@Override
@@ -5440,7 +5451,7 @@ public class PlaceType {
 			} else {
 				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+				pop.add(new Population(false, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 			}
 			
 			return pop;
@@ -5665,8 +5676,8 @@ public class PlaceType {
 	}
 	
 	public static AbstractPlaceType getPlaceTypeFromId(String id) {
-		id.replaceAll("ALEXA", "HELENA");
-		id.replaceAll("SUPPLIER_DEPOT", "TEXTILE_WAREHOUSE");
+		id = id.replaceAll("ALEXA", "HELENA");
+		id = id.replaceAll("SUPPLIER_DEPOT", "TEXTILE_WAREHOUSE");
 		
 		if(id.equals("ZARANIX_FF_BEDROOM")) {
 			id = "ZARANIX_FF_OFFICE";

@@ -358,6 +358,37 @@ public enum SexAreaPenetration implements SexAreaInterface {
 							sb.append("[npc.NameIs] [npc.sexPaceVerb] hotdogging [npc2.namePos] ass.");
 						}
 						break;
+					case ARMPITS:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Getting [npc2.name] to hold [npc2.her] [npc2.arm] up, [npc.name] [npc.was] able to slide [npc.her] [npc.cock+] up and down over [npc2.her] armpit.");
+									break;
+								case SUB_RESISTING:
+									sb.append("Although [npc.she] tried to resist, [npc.name] [npc.was] forced to slide [npc.her] [npc.cock+] up and down over [npc2.namePos] armpit.");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" Holding [npc2.her] [npc2.arm] up, [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc.sexPaceVerb] forced [npc.namePos] [npc.cock] over [npc2.her] [npc2.armpit+].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] [npc2.armpits] fucked against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] sliding [npc.her] [npc.cock+] over [npc2.namePos] armpit.");
+						}
+						break;
 					case BREAST:
 						boolean paizuri = target.isBreastFuckablePaizuri();
 						if(pastTense) {
@@ -810,6 +841,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -1293,6 +1326,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -1653,6 +1688,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -1988,6 +2025,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						break;
 					case ASS:
@@ -2174,6 +2213,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -2567,6 +2608,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {

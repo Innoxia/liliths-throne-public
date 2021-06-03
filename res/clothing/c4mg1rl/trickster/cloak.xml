@@ -10,10 +10,10 @@
 		<description><![CDATA[Whether trying to stand out and draw a crowd or hide your identity after executing a devious plan, this weather-proof cloak will suit your needs. Angled for easy access to a sword, and carrying powerful enchantments, the wearer is sure to always look and perform at their best!]]></description>
 		<physicalResistance>3</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-    <equipSlots>
-      <slot>TORSO_OVER</slot>
-      <slot>NECK</slot>
-    </equipSlots>
+		<equipSlots>
+		  <slot>TORSO_OVER</slot>
+		  <slot>NECK</slot>
+		</equipSlots>
 		<rarity>LEGENDARY</rarity>
 		<clothingSet>c4mg1rl_trickster</clothingSet>
 		<imageName>cloak.svg</imageName>
@@ -32,24 +32,28 @@
 				<clothingAccessRequired/>
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked/>
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
 
-    <blockedPartsList slot="NECK">
-      <blockedParts>
-        <displacementType>REMOVE_OR_EQUIP</displacementType>
-        <clothingAccessRequired/>
-        <blockedBodyParts/>
-        <clothingAccessBlocked/>
-        <concealedSlots/>
-      </blockedParts>
-    </blockedPartsList>
+		<blockedPartsList slot="NECK">
+		  <blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		  </blockedParts>
+		</blockedPartsList>
 		
 		<incompatibleSlots slot="TORSO_OVER"/>
-    <incompatibleSlots slot="NECK"/>
+		<incompatibleSlots slot="NECK"/>
 		
 		<primaryColours>
 			<colour>CLOTHING_BLACK_JET</colour>

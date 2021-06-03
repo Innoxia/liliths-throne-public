@@ -3,7 +3,7 @@
 	<coreAttributes>
 		<authorTag><![CDATA[A faint inscription underneath the can reads 'Canned by DSG Foodstuffs LLC']]></authorTag>
 		
-		<value>100</value> 
+		<value>10</value> 
 		<determiner><![CDATA[a cup of]]></determiner>
 		<name><![CDATA[Cotton Candy Soda]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Cotton Candy Sodas]]></namePlural>

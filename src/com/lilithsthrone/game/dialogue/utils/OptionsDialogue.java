@@ -456,7 +456,7 @@ public class OptionsDialogue {
 	
 			saveLoadSB.append("<p>"
 						+ "Here you can export your current character, or delete any characters that you've exported in the past."
-						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the small 'export character' button in the top-right."
+						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the 'export character' button (in the bottom-right of the UI)."
 					+ "</p>"
 					+ "<p>"
 						+ "Exported characters can be used as a playable character when starting a new game (choose 'Start (Import)'), or as an importable slave at the Auction Block in Slaver Alley."
@@ -2179,6 +2179,13 @@ public class OptionsDialogue {
 							"Foot Content",
 							"When disabled, removes all foot-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.footContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+					"ARMPIT",
+					PresetColour.BASE_PINK_LIGHT,
+					"Armpit Content",
+					"When disabled, removes all armpit-related actions from being available during sex.",
+					Main.getProperties().hasValue(PropertyValue.armpitContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FURRY_TAIL_PENETRATION",

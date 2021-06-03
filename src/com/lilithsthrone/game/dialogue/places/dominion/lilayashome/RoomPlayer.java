@@ -226,7 +226,7 @@ public class RoomPlayer {
 		} else if(responseTab==2) {
 			if (index == 1) {
 				return new Response("Quick shower",
-						"Use your room's ensuite to take a bath or shower."
+						"Use your room's ensuite to take a quick shower."
 								+ "<br/>[style.italicsGood(Cleans <b>a maximum of "+Units.fluid(500)+"</b> of fluids from all orifices.)]"
 								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
 //								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",

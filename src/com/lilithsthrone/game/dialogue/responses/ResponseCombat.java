@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -33,6 +34,8 @@ public class ResponseCombat extends Response {
 	
 	private String nextDialoguePlayerVictoryId;
 	private String nextDialoguePlayerDefeatId;
+
+	private Map<String, String> openingDescriptionsUsingIds;
 	
 	
 	public ResponseCombat(String title, String tooltipText, NPC opponent) {
@@ -124,18 +127,18 @@ public class ResponseCombat extends Response {
 	}
 	
 	
-	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, String enemyLeaderId, List<String> enemiesIds, Map<GameCharacter, String> openingDescriptions) {
+	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds) {
 		super(title, tooltipText, null);
 		
 		this.alliesIds = alliesIds;
 		this.enemyLeaderId = enemyLeaderId;
 		this.enemiesIds = enemiesIds;
 		
-		if(openingDescriptions!=null) {
-			this.openingDescriptions = openingDescriptions;
+		if(openingDescriptionsUsingIds!=null) {
+			this.openingDescriptionsUsingIds = openingDescriptionsUsingIds;
 		}
 	}
-
+	
 	@Override
 	public boolean isCombatHighlight() {
 		return true;
@@ -164,9 +167,14 @@ public class ResponseCombat extends Response {
 				enemies.add(enemyLeader);
 			}
 			
+			this.openingDescriptions = new HashMap<>();
+			for(Entry<String, String> entry : openingDescriptionsUsingIds.entrySet()) {
+				openingDescriptions.put(UtilText.findFirstCharacterFromParserTarget(entry.getKey()), entry.getValue());
+			}
+			
 			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
-			Main.combat.setPlayerPostVictoryDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerVictoryId)));
-			Main.combat.setPlayerPostDefeatDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerDefeatId)));
+			Main.combat.setPlayerPostVictoryDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerVictoryId).trim()));
+			Main.combat.setPlayerPostDefeatDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerDefeatId).trim()));
 			
 		} else {
 			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
