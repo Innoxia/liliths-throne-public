@@ -297,6 +297,8 @@ public class LunetteRanged extends NPC {
 			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.POISON));
 			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.POISON));
 		}
+		
+		Util.random.setSeed(System.nanoTime()); // Reset seed to be close to random
 	}
 	
 	@Override

@@ -22,6 +22,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FootMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreastsCrotch;
@@ -145,7 +146,8 @@ public class SexActionPresets {
 
 	public static List<SexAreaInterface> breastAreas = Util.newArrayListOfValues(
 			SexAreaOrifice.NIPPLE,
-			SexAreaOrifice.BREAST);
+			SexAreaOrifice.BREAST,
+			SexAreaOrifice.ARMPITS); // Add armpits to breast areas as they seem the closest in terms of being able to physical reach them
 
 	public static List<SexAreaInterface> appendageAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.FINGER,
@@ -475,6 +477,7 @@ public class SexActionPresets {
 		sexActions.add(PenisUrethraVagina.class);
 		sexActions.add(PenisUrethraPenis.class);
 		sexActions.add(PenisSpinneret.class);
+		sexActions.add(PenisArmpit.class);
 		
 		// Vagina/clit actions:
 		sexActions.add(ClitClit.class);
@@ -526,6 +529,5 @@ public class SexActionPresets {
 		
 		
 		allCommonActions = Util.mergeLists(miscActions, sexActions, selfActions);
-		
 	}
 }

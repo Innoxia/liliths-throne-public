@@ -22,10 +22,14 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.8.8
- * @version 0.3.8.8
+ * @version 0.4.1
  * @author Innoxia
  */
 public class SMShower extends SexManagerDefault {
+
+	public SMShower(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		this(SexPosition.STANDING, dominants, submissives);
+	}
 	
 	/**
 	 * @param startingPosition Need to be either SexPosition.AGAINST_WALL or SexPosition.STANDING.

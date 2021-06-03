@@ -86,6 +86,16 @@ public enum CoverableArea {
 		}
 	},
 	
+	ARMPITS(false,
+			"armpits",
+			Util.newArrayListOfValues(
+					InventorySlot.TORSO_UNDER,
+					InventorySlot.TORSO_OVER)) {
+//		public boolean isPhysicallyAvailable(GameCharacter owner) {
+//			return owner.hasArms();
+//		}
+	},
+	
 	TAIL(false,
 			"tail",
 			Util.newArrayListOfValues(

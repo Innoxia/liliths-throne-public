@@ -68,7 +68,7 @@ public class Flash extends NPC {
 	
 	public Flash(boolean isImported) {
 		super(isImported, new NameTriplet("Flash"), "Hwit",
-				"The owner of The Rad Dragon tavern, Flash has a commanding presence and doesn't tolerate any ruckus in his establishment.",
+				"The owner of 'The Red Dragon' tavern, Flash has a commanding presence and doesn't tolerate any ruckus in his establishment.",
 				42, Month.DECEMBER, 2,
 				10,
 				Gender.M_P_MALE,
@@ -252,10 +252,10 @@ public class Flash extends NPC {
 	
 	@Override
 	public void hourlyUpdate() {
-		if(Main.game.getHourOfDay()>=15 && Main.game.getHourOfDay()<=23
-				&& !Main.game.getCharactersPresent().contains(this)) {
+		if(Main.game.getHourOfDay()>=8 && Main.game.getHourOfDay()<=23 && !Main.game.getCharactersPresent().contains(this)) {
 			this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_bar"));
+		} else {
+			this.returnToHome();
 		}
-		this.returnToHome();
 	}
 }

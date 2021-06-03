@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+
+	<!-- Sex managers are used to define behaviour and limitations during sex scenes, and can be reused in as many responses as you want by calling its id.
+		The id for a SexManager is calculated from the folder path and this xml file name.
+		In this case, the id would be: 'innoxia_meraxis_masturbation'
+	
+	Please note that SexManagers are always used in conjunction with a scene's response, and it's within the response that the starting position is defined, as well as all of the dominant and submissive characters and their starting SexSlots.
+		The sexStartContent and postSexDialogue scenes are also defined within the response; a SexManager is concerned solely with behaviour during the sex scene itself.
+		The information for characters in this file is so that *if* that character is added to the sex scene then this manager can define their behaviour.
+		You do not need to add all of the characters defined within this file to the sex scene, nor do you need to define all the characters in the sex scene within this file.
+		If definitions are missing for a character, default values will be used.
+	
+	You have a significant amount more control over characters behaviour during sex if you use a SexManager in your responses (rather than a generic sex scene).
+		To give you the most control, there are a lot of elements in this file, although a significant amount of them are optional, and if so will be marked as such along with their default value if omitted, like so: 'OPTIONAL: Default true'
+		Please note that it's recommended to omit the fields marked as being OPTIONAL if you aren't sure of the behaviour you want.
+		
+	All of the values which have CDATA support are run through the game's parser either every time they're checked or once when sex is initialised.
+		This is marked as such: 'PARSER: Every check' or 'PARSER: Initial'
+		
+	Elements which are defined as returning either 'true' or 'false' should always return either 'true' or 'false'.
+	
+	Note: In elements which are of a list type (such as the 'slot' elements within 'slotsAvailable'), a blank value will be discarded, so if you want conditional statements to sometimes return nothing, it's safe to return just whitespace to do so.
+		
+	To avoid cluttering the comments, here is an alphabetical list of all the values used in the elements below:
+		CoverableAreas: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/CoverableArea.java
+		InventorySlots: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java
+		OrgasmBehaviours: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/managers/OrgasmBehaviour.java
+		OrgasmCumTargets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/OrgasmCumTarget.java
+		ResponseTags: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/responses/ResponseTag.java
+		SexActions (you cna see how ids are generated in this class): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexActions/SexActionManager.java
+		SexAreaOrifices (should be prefaced with 'ORIFICE_'): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaOrifice.java
+		SexAreaPenetrations (should be prefaced with 'PENETRATION_'): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaPenetration.java
+		SexControls: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexControl.java
+		SexPaces: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexPace.java
+		SexParticipantTypes: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexParticipantType.java
+		SexPositions:
+			You can see all of the positions (and the slots they have allocated to them) here:
+			https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/positions/SexPosition.java
+		SexSlots:
+			SexSlots are found in several different files, which can all be found under: 'game/sex/positions/slots'
+			Their ids take the form of 'POSITION_SLOT', e.g. 'ALL_FOURS_BEHIND', and are generated here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/positions/slots/SexSlotManager.java
+	-->
+		
+	<!-- You can optionally override the default title in the sex scene by defining a value here.
+		e.g.: <title><![CDATA[Woodland Sex]]></title> -->
+	<title/>
+	
+	<!-- Whether or not this sex scene is a consensual one between the dominant and submissive partner(s).
+		OPTIONAL: Default true
+		PARSER: Initial -->
+	<consensual><![CDATA[true]]></consensual>
+	
+	<!-- Whether or not the submissive partner(s) have the same level of control as the dominant(s).
+		i.e. If the submissive partner(s) should be able to perform all the same positioning/clothing displacement/sex start actions that the dom can.
+		OPTIONAL: Default true
+		PARSER: Initial -->
+	<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+	
+	<!-- Whether or not the player can use the 'Quick sex' action in this sex scene to skip over it.
+		OPTIONAL: Default true
+		PARSER: Initial -->
+	<canSkipSex><![CDATA[false]]></canSkipSex>
+	
+	<!-- Whether or not this scene takes place in a shower, bath, or other place where running water makes it impossible for areas to be dirtied.
+		When true, dirtied InventorySlots and clothing will be instantly cleaned.
+		OPTIONAL: Default false
+		PARSER: Initial -->
+	<washingScene><![CDATA[false]]></washingScene>
+	
+	<!-- When set to true, sadistic actions can be used by dominant participants during the sex scene.
+		NPCs will only use sadistic actions if they have the sadistic fetish, so disabling this is mainly to restrict the player's actions.
+		The game already has a sadistic action content toggle, so you should only disable this if it makes no sense for sadistic actions to be performed in the scene (such as this one where the player cannot directly interact with Meraxis).
+		OPTIONAL: Default true
+		PARSER: Initial -->
+	<sadisticActionsAllowed><![CDATA[false]]></sadisticActionsAllowed>
+	
+	<!-- Whether or not items can be used during this sex scene.
+		OPTIONAL: Default true
+		PARSER: Initial -->
+	<canItemsBeUsed><![CDATA[false]]></canItemsBeUsed>
+	
+	<!-- Whether or not characters will react to sex areas being exposed during this sex scene.
+		OPTIONAL: Default true
+		PARSER: Initial -->
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	
+	<!-- The positions which are available during this sex scene.
+		The mandatory 'exclusive' attribute defines whether these positions are excluded from all of the standard positions (true), or whether they are the only positions available (false).
+		You must either omit this element or define at least one valid 'position'.
+		e.g.
+			<position><![CDATA[
+				#IF(!pc.isTaur())
+					LYING_DOWN
+				#ENDIF
+			]]></position>
+		OPTIONAL: Default all standard positions are available
+		PARSER: Initial -->
+	<positionsAvailable exclusive="false">
+		<position><![CDATA[STANDING]]></position>
+	</positionsAvailable>
+	
+	<!-- Here you can define whether or not this sex scene takes place in view of the public, as well as the associated descriptions.
+		OPTIONAL: Default values will be set as how they're defined in the inner elements below -->
+	<publicSex>
+		<!-- Set to true if you want this sex scene to be treated as though it's taking place in view of the public.
+			OPTIONAL: Default is true if the tile has any type of population listed under 'Characters present', false otherwise
+			PARSER: Initial -->
+		<isPublic><![CDATA[false]]></isPublic>
+		<!-- The description which is appended to the end of the initial sex scene description.
+			OPTIONAL: Default is for a generic description to be displayed
+			PARSER: Initial -->
+		<startingDescription><![CDATA[
+			Several people are drawn to the area by Lilaya's lewd squeals, and as the two of you start having sex, they shamelessly stand nearby and watch...
+		]]></startingDescription>
+		<!-- The descriptions which are appended to the end of sex action descriptions during sex itself.
+			One of the defined 'description' elements will be chosen at random each turn.
+			You can set the optional attribute 'enabled' to false to disable random public descriptions (as simply making one empty 'description' element will make the game revert to generic ones).
+				It you do this, the element will look like this: <randomDescriptions enabled="false"/>
+			OPTIONAL: Default is for generic descriptions to be displayed
+			PARSER: Every check -->
+		<randomDescriptions enabled="true">
+			<description><![CDATA[One of the onlookers loudly comments on how thick Lilaya's tail is.]]></description>
+			<description><![CDATA[A member of the crowd wolf-whistles.]]></description>
+			<description><![CDATA[You receive some lewd encouragement from a particularly enthusiastic member of the crowd.]]></description>
+		</randomDescriptions>
+	</publicSex>
+	
+	<!-- This is a list of characters who need to have their behaviour altered from default values within this sex scene. -->
+	<characterInformationContainer>
+		<characterInformation>
+			<!-- The id of this character -->
+			<characterId>pc</characterId>
+			
+			<!-- The slots which are available for this character to move into.
+				The 'excluded' attribute defines whether these slots are excluded from all of the standard slots (true), or whether they are the only slots available (false).
+				Please note that this affects all positions which this character might move into, so make sure that there's a suitable slot for every position which this character could end up in (as otherwise the sex scene could break)!
+				OPTIONAL: Default is that all slots are available
+				PARSER: Initial -->
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+			</slotsAvailable>
+			
+			<!-- Whether or not this character is able to stop this sex scene.
+				If false, this will override behaviour derived from this character's SexControl level, effectively restricting the ability to end sex no matter what control they have.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<canStopSex><![CDATA[true]]></canStopSex>
+			
+			<!-- Whether or not this character is able to change the sex scene's position.
+				If false, this will override behaviour derived from this character's SexControl level, effectively restricting the ability to change position no matter what control they have.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			
+			<!-- Whether or not this character gains or loses affection towards their partners at the end of this sex scene.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+			
+			<!-- True if this character's exposed sex areas should be described at the start of the sex scene.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			
+			<!-- The pace which this character should start in.
+				The optional attribute 'locked' determines whether this character should be locked into this sex pace for the entire scene or not (defaults to false).
+				OPTIONAL: Default is calculated based on the character's lust at the time sex starts.
+				PARSER: Initial -->
+			<sexPace locked="false"><![CDATA[DOM_NORMAL]]></sexPace>
+			
+			<!-- Whether or not this character can access the self-transformation menu during this sex scene.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+	
+			<!-- Set this to true to make this character hidden to the other participants in this sex scene, which restricts their ability to end sex, and they can only use 'self' sex actions.
+				This should only ever be applied to spectators, as it makes no sense otherwise.
+				OPTIONAL: Default false
+				PARSER: Initial -->
+			<hidden><![CDATA[false]]></hidden>
+			
+			<!-- The level of control this character has in the sex scene, which influences whether or not they can move positions, manage clothing, and initiate sex actions.
+				This locks the character into this level of control for the whole scene, and should only be given a value in special sex scenes.
+				OPTIONAL: Default is calculated from the 'consensual' and 'subHasEqualControl' elements defined near the top of this 'sexVariablesWithManager' element.
+				PARSER: Initial -->
+			<control><![CDATA[SELF]]></control>
+			
+			<!-- Whether or not this character is able to have sex toys equipped onto them during this sex scene.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			
+			<!-- Whether or not this character is able to remove their own clothing during this sex scene.
+				Please note that self clothing removal is typically restricted based on the character's SexControl level, so this value should only be set to false if you want to restrict the character's ability to remove their own clothing no matter what level of control they have.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			
+			<!-- Whether or not this character is able to remove their partner's clothing during this sex scene.
+				Please note that self clothing removal is typically restricted based on the character's SexControl level, so this value should only be set to false if you want to restrict the character's ability to remove their own clothing no matter what level of control they have.
+				You can use the optional parser tag 'clothing' in this section to get a handle on the clothing *type* being targeted for unequip.
+					Please note that 'clothing' might be null, so always handle a potential null when using the 'clothing' tag.
+				The parser tag 'npc' targets the character whose clothing is to be unequipped.
+				OPTIONAL: Default true
+				PARSER: Every check -->
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			
+			<!-- Whether or not this character starts this sex scene with all of their non-jewellery, non-milking-equipment clothing removed (as much as possible, anyway - sealed clothing is taken into account during this, so some clothing may not be removed).
+				OPTIONAL: Default false
+				PARSER: Initial -->
+			<startNaked><![CDATA[false]]></startNaked>
+			
+			<!-- Areas which should be exposed at the start of this sex scene, defined as CoverableAreas.
+				Obviously, if 'startNaked' is defined as true, then this section is not needed.
+				Clothing will be displaced in order to reveal the defined areas, unless you set the 'preferRemoval' attribute to be true, in which case clothing will be removed instead of displaced.
+				Example:
+					<exposeAtStart preferRemoval="false">
+						<coverableArea><![CDATA[
+							#IF(pc.hasPenis())
+								PENIS
+							#ENDIF
+						]]></coverableArea>
+						<coverableArea><![CDATA[
+							#IF(pc.hasVagina())
+								VAGINA
+							#ENDIF
+						]]></coverableArea>
+					</exposeAtStart>
+				OPTIONAL: Default no areas will be exposed at the start
+				PARSER: Initial -->
+			<exposeAtStart/>
+			
+			<!-- The partners which this character is banned from forcing to creampie them, via leg-locking, hug-locking, or any other similar method.
+				i.e. This character will be unable to force the characters defined in this element to creampie them.
+				To define this, add 'character' elements as so:
+					<forcedCreampiesDisabled>
+						<character><![CDATA[meraxis]]></character>
+					</forcedCreampiesDisabled>
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<forcedCreampiesDisabled/>
+			
+			<!-- This character's behaviour upon orgasming.
+				OPTIONAL: Default is DEFAULT
+				PARSER: Every check -->
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			
+			<!-- Where this character will prefer to direct their cum when pulling out at the moment of orgasm, defined as an OrgasmCumTarget.
+				The 'id' attribute of each target corresponds to the id of the character.
+					<orgasmCumTargets>
+						<target id="meraxis"><![CDATA[FACE]]></target>
+					</orgasmCumTargets>
+				OPTIONAL: Default is null, in which case the character will use a pull out action corresponding to their fetishes or determined via random chance
+				PARSER: Every check -->
+			<orgasmCumTarget/>
+			
+			<!-- Areas which are unavailable to cum on, defined as an OrgasmCumTarget.
+				OPTIONAL: Default is null, in which case the character will use a pull out action corresponding to their fetishes or determined via random chance
+				PARSER: Every check -->
+			<orgasmCumTargetsBlocked>
+				<!-- You can either define multiple areas within this character element to be blocked, or use the special 'allBodyAreas' attribute to block all areas but the wall and floor as I've done.
+					If you want to define multiple areas, do it like so:
+						<character id="meraxis">
+							<target>FACE</target>
+							<target>HAIR</target>
+							<target>BREASTS</target>
+						</character> -->
+				<character id="meraxis" allBodyAreas="true"/>
+			</orgasmCumTargetsBlocked>
+			
+			<!-- How this character reacts to someone else reaching their orgasm, defined as an OrgasmEncourageBehaviour.
+				For the values NO_ENCOURAGE, CREAMPIE, or PULL_OUT, the character will use GENERIC_PREPARATION_PREPARE, GENERIC_PREPARATION_ENCOURAGE_CREAMPIE, or GENERIC_PREPARATION_ENCOURAGE_PULL_OUT, respectively.
+				The attribute 'orgasming' should refer to the id of the character who's orgasming.
+				The attribute 'target' should refer to the id of the character who's being targeted by the orgasming character.
+					e.g. <orgasmEncourageBehaviours>
+							<behaviour orgasming="meraxis" target="pc"><![CDATA[
+								#IF(meraxis.getSubspecies()==SUBSPECIES_DEMON)
+									CREAMPIE
+								#ELSE
+									PULL_OUT
+								#ENDIF
+							]]></behaviour>
+						</orgasmEncourageBehaviours>
+				OPTIONAL: Default is DEFAULT, in which case the character will react corresponding to their fetishes or determined via random chance
+				PARSER: Every check -->
+			<orgasmEncourageBehaviours/>
+			
+			<!-- You can define which areas of this character are concealed from view to other characters here, which is really only useful for scenes such as gloryholes, where partners will only have small sections of themselves visible.
+					e.g. (For just feet being hidden from meraxis for some reason)
+						<concealedSlots>
+							<viewingCharacter id="meraxis">
+								<inventorySlot><![CDATA[FOOT]]></inventorySlot>
+							</viewingCharacter>
+						</concealedSlots>
+				OPTIONAL: Default is that no slots are concealed
+				PARSER: Initial -->
+			<concealedSlots/>
+			
+			<!-- You can set a preferred partner to be targeted during sex for this character here.
+				Please note that this doesn't have any effect on the player character, and is ignored when this character is reacting to orgasming characters.
+					Example: <preferredTarget><![CDATA[meraxis]]></preferredTarget>
+				OPTIONAL: Default is that this character has no targeting preference
+				PARSER: Every check -->
+			<preferredTarget/>
+			
+			<!-- How this character wants to interact with others during the foreplay and main sex parts of the sex scene.
+				Please note that this doesn't work for self-action preferences.
+				The player character doesn't ever need these preferences set, as control is in the hands of the person playing the game, but for an example:
+					This would result in a character wanting to receive (from Epona) cunnilingus for foreplay, and vaginal sex for main sex:
+					<preferences>
+						<character id="epona">
+							<foreplay>
+								<performing><![CDATA[ORIFICE_VAGINA]]></performing>
+								<targeted><![CDATA[PENETRATION_TONGUE]]></targeted>
+							</foreplay>
+							<mainSex>
+								<performing><![CDATA[ORIFICE_VAGINA]]></performing>
+								<targeted><![CDATA[PENETRATION_PENIS]]></targeted>
+							</mainSex>
+						</character>
+					</preferences>
+				Note: You can define the optional boolean attribute 'copyForMain' in the 'foreplay' element, which when set to true will make this character use the defined foreplay preferences as their main sex preference as well, allowing you to omit the 'mainSex' element entirely.
+					e.g.: <foreplay copyForMain="true">
+				OPTIONAL: Default is that preferences are calculated from available areas, fetishes, and the player's content options
+				PARSER: Initial -->
+			<preferences/>
+			
+			<!-- You can define unique sex actions for this character to have available to them here.
+				OPTIONAL: Default is that no unique sex actions are added -->
+			<uniqueSexActions>
+				<sexAction>innoxia_meraxis_duel_orgasm_panties_cum</sexAction>
+			</uniqueSexActions>
+			
+			<!-- The sex types which are banned from this character during the sex scene.
+				Note that if a sex type is blocked via use of this element, then the reverse sex type is also blocked for the partner (i.e. blocking this character from performing blowjobs will also block partners from getting a blowjob from this character).
+				If for example you wanted to just prevent this character from performing blowjobs, then you could define it like so:
+					<sexTypesBanned>
+						<sexType>
+							<performing>ORIFICE_MOUTH</performing>
+							<targeted>PENETRATION_PENIS</targeted>
+						</sexType>
+					</sexTypesBanned>
+				OPTIONAL: Default is that no sex types are banned -->
+			<sexTypesBanned/>
+			
+			<!-- The areas of this character which are not allowed to be used by anyone during the sex scene.
+				If the optional 'appliesToSelf' attribute is set to true, then these area limitations will also affect this character's self actions (it defaults to false if excluded).
+					e.g. (For just feet being excluded for some reason)
+						<areasBanned appliesToSelf="true">
+							<sexArea><![CDATA[PENETRATION_FOOT]]></sexArea>
+						</areasBanned>
+				OPTIONAL: Default is that all areas are available for use
+				PARSER: Initial -->
+			<areasBanned/>
+			
+			<!-- The conditions under which this character wants to end the current sex scene (and will do so if their level of control allows for it).
+				The player character is not affected by this, as the decision to end sex lies with the person playing the game.
+				An example of this would be:
+					<stopSexCondition><![CDATA[
+						[#sex.isSatisfiedFromOrgasms(meraxis, true) && sex.isOrgasmCountMet(pc, 1, true)]
+					]]></stopSexCondition>
+				OPTIONAL: Default is that the character factors in orgasms and arousal to decide whether to end sex or not
+				PARSER: Every check -->
+			<stopSexCondition/>
+			
+			<!-- All characters have generic lines to use for dirty talk during sex, but you can override those by defining lines here.
+				OPTIONAL: Default is that the character uses their default lines
+				PARSER: Every check -->
+			<dirtyTalk>
+				<!-- The dirty talk within this element will only apply when targeting the character which corresponds to the supplied id (in this case Meraxis). -->
+				<character id="meraxis">
+					<!-- 'standard' lines are the ones which are most commonly seen and used by characters.
+					The optional attribute 'additionToDefault' determines whether these lines are added alongside default ones (true), or if only these standard lines should be used in this scene (false).
+						This attribute defaults to true, and when set to true, there's a 50/50 chance of a default line or one of your custom ones being used.
+						In this example, I want to replace all standard dirty talk with the player telling Meraxis to keep on playing with her breasts, so I set this to false.
+						OPTIONAL: Default is that the character uses their default standard lines -->
+					<standard additionToDefault="false">
+						<!-- You can define the following optional attributes:
+								'performing': this line will only be used when this character is using this sex area on the target (defaults to no requirement).
+								'targeted': this line will only be used when this character is interacting with the target's sex area (defaults to no requirement).
+								'performingAnyPenetration': If set to true, this line will only be used if this character is performing any virginity-taking penetration on the target (defaults to false).
+								'takingAnyPenetration': If set to true, this line will only be used if this character is receiving any virginity-taking penetration from the target (defaults to false).
+									Penetrations which take virginity are penis, tail, clit, and tentacle (with tongue, finger, and foot not taking virginities).
+								'extraNoises': If set to false, then no sex noises, slurred speech, or other non-personality speech modifiers will automatically be inserted into this line (defaults to true).
+									e.g. If omitted or set to true, then a line of "Keep going, fuck me!" might end up being parsed to "Keep ~Aah!~ going, fuck, ~Mmm!~ me!"
+							Examples:
+								<line performing="PENETRATION_PENIS" targeted="ORIFICE_VAGINA"><![CDATA[Your pussy feels so good squeezing down on my cock!]]></line>
+								<line performingAnyPenetration="true"><![CDATA[You're a good fuck!]]></line>
+								<line takingAnyPenetration="true" extraNoises="false"><![CDATA[~Ooh!~ That's it! ~Mmm!~ Don't stop!]]></line>
+							So for this example, the player will only use this line when using their penis to penetrate Meraxis's vagina (which in this scene is impossible, so it's just an example for the sake of providing one).
+							You can define as many 'line' elements as you'd like.
+							The parsing target 'npc' will be linked to the speaker when parsed (in this case the player).
+							The parsing target 'npc2' will be linked to the target when parsed (in this case Meraxis).
+							Style advice: You should probably not replace the player's default lines, or if you do then please only make them as specific as the sex scene itself.
+								i.e. If you make a generic sex scene, it would be jarring for the player to have their character use very specific fetish talk towards their partner.
+								However, if your sex scene is a special one with a lot of custom behaviour, then it would enhance the scene to give the player some specific dirty talk. -->
+						<line><![CDATA[Keep on playing with your tits!]]></line>
+						<line><![CDATA[That's it, push your tits together!]]></line>
+						<line><![CDATA[Don't stop; keep on squeezing your tits!]]></line>
+						<line><![CDATA[Look how hard your nipples are! Go on, pinch them!]]></line>
+					</standard>
+					<!-- 'submissive' lines are used when using the 'Submissive talk' action, and are not seen as often as standard lines.
+						The 'additionToDefault' attribute works in the same way as it does for 'standard'.
+						The inner 'line' elements also work exactly as they do for 'standard.'
+						An example would be:
+							<submissive>
+								<line takingAnyPenetration="true"><![CDATA[Yes, keep on fucking me! I'm your good [pc.girl]!]]></line>
+							</submissive>
+						OPTIONAL: Default is that the character uses their default submissive lines -->
+					<submissive/>
+					<!-- 'rough' lines are used when using the 'Degrading talk' action, and are not seen as often as standard lines.
+						The 'additionToDefault' attribute works in the same way as it does for 'standard'.
+						The inner 'line' elements also work exactly as they do for 'standard.'
+						An example would be:
+							<rough>
+								<line performingAnyPenetration="true"><![CDATA[That's it, slut, you're my worthless fuck-toy now!]]></line>
+							</rough>
+						OPTIONAL: Default is that the character uses their default rough lines -->
+					<rough/>
+				</character>
+			</dirtyTalk>
+			
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>meraxis</characterId>
+			<slotsAvailable exclusive="false">
+				<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="true"><![CDATA[SUB_EAGER]]></sexPace>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[SELF]]></control>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="true">
+				<coverableArea><![CDATA[NIPPLES]]></coverableArea>
+			</exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<uniqueSexActions/>
+			<preferences/>
+			<sexTypesBanned/>
+			<areasBanned appliesToSelf="true">
+				<sexArea><![CDATA[ORIFICE_MOUTH]]></sexArea> <!-- Prevent tail-mouth -->
+				<sexArea><![CDATA[ORIFICE_VAGINA]]></sexArea> <!-- Prevent self-fingering -->
+			</areasBanned>
+			<stopSexCondition><![CDATA[
+				[#sex.isOrgasmCountMet(pc, 1, true)]
+			]]></stopSexCondition>
+			<dirtyTalk>
+				<character id="pc">
+					<standard additionToDefault="false">
+						<line><![CDATA[This is so embarrassing... But kind of hot...]]></line>
+						<line><![CDATA[Why is this turning me on so much?!]]></line>
+						<line><![CDATA[Do you like them? Am I doing this right?]]></line>
+						<line><![CDATA[I hope you appreciate me doing this for you...]]></line>
+					</standard>
+				</character>
+			</dirtyTalk>
+		</characterInformation>
+	</characterInformationContainer>
+		
+</sexManager>

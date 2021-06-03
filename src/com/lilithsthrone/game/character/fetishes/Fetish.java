@@ -815,15 +815,8 @@ public enum Fetish {
 	// FETISH_SPANKING("spanking", "You love the idea of spanking or being
 	// spanked during sex."),
 
-	// Body parts:
-	
-	// FETISH_LACTATION("lactation", "The idea of someone being milked drives
-	// you crazy with lust."),
-	// FETISH_FOOT("foot", "It doesn't matter if they're yours or your
-	// partner's, you're going to be trying to find a way to use feet during
-	// sex."),
-
 	// Effects:
+	
 	FETISH_PREGNANCY(60,
 			"pregnancy",
 			"being pregnant",
