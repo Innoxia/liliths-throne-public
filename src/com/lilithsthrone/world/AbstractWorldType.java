@@ -42,6 +42,8 @@ public abstract class AbstractWorldType {
 	private boolean discoveredOnStart;
 	private boolean revealedOnStart;
 	private boolean furniturePresent;
+	private boolean wallsPresent;
+	private String wallName;
 
 	private AbstractPlaceType globalMapLocation;
 	private AbstractPlaceType standardPlace;
@@ -77,6 +79,9 @@ public abstract class AbstractWorldType {
 		this.flightEnabled = flightEnabled;
 		this.discoveredOnStart = false;
 		this.revealedOnStart = false;
+		this.furniturePresent = false;
+		this.wallsPresent = true; // Default to true for hard coded values, as these are all Dominion/Submission (which obviously have walls)
+		this.wallName = "wall";
 		
 		this.teleportPermissions = teleportPermissions;
 		
@@ -119,7 +124,21 @@ public abstract class AbstractWorldType {
 				}
 
 				this.usesFile = true;
-				this.furniturePresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("furniturePresent").getTextContent().trim());
+				
+				this.furniturePresent = false;
+				if(coreElement.getOptionalFirstOf("furniturePresent").isPresent()) {
+					this.furniturePresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("furniturePresent").getTextContent().trim());
+				}
+
+				this.wallsPresent = false;
+				this.wallName = "wall";
+				if(coreElement.getOptionalFirstOf("wallsPresent").isPresent()) {
+					this.wallsPresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("wallsPresent").getTextContent().trim());
+					if(!coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName").isEmpty()) {
+						this.wallName = coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName");
+					}
+				}
+				
 				this.loiteringEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("loiteringEnabled").getTextContent().trim());
 				this.flightEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("flightEnabled").getTextContent().trim());
 				this.discoveredOnStart = Boolean.valueOf(coreElement.getMandatoryFirstOf("visibleFromStart").getTextContent().trim());
@@ -271,4 +290,17 @@ public abstract class AbstractWorldType {
 		return furniturePresent;
 	}
 
+	/**
+	 * @return true if against wall sex positions are available in this location. This can be overridden in AbstractPlaceType's method of the same name.
+	 */
+	public boolean isWallsPresent() {
+		return wallsPresent;
+	}
+
+	/**
+	 * @return The name which should be used in the against wall sex position, in the X place in: 'Against X'
+	 */
+	public String getWallName() {
+		return wallName;
+	}
 }

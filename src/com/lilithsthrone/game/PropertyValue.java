@@ -59,6 +59,7 @@ public enum PropertyValue {
 	urethralContent(false, true),
 	analContent(true, true),
 	footContent(true, true),
+	armpitContent(true, true),
 	nipplePenContent(true, true),
 	gapeContent(true, true),
 	

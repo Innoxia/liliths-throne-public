@@ -28,18 +28,101 @@
 		#ELSE
 			 Letting out a despairing sigh as you see her ridiculous title, you read:
 		#ENDIF
-		 'This is the lair of The Dark Siren! Only the brave or foolish dare to disturb my slumber! Mwhahahah!'
+		 'This is the lair of The Dark Siren! Only the brave or foolish dare to disturb my slumber! Mwhahaha!'
 	</p>
 	<p>
-		Wondering whether she dictated the words of this sign to someone else, or actually wrote herself laughing at the bottom, you look around at the door's ill-fitting edges to see that
+		Wondering whether she dictated the words of this sign to someone else, or actually wrote herself laughing at the bottom, you listen for any sound of movement coming from inside
 		#IF(game.getCharactersPresent().contains(meraxis))
-			 the lights inside are currently on. If you wanted to speak with Meraxis, you could knock on the door, or instead turn around and head back the way you came...
+			 and hear the chuuni [meraxis.race] loudly snoring. As she previously told you not to disturb her sleep unless there's an emergency, you decide that it's best to turn around and head back the way you came...
 		#ELSE
-			 the lights don't appear to be on inside. If you wanted to speak with Meraxis, it looks like you'll have to head back the way you came and search for her either in the town hall or at her usual spot downstairs...
+			 but don't hear a thing. If you wanted to speak with Meraxis, it looks like you'll have to head back the way you came and search for her at her usual spot downstairs...
 		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
+	
+	<!-- Player's room: -->
+	
+	<htmlContent tag="ROOM_PLAYER"><![CDATA[
+	<p>
+		While not as large as the one back in Lilaya's mansion, your room here in The Red Dragon is nevertheless impressively spacious. Although it houses a double-size bed, a smart wardrobe and dresser, and a couple of comfortable chairs, there's plenty of space left over for you to [pc.walk] around in. Doing just that, you [pc.step] forwards over the dark wooden floorboards and onto the rug that's positioned at the end of your bed. Looking around at the cream-coloured walls and dark wooden beams that hold up the high ceiling, you find yourself thinking that although it's smaller than the one you've become accustomed to in Dominion, your room here has a very relaxing, cosy feel to it.
+	</p>
+	<p>
+		Heading over to the far side of the room, you're able to look out of the leaded, bay windows and see a good portion of the streets of Elis down below.
+		#IF(game.isDayTime())
+			 Thanks to the time of day, there are quite a lot of people out and about, and you spend a minute or two simply watching the residents of this town travelling about on their business.
+		#ELSE
+			 Thanks to the time of night, the arcane street lamps are all turned on and casting a pale yellow light over the quiet road.
+		#ENDIF
+	</p>
+	<p>
+		Turning back to face your room, you look over at the door to your ensuite. Having been left open, you're able to look inside and see not only your porcelain bath and shower, but also your arcane-powered washing machine. The promotional sticker has been left on the side of this machine, and promises to remove all stains and have even the dirtiest items of clothing dry and ready to wear in under ten minutes.
+	</p>
+	<p>
+		Letting out a relaxed sigh, you wonder whether to spend some time resting in here, or perhaps to make use of the washing facilities available to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_PLAYER_REST"><![CDATA[
+	<p>
+		Feeling a little worn down and tired from all of your recent activities, you draw your curtains before collapsing down onto your bed and setting your phone's alarm. Closing your eyes, you then let out a deep sigh, and with the feeling of being safe and comfortable here in The Red Dragon, you soon drift off to sleep, thinking about all the things that have happened to you recently...
+	</p>
+	<p>
+		<i>Beep-beep... beep-beep... bee-</i>
+	</p>
+	<p>
+		Rolling over, you fumble for your phone, turning off the alarm before sinking back onto your bed with a sigh. As comfortable as you are, you decide that you'd better get out of bed, and so after a minute of lying beneath the covers, you do just that. Opening the curtains, you set about gathering your things, and then with one final stretch, you get ready to set out once more...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_PLAYER_FAST_TRAVEL_ENTRANCE"><![CDATA[
+	<p>
+		Wanting to head up to your room, you cross the tavern floor and make your way to the staircase at the rear of the building. Heading up to the first floor, you proceed directly to your room, and consequently soon find yourself [pc.stepping] into it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_PLAYER_SHOWER_QUICK"><![CDATA[
+	<p>
+		Wanting to clean yourself, but not spend too much time doing so, you [pc.step] into your ensuite bathroom and decide upon taking a quick shower. Disrobing, you put your clothing into the arcane washing machine, before stepping over to your basic-yet-functional shower.
+	</p>
+	<p>
+		Turning on the tap, you let out a relaxed sigh as you feel the warm water flowing down over your naked body. Not wanting to spend too much time in the shower, you focus on quickly cleaning yourself.
+	</p>
+	<p>
+		After a short while spent cleaning your body under the flowing water, you feel as though you've spent enough time in the shower, and so turn off the tap and dry yourself with a fluffy towel. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and [pc.step] back into your room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_PLAYER_SHOWER"><![CDATA[
+	<p>
+		Wanting to clean yourself, but not spend too much time doing so, you [pc.step] into your ensuite bathroom and decide upon taking a quick shower. Disrobing, you put your clothing into the arcane washing machine, before stepping over to your basic-yet-functional shower.
+	</p>
+	<p>
+		Turning on the tap, you let out a relaxed sigh as you feel the warm water flowing down over your naked body. Deciding that it wouldn't be so bad to take some time out in order to relax, you don't rush as you set about thoroughly cleaning yourself.
+	</p>
+	<p>
+		After a while spent cleaning your body under the flowing water, you feel as though you've spent enough time in the shower, and so turn off the tap and dry yourself with a fluffy towel. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and [pc.step] back into your room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_PLAYER_BATH"><![CDATA[
+	<p>
+		Wanting to spend some time relaxing and getting cleaned, you [pc.step] into your ensuite bathroom and decide upon taking a long bath. Disrobing, you put your clothing into the arcane washing machine, before stepping over to your basic-yet-functional bathtub.
+	</p>
+	<p>
+		Turning on the taps and running yourself a bath, you slip down into the hot water and let out a contented sigh. Deciding that it wouldn't be so bad to take some time out in order to relax, you don't rush as you set about thoroughly cleaning yourself...
+	</p>
+	<p>
+		After a while spent cleaning your body and relaxing in the water, you feel as though you've spent enough time in the bath, and so after pulling the plug you [pc.step] out of the tub and dry yourself off with a fluffy towel. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and [pc.step] back into your room...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="ROOM_OWNER"><![CDATA[
 	<p>
@@ -62,7 +145,7 @@
 	<p>
 		#IF(game.getCharactersPresent().contains(jess))
 			Although the door seems to have been reseated so as to form a tight seal around its frame, you can still see some light escaping through its narrow keyhole, letting you know that Jess must be inside.
-			#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			#IF(game.getNonCompanionCharactersPresent().size()>1)
 				 The need for the door's tight seal is made clear as you spend a moment standing in front of it; Jess's high-pitched moaning and the creaking of her bed can be quite clearly be heard from through the keyhole, and if the door was as poorly-fitting as the others in the corridor, you imagine that none of the lodgers would be able to get any peace while Jess was working.
 			#ELSE
 				 Honouring her written request to not be disturbed, you [pc.step] away from Jess's door and prepare to continue on your way down the corridor...
@@ -71,8 +154,90 @@
 			Although the door seems to have been reseated so as to form a tight seal around its frame, you can still see that there's no light escaping through its narrow keyhole, letting you know that Jess isn't currently in her room. With nothing to be gained from standing here any longer, you quickly turn away from the door and prepare to continue on your way down the corridor...
 		#ENDIF
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_SEX_PEEPING_JESS_FUCKED"><![CDATA[
 	<p>
-		
+		Wanting to see what's happening inside Jess's room, you look around to make sure that nobody's watching before putting your [pc.eye(true)] to the keyhole and looking inside. Although you're only able to see a limited angle of the room, the double-bed on which the action is happening is directly in your field of vision, and you find yourself unable to look away as you watch
+		#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+			 Jess
+		#ELSE
+			 a very pretty fox-girl, who you assume to be Jess,
+		#ENDIF
+		 submitting to [ncom.a_feminine] [ncom.race].
+	</p>
+	<p>
+		#IF(ncom.getFetishDesire(FETISH_ANAL_GIVING).isPositive() || ncom.getFetishDesire(FETISH_DOMINANT).isPositive())
+			Jess is facing away from you as she kneels down on all fours on her bed, while the [ncom.race] has dropped down behind her. Thanks to their position, you can quite clearly see
+		#ELSE
+			Jess is facing away from you as she lies back on her bed, while the [ncom.race] has dropped down between her legs. Thanks to their missionary position, you can quite clearly see
+		#ENDIF
+		#IF(ncom.getFetishDesire(FETISH_ANAL_GIVING).isPositive())
+			 that the [ncom.race] has [ncom.her] [ncom.cock+] hilted deep in Jess's ass. With [ncom.a_moan+], the [ncom.race] pulls back, before starting to repeatedly thrust [ncom.her] [ncom.cock+] in and out of Jess's [jess.asshole+].
+		#ELSE
+			 that the [ncom.race] has [ncom.her] [ncom.cock+] hilted deep in Jess's wet pussy, which is leaking a slimy mixture of girlcum and precum all over her duvet. With [ncom.a_moan+], the [ncom.race] pulls back, before starting to repeatedly thrust [ncom.her] [ncom.cock+] in and out of Jess's [jess.pussy+].
+		#ENDIF
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+			As Jess continues to be fucked by her client on her bed, you wonder whether you should continue enjoying the show, or stop watching and leave them to it...
+		#ELSE
+			As the fox-girl continues to be fucked by her partner on the bed, you wonder whether you should continue enjoying the show, or stop watching and leave them to it...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_SEX_PEEPING_JESS_SCISSOR"><![CDATA[
+	<p>
+		Wanting to see what's happening inside Jess's room, you look around to make sure that nobody's watching before putting your [pc.eye(true)] to the keyhole and looking inside. Although you're only able to see a limited angle of the room, the double-bed on which the action is happening is directly in your field of vision, and you find yourself unable to look away as you watch
+		#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+			 Jess
+		#ELSE
+			 a very pretty fox-girl, who you assume to be Jess,
+		#ENDIF
+		 dominating [ncom.a_feminine] [ncom.race].
+	</p>
+	<p>
+		The [ncom.race] is facing away from you as [ncom.she] lies back on the bed, while Jess has dropped down over the top of [ncom.herHim] so as to straddle [ncom.her] groin. Thanks to their scissoring position, you can quite clearly see that Jess is rubbing her clit up and down over the [ncom.race]'s [ncom.pussy+]. A slimy mixture of girlcum is drooling down all over Jess's duvet, and as you continue to watch, she lets out [jess.a_moan+] and starts to desperately grind her [jess.pussy+] up and down against the [ncom.race]'s clit.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+			As Jess continues to dominate her client on her bed, you wonder whether you should continue enjoying the show, or stop watching and leave them to it...
+		#ELSE
+			As the fox-girl continues to dominate her partner on the bed, you wonder whether you should continue enjoying the show, or stop watching and leave them to it...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_SEX_PEEPING_JESS_FACE_SITTING"><![CDATA[
+	<p>
+		Wanting to see what's happening inside Jess's room, you look around to make sure that nobody's watching before putting your [pc.eye(true)] to the keyhole and looking inside. Although you're only able to see a limited angle of the room, the double-bed on which the action is happening is directly in your field of vision, and you find yourself unable to look away as you watch
+		#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+			 Jess
+		#ELSE
+			 a very pretty fox-girl, who you assume to be Jess,
+		#ENDIF
+		 dominating [ncom.a_feminine] [ncom.race].
+	</p>
+	<p>
+		The [ncom.race] is facing away from you as [ncom.she] lies back on the bed, while Jess has dropped down over the top of [ncom.herHim] so as to straddle [ncom.her] face. Thanks to their face-sitting position, you can quite clearly see that Jess is rubbing her [jess.pussy+] up and down over the [ncom.race]'s mouth. A slimy mixture of girlcum is drooling down all over this [ncom.race]'s face, and as you continue to watch, [ncom.she] lets out a muffled, [ncom.moan+] and starts to desperately perform cunnilingus on the dominant fox-girl.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
+			As Jess continues to dominate her client on her bed, you wonder whether you should continue enjoying the show, or stop watching and leave them to it...
+		#ELSE
+			As the fox-girl continues to dominate her partner on the bed, you wonder whether you should continue enjoying the show, or stop watching and leave them to it...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_SEX_PEEPING_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun, you take your [pc.eye(true)] away from the keyhole and [pc.step] back from the door. Not wanting to be caught and questioned about your voyeuristic activities, you [pc.walk] down the corridor and enter your room. Giving Jess and her partner some time in which to finish having sex, you relax for a short while, before wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>

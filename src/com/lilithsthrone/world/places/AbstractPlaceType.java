@@ -67,6 +67,10 @@ public class AbstractPlaceType {
 	private boolean furniturePresent;
 	private boolean loiteringEnabledOverride;
 	private boolean loiteringEnabled;
+	private boolean wallsPresentOverride;
+	private boolean wallsPresent;
+	private boolean wallNameOverride;
+	private String wallName;
 	
 	private String sexBlockedReason;
 	private boolean sexBlockedFromCharacterPresent;
@@ -127,6 +131,10 @@ public class AbstractPlaceType {
 
 		this.loiteringEnabledOverride = false;
 		this.loiteringEnabled = false;
+
+		this.wallsPresentOverride = false;
+		this.wallsPresent = false;
+		this.wallName = "wall";
 		
 		this.sexBlockedReason = "";
 		this.sexBlockedFromCharacterPresent = true;
@@ -325,14 +333,32 @@ public class AbstractPlaceType {
 					this.loiteringEnabledOverride = false;
 					this.loiteringEnabled = false;
 				}
+
+				if(coreElement.getOptionalFirstOf("wallsPresent").isPresent()) {
+					this.wallsPresentOverride = true;
+					this.wallsPresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("wallsPresent").getTextContent().trim());
+					if(!coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName").isEmpty()) {
+						this.wallNameOverride = true;
+						this.wallName = coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName");
+					}
+				} else {
+					this.wallsPresentOverride = false;
+					this.wallsPresent = false;
+					this.wallNameOverride = false;
+					this.wallName = "wall";
+				}
 				
 				this.globalMapTile = Boolean.valueOf(coreElement.getMandatoryFirstOf("globalMapTile").getTextContent().trim());
 				this.dangerousString = coreElement.getMandatoryFirstOf("dangerous").getTextContent().trim();
 				this.itemsDisappearString = coreElement.getMandatoryFirstOf("itemsDisappear").getTextContent().trim();
 				this.aquaticString = coreElement.getMandatoryFirstOf("aquatic").getTextContent().trim();
 				this.darknessString = coreElement.getMandatoryFirstOf("darkness").getTextContent().trim();
-				
-				this.teleportPermissions = TeleportPermissions.valueOf(coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent());
+
+				if(coreElement.getOptionalFirstOf("teleportPermissions").isPresent() && !coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent().isEmpty()) {
+					this.teleportPermissions = TeleportPermissions.valueOf(coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent());
+				} else {
+					this.teleportPermissions = TeleportPermissions.BOTH;
+				}
 				
 				this.weatherImmunities = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("weatherImmunities").isPresent()) {
@@ -502,7 +528,9 @@ public class AbstractPlaceType {
 		
 		// Need to always return the same encounter in case it gets triggered multiple times in logic somewhere
 		Util.random.setSeed(Main.game.getSecondsPassed());
-		return Util.randomItemFrom(possibleEncounters);
+		AbstractEncounter ae = Util.randomItemFrom(possibleEncounters);
+		Util.random.setSeed(System.nanoTime()); // Reset seed to be close to random
+		return ae;
 	}
 	
 	protected DialogueNode getBaseDialogue(Cell cell) {
@@ -592,7 +620,11 @@ public class AbstractPlaceType {
 
 	public Darkness getDarkness() {
 		if(this.isFromExternalFile()) {
-			return Darkness.valueOf(UtilText.parse(darknessString));
+			String parsedDarkness = UtilText.parse(darknessString);
+			if(parsedDarkness.isEmpty()) {
+				return Darkness.DAYLIGHT;
+			}
+			return Darkness.valueOf(parsedDarkness);
 		}
 		return darkness;
 	}
@@ -739,5 +771,33 @@ public class AbstractPlaceType {
 
 	public boolean isSexBlockedFromCharacterPresent() {
 		return sexBlockedFromCharacterPresent;
+	}
+
+	/**
+	 * @return true if this place type's isWallsPresent() method should be used instead of the parent world type's.
+	 */
+	public boolean isWallsPresentOverride() {
+		return wallsPresentOverride;
+	}
+
+	/**
+	 * @return true if against wall position is available in this location. This overrides AbstractWorldType's method of the same name.
+	 */
+	public boolean isWallsPresent() {
+		return wallsPresent;
+	}
+	
+	/**
+	 * @return true if this place type's getWallName() method should be used instead of the parent world type's.
+	 */
+	public boolean isWallNameOverride() {
+		return wallNameOverride;
+	}
+	
+	/**
+	 * @return The name which should be used in the against wall sex position, in the X place in: 'Against X'. This overrides AbstractWorldType's method of the same name.
+	 */
+	public String getWallName() {
+		return wallName;
 	}
 }
