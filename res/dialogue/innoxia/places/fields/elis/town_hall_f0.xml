@@ -106,13 +106,17 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Upstairs]]></responseTitle>
-				<responseTooltip><![CDATA[Head up the staircase into the town hall's tower.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_hall_f1_stairs"/>
+				<responseTooltip><![CDATA[
+					Head up the staircase into the town hall's tower.
+					<br/>[style.italicsBad(You don't have permission to go upstairs!)]
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<!--<nextDialogue defaultPlaceType="innoxia_fields_elis_town_hall_f1_stairs"/>
 				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f1, PLACE_TYPE_innoxia_fields_elis_town_hall_f1_stairs)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f0', 'STAIRS_UP'))]
-				]]></effects>
+				]]></effects>-->
 			</response>
 		</responses>
 	</scene>

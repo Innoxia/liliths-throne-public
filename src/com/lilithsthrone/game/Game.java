@@ -271,10 +271,11 @@ public class Game implements XMLSaving {
 	
 	private boolean started;
 	
+	private static Map<String, CharacterInventory> savedInventories; // Map of ID to inventory
+
+	// Managing dialogue:
 	private DialogueManager dialogueManager;
 	private DialogueFlags dialogueFlags;
-	
-	private static Map<String, CharacterInventory> savedInventories; // Map of ID to inventory
 	
 	// Responses:
 	private int responsePointer = 0;
@@ -934,6 +935,10 @@ public class Game implements XMLSaving {
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.9.4")) {
 						Main.game.getWorlds().put(WorldType.ENFORCER_HQ, gen.worldGeneration(WorldType.ENFORCER_HQ));
 					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.4.0.5")) {
+						Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")));
+						Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1")));
+					}
 					if(Main.game.worlds.get(wt)==null) {
 						Main.game.getWorlds().put(wt, gen.worldGeneration(wt));
 					}
@@ -1566,7 +1571,7 @@ public class Game implements XMLSaving {
 					}
 				}
 				
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.17")) { // Reset home loactions:
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.17")) { // Reset home locations:
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(npc instanceof EnforcerPatrol) {
 							npc.setHomeLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_OFFICE);
@@ -1575,10 +1580,11 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Wes.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
 					Main.game.getNpc(Elle.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
 				}
-				
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.4") && Main.game.getPlayer().getWorldLocation()==WorldType.WORLD_MAP) {
-					Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_PLAZA); //TODO remove for 0.4.1!!!!!
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.0.5")) { // Reset Meraxis sex counts:
+					Main.game.getPlayer().getSexCountMap().remove(Main.game.getNpc(DarkSiren.class).getId());
+					Main.game.getNpc(Lilaya.class).getSexCountMap().remove(Main.game.getNpc(DarkSiren.class).getId());
+					Main.game.getNpc(Lyssieth.class).getSexCountMap().remove(Main.game.getNpc(DarkSiren.class).getId());
 				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
@@ -2150,7 +2156,7 @@ public class Game implements XMLSaving {
 			
 			// Place resets:
 			LilayaHomeGeneric.dailyUpdate();
-			SlaverAlleyDialogue.dailyReset();
+			SlaverAlleyDialogue.dailyReset(); //TODO this method causes lag on new turn - change slaver alley so that slaves are only generated when entering shop and looking around
 			VengarCaptiveDialogue.applyDailyReset();
 			getDialogueFlags().dailyReset();
 		}
@@ -2348,6 +2354,7 @@ public class Game implements XMLSaving {
 								case VAGINA:
 									areaEgged = "womb";
 									break;
+								case ARMPITS:
 								case ASS:
 								case BREAST:
 								case BREAST_CROTCH:
@@ -4088,6 +4095,15 @@ public class Game implements XMLSaving {
 	public boolean isSmallHours() {
 		return this.getHourOfDay()>=1 && this.getHourOfDay()<4;
 	}
+
+	/**
+	 * @param startHour The starting hour, with decimal places correctly converted to fraction of hour.
+	 * @param endHour The end hour, with decimal places correctly converted to fraction of hour.
+	 * @return true If the hour is between startHour and endHour, inclusive of start and exclusive of end.
+	 */
+	public boolean isHourBetween(float startHour, float endHour) {
+		return this.getDayMinutes()>=(startHour*60) && this.getDayMinutes()<(endHour*60);
+	}
 	
 	/**
 	 * @return true If the time is currently somewhere between sunrise and sunset.
@@ -4715,7 +4731,7 @@ public class Game implements XMLSaving {
 	public boolean isFemaleFacialHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.feminineBeardsContent);
 	}
-	
+
 	public boolean isFurryHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.furryHairContent);
 	}
@@ -4767,7 +4783,11 @@ public class Game implements XMLSaving {
 	public boolean isFootContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.footContent);
 	}
-
+	
+	public boolean isArmpitContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.armpitContent);
+	}
+	
 	public boolean isLactationContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.lactationContent);
 	}

@@ -299,6 +299,8 @@ public class LunetteMelee extends NPC {
 			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.PHYSICAL));
 			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.PHYSICAL));
 		}
+		
+		Util.random.setSeed(System.nanoTime()); // Reset seed to be close to random
 	}
 	
 	@Override

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()
+		&& !meraxis.hasFetish(FETISH_MASTURBATION)
+		&& (sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_FINGER).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(pc, ORIFICE_VAGINA, PENETRATION_FINGER).contains(meraxis)
+			|| sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, PENETRATION_FINGER).contains(meraxis))]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_KINK_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_KINK_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#meraxis.addFetish(FETISH_MASTURBATION, true)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Push her]]></title>
+	<tooltip><![CDATA[
+		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_FINGER).contains(pc))
+			Make Meraxis admit to you that she loves being fingered as you frantically tease her clit and make her cum.
+		#ELSEIF(sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, ORIFICE_VAGINA).contains(meraxis))
+			Make Meraxis admit that she loves fingering you as tease her fingers over your cunt and make her cum.
+		#ELSE
+			Make Meraxis admit that she loves stroking your cock you as tease her fingers up and down your throbbing length and make her cum.
+		#ENDIF
+		<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_MASTURBATION.getName(meraxis)]' fetish from this!)]
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_FINGER).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit to you that she loves being fingered as you frantically tease her clit and make her cum. 
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, ORIFICE_VAGINA).contains(meraxis)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit that she loves fingering you as tease her fingers over your cunt and make her cum.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, PENETRATION_PENIS).contains(meraxis)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit that she loves stroking your cock you as tease her fingers up and down your throbbing length and make her cum.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

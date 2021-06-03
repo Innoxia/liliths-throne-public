@@ -22,5 +22,7 @@
 		<place colour="#004080">innoxia_fields_elis_tavern_f1_room_owner</place>
 		<place colour="#ff9cff">innoxia_fields_elis_tavern_f1_room_sex</place>
 		<place colour="#8000ff">innoxia_fields_elis_tavern_f1_room_meraxis</place>
+		<place colour="#ffff00">innoxia_fields_elis_tavern_f1_room_player</place>
+		
 	</places>
 </worldType>

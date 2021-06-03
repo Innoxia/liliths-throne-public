@@ -1057,6 +1057,9 @@ public abstract class AbstractStatusEffect {
 			case ASS:
 				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
 				break;
+			case ARMPITS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaArmpits()+"</div>");
+				break;
 			case BREAST:
 				if(owner.hasBreasts()) {
 					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts()+"</div>");
@@ -1113,6 +1116,9 @@ public abstract class AbstractStatusEffect {
 				break;
 			case ASS:
 				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss()+"</div>");
+				break;
+			case ARMPITS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaArmpits()+"</div>");
 				break;
 			case BREAST:
 				if(owner.hasBreasts()) {
