@@ -110,6 +110,7 @@ public enum SVGImages {
 			coverableAreaSpinneret,
 			coverableAreaMound,
 			coverableAreaThighs,
+			coverableAreaArmpits,
 			coverableAreaUrethraPenis,
 
 			eggIncubation1, eggIncubation2, eggIncubation3,
@@ -741,6 +742,10 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaThighs.svg");
 			coverableAreaThighs = Util.inputStreamToString(is);
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaArmpits.svg");
+			coverableAreaArmpits = Util.inputStreamToString(is);
+			
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeFinger.svg");
 			penetrationTypeFinger = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypePenis.svg");
@@ -1245,7 +1250,11 @@ public enum SVGImages {
 	public String getCoverableAreaThighs() {
 		return coverableAreaThighs;
 	}
-
+	
+	public String getCoverableAreaArmpits() {
+		return coverableAreaArmpits;
+	}
+	
 	public String getPenetrationTypeFinger() {
 		return penetrationTypeFinger;
 	}

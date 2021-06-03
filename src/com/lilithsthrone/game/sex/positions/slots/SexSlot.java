@@ -44,10 +44,10 @@ public class SexSlot {
 	 * @param slotToCopy
 	 */
 	public SexSlot(SexSlot slotToCopy) {
-		this.name = slotToCopy.getName(null);
-		this.description = slotToCopy.getDescription();
+		this.name = slotToCopy.name;
+		this.description = slotToCopy.description;
 		this.orgasmDescription = slotToCopy.orgasmDescription;
-		this.standing = slotToCopy.isStanding(null);
+		this.standing = slotToCopy.standing;
 		this.tags = new ArrayList<>(slotToCopy.getTags());
 	}
 
@@ -55,7 +55,7 @@ public class SexSlot {
 	 * @param target The person in this slot.
 	 */
 	public String getName(GameCharacter target) {
-		return name;
+		return UtilText.parse(name);
 	}
 
 	/**

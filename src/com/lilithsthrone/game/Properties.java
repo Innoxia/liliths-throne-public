@@ -662,6 +662,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.8.9")) {
 						values.add(PropertyValue.badEndContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.0.5")) {
+						values.add(PropertyValue.armpitContent);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						

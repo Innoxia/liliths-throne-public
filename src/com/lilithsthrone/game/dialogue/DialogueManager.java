@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -38,6 +39,7 @@ public class DialogueManager {
 	}
 	
 	public static DialogueNode getDialogueFromId(String id) {
+		id = id.trim(); // Just make sure that any parsed ids have been trimmed
 		if(id==null || id.equalsIgnoreCase("null") || id.equalsIgnoreCase("empty") || id.isEmpty()) {
 			return null;
 			
@@ -63,6 +65,12 @@ public class DialogueManager {
 	}
 	
 	static {
+		// Special hard-coded dialogues which need to be accessed in external files:
+		String id = "MERAXIS_DEMON_TF_START";
+		allDialogues.add(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		dialogueToIdMap.put(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START, id);
+		idToDialogueMap.put(id, LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		
 //		// Modded dialogue types:
 //		
 //		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", null, "dialogue");

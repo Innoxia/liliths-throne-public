@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()
+		&& !meraxis.hasFetish(FETISH_BREASTS_SELF)
+		&& (sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_NIPPLE, PENETRATION_TONGUE).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, ORIFICE_BREAST).contains(meraxis))]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_KINK_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_KINK_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#meraxis.addFetish(FETISH_BREASTS_SELF, true)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Push her]]></title>
+	<tooltip><![CDATA[
+		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_NIPPLE, PENETRATION_TONGUE).contains(pc))
+			Make Meraxis admit to you that she loves having her breasts used as you suck on her nipples and make her cum.
+		#ELSE
+			Make Meraxis admit to you that she loves having her breasts used as you push your cock up against them and make her cum.
+		#ENDIF
+		<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_BREASTS_SELF.getName(meraxis)]' fetish from this!)]
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_NIPPLE, PENETRATION_TONGUE).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit to you that she loves having her breasts used as you suck on her nipples and make her cum.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, ORIFICE_BREAST).contains(meraxis)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit to you that she loves having her breasts used as you push your cock up against them and make her cum.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

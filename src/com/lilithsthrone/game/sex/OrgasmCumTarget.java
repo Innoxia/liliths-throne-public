@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.1.97
- * @version 0.3.3
+ * @version 0.4.1
  * @author Innoxia
  */
 public enum OrgasmCumTarget {
@@ -16,6 +16,7 @@ public enum OrgasmCumTarget {
 	INSIDE("inside", true),
 	INSIDE_SWITCH_DOUBLE("inside (double)", true),
 	
+	ARMPITS("over armpit", true),
 	ASS("over ass", true),
 	GROIN("over groin", true),
 	BREASTS("onto breasts", true),

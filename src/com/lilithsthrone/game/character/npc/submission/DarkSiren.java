@@ -165,6 +165,20 @@ public class DarkSiren extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.5")) {
+			if(this.getSubspecies()==Subspecies.HALF_DEMON) {
+				this.setStartingBody(false);
+			} else {
+				this.setStartingBody(false);
+				Lyssieth.setDaughterDemonicBodyParts(this);
+			}
+//			// Reset sex stats:
+//			this.sexCount = new HashMap<>();
+//			this.virginityLossMap = new HashMap<>();
+//			// Reset body knowledge and fluids:
+//			this.areasKnownByCharactersMap = new HashMap<>();
+//			this.fluidsStoredMap = new HashMap<>();
+		}
 	}
 
 	@Override
@@ -302,8 +316,8 @@ public class DarkSiren extends NPC {
 		this.setNippleVirgin(true);
 		this.setBreastSize(CupSize.AA.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
-		this.setNippleSize(NippleSize.ONE_SMALL);
-		this.setAreolaeSize(AreolaeSize.ONE_SMALL);
+		this.setNippleSize(NippleSize.TWO_BIG);
+		this.setAreolaeSize(AreolaeSize.TWO_BIG);
 		this.setNippleCapacity(0, true);
 		// Nipple settings and modifiers
 		
@@ -312,7 +326,7 @@ public class DarkSiren extends NPC {
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.TWO_SMALL);
 		this.setHipSize(HipSize.THREE_GIRLY);
-		// Anus settings and modifiers
+		this.removeAssOrificeModifier(OrificeModifier.TENTACLED);
 		
 		// Penis:
 		// n/a
@@ -322,11 +336,12 @@ public class DarkSiren extends NPC {
 		this.setVaginaVirgin(true);
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
 		this.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
-		this.setVaginaSquirter(true);
+		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
-		this.setVaginaWetness(Wetness.TWO_MOIST);
-		this.setVaginaElasticity(OrificeElasticity.TWO_FIRM.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
+		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		this.removeVaginaOrificeModifier(OrificeModifier.TENTACLED);
 		
 		// Feet:
 		// Foot shape
@@ -354,6 +369,14 @@ public class DarkSiren extends NPC {
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
+		}
+	}
+	
+	public void applyScythe(boolean equip) {
+		if(equip) {
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
+		} else {
+			this.unequipAllWeaponsIntoVoid(true);
 		}
 	}
 	
@@ -415,6 +438,17 @@ public class DarkSiren extends NPC {
 	
 	@Override
 	public void changeFurryLevel(){
+	}
+
+	@Override
+	public void hourlyUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+			if(Main.game.getHourOfDay()>=1 && Main.game.getHourOfDay()<=8) { // In room from 01:00 - 09:00
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
+			} else {
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_meraxis"));
+			}
+		}
 	}
 	
 	@Override
@@ -478,5 +512,100 @@ public class DarkSiren extends NPC {
 			};
 		}
 	}
+	
+	// Extra methods for post-duelling options:
+	
+	public boolean isAssChanged() {
+		return this.getAssSize().getValue()>AssSize.TWO_SMALL.getValue();
+	}
+	
+	public String duelAssChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setAssSize(AssSize.FOUR_LARGE));
+			sb.append(this.setHipSize(HipSize.FIVE_VERY_WIDE));
+		} else {
+			sb.append(this.setAssSize(AssSize.TWO_SMALL));
+			sb.append(this.setHipSize(HipSize.THREE_GIRLY));
+		}
+		return sb.toString();
+	}
 
+	public boolean isBreastsChanged() {
+		return this.getBreastSize().getMeasurement()>CupSize.AA.getMeasurement();
+	}
+	
+	public String duelBreastChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setBreastSize(CupSize.DD));
+			sb.append(this.setNippleSize(NippleSize.THREE_LARGE));
+			sb.append(this.setAreolaeSize(AreolaeSize.THREE_LARGE));
+		} else {
+			sb.append(this.setBreastSize(CupSize.AA.getMeasurement()));
+			sb.append(this.setNippleSize(NippleSize.TWO_BIG));
+			sb.append(this.setAreolaeSize(AreolaeSize.TWO_BIG));
+		}
+		return sb.toString();
+	}
+
+	public boolean isLactating() {
+		return this.getBreastRawMilkStorageValue()>0;
+	}
+	
+	public String duelLactation(boolean lactate) {
+		StringBuilder sb = new StringBuilder();
+		if(lactate) {
+			sb.append(this.setBreastMilkStorage(250));
+			this.fillMilkToMaxStorage();
+		} else {
+			sb.append(this.setBreastMilkStorage(0));
+			this.fillMilkToMaxStorage();
+		}
+		return sb.toString();
+	}
+
+	public boolean isMouthChanged() {
+		return this.getLipSize().getValue()>LipSize.ONE_AVERAGE.getValue();
+	}
+
+	public String duelMouthChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setLipSize(LipSize.FOUR_HUGE));
+			sb.append(this.addFaceOrificeModifier(OrificeModifier.PUFFY));
+			sb.append(this.setFaceWetness(Wetness.SIX_SOPPING_WET.getValue()));
+			sb.append(this.setTongueLength(TongueLength.ONE_LONG.getMedianValue()));
+		} else {
+			sb.append(this.setLipSize(LipSize.ONE_AVERAGE));
+			sb.append(this.removeFaceOrificeModifier(OrificeModifier.PUFFY));
+			sb.append(this.setFaceWetness(Wetness.THREE_WET.getValue()));
+			sb.append(this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue()));
+		}
+		return sb.toString();
+	}
+
+	public boolean isPussyChanged() {
+		return this.getVaginaLabiaSize().getValue()>LabiaSize.ZERO_TINY.getValue();
+	}
+
+	public String duelPussyChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setVaginaLabiaSize(LabiaSize.THREE_LARGE));
+			sb.append(this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true));
+			sb.append(this.setVaginaWetness(Wetness.SIX_SOPPING_WET));
+		} else {
+			sb.append(this.setVaginaLabiaSize(LabiaSize.ZERO_TINY));
+			sb.append(this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true));
+			sb.append(this.setVaginaWetness(Wetness.THREE_WET));
+		}
+		return sb.toString();
+	}
+	
+	public String duelSquirter(boolean squirter) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.setVaginaSquirter(squirter));
+		return sb.toString();
+	}
 }

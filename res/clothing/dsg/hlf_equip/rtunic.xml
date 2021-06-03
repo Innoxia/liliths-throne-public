@@ -57,6 +57,7 @@
 					</clothingAccessRequired>
 					<blockedBodyParts>
 						<bodyPart>BACK</bodyPart>
+						<bodyPart>ARMPITS</bodyPart>
 					</blockedBodyParts>
 					<clothingAccessBlocked>
 					</clothingAccessBlocked>

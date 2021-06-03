@@ -5677,6 +5677,7 @@ public class Body implements XMLSaving {
 							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] womb just yet.";
 						}
 						break;
+					case ARMPITS:
 					case ASS:
 					case BREAST:
 					case BREAST_CROTCH:
@@ -5758,6 +5759,7 @@ public class Body implements XMLSaving {
 						case VAGINA:
 							areaEgged = "womb";
 							break;
+						case ARMPITS:
 						case ASS:
 						case BREAST:
 						case BREAST_CROTCH:

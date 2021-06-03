@@ -11416,16 +11416,12 @@ public class StatusEffect {
 					boolean selfAction = target.equals(main);
 					descriptionAdded = true;
 					switch(orifice) {
+						case ARMPITS:
 						case ANUS:
-							break;
 						case ASS:
-							break;
 						case BREAST:
-							break;
 						case NIPPLE:
-							break;
 						case BREAST_CROTCH:
-							break;
 						case NIPPLE_CROTCH:
 							break;
 						case MOUTH:
@@ -11473,7 +11469,8 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
-					&& Main.sex.getAllParticipants(true).contains(target);
+					&& Main.sex.getAllParticipants(true).contains(target)
+					&& Main.game.isAnalContentEnabled();
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -11568,16 +11565,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -11732,6 +11725,13 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(licking)] [npc.her] own [npc.armpits]!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] [style.boldSex(licking)] [npc.namePos] [npc.armpits]!"));
+								}
+								break;
 							case ANUS:
 								if(selfAction) {
 									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(anilingus)] on [npc.herself]!"));
@@ -11940,16 +11940,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -12104,16 +12100,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -12266,16 +12258,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -12442,16 +12430,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -12597,16 +12581,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -12749,16 +12729,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -12949,16 +12925,12 @@ public class StatusEffect {
 					descriptionAdded = true;
 					boolean selfAction = target.equals(main);
 					switch(orifice) {
+						case ARMPITS:
 						case ANUS:
-							break;
 						case ASS:
-							break;
 						case BREAST:
-							break;
 						case NIPPLE:
-							break;
 						case BREAST_CROTCH:
-							break;
 						case NIPPLE_CROTCH:
 							break;
 						case MOUTH:
@@ -13156,16 +13128,12 @@ public class StatusEffect {
 					descriptionAdded = true;
 					boolean selfAction = target.equals(main);
 					switch(orifice) {
+						case ARMPITS:
 						case ANUS:
-							break;
 						case ASS:
-							break;
 						case BREAST:
-							break;
 						case NIPPLE:
-							break;
 						case BREAST_CROTCH:
-							break;
 						case NIPPLE_CROTCH:
 							break;
 						case MOUTH:
@@ -13231,7 +13199,6 @@ public class StatusEffect {
 			return getOrificeSVGString(owner, SexAreaOrifice.SPINNERET, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaSpinneret());
 		}
 	};
-	
 	
 	public static AbstractStatusEffect THIGH_STATUS = new AbstractStatusEffect(95,
 			"Thigh status",
@@ -13316,16 +13283,12 @@ public class StatusEffect {
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
 							case ANUS:
-								break;
 							case ASS:
-								break;
 							case BREAST:
-								break;
 							case NIPPLE:
-								break;
 							case BREAST_CROTCH:
-								break;
 							case NIPPLE_CROTCH:
 								break;
 							case MOUTH:
@@ -13393,6 +13356,164 @@ public class StatusEffect {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return getOrificeSVGString(owner, SexAreaOrifice.THIGHS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs());
+		}
+	};
+	
+	public static AbstractStatusEffect ARMPIT_STATUS = new AbstractStatusEffect(95,
+			"Armpit status",
+			null,
+			PresetColour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.ARMPITS);
+		}
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.ARMPITS);
+		}
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.ARMPITS);
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			StringBuilder descriptionSB = new StringBuilder();
+			SexAreaOrifice type = SexAreaOrifice.ARMPITS;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(target, type).entrySet()) {
+				for(SexAreaInterface sArea : entry.getValue()) {
+					boolean selfAction = target.equals(entry.getKey());
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(groping)] [npc.her] own [npc.armpits]!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(groping)] [npc2.namePos] [npc2.armpits]!"));
+								}
+								break;
+							case PENIS:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(fucking)] [npc.her] own armpits!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(fucking)] [npc2.namePos] armpits!"));
+								}
+								break;
+							case TAIL:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tail-fucking)] [npc.her] own armpits!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(tail-fucking)] [npc2.namePos] armpits!"));
+								}
+								break;
+							case TENTACLE:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tentacle-fucking)] [npc.her] own armpits!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(tentacle-fucking)] [npc2.namePos] armpits!"));
+								}
+								break;
+							case TONGUE:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(kissing)] [npc.her] own [npc.armpits]!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(kissing)] [npc2.namePos] [npc2.armpits]!"));
+								}
+								break;
+							case CLIT:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(clit-fucking)] [npc.her] own armpits!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(clit-fucking)] [npc2.namePos] armpits!"));
+								}
+								break;
+							case FOOT:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(pushing [npc.her] [npc.feet])] between [npc.her] own armpits!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(pushing [npc.her] [npc.feet])] between [npc2.namePos] armpits!"));
+								}
+								break;
+						}
+						
+					} else if(sArea.isOrifice()) {
+						switch((SexAreaOrifice)sArea) {
+							case ARMPITS:
+							case ANUS:
+							case ASS:
+							case BREAST:
+							case NIPPLE:
+							case BREAST_CROTCH:
+							case NIPPLE_CROTCH:
+								break;
+							case MOUTH:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(kissing)] [npc.her] own [npc.armpits]!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(kissing)] [npc2.namePos] [npc2.armpits]!"));
+								}
+								break;
+							case THIGHS:
+								break;
+							case URETHRA_PENIS:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(fucking)] [npc.her] own armpits!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(fucking)] [npc2.namePos] armpits!"));
+								}
+								break;
+							case URETHRA_VAGINA:
+							case VAGINA:
+							case SPINNERET:
+								break;
+						}
+					}
+				}
+			}
+			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
+
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] armpits"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
+		}
+		@Override
+		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+			SexAreaOrifice orifice = SexAreaOrifice.ARMPITS;
+			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			
+			return new Value<>(3,
+					Main.sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							partner,
+							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+							target,
+							orifice)));
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex()
+					&& Main.sex.getAllParticipants(true).contains(target)
+					&& Main.game.isArmpitContentEnabled();
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaOrifice.ARMPITS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaArmpits());
 		}
 	};
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()
+		&& !meraxis.hasFetish(FETISH_VAGINAL_RECEIVING)
+		&& (sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_THIGHS, PENETRATION_PENIS).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_PENIS).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(meraxis, PENETRATION_CLIT, PENETRATION_CLIT).contains(pc))]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_KINK_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_KINK_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#meraxis.addFetish(FETISH_VAGINAL_RECEIVING, true)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Pussy slut]]></title>
+	<tooltip><![CDATA[
+		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_THIGHS, PENETRATION_PENIS).contains(pc))
+			Make Meraxis admit to you that she wants to have her pussy fucked as she cums from receiving intercrural sex.
+		#ELSEIF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_PENIS).contains(pc))
+			Make Meraxis admit to you that she loves having her pussy fucked as she cums from the feeling of your cock inside of her.
+		#ELSE
+			Make Meraxis admit to you that she loves having her pussy stimulated as she cums from scissoring with you.
+		#ENDIF
+		<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_VAGINAL_RECEIVING.getName(meraxis)]' fetish from this!)]
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_THIGHS, PENETRATION_PENIS).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit to you that she wants to have her pussy fucked as she cums from receiving intercrural sex.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_PENIS).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit to you that she loves having her pussy fucked as she cums from the feeling of your cock inside of her.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, PENETRATION_CLIT, PENETRATION_CLIT).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Make Meraxis admit to you that she loves having her pussy stimulated as she cums from scissoring with you.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

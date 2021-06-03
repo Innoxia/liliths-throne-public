@@ -1,0 +1,1225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="UNEXPLORED"><![CDATA[
+	<p>
+		The two dilapidated barns which together constitute the 'Centaur Carriage Depot' are near to your current location, and so you could easily head over to them and check them out if you wanted to...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+			The two dilapidated barns which together constitute the 'Centaur Carriage Depot' are near to your current location, although seeing as Astrapi informed you that she and her brother Vronti wouldn't be working for the rest of the day, there's no point in heading over to them. If you wanted to meet with one of the centaurs again then you'd better come back tomorrow...
+		#ELSE
+			The two dilapidated barns which together constitute the 'Centaur Carriage Depot' are near to your current location, and so you could easily head over to them and try to find Astrapi or Vronti if you wanted to...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE"><![CDATA[
+	<p>
+		#IF(game.isHourBetween(5.75, 15))
+			Although the barn is clearly open, you decide against heading inside after all, and instead turn around and [pc.walk] off into the Foloi Fields...
+		#ELSE
+			As the barn is clearly closed, you decide against waiting for it to open, and instead turn around and [pc.walk] off into the Foloi Fields...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPROACH"><![CDATA[
+	<p>
+		Having been previously interrupted by Meraxis, you decide to continue with your exploration of the 'Centaur Carriage Depot'. As you approach the two dilapidated barns which sit on opposite sides of the road, you can quite clearly see that the one on your right is completely unsuitable for housing any sort of business. Not only has half of the roof fallen in, but the large doors which open out onto the road have been smashed to pieces, allowing you to see that the interior is filled with broken old carts and ransacked crates, with a hazardous mix of smashed glass and splintered wood covering the entire floor.
+	</p>
+	<p>
+		Turning your attention to the second of the two barns, you see that this structure is in a far better state of repair. Although its ivy-covered, wooden walls seem to be buckling in a couple of places, it doesn't seem to have suffered any critical structural damage, and what's more, the short strip of ground leading from the road to the barn's wide doors looks to have been very recently cleared of weeds and debris. Looking over this cleared ground to the doors themselves, you spot what's clearly a brand new wooden sign that's been nailed to one of them. Carved out and painted in large white letters, you read:
+	</p>
+	<p style='text-align:center;'><i>
+		<b>Astrapi & Vronti Grigori</b>
+		<br/>offering
+		<br/><b>Centaur Carriages To Elis</b>
+		<br/>Tickets are fixed at the low price of
+		<br/><b>250 flames</b>
+		<br/>Open from: [units.time(5.75)]-[units.time(15)]
+	</i></p>
+	#IF(game.isHourBetween(5.75, 15))
+		<p>
+			Even if this sign wasn't enough to inform you that there's at least one business still operating out of here, one of the barn doors have been left half-open, and from within you can hear a feminine voice occasionally calling out to someone. As the sign informs you that the business is currently [style.colourGood(open)], you could enter via this half-open door and see what's happening within...
+		</p>
+	#ELSE
+		<p>
+			From this sign you can quite clearly see that there's at least one business still operating out of here, although due to the time they're currently [style.colourBad(closed)]. If you wanted to meet with this 'Astrapi' or 'Vronti' then you should come back between [units.time(5.75)]-[units.time(15)]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPROACH_WAIT"><![CDATA[
+	<p>
+		Deciding to wait until the barn opens, you loiter around in the nearby area until eventually it's [units.time(5.75)]. Looking over at the barn once again, you see that one of the doors have been half opened; whoever's responsible for doing this must have approached from the rear of the barn and entered via a back door, or else you would clearly have seen them coming down the road. As you head over to the barn from where you were waiting, you hear a feminine voice coming from within.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPROACH_INSIDE"><![CDATA[
+	<p>
+		[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that only about one quarter of the barn's available space is in use, and houses not only a pair of large, four-wheeled wooden carriages, but also a dozen crates and a couple of workshop benches. A large, muscular centaur and an equally-buff centauress are standing to the side of one of these carriages, both of whom have their backs to you.
+	</p>
+	<p>
+		Not having seen you enter their barn, these two centaurs continue with what they're doing, which you see is changing the wheel on the carriage they're standing next to. In a display of incredible strength, the female centaur, who has [astrapi.legColour] horse hair, [astrapi.skinColour] skin, and wavy, [astrapi.hairColour]-coloured hair, grabs hold of the side of the carriage, and with a deep grunt, she lifts it up off the floor. The male, who has [vronti.legColour] horse hair and [vronti.skinColour] skin similar in shade to the female, then moves in to slide off the wheel they've clearly just loosened, before swiftly fitting a new one and allowing his companion to lower the cart.
+	</p>
+	<p>
+		[astrapi.speech(That's all of them, then,)] the centauress says, [astrapi.speech(so once you've secured that wheel I'll take this carriage over to Elis, while you go and tell that stuck-up bitch that we quit.)]
+	</p>
+	<p>
+		Simply letting out an agreeable grunt in response, the centaur turns to pick up his tools from the nearby workbench, and it's at this moment that you're finally spotted. Granting you a curt nod, the centaur looks over to his companion and utters, [vronti.speech(Customer.)]
+	</p>
+	<p>
+		[astrapi.speech(What, already?!)] the centauress replies, before turning to look over her shoulder at you. With this seeming to be as good a time as any, you decide to start things off by introducing yourself to the two centaurs...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTRODUCTIONS"><![CDATA[
+	<p>
+		Offering the pair a greeting, you introduce yourself as [pc.name], before asking if they're the 'Astrapi' and 'Vronti' whose names were on the sign outside.
+	</p>
+	<p>
+		[astrapi.speech(We sure are! I'm Astrapi, pleased to meet you, and this is my older brother, Vronti,)] the centauress cheerily responds as she turns to face you. As she does so, you see that she's not wearing any sort of top or bra, leaving her huge, [astrapi.cupSize]-cup breasts completely exposed to you. In fact, the only items of clothing which she appears to be wearing are a pair of blue-grey sweat bands around her wrists, and a similar-coloured one around her head. Her brother seems to share her fondness for a lack of clothing, for he doesn't seem to be wearing anything at all.
+	</p>
+	<p>
+		[astrapi.speech(You got here at the perfect time,)] Astrapi happily declares. Her huge breasts bounce up and down in time with her trotting as she then approaches you and continues, [astrapi.speech(My brother and I were planning on re-opening our carriage business starting tomorrow, but I was just about to take this one over to Elis, so you could choose to be our first customer right now, if you'd like. If not, then no big deal; we'll be doing trips to and from Elis at six and nine in the morning, another one at midday, and a final one at three in the afternoon, so you can always catch us then.)]
+	</p>
+	<p>
+		As she flashes you a big smile, you find yourself noticing just how incredibly muscular this exhibitionist centauress is. Her clearly-defined six-pack and huge shoulder, arm, and neck muscles hint at a life spent performing physical labour. Although her huge breasts, feminine voice, and clear lack of male genitalia make it extremely obvious that she's a female, Astrapi's face has an androgynous quality to it, which, combined with her shoulder-length hair, impressive physique, and height of [astrapi.heightValue], gives her a very tomboyish appearance.
+	</p>
+	<p>
+		You find yourself thinking that her cheery personality and manner of speaking also fits into this categorisation, which is further reinforced as she looks over to her brother and calls out, [astrapi.speech(Come on, Vron, you know you've got to stop being so shy! You're gonna be alone with customers every day from now on. Try introducing yourself to [pc.name] here!)]
+	</p>
+	<p>
+		Letting out a deep sigh, Vronti finishes tightening the bolts on the wheel, before standing up and turning to face you and Astrapi. Slowly walking over to where the two of you are standing, he rolls his eyes and grunts in a deep, masculine voice, [vronti.speech(I'm Vronti... Hi.)]
+	</p>
+	<p>
+		[astrapi.speech(That's the spirit,)] Astrapi laughs, before playfully punching her brother on the arm and teasing, [astrapi.speech(Hey, Vronti, you're starting to blush!)]
+	</p>
+	<p>
+		Sure enough, the huge centaur, who stands just a little taller than his sister at [vronti.heightValue], seems to be blushing just a little. His stoic expression betrays no hint of embarrassment, however, and after enduring a little more teasing from his sister he simply turns around and walks back to the carriages. As he moves, you see that his muscles are even larger and more well-defined than his sister's, which combined with his incredible body mass makes him look absolutely titanic in comparison with a regular centaur.
+	</p>
+	<p>
+		Turning her attention back to you, Astrapi asks, [astrapi.speech(So, are you gonna come with me on a trip to Elis? It's only two-hundred and fifty flames for a ticket! That's a real bargain, you know, especially considering that me and Vron were always the fastest centaur drivers. I'll get you there in well under three hours!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_BARN"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+		<p>
+			Thanking Astrapi for the offer, you tell her that you weren't needing a ride to Elis right now, but that perhaps you'll make use of her and her brother's services in the future.
+		</p>
+		<p>
+			[astrapi.speech(Sure thing,)] the cheerful centauress replies. Flashing you a big smile, she reminds you, [astrapi.speech(We're not going to be running any more rides today, but we'll be setting off from here and our Elis counterpart at six and nine in the morning, again at midday, and finally at three in the afternoon, so you can always catch us then. Our Elis stop is like two minutes walk from the eastern gate; it's impossible to miss.)]
+		</p>
+		<p>
+			Saying farewell to the two centaurs, and receiving happy and muted responses from Astrapi and Vronti respectively, you head out of the barn and set off on your way through the fields...
+		</p>
+	#ELSEIF(game.getCharactersPresent().contains(astrapi))
+		<p>
+			Thanking Astrapi for the offer, you tell her that you weren't needing a ride to Elis right now, but that perhaps you'll make use of her or her brother's services in the future.
+		</p>
+		<p>
+			[astrapi.speech(Sure thing,)] the cheerful centauress replies. Flashing you a big smile, she reminds you, [astrapi.speech(Our rides set off at six and nine in the morning, again at midday, and finally at three in the afternoon, so you can always catch us then.)]
+		</p>
+		<p>
+			Saying goodbye to Astrapi, and receiving a happy farewell in return, you head out of the barn and set off on your way through the fields...
+		</p>
+	#ELSEIF(game.getCharactersPresent().contains(vronti))
+		<p>
+			Thanking Vronti for the offer, you tell him that you weren't needing a ride to Elis right now, but that perhaps you'll make use of his or his sister's services in the future.
+		</p>
+		<p>
+			[vronti.speech(Right,)] the stoic centaur briefly replies, [vronti.speech(See you around.)]
+		</p>
+		<p>
+			Saying goodbye to Vronti, and receiving a simple grunt in return, you head out of the barn and set off on your way through the fields...
+		</p>
+	#ELSE
+		<p>
+			Deciding not to wait for Astrapi or Vronti to show up, you [pc.step] away from the barn and set off on your way through the fields...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPROACH_REPEAT"><![CDATA[
+	<p>
+		Once again deciding to approach the 'Centaur Carriage Depot', you head over to where the two dilapidated barns are situated. Nothing seems to have changed since the last time you were here, with the ruined barn on your right appearing to be completely unsuitable for housing any sort of business. Not only has half of the roof fallen in, but the large doors which open out onto the road have been smashed to pieces, allowing you to see that the interior is filled with broken old carts and ransacked crates, with a hazardous mix of smashed glass and splintered wood covering the entire floor.
+	</p>
+	<p>
+		Turning your attention to the second of the two barns, you once again take note that this structure is in a far better state of repair. Although its ivy-covered, wooden walls seem to be buckling in a couple of places, it doesn't seem to have suffered any critical structural damage, and what's more, the short strip of ground leading from the road to the barn's wide doors is being well maintained and kept clear of weeds and debris. Looking over this cleared ground to the doors themselves, you spot the familiar wooden sign that's been nailed to one of them. Carved out and painted in large white letters, you read:
+	</p>
+	<p style='text-align:center;'><i>
+		<b>Astrapi & Vronti Grigori</b>
+		<br/>offering
+		<br/><b>Centaur Carriages To Elis</b>
+		<br/>Tickets are fixed at the low price of
+		<br/><b>250 flames</b>
+		<br/>Open from: [units.time(5.75)]-[units.time(15)]
+	</i></p>
+	<p>
+		#IF(game.isHourBetween(5.75, 15))
+			Just like before, one of the barn doors have been left half-open, making it clear that Astrapi and Vronti's business is currently [style.colourGood(open)]. If you wanted to, you could enter via this half-open door and see if either of the centaurs are inside...
+		#ELSE
+			As it's currently outside of the business's opening times, it's currently [style.colourBad(closed)], with the doors to the barn are securely shut and locked. If you wanted to travel to Elis via centaur carriage then you should come back between [units.time(5.75)]-[units.time(15)]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPROACH_REPEAT_WAIT"><![CDATA[
+	<p>
+		Deciding to wait until the barn opens, you loiter around in the nearby area until eventually it's [units.time(5.75)]. Looking over at the barn once again, you see that one of the doors have been half opened; whoever's responsible for doing this must have approached from the rear of the barn and entered via a back door, or else you would clearly have seen them coming down the road.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- If time is:
+		05:45-6:00 - Astrapi waiting there
+		08:45-9:00 - Vronti waiting there
+		11:45-12:00 - Astrapi waiting there
+		14:45-15:00 - Vronti waiting there
+		-->
+	<htmlContent tag="APPROACH_INSIDE_REPEAT"><![CDATA[
+	#IF(game.getCharactersPresent().contains(astrapi))
+		<p>
+			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is once again empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that less than one quarter of the barn's available space is in use, and houses not only a large, four-wheeled wooden carriage, but also a dozen crates and a couple of workshop benches.
+		</p>
+		<p>
+			The familiar form of the muscular centauress, Astrapi, can be seen lying down and relaxing beside her carriage. As you enter the barn she sees you and stands up, before cheerfully calling out, [astrapi.speech(Hi, [pc.name]! I'm planning on setting off for Elis in a few minutes, so if you want a ride just let me know!)]
+		</p>
+		<p>
+			As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. Completely unconcerned about her exhibitionism, she turns around and starts checking over her carriage to make sure it's in working condition, shamelessly flashing you her [astrapi.pussyColour] horse-pussy in the process. Turning her head back towards you, she calls out, [astrapi.speech(Remember, it's only two-hundred and fifty flames! You can't pass up a bargain like that, can you?!)] 
+		</p>
+	#ELSEIF(game.getCharactersPresent().contains(vronti))
+		<p>
+			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is once again empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that less than one quarter of the barn's available space is in use, and houses not only a large, four-wheeled wooden carriage, but also a dozen crates and a couple of workshop benches.
+		</p>
+		<p>
+			The familiar form of the muscular centaur, Vronti, can be seen lying down and relaxing beside his carriage. As you enter the barn he sees you and stands up, before giving you a nod and grunting, [vronti.speech(Hey there...)]
+		</p>
+		<p>
+			As usual, Vronti isn't wearing any clothing at all, and as such as he stands up you're able to see not only the [vronti.cockSize] sheath of his cock but also his [vronti.ballSize] balls. Completely unconcerned about his exhibitionism, he turns around and starts checking over his carriage to make sure it's in working condition, shamelessly flashing you his puffy, [vronti.anusColour] horse-anus in the process. Turning his head back towards you, he calls out, [vronti.speech(It's two-hundred and fifty flames for a ride. I'm leaving in a few minutes.)]
+		</p>
+	#ELSE
+		<p>
+			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is once again empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that only about one quarter of the barn's available space is in use, and houses a dozen crates and a couple of workshop benches. There's no sign of either of the two wooden carriages which you've seen here before, nor of Astrapi or Vronti.
+		</p>
+		<p>
+			Realising that the two centaurs must be on their way to and from Elis, you wonder whether you should wait for one of them to arrive, or instead leave and travel through the fields without them.
+			#IF(game.isHourBetween(6, 9) || game.isHourBetween(12, 15))
+				 Remembering what Astrapi told you before, Vronti will be the one to arrive here next.
+			#ELSE
+				 Remembering what Astrapi told you before, she'll be the one to arrive here next.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Astrapi travel: -->
+	
+	<htmlContent tag="ASTRAPI_START"><![CDATA[
+	<p>
+		Deciding to take up Astrapi's offer, you tell her that you'd like a ride to Elis, before paying her the two hundred and fifty flames she's asked for. Flashing you a big smile, she stores the money in a sturdy lock-box attached to her carriage, before happily exclaiming, [astrapi.speech(Right, if you'd like to climb aboard, we'll set off right now!)]
+	</p>
+	<p>
+		Doing as you're instructed, you climb aboard the carriage and make yourself comfortable on the padded seats. Trotting over to fully open the barn's door, Astrapi
+		#IF(game.getCurrentWeather()==WEATHER_RAIN)
+			 sees that it's currently raining, and so swiftly erects a canvas cover over the carriage.
+		#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
+			 sees that it's currently snowing, and so swiftly erects a canvas cover over the carriage.
+		#ELSE
+			 sees that the weather looks fine, and so securely folds up and fastens the carriage's canvas cover to its rear.
+		#ENDIF
+		 Pulling on a sports bra and strapping a recurve bow to her back, she starts strapping herself into the carriage's harness, explaining, [astrapi.speech(I don't like covering myself up like this, but my boobs bounce all over the place otherwise...)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+		<p>
+			After the straps are securely fastened about her lower horse's body, Astrapi steps forwards, effortlessly pulling the carriage behind her as she manoeuvres towards the open door of the barn. Looking over to her brother, she calls out, [astrapi.speech(See you later, Vron! Don't forget to pick up our stuff from work after you've told queen bitch we quit!)]
+		</p>
+		<p>
+			Simply nodding in response, Vronti watches the two of you prepare to set off, but before departing Astrapi briefly explains, [astrapi.speech(I'm talking about our boss at the haulage company where we've been working... Anyway, let's go!)]
+		</p>
+	#ELSE
+		<p>
+			After the straps are securely fastened about her lower horse's body, Astrapi steps forwards, effortlessly pulling the carriage behind her as she manoeuvres towards the open door of the barn. Excitedly pawing at the ground with one of her front hoofs, she exclaims, [astrapi.speech(Right, let's go!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_JOURNEY"><![CDATA[
+	<p>
+		Pulling out from the barn, Astrapi sets off down the road at a canter, causing your carriage to be pulled along behind her at an impressive speed. Clearly possessing not only incredible strength but also an astounding level of stamina, the centauress shows no sign of slowing down even after travelling the first couple of miles, and even has the energy to call out behind her, [astrapi.speech(We're going to be getting into the territory of Lunette's centaurs pretty soon, but there's nothing to fear; I've chased off dozens of the brutes with my bow in the past, and they've learned to leave me alone by now.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JOURNEY_CORE"><![CDATA[
+	<p>
+		Taking this opportunity to view your surroundings as your carriage speeds by, you see countless fenced-off fields,
+		#IF(game.getSeason()==SEASON_SPRING)
+			 in which potatoes, rhubarb, cauliflower, and many other types of seasonal crops are currently being grown. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are filled with beautifully-blossoming trees.
+		#ELSEIF(game.getSeason()==SEASON_SUMMER)
+			 in which corn, hops, wheat, and many other types of seasonal crops are currently being grown. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are filled with leafy green trees already showing signs of the fruit they'll bear come autumn.
+		#ELSEIF(game.getSeason()==SEASON_AUTUMN)
+			 in which beetroot, artichoke, pumpkins, and many other types of seasonal crops are currently being grown. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are either heavily-laden with fruit, or have already been picked clean of their produce.
+		#ELSE
+			 which have been ploughed and slurried in preparation for the coming year. Although not as common as these currently-barren crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are filled with leafless trees.
+		#ENDIF
+	</p>
+	<p>
+		Passing small patches of woodland and
+		#IF(game.getSeason()==SEASON_WINTER)
+			 frozen
+		#ELSE
+			 still
+		#ENDIF
+		 ponds as
+		#IF(game.getCharactersPresent().contains(astrapi))
+			 you and Astrapi
+		#ELSE
+			 you and Vronti
+		#ENDIF
+		 travel down the many roads which snake around and divide these fields from one another, you can't help but notice how many of the fields' fences have been smashed to pieces. At these points of vandalism, the ground has been torn up and heavily damaged by what look to be the hoofs of hundreds of centaurs. Unfortunately for the local farmers, it's not only the areas around these broken fences which have borne the brunt of this destruction, for most of the fields which you pass look to have suffered extensive damage from the thundering hoofs of Lunette's roaming herds.
+	</p>
+	<p>
+		Scattered here and there amongst the arable and pastoral land which comprises the vast majority of the Foloi Fields, there are numerous villages, hamlets, and farmsteads. These too seem to have suffered greatly from the demonic centaur menace, for many of the buildings which you pass look to have suffered either severe fire or structural damage. While most of the farmsteads look to still be occupied, there are more hamlets and villages than you care to count which now lie either partially or totally abandoned, and as you pass these
+		#IF(game.getCharactersPresent().contains(astrapi))
+			 Astrapi offers the odd comment along the lines of, [astrapi.speech(It used to be so peaceful around here...)]
+		#ELSE
+			 Vronti grunts in a clear display of anger at what's happened to this area.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			While most of the damaged fields you see are dedicated to growing crops, there are also a considerable number that have been put aside for grazing,
+			#IF(game.getSeason()==SEASON_WINTER)
+				 but due to the time of year, all livestock is currently being kept indoors. Any animal-morph overseers of these herds have similarly retreated to the relative comfort of their ransacked farmsteads for the winter, where they're no doubt performing yearly maintenance on their tools and outbuildings, hoping and praying all the while that Lunette's centaurs won't pay them another visit.
+			#ELSE
+				 and you see many herds of sheep and cows, and sometimes even spot the odd field of horses. Due to the ever-present fear of Lunette's centaurs, and the subsequent need to offer them payment in return for leaving their herds alone, you find that it's a very regular occurrence to see one type of animal-morph or another watching over these fields. Curiously enough, you note that the type of animals set out to graze are almost always the same as their overseer's morph type, and you often see sheep-morph shepherds, cow-morph cowherds, and other similarly-matching pairs.
+			#ENDIF
+		#ELSE
+			While most of the damaged fields you see are dedicated to growing crops, there are also a considerable number that have been put aside for grazing, although due to the fact that it's currently dark, all livestock is currently being kept indoors.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				Currently falling in large, freezing flakes, the snow which has covered
+			#ELSE
+				The snow which has covered
+			#ENDIF
+			 the land has badly affected the roads of the Foloi Fields. Driven from their homes, there's no longer a local population willing to keep the roadway shovelled and kept free of ice, and as such
+			#IF(game.getCharactersPresent().contains(astrapi))
+				 Astrapi's
+			#ELSE
+				 Vronti's
+			#ENDIF
+			 canter slows down to a pace that's clearly slower than it normally would be.
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			The driving rain falling on the collapsed roofs and burnt-out shells of former homes only serves to add to the depressing atmosphere of these terrorised lands. Avoiding the large puddles in the poorly-maintained roads,
+			#IF(game.getCharactersPresent().contains(astrapi))
+				 Astrapi
+			#ELSE
+				 Vronti
+			#ENDIF
+			 continues pulling you on your way.
+		#ELSE
+			#IF(game.getCharactersPresent().contains(astrapi))
+				Keeping up her canter, Astrapi continues effortlessly pulling you along in the carriage behind her, and shows no sign of getting tired or needing a break.
+			#ELSE
+				Keeping up her canter, Vronti continues effortlessly pulling you along in the carriage behind her, and shows no sign of getting tired or needing a break.
+			#ENDIF
+		#ENDIF
+		 As you start to lose interest in your surroundings, you wonder whether to try and engage
+		#IF(game.getCharactersPresent().contains(astrapi))
+			 Astrapi in conversation, or even to try and flirt with her...
+		#ELSE
+			 Vronti in conversation, or even to try and flirt with him...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_QUIET_JOURNEY"><![CDATA[
+	<p>
+		Deciding against engaging Astrapi in conversation, you inform her that you're going to relax and close your eyes for a while, to which the cheerful centauress replies, [astrapi.speech(Sure thing. These carriages have got the best suspension we could buy, so hopefully the ride's smooth enough for you to get some rest.)]
+	</p>
+	<p>
+		Bringing your attention to this fact, you tell Astrapi how smooth the carriage's ride has been so far, and thank her for providing such an excellent level of comfort. After that brief exchange, you do as you'd said and relax in the carriage, closing your eyes and allowing the time to pass in relative peace as the centauress takes you to Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Talking: -->
+	
+	<htmlContent tag="ASTRAPI_TALK_HISTORY"><![CDATA[
+	<p>
+		Deciding to pass the time by engaging Astrapi in conversation, you ask her about her history working as a centaur carriage driver, and if she and her brother have always worked together like this.
+	</p>
+	<p>
+		[astrapi.speech(Oh yeah, me and Vron have always worked together,)] she answers, [astrapi.speech(And as to how long we've been doing this? Well, ever since I entered the workplace the two of us were employed by a centaur carriage company, running the exact same route I'm taking you down now. As Lunette's centaurs started to get out of control, carriages started being attacked, and it didn't take long for all of our customers to disappear. Us and the other few companies working out of the depot were not far off going bankrupt and closing down, but we were hastened along with that when some of Lunette's goons attacked the depot itself and destroyed one of the barns. You saw the damage done to the roof?)]
+	</p>
+	<p>
+		Replying in the affirmative, you ask Astrapi how exactly that happened. Shaking her head as she reminisces on these bad memories, she explains, [astrapi.speech(One of the centaurs cast a spell on it. I was told afterwards by someone who knows their stuff that it was a type of earth spell. In any case, they used the arcane to summon some kind of force and it caved the roof in. A few of my friends were caught in there, and while by some miracle they were unhurt, they ended up dazed and disoriented by it and were captured by Lunette's gang. One of the perks of having an elder lilin as your leader; you can enslave and abuse anyone you want...)]
+	</p>
+	<p>
+		Sensing that Astrapi is getting angry at the thought of what Lunette's gang is responsible for, you shift the topic to what she and her brother ended up doing after their company shut down. Letting out a short sigh, she replies, [astrapi.speech(We did what we've always done; we pulled carriages. Only this time instead of transporting people and feeling like we were really providing a useful service, we were making some demon bitch rich by hauling furniture, crates, slaves, and all manner of other goods. There really wasn't much work going around, so we had no choice but to work for her, even though she treated us like shit and paid us half of what we were making before.)]
+	</p>
+	<p>
+		Wanting to move the conversation on to something more positive, you remark that now at least she and her brother are working for themselves and free from that old job. Turning her head and smiling at you, Astrapi replies, [astrapi.speech(That's right! We somehow saved up enough money to buy these carriages, and even if it means that we have to live out of a derelict barn, I'd rather be doing this than anything else. Vron feels the same way, but you might have noticed that he's not the talkative type; if you end up travelling with him then don't expect him to tell you even half of what I've told you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_TALK_COMPETITION"><![CDATA[
+	<p>
+		Deciding to pass the time by engaging Astrapi in conversation, you ask her about whether any other centaur carriage businesses are operating between Elis and Dominion, or if they're the only two doing this.
+	</p>
+	<p>
+		[astrapi.speech(As far as I know, we're the only ones,)] she answers, [astrapi.speech(There used to be a dozen or so different businesses doing what we do, but Lunette's centaurs brought an end to all that several years ago. They attacked carriages, destroyed the depot, and enslaved those of us who they could capture. Nobody wanted to risk travelling between Elis and Dominion after that, and who could blame them?)]
+	</p>
+	<p>
+		Concerned that history might repeat itself, you ask Astrapi what's stopping Lunette's centaurs from attacking the two of you out here, seeing as they've done it on numerous occasions before.
+	</p>
+	<p>
+		[astrapi.speech(These are why,)] she proudly replies, holding up her arms and flexing her massive biceps in a show of undeniable strength. Patting the bow on her back, she continues, [astrapi.speech(I've beaten Lunette's goons in the past, and I'll do it again if I have to; you've got nothing to fear when travelling with me. Those of them who don't fall to my bow soon find out that they're in way over their heads; I've never needed more than one punch to make Lunette's thugs drop to the dirt.)]
+	</p>
+	<p>
+		Having no reason to doubt that what Astrapi says is true, you turn the topic of conversation back to her business, and ask if there's enough customer demand to make her business a viable one. Shrugging her shoulders, she replies, [astrapi.speech(Not really, I guess, but me and Vron don't need much to be content. We only need a few customers a week to get us by; food is far cheaper out here than it is in Dominion, and we've got shelter in the form of an old barn we bought from some farmers who were leaving the Realm. Maybe if Lunette ever gets dealt with, we'll turn this business of ours into a really profitable one, but for now I'm just happy to not be working in Dominion any more.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_TALK_LUNETTE"><![CDATA[
+	<p>
+		Deciding to pass the time by engaging Astrapi in conversation, you ask her about what she knows of Lunette, and whether she's ever seen her before.
+	</p>
+	<p>
+		[astrapi.speech(What do I know of Lunette? That she needs to be taken down,)] she answers, [astrapi.speech(I don't care if saying that is treason; it's the truth! She's destroyed this land, and if she's not dealt with soon then the Foloi Fields are going to be completely abandoned. Who knows how that'll affect the rest of the realm, but it isn't going to be good. The brave farmers who are still working the land out here are just barely managing to produce enough food to keep the cities fed. I don't know why Lilith doesn't do something about this...)]
+	</p>
+	<p>
+		Repeating your question, you ask Astrapi if she's ever seen Lunette in the flesh, or if it's just her demonic centaurs which are encountered out here.
+	</p>
+	<p>
+		[astrapi.speech(I haven't heard of many people who've actually seen her, but yeah, I'm one of them...)] Astrapi replies, with her voice taking on an uncharacteristically sombre tone and trailing off into silence. Not needing to be promoted, she continues speaking just a moment later, and recounts, [astrapi.speech(It was as though she'd flipped a switch overnight; one day Lunette's centaurs were no more than petty bandits, then in the space of a week a dozen farms were destroyed, an entire village burnt down, and those who couldn't offer payment were enslaved and never seen again. Several villages banded together and tried to resist, and I just so happened to be passing nearby that day...)]
+	</p>
+	<p>
+		Once again Astrapi's voice trails off into silence, only this time she doesn't show any sign of continuing her story. Not wanting to make her dig up uncomfortable memories, you start to change the topic of conversation, but the centauress cuts you off as she suddenly continues, [astrapi.speech(You know, they actually looked like they were winning. From what I could see from a mile or so away, Lunette's centaurs started to retreat from the skirmish, but then there was a flash of purple light and this huge, black-haired pegataur appeared. It was Lunette, no doubt about it. I was far too far away to hear what was said, but she simply strode forwards and must have ordered the villagers to surrender, because every single one of them dropped their weapons and knelt down to her. Lunette's thugs then turned around and charged back in, and it was all over in a couple of minutes...)]
+	</p>
+	<p>
+		Recognising that Lunette must have performed the same 'Lilith's Command' spell which her sister, Lyssieth, used on you against the villagers, you realise that they stood no chance at all against the elder lilin. As you mull this over, Astrapi shakes her head clear of the negative thoughts she's having and cheerfully proclaims, [astrapi.speech(I haven't seen her since then, and so long as she doesn't show up then I can keep you safe from her goons!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_TALK_END"><![CDATA[
+	<p>
+		The topic of your conversation then starts to gradually shift, until eventually the two of you are making small-talk about the weather, the lack of the maintenance done on the roads, and the state of the burnt-out farmsteads and abandoned fields which you pass by. Thanks to the excellent suspension on the carriage, your journey continues to be both smooth and comfortable, and before you even know it you're approaching your destination...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Flirting: -->
+	
+	<htmlContent tag="ASTRAPI_FLIRT"><![CDATA[
+	<p>
+		You decide to pass the time by flirting with Astrapi, and begin by offering her some compliments on her impressive strength and stamina. Turning her head back and flashing you a big grin, she replies, [astrapi.speech(Me and Vron take our diet and exercise really seriously; we do a couple hours of workouts every day in addition to pulling carriages about. It's taken a while but we've built up this strength naturally; no muscle-transformation potions for us!)]
+	</p>
+	<p>
+		Continuing to talk about Astrapi's body, you ask her if her exhibitionism has ever led into any embarrassing situations. Letting out a good-natured laugh in response, she tells you about a few occasions where customers or members of the public in Dominion couldn't stop staring at her exposed boobs. Turning to wink at you, she flicks her horse-tail to one side and flashes her [astrapi.pussyColour] horse-pussy at you, adding that she's lost count of the number of people who've stopped to stare at her exposed genitalia.
+	</p>
+	<p>
+		Coyly remarking that she could add one more to that score, you smirk at the centauress as she plays along by continually flicking her tail aside and presenting you with her animalistic pussy and puffy asshole. Seeming to be more than happy to push the boundaries of your flirting, she continues exposing herself to you while commenting on how much she likes being looked at. Soon enough, you notice that the lips of her horse-pussy start glistening a little, and you realise that Astrapi is getting seriously turned-on by your flirting. If you were to push her a little further, you think that you'd be able to get the muscular centauress horny enough to accept an offer of sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_FLIRT_STOP"><![CDATA[
+	<p>
+		Having had your fun, and not wanting to push Astrapi any further, you take things down a notch and shift your flirting into innocent small talk. The horny centauress seems to be more than a little frustrated at this, and tries several times to start talking about her exposed pussy again. Refusing to engage in any more flirting, you're surprised to hear the frustration in Astrapi's voice quickly change into one of an intense horniness.
+	</p>
+	<p>
+		[astrapi.speech(You're so cruel,)] she whines, [astrapi.speech(You tease me like that and then stop? But you know, I've kind of got a bit of a thing for denial...)]
+	</p>
+	<p>
+		Proving her words to be true, the now-horny Astrapi continues making lewd comments and flashing you her pussy for quite some time. It's only after several more miles of travel that she eventually calms down, at which point you're finally able to shift the topic of conversation to small-talk about the weather, the lack of the maintenance done on the roads, and the state of the burnt-out farmsteads and abandoned fields which you pass by. In this manner the rest of your journey continues in an uneventful manner, and before you even know it you're approaching your destination...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_FLIRT_PUSHED"><![CDATA[
+	<p>
+		Wanting to push Astrapi even further, you tell her that her pussy is starting to look like it's getting wet, and you ask her if she's got any pent-up sexual tension that needs to be dealt with. Although for all this time she's been pulling your carriage at an impressive rate, Astrapi hasn't once seemed to be getting out of breath, but now she pants as she responds, [astrapi.speech(You're making me like this... I can't help it... If my pussy gets wet...)]
+	</p>
+	<p>
+		Telling the centauress that she's a bad girl for getting wet while at work seems to be the last straw, and with a desperate whine, Astrapi abruptly makes a short diversion off the road. Cantering down a gravel track, she pulls up behind a half-collapsed barn, where she swiftly throws off her harness and pulls off her sports bra. Grabbing what looks like a sterility pill out of the carriage's storage box, she swallows it and demands, [astrapi.speech(You've made this problem, now you fix it! Fuck me as much as you want; I'm not going to get pregnant after taking that pill, so do whatever you want with my pussy, just make me cum!)]
+	</p>
+	<p>
+		Presenting her rear-end to you, the horny centauress flicks her tail aside and shows you her now-dripping horse-pussy. In a distinctly animal-like behaviour, her clit is rhythmically winking at you, and as she reaches up to play with her huge, [astrapi.cupSize]-cup breasts, she whines, [astrapi.speech(Come on... You want to make my pussy happy, don't you?)]
+	</p>
+	<p>
+		Looking at Astrapi's enticing, wet cunt, you feel like it would be very easy to respond in the positive and give this muscular centuress what she wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_ASTRAPI_ORAL_START"><![CDATA[
+	#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			<p>
+				Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy. Smiling at the high-pitched moan she lets out in response, you tell her that you want her to cum from the feeling of giving you oral. Exposing your cock and pussy to her, you can't help but grin as she replies, [astrapi.speech(I'm so turned on right now... I could do that, sure...)]
+			</p>
+			<p>
+				Turning round to face you, the muscular centauress obediently kneels down, before licking her lips and preparing to get started...
+			</p>
+		#ELSE
+			<p>
+				Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy. Smiling at the high-pitched moan she lets out in response, you tell her that you want her to cum from the feeling of giving you a blowjob. Exposing your [pc.cock+] to her, you can't help but grin as she replies, [astrapi.speech(I'm so turned on right now... I could do that, sure...)]
+			</p>
+			<p>
+				Turning round to face you, the muscular centauress obediently kneels down, before licking her lips and preparing to get started. Thrusting your [pc.hips] a little, you tell her to begin, and after letting out another horny whine, she opens her mouth and bends down to take your [pc.cock+] into her mouth. Wrapping her [astrapi.lips+] around your throbbing length, she starts eagerly bobbing her head up and down as she enthusiastically sucks your cock...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy. Smiling at the high-pitched moan she lets out in response, you tell her that you want her to cum from the feeling of performing cunnilingus on you. Exposing your [pc.pussy+] to her, you can't help but grin as she replies, [astrapi.speech(I'm so turned on right now... I could do that, sure...)]
+		</p>
+		<p>
+			Turning round to face you, the muscular centauress obediently kneels down, before licking her lips and preparing to get started. Thrusting your [pc.hips] a little, you tell her to begin, and after letting out another horny whine, she bends down to plant a wet kiss on your [pc.labia+]. Darting her tongue out, she greedily presses her [astrapi.lips+] against your pussy, before starting to eagerly eat you out...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_ASTRAPI_TITJOB_START"><![CDATA[
+	<p>
+		Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy. Smiling at the high-pitched moan she lets out in response, you tell her that you want her to cum from the feeling of giving you a titjob. Exposing your [pc.cock+] to her, you can't help but grin as she replies, [astrapi.speech(I'm so turned on right now... I could do that, sure...)]
+	</p>
+	<p>
+		Turning round to face you, the muscular centauress obediently kneels down, before reaching up and pressing her huge, [astrapi.cupSize]-cup tits together. [pc.Stepping] forwards, you thrust your [pc.hips] a little as you push your erect cock into the soft cleavage that's formed between the muscular centauress's pillowy breasts. Letting out a horny whine, Astrapi starts moving her chest up as she enthusiastically gives you the titjob you asked for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_ASTRAPI_SERVICING_START"><![CDATA[
+	<p>
+		Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy. Smiling at the high-pitched moan she lets out in response, you tell her that you'll easily be able to get her to climax by servicing her lewd cunt. Continuing to stroke her wet labia, you can't help but grin as she breathlessly replies, [astrapi.speech(Keep on going... ~Mmm!~ Yes, like that...)]
+	</p>
+	<p>
+		Doing as she asks, you carry on sliding your [pc.fingers+] over her dripping cunt, before commenting on how sexy her hot mare-pussy is. Your words prove to be enough to push her over the edge and she desperately moans, [astrapi.speech(Yes! Finger me! ~Aah!~ My dirty little pussy wants more!)]
+	</p>
+	<p>
+		Happy to oblige, you push your [pc.fingers] into Astrapi's [astrapi.pussyColour] cunt, before starting to enthusiastically finger her. As your physical attention quickly reduces this cheerful, muscular centauress into your horny, moaning mare, you promise Astrapi that if she's a good girl you might even eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_ASTRAPI_FUCK_START"><![CDATA[
+	<p>
+		Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy. Smiling at the high-pitched moan she lets out in response, you tell her that you'll easily be able to get her to climax by fucking her lewd cunt. Continuing to stroke her wet labia, you can't help but grin as she breathlessly replies, [astrapi.speech(Yes... ~Mmm!~ Come on then, fuck me...)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			Encouraged by Astrapi's words, you take your [pc.fingers+] away from her dripping cunt, before commenting on how her hot mare-pussy is about to get the good fucking it deserves. Your words prove to be enough to push her over the edge and she desperately moans, [astrapi.speech(Yes! Mount me! ~Aah!~ My dirty little pussy wants your cock!)]
+		</p>
+		<p>
+			Exposing your [pc.cock+], you move to do as Astrapi asks, and after pushing yourself up onto your hind legs, you mount the centauress. Bucking your hips forwards, you press the [pc.cockHead+] of your [pc.cock+] against her pussy, smirking as you feel how hot and wet it is. Unable to hold back for any longer, you thrust once more and sink your erect shaft into Astrapi's horse-pussy. Feeling your cock enter her, the centauress moans, [astrapi.speech(~Aah!~ Yes, fuck me like an animal! ~Mmm!~ That's it, rut me!)]
+		</p>
+	#ELSE
+		<p>
+			Encouraged by Astrapi's words, you take your [pc.fingers+] away from her dripping cunt, before commenting on how her hot mare-pussy is about to get the good fucking it deserves. Your words prove to be enough to push her over the edge and she desperately moans, [astrapi.speech(Yes! Fuck me! ~Aah!~ My dirty little pussy wants your cock!)]
+		</p>
+		<p>
+			Exposing your [pc.cock+], you move to do as Astrapi asks, and after [pc.stepping] up behind her, you bring your cock up to her pussy. Bucking your hips forwards, you press the [pc.cockHead+] of your [pc.cock+] against her [astrapi.labia+], smirking as you feel how hot and wet her pussy is. Unable to hold back for any longer, you thrust forwards and sink your erect shaft into Astrapi's horse-pussy. Feeling your cock enter her, the centauress moans, [astrapi.speech(~Aah!~ Yes, fuck me like an animal! ~Mmm!~ That's it, rut me!)]
+		</p>
+	#ENDIF
+	<p>
+		More than happy to oblige, you start desperately thrusting your hips, slamming your [pc.cock+] in and out of Astrapi's mare-pussy as you fuck her like an animal...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_FLIRT_BACK_OUT"><![CDATA[
+	<p>
+		Things have progressed too far for your liking, so you tell Astrapi that she'll just have to deal with her sexual frustration. Although the horny centauress lets out an annoyed remark in response to this, you're surprised to hear the frustration in her voice quickly change into one of an intense horniness as she whines, [astrapi.speech(You're so cruel! You tease me like that and then stop? But you know, I've kind of got a bit of a thing for denial...)]
+	</p>
+	<p>
+		Proving her words to be true, the immensely-horny Astrapi continues making lewd comments and flashing you her pussy for several more minutes, before eventually pulling her sports bra on and strapping herself to the carriage. Pulling away from the barn, she continues to make references to how wet and hot her pussy feels, and thanks to the fact that she keeps on swishing her tail aside, you can verify for yourself that her lewd horse-pussy is practically dripping from arousal.
+	</p>
+	<p>
+		It's only after several more miles of travel that Astrapi eventually calms down, at which point you're able to make some small-talk about the weather, the lack of the maintenance done on the roads, and the state of the burnt-out farmsteads and abandoned fields which you pass by. In this manner the rest of your journey continues in an uneventful manner, and before you even know it you're approaching your destination...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_ASTRAPI_SERVICING_ASS_START"><![CDATA[
+	#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+		<p>
+			Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy, before moving your touch up to her puffy anus. Smiling at the high-pitched moan she lets out in response, you tell her that you'll easily be able to get her to climax by servicing her lewd asshole. Continuing to stroke her rear entrance, you can't help but grin as she breathlessly replies, [astrapi.speech(You prefer my ass? ~Mmm!~ You're so perverted... I kind of like that...)]
+		</p>
+		<p>
+			Clearly not expecting what's coming next, the muscular centaur gasps as you quickly drop down behind her and plant a big, passionate kiss on her puffy asshole. Pulling back, you tell Astrapi that you've been well trained as one of Natalya's fillies, and that performing anilingus on centaurs is part of your job. Wanting to demonstrate this to her, you lean in and start planting a series of loving kisses on Astrapi's horse-anus, causing her to squeal and declare, [astrapi.speech(~Aah!~ That feels so good! ~Mmm!~ You're so good at it!)]
+		</p>
+		<p>
+			Smiling at her response, you tell the muscular centauress that she hasn't experienced anything yet. Before she can respond to that statement, you eagerly bury your face into her ass, pressing your [pc.lips+] against her puffy asshole in the process. Darting your [pc.tongue+] out, you start lovingly performing anilingus on Astrapi, and from the high-pitched, enthusiastic moans you start to hear her making, you're sure that Natalya would be proud of your efforts...
+		</p>
+	#ELSE
+		<p>
+			Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy, before moving your touch up to her puffy anus. Smiling at the high-pitched moan she lets out in response, you tell her that you'll easily be able to get her to climax by servicing her lewd asshole. Continuing to stroke her rear entrance, you can't help but grin as she breathlessly replies, [astrapi.speech(You prefer my ass? ~Mmm!~ You're so perverted... I kind of like that...)]
+		</p>
+		<p>
+			Encouraged by her words, you carry on sliding your [pc.fingers+] over Astrapi's asshole, before commenting on how sexy her butt is. Your words prove to be enough to push her over the edge and she desperately moans, [astrapi.speech(Go on then, do what you want with my ass! ~Aah!~ You can finger it if you'd like!)]
+		</p>
+		<p>
+			Happy to oblige, you push your [pc.fingers] into Astrapi's [astrapi.anusColour] asshole, before starting to enthusiastically finger her. As your physical attention quickly reduces this cheerful, muscular centauress into your horny, moaning mare, you promise Astrapi that if she's a good girl you might even perform anilingus on her...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_ASTRAPI_FUCK_ASS_START"><![CDATA[
+	<p>
+		Jumping down off the carriage, you [pc.walk] up to Astrapi and playfully tease your [pc.fingers] over her hot horse-pussy, before moving your touch up to her puffy anus. Smiling at the high-pitched moan she lets out in response, you tell her that you'll easily be able to get her to climax by fucking her butt. Continuing to stroke her rear entrance, you can't help but grin as she breathlessly replies, [astrapi.speech(You'd prefer to do it with my ass? ~Mmm!~ You're so perverted... I kind of like that...)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			Encouraged by Astrapi's words, you take your [pc.fingers+] away from her asshole, before commenting on how her hot ass is about to get the good fucking it deserves. Your words prove to be enough to push her over the edge and she desperately moans, [astrapi.speech(Yes! Mount me! ~Aah!~ My hot little asshole wants your cock!)]
+		</p>
+		<p>
+			Exposing your [pc.cock+], you move to do as Astrapi asks, and after pushing yourself up onto your hind legs, you mount the centauress. Bucking your hips forwards, you press the [pc.cockHead+] of your [pc.cock+] against her asshole, smirking as you feel how hot it is. Unable to hold back for any longer, you thrust once more and sink your erect shaft into Astrapi's ass. Feeling your cock enter her, the centauress moans, [astrapi.speech(~Aah!~ Yes, fuck me like an animal! ~Mmm!~ That's it, rut my asshole!)]
+		</p>
+	#ELSE
+		<p>
+			Encouraged by Astrapi's words, you take your [pc.fingers+] away from her asshole, before commenting on how her hot ass is about to get the good fucking it deserves. Your words prove to be enough to push her over the edge and she desperately moans, [astrapi.speech(Yes! Fuck me! ~Aah!~ My hot little asshole wants your cock!)]
+		</p>
+		<p>
+			Exposing your [pc.cock+], you move to do as Astrapi asks, and after [pc.stepping] up behind her, you bring your cock up to her ass. Bucking your hips forwards, you press the [pc.cockHead+] of your [pc.cock+] against her [astrapi.asshole+], smirking as you feel how hot it is. Unable to hold back for any longer, you thrust forwards and sink your erect shaft into Astrapi's ass. Feeling your cock enter her, the centauress moans, [astrapi.speech(~Aah!~ Yes, fuck me like an animal! ~Mmm!~ That's it, rut my asshole!)]
+		</p>
+	#ENDIF
+	<p>
+		More than happy to oblige, you start desperately thrusting your hips, slamming your [pc.cock+] in and out of Astrapi's puffy asshole as you fuck her like an animal...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_POST_SEX"><![CDATA[
+	<p>
+		#IF(astrapi.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, Astrapi moans, [astrapi.speech(I really needed that... You sure know how to satisfy a centaur...)]
+		#ELSE
+			Letting out an incredibly frustrated sigh, Astrapi moans, [astrapi.speech(You didn't satisfy me from that... But, you know, I kind of like being denied...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(!astrapi.getFluidsStoredInOrifice(ORIFICE_VAGINA).isEmpty())
+			As you [pc.step] away from her, Astrapi turns so as to present you with her well-fucked horse-pussy. As you look down to see your cum leaking out of her cunt, the muscular centauress turns her head back and teases, [astrapi.speech(You really gave me a good creampie there! I can feel your cum oozing out of me...)]
+		#ELSEIF(!astrapi.getFluidsStoredInOrifice(ORIFICE_ANUS).isEmpty())
+			As you [pc.step] away from her, Astrapi turns so as to present you with her puffy horse-anus. As you look down to see your cum leaking out of her asshole, the muscular centauress turns her head back and teases, [astrapi.speech(You really gave me a good creampie there! I can feel your cum oozing out of me...)]
+		#ELSE
+			As you [pc.step] away from her, Astrapi turns so as to present you with her horse-pussy. As you look down to see her slick juices running down over the surface of her cunt, the muscular centauress turns her head back and teases, [astrapi.speech(Look how wet I still am! I bet my pussy looks really lewd now, doesn't it?)]
+		#ENDIF
+	</p>
+	<p>
+		Playfully laughing at your brief response to this, Astrapi moves to quickly pull her sports bra back on, after which she straps herself back into the carriage's harness and tells you to climb aboard. Doing so, and feeling satisfied after having sex with Astrapi, you relax on the padded seats as the muscular centauress pulls away from the barn and sets off at a canter down the road once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_JOURNEY_END"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+		<p>
+			A short while of travelling later, Astrapi calls out to you, [astrapi.speech(You can see the walls of Elis from here, look!)]
+		</p>
+		<p>
+			Sure enough, as you look in the direction that she's pointing in, you're able to see a strip of grey on the horizon. Thanks to Astrapi's impressive speed, it only takes another couple of minutes before you're able to pick out the distinctive shape of towers embedded into the corners of the ramparts, as well as the roofs of the taller buildings within the town itself. The one which stands out the most, and the one which truly defines the town's silhouette, is the tall, highly-steepled roof of the town hall's tower.
+		</p>
+		<p>
+			As you get ever closer to Elis, you're able to pick out the crenellations of its walls, and can thankfully see that the gatehouse has its gates wide open.
+			#IF(game.isDayTime())
+				 While there aren't many people leaving or entering the town via the same cobblestone road which you find yourself on, you can see through the entrance that the interior of the town looks to be quite busy.
+			#ELSE
+				 Due to the current hour, there isn't a single person leaving or entering the town via the same cobblestone road which you find yourself on, although you can see through the entrance that the interior of the town looks to be not completely deserted.
+			#ENDIF
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+				Thanks to the close proximity of the town, the nearby fields are very well protected from raiders or bandits. Despite this, however, there doesn't appear to be a single residential building outside of the walls, giving the surrounding area a very rural feel to it.
+			#ELSE
+				Taking a look around at the nearby fields, you notice that they don't seem to have suffered the same sort of damage from Lunette's centaurs as those out in the Foloi Fields. Despite the apparent protection from raids, however, there doesn't appear to be a single residential building outside of the walls, giving these fields a very rural feel to them.
+			#ENDIF
+		</p>
+		<p>
+			The only building outside of the town's walls which you can see is the one which Astrapi is leading you to. Taking the form of a large, wooden barn, and positioned a short distance from the eastern gate of the town, this building appears to be Elis's counterpart to the twin barns back at Dominion. Confirming this to you, Astrapi calls back, [astrapi.speech(This is where we stop off. I can't take you into the town itself as there's a tax on centaur carriages passing through the gates, which I just can't afford.)]
+		</p>
+		<p>
+			Pulling up in front of this barn, Astrapi waits for you to dismount the carriage, before cheerfully saying, [astrapi.speech(I hope you enjoyed the ride. Please do use me or my brother again if you need to get back to Dominion in a hurry; we're a lot faster than walking!)]
+		</p>
+	#ELSE
+		<p>
+			A short while of travelling later, Astrapi calls out to you, [astrapi.speech(You can see Lilith's tower from here, look!)]
+		</p>
+		<p>
+			Sure enough, as you look in the direction that she's pointing in, you're able to see the black obelisk of Lilith's tower in the distance. Thanks to Astrapi's impressive speed, it only takes another couple of minutes before you're able to pick out the distinctive outline of Dominion's suburbs, and a further few minutes later you see the twin barns of the 'Centaur Carriage Depot' on either side of the road up ahead.
+		</p>
+		<p>
+			[astrapi.speech(This is where we stop off,)] Astrapi calls back as she pulls up in front of these familiar barns. Waiting for you to dismount the carriage, she cheerfully adds, [astrapi.speech(I hope you enjoyed the ride. Please do use me or my brother again if you need to get back to Elis in a hurry; we're a lot faster than walking!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_JOURNEY_END_GOODBYE"><![CDATA[
+	<p>
+		Thanking Astrapi for the ride, and assuring her that you will use her business again in the future, you say goodbye.
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+			 Happily waving to you, the muscular centauress opens the door to the barn, but before she pulls her carriage inside and disappears from sight she calls out after you, [astrapi.speech(Remember, my brother and I won't be offering rides for the rest of today, but starting tomorrow we'll be working every day! See you around, [pc.name]!)]
+		#ELSE
+			 Happily waving to you, the muscular centauress opens the door to the barn, before pulling her carriage inside and disappearing from sight.
+		#ENDIF
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+			Having now arrived at Elis, you prepare to set off into the town...
+		#ELSE
+			Having now arrived just a short distance north of Dominion, you prepare to set off into the city...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN"><![CDATA[
+	<p>
+		Although she doesn't show any sign of being fatigued from your journey, you suddenly notice that the human half of Astrapi's body is covered in a fine sheen of sweat. As you thank her for the ride, you also see that the hair on her horse's body is looking a little windblown and unkempt. As she opens the door to the barn and prepares to head inside, you take this fleeting opportunity to offer your assistance in helping to clean her.
+	</p>
+	<p>
+		[astrapi.speech(Oh? You want to help me with that?)] Astrapi asks, before giving you a sly wink and teasing, [astrapi.speech(Or did you just want to spend some more time staring at my boobs and pussy? In either case, I'd appreciate your help, [pc.name], thank you.)]
+	</p>
+	<p>
+		Flirting back by saying that you wouldn't mind doing a little of that too, you follow Astrapi into the barn and close the door behind you. Throwing you a towel, the horny centauress flicks her tail aside to present you with her sweaty horse-pussy,
+		#IF(!astrapi.getFluidsStoredInOrifice(ORIFICE_VAGINA).isEmpty())
+			 and you can't help but smile as you see that your cum is still dripping from it.
+		#ELSEIF(!astrapi.getFluidsStoredInOrifice(ORIFICE_ANUS).isEmpty())
+			 and you can't help but smile as you see that your cum is still dripping from her puffy asshole.
+		#ELSE
+			 and you can't help but smile as you see that she already seems to be getting wet at the prospect of being touched by you.
+		#ENDIF
+		 Turning her head back, she half-asks, half-moans, [astrapi.speech(Could you wipe my pussy down while I brush myself?)]
+	</p>
+	<p>
+		Happy to oblige, you set about wiping the sweat from her pussy, while she uses a special type of brush that's fixed to the wall to rub her horse hair down. After a few minutes, and a lot of moaning and panting from Astrapi, both your jobs are done, which leads into the now-horny centauress to say, [astrapi.speech(All that's left is to wipe my human half clean. You wouldn't mind getting my back for me, would you?)]
+	</p>
+	<p>
+		As she turns towards you, you see that her arousal and the relative heat of the barn has not helped with Astrapi's sweating problem, and as she uses her sweatbands to wipe the worst of it from her forehead, you see that her exposed breasts and muscular abdominal muscles are practically dripping. While you could do as Astrapi asks and simply wipe her back for her, you feel as though she'd be more than happy to accept a more lewd way of mopping up her sweat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_WIPE"><![CDATA[
+	<p>
+		Not wanting to do any kinky stuff with Astrapi's sweaty body, you simply do as she asks and use a clean towel to wipe the sweat from her back. While you're doing this, the centauress cleans down her front, after which she whines, [astrapi.speech(My breasts feel sore from all that bouncing. My sports bra only does so much, you know. You wouldn't mind massaging them for a minute, would you, [pc.name]?)]
+	</p>
+	<p>
+		Having already gone this far, you agree to Astrapi's request, and spend the next few minutes massaging her huge, [astrapi.cupSize]-cup breasts. While she's clearly getting turned on by this, Astrapi informs you that she unfortunately doesn't have time in which to have any 'real' fun with you, and so once you're done she reluctantly says goodbye.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_END"><![CDATA[
+	<p>
+		Thanking Astrapi once again for the ride, and assuring her that you'll use her business again in the future, you say goodbye.
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+			 With a happy smile on her face, the muscular centauress opens the door to the barn to allow you to leave, and as you exit the building she calls out after you, [astrapi.speech(Thanks for your assistance, [pc.name]! Remember, my brother and I won't be offering rides for the rest of today, but starting tomorrow we'll be working every day! See you around, [pc.name]!)]
+		#ELSE
+			  With a happy smile on her face, the muscular centauress opens the door to the barn to allow you to leave, and as you exit the building she calls out after you, [astrapi.speech(Thanks for your assistance, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+			Having now arrived at Elis, you prepare to set off into the town...
+		#ELSE
+			Having now arrived just a short distance north of Dominion, you prepare to set off into the city...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_ABS"><![CDATA[
+	<p>
+		Wanting to have a little kinky fun with Astrapi's sweaty body, you tell her that you'd like to lick the sweat from her abs. Flashing you a big smile, the horny centauress teases, [astrapi.speech(You're so perverted... You know, I kind of like that... Go on then, lick away...)]
+	</p>
+	<p>
+		Finding yourself drawn in by the sight of Astrapi's muscular six-pack, you [pc.step] forwards and run your [pc.fingers] over her abdomen, smiling as she reacts by letting out a little moan. Dropping your face down, you tell Astrapi how sexy her stomach is, before leaning forwards and delivering a long, slow lick over her rock-hard tummy. The salty taste of her sweat instantly hits your tongue, which spurs you on to deliver yet another long lick over her smooth skin.
+	</p>
+	<p>
+		[astrapi.speech(You really... ~Aah!~ You really like my muscles that much?)] Astrapi asks, before tensing her stomach and grunting, [astrapi.speech(How about when I do this?)]
+	</p>
+	<p>
+		Loving every lick of the horny centauress's muscular stomach, you give her a very enthusiastic response. Pressing your [pc.lips+] against her six-pack, you dart out your [pc.tongue+] and desperately kiss, lick, and suck on every last part of her sweaty, rock-hard tummy.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoresDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			With the two of you getting immensely turned on by this intimate physical contact, Astrapi suddenly blurts out, [astrapi.speech(I don't have much time, but I could give you a quick handjob if you'd like... You could even cum on my stomach seeing as you like it so much...)]
+		#ELSE
+			Although the two of you get immensely turned on by this intimate physical contact, after a few minutes have passed Astrapi suddenly blurts out, [astrapi.speech(I don't have much time, [pc.name]. ~Mmm!~ This was fun, but I've got to stop now...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_ABS_END"><![CDATA[
+	<p>
+		#IF(pc.hasPenisIgnoresDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			Although the offer sounds tempting, you decide against getting a handjob from Astrapi.
+		#ENDIF
+		 Thanking her once again for the ride, and assuring her that you'll use her business again in the future, you say goodbye to the muscular centauress.
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+			 With a happy smile on her face, Astrapi opens the door to the barn to allow you to leave, and as you exit the building she calls out after you, [astrapi.speech(Thanks for your assistance, [pc.name]! Remember, my brother and I won't be offering rides for the rest of today, but starting tomorrow we'll be working every day! See you around, [pc.name]!)]
+		#ELSE
+			  With a happy smile on her face, Astrapi opens the door to the barn to allow you to leave, and as you exit the building she calls out after you, [astrapi.speech(Thanks for your assistance, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+			Having now arrived at Elis, you prepare to set off into the town...
+		#ELSE
+			Having now arrived just a short distance north of Dominion, you prepare to set off into the city...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_ABS_HANDJOB"><![CDATA[
+	<p>
+		Giving Astrapi's rock-hard abs one final lick, you pull back and tell her that you'd like to take her up on her offer. Exposing your [pc.cock+] to her, you let out [pc.a_moan] as the horny centauress greedily grabs hold of it and starts stroking. Letting out [astrapi.a_moan+] of her own, Astrapi pants, [astrapi.speech(That's it... Get nice and hard so that you can cum for me... Cum all over my tummy...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_POST_SEX_ABS"><![CDATA[
+	<p>
+		Letting out a little laugh, Astrapi bites her lip and winks and you, before teasing, [astrapi.speech(You're so perverted, [pc.name]! As if my tummy turns you on so much...)]
+	</p>
+	<p>
+		Making the muscular centauress laugh by telling her how hot her muscular abs are, you get your things back in order and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_ARMPITS"><![CDATA[
+	<p>
+		Wanting to have a little kinky fun with Astrapi's sweaty body, you tell her that you'd like to lick the sweat from her underarms. Flashing you a big smile, the horny centauress lifts her arm,
+		#IF(astrapi.getUnderarmHair().getValue()==0)
+			 exposing her smooth, sweaty armpit to you as she replies, [astrapi.speech(You're so perverted... You know, I kind of like that... Go on then, lick away...)]
+		#ELSE
+			 exposing her hairy, sweaty armpit to you as she replies, [astrapi.speech(You're so perverted... Look, I stopped shaving like you asked me to... So go on then, lick away...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(astrapi.getUnderarmHair().getValue()==0)
+			Finding yourself drawn in by the sight of Astrapi's muscular, smoothly-shaven underarm, you [pc.step] forwards and run your [pc.fingers] down her triceps, smiling as she reacts by letting out a little moan. Dropping your face down, you tell Astrapi how sexy her pits are, before leaning forwards and delivering a long, slow lick over her underarm. The salty taste of her sweat instantly hits your tongue, which spurs you on to deliver yet another long lick over her smooth pit.
+		#ELSE
+			Finding yourself drawn in by the sight of Astrapi's muscular, hairy underarm, you [pc.step] forwards and run your [pc.fingers] down her triceps, smiling as she reacts by letting out a little moan. Dropping your face down, you tell Astrapi how sexy her hairy pits are, before leaning forwards and delivering a long, slow lick over her underarm. The salty taste of her sweat instantly hits your tongue, which spurs you on to deliver yet another long lick over her hairy pit.
+		#ENDIF
+	</p>
+	<p>
+		[astrapi.speech(You really... ~Aah!~ You really like my underarms that much?)] Astrapi asks.
+	</p>
+	<p>
+		Loving every lick of the horny centauress's sweaty pits, you give her a very enthusiastic response. Pressing your [pc.lips+] against her
+		#IF(astrapi.getUnderarmHair().getValue()==0)
+			 smooth skin, you dart out your [pc.tongue+] and desperately kiss, lick, and suck on every last part of her sweaty, smooth underarm.
+		#ELSE
+			 hairy underarm, you dart out your [pc.tongue+] and desperately kiss, lick, and suck on every last part of her sweaty, hairy pit.
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoresDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			With the two of you getting immensely turned on by this intimate physical contact, Astrapi suddenly blurts out, [astrapi.speech(I don't have much time, but you could rub your cock against my pits if you'd like... You could even cum on them seeing as you like them so much...)]
+		#ELSE
+			Although the two of you get immensely turned on by this intimate physical contact, after a few minutes have passed Astrapi suddenly blurts out, [astrapi.speech(I don't have much time, [pc.name]. ~Mmm!~ This was fun, but I've got to stop now...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_ARMPITS_END"><![CDATA[
+	<p>
+		#IF(pc.hasPenisIgnoresDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			Although the offer sounds tempting, you decide against fucking Astrapi's armpits.
+		#ENDIF
+		 Thanking her once again for the ride, and assuring her that you'll use her business again in the future, you say goodbye to the muscular centauress.
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+			 With a happy smile on her face, Astrapi opens the door to the barn to allow you to leave, and as you exit the building she calls out after you, [astrapi.speech(Thanks for your assistance, [pc.name]! Remember, my brother and I won't be offering rides for the rest of today, but starting tomorrow we'll be working every day! See you around, [pc.name]!)]
+		#ELSE
+			  With a happy smile on her face, Astrapi opens the door to the barn to allow you to leave, and as you exit the building she calls out after you, [astrapi.speech(Thanks for your assistance, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+			Having now arrived at Elis, you prepare to set off into the town...
+		#ELSE
+			Having now arrived just a short distance north of Dominion, you prepare to set off into the city...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_CLEAN_ARMPITS_FUCK"><![CDATA[
+	<p>
+		#IF(astrapi.getUnderarmHair().getValue()==0)
+			Giving Astrapi's smooth pits one final lick, you pull back and tell her that you'd like to take her up on her offer. Exposing your [pc.cock+] to her, you let out [pc.a_moan] as the horny centauress kneels down and presents her sweaty armpit to you. Letting out [astrapi.a_moan+] as you [pc.step] forwards and start rubbing the [pc.cockHead+] of your cock over her smoothly-shaven pit, Astrapi pants, [astrapi.speech(That's it... Get nice and hard so that you can cum for me... Cum all over my underarm...)]
+		#ELSE
+			Giving Astrapi's hairy pits one final lick, you pull back and tell her that you'd like to take her up on her offer. Exposing your [pc.cock+] to her, you let out [pc.a_moan] as the horny centauress kneels down and presents her sweaty armpit to you. Letting out [astrapi.a_moan+] as you [pc.step] forwards and start rubbing the [pc.cockHead+] of your cock over her hairy pit, Astrapi pants, [astrapi.speech(That's it... Get nice and hard so that you can cum for me... Cum all over my underarm...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_POST_SEX_ARMPITS"><![CDATA[
+	<p>
+		Letting out a little laugh, Astrapi bites her lip and winks and you, before teasing, [astrapi.speech(You're so perverted, [pc.name]! As if my pits turns you on so much...)]
+	</p>
+	<p>
+		Making the muscular centauress laugh by telling her how hot her
+		#IF(astrapi.getUnderarmHair().getValue()==0)
+			 sweaty pits
+		#ELSE
+			 hairy, sweaty pits
+		#ENDIF
+		 are, you get your things back in order and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_POST_SEX_ARMPITS_SHAVING_STOP"><![CDATA[
+	<p>
+		Although you had fun with Astrapi's underarms, you tell her that you'd find them to be far sexier and more to your liking if she'd stop shaving them. Flashing you a smirk as she hears you say this, Astrapi replies, [astrapi.speech(Sure, it's kind of annoying shaving them all the time, so if you like 'em hairy, then that's fine with me! It'll take a few days for the hair to grow, though...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_POST_SEX_ARMPITS_SHAVING_START"><![CDATA[
+	<p>
+		Although you had fun with Astrapi's underarms, you tell her that you've decided that you prefer them when they're shaven smooth. Flashing you a smirk as she hears you say this, Astrapi replies, [astrapi.speech(Sure, it's kind of embarrassing having pits that're as hairy as Vron's! I'll shave them tonight...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Vronti travel: -->
+	
+	<htmlContent tag="VRONTI_START"><![CDATA[
+	<p>
+		Deciding to take up Vronti's offer, you tell him that you'd like a ride to Elis, before paying him the two hundred and fifty flames he's asked for. Silently nodding to you, he stores the money in a sturdy lock-box attached to his carriage, before motioning towards it and briefly saying in his deep voice, [vronti.speech(Let's go.)]
+	</p>
+	<p>
+		Happy to get started on your journey, you climb aboard the carriage and make yourself comfortable on the padded seats. Trotting over to fully open the barn's door, Vronti
+		#IF(game.getCurrentWeather()==WEATHER_RAIN)
+			 sees that it's currently raining, and so swiftly erects a canvas cover over the carriage.
+		#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
+			 sees that it's currently snowing, and so swiftly erects a canvas cover over the carriage.
+		#ELSE
+			 sees that the weather looks fine, and so securely folds up and fastens the carriage's canvas cover to its rear.
+		#ENDIF
+		 Grabbing a spear from where it's been resting against the wall, he straps it to his back before securing himself into the carriage's harness. After these straps are fastened about his lower horse's body, Vronti steps forwards, effortlessly pulling the carriage behind him as he manoeuvres towards the open door of the barn. With a deep grunt, he paws at the ground and mutters, [vronti.speech(Time to leave...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_JOURNEY"><![CDATA[
+	<p>
+		Pulling out from the barn, Vronti sets off down the road at a canter, causing your carriage to be pulled along behind him at an impressive speed. Clearly possessing not only incredible strength but also an astounding level of stamina, the centaur shows no sign of slowing down even after travelling the first couple of miles, and even has the energy to call out a very rare couple of sentences to you, [astrapi.speech(If you see one of Lunette's centaurs, don't worry. They've learned not to mess with me.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_QUIET_JOURNEY"><![CDATA[
+	<p>
+		Deciding against trying to engage Vronti in conversation, you inform him that you're going to relax and close your eyes for a while, to which the muscular centaur briefly replies, [vronti.speech(Suits me.)]
+	</p>
+	<p>
+		Thinking to yourself how smooth the carriage's ride has been so far, you offer silent thanks to Astrapi and Vronti for clearly sparing no expense on the suspension. Thanks to the complete absence of bumps or jolts, you're able to do as you'd said and relax in the carriage, closing your eyes and allowing the time to pass in relative peace as the centaur takes you to Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Talking: -->
+	
+	<htmlContent tag="VRONTI_TALK_HISTORY"><![CDATA[
+	<p>
+		Wanting to pass the time by trying to engage Vronti in conversation, you ask him about his history working as a centaur carriage driver. Much as you expected, he answers in a very brief manner by simply stating, [vronti.speech(My sister and I have been doing this all our lives.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_TALK_COMPETITION"><![CDATA[
+	<p>
+		Wanting to pass the time by trying to engage Vronti in conversation, you ask him about what kind of competition he and his sister face from other centaur carriage drivers. Much as you expected, he answers in a very brief manner by simply stating, [vronti.speech(Nobody else does what we do.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_TALK_LUNETTE"><![CDATA[
+	<p>
+		Wanting to pass the time by trying to engage Vronti in conversation, you ask him what he knows about Lunette. Much as you expected, he answers in a very brief manner by simply stating, [vronti.speech(She's responsible for many crimes against the people of this land.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_TALK_END"><![CDATA[
+	<p>
+		Wanting to know a little more than that, you ask several follow-up questions, but to each one the stoic centaur replies in the shortest manner possible. After quite a few minutes spent failing to crack Vronti's unresponsive manner, you decide to give up and spend the rest of your journey in silence. Informing the centaur that you're going to relax and close your eyes for a while, Vronti once again replies in the briefest manner possible by simply saying, [vronti.speech(Ok.)]
+	</p>
+	<p>
+		Thinking to yourself how smooth the carriage's ride has been so far, you offer silent thanks to Astrapi and Vronti for clearly sparing no expense on the suspension. Thanks to the complete absence of bumps or jolts, you're able to do as you'd said and relax in the carriage, closing your eyes and allowing the time to pass in relative peace as the centaur takes you to Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Flirting: -->
+	
+	<htmlContent tag="VRONTI_FLIRT"><![CDATA[
+	<p>
+		Deciding that it would be fun to pass the time by flirting with Vronti, you start by offering him several suggestive compliments about how strong he is. Whether it's just an act or not, he seems to be completely oblivious to the fact that you're flirting with him, and responds to your flattery by simply grunting, [vronti.speech(Thanks.)]
+	</p>
+	<p>
+		Not one to be deterred by such an apathetic reply, you redouble your efforts and start offering the muscular centaur compliments of a more sexual nature. Telling him that you couldn't help but notice how large his cock is, you say that his partner must be a very lucky person indeed. This seems to finally be enough to get the centaur to react, and he lets out an embarrassed sigh before stating, [vronti.speech(I don't have a partner.)] 
+	</p>
+	<p>
+		Seizing upon this fact, you coyly ask Vronti what kind of sexual partner he prefers, although now that he's realised what it is you're trying to do he completely buttons up and refuses to engage with your flirting. After spending several more minutes trying to get him to reciprocate to your flirting, it's clear that your efforts are having no effect. Letting out an annoyed sigh, you wonder what to do about this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_FLIRT_STOP"><![CDATA[
+	<p>
+		Not wanting to waste any more time on this emotionless centaur, you decide to give up and spend the rest of your journey in silence. Informing Vronti that you're going to relax and close your eyes for a while, he replies in the briefest manner possible by simply saying, [vronti.speech(Ok.)]
+	</p>
+	<p>
+		Thinking to yourself how smooth the carriage's ride has been so far, you offer silent thanks to Astrapi and Vronti for clearly sparing no expense on the suspension. Thanks to the complete absence of bumps or jolts, you're able to do as you'd said and relax in the carriage, closing your eyes and allowing the time to pass in relative peace as the centaur takes you to Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_FLIRT_PUSHED"><![CDATA[
+	<p>
+		Unwilling to accept defeat, you decide to unleash every trick you know in a final attempt to get Vronti to react to your attention. After it's clear that your more subtle techniques have no effect upon the stoic centaur, you take things up a notch by starting to explicitly describe how turned on you're getting at the thought of servicing Vronti's huge cock.
+	</p>
+	<p>
+		[style.random(
+		#IF(flags.hasFlag(FLAG_innoxia_vronti_handjob_given))
+			Taking advantage of the fact that you've been in this situation before, you remind Vronti how good it must have felt for him when you jerked him off. Graphically describing how you loved stroking his huge horse-cock, you tell him that you want to once again empty his heavy balls, and then move on to tease him about how strongly he spurts out his musky cum when he orgasms.
+		#ENDIF
+		|
+		#IF(flags.hasFlag(FLAG_innoxia_vronti_blowjob_given))
+			Taking advantage of the fact that you've been in this situation before, you remind Vronti how good it must have felt for him when you wrapped your [pc.lips+] around his fat horse-cock and gave him a blowjob. Graphically describing how you loved the sensation of his huge, hot horse-cock being shoved down your throat, you tell him that you want to once again empty his heavy balls, and then move on to tease him about how strongly he spurts out his musky cum when he orgasms.
+		#ENDIF
+		|
+		#IF(flags.hasFlag(FLAG_innoxia_vronti_sex_given))
+			Taking advantage of the fact that you've been in this situation before, you remind Vronti how good it must have felt for him when you presented your [pc.pussy+] to his fat horse-cock and let him rut you. Graphically describing how you loved the sensation of his huge, hot horse-cock thrusting into your cunt, you tell him that you want to once again empty his heavy balls, and then move on to tease him about how strongly he spurts out his musky cum when he orgasms.
+		#ENDIF
+		|
+		#IF(flags.hasFlag(FLAG_innoxia_vronti_anilingus_given))
+			Taking advantage of the fact that you've been in this situation before, you remind Vronti how good it must have felt for him when you serviced his puffy asshole. Graphically describing how you loved being able to pleasure his rear entrance, you tell him that you want to once again empty his heavy balls, and then move on to tease him about how strongly he spurts out his musky cum when he orgasms.
+		#ENDIF
+		|
+		#IF(flags.hasFlag(FLAG_innoxia_vronti_anal_sex_given))
+			Taking advantage of the fact that you've been in this situation before, you remind Vronti how good it must have felt for him when you presented your [pc.asshole+] to his fat horse-cock and let him rut you. Graphically describing how you loved the sensation of his huge, hot horse-cock fucking your ass, you tell him that you want to once again empty his heavy balls, and then move on to tease him about how strongly he spurts out his musky cum when he orgasms.
+		#ENDIF
+		|
+		Taking advantage of the fact that the centaur's heavy balls are visible from where you're sitting in the carriage, you tell Vronti that you can see how his huge, heavy balls look like they're desperate for release. After spending some time continuing to graphically describe how you want to pleasure his huge, hot horse-cock, you then move on to tease him by wondering how much musky cum he spurts out when he orgasms.
+		)]
+	</p>
+	<p>
+		Although he tries to shake his head and ignore you, for the first time since setting off on your journey you hear Vronti's breathing starting to get heavier. A little more teasing and he abruptly comes to a halt right in the middle of the road. Asking him what's wrong, you can't help but smile as Vronti curtly responds, [vronti.speech(You've given me an erection. I can't run like this.)]
+	</p>
+	<p>
+		Dismounting from the carriage, you move around to the side of Vronti and take a look at his groin. Just as he said, you see that the result of your focused flirting techniques is a huge, throbbing erection. Smirking at the blushing centaur, you wonder whether to take things all the way and offer to help him release his sexual tension...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_VRONTI_HANDJOB_START"><![CDATA[
+	<p>
+		Moving up so that you're right next to the muscular centaur, you tell him that it'll be quicker to get rid of his erection by jerking him off than waiting for him to calm down. Thanks to your efforts, Vronti is unable to keep his arousal under control, and as he hears you say this he reluctantly responds, [vronti.speech(Fine... Just do it quickly...)]
+	</p>
+	<p>
+		Excited to be given the opportunity to service such a huge horse-cock, you eagerly drop down beside Vronti and happily reach up to start stroking his massive, throbbing length. He lets out a shocked grunt as he feels you touching his genitalia, and as you give his heavy balls a quick fondle, he grunts, [vronti.speech(Don't tell Astrapi about this... Please...)]
+	</p>
+	<p>
+		Promising him that this can be your little secret, you start really getting into the swing of things, and as you run your [pc.fingers] up and down the length of the centaur's massive cock, you wonder how long he'll last before you make him cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_VRONTI_BLOWJOB_START"><![CDATA[
+	<p>
+		Moving up so that you're right next to the muscular centaur, you tell him that it'll be quicker to get rid of his erection by giving him a blowjob than waiting for him to calm down. Thanks to your efforts, Vronti is unable to keep his arousal under control, and as he hears you say this he reluctantly responds, [vronti.speech(Fine... Just do it quickly...)]
+	</p>
+	<p>
+		Excited to be given the opportunity to service such a huge horse-cock, you eagerly drop down beside Vronti and happily plant a big, wet kiss on his massive, throbbing length. He lets out a shocked grunt as he feels you touching his genitalia, and as you give his heavy balls a quick lick and a kiss, he grunts, [vronti.speech(Don't tell Astrapi about this... Please...)]
+	</p>
+	<p>
+		Promising him that this can be your little secret, you start really getting into the swing of things, and after running your [pc.tongue+] up and down the length of the centaur's massive cock, you take his flared head into your mouth and start giving him an eager blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_VRONTI_FUCK_START"><![CDATA[
+	<p>
+		Moving up so that you're right next to the muscular centaur, you tell him that it'll be quicker to get rid of his erection by working out his sexual tension than waiting for him to calm down. Thanks to your efforts, Vronti is unable to keep his arousal under control, and as he hears you say this he reluctantly responds, [vronti.speech(Fine... It worked before, so just do it quickly...)]
+	</p>
+	<p>
+		Instead of using your hands or mouth to solve the problem, however, you [pc.walk] around in front of the centaur and expose your pussy to him, before getting down on all fours and telling him to do what he wants. Although Vronti spends a moment trying to resist, a graphic description of how hungry your cunt is for horse-cock, combined with your exposed pussy being physically presented to him, gets him to step forwards and mount you.
+	</p>
+	<p>
+		[vronti.speech(Don't tell Astrapi about this... Please...)] he grunts as he moves around until the flared head of his cock is prodding experimentally at your [pc.labia+]. Promising him that this can be your little secret, you push your hips back and press your hungry pussy back against his cock. Vronti lets out a shocked grunt as he feels this pressure on the head of his cock, and being unable to resist his natural urges, he thrusts forwards sinks his massive horse-cock into your [pc.pussy+].
+	</p>
+	<p>
+		[vronti.speech(Fuck...)] he grunts, and after you've let out an eager moan and told him to rut you like an animal, he does as you say and begins to desperately pound your hot pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_FLIRT_BACK_OUT"><![CDATA[
+	<p>
+		Things have progressed too far for your liking, so instead of offering to help him with it, you tell Vronti that you don't mind waiting until he's got his sexual frustration under control. Getting back into the carriage, you wait for several minutes as his erection slowly pulls back into its sheath.
+	</p>
+	<p>
+		Eventually the centaur is ready to continue on his way, and as you set off down the road once more, you decide that it would be best to spend the rest of your journey in silence. Informing Vronti that you're going to relax and close your eyes for a while, he replies in the briefest manner possible by simply saying, [vronti.speech(Ok.)]
+	</p>
+	<p>
+		Thinking to yourself how smooth the carriage's ride has been so far, you offer silent thanks to Astrapi and Vronti for clearly sparing no expense on the suspension. Thanks to the complete absence of bumps or jolts, you're able to do as you'd said and relax in the carriage, closing your eyes and allowing the time to pass in relative peace as the centaur takes you to Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_VRONTI_ASS_SERVICE_START"><![CDATA[
+	<p>
+		Moving up so that you're right next to the muscular centaur, you tell him that it'll be quicker to get rid of his erection by sexually servicing him than waiting for him to calm down. Thanks to your efforts, Vronti is unable to keep his arousal under control, and as he hears you say this he reluctantly responds, [vronti.speech(Fine... Just do it quickly...)]
+	</p>
+	#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+		<p>
+			Clearly not expecting what's coming next, the muscular centaur gasps as you quickly drop down behind him and plant a big, passionate kiss on his puffy asshole. Pulling back, you tell Vronti that you've been well trained as one of Natalya's fillies, and that performing anilingus on centaurs is part of your job. Wanting to demonstrate this to him, you lean in and start planting a series of loving kisses on Vronti's horse-anus, causing him to grunt and admit, [vronti.speech(Ok... That feels fine...)]
+		</p>
+		<p>
+			Smiling at his response, you tell the muscular centaur that he hasn't experienced anything yet. Before he can respond to that statement, you eagerly bury your face into his ass, pressing your [pc.lips+] against his puffy asshole in the process. Darting your [pc.tongue+] out, you start lovingly performing anilingus on Vronti, and from the deep, satisfied grunts you start to hear him making, you're sure that Natalya would be proud of your efforts...
+		</p>
+	#ELSE
+		<p>
+			Clearly not expecting what's coming next, the muscular centaur gasps as you quickly drop down behind him and run your fingers over his puffy asshole. Continuing to tease his rear entrance in this manner, you tell Vronti to relax and enjoy the sensation of having his ass serviced. As you lovingly start to play with Vronti's horse-anus, he grunts and admit, [vronti.speech(Ok... That feels fine...)]
+		</p>
+		<p>
+			Smiling at his response, you tell the muscular centaur that he hasn't experienced anything yet. Before he can respond to that statement, you eagerly bury your [pc.fingers] into his puffy asshole, before starting to finger his back-door. From the deep, satisfied grunts you start to hear him making, you're sure that Vronti is enjoying this experience...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_VRONTI_ANAL_FUCK_START"><![CDATA[
+	<p>
+		Moving up so that you're right next to the muscular centaur, you tell him that it'll be quicker to get rid of his erection by working out his sexual tension than waiting for him to calm down. Thanks to your efforts, Vronti is unable to keep his arousal under control, and as he hears you say this he reluctantly responds, [vronti.speech(Fine... It worked before, so just do it quickly...)]
+	</p>
+	<p>
+		Instead of using your hands or mouth to solve the problem, however, you [pc.walk] around in front of the centaur and expose your ass to him, before getting down on all fours and telling him to do what he wants. Although Vronti spends a moment trying to resist, a graphic description of how hungry your back-door is for horse-cock, combined with your exposed asshole being physically presented to him, gets him to step forwards and mount you.
+	</p>
+	<p>
+		[vronti.speech(Don't tell Astrapi about this... Please...)] he grunts as he moves around until the flared head of his cock is prodding experimentally at your [pc.asshole+]. Promising him that this can be your little secret, you push your hips back and press your hungry butt back against his cock. Vronti lets out a shocked grunt as he feels this pressure on the head of his cock, and being unable to resist his natural urges, he thrusts forwards sinks his massive horse-cock into your [pc.asshole+].
+	</p>
+	<p>
+		[vronti.speech(Fuck...)] he grunts, and after you've let out [pc.a_moan+] and told him to rut you like an animal, he does as you say and begins to desperately pound your hot ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_POST_SEX"><![CDATA[
+	<p>
+		Satisfied from the orgasm you've given him, Vronti lets out a deep grunt, before stepping back and briefly saying, [vronti.speech(That's enough.)]
+	</p>
+	<p>
+		Smiling up at him, you see that the stoic centaur is blushing, and as the arousal fades from his mind, he starts to seem incredibly embarrassed about what just happened. Nervously pawing at the ground, he looks in every direction except yours and mutters, [vronti.speech(Sorry about that...)]
+	</p>
+	<p>
+		Reassuring him that there's nothing to be sorry about, you lean in and plant a kiss on his cheek, which causes him to blush even more and grunt, [vronti.speech(Let's get moving.)]
+	</p>
+	<p>
+		Recovering his stamina in what seems to be just a few seconds, the muscular centaur straps himself into the carriage's harness once more, and as soon as you've clambered up into the wooden vehicle, he speeds off on his way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_JOURNEY_END"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+		<p>
+			A short while of travelling later, Vronti points off into the distance and grunts, [vronti.speech(Elis.)]
+		</p>
+		<p>
+			Sure enough, as you look in the direction that he's pointing in, you're able to see a strip of grey on the horizon. Thanks to Vronti's impressive speed, it only takes another couple of minutes before you're able to pick out the distinctive shape of towers embedded into the corners of the ramparts, as well as the roofs of the taller buildings within the town itself. The one which stands out the most, and the one which truly defines the town's silhouette, is the tall, highly-steepled roof of the town hall's tower.
+		</p>
+		<p>
+			As you get ever closer to Elis, you're able to pick out the crenellations of its walls, and can thankfully see that the gatehouse has its gates wide open.
+			#IF(game.isDayTime())
+				 While there aren't many people leaving or entering the town via the same cobblestone road which you find yourself on, you can see through the entrance that the interior of the town looks to be quite busy.
+			#ELSE
+				 Due to the current hour, there isn't a single person leaving or entering the town via the same cobblestone road which you find yourself on, although you can see through the entrance that the interior of the town looks to be not completely deserted.
+			#ENDIF
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+				Thanks to the close proximity of the town, the nearby fields are very well protected from raiders or bandits. Despite this, however, there doesn't appear to be a single residential building outside of the walls, giving the surrounding area a very rural feel to it.
+			#ELSE
+				Taking a look around at the nearby fields, you notice that they don't seem to have suffered the same sort of damage from Lunette's centaurs as those out in the Foloi Fields. Despite the apparent protection from raids, however, there doesn't appear to be a single residential building outside of the walls, giving these fields a very rural feel to them.
+			#ENDIF
+		</p>
+		<p>
+			The only building outside of the town's walls which you can see is the one which Vronti is leading you to. Taking the form of a large, wooden barn, and positioned a short distance from the eastern gate of the town, this building appears to be Elis's counterpart to the twin barns back at Dominion. Confirming this to you, the centaur calls back, [vronti.speech(This is it. There's a tax on centaur carriages passing through the gates, so I can't take you into the town itself.)]
+		</p>
+		<p>
+			Pulling up in front of this barn, Vronti waits for you to dismount the carriage, before saying, [vronti.speech(Thanks for the business.)]
+		</p>
+	#ELSE
+		<p>
+			A short while of travelling later, Vronti points off into the distance and grunts, [vronti.speech(Dominion.)]
+		</p>
+		<p>
+			Sure enough, as you look in the direction that he's pointing in, you're able to see the black obelisk of Lilith's tower in the distance. Thanks to Vronti's impressive speed, it only takes another couple of minutes before you're able to pick out the distinctive outline of Dominion's suburbs, and a further few minutes later you see the twin barns of the 'Centaur Carriage Depot' on either side of the road up ahead.
+		</p>
+		<p>
+			[vronti.speech(This is it,)] Vronti calls back as he pulls up in front of these familiar barns. Waiting for you to dismount the carriage, he briefly adds, [vronti.speech(Thanks for the business.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VRONTI_JOURNEY_END_GOODYBE"><![CDATA[
+	<p>
+		Thanking Vronti for the ride, and assuring him that you will use his business again in the future, you say goodbye. Giving you the briefest of waves, the muscular centaur opens the door to the barn, before pulling his carriage inside and disappearing from sight.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+			Having now arrived at Elis, you prepare to set off into the town...
+		#ELSE
+			Having now arrived just a short distance north of Dominion, you prepare to set off into the city...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>
