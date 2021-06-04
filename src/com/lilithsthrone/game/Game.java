@@ -3850,7 +3850,7 @@ public class Game implements XMLSaving {
 		try {
 			charactersPresent.sort((c1, c2) ->
 					(c2.getLevel()-c1.getLevel())==0
-						?c2.getName(true).compareTo(c1.getName(true))
+						?c2.getNameIgnoresPlayerKnowledge().compareTo(c1.getNameIgnoresPlayerKnowledge())
 						:(c2.getLevel()-c1.getLevel()));
 		} catch(Exception ex) {
 		}
