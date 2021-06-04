@@ -97,6 +97,9 @@ public class Astrapi extends NPC {
 			this.setPlayerKnowsName(false);
 			this.setupPerks(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.6")) {
+			this.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		}
 	}
 
 	@Override

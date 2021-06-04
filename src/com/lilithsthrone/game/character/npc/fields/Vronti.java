@@ -84,6 +84,9 @@ public class Vronti extends NPC {
 			this.setStartingBody(true);
 			this.setPlayerKnowsName(false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.6")) {
+			this.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		}
 	}
 
 	@Override
