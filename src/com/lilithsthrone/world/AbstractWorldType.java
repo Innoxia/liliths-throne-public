@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -192,6 +193,10 @@ public abstract class AbstractWorldType {
 //		throw new IllegalAccessError();
 		System.err.println("Warning: AbstractWorldType's toString() method is being called!");
 		return super.toString();
+	}
+
+	public String getOffspringTextFilePath(NPCOffspring o) {
+		return "characters/offspring/dominionAlleyway";
 	}
 
 	public boolean isMod() {
