@@ -270,7 +270,7 @@ public class Jess extends NPC {
 			if((Main.game.getHourOfDay()>=11 || Main.game.getHourOfDay()<3)) {
 				if(this.getLocationPlace().getPlaceType()!=PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex") && Math.random()<=0.5f) {
 					// 50% chance to entertain someone in her room
-					this.returnToHome();
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"), true);
 					Map<Gender, Integer> genders = Util.newHashMapOfValues(
 							new Value<>(Gender.F_V_B_FEMALE, 40),
 							new Value<>(Gender.F_P_B_SHEMALE, 5),
@@ -297,7 +297,7 @@ public class Jess extends NPC {
 				}
 				
 			} else {
-				this.returnToHome();
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"), true);
 				removeGenericNPC();
 			}
 		}
