@@ -491,9 +491,12 @@ public interface SexActionInterface {
 		} catch(Exception ex) {
 		}
 		
+		boolean underarmAllowed = Main.game.isArmpitContentEnabled() || (!this.getPerformingCharacterOrifices().contains(SexAreaOrifice.ARMPITS) && !this.getTargetedCharacterOrifices().contains(SexAreaOrifice.ARMPITS));
+		
 		return analAllowed
 				&& footAllowed
 				&& crotchBoobsAllowed
+				&& underarmAllowed
 				&& (this.getSexPace()==null
 					|| (this.getSexPace().isDom() == Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop non-self ongoing penetrations if full control

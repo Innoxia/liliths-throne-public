@@ -77,7 +77,7 @@
 		Turning towards you, Meraxis then explains, [meraxis.speech(My minions here witnessed my supreme power as I effortlessly defeated Flash in a duel outside this very tavern. Realising that I am none other than Lyssieth's recognised daughter, and seeing my ultimate arcane mastery for themselves, these succubi have pledged themselves to be my minions!)]
 	</p>
 	<p>
-		Looking back over towards these succubi, you realise that they must be wanting to move up Elis's social hierarchy by being associated with a recognised daughter of an elder lilin. Before you can ssk them if this is their intention, however, Meraxis grabs hold of your [pc.arm(true)] and pulls you away, saying, [meraxis.speech(Come on, [pc.name], I shall reveal to you the hidden paths which lead to your new evil lair!)]
+		Looking back over towards these succubi, you realise that they must be wanting to move up Elis's social hierarchy by being associated with a recognised daughter of an elder lilin. Before you can ask them if this is their intention, however, Meraxis grabs hold of your [pc.arm(true)] and pulls you away, saying, [meraxis.speech(Come on, [pc.name], I shall reveal to you the hidden paths which lead to your new evil lair!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -830,7 +830,7 @@
 		Recalling what Meraxis suggested to Lyssieth, you ask her if she's had any luck tracking down the youko who used to work for her in her Submission citadel. Shaking her head, the chuuni [meraxis.race] replies, [meraxis.speech(I must unfortunately report that my mystical divinations have not yet produced results. It was aeons ago that we first met, but thanks to my unparalleled memory I can say for certain that it was in this very tavern where Takahashi and I had our first, fateful encounter. I was hoping that she'd sense my malevolent presence and return to find me here, but alas, that has proven not to be the case...)]
 	</p>
 	<p>
-		As Takahashi was supposed to be your guide for finding the youko, you press Meraxis on the matter and ask her if she has any leads. Leaning back on the sofa, she sighs and says, [meraxis.speech(When the youko wish not to be found, you will never be able to track them down. All we can do is wait for a celestial portent to indicate that fate will lead us to her! Besides, mommy said that you should meet Minotallys before worrying about the youko...)]
+		As Takahashi was a candidate for being your guide to finding and securing assistance from the youko, you press Meraxis on the matter and ask her if she has any idea where Takahashi could have gone. Leaning back on the sofa, she sighs and says, [meraxis.speech(When the youko wish not to be found, you will never be able to track them down. All we can do is wait for a celestial portent to indicate that fate will lead us to her! Besides, mommy said that you should meet Minotallys before worrying about the youko...)]
 	</p>
 	<p>
 		Seeing the smirks on her minions' faces as she uses the word 'mommy', Meraxis blushes and covers up her embarrassment by pointing at you and declaring, [meraxis.speech(Begone, my nemesis, unless you have something further you wish to say!)]
