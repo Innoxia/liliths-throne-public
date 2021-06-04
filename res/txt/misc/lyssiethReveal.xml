@@ -1071,7 +1071,7 @@
 		 in length. There looks to be a large amount of farmland surrounding the capital, which is bordered by an expanse of wild grassland and forests. To the north, there's a huge expanse of what's marked as jungle, while to the south, the farmland transitions first into a wide savannah, and then into a desert.
 	</p>
 	<p>
-		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few #IF(game.isMetricSizes())kilometres#ELSemiles#ENDIF to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly
+		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few #IF(game.isMetricSizes())kilometres#ELSEmiles#ENDIF to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly
 		#IF(game.isMetricSizes())
 			 35 kilometres
 		#ELSE
