@@ -21,6 +21,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Deprecated the toc.xml in favour of file name based sorting for patch notes. (PR#1537 by Stadler76)
+	
 	Bugs:
 		Typo fixes.
 		Fixed issue where NPCs would not be present in their intended home cells when creating a new game, which was affecting all unique NPCS, most noticeably harpies and shop keepers in the Shopping Arcade. If you made a new game in 0.4.0.5, I'd advise starting over as I haven't retroactively fixed these NPCs being in incorrect tiles (as it would take a long time to go through them all and check where they're meant to be). 
