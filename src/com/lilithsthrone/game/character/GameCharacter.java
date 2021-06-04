@@ -20423,9 +20423,6 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setHomeLocation(AbstractWorldType homeWorldLocation, Vector2i location) {
-		if(id.equals("NOT_SET")) {
-			return;
-		}
 		getHomeCell().removeCharacterHomeId(this.getId());
 		this.homeWorldLocation = homeWorldLocation;
 		

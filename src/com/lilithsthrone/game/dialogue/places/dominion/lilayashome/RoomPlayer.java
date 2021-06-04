@@ -2095,7 +2095,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Calendar", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			StringBuilder sb = new StringBuilder();
@@ -2151,16 +2151,16 @@ public class RoomPlayer {
 			return "";
 		}
 
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
+//		@Override
+//		public String getResponseTabTitle(int index) {
+//			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+//		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
+//			if(responseTab==1) {
+//				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+//			}
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 			} else if(index==1) {
@@ -2194,7 +2194,7 @@ public class RoomPlayer {
 	};
 	
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2230,7 +2230,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2266,7 +2266,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2308,7 +2308,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {

@@ -98,33 +98,6 @@
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
 				]]></effects>
 			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[10]]></index>
-				<responseTitle><![CDATA[Masturbate]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Meraxis to continue playing with her breasts while you masturbate to the sight of them.]]></responseTooltip>
-				<nextDialogue/>
-				<effects/>
-				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_meraxis_masturbation]]></id>
-					<startingPosition><![CDATA[STANDING]]></startingPosition>
-					<dominants>
-						<character>
-							<id>pc</id>
-							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
-						</character>
-					</dominants>
-					<submissives>
-						<character>
-							<id>meraxis</id>
-							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
-						</character>
-					</submissives>
-					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_masturbation]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/leaving_dominion">WON_SEX_PLAY_BREASTS_MASTURBATE</sexStartContent>
-					<ongoingActionsAtStart/>
-				</sexVariablesWithManager>
-			</response>
 		</responses>
 	</scene>
 	
@@ -1430,7 +1403,7 @@
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 						You can't gain access to your mouth, so can't perform cunnilingus on Meraxis even if she'd let you!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to let you perform cunnilingus on her!
@@ -1483,7 +1456,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasVagina())
 						You don't have a vagina, so Meraxis couldn't perform cunnilingus on you even if she wanted to!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 						You can't gain access to your vagina, so Meraxis couldn't perform cunnilingus on you even if she wanted to!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to perform cunnilingus on you!
@@ -1536,7 +1509,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasPenis())
 						You don't have a penis, so Meraxis couldn't give you a blowjob even if she wanted to!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 						You can't gain access to your penis, so Meraxis couldn't give you a blowjob even if she wanted to!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to give you a blowjob!
