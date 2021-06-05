@@ -52,7 +52,56 @@ public class NPCOffspring extends NPC {
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
-
+	public NPCOffspring(OffspringSeed os) {
+		super(false, os.nameTriplet, os.surname, os.description,
+				0, os.getBirthday().getMonth(), os.getBirthday().getDayOfMonth(),
+				1, os.body.getGender(), os.body.getSubspecies(), os.body.getRaceStage(), new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+		
+		this.conceptionDate = os.conceptionDate;
+		
+		// Set random level from 1 to 3:
+		setLevel(Util.random.nextInt(3) + 1);
+		
+		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
+		
+		this.setMother(os.getMother());
+		this.setAffection(os.getMother(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		
+		if(os.getFather()!=null) {
+			this.setFather(os.getFather());
+			this.setAffection(os.getFather(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		}
+		
+		// PERSONALITY & BACKGROUND:
+		
+		Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
+		
+		// ADDING FETISHES:
+		
+		Main.game.getCharacterUtils().addFetishes(this);
+		
+		// BODY RANDOMISATION:
+		
+		Main.game.getCharacterUtils().randomiseBody(this, false);
+		
+		// INVENTORY:
+		
+		// Offspring does not call equipClothing() until spawned in Encounter!
+		
+		resetInventory(true);
+		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+		
+		Main.game.getCharacterUtils().applyMakeup(this, true);
+		
+		initHealthAndManaToMax();
+		
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
+		
+		Main.game.safeAddNPC(this, false);
+		Main.game.getOffspring(false).add(this);
+		Main.game.removeOffspringSeed(os);
+	}
+	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
 	}

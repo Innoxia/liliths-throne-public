@@ -4195,22 +4195,16 @@ public class Game implements XMLSaving {
 		return offspring;
 	}
 	
-	public List<NPC> getOffspringSpawned() {
-		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false));
+	public List<OffspringSeed> getOffspringNotSpawned(Predicate<OffspringSeed> matcher) {
+		List<OffspringSeed> offspringAvailable = new ArrayList<>();
 		
-		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
-		
-		return offspringSpawned;
-	}
-
-	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher) {
-		List<NPC> offspringAvailable = Main.game.getOffspring(false).stream()
-										.filter(npc -> !npc.isSlave())
-										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
-										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
-										.filter(matcher)
-										.collect(Collectors.toList());
-		return offspringAvailable;
+		for(OffspringSeed os : OffspringSeedMap.values()) {
+			if((os.getMother()!=null && os.getMother().isPlayer())
+					|| (os.getFather()!=null && os.getFather().isPlayer())) {
+					offspringAvailable.add(os);
+			}
+		}
+		return offspringAvailable.stream().filter(matcher).collect(Collectors.toList());
 	}
 	
 	public List<NPC> getReindeerOverseers() {

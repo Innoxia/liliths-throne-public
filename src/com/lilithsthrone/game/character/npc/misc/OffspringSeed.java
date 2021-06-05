@@ -2,10 +2,14 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.*;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 import org.w3c.dom.Document;
@@ -119,6 +123,17 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public void setBirthday(LocalDateTime birthday) { this.birthday = birthday; }
 	
+	public GameCharacter getMother() {
+		if(motherId==null || motherId.isEmpty() || motherId.equals("NOT_SET")) {
+			return null;
+		}
+		try {
+			return Main.game.getNPCById(motherId);
+		} catch(Exception e) {
+			return null;
+		}
+	}
+
 	public String getMotherId() {
 		return motherId;
 	}
@@ -164,7 +179,19 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public void setBody(Body body) { this.body = body; }
 	
-	public NameTriplet getName() { return nameTriplet; }
+	public String getName() {
+		switch(this.getFemininity()) {
+			case MASCULINE_STRONG:
+			case MASCULINE:
+				return nameTriplet.getMasculine();
+			case ANDROGYNOUS:
+				return nameTriplet.getAndrogynous();
+			case FEMININE:
+			case FEMININE_STRONG:
+			default:
+				return nameTriplet.getFeminine();
+		}
+	}
 	
 	public void setName(NameTriplet nameTriplet) { this.nameTriplet = nameTriplet; }
 
@@ -176,8 +203,27 @@ public class OffspringSeed  implements XMLSaving {
 		return body==null || body.isFeminine();
 	}
 	
+	public Femininity getFemininity() {
+		return Femininity.valueOf(body.getFemininity());
+	}
+	
 	public boolean isTakesAfterMother() {
 		return body.isTakesAfterMother();
 	}
 	
+	public AbstractSubspecies getHalfDemonSubspecies() {
+		return body.getHalfDemonSubspecies();
+	}
+	
+	public DialogueNode getEncounterDialogue() {
+		return GenericOffspringDialogue.OFFSPRING_ENCOUNTER;
+	}
+	
+	public String himHer() {
+		if(this.isFeminine()) {
+			return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getFeminine();
+		} else {
+			return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getMasculine();
+			}
+		}
 }
