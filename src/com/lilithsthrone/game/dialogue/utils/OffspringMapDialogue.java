@@ -75,10 +75,9 @@ public class OffspringMapDialogue {
 					}
 					for(OffspringSeed os : offspringToShow) {
 						UtilText.nodeContentSB.append("<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(os.getName())+"</span>");
-
 						UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
-								+ " Mother: "+(os.getMother()==null?"Unknown":os.getMother().getName(true))
-								+ " Father: "+(os.getFather()==null?"Unknown":os.getFather().getName(true))
+								+ " Mother: "+(os.getMother()==null?"Unknown":(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
+								+ " Father: "+(os.getFather()==null?"Unknown":(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
 								+ "<br/>");
 					}
 					
@@ -92,8 +91,8 @@ public class OffspringMapDialogue {
 					for(OffspringSeed os : offspringToShow) {
 						UtilText.nodeContentSB.append("[style.colourDisabled("+Util.capitaliseSentence(os.getName())+")]");
 						UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
-								+ " Mother: "+(os.getMother()==null?"Unknown":os.getMother().getName(true))
-								+ " Father: "+(os.getFather()==null?"Unknown":os.getFather().getName(true))
+								+ " Mother: "+(os.getMother()==null?"Unknown":(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
+								+ " Father: "+(os.getFather()==null?"Unknown":(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
 								+ "<br/>");
 					}
 				}
@@ -116,7 +115,7 @@ public class OffspringMapDialogue {
 				
 				if(!getOffspringList().contains(offspring)) {
 					return new Response(offspring.getName(),
-							offspring.getName()+" cannot be found in this area, due to "+offspring.himHer()+" subspecies...",
+							offspring.getName()+" cannot be found in this area, due to "+offspring.hisHer()+" subspecies...",
 							null);
 				}
 

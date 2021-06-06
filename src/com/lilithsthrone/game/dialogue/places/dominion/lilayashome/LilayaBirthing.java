@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -30,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class LilayaBirthing {
 
-	public static String getOffspringDescriptor(GameCharacter offspring) {
+	public static String getOffspringDescriptor(OffspringSeed offspring) {
 		List<String> descriptors = new ArrayList<>();
 		descriptors.add(offspring.getBodyShape().getName(false));
 		descriptors.add(offspring.getHeight().getDescriptor());
@@ -509,12 +510,12 @@ public class LilayaBirthing {
 			
 			for(String id : Main.game.getPlayer().getLastLitterBirthed().getOffspring()) {
 				try {
-					GameCharacter offspring = Main.game.getNPCById(id);
+					OffspringSeed offspring = Main.game.getOffspringSeedById(id);
 					String descriptor = getOffspringDescriptor(offspring);
 					UtilText.nodeContentSB.append("<br/>"
 							+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
-							+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGender().getName()+"</i>"
-							+ " <i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"+UtilText.parse(offspring,"[npc.race]")+"</i>");
+							+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGenderName()+"</i>"
+							+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getBodyName()+"</i>");
 				} catch(Exception ex) {
 				}
 			}

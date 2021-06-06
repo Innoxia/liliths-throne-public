@@ -36,6 +36,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -605,12 +606,12 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.append("<p style='text-align:center;'>");
 				for(String id : incubationOffspringBirthed) {
 					try {
-						GameCharacter offspring = Main.game.getNPCById(id);
+						OffspringSeed offspring = Main.game.getOffspringSeedById(id);
 						String descriptor = LilayaBirthing.getOffspringDescriptor(offspring);
 						UtilText.nodeContentSB.append("<br/>"
 								+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
-								+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGender().getName()+"</i>"
-								+ " <i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"+UtilText.parse(offspring,"[npc.race]")+"</i>");
+								+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGenderName()+"</i>"
+								+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getBodyName()+"</i>");
 					} catch(Exception ex) {
 					}
 				}
@@ -1879,14 +1880,10 @@ public class PhoneDialogue {
 			output.append("</div>");
 		}
 
-		private boolean ChildMet(NPC npc) {
-			return Main.game.getPlayer().getCharactersEncountered().contains(npc.getId());
-		}
-
 		private void offspringTableLine(StringBuilder output, NPC npc, boolean evenRow, boolean includeIncubationColumn) {
 			boolean female = npc.isFeminine();
 			String color = female ? PresetColour.FEMININE.toWebHexString() : PresetColour.MASCULINE.toWebHexString();
-			String child_name = ChildMet(npc) ? npc.getName(true) : "Unknown";
+			String child_name = npc.getName(true);
 			String race_color = npc.getRace().getColour().toWebHexString();
 			String species_name = female
 								? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
@@ -1970,7 +1967,6 @@ public class PhoneDialogue {
 			int daughtersBirthed=0;
 			int sonsFathered=0;
 			int daughtersFathered=0;
-			int childrenMet = 0;
 			
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
@@ -1987,10 +1983,8 @@ public class PhoneDialogue {
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Mothered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersBirthed);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", PresetColour.MASCULINE.toWebHexString(), sonsFathered);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersFathered);
-
-			for (NPC npc : Main.game.getOffspring(false)) {
-				childrenMet += ChildMet(npc) ? 1 : 0;
-			}
+			
+			int childrenMet = Main.game.getOffspring().size();
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
 			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
 
@@ -2025,7 +2019,7 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			int rowCount = 0;
-			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring(false));
+			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring());
 			offspringBirthed.removeIf(npc -> npc.getIncubator()!=null && npc.getIncubator().isPlayer()); // Only non-egg incubated offspring
 			if(offspringBirthed.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='margin:0; padding:0; width:100%;float:left;'>"
@@ -2068,8 +2062,8 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			rowCount = 0;
-			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
-			offspringBirthed.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
+			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring());
+			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
 			offspringIncubated.removeAll(offspringBirthed);
 			if(offspringIncubated.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"

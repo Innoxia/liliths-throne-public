@@ -12,13 +12,10 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Relationship;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -98,89 +95,10 @@ public class NPCOffspring extends NPC {
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 		
 		Main.game.safeAddNPC(this, false);
-		Main.game.getOffspring(false).add(this);
+		Main.game.getOffspring().add(this);
 		Main.game.removeOffspringSeed(os);
 	}
 	
-	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
-	}
-	
-	public NPCOffspring(GameCharacter mother, GameCharacter father, AbstractSubspecies fatherSubspecies, AbstractSubspecies fatherHalfDemonSubspecies) {
-		super(false, null, null, "",
-				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
-				3,
-				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
-		
-		if(mother.getTrueSubspecies()==Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
-			this.setSurname(mother.getName(false)+"martuilani");
-			
-		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
-			this.setSurname(father.getName(false)+"martuilani");
-				
-		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
-			this.setSurname(mother.getSurname());
-		}
-		
-		// Set random level from 1 to 3:
-		setLevel(Util.random.nextInt(3) + 1);
-		
-		// BODY GENERATION:
-		
-		Gender gender = Gender.getGenderFromUserPreferences(false, false);
-		Body preGeneratedBody = null;
-		if(father!=null) {
-			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother, father);
-		} else {
-			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
-		}
-		if(preGeneratedBody!=null) {
-			setBody(preGeneratedBody, true);
-		} else {
-			setBody(gender, mother, father, true);
-		}
-		
-		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
-
-		setName(Name.getRandomTriplet(getRace()));
-
-		this.setMother(mother);
-		this.setAffection(mother, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		
-		if(father!=null) {
-			this.setFather(father);
-			this.setAffection(father, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		}
-		
-		// PERSONALITY & BACKGROUND:
-		
-		Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
-		
-		// ADDING FETISHES:
-		
-		Main.game.getCharacterUtils().addFetishes(this);
-
-		// BODY RANDOMISATION:
-		
-		Main.game.getCharacterUtils().randomiseBody(this, true);
-		
-		// INVENTORY:
-		
-		// Offspring does not call equipClothing() until spawned in Encounter!
-		
-		resetInventory(true);
-		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		
-		Main.game.getCharacterUtils().applyMakeup(this, true);
-
-		initHealthAndManaToMax();
-
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
-	}
-	
-	
-
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);

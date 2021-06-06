@@ -4168,42 +4168,51 @@ public class Game implements XMLSaving {
 			return null;
 		}
 	}
-
-	public List<NPC> getOffspring(boolean includeNotBorn) {
+	
+	
+	/**
+	 * @return a list of all offspring that have been encountered in the game.
+	 */
+	public List<NPC> getOffspring() {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
 			if((npc.getMother()!=null && npc.getMother().isPlayer())
 					|| (npc.getFather()!=null && npc.getFather().isPlayer())) {
-				if(npc.getMother()!=null) {
-					if(includeNotBorn
-							|| npc.getMother().getPregnantLitter()==null
-							|| !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
-						offspring.add(npc);
-					}
-				} else {
-					offspring.add(npc);
-				}
-				
+				offspring.add(npc);
 			} else if((npc.getIncubator()!=null && npc.getIncubator().isPlayer())){
-				if(includeNotBorn || !npc.getIncubator().getIncubatingLitters().values().stream().anyMatch(l->l.getOffspring().contains(npc.getId()))) {
 					offspring.add(npc);
-				}
 			}
 		}
 		
 		return offspring;
 	}
 	
+	/**
+	 * @return a list of all offspring that have been born but have not been encountered yet.
+	 * @param matcher a function to filter out offspring (usually based on the location where offspring can spawn).
+	 */
 	public List<OffspringSeed> getOffspringNotSpawned(Predicate<OffspringSeed> matcher) {
+		return getOffspringNotSpawned(matcher, false);
+	}
+	
+	/**
+	 * @return a list of all offspring that have not been encountered yet.
+	 * @param matcher a function to filter out offspring (usually based on the location where offspring can spawn).
+	 * @param includeUnborn include all offspring that have not been born yet
+	 */
+	public List<OffspringSeed> getOffspringNotSpawned(Predicate<OffspringSeed> matcher, boolean includeUnborn) {
 		List<OffspringSeed> offspringAvailable = new ArrayList<>();
 		
 		for(OffspringSeed os : OffspringSeedMap.values()) {
 			if((os.getMother()!=null && os.getMother().isPlayer())
 					|| (os.getFather()!=null && os.getFather().isPlayer())) {
+				if(includeUnborn || !os.getMother().getPregnantLitter().getOffspring().contains(os.getId())) {
 					offspringAvailable.add(os);
+				}
 			}
 		}
+		
 		return offspringAvailable.stream().filter(matcher).collect(Collectors.toList());
 	}
 	

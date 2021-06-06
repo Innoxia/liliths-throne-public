@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.*;
@@ -39,27 +41,26 @@ public class OffspringSeed  implements XMLSaving {
 	protected String incubatorId;
 	protected LocalDateTime conceptionDate;
 	
-	protected OffspringSeed(
-			NameTriplet nameTriplet,
-			String surname,
-			String description,
-			LocalDateTime birthday,
-			AbstractSubspecies startingSubspecies,
-			RaceStage stage) {
+	public OffspringSeed(NPC npc) {
+		this.nameTriplet = npc.getNameTriplet();
+		this.surname = npc.getSurname();
+		this.description = npc.getDescription();
+		this.birthday = npc.getBirthday();
+		this.body = npc.getBody();
+		this.motherId = npc.getMotherId();
+		this.fatherId = npc.getFatherId();
+		this.incubatorId = npc.getIncubatorId();
+		this.conceptionDate = npc.getConceptionDate();
 		
-		GenericAndrogynousNPC template = new GenericAndrogynousNPC();
-		
-		id = "NOT_SET";
-		this.nameTriplet = nameTriplet;
-		this.surname = surname;
-		this.description = description;
-		this.birthday = birthday;
-		
-		// Set the character's starting body based on their gender and race:
-		this.body = Main.game.getCharacterUtils().generateBody(template, Gender.getGenderFromUserPreferences(false, false), startingSubspecies, stage);
-		
+		try {
+			Main.game.addOffspringSeed(this, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Main.game.getOffspring().remove(this);
+		Main.game.removeNPC(npc);
 	}
-
+	
 	public OffspringSeed(GameCharacter mother, GameCharacter father) {
 		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
 	}
@@ -68,7 +69,7 @@ public class OffspringSeed  implements XMLSaving {
 		
 		GenericAndrogynousNPC template = new GenericAndrogynousNPC();
 		
-		if(mother.getTrueSubspecies()== Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
+		if(mother.getTrueSubspecies()==Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
 			this.setSurname(mother.getName(false)+"martuilani");
 			
 		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
@@ -99,12 +100,15 @@ public class OffspringSeed  implements XMLSaving {
 		if(father!=null) {
 			this.setFather(father);
 		}
-		
 	}
 		
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
 		return null;
+	}
+	
+	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
+
 	}
 	
 	public String getId() {	return id; }
@@ -219,11 +223,35 @@ public class OffspringSeed  implements XMLSaving {
 		return GenericOffspringDialogue.OFFSPRING_ENCOUNTER;
 	}
 	
-	public String himHer() {
+	public String hisHer() {
 		if(this.isFeminine()) {
 			return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getFeminine();
 		} else {
 			return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getMasculine();
-			}
 		}
+	}
+	
+	public Gender getGender() {
+		return body.getGender();
+	}
+	
+	public String getGenderName() {
+		return this.getGender().getNounYoung();
+	}
+	
+	public BodyShape getBodyShape() {
+		return BodyShape.valueOf(Muscle.valueOf(body.getMuscle()), BodySize.valueOf(body.getBodySize()));
+	}
+	
+	public Height getHeight() {
+		return body.getHeight();
+	}
+	
+	public String getBodyName() {
+		if(this.getBody().isFeral()) {
+			return this.getBody().getRace().getFeralName(this.getBody().getLegConfiguration(), false);
+		}
+		return this.getBody().getRace().getName(false);
+	}
+	
 }
