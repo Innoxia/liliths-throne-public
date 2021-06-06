@@ -502,7 +502,7 @@ public class Game implements XMLSaving {
 		return null;
 	}
 	
-	public static void exportGame(String exportFileName, boolean allowOverwrite) {
+	public static void exportGame(String exportSaveName, boolean allowOverwrite) {
 		
 		File dir = new File("data/");
 		dir.mkdir();
@@ -511,22 +511,17 @@ public class Game implements XMLSaving {
 		dir.mkdir();
 		
 		boolean overwrite = false;
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, filename) -> filename.endsWith(".xml"));
-			if (directoryListing != null) {
-				for (File child : directoryListing) {
-					if (child.getName().equals(exportFileName+".xml")){
-						if(!allowOverwrite) {
-							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name already exists!");
-							return;
-						} else {
-							overwrite = true;
-						}
-					}
-				}
+		dir = new File("data/saves/"+exportSaveName);
+		if(dir.exists()) {
+			if(!allowOverwrite) {
+				Main.game.flashMessage(PresetColour.GENERIC_BAD, "Save already exists!");
+				return;
+			} else {
+				overwrite = true;
 			}
 		}
-
+		dir.mkdir();
+		
 		if(timeLog) {
 			timeStart = System.nanoTime();
 			System.out.println(timeStart);
@@ -648,13 +643,23 @@ public class Game implements XMLSaving {
 			System.err.println("playerCharacter saving failed!");
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
 		}
-
+		
+		Map<Document, String> saveFiles = new HashMap<>();
+		saveFiles.put(doc, "player");
+		
 		// Add all NPCs:
 		try {
+			String id = "";
 			for(GameCharacter character : Main.game.getNPCMap().values()) {
-				Element characterNode = doc.createElement("NPC");
-				game.appendChild(characterNode);
-				character.saveAsXML(characterNode, doc);
+				id = character.getId().replace(",", "_");
+				if(character.saveHash != character.hashCode() || !new File("data/saves/"+exportSaveName+"/"+id+".xml").exists()) {
+					doc = Main.getDocBuilder().newDocument();
+					Element characterNode = doc.createElement("NPC");
+					doc.appendChild(characterNode);
+					character.saveAsXML(characterNode, doc);
+					saveFiles.put(doc, id);
+					character.saveHash = character.hashCode();
+				}
 			}
 		} catch(Exception ex) {
 			System.err.println("NPC saving failed!");
@@ -665,29 +670,24 @@ public class Game implements XMLSaving {
 
 		// Ending stuff:
 		try {
-			Transformer transformer1 = Main.transformerFactory.newTransformer();
-			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-			StringWriter writer = new StringWriter();
-
-			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
-
-			// Save this xml:
 			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			DOMSource source = new DOMSource(doc);
-
-			String saveLocation = "data/saves/"+exportFileName+".xml";
-			StreamResult result = new StreamResult(saveLocation);
-
-			transformer.transform(source, result);
-
-			if(!exportFileName.startsWith("AutoSave")) {
+			for(Entry<Document, String> entry : saveFiles.entrySet()) {
+				// Save this xml:
+				DOMSource source = new DOMSource(entry.getKey());
+				
+				String saveLocation = "data/saves/"+exportSaveName+"/" + entry.getValue()+".xml";
+				StreamResult result = new StreamResult(saveLocation);
+				
+				transformer.transform(source, result);
+			}
+			if(!exportSaveName.startsWith("AutoSave")) {
 				if(overwrite) {
-					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", exportSaveName), false);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Save game overwritten!");
 				} else {
-					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", exportSaveName), false);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Game saved!");
 				}
 			}

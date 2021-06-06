@@ -499,7 +499,9 @@ public abstract class GameCharacter implements XMLSaving {
 
 	protected static List<CharacterChangeEventListener> NPCInventoryChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
-
+	
+	public int saveHash = 0;
+	
 	protected GameCharacter(
 			NameTriplet nameTriplet,
 			String surname,
@@ -736,6 +738,7 @@ public abstract class GameCharacter implements XMLSaving {
 			loadImages();
 		}
 
+		saveHash = hashCode();
 	}
 	
 	/**
@@ -3161,6 +3164,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		character.health = (newHealth);
 		character.mana = (newMana);
+		
+		character.saveHash = character.hashCode();
 	}
 
 	/**
