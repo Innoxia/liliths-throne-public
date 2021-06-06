@@ -656,8 +656,21 @@ public class Game implements XMLSaving {
 			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
 		}
-
-
+		
+		// Add all offspringSeed:
+		try {
+			for(OffspringSeed offspringSeed : Main.game.getOffspringSeedMap().values()) {
+				Element offspringSeedNode = doc.createElement("OffspringSeed");
+				game.appendChild(offspringSeedNode);
+				offspringSeed.saveAsXML(offspringSeedNode, doc);
+			}
+		} catch(Exception ex) {
+			System.err.println("offspringSeed saving failed!");
+			ex.printStackTrace();
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
+		}
+		
+		
 		// Ending stuff:
 		try {
 			Transformer transformer1 = Main.transformerFactory.newTransformer();
@@ -1092,10 +1105,25 @@ public class Game implements XMLSaving {
 							}
 						});
 				
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
+					for(NPC npc: Main.game.getAllNPCs()) {
+						if(npc instanceof NPCOffspring && npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
+							// remove this npc and replace with offspringSeed
+							new OffspringSeed(npc);
+						}
+					}
+				}
+				
 				if(debug) {
 					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
-
+				
+				// Load offspringSeed:
+				NodeList offspringSeed = gameElement.getElementsByTagName("OffspringSeed");
+				for(int i = 0; i < offspringSeed.getLength(); i++){
+					Element e = (Element) offspringSeed.item(i);
+					Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
+				}
 				
 				// Add in new NPCS:
 				Main.game.initUniqueNPCs();
@@ -4205,9 +4233,19 @@ public class Game implements XMLSaving {
 		List<OffspringSeed> offspringAvailable = new ArrayList<>();
 		
 		for(OffspringSeed os : OffspringSeedMap.values()) {
-			if((os.getMother()!=null && os.getMother().isPlayer())
-					|| (os.getFather()!=null && os.getFather().isPlayer())) {
-				if(includeUnborn || !os.getMother().getPregnantLitter().getOffspring().contains(os.getId())) {
+			if(includeUnborn) {
+				if((os.getMother().isPlayer()) ||
+				   (os.getFather()!=null && os.getFather().isPlayer())) {
+					offspringAvailable.add(os);
+				}
+			} else {
+				if(os.getMother().isPlayer() &&
+						(os.getMother().getPregnantLitter()==null ||
+ 				         os.getMother().getPregnantLitter()!=null && !os.getMother().getPregnantLitter().getOffspring().contains(os.getId()))) {
+					offspringAvailable.add(os);
+				} else if(os.getFather()!=null && os.getFather().isPlayer()) {
+					if(os.getMother().getPregnantLitter()==null ||
+					   os.getMother().getPregnantLitter()!=null && !os.getMother().getPregnantLitter().getOffspring().contains(os.getId()))
 					offspringAvailable.add(os);
 				}
 			}
@@ -4423,6 +4461,10 @@ public class Game implements XMLSaving {
 			npc.getHomeCell().removeCharacterHomeId(npc.getId());
 			NPCMap.remove(npc.getId());
 		}
+	}
+	
+	public Map<String, OffspringSeed> getOffspringSeedMap() {
+		return OffspringSeedMap;
 	}
 	
 	public OffspringSeed getOffspringSeedById(String id) {

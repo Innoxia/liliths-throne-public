@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.character.npc.misc;
 
-import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.*;
@@ -16,7 +16,10 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import java.time.LocalDateTime;
+import java.time.Month;
 
 /**
  * @since 0.4.0
@@ -41,6 +44,9 @@ public class OffspringSeed  implements XMLSaving {
 	protected String incubatorId;
 	protected LocalDateTime conceptionDate;
 	
+	public OffspringSeed() {
+	}
+
 	public OffspringSeed(NPC npc) {
 		this.nameTriplet = npc.getNameTriplet();
 		this.surname = npc.getSurname();
@@ -100,20 +106,154 @@ public class OffspringSeed  implements XMLSaving {
 		if(father!=null) {
 			this.setFather(father);
 		}
+		
+		this.setConceptionDate(Main.game.getDateNow());
 	}
 		
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
-		return null;
+		Element offspringSeed = doc.createElement("os");
+		parentElement.appendChild(offspringSeed);
+		
+		Element offspringSeedData = doc.createElement("data");
+		offspringSeed.appendChild(offspringSeedData);
+		
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "id", this.getId());
+		Element name = doc.createElement("name");
+		offspringSeedData.appendChild(name);
+		XMLUtil.addAttribute(doc, name, "nameFeminine", this.getNameTriplet().getFeminine());
+		XMLUtil.addAttribute(doc, name, "nameAndrogynous", this.getNameTriplet().getAndrogynous());
+		XMLUtil.addAttribute(doc, name, "nameMasculine", this.getNameTriplet().getMasculine());
+		
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "surname", this.getSurname());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "description", this.getDescription());
+		if(birthday!=null) {
+			XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "yearOfBirth", String.valueOf(this.getBirthday().getYear()));
+			XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "monthOfBirth", String.valueOf(this.getBirthday().getMonth()));
+			XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "dayOfBirth", String.valueOf(this.getBirthday().getDayOfMonth()));
+		}
+		
+		// ************** Body **************//
+		
+		Element offspringSeedBody = doc.createElement("body");
+		offspringSeed.appendChild(offspringSeedBody);
+		
+		this.body.saveAsXML(offspringSeedBody, doc);
+		
+		// ************** Family **************//
+		
+		Element offspringSeedFamily = doc.createElement("family");
+		offspringSeed.appendChild(offspringSeedFamily);
+		
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "motherId", this.getMotherId());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "fatherId", this.getFatherId());
+		if(incubatorId!=null) {
+			XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "incubatorId", this.getIncubatorId());
+		}
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "monthOfConception", String.valueOf(this.getConceptionDate().getMonth()));
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
+
+		return offspringSeed;
 	}
 	
-	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-
+	public static OffspringSeed loadFromXML(Element parentElement, Document doc) {
+		StringBuilder sb = new StringBuilder();
+		
+		OffspringSeed os = new OffspringSeed();
+		
+		NodeList nodes = parentElement.getElementsByTagName("data");
+		Element element = (Element) nodes.item(0);
+		
+		String loadedCharacterId = getValueFromElementWithTagName(element, "id");
+		if (loadedCharacterId != null) {
+			os.setId(loadedCharacterId);
+		}
+		
+		// Name:
+		Element nameElement = (Element) element.getElementsByTagName("name").item(0);
+		String nameElementValue = nameElement.getAttribute("value");
+		if (!nameElementValue.isEmpty()) {
+			os.setName(new NameTriplet(nameElementValue));
+		} else {
+			String nameMasculine = nameElement.getAttribute("nameMasculine");
+			String nameAndrogynous = nameElement.getAttribute("nameAndrogynous");
+			String nameFeminine = nameElement.getAttribute("nameFeminine");
+			NameTriplet backup = Name.getRandomTriplet(Race.HUMAN);
+			os.setName(new NameTriplet(
+					nameMasculine.isEmpty()?backup.getMasculine():nameMasculine,
+					nameAndrogynous.isEmpty()?backup.getAndrogynous():nameAndrogynous,
+					nameFeminine.isEmpty()?backup.getFeminine():nameFeminine));
+		}
+		
+		// Surname:
+		if(element.getElementsByTagName("surname")!=null && element.getElementsByTagName("surname").getLength()>0) {
+			String surname = ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value");
+			if(surname!=null && !surname.isEmpty()) {
+				os.setSurname(surname);
+			}
+		}
+		
+		if(element.getElementsByTagName("description").getLength()!=0) {
+			os.setDescription(((Element)element.getElementsByTagName("description").item(0)).getAttribute("value"));
+		}
+		
+		// Birthday:
+		try {
+			int day = Integer.parseInt(((Element)element.getElementsByTagName("dayOfBirth").item(0)).getAttribute("value"));
+			Month month = Month.valueOf(((Element)element.getElementsByTagName("monthOfBirth").item(0)).getAttribute("value"));
+			int year = Integer.parseInt(((Element)element.getElementsByTagName("yearOfBirth").item(0)).getAttribute("value"));
+			
+			os.setBirthday(LocalDateTime.of(year, month, day, 12, 0));
+			
+		} catch(Exception ex) {
+		}
+		
+		// ************** Body **************//
+		
+		os.body = Body.loadFromXML(sb, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+		os.body.calculateRace(null);
+		
+		// ************** Family **************//
+		
+		nodes = parentElement.getElementsByTagName("family");
+		Element familyElement = (Element) nodes.item(0);
+		if(familyElement!=null) {
+			os.setMother(((Element)familyElement.getElementsByTagName("motherId").item(0)).getAttribute("value"));
+			os.setFather(((Element)familyElement.getElementsByTagName("fatherId").item(0)).getAttribute("value"));
+			
+			if(familyElement.getElementsByTagName("incubatorId").getLength()>0) {
+				os.setIncubator(((Element)familyElement.getElementsByTagName("incubatorId").item(0)).getAttribute("value"));
+			}
+			
+			try {
+				int day = Integer.parseInt(((Element)familyElement.getElementsByTagName("dayOfConception").item(0)).getAttribute("value"));
+				Month month = Month.valueOf(((Element)familyElement.getElementsByTagName("monthOfConception").item(0)).getAttribute("value"));
+				int year = Integer.parseInt(((Element)familyElement.getElementsByTagName("yearOfConception").item(0)).getAttribute("value"));
+				
+				os.setConceptionDate(LocalDateTime.of(year, month, day, 12, 0));
+				
+			} catch(Exception ex) {
+			}
+		}
+		
+		return os;
+	}
+	
+	public static String getValueFromElementWithTagName(Element parentElement, String tagName) {
+		return getValueFromElementWithTagName(parentElement, tagName, null);
+	}
+	
+	public static String getValueFromElementWithTagName(Element parentElement, String tagName, String defaultValue) {
+		Element x = (Element) parentElement.getElementsByTagName(tagName).item(0);
+		return x != null ? x.getAttribute("value") : defaultValue;
 	}
 	
 	public String getId() {	return id; }
 	
 	public void setId(String id) { this.id = id; }
+	
+	private NameTriplet getNameTriplet() {	return nameTriplet;	}
 	
 	public String getSurname() { return surname; }
 	
@@ -173,7 +313,7 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public String getIncubatorId() { return incubatorId; }
 	
-	public void setIncubatorId(String incubatorId) { this.incubatorId = incubatorId; }
+	public void setIncubator(String incubatorId) { this.incubatorId = incubatorId; }
 	
 	public LocalDateTime getConceptionDate() { return conceptionDate; }
 	
