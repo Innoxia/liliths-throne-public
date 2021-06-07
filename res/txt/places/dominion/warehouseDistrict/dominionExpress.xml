@@ -4,19 +4,21 @@
 	<htmlContent tag="WAREHOUSE_DISTRICT_DOMINION_EXPRESS"><![CDATA[
 	<p>
 		[style.boldBrown(Dominion Express)]<br/>
-		Looking at the business card given to you by Natalya, you see that the delivery company which employs her as a 'Stable Mistress' is very near to where you're currently standing, and is open to visiting members of the public between the hours of
 		#IF(pc.isQuestFailed(QUEST_LINE_ROMANCE_NATALYA))
-			 [unit.time(6)]-[unit.time(22)]. As Natalya had you thrown out and banned from ever returning to Dominion Express, there's nothing for you to do there...
-		#ELSEIF(game.isExtendedWorkTime())
-			#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA))
-				 [style.colourMinorGood([unit.time(6)]-[unit.time(22)])]. As you're a qualified filly, you're free to come and go at any time of the day, and you wonder whether you should head inside and service some of the centaur slaves...
-			#ELSE
-				 [style.colourMinorGood([unit.time(6)]-[unit.time(22)])]. As the warehouse out of which Dominion Express operates is currently [style.colourGood(open)], you could head inside and see if you could arrange to meet the [natalya.race] again...
-			#ENDIF
-		#ELSEIF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA))
-			 [style.colourMinorBad([unit.time(6)]-[unit.time(22)])]. As you're a qualified filly, the opening times don't apply to you, and even though Natalya won't be present at this hour, you could still head inside and service some of the centaur slaves...
+			 As Natalya had you thrown out and banned from ever returning to Dominion Express, there's nothing for you to do there...
 		#ELSE
-			 [style.colourMinorBad([unit.time(6)]-[unit.time(22)])]. As the warehouse out of which Dominion Express operates is currently [style.colourBad(closed)], you'll have to come back during opening hours if you wanted to meet the [natalya.race] again...
+			Looking at the business card given to you by Natalya, you see that the delivery company which employs her as a 'Stable Mistress' is very near to where you're currently standing, and is open to visiting members of the public between the hours of
+			#IF(game.isExtendedWorkTime())
+				#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA))
+					 [style.colourMinorGood([unit.time(6)]-[unit.time(22)])]. As you're a qualified filly, you're free to come and go at any time of the day, and you wonder whether you should head inside and service some of the centaur slaves...
+				#ELSE
+					 [style.colourMinorGood([unit.time(6)]-[unit.time(22)])]. As the warehouse out of which Dominion Express operates is currently [style.colourGood(open)], you could head inside and see if you could arrange to meet the [natalya.race] again...
+				#ENDIF
+			#ELSEIF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA))
+				 [style.colourMinorBad([unit.time(6)]-[unit.time(22)])]. As you're a qualified filly, the opening times don't apply to you, and even though Natalya won't be present at this hour, you could still head inside and service some of the centaur slaves...
+			#ELSE
+				 [style.colourMinorBad([unit.time(6)]-[unit.time(22)])]. As the warehouse out of which Dominion Express operates is currently [style.colourBad(closed)], you'll have to come back during opening hours if you wanted to meet the [natalya.race] again...
+			#ENDIF
 		#ENDIF
 	</p>
 	]]>
@@ -46,11 +48,11 @@
 			Due to the fact that the warehouse is closed to the public at this hour, there's only a single smartly-dressed horse-girl sitting behind the counter. Noticing your entry, she stifles a yawn and turns to face you.
 		#ENDIF
 		#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA) && collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker"))
-			 Noticing the fact that you're wearing a filly collar, she waves you through and says, [style.speechFeminine(Go on though, filly. I'm sure there are plenty of slaves waiting for you in the stables...)]
+			 Noticing the fact that you're wearing a filly collar, she waves you through and says, [style.speechFeminine(Go on through, filly. I'm sure there are plenty of slaves waiting for you in the stables...)]
 		#ELSEIF(pc.hasQuest(QUEST_LINE_ROMANCE_NATALYA))
 			 Not wanting to be delayed, you've already got your stamped business card out, and as you show it to the receptionist, she waves you past and says,
 			#IF(game.isExtendedWorkTime())
-				 [style.speechFeminine(Go on though. I'm sure Natalya is waiting to see you...)]
+				 [style.speechFeminine(Go on through. I'm sure Natalya is waiting to see you...)]
 			#ELSE
 				 [style.speechFeminine(Natalya's gone home for the day, but you can still go on through if you want...)]
 			#ENDIF
@@ -841,7 +843,7 @@
 		<p style='text-align:center;'>
 			[style.italicsMinorBad(If you want to see Mistress Natalya, you'll have to come back after laying the eggs which you're incubating in your womb.)]
 		</p>
-	#ELSEIF(collar==null || !collar.getId().equals("innoxia_neck_filly_choker"))
+	#ELSEIF(collar==null || !collar.getClothingType().getId().equals("innoxia_neck_filly_choker"))
 			 Recognising you as a qualified filly, she looks down at your neck, before frowning at you and flatly stating, [style.speechFeminine(Mistress Natalya will be furious if she sees that you're not wearing your filly choker. I can only let you into her office if you're wearing it.)]
 		</p>
 		<p>
@@ -879,7 +881,7 @@
 			<p>
 				Showing the horse-girl the business card which Natalya gave to you, you explain how you were asked to come and pay her a visit. Nodding her head in approval, this secretary presses a button on the arcane intercom sitting on her desk, before leaning forwards and saying, [style.speechFeminine(Mistress Natalya? There's [pc.a_race] here to see you. [pc.SheHas] got one of your business cards...)]
 		#ELSE
-			 Recognising you, this secretary presses a button on the arcane intercom sitting on her desk, before leaning forwards and saying, [style.speechFeminine(Mistress Natalya? One of your fillies are here to see you.)]
+			 Recognising you, this secretary presses a button on the arcane intercom sitting on her desk, before leaning forwards and saying, [style.speechFeminine(Mistress Natalya? One of your fillies is here to see you.)]
 		#ENDIF
 	</p>
 	<p>
@@ -1414,7 +1416,7 @@
 		Happily prancing over to stand beside you, Mistress Natalya turns back to face [npc.name] and declares, [natalya.speech(Anyway, down to business! As you've managed to go three whole days without starting any fights, I thought I'd reward you by letting you help me train this brand new filly today!)]
 	</p>
 	<p>
-		Rubbing up against you, the small [natalya.race] suddenly grabs your [pc.boobs+], before squeezing them together and then quickly moving [npc.her] delicate, feminine fingers down to pinch your [pc.nipples+]. Caught by surprise, you find yourself letting out a high-pitched gasp as [npc.name] continues molesting your chest and teasing, [natalya.speech(You like this filly's hot little body, [npc.name]? Look at [pc.her] nipples getting hard from all of this excitement!)]
+		Rubbing up against you, the small [natalya.race] suddenly grabs your [pc.boobs+], before squeezing them together and then quickly moving [natalya.her] delicate, feminine fingers down to pinch your [pc.nipples+]. Caught by surprise, you find yourself letting out a high-pitched gasp as [natalya.name] continues molesting your chest and teasing, [natalya.speech(You like this filly's hot little body, [npc.name]? Look at [pc.her] nipples getting hard from all of this excitement!)]
 	</p>
 	<p>
 		Letting out an approving grunt, the [npc.race] lustfully stares at you as Natalya makes you turn around and present your [pc.ass+] to [npc.herHim]. Tracing her fingers around the rim of your [pc.asshole+], she teases, [natalya.speech(I bet you can't wait until this little filly's finished [pc.her] training, so that you can have a go at pounding this hot little ass of [pc.hers]...)]
@@ -1765,7 +1767,7 @@
 		Eager to do as you're told, you move over to kneel behind [npc.name], before leaning in towards [npc.her] feral hindquarters. As you draw nearer, you see that [npc.her] asshole is very similar in appearance to Mistress Natalya's, as although it's lacking any naturally-occurring lubricant, it's every bit as puffy and dark-black as the [natalya.race]'s. Not being able to help yourself, you push your face into the [npc.race]'s ass and desperately start kissing [npc.her] hot, musky asshole.
 	</p>
 	<p>
-		[natalya.speech(That's my good little filly slut!)] Mistress Natalya calls out from somewhere behind you, before suddenly you feel a huge weight pressing down on your back. Much to your dismay, you find your [pc.lips] being forced away from [npc.namePos] ass as you're pushed down onto the floor, and, looking back, you see that your Mistress has just mounted you. Before you can react, you feel the slimy, precum-coated head of the [natalya.race]'s huge horse-cock pressing against your exposed asshole, and she exclaims, [natalya.speech(I can see that you're a slut for horse-ass, but I need to know that you crave the feeling of being rutted by horse-cock! Tell me that you want me to pound your cute little butt, filly!)]
+		[natalya.speech(That's my good little filly slut!)] Mistress Natalya calls out from somewhere behind you, before you suddenly feel a huge weight pressing down on your back. Much to your dismay, you find your [pc.lips] being forced away from [npc.namePos] ass as you're pushed down onto the floor, and, looking back, you see that your Mistress has just mounted you. Before you can react, you feel the slimy, precum-coated head of the [natalya.race]'s huge horse-cock pressing against your exposed asshole, and she exclaims, [natalya.speech(I can see that you're a slut for horse-ass, but I need to know that you crave the feeling of being rutted by horse-cock! Tell me that you want me to pound your cute little butt, filly!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1805,7 +1807,7 @@
 	
 	<htmlContent tag="OFFICE_STABLE_TRAINING_3_FUCKED_START"><![CDATA[
 	<p>
-		Finding yourself loving the feeling of being anally rutted by Mistress Natalya, you do as she commands and start pushing your hips back, forcing [npc.her] hot, feral horse-cock deep into your rear entrance. Feeling that your focus has shifted away from giving [npc.herHim] a rimjob, [npc.name] impatiently shuffles back and forcefully grinds [npc.her] puffy ebony doughnut against your [pc.lips+], grunting, [npc.speech(Get your tongue in there, you dirty filly slut!)]
+		Finding yourself loving the feeling of being anally rutted by Mistress Natalya, you do as she commands and start pushing your hips back, forcing [natalya.her] hot, feral horse-cock deep into your rear entrance. Feeling that your focus has shifted away from giving [npc.herHim] a rimjob, [npc.name] impatiently shuffles back and forcefully grinds [npc.her] puffy ebony doughnut against your [pc.lips+], grunting, [npc.speech(Get your tongue in there, you dirty filly slut!)]
 	</p>
 	<p>
 		Doing as you're told, you start passionately tonguing [npc.namePos] musky horse-anus, while simultaneously pushing your hips back and helping Mistress Natalya to sink her throbbing cock deep into your back door...
@@ -1847,7 +1849,7 @@
 	
 	<htmlContent tag="OFFICE_STABLE_TRAINING_3_AFTER_SEX_SECOND"><![CDATA[
 	<p>
-		Having followed Mistress Natalya's example and emptied [npc.her] huge, feral balls into your ass, [npc.name] steps back, letting you collapse down onto the floor and gasp for breath. Trotting over to smirk down at the stream of thick, musky horse-cum leaking from your abused asshole, Mistress Natalya happily declares, [natalya.speech(Congratulations! You've finished your training and are now a fully qualified filly!)]
+		Following Mistress Natalya's example and having emptied [npc.her] huge, feral balls into your ass, [npc.name] steps back, letting you collapse down onto the floor and gasp for breath. Trotting over to smirk down at the stream of thick, musky horse-cum leaking from your abused asshole, Mistress Natalya happily declares, [natalya.speech(Congratulations! You've finished your training and are now a fully qualified filly!)]
 	</p>
 	<p>
 		Turning towards [npc.name], the small [natalya.race] makes a dismissive gesture with her hand and says, [natalya.speech(I have no more need for you, [npc.name]. Get back to work!)]

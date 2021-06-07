@@ -15629,9 +15629,10 @@ public abstract class GameCharacter implements XMLSaving {
 				penetratorName = "[npc.penis+]";
 				break;
 			case TAIL:
-				penetratorName = "[npc.tail+]";
+				penetratorName = "[npc.tail+(true)]";
 				break;
 			case TENTACLE:
+				penetratorName = "[npc.tentacle+(true)]";
 				break;
 			case TONGUE:
 				penetratorName = "[npc.tongue]";
@@ -15696,10 +15697,10 @@ public abstract class GameCharacter implements XMLSaving {
 					orificeName = "[npc2.cock+]";
 					break;
 				case TAIL:
-					orificeName = "[npc2.tail+]";
+					orificeName = "[npc2.tail+(true)]";
 					break;
 				case TENTACLE:
-					orificeName = "[npc2.tentacle+]";
+					orificeName = "[npc2.tentacle+(true)]";
 					break;
 				case FOOT:
 					if(Main.sex.getSexPositionSlot(characterPenetrating).isStanding(characterPenetrating)) {
@@ -16043,7 +16044,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					return this.getTailLength(true);
 				case TENTACLE:
-					break;
+					return this.getTentacleLength(true);
 			}
 			
 		} else {
@@ -16053,19 +16054,12 @@ public abstract class GameCharacter implements XMLSaving {
 				case TONGUE:
 					return 0;
 				case CLIT:
-					return (this.isWantingToFullyPenetrate(characterPenetrated)
-							? orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
-							: orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 				case PENIS:
-					return (this.isWantingToFullyPenetrate(characterPenetrated)
-							? orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
-							: orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 				case TAIL:
+				case TENTACLE:
 					return (this.isWantingToFullyPenetrate(characterPenetrated)
 							? orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 							: orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
-				case TENTACLE:
-					break;
 			}
 		}
 		
@@ -16110,7 +16104,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				return this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 			case TENTACLE:
-				break;
+				return this.getTentacleLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 		}
 		return false;
 	}
@@ -16155,7 +16149,9 @@ public abstract class GameCharacter implements XMLSaving {
 						? this.getTailLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 						: this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 			case TENTACLE:
-				break;
+				return (this.isWantingToFullyPenetrate(characterPenetrated) || !factorInWantingToFullyPenetrate
+						? this.getTentacleLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
+						: this.getTentacleLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 		}
 		return false;
 	}
@@ -16215,7 +16211,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				return this.getTailLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 			case TENTACLE:
-				break;
+				return this.getTentacleLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 		}
 		return false;
 	}
@@ -16228,8 +16224,13 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(penetrationType == SexAreaPenetration.FINGER && orifice == SexAreaPenetration.PENIS) {
 			if(initialPenetration) {
-				return UtilText.parse(characterPenetrated, characterPenetrating,
-						"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] a handjob.");
+				if(characterPenetrating.equals(characterPenetrated)) {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc.her] [npc.cock+], before starting to give [npc.herself] a handjob.");
+				} else {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] a handjob.");
+				}
 				
 			} else {
 				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
@@ -16709,8 +16710,14 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 							
 						case TENTACLE:
-							//TODO
-							// characterPenetrating.getTentacleLength();
+							sb.append(getGenericInitialPenetrationDepthDescription(characterPenetrating,
+									penetrationType,
+									characterPenetrating.getTentacleLength(true),
+									characterPenetrated,
+									orifice,
+									"[npc.tentacle]",
+									"[npc.tentacle+]",
+									"[npc.tentacle]"));
 							break;
 					}
 				sb.append("</p>");
@@ -16758,8 +16765,14 @@ public abstract class GameCharacter implements XMLSaving {
 						break;
 						
 					case TENTACLE:
-						//TODO
-						// characterPenetrating.getTentacleLength();
+						sb.append(getGenericOngoingPenetrationDepthDescription(characterPenetrating,
+								penetrationType,
+								characterPenetrating.getTentacleLength(true),
+								characterPenetrated,
+								orifice,
+								"[npc.tentacle]",
+								"[npc.tentacle+]",
+								"[npc.tentacle]"));
 						break;
 				}
 			}
@@ -19269,7 +19282,7 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
-		if(!partnerVirile || !selfFertile) {
+		if(!partnerVirile || !selfFertile || !isAbleToBeImpregnated()) {
 			pregnancyChance = 0;
 			
 		} else if(isAbleToBeImpregnated()) {
@@ -19372,6 +19385,8 @@ public abstract class GameCharacter implements XMLSaving {
 			pregnancyChance += (baseVirility/100f)/2f;
 			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
 			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
+		} else {
+			pregnancyChance = 0;
 		}
 		
 		String partnerId = Subspecies.getIdFromSubspecies(partnerSubspecies)+Main.game.getSecondsPassed();

@@ -436,13 +436,23 @@
 		Looking in the direction that you were going to be travelling in, you see a [npc.feminine] figure suddenly materialise out of thin air. A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground.
 	</p>
 	<p>
-		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer, [npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer,
+		#IF(npc.isMute())
+			you suddenly hear a voice in your head starting to talk [npc.thought(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ELSE
+			[npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ENDIF
 	</p>
 	<p>
 		Although [npc.sheHas] been steadily walking towards you this whole time, [npc.she] comes to a halt a short distance in front of you, and you realise that [npc.sheIs] a little unsure of what you're capable of.
 	</p>
 	<p>
-		[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head. [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
+		#IF(npc.isMute())
+			Again you hear the voice directly in you head as [npc.she] demands [npc.thought(So you're going to make it up to me for ruining my trap, understand?)]
+		#ELSE
+			[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head.
+		#ENDIF
+		 [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -458,13 +468,23 @@
 		Looking in the direction that you were going to be travelling in, you see a [npc.feminine] figure suddenly materialise out of thin air. A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground.
 	</p>
 	<p>
-		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer, [npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer,
+		#IF(npc.isMute())
+			you suddenly hear a voice in your head starting to talk [npc.thought(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ELSE
+			[npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ENDIF
 	</p>
 	<p>
 		Although [npc.sheHas] been steadily walking towards you this whole time, [npc.she] comes to a halt a short distance in front of you, and you realise that [npc.sheIs] a little unsure of what you're capable of.
 	</p>
 	<p>
-		[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head. [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
+		#IF(npc.isMute())
+			Again you hear the voice directly in you head as [npc.she] demands [npc.thought(So you're going to make it up to me for ruining my trap, understand?)]
+		#ELSE
+			[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head.
+		#ENDIF
+		 [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
 	</p>
 	]]>
 	</htmlContent>

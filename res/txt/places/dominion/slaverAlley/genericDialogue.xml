@@ -33,7 +33,7 @@
 		You find yourself standing in the gateway which links Slaver Alley to the rest of Dominion. On either side of this entrance, two horse-boy private security guards are keeping a watchful eye on anyone who passes through here; they're mostly focused on looking inwards towards Slavery Alley, as their primary duty is being on the lookout for any runaway slaves.
 	</p>
 	<p>
-		The brick walls to either side of this gateway have been plastered with promotional posters, and while the vast majority of them are advertising stores within Slaver Alley itself, you see plenty of others promoting everything from soft drinks to brothels in Dominion's red light district.
+		The brick walls to either side of this gateway have been plastered with promotional posters, and while the vast majority of them are advertising stores within Slaver Alley itself, you see plenty of others promoting everything from soft drinks to brothels in Dominion's red-light district.
 		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_ROMANCE_HELENA, QUEST_ROMANCE_HELENA_6_ADVERTISING))
 			 True to their word, the guards have prevented anyone from pasting adverts over the six enchanted posters of Helena which you put up in this area. As customers to Slaver Alley pass you by, you hear some of them commenting on the harpy matriarch's beautiful appearance.
 		#ELSE
@@ -631,7 +631,7 @@
 	<htmlContent tag="PUBLIC_STOCKS_SEX_SOLO"><![CDATA[
 	<p>
 		#IF(pc.hasCompanions())
-			Deciding that you'd like to have some fun with [npc.race] in the stocks nearest to you, you tell [npc2.name] to stand back and watch as you walk up behind the slave. [npc.She] lets out a little [npc.moan] as [npc.she] hears you approach, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen...
+			Deciding that you'd like to have some fun with [npc.race] in the stocks nearest to you, you tell [com.name] to stand back and watch as you walk up behind the slave. [npc.She] lets out a little [npc.moan] as [npc.she] hears you approach, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen...
 		#ELSE
 			Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]. [npc.She] lets out a little [npc.moan] as [npc.she] hears you, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen...
 		#ENDIF
@@ -660,9 +660,9 @@
 	<p>
 		#IF(pc.hasCompanions())
 			#IF(sex.getNumberOfOrgasms(npc)>0)
-				Having had your fun, you and [npc2.name] step back, grinning as you hear [npc.name] let out a satisfied [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] compliment you both on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
+				Having had your fun, you and [com.name] step back, grinning as you hear [npc.name] let out a satisfied [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] compliment you both on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
 			#ELSE
-				Having had your fun, you and [npc2.name] step back, grinning as you hear [npc.name] let out a frustrated [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] comment on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
+				Having had your fun, you and [com.name] step back, grinning as you hear [npc.name] let out a frustrated [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] comment on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
 			#ENDIF
 		#ELSE
 			#IF(sex.getNumberOfOrgasms(npc)>0)

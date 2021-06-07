@@ -5516,7 +5516,9 @@ public class CharacterModificationUtils {
 						?"<br/><i>Due to [npc.namePos] penis type, [npc.she] cannot grow any pubic hair!</i>"
 						:(BodyChanging.getTarget().hasVagina() && !BodyChanging.getTarget().getVaginaType().isPubicHairAllowed()
 							?"<br/><i>Due to [npc.namePos] vagina type, [npc.she] cannot grow any pubic hair!</i>"
-							:"<br/><i>Due to the fact that [npc.she] [npc.verb(lack)] genitalia, [npc.name] cannot grow any pubic hair!</i>")),
+							:(BodyChanging.getTarget().hasPenisIgnoreDildo() || BodyChanging.getTarget().hasVagina()
+							?""
+							:"<br/><i>Due to the fact that [npc.she] [npc.verb(lack)] genitalia, [npc.name] cannot grow any pubic hair!</i>"))),
 				BodyChanging.getTarget().getPubicHair(),
 				"PUBIC_HAIR_",
 				!BodyChanging.getTarget().isPubicHairAvailable());
