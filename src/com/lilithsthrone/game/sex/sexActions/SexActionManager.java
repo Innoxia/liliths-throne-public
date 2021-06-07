@@ -59,7 +59,26 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.SadisticActions;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerCrotchNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerPenis;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfNoPen;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueVagina;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -206,10 +225,31 @@ public class SexActionManager {
 				new Value<>("ClitVagina", ClitVagina.class.getFields()),
 				new Value<>("ClitAnus", ClitAnus.class.getFields()),
 		
-				// Self actions (will be fully added after refactor of self action classes)
-				//TODO refactor the 'SelfFingerVagina_PARTNER_SELF_FINGER_VAGINA_PENETRATION' id for Meraxis masturabtion scene once classes are refactored
-				new Value<>("SelfFingerVagina", PartnerSelfFingerVagina.class.getFields()));
-		
+				// Self actions
+				new Value<>("SelfNoPen", SelfNoPen.class.getFields()),
+				new Value<>("SelfFingerAnus", SelfFingerAnus.class.getFields()),
+				new Value<>("SelfFingerBreasts", SelfFingerBreasts.class.getFields()),
+				new Value<>("SelfFingerCrotchNipple", SelfFingerCrotchNipple.class.getFields()),
+				new Value<>("SelfFingerMouth", SelfFingerMouth.class.getFields()),
+				new Value<>("SelfFingerNipple", SelfFingerNipple.class.getFields()),
+				new Value<>("SelfFingerPenis", SelfFingerPenis.class.getFields()),
+				new Value<>("SelfFingerVagina", SelfFingerVagina.class.getFields()),
+				
+				new Value<>("SelfPenisAnus", SelfPenisAnus.class.getFields()),
+				new Value<>("SelfPenisMouth", SelfPenisMouth.class.getFields()),
+				new Value<>("SelfPenisNipple", SelfPenisNipple.class.getFields()),
+				new Value<>("SelfPenisVagina", SelfPenisVagina.class.getFields()),
+
+				new Value<>("SelfTailAnus", SelfTailAnus.class.getFields()),
+				new Value<>("SelfTailMouth", SelfTailMouth.class.getFields()),
+				new Value<>("SelfTailNipple", SelfTailNipple.class.getFields()),
+				new Value<>("SelfTailVagina", SelfTailVagina.class.getFields()),
+
+				new Value<>("SelfTongueAnus", SelfTongueAnus.class.getFields()),
+				new Value<>("SelfTongueMouth", SelfTongueMouth.class.getFields()),
+				new Value<>("SelfTongueNipple", SelfTongueNipple.class.getFields()),
+				new Value<>("SelfTongueVagina", SelfTongueVagina.class.getFields()));
+				
 		for(Entry<String, Field[]> entry : sexActionClassIdToFields.entrySet()) {
 			for(Field f : entry.getValue()) {
 				if (SexAction.class.isAssignableFrom(f.getType())) {
