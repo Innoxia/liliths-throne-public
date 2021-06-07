@@ -26,6 +26,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Made some optimisations to the GameCharacter.getChildren() and GameCharacter.getNonCommonNodes() methods to decrease save times by around 33%. This change is most noticeable on games with a large number of offspring. (PR#1533 by Sarkath)
 		Fixed issue where the key for locked clothing that was unequipped during sex was being removed from the unequipper's keys, even though the item was automatically re-equipped after sex resulting in the unequipper not having the key. (PR#1541 by debouchere)
 		Fixed a huge amount of typos and consistency errors in dialogue. Full patch notes for this PR are at the bottom of these patch notes. (PR#1550 by AceXP)
+		Fixed a NullReferenceException which was being thrown whenever a slave laying incubated eggs hadn't previously birthed live young. (PR#1551 by Maxis010)
 		
 	Other:
 		Renamed the actions for entering Elis to 'Enter (main)' and 'Enter (rear)'.
