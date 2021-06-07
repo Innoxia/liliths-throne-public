@@ -5327,22 +5327,25 @@ public class UtilText {
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"armpit"),
+						"armpit",
+						"underarm"),
 				true,
 				true,
 				"",
-				"Returns the name of the character's armpit. Will almost always simply be 'armpit'.",
+				"Returns the name of the character's armpit. Will almost always simply be 'armpit' or 'underarm'.",
 				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return "armpit";
+				return UtilText.returnStringAtRandom("armpit", "underarm");
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"armpit+",
-						"armpitD"),
+						"armpitD",
+						"underarm+",
+						"underarmD"),
 				true,
 				true,
 				"",
@@ -5366,28 +5369,33 @@ public class UtilText {
 				} else {
 					descriptors.add("masculine");
 				}
-				return applyDescriptor(Util.randomItemFrom(descriptors), "armpit");
+				return applyDescriptor(
+						Util.randomItemFrom(descriptors),
+						UtilText.returnStringAtRandom("armpit", "underarm"));
 			}
 		});
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"armpits"),
+						"armpits",
+						"underarms"),
 				true,
 				true,
 				"",
-				"Returns the name of the character's armpits. Will almost always simply be 'armpits'.",
+				"Returns the name of the character's armpits. Will almost always simply be 'armpits' or 'underarms'.",
 				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return "armpits";
+				return UtilText.returnStringAtRandom("armpits", "underarms");
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"armpits+",
-						"armpitsD"),
+						"armpitsD",
+						"underarms+",
+						"underarmsD"),
 				true,
 				true,
 				"",
@@ -5411,7 +5419,9 @@ public class UtilText {
 				} else {
 					descriptors.add("masculine");
 				}
-				return applyDescriptor(Util.randomItemFrom(descriptors), "armpits");
+				return applyDescriptor(
+						Util.randomItemFrom(descriptors),
+						UtilText.returnStringAtRandom("armpits", "underarms"));
 			}
 		});
 		

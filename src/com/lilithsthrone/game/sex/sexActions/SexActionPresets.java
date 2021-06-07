@@ -43,6 +43,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMound;
@@ -435,6 +436,7 @@ public class SexActionPresets {
 		sexActions.add(TongueNippleCrotch.class);
 		sexActions.add(FootMouth.class);
 		sexActions.add(PenisMouth.class);
+		sexActions.add(TongueArmpit.class);
 
 		// Tail actions:
 		sexActions.add(TailAnus.class);

@@ -20,7 +20,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributions:
-		Fixed a bug where dialogue flags would not be loaded correctly under certain conditions, resulting in many potentially game-breaking effects. (by AceXP) Innoxia's note: If your game has experienced bugs related to the resetting of knowledge about quests, the calendar, essences, etc., then I would advise you to load an older save before that happened or start a new game (sorry for the inconvenience). 
+		Fixed a bug where dialogue flags would not be loaded correctly if your save had broken mods in it, resulting in many potentially game-breaking effects. (by AceXP) Innoxia's note: If your game has experienced bugs related to the resetting of knowledge about quests, the calendar, essences, etc., then I would advise you to load an older save before that happened or start a new game (sorry for the inconvenience). 
 		Added functionality to debug menu to show the chances of encountering various races in the current location - added in the 'Misc.' tab, 2nd page as 'Spawn rates' action. (PR#1531 by AceXP)
 		Added a special attack, 'talon slash', to characters that have taloned feet (i.e. harpies). The base damage is 20 (same as a kerambit). If the attack does damage, extra damage is applied as a critical effect. (PR#1530 by AceXP)
 		Made some optimisations to the GameCharacter.getChildren() and GameCharacter.getNonCommonNodes() methods to decrease save times by around 33%. This change is most noticeable on games with a large number of offspring. (PR#1533 by Sarkath)
@@ -29,14 +29,24 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed a NullReferenceException which was being thrown whenever a slave laying incubated eggs hadn't previously birthed live young. (PR#1551 by Maxis010)
 		Fixed some parser bugs and improved HLFQuest UX by adding button to search for password and improving firebomb quest descriptions and triggers. (PR#1547 by DSG)
 		Refactored all of the existing 'Self' type sex actions from 'Player/Partner' into shared actions. (PR#1539 by Maxis010)
+		Added more detailed rabbit-morph lore. (by Manwhore)
+		
+	Sex:
+		Sadistic sex actions are now only available to characters who have the 'sadist' fetish.
+		Set 'slap ass' as a sadistic action, and added 'spank ass' as an alternative that's available to characters who don't have the sadist fetish.
+		Added tongue-armpit sex actions (i.e. licking armpits), which are available in any position that allows tongue-breast interactions. (Armpit content can be disabled in the content options.)
 		
 	Other:
 		Renamed the actions for entering Elis to 'Enter (main)' and 'Enter (rear)'.
+		The 'aristocrat' occupation is now recognised by Leotie as being a suitable occupation at the start of her test.
+		Added 'eggs implanted' and 'eggs incubated' as tattoo counter types.
 	
 	Bugs:
 		Typo and parsing fixes.
 		Fixed issue where Loppy's artwork wasn't being displayed.
 		Fixed bug where over 24 hours would sometimes pass when using Astrapi's centaur ride for the first time, and also fixed a related bug where Vronti's journeys would always pass over 24 hours.
+		Fixed issue where tattoo cum counts would not increment for slaves who were having sex with generic characters. (e.g. When they were having sex in the brothel or in the stocks or with other slaves.)
+		The 'Forced chastity (desperate)' status effect will no longer be reset to 'Forced chastity (calm)' after every save/load.
 	
 	AceXP's PR#1550 Patch Notes:
 		Typos:
@@ -77,29 +87,30 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Add crawl/slide as movement verbs for cephalopods.
 	
 	
+	
+	
+	[x] Mod support:
+		[x] dialogue
+		[x] encounters
+		[x] sex manager
+		[x] sex actions
+	[] add examples for all and test
+	
+	
+	Add a more "gentle" variant for tentacle squeeze like for example a tentacle/snake massage perhaps
+	Make squeeze sadistic/rough
+	
+	the spinneret is still missing some bits. For example the virginity loss is not tracked, and there is also no cream pie status effect. That last one is amusing if you manage to get psychoactive fluids in there, guaranteed trip every hour.
+	
 	performance issues - tattoo mods are slow
 	
-	Ikin rabbit lore
-	
-	aristocrat occupation for Leotie test
-	
-	armpit licking
-		Pix licking
-	
-	2 new tattoo counters for Eggs Implanted (in others) and Eggs Incubated (by the PC)? If the game doesn't keep track of the individual eggs perhaps a Number of Times You Implanted Eggs or Number of Times You were Implanted Eggs counter would work too.
-	
-	lock sadist actions to the fetish
+	Memoization:
+		-        return script.eval();
+		+        return script.eval(((NashornScriptEngine)engine).getContext());
 	
 	add an option to have the main dialogue in each scene automatically copied to the clipboard
 		 bold or italic highlighting can be used for text readers
 	
-	forced chastity status effect resetting itself to level 1?
-		 well, for the record, it only seems to happen after they spend some time on the last stage
-		 Replication condition: quick-saved with the status at max, and it reset to the basic level on quick-loading
-	
-	tattoo counters don't increment when slaves get fucked in the brothel or in the stocks or by other slaves
-		 iirc the pregnancy and litter tattoos work but the sub sex counters and the loads taken ones are broken
-		
 	the bug in which there were a lot of people in Angel's Kiss still exists.
 		QuickSave_Kinu BusinessCat
 	
@@ -112,10 +123,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Maybe lock out the Perk Tree if you're in a controlled scene, same as Inventory and Quicksave are locked out
 	
 	
-	[] Make dialogue, encounters, sex manager, sex actions have mod support
-	
-	
-	Add a more "gentle" variant for tentacle squeeze like for example a tentacle/snake massage perhaps
 	
 	HLF Quest
 		[x] Go over Elle dialogue
@@ -123,10 +130,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Weapon special attacks to be unlocked should be shown in tooltip description
 		[] Throwable weapon framework
 			[] Test multiple arm rows detection
-	
-	Memoization:
-		-        return script.eval();
-		+        return script.eval(((NashornScriptEngine)engine).getContext());
 	
 	
 	[] Bat-boy spawned with all bat parts except arms (which were human)???
@@ -1013,7 +1016,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Add Arthur quest to acquire potion to set gender identity to: Current gender, Male, Female
 	
 	Add gym map
-		Working out at gym to earn physique-boosting perks
+	Pix armpit licking
 	
 	[] Skull bandana
 	[] vagina ring(s)
