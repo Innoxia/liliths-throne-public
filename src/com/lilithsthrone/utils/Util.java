@@ -1452,9 +1452,9 @@ public class Util {
 	 * @return The closest match.
 	 */
 	public static String getClosestStringMatch(String input, Collection<String> choices) {
-		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully
-		// the caller will handle the case correctly.
+		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully the caller will handle the case correctly.
 		if (input.isEmpty() || choices.contains(input)) {
+			stringMatchDistance = Integer.MIN_VALUE;
 			return input;
 		}
 		stringMatchDistance = Integer.MAX_VALUE;

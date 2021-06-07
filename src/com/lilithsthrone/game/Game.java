@@ -2386,7 +2386,7 @@ public class Game implements XMLSaving {
 								case URETHRA_VAGINA:
 									break;
 							}
-							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+npc.getLastLitterBirthed().getBirthedDescription());
+							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+npc.getLastLitterIncubated().getBirthedDescription());
 							SlaveryEventLogEntry incubationBirthEntry = new SlaveryEventLogEntry(getHourOfDay(),
 									npc,
 									null,

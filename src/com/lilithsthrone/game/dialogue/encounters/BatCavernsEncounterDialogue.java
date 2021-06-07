@@ -9,6 +9,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -138,7 +139,8 @@ public class BatCavernsEncounterDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO));
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_DARK) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_DARK ||
+				Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rebelBaseDarkPassFound, true);
 			} else {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rebelBaseLightPassFound, true);
@@ -204,6 +206,57 @@ public class BatCavernsEncounterDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "You've found both parts of the password, you can head back to the mysterious handle when you're ready.", Main.game.getDefaultDialogue(false));
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode REBEL_BASE_PASSWORD_SEARCH_FAILED = new DialogueNode("No Luck", "", false, true) {
+		@Override
+		public String getAuthor() {
+			return "DSG";
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		@Override
+		public String getContent() {			
+			return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_PASS_SEARCH_FAIL");   
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNode REBEL_BASE_PASSWORD_SILLY = new DialogueNode("The Value of Time", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.SIDE_UTIL_COMPLETE));
+		}
+		@Override
+		public String getAuthor() {
+			return "DSG";
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		@Override
+		public String getContent() {			
+			return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_PASS_SILLY");   
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "You win. Hooray.", Main.game.getDefaultDialogue(false)) {
+				    @Override
+				    public void effects() {
+						Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE).getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
+						Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR).getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
+				    }
+				};
 			}
 			return null;
 		}

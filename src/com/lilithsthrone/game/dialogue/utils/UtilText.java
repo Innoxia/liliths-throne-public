@@ -446,13 +446,16 @@ public class UtilText {
 	}
 
 	public static String parseSpeech(String text, GameCharacter target, boolean includePersonalityEffects, boolean includeExtraEffects) {
+		return parseSpeech(text, target, includePersonalityEffects, includeExtraEffects, true);
+	}
+	public static String parseSpeech(String text, GameCharacter target, boolean includePersonalityEffects, boolean includeExtraEffects, boolean canBeMuted) {
 		modifiedSentence = text.trim();
 		
 		String[] splitOnConditional = modifiedSentence.split("#THEN");
 		
 		modifiedSentence = UtilText.parse(parsingCharactersForSpeech, splitOnConditional[splitOnConditional.length-1]);
 		
-		if(target.hasPersonalityTrait(PersonalityTrait.MUTE)) {
+		if(target.hasPersonalityTrait(PersonalityTrait.MUTE) && canBeMuted) {
 			modifiedSentence = Util.replaceWithMute(modifiedSentence, Main.game.isInSex() && Main.sex.getAllParticipants().contains(target));
 			
 		} else if(includeExtraEffects
@@ -542,7 +545,7 @@ public class UtilText {
 	}
 	
 	public static String parseThought(String text, GameCharacter target) {
-		return "<i>"+parseSpeech(text, target, true, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
+		return "<i>"+parseSpeech(text, target, true, false, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
 	}
 
 	public static String parseNPCSpeech(String text, Femininity femininity) {

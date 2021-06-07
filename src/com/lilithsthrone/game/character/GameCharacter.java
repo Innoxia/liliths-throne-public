@@ -5341,20 +5341,27 @@ public abstract class GameCharacter implements XMLSaving {
 
 	protected Set<GameCharacter> getChildren() {
 		HashSet<GameCharacter> result = new HashSet<>();
-		getLittersBirthed().stream()
-			.flatMap(l -> l.getOffspring().stream().map(o -> {
-				try { return Main.game.getNPCById(o); }
-				catch(Exception e) { return null; }
-			}))
-			.filter(Objects::nonNull)
-			.forEach(result::add);
-		getLittersFathered().stream()
-			.flatMap(l -> l.getOffspring().stream().map(o -> {
-				try { return Main.game.getNPCById(o); }
-				catch(Exception e) { return null; }
-			}))
-			.filter(Objects::nonNull)
-			.forEach(result::add);
+
+		for(Litter litter : getLittersBirthed()) {
+			for(String id : litter.getOffspring()) {
+				try {
+					result.add(Main.game.getNPCById(id));
+				} catch (Exception ex) {
+					continue;
+				}
+			}
+		}
+
+		for(Litter litter : getLittersFathered()) {
+			for(String id : litter.getOffspring()) {
+				try {
+					result.add(Main.game.getNPCById(id));
+				} catch (Exception ex) {
+					continue;
+				}
+			}
+		}
+
 		return result;
 	}
 
@@ -5397,11 +5404,15 @@ public abstract class GameCharacter implements XMLSaving {
 	private Set<GameCharacter> getNonCommonNodes(int up, int down) {
 		HashSet<GameCharacter> result = new HashSet<>();
 		HashSet<GameCharacter> trace = new HashSet<>();
-		getParents(up, trace).stream()
-				.flatMap(p -> p.getChildren(down, trace).stream())
-				.filter(s -> !s.equals(this))
-				.forEach(result::add);
-		return result;
+
+		for(GameCharacter parent : getParents(up, trace)) {
+		    for(GameCharacter child : parent.getChildren(down, trace)) {
+		        if(child.equals(this)) continue;
+		        result.add(child);
+            }
+        }
+
+        return result;
 	}
 
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
@@ -15619,9 +15630,10 @@ public abstract class GameCharacter implements XMLSaving {
 				penetratorName = "[npc.penis+]";
 				break;
 			case TAIL:
-				penetratorName = "[npc.tail+]";
+				penetratorName = "[npc.tail+(true)]";
 				break;
 			case TENTACLE:
+				penetratorName = "[npc.tentacle+(true)]";
 				break;
 			case TONGUE:
 				penetratorName = "[npc.tongue]";
@@ -15686,10 +15698,10 @@ public abstract class GameCharacter implements XMLSaving {
 					orificeName = "[npc2.cock+]";
 					break;
 				case TAIL:
-					orificeName = "[npc2.tail+]";
+					orificeName = "[npc2.tail+(true)]";
 					break;
 				case TENTACLE:
-					orificeName = "[npc2.tentacle+]";
+					orificeName = "[npc2.tentacle+(true)]";
 					break;
 				case FOOT:
 					if(Main.sex.getSexPositionSlot(characterPenetrating).isStanding(characterPenetrating)) {
@@ -16033,7 +16045,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					return this.getTailLength(true);
 				case TENTACLE:
-					break;
+					return this.getTentacleLength(true);
 			}
 			
 		} else {
@@ -16043,19 +16055,12 @@ public abstract class GameCharacter implements XMLSaving {
 				case TONGUE:
 					return 0;
 				case CLIT:
-					return (this.isWantingToFullyPenetrate(characterPenetrated)
-							? orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
-							: orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 				case PENIS:
-					return (this.isWantingToFullyPenetrate(characterPenetrated)
-							? orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
-							: orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 				case TAIL:
+				case TENTACLE:
 					return (this.isWantingToFullyPenetrate(characterPenetrated)
 							? orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 							: orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
-				case TENTACLE:
-					break;
 			}
 		}
 		
@@ -16100,7 +16105,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				return this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 			case TENTACLE:
-				break;
+				return this.getTentacleLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 		}
 		return false;
 	}
@@ -16145,7 +16150,9 @@ public abstract class GameCharacter implements XMLSaving {
 						? this.getTailLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 						: this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 			case TENTACLE:
-				break;
+				return (this.isWantingToFullyPenetrate(characterPenetrated) || !factorInWantingToFullyPenetrate
+						? this.getTentacleLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
+						: this.getTentacleLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 		}
 		return false;
 	}
@@ -16205,7 +16212,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				return this.getTailLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 			case TENTACLE:
-				break;
+				return this.getTentacleLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 		}
 		return false;
 	}
@@ -16218,8 +16225,13 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(penetrationType == SexAreaPenetration.FINGER && orifice == SexAreaPenetration.PENIS) {
 			if(initialPenetration) {
-				return UtilText.parse(characterPenetrated, characterPenetrating,
-						"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] a handjob.");
+				if(characterPenetrating.equals(characterPenetrated)) {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc.her] [npc.cock+], before starting to give [npc.herself] a handjob.");
+				} else {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.cock+], before starting to give [npc.herHim] a handjob.");
+				}
 				
 			} else {
 				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
@@ -16699,8 +16711,14 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 							
 						case TENTACLE:
-							//TODO
-							// characterPenetrating.getTentacleLength();
+							sb.append(getGenericInitialPenetrationDepthDescription(characterPenetrating,
+									penetrationType,
+									characterPenetrating.getTentacleLength(true),
+									characterPenetrated,
+									orifice,
+									"[npc.tentacle]",
+									"[npc.tentacle+]",
+									"[npc.tentacle]"));
 							break;
 					}
 				sb.append("</p>");
@@ -16748,8 +16766,14 @@ public abstract class GameCharacter implements XMLSaving {
 						break;
 						
 					case TENTACLE:
-						//TODO
-						// characterPenetrating.getTentacleLength();
+						sb.append(getGenericOngoingPenetrationDepthDescription(characterPenetrating,
+								penetrationType,
+								characterPenetrating.getTentacleLength(true),
+								characterPenetrated,
+								orifice,
+								"[npc.tentacle]",
+								"[npc.tentacle+]",
+								"[npc.tentacle]"));
 						break;
 				}
 			}
@@ -19259,7 +19283,7 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
-		if(!partnerVirile || !selfFertile) {
+		if(!partnerVirile || !selfFertile || !isAbleToBeImpregnated()) {
 			pregnancyChance = 0;
 			
 		} else if(isAbleToBeImpregnated()) {
@@ -19362,6 +19386,8 @@ public abstract class GameCharacter implements XMLSaving {
 			pregnancyChance += (baseVirility/100f)/2f;
 			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
 			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
+		} else {
+			pregnancyChance = 0;
 		}
 		
 		String partnerId = Subspecies.getIdFromSubspecies(partnerSubspecies)+Main.game.getSecondsPassed();
@@ -19771,6 +19797,13 @@ public abstract class GameCharacter implements XMLSaving {
 			return null;
 		}
 		return littersBirthed.get(littersBirthed.size() - 1);
+	}
+	
+	public Litter getLastLitterIncubated() {
+		if(incubatedLitters.isEmpty()) {
+			return null;
+		}
+		return incubatedLitters.get(incubatedLitters.size() - 1);
 	}
 	
 	public List<Litter> getLittersFathered() {
@@ -22143,13 +22176,15 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Making sure the key is no longer in anyone's possession:
-		for(NPC npc : Main.game.getAllNPCs()) {
-			npc.removeFromUnlockKeyMap(this.getId(), slot);
-		}
-		if(Main.game.getPlayer()!=null) {
-			Main.game.getPlayer().removeFromUnlockKeyMap(this.getId(), slot);
-		} else {
-			System.err.println("Warning: Sealed clothing '"+clothing.getName()+"' did not have associated unlock key removed from player key mappings.");
+		if(!Main.game.isInSex()) {
+			for(NPC npc : Main.game.getAllNPCs()) {
+				npc.removeFromUnlockKeyMap(this.getId(), slot);
+			}
+			if(Main.game.getPlayer()!=null) {
+				Main.game.getPlayer().removeFromUnlockKeyMap(this.getId(), slot);
+			} else {
+				System.err.println("Warning: Sealed clothing '"+clothing.getName()+"' did not have associated unlock key removed from player key mappings.");
+			}
 		}
 		
 		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(this)) {

@@ -305,7 +305,7 @@ public class FieldsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Enter (East)", "Approach Elis from the East.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_east")) {
+				return new Response("Enter (main)", "Approach Elis from the East so that you can enter the town via its main gatehouse.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_east")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_entry_east"));
@@ -318,7 +318,7 @@ public class FieldsDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Enter (West)", "Approach Elis from the West.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_west")) {
+				return new Response("Enter (rear)", "Approach Elis from the West so that you can enter the town via its rear gatehouse.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_west")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_entry_west"));
