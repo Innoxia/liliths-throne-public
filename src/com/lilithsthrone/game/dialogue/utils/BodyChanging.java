@@ -363,7 +363,7 @@ public class BodyChanging {
 		return !debugMenu
 				&& !isDemonTFMenu()
 				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
-				&& BodyChanging.getTarget().getSubspeciesOverride().isAbleToSelfTransform();
+				&& BodyChanging.getTarget().getTrueSubspecies().isAbleToSelfTransform();
 	}
 
 	private static boolean isHalfDemon() {

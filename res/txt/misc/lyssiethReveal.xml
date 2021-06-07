@@ -698,7 +698,7 @@
 		[lilaya.speech(Supposing [pc.name] manages to pull this off,)] Lilaya wonders out loud, [lilaya.speech(Is Lilith just going to sit in her tower and ignore the fact that an elder lilin has been defeated right under her nose?)]
 	</p>
 	<p>
-		[lyssieth.speech(Lilith is far too busy trying to assert control over the rest of the world,)] Lyssieth replies, [lyssieth.speech(Most of the time she's not even here, and she certainly doesn't have the time to personally deal with any problems her Realm might experience. With what little influence I have left, I'll play the game of politics so as to put Minotallys forwards as being put in control of stabilising the Foloi fields. Lilith doesn't take too kindly to failure, so I imagine that Lunette will be rewarded by being either locked up in Lilith's tower or given some insignificant plot of land to rule over. Either way, [pc.name] shouldn't draw the wrath of Lilith. Not yet, at least...)]
+		[lyssieth.speech(Lilith is far too busy trying to assert control over the rest of the world,)] Lyssieth replies, [lyssieth.speech(Most of the time she's not even here, and she certainly doesn't have the time to personally deal with any problems her Realm might experience. With what little influence I have left, I'll play the game of politics so as to put Minotallys forwards as being put in control of stabilising the Foloi Fields. Lilith doesn't take too kindly to failure, so I imagine that Lunette will be rewarded by being either locked up in Lilith's tower or given some insignificant plot of land to rule over. Either way, [pc.name] shouldn't draw the wrath of Lilith. Not yet, at least...)]
 	</p>
 	<p>
 		[siren.speech(Perhaps you could get the youko to help as well?)] [siren.name] chimes in, [siren.speech(They're no match for my universe-shattering powers, but if you get a couple of nine-tails on your side then you probably wouldn't even need Minotallys.)]
@@ -1071,7 +1071,7 @@
 		 in length. There looks to be a large amount of farmland surrounding the capital, which is bordered by an expanse of wild grassland and forests. To the north, there's a huge expanse of what's marked as jungle, while to the south, the farmland transitions first into a wide savannah, and then into a desert.
 	</p>
 	<p>
-		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few #IF(game.isMetricSizes())kilometres#ELSemiles#ENDIF to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly
+		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few #IF(game.isMetricSizes())kilometres#ELSEmiles#ENDIF to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly
 		#IF(game.isMetricSizes())
 			 35 kilometres
 		#ELSE

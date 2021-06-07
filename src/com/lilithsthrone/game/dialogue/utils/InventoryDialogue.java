@@ -154,10 +154,14 @@ public class InventoryDialogue {
 		
 		for(AbstractClothing c : zlayerClothing) { 
 			if((!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) && !c.isMilkingEquipment()) {
-				if(Main.game.isInNewWorld()) {
-					character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				if (c.isDiscardedOnUnequip(null)) {
+					character.unequipClothingIntoVoid(c, true, Main.game.getPlayer());
 				} else {
-					character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+					if(Main.game.isInNewWorld()) {
+						character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+					} else {
+						character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+					}
 				}
 				sb.append("<p style='text-align:center;'>"+character.getUnequipDescription()+"</p>");
 			}
@@ -8450,7 +8454,9 @@ public class InventoryDialogue {
 				public void effects() {
 					String s = "";
 					if(ownsKey) {
-						Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						if(!Main.game.isInSex()) {
+							Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						}
 						s = "<p>"
 								+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
 							+ "</p>";

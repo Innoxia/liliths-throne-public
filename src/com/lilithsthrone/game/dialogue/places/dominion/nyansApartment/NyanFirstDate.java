@@ -565,11 +565,16 @@ public class NyanFirstDate {
 			} else if(index==4) {
 				if(!Util.newArrayListOfValues(
 						Occupation.CHEF,
-						Occupation.MUSICIAN
+						Occupation.MUSICIAN,
+						Occupation.ARISTOCRAT
 						).contains(Main.game.getPlayer().getOccupation())) {
 					return new Response("Occupation", "You do not have a suitable occupation for impressing [nyanmum.name]...", null);
 				}
-				return new Response("Occupation", "Tell [nyanmum.name] that you are an accomplished [pc.job], and so you'll always be able to find work in order to support Nyan.", POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
+				return new Response("Occupation",
+						Main.game.getPlayer().getOccupation()==Occupation.ARISTOCRAT
+							?"Tell [nyanmum.name] that you are a member of a highly prestigious aristocratic family, and so your wealth and status will be more than enough to support Nyan."
+							:"Tell [nyanmum.name] that you are an accomplished [pc.job], and so you'll always be able to find work in order to support Nyan.",
+						POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nyansApartment/firstDate", "POST_DATE_APARTMENT_INTERVIEW_2_OCCUPATION"));
