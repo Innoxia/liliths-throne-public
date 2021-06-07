@@ -342,7 +342,7 @@
 			#IF(game.getCharactersPresent().contains(astrapi))
 				Keeping up her canter, Astrapi continues effortlessly pulling you along in the carriage behind her, and shows no sign of getting tired or needing a break.
 			#ELSE
-				Keeping up her canter, Vronti continues effortlessly pulling you along in the carriage behind her, and shows no sign of getting tired or needing a break.
+				Keeping up his canter, Vronti continues effortlessly pulling you along in the carriage behind him, and shows no sign of getting tired or needing a break.
 			#ENDIF
 		#ENDIF
 		 As you start to lose interest in your surroundings, you wonder whether to try and engage

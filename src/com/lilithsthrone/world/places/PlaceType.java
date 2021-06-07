@@ -5474,9 +5474,9 @@ public class PlaceType {
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FIELDS = new AbstractGlobalPlaceType(
 			WorldRegion.FIELDS,
-			"Foloi fields",
+			"Foloi Fields",
 			null,
-			"The farmland surrounding Dominion is known as the 'Foloi fields', and is primarily inhabited by farmyard animal-morphs.",
+			"The farmland surrounding Dominion is known as the 'Foloi Fields', and is primarily inhabited by farmyard animal-morphs.",
 			new Colour(Util.newColour(0xB9E3A1)),
 			FieldsDialogue.FOLOI_FIELDS,
 			null, "") {
@@ -5489,7 +5489,7 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.WOODLAND,
 			"Foloi forests",
-			"The thick forests surrounding the Foloi fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
+			"The thick forests surrounding the Foloi Fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
 			"global/forest",
 			new Colour(Util.newColour(0x51A468)),
 			new Colour(Util.newColour(0x5E685E)),
@@ -5504,7 +5504,7 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_FIELDS_CITY = new AbstractGlobalPlaceType(
 			WorldRegion.FIELD_CITY,
 			"Elis",
-			"The largest and most prosperous of all settlements in the Foloi fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.",
+			"The largest and most prosperous of all settlements in the Foloi Fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.",
 			"global/elis",
 			new Colour(Util.newColour(0xd544ae)),
 			new Colour(Util.newColour(0x859871)),
@@ -5519,7 +5519,7 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_RIVER = new AbstractGlobalPlaceType(
 			WorldRegion.RIVER,
 			"river Hubur",
-			"The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.",
+			"The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi Fields are considered safe.",
 			"global/river",
 			new Colour(Util.newColour(0x61BDFF)),
 			new Colour(Util.newColour(0x98B4CD)),

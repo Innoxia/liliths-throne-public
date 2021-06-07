@@ -19,26 +19,46 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Contributors:
-		Deprecated the toc.xml in favour of file name based sorting for patch notes. (PR#1537 by Stadler76)
+	Contributions:
+		Fixed a bug where dialogue flags would not be loaded correctly under certain conditions, resulting in many potentially game-breaking effects. (by AceXP) Innoxia's note: If your game has experienced bugs related to the resetting of knowledge about quests, the calendar, essences, etc., then I would advise you to load an older save before that happened or start a new game (sorry for the inconvenience). 
+	
+	Other:
+		Renamed the actions for entering Elis to 'Enter (main)' and 'Enter (rear)'.
 	
 	Bugs:
-		Typo fixes.
-		Fixed issue where NPCs would not be present in their intended home cells when creating a new game, which was affecting all unique NPCS, most noticeably harpies and shop keepers in the Shopping Arcade. If you made a new game in 0.4.0.5, I'd advise starting over as I haven't retroactively fixed these NPCs being in incorrect tiles (as it would take a long time to go through them all and check where they're meant to be). 
-		The underarm content toggle should now correctly disable the availability of armpit actions in sex.
-		Fixed issue where exiting Dominion into the world map would sometimes place you in the last world map location you'd been in instead of the Dominion tile.
-		Removed the 'Masturbate' action when accepting Meraxis's duel (which I was using for debugging purposes but forgot to remove it for the release).
-		Fixed issue with Meraxis's post-kiss actions' tooltips incorrectly stating that sex areas were inaccessible.
-		Fixed a couple of bugs related to the issue where trying to use the centaur transport back to Dominion from Elis would not work correctly.
-		Fixed issue where you had to use the 'Wait' action twice at the Elis centaur depot for Astrapi or Vronti to appear.
-		Fixed another centaur depot issue where the 'Introduction' scene would replay when using the 'Wait & enter' action at the Dominion depot.
-		Fixed issue where Astrapi or Vronti would get stuck on the depot tile at ELis when choosing the decline their offer of a ride.
-		Fixed (the final) issue with centaur transports where the time would not progress properly on your route to/from Dominion when travelling during the hour of 06:00.
-		Fixed issue where the game would sometimes become unresponsive when more than one generic NPC spawned on the same tile (which happened most often when Enforcers were spawned).
-		Fixed some slight awkwardness in the flow of dialogue when looking at the calendar in your room.
+		Typo and parsing fixes.
+		Fixed issue where Loppy's artwork wasn't being displayed.
 	
 	
 	
+	
+	
+	
+	performance issues - tattoo mods are slow
+	
+	Ikin rabbit lore
+	
+	aristocrat occupation for Leotie test
+	
+	armpit licking
+		Pix licking
+	
+	2 new tattoo counters for Eggs Implanted (in others) and Eggs Incubated (by the PC)? If the game doesn't keep track of the individual eggs perhaps a Number of Times You Implanted Eggs or Number of Times You were Implanted Eggs counter would work too.
+	
+	lock sadist actions to the fetish
+	
+	add an option to have the main dialogue in each scene automatically copied to the clipboard
+		 bold or italic highlighting can be used for text readers
+	
+	forced chastity status effect resetting itself to level 1?
+		 well, for the record, it only seems to happen after they spend some time on the last stage
+		 Replication condition: quick-saved with the status at max, and it reset to the basic level on quick-loading
+	
+	tattoo counters don't increment when slaves get fucked in the brothel or in the stocks or by other slaves
+		 iirc the pregnancy and litter tattoos work but the sub sex counters and the loads taken ones are broken
+		
+	the bug in which there were a lot of people in Angel's Kiss still exists.
+		QuickSave_Kinu BusinessCat
 	
 	Make essences contraband
 		search: revisit this and potentially make demon/angel essence contraband when adding more essence effects
@@ -134,8 +154,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Tavern sex
 			[] If Meraxis fetish sex unlocked, can go up to her room and have fetish sex once a day
 			[] If all sex unlocked, she does anything with player
-	
-	[] is the tentacle sex tooltip bugged? says the inserted value is 0
 	
 	[] Vengar bug?
 		I completed the quest line, went back in, strangely the milkers were still here and so was Vengar. I tried to see if attacking the guy who enslaved the milkers would solve anything, and then boom, couldn't leave and the only thing i can do with Vengar is bang
