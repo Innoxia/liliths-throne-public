@@ -253,8 +253,8 @@ public class BatCavernsEncounterDialogue {
 				return new Response("Continue", "You win. Hooray.", Main.game.getDefaultDialogue(false)) {
 				    @Override
 				    public void effects() {
-					Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE).getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
-					Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR).getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
+						Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE).getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
+						Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR).getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
 				    }
 				};
 			}
