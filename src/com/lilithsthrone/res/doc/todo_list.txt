@@ -28,6 +28,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed a huge amount of typos and consistency errors in dialogue. Full patch notes for this PR are at the bottom of these patch notes. (PR#1550 by AceXP)
 		Fixed a NullReferenceException which was being thrown whenever a slave laying incubated eggs hadn't previously birthed live young. (PR#1551 by Maxis010)
 		Fixed some parser bugs and improved HLFQuest UX by adding button to search for password and improving firebomb quest descriptions and triggers. (PR#1547 by DSG)
+		Refactored all of the existing 'Self' type sex actions from 'Player/Partner' into shared actions. (PR#1539 by Maxis010)
 		
 	Other:
 		Renamed the actions for entering Elis to 'Enter (main)' and 'Enter (rear)'.
