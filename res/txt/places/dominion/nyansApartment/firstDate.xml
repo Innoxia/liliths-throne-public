@@ -11,10 +11,10 @@
 		Walking up the steps to the front door, you see yet another sign of this area's affluence, as there's an arcane intercom system securely bolted to the wall. Looking over the half a dozen name plates, you see one which is labelled as 'Nyan [nyan.surname]', and you waste no time in pressing the little button beside it. After a loud buzz and a momentary pause, you hear the voice of your girlfriend call out over the intercom, [nyan.speechNoEffects(H-Hello? This is Ms. [nyan.surname], w-who is it?)]
 	</p>
 	<p>
-		After quickly telling her that it's you, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! C-Come on in! I'm on the second floor, p-please come on up!)]
+		After quickly telling her that it's you, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! C-Come on in! I'm on the third floor, p-please come on up!)]
 	</p>
 	<p>
-		Hearing a loud clicking noise from behind the front door, you experimentally push on it and discover that it's been unlocked. Doing as your girlfriend says, you cross the smartly-kept foyer and proceed up several flights of stairs to the second floor. As you reach your destination, you see that the cute cat-girl already has her apartment door open, and with a happy smile on her face, she exclaims, [nyan.speechNoEffects(I-It's good to see you, [pc.name]! W-What did you come here for?)]
+		Hearing a loud clicking noise from behind the front door, you experimentally push on it and discover that it's been unlocked. Doing as your girlfriend says, you cross the smartly-kept foyer and proceed up several flights of stairs to the third floor. As you reach your destination, you see that the cute cat-girl already has her apartment door open, and with a happy smile on her face, she exclaims, [nyan.speechNoEffects(I-It's good to see you, [pc.name]! W-What did you come here for?)]
 	</p>
 	<p>
 		[pc.Stepping] up to where your girlfriend is waiting, you tell her that you're here to collect her for your evening's date. As she hears you say this, Nyan's bright blue eyes light up, and she excitedly claps her hands together and exclaims, [nyan.speechNoEffects(Oh! Oh, how wonderful! C-Come on in, [pc.name], you can wait in my lounge while I g-get ready!)]
