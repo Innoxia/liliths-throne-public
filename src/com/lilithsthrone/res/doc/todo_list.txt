@@ -22,6 +22,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Contributions:
 		Fixed a bug where dialogue flags would not be loaded correctly under certain conditions, resulting in many potentially game-breaking effects. (by AceXP) Innoxia's note: If your game has experienced bugs related to the resetting of knowledge about quests, the calendar, essences, etc., then I would advise you to load an older save before that happened or start a new game (sorry for the inconvenience). 
 		Added functionality to debug menu to show the chances of encountering various races in the current location - added in the 'Misc.' tab, 2nd page as 'Spawn rates' action. (PR#1531 by AceXP)
+		Added a special attack, 'talon slash', to characters that have taloned feet (i.e. harpies). The base damage is 20 (same as a kerambit). If the attack does damage, extra damage is applied as a critical effect. (PR#1530 by AceXP)
 	
 	Other:
 		Renamed the actions for entering Elis to 'Enter (main)' and 'Enter (rear)'.
