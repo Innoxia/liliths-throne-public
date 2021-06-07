@@ -592,9 +592,13 @@ public enum LegConfiguration {
 			return true;
 		}
 		@Override
-		public String getMovementVerbPresentFirstPersonSingular() { return "crawl"; }
+		public String getMovementVerbPresentFirstPersonSingular() {
+			return "crawl";
+		}
 		@Override
-		public String getMovementVerbPresentThirdPersonSingular() {	return "crawls"; }
+		public String getMovementVerbPresentThirdPersonSingular() {
+			return "crawls";
+		}
 		@Override
 		public String getMovementVerbPresentParticiple() {
 			return "crawling";
@@ -612,9 +616,13 @@ public enum LegConfiguration {
 			return "slides";
 		}
 		@Override
-		public String getIndividualMovementVerbPresentParticiple() { return "sliding"; }
+		public String getIndividualMovementVerbPresentParticiple() {
+			return "sliding";
+		}
 		@Override
-		public String getIndividualMovementVerbPastParticiple() { return "slid"; }
+		public String getIndividualMovementVerbPastParticiple() {
+			return "slid";
+		}
 	},
 	
 

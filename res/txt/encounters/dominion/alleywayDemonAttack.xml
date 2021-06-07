@@ -452,7 +452,7 @@
 		#ELSE
 			[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head.
 		#ENDIF
-		[npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
+		 [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -484,7 +484,7 @@
 		#ELSE
 			[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head.
 		#ENDIF
-		[npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
+		 [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
 	</p>
 	]]>
 	</htmlContent>

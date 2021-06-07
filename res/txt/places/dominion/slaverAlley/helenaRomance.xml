@@ -938,7 +938,7 @@
 		With Helena following in your wake, you do as you're told and carry the can of golden paint outside. As the two of you exit the store, the squirrel-girl who was staring through the window nervously walks up to the harpy and asks, [style.speechFeminine(A-Are you Helena?)]
 	</p>
 	<p>
-		Showing no sign of emotion, Helena calms turns to face this stranger and confirms, [helena.speech(That is correct. Is there something I may help you with?)]
+		Showing no sign of emotion, Helena calmly turns to face this stranger and confirms, [helena.speech(That is correct. Is there something I may help you with?)]
 	</p>
 	<p>
 		[style.speechFeminine(P-Please could you sign this?)] the squirrel-girl replies, thrusting a small notepad and pen towards the harpy. Allowing the slightest of smiles to cross her face, the noble matriarch takes this fan's offering, and after inscribing her flowing signature on the cover of the notebook, she hands it back. Barely managing to contain her excitement, the squirrel-girl practically jumps up and down on the spot as she squeaks, [style.speechFeminine(Thank you, thank you so much! I-I've got a copy of every magazine you've modelled for; I'm a huge fan of yours!)]
