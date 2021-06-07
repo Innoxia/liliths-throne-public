@@ -12,7 +12,10 @@
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
 	<aquatic>false</aquatic>
-	<applySubspeciesChanges></applySubspeciesChanges>
+	<applySubspeciesChanges><![CDATA[
+		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_octopus_leg, LEG_CONFIGURATION_CEPHALOPOD, true)]
+		[#targetedBody.getTentacle().setType(null, TENTACLE_TYPE_NoStepOnSnek_octopus_tentacle)]
+	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_NoStepOnSnek_octopus)
 			100

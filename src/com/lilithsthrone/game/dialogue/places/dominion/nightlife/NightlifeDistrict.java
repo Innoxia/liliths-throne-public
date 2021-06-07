@@ -467,7 +467,7 @@ public class NightlifeDistrict {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(!isClubOpen(0)) {
-					return new Response("Watering Hole", "The nightclub, 'The Watering Hole', is currently closed. A sign by the entrance informs you that it's open from 19:00-05:00 every night.", null);
+					return new Response("Watering Hole", UtilText.parse("The nightclub, 'The Watering Hole', is currently closed. A sign by the entrance informs you that it's open from [unit.time(19)]-[unit.time(05)] every night."), null);
 				} else {
 					return new Response("Watering Hole", "The nightclub, 'The Watering Hole', is currently open. You could enter if you wanted to.", WATERING_HOLE_ENTRANCE) {
 						@Override

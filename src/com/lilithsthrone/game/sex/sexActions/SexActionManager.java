@@ -44,6 +44,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMound;
@@ -59,7 +60,26 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.SadisticActions;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerCrotchNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerPenis;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfNoPen;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueVagina;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -91,24 +111,26 @@ public class SexActionManager {
 	}
 	
 	static {
-//		// Modded sexActions:
-//		
-//		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", null, "sexAction");
-//		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
-//			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-//				try {
-//					SexAction sexAction = new SexAction(innerEntry.getValue(), entry.getKey(), true) {};
-//					allSexActions.add(sexAction);
-//					sexActionToIdMap.put(sexAction, innerEntry.getKey());
-//					idToSexActionMap.put(innerEntry.getKey(), sexAction);
-////					System.out.println("modded WT: "+innerEntry.getKey());
-//				} catch(Exception ex) {
-//					System.err.println("Loading modded sexAction type failed at 'SexAction'. File path: "+innerEntry.getValue().getAbsolutePath());
-//					System.err.println("Actual exception: ");
-//					ex.printStackTrace(System.err);
-//				}
-//			}
-//		}
+		// Modded sexActions:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/sex/actions");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					SexActionExternal sexAction = new SexActionExternal(innerEntry.getValue(), innerEntry.getKey(), false);
+					String id = innerEntry.getKey();
+					id = id.replaceAll("sex_actions_", "");
+					allSexActions.add(sexAction);
+					sexActionToIdMap.put(sexAction, id);
+					idToSexActionMap.put(id, sexAction);
+//					System.out.println("modded sexAction: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading modded sexAction type failed at 'SexAction'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
 		
 		// External res SexActions:
 		
@@ -174,6 +196,7 @@ public class SexActionManager {
 				new Value<>("TongueNippleCrotch", TongueNippleCrotch.class.getFields()),
 				new Value<>("FootMouth", FootMouth.class.getFields()),
 				new Value<>("PenisMouth", PenisMouth.class.getFields()),
+				new Value<>("TongueArmpits", TongueArmpit.class.getFields()),
 
 				// Tail actions:
 				new Value<>("TailAnus", TailAnus.class.getFields()),
@@ -206,10 +229,31 @@ public class SexActionManager {
 				new Value<>("ClitVagina", ClitVagina.class.getFields()),
 				new Value<>("ClitAnus", ClitAnus.class.getFields()),
 		
-				// Self actions (will be fully added after refactor of self action classes)
-				//TODO refactor the 'SelfFingerVagina_PARTNER_SELF_FINGER_VAGINA_PENETRATION' id for Meraxis masturabtion scene once classes are refactored
-				new Value<>("SelfFingerVagina", PartnerSelfFingerVagina.class.getFields()));
-		
+				// Self actions
+				new Value<>("SelfNoPen", SelfNoPen.class.getFields()),
+				new Value<>("SelfFingerAnus", SelfFingerAnus.class.getFields()),
+				new Value<>("SelfFingerBreasts", SelfFingerBreasts.class.getFields()),
+				new Value<>("SelfFingerCrotchNipple", SelfFingerCrotchNipple.class.getFields()),
+				new Value<>("SelfFingerMouth", SelfFingerMouth.class.getFields()),
+				new Value<>("SelfFingerNipple", SelfFingerNipple.class.getFields()),
+				new Value<>("SelfFingerPenis", SelfFingerPenis.class.getFields()),
+				new Value<>("SelfFingerVagina", SelfFingerVagina.class.getFields()),
+				
+				new Value<>("SelfPenisAnus", SelfPenisAnus.class.getFields()),
+				new Value<>("SelfPenisMouth", SelfPenisMouth.class.getFields()),
+				new Value<>("SelfPenisNipple", SelfPenisNipple.class.getFields()),
+				new Value<>("SelfPenisVagina", SelfPenisVagina.class.getFields()),
+
+				new Value<>("SelfTailAnus", SelfTailAnus.class.getFields()),
+				new Value<>("SelfTailMouth", SelfTailMouth.class.getFields()),
+				new Value<>("SelfTailNipple", SelfTailNipple.class.getFields()),
+				new Value<>("SelfTailVagina", SelfTailVagina.class.getFields()),
+
+				new Value<>("SelfTongueAnus", SelfTongueAnus.class.getFields()),
+				new Value<>("SelfTongueMouth", SelfTongueMouth.class.getFields()),
+				new Value<>("SelfTongueNipple", SelfTongueNipple.class.getFields()),
+				new Value<>("SelfTongueVagina", SelfTongueVagina.class.getFields()));
+				
 		for(Entry<String, Field[]> entry : sexActionClassIdToFields.entrySet()) {
 			for(Field f : entry.getValue()) {
 				if (SexAction.class.isAssignableFrom(f.getType())) {

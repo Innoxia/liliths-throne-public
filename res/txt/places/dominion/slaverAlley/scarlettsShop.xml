@@ -161,7 +161,15 @@
 		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
-			 [style.colourMinorBad(tomorrow morning at the earliest)].
+			#IF(game.getDayOfWeek()==DOW_SUNDAY || game.getHourOfDay()>=9)
+			 	[style.colourMinorBad(tomorrow morning at the earliest)].
+			#ELSE
+				#IF(game.getHourOfDay()<9)
+				 	[style.colourMinorBad(later this morning)].
+				#ELSE
+				 	[style.colourMinorBad(sometime later)].
+				#ENDIF
+			#ENDIF
 		#ENDIF
 	</p>
 	]]>
@@ -180,7 +188,15 @@
 		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
-			 [style.colourMinorBad(tomorrow morning at the earliest)].
+			#IF(game.getDayOfWeek()==DOW_SUNDAY || game.getHourOfDay()>=9)
+			 	[style.colourMinorBad(tomorrow morning at the earliest)].
+			#ELSE
+				#IF(game.getHourOfDay()<9)
+				 	[style.colourMinorBad(later this morning)].
+				#ELSE
+				 	[style.colourMinorBad(sometime later)].
+				#ENDIF
+			#ENDIF
 		#ENDIF
 	</p>
 	]]>

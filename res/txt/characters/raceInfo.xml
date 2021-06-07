@@ -490,27 +490,30 @@
 	</htmlContent>
 
 	<!-- RABBIT-MORPHS -->
-
+	<!-- Lore written by Ikin Skittertail -->
+	
 	<htmlContent tag="RABBIT_MORPH_BASIC"><![CDATA[
 	<p>
-		Rabbit-morphs are one of the most common races to be found in the Foloi Fields, and are also occasionally to be seen wandering the streets of Dominion.
-		 Their large rabbit-like ears and round, fluffy tails are usually enough to identify someone as a rabbit-morph.
+		Of all those who dwell in the fields around Elis, few are quite so numerous as the fecund rabbit-morph. Although they're primarily found making their living in vast underground burrows in the Foloi Fields, there are also large rabbit communities in Dominion and other urban environments. Rabbit-morphs, being as fertile as their animal counterparts, often reproduce far beyond what their small communities can support and so many venture forth in search of a place to make a living, making them a common sight almost anywhere in Lilith's Realm.
+	</p>
+	<p>
+		Rabbit-morphs are digitigrade and stand slightly shorter than the average human, with male rabbit-morphs being a head taller than the females. One of the defining feature of a rabbit-morph is its long ears, which stand up straight for a standard rabbit-morph and hang limply to the sides of the head on a lop-rabbit-morph. The other defining feature of a rabbit-morph is their characteristic cotton ball tail, which is short and round and sticks out at the base of its back. 
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RABBIT_MORPH_ADVANCED"><![CDATA[
 	<p>
-		The vast majority of rabbit-morphs are obsessed with breeding and being bred.
-		 Although their personalities can vary wildly between individuals, they all share the same primal instinct to produce as many offspring as possible.
+		Rabbit-morph culture has a strong emphasis on maintaining good familial relations, as well as encouraging young rabbit-morphs to start a family of their own. While a rabbit's fertility is often a source of individual pride, it's acknowledged in rabbit-morph communities that unchecked polygamy will quickly result in destabilising overpopulation. Due to this, traditional rabbit-morph communities are highly monogamous, and will strongly encourage the use of contraceptives once a rabbit-morph pair have had several offspring.
 	</p>
 	<p>
-		Rabbit-morphs, like the other common races, get heavily affected by arcane storms.
-		 Being exposed to arcane thunder will make rabbit-boys enter a potent rut, while rabbit-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+		While urban rabbit-morphs are unlikely to adhere to these traditions and live in a similar manner to the rest of the urban population, rabbit-morphs who dwell in the Foloi Fields tend to live in large burrow communities where they will group themselves by family into individual rooms. These underground burrows often times act as self contained villages, having community centres, communal kitchens, dining rooms, and sometimes even small stores. Above these burrows, rabbit-morphs build large farms which are tell-tale indicators of a nearby rabbit community. If one ever stumbles upon a thriving farm in the wilderness, that is a good indicator that a rabbit burrow stretches under your feet.
 	</p>
 	<p>
-		Rabbit-morphs will give birth to two to eight offspring at once.
-		 Their pregnancies work in exactly the same way as a normal human one.
+		Although the effects of arcane storms are mercifully blunted outside of Dominion, the Foloi Fields' rabbit-morph population tends to have a noticeable boom after each one. Lessened though the storm's effects may be, rabbits need little incentive to have more children. In Dominion, however, a rabbit-morph's behaviour does not vary much from that of any other race which suffers under its effects, with those under the storm's influence following their rabbit instincts of seeking to breed and be bred.
+	</p>
+	<p>
+		A rabbit-morph's offspring will be a mix between rabbit-morph and their partner's race. Although later in life rabbit-morphs tend to marry and live in happy, and for the most part faithful, monogamous marriages, younger rabbits are notoriously libertine. Couplings with others their age and even outsiders and visitors is a common occurrence, as is offspring from these dalliances. This will sometimes lead to one seeing decidedly unfitting morphs in a rabbit burrow, however most of the time non-rabbit-morphs will move on to other communities. In time the younger rabbits will either settle down and expand the burrow to make room for their own family and live with their mate, or they will leave the burrow to make their living in a city or as bandits out in the wilderness. All rabbit-morphs, even the vagabonds, try to keep close contact with their parents whenever possible.
 	</p>
 	]]>
 	</htmlContent>

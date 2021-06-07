@@ -36,7 +36,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -1665,7 +1665,7 @@ public class NyanApartment {
 									return Util.newArrayListOfValues(
 											new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), PenisVagina.PENIS_FUCKING_START, false, true),
 											new InitialSexActionInformation(getNyanMum(), getNyan(), TongueMouth.KISS_START, false, true),
-											new InitialSexActionInformation(getNyanMum(), getNyanMum(), PartnerSelfFingerVagina.PARTNER_SELF_FINGER_VAGINA_PENETRATION, false, true));
+											new InitialSexActionInformation(getNyanMum(), getNyanMum(), SelfFingerVagina.SELF_FINGER_VAGINA_PENETRATION, false, true));
 								}
 							});
 				}
@@ -1726,7 +1726,7 @@ public class NyanApartment {
 									return Util.newArrayListOfValues(
 											new InitialSexActionInformation(Main.game.getPlayer(), getNyanMum(), PenisVagina.PENIS_FUCKING_START, false, true),
 											new InitialSexActionInformation(getNyanMum(), getNyan(), TongueMouth.KISS_START, false, true),
-											new InitialSexActionInformation(getNyan(), getNyan(), PartnerSelfFingerVagina.PARTNER_SELF_FINGER_VAGINA_PENETRATION, false, true));
+											new InitialSexActionInformation(getNyan(), getNyan(), SelfFingerVagina.SELF_FINGER_VAGINA_PENETRATION, false, true));
 								}
 							});
 				}
@@ -1790,7 +1790,7 @@ public class NyanApartment {
 									return Util.newArrayListOfValues(
 											new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), PenisVagina.PENIS_FUCKING_START, false, true),
 											new InitialSexActionInformation(getNyanMum(), getNyan(), TongueMouth.KISS_START, false, true),
-											new InitialSexActionInformation(getNyanMum(), getNyanMum(), PartnerSelfFingerVagina.PARTNER_SELF_FINGER_VAGINA_PENETRATION, false, true));
+											new InitialSexActionInformation(getNyanMum(), getNyanMum(), SelfFingerVagina.SELF_FINGER_VAGINA_PENETRATION, false, true));
 								}
 							});
 				}
@@ -1851,7 +1851,7 @@ public class NyanApartment {
 									return Util.newArrayListOfValues(
 											new InitialSexActionInformation(Main.game.getPlayer(), getNyanMum(), PenisVagina.PENIS_FUCKING_START, false, true),
 											new InitialSexActionInformation(getNyanMum(), getNyan(), TongueMouth.KISS_START, false, true),
-											new InitialSexActionInformation(getNyan(), getNyan(), PartnerSelfFingerVagina.PARTNER_SELF_FINGER_VAGINA_PENETRATION, false, true));
+											new InitialSexActionInformation(getNyan(), getNyan(), SelfFingerVagina.SELF_FINGER_VAGINA_PENETRATION, false, true));
 								}
 							});
 				}
@@ -2533,7 +2533,7 @@ public class NyanApartment {
 											return Util.newArrayListOfValues(
 													new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), PenisAnus.PENIS_FUCKING_START, false, true),
 													new InitialSexActionInformation(getNyanMum(), getNyan(), TongueMouth.KISS_START, false, true),
-													new InitialSexActionInformation(getNyanMum(), getNyanMum(), PartnerSelfFingerVagina.PARTNER_SELF_FINGER_VAGINA_PENETRATION, false, true));
+													new InitialSexActionInformation(getNyanMum(), getNyanMum(), SelfFingerVagina.SELF_FINGER_VAGINA_PENETRATION, false, true));
 										}
 									});
 						}
@@ -2595,7 +2595,7 @@ public class NyanApartment {
 											return Util.newArrayListOfValues(
 													new InitialSexActionInformation(Main.game.getPlayer(), getNyanMum(), PenisAnus.PENIS_FUCKING_START, false, true),
 													new InitialSexActionInformation(getNyanMum(), getNyan(), TongueMouth.KISS_START, false, true),
-													new InitialSexActionInformation(getNyan(), getNyan(), PartnerSelfFingerVagina.PARTNER_SELF_FINGER_VAGINA_PENETRATION, false, true));
+													new InitialSexActionInformation(getNyan(), getNyan(), SelfFingerVagina.SELF_FINGER_VAGINA_PENETRATION, false, true));
 										}
 									});
 						}
