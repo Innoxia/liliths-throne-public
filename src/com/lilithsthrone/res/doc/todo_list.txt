@@ -29,9 +29,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Bugs:
 		Typo and parsing fixes.
 		Fixed issue where Loppy's artwork wasn't being displayed.
-	
-	
-	
+		Fixed bug where over 24 hours would sometimes pass when using Astrapi's centaur ride for the first time, and also fixed a related bug where Vronti's journeys would always pass over 24 hours.
 	
 	
 	

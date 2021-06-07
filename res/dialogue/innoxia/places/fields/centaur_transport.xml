@@ -965,14 +965,18 @@
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_JOURNEY_END</content>
 		<secondsPassed minutes="true"><![CDATA[
-			#IF(game.getHourOfDay()>=15)
-				[#game.getMinutesUntilTimeInMinutes(17.75*60)]
-			#ELSEIF(game.getHourOfDay()>=12)
-				[#game.getMinutesUntilTimeInMinutes(14.75*60)]
-			#ELSEIF(game.getHourOfDay()>=9)
-				[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+				60
 			#ELSE
-				[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+				#IF(game.getHourOfDay()>=15)
+					[#game.getMinutesUntilTimeInMinutes(17.75*60)]
+				#ELSEIF(game.getHourOfDay()>=12)
+					[#game.getMinutesUntilTimeInMinutes(14.75*60)]
+				#ELSEIF(game.getHourOfDay()>=9)
+					[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+				#ELSE
+					[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+				#ENDIF
 			#ENDIF
 		]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
@@ -1806,11 +1810,11 @@
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/centaur_transport">VRONTI_JOURNEY_END</content>
 		<secondsPassed minutes="true"><![CDATA[
-			#IF(game.getHourOfDay()>15)
+			#IF(game.getHourOfDay()>=15)
 				[#game.getMinutesUntilTimeInMinutes(17.75*60)]
-			#ELSEIF(game.getHourOfDay()>12)
+			#ELSEIF(game.getHourOfDay()>=12)
 				[#game.getMinutesUntilTimeInMinutes(14.75*60)]
-			#ELSEIF(game.getHourOfDay()>9)
+			#ELSEIF(game.getHourOfDay()>=9)
 				[#game.getMinutesUntilTimeInMinutes(11.75*60)]
 			#ELSE
 				[#game.getMinutesUntilTimeInMinutes(8.75*60)]
