@@ -4,8 +4,6 @@
 In this text file I keep track of reported bugs and features that I am working on.
 Not everything in this file is up-to-date, and everything is subject to change at a later date.
 	
-	- Add in modding framework for sex actions. 
-	
 	- Repeat alleyway
 		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
 			for demons in dark alleyways, they use telepathic suggestion to increase your corruption 
@@ -21,86 +19,58 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Contributors:
-		Updated lilithsThroneBuildTutorial.md. (by AceXP)
-		Fixed bug where Angel's Tears didn't reset the consumer's lust value like it should. (by AceXP)
-		Fixed bug where imp gangs would have elixirs with no effects in their inventories if the player was a slime. (by AceXP)
-		Fixed minor issue with random generation not being as random as it should have been. (by AceXP)
-	
-	Engine/Modding:
-		Added support for world and place types to define whether walls are present (which enables the 'against wall' sex position).
-		Added support for sex actions to be applied at the start of sex when using the sexVariables element in responses.
-		Added framework for external sex manager support, granting significantly more control over how sex scenes play out. (You can see a commented example in 'res/sex/innoxia/managers/meraxis/masturbation.xml')
-		When defining dialogue nodes, added the ability to copy responses from another dialogue node instead of having to copy+paste them. (Done by using 'copyFromDialogueId' attribute in the 'responses' element.)
-		Improved the 'random' parsing command so that empty strings are discarded from the potential returns, allowing you to use conditional statements to allow or remove strings from the randomly selected pool.
-		Added new CoverableArea value 'ARMPITS', and applied this value to all applicable blocked body parts for 'torso over' and 'torso under' clothing in the game.
-	
-	Gameplay:
-		Re-enabled ability to leave Dominion. (Note that demonic centaur encounters aren't yet enabled in the fields, so there's not much to do there yet.)
-		Enabled entry to Elis. (Note that while all the places in Elis have dialogue, there isn't much to do there yet outside of the content in The Red Dragon.)
-		Added Meraxis dialogue for when leaving Dominion for the first time.
-		Added Meraxis dialogue in The Red Dragon.
-		Added two new unique centaur characters ('Astrapi' and 'Vronti') who together provide transport between Elis and Dominion (includes sex scenes for both characters).
-		Added interactions with Flash in The Red Dragon (talking and buying drink/food).
-		Added interactions with Jess in The Red Dragon tavern (paying for her company and sex), and added voyeurism scene at her bedroom when she's entertaining a client.
-	
-	Items:
-		Added weapon 'arcane recurve bow' (two-handed, ranged, physical/ice/fire/poison damage, sold by Vicky).
-	
-	Sex:
-		Added armpits as a new sexual 'orifice'.
-		Added penis-armpit sex actions, which are typically available in the same positions that penis-breast actions are available.
+	Contributions:
+		Fixed a bug where dialogue flags would not be loaded correctly under certain conditions, resulting in many potentially game-breaking effects. (by AceXP) Innoxia's note: If your game has experienced bugs related to the resetting of knowledge about quests, the calendar, essences, etc., then I would advise you to load an older save before that happened or start a new game (sorry for the inconvenience). 
+		Added functionality to debug menu to show the chances of encountering various races in the current location - added in the 'Misc.' tab, 2nd page as 'Spawn rates' action. (PR#1531 by AceXP)
+		Added a special attack, 'talon slash', to characters that have taloned feet (i.e. harpies). The base damage is 20 (same as a kerambit). If the attack does damage, extra damage is applied as a critical effect. (PR#1530 by AceXP)
 	
 	Other:
-		Added new content toggle for armpit content. (On by default.)
-		Roughly halved travel time for all fields tiles in the world map.
-		Reduced the values of several drink items.
+		Renamed the actions for entering Elis to 'Enter (main)' and 'Enter (rear)'.
 	
 	Bugs:
-		Parsing and typo fixes.
-		Fixed badger foot type being hoofs instead of paws.
-		Fixed 'barren' and 'firing blanks' perks being detected as physical perks instead of sex ones.
-		Added missing description for mouth-foot sex actions in quick sex overview screen.
-		Fixed issue with incorrectly parsed descriptions for when orgasming during an ongoing self-cock stroking action.
-		Added handling for several errors when loading saved games from several versions ago.
-		The 'anus' status effect during sex will no longer be displayed if anal content is turned off in your content options.
-		Fixed the export character screen saying that the export button was in the top-right instead of bottom-right.
-		Fixed tongue-nipple dirty talk referencing penetrating the nipple even if the target's nipples were not penetrable orifices.
-		Fixed issue where banned sex areas would sometimes become available after changing positions in special sex scenes.
+		Typo and parsing fixes.
+		Fixed issue where Loppy's artwork wasn't being displayed.
+		Fixed bug where over 24 hours would sometimes pass when using Astrapi's centaur ride for the first time, and also fixed a related bug where Vronti's journeys would always pass over 24 hours.
 	
 	
-	[x] Armpits
-		[x] Area
-			[x] switch warnings
-			[x] sex status effect
-				[x] icon
-		[x] Toggle
-		[x] Parsing
-			[x] armpit, armpit+
-		[x] Clothing covering for coverable area, add to all torso over/under clothing
-			[x] under
-				[x] internal
-				[x] external
-			[x] over
-				[x] internal
-				[x] external
-		[x] armpit sex actions
-			[x] penis-armpit
-				[x] actions
-				[x] writing
-				[x] add to positions
-				[x] test
-			[x] NPC armpit use priority (content option)
-			[x] orgasms
-				[x] Creampie
-				[x] cum on
-				[x] testing
-					[x] creampie does not dirty armpit
-					[x] armpit target missing
-			[x] status effect has no ongoing text
-	[x] Anus status in sex when anal content off?
 	
-	Kinu save - the bug in which there were a lot of people in Angel's Kiss still exists
+	performance issues - tattoo mods are slow
+	
+	Ikin rabbit lore
+	
+	aristocrat occupation for Leotie test
+	
+	armpit licking
+		Pix licking
+	
+	2 new tattoo counters for Eggs Implanted (in others) and Eggs Incubated (by the PC)? If the game doesn't keep track of the individual eggs perhaps a Number of Times You Implanted Eggs or Number of Times You were Implanted Eggs counter would work too.
+	
+	lock sadist actions to the fetish
+	
+	add an option to have the main dialogue in each scene automatically copied to the clipboard
+		 bold or italic highlighting can be used for text readers
+	
+	forced chastity status effect resetting itself to level 1?
+		 well, for the record, it only seems to happen after they spend some time on the last stage
+		 Replication condition: quick-saved with the status at max, and it reset to the basic level on quick-loading
+	
+	tattoo counters don't increment when slaves get fucked in the brothel or in the stocks or by other slaves
+		 iirc the pregnancy and litter tattoos work but the sub sex counters and the loads taken ones are broken
+		
+	the bug in which there were a lot of people in Angel's Kiss still exists.
+		QuickSave_Kinu BusinessCat
+	
+	Make essences contraband
+		search: revisit this and potentially make demon/angel essence contraband when adding more essence effects
+	
+	Is it intentional for randomly generated NPCs to have no variation to their body size and femininity? E.g. A feminine human will always be lightly muscled, average size, and girly (as opposed to womanly)
+		Yep, those attributes don't seem to change. Neither does ass size.
+	
+	Maybe lock out the Perk Tree if you're in a controlled scene, same as Inventory and Quicksave are locked out
+	
+	
+	[] Make dialogue, encounters, sex manager, sex actions have mod support
+	
 	
 	Add a more "gentle" variant for tentacle squeeze like for example a tentacle/snake massage perhaps
 	
@@ -149,317 +119,44 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] mouse
 	
-	[x] Sex manager files
-		[x] Add way to have ongoing actions at the start
-			[x] Implement in code
-		[x] Create template framework
-			[x] Implement framework in code
-			[x] Test with Meraxis masturbation
-				[x] Make sure empty values are handles in all lists/maps
-				[x] Id conversions
-				[x] Clothing removal preference not working
-				[x] Need sadistic action removal option
-				[x] Need to block grow cock if self-TF disabled for that character
-				[-] Test self-preferences
-				[x] Need dirty talk
-					[x] normal
-					[x] submissive
-					[x] rough
-					[x] framework
-					[x] code
-					[x] testing
-				[x] May need partner target focus method?
-					NPC method
-					public GameCharacter getPreferredSexTarget() {
-						return null;
-					}
-					[x] Test
-	[x] Need sex action file support
-		[x] framework
-		[x] code
-		[x] Adding to sex manager
-			[x] individual
-	[x] test
-		[-] Main.sex.addSexAction() in manager might not work correctly
-		[x] Need options to remove orgasm targets
-	
-	[x] 'Handjob onto X' actions parse incorrectly when self-masturbation is happening
-	[x] Also handjob climax
-	
-	[] Make dialogue, encounters, sex manager, sex actions have mod support
-	
-	[] Meraxis
-		[#meraxis.setAffection(pc, 100)]
-		[x] Meraxis clothing
-		[] Duelling framework
-			[x] Move duelling actions into a generic meraxis duelling dialogue file
-			[x] Add coverable area checks to sex
-			[x] Add affection requirements
-			[x] Add affection gains from sex actions
-			[x] Sex progress:
-				[x] Hold hands -> groping -> handjob/fingering
-				[x] Hug -> ass squeeze -> anal
-				[x] Kiss -> Make out -> Perform/receive oral
-				[x] Flash boobs -> Play with boobs/suck nipples -> Paizuri
-				[x] Flash pussy -> oral/intercrural -> sex
-			[x] Need to move north not south
-			[x] Sex
-				[x] Responses all sorted out
-					[x] hasPenisIgnoreDildo -> hasPenis
-				[x] Add all managers
-					[x] Need position changing limitations
-					[x] masturbation
-					[x] anal
-					[x] oral
-					[x] breasts
-					[x] pussy
-				[x] Add starting actions
-				[x] Check starting positions
-				[x] Add prepare orgasm actions where Meraxis can be given associated fetishes when she orgasms
-					[x] masturbation
-					[x] anal
-					[x] oral
-					[x] breasts
-					[x] pussy
-					[x] Add to managers
-					[x] Remove end sex condition in managers if associated fetish is owned
-			[x] Add all framework dialogue
-				[x] Need responses link to another dialogue node
-			[x] Meraxis reset
-				[x] Reset Meraxis:
-					[x] body
-						[x] test demon reset
-			[x] Add support for Meraxis missing in office
-				[x] One of Lyssieth's other daughters in office
-				[x] Population
-			[x] Demon TF
-				[x] Lilaya
-					[x] Teleport Meraxis if she's in fields
-					[x] Teleport back after
-						[x] Refusal
-						[x] TF
-			[x] Complete quest and give one to find Meraxis at The Red Dragon when leaving
-				[x] test
-			[x] Add room for player in tavern
-				[x] resting
-				[x] washing
-				[x] fast travel
-				[x] writing for all
-			[x] Add Meraxis Elis dialogue
-				[x] Scene when entering tavern
-					[x] Introduce Flash and his experience with Meraxis
-					[x] Introduce succubi followers (witnessed fight and now suck up to Meraxis)
-					[x] Introduce room, Meraxis sleep hours
-			[x] Meraxis in room at night
-			[-] Meraxis room dialogue (change sign to say she's sleeping and do not disturb)
-			[x] Meraxis tavern dialogue
-				[x] Duels
-					[x] "TODO Elis dialogue" for all duel ends
-					[x] Meraxis needs to produce her scythe after arriving at the place of the duel
-					[x] Transformation checks for reverse
-				[x] Minotalys meeting
-				[x] demon TF
-					[x] Teleport to Lyssieth's palace
-					[x] Meraxis virginity references all need checks
-						[x] text
-						[x] tooltips
-					[x] Need teleport back to Elis afterwards
-					[x] test
-						[x] Player TF issue: action is Meraxis's office and it describes Meraxis in there
-						[x] Step outside doesn't teleport Meraxis back to Elis with player
-							[x] Also sets Meraxis as receptionist again...
-						[x] 'LYSSIETH_OFFICE_ENTER' not found
-			[x] Bar dialogue
-				[x] Fix annoying travel disable
-				[x] Adjust prices of drinks
-				[x] Drinks & Food
-					innoxia_race_human_vanilla_water
-					dsg_race_ferret_orange_juice
-					dsg_race_otter_berry_soda
-					innoxia_race_pig_porcine_pop
-					charisma_race_spider_jet_black_coffee
-					
-					innoxia_race_dog_canine_crush
-					innoxia_race_horse_equine_cider
-					innoxia_race_badger_black_stripes_perry
-					innoxia_race_fox_vulpines_vineyard
-					innoxia_race_cat_felines_fancy
-					
-					innoxia_race_goat_pans_flute
-					innoxia_race_rat_black_rats_rum
-					innoxia_race_wolf_wolf_whiskey
-					dsg_race_bear_vodka
-					
-					innoxia_race_human_bread_roll
-					dsg_race_otter_fish_and_chips
-					dsg_race_ferret_sausages
-					dsg_race_gryphon_pate_and_crackers
-					NoStepOnSnek_race_octopus_shrimp_cocktail
-					
-					innoxia_race_alligator_gators_gumbo
-					innoxia_race_rat_brown_rats_burger
-					innoxia_race_pig_oinkers_fries
-					innoxia_race_fox_chicken_pot_pie
-					innoxia_race_wolf_meat_and_marrow
-					
-					innoxia_race_bat_fruit_bats_salad
-					dsg_race_bear_honey_bread
-					innoxia_race_badger_berry_trifle
-					NoStepOnSnek_race_capybara_brownie
-				[x] Make Flash in bar times longer
-				[x] Flash dialogue
-			[x] Jess dialogue
-				[x] She should be in tavern all time except sleeping (3-11)
-				[x] Pay for company (250)
-					[x] Small talk
-					[x] Ask about history
-					[x] Fluffy tail (give her super fluffy tail)
-					[x] Buy drinks (she likes beer) (80)
-					[x] Pay for 'intimate company' (further 250)
-						[x] She sits in lap/kisses/wants to be groped
-						[x] Lets you touch her pussy (tail hides)
-						[x] Pay for 'tour of her room' (further 1000)
-							[x] Takes pill
-							[x] Sex
-				[x] test
-				[x] Test Jess partner removal
-				[x] Add voyeurism when she's in room
-					[x] npc tag unreliable, so need way to get hook on generic npcs in tile
-						[x] 'ncom'
-					[x] Need player option to back out
-						[x] If player spectator and hidden, stop sex should be 'back out' and apply effects like quick sex, excluding the player
-						[x] test
-					[x] preferences are bugged somehow
-					[x] Add fetish association
-					[x] write dialogue
-			[-] Add Minotallys meeting
-				[x] Block stairs access until after met her
-				[x] Prevent loitering
-			[x] Remove Astrapi embarrassment/blushing behaviour
-			[x] Meraxis duel testing
-				[x] Dominion
-				[x] Elis
-					[x] Flag not set
-					[x] place tile movement incorrect
-					[x] Meraxis does not equip her scythe
-					[x] Not returning to tavern
-			[x] Jess generic characters create errors: Failed to load character present: 306,GenericSexualPartner
-			[] Write all Meraxis dialogue
-				[x] Leaving Dominion
-				[x] Add Takahashi dialogue option
-				[] Duels
-					[x] Starting
-					[x] Loss
-					[x] No reward
-					[x] Money reward
-					[x] Transform reward
-						[x] affections
-						[x] knowledge of breasts/pussy
-					[] Meraxis pregnancy reaction
-					[] Sex
-						[x] Fully test all sex routes
-						[] Sex actions
-							[] test all
-								[x] Bug: they end sex
-								[x] Bug: Error: No suitable description found for this action!
-								[x] Formatting brs
-								[x] Prohibited areas not working
-								[x] Add tooltips saying what each action leads to
-								[x] tree as wall in fields
-								[x] Stop Meraxis from self-penetrating mouth in breast masturbation
-								[] Cum slut from panties orgasm?
-							[] write
-								[x] panties
-								[x] anal
-								[] breasts
-								[] vaginal
-								[] oral
-								[] masturbation
-						[x] Orgasm count 1 if not associated fetish owned
-				[] Tavern sex
-					[] If Meraxis fetish sex unlocked, can go up to her room and have fetish sex once a day
-					[] If all sex unlocked, she does anything with player
-	[x] Centaur transport bug in intro-repeat
-	[x] Centaur waiting bugged
-	[x] Fix encounter bug reported by Ace
-	[x] The export character screen says the button is in the top-right for npcs, not the bottom
-	[x] Reset Elis map
-	
-	[] is the tentacle sex tooltip bugged? says the inserted value is 0
+	[] Write all Meraxis dialogue
+		[x] Leaving Dominion
+		[x] Add Takahashi dialogue option
+		[] Duels
+			[x] Starting
+			[x] Loss
+			[x] No reward
+			[x] Money reward
+			[x] Transform reward
+				[x] affections
+				[x] knowledge of breasts/pussy
+			[] Meraxis pregnancy reaction
+			[] Sex
+				[x] Fully test all sex routes
+				[] Sex actions
+					[] test all
+						[x] Bug: they end sex
+						[x] Bug: Error: No suitable description found for this action!
+						[x] Formatting brs
+						[x] Prohibited areas not working
+						[x] Add tooltips saying what each action leads to
+						[x] tree as wall in fields
+						[x] Stop Meraxis from self-penetrating mouth in breast masturbation
+						[] Cum slut from panties orgasm?
+					[] write
+						[x] panties
+						[x] anal
+						[] breasts
+						[] vaginal
+						[] oral
+						[] masturbation
+				[x] Orgasm count 1 if not associated fetish owned
+		[] Tavern sex
+			[] If Meraxis fetish sex unlocked, can go up to her room and have fetish sex once a day
+			[] If all sex unlocked, she does anything with player
 	
 	[] Vengar bug?
 		I completed the quest line, went back in, strangely the milkers were still here and so was Vengar. I tried to see if attacking the guy who enslaved the milkers would solve anything, and then boom, couldn't leave and the only thing i can do with Vengar is bang
-	
-	[x] Centaur transport
-		[x] Intro
-			[x] Approach barn, hear a one-sided argument but can't make out details
-			[x] Enter barn, hear centauress saying that she can't stand the boredom of hauling goods and wants to transport people again - have enough money saved up to go back to it for a while
-				[x] Says it takes under 3 hours going at full pace to get to Elis, so 
-				[x] Centaur sees you but waits for centauress to stop before saying "Behind you"
-			[x] Intro Astrapi and Vronti
-				[x] Say that they're starting a new schedule tomorrow, departing at 6, 9, 12, and 15
-			[x] Astrapi offers to take you to Elis now, charges 250 flames for a journey
-				[x] Agree leads into standard travel scene
-				[x] Refuse and she says services should be up and running properly tomorrow
-		[x] Brother/sister centaurs transport, takes 3 hours to get to Elis
-			[x] Brother - Vronti
-				Stoic, muscular, incredibly strong (reason why demonic centaurs leave the two of them alone), dom
-				Olive skinned, black horse hair
-				Can talk, responds in single words or grunts
-				Can flirt, doesn't respond
-					Continue teasing, if have seduction perk or high damage, he gets an erection and has to stop
-					Can jerk him off
-					Next time he agrees to receive oral
-					Time after that player can present themselves and get fucked
-			[x] Sister - Astrapi
-				Energetic muscular tomboy dom
-				Olive skinned, chestnut horse hair, blonde hair
-				Can talk
-					History
-					Competition
-					Lunette
-				Can flirt, she gets frustrated easily
-					Likes self-denial (says being on the edge gives her more energy)
-					Gives blowjob (claims protein makes her faster)
-					Gives cunnilinugs (gets her turned on and runs faster)
-					Can fuck her (She takes pill - can't afford to get pregnant as she'd have to stop work and can't afford that)
-					Can eat her out
-		[x] Sex testing
-			[x] Astrapi
-				[x] Test control for all managers - default doesn't give full?
-				[x] Expose at start
-				[x] Test positions
-			[x] Vronti
-				[x] Test positions
-		[x] Astrapi ass filly
-		[x] Make Astrapi sex start eager
-		[x] Vronti sex talk
-		[-] Wait dialogue node? needed
-		[x] make body upper full human?
-		[x] Make it clear that only one option can be chosen
-		[x] Travel
-			[-] need 1 scene in between talk and arrive at Elis?
-			[x] Need to reveal all route when finish travelling
-		[x] Check Meraxis talk about centaurs
-		[x] Astrapi variation when arriving at Elis the first time
-		[x] Elis to Dominion dialogue
-			[x] Link to Dominion travel options but with flag set to reverse direction
-			[x] writing
-		[x] After transport, can offer to help wipe Astrapi's sweat
-			[x] Can lead into kissing/licking abs
-			[x] Can do same with sweaty armpits
-				[x] If cock, can rub cock against them and cum on them
-				[x] Post-sex can tell her to stop/start shaving armpits
-					[x] Every day grows a level to natural
-			[x] Writing
-			[x] test
-				[x] Need title and description for post-sex dialogues
-				[x] arm singular parsing
-				[x] Block quick sex for all Vronti and Astrapi
-		[-] Encounter should be same as fields
-	[x] test repeat sex manager in one play
-	
-	[x] Fields travel time should be 30 minutes
 	
 	[] Make fields and river dangerous
 	[] Add demonic centaur encounter

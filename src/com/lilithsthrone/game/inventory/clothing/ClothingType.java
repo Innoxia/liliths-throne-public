@@ -6250,6 +6250,8 @@ public class ClothingType {
 		oldIdConversionMap.put("SOCK_TOELESS_STRIPED_STOCKINGS", "innoxia_sock_toeless_striped_stockings");
 
 		oldIdConversionMap.put("innoxia_insertableVibrator_insertable_vibrator", "innoxia_vagina_insertable_dildo");
+
+		oldIdConversionMap.put("dsg_eep_servequipset_enfdjacket_pc", "dsg_eep_servequipset_enfdjacket");
 		
 		
 		commonClothingMap = new EnumMap<>(InventorySlot.class);

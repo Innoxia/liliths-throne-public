@@ -323,7 +323,7 @@ public class Natalya extends NPC {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return true;
+		return false;
 	}
 
 	@Override

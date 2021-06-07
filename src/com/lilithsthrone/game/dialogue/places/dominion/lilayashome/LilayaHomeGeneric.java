@@ -82,6 +82,8 @@ public class LilayaHomeGeneric {
 				if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) {
 					return "Bathroom";
 				}
+				break;
+				
 		}
 		return null;
 	}

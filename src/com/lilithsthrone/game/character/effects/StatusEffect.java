@@ -1425,7 +1425,7 @@ public class StatusEffect {
 				
 				if(!place.equals(PlaceType.WORLD_MAP_DOMINION)){
 					sb.append("<p>"
-							+ "Although it breaks high over Dominion, the storm isn't contained to just within the city, and swiftly sweeps out across the Foloi fields and into the surrounding forests and grassland wilderness."
+							+ "Although it breaks high over Dominion, the storm isn't contained to just within the city, and swiftly sweeps out across the Foloi Fields and into the surrounding forests and grassland wilderness."
 							+ " Like a chain reaction, flashes of purple lightning streak across the sky in all directions, which are quickly followed by the erotic moaning of arcane thunder."
 						+ "</p>");
 
