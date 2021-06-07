@@ -52,14 +52,14 @@ public class SelfFingerVagina {
 						"Reaching back between [npc.her] [npc.legs], [npc.name] [npc.verb(tease)] [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] [npc.verb(use)] [npc.her] digits to spread out [npc.her] labia.",
 						"[npc.Name] [npc.verb(probe)] [npc.her] [npc.fingers] back between [npc.her] [npc.legs], [npc.moaning] softly as [npc.she] uses two of [npc.her] digits to spread out [npc.her] [npc.pussy+].",
-						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] lets out [npc.a_moan+] as [npc.she] [npc.verb(shake)] [npc.her] ass a little, before using [npc.her] digits to spread out [npc.her] pussy lips.",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(shake)] [npc.her] ass a little, before using [npc.her] digits to spread out [npc.her] pussy lips.",
 						"[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] digits to part [npc.her] soft folds."));
 			} else {
 				return (UtilText.returnStringAtRandom(
 						"Reaching down between [npc.her] [npc.legs], [npc.name] [npc.verb(tease)] [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia.",
 						"[npc.Name] [npc.verb(probe)] [npc.her] [npc.fingers] back between [npc.her] [npc.legs], [npc.moaning] softly as [npc.she] uses two of [npc.her] digits to spread out [npc.her] [npc.pussy+].",
-						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] lets out [npc.a_moan+] as [npc.she] [npc.verb(use)] [npc.her] digits to spread out [npc.her] pussy lips.",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(use)] [npc.her] digits to spread out [npc.her] pussy lips.",
 						"[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] digits to part [npc.her] soft folds."));
 			}
 		}
@@ -93,8 +93,8 @@ public class SelfFingerVagina {
 			return (UtilText.returnStringAtRandom(
 					"Reaching down between [npc.her] [npc.legs], [npc.name] [npc.verb(tease)] [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+], before letting out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] digits deep inside.",
 					"[npc.Name] [npc.verb(probe)] [npc.her] fingers down between [npc.her] [npc.legs], [npc.moaning] softly as [npc.she] [npc.verb(push)] two of [npc.her] digits into [npc.her] inviting [npc.pussy+].",
-					"Sliding [npc.her] fingertips over [npc.her] neglected [npc.pussy], [npc.name] lets out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] digits inside and start fingering [npc.herself].",
-					"[npc.Name] eagerly [npc.verb(push)] [npc.her] fingers into [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] [npc.verb(curl)] [npc.her] digits up inside [npc.herself] and starts stroking in a 'come-hither' motion."));
+					"Sliding [npc.her] fingertips over [npc.her] neglected [npc.pussy], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] digits inside and [npc.verb(start)] fingering [npc.herself].",
+					"[npc.Name] eagerly [npc.verb(push)] [npc.her] fingers into [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] [npc.verb(curl)] [npc.her] digits up inside [npc.herself] and [npc.verb(start)] stroking in a 'come-hither' motion."));
 		}
 	};
 	
@@ -179,7 +179,7 @@ public class SelfFingerVagina {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] roughly [npc.verb(slam)] [npc.her] [npc.fingers] deep inside [npc.her] [npc.pussy+], before starting to roughly finger [npc.herself].",
-					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+], [npc.name] [npc.verb(start)] letting out a series of delighted [npc.moans] as [npc.she] ruthlessly fingers [npc.herself].",
+					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+], [npc.name] [npc.verb(start)] letting out a series of delighted [npc.moans] as [npc.she] ruthlessly [npc.verb(finger)] [npc.herself].",
 					"Forcefully curling [npc.her] [npc.fingers] up inside [npc.her] [npc.pussy], [npc.name] [npc.verb(let)] out [npc.a_moan] as [npc.she] [npc.verb(start)] roughly grinding [npc.her] fingertips up against [npc.her] vaginal walls.",
 					"Focusing on the pleasure [npc.sheIs] giving [npc.herself] between [npc.her] [npc.legs], [npc.name] [npc.verb(start)] roughly slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}

@@ -12,7 +12,6 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -59,7 +58,7 @@ public class SelfNoPen {
 			} else {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(run)] [npc.her] hand down over [npc.her] groin, pressing [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
-							+" down hard against [npc.her] needy [npc.pussy] as [npc.she] lets out a little whimper.",
+							+" down hard against [npc.her] needy [npc.pussy] as [npc.she] [npc.verb(let)] out a little whimper.",
 						"[npc.Name] [npc.verb(push)] [npc.her] fingers down between [npc.her] legs, [npc.moaning+] as [npc.she] [npc.verb(rub)] [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
 							+" against [npc.her] pussy lips.",
 						"[npc.Name] [npc.verb(slide)] [npc.her] fingertips over [npc.her] "+Main.sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()
@@ -109,7 +108,7 @@ public class SelfNoPen {
 				return UtilText.returnStringAtRandom(
 						"Reaching down between [npc.her] [npc.legs], [npc.name] [npc.verb(run)] [npc.her] fingertips over [npc.her] doll-like mound, [npc.moaning+] as [npc.she] [npc.verb(tease)] the sensitive area.",
 						"[npc.Name] [npc.verb(tease)] [npc.her] fingers over the sensitive doll-like mound between [npc.her] legs, [npc.moaning+] as [npc.she] [npc.verb(stimulate)] [npc.herself].",
-						"With probing fingers, [npc.name] [npc.verb(reach)] down and starts to pinch and rub at [npc.her] delicate genderless crotch.",
+						"With probing fingers, [npc.name] [npc.verb(reach)] down and [npc.verb(start)] to pinch and rub at [npc.her] delicate genderless crotch.",
 						"Despite lacking genitalia, [npc.namePos] crotch remains a highly sensitive erogenous zone, and [npc.she] eagerly [npc.verb(start)] rubbing and pressing down on it with greedy fingers.");
 			} else {
 				return UtilText.returnStringAtRandom(

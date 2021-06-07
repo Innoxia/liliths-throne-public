@@ -8,7 +8,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -183,9 +182,9 @@ public class SelfFingerCrotchNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.A_moan+] escapes from between [npc.her] [npc.lips+] as [npc.she] slowly [npc.verb(push)] [npc.her] [npc.fingers] deep inside [npc.her] [npc.crotchNipple+].",
-					"Gently pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] [npc.verb(find)] [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically finger [npc.her] [npc.crotchBoob+].",
-					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.crotchNipple], [npc.she] let out a little whimper as [npc.she] start pumping [npc.her] digits in and out of [npc.her] [npc.crotchBoob+].",
-					"Focusing on pleasuring [npc.her] fuckable [npc.crotchBoobs], [npc.she] start gently pumping [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.crotchNipples+].");
+					"Gently pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] [npc.verb(find)] [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically [npc.verb(finger)] [npc.her] [npc.crotchBoob+].",
+					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.crotchNipple], [npc.she] [npc.verb(let)] out a little whimper as [npc.she] [npc.verb(start)] pumping [npc.her] digits in and out of [npc.her] [npc.crotchBoob+].",
+					"Focusing on pleasuring [npc.her] fuckable [npc.crotchBoobs], [npc.she] [npc.verb(start)] gently pumping [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.crotchNipples+].");
 		}
 		
 	};
@@ -213,7 +212,7 @@ public class SelfFingerCrotchNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.A_moan+] escapes from between [npc.her] [npc.lips+] as [npc.she] greedily [npc.verb(push)] [npc.her] [npc.fingers] deep inside [npc.her] [npc.crotchNipple+].",
-					"Pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] find [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically finger [npc.her] [npc.crotchBoob+].",
+					"Pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] find [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically [npc.verb(finger)] [npc.her] [npc.crotchBoob+].",
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] fuckable [npc.crotchNipple], [npc.she] [npc.verb(let)] out [npc.a_moan] as [npc.she] [npc.verb(start)] pumping [npc.her] digits in and out of [npc.her] [npc.crotchBoob+].",
 					"Focusing on pleasuring [npc.her] [npc.crotchBoobs+], [npc.she] [npc.verb(start)] pumping [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.crotchNipples+].");
 		}
@@ -242,7 +241,7 @@ public class SelfFingerCrotchNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.A_moan+] escapes from between [npc.her] [npc.lips+] as [npc.she] roughly [npc.verb(slam)] [npc.her] [npc.fingers] deep inside [npc.her] [npc.crotchNipple+], before starting to rapidly finger [npc.her] [npc.crotchBoob].",
-					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] find [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically finger [npc.her] [npc.crotchBoob+].",
+					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] find [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically [npc.verb(finger)] [npc.her] [npc.crotchBoob+].",
 					"Forcefully curling [npc.her] [npc.fingers] up inside [npc.her] fuckable [npc.crotchNipple], [npc.she] [npc.verb(let)] out [npc.a_moan] as [npc.she] [npc.verb(start)] roughly grinding [npc.her] digits in and out of [npc.her] [npc.crotchBoob+].",
 					"Focusing on pleasuring [npc.her] fuckable [npc.crotchBoobs+], [npc.she] [npc.verb(start)] roughly slamming [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.crotchNipples+].");
 		}
@@ -271,7 +270,7 @@ public class SelfFingerCrotchNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.A_moan+] escapes from between [npc.her] [npc.lips+] as [npc.she] greedily [npc.verb(push)] [npc.her] [npc.fingers] deep inside [npc.her] [npc.crotchNipple+].",
-					"Pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] [npc.verb(find)] [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically finger [npc.her] [npc.crotchBoob+].",
+					"Pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] [npc.verb(find)] [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] rhythmically [npc.verb(finger)] [npc.her] [npc.crotchBoob+].",
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] fuckable [npc.crotchNipple], [npc.she] [npc.verb(let)] out [npc.a_moan] as [npc.she] [npc.verb(start)] pumping [npc.her] digits in and out of [npc.her] [npc.crotchBoob+].",
 					"Focusing on pleasuring [npc.her] [npc.crotchBoobs+], [npc.she] [npc.verb(start)] pumping [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.crotchNipples+].");
 		}
@@ -301,8 +300,8 @@ public class SelfFingerCrotchNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.A_moan+] escapes from between [npc.her] [npc.lips+] as [npc.she] eagerly [npc.verb(slam)] [npc.her] [npc.fingers] deep inside [npc.her] [npc.crotchNipple+], before starting to desperately finger [npc.her] [npc.crotchBoob].",
-					"Enthusiastically pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] find [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] frantically finger [npc.her] [npc.crotchBoob+].",
-					"Desperately curling [npc.her] [npc.fingers] up inside [npc.her] fuckable [npc.crotchNipple], [npc.she] let out [npc.a_moan] as [npc.she] [npc.verb(start)] eagerly grinding [npc.her] digits in and out of [npc.her] [npc.crotchBoob+].",
+					"Enthusiastically pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.crotchNipple+], [npc.she] find [npc.herself] letting out a series of delighted [npc.moans] as [npc.she] frantically [npc.verb(finger)] [npc.her] [npc.crotchBoob+].",
+					"Desperately curling [npc.her] [npc.fingers] up inside [npc.her] fuckable [npc.crotchNipple], [npc.she] [npc.verb(let)] out [npc.a_moan] as [npc.she] [npc.verb(start)] eagerly grinding [npc.her] digits in and out of [npc.her] [npc.crotchBoob+].",
 					"Focusing on pleasuring [npc.her] fuckable [npc.crotchBoobs+], [npc.she] eagerly [npc.verb(start)] slamming [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.crotchNipples+].");
 		}
 
