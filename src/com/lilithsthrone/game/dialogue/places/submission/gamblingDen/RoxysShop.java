@@ -205,7 +205,7 @@ public class RoxysShop {
 				
 				
 			} else if(index==4
-					&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.roxyIntroduced)
+					&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.axelExplainedVengar)
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)
 					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)
 					&& !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)) {
@@ -244,7 +244,7 @@ public class RoxysShop {
 						};
 						
 					} else {
-						return new Response("Firebombs", "As you don't have any firebombs left, you're going to have to try describing them to Roxy in the hopes that she can find someone to replicate them.", FIREBOMBS_FAILED) {
+						return new Response("Firebombs", "As you don't have any firebombs on you, you're going to have to try describing them to Roxy in the hopes that she can find someone to replicate them. [style.boldBad(It would probably be best to have a physical example though.)]", FIREBOMBS_FAILED) {
 							@Override
 							public Colour getHighlightColour() {
 								return PresetColour.GENERIC_BAD;

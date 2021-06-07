@@ -229,11 +229,14 @@ public class Bunny extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
-
+	
+	@Override
+	public boolean isAbleToBeImpregnated() { return true; }
+	
 	@Override
 	public void turnUpdate() {
 		if(this.isVisiblyPregnant()) {
-			if(this.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null && this.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType()==ClothingType.STOMACH_LOWBACK_BODY) {
+			if(this.getClothingInSlot(InventorySlot.STOMACH)!=null && this.getClothingInSlot(InventorySlot.STOMACH).getClothingType()==ClothingType.STOMACH_LOWBACK_BODY) {
 				this.setPendingClothingDressing(true);
 			}
 		} else {

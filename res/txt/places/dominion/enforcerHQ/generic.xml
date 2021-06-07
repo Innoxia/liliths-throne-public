@@ -1116,7 +1116,7 @@
 		Responding in the affirmative, and telling [brax.name] to collect whatever personal possessions [brax.she] has, you then sign the papers laid out in front of you, before asking Candi to do the same. Despite all that you've done for her, she seems very reluctant to go through with it, and it takes some pointed reminders of her promises to finally get her to sign off on the transfer. Being infused with a special arcane enchantment, the documents immediately react to both party's signatures, and with a bright purple flash, the enslavement collar around [brax.namePos] neck activates, teleporting [brax.herHim] to the slaver administration building's holding cells.
 	</p>
 	<p>
-		[candi.speechNoEffects(Well, like, there ya go,)] candi pouts, clearly upset at having lost her slave, [candi.speechNoEffects(I guess these lipsticks are, like, pretty good, but I feel like you cheated me outta something!)]
+		[candi.speechNoEffects(Well, like, there ya go,)] Candi pouts, clearly upset at having lost her slave, [candi.speechNoEffects(I guess these lipsticks are, like, pretty good, but I feel like you cheated me outta something!)]
 	</p>
 	<p>
 		Not wanting an Enforcer with a grudge on your back, you remind Candi that you also retrieved her perfume, as well as the box of contraband lollipops, and that by all accounts it was a fair deal. As you mention this, her eyes suddenly light up, and she happily exclaims, [candi.speechNoEffects(Oh, that's right! I, like, forgot about those! I was saving them for when this happened to make me feel better!)]

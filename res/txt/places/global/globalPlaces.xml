@@ -251,7 +251,7 @@
 		#ENDIF
 	</p>
 	<p>
-		As it provides a natural connections between Elis, Dominion, and the underwater city of Lyonesse, the river Huber is by far the most important waterway in all of Lilith's Realm. Thanks to this,
+		As it provides a natural connections between Elis, Dominion, and the underwater city of Lyonesse, the river Hubur is by far the most important waterway in all of Lilith's Realm. Thanks to this,
 		#IF(!game.isDayTime())
 			 and even despite the fact that it's currently night time,
 		#ENDIF

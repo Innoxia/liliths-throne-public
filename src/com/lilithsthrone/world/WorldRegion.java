@@ -23,7 +23,7 @@ public enum WorldRegion {
 	JUNGLE_CITY,
 	SEA_CITY,
 	
-	// Foloi fields:
+	// Foloi Fields:
 	FIELDS,
 	WOODLAND,
 	RIVER,

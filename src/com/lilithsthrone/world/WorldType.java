@@ -1089,7 +1089,7 @@ public class WorldType {
 			PresetColour.BASE_GREY,
 			false,
 			false,
-			TeleportPermissions.BOTH,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/submission/rebelBase/rebelBase.png",
 			PlaceType.WORLD_MAP_DOMINION,
 			PlaceType.REBEL_BASE_ENTRANCE,
