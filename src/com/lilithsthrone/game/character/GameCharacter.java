@@ -22153,13 +22153,15 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Making sure the key is no longer in anyone's possession:
-		for(NPC npc : Main.game.getAllNPCs()) {
-			npc.removeFromUnlockKeyMap(this.getId(), slot);
-		}
-		if(Main.game.getPlayer()!=null && !Main.game.isInSex()) {
-			Main.game.getPlayer().removeFromUnlockKeyMap(this.getId(), slot);
-		} else {
-			System.err.println("Warning: Sealed clothing '"+clothing.getName()+"' did not have associated unlock key removed from player key mappings.");
+		if(!Main.game.isInSex()) {
+			for(NPC npc : Main.game.getAllNPCs()) {
+				npc.removeFromUnlockKeyMap(this.getId(), slot);
+			}
+			if(Main.game.getPlayer()!=null) {
+				Main.game.getPlayer().removeFromUnlockKeyMap(this.getId(), slot);
+			} else {
+				System.err.println("Warning: Sealed clothing '"+clothing.getName()+"' did not have associated unlock key removed from player key mappings.");
+			}
 		}
 		
 		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(this)) {

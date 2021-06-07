@@ -8450,8 +8450,9 @@ public class InventoryDialogue {
 				public void effects() {
 					String s = "";
 					if(ownsKey) {
-						if(!Main.game.isInSex())
-						{Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());}
+						if(!Main.game.isInSex()) {
+							Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						}
 						s = "<p>"
 								+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
 							+ "</p>";
