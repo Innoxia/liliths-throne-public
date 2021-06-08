@@ -142,11 +142,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	// Other:
 	private Map<InventorySlot, List<ItemTag>> itemTags;
 
-	@Deprecated
-	private Map<InventorySlot, Map<DisplacementType, Map<DisplacementDescriptionType, String>>> displacementDescriptionsPlayer;
-	@Deprecated
-	private Map<InventorySlot, Map<DisplacementType, Map<DisplacementDescriptionType, String>>> displacementDescriptionsNPC;
-	
 	private Map<InventorySlot, Map<DisplacementType, Map<DisplacementDescriptionType, String>>> displacementDescriptions;
 
 //	@Deprecated
