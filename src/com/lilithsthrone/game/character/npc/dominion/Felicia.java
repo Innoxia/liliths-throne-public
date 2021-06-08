@@ -1,12 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+import java.util.List;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -45,17 +45,11 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-import java.time.Month;
-import java.util.List;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
- *
  * @author DSG
  */
 public class Felicia extends NPC {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment;
 
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -19,7 +14,6 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
- *
  * @author DSG
  */
 public class FeliciaApartment {
@@ -39,16 +33,17 @@ public class FeliciaApartment {
         }
         @Override
         public Response getResponse(int responseTab, int index) {
-                if (index == 1) {
-                        return new Response("Leave", "Leave Felicia's home.", DemonHome.DEMON_HOME_ARTHURS_APARTMENT) {
-                            @Override
-                            public void effects() {
-                                Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR);
-                            }
-                        };  
-                } else {
-                        return null;
-                }
+            if (index == 1) {
+                return new Response("Leave", "Leave Felicia's home.", DemonHome.DEMON_HOME_ARTHURS_APARTMENT) {
+                    @Override
+                    public void effects() {
+                        Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR);
+                    }
+                };
+                
+            } else {
+                   return null;
+            }
         }
     };
     
