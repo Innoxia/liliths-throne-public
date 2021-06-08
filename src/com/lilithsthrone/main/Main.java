@@ -796,25 +796,15 @@ public class Main extends Application {
 		if(!Main.game.isStarted()) {
 			return "QuickSave_intro";
 		}
-		return "QuickSave_"+Main.game.getPlayer().getName(false);
+		return "QuickSave_"+Main.game.getPlayer().getSurname();
 	}
 	
 	public static void quickSaveGame() {
-		if (Main.game.isInCombat()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in combat!");
-			
-		} else if (Main.game.isInSex()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in sex!");
-			
-		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Can only quicksave in a normal scene!");
-			
-		} else if (!Main.game.isStarted() || !Main.game.isInNeutralDialogue()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot save in this scene!");
-			
-		} else {
+		if(isQuickSaveAvailable()){
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
 			saveGame(getQuickSaveName(), true);
+		} else {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, getQuickSaveUnavailabilityDescription());
 		}
 	}
 
