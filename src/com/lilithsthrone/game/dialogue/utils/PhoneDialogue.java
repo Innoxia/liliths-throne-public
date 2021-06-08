@@ -1,14 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -85,6 +78,80 @@ import com.lilithsthrone.world.WorldType;
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
+	
+	private static class offspringTableLineSubject {
+		boolean female;
+		String child_name;
+		String race_color;
+		String species_name;
+		String mother;
+		String father;
+		String incubator;
+		List<String> relationships;
+		
+		offspringTableLineSubject(NPC npc) {
+			this.female = npc.isFeminine();
+			this.child_name = npc.getName(true);
+			this.race_color = npc.getRace().getColour().toWebHexString();
+			this.species_name = this.female
+					? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
+					: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
+			this.mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true)));
+			this.father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true)));
+			this.incubator = npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true)));
+			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
+			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
+			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
+				this.relationships.add(0, "Incubator-mother");
+				
+				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
+					this.relationships.add(1, "father");
+				}
+				
+			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
+				this.relationships.add(0, "Mother");
+				
+				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
+					this.relationships.add(1, "father");
+				}
+				
+			} else {
+				this.relationships.add(0, "Father");
+			}
+		}
+		
+		offspringTableLineSubject(OffspringSeed os) {
+			this.female = os.isFeminine();
+			this.child_name = os.getName();
+			this.race_color = os.getRace().getColour().toWebHexString();
+			this.species_name = this.female
+					? Util.capitaliseSentence(os.getSubspecies().getSingularFemaleName(null))
+					: Util.capitaliseSentence(os.getSubspecies().getSingularMaleName(null));
+			this.mother = os.getMother() == null ? "???" : (os.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getMother().getName(true)));
+			this.father = os.getFather() == null ? "???" : (os.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getFather().getName(true)));
+			this.incubator = os.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (os.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getIncubator().getName(true)));
+//			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(os, Relationship.Parent);
+//			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
+//			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
+//				this.relationships.add(0, "Incubator-mother");
+//
+//				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
+//					this.relationships.add(1, "father");
+//				}
+//
+//			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
+//				this.relationships.add(0, "Mother");
+//
+//				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
+//					this.relationships.add(1, "father");
+//				}
+//
+//			} else {
+//				this.relationships.add(0, "Father");
+//			}
+		
+		}
+	}
 	
 	private static List<GameCharacter> charactersEncountered;
 	private static StringBuilder journalSB;
@@ -1880,37 +1947,8 @@ public class PhoneDialogue {
 			output.append("</div>");
 		}
 
-		private void offspringTableLine(StringBuilder output, NPC npc, boolean evenRow, boolean includeIncubationColumn) {
-			boolean female = npc.isFeminine();
-			String color = female ? PresetColour.FEMININE.toWebHexString() : PresetColour.MASCULINE.toWebHexString();
-			String child_name = npc.getName(true);
-			String race_color = npc.getRace().getColour().toWebHexString();
-			String species_name = female
-								? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
-								: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
-			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true)));
-			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true)));
-			String incubator = npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true)));
-			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
-//			boolean isGreyedOut = extraRelationships.isEmpty();
-			List<String> relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
-			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
-				relationships.add(0, "Incubator-mother");
-				
-				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
-					relationships.add(1, "father");
-				}
-				
-			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
-				relationships.add(0, "Mother");
-				
-				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
-					relationships.add(1, "father");
-				}
-				
-			} else {
-				relationships.add(0, "Father");
-			}
+		private void offspringTableLine(StringBuilder output, offspringTableLineSubject subject, boolean evenRow, boolean includeIncubationColumn) {
+			String color = subject.female ? PresetColour.FEMININE.toWebHexString() : PresetColour.MASCULINE.toWebHexString();
 			
 			String innerEntryStyle = "background:transparent; margin:0; padding:0; width:"+(includeIncubationColumn?"15":"20")+"%;";
 			String innerEntryStyle2 = "background:transparent; margin:0; padding:0; width:15%;";
@@ -1920,37 +1958,37 @@ public class PhoneDialogue {
 
 				output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
 					output.append("<span style='color:").append(color).append(";'>");
-						output.append(child_name);
+						output.append(subject.child_name);
 					output.append("</span>");
 				output.append("</div>");
 	
 				output.append("<div class='container-full-width' style='"+innerEntryStyle2+"'>");
-					output.append("<span style='color:").append(race_color).append(";'>");
-						output.append(species_name);
+					output.append("<span style='color:").append(subject.race_color).append(";'>");
+						output.append(subject.species_name);
 					output.append("</span>");
 				output.append("</div>");
 	
 				output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
 //					output.append("<b>");
-						output.append(mother);
+						output.append(subject.mother);
 //					output.append("</b>");
 				output.append("</div>");
 	
 				output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
 //					output.append("<b>");
-						output.append(father);
+						output.append(subject.father);
 //					output.append("</b>");
 				output.append("</div>");
 	
 				if(includeIncubationColumn) {
 					output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
-						output.append(incubator);
+						output.append(subject.incubator);
 					output.append("</div>");
 				}
 				
 				output.append("<div class='container-full-width' style='"+innerEntryStyleWide+"'>");
 //					output.append("<b>");
-						output.append(Util.stringsToStringList(relationships, false));
+						output.append(Util.stringsToStringList(subject.relationships, false));
 //						output.append(
 //								isGreyedOut
 //									?"[style.colourDisabled("+Util.stringsToStringList(relationships, false)+")]"
@@ -2019,16 +2057,25 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			int rowCount = 0;
-			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring());
-			offspringBirthed.removeIf(npc -> npc.getIncubator()!=null && npc.getIncubator().isPlayer()); // Only non-egg incubated offspring
-			if(offspringBirthed.isEmpty()) {
+			List<NPC> offspringMet= new ArrayList<>(Main.game.getOffspring());
+			offspringMet.removeIf(npc -> npc.getIncubator()!=null && npc.getIncubator().isPlayer()); // Only non-egg incubated offspring
+			List<OffspringSeed> offspringUnknown = new ArrayList<>(Main.game.getOffspringNotSpawned(os->true,true));
+			if(offspringMet.isEmpty() && offspringUnknown.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='margin:0; padding:0; width:100%;float:left;'>"
 												+ "[style.italicsDisabled(No Offspring...)]"
 											+ "</div>");
 			} else {
-				offspringBirthed.sort((a, b) -> a.getBirthday().compareTo(b.getBirthday()));
-				for(NPC npc : offspringBirthed) {
-					offspringTableLine(UtilText.nodeContentSB, npc, rowCount%2==0, false);
+				offspringMet.sort(Comparator.comparing(GameCharacter::getBirthday));
+				for(NPC npc : offspringMet) {
+					offspringTableLineSubject subject = new offspringTableLineSubject(npc);
+					offspringTableLine(UtilText.nodeContentSB, subject, rowCount % 2 == 0, false);
+					rowCount++;
+				}
+				
+				offspringUnknown.sort(Comparator.comparing(OffspringSeed::getConceptionDate));
+				for(OffspringSeed os : offspringUnknown) {
+					offspringTableLineSubject subject = new offspringTableLineSubject(os);
+					offspringTableLine(UtilText.nodeContentSB, subject, rowCount%2==0, false);
 					rowCount++;
 				}
 			}
@@ -2064,15 +2111,24 @@ public class PhoneDialogue {
 			rowCount = 0;
 			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring());
 			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
-			offspringIncubated.removeAll(offspringBirthed);
-			if(offspringIncubated.isEmpty()) {
+			offspringIncubated.removeAll(offspringMet);
+			List<OffspringSeed> offspringIncubatedUnknown = new ArrayList<>(Main.game.getOffspringNotSpawned(os->true,true));
+			offspringIncubatedUnknown.removeIf(os -> os.getIncubator()==null || !os.getIncubator().isPlayer()); // Only egg incubated offspring
+			if(offspringIncubated.isEmpty() && offspringIncubatedUnknown.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"
 												+ "[style.italicsDisabled(No Incubated Offspring...)]"
 											+ "</div>");
 			} else {
-				offspringIncubated.sort((a, b) -> a.getBirthday().compareTo(b.getBirthday()));
+				offspringIncubated.sort(Comparator.comparing(GameCharacter::getBirthday));
 				for(NPC npc : offspringIncubated) {
-					offspringTableLine(UtilText.nodeContentSB, npc, rowCount%2==0, true);
+					offspringTableLineSubject subject = new offspringTableLineSubject(npc);
+					offspringTableLine(UtilText.nodeContentSB, subject, rowCount%2==0, true);
+					rowCount++;
+				}
+				offspringIncubatedUnknown.sort(Comparator.comparing(OffspringSeed::getConceptionDate));
+				for(OffspringSeed os : offspringIncubatedUnknown) {
+					offspringTableLineSubject subject = new offspringTableLineSubject(os);
+					offspringTableLine(UtilText.nodeContentSB, subject, rowCount%2==0, true);
 					rowCount++;
 				}
 			}

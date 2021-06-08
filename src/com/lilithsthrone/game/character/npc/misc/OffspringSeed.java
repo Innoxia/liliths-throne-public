@@ -315,6 +315,17 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public void setIncubator(String incubatorId) { this.incubatorId = incubatorId; }
 	
+	public GameCharacter getIncubator() {
+		if(getIncubatorId()==null || getIncubatorId().isEmpty() || getIncubatorId().equals("NOT_SET")) {
+			return null;
+		}
+		try {
+			return Main.game.getNPCById(getIncubatorId());
+		} catch(Exception e) {
+			return null;
+		}
+	}
+
 	public LocalDateTime getConceptionDate() { return conceptionDate; }
 	
 	public void setConceptionDate(LocalDateTime conceptionDate) { this.conceptionDate = conceptionDate; }
