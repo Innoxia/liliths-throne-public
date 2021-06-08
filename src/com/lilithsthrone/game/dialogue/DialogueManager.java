@@ -71,24 +71,27 @@ public class DialogueManager {
 		dialogueToIdMap.put(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START, id);
 		idToDialogueMap.put(id, LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
 		
-//		// Modded dialogue types:
-//		
-//		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", null, "dialogue");
-//		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
-//			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-//				try {
-//					DialogueNode dialogue = new DialogueNode(innerEntry.getValue(), entry.getKey(), true) {};
-//					allDialogues.add(dialogue);
-//					dialogueToIdMap.put(dialogue, innerEntry.getKey());
-//					idToDialogueMap.put(innerEntry.getKey(), dialogue);
-////					System.out.println("modded WT: "+innerEntry.getKey());
-//				} catch(Exception ex) {
-//					System.err.println("Loading modded dialogue type failed at 'Dialogue'. File path: "+innerEntry.getValue().getAbsolutePath());
-//					System.err.println("Actual exception: ");
-//					ex.printStackTrace(System.err);
-//				}
-//			}
-//		}
+		// Modded dialogue types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/dialogue");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					List<DialogueNode> nodes = DialogueNode.loadDialogueNodesFromFile(innerEntry.getKey(), innerEntry.getValue(), entry.getKey(), true);
+//					System.out.println("size: "+nodes.size());
+					for(DialogueNode node : nodes) {
+//						System.out.println("modded dialogue: "+node.getId());
+						allDialogues.add(node);
+						dialogueToIdMap.put(node, node.getId());
+						idToDialogueMap.put(node.getId(), node);
+					}
+				} catch(Exception ex) {
+					System.err.println("Loading modded dialogue type failed at 'Dialogue'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
 		
 		// External res dialogue types:
 		

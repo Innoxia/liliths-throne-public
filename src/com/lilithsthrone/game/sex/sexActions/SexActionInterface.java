@@ -467,7 +467,9 @@ public interface SexActionInterface {
 	
 	public default boolean isBasicCoreRequirementsMet() {
 		if(this.isSadisticAction()
-				&& (!Main.getProperties().hasValue(PropertyValue.sadisticSexContent) || !Main.sex.isSadisticActionsAllowed())) {
+				&& (!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)
+						|| !Main.sex.isSadisticActionsAllowed()
+						|| !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))) {
 			return false;
 		}
 		

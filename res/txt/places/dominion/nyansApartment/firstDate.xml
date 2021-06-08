@@ -497,7 +497,11 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_INTERVIEW_2_OCCUPATION"><![CDATA[
 	<p>
-		Knowing that [nyanmum.name] is sure to respect professional qualifications, you tell her that you're an accomplished [pc.job], and so no matter what happens, you'll always be able to find work and support Nyan. The cougar-girl's eyes narrow a little as you say this, and she growls, [nyanmum.speech(Very well... You've might be able to provide for my daughter, but do you have the sorts of friends who can help you out if things go bad? Go on, tell me who you'd turn to if you lost everything.)]
+		#IF(pc.getOccupation()==OCCUPATION_ARISTOCRAT)
+			Knowing that [nyanmum.name] is sure to respect your aristocratic lineage, you tell her that you're a member of a highly prestigious noble family, and so no matter what happens, your wealth and status will always be more than enough to support Nyan. The cougar-girl's eyes light up a little as you say this, but not yet convinced by your words, she muses, [nyanmum.speech(Is that so... Tell me, which aristocratic family do you belong to? How do you manage to trace your lineage to Lilith?)]
+		#ELSE
+			Knowing that [nyanmum.name] is sure to respect professional qualifications, you tell her that you're an accomplished [pc.job], and so no matter what happens, you'll always be able to find work and support Nyan. The cougar-girl's eyes narrow a little as you say this, and she growls, [nyanmum.speech(Very well... You might be able to provide for my daughter, but do you have the sorts of friends who can help you out if things go bad? Go on, tell me who you'd turn to if you lost everything.)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -511,7 +515,11 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_INTERVIEW_2_LILAYA_REVEAL"><![CDATA[
 	<p>
-		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the name of your demonic [lilaya.relation(pc)]. As you tell Nyan's mother that you're very close to Lilaya, and that she'd surely help you out if you were in a rough spot, you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
+		#IF(pc.getOccupation()==OCCUPATION_ARISTOCRAT)
+			Realising that [nyanmum.name] won't be impressed by the name of your noble line from your old reality, you decide to fall back on the name of your demonic [lilaya.relation(pc)]. As you tell Nyan's mother that Lilaya is your [lilaya.relation(pc)], you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth, and so Lilith herself?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
+		#ELSE
+			Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the name of your demonic [lilaya.relation(pc)]. As you tell Nyan's mother that you're very close to Lilaya, and that she'd surely help you out if you were in a rough spot, you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

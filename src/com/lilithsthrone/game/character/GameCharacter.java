@@ -1078,6 +1078,9 @@ public abstract class GameCharacter implements XMLSaving {
 			XMLUtil.addAttribute(doc, element, "sr", String.valueOf(ase.getSecondsRemaining()));
 			XMLUtil.addAttribute(doc, element, "sp", String.valueOf(ase.getSecondsPassed()));
 			XMLUtil.addAttribute(doc, element, "lta", String.valueOf(ase.getLastTimeAppliedEffect()));
+			if(ase.getEffect().forceLoad()) {
+				XMLUtil.addAttribute(doc, element, "fl", "true");
+			}
 		}
 
 
@@ -2321,7 +2324,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					
 				} else {
-					if(Integer.valueOf(e.getAttribute("sr"))!=-1) {
+					if(Integer.valueOf(e.getAttribute("sr"))!=-1 || !e.getAttribute("fl").isEmpty()) {
 						AbstractStatusEffect effect = StatusEffect.getStatusEffectFromId(e.getAttribute("type"));
 						
 						if(!noPregnancy || (effect!=StatusEffect.PREGNANT_0 && effect!=StatusEffect.PREGNANT_1 && effect!=StatusEffect.PREGNANT_2 && effect!=StatusEffect.PREGNANT_3)) {
@@ -7914,6 +7917,7 @@ public abstract class GameCharacter implements XMLSaving {
 								AbstractRacialBody body = RacialBody.valueOfRace(subspeciesBackup.getRace());
 								getStretchDescription(null, Penis.getGenericDiameter(body.getPenisSize(), PenetrationGirth.getGirthFromInt(body.getPenisGirth())), this, (SexAreaOrifice)performingArea);
 								if(partnerCummedInside) {
+									this.incrementCumCount(null, new SexType(SexParticipantType.NORMAL, performingArea, SexAreaPenetration.PENIS));
 									ingestFluidSB.append(this.ingestFluid(null,
 											subspeciesBackup,
 											halfDemonSubspeciesBackup,
@@ -8412,6 +8416,10 @@ public abstract class GameCharacter implements XMLSaving {
 												+ "</p>"));
 									}
 								}
+							}
+						} else {
+							if(thisCummed) {
+								this.incrementCumCount(null, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, targetedArea));
 							}
 						}
 					}

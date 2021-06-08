@@ -6758,6 +6758,10 @@ public class StatusEffect {
 		public boolean isSexEffect() {
 			return true;
 		}
+		@Override
+		public boolean forceLoad() {
+			return true;
+		}
 	};
 
 	public static AbstractStatusEffect CHASTITY_REMOVED_2 = new AbstractStatusEffect(80,

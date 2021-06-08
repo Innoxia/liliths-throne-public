@@ -44,6 +44,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMound;
@@ -110,24 +111,26 @@ public class SexActionManager {
 	}
 	
 	static {
-//		// Modded sexActions:
-//		
-//		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", null, "sexAction");
-//		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
-//			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-//				try {
-//					SexAction sexAction = new SexAction(innerEntry.getValue(), entry.getKey(), true) {};
-//					allSexActions.add(sexAction);
-//					sexActionToIdMap.put(sexAction, innerEntry.getKey());
-//					idToSexActionMap.put(innerEntry.getKey(), sexAction);
-////					System.out.println("modded WT: "+innerEntry.getKey());
-//				} catch(Exception ex) {
-//					System.err.println("Loading modded sexAction type failed at 'SexAction'. File path: "+innerEntry.getValue().getAbsolutePath());
-//					System.err.println("Actual exception: ");
-//					ex.printStackTrace(System.err);
-//				}
-//			}
-//		}
+		// Modded sexActions:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/sex/actions");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					SexActionExternal sexAction = new SexActionExternal(innerEntry.getValue(), innerEntry.getKey(), false);
+					String id = innerEntry.getKey();
+					id = id.replaceAll("sex_actions_", "");
+					allSexActions.add(sexAction);
+					sexActionToIdMap.put(sexAction, id);
+					idToSexActionMap.put(id, sexAction);
+//					System.out.println("modded sexAction: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading modded sexAction type failed at 'SexAction'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
 		
 		// External res SexActions:
 		
@@ -193,6 +196,7 @@ public class SexActionManager {
 				new Value<>("TongueNippleCrotch", TongueNippleCrotch.class.getFields()),
 				new Value<>("FootMouth", FootMouth.class.getFields()),
 				new Value<>("PenisMouth", PenisMouth.class.getFields()),
+				new Value<>("TongueArmpits", TongueArmpit.class.getFields()),
 
 				// Tail actions:
 				new Value<>("TailAnus", TailAnus.class.getFields()),
