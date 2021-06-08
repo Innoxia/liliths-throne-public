@@ -122,7 +122,7 @@ public class PhoneDialogue {
 		
 		offspringTableLineSubject(OffspringSeed os) {
 			this.female = os.isFeminine();
-			this.child_name = os.getName();
+			this.child_name = "Unknown";
 			this.race_color = os.getRace().getColour().toWebHexString();
 			this.species_name = this.female
 					? Util.capitaliseSentence(os.getSubspecies().getSingularFemaleName(null))
@@ -130,25 +130,26 @@ public class PhoneDialogue {
 			this.mother = os.getMother() == null ? "???" : (os.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getMother().getName(true)));
 			this.father = os.getFather() == null ? "???" : (os.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getFather().getName(true)));
 			this.incubator = os.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (os.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getIncubator().getName(true)));
+			this.relationships = new ArrayList<>();
 //			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(os, Relationship.Parent);
 //			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
-//			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
-//				this.relationships.add(0, "Incubator-mother");
-//
-//				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
-//					this.relationships.add(1, "father");
-//				}
-//
-//			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
-//				this.relationships.add(0, "Mother");
-//
-//				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
-//					this.relationships.add(1, "father");
-//				}
-//
-//			} else {
-//				this.relationships.add(0, "Father");
-//			}
+			if(os.getIncubator()!=null && os.getIncubator().isPlayer()) {
+				this.relationships.add(0, "Incubator-mother");
+
+				if(os.getFather()!=null && os.getFather().isPlayer()) {
+					this.relationships.add(1, "father");
+				}
+
+			} else if(os.getMother()!=null && os.getMother().isPlayer()) {
+				this.relationships.add(0, "Mother");
+
+				if(os.getFather()!=null && os.getFather().isPlayer()) {
+					this.relationships.add(1, "father");
+				}
+
+			} else {
+				this.relationships.add(0, "Father");
+			}
 		
 		}
 	}
@@ -2059,7 +2060,7 @@ public class PhoneDialogue {
 			int rowCount = 0;
 			List<NPC> offspringMet= new ArrayList<>(Main.game.getOffspring());
 			offspringMet.removeIf(npc -> npc.getIncubator()!=null && npc.getIncubator().isPlayer()); // Only non-egg incubated offspring
-			List<OffspringSeed> offspringUnknown = new ArrayList<>(Main.game.getOffspringNotSpawned(os->true,true));
+			List<OffspringSeed> offspringUnknown = new ArrayList<>(Main.game.getOffspringNotSpawned(os->true));
 			if(offspringMet.isEmpty() && offspringUnknown.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='margin:0; padding:0; width:100%;float:left;'>"
 												+ "[style.italicsDisabled(No Offspring...)]"

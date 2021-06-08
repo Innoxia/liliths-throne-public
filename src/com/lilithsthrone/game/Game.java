@@ -1105,15 +1105,6 @@ public class Game implements XMLSaving {
 							}
 						});
 				
-				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
-					for(NPC npc: Main.game.getAllNPCs()) {
-						if(npc instanceof NPCOffspring && npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
-							// remove this npc and replace with offspringSeed
-							new OffspringSeed(npc);
-						}
-					}
-				}
-				
 				if(debug) {
 					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
@@ -1123,6 +1114,15 @@ public class Game implements XMLSaving {
 				for(int i = 0; i < offspringSeed.getLength(); i++){
 					Element e = (Element) offspringSeed.item(i);
 					Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
+				}
+				
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
+					for(NPC npc: Main.game.getAllNPCs()) {
+						if(npc instanceof NPCOffspring && npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
+							// remove this npc and replace with offspringSeed
+							new OffspringSeed(npc);
+						}
+					}
 				}
 				
 				// Add in new NPCS:

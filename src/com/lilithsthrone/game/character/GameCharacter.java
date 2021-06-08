@@ -19639,10 +19639,10 @@ public abstract class GameCharacter implements XMLSaving {
 					|| birthedLitter.getIncubator().isPlayer()) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
-						NPC npc = (NPC) Main.game.getNPCById(id);
-						npc.setConceptionDate(birthedLitter.getConceptionDate());
-						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
-						npc.setIncubator(birthedLitter.getIncubatorId());
+						OffspringSeed os = Main.game.getOffspringSeedById(id);
+						os.setConceptionDate(birthedLitter.getConceptionDate());
+						os.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
+						os.setIncubator(birthedLitter.getIncubatorId());
 					} catch(Exception e) {
 						Util.logGetNpcByIdError("endIncubationPregnancy()", id);
 					}
@@ -19660,14 +19660,14 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!this.isPlayer()
 					&& (birthedLitter.getMother()==null || !birthedLitter.getMother().isPlayer())
 					&& (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
-				for(String npc : birthedLitter.getOffspring()) {
-					Main.game.removeNPC(npc);
+				for(String os : birthedLitter.getOffspring()) {
+					Main.game.removeOffspringSeed(os);
 				}
 			}
 			
 		} else {
-			for(String npc : birthedLitter.getOffspring()) {
-				Main.game.removeNPC(npc);
+			for(String os : birthedLitter.getOffspring()) {
+				Main.game.removeOffspringSeed(os);
 			}
 		}
 
