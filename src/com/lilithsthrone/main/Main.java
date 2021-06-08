@@ -866,7 +866,7 @@ public class Main extends Application {
 	}
 
 	public static boolean isLoadGameAvailable(String name) {
-		File file = new File("data/saves/"+name+".xml");
+		File file = new File("data/saves/"+name+"/player.xml");
 
 		return file.exists();
 	}
@@ -884,35 +884,33 @@ public class Main extends Application {
 	}
 	
 	public static void deleteGame(String name) {
+		File dir = new File("data/saves/"+name+"/");
+		if (dir.exists()) {
+			try {
+				String[] childFiles = dir.list();
+				for (String file : childFiles) {
+					new File(file).delete();
+				}
+				dir.delete();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				return;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		// Handle deleting single file saves (Pre v0.4.0.#)
 		File file = new File("data/saves/"+name+".xml");
 
 		if (file.exists()) {
 			try {
 				file.delete();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				return;
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			
-		} else {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
-	}
-	
-	public static void deleteExportedGame(String name) {
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
-		}
+		Main.game.flashMessage(PresetColour.GENERIC_BAD, "Save not found...");
 	}
 	
 	public static void deleteExportedCharacter(String name) {
@@ -940,9 +938,17 @@ public class Main extends Application {
 		
 		File dir = new File("data/saves");
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
+			String[] directoryListing = dir.list();
+			for (String path : directoryListing) {
+				File file = new File("data/saves/"+path+"");
+				if(file.exists()) {
+					filesList.add(file);
+				} else {
+					file = new File("data/saves/" + path + ".xml");
+					if (file.exists()) {
+						filesList.add(file);
+					}
+				}
 			}
 		}
 		

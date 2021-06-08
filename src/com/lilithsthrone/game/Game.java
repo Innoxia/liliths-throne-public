@@ -705,8 +705,10 @@ public class Game implements XMLSaving {
 	private static boolean debug = false;
 
 	public static void importGame(String name) {
-		File file = new File("data"+System.getProperty("file.separator")+"saves"+System.getProperty("file.separator"), name+".xml");
-		
+		File file = new File("data/saves/"+name+"/".replace("/", System.getProperty("file.separator")), "player.xml");
+		if(!file.exists()) { // If save doesn't exist try to load an old save file
+			file = new File("data/saves/".replace("/", System.getProperty("file.separator")), name+".xml");
+		}
 		importGame(file);
 	}
 	

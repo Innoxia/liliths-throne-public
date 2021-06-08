@@ -1617,19 +1617,35 @@ public class Util {
 	}
 
 	public static String getFileName(File f) {
-		return f.getName().substring(0, f.getName().lastIndexOf('.'));
+		if(f.isFile()) {
+			return f.getName().substring(0, f.getName().lastIndexOf('.'));
+		} else {
+			return f.getName();
+		}
 	}
 	
 	public static String getFileIdentifier(File f) {
-		return f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
+		if(f.isFile()) {
+			return f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
+		} else {
+			return f.getName().replaceAll("'", "Q");
+		}
 	}
 	
 	public static String getFileName(String filePath) {
-		return filePath.substring(0, filePath.lastIndexOf('.'));
+		if(filePath.contains(".")) {
+			return filePath.substring(0, filePath.lastIndexOf('.'));
+		} else {
+			return filePath;
+		}
 	}
 	
 	public static String getFileIdentifier(String filePath) {
-		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+		if(filePath.contains(".")) {
+			return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+		} else {
+			return filePath.replaceAll("'", "Q");
+		}
 	}
 
 	public static  <T extends Enum<T>> List<T> toEnumList(final Collection<Element> elements, final Class<T> enumType) {
