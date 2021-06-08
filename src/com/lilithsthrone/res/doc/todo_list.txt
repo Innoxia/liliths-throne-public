@@ -21,6 +21,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Replaced depreciated hashmaps with active hashmaps in AbstractClothingType. (PR#1542 by Maxis010)
+		Increased script performance by adding a memoization cache to compile scripting engine scripts. (PR#1442 by CognitiveMist)
+	
 	
 	
 	
@@ -39,10 +41,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	the spinneret is still missing some bits. For example the virginity loss is not tracked, and there is also no cream pie status effect. That last one is amusing if you manage to get psychoactive fluids in there, guaranteed trip every hour.
 	
 	performance issues - tattoo mods are slow
-	
-	Memoization:
-		-        return script.eval();
-		+        return script.eval(((NashornScriptEngine)engine).getContext());
 	
 	add an option to have the main dialogue in each scene automatically copied to the clipboard
 		 bold or italic highlighting can be used for text readers
