@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>60</value> 
+		<determiner><![CDATA[some]]></determiner>
+		<name><![CDATA[Boiled Eggs]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[Boiled Eggs]]></namePlural>
+		<description><![CDATA[A small egg box holding four, ready-to-eat, hard-boiled eggs. The top of the box portraits a small and perhaps slightly too ambitious snake trying to swallow an egg whole.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="60" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/NoStepOnSnek/snake/subspecies/snake.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="80">snake_eggs.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>NoStepOnSnek_snake</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[snake]]></potionDescriptor>
+		<associatedRace>NoStepOnSnek_snake</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the box and quickly [npc.verb(peel)] one of the eggs before swallowing it
+		#IF(npc.getFaceType().getRace()==RACE_NoStepOnSnek_snake)
+			 whole.
+		#ELSE
+			 in just a couple bites.
+		#ENDIF
+		 [npc.Name] [npc.verb(repeat)] this process a few more times, emptying the box in short order.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the box to offer [npc2.name] some nice eggs in these trying times. [npc2.Name] [npc2.verb(take)] and quickly [npc.verb(peel)] one of them before swallowing it
+		#IF(npc2.getFaceType().getRace()==RACE_NoStepOnSnek_snake)
+			 whole.
+		#ELSE
+			 in just a couple bites.
+		#ENDIF
+		 [npc2.Name] then [npc2.verb(repeat)] this process a few more times, emptying the box in short order.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

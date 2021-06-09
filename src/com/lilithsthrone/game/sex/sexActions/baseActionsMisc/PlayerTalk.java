@@ -126,17 +126,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"Turning your head to look back at [npc2.name], [npc.a_moan+] escapes from between your [npc.lips+], ",
 								"You turn your head to look back at [npc2.name], letting out [npc.a_moan+] before calling out, ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"Desperately trying to crawl away from [npc2.name], [npc2.she] grabs your [npc.hips] and pulls you back as you [npc.sob], ",
 								"Trying to crawl away from [npc2.name], [npc2.she] holds you firmly in place as you let out [npc.a_sob+], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"Turning your head to look back at [npc2.name], [npc.a_moan] escapes from between your [npc.lips+], ",
 								"You turn your head to look back at [npc2.name], letting out [npc.a_moan] before calling out, ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 				}
 				
 			} else if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL)) {
@@ -146,17 +146,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You look down at [npc2.name] as [npc2.she] kneels beneath you, ",
 								"Looking down at [npc2.name], you sigh, ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You grin down at [npc2.name] as [npc2.she] kneels beneath you, ",
 								"Looking down at [npc2.name], you growl, ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You look down at [npc2.name] as [npc2.she] kneels beneath you, ",
 								"Looking down at [npc2.name], you [npc.moan], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 				}
 				
 			} else if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.PERFORMING_ORAL)) {
@@ -166,17 +166,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc2.name] as you [npc.moan] up to [npc2.herHim], ",
 								"Looking up at [npc2.name] standing above you, you [npc.moan] up to [npc2.herHim], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc2.name] before letting out [npc.a_sob+], ",
 								"Looking up at [npc2.name] standing above you, you let out [npc.a_sob+], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc2.name] as you speak up to [npc2.herHim], ",
 								"Looking up at [npc2.name] standing above you, you speak up to [npc2.herHim], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 				}
 				
 			} else if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.SIXTY_NINE)) {
@@ -186,17 +186,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc2.name] as [npc2.she] lies beneath you, and speak down to [npc2.herHim], ",
 								"Looking back at [npc2.name] as [npc2.she] lies beneath you, you speak down to [npc2.herHim], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc2.name] as [npc2.she] lies beneath you, and growl down to [npc2.herHim], ",
 								"Looking back at [npc2.name] as [npc2.she] lies beneath you, you growl down to [npc2.herHim], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc2.name] as [npc2.she] lies beneath you, and [npc.moanVerb] down to [npc2.herHim], ",
 								"Looking back at [npc2.name] as [npc2.she] lies beneath you, you [npc.moanVerb] down to [npc2.herHim], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 				}
 				
 			} else {
@@ -206,27 +206,27 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You let out a soft [npc.moan], ",
 								"You gently sigh, ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You let out a rough growl before speaking out loud, ",
 								"You make a threatening growling noise before speaking, ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
 								"A desperate [npc.moan] escapes from between your [npc.lips+], ",
 								"You let out a desperate [npc.moan] before addressing [npc2.name], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"A protesting whine escapes from between your [npc.lips+] as you struggle against [npc2.name], ",
 								"You let out a distressed whining noise as you try to shuffle away from [npc2.name], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
 								"[npc.A_moan] escapes from between your [npc.lips+], ",
 								"You let out [npc.a_moan] before addressing [npc2.name], ")
-								+ Main.game.getPlayer().getDirtyTalk();
+								+ Main.sex.getDirtyTalk(Main.game.getPlayer());
 				}
 			
 			}
@@ -464,7 +464,7 @@ public class PlayerTalk {
 			}
 			
 			UtilText.nodeContentSB.append(getOfferResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.VAGINA)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.VAGINA)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"pussy"));
 			
@@ -473,7 +473,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.VAGINA))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.VAGINA))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.VAGINA)));
 				
 			} else if(!Main.sex.isDom(Main.game.getPlayer())) {
@@ -532,7 +532,7 @@ public class PlayerTalk {
 			}
 			
 			UtilText.nodeContentSB.append(getRequestResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, null)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, null)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"pussy"));
 			
@@ -541,7 +541,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, null))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, null))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, null)));
 				
 			} else if(!Main.sex.isDom(Main.game.getPlayer())) {
@@ -597,7 +597,7 @@ public class PlayerTalk {
 			}
 			
 			UtilText.nodeContentSB.append(getOfferResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.ANUS)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.ANUS)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"ass"));
 
@@ -606,7 +606,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.ANUS))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.ANUS))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.ANUS)));
 				
 			} else if(!Main.sex.isDom(Main.game.getPlayer())) {
@@ -678,7 +678,7 @@ public class PlayerTalk {
 			}
 			
 			UtilText.nodeContentSB.append(getRequestResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, null)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, null)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"ass"));
 			
@@ -687,7 +687,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, null))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, null))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, null)));
 				
 			} else if(!Main.sex.isDom(Main.game.getPlayer())) {
@@ -742,7 +742,7 @@ public class PlayerTalk {
 							+"<br/><br/>");
 			
 			UtilText.nodeContentSB.append(getOfferResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.MOUTH)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.MOUTH)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"mouth"));
 
@@ -751,7 +751,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.MOUTH))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.MOUTH))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(
 						new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.MOUTH),
 						new SexType(SexParticipantType.NORMAL, null, SexAreaPenetration.TONGUE)));
@@ -820,7 +820,7 @@ public class PlayerTalk {
 			}
 			
 			UtilText.nodeContentSB.append(getRequestResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, null)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, null)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"mouth"));
 
@@ -829,7 +829,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, null))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, null))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(
 						new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, null),
 						new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, null)));
@@ -898,7 +898,7 @@ public class PlayerTalk {
 			}
 									
 			UtilText.nodeContentSB.append(getOfferResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.NIPPLE)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.NIPPLE)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"[npc.nipples]"));
 
@@ -907,7 +907,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.NIPPLE))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.NIPPLE))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.NIPPLE)));
 				
 			} else if(!Main.sex.isDom(Main.game.getPlayer())) {
@@ -976,7 +976,7 @@ public class PlayerTalk {
 			}
 			
 			UtilText.nodeContentSB.append(getOfferResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"breasts"));
 			
@@ -985,7 +985,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST)));
 				
 			} else if(!Main.sex.isDom(Main.game.getPlayer())) {
@@ -1054,7 +1054,7 @@ public class PlayerTalk {
 			}
 			
 			UtilText.nodeContentSB.append(getOfferResponse(
-					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST)),
+					((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST)),
 					Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this)),
 					"chest"));
 			
@@ -1063,7 +1063,7 @@ public class PlayerTalk {
 
 		@Override
 		public void applyEffects() {
-			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))) {
+			if(!((NPC)Main.sex.getCharacterTargetedForSexAction(this)).getSexBehaviourDeniesRequests(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))) {
 				((NPC)Main.sex.getCharacterTargetedForSexAction(this)).generateSexChoices(true, Main.game.getPlayer(), Util.newArrayListOfValues(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST)));
 				
 			} else if(!Main.sex.isDom(Main.game.getPlayer())) {

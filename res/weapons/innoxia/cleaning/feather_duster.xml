@@ -35,10 +35,18 @@
 		
 		<effects/>
 		
-		<primaryColours/> 
-		<primaryColoursDye/>
-		<secondaryColours/> 
-		<secondaryColoursDye/>
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BROWN_VERY_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
 		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>

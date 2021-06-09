@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>innoxia_panther</race>
+	
+	<transformationName><![CDATA[panther]]></transformationName>
+	
+	<coveringType>innoxia_panther_fur</coveringType>
+	
+	<spinneret>false</spinneret>
+	
+	<defaultGirth>2</defaultGirth>
+	
+	<defaultLengthAsPercentageOfHeight>0.8</defaultLengthAsPercentageOfHeight>
+	
+	<tags>
+		<tag>TAIL_TYPE_FUR</tag>
+		<tag>TAIL_TAPERING_NONE</tag>
+		<tag>TAIL_SLEEP_HUGGING</tag>
+		<tag>TAIL_PREHENSILE</tag>
+	</tags>
+	
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	
+	<name><![CDATA[tail]]></name>
+	<namePlural><![CDATA[tails]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>panther-like</descriptor>
+		<descriptor>fluffy</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>panther-like</descriptor>
+		<descriptor>fluffy</descriptor>
+	</descriptorsFeminine>
+	
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>furry</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>furry</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A furry, panther-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over it, and can twist it almost anywhere [npc.she] [npc.verb(please)].
+			<br/>[npc.Name] now [npc.has] a [style.boldPanther(panther-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			[npc.TailCount] furry, panther-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over them, and can twist them almost anywhere [npc.she] [npc.verb(please)].
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldPanther(panther-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] panther tail, which [npc.she] can swish from side to side at will.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] panther tails, which [npc.she] can swish from side to side at will.
+		#ENDIF
+	]]></bodyDescription>
+</tail>

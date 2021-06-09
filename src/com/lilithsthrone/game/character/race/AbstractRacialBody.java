@@ -1,11 +1,16 @@
 package com.lilithsthrone.game.character.race;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.main.Main;
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
@@ -13,17 +18,34 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.AntennaType;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -52,17 +74,22 @@ import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractRacialBody {
+	
+	private boolean mod;
+	private boolean fromExternalFile;
+	
 	// Antenna:
-	private AbstractAntennaType antennaType;
+	private List<AbstractAntennaType> antennaTypes;
+	private int maleAntennaLength;
+	private int femaleAntennaLength;
 	
 	// Arms:
 	private AbstractArmType armType;
@@ -75,6 +102,8 @@ public abstract class AbstractRacialBody {
 	private int anusWetness;
 	private int maleAssSize;
 	private int femaleAssSize;
+	private int maleHipSize;
+	private int femaleHipSize;
 	private int anusElasticity;
 	private int anusPlasticity;
 
@@ -83,6 +112,8 @@ public abstract class AbstractRacialBody {
 	private List<BreastShape> breastShapes;
 	private NippleShape maleNippleShape;
 	private NippleShape femaleNippleShape;
+	private AreolaeShape maleAreolaeShape;
+	private AreolaeShape femaleAreolaeShape;
 	private int noBreastSize;
 	private int breastSize;
 	private int maleLactationRate;
@@ -107,7 +138,6 @@ public abstract class AbstractRacialBody {
 	// BreastCrotchs/Crotch-boobs:
 	private AbstractBreastType breastCrotchType;
 	private List<BreastShape> breastCrotchShapes;
-	private NippleShape breastCrotchNippleShape;
 	private int breastCrotchSize;
 	private int breastCrotchLactationRate;
 	private float breastCrotchCapacity;
@@ -117,11 +147,15 @@ public abstract class AbstractRacialBody {
 	private int nippleCountPerBreastCrotch;
 	private int breastCrotchAreolaeSize;
 	private int breastCrotchNippleSize;
+	private NippleShape breastCrotchNippleShape;
 	private int breastCrotchCount;
+	private AreolaeShape breastCrotchAreolaeShape;
 
 	// Core:
-	private SkinType skinType;
+	private AbstractTorsoType torsoType;
 	private BodyMaterial bodyMaterial;
+	private String bodyHairId;
+	private AbstractBodyCoveringType bodyHairType;
 	private GenitalArrangement genitalArrangement;
 	private int maleHeight;
 	private int femaleHeight;
@@ -133,7 +167,7 @@ public abstract class AbstractRacialBody {
 	private int femaleMuscle;
 	
 	// Hair:
-	private HairType hairType;
+	private AbstractHairType hairType;
 	private int maleHairLength;
 	private int femaleHairLength;
 
@@ -154,63 +188,143 @@ public abstract class AbstractRacialBody {
 	private LegConfiguration legConfiguration;
 
 	// Penis:
-	private PenisType penisType;
+	private AbstractPenisType penisType;
 	private int penisSize;
 	private int penisGirth;
 	private int testicleSize;
+	private int testicleQuantity;
 	private int cumProduction;
 
 	// Tail:
 	private List<AbstractTailType> tailTypes;
 	
 	// Tentacle:
-	private TentacleType tentacleType;
+	private AbstractTentacleType tentacleType;
 	
 	// Vagina:
-	private VaginaType vaginaType;
+	private AbstractVaginaType vaginaType;
 	private float vaginaCapacity;
 	private int vaginaDepth;
 	private int vaginaWetness;
 	private int clitSize;
+	private int clitGirth;
 	private int vaginaElasticity;
 	private int vaginaPlasticity;
-	private int testicleQuantity;
 
 	// Wings:
-	private List<WingType> wingTypes;
+	private List<AbstractWingType> wingTypes;
 	private int maleWingSize;
 	private int femaleWingSize;
-
-	public AbstractRacialBody(AbstractAntennaType antennaType,
-			AbstractArmType armType, int armRows,
-			AbstractAssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeDepth anusDepth, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
-			AbstractBreastType breastType, List<BreastShape> breastShapes,
-			CupSize noBreastSize, int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeDepth maleBreastDepth, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity, NippleSize maleNippleSize,
-				NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast,
-			CupSize breastSize, int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeDepth femaleBreastDepth, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity, NippleSize femaleNippleSize,
-				NippleShape femaleNippleShape, AreolaeSize femaleAreolaeSize, int femaleNippleCountPerBreast,
-			AbstractBreastType breastCrotchType, List<BreastShape> breastCrotchShapes,
-			CupSize breastCrotchSize, int breastCrotchCount, Lactation breastCrotchLactationRate, Capacity breastCrotchCapacity, OrificeDepth breastCrotchDepth, OrificeElasticity breastCrotchElasticity, OrificePlasticity breastCrotchPlasticity, NippleSize breastCrotchNippleSize,
-				NippleShape breastCrotchNippleShape, AreolaeSize breastCrotchAreolaeSize, int nippleCountPerBreastCrotch,
-			int maleHeight, int maleFemininity, int maleBodySize, int maleMuscle,
-			int femaleHeight, int femaleFemininity, int femaleBodySize, int femaleMuscle,
+	
+	// External file variables:
+	private Map<PersonalityTrait, Float> personalityChanceOverrides;
+	
+	private int orientationFeminineGynephilic;
+	private int orientationFeminineAmbiphilic;
+	private int orientationFeminineAndrophilic;
+	private int orientationMasculineGynephilic;
+	private int orientationMasculineAmbiphilic;
+	private int orientationMasculineAndrophilic;
+	
+	public AbstractRacialBody(
+			List<AbstractAntennaType> antennaTypes,
+			AbstractArmType armType,
+				int armRows,
+			AbstractAssType assType,
+				AssSize maleAssSize,
+				AssSize femaleAssSize,
+				Wetness anusWetness,
+				Capacity anusCapacity,
+				OrificeDepth anusDepth,
+				OrificeElasticity anusElasticity,
+				OrificePlasticity anusPlasticity,
+			AbstractBreastType breastType,
+				List<BreastShape> breastShapes,
+			CupSize noBreastSize,
+				int breastCountMale,
+				Lactation maleLactationRate,
+				Capacity maleBreastCapacity,
+				OrificeDepth maleBreastDepth,
+				OrificeElasticity maleBreastElasticity,
+				OrificePlasticity maleBreastPlasticity,
+				NippleSize maleNippleSize,
+				NippleShape maleNippleShape,
+				AreolaeSize maleAreolaeSize,
+				int maleNippleCountPerBreast,
+			CupSize breastSize,
+				int breastCountFemale,
+				Lactation femaleLactationRate,
+				Capacity femaleBreastCapacity,
+				OrificeDepth femaleBreastDepth,
+				OrificeElasticity femaleBreastElasticity,
+				OrificePlasticity femaleBreastPlasticity,
+				NippleSize femaleNippleSize,
+				NippleShape femaleNippleShape,
+				AreolaeSize femaleAreolaeSize,
+				int femaleNippleCountPerBreast,
+			AbstractBreastType breastCrotchType,
+				List<BreastShape> breastCrotchShapes,
+			CupSize breastCrotchSize,
+				int breastCrotchCount,
+				Lactation breastCrotchLactationRate,
+				Capacity breastCrotchCapacity,
+				OrificeDepth breastCrotchDepth,
+				OrificeElasticity breastCrotchElasticity,
+				OrificePlasticity breastCrotchPlasticity,
+				NippleSize breastCrotchNippleSize,
+				NippleShape breastCrotchNippleShape,
+				AreolaeSize breastCrotchAreolaeSize,
+				int nippleCountPerBreastCrotch,
+			int maleHeight,
+				int maleFemininity,
+				int maleBodySize,
+				int maleMuscle,
+			int femaleHeight,
+				int femaleFemininity,
+				int femaleBodySize,
+				int femaleMuscle,
 			AbstractEarType earType,
 			AbstractEyeType eyeType,
-			AbstractFaceType faceType, LipSize maleLipSize, LipSize femaleLipSize,
-			HairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
-			AbstractLegType legType, LegConfiguration legConfiguration,
-			SkinType skinType,
+			AbstractFaceType faceType,
+				LipSize maleLipSize,
+				LipSize femaleLipSize,
+			AbstractHairType hairType,
+				HairLength maleHairLength,
+				HairLength femaleHairLength,
+			AbstractLegType legType,
+				LegConfiguration legConfiguration,
+			AbstractTorsoType skinType,
 			BodyMaterial bodyMaterial,
-			HornLength maleHornLength, HornLength femaleHornLength, List<AbstractHornType> hornTypes,
-			PenisType penisType, int penisSize, PenetrationGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
+			AbstractBodyCoveringType bodyHairType,
+			HornLength maleHornLength,
+				HornLength femaleHornLength,
+				List<AbstractHornType> hornTypes,
+			AbstractPenisType penisType,
+				int penisSize,
+				PenetrationGirth penisGirth,
+				TesticleSize testicleSize,
+				int testicleQuantity,
+				CumProduction cumProduction,
 			List<AbstractTailType> tailTypes,
-			TentacleType tentacleType,
-			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, OrificeDepth vaginaDepth, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
-			List<WingType> wingTypes, WingSize maleWingSize, WingSize femaleWingSize,
+			AbstractTentacleType tentacleType,
+			AbstractVaginaType vaginaType,
+				Wetness vaginaWetness,
+				Capacity vaginaCapacity,
+				OrificeDepth vaginaDepth,
+				ClitorisSize clitSize,
+				OrificeElasticity vaginaElasticity,
+				OrificePlasticity vaginaPlasticity,
+			List<AbstractWingType> wingTypes,
+				WingSize maleWingSize,
+				WingSize femaleWingSize,
 			GenitalArrangement genitalArrangement) {
-
+		this.mod = false;
+		this.fromExternalFile = false;
+		
 		// Antenna:
-		this.antennaType = antennaType;
+		this.antennaTypes = antennaTypes;
+		this.maleAntennaLength = HornLength.TWO_LONG.getMedianValue();
+		this.femaleAntennaLength = HornLength.TWO_LONG.getMedianValue();
 		
 		// Arms:
 		this.armType = armType;
@@ -223,12 +337,18 @@ public abstract class AbstractRacialBody {
 		this.anusWetness = anusWetness.getValue();
 		this.maleAssSize = maleAssSize.getValue();
 		this.femaleAssSize = femaleAssSize.getValue();
+		this.maleHipSize = maleAssSize.getValue();
+		this.femaleHipSize = femaleAssSize.getValue();
 		this.anusElasticity = anusElasticity.getValue();
 		this.anusPlasticity = anusPlasticity.getValue();
 		
 		// Breasts:
 		this.breastType = breastType;
 		this.breastShapes = breastShapes;
+		
+		this.maleAreolaeShape = AreolaeShape.NORMAL;
+		this.femaleAreolaeShape = AreolaeShape.NORMAL;
+		
 		this.noBreastSize = noBreastSize.getMeasurement();
 		this.breastCountMale = breastCountMale;
 		this.maleLactationRate = maleLactationRate.getMedianValue();
@@ -266,12 +386,13 @@ public abstract class AbstractRacialBody {
 		this.breastCrotchNippleSize = breastCrotchNippleSize.getValue();
 		this.breastCrotchNippleShape = breastCrotchNippleShape;
 		this.breastCrotchAreolaeSize = breastCrotchAreolaeSize.getValue();
+		this.breastCrotchAreolaeShape = AreolaeShape.NORMAL;
 		this.nippleCountPerBreastCrotch = nippleCountPerBreastCrotch;
 		
-
 		// Core:
-		this.skinType = skinType;
+		this.torsoType = skinType;
 		this.bodyMaterial = bodyMaterial;
+		this.bodyHairType= bodyHairType;
 		this.genitalArrangement = genitalArrangement;
 		this.maleHeight = maleHeight;
 		this.maleFemininity = maleFemininity;
@@ -308,6 +429,7 @@ public abstract class AbstractRacialBody {
 		this.penisSize = penisSize;
 		this.penisGirth = penisGirth.getValue();
 		this.testicleSize = testicleSize.getValue();
+		this.testicleQuantity = testicleQuantity;
 		this.cumProduction = cumProduction.getMedianValue();
 
 		// Tail:
@@ -319,53 +441,235 @@ public abstract class AbstractRacialBody {
 		// Vagina:
 		this.vaginaType = vaginaType;
 		this.clitSize = clitSize.getMedianValue();
+		this.clitGirth = PenetrationGirth.THREE_AVERAGE.getValue();
 		this.vaginaCapacity = vaginaCapacity.getMedianValue();
 		this.vaginaDepth = vaginaDepth.getValue();
 		this.vaginaWetness = vaginaWetness.getValue();
 		this.vaginaElasticity = vaginaElasticity.getValue();
 		this.vaginaPlasticity = vaginaPlasticity.getValue();
-		this.testicleQuantity = testicleQuantity;
 
 		// Wings:
 		this.wingTypes = wingTypes;
 		this.maleWingSize = maleWingSize.getValue();
 		this.femaleWingSize = femaleWingSize.getValue();
-		
 	}
 	
-	/**
-	 * <b>Does not include angels or slimes</b>
-	 * @param gender
-	 * @return
-	 */
-	public static AbstractRacialBody getRandomCommonRacialBodyFromPreferences(Gender gender) {
-		
-		List<Race> availableRaces = new ArrayList<>();
-		for(Race r : Race.values()) {
-			if(r != Race.ANGEL) {
-				availableRaces.add(r);
-			}
-		}
-		
-		if(gender.isFeminine()) {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
-				if(entry.getValue() == FurryPreference.HUMAN) {
-					availableRaces.remove(entry.getKey().getRace());
+	public AbstractRacialBody(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in statusEffect files it's <statusEffect>
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				// Core:
+				this.bodyMaterial = BodyMaterial.valueOf(coreElement.getMandatoryFirstOf("bodyMaterial").getTextContent());
+				this.bodyHairId = coreElement.getMandatoryFirstOf("bodyHair").getTextContent();
+				this.genitalArrangement = GenitalArrangement.valueOf(coreElement.getMandatoryFirstOf("genitalArrangement").getTextContent());
+				this.maleHeight = Integer.valueOf(coreElement.getMandatoryFirstOf("maleHeight").getTextContent());
+				this.maleFemininity = Integer.valueOf(coreElement.getMandatoryFirstOf("maleFemininity").getTextContent());
+				this.maleBodySize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleBodySize").getTextContent());
+				this.maleMuscle = Integer.valueOf(coreElement.getMandatoryFirstOf("maleMuscle").getTextContent());
+				this.femaleHeight = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleHeight").getTextContent());
+				this.femaleFemininity = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleFemininity").getTextContent());
+				this.femaleBodySize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleBodySize").getTextContent());
+				this.femaleMuscle = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleMuscle").getTextContent());
+				
+				// Antenna:
+				this.antennaTypes = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("antennaTypes").getAllOf("type")) {
+					antennaTypes.add(AntennaType.getAntennaTypeFromId(e.getTextContent()));
 				}
-			}
-		} else {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
-				if(entry.getValue() == FurryPreference.HUMAN) {
-					availableRaces.remove(entry.getKey().getRace());
+				this.maleAntennaLength = Integer.valueOf(coreElement.getMandatoryFirstOf("maleAntennaLength").getTextContent());
+				this.femaleAntennaLength = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleAntennaLength").getTextContent());
+				
+				// Arms:
+				this.armType = ArmType.getArmTypeFromId(coreElement.getMandatoryFirstOf("armType").getTextContent());
+				this.armRows = Integer.valueOf(coreElement.getMandatoryFirstOf("armRows").getTextContent());
+				
+				// Ass:
+				this.assType = AssType.getAssTypeFromId(coreElement.getMandatoryFirstOf("assType").getTextContent());
+				this.anusCapacity = Float.valueOf(coreElement.getMandatoryFirstOf("anusCapacity").getTextContent());
+				this.anusDepth = Integer.valueOf(coreElement.getMandatoryFirstOf("anusDepth").getTextContent());
+				this.anusWetness = Integer.valueOf(coreElement.getMandatoryFirstOf("anusWetness").getTextContent());
+				this.maleAssSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleAssSize").getTextContent());
+				this.femaleAssSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleAssSize").getTextContent());
+				if(coreElement.getOptionalFirstOf("maleHipSize").isPresent()) {
+					this.maleHipSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleHipSize").getTextContent());
+				} else {
+					this.maleHipSize = this.maleAssSize;
 				}
+				if(coreElement.getOptionalFirstOf("femaleHipSize").isPresent()) {
+					this.femaleHipSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleHipSize").getTextContent());
+				} else {
+					this.femaleHipSize = this.femaleAssSize;
+				}
+				this.anusElasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("anusElasticity").getTextContent());
+				this.anusPlasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("anusPlasticity").getTextContent());
+				
+				// Breasts:
+				this.breastType = BreastType.getBreastTypeFromId(coreElement.getMandatoryFirstOf("breastType").getTextContent());
+				this.breastShapes = new ArrayList<>();
+				String udderShapes = coreElement.getMandatoryFirstOf("breastShapes").getAttribute("udderShapes");
+				if(!udderShapes.isEmpty()) {
+					if(Boolean.valueOf(udderShapes)) {
+						breastShapes = BreastShape.getUdderBreastShapes();
+					} else {
+						breastShapes = BreastShape.getNonUdderBreastShapes();
+					}
+				} else {
+					for(Element e : coreElement.getMandatoryFirstOf("breastShapes").getAllOf("shape")) {
+						breastShapes.add(BreastShape.valueOf(e.getTextContent()));
+					}
+				}
+				
+				this.noBreastSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleBreastSize").getTextContent());
+				this.breastCountMale = Integer.valueOf(coreElement.getMandatoryFirstOf("maleBreastRows").getTextContent());
+				this.maleLactationRate = Integer.valueOf(coreElement.getMandatoryFirstOf("maleLactationRate").getTextContent());
+				this.maleBreastCapacity = Float.valueOf(coreElement.getMandatoryFirstOf("maleBreastCapacity").getTextContent());
+				this.maleBreastDepth = Integer.valueOf(coreElement.getMandatoryFirstOf("maleBreastDepth").getTextContent());
+				this.maleBreastElasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("maleBreastElasticity").getTextContent());
+				this.maleBreastPlasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("maleBreastPlasticity").getTextContent());
+				this.maleNippleSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleNippleSize").getTextContent());
+				this.maleNippleShape = NippleShape.valueOf(coreElement.getMandatoryFirstOf("maleNippleShape").getTextContent());
+				this.maleAreolaeSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleAreolaeSize").getTextContent());
+				this.maleAreolaeShape = AreolaeShape.valueOf(coreElement.getMandatoryFirstOf("maleAreolaeShape").getTextContent());
+				this.maleNippleCountPerBreast = Integer.valueOf(coreElement.getMandatoryFirstOf("maleNippleCountPerBreast").getTextContent());
+				
+				this.breastSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleBreastSize").getTextContent());
+				this.breastCountFemale = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleBreastRows").getTextContent());
+				this.femaleLactationRate = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleLactationRate").getTextContent());
+				this.femaleBreastCapacity = Float.valueOf(coreElement.getMandatoryFirstOf("femaleBreastCapacity").getTextContent());
+				this.femaleBreastDepth = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleBreastDepth").getTextContent());
+				this.femaleBreastElasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleBreastElasticity").getTextContent());
+				this.femaleBreastPlasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleBreastPlasticity").getTextContent());
+				this.femaleNippleSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleNippleSize").getTextContent());
+				this.femaleNippleShape = NippleShape.valueOf(coreElement.getMandatoryFirstOf("femaleNippleShape").getTextContent());
+				this.femaleAreolaeSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleAreolaeSize").getTextContent());
+				this.femaleAreolaeShape = AreolaeShape.valueOf(coreElement.getMandatoryFirstOf("femaleAreolaeShape").getTextContent());
+				this.femaleNippleCountPerBreast = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleNippleCountPerBreast").getTextContent());
+
+				// BreastCrotchs/Crotch-boobs:
+				this.breastCrotchType = BreastType.getBreastTypeFromId(coreElement.getMandatoryFirstOf("breastCrotchType").getTextContent());
+				this.breastCrotchShapes = new ArrayList<>();
+				udderShapes = coreElement.getMandatoryFirstOf("breastCrotchShapes").getAttribute("udderShapes");
+				if(!udderShapes.isEmpty()) {
+					if(Boolean.valueOf(udderShapes)) {
+						breastCrotchShapes = BreastShape.getUdderBreastShapes();
+					} else {
+						breastCrotchShapes = BreastShape.getNonUdderBreastShapes();
+					}
+				} else {
+					for(Element e : coreElement.getMandatoryFirstOf("breastCrotchShapes").getAllOf("shape")) {
+						breastCrotchShapes.add(BreastShape.valueOf(e.getTextContent()));
+					}
+				}
+				
+				this.breastCrotchSize = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchSize").getTextContent());
+				this.breastCrotchCount = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchRows").getTextContent());
+				this.breastCrotchLactationRate = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchLactationRate").getTextContent());
+				this.breastCrotchCapacity = Float.valueOf(coreElement.getMandatoryFirstOf("breastCrotchCapacity").getTextContent());
+				this.breastCrotchDepth = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchDepth").getTextContent());
+				this.breastCrotchElasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchElasticity").getTextContent());
+				this.breastCrotchPlasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchPlasticity").getTextContent());
+				this.breastCrotchNippleSize = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchNippleSize").getTextContent());
+				this.breastCrotchNippleShape = NippleShape.valueOf(coreElement.getMandatoryFirstOf("breastCrotchNippleShape").getTextContent());
+				this.breastCrotchAreolaeSize = Integer.valueOf(coreElement.getMandatoryFirstOf("breastCrotchAreolaeSize").getTextContent());
+				this.breastCrotchAreolaeShape = AreolaeShape.valueOf(coreElement.getMandatoryFirstOf("breastCrotchAreolaeShape").getTextContent());
+				this.nippleCountPerBreastCrotch = Integer.valueOf(coreElement.getMandatoryFirstOf("nippleCountPerBreastCrotch").getTextContent());
+
+				// Face:
+				this.faceType = FaceType.getFaceTypeFromId(coreElement.getMandatoryFirstOf("faceType").getTextContent());
+				this.eyeType = EyeType.getEyeTypeFromId(coreElement.getMandatoryFirstOf("eyeType").getTextContent());
+				this.earType = EarType.getEarTypeFromId(coreElement.getMandatoryFirstOf("earType").getTextContent());
+				this.maleLipSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleLipSize").getTextContent());
+				this.femaleLipSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleLipSize").getTextContent());
+
+				// Hair:
+				this.hairType = HairType.getHairTypeFromId(coreElement.getMandatoryFirstOf("hairType").getTextContent());
+				this.maleHairLength = Integer.valueOf(coreElement.getMandatoryFirstOf("maleHairLength").getTextContent());
+				this.femaleHairLength = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleHairLength").getTextContent());
+
+				// Horns:
+				this.hornTypes = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("hornTypes").getAllOf("type")) {
+					hornTypes.add(HornType.getHornTypeFromId(e.getTextContent()));
+				}
+				this.maleHornLength = Integer.valueOf(coreElement.getMandatoryFirstOf("maleHornLength").getTextContent());
+				this.femaleHornLength = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleHornLength").getTextContent());
+				
+				// Leg:
+				this.legType = LegType.getLegTypeFromId(coreElement.getMandatoryFirstOf("legType").getTextContent());
+				this.legConfiguration = LegConfiguration.valueOf(coreElement.getMandatoryFirstOf("legConfiguration").getTextContent());
+				
+				// Penis:
+				this.penisType = PenisType.getPenisTypeFromId(coreElement.getMandatoryFirstOf("penisType").getTextContent());
+				this.penisSize = Integer.valueOf(coreElement.getMandatoryFirstOf("penisLength").getTextContent());
+				this.penisGirth = Integer.valueOf(coreElement.getMandatoryFirstOf("penisGirth").getTextContent());
+				this.testicleSize = Integer.valueOf(coreElement.getMandatoryFirstOf("testicleSize").getTextContent());
+				this.testicleQuantity = Integer.valueOf(coreElement.getMandatoryFirstOf("testicleQuantity").getTextContent());
+				this.cumProduction = Integer.valueOf(coreElement.getMandatoryFirstOf("cumProduction").getTextContent());
+
+				// Tail:
+				this.tailTypes = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("tailTypes").getAllOf("type")) {
+					tailTypes.add(TailType.getTailTypeFromId(e.getTextContent()));
+				}
+				
+				// Tentacle:
+				this.tentacleType = TentacleType.getTentacleTypeFromId(coreElement.getMandatoryFirstOf("tentacleType").getTextContent());
+
+				// Torso:
+				this.torsoType = TorsoType.getTorsoTypeFromId(coreElement.getMandatoryFirstOf("torsoType").getTextContent());
+				
+				// Vagina:
+				this.vaginaType = VaginaType.getVaginaTypeFromId(coreElement.getMandatoryFirstOf("vaginaType").getTextContent());
+				this.clitSize = Integer.valueOf(coreElement.getMandatoryFirstOf("clitSize").getTextContent());
+				this.clitGirth = Integer.valueOf(coreElement.getMandatoryFirstOf("clitGirth").getTextContent());
+				this.vaginaCapacity = Float.valueOf(coreElement.getMandatoryFirstOf("vaginaCapacity").getTextContent());
+				this.vaginaDepth = Integer.valueOf(coreElement.getMandatoryFirstOf("vaginaDepth").getTextContent());
+				this.vaginaWetness = Integer.valueOf(coreElement.getMandatoryFirstOf("vaginaWetness").getTextContent());
+				this.vaginaElasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("vaginaElasticity").getTextContent());
+				this.vaginaPlasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("vaginaPlasticity").getTextContent());
+
+				// Wings:
+				this.wingTypes = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("wingTypes").getAllOf("type")) {
+					wingTypes.add(WingType.getWingTypeFromId(e.getTextContent()));
+				}
+				this.maleWingSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleWingSize").getTextContent());
+				this.femaleWingSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleWingSize").getTextContent());
+				
+				// Personalities:
+				personalityChanceOverrides = new HashMap<>();
+				if(coreElement.getOptionalFirstOf("personalityChances").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("personalityChances").getAllOf("entry")) {
+						try {
+							personalityChanceOverrides.put(PersonalityTrait.valueOf(e.getTextContent()), Float.valueOf(e.getAttribute("chance")));
+						} catch(Exception ex) {
+							System.err.println("AbstractRacialBody error: PersonalityTrait '"+e.getTextContent()+"' failed to load!");
+						}
+					}
+				}
+				
+				// Orientations:
+				orientationFeminineGynephilic = Integer.valueOf(coreElement.getMandatoryFirstOf("orientationFeminineGynephilic").getTextContent());
+				orientationFeminineAmbiphilic = Integer.valueOf(coreElement.getMandatoryFirstOf("orientationFeminineAmbiphilic").getTextContent());
+				orientationFeminineAndrophilic = Integer.valueOf(coreElement.getMandatoryFirstOf("orientationFeminineAndrophilic").getTextContent());
+				orientationMasculineGynephilic = Integer.valueOf(coreElement.getMandatoryFirstOf("orientationMasculineGynephilic").getTextContent());
+				orientationMasculineAmbiphilic = Integer.valueOf(coreElement.getMandatoryFirstOf("orientationMasculineAmbiphilic").getTextContent());
+				orientationMasculineAndrophilic = Integer.valueOf(coreElement.getMandatoryFirstOf("orientationMasculineAndrophilic").getTextContent());
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractRacialBody was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
 			}
 		}
-		
-		if(availableRaces.isEmpty()) {
-			return RacialBody.HUMAN;
-		}
-		
-		return RacialBody.valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
 	}
 	
 	/**
@@ -383,10 +687,16 @@ public abstract class AbstractRacialBody {
 				}
 				
 			} else if(trait.getPersonalityCategory()==PersonalityCategory.SEX && trait!=PersonalityTrait.LEWD) {
-				map.put(trait, 0.02f); // Smaller chance for people to be prude or innocent.
+				map.put(trait, 0.025f); // Smaller chance for people to be prude or innocent.
 					
 			} else {
 				map.put(trait, 0.05f); // With each category having two values, it's a ~10% chance to have a special trait in each category.
+			}
+		}
+		
+		if(this.fromExternalFile) {
+			for(Entry<PersonalityTrait, Float> entry : personalityChanceOverrides.entrySet()) {
+				map.put(entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -394,15 +704,60 @@ public abstract class AbstractRacialBody {
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {
-		if(gender.isFeminine()) {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(15, 50, 35);
+		if(this.fromExternalFile) {
+			if(gender.isFeminine()) {
+				return SexualOrientationPreference.getSexualOrientationFromUserPreferences(orientationFeminineGynephilic, orientationFeminineAmbiphilic, orientationFeminineAndrophilic);
+			} else {
+				return SexualOrientationPreference.getSexualOrientationFromUserPreferences(orientationMasculineGynephilic, orientationMasculineAmbiphilic, orientationMasculineAndrophilic);
+			}
+			
 		} else {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(40, 50, 10);
+			if(gender.isFeminine()) {
+				return SexualOrientationPreference.getSexualOrientationFromUserPreferences(20, 40, 40);
+			} else {
+				return SexualOrientationPreference.getSexualOrientationFromUserPreferences(60, 30, 10);
+			}
 		}
 	}
 	
-	public AbstractAntennaType getAntennaType() {
-		return antennaType;
+	public boolean isMod() {
+		return mod;
+	}
+	
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+	
+	/**
+	 * @param includeTypeNONE Set as true if you want the returned AntennaType to possibly include AntennaType.NONE. (Will include NONE anyway if the list is empty.)
+	 * @return A random AntennaType from this race's possible antennaTypes.
+	 */
+	public AbstractAntennaType getRandomrAntennaType(boolean includeTypeNONE) {
+		List<AbstractAntennaType> antennaList = new ArrayList<>(antennaTypes);
+		
+		if(includeTypeNONE || antennaTypes.size()==1) {
+			return antennaTypes.get(Util.random.nextInt(antennaTypes.size()));
+		} else {
+			antennaList.remove(AntennaType.NONE);
+			return antennaList.get(Util.random.nextInt(antennaList.size()));
+		}
+	}
+	
+	public List<AbstractAntennaType> getAntennaTypes(boolean removeTypeNone) {
+		if(removeTypeNone) {
+			List<AbstractAntennaType> antennaList = new ArrayList<>(antennaTypes);
+			antennaList.remove(AntennaType.NONE);
+			return antennaList;
+		}
+		return antennaTypes;
+	}
+
+	public int getMaleAntennaLength() {
+		return maleAntennaLength;
+	}
+
+	public int getFemaleAntennaLength() {
+		return femaleAntennaLength;
 	}
 
 	public AbstractArmType getArmType() {
@@ -433,26 +788,41 @@ public abstract class AbstractRacialBody {
 		return earType;
 	}
 
-	public HairType getHairType() {
+	public AbstractHairType getHairType() {
 		return hairType;
 	}
 
 	public AbstractLegType getLegType() {
+		return getLegType(getLegConfiguration());
+	}
+	
+	/**
+	 * @return The default legType for this body when its LegConfiguration is the passed in configuration argument.
+	 */
+	public AbstractLegType getLegType(LegConfiguration configuration) {
 		return legType;
 	}
-
+	
 	public LegConfiguration getLegConfiguration() {
 		return legConfiguration;
 	}
 
-	public SkinType getSkinType() {
-		return skinType;
+	public AbstractTorsoType getTorsoType() {
+		return torsoType;
 	}
 	
 	public BodyMaterial getBodyMaterial() {
 		return bodyMaterial;
 	}
-
+	
+	public AbstractBodyCoveringType getBodyHairType() {
+		if(this.isFromExternalFile()) {
+			return BodyCoveringType.getBodyCoveringTypeFromId(bodyHairId);
+		} else {
+			return bodyHairType;
+		}
+	}
+	
 	/**
 	 * @param includeTypeNONE Set as true if you want the returned HornType to possibly include HornType.NONE. (Will include NONE anyway if the list is empty.)
 	 * @return A random HornType from this race's possible hornTypes.
@@ -477,7 +847,7 @@ public abstract class AbstractRacialBody {
 		return hornTypes;
 	}
 	
-	public PenisType getPenisType() {
+	public AbstractPenisType getPenisType() {
 		return penisType;
 	}
 	
@@ -500,11 +870,11 @@ public abstract class AbstractRacialBody {
 		return tailTypes;
 	}
 
-	public TentacleType getTentacleType() {
+	public AbstractTentacleType getTentacleType() {
 		return tentacleType;
 	}
 	
-	public VaginaType getVaginaType() {
+	public AbstractVaginaType getVaginaType() {
 		return vaginaType;
 	}
 
@@ -512,8 +882,8 @@ public abstract class AbstractRacialBody {
 	 * @param includeTypeNONE Set as true if you want the returned TailType to possibly include TailType.NONE. (Will include NONE anyway if the list is empty.)
 	 * @return A random TailType from this race's possible tailTypes.
 	 */
-	public WingType getRandomWingType(boolean includeTypeNONE) {
-		List<WingType> wingList = new ArrayList<>(wingTypes);
+	public AbstractWingType getRandomWingType(boolean includeTypeNONE) {
+		List<AbstractWingType> wingList = new ArrayList<>(wingTypes);
 		
 		if(includeTypeNONE || wingTypes.size()==1) {
 			return wingTypes.get(Util.random.nextInt(wingTypes.size()));
@@ -523,7 +893,7 @@ public abstract class AbstractRacialBody {
 		}
 	}
 	
-	public List<WingType> getWingTypes() {
+	public List<AbstractWingType> getWingTypes() {
 		return wingTypes;
 	}
 	
@@ -589,6 +959,14 @@ public abstract class AbstractRacialBody {
 
 	public int getFemaleAssSize() {
 		return femaleAssSize;
+	}
+
+	public int getMaleHipSize() {
+		return maleHipSize;
+	}
+
+	public int getFemaleHipSize() {
+		return femaleHipSize;
 	}
 
 	public int getMaleHairLength() {
@@ -687,17 +1065,20 @@ public abstract class AbstractRacialBody {
 		return femaleAreolaeSize;
 	}
 
+	public AreolaeShape getMaleAreolaeShape() {
+		return maleAreolaeShape;
+	}
+
+	public AreolaeShape getFemaleAreolaeShape() {
+		return femaleAreolaeShape;
+	}
+
 	public AbstractBreastType getBreastCrotchType() {
 		return breastCrotchType;
 	}
 
 	public List<BreastShape> getBreastCrotchShapes() {
 		return breastCrotchShapes;
-	}
-
-
-	public NippleShape getBreastCrotchNippleShape() {
-		return breastCrotchNippleShape;
 	}
 
 	public int getBreastCrotchSize() {
@@ -728,12 +1109,20 @@ public abstract class AbstractRacialBody {
 		return nippleCountPerBreastCrotch;
 	}
 
+	public int getBreastCrotchNippleSize() {
+		return breastCrotchNippleSize;
+	}
+
+	public NippleShape getBreastCrotchNippleShape() {
+		return breastCrotchNippleShape;
+	}
+
 	public int getBreastCrotchAreolaeSize() {
 		return breastCrotchAreolaeSize;
 	}
 
-	public int getBreastCrotchNippleSize() {
-		return breastCrotchNippleSize;
+	public AreolaeShape getBreastCrotchAreolaeShape() {
+		return breastCrotchAreolaeShape;
 	}
 
 	public int getBreastCrotchCount() {
@@ -742,6 +1131,10 @@ public abstract class AbstractRacialBody {
 
 	public int getClitSize() {
 		return clitSize;
+	}
+
+	public int getClitGirth() {
+		return clitGirth;
 	}
 
 	public int getPenisSize() {

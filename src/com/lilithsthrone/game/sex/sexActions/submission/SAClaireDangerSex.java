@@ -14,7 +14,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -35,12 +34,9 @@ public class SAClaireDangerSex {
 			null,
 			SexParticipantType.NORMAL) {
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
-		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().getWorldLocation()==WorldType.SUBMISSION
+					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Claire.class))
 					&& !SexFlags.claireSexInterrupted
 					&& Main.sex.getTurn() - SexFlags.claireSexInterruptedTurn > 4
 					&& !Main.sex.isInForeplay(Main.game.getNpc(Claire.class))
@@ -62,23 +58,7 @@ public class SAClaireDangerSex {
 		}
 		@Override
 		public String getDescription() {
-			StringBuilder sb = new StringBuilder();
-			
-			sb.append("[claire.speechNoEffects(~Mmm!~ Yes!)] Claire moans, before suddenly opening her eyes wide and hissing, [claire.speech(I think I hear someone coming!)]"
-					+ "<br/><br/>"
-					+ "Sure enough, as you look over towards the door to the storeroom, you see the handle beginning to turn.");
-			
-			if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).isStanding(Main.game.getPlayer())) {
-				sb.append(" Before you can make a move, Claire frantically grabs hold of you and pulls you behind a nearby filing cabinet."
-						+ " With her hot breath falling on your bare [pc.skin], [npc.she] hisses, [claire.speech(Don't make a sound!)]");
-			} else {
-				sb.append(" Before you can make a move, Claire frantically grabs hold of you and pulls you down onto the carpeted floor behind a stack of papers."
-						+ " With her hot breath falling on your bare [pc.skin], [npc.she] hisses, [claire.speech(Don't make a sound!)]");
-			}
-			
-			sb.append("<p style='text-align:center;'>[style.italicsBad(There is an Enforcer entering the stockroom!)]</p>");
-			
-			return sb.toString();
+			return UtilText.parseFromXMLFile("characters/submission/claire", "PARTNER_INTERRUPTED");
 		}
 		@Override
 		public void applyEffects() {
@@ -95,12 +75,9 @@ public class SAClaireDangerSex {
 			null,
 			SexParticipantType.NORMAL) {
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexFlags.claireSexInterrupted;
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& SexFlags.claireSexInterrupted;
 		}
 		@Override
 		public SexActionPriority getPriority() {
@@ -117,16 +94,7 @@ public class SAClaireDangerSex {
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
-			sb.append("From your hiding place, you and Claire are only just concealed from the angle of the doorway, and as you hear it swing open, you wonder if the two of you are about to be discovered."
-					+ " Calling out behind them, the Enforcer who's entering the room shouts,"
-					+ (Math.random()<0.5f?" [genericMale.speech(":" [genericFemale.speech(")
-					+ UtilText.returnStringAtRandom(
-							"What?! Just one box?!",
-							"Yeah, I know, I'm getting it now!",
-							"Did you say you were after the red ones?! ... Ok!",
-							"I think I know where they're kept by now! I <i>have</i> been working here for two years, remember?!",
-							"Yeah, I'll grab you some pencils as well, hold on!")
-					+ ")]");
+			sb.append(UtilText.parseFromXMLFile("characters/submission/claire", "ENFORCER_ENTERING"));
 			
 			boolean foundPenetration = false;
 			Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> map = Main.sex.getOngoingActionsMap(Main.game.getPlayer());
@@ -136,48 +104,55 @@ public class SAClaireDangerSex {
 				if(area.isOrifice()) {
 					foundPenetration = true;
 					sb.append("<br/><br/>");
+					sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] ");
 					switch((SexAreaOrifice)area) {
 						case ANUS:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing deep inside Claire's [claire.asshole]."
+							sb.append("throbbing deep inside Claire's [claire.asshole]."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her [claire.ass+] back against you, driving your cock even deeper into her [claire.asshole].");
 							break;
 						case ASS:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing between Claire's [claire.assSize] ass cheeks."
+							sb.append("throbbing between Claire's [claire.assSize] ass cheeks."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly bucks her [claire.hips+] back against you, driving your cock up and down over her [claire.asshole].");
 							break;
 						case BREAST:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing between Claire's [claire.breastSize] boobs."
+							sb.append("throbbing between Claire's [claire.breastSize] boobs."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her [claire.breasts+] together, enveloping your cock in her cleavage.");
 							break;
 						case BREAST_CROTCH:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing between Claire's [claire.crotchBoobSize] [claire.crotchBoobs]."
+							sb.append("throbbing between Claire's [claire.crotchBoobSize] [claire.crotchBoobs]."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her [claire.crotchBoobs+] together, enveloping your cock in her cleavage.");
 							break;
 						case MOUTH:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing inside Claire's mouth."
+							sb.append("throbbing inside Claire's mouth."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her head forwards, driving your cock deep down her throat.");
 							break;
 						case NIPPLE:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing deep inside Claire's [claire.nipple]."
+							sb.append("throbbing deep inside Claire's [claire.nipple(true)]."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her chest out into you, driving your cock even deeper into her [claire.nipple+].");
 							break;
 						case NIPPLE_CROTCH:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing deep inside Claire's [claire.crotchNipple]."
+							sb.append("throbbing deep inside Claire's [claire.crotchNipple]."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her stomach out into you, driving your cock even deeper into her [claire.crotchNipple+].");
 							break;
 						case THIGHS:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing between Claire's thick thighs."
+							sb.append("throbbing between Claire's thick thighs."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly bucks her [claire.hips+] back against you, driving your cock between her soft legs.");
 							break;
 						case URETHRA_PENIS:
 							break;
 						case URETHRA_VAGINA:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing deep inside Claire's [claire.urethraVagina]."
+							sb.append("throbbing deep inside Claire's [claire.urethraVagina]."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her [claire.hips+] out into you, driving your cock even deeper into her [claire.urethraVagina].");
 							break;
 						case VAGINA:
-							sb.append("Remaining completely still and silent as the Enforcer starts searching through the storeroom, you suddenly become aware of your [pc.cock+] throbbing deep inside Claire's [claire.pussy+]."
+							sb.append("throbbing deep inside Claire's [claire.pussy+]."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her [claire.hips+] out into you, driving your cock even deeper into her [claire.pussy+].");
+							break;
+						case ARMPITS:
+							sb.append("throbbing up against Claire's armpit."
+									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly grinds herself up and down against you, driving your cock over her [claire.armpit+].");
+							break;
+						case SPINNERET:
 							break;
 					}
 					sb.append("<br/><br/>"
@@ -191,6 +166,113 @@ public class SAClaireDangerSex {
 			}
 			sb.append(" Letting out a sigh of relief, you and Claire move back into your previous position, before continuing from where you left off...");
 
+			return sb.toString();
+		}
+		@Override
+		public void applyEffects() {
+			SexFlags.claireSexInterrupted = false;
+		}
+	};
+	
+
+	public static final SexAction PLAYER_KEEP_GOING = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public boolean isBaseRequirementsMet() {
+			boolean foundPenetration = false;
+			Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> map = Main.sex.getOngoingActionsMap(Main.game.getPlayer());
+			if(map.containsKey(SexAreaPenetration.PENIS) && map.get(SexAreaPenetration.PENIS).containsKey(Main.game.getNpc(Claire.class))) {
+				foundPenetration = map.get(SexAreaPenetration.PENIS).get(Main.game.getNpc(Claire.class)).iterator().next().isOrifice();
+			}
+			return foundPenetration
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& SexFlags.claireSexInterrupted;
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Keep going";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Ignore Claire's plea to remain quiet and keep on fucking her.";
+		}
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("characters/submission/claire", "ENFORCER_ENTERING"));
+			
+			Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> map = Main.sex.getOngoingActionsMap(Main.game.getPlayer());
+			SexAreaInterface area = map.get(SexAreaPenetration.PENIS).get(Main.game.getNpc(Claire.class)).iterator().next();
+			if(area.isOrifice()) {
+				sb.append("<br/><br/>");
+				sb.append("Seeing no reason to do as Claire asks, you ignore the fact that there's an Enforcer searching through the storeroom and continue to ");
+				switch((SexAreaOrifice)area) {
+					case ANUS:
+						sb.append(" thrust your [pc.cock+] in and out of Claire's [claire.asshole+]."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her ass.");
+						break;
+					case ASS:
+						sb.append(" thrust your [pc.cock+] up and down between Claire's [claire.assSize] ass cheeks."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her ass's cleavage.");
+						break;
+					case BREAST:
+						sb.append(" thrust your [pc.cock+] up and down between Claire's [claire.breastSize] boobs."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her ample cleavage.");
+						break;
+					case BREAST_CROTCH:
+						sb.append("thrust your [pc.cock+] up and down between Claire's [claire.crotchBoobSize] [claire.crotchBoobs]."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her crotch-boob's cleavage.");
+						break;
+					case MOUTH:
+						sb.append(" thrust your [pc.cock+] down Claire's throat."
+								+ " Not wanting to be discovered, the horny cat-girl does her best to remain quiet as you continue to relentlessly fuck her face.");
+						break;
+					case NIPPLE:
+						sb.append(" thrust your [pc.cock+] in and out of Claire's [claire.nipple(true)+]."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her [claire.nipple(true)].");
+						break;
+					case NIPPLE_CROTCH:
+						sb.append(" thrust your [pc.cock+] in and out of Claire's [claire.crotchNipple(true)+]."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her [claire.crotchNipple(true)].");
+						break;
+					case THIGHS:
+						sb.append(" thrust your [pc.cock+] in and out of Claire's thick thighs."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her thighs.");
+						break;
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
+						sb.append(" thrust your [pc.cock+] in and out of Claire's [claire.urethraVagina]."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her [claire.urethraVagina].");
+						break;
+					case VAGINA:
+						sb.append(" thrust your [pc.cock+] in and out of Claire's [claire.pussy+]."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her [claire.pussy].");
+						break;
+					case ARMPITS:
+						sb.append(" thrust your [pc.cock+] up and down over Claire's [claire.armpit]."
+								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with her free hand and does her best to remain quiet as you continue to relentlessly fuck her [claire.armpit+].");
+						break;
+					case SPINNERET:
+						break;
+				}
+				sb.append("<br/><br/>"
+						+ "Just as it seems as though the busty cat-girl can't take any more, the Enforcer finds what they're looking for, and, without spotting the two of you locked in coitus, they leave just as quickly as they entered.");
+			}
+			
+			sb.append(" Finally able to break her silence, Claire lets out a particularly-erotic moan and exclaims, [claire.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ I-I told you to stop!)]");
+			sb.append("<br/><br/>");
+			sb.append("Telling your horny partner that you were having too much fun to do as she asked, you flash her a cheeky smile before moving back into your previous position and quickly continuing from where you left off...");
+			
 			return sb.toString();
 		}
 		@Override

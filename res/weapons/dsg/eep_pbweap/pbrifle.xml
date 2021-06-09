@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[pepperball rifles]]></namePlural> 
 		
-		<description><![CDATA[Used by Enforcers on targets with high lust resistance, this weapon uses an air spell to propel fin-stabilized capsules much farther than a conventional paintball marker. The capsules shatter on impact with auras, showering the immediate area with a pepper-based oil that produces an extremely painful burning sensation akin to being on fire.]]></description> 
+		<description><![CDATA[This weapon uses an air spell to propel fin-stabilized capsules much farther than a conventional paintball marker. The capsules shatter on impact with auras, showering the immediate area with a pepper-based oil that produces an extremely painful burning sensation akin to being on fire.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		
@@ -32,7 +32,10 @@
 		
 		<imageEquippedName>pbrifle.svg</imageEquippedName>
 		
-		<damage>35</damage> 
+		<damage>35</damage>
+		
+		<aoe chance="25">7</aoe>
+		<aoe chance="25">7</aoe>
 		
 		<arcaneCost>3</arcaneCost> 
 		
@@ -54,8 +57,12 @@
 			<colour>CLOTHING_GUNMETAL</colour>
 		</secondaryColours>
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_BLACK"/> 
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_MEDIUM</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

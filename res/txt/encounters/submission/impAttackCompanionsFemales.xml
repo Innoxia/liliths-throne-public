@@ -64,7 +64,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [pc.she] is.)]
+			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [pc.she] is.)]
 		</p>
 		<p>
 			With no further warning, [npc2.name] reaches forwards and grabs your shoulders, before pushing you down onto your back. [npc2.speech(That's right, lie back and relax! Time to be a good fuck-toy!)]
@@ -121,7 +121,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [npc.she] is.)]
+			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [npc.she] is.)]
 		</p>
 		<p>
 			With no further warning, [npc2.name] reaches forwards and grabs the back of [npc.namePos] head, before pushing [npc.herHim] down onto the floor. [npc2.speech(Get down, [npc.insult]! Time to be a good fuck-toy for us!)]
@@ -258,7 +258,7 @@
 		[npc2.speech(So what are you waiting for?)] [npc2.Name] snaps at [npc2.her] subordinates. [npc2.speech(Get them down on their knees!)]
 	</p>
 	<p>
-		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [npc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto your knees. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
+		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [pc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto your knees. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
 	</p>
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
@@ -278,7 +278,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
+				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
 			</p>
 			<p>
 				[npc2.speech(Yeah, just save your potion for the next one,)] [npc2.name] replies.#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
@@ -296,7 +296,7 @@
 		#IF npc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 		#THEN
 			<p>
-				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc2.name] tuts, before turning towards [npc2.her] partner. [npc3.she] sighs, [npc3.speech(Just use the other potion we've got on [pc.herHim].)]
+				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] tuts, before turning towards [npc2.her] partner. [npc3.she] sighs, [npc3.speech(Just use the other potion we've got on [pc.herHim].)]
 			</p>
 			<p>
 				Quickly producing a bottle of strange liquid, [npc3.name] does as [npc3.her] superior commands, and, pulling the stopper out, [npc3.she] steps forwards, before grabbing [npc.namePos] chin and squeezing [npc.her] cheeks. 
@@ -312,7 +312,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those jinxes! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
+				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those seal enchantments! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
 			</p>
 			<p>
 				With no further warning, [npc2.name] reaches forwards and grabs the back of your head, before pushing you down onto the floor. [npc2.speech(Get down, [pc.insult]! Time to be a good fuck-toy for us!)]
@@ -347,10 +347,10 @@
 	
 	<htmlContent tag="IMP_ATTACK_OFFER_THREESOME_BOTH_SPIT"><![CDATA[
 	<p>
-		Neither you nor [npc.name] have any intention of swallowing the imps' transformative potion, and, almost simultaneously, you each jerk your heads back, before spitting the liquid out all over the floor. Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc.speech(You [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
+		Neither you nor [npc.name] have any intention of swallowing the imps' transformative potion, and, almost simultaneously, you each jerk your heads back, before spitting the liquid out all over the floor. Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc2.speech(You [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
 	</p>
 	<p>
-		Knowing what the alternative was, [npc.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
+		Knowing what the alternative was, [npc2.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc2.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -373,10 +373,10 @@
 		Much to your relief, [npc.name] seems willing to do as you say, and as you glance across at [npc.herHim], you see [npc.herHim] turn [npc.her] head to one side, before spitting [npc3.namePos] potion onto the floor.
 	</p>
 	<p>
-		Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
+		Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc2.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
 	</p>
 	<p>
-		Knowing what the alternative was, [npc.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
+		Knowing what the alternative was, [npc2.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc2.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -426,7 +426,7 @@
 		Not giving you a moment's respite, [npc2.name] snaps [npc2.her] fingers, before pointing at the two of you and ordering [npc.her] subordinates, [npc.speech(Restrain them! Go on, get them, quick!)]
 	</p>
 	<p>
-		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [npc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto the floor. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
+		Two of the smaller imps immediately dart forwards, before flying up beside you and [npc.name]. Reaching out to grab hold of your [pc.arm], [npc4.name] then folds [npc4.her] wings behind [npc4.her] back and uses [npc4.her] weight to pull you down onto the floor. Looking to your side, you see [npc5.name] doing the same to [npc.name]. As the two of you hit the floor, you look up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen.
 	</p>
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
@@ -446,7 +446,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
+				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
 			</p>
 			<p>
 				[npc2.speech(Yeah, just save yer potion for the next cunt we find,)] [npc2.name] snaps.
@@ -465,7 +465,7 @@
 		#IF npc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 		#THEN
 			<p>
-				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc3.name] tuts, before turning towards [npc2.her] partner. [npc3.speech(At least you're gonna get to transform [npc.herHim].)]
+				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc3.name] tuts, before turning towards [npc2.her] partner. [npc3.speech(At least you're gonna get to transform [npc.herHim].)]
 			</p>
 			<p>
 				Quickly producing a bottle of strange liquid, [npc3.name] does as [npc3.her] superior commands, and, pulling the stopper out, [npc3.she] steps forwards, before grabbing [npc.namePos] chin and squeezing [npc.her] cheeks. 
@@ -481,7 +481,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those jinxes! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
+				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those seal enchantments! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
 			</p>
 			<p>
 				With no further warning, [npc2.name] reaches forwards and grabs your chin, before forcing you to look [npc2.herHim] in the eye as [npc2.she] snarls, [npc2.speech(Stupid [pc.insultPlural]! You're gonna love being our fuck-toys!)]
@@ -571,10 +571,10 @@
 	
 	<htmlContent tag="COMBAT_DEFEAT_TF_REFUSED"><![CDATA[
 	<p>
-		You have no intention of swallowing the imps' transformative potion, and, jerking your head back, you spit the liquid out all over the floor. Your resistance is immediately met by a sharp slap to the face, accompanied by a loud screech as [npc.name] hurls the bottle to one side. [npc.speech(You fucking [pc.insult]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
+		You have no intention of swallowing the imps' transformative potion, and, jerking your head back, you spit the liquid out all over the floor. Your resistance is immediately met by a sharp slap to the face, accompanied by a loud screech as [npc2.name] hurls the bottle to one side. [npc2.speech(You fucking [pc.insult]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
 	</p>
 	<p>
-		[npc.NamePos] insults are easy to weather, knowing what the alternative was, and you simply cast your gaze to the floor as you wait for [npc.herHim] to calm down. As you do this, however, [npc.she] suddenly reaches forwards, and, grabbing you by the back of the neck, forces you down onto the floor. [npc.speech(Get down, [pc.insult]! If you can't do something so simple as drinking a potion, all you're good for is being a fuck-toy for us to use!)]
+		[npc2.NamePos] insults are easy to weather, knowing what the alternative was, and you simply cast your gaze to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, [npc2.she] suddenly reaches forwards, and, grabbing you by the back of the neck, forces you down onto the floor. [npc2.speech(Get down, [pc.insult]! If you can't do something so simple as drinking a potion, all you're good for is being a fuck-toy for us to use!)]
 	</p>
 	]]>
 	</htmlContent>

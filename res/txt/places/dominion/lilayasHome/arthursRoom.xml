@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ROOM_ARTHUR_INSTALLATION -->
+
+	<htmlContent tag="ROOM_ARTHUR_INSTALLATION"><![CDATA[
+	<p>
+		Deciding that this room would be suitable to convert for Arthur's use, you walk over to the bell-pull in one corner and give it a tug. After just a few moments, Rose steps through the door, before curtsying and greeting you, [rose.speech(Is there anything you need, [pc.name]?)]
+	</p>
+	<p>
+		[pc.speech(I've decided that this would be the best place for Arthur to have as his room,)] you reply, and, deciding that you'd like to get it set up as quickly as possible, you continue, [pc.speech(If you show me what needs moving in here, I can give you a hand.)]
+	</p>
+	<p>
+		Thanking you for the offer of help, Rose proceeds to lead you to a storage cupboard, where a significant amount of spare lab equipment is being kept. After showing you which of the items Arthur will need in order to carry out experiments for Lilaya, Rose picks up one of the smaller desks and sets off in the direction of the room. Following her lead, you start moving furniture into Arthur's new room, and after just half an hour, you manage to get all of the work finished.
+	</p>
+	<p>
+		[rose.speech(I'll fetch mistress,)] Rose says, before slipping out of the room.
+	</p>
+	<p>
+		After just a couple of minutes, the door pushes open again, and Rose steps into the room, followed by Arthur. [rose.speech(Here you are, sir. If there's anything you need, please use the bell-pull to call for me.)]
+	</p>
+	<p>
+		With that, Rose exits the room once again, leaving you alone with Arthur. He lets out a deep sigh as he walks over to sit on his new bed, before looking up at you and smiling. [arthur.speech(I don't think I've said it properly yet, so thank you [pc.name], for rescuing me.)]
+	</p>
+	<p>
+		[pc.speech(You're welcome,)] you reply. [pc.speech(So do you think you can figure out how I was transported into your world? Lilaya told me that you're the best arcane researcher out there...)]
+	</p>
+	<p>
+		[arthur.speech(Lilaya said that, huh?)] Arthur says, leaning back and smiling. [arthur.speech(Well, I do have a certain theory, but when I told Lilaya about it, she wasn't too convinced. Considering my position, I don't really have a choice but to perform the experiments and research that she asks for, but I'm absolutely convinced that they'll get us no closer to unravelling your mystery. What I'd really like to do is get to talk to someone about my theory...)]
+	</p>
+	<p>
+		[pc.speech(You could talk to me about it,)] you offer.
+	</p>
+	<p>
+		[arthur.speech(Ah, well, thank you, but I wouldn't want to worry you, in case I turn out to be wrong,)] Arthur stammers, before quickly continuing, [arthur.speech(What I really meant is that I'd like to talk to someone who would be able to confirm or deny my theory absolutely. Someone with more understanding of the arcane than anyone you'd ever find wandering around in Dominion. Someone like a Lilin. But not just any Lilin; it needs to be one of the seven elders.)]
+	</p>
+	<p>
+		[pc.speech(An elder Lilin? Lilaya's mother wouldn't happen to be one of those, would she?)] you offer, remembering that Rose once told you that Lilaya's mother was the Lilin Lyssieth.
+	</p>
+	<p>
+		[arthur.speech(Not only is she an elder Lilin, but she's the very one who told me such a thing existed in the first place! It'd be near-impossible to get any other Lilin to talk with me, but I know Lyssieth will...)] Arthur explains, before suddenly blurting out, [arthur.speech(B-But please, <i>please</i> don't tell Lilaya that I'm looking to speak with her mother...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH -->
+	
+	<htmlContent tag="ROOM_ARTHUR_INSTALLATION_AGREE_TO_CONVINCE_LYSSIETH"><![CDATA[
+	<p> 
+		[pc.speech(Ok, I'll find Lyssieth and see if I can convince her to meet with you,)] you say, [pc.speech(but if I'm to keep this from Lilaya, I'll need to know why.)] 
+	</p> 
+	<p>
+		Arthur smiles happily as he hears that you're willing to help, but as you demand an explanation, he lets out a heavy sigh, [arthur.speech(That's fair enough, I suppose. I'd have to explain the whole situation to you anyway, as it's the reason why Lyssieth isn't exactly easy to get hold of these days.)] 
+	</p> 
+	<p>
+		[pc.speech(Is this related to Lilaya's accusations which I witnessed earlier?)] 
+	</p> 
+	<p> 
+		[arthur.speech(Yes... You see, as I'm sure you already know, Lilaya and I used to work here together. After a time, we started dating, but it didn't last long...)] 
+	</p> 
+	<p>
+		Arthur seems quite reluctant to continue, but after a moment of silence, he continues, [arthur.speech(At the time, Lyssieth used to visit very regularly, and would always make a fuss over Lilaya. Well, the last time Lyssieth visited, Lilaya was out on a rare errand, and, left alone with her in the lab... well... i-it's hard saying no to a Lilin... and after she told me she had a thing for humans...)] 
+	</p> 
+	<p>
+		[pc.speech(Ah,)] you sigh, seeing where this is going. 
+	</p> 
+	<p>
+		[arthur.speech(Mmm... Needless to say, Lilaya returned and caught us in the act,)] Arthur continues, casting his eyes to the floor, [arthur.speech(and you can imagine the rest... She still hasn't forgiven either of us for that. I mean, polyamory isn't exactly uncommon - hell, Lilaya herself was still sleeping with Rose at the time - but seeing as it was with her mother, as well as the fact that we'd done it behind her back...)] 
+	</p> 
+	<p>
+		Arthur falls into silence for a moment again, before shaking his head and looking up at you. [arthur.speech(Anyway, that's the whole reason for Lilaya living alone like this. You see, Lyssieth only has a few recognised children, and amongst them, Lilaya was clearly her favourite. When Lilaya told her mother that she never wanted to see her again, Lyssieth really took it hard. Although she'd been appointed by Lilith to govern the undercity of Submission, she'd never really taken her duties seriously before, but after all this, she retreated to her official residence down there. I don't think she's been seen up here in Dominion since....)] 
+	</p> 
+	<p>
+		[pc.speech(So you want me to go down into Submission, find Lyssieth, and convince her to come and meet with you, all behind Lilaya's back? I can't betray her trust like that...)] 
+	</p> 
+	<p>
+		[arthur.speech(This is all to find out the truth behind why you appeared in this world,)] Arthur tries to remind you, but, upon seeing the serious expression on your face, he concedes, [arthur.speech(Bloody hell... Fine, I'll admit that I'm more than a little interested in it as well. Don't worry about going behind her back; I'll tell Lilaya about all of this. I'll need a little time to build up to it, however, so until then please don't mention anything about this to her.)] 
+	</p> 
+	<p>
+		[pc.speech(Ok, but I won't bring Lyssieth here until you've told Lilaya,)] you firmly state. 
+	</p> 
+	<p>
+		[arthur.speech(Don't worry, by the time you've found and convinced her, I'll have let Lilaya know. Well, with that settled, I should get on with these experiments Lilaya's assigned to me. If there's ever anything you need, please don't hesitate to drop by and let me know; my door's always open to the person who saved me!)] 
+	 </p> 
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR -->
+	
+	<htmlContent tag="ROOM_ARTHUR"><![CDATA[
+	<p> 
+		You find yourself standing in Arthur's Room, which, due to the occupant's need to carry out any experiments assigned to him, looks like a miniature version of Lilaya's lab. The walls are lined with cluttered tables, stacked bookcases, and cupboards full of all manner of scientific-looking apparatus. A solitary bed is positioned in one corner, but aside from that, there's no other indication that this room doubles as Arthur's sleeping quarters. 
+	</p> 
+	<p> 
+		Busily performing one of the experiments that Lilaya has assigned to him, Arthur looks to be hard at work, although you don't think he'd mind if you asked him a few questions... 
+	</p> 
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_LYSSIETH -->
+	
+	<htmlContent tag="ROOM_ARTHUR_LYSSIETH"><![CDATA[
+	<p> 
+		Wanting to know a little more about Lilaya's mother, you approach Arthur and get his attention, before asking him what he can tell you about Lyssieth.
+	</p> 
+	<p> 
+		Arthur smiles a little at the question and recalls, [arthur.speech(In a lot of ways, she was exactly what you'd expect one of Lilith's daughters to be; confident, controlling, and immensely powerful. My first impression of her was one of incredible haughtiness and arrogance, but as I watched her interactions with Lilaya, I saw that she had a softer, more loving side...)] 
+	</p> 
+	<p> 
+		Arthur seems to get a little caught-up in his thoughts for a moment, before shaking his head and looking up at you. [arthur.speech(Of course, as you'd expect from a Lilin, she's practically dripping with sex appeal. She also has a thing for humans, which explains why most of her daughters are half-demons; if a Lilin's partner isn't corrupted into a demon before having sex, then their offspring end up like Lilaya. Not that that's a bad thing, of course, but society does typically treat human half-demons as being the lowest of all the demonic subspecies. That is of course, unless they've been recognised by their mother, like Lilaya has been.)] 
+	<p> 
+	</p> 
+		Arthur turns to one side to check on his experiment, making a satisfied humming noise before facing you once more and continuing, [arthur.speech(Sorry about that. Anyway, you should know that Lyssieth's love of humans even extends to the appearance she likes to take on the most. The Lilin can transform themselves into any race imaginable, you see, and Lyssieth likes to stay in the form of a human. She'd change her style almost every day, but no matter what appearance she took on, she'd always be so beautiful...)] 
+	</p> 
+	<p> 
+		Again, Arthur seems to lose himself in his thoughts, and, having heard enough, you decide to take a step back and let him resume his experiments. 
+	</p> 
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_LILAYA -->
+	
+	<htmlContent tag="ROOM_ARTHUR_LILAYA"><![CDATA[
+	<p>
+		You find yourself curious to know what Arthur's memories of Lilaya are like, so, stepping forwards, you ask, [pc.speech(I hope you don't mind me asking, but what was Lilaya like when you two were dating?)]
+	</p>
+	<p>
+		[arthur.speech(Loving, but very controlling,)] Arthur replies with a sad smile. [arthur.speech(While she'd often spend entire evenings alone with Rose, she all but banned me from spending any time with anyone else. Not that I really had other people that I wanted to see, but it still felt a little stifling. I'm not trying to make excuses for what I did, but maybe that's partly why I... erm, you know... with Lyssieth... Anyway, returning to your question, Lilaya was much as she still is now; kind and friendly with people she knows, but nervous and confrontational around strangers. Like others with demonic blood, she's naturally gifted with the arcane, and also has quite a high sex drive...)]
+	</p>
+	<p>
+		Arthur blushes and clears his throat, before turning back to his experiments and stating, [arthur.speech(I need to get on with this now!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_HYPNO_WATCH_START -->
+	
+	<htmlContent tag="ROOM_ARTHUR_HYPNO_WATCH_START"><![CDATA[
+	<p>
+		The sight of the numerous arcane instruments and beakers of bubbling, brightly-coloured liquid that are scattered over every surface fills you with curiosity, and you can't help but ask,
+		#IF(pc.getName(false).equals("Eru") && pc.getSurname().equals("Chitanda"))
+			 [pc.speech(What sort of experiments are you working on? Watashi ki ni narimasu!)]
+		#ELSE
+			 [pc.speech(What sort of experiments are you working on?)]
+		#ENDIF
+	</p>
+	<p>
+		[arthur.speech(Nothing too interesting, really; Lilaya's tasked me to repeat one of her experiments that's related to detecting inter-dimensional particles. I've already told her that it doesn't hold up in theory, let alone practice, but she doesn't listen,)] Arthur sighs, before a mischievous look flashes across his face. [arthur.speech(You know... there is <i>something</i> a little more interesting that I could do. You see, back when I was working for Zaranix, one of his ideas was to get me to find an arcane method of changing a person's sexual orientation. At first I thought it might prove impossible, like all his other ideas, but after doing a little research into it, I think I might actually have found a way to enchant a certain item that could do the trick. I'd never have use for such an instrument myself, you understand, but in the name of scientific curiosity, I'd very much like to test my theory.)]
+	</p>
+	<p>
+		Seeing where this conversation is headed, you muse, [pc.speech(Why do I get the feeling you're about to ask me to do something?)]
+	</p>
+	<p>
+		[arthur.speech(Well, it's only a small errand. I just need a package collected from Vicky over at Arcane Arts. I would ask Lilaya to send Rose, but I can't afford the hour's worth of lecturing I receive every time I talk to her...)]
+	</p>
+	<p>
+		[pc.speech(Well, if it's just picking up a package, I could do that the next time I'm over in the Shopping Arcade,)] you offer.
+	</p>
+	<p>
+		[arthur.speech(Excellent!)] Arthur exclaims, [arthur.speech(Thank you so much, [pc.name]! Now, I really should get on with this pointless experiment, or else Lilaya will have yet more ammunition to use against me...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_HYPNO_WATCH_DELIVERY -->
+	
+	<htmlContent tag="ROOM_ARTHUR_HYPNO_WATCH_DELIVERY"><![CDATA[
+	<p>
+		Presenting the package to Arthur, you ask the question at the forefront of your mind, [pc.speech(Here's the package from Arcane Arts. I couldn't help but wonder, though, what's inside?)]
+	</p>
+	<p>
+		[arthur.speech(Ah! Thank you, [pc.name]! I hope you didn't have any trouble with Vicky; she can be a little overwhelming sometimes,)] Arthur says, taking the package from you and ringing the bell-pull in the corner of his room. [arthur.speech(As to what's inside, I'll show you right now!)]
+	</p>
+	<p>
+		Tearing off the tape that's holding the box together, Arthur quickly opens it up and reaches inside. Stepping closer to get a better look, you see him pull out a silver pocket-watch, with a long chain attached to the top. The hour and minute hands don't look as though they're moving, and the time that's shown is stuck at four minutes past ten.
+	</p>
+	<p>
+		[pc.speech(A broken pocket watch?)] You ask, a little unimpressed.
+	</p>
+	<p>
+		Before Arthur can answer, there's a knock at the door, before Rose steps inside the room. [rose.speech(You called, sir?)]
+	</p>
+	<p>
+		[arthur.speech(Ah, yes, Rose! Could you please ask Lilaya to come up here? I need her help with a special experiment,)] Arthur asks, and Rose obediently steps back and hurries off to fetch her mistress.
+	</p>
+	<p>
+		Arthur hurriedly grabs several pages of notes, before placing them beside the watch on the table in front of you. Before he has any time to explain what his plan is, the door suddenly bursts open, and a very angry-looking Lilaya strides into the room. [lilaya.speech(What is it now Arthur?! Oh, [pc.name], you're here too!)]
+	</p>
+	<p>
+		[arthur.speech(Well, Lilaya, you know I told you about that research I did into changing a person's sexual orientation? Well, I-)]
+	</p>
+	<p>
+		[lilaya.speech(Yes, I remember,)] Lilaya interrupts, [lilaya.speech(and do you remember <i>me</i> telling <i>you</i> about how I thought it was irresponsible to want to go around changing people's nature like that?!)]
+	</p>
+	<p>
+		[arthur.speech(I don't intend to use it, Lilaya!)] Arthur objects, [arthur.speech(It's only for research purposes! If I could harness the arcane, I'd do it all myself... Please, all I need you to do is follow these instructions and enchant this watch.)]
+	</p>
+	<p>
+		[lilaya.speech(Eugh, fine... But you're writing up a full report on this, on top of the work I've already assigned to you,)] Lilaya sighs, before stepping over to the desk and starting to follow Arthur's instructions.
+	</p>
+	<p>
+		After a few minutes, and several flashes of arcane energy, Lilaya's work is done, and you step forwards to see that the watch has undergone a drastic change. Now, instead of looking like a regular time-piece, the face of the watch is a swirling vortex of purple energy. Before you can take a closer look, Lilaya picks the watch up by the chain, and turns to Arthur. [lilaya.speech(So how does this thing work?)]
+	</p>
+	<p>
+		[arthur.speech(C-Careful, Lilaya!)] Arthur exclaims, averting his eyes from the watch. [arthur.speech(You just have to swing it back and forth in front of someone, and they should undergo a hypnotic-type effect, which, if my calculations are correct, will change their orientation. Oh, you should be able to channel arcane essences into it to change the desired orientation as well. We really need a test subject for this...)]
+	</p>
+	<p>
+		[lilaya.speech(Well, whatever the result is, we can always undo it, right? I want to be the one who uses it, as I'll be able to sense if anything starts to go wrong, and you can't be the test subject, Arthur, as you'll need to be the one to fix any unexpected effects...)] Lilaya muses, before both she and Arthur turn towards you. [lilaya.speech([pc.Name]! You're ok letting us test this on you, aren't you? I promise that I won't apply the full effect, so there's really nothing to worry about!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF -->
+	
+	<htmlContent tag="ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF"><![CDATA[
+	<p>
+		Reassured by the fact Lilaya and Arthur are both highly-competent arcane researchers, you step forwards. [pc.speech(Ok, ok... But this had better not be permanent. Seeing as I'm [pc.orientation], you'll probably need to set the watch to something other than that...)]
+	</p>
+	<p>
+		[arthur.speech(Don't worry, this process is completely reversible,)] Arthur says, before turning to Lilaya and ordering,
+	#IF(pc.getSexualOrientation()!=ORIENTATION_AMBIPHILIC)
+			 [arthur.speech(Ok, Lilaya, enchant the watch to try and change [pc.name] into being ambiphilic.)]
+		</p>
+		<p>
+			Holding the watch by the chain in one hand, Lilaya reaches up with her other, and, with a little flash of lilac, enchants the watch as Arthur instructs. The swirling purple face slowly shifts into a light purple, and, instructed by Arthur to keep focused on the watch, you fix your gaze on the mesmerising surface as Lilaya starts slowly swaying it back and forth. You feel your head rocking from side to side in time with each swing, and, starting to feel quite light-headed, you begin to find it very hard to remember what it is you're doing...
+		</p>
+		<i><p>
+			[lilaya.speech(Perhaps we can leave the experiment for later,)] Lilaya moans, placing the watch to one side, before stepping forwards and planting a wet kiss on your lips.
+		</p>
+		<p>
+			[arthur.speech(We could all use a break,)] Arthur joins in, stepping around to take a firm hold of your waist.
+		</p>
+		<p>
+			[pc.speech(Mmm, yes...)] you moan, feeling a jolt of excitement as Arthur's hands run down to your groin. Leaning back into him, you pull your [lilaya.relation(pc)] forwards, passionately thrusting your tongue into her mouth as you reach down to help guide Arthur's fingers down to your groin...
+		</p>
+		<p>
+			[lilaya.speech(Wake up...)] Lilaya sighs...
+		</p></i>
+	#ELSEIF(pc.isFeminine())
+			 [arthur.speech(Ok, Lilaya, enchant the watch to try and change [pc.name] into being androphilic.)]
+		</p>
+		<p>
+			Holding the watch by the chain in one hand, Lilaya reaches up with her other, and, with a little flash of turquoise, enchants the watch as Arthur instructs. The swirling purple face slowly shifts into a deep shade of blue, and, instructed by Arthur to keep focused on the watch, you fix your gaze on the mesmerising surface as Lilaya starts slowly swaying it back and forth. You feel your head rocking from side to side in time with each swing, and, starting to feel quite light-headed, you begin to find it very hard to remember what it is you're doing...
+		</p>
+		<i><p>
+			[arthur.speech(Perhaps we can leave the experiment for later,)] Arthur states, getting Lilaya to put the watch to one side, before leading her out of the room.
+		</p>
+		<p>
+			[pc.speech(What's wrong? Is it not work- ~Aah!~)] you start to question, but Arthur confidently steps around behind you and takes a firm hold of your waist.
+		</p>
+		<p>
+			[arthur.speech(I could see that look in your eyes...)] he says, and a jolt of excitement suddenly runs through you as you feel Arthur's hands run down to your groin.
+		</p>
+		<p>
+			[pc.speech(Mmm... Yes...)] you moan, turning your head and pressing your lips against Arthur's. Leaning back into him, you passionately thrust your tongue into his mouth as you reach down to help guide his fingers down to your groin...
+		</p>
+		<p>
+			[lilaya.speech(Wake up, [pc.name]...)] you hear Lilaya call from the other side of the door...
+		</p></i>
+	#ELSE
+			 [arthur.speech(Ok, Lilaya, enchant the watch to try and change [pc.name] into being gynephilic.)]
+		</p>
+		<p>
+			Holding the watch by the chain in one hand, Lilaya reaches up with her other, and, with a little flash of scarlet, enchants the watch as Arthur instructs. The swirling purple face slowly shifts into a deep shade of pink, and, instructed by Arthur to keep focused on the watch, you fix your gaze on the mesmerising surface as Lilaya starts slowly swaying it back and forth. You feel your head rocking from side to side in time with each swing, and, starting to feel quite light-headed, you begin to find it very hard to remember what it is you're doing...
+		</p>
+		<i><p>
+			[lilaya.speech(Honestly, Arthur, we should leave this experiment for later,)] Lilaya states, putting the watch to one side, before leading Arthur out of the room.
+		</p>
+		<p>
+			[pc.speech(What's wrong? Is it not work- ~Aah!~)] you start to question, but Lilaya suddenly steps around behind you, and with a little giggle, reaches forwards to wrap her arms around you.
+		</p>
+		<p>
+			[lilaya.speech(I could see that look in your eyes...)] she says, and a jolt of excitement suddenly runs through you as you feel your [lilaya.relation(pc)]'s hands run down to your groin.
+		</p>
+		<p>
+			[pc.speech(Mmm... Yes...)] you moan, turning your head and pressing your lips against Lilaya's. Leaning back into her, you passionately thrust your tongue into her mouth as you reach down to help guide her fingers down to your groin...
+		</p>
+		<p>
+			[lilaya.speech(Wake up, [pc.name]...)] Lilaya sighs...
+		</p></i>
+	#ENDIF
+	<p>
+		...
+	</p>
+	<p>
+		[lilaya.speech([pc.Name]! Wake up!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF_WAKE_UP -->
+	
+	<htmlContent tag="ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF_WAKE_UP"><![CDATA[
+	<p>
+		[lilaya.speech([pc.Name]? Wake up!)] Lilaya calls, and, with a blink, you suddenly snap out of the dream-like trance. You're standing just where you were when the experiment started, but Lilaya, now with a mildly-concerned expression on her face, has placed the watch to one side, and is holding you by the shoulders.
+	</p>
+	<p>
+		[pc.speech(W-What was that?!)] you ask, trying to shake the vision you just had from your head. [pc.speech(It was so real! We were... well...)]
+	</p>
+	<p>
+		[lilaya.speech(Good, you're ok,)] Lilaya says, releasing you and stepping back. [lilaya.speech(I stopped the test before the change in orientation became permanent, and, more importantly, before a surge of corruptive arcane energy seeped into your mind.)]
+	</p>
+	<p>
+		[pc.speech(Wait... What?! Nobody mentioned anything about that!)]
+	</p>
+	<p>
+		[arthur.speech(I'm sorry, [pc.name], I didn't know that could be a side-effect,)] Arthur says, stepping forwards. [arthur.speech(It's a good job Lilaya was the one to carry out the test...)]
+	</p>
+	<p>
+		[lilaya.speech(Well, at least you've come to no harm, [pc.name],)] Lilaya sighs in relief, [lilaya.speech(You see, just as you appeared to enter that strange trance, I felt a wave of corruptive energy surging forwards. If I hadn't stopped the test, not only would your sexual orientation have been permanently changed, but whatever vision you were witnessing would have undoubtedly played out in full; corrupting your mind in the process.)]
+	</p>
+	<p>
+		[pc.speech(Thank you, Lilaya,)] you say, stepping forwards to give your [lilaya.relation(pc)] a loving hug, [pc.speech(you saved me again, huh?)]
+	</p>
+	<p>
+		[lilaya.speech(Y-Yes, well, y-you're welcome,)] she stammers, clearly a little embarrassed to be hugged in front of Arthur. After a moment, she breaks off the hug, and, turning to pick up the watch, waves her hand over the face. The swirling vortex fades away, leaving the watch looking just like any other, and, satisfied with the result, Lilaya hands it to you. [lilaya.speech(I've removed the enchantment, so there's no fear of accidentally subjecting anyone else to those effects. I think you should keep hold of this. After all, now that you know what it feels like to be on the receiving end, I'm sure you have a greater respect for its power.)]
+	</p>
+	<p>
+		You take the watch from Lilaya, nodding at her words before assuring her, [pc.speech(I'll take good care of it.)]
+	</p>
+	<p>
+		Turning to Arthur, Lilaya puts on a stern voice, [lilaya.speech(I expect a full report on my desk by this time tomorrow. And not a minute later!)]
+	</p>
+	<p>
+		With that, Lilaya strides out of the room, leaving you alone with Arthur, who proceeds to glance over at you with a rather defeated-looking expression on his face. [arthur.speech(Well, it <i>does</i> work, at least... Sorry about all that, [pc.name]. Oh, and don't tell Lilaya, but I believe you should also have no trouble enchanting that watch to alter people's speech characteristics. I really should get on with this report now...)]
+	</p>
+	<p>
+		With the hypnotic, orientation-changing watch now in your possession, you leave Arthur to get on with his work and step out of his room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_HYPNO_WATCH_OFFER_REFUSED -->
+	
+	<htmlContent tag="ROOM_ARTHUR_HYPNO_WATCH_OFFER_REFUSED"><![CDATA[
+	<p>
+		Despite the fact that Lilaya and Arthur are both highly-competent arcane researchers, you really don't feel comfortable having them use you as a test subject.
+		#IF(pc.isConfident())
+			 Crossing your [pc.arms] and giving the pair a disapproving look, you scold them, [pc.speech(You shouldn't be testing potentially-dangerous items directly on people! What's wrong with you?!)]
+		#ELSE
+			 Stepping back and holding up your [pc.hands] to stop the pair from advancing upon you, you say, [pc.speech(I don't want some potentially-dangerous item being tested on me!)]
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speech(Tsk! Fine! We'll just have Rose help us,)] Lilaya tuts. With her previous misgivings about the hypno-watch seemingly forgotten in her excitement at getting to test out a new arcane device, she strides over to the bell-pull in one corner of Arthur's room and gives it a tug.
+	</p>
+	<p>
+		Just moments later, Rose enters the room, and after performing a polite curtsy, the cat-girl maid asks, [rose.speech(How may I help?)]
+	</p>
+	<p>
+		After Lilaya has briefly explained the situation to her, Rose obediently agrees to let her Mistress use her as a test subject. Although she lowers her voice to a quiet whisper, you're able to just about overhear the dominant cat-girl as she leans in over Lilaya's neck and purrs, [rose.speech(You'll be getting some extra punishment for this tonight...)]
+	</p>
+	<p>
+		Completely oblivious as to what's being said by Rose, Arthur steps towards your demonic [lilaya.relation(pc)] and bombastically declares, [arthur.speech(Don't worry, this process should be completely reversible! You just need to enchant the watch to try and change Rose into being... erm... androphilic, I guess?)]
+	</p>
+	<p>
+		Throwing Arthur an unamused glare, Rose patiently waits as Lilaya moves her hand over the watch and channels her arcane energy into it. The swirling purple face slowly shifts into a deep shade of blue, and after the enchantment is complete, Lilaya has her maid gaze at the mesmerising surface as she starts slowly swaying it back and forth in front of her cat-like eyes. You watch in fascination as Rose's head starts involuntarily rocking from side to side in time with each swing, before her eyes suddenly droop down and she collapses to the floor with a soft thud.
+	</p>
+	<p>
+		[lilaya.speech(Rose?!)] Lilaya cries, tossing the hypno-watch into Arthur's hands as she ducks down to shake the cat-girl's shoulders. Looking back at you with a fearful expression on her face, your [lilaya.relation(pc)] pleads, [lilaya.speech([pc.Name]! Help me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ARTHUR_HYPNO_WATCH_OFFER_REFUSED_WAKE_ROSE -->
+	
+	<htmlContent tag="ROOM_ARTHUR_HYPNO_WATCH_OFFER_REFUSED_WAKE_ROSE"><![CDATA[
+	<p>
+		#IF(pc.isConfident() || pc.isBrave() || pc.isKind())
+			You were already rushing forwards to help Rose the moment you saw her starting to look faint, and so just a second after Lilaya has shouted out for your help, you're already kneeling down to assist.
+		#ELSE
+			Spurred into action by Lilaya's desperate cry, you rush over and kneel down beside her.
+		#ENDIF
+		 Quickly checking to make sure that the cat-girl is still breathing, you start to move her delicate body into the recovery position, but as you do so, she suddenly lets out a soft sigh and begins to regain consciousness.
+	</p>
+	<p>
+		[lilaya.speech(Rose?! Are you ok?!)] Lilaya worriedly asks as she sees Rose's eyes blinking open.
+		#IF(!pc.isFeminine())
+			 Joining your [lilaya.relation(pc)] in looking down at the cat-girl, you're alarmed to see her gaze instantly locking onto your body, and from the desperate, hungry gleam in her [rose.eyes+], it almost looks as though she's about to pounce on you.
+		#ELSE
+			 Joining your [lilaya.relation(pc)] in looking down at the cat-girl, you're alarmed to see her gaze instantly locking onto Arthur's body, and from the desperate, hungry gleam in her [rose.eyes+], it almost looks as though she's about to pounce on him.
+		#ENDIF
+	</p>
+	<p>
+		Before she's able to take such a drastic action, however, the cat-girl closes her eyes and gives her head a little shake, and when she opens them again, you see that she's back to looking her normal self. Gazing lovingly up into Lilaya's eyes, she softly sighs, [rose.speech(I... I'm ok...)]
+	</p>
+	<p>
+		[lilaya.speech(I'm so relieved!)] Lilaya cries out, before pulling Rose into a big hug and tightly squeezing her up against her body. After a moment of this, your passionate [lilaya.relation(pc)] helps Rose to her feet, before explaining, [lilaya.speech(I was able to stop the test before your change in orientation became permanent, and, more importantly, before a surge of corruptive arcane energy seeped into your mind.)]
+	</p>
+	<p>
+		[arthur.speech(Oh my! I didn't know that could be a side-effect,)] Arthur says, scratching his head as he steps forwards. [arthur.speech(It's a good job you were the one to carry out the test, Lilaya. I wouldn't have been able to sense something like that...)]
+	</p>
+	<p>
+		[lilaya.speech(If this had done any permanent damage to my dear Rose, you'd have been in serious trouble!)] Lilaya shouts, turning her worry into fury as she angrily scowls at Arthur, [lilaya.speech(You absolutely cannot be trusted with something like this!)]
+	</p>
+	<p>
+		Snatching the watch from out of Arthur's grasp, she waves her hand over the face and takes a few seconds to channel her energy into removing the orientation-changing enchantment. The watch face's swirling vortex fades away, leaving it looking like a regular old broken pocket watch, and, satisfied with the result, Lilaya hands it to you, saying, [lilaya.speech(I've removed the enchantment, so there's no fear of accidentally subjecting anyone else to those effects. Now that you've seen how dangerous this can be, I'm sure you have a great respect for its power, so you can hold on to it and keep it safe.)]
+	</p>
+	<p>
+		You take the watch from Lilaya, nodding at her words before assuring her, [pc.speech(I'll take good care of it.)]
+	</p>
+	<p>
+		Turning to Arthur, Lilaya angrily scowls at him once more, [lilaya.speech(I expect a full report on my desk by this time tomorrow! If it's one minute late, then I'll confiscate the rest of your research!)]
+	</p>
+	<p>
+		With that, Lilaya grabs Rose by the arm and strides out of the room, leaving you alone with Arthur. Glancing at you with a rather defeated-looking expression on his face, he wearily sighs, [arthur.speech(Well, it <i>does</i> work, at least... Sorry about all that, [pc.name]. Oh, and don't tell Lilaya, but I believe you should also have no trouble enchanting that watch to alter people's speech characteristics. I really should get on with this report now...)]
+	</p>
+	<p>
+		With the hypnotic, orientation-changing watch now in your possession, you leave Arthur to get on with his work and step out of his room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>1000000</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name appendDamageName="false"><![CDATA[BR14]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[BR14s]]></namePlural>
+		<description><![CDATA[A select-fire battle rifle, capable of both semi and fully automatic fire modes, and taking 20-round detachable box magazines of 7.62×51mm NATO ammunition. The gas-operated firing mechanism utilises a rotating bolt, and is capable of producing a fire rate of around 700-750 RPM.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription>Use your BR14 to fire a single bullet at your target.</attackTooltipDescription>
+		
+		<rarity>LEGENDARY</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out [npc.her] BR14, inserts a magazine, and pulls the charging handle, putting it into a state where it's ready to be used in combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] BR14 away.]]></unequipText>
+		<imageName>br14.svg</imageName>
+		<imageEquippedName/> 
+		
+		<damage>35000</damage>
+		<arcaneCost>0</arcaneCost>
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves>
+			<move>BR14_MAG_DUMP</move>
+		</combatMoves>
+		<enchantmentLimit>0</enchantmentLimit>
+		<effects/>
+		
+		<customColours>
+			<customColour c0="#6C5D53" c1="#917C6F" c2="#AC9D93" c3="#C8BEB7" c4="#E3DEDB">
+				<defaultColours>
+					<colour>CLOTHING_BLACK_STEEL</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+			<customColour c0="#FF7F2A" c1="#FF9955" c2="#FFB380" c3="#FFCCAA" c4="#FFE6D5">
+				<defaultColours>
+					<colour>CLOTHING_BROWN_DARK</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+			<customColour c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">
+				<defaultColours>
+					<colour>CLOTHING_BROWN_VERY_DARK</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+			<customColour c0="#6C6753" c1="#918A6F" c2="#ACA793" c3="#C8C4B7" c4="#E3E2DB">
+				<defaultColours>
+					<colour>CLOTHING_BLACK_STEEL</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+			<customColour c0="#676C53" c1="#8A916F" c2="#A7AC93" c3="#C4C8B7" c4="#E2E3DB">
+				<defaultColours>
+					<colour>CLOTHING_BLACK</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags>
+			<tag>CHEAT_ITEM</tag>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Taking aim with [npc.her] BR14, [npc.name] [npc.verb(pull)] the trigger and [npc.verb(fire)] a bullet at [npc2.name], hitting [npc2.herHim] directly in the chest!<br/>Thankfully, there seems to be some kind of arcane force preventing [npc2.name] from being seriously wounded or killed...
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Taking aim with [npc.her] BR14, [npc.name] [npc.verb(pull)] the trigger and fires a bullet at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
@@ -148,13 +149,17 @@ public class OrificePenisUrethra implements OrificeInterface {
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
-		return (int) (owner.getPenisRawSizeValue() * 1.5f * this.getDepth(owner).getDepthPercentage());
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) {
+		return (int) (owner.getPenisRawSizeValue() * 1.5f * depth.getDepthPercentage());
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepth()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.8f);
+		} else {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
+		}
 	}
 
 	@Override
@@ -346,7 +351,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 					return UtilText.parse(owner,
 							"<p>"
 								+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up at the base of [npc.her] [npc.cock], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] urethra is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] urethra is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.sheHasFull] limited control.<br/>"
 								+ "[style.boldSex(The inside of [npc.namePos] penile urethra is now filled with small tentacles, which wriggle and caress any intruding object with a mind of their own!)]"
 							+ "</p>");
 				}

@@ -13,9 +13,11 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
+import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -60,14 +62,13 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.sexActions.dominion.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -79,7 +80,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Lilaya extends NPC {
@@ -96,12 +97,10 @@ public class Lilaya extends NPC {
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",
 				48, Month.DECEMBER, 28,
 				25,
-				Gender.F_V_B_FEMALE,
-				Subspecies.DEMON,
-				RaceStage.PARTIAL_FULL,
+				Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10),
-				WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
-				PlaceType.LILAYA_HOME_LAB,
+				WorldType.LILAYAS_HOUSE_FIRST_FLOOR,
+				PlaceType.LILAYA_HOME_ROOM_LILAYA,
 				true);
 	}
 	
@@ -154,7 +153,13 @@ public class Lilaya extends NPC {
 					PersonalityTrait.SHY);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
-			this.setTailGirth(PenetrationGirth.FOUR_FAT);
+			this.setTailGirth(PenetrationGirth.FIVE_THICK);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
+			this.setHomeLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA);
 		}
 	}
 
@@ -223,7 +228,7 @@ public class Lilaya extends NPC {
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.FOUR_FAT);
+		this.setTailGirth(PenetrationGirth.FIVE_THICK);
 
 		this.setHeight(180);
 		this.setFemininity(85);
@@ -267,11 +272,12 @@ public class Lilaya extends NPC {
 		// Penis:
 		// For when she grows one:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.TWO_AVERAGE);
+		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
 		this.setPenisSize(15);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -292,19 +298,19 @@ public class Lilaya extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		this.setHairStyle(HairStyle.LOOSE);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_GREY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_GREY, false), true, this);
 		
-		AbstractClothing labCoat = AbstractClothingType.generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false);
+		AbstractClothing labCoat = Main.game.getItemGen().generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false);
 		this.equipClothingFromNowhere(labCoat, true, this);
 		this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_OVER), DisplacementType.UNBUTTONS, true, true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_glasses", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_glasses", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.setPiercedEar(true);
 	}
@@ -313,26 +319,26 @@ public class Lilaya extends NPC {
 		Main.game.getNpc(Lilaya.class).resetInventory(false);
 		this.setHairStyle(HairStyle.LOOSE);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PURPLE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PURPLE, PresetColour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK, null, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_glasses", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PURPLE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.KIMONO_DRESS, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PURPLE, PresetColour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.KIMONO_GETA, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_glasses", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
 	}
 	
 	public void applyDinnerDateChange() {
 		Main.game.getNpc(Lilaya.class).resetInventory(false);
 		this.setHairStyle(HairStyle.PONYTAIL);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_glasses", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK_STEEL, null, false), true, this);
-		AbstractClothing scrunchie = AbstractClothingType.generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_RED_VERY_DARK, false);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_glasses", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK_STEEL, null, false), true, this);
+		AbstractClothing scrunchie = Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_RED_VERY_DARK, false);
 		scrunchie.setPattern("none");
 		this.equipClothingFromNowhere(scrunchie, true, this);
 		
@@ -411,7 +417,7 @@ public class Lilaya extends NPC {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
-			if(character.getRace()==Race.DEMON) {
+			if(character.getSubspeciesOverrideRace()==Race.DEMON) {
 				Set<Relationship> rSet = new LinkedHashSet<>();
 				rSet.add(Relationship.HalfSibling);
 				rSet.add(Relationship.Pibling);
@@ -439,12 +445,12 @@ public class Lilaya extends NPC {
 	
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
-		if(user.isPlayer() && !target.isPlayer() && item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+		if(user.isPlayer() && !target.isPlayer() && item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 			if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
-				itemOwner.removeItemByType(ItemType.VIXENS_VIRILITY);
+				itemOwner.removeItem(item);
 				return new Value<>(false,
 						"<p>"
-							+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you pop it out of its plastic wrapper before bringing it up to Lilaya's mouth."
+							+ "Producing a "+item.getColour(0).getName()+" "+item.getName(false, false)+" from your inventory, you pop it out of its plastic wrapper before bringing it up to Lilaya's mouth."
 							+ " Seeing what it is you're trying to get her to swallow, she furrows her eyebrows and smacks the pill out of your [pc.hand], sending it flying off under one of the lab tables."
 							+ " In a sharp tone, she admonishes you, "
 							+ (this.hasPenis()
@@ -456,12 +462,69 @@ public class Lilaya extends NPC {
 				itemOwner.useItem(item, this, false);
 				return new Value<>(true,
 						"<p>"
-							+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
-							+ " She lets out a delighted moan as she happily swallows the little pink pill, [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"
+							+ "Producing a "+item.getName(false, false)+" from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
+							+ " She lets out a delighted moan as she happily swallows the little "+ item.getColour(0).getName() +" pill,"
+								+ " [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"
 						+ "</p>");
 			}
 		}
 		return super.getItemUseEffects(item, itemOwner, user, target);
+	}
+	
+	@Override
+	public String getAttributeChangeText(AbstractAttribute att, float value) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(super.getAttributeChangeText(att, value));
+		
+		if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+			if(att==Attribute.FERTILITY && value>0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me more fertile?! What were you thinking?!)]"
+							+ " Lilaya angrily exclaims, before letting out a deep sigh and muttering,"
+							+ " [lilaya.speech(Whatever... It's not like it's ever going to make a difference...)]"
+						+ "</p>"));
+				
+			} else if(att==Attribute.FERTILITY && value<0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me less fertile?! Thank you, [pc.name]!)]"
+							+ " Lilaya happily exclaims, before sighing,"
+							+ " [lilaya.speech(It's not like it's ever going to make a difference anyway, but the thought is nice...)]"
+						+ "</p>"));
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	@Override
+	public String getPotionAttributeChangeText(AbstractAttribute att, float value) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(super.getPotionAttributeChangeText(att, value));
+		
+		if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+			if(att==Attribute.FERTILITY && value>0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me more fertile?! What were you thinking?!)]"
+							+ " Lilaya angrily exclaims, before letting out a deep sigh and muttering,"
+							+ " [lilaya.speech(Whatever... It's not like it's ever going to make a difference...)]"
+						+ "</p>"));
+				
+			} else if(att==Attribute.FERTILITY && value<0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me less fertile?! Thank you, [pc.name]!)]"
+							+ " Lilaya happily exclaims, before sighing,"
+							+ " [lilaya.speech(It's not like it's ever going to make a difference anyway, but the thought is nice...)]"
+						+ "</p>"));
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	// Sex:
@@ -479,7 +542,7 @@ public class Lilaya extends NPC {
 
 		speech.add("Fuck, why do demons always have to feel so horny?! All I ever think about is fucking you or Rose!");
 		speech.add("I'm sure I can collect some valuable data from this...");
-		if(Main.game.getPlayer().getRace()==Race.DEMON) {
+		if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 			speech.add("Horny for your new half-sister, hmm?");
 			speech.add("There's nothing wrong with demonic siblings fucking one another...");
 		} else {

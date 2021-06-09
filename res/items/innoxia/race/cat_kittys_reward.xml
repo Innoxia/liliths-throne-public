@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>30</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Kitty's Reward]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Kitty's Rewards]]></namePlural>
+		<description><![CDATA[A small, square food tin with a ring-pull lid. A label on the side shows a greater cat-girl devouring a plate of what looks to be this can's contents; some sort of tinned salmon.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/cat/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">cat_kittys_reward.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_CAT_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[feline]]></potionDescriptor>
+		<associatedRace>CAT_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(3)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 3)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pull)] back the ring-pull and [npc.verb(peel)] off the lid to the can of Kitty's Reward. A rich, fishy smell accompanies the sight of what looks to be tinned salmon, and [npc.she] [npc.verb(find)] [npc.herself] unable to resist the tasty-looking meat. [npc.She] quickly [npc.verb(wolf)] down the can's contents, finding that it was as delicious as it looked.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(pull)] back the ring-pull and [npc.verb(peel)] off the lid to the can of Kitty's Reward, before offering it to [npc2.name]. A rich, fishy smell accompanies the sight of what looks to be tinned salmon, and [npc2.name] [npc2.verb(find)] [npc2.herself] unable to resist the tasty-looking meat. [npc2.She] quickly [npc2.verb(wolf)] down the can's contents, finding that it was as delicious as it looked.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

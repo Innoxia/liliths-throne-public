@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -37,7 +38,7 @@ import com.lilithsthrone.utils.Util;
  * If sub, positional change is just a suggestion, which the NPC may refuse if they have other preferences.
  * 
  * @since 0.3.1
- * @version 0.3.4
+ * @version 0.3.8.1
  * @author Innoxia
  */
 public class GenericPositioning {
@@ -64,7 +65,7 @@ public class GenericPositioning {
 			return !Main.sex.getCharacterPerformingAction().equals(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getSexManager().isSwapPositionAllowed(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterPerformingAction().getLegConfiguration()==Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -91,6 +92,16 @@ public class GenericPositioning {
 	};
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
+		for(SexSlot slot : data.getPartnerSlots()) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()), slot)) {
+				return false;
+			}
+		}
+		for(SexSlot slot : data.getPerformerSlots()) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getCharacterPerformingAction(), slot)) {
+				return false;
+			}
+		}
 		return Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
 				&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 				&& !(Main.sex.getPosition() == data.getPosition()
@@ -99,13 +110,13 @@ public class GenericPositioning {
 				&& data.getPosition().getMaximumSlots()>=Main.sex.getTotalParticipantCount(false)
 				&& Main.sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
-						?(Main.sex.getCharacterPerformingAction().isPlayer() && Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())!=SexControl.FULL && !Main.sex.isPositioningRequestBlocked(Main.sex.getCharacterPerformingAction(), data.getPosition()))
-						:(Main.sex.getCharacterPerformingAction().isPlayer()
-							?Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
-							:!Main.sex.isCharacterForbiddenByOthersFromPositioning(Main.sex.getCharacterPerformingAction())))
-				&& (!request && !Main.sex.getCharacterPerformingAction().isPlayer()
-						?((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
-						:true);
+					?(Main.sex.getCharacterPerformingAction().isPlayer()
+							&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())!=SexControl.FULL
+							&& !Main.sex.isPositioningRequestBlocked(Main.sex.getCharacterPerformingAction(), data.getPosition()))
+					:(Main.sex.getCharacterPerformingAction().isPlayer()
+						?Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)
+						:!Main.sex.isCharacterForbiddenByOthersFromPositioning(Main.sex.getCharacterPerformingAction())
+							&& ((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))));
 	}
 
 	public static void setNewSexManager(PositioningData data, boolean requestAccepted) {
@@ -256,7 +267,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -339,13 +350,21 @@ public class GenericPositioning {
 			}
 			return new ArrayList<>(fetishes);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isFeral()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ORAL_RECEIVING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -408,7 +427,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -502,7 +521,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -602,7 +621,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -685,13 +704,21 @@ public class GenericPositioning {
 			}
 			return new ArrayList<>(fetishes);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isFeral()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ORAL_PERFORMING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -781,7 +808,7 @@ public class GenericPositioning {
 //			SexActionType.POSITIONING,
 //			ArousalIncrease.ONE_MINIMUM,
 //			ArousalIncrease.ONE_MINIMUM,
-//			CorruptionLevel.TWO_HORNY,
+//			CorruptionLevel.ONE_VANILLA,
 //			null,
 //			SexParticipantType.NORMAL) {
 //		
@@ -870,7 +897,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -968,7 +995,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -996,12 +1023,14 @@ public class GenericPositioning {
 		@Override
 		public String getActionDescription() {
 			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
-				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] in front of you, and so able to perform oral on your genitals.";
+				return "Move around in front of [npc2.name] so that you're able to perform oral on [npc2.her] genitals.";
 			} else {
 				if(Main.sex.getCharacterTargetedForSexAction(this).hasPenis()) {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you, and so able to perform oral on your [npc.cock]"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc.crotchBoobs]":"")+".";
+					return "Kneel down and shuffle forwards beneath [npc2.namePos] feral [npc2.legRaceFeral] body so that you're able to perform oral on [npc2.her] [npc2.cock]"
+								+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc2.crotchBoobs]":"")+".";
 				} else {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?", and so able to perform oral on your [npc.crotchBoobs]":"")+".";
+					return "Kneel down and shuffle forwards beneath [npc2.namePos] feral [npc2.legRaceFeral] body"
+								+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" so that you're able to perform oral on [npc2.her] [npc2.crotchBoobs]":"")+".";
 				}
 			}
 		}
@@ -1268,9 +1297,15 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] back."
-					+ " Kneeling down between [npc2.her] [npc2.legs], [npc.she] [npc.moansVerb] as [npc.she] looks down into [npc2.her] [npc2.eyes+],"
-					+ " [npc.speech(That's right, spread your legs for me...)]";
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] back."
+						+ " Kneeling down between [npc2.her] [npc2.legs], [npc.she] [npc.moansVerb] as [npc.she] [npc.verb(look)] down into [npc2.her] [npc2.eyes+],"
+						+ " [npc.speech(That's right, spread your legs for me...)]";
+			} else {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] back."
+						+ " Kneeling down over [npc2.her] groin, [npc.she] [npc.moansVerb] as [npc.she] [npc.verb(look)] down into [npc2.her] [npc2.eyes+],"
+						+ " [npc.speech(That's right, present yourself to me...)]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1310,8 +1345,13 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Try to get [npc2.name] to lie down on [npc2.her] back and spread [npc2.her] [npc2.legs] so that you can have sex with [npc2.herHim] in the missionary position.<br/>"
-						+ getRequestTooltipText();
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Try to get [npc2.name] to lie down on [npc2.her] back and spread [npc2.her] [npc2.legs] so that you can have sex with [npc2.herHim] in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			} else {
+				return "Try to get [npc2.name] to lie down on [npc2.her] back and present you with [npc2.her] groin so that you can have sex with [npc2.herHim] in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			}
 		}
 		@Override
 		public String getDescription() {
@@ -1346,13 +1386,23 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Lie down on your back and spread your [npc.legs], ready to have sex with [npc2.name] in the missionary position.";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Lie down on your back and spread your [npc.legs], ready to have sex with [npc2.name] in the missionary position.";
+			} else {
+				return "Lie down on your back and present your groin, ready to have sex with [npc2.name] in the missionary position.";
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] knees."
-					+ " Kneeling down before [npc2.herHim], [npc.she] then [npc.verb(lie)] down on [npc.her] back, spreading [npc.her] [npc.legs] and looking up into [npc2.namePos] [npc2.eyes+] as [npc.she] [npc.moanVerb],"
-					+ " [npc.speech(Come and take me!)]";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] knees."
+						+ " Kneeling down before [npc2.herHim], [npc.she] then [npc.verb(lie)] down on [npc.her] back, spreading [npc.her] [npc.legs] and looking up into [npc2.namePos] [npc2.eyes+] as [npc.she] [npc.moanVerb],"
+						+ " [npc.speech(Come and take me!)]";
+			} else {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] knees."
+						+ " Kneeling down before [npc2.herHim], [npc.she] then [npc.verb(lie)] down on [npc.her] back, presenting [npc.her] groin and looking up into [npc2.namePos] [npc2.eyes+] as [npc.she] [npc.moanVerb],"
+						+ " [npc.speech(Come and take me!)]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1392,12 +1442,23 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Lie down on your back and spread your [npc.legs] to try and encourage [npc2.name] to have sex with you in the missionary position.<br/>"
-						+ getRequestTooltipText();
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Lie down on your back and spread your [npc.legs] to try and encourage [npc2.name] to have sex with you in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			} else {
+				return "Lie down on your back and present your groin to try and encourage [npc2.name] to have sex with you in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "You lie down on your back before [npc2.name], letting out a little [npc.moan] as you spread your [npc.legs] to try and encourage [npc2.name] to have sex with you in the missionary position.";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "[npc.Name] [npc.verb(lie)] down on [npc.her] back before [npc2.name],"
+						+ " letting out a little [npc.moan] as [npc.she] [npc.verb(spread)] [npc.her] [npc.legs] to try and encourage [npc2.name] to have sex with [npc.herHim] in the missionary position.";
+			} else {
+				return "[npc.Name] [npc.verb(lie)] down on [npc.her] back before [npc2.name],"
+						+ " letting out a little [npc.moan] as [npc.she] [npc.verb(present)] [npc.her] groin to try and encourage [npc2.name] to have sex with [npc.herHim] in the missionary position.";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1909,17 +1970,30 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Force [npc2.name] down onto [npc2.her] back, push [npc2.her] [npc2.legs] apart and up towards [npc2.her] head, and then lie down on top of [npc2.herHim], in the 'mating press' position.";
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Force [npc2.name] down onto [npc2.her] back, push [npc2.her] [npc2.legs] apart and up towards [npc2.her] head, and then lie down on top of [npc2.herHim], in the 'mating press' position.";
+			} else {
+				return "Force [npc2.name] down onto [npc2.her] back, then lie down on top of [npc2.herHim], in the 'mating press' position.";
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto the ground, forcing [npc2.herHim] to lie on [npc2.her] back."
-					+ " Grabbing [npc2.her] [npc2.legs], [npc.name] [npc.verb(push)] them apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] and bumping [npc.her] groin against [npc2.hers]."
-					+ " Pinning [npc2.namePos] wrists to the floor on either side of [npc2.her] head, [npc.name] [npc.moansVerb],"
-					+ " [npc.speech(It's time to"
-					+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
-							"#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN give you a good hard fuck!#ELSE breed you!#ENDIF")
-					+ ")]";
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto the ground, forcing [npc2.herHim] to lie on [npc2.her] back."
+						+ " Grabbing [npc2.her] [npc2.legs], [npc.name] [npc.verb(push)] them apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] and bumping [npc.her] groin against [npc2.hers]."
+						+ " Pinning [npc2.namePos] wrists to the floor on either side of [npc2.her] head, [npc.name] [npc.moansVerb],"
+						+ " [npc.speech(It's time to"
+						+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
+								"#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN give you a good hard fuck!#ELSE breed you!#ENDIF")
+						+ ")]";
+			} else {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto the ground, forcing [npc2.herHim] to lie on [npc2.her] back."
+						+ " Quickly lying down on top of [npc2.herHim], [npc.she] [npc.verb(bump)] [npc.her] groin against [npc2.hers], before pinning [npc2.namePos] wrists to the floor on either side of [npc2.her] head and [npc.moaning],"
+						+ " [npc.speech(It's time to"
+						+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
+								"#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN give you a good hard fuck!#ELSE breed you!#ENDIF")
+						+ ")]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1951,16 +2025,28 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Get down on your back and pull your [npc.legs] apart and back up towards your head, presenting yourself to be mounted and bred in the 'mating press' position.<br/>"
-						+ getRequestTooltipText();
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Get down on your back and pull your [npc.legs] apart and back up towards your head, presenting yourself to be mounted and bred in the 'mating press' position.<br/>"
+							+ getRequestTooltipText();
+			} else {
+				return "Get down on your back and present your groin to [npc2.name] so that you're ready to be mounted and bred in the 'mating press' position.<br/>"
+							+ getRequestTooltipText();
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "Before [npc2.name] can react, you quickly drop down onto your back, before spreading your [npc.legs] and pulling them back up towards your head."
-					+ " Presenting your groin to [npc2.name], you [npc.moansVerb],"
-					+ " [npc.speech(Pin me down and"
-					+ UtilText.parse(Main.sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
-					+ ")]";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Before [npc2.name] can react, you quickly drop down onto your back, before spreading your [npc.legs] and pulling them back up towards your head."
+						+ " Presenting your groin to [npc2.name], you [npc.moansVerb],"
+						+ " [npc.speech(Pin me down and"
+						+ UtilText.parse(Main.sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
+						+ ")]";
+			} else {
+				return "Before [npc2.name] can react, you quickly drop down onto your back, before presenting your groin to [npc2.name] and [npc.moaning],"
+						+ " [npc.speech(Pin me down and"
+						+ UtilText.parse(Main.sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
+						+ ")]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -2027,7 +2113,9 @@ public class GenericPositioning {
 				return false;
 			case BIPEDAL:
 			case CEPHALOPOD:
-			case TAUR:
+			case QUADRUPEDAL:
+			case AVIAN:
+			case WINGED_BIPED:
 				return true;
 		}
 		return true;
@@ -2037,7 +2125,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2139,7 +2227,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2216,7 +2304,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2317,7 +2405,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2800,11 +2888,21 @@ public class GenericPositioning {
 				if(isHappy) {
 					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
-							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
-									+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
+							if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
+										+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
+							} else {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] presents [npc.her] groin to you, [npc.she] growls in a menacing tone, "
+										+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
+							}
 						default:
-							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, and as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] [npc.moansVerb], "
-									+ "[npc.speech(I like it when my partner shows a bit of initiative! Come take me!)]";
+							if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, and as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] [npc.moansVerb], "
+										+ "[npc.speech(I like it when my partner shows a bit of initiative! Come take me!)]";
+							} else {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, and as [npc.she] presents [npc.her] groin to you, [npc.she] [npc.moansVerb], "
+										+ "[npc.speech(I like it when my partner shows a bit of initiative! Come take me!)]";
+							}
 					}
 				} else {
 					return "Slapping your [pc.hands] away, [npc.name] pushes you back into your old position as [npc.she] angrily scolds you, "
@@ -2868,11 +2966,12 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			if((Main.sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(
-					Main.sex.getPositionRequest().getPosition(),
-					Main.sex.getPositionRequest().getPartnerSlots().get(0),
-					Main.sex.getPositionRequest().getPerformerSlots().get(0),
-					Main.game.getPlayer())) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+						Main.sex.getPositionRequest().getPosition(),
+						Main.sex.getPositionRequest().getPartnerSlots().get(0),
+						Main.sex.getPositionRequest().getPerformerSlots().get(0),
+						Main.game.getPlayer())) {
 				GenericPositioning.setNewSexManager(Main.sex.getPositionRequest(), true);
 			} else {
 				Main.sex.addPositioningRequestsBlocked(Main.game.getPlayer(), Main.sex.getPositionRequest().getPosition());

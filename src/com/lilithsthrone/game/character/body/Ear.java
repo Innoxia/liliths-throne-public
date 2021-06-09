@@ -65,27 +65,27 @@ public class Ear implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.ears] of [npc.a_earRace], so nothing happens...)]</p>");
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 
-		UtilText.transformationContentSB.append("<p>");
+		sb.append("<p>");
 		if(owner.isArmMovementHindered()) {
-			UtilText.transformationContentSB.append("[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] them start to transform. ");
+			sb.append("[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] them start to transform. ");
 		} else {
-			UtilText.transformationContentSB.append("[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and, letting out a gasp, [npc.she] [npc.verb(reach)] up to rub at them as [npc.she] [npc.verb(feel)] them start to transform. ");
+			sb.append("[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and, letting out a gasp, [npc.she] [npc.verb(reach)] up to rub at them as [npc.she] [npc.verb(feel)] them start to transform. ");
 		}
 		
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+		sb.append(type.getTransformationDescription(owner));
 
-		UtilText.transformationContentSB.append("</p>");
+		sb.append("</p>");
 		
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -135,11 +135,11 @@ public class Ear implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Ear.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Ear.class) && getType().getRace().isFeralPartsAvailable());
 	}
 
 }

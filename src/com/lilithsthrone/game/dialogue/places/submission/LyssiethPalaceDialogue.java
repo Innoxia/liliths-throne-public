@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -18,6 +19,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -54,7 +56,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.9.9
  * @author Innoxia
  */
 public class LyssiethPalaceDialogue {
@@ -74,15 +76,31 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Leave Lyssieth's palace and head back out into Submission.", PlaceType.SUBMISSION_LILIN_PALACE_GATE.getDialogue(false)) {
+				return new Response("Leave", "Leave Lyssieth's palace and head back out into Submission.", ENTRANCE_LEAVING) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
+						Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_CAVERN, false);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ENTRANCE_LEAVING"));
 					}
 				};
 			}
 			return null;
+		}
+	};
+	
+	public static final DialogueNode ENTRANCE_LEAVING = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return PlaceType.SUBMISSION_LILIN_PALACE_CAVERN.getDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -191,13 +209,18 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "SIREN_OFFICE"));
 			
-			if(Main.game.getPlayer().hasCompanions()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "SIREN_OFFICE_COMPANION", Main.game.getPlayer().getMainCompanion()));
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(DarkSiren.class))) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "SIREN_OFFICE"));
+				
+				if(Main.game.getPlayer().hasCompanions()) {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "SIREN_OFFICE_COMPANION", Main.game.getPlayer().getMainCompanion()));
+				} else {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "SIREN_OFFICE_NO_COMPANION"));
+				}
+				
 			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "SIREN_OFFICE_NO_COMPANION"));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "SIREN_OFFICE_MERAXIS_ABSENT"));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -210,9 +233,11 @@ public class LyssiethPalaceDialogue {
 					@Override
 					public void effects() {
 						conversationIndex = 0;
-						Main.game.getNpc(DarkSiren.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						if(Main.game.getCharactersPresent().contains(Main.game.getNpc(DarkSiren.class))) {
+							Main.game.getNpc(DarkSiren.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						}
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
-						if(Main.game.getPlayer().hasCompanions()) { //TODO test
+						if(Main.game.getPlayer().hasCompanions()) {
 							for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 								companion.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, false);
 							}
@@ -221,6 +246,7 @@ public class LyssiethPalaceDialogue {
 				};
 				
 			} else if(index==6
+					&& Main.game.getCharactersPresent().contains(Main.game.getNpc(DarkSiren.class))
 					&& Main.game.getNpc(Lilaya.class).getRaceStage()==RaceStage.GREATER
 					&& Main.game.getNpc(DarkSiren.class).getRaceStage()!=RaceStage.GREATER) {
 				return new Response("Demon",
@@ -232,31 +258,17 @@ public class LyssiethPalaceDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.meraxisRepeatDemonTF, true);
-						Main.game.getNpc(DarkSiren.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-						
-						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
-						Main.game.getNpc(Lilaya.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
-						Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
-						
-						((Lyssieth)Main.game.getNpc(Lyssieth.class)).setLilinBody();
-						
-						if(Main.game.getPlayer().hasCompanions()) { //TODO test
-							for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
-								companion.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, false);
-							}
-						}
-
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).addFetish(Fetish.FETISH_INCEST, true));
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), 75));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "MERAXIS_DEMON_TF_START"));
 					}
 				};
 				
 			} else if(index==0) {
-				return new Response("Leave", "Step back out of [siren.namePos] office.", PlaceType.LYSSIETH_PALACE_CORRIDOR.getDialogue(false)) {
+				return new Response("Leave", "Step out of the office.", PlaceType.LYSSIETH_PALACE_CORRIDOR.getDialogue(false)) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(DarkSiren.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							if(Main.game.getCharactersPresent().contains(Main.game.getNpc(DarkSiren.class))) {
+								Main.game.getNpc(DarkSiren.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 							Main.game.getPlayer().setNearestLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_CORRIDOR, false);
 						}
 					};
@@ -267,13 +279,33 @@ public class LyssiethPalaceDialogue {
 	
 	public static final DialogueNode MERAXIS_DEMON_TF_START = new DialogueNode("", "", true, true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.meraxisRepeatDemonTF, true);
+			Main.game.getNpc(DarkSiren.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+			
+			Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
+			Main.game.getNpc(Lilaya.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
+			Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
+			
+			((Lyssieth)Main.game.getNpc(Lyssieth.class)).setLilinBody();
+			
+			if(Main.game.getPlayer().hasCompanions()) {
+				for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
+					companion.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, false);
+				}
+			}
+			
+			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).addFetish(Fetish.FETISH_INCEST, true));
+			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getNpc(Lyssieth.class), 75));
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "MERAXIS_DEMON_TF_START");
+			return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "MERAXIS_DEMON_TF_START_CORE");
 		}
 
 		@Override
@@ -289,7 +321,11 @@ public class LyssiethPalaceDialogue {
 					public void effects() {
 						((Lyssieth)Main.game.getNpc(Lyssieth.class)).setDaughterToFullDemon(DarkSiren.class);
 						Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
-						Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lilaya.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
+						if(Main.game.isAnalContentEnabled()) {
+							Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lilaya.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
+						} else {
+							Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lilaya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA));
+						}
 						Main.game.getNpc(Lyssieth.class).setStartingBody(false);
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 					}
@@ -330,7 +366,8 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Demonic Meraxis", "Meraxis steps out from Lyssieth's office, allowing you to see how she's changed.",
+				return new Response("Demonic Meraxis",
+						"Meraxis steps out from Lyssieth's office, allowing you to see how she's changed.",
 						MERAXIS_DEMON_TF_WAIT_IN_OFFICE_FINISHED) {
 						@Override
 						public void effects() {
@@ -356,7 +393,31 @@ public class LyssiethPalaceDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return SIREN_OFFICE.getResponse(responseTab, index); // Standard actions.
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("innoxia_meraxis_demon_tf_teleported"))) {
+				if(index==1) {
+					return new Response("Teleported",
+							"You and Meraxis teleport back to The Red Dragon tavern in Elis.",
+							DialogueManager.getDialogueFromId("innoxia_places_fields_elis_tavern_f0_meraxis_post_demon_tf")) {
+							@Override
+							public void effects() {
+								// Reset offspring to full demons:
+								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
+									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
+									}
+									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
+								}
+								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+							}
+						};
+					
+				} else {
+					return null;
+				}
+				
+			} else {
+				return SIREN_OFFICE.getResponse(responseTab, index); // Standard actions.
+			}
 		}
 	};
 
@@ -545,7 +606,13 @@ public class LyssiethPalaceDialogue {
 					};
 					
 				} else {
-					if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CORRUPTION_PERK_5)) {
+					if(!Main.game.getPlayer().hasStatusEffect(StatusEffect.CORRUPTION_PERK_5)) {
+						return new Response("Become a demon", "You are not corrupt enough to be turned into a demon...<br/>[style.italicsBad(Requires corruption of at least 95.)]", null);
+						
+					} else if(Main.game.getPlayer().getLegConfiguration()!=LegConfiguration.BIPEDAL) {
+						return new Response("Become a demon", "You need to have a bipedal leg configuration for Lyssieth to be able to turn you into a demon...", null);
+						
+					} else {
 						return new Response("Become a demon", "Tell Lyssieth that you want her to turn you into a demon.", DEMON_TF) {
 							@Override
 							public void effects() {
@@ -553,9 +620,6 @@ public class LyssiethPalaceDialogue {
 								updateLyssiethPregnancyReactions();
 							}
 						};
-						
-					} else {
-						return new Response("Become a demon", "You are not corrupt enough to be turned into a demon...<br/>[style.italicsBad(Requires corruption of at least 95.)]", null);
 					}
 				}
 				
@@ -593,8 +657,7 @@ public class LyssiethPalaceDialogue {
 				};
 				
 			} else if(index==11) { // Teleport
-			
-				if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+				if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
 					return new Response("Lilaya's lab", "Lyssieth is unwilling to face her daughter until you've broken the news to her that you're now a full demon. You'll have to make your own way back to the lab...", null);
 				}
 
@@ -885,6 +948,10 @@ public class LyssiethPalaceDialogue {
 	};
 	
 	public static final DialogueNode AFTER_DEMON_TF_SEX = new DialogueNode("Finished", "Thanks to Lyssieth, you are now a demon!", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getPlayer(), 75));
+		}
 		
 		@Override
 		public String getContent() {
@@ -957,11 +1024,13 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Meraxis's office", "Step out of Lyssieth's office and into her daughter's office-cum-waiting room.", AFTER_DEMON_TF_SIREN_OFFICE_LEAVE) {
+				return new Response("Exit",
+						"Step out of Lyssieth's office and into the adjoining office-cum-waiting room.",
+						AFTER_DEMON_TF_SIREN_OFFICE_LEAVE) {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots(true);
-						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true);
+						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true, false);
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 					}
 				};
@@ -979,10 +1048,14 @@ public class LyssiethPalaceDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasCompanions()) {
-				return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_DEMON_TF_SIREN_OFFICE_LEAVE_COMPANION", Main.game.getPlayer().getMainCompanion());
+			if(Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()==WorldType.LYSSIETH_PALACE) {
+				if(Main.game.getPlayer().hasCompanions()) {
+					return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_DEMON_TF_SIREN_OFFICE_LEAVE_COMPANION", Main.game.getPlayer().getMainCompanion());
+				} else {
+					return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_DEMON_TF_SIREN_OFFICE_LEAVE");
+				}
 			} else {
-				return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_DEMON_TF_SIREN_OFFICE_LEAVE");
+				return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_DEMON_TF_SIREN_OFFICE_LEAVE_MERAXIS_ABSENT");
 			}
 		}
 
@@ -1001,21 +1074,22 @@ public class LyssiethPalaceDialogue {
 	};
 
 	public static final DialogueNode LILAYA_DEMON_TF_START = new DialogueNode("", "", true) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "LILAYA_DEMON_TF_START");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Meraxis", "Lilaya tells your other sister to step into the office.", LILAYA_DEMON_TF_MERAXIS_CHOICE) {
+				return new Response("Meraxis",
+						Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()==WorldType.LYSSIETH_PALACE
+							?"Lilaya tells your other sister to step into the office."
+							:"Wait for Lyssieth to teleport back into the office with Meraxis.",
+						LILAYA_DEMON_TF_MERAXIS_CHOICE) {
 						@Override
 						public void effects() {
 							Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
@@ -1061,7 +1135,7 @@ public class LyssiethPalaceDialogue {
 					@Override
 					public void effects() {
 						((Lyssieth)Main.game.getNpc(Lyssieth.class)).setLilinBody();
-						Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
+						Main.game.getNpc(DarkSiren.class).returnToHome();
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "LILAYA_DEMON_TF_SOLO_SEX_CHOICE"));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.TWO_NEUTRAL, true));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).addFetish(Fetish.FETISH_INCEST, true));
@@ -1078,7 +1152,7 @@ public class LyssiethPalaceDialogue {
 	}
 	
 	private static void returnCompanionsToLab() {
-		if(Main.game.getPlayer().hasCompanions()) { //TODO test
+		if(Main.game.getPlayer().hasCompanions()) {
 			for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 				companion.setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 			}
@@ -1114,7 +1188,11 @@ public class LyssiethPalaceDialogue {
 						if(isMeraxisBeingTransformed()) {
 							((Lyssieth)Main.game.getNpc(Lyssieth.class)).setDaughterToFullDemon(DarkSiren.class);
 							Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
-							Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lilaya.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
+							if(Main.game.isAnalContentEnabled()) {
+								Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lilaya.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
+							} else {
+								Main.game.getNpc(DarkSiren.class).calculateGenericSexEffects(false, true, Main.game.getNpc(Lilaya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA));
+							}
 						}
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 						returnCompanionsToLab();
@@ -1172,7 +1250,7 @@ public class LyssiethPalaceDialogue {
 						if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 							Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 							Main.game.getPlayer().setPenisSize(20);
-							Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+							Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 						}
 					}
 					@Override
@@ -1225,7 +1303,7 @@ public class LyssiethPalaceDialogue {
 						if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 							Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 							Main.game.getPlayer().setPenisSize(20);
-							Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+							Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 						}
 					}
 					@Override
@@ -1312,7 +1390,7 @@ public class LyssiethPalaceDialogue {
 						if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 							Main.game.getNpc(Lilaya.class).setPenisSize(20);
-							Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+							Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 							Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 						}
 					}
@@ -1436,10 +1514,16 @@ public class LyssiethPalaceDialogue {
 			if(isMeraxisBeingTransformed()) {
 				if(index==1) {
 					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
-						return new Response("Fuck pussy", "As you are unable to access your penis, you're not able to take Meraxis's virginity...", null);
+						return new Response("Fuck pussy",
+								Main.game.getNpc(DarkSiren.class).isVaginaVirgin()
+									?"As you are unable to access your penis, you're not able to take Meraxis's virginity..."
+									:"As you are unable to access your penis, you're not able to fuck Meraxis's pussy...",
+								null);
 					}
 					return new ResponseSex("Fuck pussy",
-							"Tell your sister that you're going to be the one to take her virginity, while your mother fucks her ass from behind, and Lilaya uses her mouth."
+							(Main.game.getNpc(DarkSiren.class).isVaginaVirgin()
+								?"Tell your sister that you're going to be the one to take her virginity, while your mother fucks her ass from behind, and Lilaya uses her mouth."
+								:"Tell your sister that you're going to be the one to fuck her pussy, while your mother fucks her ass from behind, and Lilaya uses her mouth.")
 							+ (!Main.game.getPlayer().hasPenisIgnoreDildo()
 									?"<br/>[style.italicsTfSex(You will grow a demonic cock with which to fuck her.)]"
 									:""),
@@ -1462,7 +1546,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getPlayer().setPenisSize(20);
-								Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 							}
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.NONE);
 						}
@@ -1498,7 +1582,9 @@ public class LyssiethPalaceDialogue {
 						return new Response("Fuck ass", "As you are unable to access your penis, you're not able to fuck Meraxis's ass...", null);
 					}
 					return new ResponseSex("Fuck ass",
-							"Tell your sister that you're going to be the one to take her anal virginity, while your mother fucks her pussy, and Lilaya uses her mouth."
+							(Main.game.getNpc(DarkSiren.class).isAnalVirgin()
+								?"Tell your sister that you're going to be the one to take her anal virginity, while your mother fucks her pussy, and Lilaya uses her mouth."
+								:"Tell your sister that you're going to be the one to fuck her ass, while your mother fucks her pussy, and Lilaya uses her mouth.")
 							+ (!Main.game.getPlayer().hasPenisIgnoreDildo()
 									?"<br/>[style.italicsTfSex(You will grow a demonic cock with which to fuck her.)]"
 									:""),
@@ -1521,7 +1607,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getPlayer().setPenisSize(20);
-								Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 							}
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.NONE);
 						}
@@ -1580,7 +1666,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getNpc(Lilaya.class).setPenisSize(20);
-								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
 						}
@@ -1636,12 +1722,12 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getPlayer().setPenisSize(20);
-								Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 							}
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getNpc(Lilaya.class).setPenisSize(20);
-								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
 						}
@@ -1693,7 +1779,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getNpc(Lilaya.class).setPenisSize(20);
-								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
 						}
@@ -1747,12 +1833,18 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Lyssieth", "Look across at Lyssieth and see how she's reacting.", LILAYA_DEMON_TF_FINISHED_REACTION) {
+				return new Response("Lyssieth",
+						"Look across at Lyssieth and see how she's reacting.",
+						LILAYA_DEMON_TF_FINISHED_REACTION) {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Lyssieth.class).setStartingBody(false);
 							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.meraxisRepeatDemonTF)) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_MERAXIS_DEMON_TF_REPEAT_SEX_FINISHED_REACTION"));
+								if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("innoxia_meraxis_demon_tf_teleported"))) {
+									Main.game.getNpc(DarkSiren.class).returnToHome();
+								}
+								
 							} else {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_LILAYA_DEMON_TF_SEX_FINISHED_REACTION"));
 							}
@@ -1798,7 +1890,7 @@ public class LyssiethPalaceDialogue {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "LILAYA_DEMON_TF_SOLO_FINISHED_REACTION_OFFICE_END"));
 							}
 							Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
-							Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
+							Main.game.getNpc(DarkSiren.class).returnToHome();
 							returnCompanionsToLab();
 						}
 					};
@@ -1822,8 +1914,10 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.meraxisRepeatDemonTF)) {
-					return new Response("Meraxis's office", "You and Meraxis head back out into the office-cum-waiting room.", LILAYA_DEMON_TF_END) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("innoxia_meraxis_demon_tf_teleported"))) {
+					return new Response("Teleported",
+							"You and Meraxis teleport back to The Red Dragon tavern in Elis.",
+							DialogueManager.getDialogueFromId("innoxia_places_fields_elis_tavern_f0_meraxis_post_demon_tf")) {
 							@Override
 							public void effects() {
 								// Reset offspring to full demons:
@@ -1833,54 +1927,79 @@ public class LyssiethPalaceDialogue {
 									}
 									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 								}
-								Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
+								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+							}
+						};
+					
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.meraxisRepeatDemonTF)) {
+					return new Response(
+							Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()==WorldType.LYSSIETH_PALACE
+								?"Meraxis's office"
+								:"Continue",
+							Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()==WorldType.LYSSIETH_PALACE
+								?"You and Meraxis head back out into the office-cum-waiting room."
+								:"You find yourself back in the office-cum-waiting room.",
+							LILAYA_DEMON_TF_END) {
+							@Override
+							public void effects() {
+								// Reset offspring to full demons:
+								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
+									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
+									}
+									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
+								}
+								Main.game.getNpc(DarkSiren.class).returnToHome();
 								Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
 							}
 						};
+						
+				} else {
+					return new Response("Lilaya's Lab", "You and Lilaya are returned to her lab.", LILAYA_DEMON_TF_END) {
+							@Override
+							public void effects() {
+								// Reset offspring to full demons:
+								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
+									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
+									}
+									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
+								}
+	
+								// Reset offspring to full demons:
+								if(Main.game.getNpc(Lilaya.class).isPregnant()) {
+									for(GameCharacter offspring : Main.game.getNpc(Lilaya.class).getPregnantLitter().getOffspringCharacters()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getPregnantLitter().getFather(), false);
+									}
+									Main.game.getNpc(Lilaya.class).getPregnantLitter().generateBirthedDescription();
+								}
+								
+								Main.game.getNpc(DarkSiren.class).returnToHome();
+								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+								Main.game.getPlayer().setNearestLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR, false);
+							}
+						};
 				}
-				return new Response("Lilaya's Lab", "You and Lilaya are returned to her lab.", LILAYA_DEMON_TF_END) {
-						@Override
-						public void effects() {
-							// Reset offspring to full demons:
-							if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
-								for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
-									offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
-								}
-								Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
-							}
-
-							// Reset offspring to full demons:
-							if(Main.game.getNpc(Lilaya.class).isPregnant()) {
-								for(GameCharacter offspring : Main.game.getNpc(Lilaya.class).getPregnantLitter().getOffspringCharacters()) {
-									offspring.setBody(offspring.getGender(), Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getPregnantLitter().getFather(), false);
-								}
-								Main.game.getNpc(Lilaya.class).getPregnantLitter().generateBirthedDescription();
-							}
-							
-							Main.game.getNpc(DarkSiren.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
-							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
-							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
-							Main.game.getPlayer().setNearestLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR, false);
-						}
-					};
 			}
 			return null;
 		}
 	};
 
 	public static final DialogueNode LILAYA_DEMON_TF_END = new DialogueNode("", "", false, true) {
-		
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Lyssieth.class).setStartingBody(false);
+		}
 		@Override
 		public boolean isTravelDisabled() {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.meraxisRepeatDemonTF);
 		}
-		
 		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
-
 		@Override
 		public String getContent() {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.meraxisRepeatDemonTF)) {
@@ -1888,7 +2007,6 @@ public class LyssiethPalaceDialogue {
 			}
 			return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "LILAYA_DEMON_TF_END");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.meraxisRepeatDemonTF)) {

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Look in the mods folder for a commented version of this. -->
+<outfit>
+	<coreAttributes>
+		<name><![CDATA[generic labourer (feminine)]]></name>
+		
+		<description><![CDATA[Feminine labourer clothing.]]></description>
+		
+		<femininity>FEMININE</femininity>
+		
+		<worldTypes/>
+		
+		<outfitTypes>
+		  <type>JOB_LABOUR</type>
+		</outfitTypes>
+		
+		<acceptableLegConfigurations/>
+		
+		<conditional/>
+		
+		<weight>100</weight>
+	</coreAttributes>
+	
+	<generationAttributes>
+		<condBipedal constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></condBipedal> <!-- is bipedal -->
+		<condArmWings constant="true"><![CDATA[npc.isArmWings()]]></condArmWings> <!-- arm-wings -->
+		
+		<presetColourGroup1 values="ALL_METAL"/>
+		
+		<presetColourGroup2 singleColour="true">
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_GREY</randomColour>
+			<randomColour>CLOTHING_WHITE</randomColour>
+			<randomColour>CLOTHING_DESATURATED_BROWN</randomColour>
+			<randomColour>CLOTHING_TAN</randomColour>
+			<randomColour>CLOTHING_KHAKI</randomColour>
+		</presetColourGroup2>
+		
+		<presetColourGroup3 singleColour="true"> <!-- Lingerie -->
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_RED_VERY_DARK</randomColour>
+			<randomColour>CLOTHING_RED_DARK</randomColour>
+			<randomColour>CLOTHING_PURPLE_VERY_DARK</randomColour>
+			<randomColour>CLOTHING_PINK</randomColour>
+		</presetColourGroup3>
+		
+        <mainWeapons/>
+        <offhandWeapons/>
+		
+		<guaranteedClothingEquips/>
+		
+		<genericClothingType> <!-- Generic jewellery. -->
+			<itemTags/>
+			<acceptableFemininities>
+				<femininity>MASCULINE</femininity>
+				<femininity>ANDROGYNOUS</femininity>
+			</acceptableFemininities>
+			<slot/>
+			<rarity>COMMON</rarity>
+			<conditional>
+			<![CDATA[
+			clothing.getSlot().isJewellery()
+				&& ((npc.getRace()!=RACE_SLIME && (RND.nextInt(100)<=75 || clothing.getSlot()==IS_PIERCING_EAR))
+					|| (npc.getRace()==RACE_SLIME && npc.getFetishDesire(FETISH_MASOCHIST).isPositive() && RND.nextInt(100)<=25))
+			]]>
+			</conditional>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</genericClothingType>
+		
+		<genericClothingType> <!-- Generic hair accessories. -->
+			<itemTags/>
+			<acceptableFemininities>
+				<femininity>FEMININE</femininity>
+				<femininity>ANDROGYNOUS</femininity>
+			</acceptableFemininities>
+			<slot>HAIR</slot>
+			<rarity>COMMON</rarity>
+			<conditional><![CDATA[RND.nextInt(100)<=25 && npc.hasHair()]]></conditional>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</genericClothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[condBipedal]]></conditional>
+			<types>
+				<type>innoxia_sock_socks</type>
+				<type>innoxia_sock_kneehigh_socks</type>
+			</types>
+			<primaryColours values="SHADES_OF_GREY"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[condBipedal]]></conditional>
+			<types>
+				<type>innoxia_foot_work_boots</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>TORSO_SHORT_SLEEVE_SHIRT</type>
+				<type>innoxia_torso_feminine_short_sleeve_shirt</type>
+				<type>innoxia_torso_tshirt</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[!condArmWings && (game.getSeason()==SEASON_WINTER || RND.nextInt(100)<=50)]]></conditional>
+			<types>
+				<type>TORSO_OVER_HOODIE</type>
+				<type>TORSO_RIBBED_SWEATER</type>
+			</types>
+			<primaryColours values="DARK_SHADES"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>innoxia_leg_cargo_trousers</type>
+				<type>innoxia_leg_jeans</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Underwear: -->
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>GROIN_BOYSHORTS</type>
+				<type>innoxia_groin_lacy_panties</type>
+				<type>GROIN_SHIMAPAN</type>
+				<type>GROIN_PANTIES</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>CHEST_FULLCUP_BRA</type>
+				<type>CHEST_SPORTS_BRA</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!--Accessories:-->
+		
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=90]]></conditional>
+			<types>
+				<type>innoxia_hips_leather_belt</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=75]]></conditional>
+			<types>
+				<type>innoxia_hand_fingerless_gloves</type>
+			</types>
+			<primaryColours values="SHADES_OF_GREY"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType> <!-- Glasses. -->
+			<conditional><![CDATA[RND.nextInt(100)<=5]]></conditional>
+			<types>
+				<type>EYES_GLASSES</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=33 && npc.hasHair()]]></conditional>
+			<types>
+				<type>innoxia_head_cap</type>
+				<type>innoxia_head_headband</type>
+				<type>innoxia_head_sweatband</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=33 && !npc.hasHair()]]></conditional>
+			<types>
+				<type>innoxia_head_cap</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=25]]></conditional>
+			<types>
+				<type>WRIST_WOMENS_WATCH</type>
+			</types>
+			<primaryColours values="BLACK_OR_WHITE"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=90]]></conditional>
+			<types>
+				<type>FINGER_RING</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Fetish gear: -->
+		
+		<clothingType> <!-- Anal toys. -->
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.hasFetish(FETISH_ANAL_RECEIVING) && !npc.hasVagina() && RND.nextInt(100)<=33]]></conditional>
+			<types>
+				<type>norin_anal_beads_anal_beads</type>
+				<type>innoxia_buttPlugs_butt_plug</type>
+				<type>innoxia_buttPlugs_butt_plug_jewel</type>
+				<type>innoxia_buttPlugs_butt_plug_heart</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType> <!-- Chastity. -->
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.hasPenisIgnoreDildo() && npc.hasFetish(FETISH_DENIAL_SELF) && RND.nextInt(100)<=33]]></conditional>
+			<types>
+				<type>innoxia_bdsm_chastity_cage</type>
+				<type>innoxia_bdsm_ornate_chastity_cage</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType> <!-- Dildo. -->
+			<conditional><![CDATA[npc.hasVagina() && npc.hasFetish(FETISH_VAGINAL_RECEIVING) && !npc.hasFetish(FETISH_ANAL_RECEIVING) && RND.nextInt(100)<=33]]></conditional>
+			<types>
+				<type>innoxia_vagina_insertable_dildo</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType> <!-- Anal-only. -->
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.hasVagina() && npc.hasFetish(FETISH_ANAL_RECEIVING) && RND.nextInt(100)<=33]]></conditional>
+			<types>
+				<type>innoxia_vagina_sticker_anal_only</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+	</generationAttributes>
+
+</outfit>

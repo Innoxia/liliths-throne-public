@@ -202,7 +202,7 @@
 		#IF(pc.hasHorns())
 			 your [pc.horns]
 		#ELSEIF(pc.hasHair())
-			 your [pc.hair]
+			 your [pc.hair(true)]
 		#ELSE
 			 the back of your head
 		#ENDIF
@@ -223,7 +223,7 @@
 		#IF(pc.hasHorns())
 			 your [pc.horns]
 		#ELSEIF(pc.hasHair())
-			 your [pc.hair]
+			 your [pc.hair(true)]
 		#ELSE
 			 the back of your head
 		#ENDIF
@@ -1341,11 +1341,11 @@
 		</p>
 	#ELSE
 		<p>
-			Happy to hear that she's willing to eat you out, you lie back on her bed and spread your legs to present your [pc.pussy+] to Helena.
+			Happy to hear that she's willing to eat you out, you lie back on her bed and #IF(pc.hasLegs())spread your legs to #ENDIFpresent your [pc.pussy+] to Helena.
 			#IF(helena.isSlutty())
-				 Clearly eager to be sharing her first experience of performing cunnilingus with you, Helena immediately jumps up onto the bed, before dropping her beautiful face down between your legs and leaning forwards to plant a passionate, sloppy kiss on your [pc.labia+].
+				 Clearly eager to be sharing her first experience of performing cunnilingus with you, Helena immediately jumps up onto the bed, before dropping her beautiful face down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF and leaning forwards to plant a passionate, sloppy kiss on your [pc.labia+].
 			#ELSE
-				 Visibly gulping at the prospect of performing cunnilingus for the first time, Helena slowly clambers up onto the bed, before haltingly dropping her beautiful face down between your legs and leaning forwards to plant a quick kiss on your [pc.labia+].
+				 Visibly gulping at the prospect of performing cunnilingus for the first time, Helena slowly clambers up onto the bed, before haltingly dropping her beautiful face down IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF and leaning forwards to plant a quick kiss on your [pc.labia+].
 			#ENDIF
 		</p>
 		<p>
@@ -1378,7 +1378,7 @@
 		</p>
 	#ELSE
 		<p>
-			Happy to hear that she's willing to eat you out, you lie back on her bed and spread your legs to present your [pc.pussy+] to Helena. Clearly eager to be performing cunnilingus on you again, Helena immediately jumps up onto the bed, before dropping her beautiful face down between your legs and leaning forwards to plant a passionate, sloppy kiss on your [pc.labia+].
+			Happy to hear that she's willing to eat you out, you lie back on her bed and #IF(pc.hasLegs())spread your legs to #ENDIFpresent your [pc.pussy+] to Helena. Clearly eager to be performing cunnilingus on you again, Helena immediately jumps up onto the bed, before dropping her beautiful face down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF and leaning forwards to plant a passionate, sloppy kiss on your [pc.labia+].
 		</p>
 		<p>
 			Feeling the gorgeous harpy's [helena.lips+] make contact with your pussy causes you to let out an excited [pc.moan], which spurs her on to plant yet another big, wet kiss on your [pc.labia+]. Clearly enjoying herself, Helena firmly presses her [helena.lips+] down against your saliva-coated cunt before desperately passionately thrusting her tongue into your [pc.pussy+] and starting to eat you out...
@@ -1410,9 +1410,9 @@
 		<p>
 			Happy to hear that she's willing to suck your cock, you sit down on the edge of her bed and present your rapidly-hardening cock to Helena.
 			#IF(helena.isSlutty())
-				 Clearly eager to be sharing her first experience of performing a blowjob with you, Helena immediately sinks down to her knees in front of you, before dropping her beautiful face down between your legs and leaning forwards to plant a passionate, sloppy kiss on the [pc.cockHead+] of your erect shaft.
+				 Clearly eager to be sharing her first experience of performing a blowjob with you, Helena immediately sinks down to her knees in front of you, before dropping her beautiful face down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF and leaning forwards to plant a passionate, sloppy kiss on the [pc.cockHead+] of your erect shaft.
 			#ELSE
-				 Visibly gulping at the prospect of performing a blowjob for the first time, Helena slowly sinks down to her knees in front of you, before hesitantly shuffling forwards and dropping her beautiful face down between your legs. Letting out a deep sigh, she takes her time in leaning forwards to plant a quick kiss on the [pc.cockHead+] of your erect shaft.
+				 Visibly gulping at the prospect of performing a blowjob for the first time, Helena slowly sinks down to her knees in front of you, before hesitantly shuffling forwards and dropping her beautiful face down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. Letting out a deep sigh, she takes her time in leaning forwards to plant a quick kiss on the [pc.cockHead+] of your erect shaft.
 			#ENDIF
 		</p>
 	#ENDIF
@@ -1437,7 +1437,7 @@
 		</p>
 	#ELSE
 		<p>
-			Happy to hear that she's willing to suck your cock, you sit down on the edge of her bed and present your rapidly-hardening cock to Helena. Clearly eager to give you a blowjob, Helena immediately sinks down to her knees in front of you, before dropping her beautiful face down between your legs and leaning forwards to plant a passionate, sloppy kiss on the [pc.cockHead+] of your erect shaft.
+			Happy to hear that she's willing to suck your cock, you sit down on the edge of her bed and present your rapidly-hardening cock to Helena. Clearly eager to give you a blowjob, Helena immediately sinks down to her knees in front of you, before dropping her beautiful face down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF and leaning forwards to plant a passionate, sloppy kiss on the [pc.cockHead+] of your erect shaft.
 		</p>
 	#ENDIF
 	<p>

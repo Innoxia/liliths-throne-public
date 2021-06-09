@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
@@ -138,17 +139,21 @@ public class OrificeNipples implements OrificeInterface {
 	}
 
 	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) {
 		// Calculate breast depth as simply owner.getBreastSize().getMeasurement()
 		if(this.isCrotchNipples()) {
-			return (int) ((owner.getBreastCrotchSize().getMeasurement()) * 0.5f * this.getDepth(owner).getDepthPercentage());
+			return (int) ((owner.getBreastCrotchSize().getMeasurement()) * 0.5f * depth.getDepthPercentage());
 		}
-		return (int) ((owner.getBreastSize().getMeasurement()) * 0.5f * this.getDepth(owner).getDepthPercentage());
+		return (int) ((owner.getBreastSize().getMeasurement()) * 0.5f * depth.getDepthPercentage());
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepth()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.5f);
+		} else {
+			return getMaximumPenetrationDepthComfortable(owner, depth) * 2;
+		}
 	}
 	
 	@Override
@@ -322,7 +327,7 @@ public class OrificeNipples implements OrificeInterface {
 							"<p>"
 								+ "An intense pressure suddenly swells up deep within [npc.namePos] "+breastsString+", and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(extra muscles)]"
 									+ " growing down into the lining of [npc.her] "+nipplesString+"."
-								+ " [npc.sheIs] shocked to discover that [npc.she] has an incredible amount of control over them, allowing [npc.her] to expertly grip and squeeze down on any penetrating object.<br/>"
+								+ " [npc.sheIs] shocked to discover that [npc.sheHasFull] an incredible amount of control over them, allowing [npc.herHim] to expertly grip and squeeze down on any penetrating object.<br/>"
 								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are now lined with an intricate series of muscles!)]"
 							+ "</p>");
 				}
@@ -344,7 +349,7 @@ public class OrificeNipples implements OrificeInterface {
 							"<p>"
 								+ "An intense pressure suddenly swells up deep within [npc.namePos] "+breastsString+", and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a strange tingling sensation deep down in [npc.her] "+nipplesString+"."
 								+ " The tingling sensation grows stronger, and a surprised cry bursts out from [npc.her] mouth as [npc.she] suddenly discovers that the insides of [npc.her] "+nipplesString+" are now filled with"
-										+ " [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+										+ " [style.boldGrow(a series of little wriggling tentacles)], over which [npc.sheHasFull] limited control.<br/>"
 								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are now filled with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>");
 				}
@@ -352,7 +357,7 @@ public class OrificeNipples implements OrificeInterface {
 			case PUFFY:
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] "+nipplesString+", before they suddenly swell out and [style.boldGrow(puff up)].<br/>"
+							+ "[npc.Name] [npc.verb(let)] out a little cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] "+nipplesString+", before they suddenly swell out and [style.boldGrow(puff up)].<br/>"
 							+ "[style.boldSex([npc.NamePos] "+nipplesString+" are now extremely puffy!)]"
 						+ "</p>");
 		}

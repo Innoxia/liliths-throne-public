@@ -52,26 +52,35 @@
 			  <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
 		</effects>
 		
+		<extraEffects>
+			<effect><![CDATA[[style.boldPhysical("Dazed")] on critical hit.]]></effect>
+		</extraEffects>
+		
+		<onHitEffect/>
+		
+		<onCriticalHitEffect><![CDATA[
+		#IF !npc2.hasStatusEffect(SE_DAZED)
+		#THEN [##npc2.addStatusEffect(SE_DAZED, 4)] [npc.Name] managed to body [npc2.name] to the ground! [npc2.She] [style.boldPhysical([npc2.verb(feel)] unsteady)] as [npc2.she] gets up. 
+		#ENDIF
+		]]></onCriticalHitEffect>
+		
 		<primaryColours values="JUST_SILVER"/> 
 		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours values="JUST_BLACK"/> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Charging forward with [npc.her] riot shield, [npc.name] [npc.verb(manage)] to hit [npc2.name] dead on. The enchanted polycarbonate bounces off [npc2.her] aura and knocks [npc2.her] back, draining [npc.her] energy!
-		]]></hitText>
-		<hitText><![CDATA[
-		With a quick step forwards, [npc.name] [npc.verb(swings)] [npc.her] riot shield out at [npc2.name], bodying [npc2.her] to the ground, causing [npc2.herHim] to lose some energy!
+		Charging forward with [npc.her] riot shield, [npc.name] [npc.verb(manage)] to hit [npc2.name] dead on. The enchanted polycarbonate bounces off [npc2.her] aura and knocks [npc2.herHim] back, draining [npc.her] energy!
 		]]></hitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
 		Charging forward with [npc.her] riot shield, [npc.name] [npc.verb(attempt)] to hit [npc2.name] dead on but stumbles and misses completely!

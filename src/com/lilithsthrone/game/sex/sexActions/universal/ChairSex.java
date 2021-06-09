@@ -50,6 +50,35 @@ public class ChairSex {
 		return !gettingFucked.isTaur();
 	}
 	
+	private static void applyChangeSlotEffects(GameCharacter mover, SexSlot moverSlot, GameCharacter partner, SexSlot partnerSlot) {
+		if(Main.sex.getCharacterInPosition(moverSlot)!=null) {
+			Main.sex.swapSexPositionSlots(mover, Main.sex.getCharacterInPosition(moverSlot));
+		}
+		if(Main.sex.getCharacterInPosition(partnerSlot)!=null && !Main.sex.getCharacterInPosition(partnerSlot).equals(partner)) {
+			Main.sex.swapSexPositionSlots(partner, Main.sex.getCharacterInPosition(partnerSlot));
+		}
+		
+		Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
+		Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
+		
+		if(Main.sex.isDom(mover)) {
+			dominants.put(mover, moverSlot);
+		} else {
+			submissives.put(mover, moverSlot);
+		}
+		if(Main.sex.isDom(partner)) {
+			dominants.put(partner, partnerSlot);
+		} else {
+			submissives.put(partner, partnerSlot);
+		}
+
+		Main.sex.setSexManager(new SexManagerDefault(
+				SexPosition.SITTING,
+				dominants,
+				submissives){
+		});
+	}
+	
 	public static final SexAction SWITCH_TO_STANDING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -94,35 +123,6 @@ public class ChairSex {
 			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
-	
-	private static void applyChangeSlotEffects(GameCharacter mover, SexSlot moverSlot, GameCharacter partner, SexSlot partnerSlot) {
-		if(Main.sex.getCharacterInPosition(moverSlot)!=null) {
-			Main.sex.swapSexPositionSlots(mover, Main.sex.getCharacterInPosition(moverSlot));
-		}
-		if(Main.sex.getCharacterInPosition(partnerSlot)!=null && !Main.sex.getCharacterInPosition(partnerSlot).equals(partner)) {
-			Main.sex.swapSexPositionSlots(partner, Main.sex.getCharacterInPosition(partnerSlot));
-		}
-		
-		Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
-		Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
-		
-		if(Main.sex.isDom(mover)) {
-			dominants.put(mover, moverSlot);
-		} else {
-			submissives.put(mover, moverSlot);
-		}
-		if(Main.sex.isDom(partner)) {
-			dominants.put(partner, partnerSlot);
-		} else {
-			submissives.put(partner, partnerSlot);
-		}
-
-		Main.sex.setSexManager(new SexManagerDefault(
-				SexPosition.SITTING,
-				dominants,
-				submissives){
-		});
-	}
 	
 	public static final SexAction SWITCH_TO_GIVING_ORAL = new SexAction(
 			SexActionType.POSITIONING,
@@ -786,13 +786,25 @@ public class ChairSex {
 					if(isHappy) {
 						switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 							case DOM_ROUGH:
-								return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [np.legs], wrapping them around [npc2.namePos] lower back, and roughly forcing [npc2.herHim] forwards."
-										+ " Glaring up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
-										+ " [npc.speech(Alright, slut, you'd better make this good!)]";
+								if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [npc.legs], wrapping them around [npc2.namePos] lower back, and roughly forcing [npc2.herHim] forwards."
+											+ " Glaring up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
+											+ " [npc.speech(Alright, slut, you'd better make this good!)]";
+								} else {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before presenting [npc.her] groin to [npc2.name]."
+											+ " Glaring up at [npc2.herHim], [npc.she] [npc.moansVerb],"
+											+ " [npc.speech(Alright, slut, you'd better make this good!)]";
+								}
 							default:
-								return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [np.legs], wrapping them around [npc2.namePos] lower back, and forcing [npc2.herHim] forwards."
-										+ " Smiling up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
-										+ " [npc.speech(Come on then, fuck me!)]";
+								if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [npc.legs], wrapping them around [npc2.namePos] lower back, and forcing [npc2.herHim] forwards."
+											+ " Smiling up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
+											+ " [npc.speech(Come on then, fuck me!)]";
+								} else {
+									return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before presenting [npc.her] groin to [npc2.name]."
+											+ " Smiling up at [npc2.herHim], [npc.she] [npc.moansVerb],"
+											+ " [npc.speech(Come on then, fuck me!)]";
+								}
 						}
 						
 					} else {

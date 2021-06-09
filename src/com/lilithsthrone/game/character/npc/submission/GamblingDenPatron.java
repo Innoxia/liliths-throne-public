@@ -8,8 +8,8 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -25,7 +26,7 @@ import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTabl
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -67,18 +68,20 @@ public class GamblingDenPatron extends NPC {
 			
 			// RACE & NAME:
 			
-			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 100 : 50;
+			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 1000 : 500;
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.SLIME) {
-					Subspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap(
+							(int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					Subspecies.addToSubspeciesMap((int) (25 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap(
+							(int) (250 * Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			
@@ -91,25 +94,25 @@ public class GamblingDenPatron extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, false);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(750 + Util.random.nextInt(750));
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -127,7 +130,7 @@ public class GamblingDenPatron extends NPC {
 		Element tableElement = doc.createElement("table");
 		properties.appendChild(tableElement);
 		
-		CharacterUtils.addAttribute(doc, tableElement, "value", table.toString());
+		XMLUtil.addAttribute(doc, tableElement, "value", table.toString());
 		
 		return properties;
 	}
@@ -150,7 +153,7 @@ public class GamblingDenPatron extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
 //		super.equipClothing(settings);
 	}
 	

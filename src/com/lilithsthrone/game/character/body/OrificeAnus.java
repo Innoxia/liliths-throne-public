@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
@@ -147,13 +148,17 @@ public class OrificeAnus implements OrificeInterface {
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
-		return (int) (owner.getHeightValue() * 0.12f * this.getDepth(owner).getDepthPercentage());
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) {
+		return (int) (owner.getHeightValue() * 0.12f * depth.getDepthPercentage());
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepth()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.5f);
+		} else {
+			return getMaximumPenetrationDepthComfortable(owner, depth) * 2;
+		}
 	}
 	
 	@Override
@@ -328,7 +333,7 @@ public class OrificeAnus implements OrificeInterface {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] ass, but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] asshole is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] asshole is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.sheHasFull] limited control.<br/>"
 							+ "[style.boldSex(The inside of [npc.namePos] asshole is now filled with small tentacles, which wriggle and caress any intruding object with a mind of their own!)]"
 						+ "</p>");
 					
@@ -385,7 +390,7 @@ public class OrificeAnus implements OrificeInterface {
 			case PUFFY:
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] can't help but let out a cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.ass],"
+							+ "[npc.Name] can't help but let out a cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] [npc.ass],"
 								+ " before the puffy rim of [npc.her] [npc.asshole] [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
 							+ "[style.boldSex(The rim of [npc.namePos] asshole is no longer swollen and puffy!)]"
 						+ "</p>");

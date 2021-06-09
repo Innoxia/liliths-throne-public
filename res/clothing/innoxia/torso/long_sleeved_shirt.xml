@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[long-sleeved shirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[long-sleeved shirts]]></namePlural> 
+		<description><![CDATA[A long-sleeved shirt, complete with collar and a full-length opening at the front, which is fastened using buttons.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity> 
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>long_sleeved_shirt.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_BLUE_GREY</colour>
+			<colour>CLOTHING_BLUE_LIGHT</colour>
+			<colour>CLOTHING_GREEN_DRAB</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_GREY"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_WHITE"/>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+</clothing>

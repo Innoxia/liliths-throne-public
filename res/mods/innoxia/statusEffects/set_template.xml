@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- An integer used for determining the order of rendering status effect icons. A higher value means that it's higher up in the rendering priority (and so will be rendered before others).
+	Typical values go from 0 to 100.
+	A good default value is to set it as 50. As this status effect is a set bonus, it has a higher rendering priority than usual (of 70).
+	For some examples of the rendering priority:
+	- A character's racial perk effect has a priority of 1000, as I want it to always be rendered first no matter what.
+	- Weather effects have a priority of 100 (as I want them to always be displayed as high as possible).
+	- Sexual orientation has a priority of 90 (as I want it to be displayed near the start).
+	- Most other standard status effects (such as pregnancy, well-rested, alcohol level, etc.) have a priority of 80.
+	- Set bonuses have a priority of 70. -->
+	<renderingPriority>70</renderingPriority>
+	
+	<!-- 'true' if you want this status effect to be displayed in the affected character's status effect panel. This should pretty much always be 'true'. -->
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	
+	<!-- The category which this status effect falls into. You can omit this field if you want it to be set to DEFAULT (which is the standard category).
+	This particular category is set to INVENTORY, as set bonuses only need to be checked for after a character has had their inventory changed in some way.
+	Categories, along with their meanings, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/StatusEffectCategory.java -->
+	<category>INVENTORY</category>
+	
+	<!-- 'BENEFICIAL' if this is a good status effect for a character to have, 'NEUTRAL' if it's neither, or 'DETRIMENTAL' if it's a bad one. -->
+	<beneficial>BENEFICIAL</beneficial>
+	
+	<!-- 'true' if you want this status effect to be rendered during combat, and if the 'applyEffects' element should be applied to the affected character on every combat round during which it is active.
+	This should only be set to true if this a status effect which is applied and used *only* in combat.
+	Status effects which are marked as combat status effects are not ever applied outside of combat. -->
+	<combatEffect>false</combatEffect>
+	
+	<!-- 'true' if you want this status effect to be rendered during sex. -->
+	<sexEffect>false</sexEffect>
+	
+	<!-- Tags which are applied to the affected character while this effect is active.
+	All tags can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java
+	The only ones which actually do anything at the time of this feature's addition (v0.4) are:
+		NIGHT_VISION_SELF
+		NIGHT_VISION_AREA
+		SPREADS_FEET
+		MUFFLES_SPEECH
+		HINDERS_ARM_MOVEMENT
+		HINDERS_LEG_MOVEMENT
+		PREVENTS_ERECTION_PHYSICAL
+		PREVENTS_ERECTION_OTHER
+	It is unlikely that additional tags will be supported in the future, but if any are added, this section will be updated. -->
+	<tags>
+		<tag>NIGHT_VISION_SELF</tag>
+	</tags>
+	
+	<!-- The name of this set bonus. The character under the effect is passed in as the 'npc' parsing argument, so if you want to, you can include parsing elements such as [npc.name]. -->
+	<name><![CDATA[Socks of Power]]></name>
+	
+	<!-- The description of this status effect. The character under the effect is passed in as the 'npc' parsing argument, so if you want to, you can include parsing elements such as [npc.name]. -->
+	<description><![CDATA[
+		By wearing the template socks, you become a sock god#IF(npc.isFeminine())dess#ENDIF!
+	]]></description>
+	
+	<!-- The name of the icon which should be used to represent this status effect. The icon must be an svg file, and must be placed in the same folder as this XML file. -->
+	<imageName>set_template.svg</imageName>
+	
+	<!-- The colour which should be associated with this status effect. Just like with clothing and weapon recolouring, this is used to recolour the image you used above.
+	A PresetColour value should be used here, drawn from: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+	<colourPrimary>CLOTHING_WHITE</colourPrimary> <!-- This has to have a value defined, or else this XML file will fail to load. -->
+	<colourSecondary/> <!-- This can optionally be left blank, like the 'colourTertiary' element below. -->
+	<colourTertiary/>
+	
+	<!-- The attributes which should be affected by having this status effect. The value="10" part defines how much the attribute should be numerically affected (and can be negative), while the 'DAMAGE_LUST' part defines which attribute is being affected.
+	You can define any number of attribute modifiers, but it's usually best to keep it limited to just a few.
+	Values for attributes should be drawn from here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java-->
+	<attributeModifiers>
+		<modifier value="100.0">HEALTH_MAXIMUM</modifier>
+	</attributeModifiers>
+	
+	<!-- The CombatMoves which should be unlocked for the character affected by this status effect.
+	CombatMove identifiers are defined in their constructors. When modding support for combat moves is added, the identifier will be described in the modding file there.
+	Current CombatMoves can be found in the files in this folder: https://github.com/Innoxia/liliths-throne-public/tree/dev/src/com/lilithsthrone/game/combat/moves
+	For this status effect, no combat moves need to be added, but if you need to use this section, use the following format:
+	<combatMoves>
+		<move>cat-scratch</move>
+	</combatMoves> -->
+	<combatMoves/>
+	
+	<!-- The Spells which should be unlocked for the character affected by this status effect.
+	Current Spells can be found in the files in this folder: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/spells/Spell.java
+	For this status effect, no spells need to be added, but if you need to use this section, use the following format:
+	<spells>
+		<spell>ARCANE_AROUSAL</spell>
+	</spells> -->
+	<spells/>
+	
+	<!-- You can use this section to describe any extra effects that this status effect might apply. These effects are shown in the tooltip when the player hovers over the status effect icon.
+	The character under the effect is passed in as the 'npc' parsing argument, so if you want to, you can include parsing elements such as [npc.name].
+	For this status effect, no extra effects need to be described, but if you need to use this section, use the following format:
+	<extraEffects>
+		<effect><![CDATA[You're a playful kitty!]]></effect>
+	</extraEffects> -->
+	<extraEffects/>
+	
+	
+	<!-- Effect logic -->
+	
+	<!-- The condition for a status effect to be applied is by default 'false', which means that it can only be applied by a direct method call elsewhere for GameCharacter.addStatusEffect(AbstractStatusEffect statusEffect, int seconds)
+	If you would like your status effect to similarly only be applied when called upon, then define this element as:
+	<applicationCondition><![CDATA[false]]></applicationCondition>
+	If, however, you would like this status effect to be automatically activated once certain conditions are met, then make sure that this element returns a conditional that would result in 'true' (without quotes), as in the example below.
+	You must use the game's parsing engine to get what you want.
+	You should probably define the attribute shortConditionalCheck="true", as it significantly improves performance of the conditional check. If you do this, you can only define one single conditional line to be parsed (such as in the commented-out example below).
+	'npc' is the parser target for the character affected by this status effect.
+	To parse something and return a String, use a '#' character at the start of a command, such as: [#npc.isFeminine()]
+	To parse something without returning a String (which would most likely not be used in this element), use two '#' characters, such as: [##npc.isFeminine()]
+	As a final note, all whitespace is stripped from the returned String before it is parsed into a Boolean. -->
+	<applicationCondition><![CDATA[
+		#IF(SET_BONUS_innoxia_template.isCharacterWearingCompleteSet(npc))
+			true
+		#ELSE
+			false
+		#ENDIF
+	]]></applicationCondition>
+	<!--The above example is meant to show that you can use the parser to create more "complex" conditionals, but an alternate, simpler example to achieve the same effect would be to just do:
+	<applicationCondition shortConditionalCheck="true"><![CDATA[
+		SET_BONUS_innoxia_kitty.isCharacterWearingCompleteSet(npc)
+	]]></applicationCondition>
+	-->
+	
+	<!-- How long this status effect should be applied for when the conditions are met.
+	This is measured in seconds and should always be a positive integer.
+	The exception to the positive integer rule is the special value of -1, which means that the status effect should remain active for as long as the applicationCondition is returning true.
+	In almost all of the game's status effects, this field is left as -1.
+	If you define the attribute 'constantRefresh' as true, then the effect's duration will be refreshed to the duration you've defined every turn so long as applicationCondition continues to return true.
+	If 'constantRefresh' is false, then the effect will be applied to the character once at the moment the applicationCondition returns true, and not applied again until the duration has expired and applicationCondition returns true once again.
+	If the value is left as -1, then 'constantRefresh' has no effect, but for formatting uniformity, it should probably be left as false. -->
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	
+	
+	<!-- Status effects execute an 'applyEffect(GameCharacter target, int secondsPassed)' method every time the game ends a turn.
+	The 'target' is the character who is under the effect of this particular status effect, while the 'secondsPassed' is how much time, in seconds, has passed on this turn.
+	During combat, the 'secondsPassed' argument is always 1 (to represent 1 turn ending).
+	If the method returns a String, then the game's flow is interrupted to display the 'Important status effects' screen to the player, along with whatever String was returned by this applyEffect() method.
+	You can define your own effects to be parsed here, just like hard-coded status effects. While your options are a little limited by what the parser can access, you should be able to apply a good range of effects.
+	The 'interval' attribute is an integer representing how often this effect should be applied (measured in seconds).
+		For example, an interval of 3600 would make this effect be applied only once per hour (60*60=3600).
+		Use an interval of 0 to make this effect be applied on every turn.
+	'npc' is the parser target for the character affected by this status effect.
+	SECONDS_PASSED is a special tag which is converted into an integer value of the time that passed during the last turn's end (in seconds).
+	TOTAL_SECONDS_PASSED is a special tag which is converted into a long value of the total time that's passed while under the effect of this status effect (in seconds).
+		This can be used with a TOTAL_SECONDS_PASSED==0 check to, for example, only apply an effect when this status effect is initially added.
+	Important note: In combat, 'seconds passed' is actually represented by the number of combat turns passed.
+		So, for example, TOTAL_SECONDS_PASSED would be converted into 2 if the character had been under the status effect's influence for two turns in combat.
+	As a final note, all tabs are stripped from the returned String after it is parsed, so it's safe to use tabs *not spaces* for formatting.
+	This particular status effect does not apply an effect, but if you wanted to apply one, you could do something like this:
+	
+	<applyEffect interval="3600"><![CDATA[
+		#IF(SECONDS_PASSED>0)
+			An hour passed!
+			#IF(TOTAL_SECONDS_PASSED>(60*60*24))
+				[##game.getTextEndStringBuilder().append("<p>This effect has been in effect for more than a day!</p>")]
+			#ENDIF
+		#ENDIF
+	]]></applyEffect>
+	-->
+	<applyEffect/>
+	
+	<!-- In a similar manner to the 'applyEffect' element above, the game processes logic when a status effect is removed. (This logic is performed while the character is still under the effects of this status effect.) -->
+	<applyRemovalEffect/>
+	
+	<!-- In a similar manner to the 'applyEffect' element above, the game processes logic after a status effect has been removed. (This logic is performed immediately after the effect is removed, so the character is no longer under the effects of this status effect.) -->
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

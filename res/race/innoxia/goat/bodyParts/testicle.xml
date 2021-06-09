@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	<race>innoxia_goat</race>
+	
+	<coveringType>innoxia_goat_fur</coveringType>
+	
+	<fluidType>innoxia_goat_cum</fluidType>
+	
+	<internal>false</internal>
+	
+	<names/>
+	<namesPlural/>
+	
+	<descriptors/>
+</testicle>

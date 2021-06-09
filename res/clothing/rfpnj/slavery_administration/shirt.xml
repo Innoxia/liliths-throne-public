@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>200</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Slavery Administration shirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Slavery Administration shirts]]></namePlural>	
+		<description><![CDATA[A form-fitting short-sleeved shirt, with a nametag used by Slavery Administration staff.]]></description>	
+		<physicalResistance>0</physicalResistance>	
+		<femininity>ANDROGYNOUS</femininity>	
+		<slot>TORSO_UNDER</slot>
+		<rarity>UNCOMMON</rarity>
+		<clothingSet/>
+		<imageName>shirt.svg</imageName>	
+		<imageEquippedName/>	
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_GREY"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_WHITE"/>
+		<tertiaryColoursDye values="ALL"/>
+		<customColours>
+			<customColour c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">
+				<defaultColours>
+					<colour>CLOTHING_GREY_LIGHT</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags> 
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+
+</clothing>

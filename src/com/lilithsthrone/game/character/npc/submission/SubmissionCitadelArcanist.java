@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -45,16 +45,17 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
@@ -63,7 +64,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.sexActions.submission.CitadelYoukoSA;
 import com.lilithsthrone.main.Main;
@@ -127,10 +127,17 @@ public class SubmissionCitadelArcanist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20") && !Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_ELIS)) {
+			this.setPlayerKnowsName(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4")) {
+			this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		
 		PerkManager.initialisePerks(this,
@@ -244,23 +251,23 @@ public class SubmissionCitadelArcanist extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.ICE));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.ICE));
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_WHITE, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, PresetColour.CLOTHING_WHITE, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_platform_boots", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_platform_boots", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_BLACK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_scientist_safety_goggles", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false), true, this);
 		
 		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_piercing_ear_snowflakes", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_elemental_piercing_ear_snowflakes", PresetColour.CLOTHING_SILVER, false), true, this);
 	}
 	
 	@Override
@@ -317,7 +324,7 @@ public class SubmissionCitadelArcanist extends NPC {
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		
-		AbstractItemType itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
+		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_fox_chicken_pot_pie");
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 		
@@ -325,7 +332,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		List<PossibleItemEffect> reducedEffects = new ArrayList<>();
 		List<PossibleItemEffect> maximumEffects = new ArrayList<>();
 		
-		switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(Subspecies.FOX_MORPH)) {
+		switch(Main.getProperties().getForcedTFPreference()) {
 			case MAXIMUM:
 			case NORMAL:
 				maximumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
@@ -338,13 +345,12 @@ public class SubmissionCitadelArcanist extends NPC {
 					}
 				}
 				maximumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
-//				break;
+				
 			case REDUCED:
 				reducedEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				reducedEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				reducedEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				reducedEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
-//				break;//				break;
 				
 			case MINIMUM:
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
@@ -352,21 +358,25 @@ public class SubmissionCitadelArcanist extends NPC {
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
-//				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
+				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
-//				break;
+				break;
 			case HUMAN:
+				itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 				break;
 		}
 		
 		effects.addAll(minimumEffects);
 		effects.addAll(getFeminineEffects(target, itemType));
+
+		// Remove crotch-boobs:
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
 		
 		// Remove penis:
 		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
 		
 		// Add wet vagina:
-		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), ""));
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));
 		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));
 		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));

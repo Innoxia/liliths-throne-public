@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[pepper grenade launchers]]></namePlural> 
 		
-		<description><![CDATA[Originally designed to disperse pepper oil more efficiently via airburst, it was soon found that the residual heat from the bursting charge turned the oil into a small explosive cloud. Despite being a serious design flaw, the Enforcers asked that it not be fixed.]]></description> 
+		<description><![CDATA[Originally designed to disperse pepper oil more efficiently via airburst, it was soon found that the residual heat from the bursting charge turned the aerosolized oil into a small explosive cloud. Despite being a serious design flaw, the Enforcers asked that it not be fixed.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		
@@ -24,16 +24,22 @@
 		
 		<rarity>EPIC</rarity> 
 		
-		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the grenade launcher, [npc.verb(slap)] in a fresh magazine, and [npc.verb(turn)] the safety off.]]></equipText>
+		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the grenade launcher, [npc.verb(slap)] in a fresh magazine, [npc.verb(pull)] the charging handle, and [npc.verb(turn)] the safety off.]]></equipText>
 		
-		<unequipText><![CDATA[[npc.Name] [npc.verb(take)] out the magazine, and [npc.verb(turn)] the safety on, and [npc.verb(put)] the grenade launcher away.]]></unequipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(take)] out the magazine, and [npc.verb(turn)] the safety on, [npc.verb(pull)] the charging handle, and [npc.verb(put)] the grenade launcher away.]]></unequipText>
 		
 		<imageName>pblauncher_nomag.svg</imageName> 
 		
 		<imageEquippedName>pblauncher.svg</imageEquippedName>
 		
-		<damage>60</damage> 
-		
+		<damage>60</damage>
+
+		<aoe chance="100">54</aoe>
+		<aoe chance="100">42</aoe>
+		<aoe chance="100">42</aoe>
+		<aoe chance="100">24</aoe>
+		<aoe chance="100">24</aoe>
+			
 		<arcaneCost>6</arcaneCost> 
 		
 		<damageVariance>LOW</damageVariance> 
@@ -54,8 +60,12 @@
 			<colour>CLOTHING_GUNMETAL</colour>
 		</secondaryColours>
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_BLACK"/> 
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

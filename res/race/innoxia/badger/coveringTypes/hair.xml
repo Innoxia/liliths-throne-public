@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>HAIR</category>
+	
+	<determiner><![CDATA[a layer of]]></determiner>
+	<name><![CDATA[hair]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[hair]]></namePlural> 
+	
+	<naturalCoveringModifiers>
+		<modifier>FLUFFY</modifier>
+	</naturalCoveringModifiers>
+	
+	<extraCoveringModifiers/>
+	
+	<naturalPatterns>
+		<pattern weighting="1">STRIPED</pattern>
+	</naturalPatterns>
+	
+	<extraPatterns>
+		<pattern weighting="1">NONE</pattern>
+		<pattern weighting="1">HIGHLIGHTS</pattern>
+		<pattern weighting="1">SPOTTED</pattern>
+		<pattern weighting="1">MOTTLED</pattern>
+		<pattern weighting="1">MARKED</pattern>
+		<pattern weighting="1">OMBRE</pattern>
+	</extraPatterns>
+	
+	<naturalColoursPrimary> 
+		<colour>COVERING_BLACK</colour>
+	</naturalColoursPrimary> 
+	<extraColoursPrimary values="allCoveringColours"/>
+	
+	<naturalColoursSecondary> 
+		<colour>COVERING_WHITE</colour>
+	</naturalColoursSecondary> 
+	<extraColoursSecondary values="allCoveringColours"/>
+	
+</coveringType>

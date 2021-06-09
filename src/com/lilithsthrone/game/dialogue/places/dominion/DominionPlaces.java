@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
+import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,12 +8,15 @@ import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -21,14 +25,20 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.RentalMommyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaHotel;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanDateFinalRepeat;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanFirstDate;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanFirstDoubleDate;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanRepeatDate;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
@@ -37,12 +47,16 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public class DominionPlaces {
 
 	public static final int TRAVEL_TIME_STREET = 2*60;
+	
+	public static boolean isCloseToEnforcerHQ() {
+		return Vector2i.getDistance(Main.game.getPlayerCell().getLocation(), Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_ENFORCER_HQ).getLocation())<4f;
+	}
 	
 	private static String getExtraStreetFeatures() {
 		StringBuilder mommySB = new StringBuilder();
@@ -52,6 +66,15 @@ public class DominionPlaces {
 		
 		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
+
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_NYAN_APARTMENT) {
+			mommySB.append("<p>"
+							+ "[style.boldPinkLight(Nyan's Apartment:)]<br/>"
+							+ (Main.game.getNpc(Nyan.class).getWorldLocation()==WorldType.NYANS_APARTMENT
+								?"Nyan lives in this area, and so if you wanted to, you could head over to her apartment building and pay her a visit..."
+								:"Nyan lives in this area, although you know that she'll be at work at this hour, so there's not much point in heading over to her apartment building...")
+						+ "</p>");
+		}
 		
 		for(NPC npc : characters) {
 			if(npc instanceof RentalMommy) {
@@ -82,7 +105,7 @@ public class DominionPlaces {
 				cultistSB.append(
 						"<p>"
 							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Cultist's Chapel:</b><br/>"
-							+ UtilText.parse(npc, "You remember that [npc.namePos] chapel is near here, and, if you were so inclined, you could easily find it again...")
+							+ UtilText.parse(npc, "You remember that [npc.namePos] chapel is near here, and if you were so inclined, you could easily find it again...")
 						+ "</p>");
 				break;
 			}
@@ -102,7 +125,27 @@ public class DominionPlaces {
 			}
 		}
 		
-		return mommySB.append(cultistSB.toString()).append(occupantSB.toString()).append(reindeerSB.toString()).toString();
+		mommySB.append(cultistSB.toString()).append(occupantSB.toString()).append(reindeerSB.toString());
+		
+		AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+		if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) {
+			mommySB.append("<p>");
+				mommySB.append("[style.boldPinkLight(Filly Choker:)]<br/>");
+				mommySB.append("By wearing your filly choker, you're signalling to any passing centaur slaves from Dominion Express that you're available to sexually service them.");
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					mommySB.append(" As there's an ongoing arcane storm, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
+				} else if(!Main.game.isExtendedWorkTime()) {
+					mommySB.append(" As they're not out at work at this time, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					mommySB.append(" As you aren't able to access your mouth, however, there's [style.colourMinorBad(zero chance)] that any of them will approach you...");
+				} else {
+					mommySB.append(" Although Dominion is a huge city, there are a significant number of centaur slaves who work at Dominion Express, meaning that there's at least a [style.colourMinorGood(small chance)] that you'll run into one...");
+				}
+			mommySB.append("</p>");
+		}
+		
+		
+		return mommySB.toString();
 	}
 	
 	private static List<Response> getExtraStreetResponses() {
@@ -114,8 +157,127 @@ public class DominionPlaces {
 		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
 		
-		for(NPC npc : characters) {
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_NYAN_APARTMENT) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumDateCompleted)) {
+				//TODO
+//				if(Main.game.getNpc(Nyan.class).getWorldLocation()==WorldType.NYANS_APARTMENT) {
+//					mommyResponses.add(new Response("Visit Nyan", "Head over to Nyan's apartment building and pay her a visit.", Main.game.getDefaultDialogue(false)));
+//					
+//				} else {
+//					mommyResponses.add(new Response("Visit Nyan", "Nyan is out at work at this time of day, so you're unable to head over to her apartment building and pay her a visit...", null));
+//				}
+			}
 			
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumInterviewPassed)
+					&& (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumDateCompleted) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumGirlfriend))) {
+				int dateCost = 4000;
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanWeekendDated)) {
+					mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You've already taken Nyan and [nyanmum.name] out for a date this weekend. You'll have to wait until next weekend before taking them out again...",
+							null));
+					
+				} else if((Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY)
+						&& (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23)) {
+					if(Main.game.getNpc(Nyan.class).getWorldLocation()!=WorldType.NYANS_APARTMENT) {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"Nyan and [nyanmum.name] are not at home at the moment. You'll have to come back after their work day ends...",
+								null));
+						
+					} else if(Main.game.getPlayer().getMoney()<dateCost) {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"'The Oaken Glade' is a very expensive place to go on a date. You need at least "+Util.intToString(dateCost)+" flames before asking Nyan and [nyanmum.name] out to a date there.",
+								null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"You're not going to be able to go out on a date to a restaurant if you're not able to eat anything!"
+									+ "<br/>[style.italicsMinorBad(You need to be able to access your mouth in order to take Nyan and [nyanmum.name] out on a date...)]",
+								null));
+						
+					} else {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoney(dateCost, "span")+")",
+								"Pick Nyan and [nyanmum.name] up from their apartment building and take them out on a date to the restaurant, 'The Oaken Glade'.",
+								Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumGirlfriend)
+									?NyanDateFinalRepeat.DOUBLE_DATE_START
+									:NyanFirstDoubleDate.DATE_START));
+					}
+					
+				} else {
+					mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You cannot take Nyan and [nyanmum.name] out for a date at this time..."
+								+ "<br/><i>It needs to be either a "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.FRIDAY
+									?"[style.italicsMinorGood(Friday)]"
+									:"[style.italicsMinorBad(Friday)]")
+								+" or "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.SATURDAY
+									?"[style.italicsMinorGood(Saturday)]"
+									:"[style.italicsMinorBad(Saturday)]")
+								+", and between the hours of "
+								+ (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23
+									?"[style.italicsMinorGood([unit.time(18)]-[unit.time(23)])]"
+									:"[style.italicsMinorBad([unit.time(18)]-[unit.time(23)])]")
+								+" in order to take Nyan and [nyanmum.name] out for a date!",
+							null));
+				}
+				
+			} else {
+				int dateCost = 2500;
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanWeekendDated)) {
+					mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You've already taken Nyan out for a date this weekend. You'll have to wait until next weekend before taking her out again...",
+							null));
+					
+				} else if((Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY)
+						&& (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23)) {
+					if(Main.game.getNpc(Nyan.class).getWorldLocation()!=WorldType.NYANS_APARTMENT) {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"Nyan is out at work at the moment. You'll have to come back after her work day ends...",
+								null));
+						
+					} else if(Main.game.getPlayer().getMoney()<dateCost) {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"'The Oaken Glade' looked to be a very expensive place to go on a date. You need at least "+Util.intToString(dateCost)+" flames before asking Nyan out to a date there.",
+								null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"You're not going to be able to go out on a date to a restaurant if you're not able to eat anything!"
+									+ "<br/>[style.italicsMinorBad(You need to be able to access your mouth in order to take Nyan out on a date...)]",
+								null));
+						
+					} else {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoney(dateCost, "span")+")",
+								"Pick Nyan up from her apartment building and take her out on a date to the restaurant, 'The Oaken Glade'.",
+								Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumDateCompleted)
+									?NyanDateFinalRepeat.SOLO_DATE_START
+									:(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanRestaurantDateCompleted) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumInterviewPassed)
+										?NyanRepeatDate.DATE_START
+										:NyanFirstDate.DATE_START)));
+					}
+					
+				} else {
+					mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You cannot take Nyan out for a date at this time..."
+								+ "<br/><i>It needs to be either a "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.FRIDAY
+									?"[style.italicsMinorGood(Friday)]"
+									:"[style.italicsMinorBad(Friday)]")
+								+" or "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.SATURDAY
+									?"[style.italicsMinorGood(Saturday)]"
+									:"[style.italicsMinorBad(Saturday)]")
+								+", and between the hours of "
+								+ (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23
+									?"[style.italicsMinorGood([unit.time(18)]-[unit.time(23)])]"
+									:"[style.italicsMinorBad([unit.time(18)]-[unit.time(23)])]")
+								+" in order to take Nyan out for a date!",
+							null));
+				}
+			}
+		}
+		
+		for(NPC npc : characters) {
 			if(npc instanceof RentalMommy) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					mommyResponses.add(new Response("Mommy", "'Mommy' is not sitting on her usual bench, and you suppose that she's waiting out the current storm inside her house.", null));
@@ -130,6 +292,12 @@ public class DominionPlaces {
 			}
 			
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
+//				if(!Main.game.getCharactersPresent().contains(npc)) {
+//					occupantResponses.add(new Response(
+//							UtilText.parse(npc, "[npc.Name]"),
+//							UtilText.parse(npc, "[npc.Name] is out at work at the moment, and so you'll have to return at another time if you wanted to pay [npc.herHim] a visit..."),
+//							null));
+//				}
 				occupantResponses.add(new Response(
 						UtilText.parse(npc, "[npc.Name]"),
 						UtilText.parse(npc,
@@ -176,6 +344,82 @@ public class DominionPlaces {
 		
 		return mommyResponses;
 	}
+
+	private static String getRandomStreetEvent() {
+		int extraText = Util.random.nextInt(100) + 1;
+		if (extraText <= 3) {
+			return ("<p><i>A particularly large and imposing incubus cuts his way through the crowd, holding the leashes of three greater cat-girl slaves."
+					+ " Each one is completely naked, and as they pass, you can clearly see their cunts drooling with excitement.</i></p>");
+		} else if (extraText <= 6) {
+			return ("<p><i>To one side, you see a pair of dog-boy Enforcers questioning a shady-looking cat-boy."
+					+ " As you pass, the cat-boy tries to make a break for it, but is quickly tackled to the floor."
+					+ " The Enforcers place a pair of restraints around his wrists before dragging him down a nearby alleyway.</i></p>");
+		} else if (extraText <= 9) {
+			return ("<p><i>A huge billboard covers the entire face of one of the buildings across the street."
+					+ " On it, there's an advertisement for the tournament, 'Risk it all', promising great rewards for anyone strong enough to beat the challenge."
+					+ " Underneath, the words 'Applications opening soon!' are displayed in bold red lettering.</i></p>");
+		} else if (extraText == 10) {
+			return ("<p><i>A greater cat-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_cat_felines_fancy").getName(false)+ "'.</i></p>");
+		} else if (extraText == 11) {
+			return ("<p><i>A greater wolf-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_wolf_wolf_whiskey").getName(false)+ "'.</i></p>");
+		} else if (extraText == 12) {
+			return ("<p><i>A greater dog-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_dog_canine_crush").getName(false)+ "'.</i></p>");
+		} else if (extraText == 13) {
+			return ("<p><i>A greater horse-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_horse_equine_cider").getName(false)+ "'.</i></p>");
+		} else if (extraText == 14) {
+			return ("<p><i>A cheering crowd has gathered to one side of the street, and as you glance across, a momentary gap in the crowd allows you to catch a glimpse of what's happening."
+					+ " A greater dog-girl is on all fours, and is being double penetrated by a greater horse-boy's pair of massive horse-cocks."
+					+ " The girl's juices are leaking down her legs and her tongue lolls from her mouth as the gigantic members thrust in and out of her stretched holes.</i></p>");
+		}
+		return "";
+	}
+	
+	private static String getEnforcersPresent() {
+		StringBuilder sb = new StringBuilder();
+
+		if(Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
+			if(isCloseToEnforcerHQ()) {
+				sb.append("<p style='text-align:center;'><i>");
+					sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
+					if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+						sb.append("<br/>However, due to the ongoing arcane storm, there's no chance of encountering any patrols at the moment...");
+					}
+				sb.append("</i></p>");
+			}
+			
+		} else {
+			sb.append("<p style='text-align:center;'><i>");
+			
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					sb.append("Due to the ongoing [style.italicsArcane(arcane storm)], there's [style.italicsGood(no chance)] of encountering any of these [style.colourBlueDark(Enforcer patrols)]:");
+				} else if(isCloseToEnforcerHQ()) {
+					sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering one of these [style.colourBlueDark(Enforcer patrols)]:");
+				} else {
+					sb.append("There is a [style.italicsMinorBad(small chance)] of running into one of these [style.colourBlueDark(Enforcer patrols)]:");
+				}
+				for(List<String> enforcerIds : Main.game.getSavedEnforcers(WorldType.DOMINION)) {
+					sb.append("<br/>");
+					List<String> names = new ArrayList<>();
+					for(String id : enforcerIds) {
+						try {
+							GameCharacter enforcer = Main.game.getNPCById(id);
+							names.add(UtilText.parse(enforcer, "<span style='color:"+enforcer.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span>"));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					sb.append(Util.stringsToStringList(names, false));
+				}
+			
+			sb.append("</i></p>");
+		}
+		
+		return sb.toString();
+	}
 	
 	public static final DialogueNode STREET = new DialogueNode("Dominion Streets", "", false) {
 
@@ -219,38 +463,6 @@ public class DominionPlaces {
 		}
 	};
 	
-	private static String getRandomStreetEvent() {
-		int extraText = Util.random.nextInt(100) + 1;
-		if (extraText <= 3) {
-			return ("<p><i>A particularly large and imposing incubus cuts his way through the crowd, holding the leashes of three greater cat-girl slaves."
-					+ " Each one is completely naked, and as they pass, you can clearly see their cunts drooling with excitement.</i></p>");
-		} else if (extraText <= 6) {
-			return ("<p><i>To one side, you see a pair of dog-boy Enforcers questioning a shady-looking cat-boy."
-					+ " As you pass, the cat-boy tries to make a break for it, but is quickly tackled to the floor."
-					+ " The Enforcers place a pair of restraints around his wrists before dragging him down a nearby alleyway.</i></p>");
-		} else if (extraText <= 9) {
-			return ("<p><i>A huge billboard covers the entire face of one of the buildings across the street."
-					+ " On it, there's an advertisement for the tournament, 'Risk it all', promising great rewards for anyone strong enough to beat the challenge."
-					+ " Underneath, the words 'Applications opening soon!' are displayed in bold red lettering.</i></p>");
-		} else if (extraText == 10) {
-			return ("<p><i>A greater cat-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.INT_INGREDIENT_FELINE_FANCY.getName(false)+ "'.</i></p>");
-		} else if (extraText == 11) {
-			return ("<p><i>A greater wolf-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_WOLF_WHISKEY.getName(false)+ "'.</i></p>");
-		} else if (extraText == 12) {
-			return ("<p><i>A greater dog-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.FIT_INGREDIENT_CANINE_CRUSH.getName(false)+ "'.</i></p>");
-		} else if (extraText == 13) {
-			return ("<p><i>A greater horse-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_EQUINE_CIDER.getName(false)+ "'.</i></p>");
-		} else if (extraText == 14) {
-			return ("<p><i>A cheering crowd has gathered to one side of the street, and as you glance across, a momentary gap in the crowd allows you to catch a glimpse of what's happening."
-					+ " A greater dog-girl is on all fours, and is being double penetrated by a greater horse-boy's pair of massive horse-cocks."
-					+ " The girl's juices are leaking down her legs and her tongue lolls from her mouth as the gigantic members thrust in and out of her stretched holes.</i></p>");
-		}
-		return "";
-	}
 
 
 	public static final DialogueNode BACK_ALLEYS_SAFE = new DialogueNode("", "", false) {
@@ -282,8 +494,9 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -300,7 +513,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -342,7 +555,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -366,8 +579,9 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS_CANAL", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -384,7 +598,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -461,7 +675,6 @@ public class DominionPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -495,7 +708,7 @@ public class DominionPlaces {
 							"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
 								@Override
 								public void effects() {
-									List<Subspecies> possibleSubspecies = new ArrayList<>();
+									List<AbstractSubspecies> possibleSubspecies = new ArrayList<>();
 									possibleSubspecies.add(Subspecies.CAT_MORPH);
 									possibleSubspecies.add(Subspecies.DOG_MORPH);
 									possibleSubspecies.add(Subspecies.HORSE_MORPH);
@@ -508,7 +721,7 @@ public class DominionPlaces {
 											+UtilText.returnStringAtRandom(
 													"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
 														+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
-															+ " any human found walking the streets between the hours of ten at night and five in the morning will be subject to a full body search from any passing Enforcer without warrant.)]",
+															+ " any human seen walking the streets outside of daylight hours may legally be subjected to a full body search from any Enforcer.)]",
 													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
 														+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
 															+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
@@ -592,7 +805,7 @@ public class DominionPlaces {
 				return new Response("Rose Garden", "There's a beautiful rose garden just off to your right. Walk over to it and take a closer look.", PARK_ROSE_GARDEN) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_hair_rose", false), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_hair_rose", false), false));
 					}
 				};
 			} else {
@@ -629,7 +842,7 @@ public class DominionPlaces {
 				+ "</p>"
 				+ "<p>"
 					+ "You look around, but don't see anyone nearby who could be this 'William' character."
-					+ " Focusing your attention back to his rose garden, you decide to do as William's sign says, and, stepping forwards, you pluck a single red rose from the nearest bush."
+					+ " Focusing your attention back to his rose garden, you decide to do as his sign says, and after [pc.stepping] forwards, you pluck a single rose from the nearest bush."
 				+ "</p>";
 		}
 
@@ -658,14 +871,23 @@ public class DominionPlaces {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
+			List<Response> responses = getExtraStreetResponses();
+			
+			if(index == 0) {
+				return null;
+				
+			} else if(index==1) {
 				return new Response("Helena's Nest", "Use the elevator in the hotel to travel directly up to Helena's nest.", HelenaHotel.HOTEL_TRAVEL_TO_NEST) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
 					}
 				};
+					
+			} else if(index-2 < responses.size()) {
+				return responses.get(index-2);
 			}
+			
 			return null;
 		}
 	};
@@ -711,8 +933,9 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -729,7 +952,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -753,8 +976,9 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL_END", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -771,7 +995,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -803,11 +1027,8 @@ public class DominionPlaces {
 					public void effects() {
 						if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN)) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, false);
-							Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
-							
-						} else {
-							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
 						}
+						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
 						
 						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 					}

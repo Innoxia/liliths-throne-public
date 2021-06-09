@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<value>3500</value>
+		<value>1000</value>
 		<melee>false</melee>
 		<twoHanded>true</twoHanded>
 		<determiner><![CDATA[an]]></determiner>
 		<name><![CDATA[arcane shortbow]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[arcane shortbows]]></namePlural>
 		<description><![CDATA[This shortbow is infused with a potent arcane enchantment, which, once the string is drawn back, extracts an arcane essence out of the user's aura, before converting it into a bolt of energy to be fired at the target.]]></description>
-		<attackDescriptor>fire</attackDescriptor>
+		<attackDescriptor>shoot</attackDescriptor>
 		<attackTooltipDescription>Shoot at [npc.name] with your shortbow.</attackTooltipDescription>
 		<rarity>COMMON</rarity>
 		<weaponSet/>

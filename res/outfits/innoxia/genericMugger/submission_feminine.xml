@@ -11,6 +11,7 @@
 		<worldTypes>
 			<world>SUBMISSION</world>
 			<world>RAT_WARRENS</world>
+			<world>BAT_CAVERNS</world>
 		</worldTypes>
 		
 		<outfitTypes>
@@ -103,7 +104,7 @@
 			<!-- Ranged: -->
 			<weapon>
 				<conditional><![CDATA[condWepSpawn && condWepOffhandRanged]]></conditional>
-				<type>innoxia_pistolCrossbow_pistol_crossbow</type>
+				<type>innoxia_bow_pistol_crossbow</type>
 				<damageTypes/>
 				<primaryColours/>
 				<secondaryColours/>

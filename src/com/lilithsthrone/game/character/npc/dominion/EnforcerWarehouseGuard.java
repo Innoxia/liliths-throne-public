@@ -8,7 +8,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -20,8 +19,10 @@ import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -30,8 +31,7 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -58,7 +58,7 @@ public class EnforcerWarehouseGuard extends NPC {
 		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public EnforcerWarehouseGuard(Occupation occupation, Subspecies subspecies, RaceStage raceStage, Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
+	public EnforcerWarehouseGuard(Occupation occupation, AbstractSubspecies subspecies, RaceStage raceStage, Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5, gender, subspecies, raceStage,
@@ -76,24 +76,26 @@ public class EnforcerWarehouseGuard extends NPC {
 			
 			this.setHistory(occupation);
 			
-			CharacterUtils.addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
+			Main.game.getCharacterUtils().addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
 			
 			this.addFetish(Fetish.FETISH_SADIST);
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
 			
-			this.setEssenceCount(TFEssence.ARCANE, 100);
+			this.setCombatBehaviour(CombatBehaviour.ATTACK);
+			
+			this.setEssenceCount(100);
 			
 			initHealthAndManaToMax();
 		}
@@ -111,7 +113,7 @@ public class EnforcerWarehouseGuard extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.ATHLETIC, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.ATHLETIC, settings);
 		
 		// Do not wear gas masks in the warehouse:
 		AbstractClothing mouthClothing = this.getClothingInSlot(InventorySlot.MOUTH);

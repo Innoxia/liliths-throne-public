@@ -1,54 +1,55 @@
 package com.lilithsthrone.game.character.attributes;
 
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.65
- * @version 0.1.79
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public enum PhysiqueLevel {
 	
-	ZERO_WEAK("frail", 0, 5, PresetColour.PHYSIQUE_STAGE_ZERO) {
+	ZERO_WEAK("frail", 0, 10, PresetColour.PHYSIQUE_STAGE_ZERO) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.PHYSIQUE_PERK_0;
 		}
 	},
 	
-	ONE_AVERAGE("average", 5, 15, PresetColour.PHYSIQUE_STAGE_ONE) {
+	ONE_AVERAGE("average", 10, 30, PresetColour.PHYSIQUE_STAGE_ONE) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.PHYSIQUE_PERK_1;
 		}
 	},
 	
-	TWO_STRONG("fit", 15, 35, PresetColour.PHYSIQUE_STAGE_TWO) {
+	TWO_STRONG("fit", 30, 50, PresetColour.PHYSIQUE_STAGE_TWO) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.PHYSIQUE_PERK_2;
 		}
 	},
 	
-	THREE_POWERFUL("powerful", 35, 65, PresetColour.PHYSIQUE_STAGE_THREE) {
+	THREE_POWERFUL("powerful", 50, 70, PresetColour.PHYSIQUE_STAGE_THREE) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.PHYSIQUE_PERK_3;
 		}
 	},
 	
-	FOUR_MIGHTY("mighty", 65, 95, PresetColour.PHYSIQUE_STAGE_FOUR) {
+	FOUR_MIGHTY("mighty", 70, 90, PresetColour.PHYSIQUE_STAGE_FOUR) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.PHYSIQUE_PERK_4;
 		}
 	},
 	
-	FIVE_HERCULEAN("herculean", 95, 100, PresetColour.PHYSIQUE_STAGE_FIVE) {
+	FIVE_HERCULEAN("herculean", 90, 100, PresetColour.PHYSIQUE_STAGE_FIVE) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.PHYSIQUE_PERK_5;
 		}
 	};
@@ -64,7 +65,7 @@ public enum PhysiqueLevel {
 		this.colour = colour;
 	}
 	
-	public abstract StatusEffect getRelatedStatusEffect();
+	public abstract AbstractStatusEffect getRelatedStatusEffect();
 
 	public String getName() {
 		return name;

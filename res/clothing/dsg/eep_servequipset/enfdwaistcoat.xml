@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+	
+		<authorTag><![CDATA[A small tag sewn into the side seam reads "Official Enforcer Issue, MFD by DSG Threadworks."]]></authorTag>
+
+		<value>1500</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[waistcoat]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[waistcoats]]></namePlural> 
+
+		<description><![CDATA[A waistcoat with two pockets that serves as the regulation alternative for Enforcers whose arms cannot fit into the regular dress uniform coat.]]></description> 
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>ANDROGYNOUS</femininity> 
+
+		<slot>TORSO_OVER</slot> 
+
+		<rarity>EPIC</rarity> 
+
+		<clothingSet>dsg_enforcer_service</clothingSet> 
+
+		<imageName>enfdwaistcoat_base.svg</imageName> 
+
+		<imageEquippedName/>
+		
+		<stickers>
+			
+			<category id="tab" priority="1"> 
+				<categoryName><![CDATA[Collar Tabs]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="tab_pc" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> 
+					<stickerName><![CDATA[Police Constable]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Constable ]]></namePrefix> 
+					<namePostfix/> 
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the insignia of a Police Constable attached to it.</i>]]></descriptionModification> 
+					<imageName>enfdwaistcoat_st_tab_pc.svg</imageName> 
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded> 
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved> 
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(pc.getOccupation() != OCCUPATION_NPC_ENFORCER_PATROL_CONSTABLE ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_SWORD_CONSTABLE ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_ORICL_CONSTABLE)
+							Only Enforcers who hold a rank of Police Constables can use these collar tabs!
+						#ENDIF
+					]]></unavailabilityText> 
+					<availabilityText>
+						As an Enforcer who holds the rank of Police Constable, you can freely use these collar tabs.
+					</availabilityText> 
+				</sticker>
+				<sticker id="tab_sg" priority="2" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> 
+					<stickerName><![CDATA[Sergeant]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Sergeant ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the insignia of a Sergeant attached to it.</i>]]></descriptionModification>
+					<imageName>enfdwaistcoat_st_tab_sg.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(pc.getOccupation() != OCCUPATION_NPC_ENFORCER_PATROL_SERGEANT ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_SWORD_SERGEANT ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_ORICL_SERGEANT)
+							Only Enforcers who hold a rank of Sergeant can use this insignia!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Sergeant, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_ip" priority="3" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Inspector]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Inspector ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the insignia of an Inspector attached to it.</i>]]></descriptionModification>
+					<imageName>enfdwaistcoat_st_tab_ip.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(pc.getOccupation() != OCCUPATION_NPC_ENFORCER_PATROL_INSPECTOR ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_SWORD_INSPECTOR ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_ORICL_INSPECTOR)
+							Only Enforcers who hold a rank of Inspector can use these collar tabs!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Inspector, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_su" priority="4" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Superintendent]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Superintendent ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the insignia of a Superintendent attached to it.</i>]]></descriptionModification>
+					<imageName>enfdwaistcoat_st_tab_su.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(true)
+							Only Enforcers who hold a rank of Superintendent can use these collar tabs!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Superintendent, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_cs" priority="5" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Superintendent]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Chief Superintendent ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has the insignia of a Chief Superintendent attached to it.</i>]]></descriptionModification>
+					<imageName>enfdwaistcoat_st_tab_cs.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(true)
+							Only Enforcers who hold a rank of Chief Superintendent can use these collar tabs!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Superintendent, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="name" priority="2"> 
+				<categoryName><![CDATA[Name Plate]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="2" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="name_pc" priority="2" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Police Constable]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdwaistcoat_st_name_pc.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(pc.getOccupation() != OCCUPATION_NPC_ENFORCER_PATROL_CONSTABLE ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_SWORD_CONSTABLE ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_ORICL_CONSTABLE)
+							Only Enforcers who hold a rank of Police Constable can use this name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Police Constable, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_sg" priority="2" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Sergeant]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdwaistcoat_st_name_sg.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(pc.getOccupation() != OCCUPATION_NPC_ENFORCER_PATROL_SERGEANT ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_SWORD_SERGEANT ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_ORICL_SERGEANT)
+							Only Enforcers who hold a rank of Sergeant can use this name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Sergeant, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_ip" priority="3" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Inspector]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdwaistcoat_st_name_ip.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(pc.getOccupation() != OCCUPATION_NPC_ENFORCER_PATROL_INSPECTOR ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_SWORD_INSPECTOR ||
+							pc.getOccupation() != OCCUPATION_NPC_ENFORCER_ORICL_INSPECTOR)
+							Only Enforcers who hold a rank of Inspector can use this name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Inspector, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_su" priority="4" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Superintendent]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdwaistcoat_st_name_su.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(true)
+							Only Enforcers who hold a rank of Superintendent can use this name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Superintendent, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_cs" priority="5" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Superintendent]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdwaistcoat_st_name_cs.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(true)
+							Only Enforcers who hold a rank of Chief Superintendent can use this name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Superintendent, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="ribbon" priority="3">
+				<categoryName><![CDATA[Ribbon Rack]]></categoryName>
+				<sticker id="None" priority="0" defaultSticker="true" zLayer="3" colourSelected="TEXT_GREY">
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>				
+			</category>
+			<category id="qual" priority="4">
+				<categoryName><![CDATA[Qualification Badge]]></categoryName>
+				<sticker id="None" priority="0" defaultSticker="true" zLayer="4" colourSelected="TEXT_GREY">
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+
+		<enchantmentLimit/>
+
+		<effects/>
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart> 
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked> 
+
+				<concealedSlots/> 
+			</blockedParts>
+
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+
+		<incompatibleSlots/> 
+
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLUE</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_GOLD"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+
+		<itemTags> 
+			<tag>FITS_HARPY_WINGS</tag>
+			<tag>CONTRABAND_MEDIUM</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc.her] arms through the waistcoat's arm holes and [npc.verb(button)] up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the waistcoat's arm holes and [npc.verb(button)] up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] arms through the waistcoat's arm holes and hastily [npc.verb(button)] up the front.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc.her] waistcoat and [npc.verb(pull)] [npc.her] arms out of the arm holes.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc2.namePos] waistcoat and [npc.verb(help)] [npc2.her] [npc2.verb(pull)] [npc2.her] arms out of the arm holes.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on the front of [npc2.namePos] waistcoat and roughly [npc.verb(pull)] [npc2.her] arms out of the arm holes.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc.namePos] waistcoat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc2.namePos] waistcoat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(button)] up the front of [npc2.namePos] waistcoat.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] waistcoat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] waistcoat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on [npc2.namePos] waistcoat.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

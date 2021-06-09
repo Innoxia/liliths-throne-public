@@ -4,7 +4,7 @@
 	<htmlContent tag="EXTERIOR"><![CDATA[
 		#IF(game.isExtendedWorkTime())
 			<p>
-				You find yourself standing in front of a rather peculiar shop. Although there's a sign declaring 'Arcane Arts' to be [style.colourGood(closed)], the interior is very dimly-lit, and you notice that most of the Arcade's shoppers are giving this particular store a wide berth. Wanting to take a closer look, you walk up to the entrance, and, looking through the glass into the shop's gloomy interior, you see signs of movement behind the counter.
+				You find yourself standing in front of a rather peculiar shop. Although there's a sign declaring 'Arcane Arts' to be [style.colourGood(open)], the interior is very dimly-lit, and you notice that most of the Arcade's shoppers are giving this particular store a wide berth. Wanting to take a closer look, you walk up to the entrance, and, looking through the glass into the shop's gloomy interior, you see signs of movement behind the counter.
 			</p>
 			<p>
 				A sign hanging in the door's window declares that the [style.colourMinorGood(opening hours are [unit.time(6)]-[unit.time(22)])]. You could step inside and browse the wares on offer if you wanted to.
@@ -56,7 +56,13 @@
 		[vicky.speech(Sounds good to me, bitch,)] she growls, before leaping over the counter, roughly grabbing you by the [pc.arms], and shoving you towards the store's counter, before turning and locking the front door. [vicky.speech(I love fucking submissive customers like you.)]
 	</p>
 	<p>
-		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
+		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
+		#IF(pc.hasLegs())
+			 between your legs,
+		#ELSE
+			 right up in front of you,
+		#ENDIF
+		 making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -123,7 +129,13 @@
 		[vicky.speech(Suits me, bitch,)] she growls, before grabbing you by the [pc.arms] and shoving you towards the store's counter, before turning and locking the front door. [vicky.speech(I love fucking submissive customers like you.)]
 	</p>
 	<p>
-		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself between your legs, making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
+		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
+		#IF(pc.hasLegs())
+			 between your legs,
+		#ELSE
+			 right up in front of you,
+		#ENDIF
+		 making a point to grind her huge erection up against your crotch as she snarls, [vicky.speech(I hope you like it rough!)]
 	</p>
 	]]>
 	</htmlContent>

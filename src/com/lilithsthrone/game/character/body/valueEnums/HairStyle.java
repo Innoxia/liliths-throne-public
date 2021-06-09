@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -17,7 +18,19 @@ public enum HairStyle {
 //	- shaved (different from bald)
 //	- punk (hair draped over face)
 	
-	NONE("natural", Femininity.ANDROGYNOUS, HairLength.ZERO_BALD),
+	NONE("natural", Femininity.ANDROGYNOUS, HairLength.ZERO_BALD) {
+		@Override
+		public String getName(GameCharacter owner) {
+			if(owner!=null && owner.isFeral()) {
+				if(owner.getLegConfiguration()==LegConfiguration.AVIAN) {
+					return "plumed";
+				} else {
+					return "maned";
+				}
+			}
+			return super.getName(owner);
+		}
+	},
 	MESSY("messy", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
 	LOOSE("loose", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
 	CURLY("curly", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
@@ -56,7 +69,7 @@ public enum HairStyle {
 		this.minimumLengthRequired = minimumLengthRequired.getMinimumValue();
 	}
 
-	public String getName() {
+	public String getName(GameCharacter owner) {
 		return descriptor;
 	}
 

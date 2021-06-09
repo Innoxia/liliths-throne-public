@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eye>
+	<race>charisma_spider</race>
+	<transformationName><![CDATA[spider]]></transformationName>
+	<coveringType>charisma_spider_eye</coveringType>
+	<defaultPairCount>4</defaultPairCount>
+	<defaultIrisShape>ROUND</defaultIrisShape>
+	<defaultPupilShape>ROUND</defaultPupilShape>
+	<name><![CDATA[eye]]></name>
+	<namePlural><![CDATA[eyes]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor><![CDATA[spider-like]]></descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor><![CDATA[spider-like]]></descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed and quadrupled into spider-like eyes, with the two largest located where [npc.her] former eyes were in the centre of [npc.her] face.
+		<br/>[npc.Name] now [npc.has] [style.boldSpider(spider-like eyes)] of a solid [npc.irisColour(true)] colour.
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.eyePairs] spider-like eyes, with two larger ones located where a human's would be and the rest spread across [npc.her] forehead and the sides of [npc.her] head. They are a reflective, solid [npc.irisColour(true)] colour.
+	]]></bodyDescription>
+</eye>

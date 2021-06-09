@@ -1,11 +1,13 @@
 package com.lilithsthrone.world;
 
 import java.awt.Color;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -23,9 +25,9 @@ public class WorldType {
 	
 	// Dominion:
 	
-	public static AbstractWorldType WORLD_MAP = new AbstractWorldType("Lilith's Realm",
+	public static AbstractWorldType WORLD_MAP = new AbstractWorldType(WorldRegion.MISC,
+			"Lilith's Realm",
 			PresetColour.BASE_TAN,
-			1,
 			true,
 			true,
 			TeleportPermissions.BOTH,
@@ -73,9 +75,9 @@ public class WorldType {
 	};
 	
 	
-	public static AbstractWorldType DOMINION = new AbstractWorldType("Dominion",
+	public static AbstractWorldType DOMINION = new AbstractWorldType(WorldRegion.DOMINION,
+			"Dominion",
 			PresetColour.BASE_PURPLE,
-			1,
 			true,
 			true,
 			TeleportPermissions.BOTH,
@@ -120,9 +122,9 @@ public class WorldType {
 					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES))) {
 	};
 	
-	public static AbstractWorldType EMPTY = new AbstractWorldType("City",
+	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
+			"Empty (Holding world)",
 			PresetColour.BASE_BROWN,
-			1,
 			false,
 			true,
 			TeleportPermissions.NONE,
@@ -133,9 +135,9 @@ public class WorldType {
 					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))) {
 	};
 
-	public static AbstractWorldType MUSEUM = new AbstractWorldType("Museum",
+	public static AbstractWorldType MUSEUM = new AbstractWorldType(WorldRegion.OLD_WORLD,
+			"Museum",
 			PresetColour.BASE_BROWN,
-			1,
 			false,
 			true,
 			TeleportPermissions.NONE,
@@ -158,9 +160,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType MUSEUM_LOST = new AbstractWorldType("Museum",
+	public static AbstractWorldType MUSEUM_LOST = new AbstractWorldType(WorldRegion.OLD_WORLD,
+			"Museum",
 			PresetColour.BASE_BROWN,
-			1,
 			false,
 			true,
 			TeleportPermissions.NONE,
@@ -179,9 +181,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType LILAYAS_HOUSE_GROUND_FLOOR = new AbstractWorldType("Lilaya's Home GF",
+	public static AbstractWorldType LILAYAS_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Lilaya's Home GF",
 			PresetColour.BASE_BLUE_LIGHT,
-			1,
 			true,
 			false,
 			TeleportPermissions.BOTH,
@@ -197,7 +199,8 @@ public class WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.LILAYA_HOME_FOUNTAIN),
 					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
 					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
-					new Value<>(new Color(0x00ff00), PlaceType.LILAYA_HOME_STAIR_UP))){
+					new Value<>(new Color(0x00ff00), PlaceType.LILAYA_HOME_STAIR_UP),
+					new Value<>(new Color(0x00ff80), PlaceType.LILAYA_HOME_STAIR_UP_SECONDARY))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -208,9 +211,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType LILAYAS_HOUSE_FIRST_FLOOR = new AbstractWorldType("Lilaya's Home 1F",
+	public static AbstractWorldType LILAYAS_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Lilaya's Home 1F",
 			PresetColour.BASE_BLUE_LIGHT,
-			1,
 			true,
 			false,
 			TeleportPermissions.BOTH,
@@ -222,7 +225,8 @@ public class WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
 					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
-					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN))){
+					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN),
+					new Value<>(new Color(0xff8000), PlaceType.LILAYA_HOME_STAIR_DOWN_SECONDARY))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -233,9 +237,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType ZARANIX_HOUSE_FIRST_FLOOR = new AbstractWorldType("Zaranix's Home 1F",
+	public static AbstractWorldType ZARANIX_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Zaranix's Home 1F",
 			PresetColour.BASE_CRIMSON,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -256,9 +260,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType ZARANIX_HOUSE_GROUND_FLOOR = new AbstractWorldType("Zaranix's Home GF",
+	public static AbstractWorldType ZARANIX_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Zaranix's Home GF",
 			PresetColour.BASE_CRIMSON,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -283,9 +287,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType HARPY_NEST = new AbstractWorldType("Harpy Nests",
+	public static AbstractWorldType HARPY_NEST = new AbstractWorldType(WorldRegion.HARPY_NESTS,
+			"Harpy Nests",
 			PresetColour.BASE_CRIMSON,
-			1,
 			true,
 			true,
 			TeleportPermissions.BOTH,
@@ -302,9 +306,9 @@ public class WorldType {
 					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))) {
 	};
 	
-	public static AbstractWorldType SLAVER_ALLEY = new AbstractWorldType("Slaver Alley",
+	public static AbstractWorldType SLAVER_ALLEY = new AbstractWorldType(WorldRegion.DOMINION,
+			"Slaver Alley",
 			PresetColour.BASE_RED,
-			1,
 			true,
 			true,
 			TeleportPermissions.BOTH,
@@ -334,9 +338,42 @@ public class WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
 	};
 	
-	public static AbstractWorldType SHOPPING_ARCADE = new AbstractWorldType("Shopping Arcade",
+	public static AbstractWorldType BOUNTY_HUNTER_LODGE = new AbstractWorldType(WorldRegion.DOMINION,
+			"The Rusty Collar",
+			PresetColour.BASE_COPPER,
+			false,
+			false,
+			TeleportPermissions.BOTH,
+			"/com/lilithsthrone/res/map/dominion/slaverAlley/bountyHunterLodge/bountyHunterLodge.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.BOUNTY_HUNTER_LODGE_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.BOUNTY_HUNTER_LODGE_FLOOR),
+					new Value<>(new Color(0xff0000), PlaceType.BOUNTY_HUNTER_LODGE_ENTRANCE),
+					
+					new Value<>(new Color(0xff8000), PlaceType.BOUNTY_HUNTER_LODGE_BOUNTY_BOARD),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.BOUNTY_HUNTER_LODGE_BAR),
+					new Value<>(new Color(0xffff00), PlaceType.BOUNTY_HUNTER_LODGE_SEATING),
+					new Value<>(new Color(0x00ffff), PlaceType.BOUNTY_HUNTER_LODGE_STAIRS))) {
+	};
+	
+	public static AbstractWorldType BOUNTY_HUNTER_LODGE_UPSTAIRS = new AbstractWorldType(WorldRegion.DOMINION,
+			"The Rusty Collar (Upstairs)",
+			PresetColour.BASE_COPPER,
+			false,
+			false,
+			TeleportPermissions.BOTH,
+			"/com/lilithsthrone/res/map/dominion/slaverAlley/bountyHunterLodge/bountyHunterLodgeUpstairs.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.BOUNTY_HUNTER_LODGE_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_CORRIDOR),
+					new Value<>(new Color(0xffff00), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM),
+					new Value<>(new Color(0xff8000), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_DOBERMANNS),
+					new Value<>(new Color(0xff80ff), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_SHADOW_SILENCE),
+					new Value<>(new Color(0x00ffff), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_STAIRS))) {
+	};
+	
+	public static AbstractWorldType SHOPPING_ARCADE = new AbstractWorldType(WorldRegion.DOMINION,
+			"Shopping Arcade",
 			PresetColour.BASE_YELLOW,
-			1,
 			true,
 			true,
 			TeleportPermissions.BOTH,
@@ -351,8 +388,9 @@ public class WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.SHOPPING_ARCADE_KATES_SHOP),
 					new Value<>(new Color(0xff00ff), PlaceType.SHOPPING_ARCADE_GENERIC_SHOP),
 					new Value<>(new Color(0x008000), PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP),
-					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT),
-					new Value<>(new Color(0x808000), PlaceType.SHOPPING_ARCADE_ANTIQUES)
+					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_RESTAURANT),
+					new Value<>(new Color(0x808000), PlaceType.SHOPPING_ARCADE_ANTIQUES),
+					new Value<>(new Color(0xff8080), PlaceType.SHOPPING_ARCADE_TOILETS)
 					)){
 		@Override
 		public boolean isRevealedOnStart() {
@@ -371,19 +409,21 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType SUPPLIER_DEN = new AbstractWorldType("Supplier Depot",
-			PresetColour.BASE_CRIMSON,
-			1,
+	public static AbstractWorldType TEXTILES_WAREHOUSE = new AbstractWorldType(WorldRegion.DOMINION,
+			"Kay's Textiles",
+			PresetColour.GENERIC_ARCANE,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.SUPPLIER_DEPOT_ENTRANCE, Util.newHashMapOfValues(
+			"/com/lilithsthrone/res/map/dominion/textilesWarehouse/textilesWarehouse.png",
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.TEXTILE_WAREHOUSE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
-					new Value<>(new Color(0x808080), PlaceType.SUPPLIER_DEPOT_CORRIDOR),
-					new Value<>(new Color(0xff0000), PlaceType.SUPPLIER_DEPOT_ENTRANCE),
-					new Value<>(new Color(0xff00ff), PlaceType.SUPPLIER_DEPOT_STORAGE_ROOM),
-					new Value<>(new Color(0x00ff00), PlaceType.SUPPLIER_DEPOT_OFFICE))) {
+					new Value<>(new Color(0x808080), PlaceType.TEXTILE_WAREHOUSE_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.TEXTILE_WAREHOUSE_ENTRANCE),
+					new Value<>(new Color(0xff00ff), PlaceType.TEXTILE_WAREHOUSE_STORAGE_ROOM),
+					new Value<>(new Color(0xff8000), PlaceType.TEXTILE_WAREHOUSE_ENCHANTING),
+					new Value<>(new Color(0x00ffff), PlaceType.TEXTILE_WAREHOUSE_OVERSEER_STATION),
+					new Value<>(new Color(0x00ff00), PlaceType.TEXTILE_WAREHOUSE_OFFICE))) {
 		@Override
 		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
@@ -394,9 +434,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType ENFORCER_HQ = new AbstractWorldType("Enforcer HQ",
+	public static AbstractWorldType ENFORCER_HQ = new AbstractWorldType(WorldRegion.DOMINION,
+			"Enforcer HQ",
 			PresetColour.BASE_BLUE,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -405,19 +445,26 @@ public class WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
 					new Value<>(new Color(0xb9b9b9), PlaceType.ENFORCER_HQ_CELLS_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.ENFORCER_HQ_STAIRS),
 					
 					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_HQ_ENTRANCE),
 					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_HQ_WAITING_AREA),
 					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
 					
 					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_HQ_GUARDED_DOOR),
+					new Value<>(new Color(0x808000), PlaceType.ENFORCER_HQ_REQUISITIONS_DOOR),
 					new Value<>(new Color(0xff0080), PlaceType.ENFORCER_HQ_LOCKED_DOOR),
+					new Value<>(new Color(0x800080), PlaceType.ENFORCER_HQ_LOCKED_DOOR_EDGE),
 					
-
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE),
 					new Value<>(new Color(0x00ffff), PlaceType.ENFORCER_HQ_OFFICE),
 					new Value<>(new Color(0xff8080), PlaceType.ENFORCER_HQ_CELLS_OFFICE),
-					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL))) {
+					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL),
+
+					new Value<>(new Color(0xff4000), PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE),
+					new Value<>(new Color(0x80ff80), PlaceType.ENFORCER_HQ_REQUISITIONS),
+					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER)
+					)) {
 		@Override
 		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex in the Enforcer HQ!";
@@ -428,9 +475,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType ENFORCER_WAREHOUSE = new AbstractWorldType("SWORD Warehouse",
+	public static AbstractWorldType ENFORCER_WAREHOUSE = new AbstractWorldType(WorldRegion.DOMINION,
+			"SWORD Warehouse",
 			PresetColour.BASE_BLUE,
-			1,
 			false,
 			false,
 			TeleportPermissions.NONE,
@@ -461,9 +508,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType CITY_HALL = new AbstractWorldType("City Hall",
+	public static AbstractWorldType CITY_HALL = new AbstractWorldType(WorldRegion.DOMINION,
+			"City Hall",
 			PresetColour.BASE_PURPLE,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -489,9 +536,9 @@ public class WorldType {
 	};
 	
 
-	public static AbstractWorldType HOME_IMPROVEMENTS = new AbstractWorldType("Argus's DIY Depot",
+	public static AbstractWorldType HOME_IMPROVEMENTS = new AbstractWorldType(WorldRegion.DOMINION,
+			"Argus's DIY Depot",
 			PresetColour.BASE_ORANGE,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -511,9 +558,9 @@ public class WorldType {
 	};
 
 	
-	public static AbstractWorldType DOMINION_EXPRESS = new AbstractWorldType("Dominion Express",
+	public static AbstractWorldType DOMINION_EXPRESS = new AbstractWorldType(WorldRegion.DOMINION,
+			"Dominion Express",
 			PresetColour.BASE_BROWN,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -523,6 +570,7 @@ public class WorldType {
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_EXPRESS_EXIT),
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_EXPRESS_STORAGE),
 					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_EXPRESS_OFFICE),
+					new Value<>(new Color(0x0000ff), PlaceType.DOMINION_EXPRESS_FILLY_STATION),
 					new Value<>(new Color(0xffff00), PlaceType.DOMINION_EXPRESS_OFFICE_STABLE),
 					new Value<>(new Color(0xff8000), PlaceType.DOMINION_EXPRESS_STABLES))) {
 		@Override
@@ -536,9 +584,9 @@ public class WorldType {
 	};
 	
 	
-	public static AbstractWorldType ANGELS_KISS_GROUND_FLOOR = new AbstractWorldType("Angel's Kiss GF",
+	public static AbstractWorldType ANGELS_KISS_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Angel's Kiss GF",
 			PresetColour.BASE_MAGENTA,
-			1,
 			false,
 			false,
 			TeleportPermissions.BOTH,
@@ -555,9 +603,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType ANGELS_KISS_FIRST_FLOOR = new AbstractWorldType("Angel's Kiss 1F",
+	public static AbstractWorldType ANGELS_KISS_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Angel's Kiss 1F",
 			PresetColour.BASE_MAGENTA,
-			1,
 			false,
 			false,
 			TeleportPermissions.BOTH,
@@ -574,9 +622,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType NIGHTLIFE_CLUB = new AbstractWorldType("The Watering Hole",
+	public static AbstractWorldType NIGHTLIFE_CLUB = new AbstractWorldType(WorldRegion.DOMINION,
+			"The Watering Hole",
 			PresetColour.BASE_BLUE,
-			1,
 			false,
 			false,
 			TeleportPermissions.NONE,
@@ -599,9 +647,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType DADDYS_APARTMENT = new AbstractWorldType("Daddy's apartment",
+	public static AbstractWorldType DADDYS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
+			"Daddy's apartment",
 			PresetColour.RACE_DEMON,
-			1,
 			false,
 			false,
 			TeleportPermissions.NONE,
@@ -631,9 +679,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType HELENAS_APARTMENT = new AbstractWorldType("Helena's apartment",
+	public static AbstractWorldType HELENAS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
+			"Helena's apartment",
 			PresetColour.BASE_GOLD,
-			1,
 			false,
 			false,
 			TeleportPermissions.NONE,
@@ -668,11 +716,47 @@ public class WorldType {
 		}
 	};
 	
+	public static AbstractWorldType NYANS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
+			"Nyan's apartment",
+			PresetColour.BASE_PINK_LIGHT,
+			false,
+			false,
+			TeleportPermissions.NONE,
+			"/com/lilithsthrone/res/map/dominion/nyanApartment/apartment.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_NYAN_APARTMENT, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x808080), PlaceType.NYAN_APARTMENT_HALLWAY),
+					new Value<>(new Color(0x00ff00), PlaceType.NYAN_APARTMENT_ENTRANCE),
+
+					new Value<>(new Color(0xff8000), PlaceType.NYAN_APARTMENT_DINING_ROOM),
+					new Value<>(new Color(0xffff00), PlaceType.NYAN_APARTMENT_KITCHEN),
+					
+					new Value<>(new Color(0x0000ff), PlaceType.NYAN_APARTMENT_BATHROOM),
+					new Value<>(new Color(0x00ff80), PlaceType.NYAN_APARTMENT_LOUNGE),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.NYAN_APARTMENT_SPARE_BEDROOM),
+					new Value<>(new Color(0xff0000), PlaceType.NYAN_APARTMENT_NYAN_BEDROOM),
+					new Value<>(new Color(0x00ffff), PlaceType.NYAN_APARTMENT_ENSUITE)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Nyan's apartment!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
+	
 	// Other:
 
-	public static AbstractWorldType SUBMISSION = new AbstractWorldType("Submission",
+	public static AbstractWorldType SUBMISSION = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Submission",
 			PresetColour.BASE_GREEN,
-			1,
 			true,
 			true,
 			TeleportPermissions.BOTH,
@@ -706,9 +790,9 @@ public class WorldType {
 	};
 
 
-	public static AbstractWorldType LYSSIETH_PALACE = new AbstractWorldType("Lyssieth's Palace",
+	public static AbstractWorldType LYSSIETH_PALACE = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Lyssieth's Palace",
 			PresetColour.BASE_PURPLE,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -735,9 +819,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType IMP_FORTRESS_ALPHA = new AbstractWorldType("Imp Fortress A",
+	public static AbstractWorldType IMP_FORTRESS_ALPHA = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Fortress A",
 			PresetColour.BASE_CRIMSON,
-			1,
 			false,
 			true,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -756,9 +840,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType IMP_FORTRESS_DEMON = new AbstractWorldType("Imp Citadel",
+	public static AbstractWorldType IMP_FORTRESS_DEMON = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Citadel",
 			PresetColour.BASE_PURPLE,
-			1,
 			false,
 			true,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -783,9 +867,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType IMP_FORTRESS_FEMALES = new AbstractWorldType("Imp Fortress F",
+	public static AbstractWorldType IMP_FORTRESS_FEMALES = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Fortress F",
 			PresetColour.BASE_PINK,
-			1,
 			false,
 			true,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -804,9 +888,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType IMP_FORTRESS_MALES = new AbstractWorldType("Imp Fortress M",
+	public static AbstractWorldType IMP_FORTRESS_MALES = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Fortress M",
 			PresetColour.BASE_BLUE,
-			1,
 			false,
 			true,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -825,9 +909,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType BAT_CAVERNS = new AbstractWorldType("Bat Caverns",
+	public static AbstractWorldType BAT_CAVERNS = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Bat Caverns",
 			PresetColour.BASE_BLACK,
-			1,
 			true,
 			true,
 			TeleportPermissions.BOTH,
@@ -846,9 +930,9 @@ public class WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))) {
 	};
 
-	public static AbstractWorldType SLIME_QUEENS_LAIR_GROUND_FLOOR = new AbstractWorldType("Slime Queen's Tower GF",
+	public static AbstractWorldType SLIME_QUEENS_LAIR_GROUND_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Slime Queen's Tower GF",
 			PresetColour.BASE_PINK,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -872,9 +956,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType SLIME_QUEENS_LAIR_FIRST_FLOOR = new AbstractWorldType("Slime Queen's Tower 1F",
+	public static AbstractWorldType SLIME_QUEENS_LAIR_FIRST_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Slime Queen's Tower 1F",
 			PresetColour.BASE_PINK,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -895,9 +979,9 @@ public class WorldType {
 		}
 	};
 
-	public static AbstractWorldType GAMBLING_DEN = new AbstractWorldType("Gambling Den",
+	public static AbstractWorldType GAMBLING_DEN = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Gambling Den",
 			PresetColour.BASE_GOLD,
-			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -931,9 +1015,9 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType RAT_WARRENS = new AbstractWorldType("Rat Warrens",
+	public static AbstractWorldType RAT_WARRENS = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Rat Warrens",
 			PresetColour.BASE_BROWN,
-			1,
 			false,
 			false,
 			TeleportPermissions.NONE,
@@ -967,6 +1051,32 @@ public class WorldType {
 		}
 	};
 	
+    public static AbstractWorldType REBEL_BASE = new AbstractWorldType(WorldRegion.SUBMISSION,
+    		"Mysterious Cave",
+			PresetColour.BASE_GREY,
+			false,
+			false,
+			TeleportPermissions.NONE,
+			"/com/lilithsthrone/res/map/submission/rebelBase/rebelBase.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			PlaceType.REBEL_BASE_ENTRANCE,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xed1c24), PlaceType.REBEL_BASE_ENTRANCE),
+					new Value<>(new Color(0x22b14c), PlaceType.REBEL_BASE_CORRIDOR),
+					new Value<>(new Color(0xf8941d), PlaceType.REBEL_BASE_SLEEPING_AREA),
+					new Value<>(new Color(0x662d91), PlaceType.REBEL_BASE_COMMON_AREA),
+                    new Value<>(new Color(0x6dd0f7), PlaceType.REBEL_BASE_ARMORY),
+                    new Value<>(new Color(0x3f48cc), PlaceType.REBEL_BASE_CAVED_IN_ROOM))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "A structurally unsound cave is hardly the place for sex!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
 	private static List<AbstractWorldType> allWorldTypes = new ArrayList<>();
 	private static Map<AbstractWorldType, String> worldToIdMap = new HashMap<>();
@@ -978,6 +1088,9 @@ public class WorldType {
 	
 	public static AbstractWorldType getWorldTypeFromId(String id) {
 		id.replaceAll("SEWERS", "SUBMISSION");
+		if(id.equals("SUPPLIER_DEN")) {
+			return TEXTILES_WAREHOUSE;
+		}
 		id = Util.getClosestStringMatch(id, idToWorldMap.keySet());
 		return idToWorldMap.get(id);
 	}
@@ -987,6 +1100,47 @@ public class WorldType {
 	}
 	
 	static {
+		// Modded world types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", null, "worldType");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractWorldType worldType = new AbstractWorldType(innerEntry.getValue(), entry.getKey(), true) {};
+					allWorldTypes.add(worldType);
+					worldToIdMap.put(worldType, innerEntry.getKey());
+					idToWorldMap.put(innerEntry.getKey(), worldType);
+//					System.out.println("modded WT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading modded world type failed at 'WorldType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// External res world types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/maps", null, "worldType");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractWorldType worldType = new AbstractWorldType(innerEntry.getValue(), entry.getKey(), false) {};
+					String id = "innoxia_"+innerEntry.getKey().replace("_worldType", "");
+					allWorldTypes.add(worldType);
+					worldToIdMap.put(worldType, id);
+					idToWorldMap.put(id, worldType);
+//					System.out.println("res WT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading world type failed at 'WorldType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// Hard-coded world types (all those up above):
+		
 		Field[] fields = WorldType.class.getFields();
 		
 		for(Field f : fields) {

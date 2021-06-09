@@ -14,7 +14,6 @@ import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
@@ -39,11 +38,11 @@ public class HarpyNestsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Harpy Nests", "Travel up to the Harpy Nests."){
+				return new Response("Harpy Nests", "Travel up to the Harpy Nests.", PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST.getDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "OUTSIDE_ENTRY"));
-						Main.mainController.moveGameWorld(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, true);
+						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, false);
 					}
 				};
 
@@ -72,15 +71,14 @@ public class HarpyNestsDialogue {
 				return null;
 			}
 			if (index == 1) {
-				return new ResponseEffectsOnly("To street level", "Travel back down to Dominion's streets."){
+				return new Response("To street level", "Travel back down to Dominion's streets.", PlaceType.DOMINION_HARPY_NESTS_ENTRANCE.getDialogue(false)){
 					@Override
 					public void effects() {
 						if(Main.game.getPlayer().isAbleToFly()) {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Stepping back out through the same door you used to enter the Enforcer post, you spread your wings and swoop back down to street level."
-									+ "</p>");
-							
+							Main.game.getTextStartStringBuilder()
+								.append("<p>Stepping back out through the same door you used to enter the Enforcer post, you")
+								.append(!Main.game.getPlayer().isAbleToFlyFromExtraParts() ? " spread your wings and" : "")
+								.append(" swoop back down to street level.</p>");
 						} else {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
@@ -88,7 +86,7 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, true);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, false);
 					}
 				};
 			}
@@ -101,7 +99,7 @@ public class HarpyNestsDialogue {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasHarpyNestAccess);
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HARPY)), false, true));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.getLoreBook(Subspecies.HARPY)), false, true));
 							}
 						});
 				
@@ -123,6 +121,7 @@ public class HarpyNestsDialogue {
 									public void effects() {
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.SIDE_UTIL_COMPLETE));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
+										Main.game.getDialogueFlags().setSavedLong("angry_harpies_completed", Main.game.getMinutesPassed());
 									}
 								});
 						
@@ -140,7 +139,7 @@ public class HarpyNestsDialogue {
 						new Response("Candi's lollipops", "Ask a nearby Enforcer about collecting the box of lollipops which Candi has requested.", ENTRANCE_ENFORCER_POST_CANDIS_LOLLIPOPS) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_CONTRABAND), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.CANDI_CONTRABAND), false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_LOLLIPOPS));
 					}
 				});
@@ -253,7 +252,7 @@ public class HarpyNestsDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY"));
 			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				sb.append(((NPC) npc).getPresentInTileDescription(false));
@@ -289,7 +288,7 @@ public class HarpyNestsDialogue {
 								}
 								@Override
 								public void effects() {
-									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -309,7 +308,7 @@ public class HarpyNestsDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_BRIDGE"));
 			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				sb.append(((NPC) npc).getPresentInTileDescription(false));

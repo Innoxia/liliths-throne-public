@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>innoxia_panther</racialBody>
+	
+	<applyRaceChanges/>
+	
+	<name><![CDATA[panther-morph]]></name>
+	<namePlural><![CDATA[panther-morphs]]></namePlural>
+	
+	<nameFeral>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[panther]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[panthers]]></name>
+	</nameFeralPlural>
+	
+	<defaultTransformName><![CDATA[panther]]></defaultTransformName>
+	
+	<colour>innoxia_panther</colour>
+	
+	<disposition>UNPREDICTABLE</disposition>
+	
+	<racialClass>MAMMAL</racialClass>
+	
+	<feralPartsAvailable>true</feralPartsAvailable>
+	
+	<ableToSelfTransform>false</ableToSelfTransform>
+	
+	<flyingRace>false</flyingRace>
+	
+	<combatBehaviour>ATTACK</combatBehaviour>
+	
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	
+	<numberOfOffspringLow>1</numberOfOffspringLow>
+	<numberOfOffspringHigh>2</numberOfOffspringHigh>
+	
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

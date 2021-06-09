@@ -10,11 +10,13 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -57,7 +59,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -98,7 +99,7 @@ public class SlimeQueen extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getFleshSubspecies()!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN, false);
 		}
 
@@ -117,19 +118,23 @@ public class SlimeQueen extends NPC {
 					PersonalityTrait.CONFIDENT);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME, PresetColour.COVERING_PINK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, PresetColour.COVERING_PINK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, PresetColour.COVERING_PINK_LIGHT), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, PresetColour.COVERING_PINK_DARK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, PresetColour.COVERING_PINK_DARK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, PresetColour.COVERING_PINK_DARK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_SKIN), PresetColour.COVERING_PINK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_IRIS), PresetColour.COVERING_PINK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_SCLERA), PresetColour.COVERING_PINK_LIGHT), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_PUPIL), PresetColour.COVERING_PINK_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.ANUS), CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setHairCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR), PresetColour.COVERING_PINK_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MOUTH), CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.TONGUE), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, true, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), PresetColour.COVERING_PINK_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.VAGINA), CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.PENIS), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
+			this.setStartingBody(false);
 		}
 		
 		setStartingCombatMoves();
@@ -188,16 +193,17 @@ public class SlimeQueen extends NPC {
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME, PresetColour.COVERING_PINK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, PresetColour.COVERING_PINK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, PresetColour.COVERING_PINK_LIGHT), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, PresetColour.COVERING_PINK_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, PresetColour.COVERING_PINK_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, PresetColour.COVERING_PINK_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_SKIN), PresetColour.COVERING_PINK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_IRIS), PresetColour.COVERING_PINK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_SCLERA), PresetColour.COVERING_PINK_LIGHT), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_PUPIL), PresetColour.COVERING_PINK_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.ANUS), CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setHairCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR), PresetColour.COVERING_PINK_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MOUTH), CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.TONGUE), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, true, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), PresetColour.COVERING_PINK_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.VAGINA), CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.PENIS), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
 		
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMaximumValue());
 		this.setHairStyle(HairStyle.HIME_CUT);
@@ -252,7 +258,7 @@ public class SlimeQueen extends NPC {
 		// Penis:
 		// For if she grows one:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_FAT.getValue());
+		this.setPenisGirth(PenetrationGirth.FIVE_THICK.getValue());
 		this.setPenisSize(40); // Huge due to her size
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
 		this.fillCumToMaxStorage();
@@ -281,15 +287,15 @@ public class SlimeQueen extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN) && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)) {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_slime_queens_tiara", false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_slime_queens_tiara", false), true, this);
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_heart_necklace", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_heart_necklace", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_STOMACH, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_STOMACH, true, this);
 
 	}
 	

@@ -1,0 +1,82 @@
+<h2>v0.4.0.8</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed a bug where dialogue flags would not be loaded correctly under certain conditions, resulting in many potentially game-breaking effects. (by AceXP) Innoxia's note: If your game has experienced bugs related to the resetting of knowledge about quests, the calendar, essences, etc., then I would advise you to load an older save before that happened or start a new game (sorry for the inconvenience). </li>
+	<li>Added functionality to debug menu to show the chances of encountering various races in the current location - added in the 'Misc.' tab, 2nd page as 'Spawn rates' action. (PR#1531 by AceXP)</li>
+	<li>Added a special attack, 'talon slash', to characters that have taloned feet (i.e. harpies). The base damage is 20 (same as a kerambit). If the attack does damage, extra damage is applied as a critical effect. (PR#1530 by AceXP)</li>
+	<li>Made some optimisations to the GameCharacter.getChildren() and GameCharacter.getNonCommonNodes() methods to decrease save times by around 33%. This change is most noticeable on games with a large number of offspring. (PR#1533 by Sarkath)</li>
+	<li>Fixed issue where the key for locked clothing that was unequipped during sex was being removed from the unequipper's keys, even though the item was automatically re-equipped after sex resulting in the unequipper not having the key. (PR#1541 by debouchere)</li>
+	<li>Fixed a huge amount of typos and consistency errors in dialogue. Full patch notes for this PR are at the bottom of these patch notes. (PR#1550 by AceXP)</li>
+	<li>Fixed a NullReferenceException which was being thrown whenever a slave laying incubated eggs hadn't previously birthed live young. (PR#1551 by Maxis010)</li>
+	<li>Fixed some parser bugs and improved HLFQuest UX by adding button to search for password and improving firebomb quest descriptions and triggers. (PR#1547 by DSG)</li>
+	<li>Refactored all of the existing 'Self' type sex actions from 'Player/Partner' into shared actions. (PR#1539 by Maxis010)</li>
+	<li>Added more detailed rabbit-morph lore. (by Manwhore)</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Sadistic sex actions are now only available to characters who have the 'sadist' fetish.</li>
+	<li>Set 'slap ass' as a sadistic action, and added 'spank ass' as an alternative that's available to characters who don't have the sadist fetish.</li>
+	<li>Added tongue-armpit sex actions (i.e. licking armpits), which are available in any position that allows tongue-breast interactions. (Armpit content can be disabled in the content options.)</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Renamed the actions for entering Elis to 'Enter (main)' and 'Enter (rear)'.</li>
+	<li>The 'aristocrat' occupation is now recognised by Leotie as being a suitable occupation at the start of her test.</li>
+	<li>Added 'eggs implanted' and 'eggs incubated' as tattoo counter types.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo and parsing fixes.</li>
+	<li>Fixed issue where Loppy's artwork wasn't being displayed.</li>
+	<li>Fixed bug where over 24 hours would sometimes pass when using Astrapi's centaur ride for the first time, and also fixed a related bug where Vronti's journeys would always pass over 24 hours.</li>
+	<li>Fixed issue where tattoo cum counts would not increment for slaves who were having sex with generic characters. (e.g. When they were having sex in the brothel or in the stocks or with other slaves.)</li>
+	<li>The 'Forced chastity (desperate)' status effect will no longer be reset to 'Forced chastity (calm)' after every save/load.</li>
+</ul>
+
+<h3>AceXP's PR#1550 Patch Notes:</h3>
+<ul>
+	<li><b>Typos:</b></li>
+	<li>Dragon leg transformation mentions fur, should be scales.</li>
+	<li>Mommy's nice and full and today -> Mommy's nice and full today.</li>
+	<li>Remove extra ) at the end of dialogue with pregnant npc.</li>
+	<li>out of this area ... -> out of this area...</li>
+	<li>candi pouts -> Candi pouts.</li>
+	<li>greedily kissing and kicking the cougar-girl -> greedily kissing and licking the cougar-girl.</li>
+	<li>take out the shotgun -> take out the rifle (DSG HLF bolt rifle)</li>
+	<li>centuar -> centaur</li>
+	<br/>
+	<li><b>Consistency:</b></li>
+	<li>River Huber -> River Hubur.</li>
+	<li>One Night in June -> One Day in June.</li>
+	<li>Bat cavern attacker mentions two-hundred and fifty flames, should be five hundred flames.</li>
+	<li>Red light district -> Red-light district.</li>
+	<li>Nyan: I'm on the second floor -> I'm on the third floor.</li>
+	<li>Opening hours of the Watering Hole should display in 12/24 hour clock format</li>
+	<br/>
+	<li><b>Bugs:</b></li>
+	<li>Parser error with kilometers/miles when the world map is mentioned.</li>
+	<li>Parser error in the stocks if you have a companion.</li>
+	<li>appears to be in his past seventy -> appears to be past seventy</li>
+	<li>Several text fixes and other issues in Helena's quest and Dominion Express content</li>
+	<li>Fixed switched text for single/multiple tails while petting</li>
+	<li>Thoughts should not be muted (also change dialogue for alleyway demon attacker)</li>
+	<li>Minor octopus morphs spawned with eight HUMAN legs.</li>
+	<li>Changed some occurences of step and walk to user parser commands [pc.step] etc.</li>
+	<li>After freeing a slave a Freedom certificate should be removed from the inventory.</li>
+	<li>Clothing that is discarded on use (condom, web seals) should be removed from the game when doing Unequip all.</li>
+	<li>Fixed info text for changing pubic hair mentioning no genitalia when that is not true.</li>
+	<li>Fixed (not solo) handjob climax looking weird when the character is giving themselves a handjob.</li>
+	<li>Fixed elemental birth date of 29 february leading to Exception</li>
+	<li>Fixed self-TF menu leading to NPE with <ableToSelfTransform>true</ableToSelfTransform> race</li>
+	<li>Fix issues with Bunny/Loppy pregnancy (also move Loppy images to KT80 folder)</li>
+	<br/>
+	<li><b>New features:</b></li>
+	<li>Added missing penetration length code for tentacles.</li>
+	<li>Add the rolled-up posters to the encyclopedia when you get them, as you can never see them otherwise.</li>
+	<li>Add crawl/slide as movement verbs for cephalopods.</li>
+</ul>
+

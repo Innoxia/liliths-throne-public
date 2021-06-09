@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Kitty Lingerie]]></name>
+	
+	<statusEffect>SET_KITTY</statusEffect>
+	
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HEAD</slot>
+		<slot>CHEST</slot>
+		<slot>HAND</slot>
+		<slot>GROIN</slot>
+		<slot>SOCK</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

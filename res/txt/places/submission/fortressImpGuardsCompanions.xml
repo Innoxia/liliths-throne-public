@@ -319,7 +319,7 @@
 		#THEN
 			Looking down, you see [npc3.herHim] holding [npc3.her] skirt up and presenting [npc3.her] cock to you. Sure enough, there's a dribble of cum running down the underside of [npc3.her] shaft, and you obediently duck your head down and lick it off. With a satisfied moan, the imp finally steps back and drops [npc3.her] skirt, allowing you to push yourself to your feet and get your things in order.
 		#ELSE
-			Looking down, you see [npc3.herHim] holding [npc3.her] skirt up and presenting [npc3.her] wet cunt to you. Sure enough, there's a dribble of girl-cum running down the inside of [npc3.her] thigh, and you obediently duck your head down and lick it off. With a satisfied moan, the imp finally steps back and drops [npc3.her] skirt, allowing you to push yourself to your feet and get your things in order.
+			Looking down, you see [npc3.herHim] holding [npc3.her] skirt up and presenting [npc3.her] wet cunt to you. Sure enough, there's a dribble of girlcum running down the inside of [npc3.her] thigh, and you obediently duck your head down and lick it off. With a satisfied moan, the imp finally steps back and drops [npc3.her] skirt, allowing you to push yourself to your feet and get your things in order.
 		#ENDIF
 	</p>
 	<p>
@@ -346,7 +346,7 @@
 		#THEN
 			Looking across, you see [npc3.herHim] holding [npc3.her] skirt up and presenting [npc3.her] cock to your companion. Sure enough, there's a dribble of cum running down the underside of [npc3.her] shaft, and [npc.name] obediently ducks [npc.her] head down and licks it off. With a satisfied moan, the imp suddenly steps over and grabs your head, before forcing you to perform the same degrading move as [npc.name]. After the two of you have licked all the cum off [npc3.her] cock, [npc3.name] drops [npc3.her] skirt, allowing you both to finally push yourselves to your feet and get your things in order.
 		#ELSE
-			Looking down, you see [npc3.herHim] holding [npc3.her] skirt up and presenting [npc3.her] wet cunt to your companion. Sure enough, there's a dribble of girl-cum running down the inside of [npc3.her] thigh, and [npc.name] obediently ducks [npc.her] head down and licks it off. With a satisfied moan, the imp suddenly steps over and grabs your head, before forcing you to perform the same degrading move as [npc.name]. After the two of you have licked [npc3.her] thigh clean, [npc3.name] drops [npc3.her] skirt, allowing you both to finally push yourselves to your feet and get your things in order.
+			Looking down, you see [npc3.herHim] holding [npc3.her] skirt up and presenting [npc3.her] wet cunt to your companion. Sure enough, there's a dribble of girlcum running down the inside of [npc3.her] thigh, and [npc.name] obediently ducks [npc.her] head down and licks it off. With a satisfied moan, the imp suddenly steps over and grabs your head, before forcing you to perform the same degrading move as [npc.name]. After the two of you have licked [npc3.her] thigh clean, [npc3.name] drops [npc3.her] skirt, allowing you both to finally push yourselves to your feet and get your things in order.
 		#ENDIF
 	</p>
 	<p>
@@ -974,7 +974,7 @@
 		#THEN
 			[npc.speech(Yes! Please, let us taste your cum!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -1001,7 +1001,7 @@
 		#THEN
 			[npc.speech(Yes! Please, use me!)] [npc.name] happily calls out, before dropping down onto [npc.her] hands and knees beside you.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to. Stepping up beside you, [npc.she] drops down onto [npc.her] hands and knees and groans, [npc.speech(Just get it over with.)]
+			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to. Stepping up beside you, [npc.she] drops down onto [npc.her] hands and knees and groans, [npc.speech(Just get it over with.)]
 		#ENDIF
 	</p>
 	<p>
@@ -1065,7 +1065,7 @@
 		#THEN
 			[npc.speech(Yes! Please, use me!)] [npc.name] happily calls out, mimicking your movements as [npc.she] presents [npc.herself] to the imps.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to. Mimicking your movements, [npc.she] presents [npc.herself] to the imps and groans, [npc.speech(Just get it over with.)]
+			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to. Mimicking your movements, [npc.she] presents [npc.herself] to the imps and groans, [npc.speech(Just get it over with.)]
 		#ENDIF
 	</p>
 	<p>
@@ -1142,7 +1142,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.name] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -1178,7 +1178,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.name] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -1222,7 +1222,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.name] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -1261,7 +1261,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.name] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -1594,7 +1594,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -1621,7 +1621,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -1653,7 +1653,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -1680,7 +1680,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -2208,7 +2208,7 @@
 		#THEN your [pc.horns]
 		#ELSE
 			#IF pc.hasHair()
-			#THEN your [pc.hair]
+			#THEN your [pc.hair(true)]
 			#ELSE your head
 			#ENDIF
 		#ENDIF

@@ -2,37 +2,91 @@
 <dialogue>
 
 	<htmlContent tag="ENSLAVEMENT_SUCCESS_COLLAR"><![CDATA[
+	#IF(npc.getAffection(pc)>10)
+		<p>
+			As you lift the collar up to [npc.namePos] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting [npc.herHim] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.namePos] neck.
+		</p>
+		<p>
+			As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+				<br/>Identification: [npc.nameFull(true)]
+				<br/>Race: [npc.Race])]
+		</p>
+		<p>
+			#IF(npc.isMute())
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and lets out an almost inaudible whine.
+			#ELSE
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and exclaims in shock, [npc.speech(Wait, [npc.pcName]! This isn't a slave collar is it?!)]
+			#ENDIF
+		</p>
+		<p>
+			Grinning at [npc.name], you don't have time to offer a response, as with a bright purple flash, [npc.she] suddenly disappears from sight. The last thing you see as [npc.sheIs] whisked away is a face of shocked betrayal, and you can only imagine how angry [npc.she]'ll be when you see [npc.herHim] next.
+		</p>
+	#ELSE
+		<p>
+			Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
+		</p>
+		<p>
+			As you lift the collar up to [npc.her] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting this [npc.race] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around the [npc.race] neck. The [#SPECIAL_PARSE_0]'s arcane enchantment instantly recognises [npc.herHim] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
+		</p>
+		<p>
+			Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+			<br/>Identification: [npc.nameFull(true)]
+			<br/>Race: [npc.Race])]
+		</p>
+	#ENDIF
 	<p>
-		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
-	</p>
-	<p>
-		As you lift the collar up to [npc.her] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting this [npc.race] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around the [npc.race] neck. The [#SPECIAL_PARSE_0]'s arcane enchantment instantly recognises [npc.herHim] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
-	</p>
-	<p>
-		Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
-	</p>
-	<p style='text-align:center;'>
-		[style.italicsArcane(Slave Registered.
-		<br/>Identification: [npc.nameFull(true)]
-		<br/>Race: [npc.race])]
+		From Finch's instructions, you know that <b>[npc.sheHas] been teleported to the 'Slave Administration' building in Slaver Alley</b>, where [npc.she]'ll be waiting for you to pick [npc.herHim] up.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENSLAVEMENT_SUCCESS"><![CDATA[
+	#IF(npc.getAffection(pc)>10)
+		<p>
+			As you bring the [#SPECIAL_PARSE_0] closer to [npc.name], you feel [#SPECIAL_PARSE_1] start to steadily hum; a clear indication that [npc.sheIs] being detected as a potential enslavement target. Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing.
+		</p>
+		<p>
+			As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+				<br/>Identification: [npc.nameFull(true)]
+				<br/>Race: [npc.Race])]
+		</p>
+		<p>
+			#IF(npc.isMute())
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and lets out an almost inaudible whine.
+			#ELSE
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and exclaims in shock, [npc.speech(Wait, [npc.pcName]! You're not enslaving me, are you?!)]
+			#ENDIF
+		</p>
+		<p>
+			Grinning at [npc.name], you don't have time to offer a response, as with a bright purple flash, [npc.she] suddenly disappears from sight. The last thing you see as [npc.sheIs] whisked away is a face of shocked betrayal, and you can only imagine how angry [npc.she]'ll be when you see [npc.herHim] next.
+		</p>
+	#ELSE
+		<p>
+			Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
+		</p>
+		<p>
+			Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. The [#SPECIAL_PARSE_0]'s arcane enchantment recognises the [npc.race] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
+		</p>
+		<p>
+			Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+			<br/>Identification: [npc.nameFull(true)]
+			<br/>Race: [npc.Race])]
+		</p>
+	#ENDIF
 	<p>
-		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
-	</p>
-	<p>
-		Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. The [#SPECIAL_PARSE_0]'s arcane enchantment recognises the [npc.race] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
-	</p>
-	<p>
-		Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
-	</p>
-	<p style='text-align:center;'>
-		[style.italicsArcane(Slave Registered.
-		<br/>Identification: [npc.nameFull(true)]
-		<br/>Race: [npc.race])]
+		From Finch's instructions, you know that <b>[npc.sheHas] been teleported to the 'Slave Administration' building in Slaver Alley</b>, where [npc.she]'ll be waiting for you to pick [npc.herHim] up.
 	</p>
 	]]>
 	</htmlContent>
@@ -78,10 +132,7 @@
 
 	<htmlContent tag="ENSLAVEMENT_FAIL_NO_LICENSE"><![CDATA[
 	<p>
-		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
-	</p>
-	<p>
-		Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. Despite the fact that [npc.sheIs] a wanted criminal, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises the fact that you don't have a slaver license, which is evidenced by glowing red lettering that's projected into the air, reading:
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. Despite the fact that [npc.sheIs] a wanted criminal, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises the fact that you don't have a slaver license, which is evidenced by glowing red lettering that's projected into the air, reading:
 	</p>
 	<p style='text-align:center;'>
 		[style.italicsBad(Invalid owner! Slaver license required!<br/>
@@ -89,6 +140,103 @@
 	</p>
 	<p>
 		The [npc.race] lets out a relieved sigh as [npc.she] sees that [npc.sheHas] avoided being enslaved. Not wanting to waste your time trying to hunt down an Enforcer who could deal with this [npc.race], you make a disappointed tutting noise as you step back and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SET_SLAVE_FREE_SCARLETT -->
+	
+	<htmlContent tag="SET_SLAVE_FREE_SCARLETT"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.namePos] old attitude makes a sudden return, and she storms pasts you and flings opens the door. No longer afraid to express her true feelings, [npc.she] turns back and angrily snarls, [npc.speech(Fuck you for keeping me as a slave, [pc.name]! I'm going to be far better off back at Helena's nest!)]
+	</p>
+	<p>
+		With that, [npc.name] sprints off down the corridor, and as you hear the distant sound of the front door slamming shut behind [npc.herHim], you realise that if you want to see [npc.herHim] again, you're going to have to head back to the Harpy Nests...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SET_SLAVE_FREE -->
+
+	<htmlContent tag="SET_SLAVE_FREE_DISLIKE"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.name] storms pasts you and flings opens the door. No longer afraid to express her true feelings, [npc.she] turns back and angrily snarls, [npc.speech(Fuck you, [pc.name]. I never want to see your fucking face ever again!)]
+	</p>
+	<p>
+		With that, [npc.name] sprints off down the corridor, and as you hear the distant sound of the front door slamming shut behind [npc.herHim], you realise that you're never going to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_NO_GUEST"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.name] lets out a long sigh and [npc.walks] over to the door. Before [npc.she] leaves, however, [npc.she] turns back and gives you a slight smile, before saying, [npc.speech(I guess you weren't the worst owner to have, [pc.name]. I hope you treat your other slaves well...)]
+	</p>
+	<p>
+		With that, [npc.name] sets off down the corridor, and as you hear the distant sound of the front door closing shut behind [npc.herHim], you realise that you're never going to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_GUEST_CHOICE"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.name] lets out a long sigh and [npc.walks] over to the door. Before [npc.she] leaves, you realise that you have this one chance to prevent [npc.herHim] from leaving your life forever. By offering [npc.herHim] the use of one of the mansion's guest rooms, you could potentially build a real relationship with [npc.name]. Then again, if you simply wanted [npc.herHim] to leave, you could just say goodbye...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_GOODBYE"><![CDATA[
+	<p>
+		Not interested in having [npc.name] stay on as a guest in the mansion, you say goodbye to [npc.herHim]. Turning back in the doorway and giving you a slight smile, [npc.she] says, [npc.speech(I guess you weren't the worst owner to have, [pc.name]. I hope you treat your other slaves well...)]
+	</p>
+	<p>
+		With that, [npc.name] sets off down the corridor, and as you hear the distant sound of the front door closing shut behind [npc.herHim], you realise that you're never going to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_THROWN_OUT"><![CDATA[
+	<p>
+		Definitely not interested in having [npc.name] stay on as a guest in the mansion, you decide to speed [npc.her] departure along by [pc.stepping] over to the room's bell pull and tugging on it. Within seconds, Rose appears at the door, and you tell the cat-girl maid that [npc.name] is trespassing and needs to be thrown out. Immediately grabbing your ex-slave by the [npc.arm], Rose gives [npc.herHim] no time in which to say anything more to you and forcefully pulls [npc.herHim] out of the room.
+	</p>
+	<p>
+		Soon afterwards, you hear the distant sound of the front door closing shut behind [npc.name], you realise that you're never going to have to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SET_SLAVE_FREE_GUEST_ROOM -->
+
+	<htmlContent tag="SET_SLAVE_FREE_GUEST_ROOM"><![CDATA[
+	<p>
+		Moving forwards, you stop [npc.name] from leaving by telling [npc.herHim] that you're not kicking [npc.herHim] out, and that if [npc.she]'d like, [npc.she] can continue to live here in the mansion as your guest. 
+	</p>
+	<p>
+		[npc.NamePos] [npc.eyes+] light up as you say this, and with more than a hint of excitement in [npc.her] voice, [npc.she] asks, [npc.speech(Really? You mean... I can continue to live here with you?)] 
+	</p>
+	<p>
+		After you've confirmed that that's what you mean, [npc.name] exclaims, [npc.speech(Thank you, [pc.name]! You've always treated me well, even though I was just a slave...)]
+	</p>
+	<p>
+		Smiling at your ex-slave, you ask [npc.herHim] to accompany you to [npc.her] new room. Happily tagging along, [npc.name] [npc.walks] by your side as you lead [npc.herHim] to the guest room which [npc.she]'ll be staying in from now on. Turning to face you with tears of happiness in [npc.her] [npc.eyes+], [npc.name] exclaims, [npc.speech(Thank you, [pc.name]! I just... I can't thank you enough; I was so scared of being kicked back out into the streets! Thank you!)]
+	</p>
+	<p>
+		Telling [npc.name] that [npc.she]'ll be safe here as your guest, you head over to the door of [npc.her] new room. Telling [npc.herHim] to take some time in which to get settled, you make your exit and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>

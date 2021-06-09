@@ -11,8 +11,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -57,7 +58,6 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPace;
@@ -81,8 +81,9 @@ public class Roxy extends NPC {
 			ItemType.CIGARETTE_PACK,
 			ItemType.FETISH_UNREFINED,
 			ItemType.MOO_MILKER_EMPTY,
-			ItemType.VIXENS_VIRILITY,
-			ItemType.PROMISCUITY_PILL,
+			ItemType.getItemTypeFromId("innoxia_pills_fertility"),
+			ItemType.getItemTypeFromId("innoxia_pills_broodmother"),
+			ItemType.getItemTypeFromId("innoxia_pills_sterility"),
 			ItemType.MOTHERS_MILK,
 			ItemType.PREGNANCY_TEST);
 
@@ -90,11 +91,10 @@ public class Roxy extends NPC {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE)
 					&& (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))
-					&& (itemType.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)
-							|| itemType.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN))) {
+					&& (itemType.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN) || itemType.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN))) {
 				itemsForSale.add(itemType);
 			}
-		}
+		}               
 	}
 	
 	public Roxy() {
@@ -110,7 +110,7 @@ public class Roxy extends NPC {
 				15, Gender.F_V_B_FEMALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
 
-		buyModifier=0.4f;
+		buyModifier=0.3f;
 		sellModifier=2.5f;
 		
 		if(!isImported) {
@@ -143,6 +143,10 @@ public class Roxy extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.5")) {
+			buyModifier=0.3f;
+			sellModifier=2.5f;
 		}
 	}
 
@@ -247,7 +251,7 @@ public class Roxy extends NPC {
 		this.setVaginaCapacity(Capacity.FOUR_LOOSE, true);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY);
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
 		this.addGirlcumModifier(FluidModifier.ADDICTIVE);
 		
 		// Feet:
@@ -267,25 +271,25 @@ public class Roxy extends NPC {
 		this.setPiercedNose(true);
 		this.setPiercedTongue(true);
 		this.setPiercedVagina(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_lip_double_ring", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_STOMACH, true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_basic_barbell_pair", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_NIPPLE, true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_basic_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_TONGUE, true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_VAGINA, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_lip_double_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_STOMACH, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell_pair", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_NIPPLE, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_TONGUE, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_VAGINA, true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_patch", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_patch", PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_GREY, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_kneehigh_socks", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_thigh_high_boots", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_GREY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_kneehigh_socks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_thigh_high_boots", PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 	
@@ -327,36 +331,43 @@ public class Roxy extends NPC {
 	public void dailyUpdate() {
 		clearNonEquippedInventory(false);
 		
-		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false, false);
-		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
+		this.addItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), 25, false, false);
+		this.addItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
 		
 		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
-				this.addItem(AbstractItemType.generateItem(item), false);
+			if(Main.game.isSillyMode() || !item.getItemTags().contains(ItemTag.SILLY_MODE)) {
+				for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
+					this.addItem(Main.game.getItemGen().generateItem(item), false);
+				}
 			}
 		}
+                
+	    // Add a special case for firebombs
+        if (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)) {
+            this.addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbomb"), 10, false, false);
+        }
 		
 		List<AbstractClothingType> clothingToAdd = new ArrayList<>();
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing!=null
-					&& (clothing.getRarity()==Rarity.COMMON || clothing.isCondom(clothing.getEquipSlots().get(0)))
+					&& (clothing.getRarity()==Rarity.COMMON || clothing.isDefaultSlotCondom())
 					&& (clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)
 							|| clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
 							|| clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH))) {
-				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
-					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
+				if(clothing.isDefaultSlotCondom()) {
+					Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
 					Colour condomColourSec = PresetColour.CLOTHING_BLACK;
 					Colour condomColourTer = PresetColour.CLOTHING_BLACK;
 					
-					if(!clothing.getAvailableSecondaryColours().isEmpty()) {
-						condomColourSec = Util.randomItemFrom(clothing.getAvailableSecondaryColours());
+					if(clothing.getColourReplacement(1)!=null) {
+						condomColourSec = clothing.getColourReplacement(1).getRandomOfDefaultColours();
 					}
-					if(!clothing.getAvailableTertiaryColours().isEmpty()) {
-						condomColourTer = Util.randomItemFrom(clothing.getAvailableTertiaryColours());
+					if(clothing.getColourReplacement(2)!=null) {
+						condomColourTer = clothing.getColourReplacement(2).getRandomOfDefaultColours();
 					}
 					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()==Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
-						this.addClothing(AbstractClothingType.generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
+						this.addClothing(Main.game.getItemGen().generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
 					}
 					
 				} else {
@@ -368,16 +379,16 @@ public class Roxy extends NPC {
 		Collections.shuffle(clothingToAdd);
 		
 		for(int i=0; i<6; i++) {
-			AbstractClothing clothing = AbstractClothingType.generateClothingWithNegativeEnchantment(Util.randomItemFrom(clothingToAdd));
+			AbstractClothing clothing = Main.game.getItemGen().generateClothingWithNegativeEnchantment(Util.randomItemFrom(clothingToAdd));
 			clothing.setEnchantmentKnown(this, false);
 			this.addClothing(clothing, false);
 		}
 		for(int i=0; i<3; i++) {
-			AbstractClothing clothing = AbstractClothingType.generateClothingWithEnchantment(Util.randomItemFrom(clothingToAdd));
+			AbstractClothing clothing = Main.game.getItemGen().generateClothingWithEnchantment(Util.randomItemFrom(clothingToAdd));
 			clothing.setEnchantmentKnown(this, false);
 			this.addClothing(clothing, false);
 		}
-		AbstractClothing clothing = AbstractClothingType.generateRareClothing(Util.randomItemFrom(clothingToAdd));
+		AbstractClothing clothing = Main.game.getItemGen().generateRareClothing(Util.randomItemFrom(clothingToAdd));
 		clothing.setEnchantmentKnown(this, false);
 		this.addClothing(clothing, false);
 		
@@ -397,11 +408,7 @@ public class Roxy extends NPC {
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		if(item instanceof AbstractItem) {
-			return true;
-		}
-		
-		return item instanceof AbstractClothing;
+		return true;
 	}
 
 	@Override

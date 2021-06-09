@@ -1,0 +1,1846 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="exterior">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/global/globalPlaces', 'FOLOI_FIELDS'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">EXTERIOR</content>
+		<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Depot]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+						As Astrapi informed you that she and Vronti will not be offering rides for the rest of today, you'll have to come back tomorrow if you wanted to make use of their services.
+					#ELSE
+						Approach the Centaur Carriage Depot and see if you can find Astrapi or Vronti.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+						null
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_centaur_transport_introduced))
+						innoxia_places_fields_centaur_transport_approach_repeat
+					#ELSE
+						innoxia_places_fields_centaur_transport_approach
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- First time encounter: -->
+	
+	<!-- Approaching: -->
+	<scene id="approach">
+		<content folderPath="txt/places/fields/centaur_transport">APPROACH</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Inside]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						The Centaur Carriage Depot is open between [style.italicsMinorGood([units.time(5.75)]-[units.time(15)])], and as such you could [pc.step] inside the intact barn and see what all the noise is about.
+					#ELSE
+						The Centaur Carriage Depot is open between [style.italicsMinorBad([units.time(5.75)]-[units.time(15)])], and as such is currently deserted. You'll have to come back during opening times if you wanted to take a look inside the barn.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						innoxia_places_fields_centaur_transport_approach_inside
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.isHourBetween(5.75, 15)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wait & enter]]></responseTitle>
+				<responseTooltip><![CDATA[As the depot is currently closed, you could wait here until [units.time(5.75)] for it to open and then head inside, should you want to...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_approach_inside]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#game.getMinutesUntilTimeInMinutes(5.75*60)]
+				]]></secondsPassed>
+				<!-- Manually set Astrapi here in effects as preParsing is called after time passed -->
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'APPROACH_WAIT'))]
+					[#astrapi.setLocation(pc, false)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						Decide against heading inside the building and continue on your way through the Foloi Fields.
+					#ELSE
+						As the Centaur Carriage Depot is currently closed, there's nothing for you to do here. You'll have to come back between [style.italicsMinorBad([units.time(5.75)]-[units.time(15)])] if you wanted to take a look inside the barn.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="approach_inside">
+		<preParsingEffects><![CDATA[
+			[#astrapi.setLocation(pc)]
+			[#vronti.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">APPROACH_INSIDE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Introduce yourself to the two centaurs.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_introductions]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_centaur_transport_introduced, true)]
+					[#flags.setFlag(FLAG_innoxia_centaur_transport_setup_in_progress, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="introductions">
+		<preParsingEffects><![CDATA[
+			[#astrapi.setPlayerKnowsName(true)]
+			[#vronti.setPlayerKnowsName(true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">INTRODUCTIONS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.getMoney()>=250)
+						Elis [style.moneyFormat(250, span)]
+					#ELSE
+						Elis [style.moneyFormatUncoloured(250, span)]
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()>=250)
+						Take up Astrapi's offer and have her take you to Elis now.
+					#ELSE
+						You don't have enough money to get a ride to Elis!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=250)
+						innoxia_places_fields_centaur_transport_astrapi_start
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_centaur_travel_to_elis, true)]
+					[#vronti.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Astrapi that you don't want a ride to Elis right now.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'LEAVE_BARN'))]
+					[#astrapi.returnToHome()]
+					[#vronti.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Repeat encounter: -->
+	
+	<!-- Approaching: -->
+	<scene id="approach_repeat">
+		<content folderPath="txt/places/fields/centaur_transport">APPROACH_REPEAT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Inside]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						The Centaur Carriage Depot is open between [style.italicsMinorGood([units.time(5.75)]-[units.time(15)])], and as such you could [pc.step] inside the intact barn and potentially find Astrapi or Vronti.
+					#ELSE
+						The Centaur Carriage Depot is open between [style.italicsMinorBad([units.time(5.75)]-[units.time(15)])], and as such is currently deserted. You'll have to come back during opening times if you wanted to meet Astrapi or Vronti again.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						innoxia_places_fields_centaur_transport_approach_inside_repeat
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.isHourBetween(5.75, 15)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wait & enter]]></responseTitle>
+				<responseTooltip><![CDATA[As the depot is currently closed, you could wait here until [units.time(5.75)] for it to open and then head inside, should you want to...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_approach_inside_repeat]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#game.getMinutesUntilTimeInMinutes(5.75*60)]
+				]]></secondsPassed>
+				<!-- Manually set Astrapi here in effects as preParsing is called after time passed -->
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'APPROACH_REPEAT_WAIT'))]
+					[#astrapi.setLocation(pc, false)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						Decide against heading inside the building and continue on your way through the Foloi Fields.
+					#ELSE
+						As the Centaur Carriage Depot is currently closed, there's nothing for you to do here. You'll have to come back between [style.italicsMinorBad([units.time(5.75)]-[units.time(15)])] if you wanted to meet Astrapi or Vronti again.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'LEAVE'))]
+					[#astrapi.returnToHome()]
+					[#vronti.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="approach_inside_repeat">
+		<!-- If time is:
+			05:45-6:00 - Astrapi waiting there
+			08:45-9:00 - Vronti waiting there
+			11:45-12:00 - Astrapi waiting there
+			14:45-15:00 - Vronti waiting there
+			-->
+		<preParsingEffects><![CDATA[
+			#IF(game.isHourBetween(5.75, 6) || game.isHourBetween(11.75, 12))
+				[#astrapi.setLocation(pc, false)]
+			#ELSEIF(game.isHourBetween(8.75, 9) || game.isHourBetween(14.75, 15))
+				[#vronti.setLocation(pc, false)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">APPROACH_INSIDE_REPEAT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.getCharactersPresent().contains(astrapi) && !game.getCharactersPresent().contains(vronti)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[As neither Astrapi nor Vronti are here right now, you'll need to wait for the next departure time if you wanted to get a ride to Elis.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_approach_inside_repeat]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					#IF(game.getHourOfDay()>12)
+						[#game.getMinutesUntilTimeInMinutes(14.75*60)]
+					#ELSEIF(game.getHourOfDay()>9)
+						[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+					#ELSE
+						[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+					#ENDIF
+				]]></secondsPassed>
+				<!-- Duplicate effects as preParsing is called after time passed, so these effects aren't applied unless put here -->
+				<effects><![CDATA[
+					#IF(game.getHourOfDay()>12)
+						[#vronti.setLocation(pc, false)]
+					#ELSEIF(game.getHourOfDay()>9)
+						[#astrapi.setLocation(pc, false)]
+					#ELSEIF(game.getHourOfDay()>6)
+						[#vronti.setLocation(pc, false)]
+					#ELSE
+						[#astrapi.setLocation(pc, false)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(astrapi) || game.getCharactersPresent().contains(vronti)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.getMoney()>=250)
+						Elis ([style.moneyFormat(250, span)])
+					#ELSE
+						Elis ([style.moneyFormatUncoloured(250, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()>=250)
+						#IF(game.getCharactersPresent().contains(astrapi))
+							Take up Astrapi's offer and have her take you to Elis now.
+						#ELSE
+							Take up Vronti's offer and have him take you to Elis now.
+						#ENDIF
+					#ELSE
+						You don't have enough money to get a ride to Elis!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=250)
+						#IF(game.getCharactersPresent().contains(astrapi))
+							innoxia_places_fields_centaur_transport_astrapi_start
+						#ELSE
+							innoxia_places_fields_centaur_transport_vronti_start
+						#ENDIF
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_centaur_travel_to_elis, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(astrapi) || game.getCharactersPresent().contains(vronti)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Astrapi that you don't want a ride to Elis right now and exit the barn.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'LEAVE_BARN'))]
+					[#astrapi.returnToHome()]
+					[#vronti.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Astrapi travel: -->
+	
+	<scene id="astrapi_start">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.incrementMoney(-250))]
+			[#astrapi.applySportsBra(true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Set off]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Set off on your way to Elis.
+					#ELSE
+						Set off on your way to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_journey">
+		<!-- Move along route by 30% -->
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 0.3)]
+			#ELSE
+				[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_WORLD_MAP_FIELDS_CITY, false)]
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 0.3)]
+			#ENDIF
+			[#astrapi.setLocation(pc)]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'JOURNEY_CORE'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_JOURNEY</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Relax and stay quiet as you're transported to Elis.
+					#ELSE
+						Relax and stay quiet as you're transported to Dominion.
+					#ENDIF
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_QUIET_JOURNEY'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[History]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Astrapi about how long she and her brother have been working together as centaur carriage operators.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_TALK_HISTORY'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Competition]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Astrapi about the competition she has for providing centaur carriage rides.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_TALK_COMPETITION'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Lunette]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Astrapi about Lunette's centaurs and how she manages to avoid conflict with them.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_TALK_LUNETTE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Start flirting with Astrapi.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_flirt]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_journey_talk">
+		<!-- move along route -->
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 0.6)]
+			#ELSE
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 0.6)]
+			#ENDIF
+			[#astrapi.setLocation(pc)]
+			[#game.appendToTextEndStringBuilder(astrapi.incrementAffection(pc, 5))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_TALK_END</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Relax and continue making small talk as you're transported to Elis.
+					#ELSE
+						Relax and continue making small talk as you're transported to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_journey_flirt">
+		<!-- move along route by 1 tile -->
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(10, false))]
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 0.01)]
+			#ELSE
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 0.01)]
+			#ENDIF
+			[#astrapi.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_FLIRT</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Push her]]></responseTitle>
+				<responseTooltip><![CDATA[With Astrapi shamelessly flashing you her horse-pussy, you can be sure that a little more pushing in the right direction will result in an offer of sex.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_flirt_pushed]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Stop flirting]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Having had your fun, decide to stop flirting with Astrapi and stay quiet as you're transported to Elis.
+					#ELSE
+						Having had your fun, decide to stop flirting with Astrapi and stay quiet as you're transported to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_FLIRT_STOP'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_journey_flirt_pushed">
+		<!-- move along route by 1 tile -->
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 0.01)]
+			#ELSE
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 0.01)]
+			#ENDIF
+			[#astrapi.setLocation(pc)]
+			[#astrapi.applySportsBra(false)]
+			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(25, false))]
+			[#game.appendToTextEndStringBuilder(astrapi.useItem(game.getItemGen().generateItem('innoxia_pills_sterility'), astrapi, false, true))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_FLIRT_PUSHED</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- 1: Receive oral -->
+			<response>
+				<availabilityConditional><![CDATA[[#(!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Receive oral]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis() && !pc.hasVagina())
+						You don't have a penis or a vagina, so Astrapi cannot perform oral on you...
+					#ELSEIF(pc.hasPenis())
+						You cannot gain access to your penis, so Astrapi cannot perform oral on you...
+					#ELSE
+						You cannot gain access to your pussy, so Astrapi cannot perform oral on you...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Receive oral]]></responseTitle>
+				<responseTooltip><![CDATA[Get Astrapi to drop down and perform oral on you.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_oral_on_player]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_ASTRAPI_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[
+								[#!pc.hasPenis()]
+							]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[astrapi]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[
+								[#!pc.hasVagina()]
+							]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[astrapi]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 2: Titjob -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Titjob]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so Astrapi cannot give you a titjob...
+					#ELSE
+						You cannot gain access to your penis, so Astrapi cannot give you a titjob...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Titjob]]></responseTitle>
+				<responseTooltip><![CDATA[Get Astrapi to squeeze her huge breasts together so that you can fuck them.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_titjob_for_player]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_ASTRAPI_TITJOB_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisBreasts_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[astrapi]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 3: Service pussy -->
+			<response>
+				<availabilityConditional/>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Service pussy]]></responseTitle>
+				<responseTooltip><![CDATA[Get Astrapi to fully present her horse-pussy to you so that you can finger her and perform cunnilingus.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_oral_on_astrapi]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_ASTRAPI_SERVICING_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[astrapi]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 4: Fuck -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.isTaur())
+						Mount her
+					#ELSE
+						Fuck her
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so you cannot fuck Astrapi...
+					#ELSE
+						You cannot gain access to your penis, so you cannot fuck Astrapi...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.isTaur())
+						Mount her
+					#ELSE
+						Fuck her
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isTaur())
+						Get Astrapi to present herself to you so that you can mount her and rut her pussy.
+					#ELSE
+						Get Astrapi to present herself to you so that you can fuck her pussy.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_fuck_astrapi]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_ASTRAPI_FUCK_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[astrapi]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 5: Stop flirting -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Stop flirting]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Having had your fun, decide to stop flirting with Astrapi and stay quiet as you're transported to Elis.
+					#ELSE
+						Having had your fun, decide to stop flirting with Astrapi and stay quiet as you're transported to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_FLIRT_BACK_OUT'))]
+				]]></effects>
+			</response>
+			<!-- 6: Service ass -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Service ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+						Tell Astrapi about how fillies such as yourself are well trained to perform anilingus, before demonstrating this fact on her.
+					#ELSE
+						Get Astrapi to fully present her rear end to you so that you can finger her anus and perform anilingus.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_oral_on_astrapi_ass]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_ASTRAPI_SERVICING_ASS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[
+								[#pc.getClothingInSlot(IS_NECK)==null || !pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker')]
+							]]></condition>
+							<id><![CDATA[FingerAnus_ANAL_FINGERING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[astrapi]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[
+								[#pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker')]
+							]]></condition>
+							<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[astrapi]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 7: Fuck ass -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && (!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.isTaur())
+						Mount her (anal)
+					#ELSE
+						Fuck her ass
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so you cannot fuck Astrapi...
+					#ELSE
+						You cannot gain access to your penis, so you cannot fuck Astrapi...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.isTaur())
+						Mount her (anal)
+					#ELSE
+						Fuck her ass
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isTaur())
+						Get Astrapi to present herself to you so that you can mount her and rut her asshole.
+					#ELSE
+						Get Astrapi to present herself to you so that you can fuck her asshole.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_fuck_astrapi]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_ASTRAPI_FUCK_ASS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[astrapi]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_post_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You and Astrapi bring an end to the sex.]]></tooltip>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_POST_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Relax for the rest of the journey as Astrapi continues to transport you to Elis.
+					#ELSE
+						Relax for the rest of the journey as Astrapi continues to transport you to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_journey_end">
+		<!-- Complete route -->
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 1)]
+				[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_centaur_transport, false)]
+			#ELSE
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 1)]
+				[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_innoxia_fields_centaur_transport, false)]
+			#ENDIF
+			[#astrapi.setLocation(pc)]
+			[#astrapi.applySportsBra(false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_JOURNEY_END</content>
+		<secondsPassed minutes="true"><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+				60
+			#ELSE
+				#IF(game.getHourOfDay()>=15)
+					[#game.getMinutesUntilTimeInMinutes(17.75*60)]
+				#ELSEIF(game.getHourOfDay()>=12)
+					[#game.getMinutesUntilTimeInMinutes(14.75*60)]
+				#ELSEIF(game.getHourOfDay()>=9)
+					[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+				#ELSE
+					[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+				#ENDIF
+			#ENDIF
+		]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Thank Astrapi for the ride and say goodbye, before setting off towards the gates of Elis.
+					#ELSE
+						Thank Astrapi for the ride and say goodbye, before setting off towards Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_JOURNEY_END_GOODBYE'))]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!astrapi.hasSexCountWith(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Offer clean]]></responseTitle>
+				<responseTooltip><![CDATA[You don't think that Astrapi would feel comfortable allowing you to help clean her off. Perhaps if the two of you had previously had intimate relations with one another, things would be different...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#astrapi.hasSexCountWith(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Offer clean]]></responseTitle>
+				<responseTooltip><![CDATA[You can see that there's a fine sheen of sweat over the human half of Astrapi's body, while her horse half looks like it could do with a brush. Offer to help clean her off.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_clean]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_clean">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(astrapi.incrementAffection(pc, 5))]
+			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(15, false))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_CLEAN</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wipe back]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Astrapi that you'll wipe the sweat from her back.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_clean_wipe]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Lick abs]]></responseTitle>
+				<responseTooltip><![CDATA[As Astrapi is clearly getting turned on, you're certain that she'll consent to letting you lick the sweat from her abdominal muscles.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_clean_abs]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isArmpitContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Lick armpits]]></responseTitle>
+				<responseTooltip><![CDATA[As Astrapi is clearly getting turned on, you're certain that she'll consent to letting you lick the sweat from her armpits.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_clean_armpits]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_clean_wipe">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(astrapi.incrementAffection(pc, 5))]
+			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(5, false))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_CLEAN_WIPE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Finished]]></responseTitle>
+				<responseTooltip><![CDATA[Having finished helping her out, it's time to say goodbye to Astrapi.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_CLEAN_END'))]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_clean_abs">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(astrapi.incrementAffection(pc, 5))]
+			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(10, false))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_CLEAN_ABS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Finished]]></responseTitle>
+				<responseTooltip><![CDATA[Having finished helping her out, it's time to say goodbye to Astrapi.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_CLEAN_ABS_END'))]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+			<!-- Handjob: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasPenisIgnoresDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Handjob]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenisIgnoresDildo())
+						You don't have a penis, so you cannot receive a handjob from Astrapi...
+					#ELSE
+						You cannot gain access to your penis, so you cannot receive a handjob from Astrapi...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasPenisIgnoresDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Handjob]]></responseTitle>
+				<responseTooltip><![CDATA[Accept Astrapi's offer of a handjob so that you can cum on her muscular abs.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_abs_handjob]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex_abs]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">ASTRAPI_CLEAN_ABS_HANDJOB</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[astrapi]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_post_sex_abs">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You and Astrapi bring an end to the sex.]]></tooltip>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_POST_SEX_ABS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Having finished helping her out, it's time to say goodbye to Astrapi.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_CLEAN_END'))]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_clean_armpits">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(astrapi.incrementAffection(pc, 5))]
+			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(10, false))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_CLEAN_ARMPITS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Finished]]></responseTitle>
+				<responseTooltip><![CDATA[Having finished helping her out, it's time to say goodbye to Astrapi.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_CLEAN_ARMPITS_END'))]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+			<!-- Armpit fuck: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasPenisIgnoresDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Armpit fuck]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenisIgnoresDildo())
+						You don't have a penis, so you cannot fuck Astrapi's armpits...
+					#ELSE
+						You cannot gain access to your penis, so you cannot fuck Astrapi's armpits...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasPenisIgnoresDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Armpit fuck]]></responseTitle>
+				<responseTooltip><![CDATA[Take up Astrapi's offer and rub your cock up and down over her armpits until you cum on them.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_astrapi_armpit]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>astrapi</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex_armpits]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">ASTRAPI_CLEAN_ARMPITS_FUCK</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisArmpit_ARMPIT_SEX_GIVING_START]]></id>
+							<performer><![CDATA[astrapi]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="astrapi_post_sex_armpits">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You and Astrapi bring an end to the sex.]]></tooltip>
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_POST_SEX_ARMPITS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Having finished helping her out, it's time to say goodbye to Astrapi.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_CLEAN_END'))]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_astrapi_not_shaving) && game.isBodyHairEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Stop shaving]]></responseTitle>
+				<responseTooltip><![CDATA[Before saying goodbye to Astrapi, tell her to stop shaving her armpits.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_POST_SEX_ARMPITS_SHAVING_STOP'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_CLEAN_END'))]
+					[#flags.setFlag(FLAG_innoxia_astrapi_not_shaving, true)]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_astrapi_not_shaving) && game.isBodyHairEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Start shaving]]></responseTitle>
+				<responseTooltip><![CDATA[Before saying goodbye to Astrapi, tell her to start shaving her armpits again.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_POST_SEX_ARMPITS_SHAVING_START'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_CLEAN_END'))]
+					[#flags.setFlag(FLAG_innoxia_astrapi_not_shaving, false)]
+					[#astrapi.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Vronti travel: -->
+	
+	<scene id="vronti_start">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.incrementMoney(-250))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">VRONTI_START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Set off]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Get into the carriage and set off on your way to Elis.
+					#ELSE
+						Get into the carriage and set off on your way to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="vronti_journey">
+		<!-- move along route by 30% -->
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 0.3)]
+			#ELSE
+				[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_WORLD_MAP_FIELDS_CITY, false)]
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 0.3)]
+			#ENDIF
+			[#vronti.setLocation(pc)]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'JOURNEY_CORE'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">VRONTI_JOURNEY</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Relax and stay quiet as you're transported to Elis.
+					#ELSE
+						Relax and stay quiet as you're transported to Dominion.
+					#ENDIF
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_QUIET_JOURNEY'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[History]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Vronti about how long he and his sister have been working together as centaur carriage operators.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_TALK_HISTORY'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_TALK_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Competition]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Vronti about the competition he has for providing centaur carriage rides.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_TALK_COMPETITION'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_TALK_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Lunette]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Vronti about Lunette's centaurs and how he manages to avoid conflict with them.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_TALK_LUNETTE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_TALK_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Start flirting with Vronti.
+					<br/><i>Only one of these five actions can be chosen before you reach your destination.</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_flirt]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="vronti_journey_flirt">
+		<!-- move along route by 1 tile -->
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(vronti.incrementLust(5, false))]
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 0.01)]
+			#ELSE
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 0.01)]
+			#ENDIF
+			[#vronti.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">VRONTI_FLIRT</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<requiredPerks>
+					<perk><![CDATA[CONVINCING_REQUESTS]]></perk>
+					<perk><![CDATA[OBJECT_OF_DESIRE]]></perk>
+					<perk><![CDATA[MALE_ATTRACTION]]></perk>
+				</requiredPerks>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Push him]]></responseTitle>
+				<responseTooltip><![CDATA[Use every possible trick you know to seduce Vronti and get him to respond to your flirting.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_flirt_pushed]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Give up]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Vronti's stoicism seems to be completely unassailable. Stop trying to flirt with him and stay quiet as you're transported to Elis.
+					#ELSE
+						Vronti's stoicism seems to be completely unassailable. Stop trying to flirt with him and stay quiet as you're transported to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_FLIRT_STOP'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="vronti_journey_flirt_pushed">
+		<!-- move along route by 1 tile -->
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(vronti.incrementLust(25, false))]
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 0.01)]
+			#ELSE
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 0.01)]
+			#ENDIF
+			[#vronti.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">VRONTI_FLIRT_PUSHED</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- 1: Give handjob -->
+			<response>
+				<availabilityConditional/>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Handjob]]></responseTitle>
+				<responseTooltip><![CDATA[Having successfully given him an erection, tell Vronti that you'll help him deal with it by jerking him off.]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_vronti_handjob_given, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_vronti_handjob]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>vronti</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_VRONTI_HANDJOB_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[vronti]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 2: Blowjob -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_vronti_handjob_given) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Blowjob]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_vronti_handjob_given))
+						You can tell that Vronti wouldn't agree to anything more than receiving a handjob. After jerking him off, you're sure that he'll be more receptive to a blowjob the next time you find yourself in this situation.
+					#ELSE
+						You cannot gain access to your mouth, so you cannot give Vronti a blowjob...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_vronti_handjob_given) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Blowjob]]></responseTitle>
+				<responseTooltip><![CDATA[Having successfully given him an erection, tell Vronti that you'll help him deal with it by giving him a blowjob.]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_vronti_blowjob_given, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_vronti_blowjob]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>vronti</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_VRONTI_BLOWJOB_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[vronti]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 3: Fucked -->
+			<response>
+				<availabilityConditional><![CDATA[[#(!flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) && !flags.hasFlag(FLAG_innoxia_vronti_anilingus_given)) || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) && !flags.hasFlag(FLAG_innoxia_vronti_anilingus_given))
+						#IF(game.isAnalContentEnabled())
+							You can tell that Vronti wouldn't agree to anything more than receiving a blowjob or having his ass serviced. After doing either of these two things, you're sure that he'll be more receptive to fucking you the next time you find yourself in this situation.
+						#ELSE
+							You can tell that Vronti wouldn't agree to anything more than receiving a blowjob. After sucking his cock, you're sure that he'll be more receptive to fucking you the next time you find yourself in this situation.
+						#ENDIF
+					#ELSEIF(!pc.hasVagina())
+						You do not have a vagina, so you cannot get fucked by Vronti...
+					#ELSE
+						You cannot gain access to your vagina, so you cannot get fucked by Vronti...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[Having successfully given him an erection, tell Vronti that you'll help him deal with it by letting him rut your pussy.]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_vronti_sex_given, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_vronti_fucked]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>vronti</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_VRONTI_FUCK_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[vronti]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 5: Stop flirting -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Stop flirting]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Having had your fun, decide to stop flirting with Vronti and stay quiet as you're transported to Elis.
+					#ELSE
+						Having had your fun, decide to stop flirting with Vronti and stay quiet as you're transported to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_FLIRT_BACK_OUT'))]
+				]]></effects>
+			</response>
+			<!-- 6: Service ass -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && !flags.hasFlag(FLAG_innoxia_vronti_handjob_given)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Service ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You can tell that Vronti wouldn't agree to anything more than receiving a handjob. After jerking him off, you're sure that he'll be more receptive to having his ass serviced the next time you find yourself in this situation.
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && flags.hasFlag(FLAG_innoxia_vronti_handjob_given)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Service ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+						Having successfully given him an erection, tell Vronti about how fillies such as yourself are well trained to perform anilingus, before demonstrating this fact on him.
+					#ELSE
+						Having successfully given him an erection, tell Vronti that you'll help him deal with it by anally fingering him, after which you could also perform anilingus on him.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_vronti_anilingus_given, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_vronti_anilingus]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>vronti</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[PERFORMING_ORAL_BEHIND]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_VRONTI_ASS_SERVICE_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[
+								[#pc.getClothingInSlot(IS_NECK)==null || !pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker')]
+							]]></condition>
+							<id><![CDATA[FingerAnus_ANAL_FINGERING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[vronti]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[
+								[#pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker')]
+							]]></condition>
+							<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[vronti]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 7: Anally fucked -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && ((!flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) && !flags.hasFlag(FLAG_innoxia_vronti_anilingus_given)) || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Fucked (anal)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) && !flags.hasFlag(FLAG_innoxia_vronti_anilingus_given))
+						You can tell that Vronti wouldn't agree to anything more than receiving a blowjob or having his ass serviced. After doing either of these two things, you're sure that he'll be more receptive to fucking your ass the next time you find yourself in this situation.
+					#ELSE
+						You cannot gain access to your asshole, so you cannot get fucked by Vronti...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && (flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) || flags.hasFlag(FLAG_innoxia_vronti_anilingus_given)) && pc.isAbleToAccessCoverableArea(CA_ANUS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Fucked (anal)]]></responseTitle>
+				<responseTooltip><![CDATA[Having successfully given him an erection, tell Vronti that you'll help him deal with it by letting him rut your asshole.]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_vronti_anal_sex_given, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_vronti_fucked_anal]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>vronti</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/centaur_transport">SEX_VRONTI_ANAL_FUCK_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[vronti]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="vronti_post_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You and Vronti bring an end to the sex.]]></tooltip>
+		<content folderPath="txt/places/fields/centaur_transport">VRONTI_POST_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Relax for the rest of the journey as Vronti continues to transport you to Elis.
+					#ELSE
+						Relax for the rest of the journey as Vronti continues to transport you to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_journey_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="vronti_journey_end">
+		<!-- Complete route -->
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+				[#pc.walkPathNoEffects(PLACE_TYPE_WORLD_MAP_FIELDS_CITY, true, 1)]
+				[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_centaur_transport, false)]
+			#ELSE
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_centaur_transport, true, 1)]
+				[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_innoxia_fields_centaur_transport, false)]
+			#ENDIF
+			[#vronti.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/centaur_transport">VRONTI_JOURNEY_END</content>
+		<secondsPassed minutes="true"><![CDATA[
+			#IF(game.getHourOfDay()>=15)
+				[#game.getMinutesUntilTimeInMinutes(17.75*60)]
+			#ELSEIF(game.getHourOfDay()>=12)
+				[#game.getMinutesUntilTimeInMinutes(14.75*60)]
+			#ELSEIF(game.getHourOfDay()>=9)
+				[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+			#ELSE
+				[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+			#ENDIF
+		]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Thank Vronti for the ride and say goodbye, before setting off towards the gates of Elis.
+					#ELSE
+						Thank Vronti for the ride and say goodbye, before setting off towards Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'VRONTI_JOURNEY_END_GOODYBE'))]
+					[#vronti.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

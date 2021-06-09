@@ -6,7 +6,7 @@
 		<!-- <authorTag><![CDATA[A discreet inscription at the base of the dagger's blade informs you that it was made by 'Innoxia'.]]></authorTag> -->
 		
 		<!-- How much this weapon is worth. -->
-		<value>3000</value> 
+		<value>10000</value> 
 		
 		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
 		<melee>true</melee>
@@ -19,13 +19,13 @@
 		<determiner><![CDATA[a]]></determiner>
 		
 		<!-- The name of this weapon. -->
-		<name><![CDATA[Demon's Dagger]]></name>
+		<name appendDamageName="true"><![CDATA[Demon's Dagger]]></name> <!-- You can leave out the 'appendDamageName' attribute, but if you never want this weapon to be described by its damage type, then set it as false. (i.e. If set to false, this dagger would always be called 'Demon's Dagger' instead of, for example, 'Forceful Demon's Dagger')-->
 		
 		<!-- The plural name of this weapon. If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon. -->
 		<namePlural pluralByDefault="false"><![CDATA[Demon's Daggers]]></namePlural> 
 		
 		<!-- The description/lore of this weapon. -->
-		<description><![CDATA[A demon's dagger, with a blade made out of enchanted ethereal energy. Daggers such as this one are carried by the elite demon Enforcers, and, while intended primarily to be a symbol of power and status, they are nonetheless completely functional.]]></description> 
+		<description><![CDATA[A finely crafted dagger, with a blade made out of enchanted ethereal energy. Issued to agents of the Enforcers' elite ORICL branch, this dagger is primarily intended to be a symbol of status, but is nonetheless completely functional.]]></description> 
 		
 		<!-- How the weapon is used. This should be a single verb, and is used as the title of attacking actions in combat. -->
 		<attackDescriptor>stab</attackDescriptor>
@@ -62,7 +62,11 @@
 		<physicalResistance>0</physicalResistance> 
 		
 		<!-- The base damage that this weapon deals. -->
-		<damage>20</damage> 
+		<damage>20</damage>
+		<!-- If you want to define additional AoE damages, use this format (an example of it in use can be found in 'res/weapons/innoxia/lightningGlobe/lightning_globe.xml'):
+		<aoe chance="50">10</aoe> 50% chance of hitting an additional enemy (who has not been hit yet) for 10 damage
+		<aoe chance="25">5</aoe> 25% chance of hitting an additional enemy (who has not been hit yet) for 5 damage
+		-->
 		
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
 		<arcaneCost>0</arcaneCost> 
@@ -101,10 +105,29 @@
 		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
 		<spells/>
 		
+		<!-- The combat moves that are unlocked when equipping this weapon. IF you want to add any, use the format:
+		<combatMoves changeOnReforge="true">
+			<move damageType="PHYSICAL">ASSAULT_RIFLE_MAG_DUMP</move>
+		</combatMoves>
+		
+		The 'changeOnReforge' variable determines whether this weapon should regenerate combat moves whenever the player changes the damage type. (i.e. If they reforge a PHYSICAL dagger to an ICE dagger, if 'changeOnReforge' is true, then the granted combat move ASSAULT_RIFLE_MAG_DUMP will be lost).
+		
+		The 'damageType' variable corresponds to the damageType which causes the move to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
+		...
+			<move damageType="FIRE">EXAMPLE_MOVE_1</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_2</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_3</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_4</move>
+		...
+		
+		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
+		There will be a way to add modded combat moves soon! -->
+		<combatMoves/>
+		
 		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->
 		<enchantmentLimit>5</enchantmentLimit>
 		
-		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
+		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant a weapon in your game, save the game, then copy over that weapon's 'effects' in your save file.
 		There are two special values for secondaryModifier, which are: RESISTANCE_WEAPON and DAMAGE_WEAPON
 		RESISTANCE_WEAPON applies the related resistance of this weapon's damage type, while DAMAGE_WEAPON applies the related damage type.
 		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
@@ -113,7 +136,33 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
 		</effects>
 		
-		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
+		<!-- You can use this section to describe any extra features of this weapon.
+		These effects are shown in the tooltip when the player hovers over the weapon icon, so try and keep them short (as they should fit on one line).
+		It should probably only be used to describe what happens in the <onHitEffect> element.
+		No characters are passed in as parsing arguments, so you should NOT use any character-specific parsing elements (such as [npc.name]).
+		For this weapon, no extra effects need to be described, but if you need to use this section, use the following format:
+		<extraEffects>
+			<effect><![CDATA[Stab time!]]></effect>
+		</extraEffects> -->
+		<extraEffects/>
+		
+		<!-- This is applied every time this weapon hits a target. It does NOT apply when the weapon critically hits.
+		The returned text is appended to the hit description.
+		'npc' corresponds to the attacker, and 'npc2' to the target, for use in effects/parsing.
+		For this weapon, no hit effects need to be added, but if you need to use this section, use the following format:
+		<onHitEffect><![CDATA[
+		[##npc2.setHealth(0)]
+		[npc2.Name] is instantly defeated!
+		]]></onHitEffect> -->
+		<onHitEffect/>
+	
+		<!-- This is applied every time this weapon critically hits a target. It does NOT apply when the weapon does a non-critical hit.
+		The returned text is appended to the hit description.
+		'npc' corresponds to the attacker, and 'npc2' to the target, for use in effects/parsing.
+		Use the exact same format as onHitEffect (the element above). -->
+		<onCriticalHitEffect/>
+		
+		<!-- Your weapon can be coloured any way you like, but if you'd like the player to be able to dye your weapon, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the weapon in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
 		Red is used as base colour for changing the DAMAGE TYPE's colour of the graphic in-game, and the game will only recognise and change the following colours:
 			#ff2a2a
 			#ff5555
@@ -138,22 +187,44 @@
 			#cdde87
 			#dde9af
 			#eef4d7
-		As you can see above, weapons differ from clothing in that their 'Red' colour is recoloured based on the weapon's damage type! The "primaryColours", "secondaryColours", and "tertiaryColours" defined below are for recolouring the Orange, Yellow, and Green values, respectively.
+		As you can see above, weapons differ from weapon in that their 'Red' colour is recoloured based on the weapon's damage type! The "primaryColours", "secondaryColours", and "tertiaryColours" defined below are for recolouring the Orange, Yellow, and Green values, respectively.
 			
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
-		<primaryColours values="JUST_STEEL"/> 
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+		<primaryColours recolouringAllowed="true" values="JUST_STEEL"/> <!-- You can leave the attribute 'recolouringAllowed' out of colour definitions. If you want the player to be unable to change this colour, then set it as false. This is only used in very niche situations (such as for the filly choker).-->
 		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours values="JUST_BLACK"/> 
 		<secondaryColoursDye values="ALL"/>
-		<tertiaryColours/> 
-		<tertiaryColoursDye/>
+		
+		<!-- You can define any number of custom colours to replace the shades you've coloured your svg with.
+		If you have used the primary/secondary/tertiary elements up above, then do not use their associated colour hexes.
+		(i.e. If you've defined a primaryColours element, do not use #ff7f2a, #ff9955, #ffb380, #ffccaa, or #ffe6d5 in the customColour attributes.)
+		
+		You should NEVER use the primary recolouring shades, as they are always reserved for the damage type's colour:
+		#ff2a2a, #ff5555, #ff8080, #ffaaaa, or #ffd5d5
+		-->
+		<customColours>
+			<!-- The 'copyColourIndex' attribute defines which colour index should be copied into this colour slot on weapon generation. This particular colour, having an index of 0, will always be coloured the same as the primary colour when generated. Indexes go from 0->X, where X is the number of defined colours. i.e. If you only define primary and secondary, the first custom colour (i.e. this one) will have an index of 2. -->
+			<customColour copyColourIndex="0" c0="#6C5D53" c1="#917C6F" c2="#AC9D93" c3="#C8BEB7" c4="#E3DEDB">
+				<defaultColours>
+					<colour>CLOTHING_STEEL</colour>
+				</defaultColours> 
+				<extraColours values="ALL_METAL"/>
+			</customColour>
+			 <!-- This particular copyColourIndex, having an index of 1, will always be coloured the same as the secondary colour when generated -->
+			<customColour copyColourIndex="1" recolouringAllowed="true" c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB"> <!-- These are the colours which you've used in your svg and would like replaced with the colours you define below. c0 is the darkest shade. Shades can go up to any number, but setting just 5 shades should work best. -->
+				<defaultColours>
+					<colour>CLOTHING_BLACK</colour> <!-- The colours which this weapon should spawn in with. -->
+				</defaultColours> 
+				<extraColours values="ALL"/> <!-- The colours which this weapon can be dyed to. -->
+			</customColour>
+		</customColours>
 		
 		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			<tag>SOLD_BY_VICKY</tag>
 			<tag>WEAPON_BLADE</tag>
+			<tag>CONTRABAND_HEAVY</tag>
 		</itemTags>
 		
 	</coreAttributes>
@@ -161,7 +232,7 @@
 	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to stab [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc.her] energy!
+		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to stab [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
 		]]></hitText>
 		<hitText><![CDATA[
 		Striking out at [npc2.name] with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!
@@ -169,6 +240,11 @@
 		<hitText><![CDATA[
 		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] Demon's Dagger, sinking the ethereal blade into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
 		]]></hitText>
+		<!-- You can add hit descriptions which will only be shown on a critical hit by using the 'criticalHitText' element.
+			This is optional, and you don't need to define any critical hit descriptions (in which case just a regular 'hitText' will be used instead.)-->
+		<criticalHitText><![CDATA[
+		Expertly sidestepping around [npc2.namePos] attempt to block [npc.her] attack, [npc.name] [npc.verb(deal)] a devastating strike with [npc.her] Demon's Dagger!
+		]]></criticalHitText>
 	</hitDescriptions>
 
 	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->

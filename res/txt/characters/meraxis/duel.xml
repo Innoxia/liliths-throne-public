@@ -1,0 +1,1153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- These are linked to the dialogue nodes defined in the file: 'res/dialogue/innoxia/characters/meraxis/duel.xml' -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Not able to refuse Meraxis's challenge, you quickly reply by exclaiming, [pc.speech(You're no match for my ultimate power! Get ready to suffer defeat!)]
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_elis))
+			Deciding to indulge Meraxis, and thinking that you have a decent shot at beating her and putting her in her place, you accept her challenge.
+		#ELSE
+			Deciding to indulge Meraxis, and thinking that the duel should offer you some practice for what you might be about to encounter in the fields, you accept her challenge.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(Mwhahaha! As expected of my nemesis!)] the chunni [meraxis.race] laughs. Striking a heroic pose, a sinister grin settles on Meraxis's face as she reveals,
+		#IF(flags.hasSavedLong('meraxis_duel_player_losses'))
+			 [meraxis.speech(I've got another potion to test on you! If I win, you have to drink it again, ok?! I want to see you transform again...)]
+		#ELSEIF(flags.hasSavedLong('meraxis_duel_player_wins'))
+			 [meraxis.speech(You may have won before, but not this time! When I win, you have to drink the potion I've made for you, ok?!)]
+		#ELSE
+			 [meraxis.speech(You might not be aware of this, but just like Lilaya my supreme power covers the field of arcane research. My experiments have yielded many potions, and I need to test them on someone. When I win, you have to drink one of my transformative potions, ok?!)]
+		#ENDIF
+	</p>
+	<p>
+		Not yet agreeing to Meraxis's demands, you ask what you'll get if you win. Letting out another theatrical laugh in response to your question, Meraxis replies,
+		#IF(flags.hasSavedLong('meraxis_duel_player_wins'))
+			 [meraxis.speech(Mwhahaha! You have no chance of winning this time! I've been training since my last defeat and will surely destroy you! However, to make things interesting, you may decide upon a reward if you were to somehow best me in combat. So go on, choose what it is that you desire!)]
+		#ELSE
+			 [meraxis.speech(Mwhahaha! You have no chance of winning! However, to make things interesting, you may decide upon a reward if you were to somehow best me in combat. So go on, choose what it is that you desire!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BACK_OUT"><![CDATA[
+	<p>
+		Not liking the idea of being transformed if you were to lose the duel, you tell Meraxis that you've had a change of mind and don't want to fight her after all.
+	</p>
+	<p>
+		[meraxis.speech(Eugh... Fine...)] Meraxis sighs, before pouting at you and asking, [meraxis.speech(If you don't want to fight, then why have you interrupted the tale I was recounting to my minions?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REWARD_NONE"><![CDATA[
+	<p>
+		Not really being interested in any kind of reward, you tell Meraxis that the satisfaction of beating her will be enough. Letting out another burst of manic laughter, the chuuni [meraxis.race] declares, [meraxis.speech(Mwhahahah! So, you desire no reward at all? Don't think that that will make me go easy on you! I shall swiftly destroy you and then laugh as I transform you! Mwhahaha!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REWARD_MONEY"><![CDATA[
+	<p>
+		Feeling like you could do with an extra bit of cash, you tell Meraxis that if you win she's got to give you all the money she has on her. A look of shocked surprise quickly flashes across her face as she hears you say this, and she blurts out, [meraxis.speech(But that's my allowance from mommy! I-I mean, you dare to act like a common thief?! I shall swiftly destroy you and then laugh as I transform you! Mwhahaha!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REWARD_TRANSFORM"><![CDATA[
+	<p>
+		You respond to Meraxis by stating that as she's planning on transforming you, she has to be prepared for the same. If you win, you say, then she has to permanently transform herself in whatever manner you see fit.
+	</p>
+	<p>
+		[meraxis.speech(You dare to ask me that?! There's no way I'd agree to that!)] she exclaims in indignation, before pouting and offering a compromise, [meraxis.speech(If you win, you can choose one aspect of me to transform. I'm not going to do anything too extreme, a-and I'm not growing a penis or becoming an incubus, so don't even ask for that!)]
+	</p>
+	<p>
+		Knowing that she'll never agree to any more than that, you accept Meraxis's offer, to which she laughs and declares, [meraxis.speech(Mwhahaha! It doesn't even matter anyway; I shall swiftly destroy you and then laugh as I transform you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REWARD_SEX"><![CDATA[
+	<p>
+		Wanting to have some intimate fun with the cute chuuni [meraxis.race], you tell Meraxis that if you win then she has to have sex with you. It takes a moment for our request to fully sink in, and after a moment of looking bewildered, Meraxis's cheeks flush red and she stammers, [meraxis.speech(Y-You want me to do w-what?! S-Sex? You... Why... What?!)]
+	</p>
+	<p>
+		Repeating your request, you tell Meraxis that she doesn't need to act so shy;
+		#IF(meraxis.getSexCount(pc).getTotalTimesHadSex()>0 && flags.hasSavedLong('meraxis_duel_player_wins'))
+			 that she doesn't need to act so shy; after all, the two of you have already done some lewd stuff together.
+			[style.random(
+			#IF(meraxis.hasFetish(FETISH_ANAL_RECEIVING))
+				 Pointedly looking down towards her ass, you remind the shy [meraxis.race] of how much she likes receiving anal attention.
+			#ENDIF
+			|
+			#IF(meraxis.hasFetish(FETISH_VAGINAL_RECEIVING))
+				 Pointedly looking down towards her groin, you remind the shy [meraxis.race] of how much she likes having her pussy used.
+			#ENDIF
+			|
+			#IF(meraxis.hasFetish(FETISH_BREASTS_SELF))
+				 Pointedly looking down towards her chest, you remind the shy [meraxis.race] of how much she likes having her breasts used.
+			#ENDIF
+			)]
+		#ELSE
+			 after all, she's [meraxis.a_race] and so should surely be comfortable performing sexual favours.
+		#ENDIF
+		 Your words only make Meraxis blush even harder, and she stammers, [meraxis.speech(S-Shut up! Fine, I'll do a small sexual favour for you if you win, just s-stop embarrassing me! I-I mean, It doesn't even matter anyway; I-I shall swiftly destroy you and then laugh as I transform you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DUEL_START_ELIS"><![CDATA[
+	<p>
+		Pointing out that your current location is not exactly a suitable place in which to be having a duel, you suggest to Meraxis that the two of you could settle this outside the walls of Elis. Agreeing to your proposal, the chunni [meraxis.race] accompanies you out of the eastern gate, and after [pc.walking] over to a nearby copse of deciduous trees, you're ready to get started.
+	</p>
+	<p>
+		[meraxis.speech(Prepare to be defeated!)] Meraxis declares. Before you can reply, she then performs some kind of matter-manipulation spell and seemingly pulls her huge scythe from out of mid-air. Pointing the arcane-bladed weapon at you, she lets out a maniacal laugh and exclaims, [meraxis.speech(Mwhahaha! I shall show you the cosmic powers of the dark siren!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DUEL_START_DOMINION"><![CDATA[
+	<p>
+		As there's nobody around, you determine that your current location is a suitable one in which to carry out your duel. Preparing yourself for combat, you ask Meraxis if she's ready to start.
+	</p>
+	<p>
+		[meraxis.speech(I'm always ready!)] Meraxis declares, before hefting her scythe and letting out a maniacal laugh, [meraxis.speech(Mwhahaha! I shall show you the cosmic powers of the dark siren!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Losing the duel: -->
+	
+	<htmlContent tag="LOST"><![CDATA[
+	<p>
+		Unable to continue fighting, you signal for Meraxis to stop, before collapsing to the ground and panting for breath. Relishing in her victory, the chuuni [meraxis.race] lets out a smug laugh, before advancing upon you and declaring, [meraxis.speech(You never stood a chance! My ultimate power cannot be matched by anyone! Mwhahaha!)]
+	</p>
+	<p>
+		Looking up, you see that Meraxis is holding a bottle of transformative fluid, and after removing the cap she teases, [meraxis.speech(You ready for this? Remember, you agreed to drink it before we started the duel!)]
+	</p>
+	<p>
+		#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			Although your mouth is blocked by sealed clothing, this poses no obstacle to Meraxis, who swiftly channels essences into removing their seals. With your mouth now exposed,
+		#ELSE
+			Leaning down,
+		#ENDIF
+		 the [meraxis.race] impatiently pushes the neck of the bottle past your [pc.lips+], and after tilting your head back, the transformative fluid starts to flow into your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_DRINK"><![CDATA[
+	<p>
+		With Meraxis continuing to force the bottle into your mouth, you have little option but to swallow the transformative fluid that's flowing out into your mouth. As you gulp down the sickly-sweet concoction, Meraxis takes this opportunity to gloat, [meraxis.speech(How does it feel, my arch-nemesis? To know that I, the dark siren, have not only defeated you, but am also making you transform! Mwhahaha!)]
+	</p>
+	<p>
+		Swallowing down the last drop, you pull back and take a deep breath, but before you can respond to Meraxis's taunts, you find yourself letting out a shocked gasp as a wave of unnatural warmth starts to spread throughout your body. Smirking at your reaction to the fluid's effects, the triumphant [meraxis.race] stands up and declares, [meraxis.speech(Your body is nothing more than a vessel for my experiments! Now, submit to your transformation!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_SPIT"><![CDATA[
+	<p>
+		Not wanting to be transformed by Meraxis, you twist your head to one side and spit out the transformative liquid. With the rest of the concoction being spilt all over the ground, the chuuni [meraxis.race] lets out an annoyed cry and shouts, [meraxis.speech(Hey! You agreed to this when you accepted my offer of a duel! What the hell?!)]
+	</p>
+	<p>
+		Seeming to be quite angry at your refusal to drink her potion, Meraxis stands up and takes a step back, before frowning at you and shouting, [meraxis.speech(You've really let me down, [pc.name]! If you agree to do something, you should actually do it! I can't believe that you wasted my experimental potion like that!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_END_SPIT"><![CDATA[
+	<p>
+		After continuing to shout at you in this manner for a few more moments, Meraxis takes a step back and places her hands on her hips, before sighing, [meraxis.speech(I'm disappointed in you, my nemesis!)]
+	</p>
+	<p>
+		Spinning around on the spot, the chuuni [meraxis.race] strikes a dramatic pose and exclaims, [meraxis.speech(I shall return to the tavern now! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_TF_BREASTS"><![CDATA[
+	<p>
+		The strange warmth flowing throughout your body suddenly rises up into your chest, and after letting out another shocked gasp, you look down to see your breasts swelling and growing larger. Despite being the one responsible for creating this potion, Meraxis starts to get a little flustered as she watches your breasts expand and mutters, [meraxis.speech(It's not like I like big breasts or anything... This is just an experiment...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_TF_BREASTS_END"><![CDATA[
+	<p>
+		With the transformation coming to an abrupt end, you look up to see a blushing Meraxis staring lustfully down at your chest. Before you can say anything about how she seems to be more embarrassed about your transformation than you are, she clears her throat and declares, [meraxis.speech(My experiment is finished, and you've been put in your place, my nemesis! Now you must suffer from having strangers stare at your big boobs! Mwhahaha!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_TF_COCK"><![CDATA[
+	<p>
+		The strange warmth flowing throughout your body suddenly drops down into your groin, and after letting out another shocked gasp, you feel your [pc.cock] swelling and growing larger. Despite being the one responsible for creating this potion, Meraxis starts to get a little flustered as she watches 
+		#IF(pc.isCoverableAreaVisible(CA_PENIS))
+			 your exposed cock expand
+		#ELSE
+			 your bulge expand in size
+		#ENDIF
+		 and mutters, [meraxis.speech(It's not like I like big cocks or anything... This is just an experiment...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_TF_COCK_END"><![CDATA[
+	<p>
+		With the transformation coming to an abrupt end, you look up to see a blushing Meraxis staring lustfully down at your groin. Before you can say anything about how she seems to be more embarrassed about your transformation than you are, she clears her throat and declares, [meraxis.speech(My experiment is finished, and you've been put in your place, my nemesis! Now you must suffer from having strangers stare at your big cock! Mwhahaha!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_TF_FEMINISE"><![CDATA[
+	<p>
+		The strange warmth flowing throughout your body suddenly increases in intensity, with a particularly noticeable concentration rising up into your chest. After letting out another shocked gasp, you feel your body shifting to look significantly more feminine, before looking down to see your breasts swelling and growing larger. Despite being the one responsible for creating this potion, Meraxis starts to get a little flustered as she watches your breasts expand and mutters, [meraxis.speech(It's not like I like big breasts or anything... This is just an experiment...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_TF_FEMINISE_END"><![CDATA[
+	<p>
+		With the transformation coming to an abrupt end, you look up to see a blushing Meraxis staring lustfully down at your chest. Before you can say anything about how she seems to be more embarrassed about your transformation than you are, she clears her throat and declares, [meraxis.speech(My experiment is finished, and you've been put in your place, my nemesis! Now you must suffer from having strangers stare at your big boobs! Mwhahaha!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_END"><![CDATA[
+	<p>
+		After continuing to gloat in this manner for a few more moments, Meraxis takes a step back and places her hands on her hips, before revealing, [meraxis.speech(I didn't even need to prove myself by winning that duel; I know that I'm the most powerful! Mwhahaha!)] 
+	</p>
+	<p>
+		Spinning around on the spot, Meraxis strikes a dramatic pose and exclaims, [meraxis.speech(I shall return to the tavern now! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_END"><![CDATA[
+	<p>
+		Sensing that Meraxis is about to show off her knowledge of how to teleport, you quickly say goodbye to her. With her grand exit interrupted by your farewell, Meraxis pouts a little and awkwardly replies, [meraxis.speech(Oh, yes, well, goodbye to you too, [pc.name]. I-I mean, farewell, my nemesis! We shall meet once more at The Red Dragon!)]
+	</p>
+	<p>
+		With that, Meraxis casts her teleportation spell, and in a flash of purple light she disappears from sight, leaving you with little else to do except continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Winning the duel: -->
+	
+	<htmlContent tag="WON"><![CDATA[
+	<p>
+		Having been well and truly beaten, Meraxis staggers back and breathlessly pants, [meraxis.speech(No more... Y-You are victorious this day...)]
+	</p>
+	<p>
+		Having said beforehand that you didn't want any kind of reward for winning the duel, you're content to simply relish in the fact that you were able to defeat Meraxis. Your sense of pride and accomplishment at having beaten so formidable an opponent doesn't last too long however, as Meraxis seems to genuinely be struggling to regain her strength. Worried that you might have gone too far, you ask the exhausted [meraxis.race] if she's ok.
+	</p>
+	<p>
+		[meraxis.speech(O-Of course I'm ok,)] she replies, before spending the next few moments taking a series of deep breaths. Thankfully after performing this breathing exercise she seems to recover some of her usual spirit, and boisterously declares, [meraxis.speech(You may have triumphed today, my nemesis, but next time you shall surely lose! Now listen to what I have to say...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_NO_TF"><![CDATA[
+	<p>
+		Doing as you're asked, you listen as Meraxis places her hands on her hips and declares, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful! The next time we fight, I shall surely destroy you! Mwhahaha!)] 
+	</p>
+	<p>
+		Spinning around on the spot, Meraxis strikes a dramatic pose and exclaims, [meraxis.speech(I shall return to the tavern now! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Money -->
+	
+	<htmlContent tag="WON_MONEY"><![CDATA[
+	<p>
+		Having been well and truly beaten, Meraxis staggers back and breathlessly pants, [meraxis.speech(No more... Y-You are victorious this day...)]
+	</p>
+	<p>
+		Not wanting to give her any time in which to make up an excuse as to why she can't pay up, you quickly remind Meraxis that she agreed to hand over her money should you win the duel. Letting out a high-pitched whine, the exhausted [meraxis.race] drops down onto her knees, before splaying her legs out to either side of her and putting on the most innocent expression she can muster. Pathetically pouting at you, she whines, [meraxis.speech(But mommy said that I could spend this allowance on buying something nice for myself... You wouldn't take that way from me, would you?)]
+	</p>
+	<p>
+		Even though you're almost certain that Meraxis is putting on this display as a way to manipulate you into letting her keep her money, she looks so sad and innocent that you find yourself wondering if you should just forget about the reward. Then again, you could always use some extra flames, and you're sure that Lyssieth would be happy to give her daughter some more money if she truly needed it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_MONEY_TAKE"><![CDATA[
+	<p>
+		Showing no sympathy, you demand that Meraxis hand over the money she'd promised as your reward. Letting out another pathetic, high-pitched whine Meraxis stands up and brushes herself down, before reluctantly handing all of her flames over to you. Pouting at you, she sighs, [meraxis.speech(I can't believe you actually took that from me... Anyway, listen to what I have to say...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_MONEY_LEAVE"><![CDATA[
+	<p>
+		You can't bring yourself to take Meraxis's money from her, and so you let out a sigh and tell her that she can keep it. Just as you suspected, Meraxis seems to have been putting on a show, for as soon as she hears that you're not going to take her money she immediately changes her expression and bounces to her feet, before quickly brushing herself down. Smiling at you, she exclaims, [meraxis.speech(Thanks, [pc.name]! You're the best nemesis! Anyway, listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONEY_END"><![CDATA[
+	<p>
+		Doing as you're asked, you listen as Meraxis places her hands on her hips and declares, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful! The next time we fight, I shall surely destroy you! Mwhahaha!)] 
+	</p>
+	<p>
+		Spinning around on the spot, Meraxis strikes a dramatic pose and exclaims, [meraxis.speech(I shall return to the tavern now! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Transform -->
+	
+	<htmlContent tag="WON_TRANSFORM"><![CDATA[
+	<p>
+		Having been well and truly beaten, Meraxis staggers back and breathlessly pants, [meraxis.speech(No more... Y-You are victorious this day...)]
+	</p>
+	<p>
+		[pc.Stepping] forwards, you remind Meraxis of your agreement, and ask her if she's ready to submit to your transformations. Letting out an indignant huff, the vanquished [meraxis.race] complains, [meraxis.speech(That's not fair... Y-You cheated... I shouldn't have to transform myself...)]
+	</p>
+	<p>
+		Deciding not to say anything in response to that, you simply wait and give Meraxis a disapproving look as she crosses her arms and pouts. After just a few seconds of silence, she cracks and lets out a deep, drawn-out sigh, before relenting and saying, [meraxis.speech(Fine... I suppose I <i>did</i> agree to it... But I only said that you could get me to transform one part of my body, remember? And no stuff with cocks or turning me into an incubus!)]
+	</p>
+	<p>
+		Tapping her foot on the ground, the chuuni [meraxis.race] waits to hear what part of her you want to transform...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_NOTHING"><![CDATA[
+	<p>
+		Changing your mind as you see how unwilling Meraxis is to be transformed, you let out a sigh and tell her that she doesn't need to transform herself after all. Surprised and delighted at your decision, the chuuni [meraxis.race] flashes you a big smile and exclaims, [meraxis.speech(Really?! Thanks, [pc.name]! I-I mean... Mwhahaha! You are foolish to be so merciful, my nemesis! Now tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TF Ass: -->
+	
+	<htmlContent tag="WON_TRANSFORM_ASS"><![CDATA[
+	<p>
+		Wanting her to focus her transformation on her ass, you tell Meraxis to turn around and lift up her cape so that you can get a good look at her rear-end. Furiously blushing, the embarrassed [meraxis.race] makes some half-hearted protests, but nevertheless does as you say. Turning around and lifting her cape, she allows you to look at her small ass and girly hips.
+	</p>
+	<p>
+		Confirming to yourself that Meraxis's ass is far too small, you tell her that you've decided upon her transformation. After you've told her that you want her to make her ass and hips a lot bigger, she turns her head back and exclaims, [meraxis.speech(I'm not making them too big, ok?! I can't believe that my nemesis is such a pervert...)]
+	</p>
+	<p>
+		With her cheeks still burning bright red, Meraxis starts to focus her demonic self-transformative powers into her butt, and you can't help but smile in appreciation as you watch her ass and hips start to grow bigger...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_ASS_DONE"><![CDATA[
+	<p>
+		With her back still to you, Meraxis lets go of her cape and reaches down to give her butt an experimental grope. Letting out a little moan as she runs her hands down over her now-[meraxis.hipSize] [meraxis.hips], she gives her [meraxis.assSize] [meraxis.ass] a firm squeeze, before turning her head back to glare at you and stutter in embarrassment, [meraxis.speech(Y-You will regret this, my nemesis! The next time we duel, I shall surely destroy you for making me look like this!)]
+	</p>
+	<p>
+		With that, Meraxis spins around on the spot in an attempt to strike one of her usual heroic poses. As she's not yet used to the extra size and weight of her rear end, however, she ends up tripping over her feet and stumbling into you, ass-first. Catching the unbalanced [meraxis.race] before she falls to the ground, you end up with her plump ass cheeks bumping directly into
+		#IF(pc.isTaur())
+			you.
+		#ELSE
+			your groin.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(Y-You pervert!)] Meraxis exclaims as she hastily pulls away from you. Despite her words, however, you detect more than a little arousal in her voice, but before you can comment on this she points her finger at you and shouts, [meraxis.speech(Y-You shall remain silent! Tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_ASS_REVERSE"><![CDATA[
+	<p>
+		Looking down at Meraxis's ass, you feel like you went too far in getting her to increase the size of her hips and butt. Wanting to check her out before making your final decision, you tell Meraxis to turn around and lift up her cape so that you can get a good look at her rear-end. Furiously blushing, the embarrassed [meraxis.race] makes some half-hearted protests, but nevertheless does as you say. Turning around and lifting her cape, she allows you to look at her [meraxis.assSize] [meraxis.ass] and [meraxis.hipSize] [meraxis.hips].
+	</p>
+	<p>
+		Confirming to yourself that you preferred Meraxis's ass back when it was small, you tell her that you've decided upon her transformation. After you've told her that you want her to shrink her ass and hips back their old size, she turns her head back and whines, [meraxis.speech(I've kind of got used to having my ass being like this... But fine, whatever...)]
+	</p>
+	<p>
+		With her cheeks still burning bright red, Meraxis starts to focus her demonic self-transformative powers into her butt, and you can't help but smile in appreciation as you watch her ass and hips start to shrink...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_ASS_REVERSE_DONE"><![CDATA[
+	<p>
+		With her back still to you, Meraxis lets go of her cape and reaches down to give her butt an experimental grope. Letting out a little moan as she runs her hands down over her now-[meraxis.hipSize] [meraxis.hips], she gives her [meraxis.assSize] [meraxis.ass] a firm squeeze, before turning to face you and exclain, [meraxis.speech(You will regret toying with me like this! The next time we duel, I shall surely destroy you!)]
+	</p>
+	<p>
+		As she takes a step back, Meraxis staggers a little and looks like she's about to trip over. Catching herself at the last second, she points her finger at you and shouts, [meraxis.speech(I-It's your fault that I'm feeling unbalanced like this! Now tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TF Breasts: -->
+	
+	<htmlContent tag="WON_TRANSFORM_BREASTS"><![CDATA[
+	<p>
+		Looking down at Meraxis's tiny, AA-cup breasts, you decide that this is the area you want her to transform. Telling her that it's not right for a demon to be so flat-chested, you demand that she grows her boobs into a more respectable size. Furiously blushing as she hears you say this, the embarrassed [meraxis.race] points a finger at you and stammers, [meraxis.speech(H-How dare you! I-I'll have you know that my small boobs make moving around in combat far easier! Y-You just want to make it harder for me to win our next duel!)]
+	</p>
+	<p>
+		Reminding Meraxis that she agreed to transform whatever part of herself you chose, you tell her to start growing her boobs. Angrily scowling at you for a moment, she lets out a sigh and quickly focuses her demonic self-transformative powers into her breasts. Before your eyes, you see her flat boobs swell up a little, before abruptly stopping at what you'd guess are just about B-cups. Shaking your head, you tell Meraxis that that's not good enough, to which she shouts, [meraxis.speech(Fine! Y-You want me looking like a cow, then how about this?!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_BREASTS_DONE"><![CDATA[
+	<p>
+		Looking down at her inflated, [meraxis.cupSize]-cup breasts, Meraxis experimentally reaches up and gives them a squeeze, and with her cheeks still burning bight red, she looks at you and stutters, [meraxis.speech(Y-You will regret this, my nemesis! The next time we duel, I shall surely destroy you for making me look like a cow!)]
+	</p>
+	<p>
+		Spinning around on the spot, the chuuni [meraxis.race] strikes a heroic pose, but as she does so her arms bump into her large boobs, which combined with the fact that her body is far more top-heavy that she's used to, causes her to stumble and fall right into your arms. Catching the unbalanced [meraxis.race] before she falls to the ground, you end up with her [meraxis.breastSize] boobs squished into your chest.
+	</p>
+	<p>
+		[meraxis.speech(Y-You pervert!)] Meraxis exclaims as she hastily pulls away from you. Despite her words, however, you detect more than a little arousal in her voice, but before you can comment on this she points her finger at you and shouts, [meraxis.speech(Y-You shall remain silent! Tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_BREASTS_REVERSE"><![CDATA[
+	<p>
+		Looking down at Meraxis's [meraxis.cupSize]-cup breasts, you can't help but think that you went too far in making them so big. Telling her that she looked better being flat-chested, you demand that she shrinks her boobs down into the AA-cups they were previously. Furiously blushing as she hears you say this, the embarrassed [meraxis.race] points a finger at you and stammers, [meraxis.speech(Y-You're the one who wanted them so big in the first place! Y-You'll pay for toying with my body in so careless a manner!)]
+	</p>
+	<p>
+		With her cheeks still burning bright red, Meraxis starts to focus her demonic self-transformative powers into her breasts, and you can't help but smile in appreciation as you watch them shrink down...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_BREASTS_REVERSE_DONE"><![CDATA[
+	<p>
+		Meraxis runs her hands over her tiny breasts, and with her cheeks still burning bight red, she mutters, [meraxis.speech(I'd kind of got used to having big ones...)]
+	</p>
+	<p>
+		Before you can respond to this, the blushing [meraxis.race] clears her throat and declares, [meraxis.speech(A-Anyway, I feel better like this! Now tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TF Lactation: -->
+	
+	<htmlContent tag="WON_TRANSFORM_LACTATION"><![CDATA[
+	<p>
+		You tell her to start lactating. She blushes and complains, but relents...
+	</p>
+	<p>
+		Liking the idea of Meraxis having to regularly milk herself, you tell her that you want her to start lactating. Not being able to process what it is you've just asked, she shakes her head in disbelief and stammers, [meraxis.speech(Y-You want me to do <i>what</i>?)]
+	</p>
+	<p>
+		Repeating your demand, you tell the astounded [meraxis.race] that you want her nipples to be squirting out milk whenever they're squeezed. As she starts to blush, you continue your demands by telling her to slip out of her dress and flash you her boobs so that you can confirm that she's gone through with the transformation. Although she tried to make some protests, you silence Meraxis by firmly reminding her of her agreement. Muttering angrily to herself, she reluctantly does as you say, and after slipping out of her dress, she undoes her bra and reveals her [meraxis.breastSize], [meraxis.cupSize]-cup boobs.
+	</p>
+	<p>
+		[meraxis.speech(G-Go on, stare all you want,)] she stutters in defiance, before focusing her self-transformative powers into her breasts...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_LACTATION_DONE"><![CDATA[
+	<p>
+		[meraxis.speech(Ok, I-I've done it,)] the chuuni [meraxis.race] declares. As there's no sign that she's done as you've asked, you demand that Meraxis squeeze her nipples, to which she indignantly replies, [meraxis.speech(F-Fine, if that's the last thing you're asking, I'll do it. You pervert...)]
+	</p>
+	<p>
+		Reaching up to her breasts, she gives her [meraxis.nipples+] a firm squeeze, and lets out a high-pitched gasp as milk quickly beads up on their surface before dripping down to run over her [meraxis.breastSize], [meraxis.breastShape] breasts. Flashing you a flustered glare, she quickly puts her bra and dress back on, before pointing her finger at you and declaring, [meraxis.speech(Y-You shall pay for this! Now tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_LACTATION_REVERSE"><![CDATA[
+	<p>
+		Feeling as though you've had your fun by making Meraxis lactate for a while, you tell her to self-transform so that she's no longer producing milk. Furiously blushing, she mutters, [meraxis.speech(Good... It's not like I liked milking myself...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_LACTATION_REVERSE_DONE"><![CDATA[
+	<p>
+		As there's really nothing to see from her transformation, you simply nod in approval as Meraxis tells you that she's done as you asked. Pouting at you, she then points her finger in your direction and declares, [meraxis.speech(Y-You shall pay for toying with my body! Now tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TF Lips: -->
+	
+	<htmlContent tag="WON_TRANSFORM_LIPS"><![CDATA[
+	<p>
+		Letting your gaze settle on Meraxis's face, you find yourself thinking that her mouth could do with looking a lot lewder. As you tell her of your desire, the chuuni [meraxis.race] blushes and asks, [meraxis.speech(What do you mean by 'lewder'? What's wrong with how my mouth looks as it is?)]
+	</p>
+	<p>
+		Smiling at Meraxis, you tell her that her lips need to be bigger and puffier, and that she should not only have a long tongue, but that her throat should always be drenched in slimy saliva. The embarrassed [meraxis.race]'s cheeks turn a deep shade of scarlet as she hears you say this and objects, [meraxis.speech(You're really going to make me transform like that? I-I'll look ridiculous!)]
+	</p>
+	<p>
+		Telling her to get on with it, you smile as Meraxis relents and starts to focus her self-transformative powers into her mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_LIPS_DONE"><![CDATA[
+	<p>
+		Meraxis darts out her long, slimy tongue and licks her huge, puffy lips, spreading a copious amount of saliva over them and making them look extremely juicy and lewd. She furiously blushes as she sees the approving look on your face, and after swallowing the large amount of saliva that's built up in her mouth, she declares, [meraxis.speech(Y-You'll pay for making me look this this! The next time we duel, I shall destroy you!)]
+	</p>
+	<p>
+		Not yet used to the copious amount of saliva which now fills her mouth, the chuuni [meraxis.race]'s excitable manner of talking causes her to drool out of the corners of her mouth. Realising what's happening, she blushes even more and hastily wipes away the excess saliva with her sleeve, before stuttering in embarrassment, [meraxis.speech(I-It's your fault that I drooled like that! N-Now Tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_LIPS_REVERSE"><![CDATA[
+	<p>
+		Looking at Meraxis's puffy, juicy lips, you can't help but feel as though you went too far in making her transform them into that state. Telling her that she looked better with her normal-sized lips, you order Meraxis to transform her mouth back to how it used to be. Blushing as she hears you say this, the [meraxis.race] mutters, [meraxis.speech(Just as I was getting used to this...)]
+	</p>
+	<p>
+		Focusing her demonic self-transformative powers into her mouth, Meraxis then proceeds to do asyou've told her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_LIPS_REVERSE_DONE"><![CDATA[
+	<p>
+		Experimentally licking her lips, Meraxis lets out a sigh and says, [meraxis.speech(Those feel much better. It's was so annoying to always be drooling all the time...)]
+	</p>
+	<p>
+		Before you can react to this, Meraxis spins around and strikes a heroic pose, before pointing her finger at you and declaring, [meraxis.speech(You shall pay for toying with my body! Now tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TF Pussy: -->
+	
+	<htmlContent tag="WON_TRANSFORM_PUSSY"><![CDATA[
+	<p>
+		Wanting Meraxis to have a lewd pussy, you tell her that she's going to have to transform her cunt into one that looks like it's always in desperate need of being fucked. She's so shocked to hear you make this demand of her that she simply stands in silence for a moment, before furiously blushing and stammering, [meraxis.speech(W-What? What do you mean? L-Like it wants to be... F-Fucked?!)]
+	</p>
+	<p>
+		Clarifying your demands, you tell the embarrassed [meraxis.race] that her pussy should have big labia, it should always be nothing less than sopping wet, and that it should be a little loose so that it looks like it's always needing to be filled by something. With her cheeks burning bright red, Meraxis pouts at you and complains, [meraxis.speech(I-I can't believe that you want me to do that... Y-You're so perverted...)]
+	</p>
+	<p>
+		Not yet finished with your demands, you tell Meraxis that you want to see that she's doing as you say, and so she needs to hike up her dress and drop her panties. Although she refuses to comply at first, a couple of reminders of how she promised to do as you asked eventually gets her to obey, and after pulling up her dress, she slides down her panties and shows you her cute pussy as it undergoes its transformation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_PUSSY_DONE"><![CDATA[
+	<p>
+		As you've watched it transform, you're happy to know that Meraxis has transformed her once-cute pussy into the lewd, sopping-wet cunt that's now between her legs. Without any external stimulus, you see her [meraxis.labia+] start to glisten grow slick with her natural juices, which causes Meraxis to gasp, [meraxis.speech(I'm getting wet already... D-Damn you, [pc.name]!)]
+	</p>
+	<p>
+		With that, she quickly pulls up her panties and drops the skirt of her dress, and with her cheeks still flushing bright red, she points her finger at you and declares, [meraxis.speech(I'll make you pay for embarrassing me like this! N-Now Tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_PUSSY_REVERSE"><![CDATA[
+	<p>
+		Regretting how you previously made Meraxis gain a lewd, wet cunt, you tell her to reverse the transformation and regain her old, cute pussy. Furiously blushing, she stammers, [meraxis.speech(I-I suppose that you want to watch me transform it again?)]
+	</p>
+	<p>
+		After you've replies in the positive, the chuuni [meraxis.race] mutters, [meraxis.speech(Y-You're so perverted...)]
+	</p>
+	<p>
+		Far more willing to reverse the transformation than she was to initially undergo it, Meraxis quickly hikes up her dress and pulls down her panties, showing you her lewd, dripping-wet cunt as it undergoes its transformation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_PUSSY_REVERSE_DONE"><![CDATA[
+	<p>
+		As you've watched it transform, you're happy to know that Meraxis has transformed her lewd, sopping-wet cunt back into her old, cute pussy. Furiously blushing, the impatient [meraxis.race] asks, [meraxis.speech(Are you happy now?!)]
+	</p>
+	<p>
+		After you've let her know that you're satisfied with her transformation, Meraxis quickly pulls up her panties and drops the skirt of her dress, and with her cheeks still flushing bright red, she points her finger at you and declares, [meraxis.speech(I'll make you pay for embarrassing me like this! N-Now Tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TF Squirter: -->
+	
+	<htmlContent tag="WON_TRANSFORM_SQUIRTER"><![CDATA[
+	<p>
+		Liking the idea of making Meraxis squirt whenever she orgasms, you tell her to transform her pussy to make that into a reality. Blushing as she hears you say this, the embarrassed [meraxis.race] mutters, [meraxis.speech(You're so perverted...)]
+	</p>
+	<p>
+		Despite her words, Meraxis starts to do as you say, and focuses her demonic self-transformative powers into her pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_SQUIRTER_DONE"><![CDATA[
+	<p>
+		Although there's no way to verify it at the moment, you're sure that Meraxis has done as you asked. Not giving you any time in which to embarrass her further, she quickly points her finger at you and declares, [meraxis.speech(I'll make you pay for transforming me like this! N-Now Tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_SQUIRTER_REVERSE"><![CDATA[
+	<p>
+		No longer liking the idea of making Meraxis squirt whenever she orgasms, you tell her to transform her pussy so that she's no longer a squirter. Blushing as she hears you say this, the embarrassed [meraxis.race] mutters, [meraxis.speech(You're so perverted...)]
+	</p>
+	<p>
+		Despite her words, Meraxis starts to do as you say, and focuses her demonic self-transformative powers into her pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_TRANSFORM_SQUIRTER_REVERSE_DONE"><![CDATA[
+	<p>
+		Although there's no way to verify it at the moment, you're sure that Meraxis has done as you asked. Not giving you any time in which to embarrass her further, she quickly points her finger at you and declares, [meraxis.speech(I'll make you pay for playing with my body like this! N-Now Tremble before me and listen to what I have to say!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRANSFORMATION_END"><![CDATA[
+	<p>
+		Doing as you're asked, you listen as Meraxis places her hands on her hips and declares, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful! The next time we fight, I shall surely destroy you! Mwhahaha!)] 
+	</p>
+	<p>
+		Throwing her cape around herself in an overly-dramatic gesture, the chuuni [meraxis.race] exclaims, [meraxis.speech(I will not endure a single moment more in your presence! Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Sex -->
+	
+	<htmlContent tag="WON_SEX"><![CDATA[
+	<p>
+		[style.italicsMinorBad(<b>Innoxia's note:</b> Meraxis's sex dialogue is all placeholders in this version. It will be completed for the next update!)]
+	</p>
+	<p>
+		You win the duel, having said that you want to have sex with Meraxis. She says you cheated, but agrees to let you choose a sexual favour of her.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_meraxis_any_sex_unlocked))
+		<p>
+			Says you can hug or maybe even hold hands. Suggests that she could do something lewd like before...
+		</p>
+		<p>
+			She looks turned on and you think that you'd be able to push her into doing something even more lewd...
+		</p>
+	#ELSE
+		<p>
+			Says you can hug or maybe even hold hands.
+		</p>
+		<p>
+			She looks a little turned on and you think that you might be able to push her into doing something even more lewd...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Hold hands/masturbation: -->
+	
+	<htmlContent tag="WON_SEX_HOLD_HANDS"><![CDATA[
+	<p>
+		You ask to hold hands and go for a walk. She blushes but agrees.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+			Meraxis is shy as you walk holding hands, and after a short while you notice that she's furiously blushing and panting a little.
+		#ELSE
+			Meraxis is shy as you walk holding hands, and after a short while you notice that she's furiously blushing and panting a little.
+		#ENDIF
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked))
+			Just as you're wondering whether to push things a little further, she pulls your hand down to her groin and suggests that you finger her...
+		#ELSE
+			Just as you're wondering whether to push things a little further, she starts to pull your hand down to her groin...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_HOLD_HANDS_FINISHED"><![CDATA[
+	<p>
+		Decide against lewd, compliment appearance.
+	</p>
+	<p>
+		Meraxis blushes and releases your hand. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_HOLD_HANDS_GROPE"><![CDATA[
+	<p>
+		You let Meraxis pull your hand down between her legs, and press her thin dress and panties up against her pussy.
+	</p>
+	<p>
+		Meraxis seems like she's about to go even further, but then abruptly pulls back and releases your hand. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_FINGERING"><![CDATA[
+	<p>
+		You pull up Meraxis's dress, and she quickly leads you over behind a nearby tree.
+	</p>
+	#IF(meraxis.isPussyChanged())
+		<p>
+			She pulls down her panties and shows you her pussy. Having previously instructed her to transform it into a lewd one, Meraxis's pussy has large labia, and her slightly-loose entrance is a sloppy mess of slimy girlcum. She breathlessly moans for you to get started.
+		</p>
+		<p>
+			You slide your fingers over her drooling cunt, tease her for a moment about how lewd it look and feels, then start fingering her.
+		</p>
+	#ELSE
+		<p>
+			She pulls down her panties and shows you her pussy. Her cute pussy has tiny labia, and as she guides your fingers down over it, you feel how tight she is. She's already getting wet, and she breathlessly moans for you to get started.
+		</p>
+		<p>
+			You slide your fingers over her tight cunt, tease her for a moment about how cute it look and feels, then start fingering her.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_FINGERED"><![CDATA[
+	<p>
+		You tell Meraxis you want her to finger you, and she quickly leads you over behind a nearby tree.
+	</p>
+	<p>
+		She teases her fingers over your pussy, before starting to finger you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_HANDJOB"><![CDATA[
+	<p>
+		You tell Meraxis you want her to give you a handjob, and she quickly leads you over behind a nearby tree.
+	</p>
+	<p>
+		She teases her fingers over your cock, before starting to jerk you off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_FINGERING"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_FINGERED"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_HANDJOB"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Hugging/anal: -->
+	
+	<htmlContent tag="WON_SEX_HUG"><![CDATA[
+	<p>
+		You ask to hug Meraxis. She blushes but agrees.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked))
+			#IF(game.isAnalContentEnabled())
+				Just as you're wondering whether to push things a little further, she grinds up against you and asks if you'd like to do anal stuff...
+			#ELSE
+				Just as you're wondering whether to push things a little further, she grinds up against you and tells you to grope her ass again...
+			#ENDIF
+		#ELSE
+			Just as you're wondering whether to push things a little further, she grinds up against you and lifts her ass...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_HUG_FINISHED"><![CDATA[
+	<p>
+		Decide against lewd, compliment appearance.
+	</p>
+	<p>
+		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_HUG_ASS_GRAB"><![CDATA[
+	<p>
+		You reach down and grab Meraxis's ass.
+	</p>
+	<p>
+		#IF(meraxis.isAssChanged())
+			Having previously got Meraxis to transform her ass, you enjoy how large it feels, and after sliding your hands over her very wide hips, you've got her panting and pushing her ass out against your touch.
+		#ELSE
+			Meraxis has a small, flat ass, but you still enjoy how it feels, and after sliding your hands over her girly hips, you've got her panting and pushing her ass out against your touch.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.isAnalContentEnabled())
+			Meraxis seems like she's about to go even further, but then abruptly pulls back and releases your hand. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		#ELSE
+			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and then tells you to listen well.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_ANILINGUS"><![CDATA[
+	<p>
+		You tell Meraxis that you're going to give her ass the attention it deserves. Get her to turn around and hike up her dress, and after pulling down her panties you start to perform anilinugs.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_HOTDOGGING"><![CDATA[
+	<p>
+		You tell Meraxis that you're going to put her ass to good use. Get her to turn around and hike up her dress, and after pulling down her panties you start to hotdog her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_ANAL"><![CDATA[
+	<p>
+		You tell Meraxis that you're going to put her ass to good use. Get her to turn around and hike up her dress, and after pulling down her panties you start fucking her ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_ANILINGUS"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_HOTDOGGING"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_ANAL"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Kissing/oral: -->
+	
+	<htmlContent tag="WON_SEX_KISS"><![CDATA[
+	<p>
+		You ask Meraxis for a kiss. She blushes but agrees.
+	</p>
+	<p>
+		#IF(meraxis.isMouthChanged())
+			Having previously got Meraxis to transform her lips, you enjoy how her wet, plump lips feel as they press against your mouth.
+		#ELSE
+			Meraxis presses her lips against your mouth and leans into you as you kiss her.
+		#ENDIF
+		#IF(flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
+			 She very quickly starts making lewd noises as you kiss her, before pulling back and asking if you want to do oral...
+		#ELSE
+			 She very quickly starts making lewd noises as you kiss her, and you wonder whether to push things further...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_KISS_FINISHED"><![CDATA[
+	<p>
+		Decide against lewd, compliment appearance.
+	</p>
+	<p>
+		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_KISS_MAKE_OUT"><![CDATA[
+	<p>
+		#IF(meraxis.isMouthChanged())
+			You passionately continue kissing Meraxis, and she lewdly slides her long, wet tongue into your mouth while grinding up against you.
+		#ELSE
+			You passionately continue kissing Meraxis, and she lewdly slides her tongue into your mouth while grinding up against you.
+		#ENDIF
+	</p>
+	<p>
+		#IF(!flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
+			Meraxis seems like she's about to go even further, but then abruptly pulls back. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		#ELSE
+			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and then tells you to listen well.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_CUNNILINGUS"><![CDATA[
+	<p>
+		You tell Meraxis that you're going to eat her out. She blushes and hikes up her dress, allowing you to drop down and perform cunnilingus.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_CUNNILINGUS_RECEIVE"><![CDATA[
+	<p>
+		You tell Meraxis that she's going to eat you out. She blushes but eagerly obeys, dropping down to start performing cunnilingus.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_BLOWJOB"><![CDATA[
+	<p>
+		You tell Meraxis that she's going to suck your cock. She blushes but eagerly obeys, dropping down to start giving you a blowjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_CUNNILINGUS"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_CUNNILINGUS_RECEIVE"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_BLOWJOB"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Breasts: -->
+	
+	<htmlContent tag="WON_SEX_FLASH_BREASTS"><![CDATA[
+	<p>
+		YOu tell Meraxis to flash you her breasts. She blushes heavily, but after leading you over to a group of trees she strips out of her dress and cape, before taking off her bra and revealing her tits.
+	</p>
+	<p>
+		[#meraxis.getBody().getBreastDescription(meraxis, meraxis.getBody().getBreast())]
+	</p>
+	<p>
+		#IF(meraxis.isBreastsChanged())
+			Having previously told Meraxis to transform her breasts, you admire her DD-cup boobs.
+		#ELSE
+			Meraxis has an almost completely-flat chest, although her big nipples make them look quite lewd.
+		#ENDIF
+		#IF(flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
+			 She asks if you want to use them, or just look...
+		#ELSE
+			 She asks if this is good enough for you, although from the look in her eyes you can tell she wants more...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_FLASH_BREASTS_FINISHED"><![CDATA[
+	<p>
+		Decide against lewd, compliment appearance.
+	</p>
+	<p>
+		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_FLASH_BREASTS_PLAY"><![CDATA[
+	<p>
+		You tell Meraxis to play with her breasts.
+		#IF(meraxis.isBreastsChanged())
+			 She hefts her large boobs in her hands, before squishing them together and then starting to play with her nipples.
+		#ELSE
+			 She easily cups her tiny boobs in her hands, before fruitlessly trying to squish them together and then starting to play with her big nipples.
+		#ENDIF
+	</p>
+	<p>
+		#IF(!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
+			Meraxis seems like she's about to go even further, but then abruptly turns away. Covers up her embarrassment by declaring something chuuni, and after pulling her clothes back on tells you to listen well.
+		#ELSE
+			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and after pulling her clothes back she tells you to listen well.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_PLAY_BREASTS_MASTURBATE"><![CDATA[
+	<p>
+		You tell Meraxis to play with her tits while you masturbate to the sight of them. She furiously blushes but does as you say.
+	</p>
+	<p>
+		#IF(meraxis.isBreastsChanged())
+			 She hefts her large boobs in her hands, before squishing them together and then starting to play with her nipples.
+		#ELSE
+			 She easily cups her tiny boobs in her hands, before fruitlessly trying to squish them together and then starting to play with her big nipples.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_PLAY_BREASTS_KISSING"><![CDATA[
+	<p>
+		You [pc.step] up to Meraxis and tell her that you're going to suck on her tits. She blushes but presents you with them.
+	</p>
+	<p>
+		#IF(meraxis.isBreastsChanged())
+			You press your lips against her large boobs, before starting to kiss and suck on her nipples.
+		#ELSE
+			You press your lips against her flat chest, before starting to kiss and suck on her nipples.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_PLAY_BREASTS_FUCK"><![CDATA[
+	<p>
+		You take out your cock and tell Meraxis that she's going to give you a titfuck.
+	</p>
+	<p>
+		#IF(meraxis.isBreastsChanged())
+			She blushes but agrees, dropping down and wrapping her tits around your cock.
+		#ELSE
+			She blushes but agrees, dropping down and pressing her flat chest up against your cock.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_MASTURBATION_BREASTS"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_BREASTS_KISSING"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_BREAST_FUCK"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Pussy: -->
+	
+	<htmlContent tag="WON_SEX_FLASH_PUSSY"><![CDATA[
+	<p>
+		You tell Meraxis to show you her pussy. She furiously blushes, but hikes up her dress and drops her panties to do as you say.
+	</p>
+	<p>
+		#IF(meraxis.isPussyChanged())
+			Having previously instructed her to transform it into a lewd one, Meraxis's pussy has large labia, and her slightly-loose entrance is a sloppy mess of slimy girlcum. She breathlessly moans, letting you know that she wants to do more...
+		#ELSE
+			Her cute pussy has tiny labia, and as she presents it to you, you can see how tight she is. She's already getting wet, and she breathlessly moans, letting you know that she wants to do more...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_FLASH_PUSSY_FINISHED"><![CDATA[
+	<p>
+		Decide against lewd, compliment appearance.
+	</p>
+	<p>
+		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_FLASH_PUSSY_PLAY"><![CDATA[
+	<p>
+		You tell Meraxis to play with her pussy, and she blushes even more, but does as you say.
+	</p>
+	<p>
+		#IF(meraxis.isPussyChanged())
+			She slides her fingers over her large labia, and her lewd pussy is soon drooling with slimy girlcum.
+		#ELSE
+			She slides her fingers over her tiny labia, and her cute pussy is soon slick with slimy girlcum.
+		#ENDIF
+	</p>
+	<p>
+		#IF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+			Meraxis seems like she's about to go even further, but then abruptly turns away. Covers up her embarrassment by declaring something chuuni, and after pulling her clothes back on tells you to listen well.
+		#ELSE
+			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and after pulling her clothes back she tells you to listen well.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_INTERCRURAL"><![CDATA[
+	<p>
+		Tell Meraxis that you're going to fuck her thighs.
+	</p>
+	<p>
+		She obediently pushes her legs together, and after taking your cock out and rubbing it over her pussy, you start fucking her thighs.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_FUCK"><![CDATA[
+	<p>
+		Tell Meraxis that you're going to fuck her.
+	</p>
+	<p>
+		She obediently presents you with her pussy, and after taking your cock out you fuck her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_SCISSOR"><![CDATA[
+	<p>
+		Tell Meraxis that you're going to scissor with her.
+	</p>
+	<p>
+		She obediently presents you with her pussy, and after taking your pussy out you start tribbing with her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_INTERCRURAL"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_FUCK"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_SCISSOR"><![CDATA[
+	<p>
+		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SEX_END"><![CDATA[
+	<p>
+		Still furiously blushing, Meraxis places her hands on her hips and declares, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful! The next time we fight, I shall surely destroy you! Mwhahaha!)] 
+	</p>
+	<p>
+		Spinning around on the spot, Meraxis strikes a dramatic pose and exclaims, [meraxis.speech(I shall return to the tavern now! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

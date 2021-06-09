@@ -2,6 +2,7 @@ package com.lilithsthrone.world;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -14,7 +15,7 @@ import javafx.concurrent.Task;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.9.3
  * @author Innoxia
  */
 public class Generation extends Task<Boolean> {
@@ -33,7 +34,7 @@ public class Generation extends Task<Boolean> {
 			if(debug) {
 				System.out.println(wt);
 			}
-			worldGeneration(wt);
+			Main.game.getWorlds().put(wt, worldGeneration(wt));
 			count++;
 			updateProgress(count, maxSize);
 		}
@@ -41,14 +42,20 @@ public class Generation extends Task<Boolean> {
 		return true;
 	}
 
-	public void worldGeneration(AbstractWorldType worldType) {
+	public World worldGeneration(AbstractWorldType worldType) {
 //		System.out.println(worldType);
 		if(worldType.isUsesFile()) {
 			try {
-				BufferedImage img = ImageIO.read((getClass().getResource(worldType.getFileLocation())));
+				
+				BufferedImage img;
+				if(worldType.isFromExternalFile()) {
+					img = ImageIO.read(new File(worldType.getFileLocation()));
+				} else {
+					img = ImageIO.read((getClass().getResource(worldType.getFileLocation())));
+				}
 				
 				World world = new World(img.getWidth(), img.getHeight(), null, worldType);
-				Main.game.getWorlds().put(worldType, world);
+//				Main.game.getWorlds().put(worldType, world);
 
 				if(debug)
 					System.out.println(worldType.getName()+" Start-File 1");
@@ -82,13 +89,16 @@ public class Generation extends Task<Boolean> {
 				
 				world.setGrid(grid);
 				
+				return world;
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
 		} else {
-			//TODO
+			//TODO?
 		}
+		return null;
 	}
 
 

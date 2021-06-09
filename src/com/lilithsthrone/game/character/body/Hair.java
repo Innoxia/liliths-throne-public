@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -10,17 +10,16 @@ import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface {
 
-	
-	protected HairType type;
+	protected AbstractHairType type;
 	protected int length;
 	protected HairStyle style;
 
-	public Hair(HairType type, int length, HairStyle style) {
+	public Hair(AbstractHairType type, int length, HairStyle style) {
 		this.type = type;
 		this.length = length;
 		this.style = style;
@@ -28,7 +27,7 @@ public class Hair implements BodyPartInterface {
 	}
 
 	@Override
-	public HairType getType() {
+	public AbstractHairType getType() {
 		return type;
 	}
 	
@@ -56,7 +55,7 @@ public class Hair implements BodyPartInterface {
 		return type.getDescriptor(owner);
 	}
 	
-	public String setType(GameCharacter owner, HairType type) {
+	public String setType(GameCharacter owner, AbstractHairType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
 			if(owner!=null) {
@@ -66,248 +65,26 @@ public class Hair implements BodyPartInterface {
 		}
 		
 		if (type == getType()) {
-			if (owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.hair] of [pc.a_hairRace], so nothing happens...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has the [npc.hair] of [npc.a_hairRace], so nothing happens...)]</p>");
-			}
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-			
-			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "Your scalp tingles and itches, and you rub the top of your head as you feel your [pc.hair] start to transform.");
-			} else {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "[npc.NamePos] scalp tingles and itches, and [npc.she] rubs the top of [npc.her] head as [npc.she] feels [npc.her] [npc.hair] start to transform.");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.hair(true)] of [npc.a_hairRace], so nothing happens...)]</p>");
 		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(
+				"<p>"
+					+ "[npc.NamePos] scalp tingles and itches, and [npc.she] [npc.verb(rub)] the top of [npc.her] head as [npc.she] [npc.verb(feel)] [npc.her] [npc.hair(true)] start to transform. ");
 
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		
-		switch (type) {
-			case HUMAN:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with human-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldHuman(human hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with human-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldHuman(human hair)]."
-							+ "</p>");
-				}
-				break;
-			case DEMON_COMMON:
-				if (!owner.isShortStature()) {
-					UtilText.transformationContentSB.append(
-							" The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, demonic hair.<br/>"
-							+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldDemon(demonic hair)]."
-						+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-							" The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, impish hair.<br/>"
-							+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldImp(impish hair)]."
-						+ "</p>");
-				}
-				break;
-			case DOG_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldDogMorph(canine hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldDogMorph(canine hair)]."
-							+ "</p>");
-				}
-				break;
-			case FOX_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.</br>"
-								+ "You now have [pc.hairColour] [style.boldFoxMorph(vulpine hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldFoxMorph(vulpine hair)]."
-							+ "</p>");
-				}
-				break;
-			case LYCAN:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldWolfMorph(lupine hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldWolfMorph(lupine hair)]."
-							+ "</p>");
-				}
-				break;
-			case CAT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldCatMorph(feline hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldCatMorph(feline hair)]."
-							+ "</p>");
-				}
-				break;
-			case CAT_MORPH_SIDEFLUFF:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair and a bunch of fluff on the sides of your face. </br>"
-								+ "You now have [pc.hairColour] [style.boldCatMorph(feline hair)] with side fluff."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair and a bunch of fluff on the sides of [npc.her] face.</br>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldCatMorph(feline hair)] with side fluff."
-							+ "</p>");
-				}
-				break;
-			case COW_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldCowMorph(bovine hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldCowMorph(bovine hair)]."
-							+ "</p>");
-				}
-				break;
-			case ALLIGATOR_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with a mass of scales in place of hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldGatorMorph(scales in place of hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with a mass of scales in place of hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldGatorMorph(scales in place of hair)]."
-							+ "</p>");
-				}
-				break;
-			case HORSE_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with coarse, horse-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldHorseMorph(equine hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with coarse, horse-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldHorseMorph(equine hair)]."
-							+ "</p>");
-				}
-				break;
-			case REINDEER_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with coarse, reindeer-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldReindeerMorph(rangiferine hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with coarse, reindeer-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldReindeerMorph(rangiferine hair)]."
-							+ "</p>");
-				}
-				break;
-			case SQUIRREL_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldSquirrelMorph(squirrel-like hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldSquirrelMorph(squirrel-like hair)]."
-							+ "</p>");
-				}
-				break;
-			case RAT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldRatMorph(rat-like hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldRatMorph(rat-like hair)]."
-							+ "</p>");
-				}
-				break;
-			case RABBIT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldRabbitMorph(rabbit-like hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldRabbitMorph(rabbit-like hair)]."
-							+ "</p>");
-				}
-				break;
-			case BAT_MORPH:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldBatMorph(bat-like hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldBatMorph(bat-like hair)]."
-							+ "</p>");
-				}
-				break;
-			case HARPY:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" The feeling goes away almost as quickly as it came, leaving you with a plume of feathers in place of hair.<br/>"
-								+ "You now have [pc.hairColour] [style.boldHarpy(harpy feathers in place of hair)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" The transformation only lasts a matter of moments, leaving [npc.herHim] with a plume of feathers in place of hair.<br/>"
-								+ "[npc.Name] now has [npc.hairColour] [style.boldHarpy(harpy feathers in place of hair)]."
-							+ "</p>");
-				}
-				break;
-			case ANGEL://TODO
-				break;
-		}
+		sb.append(type.getTransformationDescription(owner));
+		sb.append("</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
-				+ owner.postTransformationCalculation()
+					+ owner.postTransformationCalculation()
 				+ "</p>";
 	}
 
@@ -333,59 +110,36 @@ public class Hair implements BodyPartInterface {
 		
 		String styleChange = "";
 		if(this.length < owner.getHairStyle().getMinimumLengthRequired()) {
-			if(owner.isPlayer()) {
-				styleChange = "<p>"
-								+ "Your [pc.hair] "+(owner.getHairType().isDefaultPlural()?"are":"is")+" too short for your current hair style!"
-							+ "</p>"
-							+ owner.setHairStyle(HairStyle.NONE);
-			} else {
-				styleChange = "<p>"
-						+ "[npc.Her] [npc.hair] "+(owner.getHairType().isDefaultPlural()?"are":"is")+" too short for [npc.her] current hair style!"
-					+ "</p>"
-					+ owner.setHairStyle(HairStyle.NONE);
-			}
+			styleChange = "<p>"
+							+ "[npc.Her] [npc.hair(true)] "+(owner.getHairType().isDefaultPlural(owner)?"are":"is")+" too short for [npc.her] current hair style!"
+						+ "</p>"
+						+ owner.setHairStyle(HairStyle.NONE);
 		}
 		
 		if (sizeChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The length of your [pc.hair] doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.namePos] [npc.hair] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.namePos] [npc.hair(true)] doesn't change...)]</p>");
+			
 		} else if (sizeChange < 0) {
 			String hairChangedText;
-			if(owner.isPlayer()) {
-				if (this.length == 0 && owner.isFaceBaldnessNatural()) {
-					hairChangedText = "no [pc.hair]";
-				} else {
-					hairChangedText = "[pc.hairLength], " + Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair]";
-				}
-				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldShrink(getting shorter)].<br/>"
-						+ "You now have [style.boldTfGeneric(" + hairChangedText + ")]!</p>"
-						+ styleChange;
+			if (this.length == 0 && owner.isFaceBaldnessNatural()) {
+				hairChangedText = "no [npc.hair(true)]";
 			} else {
-				if (this.length == 0 && owner.isFaceBaldnessNatural()) {
-					hairChangedText = "no [npc.hair]";
-				} else {
-					hairChangedText = "[npc.hairLength], " + Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair]";
-				}
-				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldShrink(gets shorter)].<br/>"
-						+ "[npc.She] now has [style.boldTfGeneric(" + hairChangedText + ")]!</p>"
-						+ styleChange);
+				hairChangedText = "[npc.hairLength], " + Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair(true)]";
 			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out an involuntary cry and [npc.verb(rub)] at [npc.her] scalp as [npc.she] [npc.verb(feel)] [npc.her] [npc.hair(true)] [style.boldShrink(getting shorter)].<br/>"
+						+ "[npc.She] now [npc.has] [style.boldTfGeneric(" + hairChangedText + ")]!"
+					+ "</p>"
+					+ styleChange);
 			
 		} else {
-			if(owner.isPlayer()) {
-				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldGrow(growing longer)].<br/>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "
-						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair])]!</p>"
-						+ styleChange;
-			} else {
-				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldGrow(grows longer)].<br/>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "
-						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair])]!</p>"
-						+ styleChange);
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out an involuntary cry and [npc.verb(rub)] at [npc.her] scalp as [npc.she] [npc.verb(feel)] [npc.her] [npc.hair(true)] [style.boldGrow(growing longer)].<br/>"
+						+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.hairLength], "+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair(true)])]!"
+					+ "</p>"
+					+ styleChange);
 		}
 	}
 
@@ -399,71 +153,98 @@ public class Hair implements BodyPartInterface {
 		if(owner==null) {
 			return "";
 		}
-		
-		switch(style) {
-			case BRAIDED:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into braids.</p>");
-			case CURLY:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now curled.</p>");
-			case LOOSE:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now loose.</p>");
-			case NONE:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and will take on "+(type.isDefaultPlural()?"their":"its")+" natural shape.</p>");
-			case PONYTAIL:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a ponytail.</p>");
-			case STRAIGHT:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened.</p>");
-			case TWIN_TAILS:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin-tails.</p>");
-			case WAVY:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now wavy.</p>");
-			case MOHAWK:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a mohawk.</p>");
-			case AFRO:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an afro.</p>");
-			case SIDECUT:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>");
-			case BOB_CUT:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bob cut.</p>");
-			case PIXIE:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a pixie cut.</p>");
-			case SLICKED_BACK:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now slicked back.</p>");
-			case MESSY:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>");
-			case HIME_CUT:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, and styled into a hime-cut.</p>");
-			case CHONMAGE:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, oiled, and styled into a chonmage.</p>");
-			case DREADLOCKS:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into dreadlocks.</p>");
-			case TOPKNOT:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now gathered up into a topknot.</p>");
-			case BIRD_CAGE:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an elaborate bird cage.</p>");
-			case TWIN_BRAIDS:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin braids.</p>");
-			case DRILLS:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into drills.</p>");
-			case LOW_PONYTAIL:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a low ponytail.</p>");
-			case CROWN_BRAID:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a crown braid.</p>");
-			case BUN:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bun.</p>");
-			case CHIGNON:
-				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now tied up and styled into a chignon.</p>");
-		}
-		
-		// Catch:
-		return "";
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p>");
+			sb.append("[npc.NamePos] [npc.hair(true)] "+(type.isDefaultPlural(owner)?"are":"is")+" now ");
+			switch(style) { //TODO This should be handled in the style itself
+				case BRAIDED:
+					sb.append("styled into braids.");
+					break;
+				case CURLY:
+					sb.append("curled.");
+					break;
+				case LOOSE:
+					sb.append("loose.");
+					break;
+				case NONE:
+					sb.append("unstyled, and will take on "+(type.isDefaultPlural(owner)?"their":"its")+" natural shape.");
+					break;
+				case PONYTAIL:
+					sb.append("styled into a ponytail.");
+					break;
+				case STRAIGHT:
+					sb.append("straightened.");
+					break;
+				case TWIN_TAILS:
+					sb.append("styled into twin-tails.");
+					break;
+				case WAVY:
+					sb.append("wavy.");
+					break;
+				case MOHAWK:
+					sb.append("styled into a mohawk.");
+					break;
+				case AFRO:
+					sb.append("styled into an afro.");
+					break;
+				case SIDECUT:
+					sb.append("styled into a sidecut.");
+					break;
+				case BOB_CUT:
+					sb.append("styled into a bob cut.");
+					break;
+				case PIXIE:
+					sb.append("styled into a pixie cut.");
+					break;
+				case SLICKED_BACK:
+					sb.append("slicked back.");
+					break;
+				case MESSY:
+					sb.append("unstyled, and particularly messy.");
+					break;
+				case HIME_CUT:
+					sb.append("straightened, and styled into a hime-cut.");
+					break;
+				case CHONMAGE:
+					sb.append("straightened, oiled, and styled into a chonmage.");
+					break;
+				case DREADLOCKS:
+					sb.append("styled into dreadlocks.");
+					break;
+				case TOPKNOT:
+					sb.append("gathered up into a topknot.");
+					break;
+				case BIRD_CAGE:
+					sb.append("styled into an elaborate bird cage.");
+					break;
+				case TWIN_BRAIDS:
+					sb.append("styled into twin braids.");
+					break;
+				case DRILLS:
+					sb.append("styled into drills.");
+					break;
+				case LOW_PONYTAIL:
+					sb.append("styled into a low ponytail.");
+					break;
+				case CROWN_BRAID:
+					sb.append("styled into a crown braid.");
+					break;
+				case BUN:
+					sb.append("styled into a bun.");
+					break;
+				case CHIGNON:
+					sb.append("tied up and styled into a chignon.");
+					break;
+			}
+		sb.append("</p>");
+		return UtilText.parse(owner, sb.toString());
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Hair.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Hair.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

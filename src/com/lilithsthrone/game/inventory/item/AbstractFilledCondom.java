@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -24,11 +24,10 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.86
- * @version 0.1.88
+ * @version 0.4.0
  * @author Innoxia
  */
 public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
-	
 	
 	private String cumProvider;
 	private FluidCum cum;
@@ -43,8 +42,8 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		for(FluidModifier fm : cum.getFluidModifiers()) {
 			this.cum.addFluidModifier(cumProvider, fm);
 		}
-		this.colourShade = colour;
-		SVGString = getSVGString(itemType.getPathName(), colour);
+		this.setColour(0, colour);
+		SVGString = getSVGString(itemType.getPathNameInformation().get(0).getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
 	
@@ -57,8 +56,8 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		for(FluidModifier fm : cum.getFluidModifiers()) {
 			this.cum.addFluidModifier(null, fm);
 		}
-		this.colourShade = colour;
-		SVGString = getSVGString(itemType.getPathName(), colour);
+		this.setColour(0, colour);
+		SVGString = getSVGString(itemType.getPathNameInformation().get(0).getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
 	
@@ -86,10 +85,10 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		Element element = doc.createElement("item");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
-		CharacterUtils.addAttribute(doc, element, "cumProvider", this.getCumProviderId());
-		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
+		XMLUtil.addAttribute(doc, element, "id", this.getItemType().getId());
+		XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
+		XMLUtil.addAttribute(doc, element, "cumProvider", this.getCumProviderId());
+		XMLUtil.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);

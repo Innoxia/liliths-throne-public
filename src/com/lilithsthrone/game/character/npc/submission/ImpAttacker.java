@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -33,6 +32,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -44,7 +44,6 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
@@ -54,6 +53,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -75,11 +75,11 @@ public class ImpAttacker extends NPC {
 		this(Subspecies.IMP, Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public ImpAttacker(Subspecies subspecies, Gender gender) {
+	public ImpAttacker(AbstractSubspecies subspecies, Gender gender) {
 		this(subspecies, gender, false);
 	}
 	
-	public ImpAttacker(Subspecies subspecies, Gender gender, boolean isImported) {
+	public ImpAttacker(AbstractSubspecies subspecies, Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, subspecies, RaceStage.GREATER,
@@ -100,25 +100,25 @@ public class ImpAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, true);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 	
 			// Clothing is equipped in the Encounter class, when the imps are spawned.
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -175,9 +175,9 @@ public class ImpAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) { //TODO gang tattoos?
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override
@@ -283,7 +283,9 @@ public class ImpAttacker extends NPC {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addSpecialPerk(Perk.IMP_SLAYER));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonImpsDefeated, true);
 							if(ImpCitadelDialogue.isCompanionDialogue()) {
-								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().addSpecialPerk(Perk.IMP_SLAYER));
+								for(GameCharacter companion : Main.game.getPlayer().getParty()) {
+									Main.game.getTextEndStringBuilder().append(companion.addSpecialPerk(Perk.IMP_SLAYER));
+								}
 							}
 						}
 					};
@@ -316,7 +318,7 @@ public class ImpAttacker extends NPC {
 				TransformativePotion effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
 				if(effects!=null) {
 					AbstractItem potion = EnchantingUtils.craftItem(
-						AbstractItemType.generateItem(effects.getItemType()),
+						Main.game.getItemGen().generateItem(effects.getItemType()),
 						effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 					potion.setName("Imp's Elixir");
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
@@ -325,7 +327,7 @@ public class ImpAttacker extends NPC {
 					TransformativePotion effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
 					if(effects2!=null) {
 						AbstractItem potion2 = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(effects2.getItemType()),
+							Main.game.getItemGen().generateItem(effects2.getItemType()),
 							effects2.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						potion2.setName("Imp's Elixir");
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);
@@ -344,55 +346,10 @@ public class ImpAttacker extends NPC {
 	
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
-		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
-		switch(target.getRace()) {
-			case ALLIGATOR_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
-				break;
-			case BAT_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_BAT_MORPH;
-				break;
-			case CAT_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
-				break;
-			case COW_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
-				break;
-			case DOG_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
-				break;
-			case FOX_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
-				break;
-			case HARPY:
-				itemType = ItemType.RACE_INGREDIENT_HARPY;
-				break;
-			case HORSE_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
-				break;
-			case RABBIT_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
-				break;
-			case RAT_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_RAT_MORPH;
-				break;
-			case REINDEER_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_REINDEER_MORPH;
-				break;
-			case SQUIRREL_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
-				break;
-			case WOLF_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
-				break;
-			case ANGEL:
-			case DEMON:
-			case HUMAN:
-			case NONE:
-			case SLIME:
-			case ELEMENTAL:
-				break;
-		}
+		AbstractItemType itemType = target.getSubspecies().getTransformativeItem(target);
+        if(itemType==null || itemType.equals(ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher"))) {
+            itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
+        }
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 //		int numberOfTransformations = (2+Util.random.nextInt(4)) * (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2:1);
@@ -463,7 +420,7 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
 					""));
 			}
-			if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()) {
 				effects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
 					"Let's get yer cock nice an' thick!"));
@@ -515,7 +472,7 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
 					""));
 			}
-			if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()) {
 				effects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
 					"Let's get yer cock nice an' thick!"));

@@ -7,8 +7,10 @@ import java.util.List;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreastsCrotch;
@@ -18,7 +20,9 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FootMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreastsCrotch;
@@ -27,13 +31,19 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNippleCrotch;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisSpinneret;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMound;
@@ -49,42 +59,26 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.SadisticActions;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerBreasts;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfNoPen;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfPenisAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfPenisMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfPenisNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfPenisVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTongueAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTongueMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTongueNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTongueVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerBreasts;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfNoPen;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfPenisAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfPenisMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfPenisNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfPenisVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTongueAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTongueMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTongueNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTongueVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerCrotchNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerPenis;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfNoPen;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfPenisVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfTongueVagina;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -121,12 +115,14 @@ public class SexActionPresets {
 			SexAreaOrifice.VAGINA);
 
 	public static List<SexAreaInterface> penisAreas = Util.newArrayListOfValues(
+			SexAreaPenetration.CLIT, // Add clit here as clit actions are related to when the clit is a penetrative object, and should be acting like a penis (position-wise)
 			SexAreaPenetration.PENIS,
 			SexAreaOrifice.URETHRA_PENIS);
 	
 	public static List<SexAreaInterface> assAreas = Util.newArrayListOfValues(
 			SexAreaOrifice.ANUS,
-			SexAreaOrifice.ASS);
+			SexAreaOrifice.ASS,
+			SexAreaOrifice.SPINNERET);
 	
 	public static List<SexAreaInterface> mouthAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.TONGUE,
@@ -134,7 +130,8 @@ public class SexActionPresets {
 
 	public static List<SexAreaInterface> breastAreas = Util.newArrayListOfValues(
 			SexAreaOrifice.NIPPLE,
-			SexAreaOrifice.BREAST);
+			SexAreaOrifice.BREAST,
+			SexAreaOrifice.ARMPITS); // Add armpits to breast areas as they seem the closest in terms of being able to physical reach them
 
 	public static List<SexAreaInterface> appendageAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.FINGER,
@@ -144,6 +141,10 @@ public class SexActionPresets {
 	public static List<SexAreaInterface> handAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.FINGER);
 
+	public static List<SexAreaInterface> tailAreas = Util.newArrayListOfValues(
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.SPINNERET);
+	
 	public static List<SexAreaInterface> tailAndTentacle = Util.newArrayListOfValues(
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE);
@@ -175,12 +176,10 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToUpperHalf = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToBreasts = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToCrotchBoobs = new HashMap<>();
-
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToTailAndTentacle = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToLowerHalf = new HashMap<>();
-	
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToFinger = new HashMap<>();
@@ -192,19 +191,20 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToTailAndTentacle = new HashMap<>();
 	
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToAllAreas = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToAllAreas = new HashMap<>();
 	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToAllAreas;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToAllAreas;
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToUpperTorso = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToLowerHalf = new HashMap<>();
 	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToUpperTorso;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToLowerHalf;
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToUpperTorso = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToLowerHalf = new HashMap<>();
 	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToUpperTorso;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToLowerHalf;
-	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToUpperTorso;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToLowerHalf;
-	
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToUpperTorso = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToLowerHalf = new HashMap<>();
+
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> feetToGroin = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> feetToMouth = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToGroin = new HashMap<>();
 	
@@ -253,6 +253,7 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToVagina = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToCrotchBoobs = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToFeet = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> breastsToMouth = new HashMap<>();
 
@@ -263,17 +264,21 @@ public class SexActionPresets {
 		
 		allAreas = Util.mergeLists(appendageAreas, groinAreas, assAreas, mouthAreas, breastAreas);
 		
-		tailToAllAreas = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, allAreas));
+		for(SexAreaInterface tailArea : tailAreas) {
+			tailToAllAreas = Util.newHashMapOfValues(new Value<>(tailArea, allAreas));
+			tailToUpperTorso = Util.newHashMapOfValues(new Value<>(tailArea, Util.mergeLists(mouthAreas, breastAreas)));
+			tailToLowerHalf = Util.newHashMapOfValues(new Value<>(tailArea, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
+		}
+		
 		tentacleToAllAreas = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, allAreas));
+		
+		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
+		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
 		
 		fingerToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, breastAreas)));
 		fingerToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
 		
-		tailToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, Util.mergeLists(mouthAreas, breastAreas)));
-		tailToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
-		
-		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
-		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
+		feetToGroin = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FOOT, groinAreas));
 		
 		handHolding = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, Util.newArrayListOfValues(SexAreaPenetration.FINGER))));
 		
@@ -341,6 +346,7 @@ public class SexActionPresets {
 			mouthToVagina.put(area, vaginaAreas);
 			mouthToPenis.put(area, penisAreas);
 			mouthToCrotchBoobs.put(area, crotchBoobAreas);
+			mouthToFeet.put(area, feetAreas);
 			
 			mouthToBreasts.put(area, breastAreas);
 			
@@ -359,6 +365,10 @@ public class SexActionPresets {
 		for(SexAreaInterface area : thighAreas) {
 			thighsToPenis.put(area, penisAreas);
 		}
+		for(SexAreaInterface area : feetAreas) {
+			feetToMouth.put(area, mouthAreas);
+		}
+		
 		for(SexAreaInterface area : penisAreas) {
 			penisToAss.put(area, assAreas);
 			penisToVagina.put(area, vaginaAreas);
@@ -424,12 +434,20 @@ public class SexActionPresets {
 		sexActions.add(TongueBreastsCrotch.class);
 		sexActions.add(TongueNipple.class);
 		sexActions.add(TongueNippleCrotch.class);
+		sexActions.add(FootMouth.class);
 		sexActions.add(PenisMouth.class);
+		sexActions.add(TongueArmpit.class);
 
 		// Tail actions:
 		sexActions.add(TailAnus.class);
 		sexActions.add(TailVagina.class);
+		sexActions.add(TailMouth.class);
 
+		// Tentacle actions:
+		sexActions.add(TentacleAnus.class);
+		sexActions.add(TentacleVagina.class);
+		sexActions.add(TentacleMouth.class);
+		
 		// Penis actions:
 		sexActions.add(PenisAss.class);
 		sexActions.add(PenisAnus.class);
@@ -443,53 +461,36 @@ public class SexActionPresets {
 		sexActions.add(PenisFeet.class);
 		sexActions.add(PenisUrethraVagina.class);
 		sexActions.add(PenisUrethraPenis.class);
+		sexActions.add(PenisSpinneret.class);
+		sexActions.add(PenisArmpit.class);
 		
-		// Vagina actions:
+		// Vagina/clit actions:
 		sexActions.add(ClitClit.class);
+		sexActions.add(ClitVagina.class);
+		sexActions.add(ClitAnus.class);
 		
-//		selfActions.add(PlayerMasturbation.class);
-//		selfActions.add(PartnerMasturbation.class);
+		// Self actions:
+		selfActions.add(SelfNoPen.class);
+		selfActions.add(SelfFingerAnus.class);
+		selfActions.add(SelfFingerBreasts.class);
+		selfActions.add(SelfFingerCrotchNipple.class);
+		selfActions.add(SelfFingerMouth.class);
+		selfActions.add(SelfFingerNipple.class);
+		selfActions.add(SelfFingerPenis.class);
+		selfActions.add(SelfFingerVagina.class);
+		selfActions.add(SelfPenisAnus.class);
+		selfActions.add(SelfPenisMouth.class);
+		selfActions.add(SelfPenisNipple.class);
+		selfActions.add(SelfPenisVagina.class);
+		selfActions.add(SelfTailAnus.class);
+		selfActions.add(SelfTailMouth.class);
+		selfActions.add(SelfTailNipple.class);
+		selfActions.add(SelfTailVagina.class);
+		selfActions.add(SelfTongueAnus.class);
+		selfActions.add(SelfTongueMouth.class);
+		selfActions.add(SelfTongueNipple.class);
+		selfActions.add(SelfTongueVagina.class);
 
-		selfActions.add(PartnerSelfNoPen.class);
-		selfActions.add(PartnerSelfFingerAnus.class);
-		selfActions.add(PartnerSelfFingerMouth.class);
-		selfActions.add(PartnerSelfFingerBreasts.class);
-		selfActions.add(PartnerSelfFingerNipple.class);
-		selfActions.add(PartnerSelfFingerVagina.class);
-		selfActions.add(PartnerSelfPenisAnus.class);
-		selfActions.add(PartnerSelfPenisMouth.class);
-		selfActions.add(PartnerSelfPenisNipple.class);
-		selfActions.add(PartnerSelfPenisVagina.class);
-		selfActions.add(PartnerSelfTailAnus.class);
-		selfActions.add(PartnerSelfTailMouth.class);
-		selfActions.add(PartnerSelfTailNipple.class);
-		selfActions.add(PartnerSelfTailVagina.class);
-		selfActions.add(PartnerSelfTongueAnus.class);
-		selfActions.add(PartnerSelfTongueMouth.class);
-		selfActions.add(PartnerSelfTongueNipple.class);
-		selfActions.add(PartnerSelfTongueVagina.class);
-
-		selfActions.add(PlayerSelfNoPen.class);
-		selfActions.add(PlayerSelfFingerAnus.class);
-		selfActions.add(PlayerSelfFingerMouth.class);
-		selfActions.add(PlayerSelfFingerBreasts.class);
-		selfActions.add(PlayerSelfFingerNipple.class);
-		selfActions.add(PlayerSelfFingerVagina.class);
-		selfActions.add(PlayerSelfPenisAnus.class);
-		selfActions.add(PlayerSelfPenisMouth.class);
-		selfActions.add(PlayerSelfPenisNipple.class);
-		selfActions.add(PlayerSelfPenisVagina.class);
-		selfActions.add(PlayerSelfTailAnus.class);
-		selfActions.add(PlayerSelfTailMouth.class);
-		selfActions.add(PlayerSelfTailNipple.class);
-		selfActions.add(PlayerSelfTailVagina.class);
-		selfActions.add(PlayerSelfTongueAnus.class);
-		selfActions.add(PlayerSelfTongueMouth.class);
-		selfActions.add(PlayerSelfTongueNipple.class);
-		selfActions.add(PlayerSelfTongueVagina.class);
-		
-		
 		allCommonActions = Util.mergeLists(miscActions, sexActions, selfActions);
-		
 	}
 }

@@ -1,22 +1,21 @@
 package com.lilithsthrone.game.dialogue.eventLog;
 
-import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.85
- * @version 0.1.85
+ * @version 0.4
  * @author Innoxia
  */
 public class EventLogEntryAttributeChange extends EventLogEntry {
-
 	
-	private Attribute attribute;
+	private AbstractAttribute attribute;
 	private float change;
 	
-	public EventLogEntryAttributeChange(Attribute attribute, float change, boolean isCore) {
+	public EventLogEntryAttributeChange(AbstractAttribute attribute, float change, boolean isCore) {
 		super(Main.game.getMinutesPassed(),
 				(isCore
 						?"<span style='color:"+attribute.getColour().toWebHexString()+";'>Core "+Util.capitaliseSentence(attribute.getName())+"</span>"
@@ -39,6 +38,6 @@ public class EventLogEntryAttributeChange extends EventLogEntry {
 	
 	@Override
 	public String getMainDialogueDescription() {
-		return attribute.getAttributeChangeText(Main.game.getPlayer(), change);
+		return Main.game.getPlayer().getAttributeChangeText(attribute, change);
 	}
 }

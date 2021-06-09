@@ -191,7 +191,7 @@ public class DaddyDialogue {
 						
 						((Daddy)Main.game.getNpc(Daddy.class)).sendToNewHome();
 						
-						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 					}
 				};
 				
@@ -206,7 +206,7 @@ public class DaddyDialogue {
 
 						((Daddy)Main.game.getNpc(Daddy.class)).sendToNewHome();
 						
-						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, true);
 					}
 				};
@@ -267,7 +267,7 @@ public class DaddyDialogue {
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, false);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
@@ -285,7 +285,7 @@ public class DaddyDialogue {
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
@@ -312,7 +312,7 @@ public class DaddyDialogue {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", "MEETING_REFUSE_AFTER_RETURN"));	
 							}
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 						}
@@ -330,7 +330,7 @@ public class DaddyDialogue {
 
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, false);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 
@@ -348,7 +348,7 @@ public class DaddyDialogue {
 
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							
@@ -365,7 +365,7 @@ public class DaddyDialogue {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", "REFUSE_AFTER_RETURN"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 						}
 					};
 				}
@@ -387,7 +387,7 @@ public class DaddyDialogue {
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							if(Main.game.getPlayer().isVisiblyPregnant()) {
 								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class), true);
@@ -411,7 +411,7 @@ public class DaddyDialogue {
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, true);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							if(Main.game.getPlayer().isVisiblyPregnant()) {
 								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class), true);
@@ -437,7 +437,7 @@ public class DaddyDialogue {
 							Main.game.getNpc(Daddy.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 							
 							if(Main.game.getPlayer().isVisiblyPregnant()) {
 								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class), true);
@@ -464,7 +464,7 @@ public class DaddyDialogue {
 							Main.game.getNpc(Daddy.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, true);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 
 							if(Main.game.getPlayer().isVisiblyPregnant()) {
 								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class), true);
@@ -493,7 +493,7 @@ public class DaddyDialogue {
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, false);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.talkedWithDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 						}
 					};
 					
@@ -515,7 +515,7 @@ public class DaddyDialogue {
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.talkedWithDaddy, false);
-							Main.game.getDialogueFlags().daddyResetTimer = Main.game.getSecondsPassed();
+							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
 						}
 					};
 					

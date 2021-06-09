@@ -37,18 +37,18 @@
 	
 	<generationAttributes>
 		<!-- You can define up to 20 conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a consecutively-numbered format of "clothingConditionalX". If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
-		<clothingConditional1 constant="false"><![CDATA[game.isDayTime()]]></clothingConditional1>
-		<clothingConditional2 constant="true"><![CDATA[RND.nextInt(100)<=33]]></clothingConditional2>
-		<clothingConditional3 constant="true"><![CDATA[!clothingConditional2 && RND.nextInt(100)<=50]]></clothingConditional3>
-		<clothingConditional4 constant="true"><![CDATA[!clothingConditional2 && !clothingConditional3]]></clothingConditional4>
+		<condDayTime constant="false"><![CDATA[game.isDayTime()]]></condDayTime>
+		<condChance33 constant="true"><![CDATA[RND.nextInt(100)<=33]]></condChance33>
+		<condChance33_2 constant="true"><![CDATA[!condChance33 && RND.nextInt(100)<=50]]></condChance33_2>
+		<condChance33_3 constant="true"><![CDATA[!condChance33 && !condChance33_2]]></condChance33_3>
 		
-		<clothingConditional5 constant="true"><![CDATA[npc.getFemininity() == FEMININITY_FEMININE]]></clothingConditional5>
+		<condFeminine constant="true"><![CDATA[npc.isFeminine()]]></condFeminine>
 		
-		<clothingConditional6 constant="true"><![CDATA[RND.nextInt(100)<=66]]></clothingConditional6>
-		<clothingConditional7 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional7>
+		<condChance66 constant="true"><![CDATA[RND.nextInt(100)<=66]]></condChance66>
+		<condChance50 constant="true"><![CDATA[RND.nextInt(100)<=50]]></condChance50>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
-		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
 		<presetColourGroup1> <!-- The optional "singleColour" attribute, when set to true, means that this group will always return the same, randomly chosen colour from this list. -->
 			<randomColour>CLOTHING_GOLD</randomColour>
 			<randomColour>CLOTHING_SILVER</randomColour>
@@ -71,14 +71,14 @@
 		<!-- Weapons can be added in a similar (although more limited) manner to clothing. This file doesn't use any weapons. Look at res/outfits/innoxia/mugger_masculine.xml for a weapon example. -->
 		<mainWeapons>
 			<weapon>
-				<conditional><![CDATA[clothingConditional7]]></conditional>
+				<conditional><![CDATA[condChance50]]></conditional>
 				<type>dsg_eep_pbweap_pbrifle</type>
 				<damageTypes/>
 				<primaryColours/>
 				<secondaryColours/>
 			</weapon>
 			<weapon>
-				<conditional><![CDATA[!clothingConditional7]]></conditional>
+				<conditional><![CDATA[!condChance50]]></conditional>
 				<type>dsg_eep_trqrifle_trqrifle</type>
 				<damageTypes/>
 				<primaryColours/>
@@ -100,62 +100,66 @@
 			
 			<!-- NVGs on when it's dark, otherwise select from either ballistic glasses, ballistic goggles, or a gas mask -->
 			<uniqueClothing>
-				<conditional><![CDATA[!(clothingConditional1)]]></conditional>
+				<conditional><![CDATA[!(condDayTime)]]></conditional>
 				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_STEEL" colourTertiary="CLOTHING_RED_DARK" enchantmentKnown="true" id="dsg_eep_tacequipset_nvgoggles" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[!(clothingConditional1) && clothingConditional2]]></conditional>
+				<conditional><![CDATA[!(condDayTime) && condChance33]]></conditional>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_GREEN_DARK" colourTertiary="CLOTHING_SILVER" enchantmentKnown="true" id="dsg_eep_tacequipset_gmask" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[!(clothingConditional1) && clothingConditional3]]></conditional>
+				<conditional><![CDATA[!(condDayTime) && condChance33_2]]></conditional>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_SILVER" colourTertiary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_tacequipset_bglasses" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[!(clothingConditional1) && clothingConditional4]]></conditional>
+				<conditional><![CDATA[!(condDayTime) && condChance33_3]]></conditional>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_SILVER" colourTertiary="CLOTHING_GREY" enchantmentKnown="true" id="dsg_eep_tacequipset_bgoggles" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<!-- Plate carrier always-->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_pltcarrier" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_pltcarrier" isDirty="false">
+					<stickers>
+						<sticker category="branchtape">enforcer</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<!-- Combat shirt always-->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_enf_cbtshirt" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_enf_cbtshirt" isDirty="false" pattern="urban_splinter_camo"></clothing>
 			</uniqueClothing>
 			
 			<!-- Battle belt always -->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_battlebelt" isDirty="false">
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_battlebelt" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<!-- Tactical pants always -->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_tpants" isDirty="false">
+				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_tacequipset_tpants" isDirty="false" pattern="urban_splinter_camo">
 				</clothing>
 			</uniqueClothing>
 			
 			<!-- 66% chance of elbow pads -->
 			<uniqueClothing>
-				<conditional><![CDATA[clothingConditional6]]></conditional>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_tkneepads" isDirty="false">
+				<conditional><![CDATA[condChance66]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_tacequipset_tkneepads" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<!-- 66% chance of knee pads -->
 			<uniqueClothing>
-				<conditional><![CDATA[clothingConditional6]]></conditional>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_telbowpads" isDirty="false">
+				<conditional><![CDATA[condChance66]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_telbowpads" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
@@ -187,7 +191,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[clothingConditional5]]></conditional>
+			<conditional><![CDATA[condFeminine]]></conditional>
 			<types>
 				<type>GROIN_BOYSHORTS</type>
 			</types>
@@ -197,7 +201,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[!clothingConditional5]]></conditional>
+			<conditional><![CDATA[!condFeminine]]></conditional>
 			<types>
 				<type>GROIN_BRIEFS</type>
 				<type>GROIN_BOXERS</type>

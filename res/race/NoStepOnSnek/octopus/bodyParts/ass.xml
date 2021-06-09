@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ass>
+	<race>NoStepOnSnek_octopus</race>
+	<transformationName><![CDATA[octopus]]></transformationName>
+	<coveringType>OCTOPUS_SKIN</coveringType>
+	<anusType>NoStepOnSnek_octopus_anus</anusType>
+	<names/>
+	<namesPlural/>
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] a [style.boldOctopus(octopus-like)], [npc.assholeFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] a octopus-like, [npc.anusFullDescription(true)]
+	]]></bodyDescription>
+</ass>

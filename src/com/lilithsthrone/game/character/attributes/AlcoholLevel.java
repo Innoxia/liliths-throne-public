@@ -14,11 +14,11 @@ public enum AlcoholLevel {
 	
 	ONE_TIPSY("tipsy", 0, 0.01f, 0.2f, PresetColour.ALCOHOL_LEVEL_ONE),
 	
-	TWO_MERRY("merry", 25, 0.2f, 0.4f, PresetColour.ALCOHOL_LEVEL_TWO),
+	TWO_MERRY("merry", 0, 0.2f, 0.4f, PresetColour.ALCOHOL_LEVEL_TWO),
 	
-	THREE_DRUNK("drunk", 20, 0.4f, 0.6f, PresetColour.ALCOHOL_LEVEL_THREE),
+	THREE_DRUNK("drunk", 30, 0.4f, 0.6f, PresetColour.ALCOHOL_LEVEL_THREE),
 	
-	FOUR_HAMMERED("hammered", 15, 0.6f, 0.8f, PresetColour.ALCOHOL_LEVEL_FOUR),
+	FOUR_HAMMERED("hammered", 20, 0.6f, 0.8f, PresetColour.ALCOHOL_LEVEL_FOUR),
 	
 	FIVE_WASTED("wasted", 10, 0.8f, 1, PresetColour.ALCOHOL_LEVEL_FIVE);
 	

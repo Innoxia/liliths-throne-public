@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+	
+		<authorTag><![CDATA[A leather tag sewn into crown's lining reads "Official Enforcer Issue, MFD by DSG Threadworks."]]></authorTag>
+
+		<value>800</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[test beret]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[berets]]></namePlural> 
+
+		<description><![CDATA[A flat-crowned hat made from woolen felt attached to a rigid leather band that is sometimes worn by Enforcers.]]></description> 
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>ANDROGYNOUS</femininity> 
+
+		<slot>HEAD</slot> 
+
+		<rarity>EPIC</rarity> 
+
+		<clothingSet/>
+
+		<imageName>enfberet.svg</imageName> 
+
+		<imageEquippedName/>
+		
+		<stickers>
+			
+			<category id="flash" priority="1"> 
+				<categoryName><![CDATA[Beret Flash]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="flash_patrol_dominion" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> 
+					<stickerName><![CDATA[Dominion Patrol]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Dominion Patrol Enforcer ]]></namePrefix> 
+					<namePostfix/> 
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[
+					<i> This one has the badge of the Dominion Frontline Patrol attached to it.</i><br/>
+					<span style="color:#3971C6;font-style:italic">Vigilant Justice.</span>
+					]]></descriptionModification> 
+					<imageName>enfberet_st_flash_patrol_dominion.svg</imageName> 
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded> 
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved> 
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText> 
+					<availabilityText>
+						As a Patrol Enforcer, you can freely use this beret flash.
+					</availabilityText> 
+				</sticker>
+				<sticker id="flash_sword" priority="2" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_GREY"> 
+					<stickerName><![CDATA[SWORD]]></stickerName>
+					<namePrefix priority="1"><![CDATA[SWORD Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[
+					<i> This one is adorned with the beret flash of the Enforcers' elite armed task force, SWORD.</i><br/>
+					<span style="color:#777777;font-style:italic">The Realm is our Reach.</span>
+					]]></descriptionModification>
+					<imageName>enfberet_st_flash_sword.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As a SWORD Enforcer, you can freely use this beret flash.
+					</availabilityText>
+				</sticker>
+				<sticker id="flash_oricl" priority="3" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_PURPLE_DARK">
+					<stickerName><![CDATA[ORICL]]></stickerName>
+					<namePrefix priority="1"><![CDATA[ORICL Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[
+					<i> This one is adorned with the beret flash of the Enforcers' elite all-demon secret police, ORICL.</i><br/>
+					<span style="color:#674A95;font-style:italic">Peace through Prescience.</span>
+					]]></descriptionModification>
+					<imageName>enfberet_st_flash_oricl.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an ORICL Enforcer, you can freely use this beret flash.
+					</availabilityText>
+				</sticker>
+				<sticker id="flash_academy" priority="4" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_WHITE">
+					<stickerName><![CDATA[Enforcer Academy]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Academy Instructor ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[
+					<i> This one has the Enforcer Academy's beret flash attached to it.</i><br/>
+					<span style="color:#aaaaaa;font-style:italic">Mind and Matter.</span>
+					]]></descriptionModification>
+					<imageName>enfberet_st_flash_academy.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an instructor at the Enforcer Academy, you can freely use this beret_flash.
+					</availabilityText>
+				</sticker>
+			</category>
+		</stickers>
+
+		<enchantmentLimit/>
+
+		<effects/> 
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired> 
+
+				<blockedBodyParts>
+					<bodyPart>HAIR</bodyPart>
+				</blockedBodyParts>
+
+				<clothingAccessBlocked/> 
+
+				<concealedSlots/> 
+			</blockedParts>
+			
+		</blockedPartsList>
+
+		<incompatibleSlots/> 
+
+		<primaryColours>
+			<colour>CLOTHING_BLUE</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_BLACK"/>
+		<secondaryColoursDye values="ALL"/>
+
+		<itemTags> 
+			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>CHEAT_ITEM</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] the beret on, ensuring that the right side adheres to [npc.her] head before rotating it until the flash is over [npc.her] left [npc.eye].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] the beret on [npc2.namePos] head, ensuring that the right side adheres to [npc2.her] head before rotating it until the flash is over [npc2.her] left [npc2.eye].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the beret down on [npc2.namePos] head and don't bother adjusting it, leaving [npc2.her] looking terribly unprofessional.]]>
+		</otherRough>
+  </replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc.her] beret off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] beret off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(slap)] [npc2.namePos] beret off [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

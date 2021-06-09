@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>400</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[blouse]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[blouses]]></namePlural> 
+		<description><![CDATA[A delicate, feminine blouse, made of very fine fabric.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>blouse.svg</imageName>
+		<imageEquippedName/>
+		
+		<stickers>
+			<category id="nametag" priority="1">
+				<categoryName><![CDATA[Nametags]]></categoryName>
+				<sticker id="none" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						This cannot be set to none!
+					]]></unavailabilityText>
+					<availabilityText/>
+				</sticker>
+				<sticker id="nyan" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="BASE_PINK">
+					<stickerName><![CDATA[Nyan]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Nyan's]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="true" priority="1"><![CDATA[A delicate, feminine blouse, made of very fine fabric. This particular blouse has a nametag attached to it, declaring its wearer to be 'Nyan, Store Manager'.]]></descriptionModification>
+					<imageName zLayer="1" slot="TORSO_UNDER">blouse_nametag_nyan.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						Only Nyan can attach this nametag!
+					]]></unavailabilityText>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_RED_BURGUNDY</colour>
+			<colour>CLOTHING_BLUE_GREY</colour>
+			<colour>CLOTHING_PURPLE_VERY_DARK</colour>
+			
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+</clothing>

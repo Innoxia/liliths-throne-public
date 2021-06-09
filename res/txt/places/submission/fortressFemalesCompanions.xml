@@ -142,7 +142,7 @@
 		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
@@ -159,7 +159,7 @@
 		#THEN
 			[npc.speech(Yes! Of course!)] [npc.name] happily replies.
 		#ELSE
-			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -183,7 +183,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
@@ -209,7 +209,7 @@
 		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
@@ -226,7 +226,7 @@
 		#THEN
 			[npc.speech(Yes! Of course!)] [npc.name] happily replies.
 		#ELSE
-			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -250,7 +250,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
@@ -458,7 +458,7 @@
 		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
@@ -475,7 +475,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -502,7 +502,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
@@ -696,7 +696,7 @@
 		Being in such a compromising position, you're left with no other option but to do as you're told, and you submissively reply, [pc.speech(Please, I want to be your toy! Use me as your plaything!)]
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imp standing to one side, she sighs, [npc2.speech(Ok, you can get on [pc.her] face now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their plaything...
@@ -750,7 +750,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
@@ -831,7 +831,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down between your companion's [npc.legs]. Looking over at the imps standing to [npc.namePos] sides, she sighs, [npc2.speech(Ok, you can get on [npc.her] face now.)]
+		[npc2.speechNoEffects(Like, what a good toy!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEin front of your companion's groin#ENDIF. Looking over at the imps standing to [npc.namePos] sides, she sighs, [npc2.speech(Ok, you can get on [npc.her] face now.)]
 	</p>
 	<p>
 		Before [npc.name] can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your companion's face. With [npc2.name] and her imps firmly in control of the situation, you watch as [npc.name] is made into their plaything...
@@ -879,7 +879,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
@@ -909,7 +909,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+		[npc2.speechNoEffects(Like, what good toys!)] [npc2.name] happily cries out, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...
@@ -939,7 +939,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc.speechNoEffects(Like, what a bad toy!)] [npc.name] says, before stepping over and kneeling down between your [pc.legs]. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
+		[npc.speechNoEffects(Like, what a bad toy!)] [npc.name] says, before stepping over and kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF. Looking over at the imps standing to your sides, she sighs, [npc2.speech(Ok, you can get on their faces now.)]
 	</p>
 	<p>
 		Before you can say anything, [npc3.name] steps forwards and plants [npc3.her] [npc3.ass+] on your face, while [npc5.name] does the same to your companion. With [npc2.name] and her imps firmly in control of the situation, you prepare to be made into their playthings...

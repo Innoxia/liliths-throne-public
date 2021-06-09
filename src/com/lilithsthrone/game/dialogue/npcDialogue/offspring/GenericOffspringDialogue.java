@@ -18,13 +18,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -472,7 +473,7 @@ public class GenericOffspringDialogue {
 						return new Response("Give Present", UtilText.parse(offspring(), "Give [npc.name] the present that you're carrying."), OFFSPRING_PRESENT) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.PRESENT));
 								
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 15));
 								
@@ -1083,7 +1084,7 @@ public class GenericOffspringDialogue {
 					};
 				} else {
 					return new Response("Submit",
-							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
+							"You can't submit to [npc.herHim], as [npc.sheHasFull] no interest in having sex with you!",
 							null);
 				}
 				
@@ -1098,8 +1099,13 @@ public class GenericOffspringDialogue {
 			} else if (index == 10) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(offspring(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						AFTER_COMBAT_VICTORY){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);
@@ -1287,8 +1293,13 @@ public class GenericOffspringDialogue {
 			} else if (index == 10 && Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(offspring(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						AFTER_COMBAT_VICTORY){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);

@@ -96,7 +96,7 @@
 				<type>innoxia_torso_tshirt</type>
 			</types>
 			<primaryColours>
-				<colour>presetColourGroup1</colour>
+				<colour>presetColourGroup2</colour>
 			</primaryColours>
 			<secondaryColours/>
 			<tertiaryColours/>
@@ -107,14 +107,25 @@
 				<type>TORSO_SHORT_SLEEVE_SHIRT</type>
 			</types>
 			<primaryColours>
-				<colour>presetColourGroup1</colour>
+				<colour>presetColourGroup2</colour>
 			</primaryColours>
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
 		
 		<clothingType>
-			<conditional/>
+			<conditional><![CDATA[!clothingConditional2]]></conditional>
+			<types>
+				<type>innoxia_leg_cargo_trousers</type>
+				<type>innoxia_leg_jeans</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[clothingConditional2]]></conditional>
 			<types>
 				<type>LEG_ASSLESS_CHAPS</type>
 				<type>LEG_CROTCHLESS_CHAPS</type>
@@ -163,7 +174,7 @@
 		</clothingType>
 		
 		<clothingType> <!-- Anal toys. -->
-			<conditional><![CDATA[npc.getFetishDesire(FETISH_ANAL_RECEIVING).isPositive()]]></conditional>
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.getFetishDesire(FETISH_ANAL_RECEIVING).isPositive()]]></conditional>
 			<types>
 				<type>norin_anal_beads_anal_beads</type>
 				<type>innoxia_buttPlugs_butt_plug</type>
@@ -176,7 +187,7 @@
 		</clothingType>
 		
 		<clothingType> <!-- Chastity. -->
-			<conditional><![CDATA[npc.hasPenisIgnoreDildo() && npc.getFetishDesire(FETISH_DENIAL_SELF).isPositive()]]></conditional>
+			<conditional><![CDATA[npc.isNormalGenitals() && npc.hasPenisIgnoreDildo() && npc.hasFetish(FETISH_DENIAL_SELF)]]></conditional>
 			<types>
 				<type>innoxia_bdsm_chastity_cage</type>
 				<type>innoxia_bdsm_ornate_chastity_cage</type>

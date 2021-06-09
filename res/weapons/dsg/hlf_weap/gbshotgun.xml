@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA[Underneath the receiver, a small engraving reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+		<value>5000</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[a]]></determiner>
+		<name appendDamageName="true"><![CDATA[teargas shotgun]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[teargas shotgun]]></namePlural>
+		<description><![CDATA[A huge 4-gauge shotgun loaded with teargas grenades. Although it bears Enforcer markings, they have been scratched out and replaced with insignia you don't recognize.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your shotgun.]]></attackTooltipDescription>
+		<rarity>RARE</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the shotgun, [npc.verb(load)] it, [npc.verb(move)] the fore end forward with an intimidating clack before disengaging the safety.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(move)] the foreend back and [npc.verb(check)] to see that the chamber is empty before putting the shotgun away.]]></unequipText>
+		<imageName>gbshotgun_uneq.svg</imageName>
+		<imageEquippedName>gbshotgun.svg</imageEquippedName>
+		<physicalResistance>0</physicalResistance>
+		<damage>50</damage>
+		<aoe chance="80">45</aoe> 
+		<aoe chance="80">45</aoe>
+		<aoe chance="50">30</aoe> 
+		<aoe chance="50">30</aoe>
+		<arcaneCost>4</arcaneCost>
+		<damageVariance>MEDIUM</damageVariance>
+		<availableDamageTypes>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[
+				[style.boldPoison(Poison Vapours)] for 2 turns on hit.
+			]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (!npc2.hasStatusEffect(SE_POISON_VAPOURS))
+				[##npc2.addStatusEffect(SE_POISON_VAPOURS, 2)]
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect><![CDATA[
+			#IF (!npc2.hasStatusEffect(SE_POISON_VAPOURS_CHOKING_HAZE))
+				[##npc2.addStatusEffect(SE_POISON_VAPOURS_CHOKING_HAZE , 4)] There is now a [style.boldPoison(very thick haze of teargas)] around [npc2.name].
+			#ENDIF
+		]]></onCriticalHitEffect>
+		
+		<primaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours values="JUST_BLACK"/>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The grenade flies in a gracefull arc and lands by [npc2.namePos] [npc2.feet], [style.boldPoison(releasing a choking cloud of tear gas.)]
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The grenade misses [npc2.herHim] completely and lands in the distance.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

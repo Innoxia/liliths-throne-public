@@ -6,6 +6,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -15,6 +16,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -27,7 +29,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class BreastCrotch implements BodyPartInterface {
 	
-	public static final int MAXIMUM_BREAST_ROWS = 5;
+	public static final int MAXIMUM_BREAST_ROWS = 6;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
 	
 	protected AbstractBreastType type;
@@ -42,8 +44,8 @@ public class BreastCrotch implements BodyPartInterface {
 	protected Nipples nipples;
 	protected FluidMilk milk;
 	
-	public BreastCrotch(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows, int nippleSize,
-			NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
+	public BreastCrotch(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows,
+			int nippleSize, NippleShape nippleShape, int areolaeSize, AreolaeShape areolaeShape, int nippleCountPerBreast, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.shape = shape;
 		this.size = size;
@@ -53,7 +55,7 @@ public class BreastCrotch implements BodyPartInterface {
 		this.rows = rows;
 		this.nippleCountPerBreast = nippleCountPerBreast;
 		
-		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, true);
+		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, areolaeShape, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, true);
 		
 		milk = new FluidMilk(type.getFluidType(), true);
 	}
@@ -84,6 +86,12 @@ public class BreastCrotch implements BodyPartInterface {
 		}
 		
 		this.shape = shape;
+		if(shape!=BreastShape.UDDERS && this.getRows()==0) {
+			this.rows = 1;
+		}
+		if(shape==BreastShape.UDDERS && this.getRows()==0 && this.getNippleCountPerBreast()==1) {
+			this.nippleCountPerBreast = 2;
+		}
 		
 		if(!owner.hasBreastsCrotch()) {
 			return UtilText.parse(owner,
@@ -114,6 +122,9 @@ public class BreastCrotch implements BodyPartInterface {
 
 	@Override
 	public String getName(GameCharacter gc) {
+		if(getShape()==BreastShape.UDDERS && this.getRows()==0) {
+			return getNameSingular(gc);
+		}
 		return getNamePlural(gc);
 	}
 	
@@ -171,7 +182,15 @@ public class BreastCrotch implements BodyPartInterface {
 			return "";
 		}
 		
-		if(owner.getLegConfiguration().isBipedalPositionedCrotchBoobs() && Main.getProperties().udders==1 && type!=BreastType.NONE) {
+		if(type==BreastType.NONE && owner.getIncubationLitter(SexAreaOrifice.NIPPLE_CROTCH)!=null) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>Due to the fact that [npc.nameIsFull] incubating eggs in [npc.her] [npc.crotchBoobs],"
+					+ " [style.colourMinorBad("+(getShape()==BreastShape.UDDERS && this.getRows()==0?"it":"they")+" cannot be removed)]!</p>");
+		}
+
+		if(owner.getLegConfiguration().isBipedalPositionedCrotchBoobs()
+				&& Main.getProperties().getUddersLevel()==1
+				&& type!=BreastType.NONE
+				&& !owner.isFeral()) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>As [npc.nameIsFull] not a taur, [style.colourBad([npc.she] cannot grow crotch-boobs)], and so nothing happens..."
 					+ "<br/>[style.colourDisabled(This is due to your 'crotch-boob' content option being set to 'taur only'.)]</p>");
 		}
@@ -180,17 +199,17 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.crotchBoobs] of [npc.a_breastRace], so nothing happens...)]</p>");
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if(type.equals(BreastType.NONE)) { // Removal:
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ "The area above [npc.namePos] crotch suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a transformation start to take place."
 						+" [npc.Her] [npc.crotchBoobs] tingle and soften, and, with [npc.her] nipples and areolae leading the way, they quickly shrink down and disappear back into the [npc.skin] covering [npc.her] lower stomach."
 						+ "<br/>");
 			
 		} else if(this.getType().equals(BreastType.NONE)) { // New addition:
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ "The area above [npc.namePos] crotch suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a transformation start to take place."
 						+ " [npc.CrotchBoobsRows] hard little nubs start to grow out of the [npc.skin] covering [npc.her] lower stomach,"
@@ -199,7 +218,7 @@ public class BreastCrotch implements BodyPartInterface {
 			
 			
 		} else {
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ "The area above [npc.namePos] crotch suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a transformation start to take place."
 						+" The nipples and areolae on [npc.her] [npc.crotchBoobs] tingle and harden, causing [npc.herHim] to pant and let out a lewd [npc.moan] as the intense transformation runs its course."
@@ -210,18 +229,18 @@ public class BreastCrotch implements BodyPartInterface {
 		
 		
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		nipples.setType(owner, type.getNippleType());
 		milk.setType(type.getFluidType());
 		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
 		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
 
-		UtilText.transformationContentSB.append(type.getTransformationCrotchDescription(owner)+"</p>");
+		sb.append(type.getTransformationCrotchDescription(owner)+"</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 				+ owner.postTransformationCalculation(false)
 				+ "</p>";
@@ -252,7 +271,13 @@ public class BreastCrotch implements BodyPartInterface {
 			this.size = size;
 			return "";
 		}
-		
+
+		if(!isAbleToIncubateEggs() && owner.getIncubationLitter(SexAreaOrifice.NIPPLE_CROTCH)!=null) {
+			this.size = CupSize.getMinimumCupSizeForEggIncubation().getMeasurement();
+			return UtilText.parse(owner, "<p style='text-align:center;'>Due to the fact that [npc.namePos] [npc.crotchBoobs] are incubating eggs,"
+					+ " [style.colourMinorBad("+(getShape()==BreastShape.UDDERS && this.getRows()==0?"its":"their")+" size cannot be reduced past "+CupSize.getMinimumCupSizeForEggIncubation().getCupSizeName()+"-cups)]!</p>");
+		}
+
 		if (sizeChange == 0) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.crotchBoobs] doesn't change...)]</p>");
 		}
@@ -391,7 +416,7 @@ public class BreastCrotch implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.crotchBoobs], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.crotchMilk] suddenly leak"
 							+ " from [npc.her] [npc.crotchNipples]; clear evidence that that [npc.her] [npc.crotchMilk] regeneration has [style.boldGrow(increased)].<br/>"
-						+ "[npc.NamePos] rate of [npc.crotchMilk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+						+ "[npc.NamePos] rate of [npc.crotchMilk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(milkRegeneration)+"/day)!"
 					+ "</p>");
 			
 		} else {
@@ -399,7 +424,7 @@ public class BreastCrotch implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange sucking sensation deep within [npc.her] [npc.crotchBoobs],"
 							+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.sheIs] feeling [npc.her] [npc.crotchMilk] regeneration [style.boldShrink(decreasing)].<br/>"
-						+ "[npc.NamePos] rate of [npc.crotchMilk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+						+ "[npc.NamePos] rate of [npc.crotchMilk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(milkRegeneration)+"/day)!"
 					+ "</p>");
 		}
 	}
@@ -413,7 +438,15 @@ public class BreastCrotch implements BodyPartInterface {
 	}
 
 	public String setRows(GameCharacter owner, int rows) {
-		rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
+		if(this.getShape()==BreastShape.UDDERS) { // Udders can be configured into one single udder (as '0' rows):
+			rows = Math.max(0, Math.min(rows, MAXIMUM_BREAST_ROWS));
+		} else {
+			rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
+		}
+		
+		if(rows==0 && this.nippleCountPerBreast==1) {
+			this.nippleCountPerBreast = 2;
+		}
 		
 		if(owner==null) {
 			this.rows = rows;
@@ -464,8 +497,13 @@ public class BreastCrotch implements BodyPartInterface {
 		}
 
 		if(this.getShape()==BreastShape.UDDERS) {
-			sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+(rows > 1 ? "s" : "")+" of [npc.crotchNipples])] on [npc.her] udders!" 
-				+ "</p>");
+			if(rows==0) {
+				sb.append("[npc.Name] now [npc.has] [style.boldSex(a single udder)]!" 
+						+ "</p>");
+			} else {
+				sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+(rows > 1 ? "s" : "")+" of udders)]!" 
+						+ "</p>");
+			}
 		} else {
 			sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of [npc.crotchBoobs])]!" 
 					+ "</p>");
@@ -477,7 +515,13 @@ public class BreastCrotch implements BodyPartInterface {
 	}
 
 	public boolean isFuckable() {
-		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && size >= CupSize.C.getMeasurement();
+		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE
+				&& size >= CupSize.getMinimumCupSizeForPenetration().getMeasurement()
+				&& Main.game.isNipplePenEnabled();
+	}
+
+	public boolean isAbleToIncubateEggs() {
+		return this.size>=CupSize.getMinimumCupSizeForEggIncubation().getMeasurement();
 	}
 
 
@@ -489,8 +533,12 @@ public class BreastCrotch implements BodyPartInterface {
 	 * Minimum 1, maximum MAXIMUM_NIPPLES_PER_BREAST
 	 */
 	public String setNippleCountPerBreast(GameCharacter owner, int nippleCountPerBreast) {
-		nippleCountPerBreast = Math.max(1, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
-
+		if(this.getShape()==BreastShape.UDDERS && this.getRows()==0) {
+			nippleCountPerBreast = Math.max(2, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
+		} else {
+			nippleCountPerBreast = Math.max(1, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
+		}
+		
 		if(owner==null) {
 			this.nippleCountPerBreast = nippleCountPerBreast;
 			return "";
@@ -529,11 +577,11 @@ public class BreastCrotch implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(BreastCrotch.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(BreastCrotch.class) && getType().getRace().isFeralPartsAvailable());
 	}
 
 }

@@ -29,6 +29,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -839,7 +840,7 @@ public class AlleywayDemonDialogue {
 			} else if (index == 5) {
 				if(!getDemon().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Submit",
-							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
+							"You can't submit to [npc.herHim], as [npc.sheHasFull] no interest in having sex with you!",
 							null);
 				} else {
 					return new ResponseSex("Submit",
@@ -900,8 +901,13 @@ public class AlleywayDemonDialogue {
 			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(getDemon(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_BANISH_NPC", getDemon()));
@@ -1803,8 +1809,13 @@ public class AlleywayDemonDialogue {
 			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(getDemon(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						AFTER_COMBAT_VICTORY){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);

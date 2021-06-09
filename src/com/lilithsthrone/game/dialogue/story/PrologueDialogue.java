@@ -11,23 +11,21 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -131,7 +129,7 @@ public class PrologueDialogue {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {
-								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
+								Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
 							}
 						}
 					};
@@ -152,9 +150,9 @@ public class PrologueDialogue {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {
-								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
+								Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
 							}
-							Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
+							Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
 						}
 					};
 				}
@@ -448,9 +446,11 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
-							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
+							if(!r.isNonBiped()) {
+								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
+								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
+							}
 						}
 						Main.saveProperties();
 					}
@@ -464,9 +464,11 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
-							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
+							if(!r.isNonBiped()) {
+								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
+								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
+							}
 						}
 						Main.saveProperties();
 					}
@@ -716,7 +718,23 @@ public class PrologueDialogue {
 							}
 						}
 						
-						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+						DamageType damageType = DamageType.FIRE;
+						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+							case AIR:
+								damageType = DamageType.POISON;
+								break;
+							case EARTH:
+								damageType = DamageType.PHYSICAL;
+								break;
+							case ARCANE:
+							case FIRE:
+								damageType = DamageType.FIRE;
+								break;
+							case WATER:
+								damageType = DamageType.ICE;
+								break;
+						}
+						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
 						
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
@@ -738,6 +756,29 @@ public class PrologueDialogue {
 
 		@Override
 		public String getContent() {
+			String demonstoneImages = "images of flames";
+			String demonstoneEnergy = "flame";
+			switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+				case AIR:
+					demonstoneImages = "images of gaseous green vapours";
+					demonstoneEnergy = "poison";
+					break;
+				case EARTH:
+					demonstoneImages = "lines of energy";
+					demonstoneEnergy = "energy";
+					break;
+				case ARCANE:
+				case FIRE:
+					demonstoneImages = "images of flames";
+					demonstoneEnergy = "flame";
+					break;
+				case WATER:
+					demonstoneImages = "images of snowflakes and icicles";
+					demonstoneEnergy = "ice";
+					break;
+			}
+			UtilText.addSpecialParsingString(demonstoneImages, true);
+			UtilText.addSpecialParsingString(demonstoneEnergy, false);
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_6");
 		}
 		
@@ -769,6 +810,23 @@ public class PrologueDialogue {
 
 		@Override
 		public String getContent() {
+			String spellName = Spell.FIREBALL.getName();
+			switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+				case AIR:
+					spellName = Spell.POISON_VAPOURS.getName();
+					break;
+				case EARTH:
+					spellName = Spell.SLAM.getName();
+					break;
+				case ARCANE:
+				case FIRE:
+					spellName = Spell.FIREBALL.getName();
+					break;
+				case WATER:
+					spellName = Spell.ICE_SHARD.getName();
+					break;
+			}
+			UtilText.addSpecialParsingString(spellName, true);
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_7");
 		}
 		
@@ -809,9 +867,28 @@ public class PrologueDialogue {
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(5000);
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
-						AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
-						Main.game.getPlayerCell().getInventory().addItem(spellBook);
+						
+						Spell startingSpell = Spell.FIREBALL;
+						switch(CharacterCreation.getStartingTomeSpellSchool()) {
+							case AIR:
+								startingSpell = Spell.POISON_VAPOURS;
+								break;
+							case EARTH:
+								startingSpell = Spell.SLAM;
+								break;
+							case FIRE:
+							case ARCANE:
+								startingSpell = Spell.FIREBALL;
+								break;
+							case WATER:
+								startingSpell = Spell.ICE_SHARD;
+								break;
+						}
+						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(startingSpell));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>[style.boldExcellent("+spellBook.getName()+")] added to your room's storage!</p>");
+						
 					}
 				};
 				

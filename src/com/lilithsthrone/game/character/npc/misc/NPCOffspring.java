@@ -9,7 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -19,6 +18,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -28,7 +28,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDia
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -49,25 +49,25 @@ public class NPCOffspring extends NPC {
 	public NPCOffspring(boolean isImported) {
 		super(isImported, null, null, "",
 				18, Month.JUNE, 15,
-				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
 
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		this(mother, father, father.getSubspecies(), father.getHalfDemonSubspecies());
+		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
 	}
 	
-	public NPCOffspring(GameCharacter mother, GameCharacter father, Subspecies fatherSubspecies, Subspecies fatherHalfDemonSubspecies) {
+	public NPCOffspring(GameCharacter mother, GameCharacter father, AbstractSubspecies fatherSubspecies, AbstractSubspecies fatherHalfDemonSubspecies) {
 		super(false, null, null, "",
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
-		if(mother.getSubspecies()==Subspecies.LILIN || mother.getSubspecies()==Subspecies.ELDER_LILIN) {
+		if(mother.getTrueSubspecies()==Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
 			this.setSurname(mother.getName(false)+"martuilani");
 			
-		} else if(father!=null && (father.getSubspecies()==Subspecies.LILIN || father.getSubspecies()==Subspecies.ELDER_LILIN)) {
+		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
 			this.setSurname(father.getName(false)+"martuilani");
 				
 		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
@@ -82,9 +82,9 @@ public class NPCOffspring extends NPC {
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);
 		Body preGeneratedBody = null;
 		if(father!=null) {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother, father);
+			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother, father);
 		} else {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
+			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
 		}
 		if(preGeneratedBody!=null) {
 			setBody(preGeneratedBody, true);
@@ -106,15 +106,15 @@ public class NPCOffspring extends NPC {
 		
 		// PERSONALITY & BACKGROUND:
 		
-		CharacterUtils.setHistoryAndPersonality(this, true);
+		Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 		
 		// ADDING FETISHES:
 		
-		CharacterUtils.addFetishes(this);
+		Main.game.getCharacterUtils().addFetishes(this);
 
 		// BODY RANDOMISATION:
 		
-		CharacterUtils.randomiseBody(this, true);
+		Main.game.getCharacterUtils().randomiseBody(this, true);
 		
 		// INVENTORY:
 		
@@ -123,7 +123,7 @@ public class NPCOffspring extends NPC {
 		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		CharacterUtils.applyMakeup(this, true);
+		Main.game.getCharacterUtils().applyMakeup(this, true);
 
 		initHealthAndManaToMax();
 
@@ -154,12 +154,12 @@ public class NPCOffspring extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
 		} else {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 		}
 	}
 	
@@ -199,7 +199,7 @@ public class NPCOffspring extends NPC {
 		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+
-						(this.getMother().isPlayer()
+						(this.getMother()!=null && this.getMother().isPlayer()
 								? getMatingDescription(getMother(), getFather(), "mothered")
 								: getMatingDescription(getFather(), getMother(), "fathered")
 						)+"."
@@ -208,7 +208,7 @@ public class NPCOffspring extends NPC {
 						+(daysToBirth==0
 							?"later that same day"
 							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")
-						+(this.getMother().isPlayer()
+						+(this.getMother()!=null && this.getMother().isPlayer()
 							?" you gave birth to [npc.herHim]."
 							:" [npc.she] was born.")
 						+ " You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight."));

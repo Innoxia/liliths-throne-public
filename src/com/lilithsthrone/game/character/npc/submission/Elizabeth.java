@@ -9,8 +9,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -52,10 +52,7 @@ import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -66,7 +63,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.12
- * @version 0.2.12
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Elizabeth extends NPC {
@@ -84,7 +81,7 @@ public class Elizabeth extends NPC {
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
-			this.setEssenceCount(TFEssence.ARCANE, 100);
+			this.setEssenceCount(100);
 		}
 	}
 
@@ -107,7 +104,7 @@ public class Elizabeth extends NPC {
 					PersonalityTrait.BRAVE);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setTailGirth(PenetrationGirth.THREE_THICK);
+			this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		}
 	}
 
@@ -149,7 +146,7 @@ public class Elizabeth extends NPC {
 		// Body:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.THREE_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setHornType(HornType.STRAIGHT);
 		this.setHornLength(HornLength.ZERO_TINY.getMedianValue());
@@ -228,22 +225,22 @@ public class Elizabeth extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_GREEN_DRAB, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_GREEN_DRAB, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_GREEN_DRAB, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_GREEN_DRAB, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_lyssiethUniform_hat", false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_lyssiethUniform_shoes", false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_lyssiethUniform_skirt", false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_lyssiethUniform_tunic", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_lyssiethUniform_hat", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_lyssiethUniform_shoes", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_lyssiethUniform_skirt", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_lyssiethUniform_tunic", false), true, this);
 		
 		this.setPiercedEar(true);
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_revolver_revolver"), DamageType.PHYSICAL));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_revolver_revolver"), DamageType.PHYSICAL));
 		}
 	}
 	

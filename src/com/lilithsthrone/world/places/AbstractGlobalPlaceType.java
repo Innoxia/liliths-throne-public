@@ -4,39 +4,42 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.encounters.Encounter;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
+import com.lilithsthrone.world.WorldRegion;
 
 /**
  * @since 0.3.1
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractGlobalPlaceType extends AbstractPlaceType {
 
-	public AbstractGlobalPlaceType(String name,
+	public AbstractGlobalPlaceType(WorldRegion worldRegion,
+			String name,
 			String SVGPath,
 			String tooltipDescription,
 			Colour colour,
 			DialogueNode dialogue,
-			Encounter encounterType,
+			AbstractEncounter encounterType,
 			String virginityLossDescription) {
-		this(name, tooltipDescription, SVGPath, colour, colour, dialogue, encounterType, virginityLossDescription);
+		this(worldRegion, name, tooltipDescription, SVGPath, colour, colour, dialogue, encounterType, virginityLossDescription);
 	}
 	
-	public AbstractGlobalPlaceType(String name,
+	public AbstractGlobalPlaceType(WorldRegion worldRegion,
+			String name,
 			String tooltipDescription,
 			String SVGPath,
 			Colour colour,
 			Colour backgroundColour,
 			DialogueNode dialogue,
-			Encounter encounterType,
+			AbstractEncounter encounterType,
 			String virginityLossDescription) {
-		super(name, tooltipDescription, null, null, dialogue, encounterType, virginityLossDescription);
+		super(worldRegion, name, tooltipDescription, null, null, dialogue, Darkness.DAYLIGHT, encounterType, virginityLossDescription);
 		
 		this.name = name;
 		
@@ -84,6 +87,12 @@ public abstract class AbstractGlobalPlaceType extends AbstractPlaceType {
 	@Override
 	public AbstractGlobalPlaceType initDangerous() {
 		this.dangerous = true;
+		return this;
+	}
+
+	@Override
+	public AbstractGlobalPlaceType initAquatic(Aquatic aquatic) {
+		this.aquatic = aquatic;
 		return this;
 	}
 

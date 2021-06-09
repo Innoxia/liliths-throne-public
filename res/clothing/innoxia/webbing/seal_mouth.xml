@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>0</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[mouth web-seal]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[mouth web-seals]]></namePlural>
+    <description><![CDATA[A thick layer of sticky spider-webbing has been shot all over [npc.namePos] [npc.mouth], completely sealing it and preventing it from being accessed!]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>MOUTH</slot>
+    <rarity>COMMON</rarity>
+
+    <imageName>seal_horizontal.svg</imageName>
+
+    <clothingSet/>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+    <effects/>
+
+    <blockedPartsList>
+		<blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts>
+				<bodyPart>MOUTH</bodyPart>
+			</blockedBodyParts>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		</blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours>
+		<colour>CLOTHING_WHITE</colour>
+    </primaryColours>
+    <primaryColoursDye/>
+    <secondaryColours/>
+    <secondaryColoursDye/>
+    <tertiaryColours/>
+    <tertiaryColoursDye/>
+
+    <itemTags>
+		<tag>MUFFLES_SPEECH</tag>
+		<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+		<tag>NO_RANDOM_SPAWN</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(use)] [npc.her] spinneret to quickly shoot a thick binding of spider-webbing all over [npc.her] [npc.mouth].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(use)] [npc.her] spinneret to quickly shoot a thick binding of spider-webbing all over [npc2.namePos] [npc2.mouth].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(use)] [npc.her] spinneret to quickly shoot a thick binding of spider-webbing all over [npc2.namePos] [npc2.mouth].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tear)] off the webbing which was covering [npc.her] [npc.mouth] and [npc.verb(throw)] it away.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tear)] off the webbing which was covering [npc2.namePos] [npc2.mouth] and [npc.verb(throw)] it away.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(tear)] off the webbing which was covering [npc2.namePos] [npc2.mouth] and [npc.verb(throw)] it away.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

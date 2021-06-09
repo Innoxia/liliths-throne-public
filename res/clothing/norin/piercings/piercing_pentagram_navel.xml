@@ -12,7 +12,7 @@
     <physicalResistance>0</physicalResistance>
     <femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
     <slot>PIERCING_STOMACH</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-    <rarity>RARE</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+    <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
     
     <imageName>piercing_pentagram_navel.svg</imageName>
     
@@ -39,8 +39,8 @@
     
     <incompatibleSlots/> <!-- slot(s) not compatible -->
 
-    <!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
-    <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+    <!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+    <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
     <primaryColours>
       <colour>CLOTHING_BLACK_STEEL</colour>
     </primaryColours>

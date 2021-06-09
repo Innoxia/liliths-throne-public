@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
@@ -157,15 +158,43 @@ public class OrificeVagina implements OrificeInterface {
 		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
 		return oldStretchedCapacity != this.stretchedCapacity;
 	}
+	
+	@Override
+	public OrificeDepth getMinimumDepthForSizeComfortable(GameCharacter owner, int insertionSize) {
+		OrificeDepth depth = OrificeDepth.ONE_SHALLOW;
+		while((int) (owner.getHeightValue() * 0.1f * depth.getDepthPercentage())<insertionSize) {
+			if(depth == OrificeDepth.SEVEN_FATHOMLESS) {
+				return depth;
+			}
+			depth = OrificeDepth.getDepthFromInt(depth.getValue()+1);
+		}
+		return depth;
+	}
 
 	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) { // 0.08 might be a little more realistic, but give it a little extra so that it's not annoying for people with large cocks
-		return (int) (owner.getHeightValue() * 0.1f * this.getDepth(owner).getDepthPercentage());
+	public OrificeDepth getMinimumDepthForSizeUncomfortable(GameCharacter owner, int insertionSize) {
+		OrificeDepth depth = OrificeDepth.ONE_SHALLOW;
+		while((int) ((owner.getHeightValue() * 0.1f * depth.getDepthPercentage())*1.5f)<insertionSize) {
+			if(depth == OrificeDepth.SEVEN_FATHOMLESS) {
+				return depth;
+			}
+			depth = OrificeDepth.getDepthFromInt(depth.getValue()+1);
+		}
+		return depth;
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return (int) (getMaximumPenetrationDepthComfortable(owner) * 1.5f);
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) { // 0.08 might be a little more realistic, but give it a little extra so that it's not annoying for people with large cocks
+		return (int) (owner.getHeightValue() * 0.1f * depth.getDepthPercentage());
+	}
+	
+	@Override
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
+		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepth()) {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * (float)elasticity/1.8f);
+		} else {
+			return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
+		}
 	}
 
 	@Override
@@ -352,7 +381,7 @@ public class OrificeVagina implements OrificeInterface {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] pussy is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] pussy is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.sheHasFull] limited control.<br/>"
 							+ "[style.boldSex(The inside of [npc.namePos] pussy is now filled with small tentacles, which wriggle and caress any intruding object with a mind of their own!)]"
 						+ "</p>");
 					
@@ -408,7 +437,7 @@ public class OrificeVagina implements OrificeInterface {
 			case PUFFY:
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] can't help but let out a startled cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy],"
+							+ "[npc.Name] can't help but let out a startled cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] [npc.pussy],"
 								+ " before [npc.her] [style.boldShrink(extra-puffy labia shrink down)] to take on a more average shape.<br/>"
 							+ "[style.boldSex([npc.NamePos] labia are no longer extra puffy!)]"
 						+ "</p>");
@@ -459,8 +488,29 @@ public class OrificeVagina implements OrificeInterface {
 		return hymen;
 	}
 
-	public void setHymen(boolean hymen) {
+	public String setHymen(GameCharacter owner, boolean hymen) {
+		if(owner == null) {
+			this.hymen = hymen;
+			return "";
+		}
+		if(this.hymen == hymen || !owner.hasVagina()) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
 		this.hymen = hymen;
+		
+		if(hymen) {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [style.verb(feel)] an intense tightening sensation shooting down into [npc.her] [npc.pussy+], and [npc.she] can't help but let out a high-pitched whine as [npc.her] [style.boldGrow(hymen regenerates)]!"
+					+ "</p>");
+			
+		} else {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.NamePos] [npc.pussy+] suddenly starts to ache, and [npc.she] can't help but let out a high-pitched whine as [npc.her] [style.boldShrink(hymen disappears)]!"
+					+ "</p>");
+		}
 	}
 
 }

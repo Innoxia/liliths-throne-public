@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public class Ass implements BodyPartInterface {
@@ -24,10 +24,10 @@ public class Ass implements BodyPartInterface {
 	
 	protected Anus anus;
 
-	public Ass(AbstractAssType type, int size, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
+	public Ass(AbstractAssType type, int assSize, int hipSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
-		assSize = size;
-		hipSize = size;
+		this.assSize = assSize;
+		this.hipSize = hipSize;
 		
 		anus = new Anus(type.getAnusType(), wetness, capacity, depth, elasticity, plasticity, virgin);
 	}
@@ -84,27 +84,26 @@ public class Ass implements BodyPartInterface {
 		
 		if (type == getType()) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the ass of [npc.a_assRace], so nothing happens...)]</p>");
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-			
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "[npc.NamePos] [npc.verb(feel)] [npc.her] [npc.ass] suddenly softening and becoming very sensitive, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as the intense feeling moves down into [npc.her] [npc.asshole]."
-					+ " Panting and sighing, [npc.she] [npc.verb(continue)] letting out the occasional involuntary [npc.moan] as [npc.she] [npc.verb(feel)] [npc.her] entire rear-end transform.<br/>");
 		}
-
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(
+				"<p>"
+				+ "[npc.NamePos] [npc.verb(feel)] [npc.her] [npc.ass] suddenly softening and becoming very sensitive, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as the intense feeling moves down into [npc.her] [npc.asshole]."
+				+ " Panting and sighing, [npc.she] [npc.verb(continue)] letting out the occasional involuntary [npc.moan] as [npc.she] [npc.verb(feel)] [npc.her] entire rear-end transform.<br/>");
+		
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		anus.setType(type.getAnusType());
 		owner.resetAreaKnownByCharacters(CoverableArea.ANUS);
 
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner)+"</p>");
+		sb.append(type.getTransformationDescription(owner)+"</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 				+ owner.postTransformationCalculation(false)
 				+ "</p>";
@@ -209,11 +208,11 @@ public class Ass implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Ass.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Ass.class) && getType().getRace().isFeralPartsAvailable());
 	}
 	
 }

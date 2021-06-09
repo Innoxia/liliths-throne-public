@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Slutty Enforcer]]></name>
+	
+	<statusEffect>SET_SLUTTY_ENFORCER</statusEffect>
+	
+	<numberRequiredForCompleteSet>2</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>TORSO_UNDER</slot>
+		<slot>LEG</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

@@ -109,7 +109,7 @@ public class Cowgirl {
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] let out [npc2.a_sob+] as [npc.she] forces [npc2.namePos] [npc2.cock] inside of [npc.herHim], and, struggling against [npc.herHim] in vain, [npc2.name] desperately try to push [npc.herHim] off of [npc2.name].",
-						" With [npc2.a_sob+], [npc2.name] struggle against [npc.name] as [npc.she] forces [npc2.namePos] [npc2.cock] deep into [npc.her] [npc.pussy+]."));
+						" With [npc2.a_sob+], [npc2.name] [npc2.verb(struggle)] against [npc.name] as [npc.she] forces [npc2.namePos] [npc2.cock] deep into [npc.her] [npc.pussy+]."));
 				break;
 			default:
 				break;
@@ -217,7 +217,7 @@ public class Cowgirl {
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] let out [npc2.a_sob+] as [npc.she] forces [npc2.namePos] [npc2.cock] inside of [npc.herHim], and, struggling against [npc.herHim] in vain, [npc2.name] desperately try to push [npc.herHim] off of [npc2.name].",
-						" With [npc2.a_sob+], [npc2.name] struggle against [npc.name] as [npc.she] forces [npc2.namePos] [npc2.cock] deep into [npc.her] [npc.asshole+]."));
+						" With [npc2.a_sob+], [npc2.name] [npc2.verb(struggle)] against [npc.name] as [npc.she] forces [npc2.namePos] [npc2.cock] deep into [npc.her] [npc.asshole+]."));
 				break;
 			default:
 				break;

@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.3.7.5
+ * @version 0.4
  * @author Innoxia
  */
 public enum QuestLine {
@@ -25,7 +25,7 @@ public enum QuestLine {
 //			QuestType.SIDE,
 //			Quest.SIDE_DISCOVER_ALL_RACES),
 
-	SIDE_ENCHANTMENT_DISCOVERY("Enchantments, Essences, and Jinxes", "You now know how to create enchanted items and remove jinxes!",
+	SIDE_ENCHANTMENT_DISCOVERY("Essences and Enchantments", "You now know how to use essences in order to create and modify enchanted items!",
 			QuestType.SIDE,
 			QuestTree.enchantmentTree),
 
@@ -33,7 +33,11 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.pregnancyTree),
 
-	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted Slaver License!",
+	SIDE_FIRST_TIME_INCUBATION("Egged", "You successfully incubated, laid, and hatched the eggs which were planted inside of you!",
+			QuestType.SIDE,
+			QuestTree.incubationTree),
+
+	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted slaver license!",
 			QuestType.SIDE,
 			QuestTree.slaveryTree),
 
@@ -68,6 +72,19 @@ public enum QuestLine {
 	SIDE_VENGAR("Vengar's Tyranny", "You dealt with Vengar and made sure that Axel doesn't have to worry about him again.",
 			QuestType.SIDE,
 			QuestTree.vengarTree),
+
+
+	SIDE_WES("The Rogue Enforcer", "You were able to successfully deal with the Enforcer Quartermaster.",
+			QuestType.SIDE,
+			QuestTree.wesTree),
+        
+    SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
+            QuestType.SIDE,
+            QuestTree.rebelBaseTree),
+    
+    SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
+            QuestType.SIDE,
+            QuestTree.rebelBaseFirebombTree),
 	
 	// Romance quests:
 	

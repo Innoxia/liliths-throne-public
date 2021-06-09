@@ -31,6 +31,9 @@ public class StandardSexActionInteractions {
 				OrgasmCumTarget.SELF_GROIN,
 				OrgasmCumTarget.SELF_LEGS,
 				OrgasmCumTarget.SELF_FEET,
+				OrgasmCumTarget.SELF_HANDS,
+				OrgasmCumTarget.SELF_FACE,
+				OrgasmCumTarget.SELF_BREASTS,
 				OrgasmCumTarget.FLOOR),
 		null);
 	
@@ -45,6 +48,9 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.SELF_GROIN,
 								OrgasmCumTarget.SELF_LEGS,
 								OrgasmCumTarget.SELF_FEET,
+								OrgasmCumTarget.SELF_HANDS,
+								OrgasmCumTarget.SELF_FACE,
+								OrgasmCumTarget.SELF_BREASTS,
 								OrgasmCumTarget.FLOOR),
 						Util.newArrayListOfValues()))));
 			}
@@ -204,8 +210,8 @@ public class StandardSexActionInteractions {
 								!target.isTaur()
 									?SexActionPresets.mouthToAppendages
 									:null,
-								SexActionPresets.groinToFeet
-								),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,
@@ -217,7 +223,9 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.STOMACH,
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 
@@ -234,7 +242,8 @@ public class StandardSexActionInteractions {
 								!target.isTaur()
 									?SexActionPresets.mouthToAppendages
 									:SexActionPresets.mouthToTailAndTentacle,
-								SexActionPresets.groinToFeet),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,
@@ -242,7 +251,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.SELF_GROIN,
 								OrgasmCumTarget.SELF_FEET,
 								OrgasmCumTarget.FLOOR),
-						null))));
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FLOOR)))));
 			}
 	};
 
@@ -482,7 +492,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 	
@@ -514,10 +525,10 @@ public class StandardSexActionInteractions {
 							SexActionPresets.penisToThighs,
 							SexActionPresets.penisToAss,
 							SexActionPresets.penisToVagina,
+							SexActionPresets.appendagesToLowerHalf,
+							SexActionPresets.appendagesToUpperHalf,
 							!performer.isTaur()
-								?Util.mergeMaps(
-										SexActionPresets.appendagesToLowerHalf,
-										SexActionPresets.vaginaToVagina)
+								?SexActionPresets.vaginaToVagina
 								:null),
 					Util.newArrayListOfValues(
 							OrgasmCumTarget.ASS,
@@ -529,6 +540,52 @@ public class StandardSexActionInteractions {
 							OrgasmCumTarget.FLOOR)))));
 		}
 	};
+
+	public static VariableInteractions humpingCharacterInStocks = new VariableInteractions() {
+		@Override
+		public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+			GameCharacter performer = getCharacter(performerSlot);
+			
+			return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+					new SexActionInteractions(
+					Util.mergeMaps(
+							SexActionPresets.penisToThighs,
+							SexActionPresets.penisToAss,
+							SexActionPresets.penisToVagina,
+							SexActionPresets.appendagesToUpperHalf,
+							!performer.isTaur()
+								?SexActionPresets.vaginaToVagina
+								:null),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.ASS,
+							OrgasmCumTarget.GROIN,
+							OrgasmCumTarget.BACK,
+							OrgasmCumTarget.LEGS,
+							OrgasmCumTarget.FLOOR),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.FLOOR)))));
+		}
+	};
+	
+	public static VariableInteractions fuckedByCharacterInStocks = new VariableInteractions() {
+		@Override
+		public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+			return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+					new SexActionInteractions(
+					Util.mergeMaps(
+							SexActionPresets.vaginaToPenis,
+							SexActionPresets.assToPenis),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.FLOOR),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.ASS,
+							OrgasmCumTarget.GROIN,
+							OrgasmCumTarget.BACK,
+							OrgasmCumTarget.LEGS,
+							OrgasmCumTarget.FLOOR)))));
+		}
+	};
+	
 
 	public static VariableInteractions performingOralOnStocks = new VariableInteractions() {
 			@Override
@@ -546,7 +603,8 @@ public class StandardSexActionInteractions {
 											SexActionPresets.appendagesToCrotchBoobs)
 									:null),
 								SexActionPresets.appendagesToLowerHalf,
-								SexActionPresets.groinToFeet),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,
@@ -559,7 +617,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.STOMACH,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 
@@ -578,7 +637,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 
@@ -680,6 +740,9 @@ public class StandardSexActionInteractions {
 								SexActionPresets.penisToVagina,
 								SexActionPresets.tailToLowerHalf,
 								SexActionPresets.tentacleToLowerHalf,
+								!performer.isTaur()
+									?SexActionPresets.fingerToLowerHalf
+									:null,
 								isAbleToReachTargetUpperTorso
 									?SexActionPresets.fingerToUpperTorso
 									:null),
@@ -701,7 +764,8 @@ public class StandardSexActionInteractions {
 			return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 					new SexActionInteractions(
 					Util.mergeMaps(
-							SexActionPresets.groinToFeet),
+							SexActionPresets.groinToFeet,
+							SexActionPresets.mouthToFeet),
 					Util.newArrayListOfValues(
 							OrgasmCumTarget.LEGS,
 							OrgasmCumTarget.FEET,
@@ -715,19 +779,24 @@ public class StandardSexActionInteractions {
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
 				GameCharacter performer = getCharacter(performerSlot);
+				GameCharacter target = getCharacter(targetSlot);
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
 						Util.mergeMaps(
 								SexActionPresets.mouthToPenis,
-								SexActionPresets.mouthToVagina,
-								SexActionPresets.mouthToAppendages,
+								SexActionPresets.mouthToCrotchBoobs,
+								target.isTaur()
+									?SexActionPresets.mouthToTailAndTentacle
+									:Util.mergeMaps(
+											SexActionPresets.mouthToVagina,
+											SexActionPresets.mouthToAppendages),
 								performer.isTaur()
 									?Util.mergeMaps(
 											SexActionPresets.breastsToPenis,
 											SexActionPresets.fingerToLowerHalf)
 									:null,
-								SexActionPresets.mouthToCrotchBoobs),
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_LEGS,
 								OrgasmCumTarget.FLOOR),
@@ -735,7 +804,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BACK,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 
@@ -743,24 +813,25 @@ public class StandardSexActionInteractions {
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
 				GameCharacter performer = getCharacter(performerSlot);
+				GameCharacter target = getCharacter(targetSlot);
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
 						Util.mergeMaps(
 								SexActionPresets.mouthToAss,
-								SexActionPresets.mouthToAppendages,
-								performer.isTaur()
+								target.isTaur()
 									?Util.mergeMaps(
-											SexActionPresets.fingerToLowerHalf)
+											SexActionPresets.mouthToVagina,
+											SexActionPresets.mouthToTailAndTentacle)
+									:SexActionPresets.mouthToAppendages,
+								performer.isTaur()
+									?SexActionPresets.fingerToLowerHalf
 									:null,
-								SexActionPresets.mouthToCrotchBoobs),
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_LEGS,
 								OrgasmCumTarget.FLOOR),
 						Util.newArrayListOfValues(
-								OrgasmCumTarget.FACE,
-								OrgasmCumTarget.HAIR,
-								OrgasmCumTarget.BACK,
 								OrgasmCumTarget.FLOOR)))));
 			}
 	};
@@ -900,6 +971,28 @@ public class StandardSexActionInteractions {
 				
 			}
 	};
+
+	public static VariableInteractions sittingBetweenLegsCharacterSitting = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								SexActionPresets.appendagesToAllAreas,
+								SexActionPresets.allAreasToAppendages,
+								SexActionPresets.assToPenis),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.SELF_GROIN),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.LEGS,
+								OrgasmCumTarget.GROIN,
+								OrgasmCumTarget.BACK,
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.SELF_GROIN)))));
+				
+			}
+	};
 	
 	
 	/*--- Lying down presets: ---*/
@@ -909,12 +1002,18 @@ public class StandardSexActionInteractions {
 		@Override
 		public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
 			GameCharacter performer = getCharacter(performerSlot);
+			GameCharacter target = getCharacter(targetSlot);
 			
 			if(!performer.isTaur()) {
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
 						Util.mergeMaps(
-								SexActionPresets.kissing,
+								!target.isTaur()
+									?SexActionPresets.kissing
+									:null,
+								!target.isTaur()
+									?SexActionPresets.breastsToMouth
+									:null,
 								SexActionPresets.appendagesToAllAreas,
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
@@ -947,7 +1046,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.STOMACH,
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.FACE,
-								OrgasmCumTarget.SELF_LEGS),
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.ARMPITS),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.ASS,
@@ -972,7 +1072,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
-								SexActionPresets.assToGroin),
+								SexActionPresets.assToGroin,
+								SexActionPresets.feetToMouth),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.GROIN,
@@ -1025,7 +1126,8 @@ public class StandardSexActionInteractions {
 									OrgasmCumTarget.HAIR,
 									OrgasmCumTarget.SELF_GROIN,
 									OrgasmCumTarget.SELF_LEGS,
-									OrgasmCumTarget.FLOOR),
+									OrgasmCumTarget.FLOOR,
+									OrgasmCumTarget.ARMPITS),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.SELF_STOMACH,
 									OrgasmCumTarget.SELF_LEGS,
@@ -1040,7 +1142,8 @@ public class StandardSexActionInteractions {
 									OrgasmCumTarget.FACE,
 									OrgasmCumTarget.HAIR,
 									OrgasmCumTarget.SELF_LEGS,
-									OrgasmCumTarget.FLOOR),
+									OrgasmCumTarget.FLOOR,
+									OrgasmCumTarget.ARMPITS),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.SELF_STOMACH,
 									OrgasmCumTarget.SELF_LEGS,
@@ -1060,14 +1163,16 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.assToMouth,
 								SexActionPresets.groinToMouth,
-								SexActionPresets.appendagesToAllAreas),
+								SexActionPresets.appendagesToAllAreas,
+								SexActionPresets.feetToGroin),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.STOMACH,
 								OrgasmCumTarget.SELF_GROIN,
 								OrgasmCumTarget.SELF_LEGS,
-								OrgasmCumTarget.FLOOR),
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.SELF_LEGS,
@@ -1083,7 +1188,8 @@ public class StandardSexActionInteractions {
 									OrgasmCumTarget.BREASTS,
 									OrgasmCumTarget.STOMACH,
 									OrgasmCumTarget.SELF_LEGS,
-									OrgasmCumTarget.FLOOR),
+									OrgasmCumTarget.FLOOR,
+									OrgasmCumTarget.ARMPITS),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.SELF_STOMACH,
 									OrgasmCumTarget.SELF_LEGS,
@@ -1113,12 +1219,14 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.STOMACH,
-								OrgasmCumTarget.FLOOR),
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 	
@@ -1139,7 +1247,8 @@ public class StandardSexActionInteractions {
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
 									SexActionPresets.tentacleToLowerHalf,
-									SexActionPresets.appendagesToAllAreas),
+									SexActionPresets.appendagesToAllAreas,
+									SexActionPresets.mouthToFeet),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.ASS,
 									OrgasmCumTarget.GROIN,
@@ -1242,7 +1351,9 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.groinToGroin,
 								SexActionPresets.appendagesToLowerHalf,
-								SexActionPresets.lowerHalfToAppendages),
+								SexActionPresets.lowerHalfToAppendages,
+								SexActionPresets.mouthToFeet,
+								SexActionPresets.feetToMouth),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.SELF_LEGS,
@@ -1269,7 +1380,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.SELF_LEGS,
-								OrgasmCumTarget.FLOOR),
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.FLOOR)))));
@@ -1295,7 +1407,8 @@ public class StandardSexActionInteractions {
 								!target.isTaur()
 									?SexActionPresets.mouthToAppendages
 									:SexActionPresets.mouthToTailAndTentacle,
-								SexActionPresets.groinToFeet),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,
@@ -1460,7 +1573,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.GROIN,
 								OrgasmCumTarget.LEGS,
-								OrgasmCumTarget.FEET),
+								OrgasmCumTarget.FEET,
+								OrgasmCumTarget.ARMPITS),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.FLOOR)))));
@@ -1481,7 +1595,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.GROIN,
 								OrgasmCumTarget.LEGS,
-								OrgasmCumTarget.FEET),
+								OrgasmCumTarget.FEET,
+								OrgasmCumTarget.ARMPITS),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.FLOOR)))));
@@ -1566,7 +1681,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.STOMACH,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 	
@@ -1603,7 +1719,8 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.BREASTS,
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.FACE,
-								OrgasmCumTarget.FLOOR)))));
+								OrgasmCumTarget.FLOOR,
+								OrgasmCumTarget.ARMPITS)))));
 			}
 	};
 	

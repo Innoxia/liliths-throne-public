@@ -37,7 +37,9 @@
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 					<clothingAccess>HEAD</clothingAccess>
 				</clothingAccessRequired>
-				<blockedBodyParts/>
+				<blockedBodyParts>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
 				<clothingAccessBlocked/>
 				<concealedSlots/>
 			</blockedParts>
@@ -62,7 +64,7 @@
 		
 		<incompatibleSlots/> 
 		
-		<primaryColours values="ALL_WITH_METALS"/>
+		<primaryColours values="DEBUG_ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
@@ -70,6 +72,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags>
+			<tag>CHEAT_ITEM</tag>
 			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>

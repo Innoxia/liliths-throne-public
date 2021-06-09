@@ -13,8 +13,8 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -56,20 +56,16 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -80,7 +76,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public class DarkSiren extends NPC {
@@ -102,7 +98,7 @@ public class DarkSiren extends NPC {
 			
 			this.addTrait(Perk.CHUUNI);
 			
-			this.setEssenceCount(TFEssence.ARCANE, 10000);
+			this.setEssenceCount(10000);
 		}
 	}
 
@@ -124,7 +120,7 @@ public class DarkSiren extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
 			this.setGenericName("dark siren");
 			
-			this.setEssenceCount(TFEssence.ARCANE, 10000);
+			this.setEssenceCount(10000);
 			
 			this.addSpells();
 		}
@@ -164,7 +160,24 @@ public class DarkSiren extends NPC {
 			setStartingCombatMoves();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setTailGirth(PenetrationGirth.THREE_THICK);
+			this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.5")) {
+			if(this.getSubspecies()==Subspecies.HALF_DEMON) {
+				this.setStartingBody(false);
+			} else {
+				this.setStartingBody(false);
+				Lyssieth.setDaughterDemonicBodyParts(this);
+			}
+//			// Reset sex stats:
+//			this.sexCount = new HashMap<>();
+//			this.virginityLossMap = new HashMap<>();
+//			// Reset body knowledge and fluids:
+//			this.areasKnownByCharactersMap = new HashMap<>();
+//			this.fluidsStoredMap = new HashMap<>();
 		}
 	}
 
@@ -249,7 +262,7 @@ public class DarkSiren extends NPC {
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.THREE_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
@@ -303,8 +316,8 @@ public class DarkSiren extends NPC {
 		this.setNippleVirgin(true);
 		this.setBreastSize(CupSize.AA.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
-		this.setNippleSize(NippleSize.ONE_SMALL);
-		this.setAreolaeSize(AreolaeSize.ONE_SMALL);
+		this.setNippleSize(NippleSize.TWO_BIG);
+		this.setAreolaeSize(AreolaeSize.TWO_BIG);
 		this.setNippleCapacity(0, true);
 		// Nipple settings and modifiers
 		
@@ -313,20 +326,22 @@ public class DarkSiren extends NPC {
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.TWO_SMALL);
 		this.setHipSize(HipSize.THREE_GIRLY);
-		// Anus settings and modifiers
+		this.removeAssOrificeModifier(OrificeModifier.TENTACLED);
 		
 		// Penis:
 		// n/a
+		this.setTesticleCount(2); // For if she grows one
 		
 		// Vagina:
 		this.setVaginaVirgin(true);
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
 		this.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
-		this.setVaginaSquirter(true);
+		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
-		this.setVaginaWetness(Wetness.TWO_MOIST);
-		this.setVaginaElasticity(OrificeElasticity.TWO_FIRM.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
+		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		this.removeVaginaOrificeModifier(OrificeModifier.TENTACLED);
 		
 		// Feet:
 		// Foot shape
@@ -336,24 +351,32 @@ public class DarkSiren extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_thighhigh_socks_striped", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_hand_striped_gloves"), PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_thighhigh_socks_striped", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_hand_striped_gloves"), PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_amulet", false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_cloak", false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_amulet", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_cloak", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
 		
 		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
+		}
+	}
+	
+	public void applyScythe(boolean equip) {
+		if(equip) {
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
+		} else {
+			this.unequipAllWeaponsIntoVoid(true);
 		}
 	}
 	
@@ -361,16 +384,16 @@ public class DarkSiren extends NPC {
 		this.setObedience(ObedienceLevel.NEGATIVE_ONE_DISOBEDIENT.getMedianValue());
 		this.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, true);
 		this.unequipAllClothingIntoVoid(true, true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_feminine_blazer", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_feminine_blazer", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
 	}
 	
 	@Override
@@ -399,7 +422,7 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public String getArtworkFolderName() {
-		if(this.getSkinType().getRace()==Race.HUMAN) {
+		if(this.getTorsoType().getRace()==Race.HUMAN) {
 			if(this.isVisiblyPregnant()) {
 				return "MeraxisPregnant";
 			}
@@ -415,6 +438,17 @@ public class DarkSiren extends NPC {
 	
 	@Override
 	public void changeFurryLevel(){
+	}
+
+	@Override
+	public void hourlyUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+			if(Main.game.getHourOfDay()>=1 && Main.game.getHourOfDay()<=8) { // In room from 01:00 - 09:00
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
+			} else {
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_meraxis"));
+			}
+		}
 	}
 	
 	@Override
@@ -433,7 +467,7 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
-		if(character.isPlayer() && character.getRace()==Race.DEMON) {
+		if(character.isPlayer() && character.getSubspeciesOverrideRace()==Race.DEMON) {
 			return Util.newHashSetOfValues(Relationship.HalfSibling);
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);
@@ -450,7 +484,7 @@ public class DarkSiren extends NPC {
 	public CombatBehaviour getCombatBehaviour() {
 		if(Main.game.isInCombat()) {
 			boolean spellsAvailable = false;
-			for(GameCharacter character : Combat.getAllCombatants(true)) {
+			for(GameCharacter character : Main.combat.getAllCombatants(true)) {
 				if(!getWeightedSpellsAvailable(character).isEmpty()) {
 					spellsAvailable = true;
 					break;
@@ -478,5 +512,100 @@ public class DarkSiren extends NPC {
 			};
 		}
 	}
+	
+	// Extra methods for post-duelling options:
+	
+	public boolean isAssChanged() {
+		return this.getAssSize().getValue()>AssSize.TWO_SMALL.getValue();
+	}
+	
+	public String duelAssChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setAssSize(AssSize.FOUR_LARGE));
+			sb.append(this.setHipSize(HipSize.FIVE_VERY_WIDE));
+		} else {
+			sb.append(this.setAssSize(AssSize.TWO_SMALL));
+			sb.append(this.setHipSize(HipSize.THREE_GIRLY));
+		}
+		return sb.toString();
+	}
 
+	public boolean isBreastsChanged() {
+		return this.getBreastSize().getMeasurement()>CupSize.AA.getMeasurement();
+	}
+	
+	public String duelBreastChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setBreastSize(CupSize.DD));
+			sb.append(this.setNippleSize(NippleSize.THREE_LARGE));
+			sb.append(this.setAreolaeSize(AreolaeSize.THREE_LARGE));
+		} else {
+			sb.append(this.setBreastSize(CupSize.AA.getMeasurement()));
+			sb.append(this.setNippleSize(NippleSize.TWO_BIG));
+			sb.append(this.setAreolaeSize(AreolaeSize.TWO_BIG));
+		}
+		return sb.toString();
+	}
+
+	public boolean isLactating() {
+		return this.getBreastRawMilkStorageValue()>0;
+	}
+	
+	public String duelLactation(boolean lactate) {
+		StringBuilder sb = new StringBuilder();
+		if(lactate) {
+			sb.append(this.setBreastMilkStorage(250));
+			this.fillMilkToMaxStorage();
+		} else {
+			sb.append(this.setBreastMilkStorage(0));
+			this.fillMilkToMaxStorage();
+		}
+		return sb.toString();
+	}
+
+	public boolean isMouthChanged() {
+		return this.getLipSize().getValue()>LipSize.ONE_AVERAGE.getValue();
+	}
+
+	public String duelMouthChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setLipSize(LipSize.FOUR_HUGE));
+			sb.append(this.addFaceOrificeModifier(OrificeModifier.PUFFY));
+			sb.append(this.setFaceWetness(Wetness.SIX_SOPPING_WET.getValue()));
+			sb.append(this.setTongueLength(TongueLength.ONE_LONG.getMedianValue()));
+		} else {
+			sb.append(this.setLipSize(LipSize.ONE_AVERAGE));
+			sb.append(this.removeFaceOrificeModifier(OrificeModifier.PUFFY));
+			sb.append(this.setFaceWetness(Wetness.THREE_WET.getValue()));
+			sb.append(this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue()));
+		}
+		return sb.toString();
+	}
+
+	public boolean isPussyChanged() {
+		return this.getVaginaLabiaSize().getValue()>LabiaSize.ZERO_TINY.getValue();
+	}
+
+	public String duelPussyChange(boolean big) {
+		StringBuilder sb = new StringBuilder();
+		if(big) {
+			sb.append(this.setVaginaLabiaSize(LabiaSize.THREE_LARGE));
+			sb.append(this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true));
+			sb.append(this.setVaginaWetness(Wetness.SIX_SOPPING_WET));
+		} else {
+			sb.append(this.setVaginaLabiaSize(LabiaSize.ZERO_TINY));
+			sb.append(this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true));
+			sb.append(this.setVaginaWetness(Wetness.THREE_WET));
+		}
+		return sb.toString();
+	}
+	
+	public String duelSquirter(boolean squirter) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.setVaginaSquirter(squirter));
+		return sb.toString();
+	}
 }

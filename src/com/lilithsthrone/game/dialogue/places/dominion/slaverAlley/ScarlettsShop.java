@@ -18,7 +18,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -40,14 +40,17 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaHotel;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -56,11 +59,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -106,7 +106,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.3.7.1
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class ScarlettsShop {
@@ -116,10 +116,11 @@ public class ScarlettsShop {
 		
 		String[] names = new String[] {"obedient centaur", "loyal centaur"};
 		for(int i=0; i<2; i++) {
-			NPC npc = new GenericSexualPartner(Gender.M_P_MALE, WorldType.EMPTY, Main.game.getWorlds().get(WorldType.EMPTY).getCell(PlaceType.GENERIC_HOLDING_CELL).getLocation(), false, (s)->s!=Subspecies.CENTAUR);
+			NPC npc = new GenericSexualPartner(Gender.M_P_MALE, WorldType.EMPTY, Main.game.getWorlds().get(WorldType.EMPTY).getCell(PlaceType.GENERIC_HOLDING_CELL).getLocation(), false);
+			npc.setBody(Gender.M_P_MALE, Subspecies.CENTAUR, Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(Subspecies.CENTAUR), Gender.M_P_MALE, Subspecies.CENTAUR),false);
 			
 			npc.unequipAllClothing(npc, true, true);
-			npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_GOLD, false), true, npc);
+			npc.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_GOLD, false), true, npc);
 			
 			npc.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 			npc.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
@@ -236,8 +237,7 @@ public class ScarlettsShop {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaScarlettSleepoverSex)) { // If this is the morning oral scene, Scarlett stops after cumming.
 					return super.isPartnerWantingToStopSex(partner);
 				}
-				return (Main.sex.getNumberOfOrgasms(partner)>=partner.getOrgasmsBeforeSatisfied() && Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=1)
-						|| Main.sex.getNumberOfOrgasms(partner)>=3;
+				return Main.sex.isSatisfiedFromOrgasms(partner, true) && (Main.sex.isOrgasmCountMet(Main.game.getPlayer(), 1, true) || Main.sex.getNumberOfOrgasms(partner)>=3);
 			}
 			@Override
 			public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
@@ -336,9 +336,9 @@ public class ScarlettsShop {
 		}
 		
 		int value = 25_000;
-		for(Entry<Race, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
+		for(Entry<AbstractRace, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
 			if(entry.getKey()!=Race.HUMAN) {
-				value += 1_000 * entry.getValue();
+				value += Math.min(5_000, 1_000*entry.getValue());
 			}
 		}
 		
@@ -355,7 +355,9 @@ public class ScarlettsShop {
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE
-				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE
+				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES
+				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR
+				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP
@@ -374,6 +376,8 @@ public class ScarlettsShop {
 		Main.game.getNpc(Helena.class).addSlave(slave);
 		
 		BodyChanging.setTarget(slave);
+		
+		SuccubisSecrets.initCoveringsMap(slave);
 	}
 	
 	
@@ -572,10 +576,10 @@ public class ScarlettsShop {
 							Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 							Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMedianValue());
 							Main.game.getNpc(Scarlett.class).resetInventory(true);
-							AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
+							AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
 							collar.setSealed(true);
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 						}
 					};
 					
@@ -916,7 +920,7 @@ public class ScarlettsShop {
 				
 			} else if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA) == Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
 				if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-					if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+					if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 						UtilText.addSpecialParsingString(Util.intToString(getScarlettPrice()), true);
 						return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_SHOP_CORE_4_SCARLETT_OWNED_PRESENT"); // Helena demands you sell Scarlett to her
 						
@@ -1188,7 +1192,7 @@ public class ScarlettsShop {
 
 			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA) == Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
 				if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-					if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+					if(!Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 						if(index==1) {
 							return new Response("Leave", "Do as Helena says and leave her shop.", SlaverAlleyDialogue.ALLEYWAY) {
 								@Override
@@ -1590,6 +1594,7 @@ public class ScarlettsShop {
 			}
 			Main.game.getNpc(Natalya.class).returnToHome();
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1912,13 +1917,13 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-				if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+				if(!Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 					if(index==1) {
 						return new Response("Agree", "Agree to go and fetch Scarlett and bring [scarlett.herHim] back here.", ROMANCE_SCARLETT_OWNED_FETCH);
 					}
 				} else {
 					if(index==1) {
-						if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+						if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 							return new Response("Sell Scarlett ("+UtilText.formatAsMoney(getScarlettPrice(), "span", PresetColour.GENERIC_GOOD)+")",
 									"Sell Scarlett back to Helena for "+UtilText.formatAsMoney(getScarlettPrice())+".",
 									ROMANCE_SCARLETT_DELIVERED_EMPTY) {
@@ -1943,9 +1948,9 @@ public class ScarlettsShop {
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_5_SCARLETT_TRAINER));
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
-									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount(TFEssence.ARCANE);
+									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
 									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
-									Main.game.getNpc(Scarlett.class).setEssenceCount(TFEssence.ARCANE, essences);
+									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};
 							
@@ -1956,7 +1961,7 @@ public class ScarlettsShop {
 						}
 						
 					} else if(index==2) {
-						if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+						if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 							return new Response("Give Scarlett",
 									"Give Scarlett back to Helena and do not accept the "+UtilText.formatAsMoney(getScarlettPrice())+" she's offering you.",
 									ROMANCE_SCARLETT_DELIVERED_EMPTY) {
@@ -1980,9 +1985,9 @@ public class ScarlettsShop {
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_5_SCARLETT_TRAINER));
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
-									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount(TFEssence.ARCANE);
+									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
 									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
-									Main.game.getNpc(Scarlett.class).setEssenceCount(TFEssence.ARCANE, essences);
+									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};
 							
@@ -2005,7 +2010,11 @@ public class ScarlettsShop {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).setAffection(Main.game.getPlayer(), -100));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_FAILED));
-							Main.game.getNpc(Helena.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+							Main.game.getNpc(Helena.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
+							if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+								Main.game.getNpc(Scarlett.class).returnToHome();
+								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'><i>You order [scarlett.name] to return to [scarlett.her] room...</i></p>");
+							}
 						}
 					};
 				}
@@ -2211,7 +2220,10 @@ public class ScarlettsShop {
 	public static final DialogueNode ROMANCE_ADVERTISING_POSTERS_END = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ROLLED_UP_POSTERS), false));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.ROLLED_UP_POSTERS), false));
+			if(Main.getProperties().addItemDiscovered(ItemType.ROLLED_UP_POSTERS)) {
+				Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(ItemType.ROLLED_UP_POSTERS.getName(false), ItemType.ROLLED_UP_POSTERS.getRarity().getColour()), true);
+			}
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_6_ADVERTISING));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(100));
 		}
@@ -2442,7 +2454,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
 											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2465,7 +2479,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.LYING_DOWN,
 											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2486,7 +2502,10 @@ public class ScarlettsShop {
 									"Do as Scarlett asks and finger her.",
 									true,
 									false,
-									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER), new HashMap<>()),
+									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2516,7 +2535,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.ALL_FOURS, SexSlotAllFours.BEHIND, SexSlotAllFours.ALL_FOURS,
 											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.PENIS, CoverableArea.VAGINA)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.PENIS, CoverableArea.VAGINA)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2551,7 +2572,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.ALL_FOURS, SexSlotAllFours.IN_FRONT, SexSlotAllFours.ALL_FOURS,
 											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2572,7 +2595,10 @@ public class ScarlettsShop {
 									"Do as Scarlett asks and give her a handjob.",
 									true,
 									false,
-									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER), new HashMap<>()),
+									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2664,7 +2690,9 @@ public class ScarlettsShop {
 								false,
 								getScarlettSleepoverSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
 										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+										Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 								null,
 								null,
 								ROMANCE_7_MORNING_AFTER_SEX,
@@ -2687,7 +2715,9 @@ public class ScarlettsShop {
 								false,
 								getScarlettSleepoverSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
 										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 								null,
 								null,
 								ROMANCE_7_MORNING_AFTER_SEX,
@@ -2933,7 +2963,7 @@ public class ScarlettsShop {
 			sb.append("<div class='cosmetics-container' style='background:transparent;'>"
 						+ CharacterModificationUtils.getAgeChoiceDiv()
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
-						+ CharacterModificationUtils.getPersonalityChoiceDiv()
+						+ CharacterModificationUtils.getPersonalityChoiceDiv(true)
 						+ CharacterModificationUtils.getObedienceChoiceDiv()
 						+ CharacterModificationUtils.getAffectionChoiceDiv()
 						+ CharacterModificationUtils.getFetishChoiceDiv()
@@ -2970,62 +3000,85 @@ public class ScarlettsShop {
 				return new Response("Body", "Customise core aspects of your slave's body.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE);
 				
 			} else if(index==3) {
-				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE) {
-					return new Response("Face", "You are already customising the aspects of your slave's face!", null);
+				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES) {
+					return new Response("Eyes", "You are already customising the aspects of your slave's eyes!", null);
 				}
-				return new Response("Face", "Customise aspects of your slave's face.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE);
+				return new Response("Eyes", "Customise aspects of your slave's eyes.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES);
 				
 			} else if(index==4) {
+				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR) {
+					return new Response("Hair", "You are already customising the aspects of your slave's hair!", null);
+				}
+				return new Response("Hair", "Customise aspects of your slave's hair.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR);
+				
+			} else if(index==5) {
+				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD) {
+					return new Response("Head", "You are already customising the aspects of your slave's head and face!", null);
+				}
+				return new Response("Head", "Customise aspects of your slave's head and face.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD);
+				
+			} else if(index==6) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS) {
 					return new Response("Ass", "You are already customising the aspects of your slave's hips and ass!", null);
 				}
 				return new Response("Ass", "Customise aspects of your slave's hips and ass.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS);
 				
-			} else if(index==5) {
+			} else if(index==7) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS) {
 					return new Response("Breasts", "You are already customising the aspects of your slave's breasts!", null);
 				}
 				return new Response("Breasts", "Customise aspects of your slave's breasts.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS);
 				
-			} else if(index==6) {
+			} else if(index==8) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA) {
 					return new Response("Vagina", "You are already customising the aspects of your slave's vagina!", null);
 				}
 				return new Response("Vagina", "Customise aspects of your slave's vagina.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA);
 				
-			} else if(index==7) {
+			} else if(index==9) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS) {
 					return new Response("Penis", "You are already customising the aspects of your slave's penis!", null);
 				}
 				return new Response("Penis", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS);
 				
-			} else if(index==8 && Main.getProperties().udders!=0) {
+			} else if(index==10) {
+				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET) {
+					return new Response("Spinneret", "You are already customising the aspects of your slave's spinneret!", null);
+				}
+				if(!BodyChanging.getTarget().hasSpinneret()) {
+					return new Response("Spinneret",
+							"Your slave does not have a spinneret!<br/><i>Spinnerets are gained via certain tail or leg types.</i>",
+							null);
+				}
+				return new Response("Spinneret", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET);
+				
+			} else if(index==11 && Main.getProperties().getUddersLevel()!=0) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH) {
 					return new Response("Crotch-boobs", "You are already customising the aspects of your slave's crotch-boobs!", null);
 				}
 				
-				if(Main.getProperties().udders==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
+				if(Main.getProperties().getUddersLevel()==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
 					return new Response("Crotch-boobs", "As you have crotch-boobs disabled for non-taur characters, you cannot access this menu!", null);
 				}
 				
 				return new Response(
 						BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
-						UtilText.parse(BodyChanging.getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."),
+						UtilText.parse(BodyChanging.getTarget(), "Change aspects of your slave's [npc.crotchBoobs]."),
 						HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH);
 				
-			}  else if(index==9) {
+			} else if(index==12) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP) {
 					return new Response("Makeup", "You are already customising your slave's makeup!", null);
 				}
 				return new Response("Makeup", "Customise your slave's makeup.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP);
 				
-			} else if(index==10) {
+			} else if(index==13) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS) {
 					return new Response("Piercings", "You are already customising your slave's piercings!", null);
 				}
 				return new Response("Piercings", "Customise your slave's piercings.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS);
 				
-			} else if(index==11) {
+			} else if(index==14) {
 				return new Response("[style.colourMinorGood(Finalise order)]",
 						"Tell Helena that you've completed the ordering forms, and see how much this is going to cost you...",
 						HELENAS_SHOP_CUSTOM_SLAVE_FINISH);
@@ -3059,7 +3112,7 @@ public class ScarlettsShop {
 		}
 	};
 
-	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE = new DialogueNode("Customise Slave", "", true) {
+	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 10;
@@ -3068,8 +3121,56 @@ public class ScarlettsShop {
 		public String getHeaderContent() {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE"));
-			sb.append(BodyChanging.BODY_CHANGING_FACE.getHeaderContent());
+			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES"));
+			sb.append(BodyChanging.BODY_CHANGING_EYES.getHeaderContent());
+					
+			return sb.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR = new DialogueNode("Customise Slave", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+		@Override
+		public String getHeaderContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR"));
+			sb.append(BodyChanging.BODY_CHANGING_HAIR.getHeaderContent());
+					
+			return sb.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD = new DialogueNode("Customise Slave", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+		@Override
+		public String getHeaderContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD"));
+			sb.append(BodyChanging.BODY_CHANGING_HEAD.getHeaderContent());
 					
 			return sb.toString();
 		}
@@ -3203,6 +3304,30 @@ public class ScarlettsShop {
 		}
 	};
 
+	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET = new DialogueNode("Customise Slave", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+		@Override
+		public String getHeaderContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET"));
+			sb.append(BodyChanging.BODY_CHANGING_SPINNERET.getHeaderContent());
+					
+			return sb.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY.getResponse(responseTab, index);
+		}
+	};
+
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
@@ -3215,17 +3340,17 @@ public class ScarlettsShop {
 			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP"));
 
 			sb.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on a person's hands.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on a person's hands.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on person's feet.", true, true));
+							false, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on person's feet.", true, true));
 					
 			return sb.toString();
 		}
@@ -3301,6 +3426,11 @@ public class ScarlettsShop {
 				return new Response("Back", "Go back and make some changes...", HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY);
 				
 			} else if(index==1) {
+				if(Main.game.getPlayer().getMoney()<getSlaveValue(false)) {
+					return new Response("Order ("+UtilText.formatAsMoneyUncoloured(getSlaveValue(false), "span")+")",
+							"You cannot afford to order the slave, as you only have "+Util.intToString(Main.game.getPlayer().getMoney())+" flames.",
+							null);
+				}
 				return new Response("Order ("+UtilText.formatAsMoney(getSlaveValue(false), "span")+")",
 						"Tell Helena that you'd like to order the slave for "+Util.intToString(getSlaveValue(false))+" flames.",
 						HELENAS_SHOP_CUSTOM_SLAVE_ORDER) {
@@ -3315,6 +3445,11 @@ public class ScarlettsShop {
 				};
 				
 			} else if(index==2) {
+				if(Main.game.getPlayer().getMoney()<getSlaveValue(true)) {
+					return new Response("Slime special ("+UtilText.formatAsMoneyUncoloured(getSlaveValue(true), "span")+")",
+							"You cannot afford to order the slime special, as you only have "+Util.intToString(Main.game.getPlayer().getMoney())+" flames.",
+							null);
+				}
 				return new Response("Slime special ("+UtilText.formatAsMoney(getSlaveValue(true), "span")+")",
 						"Tell Helena that you'd like to order the slave, with the 'slime special' treatment, for "+Util.intToString(getSlaveValue(true))+" flames.",
 						HELENAS_SHOP_CUSTOM_SLAVE_ORDER) {
@@ -3512,7 +3647,7 @@ public class ScarlettsShop {
 								null,
 								null,
 								HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
 									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_EXPERIENCED"))) {
 							@Override
@@ -3557,7 +3692,7 @@ public class ScarlettsShop {
 								null,
 								null,
 								HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
 									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_CUNNILINGUS_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_CUNNILINGUS_EXPERIENCED"))) {
 							@Override
@@ -3715,7 +3850,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 		}
 		@Override
@@ -3829,7 +3964,7 @@ public class ScarlettsShop {
 								null,
 								HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
 								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_PERFORM_ANILINGUS")
-								+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
+								+ (Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
 									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_ANILINGUS_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_ANILINGUS_EXPERIENCED"))) {
 							@Override
@@ -3942,7 +4077,7 @@ public class ScarlettsShop {
 										null,
 										HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
 										UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_BLOWJOB")
-										+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
+										+ (Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
 											?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_BLOWJOB_FIRST_TIME")
 											:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_BLOWJOB_EXPERIENCED"))) {
 									@Override
@@ -4051,7 +4186,7 @@ public class ScarlettsShop {
 										null,
 										HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
 										UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_CUNNILINGUS")
-										+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
+										+ (Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
 											?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "GIVING_CUNNILINGUS_FIRST_TIME")
 											:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "GIVING_CUNNILINGUS_EXPERIENCED"))) {
 									@Override
@@ -4541,9 +4676,9 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
-			Main.game.getNpc(Scarlett.class).cleanAllClothing(true);
+			Main.game.getNpc(Scarlett.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Scarlett.class).cleanAllDirtySlots(true);
 		}
 		@Override
@@ -4600,6 +4735,11 @@ public class ScarlettsShop {
 							"You've already given Scarlett oral today...",
 							null);
 				}
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					return new Response(Main.game.getNpc(Scarlett.class).hasPenis()?"Blowjob":"Cunnilingus",
+							"Scarlett isn't attracted to you, so she'd be unwilling to let you give her "+(Main.game.getNpc(Scarlett.class).hasPenis()?"a quick blowjob":"some quick cunnilingus")+".",
+							null);
+				}
 				return new Response(Main.game.getNpc(Scarlett.class).hasPenis()?"Blowjob":"Cunnilingus",
 						"Kneel down beneath the shop's counter and give Scarlett "+(Main.game.getNpc(Scarlett.class).hasPenis()?"a quick blowjob":"some quick cunnilingus")+".",
 						HELENAS_SHOP_SCARLETT_COUNTER_ORAL) {
@@ -4615,7 +4755,15 @@ public class ScarlettsShop {
 				};
 				
 			} else if(index==5) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					return new Response(
+							Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+								?"Cafe"
+								:"Lunch break",
+							"Scarlett is only willing to spend her lunch break with people she's attracted to, and as you're not feminine enough for her liking, she's unwilling to spend it with you...",
+							null);
+					
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
 					return new Response("Cafe", "You've already been out to the cafe with Scarlett today...", null);
 					
 				} else if(Main.game.getHourOfDay()<11) {
@@ -4637,7 +4785,9 @@ public class ScarlettsShop {
 								?"Scarlett has already taken her lunch break, and so she can't go out to a cafe with you. Try again another day between [units.time(11)] and [units.time(15)]."
 								:"Scarlett has already taken her lunch break, and so can't spend it with you. Try again another day between [units.time(11)] and [units.time(15)].",
 							null);
+					
 				}
+				
 				return new Response(
 						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
 							?"Cafe"
@@ -4905,7 +5055,7 @@ public class ScarlettsShop {
 								
 							} else {
 								Main.game.getNpc(Scarlett.class).setPenisSize(20);
-								Main.game.getNpc(Scarlett.class).setPenisGirth(PenetrationGirth.TWO_AVERAGE);
+								Main.game.getNpc(Scarlett.class).setPenisGirth(PenetrationGirth.THREE_AVERAGE);
 								Main.game.getNpc(Scarlett.class).setPenisCumStorage(50);
 							}
 
@@ -4917,7 +5067,7 @@ public class ScarlettsShop {
 					};
 					
 				} else if(index==3) {
-					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)<10) {
+					if(Main.game.getPlayer().getEssenceCount()<10) {
 						return new Response("Boost (10 essences)", "You need at least ten arcane essences to boost the effects of the transformation potion!", null);
 					}
 					return new Response("Boost ([style.colourArcane(10 essences)])",
@@ -4938,13 +5088,13 @@ public class ScarlettsShop {
 								
 							} else {
 								Main.game.getNpc(Scarlett.class).setPenisSize(30);
-								Main.game.getNpc(Scarlett.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getNpc(Scarlett.class).setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 								Main.game.getNpc(Scarlett.class).setPenisCumStorage(150);
 							}
 
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_CORE"));
 							
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -10, false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(-10, false));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationDiscussed, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationApplied, true);
 						}
@@ -5028,7 +5178,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX = new DialogueNode("Finished", "Scarlett is satisfied, and tells you to move away form her...", true) {
+	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX = new DialogueNode("Finished", "Scarlett is satisfied, and tells you to move away from her...", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 10*60;

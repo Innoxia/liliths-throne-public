@@ -335,7 +335,7 @@
 	
 	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_FLIGHT"><![CDATA[
 	<p>
-		Following in [helena.name]'s footsteps, you hurry to edge of the platform. With a flap of your wings, you leap off and take flight, following the speck of white in the distance as [helena.name] leads you back to Scarlett's shop.
+		Following in [helena.name]'s footsteps, you hurry to the edge of the platform. #IF(!pc.isAbleToFlyFromExtraParts())With a flap of your wings, you#ELSEYou#ENDIF leap off and take flight, following the speck of white in the distance as [helena.name] leads you back to Scarlett's shop.
 	</p>
 	<p>
 		Somewhere along the way, you lose sight of the harpy matriarch, and it takes you a little while to get your bearings again. Soon enough, however, you spot the familiar pattern of Slaver Alley's passages beneath you, and swoop down to land in front of Scarlett's shop.
@@ -1307,6 +1307,16 @@
 	
 	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX -->
 	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NO_PREFERENCE"><![CDATA[
+	<p>
+		Not really knowing what it is that you want to do with Scarlett, you tell her that you have no particular preference in how she's going to fuck you. Smirking as she hears you say this, the raven-harpy steps forwards and teases, [scarlett.speech(Hmm, I wonder how best to fuck you...)]
+	</p>
+	<p>
+		Suddenly grabbing hold of your [pc.hips+], the dominant harpy pulls you into her body and growls, [scarlett.speech(I'm going to put you in your place, bitch!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_BLOWJOB"><![CDATA[
 	<p>
 		Wanting to perform oral on Scarlett, you tell her that you'd like to suck her cock. Smirking as she hears you say this, the raven-harpy strips off her clothing and sits down on the edge of her bed, before snapping, [scarlett.speech(Come on then! Get down and suck my cock!)]
@@ -1388,7 +1398,7 @@
 			Wanting more than just oral sex with Scarlett, you tell her that you'd like to fuck her ass. Smirking as she hears you say this, the raven-harpy quickly strips off her clothing, before asking, [scarlett.speech(You know I'm still an anal virgin, right? You want to be the first one to pound my virgin butt?)]
 		</p>
 		<p>
-			Eagerly replying in the affirmative, you feel your cock getting hard at the thought of being the first one to fuck Scarlett's ass. Seeing your growing erection, Scarlett lets out an uncharacteristic giggle before leaping up onto her bed and dropping down on all fours. Lifting her tail-feathers to present herself to you, she looks back over her shoulder and reveals, [scarlett.speech(It's not like I'm precious about my virginity or anything, it's just that everyone's preferred to fuck my pussy so far. Come on then, show me how it feels to have a cock buries in my asshole!)]
+			Eagerly replying in the affirmative, you feel your cock getting hard at the thought of being the first one to fuck Scarlett's ass. Seeing your growing erection, Scarlett lets out an uncharacteristic giggle before leaping up onto her bed and dropping down on all fours. Lifting her tail-feathers to present herself to you, she looks back over her shoulder and reveals, [scarlett.speech(It's not like I'm precious about my virginity or anything, it's just that everyone's preferred to fuck my pussy so far. Come on then, show me how it feels to have a cock buried in my asshole!)]
 		</p>
 		<p>
 			Hurrying to obey, you drop down behind Scarlett, before shuffling forwards and rubbing the [pc.cockHead+] up and down over her exposed asshole. Bucking her hips a little, the dominant harpy snaps, [scarlett.speechNoEffects(Come on, bitch! Give me your fucking cock already!)]

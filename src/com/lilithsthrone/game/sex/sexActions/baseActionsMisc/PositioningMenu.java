@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -167,24 +168,28 @@ public class PositioningMenu {
 			switch(sizeSlots) {
 				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS_FOUR);
+					slotsTwo.add(SexSlotDesk.HUMPING_FOUR);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL_FOUR);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL_FOUR);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK_FOUR);
 					slotsFive.add(SexSlotDesk.OVER_DESK_ON_FRONT_FOUR);
 				case 3: 
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS_THREE);
+					slotsTwo.add(SexSlotDesk.HUMPING_THREE);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL_THREE);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL_THREE);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK_THREE);
 					slotsFive.add(SexSlotDesk.OVER_DESK_ON_FRONT_THREE);
 				case 2: 
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS_TWO);
+					slotsTwo.add(SexSlotDesk.HUMPING_TWO);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL_TWO);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL_TWO);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK_TWO);
 					slotsFive.add(SexSlotDesk.OVER_DESK_ON_FRONT_TWO);
 				default:
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS);
+					slotsTwo.add(SexSlotDesk.HUMPING);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK);
@@ -197,21 +202,25 @@ public class PositioningMenu {
 			switch(sizeSlots) {
 				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS_FOUR);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS_FOUR);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL_FOUR);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL_FOUR);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS_FOUR);
 				case 3: 
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS_THREE);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS_THREE);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL_THREE);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL_THREE);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS_THREE);
 				case 2: 
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS_TWO);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS_TWO);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL_TWO);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL_TWO);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS_TWO);
 				default:
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS);
@@ -223,21 +232,25 @@ public class PositioningMenu {
 			switch(sizeSlots) {
 				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL_FOUR);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL_FOUR);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL_FOUR);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL_FOUR);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_FOUR);
 				case 3: 
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL_THREE);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL_THREE);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL_THREE);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL_THREE);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_THREE);
 				case 2: 
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL_TWO);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL_TWO);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL_TWO);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL_TWO);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_TWO);
 				default:
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL);
@@ -397,6 +410,8 @@ public class PositioningMenu {
 		slots.addAll(slotsTwelve);
 
 		slots.add(SexSlotGeneric.MISC_WATCHING);
+		
+		slots.removeIf(s -> !Main.sex.getInitialSexManager().isSlotAvailable(character, s));
 		
 		return slots;
 	}
@@ -680,7 +695,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STANDING);
 		}
 		
@@ -748,7 +763,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.AGAINST_WALL);
 		}
 		
@@ -824,7 +839,7 @@ public class PositioningMenu {
 					&& taurs<=4 // Cannot have more than 4 taurs
 					&& Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.SITTING);
 		}
 		
@@ -910,7 +925,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.OVER_DESK);
 		}
 		
@@ -978,7 +993,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.ALL_FOURS);
 		}
 		
@@ -1046,7 +1061,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.LYING_DOWN);
 		}
 		
@@ -1114,7 +1129,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STOCKS);
 		}
 		
@@ -1182,7 +1197,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.MILKING_STALL);
 		}
 		

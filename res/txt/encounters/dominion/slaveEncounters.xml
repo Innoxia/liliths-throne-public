@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- Slave ambusing and using the player: -->
+	
+	<!-- SLAVE_USES_YOU -->
+	
+	<htmlContent tag="SLAVE_USES_YOU"><![CDATA[
+	<p>
+		As you walk down one of the many corridors in Lilaya's mansion, a figure suddenly jumps out at you from an open doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the wall as your assailant growls into your ear, [npc.speech(Who's the bitch now?!)]
+	</p>
+	<p>
+		Looking into the grinning face of your slave, [npc.name], you let out a surprised cry as [npc.she] pulls you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.a_hand+] over your [pc.lips] and [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
+	</p>
+	<p>
+		Being caught totally unawares, you're in no position to fight back, and are at the mercy of your supposed 'slave'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_SEX"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_SEX_EAGER"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_SEX_RESIST"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss. Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop. Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_YOU_POST_SEX -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_POST_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you.  [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+	</p>
+	<p>
+		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_YOU_STREETS -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_STREETS"><![CDATA[
+	<p>
+		As you're walking down one of Dominion's busy streets, weaving your way around the crowds, you suddenly feel someone step up right behind you, and before you can react, they reach around and clasp [npc.a_hand+] over your mouth. You're taken completely by surprise, and before you're able to make any move, you hear the familiar voice of [npc.name], your slave, growling into your ear, [npc.speech(Well, well, well, look what I found!)]
+	</p>
+	<p>
+		Shifting [npc.her] grip from your mouth to take hold of your [pc.arm], [npc.name] spins you around, before pulling you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.her] [npc.hand] over your mouth once more and [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
+	</p>
+	<p>
+		As [npc.she] moves to start having sex with you, members of the surrounding crowd, including a pair of Enforcers, step forwards to watch. With no help coming your way, you realise that you're at the mercy of your supposed 'slave'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_STREETS_SEX"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_STREETS_SEX_EAGER"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_STREETS_SEX_RESIST"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss. Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop. Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_YOU_POST_SEX_STREETS -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_POST_SEX_STREETS"><![CDATA[
+	<p>
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+	</p>
+	<p>
+		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_YOU_ALLEYWAY -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_ALLEYWAY"><![CDATA[
+	<p>
+		#IF(pc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL) || pc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END))
+			As you're walking down the path that runs alongside one of Dominion's deserted canals, you suddenly feel someone step up right behind you, and before you can react, they reach around and clasp [npc.a_hand+] over your mouth.
+		#ELSE
+			As you're walking down one of Dominion's deserted alleyways, you suddenly feel someone step up right behind you, and before you can react, they reach around and clasp [npc.a_hand+] over your mouth.
+		#ENDIF
+		 You're taken completely by surprise, and before you're able to make any move, you hear the familiar voice of [npc.name], your slave, growling into your ear, [npc.speech(Well, well, well, look what I found!)]
+	</p>
+	<p>
+		Shifting [npc.her] grip from your mouth to take hold of your [pc.arm], [npc.name] spins you around, before pulling you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.her] [npc.hand] over your mouth once more and [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
+	</p>
+	<p>
+		Being caught totally unawares, you're in no position to fight back, and are at the mercy of your supposed 'slave'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_ALLEYWAY_SEX"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away." Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_ALLEYWAY_SEX_EAGER"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_ALLEYWAY_SEX_RESISTING"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss. Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop. Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_YOU_POST_SEX_ALLEYWAY -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_POST_SEX_ALLEYWAY"><![CDATA[
+	<p>
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+	</p>
+	<p>
+		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Slave using other slave in Dominion's alleyways: -->
+	
+	<!-- SLAVE_USES_OTHER_SLAVE_ALLEYWAY -->
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY"><![CDATA[
+	<p>
+		As you make your way down the twisting alleyway, [npc2.a_moan+] abruptly shakes your mind from other thoughts. As this lewd noise fades away, you prepare to continue on your way, deciding that whoever made it will be fine without your intervention. Before you've able to make a move, however, you suddenly recognise a pair of voices around the corner.
+	</p>
+	<p>
+		Due to a fork in the path ahead, you're able to pass by without encountering the clearly-horny individuals. Then again, as the two of them sound like people you may know, you could stop and find out who they are...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_IGNORE"><![CDATA[
+	<p>
+		You don't care who it is, frankly, even if you do know them. Without a second thought towards the noise, you get back on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_OTHER_SLAVE_ALLEYWAY_CHECK -->
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_CHECK"><![CDATA[
+	<p>
+		Curious, you edge towards the source of the noise, trying your best to keep your presence concealed as you prepare to spy on the noisy duo. As you peek around the corner, you see a pair of your slaves, [npc.name] and [npc2.name].
+		#IF(npc.hasPenis())
+			 [npc.Name] has [npc2.name] pinned, face-first, against the alley's wall,
+		#ELSE
+			 [npc.Name] has [npc2.name] pinned back against the alley's wall,
+		#ENDIF
+		 with [npc2.her] clothes dishevelled and [npc2.her]
+		#IF(npc2.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 genitals on full display.
+		#ELSE
+			 hot body pressed up against [npc.hers].
+		#ENDIF
+	</p>
+	<p>
+		The dominant [npc.race] looks more than ready to
+		#IF(npc.hasPenis() && (npc2.hasVagina() || game.isAnalContentEnabled()))
+			 penetrate [npc2.namePos]
+			#IF(npc2.hasVagina())
+				 [npc2.pussy+],
+			#ELSE
+				 [npc2.ass+],
+			#ENDIF
+		#ELSEIF(npc2.hasPenis() && (npc2.hasVagina() || game.isAnalContentEnabled()))
+			 get penetrated by [npc2.namePos] [npc2.cock+],
+		#ELSE
+			 start fucking [npc2.name],
+		#ENDIF
+		 and as you watch,
+		#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
+			 [npc.she] leans in to snarl, [npc.speech(Glad I got a chance to catch you somewhere like this. It's time I show you your place!)]
+		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			 [npc.she] leans in to declare, [npc.speech([pc.Name] told me that if I wanted to fuck somebody, it had to be you...)]
+		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+			 [npc.she] leans in to [npc.moan], [npc.speech(I followed you all the way here, and now that there's nobody to interrupt us, it's time to give you a good fucking!)]
+		#ELSE
+			 [npc.she] leans in to [npc.moan], [npc.speech(Fuck! I thought I'd never find you! I'm about to give you the fucking of a lifetime!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+			Angrily pushing back against [npc.name], [npc2.name] snaps, [npc2.speech(Well? Come on then, you fuck! We both know you aren't [npc.man] enough to do anything!)]
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			Letting out an annoyed huff, [npc2.name] replies, [npc2.speech(Well, let's get started then, I have somewhere I want to be and you're wasting my time with talking!)]
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+			Seductively pushing back against [npc.name], [npc2.name] [npc2.moans], [npc2.speech(Come on then, fuck me already!)]
+		#ELSE
+			Erotically pushing [npc2.her] body back against [npc.name], [npc2.name] desperately [npc2.moans], [npc2.speech(Hurry, hurry! I've been needing this for ages!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+			Despite obviously not liking the situation [npc2.she] finds [npc2.herself] in, the prospect of getting off in accordance with your rules seems to have [npc2.name] surprisingly eager to get started. With moments before this little hate-fuck session begins, you realize it's time to choose between interrupting and getting in on the action, or hanging back and watching as they go at it.
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			[npc2.Name] clearly isn't thrilled at being forced into this situation, but [npc2.she] seems horny enough that [npc2.sheIs] willing to put [npc2.her] ambivalence towards [npc.name] aside in return for a few orgasms. With the impromptu rendezvous about to get underway, you have the option to announce your presence and join them, or watch as the two use each other.
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+			It's clear from [npc2.her] eager [npc2.moan] that [npc2.name] is more than willing to submit to [npc.name] and be fucked by [npc.herHim]. As the two slaves prepare to get it on, you take a moment to decide whether to turn this into a threesome, or stay back and let them have their fun.
+		#ELSE
+			[npc2.Name] seems every bit as enthusiastic about having sex with [npc.name] as [npc2.she] could possibly be. As [npc2.she] gets ready to tumble with [npc2.her] partner, it's time to choose whether or not you want to join them, or sit back and enjoy the sight them enjoying each other.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_DOM"><![CDATA[
+	<p>
+		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] around from behind the corner and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
+		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#ELSE
+			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc2.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE|| (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+			Clearly unhappy about seeing that you've arrived to join in with the fun, [npc2.name] lets out a protesting whine, but otherwise realises the futility of [npc2.her] situation as you prepare to join [npc.name] in fucking [npc2.herHim]...
+		#ELSE
+			Pleased to see that you've arrived to join in with the fun, [npc2.name] lets out a horny whine, before preparing to submit to both you and [npc.name] as you move to fuck [npc2.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_SUB"><![CDATA[
+	<p>
+		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] around from behind the corner and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
+		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#ELSE
+			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+		#ENDIF
+	</p>
+	<p>
+		Moving forwards to lean back against the wall beside [npc2.name], you tell [npc.name] that you were actually hoping for [npc.herHim] to dominate you. Flashing you a hungry grin as [npc.she] hears you say this, your slave
+		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+			 leans in to forcefully plant a rough kiss on your [pc.lips+], before pulling back and snarling, [npc.speech(Sure, I'll give you a good hate-fucking, bitch!)]
+		#ELSE
+			 leans in to plant a quick kiss on your [pc.lips+], before pulling back and [npc.moaning], [npc.speech(Sure, I'll give you a good fucking, if that's what you're after!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_WATCHING"><![CDATA[
+	<p>
+		Deciding that you'd like to simply watch your two slaves having some fun together, you remain hidden around the corner and prepare to find out how [npc.name] is planning on fucking [npc2.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_CHECK_LEAVE"><![CDATA[
+	<p>
+		Deciding that you really don't want to intervene or watch your two slaves having some fun together, you turn around and head off into the alleyways, leaving their erotic moans far behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX -->
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX"><![CDATA[
+	#IF(sex.getAllParticipants(false).contains(pc))
+		#IF(sex.isDom(pc))
+			<p>
+				As you and [npc.name] [pc.step] back and start to get your clothing in order, [npc2.name] lets out
+				#IF(npc2.isSatisfiedFromLastSex())
+					 a deeply satisfied [npc2.moan], and after sinking to the ground in exhaustion, [npc2.she] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#ELSE
+					 a frustrated whine and sinks to the ground, before desperately panting, [npc2.speech(Fuck... You didn't give me enough...)]
+				#ENDIF
+			</p>
+			<p>
+				Smirking down at your slave, you turn around and set off the way you came, happy that you were able to take a break and give [npc2.name] the fucking [npc2.she] deserves...
+			</p>
+		#ELSE
+			<p>
+				Having had [npc.her] fun with you and [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
+				#IF(npc2.isSatisfiedFromLastSex())
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#ELSE
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+				#ENDIF
+			</p>
+			<p>
+				Smirking down at you and [npc2.name], [npc.name] turns around and sets off down the alleyway, leaving the two of you to recover from your fucking. Soon enough, you feel like you're ready to continue on your way, and after parting ways with [npc2.name], you head back down the alleyways in the same direction from which you originally came...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Having had [npc.her] fun with [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
+			#IF(npc2.isSatisfiedFromLastSex())
+				 Sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+			#ELSE
+				 Letting out a frustrated whine and sinking to the ground, [npc2.name] desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+			#ENDIF
+		</p>
+		<p>
+			After briefly smirking down at [npc2.name], [npc.name] turns around and sets off down the alleyway, leaving your other slave to recover from [npc2.her] fucking. Having had your fun by watching the two of them go at it, you feel like you're ready to continue on your way, and, leaving [npc2.name] behind, you head back down the alleyways in the same direction from which you originally came...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Slave using other slave in Lilaya's home corridor: -->
+	
+	<!-- SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR -->
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR"><![CDATA[
+	<p>
+		With the rules that you have in place for your slaves, it's not uncommon for you to hear the lurid moans of a pair going at it from time to time. As you travel down the corridor, you hear a yelp coming out of a nearby storage room, and you realise that you've stumbled across two of your slaves about to have sex.
+	</p>
+	<p>
+		Due to the fact that they've chosen to fuck one another in the storage room, you're able to pass by without encountering the clearly-horny individuals. Then again, if you wanted to, you could take a look through the doorway and find out who they are...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_IGNORE"><![CDATA[
+	<p>
+		It's just a pair of slaves, and if you wanted to watch them fuck you could make them do it whenever you felt the urge. With this thought in your mind, you ignore the noise and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_CHECK -->
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_CHECK"><![CDATA[
+	<p>
+		Although you already know what's going on in there, you find yourself feeling curious to discover exactly which of your slaves are having sex in the storage room. As quietly as you can, you position yourself so you can look around the edge of the doorway without being too obvious. Within the room, amongst the shelves and stacks of cleaning equipment, you see that [npc.name] has decided that this was the time and place to fuck your designated sex toy, [npc2.name].
+	</p>
+	<p>
+		As you watch, [npc.name]
+		#IF(npc.hasPenis())
+			 bends [npc2.name] over and pushes [npc2.herHim] forwards so that [npc2.sheHas] got [npc2.her] [npc2.hands] pressed firmly against the wall.
+		#ELSE
+			 pushes [npc2.name] back against the wall and grinds [npc.her] hot body up against [npc2.hers].
+		#ENDIF
+		#IF(npc2.isAbleToAccessCoverableArea(CA_VAGINA, false))
+			 As [npc2.namePos] genitals are already fully display, [npc.name] is able to greedily reach down and give the [npc2.race]'s groin a good grope.
+		#ELSE
+			#IF(npc2.hasLegs())
+				 Reaching down between [npc2.namePos] [npc2.legs],
+			#ELSE
+				 Reaching down to [npc2.namePos] crotch,
+			#ENDIF
+			#IF(npc2.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 [npc.name] quickly displaces the [npc2.race]'s clothing and gives [npc2.her] groin a good grope.
+			#ELSE
+				 [npc.name] gives the [npc2.race]'s groin a good grope.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		The dominant [npc.race] looks more than ready to
+		#IF(npc.hasPenis() && (npc2.hasVagina() || game.isAnalContentEnabled()))
+			 penetrate [npc2.namePos]
+			#IF(npc2.hasVagina())
+				 [npc2.pussy+],
+			#ELSE
+				 [npc2.ass+],
+			#ENDIF
+		#ELSEIF(npc2.hasPenis() && (npc2.hasVagina() || game.isAnalContentEnabled()))
+			 get penetrated by [npc2.namePos] [npc2.cock+],
+		#ELSE
+			 start fucking [npc2.name],
+		#ENDIF
+		 and as you watch,
+		#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
+			 [npc.she] reaches up to roughly squeeze [npc2.namePos] neck and snarl, [npc.speech(Hope you're ready for this, little slut. I've been waiting to get you all alone for myself!)]
+		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			 [npc.she] leans in to mutter, [npc.speech(Too bad it has to be you and me, huh? Still, it's nice to be able to get off once in a while.)]
+		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+			 [npc.she] leans in to [npc.moan], [npc.speech(Let's start this nice and slow, then we can change it up when you're ready.)]
+		#ELSE
+			 [npc.she] leans in to [npc.moan], [npc.speech(~Ooh!~ [npc2.Name]! I need you so bad! Stay still so I can fuck you!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+			Angrily pushing back against [npc.name], [npc2.name] snaps, [npc2.speech(Come on, then! I always knew you were a freak! Let's get this over with!!)]
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			Letting out an annoyed huff, [npc2.name] replies, [npc2.speech(Well, if you're gonna do it, then do it. Honestly, I really need this too!)]
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+			Seductively pushing back against [npc.name], [npc2.name] [npc2.moans], [npc2.speech(Come on then, fuck me already!)]
+		#ELSE
+			Erotically pushing [npc2.her] body back against [npc.name], [npc2.name] desperately [npc2.moans], [npc2.speech(Hurry, hurry! I've been needing this for ages!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+			Despite obviously not liking the situation [npc2.she] finds [npc2.herself] in, the prospect of getting off in accordance with your rules seems to have [npc2.name] surprisingly eager to get started. With moments before this little hate-fuck session begins, you realize it's time to choose between interrupting and getting in on the action, or hanging back and watching as they go at it.
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+			[npc2.Name] clearly isn't thrilled at being forced into this situation, but [npc2.she] seems horny enough that [npc2.sheIs] willing to put [npc2.her] ambivalence towards [npc.name] aside in return for a few orgasms. With the impromptu rendezvous about to get underway, you have the option to announce your presence and join them, or watch as the two use each other.
+		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+			It's clear from [npc2.her] eager [npc2.moan] that [npc2.name] is more than willing to submit to [npc.name] and be fucked by [npc.herHim]. As the two slaves prepare to get it on, you take a moment to decide whether to turn this into a threesome, or stay back and let them have their fun.
+		#ELSE
+			[npc2.Name] seems every bit as enthusiastic about having sex with [npc.name] as [npc2.she] could possibly be. As [npc2.she] gets ready to tumble with [npc2.her] partner, it's time to choose whether or not you want to join them, or sit back and enjoy the sight them enjoying each other.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_START_SEX_DOM"><![CDATA[
+	<p>
+		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] into the room and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
+		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#ELSE
+			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc2.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE|| (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+			Clearly unhappy about seeing that you've arrived to join in with the fun, [npc2.name] lets out a protesting whine, but otherwise realises the futility of [npc2.her] situation as you prepare to join [npc.name] in fucking [npc2.herHim]...
+		#ELSE
+			Pleased to see that you've arrived to join in with the fun, [npc2.name] lets out a horny whine, before preparing to submit to both you and [npc.name] as you move to fuck [npc2.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_START_SEX_SUB"><![CDATA[
+	<p>
+		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] into the room and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
+		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#ELSE
+			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+		#ENDIF
+	</p>
+	<p>
+		Moving forwards to lean back against the wall beside [npc2.name], you tell [npc.name] that you were actually hoping for [npc.herHim] to dominate you. Flashing you a hungry grin as [npc.she] hears you say this, your slave
+		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+			 leans in to forcefully plant a rough kiss on your [pc.lips+], before pulling back and snarling, [npc.speech(Sure, I'll give you a good hate-fucking, bitch!)]
+		#ELSE
+			 leans in to plant a quick kiss on your [pc.lips+], before pulling back and [npc.moaning], [npc.speech(Sure, I'll give you a good fucking, if that's what you're after!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_START_SEX_WATCHING"><![CDATA[
+	<p>
+		Deciding that you'd like to simply watch your two slaves having some fun together, you remain hidden around the edge of the doorway and prepare to find out how [npc.name] is planning on fucking [npc2.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_CHECK_LEAVE"><![CDATA[
+	<p>
+		Deciding that you really don't want to intervene or watch your two slaves having some fun together, you turn around and head off down the corridor, leaving their erotic moans far behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_POST_SEX -->
+	
+	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_POST_SEX"><![CDATA[
+	#IF(sex.getAllParticipants(false).contains(pc))
+		#IF(sex.isDom(pc))
+			<p>
+				As you and [npc.name] [pc.step] back and start to get your clothing in order, [npc2.name] lets out
+				#IF(npc2.isSatisfiedFromLastSex())
+					 a deeply satisfied [npc2.moan], and after sinking to the ground in exhaustion, [npc2.she] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#ELSE
+					 a frustrated whine and sinks to the ground, before desperately panting, [npc2.speech(Fuck... You didn't give me enough...)]
+				#ENDIF
+			</p>
+			<p>
+				Smirking down at your slave, you swiftly exit the storage room and set off down the corridor, happy that you were able to take a break and give [npc2.name] the fucking [npc2.she] deserves...
+			</p>
+		#ELSE
+			<p>
+				Having had [npc.her] fun with you and [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
+				#IF(npc2.isSatisfiedFromLastSex())
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#ELSE
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+				#ENDIF
+			</p>
+			<p>
+				Smirking down at you and [npc2.name], [npc.name] swiftly exits the storage room and sets off down the corridor, leaving the two of you to recover from your fucking. Soon enough, you feel like you're ready to continue on your way, and after parting ways with [npc2.name], you head back into the corridor...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Having had [npc.her] fun with [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
+			#IF(npc2.isSatisfiedFromLastSex())
+				 Sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+			#ELSE
+				 Letting out a frustrated whine and sinking to the ground, [npc2.name] desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+			#ENDIF
+		</p>
+		<p>
+			After briefly smirking down at [npc2.name], [npc.name] swiftly exits the storage room and sets off down the corridor, leaving your other slave to recover from [npc2.her] fucking. Having had your fun by watching the two of them go at it, you feel like you're ready to continue on your way, and, leaving [npc2.name] behind, you head back into the corridor...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+</dialogue>

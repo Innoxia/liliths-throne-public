@@ -15,7 +15,6 @@ import com.lilithsthrone.utils.Util;
  */
 public class Horn implements BodyPartInterface {
 
-	
 	public static final int MAXIMUM_ROWS = 3;
 	public static final int MAXIMUM_HORNS_PER_ROW = 4;
 	
@@ -25,8 +24,15 @@ public class Horn implements BodyPartInterface {
 	protected int length;
 	
 	public Horn(AbstractHornType type, int length) {
-		this.type = type;
-		this.length = length;
+		if(length<=0) {
+			this.length = 0;
+			this.type = HornType.NONE;
+			
+		} else {
+			this.type = type;
+			this.length = length;
+		}
+		
 		rows = 1;
 		hornsPerRow = type.getDefaultHornsPerRow();
 	}
@@ -61,6 +67,10 @@ public class Horn implements BodyPartInterface {
 		return type.getDescriptor(gc);
 	}
 
+	public void setType(AbstractHornType type) {
+		this.type = type;
+	}
+
 	public String setType(GameCharacter owner, AbstractHornType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
@@ -78,7 +88,7 @@ public class Horn implements BodyPartInterface {
 			}
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if (type == HornType.HORSE_STRAIGHT) {
 			this.setHornsPerRow(owner, 1);
@@ -86,32 +96,32 @@ public class Horn implements BodyPartInterface {
 		}
 
 		if(this.type.equals(HornType.NONE)) {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+			sb.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp and [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive."
 						+ " After just a moment, [npc.her] [npc.eyes] widen in shock as something starts pushing out from under the [npc.faceSkin] of [npc.her] forehead."));
 		} else {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+			sb.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] "+(owner.getTotalHorns()==1?"[npc.horn]":"[npc.horns]")+"."
 						+ " Before [npc.she] [npc.has] any time in which to react, "+(owner.getTotalHorns()==1?"it rapidly crumbles away, and within moments it's":"they rapidly crumble away, and within moments they've")+" completely disappeared. "));
 		}
 
 		if(type!=HornType.NONE) {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, (owner.getTotalHorns()==1
+			sb.append(UtilText.parse(owner, (owner.getTotalHorns()==1
 					?" A hard nub suddenly pushes out from the middle of [npc.her] forehead, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] it quickly grow out into a "
 					:" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into ")));
 		}
 		
 		this.type = type;
 		
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+		sb.append(type.getTransformationDescription(owner));
 		
 		if(this.length==0) {
 			length = HornLength.ONE_SMALL.getMinimumValue();
 		}
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -202,11 +212,20 @@ public class Horn implements BodyPartInterface {
 	}
 	
 	public HornLength getHornLength() {
-		return HornLength.getHornLengthFromInt(length);
+		return HornLength.getLengthFromInt(length);
 	}
 	
 	public int getHornLengthValue() {
 		return length;
+	}
+
+	public void setHornLength(int length) {
+		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
+	}
+
+	public void setTypeAndLength(AbstractHornType type, int length) {
+		setType(type);
+		setHornLength(length);
 	}
 
 	public String setHornLength(GameCharacter owner, int length) {
@@ -245,11 +264,11 @@ public class Horn implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Horn.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Horn.class) && getType().getRace().isFeralPartsAvailable());
 	}
 
 }

@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.main.Main;
-
-import javafx.application.Platform;
 
 /**
  * Collection of utility functions for date, time and number format conversion.
@@ -76,7 +73,7 @@ public enum Units {
     public void updateDateFormat(boolean autoLocale) {
         Locale.setDefault(autoLocale ? defaultLocale : Locale.ENGLISH);
         shortDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.internationalDate) ? "MM/dd/yy" : "dd.MM.yy"))
+                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.internationalDate) ? "dd.MM.yy" : "MM/dd/yy"))
                 .withZone(ZoneId.systemDefault());
         longDate = DateTimeFormatter.ofPattern("d'%o %m' yyyy")
                 .withZone(ZoneId.systemDefault());
@@ -102,7 +99,7 @@ public enum Units {
         number.setRoundingMode(RoundingMode.HALF_UP);
         number.setMinimumFractionDigits(MIN_PRECISION);
         number.setMaximumFractionDigits(MAX_PRECISION);
-        Platform.runLater(StatusEffect::updateAttributeModifiers);
+//        Platform.runLater(AbstractStatusEffect::updateAttributeModifiers);
     }
 
     /**

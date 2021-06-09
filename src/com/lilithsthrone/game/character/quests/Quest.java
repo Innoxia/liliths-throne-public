@@ -82,12 +82,14 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ." + " It looks like you'll have to inquire further there and find out a way to save Arthur.";
+			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ."
+					+ " It looks like you'll have to inquire further there and find out a way to save Arthur.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You were forced into a fight with the Enforcer's Chief, Brax." + " Thankfully, you were able to beat him, but you then found out that Arthur has been sold into slavery!";
+			return "You were forced to confront the Enforcer Inspector, Brax."
+					+ " Thankfully, you were able to deal with him, but you then found out that Arthur has been sold into slavery!";
 		}
 	},
 
@@ -294,41 +296,57 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_A_FINDING_THE_YOUKO(QuestType.MAIN, 20, 250) {
+	MAIN_3_ELIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Finding the youko";
+			return "Destination Elis";
 		}
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
-					+ "[siren.Name] told you that you're going to need the help of the youko if you're to defeat the elder lilin pegataur, Lunette."
-					+ " She said that you should find and enlist the help of her old friend, [youkoGuide.name], who worked in her lab back when she was living in her citadel."
-					+ " [youkoGuide.Name] will have returned to the town of Elis, which is the settlement nearest to the Shinrin Forest, the youko's homeland.";
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " Meraxis additionally mentioned enlisting the aid of the youko, but that can wait until after you've arrived in Elis itself.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You travelled to Elis, where you found the youko, [youkoGuide.name], in an inn called 'The Ninth Tail'."
-					+ " It turned out that she was having to work off a significant debt, and wouldn't be able to help you until it's paid off in full.";
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " To this end, you left Dominion for the first time...";
 		}
 	},
 	
-	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {
+	MAIN_3_B_MEETING_MERAXIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Debts paid";
+			return "To The Red Dragon";
 		}
 
 		@Override
 		public String getDescription() {
-			return "You need to help [youkoGuide.name] clear her debt, and in exchange she's promised to show you where the leader of all the youko lives.";
+			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You helped [youkoGuide.name] clear her debt, and, as agreed, she is ready and willing to take you to the youko leader's hideout.";
+			return "You met Meraxis in 'The Red Dragon' tavern, where she's managed to secure accommodation for you in the form of a rented room on the tavern's first floor.";
+		}
+	},
+	
+	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Meeting Minotallys";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
+					+ "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";
 		}
 	},
 
@@ -443,7 +461,39 @@ public enum Quest {
 		}
 	},
 	
-	// Getting a Slaver License:
+	// When getting eggs implanted in you for the first time:
+	
+	SIDE_INCUBATION_WAITING(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Living Incubator";
+		}
+		@Override
+		public String getDescription() {
+			return "There's no doubt about it; you've had a clutch of eggs implanted inside of your body! There's nothing else for you to do except wait for them to mature and then lay them...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You waited for the eggs implanted inside of your body to mature, and then successfully laid and hatched them!";
+		}
+	},
+	
+//	SIDE_INCUBATION_LILAYA_HELP(QuestType.SIDE, 1, 20) {
+//		@Override
+//		public String getName() {
+//			return "Egg-laying assistance";
+//		}
+//		@Override
+//		public String getDescription() {
+//			return "Lilaya said that she'd be able to help you lay your eggs whenever you're ready. You're going to need to wait until they're ready to be hatched, then you can go and see Lilaya to lay them.";
+//		}
+//		@Override
+//		public String getCompletedDescription() {
+//			return "Lilaya helped you to lay your eggs. She said that if ever you get implanted with eggs again, she can always help out.";
+//		}
+//	},
+	
+	// Getting a slaver license:
 	
 	SIDE_SLAVER_NEED_RECOMMENDATION(QuestType.SIDE, 1, 10) {
 		@Override
@@ -453,7 +503,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "After asking how to obtain a Slaver License at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
+			return "After asking how to obtain a slaver license at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
 		}
 
 		@Override
@@ -488,7 +538,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "After getting to know one of the residents of Dominion's alleyways, you'd like to offer them a real home. Lilaya's mansion is full of empty rooms, so you should ask her if you could use one to house your new friend.";
+			return "Lilaya's mansion is full of empty rooms which could be put to use as guest accommodation. You should ask her if you could use them to house your friends and family.";
 		}
 
 		@Override
@@ -1126,16 +1176,15 @@ public enum Quest {
 	VENGAR_THREE_COOPERATION_END(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
-			return "Turning a new leaf";
+			return "Vengar's End";
 		}
 		@Override
 		public String getDescription() {
-			return "Now that Vengar has sworn to obey the law, and greased the pockets of the Enforcers who were responsible for hunting him down, you've agreed to report his change of ways to the Submission Enforcers."
-					+ " You should go and speak to Claire about this.";
+			return "Now that [axel.name] has shown [axel.her] submission to Vengar, all that's left to do is head back to the Gambling Den...";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You reported all that happened with Vengar to Claire, who said that due to both his bribes and turning over several of his lieutenants, Vengar is no longer wanted.";
+			return "After [axel.name] had shown [axel.her] submission to Vengar, a group of SWORD Enforcers turned up to raid the Rat Warrens and arrest the rat-boy!";
 		}
 	},
 
@@ -1172,61 +1221,352 @@ public enum Quest {
 					+ " Claire gave you a resonance stone to activate if you want them to back you up once inside.";
 		}
 	},
+
+	// Wes:
+
+	WES_FAIL(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Opportunity Missed";
+		}
+		@Override
+		public String getDescription() {
+			return "After you'd told Wesley that you had no intention of helping him with his investigation, the fox-boy disappeared, and you can be sure that he'll never try to seek out your help again...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
 	
+	WES_START(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Help Needed";
+		}
+		@Override
+		public String getDescription() {
+			return "While travelling through Dominion, you were approached by a mysterious undercover SWORD Enforcer who asked for your help."
+					+ " He'd like you to meet him outside of the Shopping Arcade's antiques shop between [units.time(13)]-[units.time(14)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You agreed to help Wesley investigate his superior officer.";
+		}
+	},
+
+	WES_1(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Finding Elle";
+		}
+		@Override
+		public String getDescription() {
+			return "Wes told you that his superior officer, [elle.name] (or 'Elle' for short), takes night vision goggles with her while taking suspiciously long lunches on Wednesdays, and always comes back with wet shoes."
+					+ " You need to find her and record any incriminating evidence on the arcane recording device Wes gave to you..."
+					+ "<br/>She takes [style.colourOrange(unusually long lunch breaks)]."
+					+ "<br/>She only does this on a [style.colourOrange(Wednesday)]."
+					+ "<br/>She takes a set of [style.colourOrange(night vision goggles)] with her."
+					+ "<br/>Afterwards, her [style.colourOrange(shoes are often wet)] and sometimes have trace amounts of some kind of [style.colourOrange(glowing residue on them)]."
+					+ "<br/>[style.italicsMinorGood(For a hint on where to go, ask Lilaya about it.)]";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Having deduced that Elle was doing her shady business down in the Bat Caverns, you managed to collect evidence of her selling weapons to a dangerous criminal gang.";
+		}
+	},
+
+	WES_2(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Using the Evidence";
+		}
+		@Override
+		public String getDescription() {
+			return "With your arcane recording device now containing incriminating evidence of Elle's corruption, you're left with two possible choices of what to do with it."
+					+ " You could hand it in as an anonymous tip to either Claire or Candi, or if you wanted to betray Wes and side with Elle,"
+						+ " you could wait outside the Enforcer HQ between [units.time(16)]-[units.time(18)] and reveal everything to the [elle.race] as she leaves work.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You made use of the evidence which you collected in order to bring an end to this whole business with Wes and Elle.";
+		}
+	},
+
+	WES_3_WES(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Sided with Wes";
+		}
+		@Override
+		public String getDescription() {
+			return "You decided to do as Wes asked and hand in the incriminating evidence as an anonymous tip to the Enforcers."
+					+ " You should wait at least one week for things to be settled, then ask to see Wes up in the Enforcer HQ between [units.time(9)]-[units.time(17)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You sided with Wes, and after anonymously handing in the incriminating evidence, you met the fox-boy in the Enforcer HQ to discover that he's been promoted to take Elle's job."
+					+ " With his new authority, he's granted you access to the Enforcer HQ's requisitions area as a reward for your help."
+					+ " You can also now freely visit Wes in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
+		}
+	},
+
+	WES_3_ELLE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Sided with Elle";
+		}
+		@Override
+		public String getDescription() {
+			return "You decided to betray Wes and reveal everything to Elle."
+					+ " Thankful for your unexpected support, the [elle.race] promised to reward you if you return to the Enforcer HQ after at least a week has passed...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You sided with Elle, and after returning to meet with her at the Enforcer HQ, you discovered that Wes has been enslaved."
+					+ " Thankful for your support, the [elle.race] has granted you access to the Enforcer HQ's requisitions area."
+					+ " You can also now freely visit Elle (and Wes) in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
+		}
+	},
+
 	
+	// Rebel Base for HLF Quest
+	
+	REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Hit The Lever!";
+		}
+		@Override
+		public String getDescription() {
+			return "You found a strange handle in the Bat Caverns. Who knows what it's for or what it does.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You pulled the handle against your better judement.";
+		}
+	},
+
+	REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Pull Handle, Receive Mystery";
+		}
+		@Override
+		public String getDescription() {
+			return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
+		}
+	},
+
+	REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Fill In The Blank";
+		}
+		@Override
+		public String getDescription() {
+			return "The other half of the password must be on the other half of the journal page. Perhaps it can still be found nearby.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found both halves of the password, together they make the phrase 'RUAT CAELUM'";
+		}
+	},
+
+	REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Open Says Me";
+		}
+		@Override
+		public String getDescription() {
+			return "With the completed password, you can now give the handle's challenge another try.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You discovered that the handle was actually attached to a door that led to a hidden cave splitting off from the Bat Caverns.";
+		}
+	},
+
+	REBEL_BASE_EXPLORATION(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Going Spelunking";
+		}
+		@Override
+		public String getDescription() {
+			return "No telling what the hidden cave is for or where it goes. Perhaps you can find some answers inside.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found out that the hidden cave was a hideout for a long gone rebel group. From the looks of things, they didn't win.";
+		}
+	},
+
+	REBEL_BASE_ESCAPE(QuestType.SIDE,
+			15,
+			100) {
+		@Override
+		public String getName() {
+			return "Getting Away With It";
+		}
+		@Override
+		public String getDescription() {
+			return "Time to make your escape, preferably before this cave collapses in on itself.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to get out in one piece. Whatever else that cave held is now buried forever.";
+		}
+	},
+
+	REBEL_BASE_FAILED(QuestType.SIDE,
+			15,
+			0) {
+		@Override
+		public String getName() {
+			return "Cold Feet";
+		}
+		@Override
+		public String getDescription() {
+			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+
+	REBEL_BASE_FIREBOMBS_START(QuestType.SIDE,
+			1,
+			5) {
+		@Override
+		public String getName() {
+			return "Breaking Bombs";
+		}
+		@Override
+		public String getDescription() {
+			return "The firebombs you got from the mysterious cave could come in handy in a fight. You'll need to find someone who can either make or acquire more.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Roxy has agreed to look into getting more firebombs for you.";
+		}
+	},
+
+	REBEL_BASE_FIREBOMBS_FINISH(QuestType.SIDE,
+			1,
+			5) {
+		@Override
+		public String getName() {
+			return "Fire From The Rats";
+		}
+		@Override
+		public String getDescription() {
+			return "It will take Roxy two days to get a new supply of firebombs going. You should return to her then.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Somehow, Roxy didn't swindle you and you've gotten yourself a supply of firebombs.";
+		}
+	},
+
+	REBEL_BASE_FIREBOMBS_FAILED(QuestType.SIDE,
+			1,
+			0) {
+		@Override
+		public String getName() {
+			return "Roxy's Reluctance";
+		}
+		@Override
+		public String getDescription() {
+			return "Without an example to give to Roxy, she either couldn't understand or didn't want to be bothered with trying to replicate the firebombs you found...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+        
 	// Romance quests:
 
-	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
+	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
-			return "Offer Nyan your help";
+			return "Helping Nyan";
 		}
-
 		@Override
 		public String getDescription() {
-			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
-					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...<br/>"
-					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
+			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her wholesale supplier has suddenly stopped communicating with her."
+					+ " Apparently, this supplier used to be on good terms with Nyan, and his uncharacteristic behaviour has caused the nervous cat-girl to suspect something terrible has happened to him.<br/>"
+					+ "Perhaps you could offer Nyan your help by finding out what's happened to this supplier?";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You offered Nyan your help in convincing the new suppliers to let the old ones back.";
+			return "You offered Nyan your help in finding out what's happened to her wholesale enchanted clothing supplier.";
 		}
 	},
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 50) {
+	RELATIONSHIP_NYAN_2_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 1, 25) {
 		@Override
 		public String getName() {
-			return "Confront the suppliers";
+			return "Saving Kay";
 		}
-
 		@Override
 		public String getDescription() {
-			return "Nyan explained that the suppliers still work out of the supply depot here in the Shopping Arcane."
-					+ " From all that Nyan's told you about these new suppliers, you should be prepared for a tough fight if you decide to go and talk to them...";
+			return "Nyan told you that her supplier, [kay.nameFull], has his business set up in Dominion's warehouse district."
+					+ " You'll need to travel to the north-west of the city, find Kay's warehouse, and discover why he's suddenly cut off all communication with Nyan.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You put an end to the dobermanns' monopoly, and although they'll continue to work as clothing suppliers, they'll stop intimidating the others.";
+			return "You not only found Kay's warehouse, but were also able to discover that his business has been effectively seized by a pair of bullying bounty hunters.";
 		}
 	},
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
+	RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS(QuestType.RELATIONSHIP, 10, 100) {
 		@Override
 		public String getName() {
-			return "Reward";
+			return "Bounty Hunter Bullies";
 		}
-
 		@Override
 		public String getDescription() {
-			return "You should return to Nyan and get the reward she promised you.";
+			return "Wolfgang and Karl, a pair of bounty hunters hired by Kay to protect his warehouse, have turned on their employer and effectively seized full control of his business."
+					+ " One way or another, you're going to have to convince these dobermann bullies to leave Kay alone...";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "Nyan paid you the reward she promised, and also offered to give you a 25% discount in her store. She also let slip that she's single, in a clumsy attempt to hit on you...";
+			return "By dealing with Wolfgang and Karl and sending them skulking off back to Slaver Alley's 'Bounty Hunter Lodge', you've both saved Kay's business and ensured that Nyan once again has access to a stock of enchanted clothing."
+					+ " Offering you his eternal thanks, Kay said that you're welcome to pay him a visit whenever you like.";
+		}
+	},
+	
+	RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 1, 25) {
+		@Override
+		public String getName() {
+			return "Nyan's Reward";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that you've saved Kay's business, you should return to Nyan and inform her of what's happened.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "A very happy Nyan paid you your promised reward, and also offered to give you a lifetime 25% discount in her store."
+					+ " She also let slip that she's single, in a clumsy attempt to try and hit on you...";
 		}
 	},
 	
@@ -1441,6 +1781,36 @@ public enum Quest {
 	
 	
 
+	ROMANCE_NATALYA_FAILED_INTERVIEW(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Interview Failed";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to do as Natalya asked during her interview, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+
+	ROMANCE_NATALYA_FAILED_CONTRACT(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Contract Refused";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to sign the contract which Natalya offered to you, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+	
 	ROMANCE_NATALYA_1_INTERVIEW_START(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
@@ -1482,7 +1852,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After being transformed into [style.a_shemale] taur, you dropped to your knees and sucked the cock of one of Dominion Express's more unruly centaur slaves.";
+			return "After being transformed into [style.a_shemale] taur, you began your filly training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
 		}
 	},
 
@@ -1543,6 +1913,14 @@ public enum Quest {
 
 	public int getExperienceReward() {
 		return experienceReward;
+	}
+	
+	public static Quest getQuestFromId(String quest) {
+		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
+			return Quest.MAIN_3_ELIS;
+		}
+		
+		return Quest.valueOf(quest);
 	}
 
 }

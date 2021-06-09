@@ -2,9 +2,9 @@ package com.lilithsthrone.game.sex.sexActions.submission;
 
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -29,7 +29,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.ParserTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -75,7 +74,7 @@ public class SALyssiethSpecials {
 	public static final void playerGrowDemonicPenis() {
 		Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 		Main.game.getPlayer().setPenisSize(20);
-		Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK.getValue());
+		Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_GIRTHY.getValue());
 		Main.game.getPlayer().setTesticleSize(TesticleSize.THREE_LARGE);
 		Main.game.getPlayer().setPenisCumStorage(750);
 		Main.game.getPlayer().setPenisCumExpulsion(FluidExpulsion.FOUR_HUGE.getMedianValue());
@@ -194,7 +193,8 @@ public class SALyssiethSpecials {
 			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
 					&& Main.sex.getPosition()==SexPosition.STANDING
-					&& Main.sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.game.isAnalContentEnabled();
 		}
 		
 		@Override
@@ -563,7 +563,7 @@ public class SALyssiethSpecials {
 				}
 				if(Main.game.getPlayer().hasVagina()) {
 					// Add anal-only vagina sticker:
-					AbstractClothing pastie = AbstractClothingType.generateClothing("innoxia_vagina_sticker_anal_only", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_PURPLE_VERY_DARK, false);
+					AbstractClothing pastie = Main.game.getItemGen().generateClothing("innoxia_vagina_sticker_anal_only", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_PURPLE_VERY_DARK, false);
 					pastie.getEffects().clear();
 					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.DRAIN, 0));
 					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, TFPotency.MAJOR_BOOST, 0));
@@ -575,7 +575,7 @@ public class SALyssiethSpecials {
 				}
 				if(Main.game.getPlayer().hasPenis()) {
 					// Add chastity cage:
-					AbstractClothing cage = AbstractClothingType.generateClothing("innoxia_bdsm_ornate_chastity_cage", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_GOLD, false);
+					AbstractClothing cage = Main.game.getItemGen().generateClothing("innoxia_bdsm_ornate_chastity_cage", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_GOLD, false);
 					cage.getEffects().clear();
 					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.DRAIN, 0));
 					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_PENIS_RECEIVING, TFPotency.MAJOR_BOOST, 0));
@@ -686,7 +686,8 @@ public class SALyssiethSpecials {
 					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
 					&& Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
+					&& Main.game.isAnalContentEnabled();
 		}
 		
 		@Override

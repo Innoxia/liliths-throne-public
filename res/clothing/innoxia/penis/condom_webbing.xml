@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>0</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[condom-webbing]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[condom-webbings]]></namePlural>
+    <description><![CDATA[This thick binding of spider-webbing is acting like a condom, and will prevent any semen from entering the body of a sexual partner.]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>PENIS</slot>
+    <rarity>COMMON</rarity>
+
+    <imageName>condom_webbing.svg</imageName>
+	
+	<clothingSet/>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+	
+	<effects>
+        <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_CONDOM" secondaryModifier="ARCANE_BOOST" timer="0"/>
+	</effects>
+
+    <blockedPartsList>
+      <blockedParts>
+
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+		<blockedBodyParts/>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours>
+		<colour>CLOTHING_WHITE</colour>
+    </primaryColours>
+    <primaryColoursDye/>
+    <secondaryColours/>
+    <secondaryColoursDye/>
+    <tertiaryColours/>
+    <tertiaryColoursDye/>
+
+    <itemTags>
+      <tag>CONDOM</tag>
+      <tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>REQUIRES_PENIS</tag>
+      <tag>TRANSPARENT</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(use)] [npc.her] spinneret to quickly wrap [npc.her] [npc.penis] in a thick binding of spider-webbing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(use)] [npc.her] spinneret to quickly wrap [npc2.namePos] [npc2.penis] in a thick binding of spider-webbing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(use)] [npc.her] spinneret to roughly wrap [npc2.namePos] [npc2.penis] in a thick binding of spider-webbing.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tear)] off the webbing which was binding [npc.her] [npc.penis] and [npc.verb(throw)] it away.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tear)] off the webbing which was binding [npc2.namePos] [npc2.penis] and [npc.verb(throw)] it away.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(tear)] off the webbing which was binding [npc2.namePos] [npc2.penis] and [npc.verb(throw)] it away.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

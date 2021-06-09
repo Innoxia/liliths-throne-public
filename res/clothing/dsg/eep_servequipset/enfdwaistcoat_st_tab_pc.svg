@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+    <path fill="#ffb380" stroke="#000" stroke-miterlimit="10" stroke-width=".999425" d="M98.06 26.731l-2.035-8.264-7.137 3.06L78.121 42.23l9.952 5.4z"/>
+    <path fill="#e6e6e6" stroke="#000" stroke-miterlimit="10" stroke-width=".5" d="M90.724 24.182c0 1.353 1.1 2.445 2.448 2.445a2.446 2.446 0 1 0 0-4.892 2.445 2.445 0 0 0-2.448 2.447z"/>
+    <path fill="#e6e6e6" stroke="#000" stroke-linejoin="round" stroke-miterlimit="7.5" stroke-width=".25" d="M90.727 29.9s-3.424 7.702-4.028 7.369c-.606-.326 4.028-7.369 4.028-7.369z"/>
+    <path fill="#e6e6e6" stroke="#000" stroke-linejoin="round" stroke-miterlimit="7.5" stroke-width=".25" d="M91.921 34.866s-5.8.916-4.953 2.555c.836 1.634 4.953-2.555 4.953-2.555zm-5.29-4.631s2.36 5.37.53 5.545c-1.83.18-.53-5.545-.53-5.545z"/>
+    <path fill="#ee4689" stroke="#010101" stroke-miterlimit="7.5" stroke-width=".24945648" d="M88.096 41.614l-2.532.296.254-1.537zm-2.975 2.96l.443-2.664-1.65.175zm-3.953-2.145l2.024-1.837.721 1.493zm.943-4.08l2.212 1.205-1.13 1.038zm2.212 1.205l1.923-1.743-.428 2.562z"/>
+    <path fill="#ffb380" stroke="#000" stroke-miterlimit="10" stroke-width=".999425" d="M177.88 42.23l-10.77-20.702-7.135-3.061-2.035 8.264 9.987 20.898z"/>
+    <path fill="#e6e6e6" stroke="#000" stroke-miterlimit="10" stroke-width=".5" d="M162.828 21.734a2.446 2.446 0 1 0 0 4.891 2.447 2.447 0 1 0 0-4.891z"/>
+    <path fill="#e6e6e6" stroke="#000" stroke-linejoin="round" stroke-miterlimit="7.5" stroke-width=".25" d="M169.301 37.269c-.604.333-4.028-7.369-4.028-7.369s4.633 7.043 4.028 7.369z"/>
+    <path fill="#e6e6e6" stroke="#000" stroke-linejoin="round" stroke-miterlimit="7.5" stroke-width=".25" d="M169.032 37.42c.846-1.64-4.954-2.556-4.954-2.556s4.118 4.191 4.954 2.555zm-.195-1.638c-1.829-.176.531-5.546.531-5.546s1.3 5.723-.53 5.546z"/>
+    <path fill="#ee4689" stroke="#010101" stroke-miterlimit="7.5" stroke-width=".24945648" d="M170.435 41.91l-2.531-.296 2.277-1.241zm0 0l.443 2.664 1.209-2.489zm2.373-1.318l2.024 1.837-2.745-.344zm-1.13-1.038l2.21-1.204-1.08 2.242zm-1.924-1.743l1.923 1.743-1.496.819z"/>
+</svg>

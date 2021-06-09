@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.69
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public enum BaseColour {
@@ -19,7 +19,7 @@ public enum BaseColour {
 	INDIGO(Util.newColour(0x9683ec), Util.newColour(0x9683ec)),
 	LILAC(Util.newColour(0xC8A2C8), Util.newColour(0xC8A2C8)),
 	LILAC_LIGHT(Util.newColour(0xDCD0FF), Util.newColour(0xDCD0FF)),
-	PURPLE_DARK(Util.newColour(0x8425ff/*740AFF*/), Util.newColour(0x6000D6)),
+	PURPLE_DARK(Util.newColour(0x934cff), Util.newColour(0x6000D6)),
 	PURPLE(Util.newColour(0xB980FF), Util.newColour(0x943DFF)),
 	PURPLE_LIGHT(Util.newColour(0xDA8FFF), Util.newColour(0xC552FF)),
 
@@ -37,6 +37,7 @@ public enum BaseColour {
 	ROSE_GOLD(Util.newColour(0xE7C1BB), Util.newColour(0xE7C1BB)),
 	
 	TAN(Util.newColour(0xEDC491), Util.newColour(0xDC8D2E)),
+	BROWN_LIGHT(Util.newColour(0xd9b6a3), Util.newColour(0xbd7e5b)),
 	BROWN(Util.newColour(0xD0A38B), Util.newColour(0xB5714A)),
 	BROWN_DARK(Util.newColour(0x9F775B), Util.newColour(0x785945)),
 	AUBURN(Util.newColour(0xCF6654), Util.newColour(0xBB4935)),
@@ -50,6 +51,7 @@ public enum BaseColour {
 	GOLD(Util.newColour(0xFFCC00), Util.newColour(0xCCA300)),
 	YELLOW(Util.newColour(0xECEC5B), Util.newColour(0xC4C700)),
 	YELLOW_LIGHT(Util.newColour(0xF8F8B9), Util.newColour(0xC1A42F)),
+	YELLOW_PALE(Util.newColour(0xf8f8d9), Util.newColour(0xd9bb41)),
 	
 	GREEN_LIME(Util.newColour(0xB4D987), Util.newColour(0x83BE3C)),
 	GREEN_LIGHT(Util.newColour(0x8fefbf), Util.newColour(0x1DB96B)),
@@ -63,6 +65,7 @@ public enum BaseColour {
 	BLUE(Util.newColour(0x05CDFF), Util.newColour(0x00627A)),
 	BLUE_DARK(Util.newColour(0x0090BF), Util.newColour(0x002E43)),
 	BLUE_STEEL(Util.newColour(0xA7B7D2), Util.newColour(0x5671A4)),
+	BLUE_PALE(Util.newColour(0xd9f8ff), Util.newColour(0x69bcd1)),
 
 	GREY_LIGHT(Util.newColour(0xd3d3d3), Util.newColour(0x999999)),
 	GREY(Util.newColour(0xB3B3B3), Util.newColour(0x777777)),

@@ -144,7 +144,7 @@ public class Pathing {
 							// Deny diagonals unless in main world map
 							Cell c = grid[n.getX() + i][n.getY() + j];
 
-							int time = Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), (c.getPlace().getPlaceType().getDialogue(false)!=null? c.getPlace().getPlaceType().getDialogue(false).getSecondsPassed() : 10000));
+							int time = Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), (c.getDialogue(false)!=null? c.getDialogue(false).getSecondsPassed() : 10000));
 							
 							int g = ((i == 0 || j == 0) ? 10 : c.getType().equals(WorldType.WORLD_MAP)?12:1_000_000)
 									+ time
@@ -191,11 +191,35 @@ public class Pathing {
 		return path;
 	}
 	
+	/**
+	 * Walks the character down the path to the destination provided. <b>Make sure that the character is already in the worldType you define!</b>
+	 */
+	public static void walkPathNoEffects(GameCharacter character, AbstractWorldType worldType, Vector2i end, boolean preferSafe, float percentageTravel) {
+		walkPathNoEffects(character,
+				Main.game.getWorlds().get(worldType).getCellGrid(),
+				end,
+				preferSafe,
+				percentageTravel);
+	}
+	
+	private static void walkPathNoEffects(GameCharacter character, Cell[][] grid, Vector2i end, boolean preferSafe, float percentageTravel) {
+		List<Cell> cells = aStarPathing(grid, character.getLocation(), end, preferSafe);
+		int cellsToTravel = Math.max(1, (int)(cells.size()*percentageTravel));
+		int cellsTravelled = 0;
+		for(Cell c : cells) {
+			character.setLocation(c.getType(), c.getLocation(), false);
+			cellsTravelled++;
+			if(cellsTravelled>cellsToTravel) {
+				break;
+			}
+		}
+	}
+	
 	public static Response walkPath(MapTravelType travelType) {
 		int totalTimePassed = 0;
 		for(Cell c : getPathingCells()) {
 			Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
-			DialogueNode dialogue = c.getPlace().getDialogue(true);
+			DialogueNode dialogue = c.getDialogue(true);
 			
 			if(dialogue!=null) {
 				totalTimePassed += Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), dialogue.getSecondsPassed());
@@ -223,7 +247,9 @@ public class Pathing {
 				}
 				
 				if(totalTimePassed>=2*60*60) { // Every 2 hours, perform an end turn. I didn't encounter any lag when just ending the turn on every tile moved, but I'm sure it could lag when moving huge distances.
+					Main.game.getPlayer().setActive(false);
 					Main.game.endTurn(totalTimePassed);
+					Main.game.getPlayer().setActive(true);
 					totalTimePassed = 0;
 				}
 			}
@@ -233,9 +259,11 @@ public class Pathing {
 		Cell destination = getPathingCells().get(getPathingCells().size()-1);
 		Main.game.getPlayer().setLocation(destination.getType(), destination.getLocation(), false);
 
+		Main.game.getPlayer().setActive(false);
 		Main.game.endTurn(totalTimePassed);
-		
-		return new Response("", "", destination.getPlace().getDialogue(false));
+		Main.game.getPlayer().setActive(true);
+
+		return new Response("", "", destination.getDialogue(false));
 	}
 	
 	public static void initPathingVariables() {
@@ -271,7 +299,7 @@ public class Pathing {
 	private static int calculateTravelTime(List<Cell> cellRoute, boolean withModifiedTravelTime) {
 		int seconds = 0;
 		for(Cell c : cellRoute) {
-			DialogueNode dialogue = c.getPlace().getDialogue(false);
+			DialogueNode dialogue = c.getDialogue(false);
 			if(dialogue!=null) {
 				if(withModifiedTravelTime) {
 					seconds += Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), dialogue.getSecondsPassed());

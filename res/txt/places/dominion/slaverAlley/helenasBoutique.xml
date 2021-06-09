@@ -298,14 +298,38 @@
 	</htmlContent>
 	
 	
-	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE -->
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES -->
 	
-	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES"><![CDATA[
+	<p>
+		The form in front of you is titled 'Transformation: Eyes', and as you start reading through it, Helena says, [helena.speech(You can choose whatever colour combinations you'd like.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR"><![CDATA[
 	<p>
 		#IF(helena.isSlutty())
-			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena lewdly adds, [helena.speech(With all these mouth and tongue options, I bet you could make a slave that's great at performing oral...)]
+			The form in front of you is titled 'Transformation: Hair', and as you start reading through it, Helena lewdly adds, [helena.speech(You could give your slave long hair and pigtails, so that you've got something to hold onto while they're performing oral on you...)]
 		#ELSE
-			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena says, [helena.speech(There really are quite a lot of options on this form. Please do take your time; there's no rush.)]
+			The form in front of you is titled 'Transformation: Hair', and as you start reading through it, Helena says, [helena.speech(Please take your time in choosing the length, colour, and style of your slave's hair.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Head & Face', and as you start reading through it, Helena lewdly adds, [helena.speech(With all these mouth and tongue options, I bet you could make a slave that's great at performing oral...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Head & Face', and as you start reading through it, Helena says, [helena.speech(There really are quite a lot of options on this form. Please do take your time; there's no rush.)]
 		#ENDIF
 	</p>
 	]]>
@@ -373,6 +397,20 @@
 	</htmlContent>
 	
 	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Spinneret', and as you start reading through it, Helena's flashes you a dirty grin and teases, [helena.speech(I've heard that some spider-girls prefer to have their spinneret used even more than their pussy...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Spinneret', and as you start reading through it, Helena says, [helena.speech(We'll have your slave's spinneret altered to fit whatever form you desire...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH -->
 	
 	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH"><![CDATA[
@@ -405,7 +443,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS"><![CDATA[
 	<p>
-			The form in front of you is titled 'Miscellaneous: Piercings', and as you start reading through it, Helena says, [helena.speech(Mark down all the parts of your slave that you want us to pierce for you.)]
+		The form in front of you is titled 'Miscellaneous: Piercings', and as you start reading through it, Helena says, [helena.speech(Mark down all the parts of your slave that you want us to pierce for you.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -968,9 +1006,17 @@
 				#ENDIF
 			#ELSE
 				#IF(scarlett.hasPenis())
-					 [scarlett.speech(So, what did you want, [pc.name]? You know, I haven't had my cock sucked all day; how about you help me change that?)]
+					 [scarlett.speech(So, what did you want, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 You know, I haven't had my cock sucked all day; how about you help me change that?
+					#ENDIF
+					)]
 				#ELSE
-					 [scarlett.speech(So, what did you want, [pc.name]? You know, I haven't had my cunt licked today; how about you help me change that?)]
+					 [scarlett.speech(So, what did you want, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 You know, I haven't been eaten out yet today; how about you help me change that?
+					#ENDIF
+					)]
 				#ENDIF
 			#ENDIF
 		#ELSE
@@ -983,9 +1029,17 @@
 				#ENDIF
 			#ELSE
 				#IF(scarlett.hasPenis())
-					 [scarlett.speech(What the fuck do you want now, [pc.name]? If you're not here to suck my cock, then you can fuck off.)]
+					 [scarlett.speech(What the fuck do you want now, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 If you're not here to suck my cock, then you can fuck off.
+					#ENDIF
+					)]
 				#ELSE
-					 [scarlett.speech(What the fuck do you want now, [pc.name]? If you're not here to lick my cunt, then you can fuck off.)]
+					 [scarlett.speech(What the fuck do you want now, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 If you're not here to lick my cunt, then you can fuck off.
+					#ENDIF
+					)]
 				#ENDIF
 			#ENDIF
 		#ENDIF
@@ -1291,7 +1345,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_DISCUSSION"><![CDATA[
 	<p>
-		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I actually wanted to ask your opinion on something...)]
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair and letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I actually wanted to ask your opinion on something...)]
 	</p>
 	<p>
 		Wondering what that could be, you watch as the raven-harpy produces a small bottle of what looks like a transformative potion, and after she's placed it down on the table in front of her, you listen attentively as she explains,
@@ -1313,7 +1367,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_DISCUSSION_REPEAT"><![CDATA[
 	<p>
-		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I've still got that potion Helena gave to me...)]
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair and letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I've still got that potion Helena gave to me...)]
 	</p>
 	<p>
 		Before you can offer a reply, the harpy produces the same small bottle of transformative potion that she showed you before, and after she's placed it down on the table in front of her, she asks,
@@ -1331,11 +1385,11 @@
 	
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_APPLIED"><![CDATA[
 	<p>
-		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she flashes you a cheeky grin and comments,
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair and letting out a huge burp, she flashes you a cheeky grin and comments,
 		#IF(scarlett.hasPenis())
-			 [scarlett.speech(You know, [pc.name], since you convinced me to take that potion, my big cock's always desperate for attention. How about you take responsibility for getting me to transform myself and give me a quick handjob?)]
+			 [scarlett.speech(You know, [pc.name], ever since you convinced me to take that potion, my big cock's always desperate for attention. How about you take responsibility for getting me to transform myself and give me a quick handjob?)]
 		#ELSE
-			 [scarlett.speech(You know, [pc.name], since you convinced me to take that potion, my horny little cunt's always wet and hungry for attention. How about you take responsibility for getting me to transform myself and give me a quick fingering?)]
+			 [scarlett.speech(You know, [pc.name], ever since you convinced me to take that potion, my horny little cunt's always wet and hungry for attention. How about you take responsibility for getting me to transform myself and give me a quick fingering?)]
 		#ENDIF
 	</p>
 	<p>
@@ -1468,7 +1522,7 @@
 		#IF(scarlett.hasPenis())
 			 you wrap your [pc.fingers+] around the raven-harpy's erect cock and start jerking her off under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to give her a handjob...
 		#ELSE
-			 you slide your [pc.fingers+] up an down over the raven-harpy's [scarlett.labia+], before pushing them into her wet pussy and starting to finger her under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to stimulate her horny cunt...
+			 you slide your [pc.fingers+] up and down over the raven-harpy's [scarlett.labia+], before pushing them into her wet pussy and starting to finger her under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to stimulate her horny cunt...
 		#ENDIF
 	</p>
 	]]>
