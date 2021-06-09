@@ -94,7 +94,14 @@ public class NPCOffspring extends NPC {
 		
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 		
-		Main.game.safeAddNPC(this, false);
+		String npcId = Main.game.safeAddNPC(this, false);
+		os.getMother().swapLitters(os.getId(), npcId);
+		if(os.getFather()!=null){
+			os.getFather().swapLitters(os.getId(), npcId);
+		}
+		if(os.getIncubator()!=null){
+			os.getIncubator().swapLitters(os.getId(), npcId);
+		}
 		Main.game.getOffspring().add(this);
 		Main.game.removeOffspringSeed(os);
 	}

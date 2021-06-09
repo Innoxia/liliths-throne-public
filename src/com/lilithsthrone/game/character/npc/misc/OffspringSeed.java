@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -12,6 +13,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.*;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 import org.w3c.dom.Document;
@@ -20,6 +22,7 @@ import org.w3c.dom.NodeList;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Map;
 
 /**
  * @since 0.4.0
@@ -30,6 +33,8 @@ public class OffspringSeed  implements XMLSaving {
 	
 	// Core variables:
 	protected String id;
+	protected Boolean fromPlayer;
+	protected Boolean born;
 	protected NameTriplet nameTriplet;
 	protected String surname;
 	protected String description;
@@ -48,6 +53,10 @@ public class OffspringSeed  implements XMLSaving {
 	}
 
 	public OffspringSeed(NPC npc) {
+		this.fromPlayer = (npc.getMother().isPlayer() ||
+				          (npc.getFather()!=null && npc.getFather().isPlayer()) ||
+						  (npc.getIncubator()!=null && npc.getIncubator().isPlayer()));
+		this.born = false;
 		this.nameTriplet = npc.getNameTriplet();
 		this.surname = npc.getSurname();
 		this.description = npc.getDescription();
@@ -59,11 +68,33 @@ public class OffspringSeed  implements XMLSaving {
 		this.conceptionDate = npc.getConceptionDate();
 		
 		try {
-			Main.game.addOffspringSeed(this, false);
+			boolean carried = false;
+			String osId = Main.game.addOffspringSeed(this, false);
+			
+			if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+				carried = true;
+			} else if(npc.getIncubator()!=null) {
+				for (Map.Entry<SexAreaOrifice, Litter> entry : npc.getIncubator().getIncubatingLitters().entrySet()) {
+					Litter litter = entry.getValue();
+					if (litter != null && litter.getOffspring().contains(npc.getId())) {
+						carried = true;
+						break;
+					}
+				}
+			}
+			this.born = !carried;
+
+			npc.getMother().swapLitters(npc.getId(), osId);
+			if(npc.getFather()!=null){
+				npc.getFather().swapLitters(npc.getId(), osId);
+			}
+			if(npc.getIncubator()!=null){
+				npc.getIncubator().swapLitters(npc.getId(), osId);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Main.game.getOffspring().remove(this);
+		Main.game.getOffspring().remove(npc);
 		Main.game.removeNPC(npc);
 	}
 	
@@ -72,6 +103,9 @@ public class OffspringSeed  implements XMLSaving {
 	}
 	
 	public OffspringSeed(GameCharacter mother, GameCharacter father, AbstractSubspecies fatherSubspecies, AbstractSubspecies fatherHalfDemonSubspecies) {
+		
+		this.fromPlayer = (mother.isPlayer() || (father!=null && father.isPlayer()));
+		this.born = false;
 		
 		GenericAndrogynousNPC template = new GenericAndrogynousNPC();
 		
@@ -119,6 +153,8 @@ public class OffspringSeed  implements XMLSaving {
 		offspringSeed.appendChild(offspringSeedData);
 		
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "id", this.getId());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "fromPlayer", this.isFromPlayer().toString());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "born", this.isBorn().toString());
 		Element name = doc.createElement("name");
 		offspringSeedData.appendChild(name);
 		XMLUtil.addAttribute(doc, name, "nameFeminine", this.getNameTriplet().getFeminine());
@@ -169,6 +205,8 @@ public class OffspringSeed  implements XMLSaving {
 		if (loadedCharacterId != null) {
 			os.setId(loadedCharacterId);
 		}
+		os.setFromPlayer(getValueFromElementWithTagName(element, "fromPlayer").equals("true"));
+		os.setBorn(getValueFromElementWithTagName(element, "born").equals("true"));
 		
 		// Name:
 		Element nameElement = (Element) element.getElementsByTagName("name").item(0);
@@ -253,6 +291,14 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public void setId(String id) { this.id = id; }
 	
+	public Boolean isFromPlayer() { return fromPlayer; }
+	
+	public void setFromPlayer(Boolean fromPlayer) {	this.fromPlayer = fromPlayer; }
+	
+	public Boolean isBorn() { return born; }
+	
+	public void setBorn(Boolean born) { this.born = born; }
+	
 	private NameTriplet getNameTriplet() {	return nameTriplet;	}
 	
 	public String getSurname() { return surname; }
@@ -313,7 +359,12 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public String getIncubatorId() { return incubatorId; }
 	
-	public void setIncubator(String incubatorId) { this.incubatorId = incubatorId; }
+	public void setIncubator(String incubatorId) {
+		this.incubatorId = incubatorId;
+		if(this.getIncubator()!=null && this.getIncubator().isPlayer()) {
+			this.setFromPlayer(true);
+		}
+	}
 	
 	public GameCharacter getIncubator() {
 		if(getIncubatorId()==null || getIncubatorId().isEmpty() || getIncubatorId().equals("NOT_SET")) {

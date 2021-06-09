@@ -4233,21 +4233,8 @@ public class Game implements XMLSaving {
 		List<OffspringSeed> offspringAvailable = new ArrayList<>();
 		
 		for(OffspringSeed os : OffspringSeedMap.values()) {
-			if(includeUnborn) {
-				if((os.getMother().isPlayer()) ||
-				   (os.getFather()!=null && os.getFather().isPlayer())) {
-					offspringAvailable.add(os);
-				}
-			} else {
-				if(os.getMother().isPlayer() &&
-						(os.getMother().getPregnantLitter()==null ||
- 				         os.getMother().getPregnantLitter()!=null && !os.getMother().getPregnantLitter().getOffspring().contains(os.getId()))) {
-					offspringAvailable.add(os);
-				} else if(os.getFather()!=null && os.getFather().isPlayer()) {
-					if(os.getMother().getPregnantLitter()==null ||
-					   os.getMother().getPregnantLitter()!=null && !os.getMother().getPregnantLitter().getOffspring().contains(os.getId()))
-					offspringAvailable.add(os);
-				}
+			if(os.isFromPlayer() && (includeUnborn || (os.isBorn()))) {
+				offspringAvailable.add(os);
 			}
 		}
 		
