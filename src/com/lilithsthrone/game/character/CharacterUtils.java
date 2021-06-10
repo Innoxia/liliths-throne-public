@@ -1870,7 +1870,7 @@ public class CharacterUtils {
 			}
 		}
 		
-		//Ass:
+		// Ass:
 		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
@@ -1878,10 +1878,12 @@ public class CharacterUtils {
 		} else {
 			character.setAssVirgin(true);
 		}
+		int assHipVariation = - 1 + Util.random.nextInt(3); // -1 to 1
+		character.setAssSize(character.getAssSize().getValue() + assHipVariation);
+		character.setHipSize(character.getHipSize().getValue() - assHipVariation);
 		
-		// Body:
+		// Body (height):
 		int height = character.getHeightValue()-15 + Util.random.nextInt(30) +1;
-		
 		if(character.getHeight()==Height.NEGATIVE_TWO_MINIMUM) {
 			character.setHeight(Math.min(Height.NEGATIVE_TWO_MINIMUM.getMaximumValue()-1, Math.max(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), height)));
 			
@@ -1891,6 +1893,30 @@ public class CharacterUtils {
 		} else {
 			character.setHeight(Math.max(Height.ZERO_TINY.getMinimumValue(), height));
 		}
+		
+		// Body (femininity):
+		int femininityVariation = -10 + Util.random.nextInt(21); // -10 to 10
+		
+		switch(character.getFemininity()) { // Do not move out of masculine/feminine/androgynous zones:
+			case ANDROGYNOUS:
+				character.incrementFemininity(Math.max(Femininity.ANDROGYNOUS.getMinimumFemininity(), Math.min(Femininity.ANDROGYNOUS.getMaximumFemininity(), character.getFemininityValue()+femininityVariation)));
+				break;
+			case FEMININE:
+			case FEMININE_STRONG:
+				character.incrementFemininity(Math.max(Femininity.FEMININE.getMinimumFemininity(), character.getFemininityValue()+femininityVariation));
+				break;
+			case MASCULINE:
+			case MASCULINE_STRONG:
+				character.incrementFemininity(Math.min(Femininity.MASCULINE.getMaximumFemininity(), character.getFemininityValue()+femininityVariation));
+				break;
+		}
+		
+		// Body (muscle and size):
+		int muscleVariation = -5 + Util.random.nextInt(11); // -5 to 5
+		character.incrementMuscle(muscleVariation);
+
+		int bodySizeVariation = -5 + Util.random.nextInt(11); // -5 to 5
+		character.incrementBodySize(bodySizeVariation);
 		
 		//Breasts:
 		if(character.hasBreasts()) {
@@ -1908,6 +1934,11 @@ public class CharacterUtils {
 					&& Math.random()<0.025) {
 				character.setNippleShape(NippleShape.INVERTED);
 			}
+		}
+		if(character.isFeminine()) {
+			int nippleVariation = Util.random.nextInt(2); // 0-1
+			character.incrementNippleSize(nippleVariation);
+			character.incrementAreolaeSize(nippleVariation);
 		}
 		
 		//BreastsCrotch:
@@ -1932,6 +1963,11 @@ public class CharacterUtils {
 				character.setNippleCrotchShape(NippleShape.INVERTED);
 			}
 		}
+		if(character.isFeminine()) {
+			int nippleCrotchVariation = Util.random.nextInt(2); // 0-1
+			character.incrementNippleCrotchSize(nippleCrotchVariation);
+			character.incrementAreolaeCrotchSize(nippleCrotchVariation);
+		}
 		
 		// Face:
 		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
@@ -1944,6 +1980,10 @@ public class CharacterUtils {
 			} else {
 				character.setFaceVirgin(true);
 			}
+		}
+		if(character.isFeminine()) {
+			int lipVariation = Util.random.nextInt(2); // 0-1
+			character.incrementLipSize(lipVariation);
 		}
 		
 		// Hair:

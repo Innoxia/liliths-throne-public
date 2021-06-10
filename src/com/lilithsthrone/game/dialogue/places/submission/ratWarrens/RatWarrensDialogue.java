@@ -4061,6 +4061,7 @@ public class RatWarrensDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0"));
 						banishGuards(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensEntranceGuardsFight));
+						Main.game.getNpc(Vengar.class).returnToHome();
 					}
 				};
 				

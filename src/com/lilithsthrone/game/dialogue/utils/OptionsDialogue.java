@@ -2066,6 +2066,14 @@ public class OptionsDialogue {
 							"Storm interruptions",
 							"When enabled, arcane storms will interrupt dialogue to let you know that they've started.",
 							Main.getProperties().hasValue(PropertyValue.weatherInterruptions)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+							"DIALOGUE_COPY",
+							PresetColour.BASE_BLUE_STEEL,
+							"Automatic text copying",
+							"When enabled, the current scene's text will automatically be copied to your system's clipboard every time a new scene is loaded."
+								+ " This option is so that you can easily paste the game's text into text readers without needing to select and copy the scene's text every time.",
+							Main.getProperties().hasValue(PropertyValue.automaticDialogueCopy)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 							"SILLY",
@@ -2800,6 +2808,7 @@ public class OptionsDialogue {
 					+ "<b style='color:#21bfc5;'>DJ Addi</b></br>"
 					+ "<b style='color:#21bfc5;'>DSG</b></br>"
 					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"
+					+ "<b style='color:#21bfc5;'>Maxis010</b></br>"
 					+ "<b style='color:#21bfc5;'>Nnxx</b></br>"
 					+ "<b style='color:#21bfc5;'>Norin</b></br>"
 					+ "<b style='color:#21bfc5;'>NoStepOnSnek</b></br>"

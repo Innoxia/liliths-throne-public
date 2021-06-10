@@ -316,6 +316,34 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 17))
+						Enter the Farmer's Market and take a look around the stalls...
+					#ELSEIF(game.getHourOfDay()==7)
+						As the stalls of the Farmer's Market are currently being set up, there's not yet a reason to start taking a look around. You should return in an hour if you wanted to do some shopping...
+					#ELSEIF(game.getHourOfDay()==18)
+						As the stalls of the Farmer's Market are currently being cleared away, there's no reason to start taking a look around. You should return tomorrow if you wanted to do some shopping...
+					#ELSE
+						As the Farmer's Market is currently closed, there's nothing here except a large, empty, cobblestone square. You should return tomorrow if you wanted to do some shopping...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(8, 17))
+						innoxia_places_fields_elis_market_centre
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'MARKET_ENTER'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Information sign]]></responseTitle>
 				<responseTooltip><![CDATA[Take a moment to read one of the information signs positioned at each of the entrances to the market.]]></responseTooltip>
 				<nextDialogue>innoxia_places_fields_elis_generic_market_info</nextDialogue>
