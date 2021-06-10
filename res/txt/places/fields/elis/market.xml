@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/market.xml' dialogue nodes. -->
+	
+	<htmlContent tag="CENTRE"><![CDATA[
+	#IF(game.getDayOfWeek()==DOW_SATURDAY || game.getDayOfWeek()==DOW_WEDNESDAY)
+		<p>
+			As you continue on your way through the market, you see that a large area in the very middle of the square has been cordoned off with wooden fences. Notice boards attached to this fencing reveal that today is a livestock market day, which is stating the obvious due to the fact that you're able to see for yourself the countless animals being bought, sold, and auctioned off within this fenced-off area.
+		</p>
+	#ELSE
+		<p>
+			TODO Several games stalls have been set up here.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING"><![CDATA[
+	<p>
+		A pair of fox-girls run this clothing stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_ALCOHOL"><![CDATA[
+	<p>
+		A trio of dog-boys run this alcoholic drinks stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT"><![CDATA[
+	<p>
+		A family of rabbit-morphs run this non-alcoholic drinks stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		Along each of the four sides of the market, the road leads off into the rest of Elis.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		You exit the Farmer's Market and head back out into Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_MEALS"><![CDATA[
+	<p>
+		A pair of portly pig-morphs run this hot food stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS"><![CDATA[
+	<p>
+		A group of pretty sheep-girls run this snacks stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES"><![CDATA[
+	<p>
+		Behind the curtains of this stall, a rabbit-girl offers to tell people their fortune in exchange for a huge amount of flames.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING"><![CDATA[
+	<p>
+		A beautiful, busty cow-girl is offers kisses for a reasonable price from out of this stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PATH"><![CDATA[
+	<p>
+		As you [pc.walk] through the busy avenues formed between countless brightly-coloured stalls, you see all manner of food, drink, and other items for sale. Unlike a regular farmer's market, the one here in Elis seems to have evolved into a type of low-key festival, complete with a band somewhere in the distance playing live music.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+			 While there are certainly exceptions, almost everyone you pass looks to be in high spirits,
+			#IF(game.getCurrentWeather()==WEATHER_RAIN)
+				 with not even the rain being able to bring the mood down.
+			#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
+				 with not even the snow being able to bring the mood down.
+			#ELSE
+				 with the smiles on their faces making it clear that they're greatly enjoying the market's festive atmosphere.
+			#ENDIF
+		#ELSE
+			 Although a lot of the people who you pass look to be in high spirits, there are many whose forlorn expressions seem to be unaffected by the market's festive atmosphere, and you can only assume that they're victims in one way or another of Lunette's raiding.
+		#ENDIF
+		 While races of all kinds can be seen if you search hard enough, the vast majority of the shoppers and vendors consist of all manner of domesticated animal morphs.
+	</p>
+	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+		<p>
+			Unable to resist the urge to take a photo, you pull out your phone and take a picture of the busy market, talking to yourself as you do so, [pc.speech([game.random(
+			The folks back home will love this.
+			| Neat, it's like a Medieval Times back home.
+			| These Europeans sure look funny.
+			| So this is what they have instead of malls in Europe.)])]
+		</p>
+	#ENDIF
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+			Thanks to the fact that Lunette is no longer raiding the surrounding farmland, the market seems to be busier than ever. Catching brief snippets of conversation as you [pc.walk] past some of the stalls, you soon get the impression that the quantity and quality of produce which the vendors are able to acquire is better than it's ever been. Thanks to this, there are a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
+		#ELSE
+			Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS"><![CDATA[
+	<p>
+		A trio of gorgeous succubi sell all manner of sex-toys and fetish gear from out of this stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS"><![CDATA[
+	<p>
+		A pair of rat-morphs run this stall, and have all manner of jewellery and trinkets for sale.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

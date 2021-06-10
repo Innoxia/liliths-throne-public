@@ -2070,11 +2070,8 @@
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'POST_SEX_END'))]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
 					#ENDIF
-					#IF(game.getHourOfDay()>=1 && game.getHourOfDay()<=8)
-						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
-					#ELSE
-						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f0, PLACE_TYPE_innoxia_fields_elis_tavern_f0_meraxis, true)]
-					#ENDIF
+					[#meraxis.returnToHome()]
+					[#meraxis.hourlyUpdate()]
 					[#meraxis.equipClothing()]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
