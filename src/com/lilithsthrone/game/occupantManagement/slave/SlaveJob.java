@@ -313,7 +313,7 @@ public enum SlaveJob {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
 				return "You do not have permission from Angel to send your slaves to work in her brothel!";
 				
-			} else if(character.getOwner().getSlavesWorkingJob(hour, this)>=this.getSlaveLimit()) {
+			} else if(Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)>=this.getSlaveLimit()) {
 				return "You have already assigned the maximum number of slaves to this job!";
 				
 			} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
@@ -378,7 +378,7 @@ public enum SlaveJob {
 		}
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
+			return Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -599,7 +599,7 @@ public enum SlaveJob {
 		
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
+			return Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
 		}
 	
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -1055,11 +1055,11 @@ public enum SlaveJob {
 	
 	public boolean isAvailable(int hour, GameCharacter character) {
 		return character.getSlaveJob(hour)==this
-				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && character.getOwner().getSlavesWorkingJob(hour, this)<this.getSlaveLimit());
+				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)<this.getSlaveLimit());
 	}
 	
 	public String getAvailabilityText(int hour, GameCharacter character) {
-		if(character.getOwner().getSlavesWorkingJob(hour, this)>=this.getSlaveLimit()) {
+		if(Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)>=this.getSlaveLimit()) {
 			return "You have already assigned the maximum number of slaves to this job!";
 			
 		} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {

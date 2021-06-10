@@ -958,7 +958,7 @@ public class CompanionManagement {
 									: "[style.colourDisabled("+Util.capitaliseSentence(job.getName(character))+")]")
 							+ "</div>"
 							+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
-								+ Main.game.getPlayer().getTotalSlavesWorkingJob(job)+"/"+(job.getSlaveLimit()<0?"&#8734;":job.getSlaveLimit())
+								+ Main.game.getOccupancyUtil().getTotalCharactersWorkingJob(job)+"/"+(job.getSlaveLimit()<0?"&#8734;":job.getSlaveLimit())
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (affectionChange>0
