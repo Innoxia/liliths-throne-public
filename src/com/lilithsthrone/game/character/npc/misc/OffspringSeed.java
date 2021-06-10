@@ -449,11 +449,4 @@ public class OffspringSeed  implements XMLSaving {
 		return body.getHeight();
 	}
 	
-	public String getBodyName() {
-		if(this.getBody().isFeral()) {
-			return this.getBody().getRace().getFeralName(this.getBody().getLegConfiguration(), false);
-		}
-		return this.getBody().getRace().getName(false);
-	}
-	
 }

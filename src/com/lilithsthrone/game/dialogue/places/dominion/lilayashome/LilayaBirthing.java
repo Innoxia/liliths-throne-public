@@ -515,7 +515,7 @@ public class LilayaBirthing {
 					UtilText.nodeContentSB.append("<br/>"
 							+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
 							+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGenderName()+"</i>"
-							+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getBodyName()+"</i>");
+							+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getSubspecies().getName(null)+"</i>");
 				} catch(Exception ex) {
 				}
 			}
