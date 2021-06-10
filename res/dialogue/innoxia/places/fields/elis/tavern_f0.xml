@@ -1008,11 +1008,8 @@
 				<nextDialogue>default</nextDialogue>
 				<secondsPassed minutes="false"><![CDATA[1]]></secondsPassed>
 				<effects><![CDATA[
-					#IF(game.isHourBetween(1, 9))
-						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis)]
-					#ELSE
-						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f0, PLACE_TYPE_innoxia_fields_elis_tavern_f0_meraxis)]
-					#ENDIF
+					[#meraxis.returnToHome()]
+					[#meraxis.hourlyUpdate()]
 				]]></effects>
 			</response>
 		</responses>

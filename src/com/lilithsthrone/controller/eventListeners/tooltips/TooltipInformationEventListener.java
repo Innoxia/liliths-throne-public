@@ -1286,7 +1286,8 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append(
 					"<div class='subTitle'>"
-					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+//					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+					+"Copy Scene"
 					+ "</div>"
 					+ "<div class='description'>"
 					+ "Click to copy the currently displayed dialogue to your clipboard.<br/><br/>"

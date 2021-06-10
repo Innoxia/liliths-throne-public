@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Golden Treasures]]></name>
+	<tooltipDescription><![CDATA[A pair of rat-morphs run this stall, and have all manner of jewellery and trinkets for sale.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>trinkets</svgName>
+	<colour>BASE_GOLD</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_market_trinkets</dialogue>
+	<populationPresent>
+		<population startMinutes="480" endMinutes="1049"> <!-- 8-5:30 -->
+			<populationType plural="true" density="COUPLE">STALL_HOLDER</populationType>
+			<subspeciesPresent>
+				<subspecies>RAT_MORPH</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

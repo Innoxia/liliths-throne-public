@@ -102,7 +102,7 @@
 				<subspeciesPresent worldType="innoxia_fields_elis_town">
 					<subspeciesToRemove>HUMAN</subspeciesToRemove>
 				</subspeciesPresent>
-			Alternatively, you can define it as a list of subspecies which are present, which is what I've done for the rest of the 'population' examples below. -->
+			Alternatively, you can define it as a list of subspecies which are present, which is what I've done for the other 'population' example below. -->
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
 		<population day="true">
