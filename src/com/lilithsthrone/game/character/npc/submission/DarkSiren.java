@@ -442,7 +442,9 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+		if(!Main.game.getCharactersPresent().contains(this)
+//				&& !Main.game.getCurrentDialogueNode().isTravelDisabled() // Not sure why this was here, but it was causing issues with Meraxis not moving to the correct tile
+				) {
 			if(Main.game.getHourOfDay()>=1 && Main.game.getHourOfDay()<=8) { // In room from 01:00 - 09:00
 				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
 			} else {

@@ -245,19 +245,19 @@
 		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has it's name, 'Iron & Steel', burnt into the framework.
 	</p>
 	<p>
-		Most of the other shops have large glass windows by which to show off their goods to passers-by, but this one goes a step further, and the whole wooden frontage is actually a series of cleverly-designed sliding panels, about half of which have been pulled to one side. Looking into the open store, you see that all the slaves within appear to be males, and as you pass, a bulky cow-boy steps out and blocks your way, before cheerfully booming, [genericMale.speech(Taking a good look at our stock, I see! Why not come on in?! I'm sure we've got the right guy for you! Breeding studs, manual labourers, even pretty-boy models! We've got it all!)]
+		Most of the other shops have large glass windows by which to show off their goods to passers-by, but this one goes a step further, and the whole wooden frontage is actually a series of cleverly-designed sliding panels, about half of which have been pulled to one side. Looking into the open store, you see that all the slaves within appear to be males, and as you pass, a bulky bull-boy steps out and blocks your way, before cheerfully booming, [genericMale.speech(Taking a good look at our stock, I see! Why not come on in?! I'm sure we've got the right guy for you! Breeding studs, manual labourers, even pretty-boy models! We've got it all!)]
 	</p>
 	#IF pc.isHasSlaverLicense()
 	#THEN
 		<p>
-			[pc.speech(Maybe a quick look,)] you reply, stepping forwards alongside the smiling cow-boy into the store...
+			[pc.speech(Maybe a quick look,)] you reply, stepping forwards alongside the smiling bull-boy into the store...
 		</p>
 	#ELSE
 		<p>
 			[pc.speech(I don't have a licence, I'm afraid,)] you reply, continuing on past the salesman.
 		</p>
 		<p>
-			[genericMale.speech(Well, if you ever get one, then you know where to visit for the best male slaves in the city!)] the cow-boy shouts after you, before disappearing back into his shop.
+			[genericMale.speech(Well, if you ever get one, then you know where to visit for the best male slaves in the city!)] the bull-boy shouts after you, before disappearing back into his shop.
 		</p>
 	#ENDIF
 	]]>

@@ -1,5 +1,8 @@
 package com.lilithsthrone.game;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
@@ -2763,6 +2766,11 @@ public class Game implements XMLSaving {
 							dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 						}
 						pastDialogueSB.append(dialogueParsed);
+						if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+							StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+							clipboard.setContents(data, data);
+						}
 						
 					} else {
 						dialogueTitle = UtilText.parse(node.getLabel());
@@ -2784,6 +2792,11 @@ public class Game implements XMLSaving {
 							dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 						}
 						pastDialogueSB.append(dialogueParsed);
+						if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+							StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+							clipboard.setContents(data, data);
+						}
 					}
 					
 				} else {
@@ -3000,6 +3013,11 @@ public class Game implements XMLSaving {
 					dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 				}
 				pastDialogueSB.append(dialogueParsed);
+				if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+					StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+					clipboard.setContents(data, data);
+				}
 					
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
@@ -3018,6 +3036,11 @@ public class Game implements XMLSaving {
 					dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 				}
 				pastDialogueSB.append(dialogueParsed);
+				if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+					StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+					clipboard.setContents(data, data);
+				}
 			}
 			
 		} else {
@@ -3032,6 +3055,11 @@ public class Game implements XMLSaving {
 				dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 			}
 			pastDialogueSB.append(dialogueParsed);
+			if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+				clipboard.setContents(data, data);
+			}
 		}
 		
 		if(node != currentDialogueNode) {
@@ -3409,6 +3437,18 @@ public class Game implements XMLSaving {
 		}
 		
 		return true;
+	}
+
+	/**
+	 * Strips html tags so that content is formatted in a way that makes it easier to read.
+	 */
+	public String formatContentForAutomaticClipboard(String input) {
+		input = input.replaceAll("\t", "");
+		input = input.replaceAll("\n", "");
+		input = input.replaceAll("</p><p>", "\n\n");
+		input = input.replaceAll("<(.*?)>", "");
+		
+		return input;
 	}
 	
 	public String getContentForClipboard(){
@@ -4726,6 +4766,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isWeatherInterruptionsEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.weatherInterruptions);
+	}
+	
+	public boolean isAutomaticDialogueCopy() {
+		return Main.getProperties().hasValue(PropertyValue.automaticDialogueCopy);
 	}
 	
 	public boolean isFacialHairEnabled() {
