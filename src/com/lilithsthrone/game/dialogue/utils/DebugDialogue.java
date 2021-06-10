@@ -802,9 +802,7 @@ public class DebugDialogue {
 						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			for(OffspringSeed os : Main.game.getOffspringNotSpawned(os -> true,true)) {
-				boolean isBorn = os.getMother().getPregnantLitter() == null || !os.getMother().getPregnantLitter().getOffspring().contains(os.getId());
-				
-				UtilText.nodeContentSB.append("Not yet"+(isBorn?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+"</span>"
+				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+"</span>"
 						+ " ("+os.getSubspecies().getName(null)+" | "+os.getHalfDemonSubspecies().getName(null)+")"
 						+ " M:"+os.getMother().getName(true)+" F:"+os.getFather().getName(true)+"<br/>");
 			}

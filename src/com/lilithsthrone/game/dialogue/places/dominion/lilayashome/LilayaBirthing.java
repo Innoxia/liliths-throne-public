@@ -286,11 +286,11 @@ public class LilayaBirthing {
 				OffspringSeed offspring = Main.game.getOffspringSeedById(offspringId);
 				if(offspring.isFeminine()) {
 					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-								+offspring.getSubspecies().getSingularFemaleName(null)
+								+offspring.getSubspecies().getName(null)
 								+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
 				} else {
 					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-								+offspring.getSubspecies().getSingularMaleName(null)
+								+offspring.getSubspecies().getName(null)
 								+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 				
@@ -457,11 +457,11 @@ public class LilayaBirthing {
 			try {
 				OffspringSeed offspring = Main.game.getOffspringSeedById(offspringId);
 				if(offspring.isFeminine()) {
-					UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularFemaleName(null), true);
+					UtilText.addSpecialParsingString(offspring.getSubspecies().getName(null), true);
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_FEMININE_HATCHING"));
 					
 				} else {
-					UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularMaleName(null), true);
+					UtilText.addSpecialParsingString(offspring.getSubspecies().getName(null), true);
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_MASCULINE_HATCHING"));
 				}
 			} catch(Exception ex) {

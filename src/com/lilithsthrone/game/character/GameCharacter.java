@@ -19536,7 +19536,7 @@ public abstract class GameCharacter implements XMLSaving {
 				birthedLitter.getFather().getLittersFathered().add(birthedLitter);
 			}
 			
-			// Remove NPCs if not related to the player:
+			// Remove offspring if not related to the player:
 			if(!this.isPlayer() && (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
 				for(String os : birthedLitter.getOffspring()) {
 					Main.game.removeOffspringSeed(os);
@@ -19658,7 +19658,7 @@ public abstract class GameCharacter implements XMLSaving {
 //				birthedLitter.getFather().getLittersFathered().add(birthedLitter);
 //			}
 			
-			// Remove NPCs if not related to the player:
+			// Remove offspring if not related to the player:
 			if(!this.isPlayer()
 					&& (birthedLitter.getMother()==null || !birthedLitter.getMother().isPlayer())
 					&& (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
