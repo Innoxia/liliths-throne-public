@@ -7152,7 +7152,9 @@ public abstract class GameCharacter implements XMLSaving {
 	// Sex stats:
 	
 	public int getUniqueSexPartnerCount() {
-		return sexCount.keySet().size();
+		Map<String, SexCount> uniqueCount = new HashMap<>(sexCount);
+		uniqueCount.entrySet().removeIf(e->e.getValue().getTotalTimesHadSex()<=0);
+		return uniqueCount.keySet().size();
 	}
 	
 	public boolean hasSexCountWith(GameCharacter partner) {
@@ -18699,9 +18701,16 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return spells.add(spell);
 	}
+
+	public boolean hasSpell(Spell spell, boolean includeFromExtraSources) {
+		if(includeFromExtraSources) {
+			return getAllSpells().contains(spell);
+		}
+		return spells.contains(spell);
+	}
 	
 	public boolean hasSpell(Spell spell) {
-		return spells.contains(spell);
+		return hasSpell(spell, false);
 	}
 	
 	public boolean isSpellFullyUpgraded(Spell spell) {
@@ -21513,6 +21522,59 @@ public abstract class GameCharacter implements XMLSaving {
 			this.unequipMainWeaponIntoVoid(i, includeUniqueWeapons);
 			this.unequipOffhandWeaponIntoVoid(i, includeUniqueWeapons);
 		}
+	}
+
+	/**
+	 * Searches for the first owned/equipped weapon of the type 'weaponType' and deletes it.
+	 * <br/>When searching through equipped weapons, searches through arm rows by main weapon first, then offhand weapon.
+	 * <br/>This also affects unique weapons.
+	 * 
+	 * @param weaponType The weapon type to remove
+	 * @param includeNonEquippedWeapons Whether or not to search through weapons in this cahracter's inventory which aren't equipped.
+	 * @param includeEquippedWeapons Whether or not to search through weapons which this character currently has equipped.
+	 * @param appendTextToEventLog true if text detailing the loss of this weaopnType should be added to the event log.
+	 * @return true if a weapon was found and removed.
+	 */
+	public boolean removeWeaponTypeIntoVoid(AbstractWeaponType weaponType, boolean includeNonEquippedWeapons, boolean includeEquippedWeapons, boolean appendTextToEventLog) {
+		boolean weaponRemoved = false;
+		
+		if(includeNonEquippedWeapons) {
+			if(this.hasWeaponType(weaponType, false)) {
+				for(AbstractWeapon weapon : new ArrayList<>(this.getAllWeaponsInInventory().keySet())) {
+					if(weapon.getWeaponType()==weaponType) {
+						Main.game.getPlayer().removeWeapon(weapon);
+						weaponRemoved = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		if(includeEquippedWeapons && !weaponRemoved) {
+			for(int i=0; i<3; i++) {
+				AbstractWeapon weapon = this.getMainWeaponArray()[i];
+				if(weapon!=null && weapon.getWeaponType()==weaponType) {
+					Main.game.getPlayer().unequipMainWeaponIntoVoid(i, true);
+					weaponRemoved = true;
+					break;
+				}
+				weapon = this.getOffhandWeaponArray()[i];
+				if(weapon!=null && weapon.getWeaponType()==weaponType) {
+					Main.game.getPlayer().unequipOffhandWeaponIntoVoid(i, true);
+					weaponRemoved = true;
+					break;
+				}
+			}
+		}
+		
+		if(appendTextToEventLog && weaponRemoved) {
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(),
+					"[style.colourMinorBad(Lost)]",
+					"<span style='color:"+weaponType.getRarity().getColour().toWebHexString()+";'>"+weaponType.getName()+"</span>"),
+					false);
+		}
+		
+		return weaponRemoved;
 	}
 	
 	public String unequipWeapon(InventorySlot slot, AbstractWeapon weapon, boolean dropToFloor, boolean appendTextToEventLog) {

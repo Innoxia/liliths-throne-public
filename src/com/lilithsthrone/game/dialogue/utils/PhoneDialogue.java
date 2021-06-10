@@ -819,7 +819,16 @@ public class PhoneDialogue {
 			boolean sideQuestsFound = false;
 			
 			// Side Quests:
-			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
+			List<QuestLine> sideQuests = new ArrayList<>(Main.game.getPlayer().getQuests().keySet());
+			sideQuests.sort((q1, q2)->
+				Main.game.getPlayer().isQuestCompleted(q1)
+					?(Main.game.getPlayer().isQuestCompleted(q2)
+						?0
+						:1)
+					:(Main.game.getPlayer().isQuestCompleted(q2)
+						?-1
+						:0));
+			for (QuestLine questLine : sideQuests) {
 				if(questLine.getType()==QuestType.SIDE) {
 					sideQuestsFound = true;
 					
@@ -863,55 +872,6 @@ public class PhoneDialogue {
 	
 					journalSB.append("</details>");
 				}
-			
-//				if(questLine.getType()==QuestType.SIDE) {
-//					sideQuestsFound = true;
-//
-//					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
-//					int index = questList.size()-1;
-//					Quest q = questList.get(index);
-//					
-//					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
-//						journalSB.append(
-//								"<details>"
-//								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
-//									+ "Completed - " + questLine.getName()
-//								+ "</summary>");
-//						journalSB.append(getQuestBoxDiv(q, true));
-//						
-//					} else{
-//						journalSB.append(
-//								"<details open>"
-//									+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
-//										+ questLine.getName()
-//									+ "</summary>");
-//						journalSB.append(getQuestBoxDiv(q, false));
-//					}
-//					
-//					index--;
-//						
-//					while(index>=0) {
-//						q = questList.get(index);
-//						journalSB.append(getQuestBoxDiv(q, true));
-//						index--;
-//					}
-//	
-//					journalSB.append("</details>");
-//				}
-//			}
-//			for(Entry<QuestLine, Quest> questsFailed : Main.game.getPlayer().getQuestsFailed().entrySet()) {
-//				if(questsFailed.getKey().getType()==QuestType.SIDE) {
-//					sideQuestsFound = true;
-//					
-//					journalSB.append(
-//							"<details open>"
-//								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
-//									+ "Failed - "+questsFailed.getKey().getName()
-//								+ "</summary>");
-//					journalSB.append(getQuestBoxDiv(questsFailed.getValue(), false));
-//					
-//					journalSB.append("</details>");
-//				}
 			}
 			
 			if(!sideQuestsFound) {
@@ -1055,11 +1015,12 @@ public class PhoneDialogue {
 	
 	private static String getQuestBoxDiv(Quest q, boolean completed) {
 		if(q==Quest.SIDE_UTIL_COMPLETE) {
-			return "<div class='quest-box'>"
-					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
-							+ "<b>Completed - "+ q.getName() + "</b>"
-					+ "</h6>"
-				+ "</div>";
+			return "";
+//			return "<div class='quest-box'>"
+//					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
+//							+ "<b>Completed - "+ q.getName() + "</b>"
+//					+ "</h6>"
+//				+ "</div>";
 		}
 		
 		if(completed) {
@@ -1068,7 +1029,7 @@ public class PhoneDialogue {
 					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
 							+ "<b>Completed - "+ q.getName() + "</b>"
 					+ "</h6>"
-					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center; margin-top:0;'>"
 						+ q.getCompletedDescription()
 					+ "</p>" 
 				+ "</div>";
@@ -1076,7 +1037,7 @@ public class PhoneDialogue {
 		} else {
 			return "<div class='quest-box'>"
 					+ getLevelAndExperienceHTML(q, completed)
-					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center;'>"
+					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center; margin-top:0;'>"
 						+ "<b>" + q.getName() + "</b>"
 					+ "</h6>"
 					+ "<p style='text-align:center;'>"
@@ -1799,7 +1760,7 @@ public class PhoneDialogue {
 						+ "<br/>"
 						+ "Your record for most orgasms in one day is currently [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
 						+ "<br/>"
-						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()>1?"different people":"person")+"."
+						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()==1?"person":"different people")+"."
 					+ "</div>"
 					
 					+ sexStatHeader()
