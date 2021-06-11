@@ -1121,7 +1121,9 @@ public class Game implements XMLSaving {
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
 					for(NPC npc: Main.game.getAllNPCs()) {
-						if(npc instanceof NPCOffspring && npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
+						if(npc instanceof NPCOffspring &&
+								(npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL ||
+								 npc.getWorldLocation()==WorldType.EMPTY)) {
 							// remove this npc and replace with offspringSeed
 							new OffspringSeed(npc);
 						}
@@ -4237,7 +4239,6 @@ public class Game implements XMLSaving {
 		}
 	}
 	
-	
 	/**
 	 * @return a list of all offspring that have been encountered in the game.
 	 */
@@ -4245,10 +4246,9 @@ public class Game implements XMLSaving {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
-			if((npc.getMother()!=null && npc.getMother().isPlayer())
-					|| (npc.getFather()!=null && npc.getFather().isPlayer())) {
-				offspring.add(npc);
-			} else if((npc.getIncubator()!=null && npc.getIncubator().isPlayer())){
+			if((npc.getMother()!=null && npc.getMother().isPlayer()) ||
+			   (npc.getFather()!=null && npc.getFather().isPlayer()) ||
+			   (npc.getIncubator()!=null && npc.getIncubator().isPlayer())){
 					offspring.add(npc);
 			}
 		}
