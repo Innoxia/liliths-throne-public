@@ -1976,6 +1976,10 @@ public class PhoneDialogue {
 				sonsFathered+=(litter.isSelfImpregnation()?0:litter.getSonsFromMother()+litter.getSonsFromFather());
 				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
+			for (Litter litter : Main.game.getPlayer().getLittersImplanted()){
+				sonsFathered+=litter.getSonsFromMother()+litter.getSonsFromFather();
+				daughtersFathered+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+			}
 			
 			UtilText.nodeContentSB.setLength(0);
 
@@ -2340,8 +2344,11 @@ public class PhoneDialogue {
 		
 		if(noPregnancies){
 			contentSB.append("<div class='subTitle'>"
-								+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>You have never been pregnant...</span>"
-							+ "</div>");
+					+ "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() +
+					(Main.game.getPlayer().getLittersImplanted().isEmpty()
+					?";'>You have never been pregnant...</span>"
+					:";'>You have never given birth...</span>")
+					+ "</div>");
 		}
 		
 		

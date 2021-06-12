@@ -69,6 +69,11 @@ public class NPCOffspring extends NPC {
 			this.setAffection(os.getFather(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 		}
 		
+		if(os.getIncubator()!=null) {
+			this.setIncubator(os.getIncubatorId());
+			this.setAffection(os.getIncubator(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		}
+		
 		// PERSONALITY & BACKGROUND:
 		
 		Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
@@ -180,10 +185,10 @@ public class NPCOffspring extends NPC {
 						+ getRelationshipFromPlayer()
 						+ " [npc.She] was conceived on "+Units.date(this.getConceptionDate(), Units.DateType.LONG)+", and "
 						+(daysToBirth==0
-							?"later that same day"
-							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")
+							?"later that same day "
+							:daysToBirth>1?Util.intToString(daysToBirth)+" days later ":Util.intToString(daysToBirth)+" day later ")
 						+(this.getMother()!=null && this.getMother().isPlayer()
-							?" you gave birth to [npc.herHim]."
+							?(this.getIncubator()!=null && !this.getIncubator().isPlayer()?this.getIncubator().getName():"you")+" gave birth to [npc.herHim]."
 							:" [npc.she] was born.")
 						+ " You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight."));
 	}

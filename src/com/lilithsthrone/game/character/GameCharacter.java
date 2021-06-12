@@ -3367,15 +3367,23 @@ public abstract class GameCharacter implements XMLSaving {
 				+ "<p>"
 					+ this.getDescription());
 		
+		boolean incubated = this.getIncubator()!=null;
 		if(Main.getProperties().hasValue(PropertyValue.ageContent)) {
 			boolean append = false;
 			if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
 				append = true;
-				infoScreenSB.append(UtilText.parse(this, " You gave birth to [npc.herHim] on the "+this.getBirthdayString()+","));
+				infoScreenSB.append(UtilText.parse(this, (incubated
+						?" After the incubation by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+" [npc.she] [npc.was] born"
+						:" You gave birth to [npc.herHim]")
+						+" on the "+this.getBirthdayString()+","));
 				
 			} else if(this.isPlayer() || (this.isPlayerKnowsName() && (this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue() || this.isSlave()))) {
 				append = true;
-				infoScreenSB.append(UtilText.parse(this, " [npc.She] [npc.was] born on the "+this.getBirthdayString()+","));
+				infoScreenSB.append(UtilText.parse(this, (incubated
+						?" After the incubation by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+" [npc.she]"
+						:" [npc.She]")
+                        +" [npc.was] born on the "+this.getBirthdayString()+","));
+   
 			}
 			if(append) {
 				infoScreenSB.append(UtilText.parse(this,
@@ -3386,7 +3394,10 @@ public abstract class GameCharacter implements XMLSaving {
 			
 		} else {
 			if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
-				infoScreenSB.append(UtilText.parse(this, " You gave birth to [npc.herHim] on the "+this.getBirthdayString()+"."));
+				infoScreenSB.append(UtilText.parse(this, (incubated
+						?" After the incubation by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+" [npc.she] [npc.was] born"
+						:" You gave birth to [npc.herHim]")
+						+" on the "+this.getBirthdayString()+"."));
 			}
 		}
 		
