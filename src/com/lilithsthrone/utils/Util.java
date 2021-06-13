@@ -1617,16 +1617,12 @@ public class Util {
 	}
 
 	public static String getFileName(File f) {
-		if(f.isFile()) {
-			return f.getName().substring(0, f.getName().lastIndexOf('.'));
-		} else {
-			return f.getName();
-		}
+		return f.getName();
 	}
 	
 	public static String getFileIdentifier(File f) {
 		if(f.isFile()) {
-			return f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
+			return "OLD_"+f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
 		} else {
 			return f.getName().replaceAll("'", "Q");
 		}

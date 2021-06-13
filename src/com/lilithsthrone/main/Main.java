@@ -856,7 +856,7 @@ public class Main extends Application {
 	}
 
 	public static boolean isLoadGameAvailable(String name) {
-		File file = new File("data/saves/"+name+"/player.xml");
+		File file=new File("data/saves/"+name);
 
 		return file.exists();
 	}
@@ -874,31 +874,20 @@ public class Main extends Application {
 	}
 	
 	public static void deleteGame(String name) {
-		File dir = new File("data/saves/"+name+"/");
-		if (dir.exists()) {
-			try {
-				String[] childFiles = dir.list();
-				for (String file : childFiles) {
-					new File(file).delete();
+		File file = new File("data/saves/"+name);
+		try {
+			File[] childFiles=file.listFiles();
+			if(childFiles!=null) {
+				for(File child : childFiles) {
+					boolean result =child.delete();
+					System.out.println(result);
 				}
-				dir.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				return;
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
-		}
-		// Handle deleting single file saves (Pre v0.4.0.#)
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				return;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			file.delete();
+			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			return;
+		} catch(Exception ex) {
+			ex.printStackTrace();
 		}
 		Main.game.flashMessage(PresetColour.GENERIC_BAD, "Save not found...");
 	}
@@ -930,7 +919,7 @@ public class Main extends Application {
 		if (dir.isDirectory()) {
 			String[] directoryListing = dir.list();
 			for (String path : directoryListing) {
-				File file = new File("data/saves/"+path+"");
+				File file = new File("data/saves/"+path);
 				if(file.exists()) {
 					filesList.add(file);
 				} else {

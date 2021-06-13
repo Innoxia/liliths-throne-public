@@ -707,7 +707,7 @@ public class Game implements XMLSaving {
 	public static void importGame(String name) {
 		File file = new File("data/saves/"+name+"/".replace("/", System.getProperty("file.separator")), "player.xml");
 		if(!file.exists()) { // If save doesn't exist try to load an old save file
-			file = new File("data/saves/".replace("/", System.getProperty("file.separator")), name+".xml");
+			file = new File("data/saves/".replace("/", System.getProperty("file.separator")), name);
 		}
 		importGame(file);
 	}
@@ -1049,7 +1049,7 @@ public class Game implements XMLSaving {
 //													&& !(npc instanceof NPCOffspring))
 //											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
 //										System.out.println("Deleted NPC: "+npc.getId());
-//										
+//
 //									} else
 										if(npc!=null) {
 											if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
