@@ -645,6 +645,7 @@ public class Game implements XMLSaving {
 		}
 		
 		Map<Document, String> saveFiles = new HashMap<>();
+		List<String> keepFiles = Util.newArrayListOfValues("player.xml"); // Always keep the main file
 		saveFiles.put(doc, "player");
 		
 		// Add all NPCs:
@@ -660,6 +661,7 @@ public class Game implements XMLSaving {
 					saveFiles.put(doc, id);
 					character.saveHash = character.hashCode();
 				}
+				keepFiles.add(id+".xml"); // Add .xml for the sake of removeAll
 			}
 		} catch(Exception ex) {
 			System.err.println("NPC saving failed!");
@@ -681,6 +683,11 @@ public class Game implements XMLSaving {
 				StreamResult result = new StreamResult(saveLocation);
 				
 				transformer.transform(source, result);
+			}
+			List<String> files = Util.newArrayListOfValues(new File("data/saves/"+exportSaveName).list());
+			files.removeAll(keepFiles);
+			for(String filename : files) {
+				new File("data/saves/"+exportSaveName+"/"+filename).delete();
 			}
 			if(!exportSaveName.startsWith("AutoSave")) {
 				if(overwrite) {
@@ -705,7 +712,7 @@ public class Game implements XMLSaving {
 	private static boolean debug = false;
 
 	public static void importGame(String name) {
-		File file = new File("data/saves/"+name+"/".replace("/", System.getProperty("file.separator")), "player.xml");
+		File file = new File("data/saves/"+name+"/".replace("/", System.getProperty("file.separator"))+"player.xml");
 		if(!file.exists()) { // If save doesn't exist try to load an old save file
 			file = new File("data/saves/".replace("/", System.getProperty("file.separator")), name);
 		}
@@ -1103,7 +1110,7 @@ public class Game implements XMLSaving {
 					File dir = new File(file.getParentFile().toString());
 					File[] fileList = dir.listFiles();
 					for(File npcFile : fileList) {
-						if(npcFile.getName()=="player.xml") {
+						if(npcFile.getName()=="player.xml") { // Don't try to import the player as an NPC
 							continue;
 						}
 						Document npcDoc = Main.getDocBuilder().parse(npcFile);
@@ -1641,7 +1648,7 @@ public class Game implements XMLSaving {
 		Main.game.setRequestAutosave(false);
 		
 		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getDialogue(false);
-		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)+".xml"), false);
+		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)), false);
 		Main.game.setStarted(true); // Set started before setting content so that it parses correctly (as the scripting engine is initialised fully in the setStarted() method).
 		Main.game.setContent(new Response("", startingDialogueNode.getDescription(), startingDialogueNode), false);
 		

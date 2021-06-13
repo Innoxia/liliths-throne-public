@@ -879,8 +879,7 @@ public class Main extends Application {
 			File[] childFiles=file.listFiles();
 			if(childFiles!=null) {
 				for(File child : childFiles) {
-					boolean result =child.delete();
-					System.out.println(result);
+					child.delete();
 				}
 			}
 			file.delete();
