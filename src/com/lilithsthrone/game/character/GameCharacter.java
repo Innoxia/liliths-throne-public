@@ -501,6 +501,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
 	
 	public int saveHash = 0;
+	public long lastSave = 0;
 	
 	protected GameCharacter(
 			NameTriplet nameTriplet,

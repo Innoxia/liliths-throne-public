@@ -653,13 +653,16 @@ public class Game implements XMLSaving {
 			String id = "";
 			for(GameCharacter character : Main.game.getNPCMap().values()) {
 				id = character.getId().replace(",", "_");
-				if(character.saveHash != character.hashCode() || !new File("data/saves/"+exportSaveName+"/"+id+".xml").exists()) {
+				if(character.saveHash != character.hashCode() || new File("data/saves/"+exportSaveName+"/"+id+".xml").lastModified() < character.lastSave) {
 					doc = Main.getDocBuilder().newDocument();
 					Element characterNode = doc.createElement("NPC");
 					doc.appendChild(characterNode);
 					character.saveAsXML(characterNode, doc);
 					saveFiles.put(doc, id);
-					character.saveHash = character.hashCode();
+					if(character.saveHash != character.hashCode()) {
+						character.saveHash=character.hashCode();
+						character.lastSave=System.currentTimeMillis();
+					}
 				}
 				keepFiles.add(id+".xml"); // Add .xml for the sake of removeAll
 			}
