@@ -7430,19 +7430,28 @@ public abstract class GameCharacter implements XMLSaving {
 			return false;
 		}
 	}
+
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+		return getSexActionOrgasmOverride(sexAction, target, applyExtraEffects, null);
+	}
 	
 	/**
 	 * Get the overriding behaviour of this character when using a <b>generic</b> orgasm action in sex. (This does <b>not</b> affect custom orgasm scenes!)
 	 * @param sexAction The sex action being used to orgasm.
 	 * @param target The area targeted for orgasm.
 	 * @param applyExtraEffects True if extra effects should be applied, false if not.
+	 * @param description The base description which should be used. If null, uses GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target)
 	 * @return SexActionOrgasmOverride class, for use in GenericOrgasms class.
 	 */
-	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects, String description) {
 		return new SexActionOrgasmOverride(false) {
 				@Override
 				public String getDescription() {
-					return GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target);
+					if(description == null) {
+						return GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target);
+					} else {
+						return description;
+					}
 				}
 				@Override
 				public void applyEffects() {
@@ -21187,6 +21196,15 @@ public abstract class GameCharacter implements XMLSaving {
 //			return inventoryFullText() + droppedItemText(item, count);
 //		}
 //	}
+
+	/**
+	 * Adds 1 instance of the item, does not remove from floor, and appends text to the event log if this character is the player.
+	 * @param item The item to add to this character's inventory.
+	 * @return A description of the item being added.
+	 */
+	public String addItem(AbstractItem item) {
+		return addItem(item, 1, false, this.isPlayer());
+	}
 	
 	public String addItem(AbstractItem item, boolean removingFromFloor) {
 		return addItem(item, 1, removingFromFloor, false);
@@ -25993,6 +26011,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return setBreastRows(getBreastRows() + increment);
 	}
 	// Lactation:
+	public boolean isLactating() {
+		return this.getBreastRawMilkStorageValue()>0;
+	}
 	public Lactation getBreastMilkStorage() {
 		if(!Main.game.isLactationContentEnabled()) {
 			return Lactation.ZERO_NONE;

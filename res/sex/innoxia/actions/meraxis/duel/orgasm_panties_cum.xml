@@ -97,6 +97,9 @@
 	<!-- This section is parsed when this sex action is selected, *before* the descriptions have been generated, but *after* basic effects such as positioning and starting/stopping ongoing actions have been applied.
 		Any text returned here will be appended to the end of the description, *before* any generic ongoing action descriptions. -->
 	<applyEffects><![CDATA[
+		#IF(!meraxis.hasFetish(FETISH_CUM_ADDICT))
+			[#meraxis.addFetish(FETISH_CUM_ADDICT, true)]
+		#ENDIF
 	]]></applyEffects>
 	
 	<!-- This section is parsed at the end of the sex action, *after* the descriptions have been generated.
@@ -123,10 +126,21 @@
 	
 	<!-- The title of this action, which is displayed on the button for the player to select.
 		It is also displayed at the top of the description, so even if this action is only ever to be used by NPCs, you should still give it a title. -->
-	<title><![CDATA[Cum in panties]]></title>
+	<title><![CDATA[
+		#IF(meraxis.hasFetish(FETISH_CUM_ADDICT))
+			Cum in panties
+		#ELSE
+			[style.colourFetish(Cum in panties)]
+		#ENDIF
+	]]></title>
 	
 	<!-- The tooltip for this action, which is displayed to the player when hovering their mouse over this action's button. -->
-	<tooltip><![CDATA[Tell Meraxis to show you her pussy, and when she pulls down her panties, direct your cum both into them and all over her cunt.]]></tooltip>
+	<tooltip><![CDATA[
+		Tell Meraxis to show you her pussy, and when she pulls down her panties, direct your cum both into them and all over her cunt.
+		#IF(!meraxis.hasFetish(FETISH_CUM_ADDICT))
+			<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_CUM_ADDICT.getName(meraxis)]' fetish from this!)]
+		#ENDIF
+	]]></tooltip>
 	
 	<!-- The actual description which is displayed to the player when they (or an NPC) select(s) this action. -->
 	<descriptions>

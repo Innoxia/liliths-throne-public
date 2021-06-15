@@ -1044,7 +1044,7 @@ public class SexManagerExternal extends SexManagerDefault {
 			}
 		}
 
-		publicSex = Boolean.valueOf(UtilText.parse(publicSexString).trim());
+		publicSex = publicSexString==null?false:Boolean.valueOf(UtilText.parse(publicSexString).trim());
 
 		for(Entry<String, CharacterBehaviour> entry : characterBehaviours.entrySet()) {
 			entry.getValue().initCharacterBehaviour();
