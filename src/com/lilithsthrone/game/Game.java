@@ -653,16 +653,14 @@ public class Game implements XMLSaving {
 			String id = "";
 			for(GameCharacter character : Main.game.getNPCMap().values()) {
 				id = character.getId().replace(",", "_");
-				if(character.saveHash != character.hashCode() || new File("data/saves/"+exportSaveName+"/"+id+".xml").lastModified() < character.lastSave) {
+				if(!character.getWorldLocation().equals(WorldType.EMPTY) && !character.getLocation().equals(0, 0)
+						|| (character instanceof Elemental && ((Elemental)character).getSummoner()!=null && ((Elemental)character).getSummoner().isElementalSummoned())
+						|| !new File("data/saves/"+exportSaveName+"/"+id+".xml").exists()) {
 					doc = Main.getDocBuilder().newDocument();
 					Element characterNode = doc.createElement("NPC");
 					doc.appendChild(characterNode);
 					character.saveAsXML(characterNode, doc);
 					saveFiles.put(doc, id);
-					if(character.saveHash != character.hashCode()) {
-						character.saveHash=character.hashCode();
-						character.lastSave=System.currentTimeMillis();
-					}
 				}
 				keepFiles.add(id+".xml"); // Add .xml for the sake of removeAll
 			}
@@ -708,7 +706,8 @@ public class Game implements XMLSaving {
 		}
 
 		if(timeLog) {
-			System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
+			System.out.println("Save completed in "+(System.nanoTime()-timeStart)/1000000000f+" seconds.");
+			System.out.println("Saved "+saveFiles.size()+" of "+keepFiles.size()+" files.");
 		}
 	}
 	
@@ -1113,7 +1112,7 @@ public class Game implements XMLSaving {
 					File dir = new File(file.getParentFile().toString());
 					File[] fileList = dir.listFiles();
 					for(File npcFile : fileList) {
-						if(npcFile.getName()=="player.xml") { // Don't try to import the player as an NPC
+						if(npcFile.getName().equals("player.xml")) { // Don't try to import the player as an NPC
 							continue;
 						}
 						Document npcDoc = Main.getDocBuilder().parse(npcFile);
@@ -4407,7 +4406,6 @@ public class Game implements XMLSaving {
 				|| npc.isUnique()) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
-			
 		} else {
 			removeNPC(npc);
 			return true;
