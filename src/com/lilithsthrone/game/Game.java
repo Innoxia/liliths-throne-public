@@ -670,10 +670,17 @@ public class Game implements XMLSaving {
 		
 		// Add all offspringSeed:
 		try {
+			String id = "";
 			for(OffspringSeed offspringSeed : Main.game.getOffspringSeedMap().values()) {
-				Element offspringSeedNode = doc.createElement("OffspringSeed");
-				game.appendChild(offspringSeedNode);
-				offspringSeed.saveAsXML(offspringSeedNode, doc);
+				id = offspringSeed.getId().replace(",", "_");
+				if(!new File("data/saves/"+exportSaveName+"/"+id+".xml").exists()) {
+					doc = Main.getDocBuilder().newDocument();
+					Element offspringSeedNode = doc.createElement("OffspringSeed");
+					doc.appendChild(offspringSeedNode);
+					offspringSeed.saveAsXML(offspringSeedNode, doc);
+					saveFiles.put(doc, id);
+				}
+				keepFiles.add(id+".xml"); // Add .xml for the sake of removeAll
 			}
 		} catch(Exception ex) {
 			System.err.println("offspringSeed saving failed!");
@@ -1126,6 +1133,9 @@ public class Game implements XMLSaving {
 						if(npcFile.getName().equals("player.xml")) { // Don't try to import the player as an NPC
 							continue;
 						}
+						if(npcFile.getName().contains("OffspringSeed")) { // Don't import offspringseed here
+							continue;
+						}
 						Document npcDoc = Main.getDocBuilder().parse(npcFile);
 						
 						// Cast magic:
@@ -1149,9 +1159,30 @@ public class Game implements XMLSaving {
 				
 				// Load offspringSeed:
 				NodeList offspringSeed = gameElement.getElementsByTagName("OffspringSeed");
-				for(int i = 0; i < offspringSeed.getLength(); i++){
-					Element e = (Element) offspringSeed.item(i);
-					Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
+				if(offspringSeed.getLength()>0) {
+					for(int i = 0; i < offspringSeed.getLength(); i++){
+						Element e = (Element) offspringSeed.item(i);
+						Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
+					}
+				} else {
+					File dir = new File(file.getParentFile().toString());
+					File[] fileList = dir.listFiles();
+					for(File offspringFile : fileList) {
+						if(!offspringFile.getName().contains("OffspringSeed")) {
+							continue;
+						}
+						Document offspringDoc = Main.getDocBuilder().parse(offspringFile);
+						// Cast magic:
+						offspringDoc.getDocumentElement().normalize();
+						
+						Element e = (Element) offspringDoc.getElementsByTagName("OffspringSeed").item(0);
+						Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
+					}
+				
+				}
+				
+				if(debug) {
+					System.out.println("OffspringSeed finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
@@ -1165,6 +1196,10 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				if(debug) {
+					System.out.println("Convert NPC finished: "+ (System.nanoTime()-time)/1000000000d);
+				}
+
 				// Add in new NPCS:
 				Main.game.initUniqueNPCs();
 				
