@@ -99,7 +99,7 @@ public class SpellManagement {
 			return new Response("Arcane", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Arcane."), CHARACTER_SPELLS_ARCANE);
 			
 		} else if(index==6) {
-    		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_ARCANE) {
+    		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_MISC) {
     			return new Response("Misc.", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] miscellaneous spells!"), null);
     		}
 			return new Response("Misc.", UtilText.parse(getSpellOwner(), "View [npc.namePos] miscellaneous spells which [npc.sheHas] gained from weapons or special events."), CHARACTER_SPELLS_MISC);

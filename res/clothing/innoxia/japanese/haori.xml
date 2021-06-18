@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>750</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[men's haori]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[men's haori]]></namePlural>
+		<description><![CDATA[A traditional thigh-length kimono-style jacket, which is primarily worn by the reclusive youko.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>MASCULINE</femininity>
+		<slot>TORSO_OVER</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_ronin</clothingSet>
+		<imageName>haori.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_BLUE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(guide)] [npc.her] [npc.arms] through the haori's sleeves as [npc.she] [npc.verb(pull)] it on.
+		]]></self>
+		<other> <![CDATA[
+			[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the haori's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.arms] through the haori's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(take)] [npc.her] haori off.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(take)] [npc2.namePos] haori off.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(take)] [npc2.namePos] haori off.
+		]]></otherRough>
+	</displacementText>
+	
+</clothing>

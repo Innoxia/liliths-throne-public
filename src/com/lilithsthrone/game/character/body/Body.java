@@ -4196,7 +4196,7 @@ public class Body implements XMLSaving {
 			if(owner.getNippleCrotchCountPerBreast()>1) {
 				descriptionSB.append(" [npc.crotchNipples],");
 			} else {
-				descriptionSB.append(" [npc.crotchNipple],");
+				descriptionSB.append(" [npc.crotchNipple(true)],");
 			}
 			
 			switch(owner.getAreolaeCrotchShape()) {

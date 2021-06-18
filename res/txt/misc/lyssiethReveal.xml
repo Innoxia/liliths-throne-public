@@ -829,13 +829,14 @@
 		[pc.speech(I want your pussy,)] you say, not too fond of the idea of having Lyssieth grow a cock.
 	</p>
 	<p>
-		#IF pc.hasPenisIgnoreDildo() && pc.getRace()==RACE_HUMAN
-		#THEN [lyssieth.speech(Mmm, just make sure to cum inside, dear,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(My womb's made for human seed, and I can't wait for you to give me a nice big creampie!)]
-		#ELSE [lyssieth.speech(Mmm, yeah, I prefer using my pussy as well,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(Now, come on, fuck me!)]
+		#IF(pc.hasPenisIgnoreDildo() && pc.getRace()==RACE_HUMAN)
+			[lyssieth.speech(Mmm, just make sure to cum inside, dear,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(My womb's made for human seed, and I can't wait for you to give me a nice big creampie!)]
+		#ELSE
+			[lyssieth.speech(Mmm, yes, I prefer using my pussy as well,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(Now, come on, fuck me!)]
 		#ENDIF
 	</p>
 	<p>
-		With that, Lyssieth sits back on the surface of her desk, pulling you in between her spread legs as she leans forwards and passionately kisses you. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to give her the fucking she desires...
+		With that, Lyssieth leans forwards and plants a deep, passionate kiss on your [pc.lips+]. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to give her the fucking she desires...
 	</p>
 	]]>
 	</htmlContent>
@@ -845,13 +846,14 @@
 		[pc.speech(I want your cock,)] you say, preferring to be on the receiving end.
 	</p>
 	<p>
-		#IF pc.hasVagina() && pc.getRace()==RACE_HUMAN
-		#THEN [lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(My seed is made for human wombs, and I can't wait to give you a nice big creampie!)]
-		#ELSE [lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(I just love the look of a nice big creampie!)]
+		#IF(pc.hasVagina() && pc.getRace()==RACE_HUMAN)
+			[lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(My seed is made for human wombs, and I can't wait to give you a nice big creampie!)]
+		#ELSE
+			[lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(I just love the look of a nice big creampie!)]
 		#ENDIF
 	</p>
 	<p>
-		With that, Lyssieth gently, yet firmly, pushes you back so that you're sitting on the surface of her desk. Stepping in between your spread legs, she leans forwards and passionately kisses you. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to receive a good, hard fucking...
+		With that, Lyssieth leans forwards and plants a deep, passionate kiss on your [pc.lips+]. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to receive a good, hard fucking...
 	</p>
 	]]>
 	</htmlContent>
