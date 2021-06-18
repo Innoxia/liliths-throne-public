@@ -500,7 +500,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	protected static List<CharacterChangeEventListener> NPCInventoryChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
-
+	
 	protected GameCharacter(
 			NameTriplet nameTriplet,
 			String surname,
@@ -736,7 +736,6 @@ public abstract class GameCharacter implements XMLSaving {
 		if(isUnique()) {
 			loadImages();
 		}
-
 	}
 	
 	/**

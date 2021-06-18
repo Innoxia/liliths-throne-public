@@ -797,25 +797,15 @@ public class Main extends Application {
 		if(!Main.game.isStarted()) {
 			return "QuickSave_intro";
 		}
-		return "QuickSave_"+Main.game.getPlayer().getName(false);
+		return "QuickSave_"+Main.game.getPlayer().getSurname();
 	}
 	
 	public static void quickSaveGame() {
-		if (Main.game.isInCombat()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in combat!");
-			
-		} else if (Main.game.isInSex()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in sex!");
-			
-		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Can only quicksave in a normal scene!");
-			
-		} else if (!Main.game.isStarted() || !Main.game.isInNeutralDialogue()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot save in this scene!");
-			
-		} else {
+		if(isQuickSaveAvailable()){
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
 			saveGame(getQuickSaveName(), true);
+		} else {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, getQuickSaveUnavailabilityDescription());
 		}
 	}
 
@@ -867,7 +857,7 @@ public class Main extends Application {
 	}
 
 	public static boolean isLoadGameAvailable(String name) {
-		File file = new File("data/saves/"+name+".xml");
+		File file=new File("data/saves/"+name);
 
 		return file.exists();
 	}
@@ -885,35 +875,21 @@ public class Main extends Application {
 	}
 	
 	public static void deleteGame(String name) {
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
+		File file = new File("data/saves/"+name);
+		try {
+			File[] childFiles=file.listFiles();
+			if(childFiles!=null) {
+				for(File child : childFiles) {
+					child.delete();
+				}
 			}
-			
-		} else {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
+			file.delete();
+			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			return;
+		} catch(Exception ex) {
+			ex.printStackTrace();
 		}
-	}
-	
-	public static void deleteExportedGame(String name) {
-		File file = new File("data/saves/"+name+".xml");
-
-		if (file.exists()) {
-			try {
-				file.delete();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
-		}
+		Main.game.flashMessage(PresetColour.GENERIC_BAD, "Save not found...");
 	}
 	
 	public static void deleteExportedCharacter(String name) {
@@ -941,9 +917,17 @@ public class Main extends Application {
 		
 		File dir = new File("data/saves");
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
-			if (directoryListing != null) {
-				filesList.addAll(Arrays.asList(directoryListing));
+			String[] directoryListing = dir.list();
+			for (String path : directoryListing) {
+				File file = new File("data/saves/"+path);
+				if(file.exists()) {
+					filesList.add(file);
+				} else {
+					file = new File("data/saves/" + path + ".xml");
+					if (file.exists()) {
+						filesList.add(file);
+					}
+				}
 			}
 		}
 		

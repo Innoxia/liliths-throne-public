@@ -539,11 +539,16 @@ public class OptionsDialogue {
 	private static String getSaveLoadRow(String date, String name, boolean altColour) {
 		if(name!=null){
 			String baseName = Util.getFileName(name);
-			String identifierName = Util.getFileIdentifier(name);
+			boolean oldSave = false;
+			if(name.contains(".")) {
+				oldSave = true;
+			}
+			String identifierName = (oldSave?"OLD_":"")+Util.getFileIdentifier(name);
 			
 			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ date
+							+ (name.contains(".")?"<br/><span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Old Save Format</span> ":"")
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(50% - 16px); background:transparent;'>"
 							+ baseName
