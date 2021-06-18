@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<renderingPriority>80</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>DEFAULT</category>
+	<beneficial>DETRIMENTAL</beneficial>
+	<combatEffect>false</combatEffect>
+	<sexEffect>false</sexEffect>
+	<tags>
+		<tag>HINDERS_ARM_MOVEMENT</tag>
+		<tag>HINDERS_LEG_MOVEMENT</tag>
+	</tags>
+	<name><![CDATA[Marauder's Seal]]></name>
+	<description><![CDATA[
+		After being defeated by a centauress marauder, you've had a debilitating arcane spell cast upon you! It's not only hindering your arm and leg movement, but is also sending out an arcane signal to any demonic centaur slavers who might be in the area...
+	]]></description>
+	<imageName>centaur_seal.svg</imageName>
+	<colourPrimary>DAMAGE_TYPE_MELEE</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="-10.0">MAJOR_PHYSIQUE</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects>
+		<effect><![CDATA[
+			[style.colourPurple(Attracting slavers!)]
+		]]></effect>
+	</extraEffects>
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[false]]></applicationCondition>
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

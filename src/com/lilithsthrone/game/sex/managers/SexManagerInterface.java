@@ -120,6 +120,13 @@ public interface SexManagerInterface {
 	public default boolean isHidden(GameCharacter character) {
 		return false;
 	}
+
+	/**
+	 * @return The name of the wall against which sex will be taking place during this manager's sex scene. Leave as null or an empty String if not used.
+	 */
+	public default String getWallName() {
+		return null;
+	}
 	
 	public default SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		return character.getForeplayPreference(targetedCharacter);

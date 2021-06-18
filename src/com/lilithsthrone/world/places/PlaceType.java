@@ -5568,7 +5568,7 @@ public class PlaceType {
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
-	};
+	}.initDangerous();
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.WOODLAND,
@@ -5613,7 +5613,8 @@ public class PlaceType {
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
-	}.initAquatic(Aquatic.MIXED);
+	}.initAquatic(Aquatic.MIXED)
+	.initDangerous();
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_WILD_RIVER = new AbstractGlobalPlaceType(
 			WorldRegion.RIVER,

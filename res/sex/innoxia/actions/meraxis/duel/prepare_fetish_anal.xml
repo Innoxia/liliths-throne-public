@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sexAction>
-	<buttonPriority>0</buttonPriority>
+	<buttonPriority>-1</buttonPriority>
 	<actionConditional><![CDATA[
 		[#npc.isPlayer()
 		&& !meraxis.hasFetish(FETISH_ANAL_RECEIVING)
@@ -35,7 +35,9 @@
 	]]></applyEndEffects>
 	<areasCummedIn/>
 	<areasCummedOn/>
-	<title><![CDATA[Butt slut]]></title>
+	<title><![CDATA[
+		[style.colourFetish(Butt slut)]
+	]]></title>
 	<tooltip><![CDATA[
 		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_ANUS, PENETRATION_TONGUE).contains(pc))
 			Make Meraxis admit to you that she's a dirty buttslut as you make her cum from anilingus.
@@ -61,16 +63,6 @@
 				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you lean in and give her asshole another lick, she relents and cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little buttslut! Now let me cum!)]
 				<br/><br/>
 				Burying your face in her ass, you continue where you left off, and greedily lick, kiss, and nuzzle into Meraxis's asshole. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
-				<br/><br/>
-				With that, Meraxis reaches her climax,
-				#IF(meraxis.isVaginaSquirter())
-					 and as her pussy clenches and squirts out a copious amount of girlcum,
-				#ELSE
-					 and as her pussy clenches and quivers,
-				#ENDIF
-				 you make sure to continue performing anilingus on her, driving her completely over the edge and giving her an absolutely mind-blowing orgasm. As she starts to come down from her climax, you pull back and ask, [pc.speech(So, what are you, Meraxis?)]
-				<br/><br/>
-				Much to your delight, she instantly pants in response, [meraxis.speechNoEffects(I'm... I'm a dirty buttslut... Fuck, I never knew it could feel so good to orgasm from having my ass used...)]
 			]]></text>
 		</description>
 		<description>
@@ -87,16 +79,6 @@
 				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and start to slide your cock out of her ass, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little buttslut! Now let me cum!)]
 				<br/><br/>
 				Pushing forwards and driving your [pc.cock+] back into her ass, you continue where you left off, and dominantly pump your [pc.cock+] in and out of Meraxis's asshole. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
-				<br/><br/>
-				With that, Meraxis reaches her climax,
-				#IF(meraxis.isVaginaSquirter())
-					 and as her pussy clenches and squirts out a copious amount of girlcum,
-				#ELSE
-					 and as her pussy clenches and quivers,
-				#ENDIF
-				 you make sure to continue rapidly fucking her ass, driving her completely over the edge and giving her an absolutely mind-blowing orgasm. As she starts to come down from her climax, you hilt your [pc.cock+] in her [meraxis.asshole+] and ask, [pc.speech(So, what are you, Meraxis?)]
-				<br/><br/>
-				Much to your delight, she instantly pants in response, [meraxis.speechNoEffects(I'm... I'm a dirty buttslut... Fuck, I never knew it could feel so good to orgasm from anal...)]
 			]]></text>
 		</description>
 		<description>
@@ -113,16 +95,6 @@
 				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and slap your hard cock against her ass a couple of times, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little buttslut! Now let me cum!)]
 				<br/><br/>
 				Pushing forwards and driving your [pc.cock+] up between her ass cheeks, you continue where you left off, and dominantly slide your [pc.cock+] back and forth over Meraxis's asshole. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
-				<br/><br/>
-				With that, Meraxis reaches her climax,
-				#IF(meraxis.isVaginaSquirter())
-					 and as her pussy clenches and squirts out a copious amount of girlcum,
-				#ELSE
-					 and as her pussy clenches and quivers,
-				#ENDIF
-				 you make sure to continue rapidly hotdogging her ass, driving her completely over the edge and giving her an absolutely mind-blowing orgasm. As she starts to come down from her climax, you rub your [pc.cock+] over her [meraxis.asshole+] and ask, [pc.speech(So, what are you, Meraxis?)]
-				<br/><br/>
-				Much to your delight, she instantly pants in response, [meraxis.speechNoEffects(I'm... I'm a dirty buttslut... Fuck, I never knew it could feel so good to orgasm from ass stuff...)]
 			]]></text>
 		</description>
 	</descriptions>

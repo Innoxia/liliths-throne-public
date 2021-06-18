@@ -318,7 +318,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(game.isHourBetween(8, 17))
+					#IF(game.isHourBetween(8, 18))
 						Enter the Farmer's Market and take a look around the stalls...
 					#ELSEIF(game.getHourOfDay()==7)
 						As the stalls of the Farmer's Market are currently being set up, there's not yet a reason to start taking a look around. You should return in an hour if you wanted to do some shopping...
@@ -329,7 +329,7 @@
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(game.isHourBetween(8, 17))
+					#IF(game.isHourBetween(8, 18))
 						innoxia_places_fields_elis_market_centre
 					#ELSE
 						null

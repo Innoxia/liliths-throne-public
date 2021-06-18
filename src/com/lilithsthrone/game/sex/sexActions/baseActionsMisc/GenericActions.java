@@ -554,8 +554,9 @@ public class GenericActions {
 				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
 			}
 			Main.game.getPlayer().fillCumToMaxStorage();
-			if(Main.game.getPlayer().getPenisRawSizeValue() < 20) {
-				sb.append(Main.game.getPlayer().setPenisSize(20));
+			int size = Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isLargeGenitals()?40:20;
+			if(Main.game.getPlayer().getPenisRawSizeValue() < size) {
+				sb.append(Main.game.getPlayer().setPenisSize(size));
 			}
 			
 			for(GameCharacter character : Main.sex.getAllParticipants()) {
@@ -666,8 +667,9 @@ public class GenericActions {
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.FOUR_GIRTHY.getValue()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.FOUR_GIRTHY));
 			}
-			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue() < 20) {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisSize(20));
+			int size = Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isLargeGenitals()?40:20;
+			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue() < size) {
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisSize(size));
 			}
 			
 			for(GameCharacter character : Main.sex.getAllParticipants()) {
@@ -2019,7 +2021,9 @@ public class GenericActions {
 		}
 		@Override
 		public String getDescription() {
-			return "Having had enough of the show, you turn away and stop watching the sex scene unfold before you...";
+			return Main.sex.isMasturbation()
+					?"Having had enough of the show, you turn away and stop watching the sex scene unfold before you..."
+					:"Having had enough, you [pc.step] back and stop having sex...";
 		}
 		@Override
 		public SexParticipantType getParticipantType() {

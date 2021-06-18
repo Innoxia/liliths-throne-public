@@ -377,6 +377,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked4 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked5 = new AbstractDialogueFlagValue();
 
+	public static AbstractDialogueFlagValue lyssiethNoCockDemonTF = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue meraxisRepeatDemonTF = new AbstractDialogueFlagValue();
 	
 	
@@ -510,7 +511,7 @@ public class DialogueFlagValue {
 						allDialogueFlagValues.add(loadedFlag);
 						dialogueFlagValueToIdMap.put(loadedFlag, loadedFlag.getId());
 						idToDialogueFlagValueMap.put(loadedFlag.getId(), loadedFlag);
-//						System.out.println("modded DFV: "+innerEntry.getKey());
+						System.out.println("modded DFV: "+innerEntry.getKey());
 					}
 				} catch(Exception ex) {
 					System.err.println("Loading modded dialogueFlagValue failed at 'DialogueFlagValue'. File path: "+innerEntry.getValue().getAbsolutePath());

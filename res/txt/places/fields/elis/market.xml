@@ -3,6 +3,8 @@
 
 	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/market.xml' dialogue nodes. -->
 	
+	<!-- Centre of market, livestock on Wednesdays and Saturdays, games on all other days. -->
+	
 	<htmlContent tag="CENTRE"><![CDATA[
 	#IF(game.getDayOfWeek()==DOW_SATURDAY || game.getDayOfWeek()==DOW_WEDNESDAY)
 		<p>
@@ -10,11 +12,202 @@
 		</p>
 	#ELSE
 		<p>
-			TODO Several games stalls have been set up here.
+			Several games stalls have been set up here. Out of the dozen or so stalls, there are only two which really catch your interest; one offering a game of darts, and one that offers a strength test.
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="CENTRE_SPECTATE"><![CDATA[
+	<p>
+		Spend some time watching livestock being bought and sold.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Darts: -->
+	
+	<htmlContent tag="GAME_DARTS"><![CDATA[
+	<p>
+		Raccoon-girl tells you that you get three darts and have to hit the bullseye to win a prize. Costs 15 flames to have a go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_LEAVE"><![CDATA[
+	<p>
+		You decide against having a go at darts and turn around and leave. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_PLAY"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_elis_market_darts_won))
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=66)
+				You hit the bullseye on your first throw, then to show off you hit it again with the second and third darts.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=33)
+				You hit the bullseye on your second throw, then to show off you hit it again with the third dart.
+			#ELSE
+				You manage to hit the bullseye on your third throw.
+			#ENDIF
+		</p>
+		<p>
+			The raccoon-girl happily congratulates you and asks what prize you'd like.
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=66)
+				You find yourself distracted by people around you, and so despite your considerable skill at using ranged weapons, you somehow manage to just miss the bullseye with all three darts.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=33)
+				You find yourself distracted by people around you, and so despite your skill at using ranged weapons, you miss the bullseye with all three darts.
+			#ELSE
+				You miss the bullseye with all three darts.
+			#ENDIF
+		</p>
+		<p>
+			The raccoon-girl says better luck next time and asks if you want to have another try.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_CHOCOLATES"><![CDATA[
+	<p>
+		You ask for the chocolates. The raccoon-girl hands them over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_PERFUME"><![CDATA[
+	<p>
+		You ask for the perfume. The raccoon-girl hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_TEDDY"><![CDATA[
+	<p>
+		You ask for the teddy bear. The raccoon-girl hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_HER"><![CDATA[
+	<p>
+		You say that you want to get to know the raccoon-girl a little better as your prize, and suggest taking her for a coffee or snack. She agrees and closes the stall for 30 minutes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_NO_PRIZE"><![CDATA[
+	<p>
+		You say that you don't want a prize. The raccoon-girl says that she has a rule that winners can't play again in the same day, but seeing as you aren't taking a prize, you can come back and play again later if you'd like.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_LOST"><![CDATA[
+	<p>
+		You [pc.step] away from the stall and let the next person in line play, who also misses all of their shots. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Strength: -->
+	
+	<htmlContent tag="GAME_STRENGTH"><![CDATA[
+	<p>
+		Horse-boy tells you that you get one hit to try and get the puck to hit the bell to win a prize. Costs 15 flames to have a go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_LEAVE"><![CDATA[
+	<p>
+		You decide against having a go at the strength tester and turn around and leave. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_PLAY"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_elis_market_strength_won))
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
+				You hit the strength tester so hard that the puck flies up and smashes the bell into pieces.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
+				You hit the strength tester and cause the puck to fly up and whack into the bell with some force.
+			#ELSE
+				You hit the strength tester and just about manage to cause the puck to fly up and tap into the bell.
+			#ENDIF
+		</p>
+		<p>
+			The ferret-boy happily congratulates you and asks what prize you'd like.
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
+				You find yourself distracted by people around you, and so despite your considerable strength, you end up slightly missing the strength tester's strike pad.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
+				You find yourself distracted by people around you, and so despite your strength, you end up slightly missing the strength tester's strike pad.
+			#ELSE
+				You hit the strike pad but the puck only flies half way up, leaving the bell unrung.
+			#ENDIF
+		</p>
+		<p>
+			The ferret-boy says better luck next time and asks if you want to have another go.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_MEAT"><![CDATA[
+	<p>
+		You ask for the meat hamper. The ferret-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	<p>
+		You open the hamper to find some meat and a bottle of cider.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_BAT_WOODEN"><![CDATA[
+	<p>
+		You ask for the wooden bat. The ferret-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_BAT_METAL"><![CDATA[
+	<p>
+		You ask for the metal bat. The ferret-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_HIM"><![CDATA[
+	<p>
+		You say that you want to get to know the ferret-boy a little better as your prize, and suggest taking him for a coffee or snack. He agrees and closes the stall for 30 minutes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_NO_PRIZE"><![CDATA[
+	<p>
+		You say that you don't want a prize. The ferret-boy says that he has a rule that winners can't play again in the same day, but seeing as you aren't taking a prize, you can come back and play again later if you'd like.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_LOST"><![CDATA[
+	<p>
+		You [pc.step] away from the stall and let the next person in line play, who also fails to hit the bell. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Clothing -->
 	
 	<htmlContent tag="CLOTHING"><![CDATA[
 	<p>
@@ -30,12 +223,48 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- Clothing -->
+	
 	<htmlContent tag="DRINKS_SOFT"><![CDATA[
 	<p>
 		A family of rabbit-morphs run this non-alcoholic drinks stall.
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_WATER"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_ORANGE_JUICE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_BERRY_SODA"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_COLA"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_COFFEE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Exit -->
 	
 	<htmlContent tag="EXIT"><![CDATA[
 	<p>
@@ -74,44 +303,58 @@
 	
 	<htmlContent tag="KISSING"><![CDATA[
 	<p>
-		A beautiful, busty cow-girl is offers kisses for a reasonable price from out of this stall.
+		A beautiful, busty cow-girl is offering kisses for a reasonable price from out of this stall.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="PATH"><![CDATA[
-	<p>
-		As you [pc.walk] through the busy avenues formed between countless brightly-coloured stalls, you see all manner of food, drink, and other items for sale. Unlike a regular farmer's market, the one here in Elis seems to have evolved into a type of low-key festival, complete with a band somewhere in the distance playing live music.
-		#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
-			 While there are certainly exceptions, almost everyone you pass looks to be in high spirits,
-			#IF(game.getCurrentWeather()==WEATHER_RAIN)
-				 with not even the rain being able to bring the mood down.
-			#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
-				 with not even the snow being able to bring the mood down.
-			#ELSE
-				 with the smiles on their faces making it clear that they're greatly enjoying the market's festive atmosphere.
-			#ENDIF
-		#ELSE
-			 Although a lot of the people who you pass look to be in high spirits, there are many whose forlorn expressions seem to be unaffected by the market's festive atmosphere, and you can only assume that they're victims in one way or another of Lunette's raiding.
-		#ENDIF
-		 While races of all kinds can be seen if you search hard enough, the vast majority of the shoppers and vendors consist of all manner of domesticated animal morphs.
-	</p>
-	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+	#IF(game.getHourOfDay()>=18)
 		<p>
-			Unable to resist the urge to take a photo, you pull out your phone and take a picture of the busy market, talking to yourself as you do so, [pc.speech([game.random(
-			The folks back home will love this.
-			| Neat, it's like a Medieval Times back home.
-			| These Europeans sure look funny.
-			| So this is what they have instead of malls in Europe.)])]
+			As you [pc.walk] through the market, you see that all of the stallholders are packing up their goods and disassembling their stalls. With the day's market coming to an end, there's really very little left for you to do here. You should probably head back out into the rest of Elis and return tomorrow if you wanted to do any more shopping.
 		</p>
-	#ENDIF
-	<p>
-		#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
-			Thanks to the fact that Lunette is no longer raiding the surrounding farmland, the market seems to be busier than ever. Catching brief snippets of conversation as you [pc.walk] past some of the stalls, you soon get the impression that the quantity and quality of produce which the vendors are able to acquire is better than it's ever been. Thanks to this, there are a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
-		#ELSE
-			Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(The market is closed, and will reopen at [units.time(8)] tomorrow...)]
+		</p>
+	#ELSE
+		<p>
+			As you [pc.walk] through the busy avenues formed between countless brightly-coloured stalls, you see all manner of food, drink, and other items for sale. Unlike a regular farmer's market, the one here in Elis seems to have evolved into a type of low-key festival, complete with a band somewhere in the distance playing live music.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+				 While there are certainly exceptions, almost everyone you pass looks to be in high spirits,
+				#IF(game.getCurrentWeather()==WEATHER_RAIN)
+					 with not even the rain being able to bring the mood down.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
+					 with not even the snow being able to bring the mood down.
+				#ELSE
+					 with the smiles on their faces making it clear that they're greatly enjoying the market's festive atmosphere.
+				#ENDIF
+			#ELSE
+				 Although a lot of the people who you pass look to be in high spirits, there are many whose forlorn expressions seem to be unaffected by the market's festive atmosphere, and you can only assume that they're victims in one way or another of Lunette's raiding.
+			#ENDIF
+			 While races of all kinds can be seen if you search hard enough, the vast majority of the shoppers and vendors consist of all manner of domesticated animal morphs.
+		</p>
+		#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+			<p>
+				Unable to resist the urge to take a photo, you pull out your phone and take a picture of the busy market, talking to yourself as you do so, [pc.speech([game.random(
+				The folks back home will love this.
+				| Neat, it's like a Medieval Times back home.
+				| These Europeans sure look funny.
+				| So this is what they have instead of malls in Europe.)])]
+			</p>
 		#ENDIF
-	</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+				Thanks to the fact that Lunette is no longer raiding the surrounding farmland, the market seems to be busier than ever. Catching brief snippets of conversation as you [pc.walk] past some of the stalls, you soon get the impression that the quantity and quality of produce which the vendors are able to acquire is better than it's ever been. Thanks to this, there are a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
+			#ELSE
+				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
+			#ENDIF
+		</p>
+		#IF(game.getMinutesUntilTimeInMinutes(1080)<30)
+			<p style='text-align:center;'>
+				[style.italicsMinorBad(The market closes at [units.time(18)], so you should hurry up and finish your business here before all the stalls shut for the day...)]
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
