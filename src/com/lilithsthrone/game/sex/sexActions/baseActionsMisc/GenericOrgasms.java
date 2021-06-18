@@ -4934,16 +4934,16 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				if(!Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
-					return "Handjob onto wall";
+					return "Handjob onto [pc.wall]";
 				}
-				return "Pull out (wall)";
+				return "Pull out ([pc.wall])";
 			}
-			return "Cum on wall";
+			return "Cum on [pc.wall]";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto the wall.";
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto the [pc.wall].";
 		}
 
 		@Override

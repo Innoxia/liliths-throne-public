@@ -2030,8 +2030,7 @@ public class PhoneDialogue {
 			
 			rowCount = 0;
 			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
-			offspringBirthed.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
-			offspringIncubated.removeAll(offspringBirthed);
+			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
 			if(offspringIncubated.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"
 												+ "[style.italicsDisabled(No Incubated Offspring...)]"

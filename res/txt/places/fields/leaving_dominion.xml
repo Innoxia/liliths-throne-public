@@ -59,7 +59,7 @@
 			 At that moment you suddenly notice that she's using one hand to cradle her conspicuously-swollen belly, and as she sees what it is you're looking at, she sighs,
 			#IF(!siren.isCharacterReactedToPregnancy(pc))
 				#IF(siren.getPregnantLitter().getFather().equals(pc))
-					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... J-Just because you're the father of our child, that doesn't mean you're not my nemesis anymore!)]
+					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore!)]
 				#ELSE
 					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease!)]
@@ -69,7 +69,7 @@
 				#ENDIF
 			#ELSE
 				#IF(siren.getPregnantLitter().getFather().equals(pc))
-					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore!)]
+					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... B-But this doesn't mean you're not my nemesis anymore!)]
 				#ELSE
 					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
 						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers!)]

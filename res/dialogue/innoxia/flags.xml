@@ -13,6 +13,7 @@
 		<flag dailyReset="false">meraxis_paizuri_unlocked</flag>
 		<flag dailyReset="false">meraxis_vaginal_unlocked</flag>
 		<flag dailyReset="false">meraxis_demon_tf_teleported</flag>
+		<flag dailyReset="true">meraxis_daily_sex</flag>
 	<!-- Meraxis Duels -->
 		<flag dailyReset="true">meraxis_duel_daily_complete</flag>
 		<flag dailyReset="false">meraxis_duel_place_dominion</flag>
@@ -32,6 +33,9 @@
 		<flag dailyReset="false">vronti_anilingus_given</flag>
 		<flag dailyReset="false">vronti_anal_sex_given</flag>
 		<flag dailyReset="false">astrapi_not_shaving</flag>
+	
+	<!-- Centaur field attackers -->
+		<flag dailyReset="false">fields_centaur_attacker_talked</flag>
 	
 	<!-- Elis -->
 		<!-- Woods -->
@@ -60,6 +64,10 @@
 		<flag dailyReset="false">jess_intimate</flag>
 		<flag dailyReset="false">jess_kissed</flag>
 		<flag dailyReset="false">jess_groped</flag>
+		
+		<!-- Market -->
+		<flag dailyReset="true">elis_market_darts_won</flag>
+		<flag dailyReset="true">elis_market_strength_won</flag>
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
 	meraxis_duel_player_wins (Meraxis duel player wins)
