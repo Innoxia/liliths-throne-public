@@ -34,6 +34,9 @@
 		<flag dailyReset="false">vronti_anal_sex_given</flag>
 		<flag dailyReset="false">astrapi_not_shaving</flag>
 	
+	<!-- Centaur field attackers -->
+		<flag dailyReset="false">fields_centaur_attacker_talked</flag>
+	
 	<!-- Elis -->
 		<!-- Woods -->
 		<flag dailyReset="true">elis_berries_found</flag>

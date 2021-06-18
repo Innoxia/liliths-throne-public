@@ -28,10 +28,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Engine/Modding:
 		Added 'applyItemTransactionEffects()' method to NPC.java class which can be overridden to define special behaviour during item/weapon/clothing transactions.
 		When defining a 'copyFromDialogueId' element in an external DialogueNode's 'responses' element, the game will now prioritise any responses/tabs you've defined within the 'responses' element, and then fall back on those from the 'copyFromDialogueId' element (i.e. you can now override responses/tabs from the copied dialogue node).
+		Added a 'wallName' element to xml sex managers so that you can set the name of walls in sex scenes.
+		Moved all kimono clothing into external res files.
 	
 	Gameplay:
 		Added a small side quest for unlocking the spells from the arcane lightning globe (which is found in the warehouse during Claire's teleportation quest). If you have the globe in your inventory, you'll be able to ask Arthur about it to start this quest.
 		Filled in all of Meraxis's placeholder content, and added the option to have sex in her room after you've unlocked vaginal, oral, and anal (if anal content is enabled) actions with her.
+		Added an internal map for the Farmer's Market in Elis. (It's all placeholders at the moment, but will be filled in for the next update.)
+		Added demonic centaur encounters which can be triggered in the Foloi fields, Hubur river, and grassland wilderness tiles in the world map. (These encounters are quite basic and will be expanded upon in future updates.)
+	
+	Items:
+		Added 'battle axe' weapon (two-handed, all damage types, sold by Vicky).
+		The 'dory' spear is now sold by Vicky.
+		Added 'short kimono' as a short-skirt variation of the kimono. Also made the flowers on the kimono into a 'sticker', which can be removed so as to make a plain kimono. Also added a new 'blossom' pattern for the kimono.
 	
 	Sex:
 		Tagged 'tentacle-squeeze' and 'tail-squeeze' as being sadistic actions, and added non-sadistic actions 'tentacle-massage' and 'tail-massage' as an alternative for non-sadistic characters. (These 'massage' actions are available to sadistic characters in addition to the 'squeeze' actions.)
@@ -49,8 +58,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Greatly increased lust resistance for characters with low levels of corruption: 'pure' level 5->25; 'vanilla' level 0->15; 'dirty' 0->5.
 		Lyssieth's sex scenes are no longer locked to the 'over desk' position, and instead start in the 'standing' position, from which normal positioning options are now available.
 		Added variation to the demon TF scene with Lyssieth so that you can prevent her from growing a cock.
+		The Foloi Fields and Hubur river tiles in the world map are now classified as dangerous, due to the new demonic centaur encounters being in these areas.
+		Added 'Explore' action to the Foloi fields, river Hubur, and the grassland wilderness, which just provides a more convenient method of trying to trigger a random encounter instead of having to travel back and forth.
 	
 	Bugs:
+		Typos and parsing bugs fixed.
 		Fixed bug where the count of total unique sex partners would always start at 1. 
 		Fixed issue where Vengar would get stuck on the Milking Room tile after losing the fight to him.
 		Fixed bugs where loitering or sleeping for multiple hours at a time could cause multiple generic NPCs to spawn and get stuck in Angel's Kiss and on Dominion alleyway tiles occupied by a prostitute.
@@ -60,8 +72,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Sadist fetish text now correctly indicates that it unlocks sex actions.
 		Fixed issue where Lyssieth would not return to her human form after having lilin-form sex.
 		Fixed issue where the post-Lyssieth sex scene in Meraxis's office indicated that Meraxis was present, even if she had reloacted to Elis.
-	
-	
+		Elis internal maps now correctly have 'against wall' sex position available in them.
+		Added ability to stop Rose's hand-holding sex scene to rpevent you from getting stuck in it if you weren't able to orgasm.
+		The 'Grow cock' sex actions now correctly give larger penises to leg configurations which have large genitals.
+		Fixed bug where the 'companionsAreAllies' element in a response's 'combatVariables' element would not work correctly and throw background errors when set to true.
+		NPCs who have sexual histories with the player are now fully deleted when removed from the game, instead of simply being moved to the generic holding tile. This will retroactively apply when loading into this version, and should help to cut down on save file size and end turn lag.
+		Fixed bug in sex managers defined in external files where repeat instances of using the sex manager with non-unique NPCs would throw background errors.
+		Fixed issue where the 'incubated offspring' list in the pregnancy stats screen was showing all non-incubated offspring instead of incubated offspring.
+		
 	
 	[x] Misc. spell page border colours need fixing
 	[x] Add sadist fetish text saying actions will be unlocked
@@ -130,17 +148,86 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] search for cow-morph and cow-boy
 	[x] test Meraxis demon TF from Elis
 	[-] make DialogueFlagValue id loading case insensitive
+	[x] add an option for an override to the tile's default wall name in the sex manager xml files
+	[x] someone had a cock cage on themselves enchanted to not let them cum so they couldn’t stop holding Rose’s hand
+	[x] Mother's Week Gift says Father's week
+	[x] Make fields and river dangerous
 	
-	[] add an option for an override to the tile's default wall name in the sex manager xml files
+	[x] kimono patterns
+	[x] short kimono
 	
-	[] I can't seem to enchant vibrations to items in the nipple slot
+	[#takahashi.setLocation(pc)]
+		
+	[x] Add demonic centaur encounter
+		[x] NPC setup
+			[x] Melee axe
+			[x] Ranged bow
+			[x] Add way to spawn from xml
+				[x] game.spawnNewNPC(String classId, String parserTag)
+					[x] Generate NPC and assign parser tag to this new NPC
+					[x] Remove NPC from additional parser tags when NPC is deleted
+					
+		[x] Test NPC
+			[x] addition
+			[x] Parsing target errors
+			[x] move to player tile
+			[x] deletion
+		[x] Combat allies/enemies should be parsed on selection
+		[x] Test penis shape for demonic centaurs
+			[x] Add horse modifiers
+		[x] Test sex manager with attacker id
+		[x] Fix pregnancy stats incubated list
+		[x] river tile explore to fields too
+		[x] Centaur encounters
+			[x] Marauder
+				[x] Spawn & start
+					[x] FIGHT
+						[x] Loss
+							[x] If lost player gets spell's status effect
+								[x] non-con check
+							[x] Fucked END
+						[x] Win
+							[x] Continue END
+							[x] Sex (gentle, rough)
+								[x] Continue END
+								[x] Inventory
+							[x] Submit
+							[x] Inventory
+					[x] Pay
+						[x] Pay END
+					[x] Submit
+				[x] Test
+					[x] non-con off
+					[x] Post-sex action text
+					[x] Seal timer wrong
+				[x] too many anal toys
+				[x] Give them more money
+				[x] Random items in inventory
+				[x] test all victory options
+					[x] old attacker not being removed correctly
+						[x] Fix issue where NPCs are not being deleted via banishNPC method
+				[x] test all defeat options
+				[x] sex manager needs to be re-initialised...
+			[x] Raider (copy marauder but with different dialogue)
+			
+	[x] Centaur encounter writing
+		[x] Need encounter dialogue titles
+		[x] Make sure money is rounded to nearest 500
+		[x] check enslavement dialogue
+		[x] Marauder
+		[x] Raider
 	
-	[] someone had a cock cage on themselves enchanted to not let them cum so they couldn’t stop holding Rose’s hand
+	[x] test
+		[x] essences needed for weapons
+		[x] reduce toy rate
+		[x] cock is thin
 	
-	[] KT80
+	[x] updoot to 0.4.0.10
 	
-	[] Make fields and river dangerous
-	[] Add demonic centaur encounter
+	[] Centaur encounter spell effect expansion:
+		[] Spawn & start 2 slavers
+			[] Hide
+			[] Ambush
 		[] Add different sub-groups
 			[] Repeated losses (5?) results in a bad end trigger for each group (encounter their leader and losing to them is a bad end)
 			[] East of Elis (majority of the fields): Lunette's marauders -> Huge, muscular demonic centaurs who charge with lances
@@ -157,15 +244,23 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Loss results in being transformed, they play up to your fetishes and after sex they leave
 				[] BE: 'One of Us' Kept for days having your fantasies indulged, while being fed fetish TF potions so that you end up as one of them
 				
+	---- 0.4.0.9 mini-update end ----
 	
-	---- 0.4.0.9 mini-update ----
-	
+	[] Add Dominion & Elis tabs for maps
+		[] World map on all tabs
+		
 	[] Need a place to deliver pregnancy in Elis
 	
 	"from the tap" demon stone from Lyssieth
 		Ask her about demon stones
 		She tells you that the rumours may be true, asks if you'd like to find out
 		Sex, and at orgasm she casts a spell and creates a unique demon stone (better than legendary ones)
+		
+	[] World map
+		[] Forest bandits
+		[] Fields bandits
+		[] River mermaids
+		[] Fields ruined village
 		
 	[] Farmer's market
 		[x] market map and push to github

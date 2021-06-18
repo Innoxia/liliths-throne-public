@@ -230,7 +230,7 @@
 
 	<htmlContent tag="RIVER_HUBUR"><![CDATA[
 	<p>
-		Originating somewhere deep within the western Mountains of the Moon, the river Hubur cuts its path eastwards, passing through the Shinrin highlands, the Foloi Fields, and Dominion itself before flowing out to sea. An exceptionally well-maintained road runs alongside the river for almost of its length,
+		Originating somewhere deep within the western Mountains of the Moon, the river Hubur cuts its path eastwards, passing through the Shinrin highlands, the Foloi Fields, and Dominion itself before flowing out to sea. An exceptionally well-maintained road runs alongside the river for almost all of its length,
 		#IF(pc.hasStatusEffect(SE_AQUATIC_POSITIVE))
 			 although you prefer to shun the paved highway and swim in the river instead.
 		#ELSE

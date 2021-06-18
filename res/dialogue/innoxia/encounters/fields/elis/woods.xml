@@ -288,6 +288,7 @@
 				Additional note: Modded sex managers are not supported yet, so custom sex scenes cannot be added.
 					As such, you're limited to generic ones (with starting behaviour determined by the 'tags' element below), which should nevertheless be suitable for most sex scenes. -->
 				<sexVariables enabled="false">
+					<conditional><![CDATA[false]]></conditional>
 					<!-- Whether this is a consensual scene or not.
 					You should be using the game.isNonConEnabled() method somewhere (likely in the 'availabilityConditional' element above) to make sure you aren't displaying non-con scenes to players who have that content turned off. -->
 					<consensual><![CDATA[true]]></consensual>

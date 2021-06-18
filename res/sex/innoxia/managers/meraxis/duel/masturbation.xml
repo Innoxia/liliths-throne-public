@@ -46,6 +46,11 @@
 		e.g.: <title><![CDATA[Woodland Sex]]></title> -->
 	<title/>
 	
+	<!-- You can optionally override the name of walls in this sex scene by defining a value here.
+		It should not be capitalised unless a proper noun.
+		e.g.: <title><![CDATA[tree]]></title> -->
+	<wallName/>
+	
 	<!-- Whether or not this sex scene is a consensual one between the dominant and submissive partner(s).
 		OPTIONAL: Default true
 		PARSER: Initial -->

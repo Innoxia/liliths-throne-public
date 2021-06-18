@@ -2,6 +2,7 @@
 <sexManager>
 
 	<title/>
+	<wallName><![CDATA[wardrobe]]></wallName>
 	<consensual><![CDATA[true]]></consensual>
 	<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
 	<canSkipSex><![CDATA[true]]></canSkipSex>

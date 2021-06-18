@@ -5,6 +5,7 @@
 	<colour>BASE_GOLD</colour>
 	<sexBlockedReason/>
 	<furniturePresent>false</furniturePresent>
+	<wallsPresent>true</wallsPresent>
 	<loiteringEnabled>true</loiteringEnabled>
 	<flightEnabled>true</flightEnabled>
 	<visibleFromStart>true</visibleFromStart>
