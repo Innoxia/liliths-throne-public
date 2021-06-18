@@ -146,11 +146,8 @@ public class OffspringSeed  implements XMLSaving {
 		
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
-		Element offspringSeed = doc.createElement("os");
-		parentElement.appendChild(offspringSeed);
-		
 		Element offspringSeedData = doc.createElement("data");
-		offspringSeed.appendChild(offspringSeedData);
+		parentElement.appendChild(offspringSeedData);
 		
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "id", this.getId());
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "fromPlayer", this.isFromPlayer().toString());
@@ -172,14 +169,14 @@ public class OffspringSeed  implements XMLSaving {
 		// ************** Body **************//
 		
 		Element offspringSeedBody = doc.createElement("body");
-		offspringSeed.appendChild(offspringSeedBody);
+		parentElement.appendChild(offspringSeedBody);
 		
 		this.body.saveAsXML(offspringSeedBody, doc);
 		
 		// ************** Family **************//
 		
 		Element offspringSeedFamily = doc.createElement("family");
-		offspringSeed.appendChild(offspringSeedFamily);
+		parentElement.appendChild(offspringSeedFamily);
 		
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "motherId", this.getMotherId());
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "fatherId", this.getFatherId());
@@ -190,7 +187,7 @@ public class OffspringSeed  implements XMLSaving {
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "monthOfConception", String.valueOf(this.getConceptionDate().getMonth()));
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
 
-		return offspringSeed;
+		return parentElement;
 	}
 	
 	public static OffspringSeed loadFromXML(Element parentElement, Document doc) {
