@@ -650,19 +650,6 @@ public class Game implements XMLSaving {
 			System.err.println("playerCharacter saving failed!");
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
 		}
-
-		// Add all NPCs:
-		try {
-			for(GameCharacter character : Main.game.getNPCMap().values()) {
-				Element characterNode = doc.createElement("NPC");
-				game.appendChild(characterNode);
-				character.saveAsXML(characterNode, doc);
-			}
-		} catch(Exception ex) {
-			System.err.println("NPC saving failed!");
-			ex.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
-		}
 		
 		// Add all offspringSeed:
 		try {
@@ -675,6 +662,19 @@ public class Game implements XMLSaving {
 			System.err.println("offspringSeed saving failed!");
 			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
+		}
+		
+		// Add all NPCs:
+		try {
+			for(GameCharacter character : Main.game.getNPCMap().values()) {
+				Element characterNode = doc.createElement("NPC");
+				game.appendChild(characterNode);
+				character.saveAsXML(characterNode, doc);
+			}
+		} catch(Exception ex) {
+			System.err.println("NPC saving failed!");
+			ex.printStackTrace();
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
 		}
 		
 		
@@ -1020,6 +1020,7 @@ public class Game implements XMLSaving {
 				Map<String, Class<? extends NPC>> npcClasses = new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new ConcurrentHashMap<>();
+				List<String> offspringToBeDeleted = new ArrayList<>();
 				int totalNpcCount = npcs.getLength();
 				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
@@ -1060,6 +1061,9 @@ public class Game implements XMLSaving {
 													&& !(npc instanceof PrologueMale)
 													&& !(npc instanceof NPCOffspring))
 											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
+										if(npc.getPregnantLitter()!=null) {
+											offspringToBeDeleted.addAll(npc.getPregnantLitter().getOffspring());
+										}
 										System.out.println("Deleted NPC: "+npc.getId());
 										
 									} else if(npc!=null)  {
@@ -1111,6 +1115,28 @@ public class Game implements XMLSaving {
 							}
 						});
 				
+				for(String os : offspringToBeDeleted) {
+					try {
+						if(os.contains("NPCOffspring")) {
+							NPC npc = (NPC) Main.game.getNPCById(os);
+							if(npc!=null &&
+									(npc.getMother()==null || npc.getMother()!=null && !npc.getMother().isPlayer()) &&
+									(npc.getFather()==null || npc.getFather()!=null && !npc.getFather().isPlayer()) &&
+									(npc.getIncubator()==null || npc.getIncubator()!=null && !npc.getIncubator().isPlayer())) {
+								Main.game.removeNPC(os);
+							}
+						} else {
+							OffspringSeed offspringSeed = Main.game.getOffspringSeedById(os);
+							if(offspringSeed!=null && !offspringSeed.isFromPlayer()) {
+								Main.game.removeOffspringSeed(os);
+							}
+						}
+						System.out.println("Deleted offspring: "+os);
+					} catch (Exception e) {
+						System.out.println("Error when deleting offspring: "+os);
+					}
+				}
+				
 				if(debug) {
 					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
@@ -1125,8 +1151,7 @@ public class Game implements XMLSaving {
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
 					for(NPC npc: Main.game.getAllNPCs()) {
 						if(npc instanceof NPCOffspring &&
-								(npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL ||
-								 npc.getWorldLocation()==WorldType.EMPTY)) {
+								npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
 							// remove this npc and replace with offspringSeed
 							new OffspringSeed(npc);
 						}

@@ -53,7 +53,7 @@ public class OffspringSeed  implements XMLSaving {
 	}
 
 	public OffspringSeed(NPC npc) {
-		this.fromPlayer = (npc.getMother().isPlayer() ||
+		this.fromPlayer = (npc.getMother()!=null && npc.getMother().isPlayer() ||
 				          (npc.getFather()!=null && npc.getFather().isPlayer()) ||
 						  (npc.getIncubator()!=null && npc.getIncubator().isPlayer()));
 		this.born = false;
@@ -71,7 +71,7 @@ public class OffspringSeed  implements XMLSaving {
 			boolean carried = false;
 			String osId = Main.game.addOffspringSeed(this, false);
 			
-			if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+			if(npc.getMother()!=null && npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 				carried = true;
 			} else if(npc.getIncubator()!=null) {
 				for (Map.Entry<SexAreaOrifice, Litter> entry : npc.getIncubator().getIncubatingLitters().entrySet()) {
@@ -83,14 +83,21 @@ public class OffspringSeed  implements XMLSaving {
 				}
 			}
 			this.born = !carried;
-
-			npc.getMother().swapLitters(npc.getId(), osId);
+			
+			if(npc.getMother()!=null) {
+				npc.getMother().swapLitters(npc.getId(), osId);
+			}
 			if(npc.getFather()!=null){
 				npc.getFather().swapLitters(npc.getId(), osId);
 			}
 			if(npc.getIncubator()!=null){
 				npc.getIncubator().swapLitters(npc.getId(), osId);
 			}
+
+			if(Main.game.isDebugMode()) {
+				System.out.println("Converted NPC "+npc.getId()+" to offspringSeed "+osId);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
