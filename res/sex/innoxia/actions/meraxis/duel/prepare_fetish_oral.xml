@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sexAction>
-	<buttonPriority>0</buttonPriority>
+	<buttonPriority>-1</buttonPriority>
 	<actionConditional><![CDATA[
 		[#npc.isPlayer()
 		&& !meraxis.hasFetish(FETISH_ORAL_RECEIVING)
@@ -36,7 +36,9 @@
 	]]></applyEndEffects>
 	<areasCummedIn/>
 	<areasCummedOn/>
-	<title><![CDATA[Oral adorer]]></title>
+	<title><![CDATA[
+		[style.colourFetish(Oral adorer)]
+	]]></title>
 	<tooltip><![CDATA[
 		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_TONGUE).contains(pc))
 			Make Meraxis admit to you that she loves receiving cunnilingus as you suck on her clit and make her cum.
@@ -53,7 +55,15 @@
 				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_TONGUE).contains(pc)]
 			]]></descriptionConditional>
 			<text><![CDATA[
-				Make Meraxis admit to you that she loves receiving cunnilingus as you suck on her clit and make her cum.
+				Sensing that Meraxis is on the verge of orgasming, you pull back and stop licking her [meraxis.pussy+] to tease, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop giving her cunnilingus, Meraxis desperately tries to push her pussy against your face as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards oral sex, you lean forwards and plant a big, wet kiss on her [meraxis.labia+]. Smirking at the desperate moan she lets out in response to your touch, you make your demand, [pc.speech(Tell me that you're a dirty little slut for oral, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you lean in and deliver a slow, wet lick to her clit, she relents and cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little slut for oral! Now let me cum!)]
+				<br/><br/>
+				Burying your face between her thighs, you continue where you left off, and greedily lick, kiss, and nuzzle into Meraxis's wet cunt. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
 			]]></text>
 		</description>
 		<description>
@@ -61,7 +71,15 @@
 				[#sex.getOngoingCharactersUsingAreas(pc, ORIFICE_VAGINA, PENETRATION_TONGUE).contains(meraxis)]
 			]]></descriptionConditional>
 			<text><![CDATA[
-				Make Meraxis admit that she loves performing cunnilingus as you push your pussy into her face and make her cum.
+				Sensing that Meraxis is on the verge of orgasming, you pull back and stop her from licking your [pc.pussy+] to tease, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having your pussy taken away from her, Meraxis desperately tries to lean forwards and lick your cunt as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards oral sex, you push your groin back towards her face and allow her to plant a big, wet kiss on your [pc.labia+]. Smirking at the desperate moan she lets out while doing this, you make your demand, [pc.speech(Tell me that you're a dirty little slut for oral, and I'll let you cum from licking my pussy.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you start to take your pussy away from her again, she relents and cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little slut for oral! Now let me cum!)]
+				<br/><br/>
+				Moving back into position, you allow Meraxis to continue where she left off, and you can't help but moan as she greedily licks, kisses, and nuzzles into your wet cunt. Letting out a series of increasingly-louder, muffled squeals, the [meraxis.race] reaches her climax...
 			]]></text>
 		</description>
 		<description>
@@ -69,7 +87,15 @@
 				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, ORIFICE_MOUTH).contains(meraxis)]
 			]]></descriptionConditional>
 			<text><![CDATA[
-				Make Meraxis admit that she loves giving you a blowjob as you push your cock down her throat and make her cum.
+				Sensing that Meraxis is on the verge of orgasming, you pull back and slide your [pc.cock+] out of her mouth, before teasing, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having your cock taken away from her, Meraxis desperately tries to lean forwards and lick your hard shaft as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards oral sex, you push your groin back towards her face and allow her to plant a big, wet kiss on the [pc.cockHead+] of your [pc.cock+]. Smirking at the desperate moan she lets out while doing this, you make your demand, [pc.speech(Tell me that you're a dirty little slut for oral, and I'll let you cum from sucking my cock.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you start to take your cock away from her again, she relents and cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little slut for oral! Now let me cum!)]
+				<br/><br/>
+				Moving back into position, you allow Meraxis to continue where she left off, and you can't help but [pc.moan] as she greedily swallows your cock and starts desperately sucking, licking, and kissing it. Letting out a series of increasingly-louder, muffled squeals, the [meraxis.race] reaches her climax...
 			]]></text>
 		</description>
 	</descriptions>

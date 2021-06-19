@@ -29,6 +29,7 @@ public class ResponseCombat extends Response {
 	// For use when response is loaded from external file:
 
 	private List<String> alliesIds;
+	private boolean addCompanionsToAllies;
 	private String enemyLeaderId;
 	private List<String> enemiesIds;
 	
@@ -127,10 +128,11 @@ public class ResponseCombat extends Response {
 	}
 	
 	
-	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds) {
+	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, boolean addCompanionsToAllies, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds) {
 		super(title, tooltipText, null);
 		
 		this.alliesIds = alliesIds;
+		this.addCompanionsToAllies = addCompanionsToAllies;
 		this.enemyLeaderId = enemyLeaderId;
 		this.enemiesIds = enemiesIds;
 		
@@ -151,6 +153,11 @@ public class ResponseCombat extends Response {
 				String id = UtilText.parse(allyId).trim();
 				if(!id.isEmpty()) {
 					this.allies.add((NPC) UtilText.findFirstCharacterFromParserTarget(id));
+				}
+			}
+			if(addCompanionsToAllies) {
+				for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
+					this.allies.add((NPC) companion);
 				}
 			}
 			

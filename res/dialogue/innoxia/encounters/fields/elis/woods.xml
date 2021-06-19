@@ -106,7 +106,10 @@
 		You can define an optional attribute 'copyFromDialogueId' to define a dialogue node from which to copy responses for this dialogue node.
 			For example, to make this dialogue node have the same responses as the 'berries_eaten' dialogue node below, you'd define it as so:
 				<responses copyFromDialogueId="innoxia_encounters_fields_elis_woods_berries_eaten"/>
-			Please note that by doing this the responseTabs will also be copied from the dialogue node defined, as so you don't need to define responseTabs above. -->
+			Please note that by doing this the responseTabs will also be copied from the dialogue node defined, and so you don't need to define responseTabs above.
+			Additional note: You can still define responses and response tabs when using the 'copyFromDialogueId' attribute.
+				When doing so, the game will prioritise using the responses/tabs you've defined, and then fall back on those from the 'copyFromDialogueId' element.
+				In this manner, it is possible to override responses defined in the dialogue node from 'copyFromDialogueId'. -->
 		<responses>
 			<!-- Sometimes you might want to vary the properties of a response based on gameplay variables.
 			As such, all of the elements within a response support conditional statements. -->
@@ -285,6 +288,7 @@
 				Additional note: Modded sex managers are not supported yet, so custom sex scenes cannot be added.
 					As such, you're limited to generic ones (with starting behaviour determined by the 'tags' element below), which should nevertheless be suitable for most sex scenes. -->
 				<sexVariables enabled="false">
+					<conditional><![CDATA[false]]></conditional>
 					<!-- Whether this is a consensual scene or not.
 					You should be using the game.isNonConEnabled() method somewhere (likely in the 'availabilityConditional' element above) to make sure you aren't displaying non-con scenes to players who have that content turned off. -->
 					<consensual><![CDATA[true]]></consensual>

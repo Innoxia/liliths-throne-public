@@ -356,7 +356,7 @@ public class Natalya extends NPC {
 	}
 	
 	@Override
-	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects, String description) {
 		if(this.getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) { // Scene in alleyway behind Helena's shop:
 			StringBuilder sb = new StringBuilder();
 //			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
@@ -389,7 +389,7 @@ public class Natalya extends NPC {
 			};
 		}
 		
-		return super.getSexActionOrgasmOverride(sexAction, target, applyExtraEffects);
+		return super.getSexActionOrgasmOverride(sexAction, target, applyExtraEffects, description);
 	}
 	
 	public String getDirtyTalk() {

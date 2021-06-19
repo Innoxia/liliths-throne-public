@@ -45,7 +45,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -497,9 +496,14 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
-							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
-							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique() && !npc.hasArtwork() && npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN) {
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
+//								}
+//							}
+//							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
+//							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
+//							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);
 //							for(NPC npc : Main.game.getCharactersTreatingCellAsHome()) {
 //								System.out.println(npc.getNameIgnoresPlayerKnowledge()+npc.getClass().getName());
 //							}

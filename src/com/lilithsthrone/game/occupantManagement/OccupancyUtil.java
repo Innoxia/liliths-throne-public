@@ -986,7 +986,7 @@ public class OccupancyUtil implements XMLSaving {
 						}
 						try {
 							partnerName = UtilText.parse(partner, "[npc.A_race]");
-							Main.game.addNPC(partner, false);
+							Main.game.addNPC(partner, false, true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

@@ -3919,6 +3919,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String getNameIgnoresPlayerKnowledge() {
+		if(nameTriplet==null) {
+			return ""; // When initialising a new NPC, this method may be called before the nameTriplet is set, so this is just a catch to avoid a NPE from that
+		}
 		switch(this.getFemininity()) {
 			case MASCULINE_STRONG:
 			case MASCULINE:
@@ -7151,7 +7154,9 @@ public abstract class GameCharacter implements XMLSaving {
 	// Sex stats:
 	
 	public int getUniqueSexPartnerCount() {
-		return sexCount.keySet().size();
+		Map<String, SexCount> uniqueCount = new HashMap<>(sexCount);
+		uniqueCount.entrySet().removeIf(e->e.getValue().getTotalTimesHadSex()<=0);
+		return uniqueCount.keySet().size();
 	}
 	
 	public boolean hasSexCountWith(GameCharacter partner) {
@@ -7428,19 +7433,28 @@ public abstract class GameCharacter implements XMLSaving {
 			return false;
 		}
 	}
+
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+		return getSexActionOrgasmOverride(sexAction, target, applyExtraEffects, null);
+	}
 	
 	/**
 	 * Get the overriding behaviour of this character when using a <b>generic</b> orgasm action in sex. (This does <b>not</b> affect custom orgasm scenes!)
 	 * @param sexAction The sex action being used to orgasm.
 	 * @param target The area targeted for orgasm.
 	 * @param applyExtraEffects True if extra effects should be applied, false if not.
+	 * @param description The base description which should be used. If null, uses GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target)
 	 * @return SexActionOrgasmOverride class, for use in GenericOrgasms class.
 	 */
-	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects, String description) {
 		return new SexActionOrgasmOverride(false) {
 				@Override
 				public String getDescription() {
-					return GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target);
+					if(description == null) {
+						return GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target);
+					} else {
+						return description;
+					}
 				}
 				@Override
 				public void applyEffects() {
@@ -18698,9 +18712,16 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return spells.add(spell);
 	}
+
+	public boolean hasSpell(Spell spell, boolean includeFromExtraSources) {
+		if(includeFromExtraSources) {
+			return getAllSpells().contains(spell);
+		}
+		return spells.contains(spell);
+	}
 	
 	public boolean hasSpell(Spell spell) {
-		return spells.contains(spell);
+		return hasSpell(spell, false);
 	}
 	
 	public boolean isSpellFullyUpgraded(Spell spell) {
@@ -21178,6 +21199,15 @@ public abstract class GameCharacter implements XMLSaving {
 //			return inventoryFullText() + droppedItemText(item, count);
 //		}
 //	}
+
+	/**
+	 * Adds 1 instance of the item, does not remove from floor, and appends text to the event log if this character is the player.
+	 * @param item The item to add to this character's inventory.
+	 * @return A description of the item being added.
+	 */
+	public String addItem(AbstractItem item) {
+		return addItem(item, 1, false, this.isPlayer());
+	}
 	
 	public String addItem(AbstractItem item, boolean removingFromFloor) {
 		return addItem(item, 1, removingFromFloor, false);
@@ -21483,6 +21513,59 @@ public abstract class GameCharacter implements XMLSaving {
 			this.unequipMainWeaponIntoVoid(i, includeUniqueWeapons);
 			this.unequipOffhandWeaponIntoVoid(i, includeUniqueWeapons);
 		}
+	}
+
+	/**
+	 * Searches for the first owned/equipped weapon of the type 'weaponType' and deletes it.
+	 * <br/>When searching through equipped weapons, searches through arm rows by main weapon first, then offhand weapon.
+	 * <br/>This also affects unique weapons.
+	 * 
+	 * @param weaponType The weapon type to remove
+	 * @param includeNonEquippedWeapons Whether or not to search through weapons in this cahracter's inventory which aren't equipped.
+	 * @param includeEquippedWeapons Whether or not to search through weapons which this character currently has equipped.
+	 * @param appendTextToEventLog true if text detailing the loss of this weaopnType should be added to the event log.
+	 * @return true if a weapon was found and removed.
+	 */
+	public boolean removeWeaponTypeIntoVoid(AbstractWeaponType weaponType, boolean includeNonEquippedWeapons, boolean includeEquippedWeapons, boolean appendTextToEventLog) {
+		boolean weaponRemoved = false;
+		
+		if(includeNonEquippedWeapons) {
+			if(this.hasWeaponType(weaponType, false)) {
+				for(AbstractWeapon weapon : new ArrayList<>(this.getAllWeaponsInInventory().keySet())) {
+					if(weapon.getWeaponType()==weaponType) {
+						Main.game.getPlayer().removeWeapon(weapon);
+						weaponRemoved = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		if(includeEquippedWeapons && !weaponRemoved) {
+			for(int i=0; i<3; i++) {
+				AbstractWeapon weapon = this.getMainWeaponArray()[i];
+				if(weapon!=null && weapon.getWeaponType()==weaponType) {
+					Main.game.getPlayer().unequipMainWeaponIntoVoid(i, true);
+					weaponRemoved = true;
+					break;
+				}
+				weapon = this.getOffhandWeaponArray()[i];
+				if(weapon!=null && weapon.getWeaponType()==weaponType) {
+					Main.game.getPlayer().unequipOffhandWeaponIntoVoid(i, true);
+					weaponRemoved = true;
+					break;
+				}
+			}
+		}
+		
+		if(appendTextToEventLog && weaponRemoved) {
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(),
+					"[style.colourMinorBad(Lost)]",
+					"<span style='color:"+weaponType.getRarity().getColour().toWebHexString()+";'>"+weaponType.getName()+"</span>"),
+					false);
+		}
+		
+		return weaponRemoved;
 	}
 	
 	public String unequipWeapon(InventorySlot slot, AbstractWeapon weapon, boolean dropToFloor, boolean appendTextToEventLog) {
@@ -25931,6 +26014,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return setBreastRows(getBreastRows() + increment);
 	}
 	// Lactation:
+	public boolean isLactating() {
+		return this.getBreastRawMilkStorageValue()>0;
+	}
 	public Lactation getBreastMilkStorage() {
 		if(!Main.game.isLactationContentEnabled()) {
 			return Lactation.ZERO_NONE;
@@ -28094,6 +28180,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return body.getPenis().getTesticle().getRawCumExpulsionValue();
 	}
+	/** As a percentage from 0 -> 100. */
 	public String setPenisCumExpulsion(int percentage) {
 		return body.getPenis().getTesticle().setCumExpulsion(this, percentage);
 	}

@@ -1,5 +1,8 @@
 package com.lilithsthrone.game;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
@@ -106,6 +109,8 @@ import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
 import com.lilithsthrone.game.character.npc.fields.Flash;
 import com.lilithsthrone.game.character.npc.fields.Jess;
+import com.lilithsthrone.game.character.npc.fields.LunetteMelee;
+import com.lilithsthrone.game.character.npc.fields.LunetteRanged;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
@@ -173,9 +178,11 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
+import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
+import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -1030,25 +1037,24 @@ public class Game implements XMLSaving {
 										className = className.replace("Alexa", "Helena");
 									}
 									NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-									//TODO
-//									// In versions prior to v0.3.8.6, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
-//									// This was causing save file bloat, so now they are fully deleted.
-//									if(npc!=null
-//											&& Main.isVersionOlderThan(loadingVersion, "0.3.8.6")
-//											&& (!npc.isUnique()
-//													&& !(npc instanceof Elemental)
-//													&& !(npc instanceof ReindeerOverseer)
-//													&& !(npc instanceof GenericFemaleNPC)
-//													&& !(npc instanceof GenericMaleNPC)
-//													&& !(npc instanceof GenericAndrogynousNPC)
-//													&& !(npc instanceof PrologueFemale)
-//													&& !(npc instanceof PrologueMale)
-//													&& !(npc instanceof NPCOffspring))
-//											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
-//										System.out.println("Deleted NPC: "+npc.getId());
-//										
-//									} else
-									if(npc!=null)  {
+									//TODO This needs more thorough testing...
+									// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
+									// This was causing save file bloat, so now they are fully deleted.
+									if(npc!=null
+											&& Main.isVersionOlderThan(loadingVersion, "0.4.1")
+											&& (!npc.isUnique()
+													&& !(npc instanceof Elemental)
+													&& !(npc instanceof ReindeerOverseer)
+													&& !(npc instanceof GenericFemaleNPC)
+													&& !(npc instanceof GenericMaleNPC)
+													&& !(npc instanceof GenericAndrogynousNPC)
+													&& !(npc instanceof PrologueFemale)
+													&& !(npc instanceof PrologueMale)
+													&& !(npc instanceof NPCOffspring))
+											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
+										System.out.println("Deleted NPC: "+npc.getId());
+										
+									} else if(npc!=null)  {
 										if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
 												|| (npc.getClass()!=DarkSiren.class
 												&& npc.getClass()!=FortressAlphaLeader.class
@@ -2759,6 +2765,11 @@ public class Game implements XMLSaving {
 							dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 						}
 						pastDialogueSB.append(dialogueParsed);
+						if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+							StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+							clipboard.setContents(data, data);
+						}
 						
 					} else {
 						dialogueTitle = UtilText.parse(node.getLabel());
@@ -2780,6 +2791,11 @@ public class Game implements XMLSaving {
 							dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 						}
 						pastDialogueSB.append(dialogueParsed);
+						if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+							StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+							clipboard.setContents(data, data);
+						}
 					}
 					
 				} else {
@@ -2996,6 +3012,11 @@ public class Game implements XMLSaving {
 					dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 				}
 				pastDialogueSB.append(dialogueParsed);
+				if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+					StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+					clipboard.setContents(data, data);
+				}
 					
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
@@ -3014,6 +3035,11 @@ public class Game implements XMLSaving {
 					dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 				}
 				pastDialogueSB.append(dialogueParsed);
+				if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+					StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+					clipboard.setContents(data, data);
+				}
 			}
 			
 		} else {
@@ -3028,6 +3054,11 @@ public class Game implements XMLSaving {
 				dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 			}
 			pastDialogueSB.append(dialogueParsed);
+			if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+				clipboard.setContents(data, data);
+			}
 		}
 		
 		if(node != currentDialogueNode) {
@@ -3405,6 +3436,18 @@ public class Game implements XMLSaving {
 		}
 		
 		return true;
+	}
+
+	/**
+	 * Strips html tags so that content is formatted in a way that makes it easier to read.
+	 */
+	public String formatContentForAutomaticClipboard(String input) {
+		input = input.replaceAll("\t", "");
+		input = input.replaceAll("\n", "");
+		input = input.replaceAll("</p><p>", "\n\n");
+		input = input.replaceAll("<(.*?)>", "");
+		
+		return input;
 	}
 	
 	public String getContentForClipboard(){
@@ -4279,6 +4322,36 @@ public class Game implements XMLSaving {
 		return (npcTally.incrementAndGet())+","+c.getSimpleName();
 	}
 
+	/**
+	 * Generates and instantly adds a new NPC of the type 'npcGenerationId'.
+	 * The game does not wait until the NPC Update Loop has finished, and will immediately add this NPC.
+	 * 
+	 * @param npcGenerationId The ID of the NPC class to spawn.
+	 * @param parserTarget The parser id to assign to this NPC, which can then be used in the parsing engine. Pass in an empty String or a null to not assign a parserTarget to this NPC.
+	 * @return The ID of the NPC which is spawned as a result of calling this method.
+	 */
+	public String addNPC(String npcGenerationId, String parserTarget) throws Exception {
+		//TODO add npcGenerationId map
+		boolean forceImmediateAddition = true; // TODO this may need testing, but I'm 99% sure that immediate addition will be fine, and it should prevent potential issues with NPC removal when resting/loitering for multiple hours at a time
+		
+		NPC npc = null;
+		if(npcGenerationId.equalsIgnoreCase("LunetteMelee")) {
+			npc = new LunetteMelee();
+		} else if(npcGenerationId.equalsIgnoreCase("LunetteRanged")) {
+			npc = new LunetteRanged();
+		}
+		if(npc!=null) {
+			String idGenerated = addNPC(npc, false, forceImmediateAddition);
+			if(parserTarget!=null && !parserTarget.isEmpty()) {
+				ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+			}
+			return idGenerated;
+		}
+		System.err.println("Failed to add NPC: "+npcGenerationId);
+		new Exception().printStackTrace();
+		return "";
+	}
+	
 	// Alaco : Methods in lambdas can't throw exceptions, so we have to wrap addNPC
 	public String safeAddNPC(final NPC npc, boolean isImported) {
 		String id = "";
@@ -4362,13 +4435,15 @@ public class Game implements XMLSaving {
 			}
 		}
 		
-		// TODO Actually delete them
-		if(Main.game.getPlayer().hasSexCountWith(npc)
-				|| npc.getPregnantLitter()!=null
-				|| npc.getLastLitterBirthed()!=null
-				|| npc.getMother()!=null
-				|| npc.getFather()!=null
-				|| npc.isUnique()) {
+		// TODO This needs more thorough testing...
+		if(
+//				Main.game.getPlayer().hasSexCountWith(npc)
+//				|| npc.getPregnantLitter()!=null
+//				|| npc.getLastLitterBirthed()!=null
+//				|| npc.getMother()!=null
+//				|| npc.getFather()!=null
+//				|| 
+				npc.isUnique()) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
 			
@@ -4405,7 +4480,8 @@ public class Game implements XMLSaving {
 		
 		npc.resetFluidsStored();
 		if(npc.isPregnant()) {
-			npc.endPregnancy(false);
+			// End with birth if father is player
+			npc.endPregnancy(npc.getPregnantLitter().getFather()!=null && npc.getPregnantLitter().getFather().isPlayer());
 			
 		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
 			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
@@ -4423,6 +4499,7 @@ public class Game implements XMLSaving {
 		} else {
 			npc.getCell().removeCharacterPresentId(npc.getId());
 			npc.getHomeCell().removeCharacterHomeId(npc.getId());
+			ParserTarget.removeAdditionalParserTarget(npc);
 			NPCMap.remove(npc.getId());
 		}
 	}
@@ -4498,6 +4575,13 @@ public class Game implements XMLSaving {
 	}
 	
 	/**
+	 * For use in external res files as a way to get a hook to UtilText.parse
+	 */
+	public String forceParse(String content) {
+		return UtilText.parse(content);
+	}
+	
+	/**
 	 * For use in external res files as a way to get a hook to UtilText.addSpecialParsingString
 	 */
 	public void addSpecialParsingString(String content, boolean clearListBeforeAdding) {
@@ -4510,7 +4594,13 @@ public class Game implements XMLSaving {
 	public void clearSpecialParsingStrings() {
 		UtilText.clearSpecialParsingStrings();
 	}
-	
+
+	/**
+	 * For use in external res files as a way to get a hook to Main.mainController.openInventory
+	 */
+	public void openInventoryDialogue(NPC target, InventoryInteraction interactionType) {
+		Main.mainController.openInventory(target, interactionType);
+	}
 	
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;
@@ -4722,6 +4812,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isWeatherInterruptionsEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.weatherInterruptions);
+	}
+	
+	public boolean isAutomaticDialogueCopy() {
+		return Main.getProperties().hasValue(PropertyValue.automaticDialogueCopy);
 	}
 	
 	public boolean isFacialHairEnabled() {
