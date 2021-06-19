@@ -495,6 +495,56 @@ public class HandHolding {
 			return true;
 		}
 	};
+	
+	public static final SexAction PLAYER_STOP_SEX = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.SELF) {
 
-
+		@Override
+		public String getActionTitle() {
+			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) {
+				return "Stop watching";
+			}
+			return Main.sex.isMasturbation()
+					?"Stop masturbating"
+					:"Stop sex";
+		}
+		@Override
+		public String getActionDescription() {
+			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) {
+				return "Back out and stop watching the sex scene unfold before you."
+						+ "<br/>This will still [style.boldSex(apply all applicable effects)] to the other sex participants as though the sex scene had fully taken place.";
+			}
+			return Main.sex.isMasturbation()
+					?"Put an end to your masturbation session."
+					:"Stop having sex with [npc2.name].";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getInitialSexManager().isPlayerAbleToStopSex()
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
+		}
+		@Override
+		public String getDescription() {
+			return "Having had enough, you [pc.step] back and stop having sex...";
+		}
+		@Override
+		public SexParticipantType getParticipantType() {
+			return Main.sex.isMasturbation() || Main.sex.isSpectator(Main.game.getPlayer())
+					?SexParticipantType.SELF
+					:SexParticipantType.NORMAL;
+		}
+		@Override
+		public boolean endsSex() {
+			return true;
+		}
+		@Override
+		public String applyEndEffects(){
+			return "";
+		}
+	};
 }

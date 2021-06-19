@@ -50,7 +50,9 @@ public class SexManagerExternal extends SexManagerDefault {
 	
 	private String titleString;
 	private String title;
-
+	
+	private String wallName;
+	
 	private String consensualString;
 	private boolean consensual;
 
@@ -75,8 +77,8 @@ public class SexManagerExternal extends SexManagerDefault {
 	private List<String> positionsAllowedIds;
 	private boolean positionsExclusive;
 
+	private Map<String, CharacterBehaviour> characterBehavioursWithParserIds;
 	private Map<String, CharacterBehaviour> characterBehaviours;
-	private boolean characterBehavioursSetUp;
 	
 	private Map<GameCharacter, List<SexType>> sexTypesBannedMap;
 	private Map<GameCharacter, List<SexAreaInterface>> areasBannedMap;
@@ -662,6 +664,12 @@ public class SexManagerExternal extends SexManagerDefault {
 					titleString = "";
 				}
 
+				if(elementPresentAndNotEmpty(sexManagerElement, "wallName")) {
+					wallName = sexManagerElement.getMandatoryFirstOf("wallName").getTextContent();
+				} else {
+					wallName = null;
+				}
+				
 				if(elementPresentAndNotEmpty(sexManagerElement, "consensual")) {
 					consensualString = sexManagerElement.getMandatoryFirstOf("consensual").getTextContent();
 				} else {
@@ -744,7 +752,7 @@ public class SexManagerExternal extends SexManagerDefault {
 				}
 				
 				// Setting up the character information map:
-				characterBehaviours = new HashMap<>();
+				characterBehavioursWithParserIds = new HashMap<>();
 				if(sexManagerElement.getOptionalFirstOf("characterInformationContainer").isPresent()) {
 					for(Element characterElement : sexManagerElement.getMandatoryFirstOf("characterInformationContainer").getAllOf("characterInformation")) {
 						String id = characterElement.getMandatoryFirstOf("characterId").getTextContent();
@@ -1005,7 +1013,7 @@ public class SexManagerExternal extends SexManagerDefault {
 						}
 						
 						
-						characterBehaviours.put(id, behaviour);
+						characterBehavioursWithParserIds.put(id, behaviour);
 					}
 				}
 				
@@ -1044,29 +1052,25 @@ public class SexManagerExternal extends SexManagerDefault {
 			}
 		}
 
-		publicSex = Boolean.valueOf(UtilText.parse(publicSexString).trim());
+		publicSex = publicSexString==null?false:Boolean.valueOf(UtilText.parse(publicSexString).trim());
 
-		for(Entry<String, CharacterBehaviour> entry : characterBehaviours.entrySet()) {
+		for(Entry<String, CharacterBehaviour> entry : characterBehavioursWithParserIds.entrySet()) {
 			entry.getValue().initCharacterBehaviour();
 		}
 
 		sexTypesBannedMap = new HashMap<>();
 		areasBannedMap =  new HashMap<>();
 		
-		if(!characterBehavioursSetUp) {
-			Map<String, CharacterBehaviour> characterBehavioursWithCorrectIds = new HashMap<>();
-			for(Entry<String, CharacterBehaviour> entry : characterBehaviours.entrySet()) {
-				GameCharacter character = UtilText.findFirstCharacterFromParserTarget(entry.getKey());
-				if(entry.getValue().getSexTypesBanned()!=null) {
-					sexTypesBannedMap.put(character, entry.getValue().getSexTypesBanned());
-				}
-				if(entry.getValue().getAreasBanned()!=null) {
-					areasBannedMap.put(character, entry.getValue().getAreasBanned());
-				}
-				characterBehavioursWithCorrectIds.put(character.getId(), entry.getValue());
+		characterBehaviours = new HashMap<>();
+		for(Entry<String, CharacterBehaviour> entry : characterBehavioursWithParserIds.entrySet()) {
+			GameCharacter character = UtilText.findFirstCharacterFromParserTarget(entry.getKey());
+			if(entry.getValue().getSexTypesBanned()!=null) {
+				sexTypesBannedMap.put(character, entry.getValue().getSexTypesBanned());
 			}
-			characterBehaviours = characterBehavioursWithCorrectIds;
-			characterBehavioursSetUp = true;
+			if(entry.getValue().getAreasBanned()!=null) {
+				areasBannedMap.put(character, entry.getValue().getAreasBanned());
+			}
+			characterBehaviours.put(character.getId(), entry.getValue());
 		}
 	}
 	
@@ -1108,6 +1112,11 @@ public class SexManagerExternal extends SexManagerDefault {
 		return washingScene;
 	}
 
+	@Override
+	public String getWallName() {
+		return wallName;
+	}
+	
 	@Override
 	public boolean isSadisticActionsAllowed() {
 		return sadisticActionsAllowed;

@@ -550,10 +550,6 @@ public class DarkSiren extends NPC {
 		}
 		return sb.toString();
 	}
-
-	public boolean isLactating() {
-		return this.getBreastRawMilkStorageValue()>0;
-	}
 	
 	public String duelLactation(boolean lactate) {
 		StringBuilder sb = new StringBuilder();

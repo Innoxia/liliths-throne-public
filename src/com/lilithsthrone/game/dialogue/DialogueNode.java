@@ -9,7 +9,6 @@ import java.util.Map;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -157,8 +156,8 @@ public abstract class DialogueNode {
 					if(node.getOptionalFirstOf("responses").isPresent()) {
 						if(!node.getMandatoryFirstOf("responses").getAttribute("copyFromDialogueId").isEmpty()) {
 							copyFromDialogueId = node.getMandatoryFirstOf("responses").getAttribute("copyFromDialogueId");
-							
-						} else {
+						}
+//						} else {
 							for(Element response : node.getMandatoryFirstOf("responses").getAllOf("response")) {
 								String availabilityConditional = "true";
 								if(response.getOptionalFirstOf("availabilityConditional").isPresent()) {
@@ -253,12 +252,9 @@ public abstract class DialogueNode {
 									String nextDialoguePlayerDefeat = combatElement.getMandatoryFirstOf("nextDialoguePlayerDefeat").getTextContent();
 									
 									List<String> alliesIds = new ArrayList<>();
+									boolean companionsAreAllies = false;
 									if(combatElement.getOptionalFirstOf("allies").isPresent()) {
-										if(Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies"))) {
-											for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
-												alliesIds.add(companion.getId());
-											}
-										}
+										companionsAreAllies = Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies"));
 										for(Element ally : combatElement.getMandatoryFirstOf("allies").getAllOf("ally")) {
 											alliesIds.add(ally.getTextContent());
 										}
@@ -286,7 +282,7 @@ public abstract class DialogueNode {
 										}
 									}
 									
-									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, enemyLeaderId, enemiesIds, openingDescriptions);
+									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, companionsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions);
 									combatResponse.setNextDialoguePlayerVictoryId(nextDialoguePlayerVictory);
 									combatResponse.setNextDialoguePlayerDefeatId(nextDialoguePlayerDefeat);
 									combatResponse.setConditional(availabilityConditional);
@@ -546,7 +542,7 @@ public abstract class DialogueNode {
 									loadedResponses.get(responseTabIndex).get(index).add(standardResponse);
 								}
 							}
-						}
+//						}
 					}
 					String copyFromDialogueFinalThanksJava = copyFromDialogueId;
 					
@@ -584,23 +580,21 @@ public abstract class DialogueNode {
 						}
 						@Override
 						public String getResponseTabTitle(int index) {
-							if(copyFromDialogueFinalThanksJava!=null && !copyFromDialogueFinalThanksJava.isEmpty()) {
-								return DialogueManager.getDialogueFromId(copyFromDialogueFinalThanksJava).getResponseTabTitle(index);
-							}
 							if(responseTabs.get(index)!=null) {
 								String title = UtilText.parse(responseTabs.get(index)).trim();
-								if(title.isEmpty()) {
-									return null;
+								if(!title.isEmpty()) {
+									return title;
 								}
-								return title;
+							}
+							if(copyFromDialogueFinalThanksJava!=null && !copyFromDialogueFinalThanksJava.isEmpty()) {
+								if(DialogueManager.getDialogueFromId(copyFromDialogueFinalThanksJava).getResponseTabTitle(index)!=null) {
+									return DialogueManager.getDialogueFromId(copyFromDialogueFinalThanksJava).getResponseTabTitle(index);
+								}
 							}
 							return null;
 						}
 						@Override
 						public Response getResponse(int responseTab, int index) {
-							if(copyFromDialogueFinalThanksJava!=null && !copyFromDialogueFinalThanksJava.isEmpty()) {
-								return DialogueManager.getDialogueFromId(copyFromDialogueFinalThanksJava).getResponse(responseTab, index);
-							}
 							if(loadedResponses.containsKey(responseTab)) {
 								if(loadedResponses.get(responseTab).containsKey(index)) {
 									for(Response response : loadedResponses.get(responseTab).get(index)) {
@@ -609,6 +603,9 @@ public abstract class DialogueNode {
 										}
 									}
 								}
+							}
+							if(copyFromDialogueFinalThanksJava!=null && !copyFromDialogueFinalThanksJava.isEmpty()) {
+								return DialogueManager.getDialogueFromId(copyFromDialogueFinalThanksJava).getResponse(responseTab, index);
 							}
 							return null;
 						};

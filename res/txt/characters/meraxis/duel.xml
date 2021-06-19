@@ -613,24 +613,21 @@
 	
 	<htmlContent tag="WON_SEX"><![CDATA[
 	<p>
-		[style.italicsMinorBad(<b>Innoxia's note:</b> Meraxis's sex dialogue is all placeholders in this version. It will be completed for the next update!)]
+		Having been well and truly beaten, Meraxis staggers back and breathlessly pants, [meraxis.speech(No more... Y-You are victorious this day...)]
 	</p>
 	<p>
-		You win the duel, having said that you want to have sex with Meraxis. She says you cheated, but agrees to let you choose a sexual favour of her.
+		[pc.Stepping] forwards, you remind Meraxis of your agreement, and ask her if she's ready to have sex. Letting out an indignant huff, the vanquished [meraxis.race] complains, [meraxis.speech(That's not fair... Y-You cheated... But fine, whatver, I'll let you choose a sexual favour... B-But I'm only agreeing to this because I want to do it too; don't think for one moment that you're getting to force me into anything!)]
 	</p>
 	#IF(flags.hasFlag(FLAG_innoxia_meraxis_any_sex_unlocked))
 		<p>
-			Says you can hug or maybe even hold hands. Suggests that she could do something lewd like before...
-		</p>
-		<p>
-			She looks turned on and you think that you'd be able to push her into doing something even more lewd...
+			Realising what she's just said, the chuuni [meraxis.race]'s cheeks flush red, and she stammers in embarrassment, [meraxis.speech(C-Come on then, d-do you want to hug, hold hands, or what?! I-I mean, we could then do some other stuff like we did before...)]
 		</p>
 	#ELSE
 		<p>
-			Says you can hug or maybe even hold hands.
+			Realising what she's just said, the chuuni [meraxis.race]'s cheeks flush red, and she stammers in embarrassment, [meraxis.speech(C-Come on then, d-do you want to hug, hold hands, or what?!)]
 		</p>
 		<p>
-			She looks a little turned on and you think that you might be able to push her into doing something even more lewd...
+			Although she's making a show of being flustered, you can't help but notice the lewd look in Meraxis's eye as she glances over at you. As you wonder what to ask of her, you think that you might be able to push her into doing something quite lewd...
 		</p>
 	#ENDIF
 	]]>
@@ -640,20 +637,17 @@
 	
 	<htmlContent tag="WON_SEX_HOLD_HANDS"><![CDATA[
 	<p>
-		You ask to hold hands and go for a walk. She blushes but agrees.
+		Not wanting to demand anything of Meraxis which would cause her to have a hostile reaction, you tell her that you'd simply like to hold her hand. Shuffling her feet, she thrusts her arm out towards you and mutters, [meraxis.speech(G-Go on then... You can hold it for a while...)]
 	</p>
 	<p>
-		#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
-			Meraxis is shy as you walk holding hands, and after a short while you notice that she's furiously blushing and panting a little.
-		#ELSE
-			Meraxis is shy as you walk holding hands, and after a short while you notice that she's furiously blushing and panting a little.
-		#ENDIF
+		Taking hold of her soft, feminine hand, you suggest that the two of you go for a walk. Blushing and looking down at the floor, Meraxis asks, [meraxis.speech(W-While still holding hands? S-Sure, I guess...)]
 	</p>
 	<p>
+		Holding the blushing [meraxis.race]'s hand in yours, the two of you set off on your walk. After only travelling a short distance together, you begin to notice that Meraxis is gently panting, and she suddenly starts to slide her [meraxis.fingers+] around your [pc.hand(true)] and make gentle little moaning sounds. Taking this as a sign to push things a little further, you move in closer to Meraxis, who reacts to your move by pulling you over behind a nearby tree, and after guiding your [pc.hand(true)] down between her legs, pants, 
 		#IF(flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked))
-			Just as you're wondering whether to push things a little further, she pulls your hand down to her groin and suggests that you finger her...
+			 [meraxis.speech(C-Come on then... My pussy's getting all wet... Finger me...)]
 		#ELSE
-			Just as you're wondering whether to push things a little further, she starts to pull your hand down to her groin...
+			 [meraxis.speech(C-Come on then... Let's do something naughty...)]
 		#ENDIF
 	</p>
 	]]>
@@ -661,41 +655,41 @@
 	
 	<htmlContent tag="WON_SEX_HOLD_HANDS_FINISHED"><![CDATA[
 	<p>
-		Decide against lewd, compliment appearance.
+		Deciding that you don't want to do anything lewd with Meraxis, you gently take your [pc.hand(true)] away from her groin. Cutting off her disappointed moan, you offer the cute [meraxis.race] a compliment on her appearance and say that simply being able to spend some time holding her hand was enough for you.
 	</p>
 	<p>
-		Meraxis blushes and releases your hand. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		[meraxis.speech(W-Why are you saying all these embarrassing things?!)] Meraxis cries out as she releases your hand. With her cheeks flushing bright red, she can't help but smile as she looks down at the ground and shuffles her feet. Before you can say anything, she suddenly seems to realise what she's doing and covers up her embarrassment by striking a heroic pose and declaring, [meraxis.speech(Y-You shall not trick me so easily, my nemesis! I am immune to all forms of psychological attack; your efforts are wasted on me! Mwhahaha! N-Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_HOLD_HANDS_GROPE"><![CDATA[
 	<p>
-		You let Meraxis pull your hand down between her legs, and press her thin dress and panties up against her pussy.
+		Letting Meraxis pull one of your [pc.hands] down to her groin, you raise your other to start squeezing and groping her [meraxis.breasts+]. As she begins to let out a horny moan in response to your bold move, you slide your [pc.fingers+] down between her legs and press her thin dress and panties up against her pussy. Meraxis's moan quickly turns into a lewd squeal as you do this, and she breathlessly pants, [meraxis.speech(Yes... ~Mmm!~ My pussy's getting wet... Perhaps we could...)]
 	</p>
 	<p>
-		Meraxis seems like she's about to go even further, but then abruptly pulls back and releases your hand. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		Just as Meraxis seems like she's about to go all the way and ask for you to start fingering her, she abruptly pushes you away from her and jumps back. With her cheeks flushed bright red, she points at you and stammers, [meraxis.speech(Y-You almost defeated my psychological defences! As expected of my nemesis, but you shall not triumph this day! Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_FINGERING"><![CDATA[
 	<p>
-		You pull up Meraxis's dress, and she quickly leads you over behind a nearby tree.
+		Letting Meraxis pull one of your [pc.hands] down to her groin, you raise your other to start squeezing and groping her [meraxis.breasts+]. As she begins to let out a horny moan in response to your bold move, you pull up the bottom of her dress and slide your [pc.fingers+] over her panties. Meraxis's moan quickly turns into a lewd squeal as you do this, and she breathlessly pants, [meraxis.speech(Yes... ~Mmm!~ My pussy's getting wet... Come on, finger me, I need it...)]
 	</p>
 	#IF(meraxis.isPussyChanged())
 		<p>
-			She pulls down her panties and shows you her pussy. Having previously instructed her to transform it into a lewd one, Meraxis's pussy has large labia, and her slightly-loose entrance is a sloppy mess of slimy girlcum. She breathlessly moans for you to get started.
+			Overcome by her lust, Meraxis hastily shifts her panties to one side and fully exposes her pussy to you. Having previously instructed her to transform it into a lewd one, you look down to see that Meraxis's cunt has large labia, and her slightly-loose entrance is a sloppy mess of slimy girlcum. Turning her head to one side in order to shyly avoid your gaze, she pants, [meraxis.speech(Y-You're the one who made it look like this... S-So go on, do it already...)]
 		</p>
 		<p>
-			You slide your fingers over her drooling cunt, tease her for a moment about how lewd it look and feels, then start fingering her.
+			Reaching forwards once more, you slide your [pc.fingers+] over Meraxis's drooling cunt, which causes her to let out a desperately-horny moan. Taking a moment to tease the embarrassed [meraxis.race], you tell her how sexy and lewd her slimy cunt is, and just as she opens her mouth to respond, you slide your [pc.fingers+] inside and start eagerly fingering her. Caught out by your sudden move, Meraxis gasps and squeals, [meraxis.speech(~Aah!~ Oh, fuck! Yes! ~Mmm!~ Keep going... Yes... More!)]
 		</p>
 	#ELSE
 		<p>
-			She pulls down her panties and shows you her pussy. Her cute pussy has tiny labia, and as she guides your fingers down over it, you feel how tight she is. She's already getting wet, and she breathlessly moans for you to get started.
+			Overcome by her lust, Meraxis hastily shifts her panties to one side and fully exposes her pussy to you. Looking down, you see that Meraxis's cute cunt has tiny labia, and is just starting to get wet from arousal. Turning her head to one side in order to shyly avoid your gaze, she pants, [meraxis.speech(Y-You don't have to stare so much... G-Go on, do it already...)]
 		</p>
 		<p>
-			You slide your fingers over her tight cunt, tease her for a moment about how cute it look and feels, then start fingering her.
+			Reaching forwards once more, you slide your [pc.fingers+] over Meraxis's hot cunt, which causes her to let out a desperately-horny moan. Taking a moment to tease the embarrassed [meraxis.race], you tell her how sexy her tight, cute pussy is, and just as she opens her mouth to respond, you slide your [pc.fingers+] inside and start eagerly fingering her. Caught out by your sudden move, Meraxis gasps and squeals, [meraxis.speech(~Aah!~ Oh, fuck! Yes! ~Mmm!~ Keep going... Yes... More!)]
 		</p>
 	#ENDIF
 	]]>
@@ -703,41 +697,58 @@
 	
 	<htmlContent tag="WON_SEX_FINGERED"><![CDATA[
 	<p>
-		You tell Meraxis you want her to finger you, and she quickly leads you over behind a nearby tree.
+		Wanting the opposite of what Meraxis is after, you tell her that you're going to be the one who's on the receiving end of things.
+		#IF(pc.isTaur())
+			 Exposing your [pc.pussy+], you turn around and present Meraxis with your rear-end, before looking back over your shoulder and asking her if she likes the look of your [pc.legRace] pussy. Staring hungrily down at your [pc.pussy+], the chuuni [meraxis.race] reaches forwards and slides her [meraxis.fingers+] over your [pc.labia+] as she replies, [meraxis.speech(Yes... ~Mmm!~ Let me just do it like this...)]
+		#ELSE
+			 Exposing your [pc.pussy+], you present yourself to Meraxis and ask her if she's ready to get started. Staring hungrily down at your [pc.pussy+], the chuuni [meraxis.race] reaches forwards and slides her [meraxis.fingers+] over your [pc.labia+] as she replies, [meraxis.speech(Yes... ~Mmm!~ Let me just do it like this...)]
+		#ENDIF
 	</p>
 	<p>
-		She teases her fingers over your pussy, before starting to finger you.
+		Letting out a delighted [pc.moan] in response to her touch, you push your groin out against Meraxis's hand. Encouraged by your enthusiasm, she slides her feminine fingers into your [pc.pussy+] and starts eagerly fingering you. Caught out by her sudden move, you gasp and squeal, [pc.speech(~Aah!~ Oh, fuck! Yes! ~Mmm!~ Keep going... Yes... More!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_HANDJOB"><![CDATA[
 	<p>
-		You tell Meraxis you want her to give you a handjob, and she quickly leads you over behind a nearby tree.
+		Wanting the opposite of what Meraxis is after, you tell her that you're going to be the one who's on the receiving end of things.
+		#IF(pc.isTaur())
+			 Exposing your [pc.cock+], you turn to one side and present it to Meraxis, before turning your head towards her and asking if she likes the look of your [pc.legRace] cock. Staring hungrily down at your [pc.cock+], the chuuni [meraxis.race] drops down onto her knees, before reaching forwards and sliding her [meraxis.fingers+] over your throbbing length. Biting her lip, she pants, [meraxis.speech(Yes... ~Mmm!~ Let me just do it like this...)]
+		#ELSE
+			 Exposing your [pc.cock+], you present yourself to Meraxis and ask her if she's ready to get started. Staring hungrily down at your [pc.cock+], the chuuni [meraxis.race] reaches forwards and slides her [meraxis.fingers+] over your throbbing length as she replies, [meraxis.speech(Yes... ~Mmm!~ Let me just do it like this...)]
+		#ENDIF
 	</p>
 	<p>
-		She teases her fingers over your cock, before starting to jerk you off.
+		Letting out a delighted [pc.moan] in response to her touch, you push your groin out against Meraxis's hand. Encouraged by your enthusiasm, she wraps her feminine fingers around your [pc.cock+] and starts eagerly jerking you off. Caught out by her sudden move, you gasp and [pc.moan], [pc.speech(~Aah!~ Fuck, yes! ~Mmm!~ Keep going... Yes... More!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_FINGERING"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and looks down at the sloppy mess of girlcum that's splattered all over her pussy and upper thighs. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_FINGERED"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis teases her feminine fingers over your [pc.labia+] one last time, before stepping back and giving you a moment in which to clean yourself up.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_HANDJOB"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis teases her feminine fingers over your [pc.labia+] one last time, before stepping back and giving you a moment in which to clean yourself up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_POST_END"><![CDATA[
+	<p>
+		[meraxis.speech(You know... It was kind of worth losing that duel for this...)] she says, before flashing you a quick smile and then suddenly spinning around on the spot. Striking a heroic pose, she points at you and takes on her usual chuuni personality as she declares, [meraxis.speech(Now, my nemesis, as I have deceived you into giving me what I wanted, I have something important to say, so listen up!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -746,17 +757,21 @@
 	
 	<htmlContent tag="WON_SEX_HUG"><![CDATA[
 	<p>
-		You ask to hug Meraxis. She blushes but agrees.
+		Not wanting to demand anything of Meraxis which would cause her to have a hostile reaction, you tell her that you'd simply like to give her a hug. Shuffling her feet, she thrusts her arms out towards you and mutters, [meraxis.speech(C-Come on then... You can hug me...)]
 	</p>
 	<p>
+		[pc.Stepping] into Meraxis's outstretched arms, you pull her into a big hug. Although you can't see her face from this position, you know that she must be blushing as she mutters, [meraxis.speech(A-As if you like this sort of thing...)]
+	</p>
+	<p>
+		Before you can respond to that, you suddenly notice that Meraxis is starting to gently grind up against you, and with a little moan, she firmly presses her [meraxis.breasts+] against your torso. Seeing this as a sign to take things a little further, you pull Meraxis into you, which causes her to lift her ass and pant, 
 		#IF(flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked))
 			#IF(game.isAnalContentEnabled())
-				Just as you're wondering whether to push things a little further, she grinds up against you and asks if you'd like to do anal stuff...
+				 [meraxis.speech(I know you want to do anal stuff again... And, well, I kind of want it as well...)]
 			#ELSE
-				Just as you're wondering whether to push things a little further, she grinds up against you and tells you to grope her ass again...
+				 [meraxis.speech(G-Go on then... I know you want to grope my ass again, so just do it already...)]
 			#ENDIF
 		#ELSE
-			Just as you're wondering whether to push things a little further, she grinds up against you and lifts her ass...
+			 [meraxis.speech(G-Go on then... I know you want to grope my ass, so just do it already...)]
 		#ENDIF
 	</p>
 	]]>
@@ -764,73 +779,106 @@
 	
 	<htmlContent tag="WON_SEX_HUG_FINISHED"><![CDATA[
 	<p>
-		Decide against lewd, compliment appearance.
+		Deciding that you don't want to do anything lewd with Meraxis, you continue to simply hug her for a few more moments, before [pc.stepping] back and putting an end to your physical contact. Cutting off her disappointed moan, you offer the cute [meraxis.race] a compliment on her appearance and say that simply being able to spend some time in her embrace was enough for you.
 	</p>
 	<p>
-		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		[meraxis.speech(W-Why are you saying all these embarrassing things?!)] Meraxis cries out in response to your compliments. With her cheeks flushing bright red, she can't help but smile as she looks down at the ground and shuffles her feet. Before you can say anything, she suddenly seems to realise what she's doing and covers up her embarrassment by striking a heroic pose and declaring, [meraxis.speech(Y-You shall not trick me so easily, my nemesis! I am immune to all forms of psychological attack; your efforts are wasted on me! Mwhahaha! N-Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_HUG_ASS_GRAB"><![CDATA[
 	<p>
-		You reach down and grab Meraxis's ass.
-	</p>
-	<p>
+		Not wanting to miss this opportunity, you reach around and dominantly grab Meraxis's ass with both [pc.hands].
 		#IF(meraxis.isAssChanged())
-			Having previously got Meraxis to transform her ass, you enjoy how large it feels, and after sliding your hands over her very wide hips, you've got her panting and pushing her ass out against your touch.
+			 Having previously got her to transform her ass, you enjoy how large it feels, and after sliding your hands over the chuuni [meraxis.race]'s very wide hips, you've got her panting and lewdly pushing her ass back against your touch.
 		#ELSE
-			Meraxis has a small, flat ass, but you still enjoy how it feels, and after sliding your hands over her girly hips, you've got her panting and pushing her ass out against your touch.
+			 Meraxis has a small, flat ass, but despite its unimpressive size you still enjoy how it feels, and after sliding your hands over the chuuni [meraxis.race]'s girly hips, you've got her panting and pushing her ass out against your touch.
+		#ENDIF
+		#IF(game.isAnalContentEnabled())
+			 Gripping her cheeks, you gently pull them apart, before sliding your [pc.fingers+] down over the thin material of her dress to tease her asshole.
 		#ENDIF
 	</p>
 	<p>
-		#IF(game.isAnalContentEnabled())
-			Meraxis seems like she's about to go even further, but then abruptly pulls back and releases your hand. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
-		#ELSE
-			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and then tells you to listen well.
-		#ENDIF
+		[meraxis.speech(That's it... ~Mmm!~ Perhaps we could even...)] Meraxis starts to say, before abruptly pushing you away from her and jumping back. With her cheeks flushed bright red, she points at you and stammers, [meraxis.speech(Y-You almost defeated my psychological defences! As expected of my nemesis, but you shall not triumph this day! Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_ANILINGUS"><![CDATA[
 	<p>
-		You tell Meraxis that you're going to give her ass the attention it deserves. Get her to turn around and hike up her dress, and after pulling down her panties you start to perform anilinugs.
+		Wanting to get intimate with Meraxis's asshole, you tell her that you're going to perform anilingus on her. With her cheeks burning a bright shade of red, the embarrassed [meraxis.race] reveals just how horny she is by grabbing hold of your [pc.hand] and leading you over behind a nearby tree. Without needing any more encouragement, she turns around and hikes up her dress, before shifting her panties aside and presenting you with her [meraxis.asshole+].
+	</p>
+	<p>
+		[meraxis.speech(This is what you want, right?)] she asks, turning her head back over her shoulder to see your reaction. Responding in the affirmative, you quickly [pc.step] forwards and drop down behind her, before leaning forwards and planting a big, wet kiss on her [meraxis.asshole+].
+	</p>
+	<p>
+		[meraxis.speech(~Aah!~ Oh, yes... Come on, [pc.name]... Give it to me...)] Meraxis breathlessly pants. More than happy to do as she says, you take hold of her [meraxis.hips+] and shuffle forwards, before burying your face in her [meraxis.ass+] and starting to eagerly lick, kiss, and nuzzle into her [meraxis.asshole+]...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_HOTDOGGING"><![CDATA[
 	<p>
-		You tell Meraxis that you're going to put her ass to good use. Get her to turn around and hike up her dress, and after pulling down her panties you start to hotdog her.
+		Wanting to get intimate with Meraxis's ass, you tell her that you're going to hotdog her. With her cheeks burning a bright shade of red, the embarrassed [meraxis.race] reveals just how horny she is by grabbing hold of your [pc.hand] and leading you over behind a nearby tree. Without needing any more encouragement, she turns around and hikes up her dress, before shifting her panties aside and presenting you with her [meraxis.asshole+].
+	</p>
+	<p>
+		[meraxis.speech(This is what you want, right?)] she asks, turning her head back over her shoulder to see your reaction.
+		#IF(pc.isTaur())
+			 Responding in the affirmative, you order Meraxis to get down on all fours, and after she's obediently done so, you [pc.step] over the top of her and slap your [pc.cock+] against her naked backside.
+		#ELSE
+			 Responding in the affirmative, you quickly [pc.step] forwards and slap your [pc.cock+] against her naked backside.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(~Aah!~ Oh, yes... Come on, [pc.name]... Give it to me...)] Meraxis breathlessly pants. More than happy to do as she says, you shuffle forwards and slide your [pc.cock+] up between her [meraxis.assSize] cheeks. Smirking at the horny moan that she lets out in response to this, you start to thrust forwards and backwards, rubbing your [pc.ock+] up and down over her [meraxis.asshole+] as you start to hotdog her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_ANAL"><![CDATA[
 	<p>
-		You tell Meraxis that you're going to put her ass to good use. Get her to turn around and hike up her dress, and after pulling down her panties you start fucking her ass.
+		Wanting to get intimate with Meraxis's ass, you tell her that you're going to fuck her asshole. With her cheeks burning a bright shade of red, the embarrassed [meraxis.race] reveals just how horny she is by grabbing hold of your [pc.hand] and leading you over behind a nearby tree. Without needing any more encouragement, she turns around and hikes up her dress, before shifting her panties aside and presenting you with her [meraxis.asshole+].
+	</p>
+	<p>
+		[meraxis.speech(This is what you want, right?)] she asks, turning her head back over her shoulder to see your reaction.
+		#IF(pc.isTaur())
+			 Responding in the affirmative, you order Meraxis to get down on all fours, and after she's obediently done so, you [pc.step] over the top of her and slap your [pc.cock+] against her naked backside.
+		#ELSE
+			 Responding in the affirmative, you order Meraxis to get down on all fours, and after she's obediently done so, you drop down behind her and slap your [pc.cock+] against her naked backside.
+		#ENDIF
+	</p>
+	<p>
+		#IF(meraxis.isAnalVirgin())
+			[meraxis.speech(~Aah!~ Oh, yes... Give it to me, [pc.name]... B-But I'm still an anal virgin, so be gentle...)] Meraxis breathlessly pants.
+		#ELSE
+			[meraxis.speech(~Aah!~ Oh, yes... Come on, [pc.name]... Give it to me...)] Meraxis breathlessly pants.
+		#ENDIF
+		 More than happy to do as she says, you shuffle forwards and press your [pc.cock+] against her [meraxis.asshole+]. Pushing forwards, you slowly force the [pc.cockHead+] of your throbbing shaft into the [meraxis.race]'s [meraxis.asshole+], causing her to squeal, [meraxis.speech(~Ooh!~ Fuck, yes! ~Mmm!~ That's it, fuck my ass!)]
+	</p>
+	<p>
+		Needing no further encouragement, you thrust forwards and sink your [pc.cock+] into Meraxis's ass, and as you start to fuck her [meraxis.asshole+], she starts to let out a series of ecstatic moans, pants, and squeals...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_ANILINGUS"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and reaches around to experimentally touch her saliva-coated asshole. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_HOTDOGGING"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and reaches around to rub her ass. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_ANAL"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and reaches around to experimentally touch her well-fucked asshole. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
@@ -839,18 +887,23 @@
 	
 	<htmlContent tag="WON_SEX_KISS"><![CDATA[
 	<p>
-		You ask Meraxis for a kiss. She blushes but agrees.
+		Wanting something a little more than a hug or hand-holding, you tell Meraxis that you'd like to kiss her. Shuffling her feet, she blushes and mutters, [meraxis.speech(F-Fine... You can kiss me...)]
 	</p>
 	<p>
+		[pc.Stepping] towards Meraxis, you lean forwards and press your [pc.lips+] against hers.
+	<p>
 		#IF(meraxis.isMouthChanged())
-			Having previously got Meraxis to transform her lips, you enjoy how her wet, plump lips feel as they press against your mouth.
+			 Having previously instructed Meraxis to transform her mouth, you enjoy how her wet, plump lips feel as they press against your mouth.
 		#ELSE
-			Meraxis presses her lips against your mouth and leans into you as you kiss her.
+			 Meraxis lets out a muffled moan as you start kissing her, and leans into you as the two of you continue pressing your lips against one another.
 		#ENDIF
+	</p>
+	<p>
+		After only a few moments of kissing, and having not even used your tongues, Meraxis starts letting out a series of incredibly lewd noises. Before you can decide how to respond to her horny behaviour, she suddenly pulls back and breathlessly pants,
 		#IF(flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
-			 She very quickly starts making lewd noises as you kiss her, before pulling back and asking if you want to do oral...
+			 [meraxis.speech(Come on then, [pc.name]. You want to do oral stuff, don't you?)]
 		#ELSE
-			 She very quickly starts making lewd noises as you kiss her, and you wonder whether to push things further...
+			 [meraxis.speech(Give me more, [pc.name]! Come on, I want to really make out with you...)]
 		#ENDIF
 	</p>
 	]]>
@@ -858,70 +911,99 @@
 	
 	<htmlContent tag="WON_SEX_KISS_FINISHED"><![CDATA[
 	<p>
-		Decide against lewd, compliment appearance.
+		Deciding that you don't want to do anything too lewd with Meraxis, you simply plant another wet kiss on her lips, before [pc.stepping] back and putting an end to your physical contact. Cutting off her disappointed moan, you offer the cute [meraxis.race] a compliment on her appearance and say that simply being able to kiss her was enough for you.
 	</p>
 	<p>
-		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		[meraxis.speech(W-Why are you saying all these embarrassing things?!)] Meraxis cries out in response to your compliments. With her cheeks flushing bright red, she can't help but smile as she looks down at the ground and shuffles her feet. Before you can say anything, she suddenly seems to realise what she's doing and covers up her embarrassment by striking a heroic pose and declaring, [meraxis.speech(Y-You shall not trick me so easily, my nemesis! I am immune to all forms of psychological attack; your efforts are wasted on me! Mwhahaha! N-Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_KISS_MAKE_OUT"><![CDATA[
 	<p>
+		Taking hold of Meraxis, you pull her into your embrace, before planting your [pc.lips+] against hers and starting to passionately make out with her.
 		#IF(meraxis.isMouthChanged())
-			You passionately continue kissing Meraxis, and she lewdly slides her long, wet tongue into your mouth while grinding up against you.
+			 In response, the horny [meraxis.race] parts her huge, puffy lips and lewdly slides her long, wet tongue into your mouth, before starting to desperately grind up against you.
 		#ELSE
-			You passionately continue kissing Meraxis, and she lewdly slides her tongue into your mouth while grinding up against you.
+			 In response, the horny [meraxis.race] parts her lips and lewdly slides her tongue into your mouth, before starting to desperately grind up against you.
 		#ENDIF
 	</p>
 	<p>
-		#IF(!flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
-			Meraxis seems like she's about to go even further, but then abruptly pulls back. Covers up her embarrassment by declaring something chuuni, and tells you to listen well.
-		#ELSE
-			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and then tells you to listen well.
-		#ENDIF
+		For the next several minutes, the two of you continue making out with one another. Sliding your tongues into each other's mouths, each of your lips are soon coated in a copious amount of saliva. Breaking off your kiss, Meraxis moans, [meraxis.speech(That's it... ~Mmm!~ Perhaps we could even...)]
+	</p>
+	<p>
+		At that moment, the horny [meraxis.race] abruptly pushes you away from her and jumps back. With her cheeks flushed bright red, she points at you and stammers, [meraxis.speech(Y-You almost defeated my psychological defences! As expected of my nemesis, but you shall not triumph this day! Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_CUNNILINGUS"><![CDATA[
 	<p>
-		You tell Meraxis that you're going to eat her out. She blushes and hikes up her dress, allowing you to drop down and perform cunnilingus.
+		Wanting to get intimate with Meraxis's pussy, you tell her that you're going to perform cunnilingus on her. With her cheeks burning a bright shade of red, the embarrassed [meraxis.race] reveals just how horny she is by grabbing hold of your [pc.hand] and leading you over behind a nearby tree. Without needing any more encouragement, she hikes up her dress and shifts her panties aside, presenting you with her
+		#IF(meraxis.isPussyChanged())
+			 pussy. Having previously instructed her to transform her cunt, you see that Meraxis has [meraxis.labiaSize] labia, and a slimy stream of girlcum is practically drooling from out of her slightly-loose orifice.
+		#ELSE
+			 [meraxis.pussyCapacity], cute pussy.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(This is what you want, right?)] she asks. Responding in the affirmative, you quickly [pc.step] forwards and drop down in front of her, before leaning forwards and planting a big, wet kiss on her [meraxis.pussy+].
+	</p>
+	<p>
+		[meraxis.speech(~Aah!~ Oh, yes... Come on, [pc.name]... Give it to me...)] Meraxis breathlessly pants. More than happy to do as she says, you take hold of her [meraxis.hips+] and shuffle forwards, before burying your face between her thighs and starting to eagerly lick, kiss, and nuzzle into her [meraxis.pussy+]...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_CUNNILINGUS_RECEIVE"><![CDATA[
 	<p>
-		You tell Meraxis that she's going to eat you out. She blushes but eagerly obeys, dropping down to start performing cunnilingus.
+		Wanting Meraxis to service your pussy with her tongue, you tell her that you want her to have a go at performing cunnilingus.
+		#IF(pc.isTaur())
+			 Exposing your [pc.pussy+], you turn around and present Meraxis with your rear-end, before looking back over your shoulder and asking her if she likes the look of your [pc.legRace] pussy.
+		#ELSE
+			 Exposing your [pc.pussy+], you present yourself to Meraxis and ask her if she's ready to get started.
+		#ENDIF
+		  Hungrily staring at your [pc.pussy+], the chuuni [meraxis.race] drops down and plants a quick kiss on your [pc.labia+], before replying, [meraxis.speech(Yes... ~Mmm!~ Let me just do it like this...)]
+	</p>
+	<p>
+		Letting out a delighted [pc.moan] in response to her oral attention, you push your groin out against Meraxis's face. Encouraged by your enthusiasm, she slides her [meraxis.tongue+] over your [pc.labia+], before pressing forwards and sinking it into your [pc.pussy+]. Caught out by her sudden move, you gasp and squeal, [pc.speech(~Aah!~ Oh, fuck! Yes! ~Mmm!~ Keep going... Yes... More!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_BLOWJOB"><![CDATA[
 	<p>
-		You tell Meraxis that she's going to suck your cock. She blushes but eagerly obeys, dropping down to start giving you a blowjob.
+		Wanting Meraxis to service your cock with her mouth, you tell her that you want her to have a go at giving you a blowjob.
+		#IF(pc.isTaur())
+			 Exposing your [pc.cock+], you turn to one side and present it to Meraxis, before turning your head towards her and asking if she likes the look of your [pc.legRace] cock.
+		#ELSE
+			 Exposing your [pc.cock+], you present yourself to Meraxis and ask her if she's ready to get started.
+		#ENDIF
+		 Hungrily staring at your [pc.cock+], the chuuni [meraxis.race] drops down onto her knees, before reaching forwards and planting a quick kiss on your throbbing length. After letting out a horny moan, she pants, [meraxis.speech(Yes... ~Mmm!~ Let me just do it like this...)]
+	</p>
+	<p>
+		Letting out a delighted [pc.moan] in response to her oral attention, you push your groin out against Meraxis's face. Encouraged by your enthusiasm, she parts her [meraxis.lip+] and takes the [pc.cockHead+] of your erect shaft into her mouth, before pressing forwards and starting to eagerly give you a blowjob. Caught out by her sudden move, you [pc.moan], [pc.speech(~Aah!~ Oh, fuck! Yes! ~Mmm!~ Keep going... Yes... More!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_CUNNILINGUS"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and reaches down to experimentally touch her saliva-coated pussy. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_CUNNILINGUS_RECEIVE"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and licks her [meraxis.lips+]. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_BLOWJOB"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and licks her [meraxis.lips+]. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
@@ -930,64 +1012,76 @@
 	
 	<htmlContent tag="WON_SEX_FLASH_BREASTS"><![CDATA[
 	<p>
-		YOu tell Meraxis to flash you her breasts. She blushes heavily, but after leading you over to a group of trees she strips out of her dress and cape, before taking off her bra and revealing her tits.
+		Knowing that Meraxis is really quite fond of you, you think that you'll be able to get away with asking something quite demanding of her. Pointedly looking down at her
+		#IF(meraxis.getBreastRawSizeValue()>5)
+			 large boobs,
+		#ELSE
+			 flat chest,
+		#ENDIF
+		 you tell Meraxis that you want to see her naked breasts. As she hears what it is you're asking of her, Meraxis's cheeks flush a bight shade of red, and she pants, [meraxis.speech(M-My naked breasts? You're so lewd, [pc.name]...)]
 	</p>
 	<p>
-		[#meraxis.getBody().getBreastDescription(meraxis, meraxis.getBody().getBreast())]
+		With her cheeks continuing to burn a bright shade of red, the embarrassed [meraxis.race] reveals just how horny she is by grabbing hold of your [pc.hand] and leading you over behind a nearby tree. Without needing any more encouragement, she turns around and swiftly strips out of her dress and cape, before taking off her bra and revealing her tits.
 	</p>
 	<p>
 		#IF(meraxis.isBreastsChanged())
-			Having previously told Meraxis to transform her breasts, you admire her DD-cup boobs.
+			Having previously told Meraxis to transform her breasts, you find yourself looking at a pair of round, DD-cup boobs. Meraxis's large nipples and areolae make her breasts look very lewd, and you find yourself getting turned on by the sight of them.
 		#ELSE
-			Meraxis has an almost completely-flat chest, although her big nipples make them look quite lewd.
+			Having an almost completely-flat chest, you find yourself looking at a pair of round, AA-cup boobs. Despite their tiny size, Meraxis's big nipples and areolae make her breasts look quite lewd, and you find yourself getting turned on by the sight of them.
 		#ENDIF
-		#IF(flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
-			 She asks if you want to use them, or just look...
-		#ELSE
-			 She asks if this is good enough for you, although from the look in her eyes you can tell she wants more...
-		#ENDIF
+		 Biting her lip and continuing to blush, the horny [meraxis.race] asks, [meraxis.speech(So, is this all you wanted? I-I mean, you could ask for more if you want...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_FLASH_BREASTS_FINISHED"><![CDATA[
 	<p>
-		Decide against lewd, compliment appearance.
+		Deciding that you don't want to do anything too lewd with Meraxis, you simply take a moment to stare at her [meraxis.boobs+], before telling her that you don't want to go any further. Cutting off her disappointed moan, you offer the cute [meraxis.race] a compliment on her breasts' appearance and say that simply being able to admire them was enough for you.
 	</p>
 	<p>
-		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		[meraxis.speech(W-Why are you saying all these embarrassing things?!)] Meraxis cries out in response to your compliments. With her cheeks flushing bright red, she can't help but smile as she looks down at the ground and shuffles her feet. Before you can say anything, she suddenly seems to realise what she's doing and covers up her embarrassment by striking a heroic pose and declaring, [meraxis.speech(Y-You shall not trick me so easily, my nemesis! I am immune to all forms of psychological attack; your efforts are wasted on me! Mwhahaha! N-Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_FLASH_BREASTS_PLAY"><![CDATA[
 	<p>
-		You tell Meraxis to play with her breasts.
-		#IF(meraxis.isBreastsChanged())
-			 She hefts her large boobs in her hands, before squishing them together and then starting to play with her nipples.
+		Wanting Meraxis to put on a show, you tell her to start playing with her breasts. Despite furiously blushing and mumbling something about how lewd you are, she swiftly does as you say.
+		#IF(meraxis.getBreastRawSizeValue()>5)
+			 Reaching up to her large, [meraxis.cupSize]-cup boobs, she hefts them in both hands, before squishing them together and then starting to play with her nipples.
 		#ELSE
-			 She easily cups her tiny boobs in her hands, before fruitlessly trying to squish them together and then starting to play with her big nipples.
+			 Reaching up to her tiny, [meraxis.cupSize]-cup boobs, she does her best to cup them in her hands, and after fruitlessly trying to squish them together, she moves on to play with her big nipples.
 		#ENDIF
 	</p>
 	<p>
-		#IF(!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
-			Meraxis seems like she's about to go even further, but then abruptly turns away. Covers up her embarrassment by declaring something chuuni, and after pulling her clothes back on tells you to listen well.
-		#ELSE
-			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and after pulling her clothes back she tells you to listen well.
-		#ENDIF
+		For the next couple of minutes, Meraxis continues playing with her [meraxis.breasts+] while you watch. Teasing her nipples, she playfully pinches them and moans, [meraxis.speech(So you like this kind of thing... ~Mmm!~ Perhaps you could...)]
+	</p>
+	<p>
+		At that moment, the horny [meraxis.race] abruptly stops playing with her breasts and jumps back. With her cheeks flushed bright red, she starts hastily pulling her clothes back on and stammers, [meraxis.speech(Y-You almost defeated my psychological defences! As expected of my nemesis, but you shall not triumph this day! Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_PLAY_BREASTS_MASTURBATE"><![CDATA[
 	<p>
-		You tell Meraxis to play with her tits while you masturbate to the sight of them. She furiously blushes but does as you say.
+		Wanting Meraxis to put on a show, you tell her to start playing with her breasts so that you can masturbate to the sight of them. Immediately upon hearing this, the [meraxis.race]'s cheeks flush red, and she stammers, [meraxis.speech(Y-You want to do what? You're so lewd, [pc.name]... I-I guess I don't really mind though, seeing as it's you...)]
 	</p>
 	<p>
-		#IF(meraxis.isBreastsChanged())
-			 She hefts her large boobs in her hands, before squishing them together and then starting to play with her nipples.
+		#IF(meraxis.getBreastRawSizeValue()>5)
+			Reaching up to her large, [meraxis.cupSize]-cup boobs, she hefts them in both hands, before squishing them together and then starting to play with her nipples.
 		#ELSE
-			 She easily cups her tiny boobs in her hands, before fruitlessly trying to squish them together and then starting to play with her big nipples.
+			Reaching up to her tiny, [meraxis.cupSize]-cup boobs, she does her best to cup them in her hands, and after fruitlessly trying to squish them together, she moves on to play with her big nipples.
+		#ENDIF
+		#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 Exposing your [pc.cock+] and [pc.pussy+], you start touching yourself as you watch Meraxis putting on this show for you...
+			#ELSE
+				 Exposing your [pc.cock+], you start touching yourself as you watch Meraxis putting on this show for you...
+			#ENDIF
+		#ELSEIF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			  Exposing your [pc.pussy+], you start touching yourself as you watch Meraxis putting on this show for you...
+		#ELSE
+			 Watching Meraxis as she puts on this show for you,
 		#ENDIF
 	</p>
 	]]>
@@ -995,49 +1089,64 @@
 	
 	<htmlContent tag="WON_SEX_PLAY_BREASTS_KISSING"><![CDATA[
 	<p>
-		You [pc.step] up to Meraxis and tell her that you're going to suck on her tits. She blushes but presents you with them.
+		Wanting to have some fun with Meraxis's [meraxis.breasts+], you [pc.step] forwards and tell her that you're going to give them the love they deserve. Blushing as she realises what it is that you want to do, the embarrassed [meraxis.race] pushes out her chest and pants, [meraxis.speech(Go on then... You can do what you want...)]
 	</p>
 	<p>
-		#IF(meraxis.isBreastsChanged())
-			You press your lips against her large boobs, before starting to kiss and suck on her nipples.
+		Not needing any further encouragement, you drop your mouth down to Meraxis's chest and deliver a big kiss to each of her [meraxis.breasts+].
+		#IF(meraxis.getBreastRawSizeValue()>5)
+			 Letting out a sensual moan, she pushes her large boobs out towards you, and reaches up to hold the top of your head as you start to kiss and suck on her large nipples.
 		#ELSE
-			You press your lips against her flat chest, before starting to kiss and suck on her nipples.
+			 Letting out a sensual moan, she pushes her flat chest out towards you, and reaches up to hold the top of your head as you start to kiss and suck on her big nipples.
 		#ENDIF
+		#IF(meraxis.isLactating())
+			 As a few drops of milk seep out of her teats and enter your mouth,
+		#ELSE
+			 As you continue to suck on her teats,
+		#ENDIF
+		 Meraxis excitedly moans, [meraxis.speech(~Ooh!~ That's it! Don't stop!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_PLAY_BREASTS_FUCK"><![CDATA[
 	<p>
-		You take out your cock and tell Meraxis that she's going to give you a titfuck.
+		Wanting to have some fun with Meraxis's [meraxis.breasts+], you expose your [pc.cock+] and [pc.step] forwards to tell her that you want her to give you a titjob. Furiously blushing as she hears you say this, the embarrassed [meraxis.race] pants, [meraxis.speech(O-Ok... I can do that...)]
 	</p>
 	<p>
-		#IF(meraxis.isBreastsChanged())
-			She blushes but agrees, dropping down and wrapping her tits around your cock.
+		#IF(pc.isTaur())
+			Moving around and dropping down to her knees beneath your [pc.legRace] body,
 		#ELSE
-			She blushes but agrees, dropping down and pressing her flat chest up against your cock.
+			Dropping down onto her knees in front of you,
 		#ENDIF
+		#IF(meraxis.isBreastFuckablePaizuri())
+			 Meraxis repositions herself so that her large tits are at roughly the same level as your cock. Pressing them together, she forms a decent amount of cleavage, into which she guides your [pc.cock+]. Letting out a horny moan, she then starts moving up and down in order to give you a titjob, and pants, [meraxis.speech(Your cock feels so good... That's it, get nice and hard for me...)]
+		#ELSE
+			 Meraxis repositions herself so that her flat chest is at roughly the same level as your cock. Doing her best to press them together, she fails to form any amount of cleavage, and has to resort to simply rubbing your [pc.cock+] over her exposed chest. Letting out a horny moan, she then starts moving up and down in order to give you her interpretation of a titjob, and pants, [meraxis.speech(Your cock feels so good... That's it, get nice and hard for me...)]
+		#ENDIF
+	</p>
+	<p>
+		letting out [pc.a_moan] of your own, you concentrate on the enjoyable feeling of Meraxis's [meraxis.breasts+] rubbing against your [pc.cock+]...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_MASTURBATION_BREASTS"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and flashes you a dirty grin. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_BREASTS_KISSING"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and flashes you a dirty grin. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_BREAST_FUCK"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and flashes you a dirty grin. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
@@ -1046,96 +1155,128 @@
 	
 	<htmlContent tag="WON_SEX_FLASH_PUSSY"><![CDATA[
 	<p>
-		You tell Meraxis to show you her pussy. She furiously blushes, but hikes up her dress and drops her panties to do as you say.
+		Knowing that Meraxis is really quite fond of you, you think that you'll be able to get away with asking something quite demanding of her. Pointedly looking down at her groin, you tell her to hike up her dress and drop her panties so that you can get a good look at her pussy. With her cheeks burning a bright shade of red, the embarrassed [meraxis.race] reveals just how horny she is by grabbing hold of your [pc.hand] and leading you over behind a nearby tree. Without needing any more encouragement, she displaces her clothing as you've instructed, presenting you with her
+		#IF(meraxis.isPussyChanged())
+			 pussy. Having previously instructed her to transform her cunt, you see that Meraxis has [meraxis.labiaSize] labia, and a slimy stream of girlcum is practically drooling from out of her slightly-loose orifice.
+		#ELSE
+			 [meraxis.pussyCapacity], cute pussy.
+		#ENDIF
 	</p>
 	<p>
-		#IF(meraxis.isPussyChanged())
-			Having previously instructed her to transform it into a lewd one, Meraxis's pussy has large labia, and her slightly-loose entrance is a sloppy mess of slimy girlcum. She breathlessly moans, letting you know that she wants to do more...
-		#ELSE
-			Her cute pussy has tiny labia, and as she presents it to you, you can see how tight she is. She's already getting wet, and she breathlessly moans, letting you know that she wants to do more...
-		#ENDIF
+		[meraxis.speech(This is what you want, right?)] she asks. Responding in the affirmative, you look down at her exposed cunt and tell her that the sight of it is turning you on. Letting out a little moan as you say this, Meraxis offers, [meraxis.speech(I-I guess I could do a little more than just show it to you...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_FLASH_PUSSY_FINISHED"><![CDATA[
 	<p>
-		Decide against lewd, compliment appearance.
+		Deciding that you don't want to do anything too lewd with Meraxis, you simply take a moment to stare at her [meraxis.pussy+], before telling her that you don't want to go any further. Cutting off her disappointed moan, you offer the cute [meraxis.race] a compliment on her pussy's appearance and say that simply being able to admire it was enough for you.
 	</p>
 	<p>
-		Meraxis blushes and covers up her embarrassment by declaring something chuuni, and tells you to listen well.
+		[meraxis.speech(W-Why are you saying all these embarrassing things?!)] Meraxis cries out in response to your compliments. With her cheeks flushing bright red, she can't help but smile as she looks down at the ground and shuffles her feet. Before you can say anything, she suddenly seems to realise what she's doing and covers up her embarrassment by striking a heroic pose and declaring, [meraxis.speech(Y-You shall not trick me so easily, my nemesis! I am immune to all forms of psychological attack; your efforts are wasted on me! Mwhahaha! N-Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_FLASH_PUSSY_PLAY"><![CDATA[
 	<p>
-		You tell Meraxis to play with her pussy, and she blushes even more, but does as you say.
-	</p>
-	<p>
+		Wanting Meraxis to put on a show, you tell her to start playing with her pussy. Despite furiously blushing and mumbling something about how lewd you are, she swiftly does as you say.
 		#IF(meraxis.isPussyChanged())
-			She slides her fingers over her large labia, and her lewd pussy is soon drooling with slimy girlcum.
+			 Reaching down, she slowly slides her fingers over her large labia, and after she's spread her pussy lips to show off her [meraxis.pussyCapacity] cunt, you're able to see that she's producing a significant amount of slimy girlcum. As she plays with herself, this natural lubrication drools down over Meraxis's feminine fingers, allowing her to easily spread it over her clit. 
 		#ELSE
-			She slides her fingers over her tiny labia, and her cute pussy is soon slick with slimy girlcum.
+			 Reaching down, she slowly slides her fingers over her tiny labia, and after she's spread her pussy lips to show off her [meraxis.pussyCapacity] cunt, you're able to see that she's producing a small amount of slimy girlcum. As she plays with herself, this natural lubrication gets coated over Meraxis's feminine fingers, allowing her to spread it over her clit.
 		#ENDIF
 	</p>
 	<p>
-		#IF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
-			Meraxis seems like she's about to go even further, but then abruptly turns away. Covers up her embarrassment by declaring something chuuni, and after pulling her clothes back on tells you to listen well.
-		#ELSE
-			Meraxis covers up her embarrassment by stepping back and declaring something chuuni, and after pulling her clothes back she tells you to listen well.
-		#ENDIF
+		For the next couple of minutes, Meraxis continues playing with her [meraxis.pussy+] while you watch. Teasing her [meraxis.clit+], she playfully pinches it and moans, [meraxis.speech(So you like this kind of thing... ~Mmm!~ Perhaps you could...)]
+	</p>
+	<p>
+		At that moment, the horny [meraxis.race] abruptly stops playing with her breasts and jumps back. With her cheeks flushed bright red, she starts hastily pulling her clothes back on and stammers, [meraxis.speech(Y-You almost defeated my psychological defences! As expected of my nemesis, but you shall not triumph this day! Now listen to what I have to say!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_INTERCRURAL"><![CDATA[
 	<p>
-		Tell Meraxis that you're going to fuck her thighs.
+		Wanting to have some fun with Meraxis's [meraxis.legs+], you expose your [pc.cock+] and [pc.step] forwards to tell her that you want to fuck her delicious thighs. Furiously blushing as she hears you say this, the embarrassed [meraxis.race] pants, [meraxis.speech(O-Ok... You can do that if you'd like...)]
 	</p>
 	<p>
-		She obediently pushes her legs together, and after taking your cock out and rubbing it over her pussy, you start fucking her thighs.
+		#IF(pc.isTaur())
+			Happy to hear that she's willing to do as you ask, you tell Meraxis to get down on all fours, and after she's obediently done so, you [pc.step] over the top of her and slap your [pc.cock+] against her naked pussy.
+		#ELSE
+			Happy to hear that she's willing to do as you ask, you tell Meraxis to squeeze her legs together, and after she's obediently done so, you [pc.step] forwards and slap your [pc.cock+] against her naked pussy.
+		#ENDIF
+		 Letting out a surprised squeal, the [meraxis.race] bites her lip and asks, [meraxis.speech(Am I doing this right?)]
+	</p>
+	<p>
+		Responding in the affirmative, you thrust forwards and push your [pc.cock+] between Meraxis's [meraxis.legs+]. Remarking on how soft and smooth her thighs feel against your throbbing shaft, you tease Meraxis by saying that you might switch to fucking her [meraxis.pussy+] at any time...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_FUCK"><![CDATA[
 	<p>
-		Tell Meraxis that you're going to fuck her.
+		Wanting to get right down to it, you expose your [pc.cock+] and [pc.step] forwards, before telling Meraxis that you want to fuck her [meraxis.pussy+]. Furiously blushing as she hears you say this, the embarrassed [meraxis.race] pants,
+		#IF(meraxis.isVaginaVirgin())
+			 [meraxis.speech(O-Ok... But I'm... Well, I'm still a virgin, so go easy, ok?)]
+		#ELSE
+			 [meraxis.speech(O-Ok... I was actually hoping that you'd want to fuck my pussy...)]
+		#ENDIF
 	</p>
 	<p>
-		She obediently presents you with her pussy, and after taking your cock out you fuck her.
+		#IF(meraxis.isVaginaVirgin())
+			Telling her that you'll make her first time a memorable one,
+		#ELSE
+			Happy to hear that she's willing to do as you ask,
+		#ENDIF
+		#IF(pc.isTaur())
+			 you tell Meraxis to get down on all fours, and after she's obediently done so, you [pc.step] over the top of her and slap your [pc.cock+] against her naked pussy.
+		#ELSE
+			 you tell Meraxis to get down on all fours, and after she's obediently done so, you drop down behind her and slap your [pc.cock+] against her naked pussy.
+		#ENDIF
+		 Looking back over her shoulder, the [meraxis.race] lifts her hips and pants,
+		#IF(meraxis.isVaginaVirgin())
+			 [meraxis.speech(Come on then... Take my virginity!)]
+		#ELSE
+			 [meraxis.speech(Come on then... Give it to me!)]
+		#ENDIF
+	</p>
+	<p>
+		More than happy to do as she asks, you slide the [pc.cockHead+] of your [pc.cock+] up and down over Meraxis's [meraxis.labia+], before pushing forwards and thrusting your hard shaft into her [meraxis.pussy+]. Letting out a horny squeal, the [meraxis.race] moans, [meraxis.speech(Oh, fuck! ~Aah!~ Yes! Fuck me! Fuck me, [pc.name]!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_SCISSOR"><![CDATA[
 	<p>
-		Tell Meraxis that you're going to scissor with her.
+		Wanting to get right down to it, you expose your [pc.pussy+] and [pc.step] forwards, before telling Meraxis that you want to scissor with her. Furiously blushing as she hears you say this, the embarrassed [meraxis.race] pants, [meraxis.speech(O-Ok... That sounds kind of fun...)]
 	</p>
 	<p>
-		She obediently presents you with her pussy, and after taking your pussy out you start tribbing with her.
+		Happy to hear that she's willing to do as you ask, you tell Meraxis to lie down and present you with her [meraxis.pussy+]. After she's obediently done so, you [pc.step] forwards and drop down to press your own [pc.pussy+] against hers. Letting out a surprised squeal, the [meraxis.race] bites her lip and asks, [meraxis.speech(Am I doing this right?)]
+	</p>
+	<p>
+		Responding in the affirmative, you take hold of Meraxis's leg, before pushing forwards and starting to slide your [pc.clit+] up and down over Meraxis's [meraxis.pussy+]. Remarking on how wet her [meraxis.labia+] feel against your [pc.pussy+], you start enthusiastically scissoring with her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_INTERCRURAL"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and flashes you a dirty grin. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_FUCK"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and looks down at the sloppy mess of sexual fluids that are splattered all over her pussy and upper thighs. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WON_SEX_POST_SCISSOR"><![CDATA[
 	<p>
-		Meraxis takes a moment to recover, then tells you to listen to what she has to say.
+		Panting for breath, Meraxis steps back and looks down at the sloppy mess of girlcum that's splattered all over her pussy and upper thighs. Producing a tissue, she starts cleaning herself up as you set about getting your own things back in order.
 	</p>
 	]]>
 	</htmlContent>

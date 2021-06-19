@@ -200,6 +200,9 @@ public class Cell implements XMLSaving {
 	}
 	
 	public String getWallName() {
+		if(Main.game.isInSex() && Main.sex.getInitialSexManager().getWallName()!=null && !Main.sex.getInitialSexManager().getWallName().isEmpty()) {
+			return Main.sex.getInitialSexManager().getWallName();
+		}
 		return getPlace().getPlaceType().isWallNameOverride()
 				?getPlace().getPlaceType().getWallName()
 				:getType().getWallName();
