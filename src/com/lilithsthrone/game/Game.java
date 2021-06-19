@@ -646,20 +646,6 @@ public class Game implements XMLSaving {
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
 		}
 		
-		// Add all offspringSeed:
-		try {
-			for(OffspringSeed offspringSeed : Main.game.getOffspringSeedMap().values()) {
-				Element offspringSeedNode = doc.createElement("OffspringSeed");
-				game.appendChild(offspringSeedNode);
-				offspringSeed.saveAsXML(offspringSeedNode, doc);
-			}
-		} catch(Exception ex) {
-			System.err.println("offspringSeed saving failed!");
-			ex.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
-		}
-		
-		
 		Map<Document, String> saveFiles = new HashMap<>();
 		List<String> keepFiles = Util.newArrayListOfValues("player.xml"); // Always keep the main file
 		saveFiles.put(doc, "player");
@@ -669,15 +655,11 @@ public class Game implements XMLSaving {
 			String id = "";
 			for(GameCharacter character : Main.game.getNPCMap().values()) {
 				id = character.getId().replace(",", "_");
-				if(!character.getWorldLocation().equals(WorldType.EMPTY) && !character.getLocation().equals(0, 0)
-						|| (character instanceof Elemental && ((Elemental)character).getSummoner()!=null && ((Elemental)character).getSummoner().isElementalSummoned())
-						|| !new File("data/saves/"+exportSaveName+"/"+id+".xml").exists()) {
-					doc = Main.getDocBuilder().newDocument();
-					Element characterNode = doc.createElement("NPC");
-					doc.appendChild(characterNode);
-					character.saveAsXML(characterNode, doc);
-					saveFiles.put(doc, id);
-				}
+				doc = Main.getDocBuilder().newDocument();
+				Element characterNode = doc.createElement("NPC");
+				doc.appendChild(characterNode);
+				character.saveAsXML(characterNode, doc);
+				saveFiles.put(doc, id);
 				keepFiles.add(id+".xml"); // Add .xml for the sake of removeAll
 			}
 		} catch(Exception ex) {
@@ -1052,6 +1034,7 @@ public class Game implements XMLSaving {
 				Map<String, Class<? extends NPC>> npcClasses=new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods=new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors=new ConcurrentHashMap<>();
+				List<String> offspringToBeDeleted = new ArrayList<>();
 				if(npcs.getLength()>0) { // No NPCs found, assume it's a save folder
 					int totalNpcCount=npcs.getLength();
 					IntStream.range(0, totalNpcCount).parallel().mapToObj(i->((Element) npcs.item(i)))
@@ -1078,30 +1061,32 @@ public class Game implements XMLSaving {
 											className=className.replace("Alexa", "Helena");
 										}
 										NPC npc=loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-										//TODO
-//									// In versions prior to v0.3.8.6, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
-//									// This was causing save file bloat, so now they are fully deleted.
-//									if(npc!=null
-//											&& Main.isVersionOlderThan(loadingVersion, "0.3.8.6")
-//											&& (!npc.isUnique()
-//													&& !(npc instanceof Elemental)
-//													&& !(npc instanceof ReindeerOverseer)
-//													&& !(npc instanceof GenericFemaleNPC)
-//													&& !(npc instanceof GenericMaleNPC)
-//													&& !(npc instanceof GenericAndrogynousNPC)
-//													&& !(npc instanceof PrologueFemale)
-//													&& !(npc instanceof PrologueMale)
-//													&& !(npc instanceof NPCOffspring))
-//											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
-//										System.out.println("Deleted NPC: "+npc.getId());
-//
-//									} else
-										if(npc!=null) {
+									//TODO This needs more thorough testing...
+									// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
+									// This was causing save file bloat, so now they are fully deleted.
+									if(npc!=null
+											&& Main.isVersionOlderThan(loadingVersion, "0.4.1")
+											&& (!npc.isUnique()
+													&& !(npc instanceof Elemental)
+													&& !(npc instanceof ReindeerOverseer)
+													&& !(npc instanceof GenericFemaleNPC)
+													&& !(npc instanceof GenericMaleNPC)
+													&& !(npc instanceof GenericAndrogynousNPC)
+													&& !(npc instanceof PrologueFemale)
+													&& !(npc instanceof PrologueMale)
+													&& !(npc instanceof NPCOffspring))
+											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
+										if(npc.getPregnantLitter()!=null) {
+											offspringToBeDeleted.addAll(npc.getPregnantLitter().getOffspring());
+										}
+										System.out.println("Deleted NPC: "+npc.getId());
+
+									} else if(npc!=null) {
 											if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
-													||(npc.getClass()!=DarkSiren.class
-													&&npc.getClass()!=FortressAlphaLeader.class
-													&&npc.getClass()!=FortressMalesLeader.class
-													&&npc.getClass()!=FortressFemalesLeader.class)) {
+													|| (npc.getClass()!=DarkSiren.class
+													&& npc.getClass()!=FortressAlphaLeader.class
+													&& npc.getClass()!=FortressMalesLeader.class
+													&& npc.getClass()!=FortressFemalesLeader.class)) {
 												Main.game.safeAddNPC(npc, true);
 											}
 											
@@ -4575,6 +4560,7 @@ public class Game implements XMLSaving {
 				npc.isUnique()) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
+			
 		} else {
 			removeNPC(npc);
 			return true;
