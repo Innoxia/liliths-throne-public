@@ -61,8 +61,10 @@ public class NPCOffspring extends NPC {
 		
 		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
 		
-		this.setMother(os.getMother());
-		this.setAffection(os.getMother(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		if(os.getMother()!=null) {
+			this.setMother(os.getMother());
+			this.setAffection(os.getMother(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		}
 		
 		if(os.getFather()!=null) {
 			this.setFather(os.getFather());

@@ -496,6 +496,11 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique() && !npc.hasArtwork() && npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN) {
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
+//								}
+//							}
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);

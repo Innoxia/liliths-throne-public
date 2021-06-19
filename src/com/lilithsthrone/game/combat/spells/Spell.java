@@ -3476,7 +3476,7 @@ public enum Spell {
 		
 		for(Spell spell : Spell.values()) {
 			if(!spell.isSpellBook()) { // Only append special spells obtained from weapons & other sources
-				treeSB.append("<div class='container-full-width' style='border:1px solid "+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+"; width:25%; padding:0; margin:0;'>");
+				treeSB.append("<div class='container-full-width' style='border:1px solid "+(character.hasSpell(spell, true)?PresetColour.DAMAGE_TYPE_SPELL:PresetColour.BASE_GREY_DARK).toWebHexString()+"; width:25%; padding:0; margin:0;'>");
 					treeSB.append(appendSpell(character, target, -1, spell, true));
 				treeSB.append("</div>");
 			}

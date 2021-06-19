@@ -3930,6 +3930,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String getNameIgnoresPlayerKnowledge() {
+		if(nameTriplet==null) {
+			return ""; // When initialising a new NPC, this method may be called before the nameTriplet is set, so this is just a catch to avoid a NPE from that
+		}
 		switch(this.getFemininity()) {
 			case MASCULINE_STRONG:
 			case MASCULINE:
@@ -7441,19 +7444,28 @@ public abstract class GameCharacter implements XMLSaving {
 			return false;
 		}
 	}
+
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+		return getSexActionOrgasmOverride(sexAction, target, applyExtraEffects, null);
+	}
 	
 	/**
 	 * Get the overriding behaviour of this character when using a <b>generic</b> orgasm action in sex. (This does <b>not</b> affect custom orgasm scenes!)
 	 * @param sexAction The sex action being used to orgasm.
 	 * @param target The area targeted for orgasm.
 	 * @param applyExtraEffects True if extra effects should be applied, false if not.
+	 * @param description The base description which should be used. If null, uses GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target)
 	 * @return SexActionOrgasmOverride class, for use in GenericOrgasms class.
 	 */
-	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects, String description) {
 		return new SexActionOrgasmOverride(false) {
 				@Override
 				public String getDescription() {
-					return GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target);
+					if(description == null) {
+						return GenericOrgasms.getGenericOrgasmDescription(sexAction, GameCharacter.this, target);
+					} else {
+						return description;
+					}
 				}
 				@Override
 				public void applyEffects() {
@@ -19558,13 +19570,21 @@ public abstract class GameCharacter implements XMLSaving {
 			// Remove offspring if not related to the player:
 			if(!this.isPlayer() && (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
 				for(String os : birthedLitter.getOffspring()) {
-					Main.game.removeOffspringSeed(os);
+					if(os.contains("NPCOffspring")) {
+						Main.game.removeNPC(os);
+					} else {
+						Main.game.removeOffspringSeed(os);
+					}
 				}
 			}
 			
 		} else {
 			for(String os : pregnantLitter.getOffspring()) {
-				Main.game.removeOffspringSeed(os);
+				if(os.contains("NPCOffspring")) {
+					Main.game.removeNPC(os);
+				} else {
+					Main.game.removeOffspringSeed(os);
+				}
 			}
 		}
 		
@@ -21227,6 +21247,15 @@ public abstract class GameCharacter implements XMLSaving {
 //			return inventoryFullText() + droppedItemText(item, count);
 //		}
 //	}
+
+	/**
+	 * Adds 1 instance of the item, does not remove from floor, and appends text to the event log if this character is the player.
+	 * @param item The item to add to this character's inventory.
+	 * @return A description of the item being added.
+	 */
+	public String addItem(AbstractItem item) {
+		return addItem(item, 1, false, this.isPlayer());
+	}
 	
 	public String addItem(AbstractItem item, boolean removingFromFloor) {
 		return addItem(item, 1, removingFromFloor, false);
@@ -26033,6 +26062,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return setBreastRows(getBreastRows() + increment);
 	}
 	// Lactation:
+	public boolean isLactating() {
+		return this.getBreastRawMilkStorageValue()>0;
+	}
 	public Lactation getBreastMilkStorage() {
 		if(!Main.game.isLactationContentEnabled()) {
 			return Lactation.ZERO_NONE;
@@ -28196,6 +28228,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return body.getPenis().getTesticle().getRawCumExpulsionValue();
 	}
+	/** As a percentage from 0 -> 100. */
 	public String setPenisCumExpulsion(int percentage) {
 		return body.getPenis().getTesticle().setCumExpulsion(this, percentage);
 	}

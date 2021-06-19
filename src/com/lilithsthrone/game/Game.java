@@ -109,6 +109,8 @@ import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
 import com.lilithsthrone.game.character.npc.fields.Flash;
 import com.lilithsthrone.game.character.npc.fields.Jess;
+import com.lilithsthrone.game.character.npc.fields.LunetteMelee;
+import com.lilithsthrone.game.character.npc.fields.LunetteRanged;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.misc.*;
@@ -167,9 +169,11 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
+import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
+import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -641,6 +645,20 @@ public class Game implements XMLSaving {
 			System.err.println("playerCharacter saving failed!");
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
 		}
+		
+		// Add all offspringSeed:
+		try {
+			for(OffspringSeed offspringSeed : Main.game.getOffspringSeedMap().values()) {
+				Element offspringSeedNode = doc.createElement("OffspringSeed");
+				game.appendChild(offspringSeedNode);
+				offspringSeed.saveAsXML(offspringSeedNode, doc);
+			}
+		} catch(Exception ex) {
+			System.err.println("offspringSeed saving failed!");
+			ex.printStackTrace();
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
+		}
+		
 		
 		Map<Document, String> saveFiles = new HashMap<>();
 		List<String> keepFiles = Util.newArrayListOfValues("player.xml"); // Always keep the main file
@@ -1153,6 +1171,28 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				for(String os : offspringToBeDeleted) {
+					try {
+						if(os.contains("NPCOffspring")) {
+							NPC npc = (NPC) Main.game.getNPCById(os);
+							if(npc!=null &&
+									(npc.getMother()==null || npc.getMother()!=null && !npc.getMother().isPlayer()) &&
+									(npc.getFather()==null || npc.getFather()!=null && !npc.getFather().isPlayer()) &&
+									(npc.getIncubator()==null || npc.getIncubator()!=null && !npc.getIncubator().isPlayer())) {
+								Main.game.removeNPC(os);
+							}
+						} else {
+							OffspringSeed offspringSeed = Main.game.getOffspringSeedById(os);
+							if(offspringSeed!=null && !offspringSeed.isFromPlayer()) {
+								Main.game.removeOffspringSeed(os);
+							}
+						}
+						System.out.println("Deleted offspring: "+os);
+					} catch (Exception e) {
+						System.out.println("Error when deleting offspring: "+os);
+					}
+				}
+				
 				if(debug) {
 					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
@@ -1188,8 +1228,7 @@ public class Game implements XMLSaving {
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
 					for(NPC npc: Main.game.getAllNPCs()) {
 						if(npc instanceof NPCOffspring &&
-								(npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL ||
-								 npc.getWorldLocation()==WorldType.EMPTY)) {
+								npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
 							// remove this npc and replace with offspringSeed
 							new OffspringSeed(npc);
 						}
@@ -4412,6 +4451,36 @@ public class Game implements XMLSaving {
 		return (npcTally.incrementAndGet())+","+c.getSimpleName();
 	}
 
+	/**
+	 * Generates and instantly adds a new NPC of the type 'npcGenerationId'.
+	 * The game does not wait until the NPC Update Loop has finished, and will immediately add this NPC.
+	 *
+	 * @param npcGenerationId The ID of the NPC class to spawn.
+	 * @param parserTarget The parser id to assign to this NPC, which can then be used in the parsing engine. Pass in an empty String or a null to not assign a parserTarget to this NPC.
+	 * @return The ID of the NPC which is spawned as a result of calling this method.
+	 */
+	public String addNPC(String npcGenerationId, String parserTarget) throws Exception {
+		//TODO add npcGenerationId map
+		boolean forceImmediateAddition = true; // TODO this may need testing, but I'm 99% sure that immediate addition will be fine, and it should prevent potential issues with NPC removal when resting/loitering for multiple hours at a time
+		
+		NPC npc = null;
+		if(npcGenerationId.equalsIgnoreCase("LunetteMelee")) {
+			npc = new LunetteMelee();
+		} else if(npcGenerationId.equalsIgnoreCase("LunetteRanged")) {
+			npc = new LunetteRanged();
+		}
+		if(npc!=null) {
+			String idGenerated = addNPC(npc, false, forceImmediateAddition);
+			if(parserTarget!=null && !parserTarget.isEmpty()) {
+				ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+			}
+			return idGenerated;
+		}
+		System.err.println("Failed to add NPC: "+npcGenerationId);
+		new Exception().printStackTrace();
+		return "";
+	}
+	
 	// Alaco : Methods in lambdas can't throw exceptions, so we have to wrap addNPC
 	public String safeAddNPC(final NPC npc, boolean isImported) {
 		String id = "";
@@ -4495,13 +4564,15 @@ public class Game implements XMLSaving {
 			}
 		}
 		
-		// TODO Actually delete them
-		if(Main.game.getPlayer().hasSexCountWith(npc)
-				|| npc.getPregnantLitter()!=null
-				|| npc.getLastLitterBirthed()!=null
-				|| npc.getMother()!=null
-				|| npc.getFather()!=null
-				|| npc.isUnique()) {
+		// TODO This needs more thorough testing...
+		if(
+//				Main.game.getPlayer().hasSexCountWith(npc)
+//				|| npc.getPregnantLitter()!=null
+//				|| npc.getLastLitterBirthed()!=null
+//				|| npc.getMother()!=null
+//				|| npc.getFather()!=null
+//				||
+				npc.isUnique()) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
 		} else {
@@ -4537,7 +4608,8 @@ public class Game implements XMLSaving {
 		
 		npc.resetFluidsStored();
 		if(npc.isPregnant()) {
-			npc.endPregnancy(false);
+			// End with birth if father is player
+			npc.endPregnancy(npc.getPregnantLitter().getFather()!=null && npc.getPregnantLitter().getFather().isPlayer());
 			
 		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
 			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
@@ -4555,6 +4627,7 @@ public class Game implements XMLSaving {
 		} else {
 			npc.getCell().removeCharacterPresentId(npc.getId());
 			npc.getHomeCell().removeCharacterHomeId(npc.getId());
+			ParserTarget.removeAdditionalParserTarget(npc);
 			NPCMap.remove(npc.getId());
 		}
 	}
@@ -4679,6 +4752,13 @@ public class Game implements XMLSaving {
 	}
 	
 	/**
+	 * For use in external res files as a way to get a hook to UtilText.parse
+	 */
+	public String forceParse(String content) {
+		return UtilText.parse(content);
+	}
+	
+	/**
 	 * For use in external res files as a way to get a hook to UtilText.addSpecialParsingString
 	 */
 	public void addSpecialParsingString(String content, boolean clearListBeforeAdding) {
@@ -4691,7 +4771,13 @@ public class Game implements XMLSaving {
 	public void clearSpecialParsingStrings() {
 		UtilText.clearSpecialParsingStrings();
 	}
-	
+
+	/**
+	 * For use in external res files as a way to get a hook to Main.mainController.openInventory
+	 */
+	public void openInventoryDialogue(NPC target, InventoryInteraction interactionType) {
+		Main.mainController.openInventory(target, interactionType);
+	}
 	
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;

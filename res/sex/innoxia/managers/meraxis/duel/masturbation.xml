@@ -46,6 +46,11 @@
 		e.g.: <title><![CDATA[Woodland Sex]]></title> -->
 	<title/>
 	
+	<!-- You can optionally override the name of walls in this sex scene by defining a value here.
+		It should not be capitalised unless a proper noun.
+		e.g.: <title><![CDATA[tree]]></title> -->
+	<wallName/>
+	
 	<!-- Whether or not this sex scene is a consensual one between the dominant and submissive partner(s).
 		OPTIONAL: Default true
 		PARSER: Initial -->
@@ -214,22 +219,20 @@
 			<!-- Areas which should be exposed at the start of this sex scene, defined as CoverableAreas.
 				Obviously, if 'startNaked' is defined as true, then this section is not needed.
 				Clothing will be displaced in order to reveal the defined areas, unless you set the 'preferRemoval' attribute to be true, in which case clothing will be removed instead of displaced.
-				Example:
-					<exposeAtStart preferRemoval="false">
-						<coverableArea><![CDATA[
-							#IF(pc.hasPenis())
-								PENIS
-							#ENDIF
-						]]></coverableArea>
-						<coverableArea><![CDATA[
-							#IF(pc.hasVagina())
-								VAGINA
-							#ENDIF
-						]]></coverableArea>
-					</exposeAtStart>
 				OPTIONAL: Default no areas will be exposed at the start
 				PARSER: Initial -->
-			<exposeAtStart/>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[
+					#IF(pc.hasPenis())
+						PENIS
+					#ENDIF
+				]]></coverableArea>
+				<coverableArea><![CDATA[
+					#IF(pc.hasVagina())
+						VAGINA
+					#ENDIF
+				]]></coverableArea>
+			</exposeAtStart>
 			
 			<!-- The partners which this character is banned from forcing to creampie them, via leg-locking, hug-locking, or any other similar method.
 				i.e. This character will be unable to force the characters defined in this element to creampie them.

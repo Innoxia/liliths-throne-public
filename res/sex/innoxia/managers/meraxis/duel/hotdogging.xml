@@ -10,6 +10,7 @@
 	<exposingReactions><![CDATA[false]]></exposingReactions>
 	<positionsAvailable exclusive="false">
 		<position><![CDATA[AGAINST_WALL]]></position>
+		<position><![CDATA[ALL_FOURS]]></position>
 	</positionsAvailable>
 	<publicSex>
 		<isPublic><![CDATA[false]]></isPublic>
@@ -23,6 +24,7 @@
 				<slot><![CDATA[AGAINST_WALL_STANDING_WALL]]></slot>
 			</slotsAvailable>
 			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			<sexPace locked="false"><![CDATA[DOM_NORMAL]]></sexPace>
@@ -99,6 +101,8 @@
 			<stopSexCondition><![CDATA[
 				#IF(!meraxis.hasFetish(FETISH_ANAL_RECEIVING))
 					[#sex.isOrgasmCountMet(pc, 1, true)]
+				#ELSE
+					[#sex.isSatisfiedFromOrgasms(pc, true) && sex.isSatisfiedFromOrgasms(meraxis, true)]
 				#ENDIF
 			]]></stopSexCondition>
 			<dirtyTalk/>
