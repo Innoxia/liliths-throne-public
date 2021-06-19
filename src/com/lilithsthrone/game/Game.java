@@ -2767,11 +2767,9 @@ public class Game implements XMLSaving {
 						
 						pastDialogueSB.setLength(0);
 					}
-					dialogueParsed = !node.isContentParsed() ? content : UtilText.parse(
-									corruptionGains
-									+ textStartStringBuilder.toString()
-									+ content
-									+ textEndStringBuilder.toString());
+					dialogueParsed = UtilText.parse(corruptionGains + textStartStringBuilder.toString())
+						+ (node.isContentParsed() ? UtilText.parse(content) : content)
+						+ UtilText.parse(textEndStringBuilder.toString());
 					if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
 						dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
 					}
