@@ -1148,16 +1148,25 @@ public class Game implements XMLSaving {
 					Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
 				}
 				
+				if(debug) {
+					System.out.println("OffspringSeed finished: "+ (System.nanoTime()-time)/1000000000d);
+				}
+				
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.1.0")) {
 					for(NPC npc: Main.game.getAllNPCs()) {
 						if(npc instanceof NPCOffspring &&
-								npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
+						   npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL &&
+						   npc.getHomeLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
 							// remove this npc and replace with offspringSeed
 							new OffspringSeed(npc);
 						}
 					}
 				}
 				
+				if(debug) {
+					System.out.println("Convert NPC finished: "+ (System.nanoTime()-time)/1000000000d);
+				}
+
 				// Add in new NPCS:
 				Main.game.initUniqueNPCs();
 				
