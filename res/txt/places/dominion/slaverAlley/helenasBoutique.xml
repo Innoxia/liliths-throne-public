@@ -1345,7 +1345,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_DISCUSSION"><![CDATA[
 	<p>
-		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I actually wanted to ask your opinion on something...)]
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair and letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I actually wanted to ask your opinion on something...)]
 	</p>
 	<p>
 		Wondering what that could be, you watch as the raven-harpy produces a small bottle of what looks like a transformative potion, and after she's placed it down on the table in front of her, you listen attentively as she explains,
@@ -1367,7 +1367,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_DISCUSSION_REPEAT"><![CDATA[
 	<p>
-		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I've still got that potion Helena gave to me...)]
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair and letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I've still got that potion Helena gave to me...)]
 	</p>
 	<p>
 		Before you can offer a reply, the harpy produces the same small bottle of transformative potion that she showed you before, and after she's placed it down on the table in front of her, she asks,
@@ -1385,7 +1385,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_APPLIED"><![CDATA[
 	<p>
-		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she flashes you a cheeky grin and comments,
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair and letting out a huge burp, she flashes you a cheeky grin and comments,
 		#IF(scarlett.hasPenis())
 			 [scarlett.speech(You know, [pc.name], ever since you convinced me to take that potion, my big cock's always desperate for attention. How about you take responsibility for getting me to transform myself and give me a quick handjob?)]
 		#ELSE
@@ -1522,7 +1522,7 @@
 		#IF(scarlett.hasPenis())
 			 you wrap your [pc.fingers+] around the raven-harpy's erect cock and start jerking her off under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to give her a handjob...
 		#ELSE
-			 you slide your [pc.fingers+] up an down over the raven-harpy's [scarlett.labia+], before pushing them into her wet pussy and starting to finger her under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to stimulate her horny cunt...
+			 you slide your [pc.fingers+] up and down over the raven-harpy's [scarlett.labia+], before pushing them into her wet pussy and starting to finger her under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to stimulate her horny cunt...
 		#ENDIF
 	</p>
 	]]>

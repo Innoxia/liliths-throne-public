@@ -376,6 +376,15 @@ public abstract class AbstractStatusEffect {
 	}
 	
 	/**
+	 * If set to return true, this status effect will always be loaded from a saved file, regardless of whether or not it has no remaining time set.
+	 * This is only really used for status effects that will be superseded by other effects which have their isConditionsMet() method checked first.
+	 * At the time of creation, this method is only used for CHASTITY_4.
+	 */
+	public boolean forceLoad() {
+		return false;
+	}
+	
+	/**
 	 * This method id called once when the target initially gains this status effect.
 	 * @param target
 	 * @return A String describing any effects which are applied when the target first gains this StatusEffect.
@@ -1057,6 +1066,9 @@ public abstract class AbstractStatusEffect {
 			case ASS:
 				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
 				break;
+			case ARMPITS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaArmpits()+"</div>");
+				break;
 			case BREAST:
 				if(owner.hasBreasts()) {
 					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts()+"</div>");
@@ -1113,6 +1125,9 @@ public abstract class AbstractStatusEffect {
 				break;
 			case ASS:
 				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss()+"</div>");
+				break;
+			case ARMPITS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaArmpits()+"</div>");
 				break;
 			case BREAST:
 				if(owner.hasBreasts()) {

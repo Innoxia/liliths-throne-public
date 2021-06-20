@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <item>
 	<coreAttributes>
-		<value>200</value> 
+		<value>100</value> 
 		<determiner><![CDATA[a thermo cup of]]></determiner>
 		<name><![CDATA[Chamomile Tea]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Chamomile Teas]]></namePlural>

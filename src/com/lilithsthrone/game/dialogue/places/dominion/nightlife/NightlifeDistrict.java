@@ -46,7 +46,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
@@ -468,7 +467,7 @@ public class NightlifeDistrict {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(!isClubOpen(0)) {
-					return new Response("Watering Hole", "The nightclub, 'The Watering Hole', is currently closed. A sign by the entrance informs you that it's open from 19:00-05:00 every night.", null);
+					return new Response("Watering Hole", UtilText.parse("The nightclub, 'The Watering Hole', is currently closed. A sign by the entrance informs you that it's open from [unit.time(19)]-[unit.time(05)] every night."), null);
 				} else {
 					return new Response("Watering Hole", "The nightclub, 'The Watering Hole', is currently open. You could enter if you wanted to.", WATERING_HOLE_ENTRANCE) {
 						@Override
@@ -3628,7 +3627,7 @@ public class NightlifeDistrict {
 				return new ResponseSex("Use glory hole", UtilText.parse(characters.get(0), "Do as [npc.name] says and step up to the glory hole."),
 						true, false,
 						new SMGloryHole(
-								SexPositionUnique.GLORY_HOLE,
+								SexPosition.GLORY_HOLE,
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
 								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_KNEELING))) {
 							@Override
@@ -3703,7 +3702,7 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (close door)", "Close the door, affording yourself some privacy as you start to service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								SexPositionUnique.GLORY_HOLE,
+								SexPosition.GLORY_HOLE,
 								Util.newHashMapOfValues(
 										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
 										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)),
@@ -3724,7 +3723,7 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (public view)", "Leave the door open, so that everyone in the toilets can watch as you service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								SexPositionUnique.GLORY_HOLE,
+								SexPosition.GLORY_HOLE,
 								Util.newHashMapOfValues(
 										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
 										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)),

@@ -332,7 +332,7 @@
 	</p>
 	<p>
 		As the cat-boy hurries past you with an apprehensive look on his face, Elle's attention is suddenly drawn to you.
-		#IF(pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent))
+		#IF(pc.hasStatusEffect(SE_dsg_set_hlf_regular) || pc.hasStatusEffect(SE_dsg_set_hlf_insurgent))
 		 She glances over your salvaged gear and immediately tenses up. Her hands glow with arcane power before her gleaming pink eyes fix themselves on your face. She studies you intently for a brief moment and, apparently deciding that you're more of a curiosity than a threat, relaxes while the spell she was preparing fades. She takes a more causal stance, waiting for you to approach.
 		 [##game.getDialogueFlags().setFlag(FLAG_rebelBaseElleCostumeEncountered)]
 		#ELSE
@@ -341,7 +341,7 @@
 		 Realising that you're past the point of no return, you make your move and [pc.walk] over to where Elle is waiting for you.
 	</p>
 	<p>
-		#IF(pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent))
+		#IF(pc.hasStatusEffect(SE_dsg_set_hlf_regular) || pc.hasStatusEffect(SE_dsg_set_hlf_insurgent))
 			#IF(game.getDateNow().getMonthValue()==10)
 			[elle.speech(Nice costume,)] she says with a wry smirk on her face, [elle.speech(So, who are you?)]
 			#ENDIF
@@ -351,7 +351,6 @@
 		[elle.speech(So, who are you?)] she bluntly asks.
 		#ENDIF
 		 You can tell both from her tone of voice and from her curious gaze that she's deciding whether to treat you in a seductive or hostile manner.
-		
 	</p>
 	<p>
 		After simply telling her your name, Elle displays her quick-thinking by immediately responding, [elle.speech(So <i>you're</i> [pc.name]. Yes, I know about you. I read the report on the pacification of the Harpy Nests, and, if I may say so, you did a most excellent job up there.)]
@@ -500,7 +499,7 @@
 	</p>
 	<p>
 		[elle.speech(Oh, I didn't realise you were back!)] the familiar voice of Elle replies from somewhere within the maze of shelving units which fill the vast storage area behind the counter. A moment later, the [elle.race] steps into view, and you see that while she looks just as she did the last time you saw her, she's now wearing a metal slave collar and slutty fancy-dress Enforcer uniform. Catching sight of you waiting behind the counter,
-		#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent)))
+		#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_dsg_set_hlf_regular) || pc.hasStatusEffect(SE_dsg_set_hlf_insurgent)))
 			 her eyes narrow for an instant as she glances over your salvaged gear and arcane power briefly flashes over her hands before she decides you're no threat after all and relaxes. [elle.speech(What's this, Wes?] the horny slave remarks,)]
 			#IF(game.getDateNow().getMonthValue()==10)
 			 [elle.speech(You've finally brought me someone to fuck other than you? And my, does [pc.she] have a peculiar taste in costumes.)]
@@ -570,7 +569,7 @@
 	<htmlContent tag="INTRO_HQ_ELLE_ARRIVE"><![CDATA[
 	<p>
 		Thankfully, you aren't kept waiting long, as less than five minutes after you've entered the waiting area, the familiar figure of Elle appears from out of the guarded door on the far side of the room. Looking around and catching sight of you,
-		#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent)))
+		#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_dsg_set_hlf_regular) || pc.hasStatusEffect(SE_dsg_set_hlf_insurgent)))
 			 her eyes narrow for an instant as she glances over your salvaged gear before she recognises you. She grins wryly at you, before beckoning you forwards and calling out,
 			#IF(game.getDateNow().getMonthValue()==10)
 			 [elle.speech(Nice costume. Please, come right this way!)]
@@ -694,7 +693,7 @@
 		</p>
 		<p>
 			Stepping up to the counter, the [elle.race] puts on her most seductive look, before teasing,
-			#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_set_hlf_regular) || pc.hasStatusEffect(SE_set_hlf_insurgent)))
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_dsg_set_hlf_regular) || pc.hasStatusEffect(SE_dsg_set_hlf_insurgent)))
 			 [elle.speech(You caught me in the middle of disciplining my slave...)] Her voice trails off as she notices your salvaged gear and her face shifts into a suspicious expression for an instant shifting right back.
 				#IF(game.getDateNow().getMonthValue()==10)
 					#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)

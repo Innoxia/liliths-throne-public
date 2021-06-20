@@ -41,7 +41,7 @@
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				A soothing wave of pure energy washes over [npc.name]...
 			</p>
-			#IF(npc.getLust()>npc.getRestingLust)
+			#IF(npc.getLust()>npc.getRestingLust())
 				[#npc.setLust(npc.getRestingLust())]
 			#ENDIF
 			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_LUST, 50)]

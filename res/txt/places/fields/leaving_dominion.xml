@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		For the first time since arriving in this altered reality, you find yourself needing to leave the city of Dominion and venture out into the other parts of what is known as Lilith's Realm. The wide boulevards which lead to the very centre of Dominion offer the easiest way to leave the city, and so with the aim of travelling to Elis, you make use of one of these roadways and set out on your journey.
+	</p>
+	<p>
+		It doesn't take long before you notice your surroundings changing, and after just ten minutes of travel the large, imposing buildings of the city centre have been left well and truly behind. Low density residential and commercial structures now line the sides of the streets, with many of them separated from the road by means of gardens or parking for centaur-drawn carriages. The density of the population also drastically decreases the further away from Dominion you travel, until you're left as one of only a handful of people who're out and about.
+	</p>
+	<p>
+		While a city from your old reality would sprawl over many miles in all directions, Dominion's suburbs are surprisingly small, and it only takes you fifteen minutes since leaving the centre before you catch your first glimpse of open fields. A further few minutes of [pc.walking] later and there are only small clusters of housing to be seen in amongst these large tracts of arable land.
+	</p>
+	<p>
+		Reaching a crossroads just a short way out of the city, you see a handy signpost pointing in the direction of Elis. Although you'd made sure of your route beforehand, it's reassuring to see that you're on the right track, but it's not the name of your destination which catches your attention and causes you to stop. Nailed into the wooden post before you, an advertisement of sorts declares:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+			<b>Centaur Carriages Available!</b>
+			<br/>Tired of walking all the way to Elis? Then stop on by the Centaur Carriage Depot!
+			<br/>Replace your hours-long trek with a smooth and speedy centaur ride for prices as low as a hundred flames!
+			<br/>Follow the yellow arrows to find us; we're only a five minute walk away!
+		</i>
+	</p>
+	<p>
+		Due to the fading of its letters and the moss growing on the top of it, you can tell that this sign has been exposed to the elements for quite a few years. Although there's the risk that this 'Centaur Carriage Depot' is no longer in operation, there'd be nothing to lose by taking a short detour to see if it's still running. After all, even if you're not interested in making use of a carriage right now, it would still be good to know what options are available for any future travel arrangements you might need to make.
+	</p>
+	<p>
+		Following the faded yellow arrows positioned beside the road, you set off north to see what you can find...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOVING_NORTH"><![CDATA[
+	<p>
+		Just as the sign promised, it only takes five minutes of [pc.walking] before you see your promised destination, which takes the form of a pair of long, wooden barns that flank both sides of the road, with a sign suspended between them bearing the words 'Centaur Carriage Depot'. Although these buildings are still a couple more minutes of [pc.walking] away, you can already see from this distance that the depot has seen better days, with the roof of one of the barn-like structures looking to have half-collapsed.
+	</p>
+	<p>
+		Having already come this far, you decide to finish your journey and take a closer look at the depot. Before reaching the buildings, however, the road you're on cuts through a small, dense thicket. As you reach this cluster of trees and bushes, you suddenly sense a malevolent presence which sends a chill
+		#IF(pc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 down your spine.
+		#ELSE
+			 through your [pc.bodyMaterial].
+		#ENDIF
+	</p>
+	<p>
+		 Preparing yourself for a possible ambush, you take on a defensive posture and get ready for a fight. Just as you thought, there does indeed seem to be someone nearby, for the bushes just up ahead start to rustle and move, before a shadowy figure begins to emerge!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS"><![CDATA[
+	<p>
+		[meraxis.speech(Mwhahaha! As expected of my nemesis! You were able to detect my dark, devious deception, but that will- ~Aah!~)] the familiar voice of Meraxis calls out, followed by a high-pitched cry as her cloak gets snagged on the bushes and causes her to unceremoniously tumble down onto all fours before you.
+	</p>
+	<p>
+		[meraxis.speech(P-Pretend that you didn't see that!)] she stutters as she hastily stands up and brushes the dirt off of her dress. This momentary pause in proceedings allows you to take note of the fact that Meraxis is once again wearing her 'dark siren' costume, complete with witch's hat, flowing cape, and purple-and-black striped stockings and gloves.
+		#IF(siren.isVisiblyPregnant())
+			 At that moment you suddenly notice that she's using one hand to cradle her conspicuously-swollen belly, and as she sees what it is you're looking at, she sighs,
+			#IF(!siren.isCharacterReactedToPregnancy(pc))
+				#IF(siren.getPregnantLitter().getFather().equals(pc))
+					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore!)]
+				#ELSE
+					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, mommy ended up getting her own daughter pregnant... I <i>knew</i> she was gonna get me knocked up... I-I'm no less capable like this, by the way! I could still annihilate you with ease!)]
+					#ENDIF
+				#ENDIF
+			#ELSE
+				#IF(siren.getPregnantLitter().getFather().equals(pc))
+					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... B-But this doesn't mean you're not my nemesis anymore!)]
+				#ELSE
+					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to mommy... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers!)]
+					#ENDIF
+				#ENDIF
+			#ENDIF
+		#ELSE
+			 As she clearly doesn't present any threat, you lower your guard and ask the [meraxis.race] if she's ok.
+		#ENDIF
+	</p>
+	#IF(siren.isVisiblyPregnant())
+		<p>
+			Ignoring her idle threat, and concerned that her fall might have hurt her in some way, you ask the [meraxis.race] if she's ok.
+		</p>
+	#ENDIF
+	<p>
+		[meraxis.speech(O-Of course I'm ok!)] she exclaims, before regaining her composure by striking a heroic pose and laughing, [meraxis.speech(Mwhahaha! You have foiled my most devious plans for an ambush, so in return I shall spare your life! Just let it be known that I was but seconds away from unleashing...)] at this moment the chuuni [meraxis.race] awkwardly pauses mid-sentence to change her pose, before smirking and exclaiming, [meraxis.speech(...the ultimate spell; cascade of cataclysm! Mwhahaha!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_QUESTION"><![CDATA[
+	<p>
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Being suitably impressed by the excellent name for Meraxis's ultimate spell, you strike a suitable counter-pose and declare, [pc.speech(Your ruinous powers shall not triumph this day! Now, reveal your dark secrets to me; why has Lyssieth released you from your bonds?)]
+		#ELSE
+			Trying your best to endure Meraxis's ridiculous display, you attempt to find out what she's doing here by asking her why Lyssieth has allowed her to leave her palace.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(Mommy said I wasn't grounded any more, so-)] Meraxis instinctively replies, before shaking her head and correcting herself, [meraxis.speech(I-I mean, I was able to shatter the dark bindings which my devious mother placed upon me, and being suitably impressed by my display of awesome power, she gave me a most vital task to perform!)]
+	</p>
+	<p>
+		Stopping there, Meraxis waits for you to respond, and upon realising that she's going to just stand in silence until promoted to continue, you ask the [meraxis.race] what task she's been given to perform. Letting out another of her theatrical laughs, she continues, [meraxis.speech(Mwhahaha! My task is to provide you with assistance once you're in Elis! I wove the strands of fate so as to meet you before you got into the fields, however, as I must convey a grave warning. Now listen very carefully, for I shall say this only once!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_INFO"><![CDATA[
+	<p>
+		[meraxis.speech(First, the dark power of arcane storms doesn't affect people very strongly out here away from the city's centre, so you don't need to worry about getting attacked by horny strangers during an arcane storm. That doesn't mean that you're safe, however; far from it!)] Meraxis exclaims, before taking on a more sombre, serious tone and warning, [meraxis.speech(Mommy was right about how bad things have become out in the fields... I was last out here several years ago, and at that time Lunette's raiding was only done on a small scale. Mommy thinks that the merging of the old Lunette into the one of this reality was what made things change, but whatever the case may be, it's a complete wasteland out here now...)]
+	</p>
+	<p>
+		The two barns of the Centaur Carriage Depot are within sight through the trees, and Meraxis points to them as she continues, [meraxis.speech(When I was here last there were a dozen or so carriage businesses operating out of there. Now there's just the one, and it doesn't look like they ever get any customers. The villages scattered throughout the fields are like that too; Lunette's centaurs have torn or burnt down most of them, and they treat anyone they find travelling through the fields as their prey. It's far worse than I thought it'd be...)]
+	</p>
+	<p>
+		Shaking her head so as to clear her mind of the depressing chain of thought she's on, Meraxis continues, [meraxis.speech(Anyway, you shouldn't treat these centaurs lightly; they're extremely aggressive and dangerous, and you need to be careful when crossing the fields! I wouldn't want my nemesis being defeated by some oversized ponies!)]
+	</p>
+	<p>
+		As you thank Meraxis for the warning, she holds up her hand in a gesture to silence you. Before you can make an objection to her behaviour, the chuuni [meraxis.race] performs some kind of matter-manipulation spell and seemingly pulls her huge scythe from out of mid-air. Pointing the arcane-bladed weapon at you, she declares, [meraxis.speech(Now that that's out of the way, the two of us shall duel! Prepare yourself, my nemesis, for I shall surely defeat you today!)]
+	</p>
+	<p>
+		While she clearly wants to fight, you're sure that a simple 'no' will be enough to make Meraxis back down. Then again, if you think you have what it takes to beat her, you could always accept her offer of a duel...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_NO_DUEL"><![CDATA[
+	<p>
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Knowing that you're the superior combatant, and therefore having no need to prove yourself to anyone, you refuse Meraxis's challenge by striking an extremely impressive, heroic pose and coolly stating, [pc.speech(You'd need to be a lot stronger before I'd considering duelling you. My supreme powers would destroy you in an instant!)]
+		#ELSE
+			You really don't want to waste any time playing along with Meraxis and engaging her in combat, and so let her down by truthfully stating that you have neither the time nor inclination to duel her.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(Eugh... Fine...)] Meraxis sighs, before pouting at you and performing another spell to make her scythe disappear into thin air. Placing her hands on her hips, Meraxis shifts her facial expression into a smug smirk, before gloating, [meraxis.speech(I don't need to prove myself anyway, I know that I'm the most powerful, and so does mommy. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_END"><![CDATA[
+	<p>
+		Sensing that Meraxis is about to show off her knowledge of how to teleport, you quickly say goodbye to her. With her grand exit interrupted by your farewell, Meraxis pouts a little and awkwardly replies, [meraxis.speech(Oh, yes, well, goodbye to you too, [pc.name]. I-I mean, farewell, my nemesis! We shall meet once more at Elis!)]
+	</p>
+	<p>
+		With that, Meraxis casts her teleportation spell, and in a flash of purple light she disappears from sight, leaving you with little else to do except continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Dialogue for post-duel when leaving dominion: -->
+	
+	<htmlContent tag="BACK_OUT"><![CDATA[
+	<p>
+		Not liking the idea of being transformed if you were to lose the duel, you tell Meraxis that you've had a change of mind and don't want to fight her after all.
+	</p>
+	<p>
+		[meraxis.speech(Eugh... Fine...)] Meraxis sighs, before pouting at you and performing another spell to make her scythe disappear into thin air. Placing her hands on her hips, Meraxis shifts her facial expression into a smug smirk, before gloating, [meraxis.speech(I don't need to prove myself anyway, I know that I'm the most powerful, and so does mommy. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_END"><![CDATA[
+	<p>
+		After continuing to gloat in this manner for a few more moments, Meraxis takes a step back and places her hands on her hips, before revealing, [meraxis.speech(I didn't even need to prove myself by winning that duel; I know that I'm the most powerful, and so does mommy. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOST_END_SPIT"><![CDATA[
+	<p>
+		After continuing to shout at you in this manner for a few more moments, Meraxis takes a step back and places her hands on her hips, before sighing, [meraxis.speech(I'm disappointed in you, my nemesis. This is exactly why mommy trusts me with forbidden spells and not you. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_NO_TF"><![CDATA[
+	<p>
+		Doing as you're asked, you listen as Meraxis places her hands on her hips and reveals, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful, and so does mommy. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONEY_END"><![CDATA[
+	<p>
+		Doing as you're asked, you listen as Meraxis places her hands on her hips and reveals, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful, and so does mommy. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRANSFORMATION_END"><![CDATA[
+	<p>
+		Doing as you're asked, you listen as Meraxis places her hands on her hips and reveals, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful, and so does mommy. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- End sex: -->
+	
+	<htmlContent tag="POST_SEX_END"><![CDATA[
+	<p>
+		Still furiously blushing, Meraxis places her hands on her hips and reveals, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful, and so does mommy. After all, she taught me how to teleport!)] 
+	</p>
+	<p>
+		Interpreting the look on your face as one of awe, Meraxis lets out another of her loud laughs and declares, [meraxis.speech(Mwhahaha! Yes, I <i>am</i> the greatest, aren't I? Anyway, I shall be departing for Elis now. Once you arrive, you'll be able to find me at 'The Red Dragon' tavern; it's close to the eastern gate. Mommy tasked me with securing you accommodation and a meeting with Minotallys, so come and find me as soon as you arrive and I'll get things sorted for you. Now, witness my power!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

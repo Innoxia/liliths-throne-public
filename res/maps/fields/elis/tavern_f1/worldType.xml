@@ -5,6 +5,7 @@
 	<colour>BASE_RED</colour>
 	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
 	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
 	<loiteringEnabled>true</loiteringEnabled>
 	<flightEnabled>false</flightEnabled>
 	<visibleFromStart>true</visibleFromStart>
@@ -22,5 +23,7 @@
 		<place colour="#004080">innoxia_fields_elis_tavern_f1_room_owner</place>
 		<place colour="#ff9cff">innoxia_fields_elis_tavern_f1_room_sex</place>
 		<place colour="#8000ff">innoxia_fields_elis_tavern_f1_room_meraxis</place>
+		<place colour="#ffff00">innoxia_fields_elis_tavern_f1_room_player</place>
+		
 	</places>
 </worldType>

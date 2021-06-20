@@ -23,10 +23,15 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.8.8
- * @version 0.3.9
+ * @version 0.4.1
  * @author Innoxia
  */
 public class SMBath extends SexManagerDefault {
+	
+
+	public SMBath(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		this(SexPosition.LYING_DOWN, dominants, submissives);
+	}
 	
 	/**
 	 * @param startingPosition Need to be either SexPosition.LYING_DOWN, SexPosition.SITTING, or SexPosition.ALL_FOURS.

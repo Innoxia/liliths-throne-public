@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -92,6 +93,7 @@ import com.lilithsthrone.game.character.body.types.TongueType;
 import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -185,6 +187,7 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.world.AbstractWorldType;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -443,13 +446,16 @@ public class UtilText {
 	}
 
 	public static String parseSpeech(String text, GameCharacter target, boolean includePersonalityEffects, boolean includeExtraEffects) {
+		return parseSpeech(text, target, includePersonalityEffects, includeExtraEffects, true);
+	}
+	public static String parseSpeech(String text, GameCharacter target, boolean includePersonalityEffects, boolean includeExtraEffects, boolean canBeMuted) {
 		modifiedSentence = text.trim();
 		
 		String[] splitOnConditional = modifiedSentence.split("#THEN");
 		
 		modifiedSentence = UtilText.parse(parsingCharactersForSpeech, splitOnConditional[splitOnConditional.length-1]);
 		
-		if(target.hasPersonalityTrait(PersonalityTrait.MUTE)) {
+		if(target.hasPersonalityTrait(PersonalityTrait.MUTE) && canBeMuted) {
 			modifiedSentence = Util.replaceWithMute(modifiedSentence, Main.game.isInSex() && Main.sex.getAllParticipants().contains(target));
 			
 		} else if(includeExtraEffects
@@ -539,7 +545,7 @@ public class UtilText {
 	}
 	
 	public static String parseThought(String text, GameCharacter target) {
-		return "<i>"+parseSpeech(text, target, true, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
+		return "<i>"+parseSpeech(text, target, true, false, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
 	}
 
 	public static String parseNPCSpeech(String text, Femininity femininity) {
@@ -1315,6 +1321,19 @@ public class UtilText {
 	static{
 
 		// Parsing:
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("wall"),
+				true,
+				true,
+				"",
+				"Returns the name of what kind of wall is in the character's area."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				Cell cell = character.getCell();
+				return cell.getWallName();
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("moneyFormat"),
@@ -1325,6 +1344,21 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return UtilText.formatAsMoney(arguments.split(", ")[0], arguments.split(", ")[1]);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"intFormat",
+						"intToString",
+						"parseInt"),
+				false,
+				false,
+				"(integer)",
+				"Formats the passed integer argument as a String.") {
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(Integer.valueOf(UtilText.parse(arguments)));
 			}
 		});
 		
@@ -1369,7 +1403,11 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				List<String> strings = new ArrayList<>();
 				for(String s : arguments.split("\\|")) {
-					strings.add(s);
+					strings.add(UtilText.parse(s));
+				}
+				strings.removeIf(s->s.trim().isEmpty());
+				if(strings.isEmpty()) {
+					return "";
 				}
 				return Util.randomItemFrom(strings);
 			}
@@ -1765,7 +1803,7 @@ public class UtilText {
 				"Returns the pet name that this character prefers to call the target by. Target argument should be a parsing target tag, such as 'pc', 'npc2', 'lilaya', etc."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
+				AbstractParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 //				System.out.println(target+" | "+arguments);
 				if (parserTarget == null) {
 					return "petName INVALID_TARGET_NAME("+arguments+")";
@@ -1978,7 +2016,7 @@ public class UtilText {
 				"Prints out the name of this character's affection towards the target. e.g. lilaya.affection(pc) would print 'likes' by default"){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
+				AbstractParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
 					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
 					return character.getAffectionLevel(targetedCharacter).getDescriptor();
@@ -2031,7 +2069,7 @@ public class UtilText {
 				"Prints out the most important name of this character's relation towards the target (it will cut off multiple relation names). e.g. blaze.relation(crystal) would print 'brother'"){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
+				AbstractParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
 					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
@@ -2059,7 +2097,7 @@ public class UtilText {
 				"Prints out all of this character's relations towards the target. e.g. lilaya.relation(pc) might print 'half-sister and aunt'"){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
+				AbstractParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
 					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					return character.getRelationshipStrTo(targetedCharacter);
@@ -3149,7 +3187,7 @@ public class UtilText {
 				"Returns 'down' if this character is taller than the target, or 'up' if they are smaller than them."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
+				AbstractParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
 					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
 					if(targetedCharacter.getHeightValue()<character.getHeightValue()) {
@@ -4850,7 +4888,7 @@ public class UtilText {
 				true,
 				false,
 				"(hours to convert)",
-				"Returns the converted hours into a time reading.") {
+				"Returns the converted hours into a time reading. Decimal places correspond to fraction of hour as minutes (i.e. 6.5 is parsed as 06:30).") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if (arguments == null || arguments.isEmpty()) {
@@ -5301,6 +5339,106 @@ public class UtilText {
 		
 		
 		// Arm:
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"armpit",
+						"underarm"),
+				true,
+				true,
+				"",
+				"Returns the name of the character's armpit. Will almost always simply be 'armpit' or 'underarm'.",
+				BodyPartType.LEG){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return UtilText.returnStringAtRandom("armpit", "underarm");
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"armpit+",
+						"armpitD",
+						"underarm+",
+						"underarmD"),
+				true,
+				true,
+				"",
+				"Returns the name of the character's armpit, with a descriptive word appended to the front of it, based on underarm hair, arm furriness, and femininity.",
+				BodyPartType.LEG){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				List<String> descriptors = new ArrayList<>();
+				if(character.getCovering(character.getArmCovering()).getModifier().isFurryModifier()) {
+					descriptors.add("furry");
+				} else {
+					if(character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
+						descriptors.add("hairy");
+					} else {
+						descriptors.add("smooth");
+					}
+				}
+				if(character.isFeminine()) {
+					descriptors.add("feminine");
+					descriptors.add("sexy");
+				} else {
+					descriptors.add("masculine");
+				}
+				return applyDescriptor(
+						Util.randomItemFrom(descriptors),
+						UtilText.returnStringAtRandom("armpit", "underarm"));
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"armpits",
+						"underarms"),
+				true,
+				true,
+				"",
+				"Returns the name of the character's armpits. Will almost always simply be 'armpits' or 'underarms'.",
+				BodyPartType.LEG){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return UtilText.returnStringAtRandom("armpits", "underarms");
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"armpits+",
+						"armpitsD",
+						"underarms+",
+						"underarmsD"),
+				true,
+				true,
+				"",
+				"Returns the name of the character's armpits, with a descriptive word appended to the front of it, based on underarm hair, arm furriness, and femininity.",
+				BodyPartType.LEG){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				List<String> descriptors = new ArrayList<>();
+				if(character.getCovering(character.getArmCovering()).getModifier().isFurryModifier()) {
+					descriptors.add("furry");
+				} else {
+					if(character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
+						descriptors.add("hairy");
+					} else {
+						descriptors.add("smooth");
+					}
+				}
+				if(character.isFeminine()) {
+					descriptors.add("feminine");
+					descriptors.add("sexy");
+				} else {
+					descriptors.add("masculine");
+				}
+				return applyDescriptor(
+						Util.randomItemFrom(descriptors),
+						UtilText.returnStringAtRandom("armpits", "underarms"));
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -9134,12 +9272,26 @@ public class UtilText {
 				}
 			}
 			
+			// Companion parsing tags:
 			if(Main.game.isStarted() && Main.game.getPlayer().hasCompanions()) {
 				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
 					if(i==0) {
 						engine.put("com", Main.game.getPlayer().getCompanions().get(i));
 					}
 					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
+				}
+			}
+
+			// Non-companion parsing tags:
+			if(Main.game.isStarted()) {
+				List<NPC> npcs = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+				npcs.removeIf(npc->npc.isUnique());
+				Collections.sort(npcs, (n1, n2)->n1.getId().compareTo(n2.getId()));
+				for(int i = 0; i<npcs.size(); i++) {
+					if(i==0) {
+						engine.put("ncom", npcs.get(i));
+					}
+					engine.put("ncom"+(i+1), npcs.get(i));
 				}
 			}
 			
@@ -9164,7 +9316,7 @@ public class UtilText {
 				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
 			}
 			
-		} else if(Main.game.isStarted()) { //TODO test:
+		} else if(Main.game.isStarted()) {
 			if(engine==null) {
 				initScriptEngine();
 			}
@@ -9182,7 +9334,8 @@ public class UtilText {
 //					System.err.println("Parsing error: Could not initialise npc 2");
 				}
 			}
-			
+
+			// Companion parsing tags:
 			if(Main.game.getPlayer().hasCompanions()) {
 				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
 					if(i==0) {
@@ -9190,6 +9343,17 @@ public class UtilText {
 					}
 					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
 				}
+			}
+			
+			// Non-companion parsing tags:
+			List<NPC> npcs = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+			npcs.removeIf(npc->npc.isUnique());
+			Collections.sort(npcs, (n1, n2)->n1.getId().compareTo(n2.getId()));
+			for(int i = 0; i<npcs.size(); i++) {
+				if(i==0) {
+					engine.put("ncom", npcs.get(i));
+				}
+				engine.put("ncom"+(i+1), npcs.get(i));
 			}
 		}
 		
@@ -9209,7 +9373,7 @@ public class UtilText {
 			parseCapitalise = true;
 		}
 		
-		ParserTarget parserTarget = findParserTargetWithTag(target.replaceAll("\u200b", ""));
+		AbstractParserTarget parserTarget = findParserTargetWithTag(target.replaceAll("\u200b", ""));
 		if (parserTarget == null) {
 			return "INVALID_TARGET_NAME("+target+")";
 		}
@@ -9244,19 +9408,20 @@ public class UtilText {
 		return output;
 	}
 
-	private static ParserTarget findParserTargetWithTag(String target) {
-		for(ParserTarget parserTarget : ParserTarget.values()) {
+	private static AbstractParserTarget findParserTargetWithTag(String target) {
+		for(AbstractParserTarget parserTarget : ParserTarget.getAllParserTargets()) {
 			for(String s : parserTarget.getTags()) {
 				if(s.toLowerCase().equals(target.toLowerCase())) {
 					return parserTarget;
 				}
 			}
 		}
+		System.err.println("UtilText error: findParserTargetWithTag() could not find a character with the parser tag '"+target+"'");
 		return null;
 	}
 
 	public static GameCharacter findFirstCharacterFromParserTarget(String target) {
-		ParserTarget parserTarget = findParserTargetWithTag(target);
+		AbstractParserTarget parserTarget = findParserTargetWithTag(target);
 		
 		return parserTarget.getCharacter(target, new ArrayList<>(Main.game.getCharactersPresent()));
 	}
@@ -9294,6 +9459,20 @@ public class UtilText {
 		specialParsingStrings = new ArrayList<>();
 	}
 	
+	/**
+	 * Adds the key/value pair tag/target to the engine.
+	 */
+	public static void addNewParserTarget(String tag, GameCharacter target) {
+		engine.put(tag, target);
+	}
+
+	/**
+	 * Sets the key/value pair tag/null to the engine.
+	 */
+	public static void removeParserTarget(String tag) {
+		engine.put(tag, null);
+	}
+	
 	public static void initScriptEngine() {
 		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
 		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions");//, "-scripting");
@@ -9313,8 +9492,8 @@ public class UtilText {
 		
 		// Parser targets:
 		if(Main.game.isStarted()) {
-			for(ParserTarget target : ParserTarget.values()) {
-				if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
+			for(AbstractParserTarget target : ParserTarget.getAllParserTargets()) {
+				if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION && target!=ParserTarget.NON_COMPANION) {
 					for(String tag : target.getTags()) {
 						engine.put(tag, target.getCharacter(tag, null));
 					}
@@ -9636,7 +9815,10 @@ public class UtilText {
 		for(AbstractEncounter encounter : Encounter.getAllEncounters()) {
 			engine.put("ENCOUNTER_"+Encounter.getIdFromEncounter(encounter), encounter);
 		}
-
+		for(InventoryInteraction interaction : InventoryInteraction.values()) {
+			engine.put("INVENTORY_INTERACTION_"+interaction.toString(), interaction);
+		}
+		
 		
 		
 		// static methods don't work unless initialised like so:
@@ -9699,7 +9881,8 @@ public class UtilText {
 	//				System.err.println("Parsing error 2: Could not initialise npc");
 				}
 			}
-			
+
+			// Companion parsing tags:
 			if(Main.game.getPlayer().hasCompanions()) {
 				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
 					if(i==0) {
@@ -9707,6 +9890,17 @@ public class UtilText {
 					}
 					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
 				}
+			}
+			
+			// Non-companion parsing tags:
+			List<NPC> npcs = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+			npcs.removeIf(npc->npc.isUnique());
+			Collections.sort(npcs, (n1, n2)->n1.getId().compareTo(n2.getId()));
+			for(int i = 0; i<npcs.size(); i++) {
+				if(i==0) {
+					engine.put("ncom", npcs.get(i));
+				}
+				engine.put("ncom"+(i+1), npcs.get(i));
 			}
 		}
 		
@@ -10314,10 +10508,10 @@ public class UtilText {
 		engine.put(tag, getInventoryForParsing());
 	}
 	
-//	private static final Map<String, CompiledScript> memo = new HashMap<>();
-//	private static final int memo_limit = 500;
-	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason. I commented it out to fix it and will come back and investigate at another time.
-	// TODO when fixed, add as patchnotes: "Increased script performance by adding a memoization cache to compile scripting engine scripts. (PR#1442 by CognitiveMist)"
+	private static final Map<String, CompiledScript> memo = new HashMap<>();
+	private static final int memo_limit = 500;
+	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason.
+	// It seems to have been fixed by changing return script.eval(); to return script.eval(((NashornScriptEngine)engine).getContext());
 	/**
 	 * Added in PR#1442 to increase performance by adding a memoization cache to compile scripting engine scripts.
 	 * <br/>- Adds a cache intended to hold compiled forms of script engine scripts.
@@ -10330,17 +10524,18 @@ public class UtilText {
 	 */
 	private static Object evaluate(String command) throws ScriptException {
 		CompiledScript script;
-//		if (!memo.containsKey(command)) {
+		if (!memo.containsKey(command)) {
 			script = ((NashornScriptEngine)engine).compile(command);
-//			if (memo.size() < memo_limit) {
-//				memo.put(command, script);
-//				if (memo.size() == memo_limit) {
-//					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
-//				}
-//			}
-//		} else {
-//			script = memo.get(command);
-//		}
-		return script.eval();
+			if (memo.size() < memo_limit) {
+				memo.put(command, script);
+				if (memo.size() == memo_limit) {
+					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
+				}
+			}
+		} else {
+			script = memo.get(command);
+		}
+		return script.eval(((NashornScriptEngine)engine).getContext());
+//		return script.eval();
 	}
 }

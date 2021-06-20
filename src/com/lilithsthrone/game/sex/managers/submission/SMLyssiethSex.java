@@ -8,19 +8,19 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.3
- * @version 0.3.4
+ * @version 0.4.1
  * @author Innoxia
  */
 public class SMLyssiethSex extends SexManagerDefault {
 
-	public SMLyssiethSex(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPosition.OVER_DESK,
+	public SMLyssiethSex(AbstractSexPosition position, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(position,
 				dominants,
 				submissives);
 	}
@@ -40,12 +40,12 @@ public class SMLyssiethSex extends SexManagerDefault {
 	
 	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-		return false;
+		return true;
 	}
 	
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
-		return false;
+		return true;
 	}
 	
 	@Override

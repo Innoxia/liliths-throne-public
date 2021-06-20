@@ -17,6 +17,7 @@
 		</population>
 	</populationPresent>
 	<furniturePresent>false</furniturePresent>
+	<wallsPresent wallName="tree">true</wallsPresent>
 	<loiteringEnabled>true</loiteringEnabled>
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>

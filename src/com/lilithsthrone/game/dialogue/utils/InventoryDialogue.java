@@ -154,10 +154,14 @@ public class InventoryDialogue {
 		
 		for(AbstractClothing c : zlayerClothing) { 
 			if((!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) && !c.isMilkingEquipment()) {
-				if(Main.game.isInNewWorld()) {
-					character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				if (c.isDiscardedOnUnequip(null)) {
+					character.unequipClothingIntoVoid(c, true, Main.game.getPlayer());
 				} else {
-					character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+					if(Main.game.isInNewWorld()) {
+						character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+					} else {
+						character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+					}
 				}
 				sb.append("<p style='text-align:center;'>"+character.getUnequipDescription()+"</p>");
 			}
@@ -194,7 +198,9 @@ public class InventoryDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(inventoryNPC!=null && interactionType==InventoryInteraction.TRADING) {
-				UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.removeTraderDescription)) {
+					UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
+				}
 				
 			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
 				return CharacterCreation.getCheckingClothingDescription();
@@ -8450,7 +8456,9 @@ public class InventoryDialogue {
 				public void effects() {
 					String s = "";
 					if(ownsKey) {
-						Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						if(!Main.game.isInSex()) {
+							Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						}
 						s = "<p>"
 								+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
 							+ "</p>";
@@ -8512,6 +8520,8 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
+		
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			from.incrementMoney(itemPrice*count);
 			to.incrementMoney(-itemPrice*count);
@@ -8551,6 +8561,14 @@ public class InventoryDialogue {
 						false);
 			}
 		}
+		
+		if(!from.isPlayer()) {
+			((NPC)from).applyItemTransactionEffects(item, count, itemPrice, true);
+			
+		} else {
+			((NPC)to).applyItemTransactionEffects(item, count, itemPrice, false);
+		}
+		
 		resetPostAction();
 	}
 	
@@ -8580,6 +8598,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 
 			from.incrementMoney(itemPrice*count);
@@ -8620,6 +8639,14 @@ public class InventoryDialogue {
 						false);
 			}
 		}
+		
+		if(!from.isPlayer()) {
+			((NPC)from).applyItemTransactionEffects(weapon, count, itemPrice, true);
+			
+		} else {
+			((NPC)to).applyItemTransactionEffects(weapon, count, itemPrice, false);
+		}
+		
 		resetPostAction();
 	}
 	
@@ -8657,6 +8684,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
 
 			from.incrementMoney(itemPrice*count);
@@ -8697,6 +8725,14 @@ public class InventoryDialogue {
 						false);
 			}
 		}
+		
+		if(!from.isPlayer()) {
+			((NPC)from).applyItemTransactionEffects(clothing, count, itemPrice, true);
+			
+		} else {
+			((NPC)to).applyItemTransactionEffects(clothing, count, itemPrice, false);
+		}
+		
 		resetPostAction();
 	}
 	

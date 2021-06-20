@@ -13,12 +13,14 @@ import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Wes;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -633,7 +635,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType DOMINION_RED_LIGHT_DISTRICT = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Red Light District",
+			"Red-Light District",
 			"As easy as sex is to come by in Dominion, there's no guarantee that a partner has any skill in the bedroom. It's in this area that professional, obligation-free lovers can be hired.",
 			"dominion/brothel",
 			PresetColour.BASE_MAGENTA,
@@ -2583,7 +2585,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ANGELS_KISS_OFFICE = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Angel's Office",
-			"The room in which Angel does all of the paperwork required of her as the red light district's 'Enforcer-sanctioned administration centre'.",
+			"The room in which Angel does all of the paperwork required of her as the red-light district's 'Enforcer-sanctioned administration centre'.",
 			"dominion/angelsKiss/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			RedLightDistrict.ANGELS_KISS_OFFICE,
@@ -4510,8 +4512,17 @@ public class PlaceType {
 			PresetColour.BASE_CRIMSON,
 			LyssiethPalaceDialogue.SIREN_OFFICE,
 			Darkness.ALWAYS_LIGHT,
-			null, "in Lyssieth's Palace"
-			).initWeatherImmune();
+			null, "in Lyssieth's Palace") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()!=WorldType.LYSSIETH_PALACE) {
+				return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE,
+						Util.newHashMapOfValues(
+								new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return super.getPopulation();
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType LYSSIETH_PALACE_STAIRS_1 = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -5411,7 +5422,7 @@ public class PlaceType {
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_DOMINION = new AbstractGlobalPlaceType(
 			WorldRegion.DOMINION,
-			"Dominion",
+			"Dominion Suburbs",
 			"The capital city of Lilith's realm, Dominion is the succubus queen's seat of power.",
 			"global/dominion",
 			PresetColour.BASE_PURPLE,
@@ -5423,7 +5434,7 @@ public class PlaceType {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.leftDominionFirstTime)) {
 				return FieldsDialogue.DOMINION_EXTERIOR;
 			} else {
-				return FieldsDialogue.DOMINION_EXTERIOR_FIRST_TIME_LEAVING;
+				return DialogueManager.getDialogueFromId("innoxia_places_fields_leaving_dominion_start");
 			}
 		}
 		@Override
@@ -5440,7 +5451,7 @@ public class PlaceType {
 			} else {
 				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+				pop.add(new Population(false, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 			}
 			
 			return pop;
@@ -5463,9 +5474,9 @@ public class PlaceType {
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FIELDS = new AbstractGlobalPlaceType(
 			WorldRegion.FIELDS,
-			"Foloi fields",
+			"Foloi Fields",
 			null,
-			"The farmland surrounding Dominion is known as the 'Foloi fields', and is primarily inhabited by farmyard animal-morphs.",
+			"The farmland surrounding Dominion is known as the 'Foloi Fields', and is primarily inhabited by farmyard animal-morphs.",
 			new Colour(Util.newColour(0xB9E3A1)),
 			FieldsDialogue.FOLOI_FIELDS,
 			null, "") {
@@ -5473,12 +5484,12 @@ public class PlaceType {
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
-	};
+	}.initDangerous();
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.WOODLAND,
 			"Foloi forests",
-			"The thick forests surrounding the Foloi fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
+			"The thick forests surrounding the Foloi Fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
 			"global/forest",
 			new Colour(Util.newColour(0x51A468)),
 			new Colour(Util.newColour(0x5E685E)),
@@ -5493,7 +5504,7 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_FIELDS_CITY = new AbstractGlobalPlaceType(
 			WorldRegion.FIELD_CITY,
 			"Elis",
-			"The largest and most prosperous of all settlements in the Foloi fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.",
+			"The largest and most prosperous of all settlements in the Foloi Fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.",
 			"global/elis",
 			new Colour(Util.newColour(0xd544ae)),
 			new Colour(Util.newColour(0x859871)),
@@ -5508,7 +5519,7 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_RIVER = new AbstractGlobalPlaceType(
 			WorldRegion.RIVER,
 			"river Hubur",
-			"The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.",
+			"The river Hubur runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi Fields are considered safe.",
 			"global/river",
 			new Colour(Util.newColour(0x61BDFF)),
 			new Colour(Util.newColour(0x98B4CD)),
@@ -5518,7 +5529,8 @@ public class PlaceType {
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
-	}.initAquatic(Aquatic.MIXED);
+	}.initAquatic(Aquatic.MIXED)
+	.initDangerous();
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_WILD_RIVER = new AbstractGlobalPlaceType(
 			WorldRegion.RIVER,
@@ -5665,8 +5677,8 @@ public class PlaceType {
 	}
 	
 	public static AbstractPlaceType getPlaceTypeFromId(String id) {
-		id.replaceAll("ALEXA", "HELENA");
-		id.replaceAll("SUPPLIER_DEPOT", "TEXTILE_WAREHOUSE");
+		id = id.replaceAll("ALEXA", "HELENA");
+		id = id.replaceAll("SUPPLIER_DEPOT", "TEXTILE_WAREHOUSE");
 		
 		if(id.equals("ZARANIX_FF_BEDROOM")) {
 			id = "ZARANIX_FF_OFFICE";

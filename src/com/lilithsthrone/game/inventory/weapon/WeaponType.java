@@ -83,7 +83,7 @@ public class WeaponType {
 			id = "innoxia_crystal_rare";
 		}
 		if(id.equals("MELEE_CHAOS_EPIC")) {	
-			id = "innoxia_crystal_EPIC";
+			id = "innoxia_crystal_epic";
 		}
 		if(id.equals("MELEE_CHAOS_LEGENDARY")) {	
 			id = "innoxia_crystal_legendary";

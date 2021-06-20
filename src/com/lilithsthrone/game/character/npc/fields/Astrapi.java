@@ -6,10 +6,15 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -23,7 +28,6 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
@@ -48,6 +52,8 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -74,14 +80,26 @@ public class Astrapi extends NPC {
 				new CharacterInventory(10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				true);
+
+		this.setGenericName("buff centauress");
 		
 		if(!isImported) {
+			this.setPlayerKnowsName(false);
 		}
 	}
 
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.5")) {
+			this.equipClothing();
+			this.setStartingBody(true);
+			this.setPlayerKnowsName(false);
+			this.setupPerks(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.6")) {
+			this.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		}
 	}
 
 	@Override
@@ -90,7 +108,9 @@ public class Astrapi extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_RANGED_EXPERT);
 		
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.RANGED_DAMAGE),
+				Util.newArrayListOfValues(
+						Perk.RANGED_DAMAGE,
+						Perk.BARREN),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 0),
@@ -109,26 +129,40 @@ public class Astrapi extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_TAUR_TRANSPORT);
-
-			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
-			this.addFetish(Fetish.FETISH_CUM_ADDICT);
 			
+			this.clearFetishes();
+			this.clearFetishDesires();
+			
+			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_BREASTS_SELF);
+
 			this.setFetishDesire(Fetish.FETISH_DENIAL_SELF, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 		}
 		
 		
 		// Body:
 		
 		// Core:
-		this.setHeight(200);
-		this.setFemininity(65);
-		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setHeight(205);
+		this.setFemininity(50);
+		this.setMuscle(90);
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		// Parts changes:
+		this.setHairType(HairType.HUMAN);
+		this.setEarType(EarType.HUMAN);
+		this.setEyeType(EyeType.HUMAN);
+		this.setBreastCrotchType(BreastType.HORSE_MORPH);
+		this.setBreastCrotchSize(CupSize.C);
 		
 		// Coverings:
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_AMBER));
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_AMBER));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_AUBURN), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_TAN), true);
 
 		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_DARK), false);
@@ -169,7 +203,7 @@ public class Astrapi extends NPC {
 		// Nipple settings and modifiers
 		
 		// Ass:
-		this.setAssVirgin(true);
+		this.setAssVirgin(false);
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.THREE_NORMAL);
 		this.setHipSize(HipSize.THREE_GIRLY);
@@ -217,18 +251,17 @@ public class Astrapi extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_sweatband", PresetColour.CLOTHING_BLUE_GREY, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WRISTBANDS, PresetColour.CLOTHING_BLUE_GREY, false), true, this);
 		
-		AbstractClothing bra = Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, PresetColour.CLOTHING_BLACK, false);
-		this.addClothing(bra, false);
-		
 		this.setPiercedEar(true);
-//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_SILVER, false), true, this);
 		
 		this.setEssenceCount(100);
-		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_shortbow", DamageType.FIRE));
 	}
 	
+	/**
+	 * Equips sports bra and weapon, ready for transport.
+	 */
 	public void applySportsBra(boolean equip) {
 		if(equip) {
+			// Bra:
 			AbstractClothing bra = null;
 			for(AbstractClothing c : this.getAllClothingInInventory().keySet()) {
 				if(c.getClothingType()==ClothingType.CHEST_SPORTS_BRA) {
@@ -241,11 +274,32 @@ public class Astrapi extends NPC {
 			} else {
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
 			}
-			
+
+			// Weapon:
+			AbstractWeapon bow = null;
+			for(AbstractWeapon w : this.getAllWeaponsInInventory().keySet()) {
+				if(w.getWeaponType()==WeaponType.getWeaponTypeFromId("innoxia_bow_recurve")) {
+					bow = w;
+					break;
+				}
+			}
+			if(bow!=null) {
+				this.equipMainWeaponFromInventory(bow, this);
+			} else {
+				this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_recurve", DamageType.FIRE));
+			}
+
 		} else {
+			// Bra:
 			AbstractClothing bra = this.getClothingInSlot(InventorySlot.CHEST);
 			if(bra!=null) {
 				this.unequipClothingIntoInventory(bra, true, this);
+			}
+
+			// Weapon:
+			AbstractWeapon bow = this.getMainWeapon(0);
+			if(bow!=null) {
+				this.unequipWeapon(InventorySlot.WEAPON_MAIN_1, bow, false, false);
 			}
 		}
 	}
@@ -260,7 +314,7 @@ public class Astrapi extends NPC {
 		if(Main.game.isLightTheme()) {
 			return "#918365";
 		}
-		return "#f4dcaa";
+		return "#ddc79a";
 	}
 	
 	@Override
@@ -274,6 +328,14 @@ public class Astrapi extends NPC {
 	
 	@Override
 	public void dailyUpdate() {
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_astrapi_not_shaving")) {
+			if(this.getUnderarmHair().getValue()<BodyHair.FOUR_NATURAL.getValue()) {
+				this.setUnderarmHair(BodyHair.getBodyHairFromValue(this.getUnderarmHair().getValue()+1));
+			}
+			
+		} else {
+			this.setUnderarmHair(BodyHair.ZERO_NONE);
+		}
 	}
 	
 	@Override
@@ -282,7 +344,7 @@ public class Astrapi extends NPC {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return true;
+		return false;
 	}
 
 }

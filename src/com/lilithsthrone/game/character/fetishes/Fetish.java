@@ -792,11 +792,8 @@ public enum Fetish {
 			if(owner==null) {
 				return "This fetish relates to a person's desire for masturbating.";
 				
-			} else if(owner.isPlayer()) {
-				return "To you, masturbating is just as good as, if not better than, having sex.";
-				
 			} else {
-				return UtilText.parse(owner, "[npc.Name] loves masturbating.");
+				return UtilText.parse(owner, "Using [npc.her] [npc.fingers] to get either [npc.herself] or [npc.her] partners to climax is one of [npc.namePos] favourite things to do during sex.");
 			}
 		}
 		
@@ -815,15 +812,8 @@ public enum Fetish {
 	// FETISH_SPANKING("spanking", "You love the idea of spanking or being
 	// spanked during sex."),
 
-	// Body parts:
-	
-	// FETISH_LACTATION("lactation", "The idea of someone being milked drives
-	// you crazy with lust."),
-	// FETISH_FOOT("foot", "It doesn't matter if they're yours or your
-	// partner's, you're going to be trying to find a way to use feet during
-	// sex."),
-
 	// Effects:
+	
 	FETISH_PREGNANCY(60,
 			"pregnancy",
 			"being pregnant",
@@ -1268,6 +1258,7 @@ public enum Fetish {
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] sadistic [style.colourSex(sex actions)]",
 					"[style.boldExcellent(+5%)] to all [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)]",
 					"10% of all inflicted",
 					"[style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] is dealt",

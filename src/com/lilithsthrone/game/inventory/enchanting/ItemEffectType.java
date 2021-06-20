@@ -1067,13 +1067,13 @@ public class ItemEffectType {
 			clothingMap.put(ClothingType.JOLNIR_DRESS, 4);
 			clothingMap.put(ClothingType.JOLNIR_HAT, 4);
 			
-			clothingMap.put(ClothingType.KIMONO_DRESS, 4);
-			clothingMap.put(ClothingType.KIMONO_GETA, 4);
-			clothingMap.put(ClothingType.KIMONO_HAIR_KANZASHI, 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_kimono"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_geta"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_kanzashi"), 4);
 
-			clothingMap.put(ClothingType.KIMONO_MENS_KIMONO, 4);
-			clothingMap.put(ClothingType.KIMONO_MENS_GETA, 4);
-			clothingMap.put(ClothingType.KIMONO_HAORI, 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_mens_kimono"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_mens_geta"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_haori"), 4);
 			
 			// 50% chance for consumable, 50% for clothing:
 			if(Math.random()<0.5f) {

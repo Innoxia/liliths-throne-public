@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		You find yourself standing before the only building that can be seen standing outside of the walls of Elis, which takes the form of a large, wooden barn. It's quite clear from its shabby exterior that this structure has seen better days, and while at one point in the past the words 'Centaur Carriage Depot' were painted in large white letters across its frontage, years of weather damage have rendered this text almost illegible.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+			Although you know that this depot is going to be used by Astrapi and Vronti, they're not able to offer any more rides today, and so if you wanted to catch a ride to Dominion you'll have to come back during opening hours.
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_centaur_transport_introduced))
+			Knowing that Astrapi and Vronti are now using this depot as a staging point for offering rides to Dominion, you wonder whether you should approach the barn and see if they're around.
+		#ELSE
+			With no clue as to whether or not this depot will ever see use again, you really don't see any point in approaching it, and so turn away from the structure and wonder where to go next...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE"><![CDATA[
+	<p>
+		#IF(game.isHourBetween(5.75, 15))
+			Although the barn is clearly open, you decide against heading inside after all, and instead turn around and wonder where to go next...
+		#ELSE
+			As the barn is clearly closed, you decide against waiting for it to open, and instead turn around and wonder where to go next...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPROACH"><![CDATA[
+	<p>
+		Deciding to approach Elis's 'Centaur Carriage Depot', you head over to the barn. Although its shabby exterior quite clearly hasn't been maintained in many years, the short strip of ground leading from the road to the barn's wide doors is being well maintained and kept clear of weeds and debris. Looking over this cleared ground to the doors themselves, you spot an identical wooden sign to the one back at the Dominion depot. Carved out and painted in large white letters, you read:
+	</p>
+	<p style='text-align:center;'><i>
+		<b>Astrapi & Vronti Grigori</b>
+		<br/>offering
+		<br/><b>Centaur Carriages To Dominion</b>
+		<br/>Tickets are fixed at the low price of
+		<br/><b>250 flames</b>
+		<br/>Open from: [units.time(5.75)]-[units.time(15)]
+	</i></p>
+	<p>
+		#IF(game.isHourBetween(5.75, 15))
+			In their usual fashion, either Astrapi or Vronti have left of the barn doors half-open, making it clear that their business is currently [style.colourGood(open)]. If you wanted to, you could enter via this half-open door and see if either of the centaurs are inside...
+		#ELSE
+			As it's currently outside of the business's opening times, it's currently [style.colourBad(closed)], with the doors to the barn are securely shut and locked. If you wanted to travel to Dominion via centaur carriage then you should come back between [units.time(5.75)]-[units.time(15)]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPROACH_WAIT"><![CDATA[
+	<p>
+		Deciding to wait until the barn opens, you loiter around in the nearby area until eventually it's [units.time(5.75)]. Looking over at the barn once again, you see that one of the doors have been half opened; whoever's responsible for doing this must have approached from the rear of the barn and entered via a back door, or else you would clearly have seen them coming down the road.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- If time is:
+		05:45-6:00 - Vronti waiting there
+		08:45-9:00 - Astrapi waiting there
+		11:45-12:00 - Vronti waiting there
+		14:45-15:00 - Astrapi waiting there
+		-->
+	<htmlContent tag="APPROACH_INSIDE"><![CDATA[
+	#IF(game.getCharactersPresent().contains(astrapi))
+		<p>
+			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that it's a little smaller than its counterpart back at Dominion, and houses not only a large, four-wheeled wooden carriage, but also a few crates and a couple of workshop benches.
+		</p>
+		<p>
+			The familiar form of the muscular centauress, Astrapi, can be seen lying down and relaxing beside her carriage. As you enter the barn she sees you and stands up, before cheerfully calling out, [astrapi.speech(Hi, [pc.name]! I'm planning on setting off for Dominion in a few minutes, so if you want a ride just let me know!)]
+		</p>
+		<p>
+			As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. Completely unconcerned about her exhibitionism, she turns around and starts checking over her carriage to make sure it's in working condition, shamelessly flashing you her [astrapi.pussyColour] horse-pussy in the process. Turning her head back towards you, she calls out, [astrapi.speech(Remember, it's only two-hundred and fifty flames! You can't pass up a bargain like that, can you?!)] 
+		</p>
+	#ELSEIF(game.getCharactersPresent().contains(vronti))
+		<p>
+			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is once again empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that it's a little smaller than its counterpart back at Dominion, and houses not only a large, four-wheeled wooden carriage, but also a few crates and a couple of workshop benches.
+		</p>
+		<p>
+			The familiar form of the muscular centaur, Vronti, can be seen lying down and relaxing beside his carriage. As you enter the barn he sees you and stands up, before giving you a nod and grunting, [vronti.speech(Hey there...)]
+		</p>
+		<p>
+			As usual, Vronti isn't wearing any clothing at all, and as such as he stands up you're able to see not only the [vronti.cockSize] sheath of his cock but also his [vronti.ballSize] balls. Completely unconcerned about his exhibitionism, he turns around and starts checking over his carriage to make sure it's in working condition, shamelessly flashing you his puffy, [vronti.anusColour] horse-anus in the process. Turning his head back towards you, he calls out, [vronti.speech(It's two-hundred and fifty flames for a ride. I'm leaving in a few minutes.)]
+		</p>
+	#ELSE
+		<p>
+			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is once again empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that it's a little smaller than its counterpart back at Dominion, and houses a few crates and a couple of workshop benches. There's no sign of either of the two wooden carriages which you've seen before, nor of Astrapi or Vronti.
+		</p>
+		<p>
+			Realising that the two centaurs must be on their way to and from Dominion, you wonder whether you should wait for one of them to arrive, or instead leave and travel through the fields without them.
+			#IF(game.isHourBetween(6, 9) || game.isHourBetween(12, 15))
+				 Remembering what Astrapi told you before, she'll be the one to arrive here next.
+			#ELSE
+				 Remembering what Astrapi told you before, Vronti will be the one to arrive here next.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_BARN"><![CDATA[
+	#IF(game.getCharactersPresent().contains(astrapi))
+		<p>
+			Thanking Astrapi for the offer, you tell her that you weren't needing a ride to Dominion right now, but that perhaps you'll make use of her or her brother's services in the future.
+		</p>
+		<p>
+			[astrapi.speech(Sure thing,)] the cheerful centauress replies. Flashing you a big smile, she reminds you, [astrapi.speech(Our rides set off at six and nine in the morning, again at midday, and finally at three in the afternoon, so you can always catch us then.)]
+		</p>
+		<p>
+			Saying goodbye to Astrapi, and receiving a happy farewell in return, you head out of the barn and wonder where to go to next...
+		</p>
+	#ELSEIF(game.getCharactersPresent().contains(vronti))
+		<p>
+			Thanking Vronti for the offer, you tell him that you weren't needing a ride to Dominion right now, but that perhaps you'll make use of his or his sister's services in the future.
+		</p>
+		<p>
+			[vronti.speech(Right,)] the stoic centaur briefly replies, [vronti.speech(See you around.)]
+		</p>
+		<p>
+			Saying goodbye to Vronti, and receiving a simple grunt in return, you head out of the barn and wonder where to go to next...
+		</p>
+	#ELSE
+		<p>
+			Deciding not to wait for Astrapi or Vronti to show up, you [pc.step] away from the barn and wonder where to go to next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+</dialogue>

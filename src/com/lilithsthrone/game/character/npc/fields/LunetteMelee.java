@@ -10,10 +10,23 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -84,7 +97,8 @@ public class LunetteMelee extends NPC {
 			// INVENTORY:
 			
 			resetInventory(true);
-			inventory.setMoney(1000 + Util.random.nextInt(getLevel()*25));
+			inventory.setMoney(2500 + Util.random.nextInt(2500));
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
@@ -132,13 +146,13 @@ public class LunetteMelee extends NPC {
 		Gender gender = Util.randomItemFrom(new Gender[] {
 				Gender.F_P_V_B_FUTANARI,
 				Gender.F_P_V_B_FUTANARI,
-				Gender.F_P_V_B_FUTANARI,
 				Gender.F_P_B_SHEMALE,
 				Gender.F_P_B_SHEMALE,
 				Gender.F_V_B_FEMALE,
+				Gender.F_V_B_FEMALE,
 		});
 		
-		this.setBody(gender, Subspecies.DEMON, RaceStage.GREATER, false);
+		this.setBody(gender, Subspecies.DEMON, RaceStage.GREATER, true);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_HORSE_HOOFED);
 		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.QUADRUPEDAL, true);
@@ -153,6 +167,14 @@ public class LunetteMelee extends NPC {
 		Main.game.getCharacterUtils().randomiseBody(this, true);
 		
 		this.setHeight(210+Util.random.nextInt(41));
+		
+		if(this.hasPenis()) {
+			this.growPenis(); // To set correct modifiers
+		}
+
+		if(this.hasVagina()) {
+			this.growVagina(); // To set correct modifiers
+		}
 		
 		if(setPersona) {
 			this.setPersonalityTraits(
@@ -176,23 +198,28 @@ public class LunetteMelee extends NPC {
 			this.setPenisVirgin(false);
 			this.setVaginaVirgin(false);
 			this.setFaceVirgin(!oral);
+
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_NON_CON_DOM);
+			this.addFetish(Fetish.FETISH_SADIST);
+
+			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.FOUR_LOVE);
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.FOUR_LOVE);
+
+			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
+			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
+			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 			
 			if(Math.random()<0.5f) {
 				this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			}
-			
 			if(anal) {
 				this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
 			}
 			if(oral) {
 				this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			}
-			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_NON_CON_DOM);
-			this.addFetish(Fetish.FETISH_SADIST);
 			
-			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.FOUR_LOVE);
-			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.FOUR_LOVE);
 			if(gender.getGenderName().isHasPenis()) {
 				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.FOUR_LOVE);
 				this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
@@ -203,10 +230,6 @@ public class LunetteMelee extends NPC {
 			if(Main.game.isAnalContentEnabled()) {
 				this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
 			}
-
-			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
-			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
-			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 		}
 	}
 	
@@ -218,6 +241,8 @@ public class LunetteMelee extends NPC {
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
+
+		this.setEssenceCount(200+Util.random.nextInt(101));
 		
 		Util.random.setSeed(this.getDayOfBirth()*this.getBirthMonth().getValue()); // Set seed based on birthday so that the clothing is always the same
 		
@@ -254,7 +279,7 @@ public class LunetteMelee extends NPC {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_gemstone_necklace", accessoryColour, clothingColour, accessoryColour, false), true, this);
 		}
 		
-		if(this.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
+		if(this.hasFetish(Fetish.FETISH_ANAL_RECEIVING) && Math.random()<0.1f) {
 			if(Math.random()<0.5f) {
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(
 						Util.randomItemFromValues("innoxia_buttPlugs_butt_plug_jewel", "innoxia_buttPlugs_butt_plug_heart"), accessoryColour, clothingColour, accessoryColour, false), true, this);
@@ -287,18 +312,25 @@ public class LunetteMelee extends NPC {
 		
 		// Weapon:
 		
-		// Randomise weapon based on birth month:
-		if(this.getBirthday().getMonth().getValue()<=4) {
-			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_spear_dory", DamageType.PHYSICAL));
-			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_feather_epic", DamageType.PHYSICAL));
+		// Randomise weapon:
+		int rnd = Util.random.nextInt(100);
+		DamageType dt = DamageType.PHYSICAL;//Util.randomItemFrom(new DamageType[] {DamageType.PHYSICAL, DamageType.POISON, DamageType.FIRE, DamageType.ICE});
+		if(rnd<25) {
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_spear_dory", dt));
+			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_feather_epic", dt));
 			
-		} else if(this.getBirthday().getMonth().getValue()<=8) {
-			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_zweihander", DamageType.PHYSICAL));
+		} else if(rnd<50) {
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_zweihander", dt));
+			
+		} else if(rnd<75) {
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", dt));
+			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", dt));
 			
 		} else {
-			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.PHYSICAL));
-			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.PHYSICAL));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_axe_battle", dt));
 		}
+		
+		Util.random.setSeed(System.nanoTime()); // Reset seed to be close to random
 	}
 	
 	@Override
@@ -329,11 +361,55 @@ public class LunetteMelee extends NPC {
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
-			return null; //TODO
-		} else {
-			return null; //TODO
-		}
+		return null; // Post-combat responses are handled in the dialogue itself
+	}
+
+	public int getPaymentDemand() {
+		return (Math.max(2500, Math.min(Main.game.getPlayer().getMoney()/10, 10000))/500) * 500; // Round to nearest 500
 	}
 	
+	public void growPenis() {
+		this.setPenisType(PenisType.DEMON_COMMON);
+		this.setPenisSize(PenisLength.FIVE_ENORMOUS.getMedianValue()+Util.random.nextInt(10));
+		this.setPenisGirth(PenetrationGirth.SIX_CHUBBY);
+		
+		this.clearPenisModifiers();
+		this.addPenisModifier(PenetrationModifier.FLARED);
+		this.addPenisModifier(PenetrationModifier.VEINY);
+		this.addPenisModifier(PenetrationModifier.SHEATHED);
+		this.addPenisModifier(PenetrationModifier.KNOTTED);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		
+		this.setPenisCumExpulsion(80);
+		this.setPenisCumStorage(2000);
+		this.fillCumToMaxStorage();
+		this.setInternalTesticles(false);
+	}
+
+	public void growVagina() {
+		this.setVaginaType(VaginaType.DEMON_COMMON);
+		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.TWO_AVERAGE.getValue() + Util.random.nextInt(3));
+		
+		this.clearVaginaOrificeModifiers();
+		this.addVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
+		this.addVaginaOrificeModifier(OrificeModifier.PUFFY);
+		if(Math.random()<0.5) {
+			this.addVaginaOrificeModifier(OrificeModifier.RIBBED);
+		}
+		if(Math.random()<0.5) {
+			this.addVaginaOrificeModifier(OrificeModifier.TENTACLED);
+		}
+		
+		if(Math.random()<0.5) {
+			this.setVaginaWetness(Wetness.TWO_MOIST);
+			this.setVaginaSquirter(false);
+		} else {
+			this.setVaginaWetness(Wetness.THREE_WET.getValue() + Util.random.nextInt(5));
+			this.setVaginaSquirter(true);
+		}
+		this.setVaginaCapacity(Util.randomItemFrom(Util.newArrayListOfValues(Capacity.TWO_TIGHT, Capacity.THREE_SLIGHTLY_LOOSE, Capacity.FOUR_LOOSE)), true);
+		this.setVaginaElasticity(OrificeElasticity.TWO_FIRM.getValue() + Util.random.nextInt(3));
+		this.setVaginaPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue() + Util.random.nextInt(3));
+	}
 }

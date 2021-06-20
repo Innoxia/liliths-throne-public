@@ -276,45 +276,16 @@
 	
 	<htmlContent tag="MARKET"><![CDATA[
 	<p>
-		Located at the intersection between the town's major roads, a huge public square has been constructed. Unlike the cobblestone of the streets, this square has been paved using large blocks of stone, the smooth surface of which is broken only by a series of shallow channels which lead into drains. At all four entrances to this square, large, touristy-looking signs offer information on the market's history to people who might be interested in it, as well as declaring in large, bold font that this area is 'The Farmer's Market; Open every day'.
+		Located at the intersection between the town's major roads, a huge public square has been constructed. Unlike the cobblestone of the streets, this square has been paved using large blocks of stone, the smooth surface of which is broken only by a series of shallow channels which lead into drains. At all four entrances to this square, large, touristy-looking signs offer information on the market's history to people who might be interested in it, as well as declaring in large, bold font that this area is 'The Farmer's Market; Open every day between
+		#IF(game.getHourOfDay()>=8 && game.getHourOfDay()<=17)
+			[style.colourMinorGood([units.time(8)]-[units.time(18)])]'.
+		#ELSE
+			[style.colourMinorBad([units.time(8)]-[units.time(18)])]'.
+		#ENDIF
 	</p>
 	#IF(game.getHourOfDay()>=8 && game.getHourOfDay()<=17)
 		<p>
-			Sure enough, the market is currently open, and as you [pc.walk] through the busy avenues formed between countless brightly-coloured stalls, you see all kinds of things for sale, from sweets and drinks to trinkets and even kisses. Unlike a regular farmer's market, the one here in Elis seems to have evolved into a type of low-key festival, complete with a band playing live music.
-			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
-				 While there are certainly exceptions, almost everyone you pass looks to be in high spirits,
-				#IF(game.getCurrentWeather()==WEATHER_RAIN)
-					 with not even the rain being able to bring the mood down.
-				#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
-					 with not even the snow being able to bring the mood down.
-				#ELSE
-					 with the smiles on their faces making it clear that they're greatly enjoying the market's festive atmosphere.
-				#ENDIF
-			#ELSE
-				 Although a lot of the people who you pass look to be in high spirits, there are many whose forlorn expressions seem to be unaffected by the market's festive atmosphere, and you can only assume that they're victims in one way or another of Lunette's raiding.
-			#ENDIF
-			 While races of all kinds can be seen if you search hard enough, the vast majority of the shoppers and vendors consist of all manner of domesticated animal morphs.
-		</p>
-		#IF(pc.getOccupation()==OCCUPATION_TOURIST)
-			<p>
-				Unable to resist the urge to take a photo, you pull out your phone and take a picture of the busy market, talking to yourself as you do so, [pc.speech([game.random(
-				The folks back home will love this.
-				| Neat, it's like a Medieval Times back home.
-				| These Europeans sure look funny.
-				| So this is what they have instead of malls in Europe.)])]
-			</p>
-		#ENDIF
-		#IF(game.getDayOfWeek()==DOW_SATURDAY || game.getDayOfWeek()==DOW_WEDNESDAY)
-			<p>
-				As you continue on your way through the market, you see that a large area in the very middle of the square has been cordoned off with wooden fences. Notice boards attached to this fencing reveal that today is a livestock market day, which is stating the obvious due to the fact that you're able to see for yourself the countless animals being bought, sold, and auctioned off within this fenced-off area.
-			</p>
-		#ENDIF
-		<p>
-			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
-				Thanks to the fact that Lunette is no longer raiding the surrounding farmland, the market seems to be busier than ever. Catching brief snippets of conversation as you [pc.walk] past some of the stalls, you soon get the impression that the quantity and quality of produce which the vendors are able to acquire is better than it's ever been. Thanks to this, there are a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
-			#ELSE
-				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
-			#ENDIF
+			Sure enough, the market is currently open, and as you look down one of the busy avenues formed between countless brightly-coloured stalls, you see all manner of food, drink, and other items for sale. Unlike a regular farmer's market, the one here in Elis seems to have evolved into a type of low-key festival, complete with a band somewhere in the distance playing live music. Stopping for a moment, you wonder whether to head into the market and take a closer look around...
 		</p>
 	#ELSE
 		<p>
@@ -335,6 +306,16 @@
 			#ENDIF
 		</p>
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_ENTER"><![CDATA[
+	<p>
+		[style.boldBad(PLEASE NOTE:)] All content in this market is placeholders!
+	</p>
+	<p>
+		Wanting to spend some time looking around the Farmer's Market and perhaps doing some shopping, you [pc.walk] towards the centre of the large, cobblestone square. After passing numerous brightly-coloured stalls, you soon find yourself right in the middle of the market, wondering where to go from here...
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -442,7 +423,7 @@
 		Likely due to the original owner's business acumen, 'The Red Dragon' tavern is one of the first buildings to be seen by people entering Elis via the eastern gate. Although it's of a similar timber-framed design to those around it, this two-story tavern is at least twice their length, and despite whatever age it might be, looks to be an impressive example of late medieval architecture. It's due to this size that the tavern has two entrances, both of which display the opening times as being twenty four hours a day, seven days of the week.
 	</p>
 	<p>
-		The tavern's main sign hangs from a pole which juts out from the building's upper floor, and displays a stylised image of a huge red dragon giving a pile of golden treasure to a bewildered-looking farmer. Beneath this, the words 'The Red Dragon' are painted in a dark burgundy hue. 
+		The tavern's main sign hangs from a pole which juts out from the building's upper floor, and displays a stylised image of a huge red dragon giving a pile of golden treasure to a bewildered-looking sheep-boy. Beneath this, the words 'The Red Dragon' are painted in a dark burgundy hue. 
 	</p>
 	<p>
 		Through the tavern's leaded windows, you can see that the
