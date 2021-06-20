@@ -83,7 +83,7 @@
 			</p>
 		#ENDIF
 		<p>
-			Continuing to let out a series of wild, desperate [npc.moans], [npc.name] steps forwards and forcefully presses [npc.her] body up against yours. Gazing into your [pc.eyes], [npc.she] repeats [npc.herself] by begging, [npc.speech(Please, just fuck me already! I can't stand it any more!)]
+			Continuing to let out a series of wild, desperate [npc.moans], [npc.name] [npc.steps] forwards and forcefully presses [npc.her] body up against yours. Gazing into your [pc.eyes], [npc.she] repeats [npc.herself] by begging, [npc.speech(Please, just fuck me already! I can't stand it any more!)]
 		</p>
 		<p>
 			As the [npc.race] starts to lean forwards in an attempt at kissing you, you wonder whether you should give [npc.herHim] what [npc.she] wants or quickly make your exit...
@@ -93,7 +93,7 @@
 			#IF(canal)
 				You find yourself wandering down the path that runs alongside Dominion's canal, staying alert for any sign of trouble. Up ahead, you suddenly spot a rare sign of life, taking the form of [npc.a_fullRace(true)].
 			#ELSE
-				You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble. Reaching a turn in your path, you step around the corner to see a rare sign of life, taking the form of [npc.a_fullRace(true)].
+				You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble. Reaching a turn in your path, you [pc.step] around the corner to see a rare sign of life, taking the form of [npc.a_fullRace(true)].
 			#ENDIF
 			 Clearly being affected by the ongoing arcane storm, [npc.sheIs] quickly pacing around in circles and frantically glancing around for someone to fuck.
 		</p>
@@ -108,7 +108,7 @@
 			Even if [npc.her] reaction hadn't given it away, [npc.her] slutty clothing and the heavy amount of makeup on [npc.her] face makes it quite obvious that [npc.name] is a prostitute. You've seen plenty of other hookers offering their services out in the main streets of Dominion, and you wonder why this particular one would be hiding so far away from the safety of those areas. You assume that [npc.she] must have run afoul of the law, for there's no other reason to be working in a place as dangerous and client-starved as these alleyways.
 		</p>
 		<p>
-			Continuing to let out a series of wild, desperate [npc.moans], this [npc.race] steps forwards and forcefully presses [npc.her] body up against yours. Gazing into your [pc.eyes], [npc.she] repeats [npc.herself] by begging, [npc.speech(Please, just fuck me already! I can't stand it any more!)]
+			Continuing to let out a series of wild, desperate [npc.moans], this [npc.race] [npc.steps] forwards and forcefully presses [npc.her] body up against yours. Gazing into your [pc.eyes], [npc.she] repeats [npc.herself] by begging, [npc.speech(Please, just fuck me already! I can't stand it any more!)]
 		</p>
 		<p>
 			As [npc.name] starts to lean forwards in an attempt at kissing you, you wonder whether you should give [npc.herHim] what [npc.she] wants or quickly make your exit...
@@ -142,7 +142,7 @@
 								[npc.speech(Hey again, good lookin'! Check it out! I used one of those arcane pregnancy testers to check; you managed to knock me up!)])]
 					</p>
 					<p>
-						You step up to [npc.name], allowing [npc.herHim] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump. [npc.She] lets out another little laugh, before playfully biting [npc.her] [npc.lip] and teasing, [npc.speech(So, you got a thing for fucking pregnant [npc.girls]? Considering the situation, I'll even give you a discount of fifty percent...)]
+						You [pc.step] up to [npc.name], allowing [npc.herHim] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump. [npc.She] lets out another little laugh, before playfully biting [npc.her] [npc.lip] and teasing, [npc.speech(So, you got a thing for fucking pregnant [npc.girls]? Considering the situation, I'll even give you a discount of fifty percent...)]
 					</p>
 				#ELSEIF(pc.hasCompanions() && npc.getPregnantLitter().isFatherId(com.getId()))
 					<p>
@@ -153,7 +153,7 @@
 								[npc.speech(Hey again, good lookin'! Check it out! I used one of those arcane pregnancy testers to check; [com.name] managed to knock me up!)])]
 					</p>
 					<p>
-						Deciding to give [com.name] a moment in which to react to this revelation, you stand aside and watch as [com.she] steps up to [npc.name], before reaching out to stroke [npc.her] swollen belly. The [npc.race] prostitute lets out another little laugh as your [com.companion] does this, before playfully biting [npc.her] [npc.lip] and teasing, [npc.speech(So, have either of you got a thing for fucking pregnant [npc.girls]? Considering the situation, I'll even give you a discount of fifty percent...)]
+						Deciding to give [com.name] a moment in which to react to this revelation, you stand aside and watch as [com.she] [npc.steps] up to [npc.name], before reaching out to stroke [npc.her] swollen belly. The [npc.race] prostitute lets out another little laugh as your [com.companion] does this, before playfully biting [npc.her] [npc.lip] and teasing, [npc.speech(So, have either of you got a thing for fucking pregnant [npc.girls]? Considering the situation, I'll even give you a discount of fifty percent...)]
 					</p>
 				#ELSE
 					<p>
@@ -196,7 +196,7 @@
 			#ENDIF
 		#ELSE
 			<p>
-				Looking over at you, [npc.she] smiles and steps forwards, blocking your way as [npc.she] exclaims,
+				Looking over at you, [npc.she] smiles and [npc.steps] forwards, blocking your way as [npc.she] exclaims,
 				[style.random(
 						[npc.speech(Hey again, hot stuff! You lookin' for a good time?)] |
 						[npc.speech(Hey again, babe! You want a good time?)] |
@@ -216,11 +216,11 @@
 			#IF(canal)
 				You find yourself wandering down the path that runs alongside Dominion's canal, staying alert for any sign of trouble. Up ahead, you suddenly spot a rare sign of life, taking the form of [npc.a_fullRace(true)], leaning back against a brick wall.
 			#ELSE
-				You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble. Reaching a turn in your path, you step around the corner to see a rare sign of life, taking the form of [npc.a_fullRace(true)], leaning back against one wall.
+				You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble. Reaching a turn in your path, you [pc.step] around the corner to see a rare sign of life, taking the form of [npc.a_fullRace(true)], leaning back against one wall.
 			#ENDIF
 		</p>
 		<p>
-			Looking over at you, [npc.she] smiles and steps forwards, blocking your way as [npc.she] exclaims,
+			Looking over at you, [npc.she] smiles and [npc.steps] forwards, blocking your way as [npc.she] exclaims,
 			[style.random(
 					[npc.speech(Hey, hot stuff, the name's [npc.name]! You lookin' for a good time?)] |
 					[npc.speech(Hey, babe, the name's [npc.name]! You want a good time?)] |
@@ -274,9 +274,9 @@
 			#IF(canal)
 				 a little way down the canal, before [npc.she] suddenly turns off the path and leads you across a small, overgrown courtyard to a tatty-looking doorway. 
 			#ELSE
-				 a little way down the alleyway, before [npc.she] suddenly turns to one side and steps up to a tatty-looking doorway. 
+				 a little way down the alleyway, before [npc.she] suddenly turns to one side and [npc.steps] up to a tatty-looking doorway.
 			#ENDIF
-			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] steps through the open doorway, you enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
+			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] [npc.steps] through the open doorway, you enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
 		</p>
 		#IF(pc.hasCompanions())
 			<p>
@@ -314,9 +314,9 @@
 			#IF(canal)
 				 a little way down the canal, before [npc.she] suddenly turns off the path and leads you across a small, overgrown courtyard to a tatty-looking doorway. 
 			#ELSE
-				 a little way down the alleyway, before [npc.she] suddenly turns to one side and steps up to a tatty-looking doorway. 
+				 a little way down the alleyway, before [npc.she] suddenly turns to one side and [npc.steps] up to a tatty-looking doorway.
 			#ENDIF
-			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] steps through the open doorway, you enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
+			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] [npc.steps] through the open doorway, you enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
 		</p>
 		#IF(pc.hasCompanions())
 			<p>
@@ -343,7 +343,7 @@
 			Deciding to take advantage of [npc.namePos] debilitating lust, you tell your [com.companion] to join in on the fun, before leaning in towards the horny [npc.race] and dominantly pressing your mouth against [npc.her] [npc.lips+]. Letting out a desperate [npc.moan], [npc.name] immediately starts sloppily kissing you, before pulling back a little and panting, [npc.speech(Come on, fuck me senseless! Let's do it, right here, right now!)]
 		</p>
 		<p>
-			Stepping up behind [npc.name] and grabbing [npc.her] [npc.ass+], [com.name] lets out [com.moan+] as [com.she] prepares to join you in fucking [npc.name]...
+			[pc.Stepping] up behind [npc.name] and grabbing [npc.her] [npc.ass+], [com.name] lets out [com.moan+] as [com.she] prepares to join you in fucking [npc.name]...
 		</p>
 	#ELSE
 		<p>
@@ -357,9 +357,9 @@
 			#IF(canal)
 				 a little way down the canal, before [npc.she] suddenly turns off the path and leads you across a small, overgrown courtyard to a tatty-looking doorway. 
 			#ELSE
-				 a little way down the alleyway, before [npc.she] suddenly turns to one side and steps up to a tatty-looking doorway. 
+				 a little way down the alleyway, before [npc.she] suddenly turns to one side and [npc.steps] up to a tatty-looking doorway.
 			#ENDIF
-			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] steps through the open doorway, you and your [com.companion] enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
+			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] [npc.steps] through the open doorway, you and your [com.companion] enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
 		</p>
 		<p>
 			[npc.speech(My room's this way!)] [npc.name] excitedly exclaims, grabbing you and [com.name] by the [pc.hand] and before leading you through an internal doorway into [npc.her] bedroom. Turning around and flashing the two of you a seductive grin, she teases, [npc.speech(Come on then; show me how you'd like to fuck me...)]
@@ -378,7 +378,7 @@
 	
 	#IF(storm)
 		<p>
-			Deciding to take advantage of [npc.namePos] debilitating lust, you step away from [npc.herHim] and tell your [com.companion] to take your place. Happy enough to be given the opportunity to have sex with this horny [npc.race], [com.name] leans in towards [npc.herHim] and dominantly presses [com.her] mouth against [npc.her] [npc.lips+]. Letting out a desperate [npc.moan], the [npc.name] immediately starts sloppily kissing your [com.companion], before pulling back a little and panting, [npc.speech(Come on, fuck me senseless! Let's do it, right here, right now!)]
+			Deciding to take advantage of [npc.namePos] debilitating lust, you [pc.step] away from [npc.herHim] and tell your [com.companion] to take your place. Happy enough to be given the opportunity to have sex with this horny [npc.race], [com.name] leans in towards [npc.herHim] and dominantly presses [com.her] mouth against [npc.her] [npc.lips+]. Letting out a desperate [npc.moan], the [npc.name] immediately starts sloppily kissing your [com.companion], before pulling back a little and panting, [npc.speech(Come on, fuck me senseless! Let's do it, right here, right now!)]
 		</p>
 		<p>
 			[pc.Stepping] back, you watch as [com.name] and [npc.name] prepare to have sex right here
@@ -400,9 +400,9 @@
 			#IF(canal)
 				 a little way down the canal, before [npc.she] suddenly turns off the path and leads you across a small, overgrown courtyard to a tatty-looking doorway. 
 			#ELSE
-				 a little way down the alleyway, before [npc.she] suddenly turns to one side and steps up to a tatty-looking doorway. 
+				 a little way down the alleyway, before [npc.she] suddenly turns to one side and [npc.steps] up to a tatty-looking doorway.
 			#ENDIF
-			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] steps through the open doorway, you and your [com.companion] enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
+			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] [npc.steps] through the open doorway, you and your [com.companion] enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
 		</p>
 		<p>
 			[npc.speech(My room's this way!)] [npc.name] excitedly exclaims, grabbing [com.namePos] [com.hand] once again before leading [com.herHim] through an internal doorway into [npc.her] bedroom. Turning around and flashing [com.herHim] a seductive grin, she teases, [npc.speech(Come on then; show me how you'd like to dominate me...)]
@@ -424,7 +424,7 @@
 	
 	#IF(storm)
 		<p>
-			Deciding to take advantage of [npc.namePos] debilitating lust, you step away from [npc.herHim] and tell your [com.companion] to take your place. Happy enough to be given the opportunity to have sex with this horny [npc.race], [com.name] [com.steps] forwards and allows [npc.name] to dominantly press [npc.her] [npc.lips+] against [com.her] mouth. Letting out a desperate [npc.moan], the [npc.name] immediately starts sloppily kissing your [com.companion], before pulling back a little and panting, [npc.speech(Oh yes! I'm going to fuck you senseless! Let's do it, right here, right now!)]
+			Deciding to take advantage of [npc.namePos] debilitating lust, you [pc.step] away from [npc.herHim] and tell your [com.companion] to take your place. Happy enough to be given the opportunity to have sex with this horny [npc.race], [com.name] [com.steps] forwards and allows [npc.name] to dominantly press [npc.her] [npc.lips+] against [com.her] mouth. Letting out a desperate [npc.moan], the [npc.name] immediately starts sloppily kissing your [com.companion], before pulling back a little and panting, [npc.speech(Oh yes! I'm going to fuck you senseless! Let's do it, right here, right now!)]
 		</p>
 		<p>
 			[pc.Stepping] back, you watch as [com.name] and [npc.name] prepare to have sex right here
@@ -446,9 +446,9 @@
 			#IF(canal)
 				 a little way down the canal, before [npc.she] suddenly turns off the path and leads you across a small, overgrown courtyard to a tatty-looking doorway. 
 			#ELSE
-				 a little way down the alleyway, before [npc.she] suddenly turns to one side and steps up to a tatty-looking doorway. 
+				 a little way down the alleyway, before [npc.she] suddenly turns to one side and [npc.steps] up to a tatty-looking doorway.
 			#ENDIF
-			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] steps through the open doorway, you and your [com.companion] enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
+			 Producing a key from [npc.her] bag, [npc.name] reaches towards the lock, and after a quick twist and a shove, the door swings open. Following [npc.herHim] inside as [npc.she] [npc.steps] through the open doorway, you and your [com.companion] enter [npc.namePos] apartment. Taking a quick look around while [npc.she] closes and locks the door behind you, you see that while the furniture and general décor is quite shabby, the [npc.race]'s apartment is surprisingly clean and well-lit.
 		</p>
 		<p>
 			[npc.speech(My room's this way!)] [npc.name] excitedly exclaims, grabbing [com.namePos] [com.hand] once again before leading [com.herHim] through an internal doorway into [npc.her] bedroom. Turning around and flashing [com.herHim] a seductive grin, she teases, [npc.speech(So I'm going to be taking charge, huh? Let me show you the sort of things I like...)]
@@ -464,7 +464,7 @@
 	
 	<htmlContent tag="ALLEY_PROSTITUTE_QUESTION_APARTMENT"><![CDATA[
 	<p>
-		As you lie back on [npc.namePos] bed, you find yourself wondering why [npc.she] is choosing to work in these dangerous alleyways, and so you look over and ask [npc.herHim] why [npc.she] doesn't try to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red light district.
+		As you lie back on [npc.namePos] bed, you find yourself wondering why [npc.she] is choosing to work in these dangerous alleyways, and so you look over and ask [npc.herHim] why [npc.she] doesn't try to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red-light district.
 	</p>
 	<p>
 		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking [#SPECIAL_PARSE_0] flame fine!)]
@@ -473,11 +473,11 @@
 		As you confirm to [npc.name] that you're not an Enforcer, you can't help but notice how [npc.she] lets out a sigh of relief. Turning [npc.her] attention back to getting [npc.her] clothes in order, [npc.she] admits, [npc.speech(Look, let's just say that I prefer to work in places where I'm not likely to be found. Anyway, your time's almost up, so please get ready to leave...)]
 	</p>
 	<p>
-		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
+		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this
 		#IF(game.getDialogueFlags().hasFlag(FLAG_prostitutionLicenseObtained))
-			, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
+			area, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
 		#ELSE
-			...
+			area...
 		#ENDIF
 	</p>
 	]]></htmlContent>
@@ -488,7 +488,7 @@
 	#ENDVAR
 	
 	<p>
-		Wondering why [npc.name] is choosing to work in these dangerous alleyways, you ask [npc.herHim] why [npc.she] isn't trying to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red light district.
+		Wondering why [npc.name] is choosing to work in these dangerous alleyways, you ask [npc.herHim] why [npc.she] isn't trying to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red-light district.
 	</p>
 	<p>
 		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking [#SPECIAL_PARSE_0] flame fine!)]
@@ -502,11 +502,11 @@
 		#ENDIF
 	</p>
 	<p>
-		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
+		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this
 		#IF(game.getDialogueFlags().hasFlag(FLAG_prostitutionLicenseObtained))
-			, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
+			area, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
 		#ELSE
-			...
+			area...
 		#ENDIF
 	</p>
 	]]></htmlContent>
@@ -576,7 +576,7 @@
 		Not wanting this lowlife hanging around in this area for any longer, you pointedly ask what [npc.she] did in order to have earned a [#SPECIAL_PARSE_0] flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
-		Continuing with your plan to get rid of [npc.name], you casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As a shocked expression quickly settles on the [npc.race]'s face, you tell [npc.herHim] that you're looking forward to finding out, before starting to walk off and call out your intention to report [npc.herHim] to the nearest constable.
+		Continuing with your plan to get rid of [npc.name], you casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As a shocked expression quickly settles on the [npc.race]'s face, you tell [npc.herHim] that you're looking forward to finding out, before starting to [pc.walk] off and call out your intention to report [npc.herHim] to the nearest constable.
 	</p>
 	<p>
 		[npc.NamePos] look of complete disbelief is quickly replaced by one of fear and anger as [npc.she] hears what it is you're saying, and as you [pc.walk] off, [npc.she]
@@ -612,7 +612,7 @@
 		Not giving you much choice in the matter, the [npc.race] pushes the item into your [pc.hands], and you look down to see that it's <b>[#SPECIAL_PARSE_0]</b>! 
 	</p>
 	<p>
-		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] turns away and swiftly exits [npc.her] apartment, before running off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare follow in [npc.namePos] footsteps and continue on your journey...
+		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] turns away and swiftly exits [npc.her] apartment, before running off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare to follow in [npc.namePos] footsteps and continue on your journey...
 	</p>
 	]]></htmlContent>
 	
@@ -633,7 +633,7 @@
 		Not giving you much choice in the matter, the [npc.race] pushes the item into your [pc.hands], and you look down to see that it's <b>[#SPECIAL_PARSE_0]</b>! 
 	</p>
 	<p>
-		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] turns away and swiftly runs off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare follow in [npc.namePos] footsteps and continue on your journey...
+		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] turns away and swiftly runs off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare to follow in [npc.namePos] footsteps and continue on your journey...
 	</p>
 	]]></htmlContent>
 	
@@ -672,7 +672,12 @@
 		Staggering back, [npc.name] collapses to the floor, completely defeated. [npc.She] looks up at you, and you see that there's a desperate, wild look in [npc.her] [npc.eyes]. Making a pitiful little whining noise, [npc.she] begs, [npc.speech(Do what you want with me! Just, please, I don't want to be a slave! Don't hand me over to the Enforcers!)]
 	</p>
 	<p>
-		Despite the awful situation that [npc.she] finds [npc.herself] in, it appears as though your powerful arcane aura is having a strong effect on [npc.name]. Even as [npc.she] begs for you to have mercy, you see [npc.herHim] glance down hungrily at your body. Seemingly unaware of what [npc.sheIs] doing, [npc.her] [npc.hands] suddenly drop down between [npc.her] [npc.legs], and [npc.she] lets out [npc.a_moan+] as [npc.she] starts touching [npc.herself]...
+		Despite the awful situation that [npc.she] finds [npc.herself] in, it appears as though your powerful arcane aura is having a strong effect on [npc.name]. Even as [npc.she] begs for you to have mercy, you see [npc.herHim] glance down hungrily at your body.
+		#IF(npc.isTaur())
+			 Seemingly unaware of what [npc.sheIs] doing, [npc.she] starts rubbing [npc.her] rear-end up against a nearby downpipe, and [npc.she] lets out [npc.a_moan+] as [npc.she] uses it to masturbate...
+		#ELSE
+			 Seemingly unaware of what [npc.sheIs] doing, [npc.her] [npc.hands] suddenly drop down to [npc.her] groin, and [npc.she] lets out [npc.a_moan+] as [npc.she] starts touching [npc.herself]...
+		#ENDIF
 	</p>
 	<p>
 		<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that [style.italicsMinorBad(this will be the last time you ever see [npc.herHim])], as [npc.sheIs] sure to move on once you leave.</i>
@@ -832,7 +837,7 @@
 	<htmlContent tag="AFTER_SEX_PAID_THREESOME"><![CDATA[
 	<p>
 		#IF(npc.isSatisfiedFromLastSex())
-			Having had your fun, you and [com.name] step back from [npc.name], who, totally worn out from [npc.her]
+			Having had your fun, you and [com.name] [pc.step] back from [npc.name], who, totally worn out from [npc.her]
 			#IF(sex.getNumberOfOrgasms(npc)>1)
 				 orgasms
 			#ELSE
@@ -840,7 +845,7 @@
 			#ENDIF
 			, sinks back down onto [npc.her] bed with a deep sigh. Looking up at you, a satisfied smile settles on [npc.her] face, and [npc.she] exclaims, [npc.speech(Damn, you two are good! It looks like I've got a new pair of favourite customers!)]
 		#ELSE
-			Having had your fun, you and [com.name] step back from [npc.name], who sinks back down onto [npc.her] bed with a deep sigh. Looking up at you, a tired smile settles on [npc.her] face, and [npc.she] exclaims, [npc.speech(I hope you two had a good time!)]
+			Having had your fun, you and [com.name] [pc.step] back from [npc.name], who sinks back down onto [npc.her] bed with a deep sigh. Looking up at you, a tired smile settles on [npc.her] face, and [npc.she] exclaims, [npc.speech(I hope you two had a good time!)]
 		#ENDIF
 	</p>
 	<p>
@@ -870,7 +875,7 @@
 	<htmlContent tag="AFTER_SEX_PAID"><![CDATA[
 	<p>
 		#IF(npc.isSatisfiedFromLastSex())
-			As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her]
+			As you [pc.step] back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her]
 			#IF(sex.getNumberOfOrgasms(npc)>1)
 				 orgasms
 			#ELSE
@@ -878,7 +883,7 @@
 			#ENDIF
 			. Looking up at you, a satisfied smile settles on [npc.her] face, and [npc.she] sighs, [npc.speech(Damn, you're good! It looks like I've got a new favourite customer!)]
 		#ELSE
-			As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, letting out a deep sigh as [npc.she] realises that you've finished. Looking up at you, a tired smile settles on [npc.her] face, and [npc.she] exclaims, [npc.speech(I hope you had a good time!)]
+			As you [pc.step] back from [npc.name], [npc.she] sinks back onto [npc.her] bed, letting out a deep sigh as [npc.she] realises that you've finished. Looking up at you, a tired smile settles on [npc.her] face, and [npc.she] exclaims, [npc.speech(I hope you had a good time!)]
 		#ENDIF
 	</p>
 	<p>
@@ -900,7 +905,7 @@
 	
 	<htmlContent tag="AFTER_SEX_STORM_THREESOME"><![CDATA[
 	<p>
-		Having had your fun, you and [com.name] step back from [npc.name], who sinks down onto the floor with a deep sigh. Still being affected by the arcane storm's power, [npc.she] desperately [npc.moansVerb], [npc.speech(~Aah!~ I'm still so horny!)]
+		Having had your fun, you and [com.name] [pc.step] back from [npc.name], who sinks down onto the floor with a deep sigh. Still being affected by the arcane storm's power, [npc.she] desperately [npc.moansVerb], [npc.speech(~Aah!~ I'm still so horny!)]
 	</p>
 	<p>
 		Not wanting to spend any more time fucking this horny [npc.race], you and [com.name] quickly get your things back in order, before wondering what to do next...
@@ -918,7 +923,7 @@
 	
 	<htmlContent tag="AFTER_SEX_STORM"><![CDATA[
 	<p>
-		Having had your fun, you step back from [npc.name], who sinks down onto the floor with a deep sigh. Still being affected by the arcane storm's power, [npc.she] desperately [npc.moansVerb], [npc.speech(~Aah!~ I'm still so horny!)]
+		Having had your fun, you [pc.step] back from [npc.name], who sinks down onto the floor with a deep sigh. Still being affected by the arcane storm's power, [npc.she] desperately [npc.moansVerb], [npc.speech(~Aah!~ I'm still so horny!)]
 	</p>
 	<p>
 		Not wanting to spend any more time fucking this horny [npc.race], you quickly get your things back in order, before wondering what to do next...
@@ -943,7 +948,7 @@
 	<htmlContent tag="AFTER_SEX_VICTORY_THREESOME"><![CDATA[
 	<p>
 		#IF(npc.isSatisfiedFromLastSex())
-			Having had your fun, you and [com.name] step back from [npc.name], who, totally worn out from [npc.her]
+			Having had your fun, you and [com.name] [pc.step] back from [npc.name], who, totally worn out from [npc.her]
 			#IF(sex.getNumberOfOrgasms(npc)>1)
 				 orgasms
 			#ELSE
@@ -951,7 +956,14 @@
 			#ENDIF
 			, sinks to the floor with a deep sigh. Looking up at you, a satisfied smile settles on [npc.her] face, and you realise that you ended up giving [npc.herHim] exactly what [npc.she] wanted.
 		#ELSE
-			Having had your fun, you and [com.name] step back from [npc.name], who sinks to the floor with a frustrated sigh. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			Having had your fun, you and [com.name] [pc.step] back from [npc.name], who sinks to the floor with a frustrated sigh.
+			#IF(npc.isTaur())
+				 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby downpipe in a desperate attempt to masturbate and finish what you started.
+			#ELSEIF(npc.hasLegs())
+				 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ELSE
+				 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -970,7 +982,14 @@
 			#ENDIF
 			. Looking up at [com.name], a satisfied smile settles on [npc.her] face, and you realise that your [com.companion] ended up giving [npc.herHim] exactly what [npc.she] wanted.
 		#ELSE
-			As [com.name] steps back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that your [com.companion] has finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			As [com.name] steps back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that your [com.companion] has finished.
+			#IF(npc.isTaur())
+				 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby downpipe in a desperate attempt to masturbate and finish what you started.
+			#ELSEIF(npc.hasLegs())
+				 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ELSE
+				 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -981,15 +1000,22 @@
 	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
 	<p>
 		#IF(npc.isSatisfiedFromLastSex())
-			As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her]
+			As you [pc.step] back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her]
 			#IF(sex.getNumberOfOrgasms(npc)>1)
-				 orgasms
+				 orgasms.
 			#ELSE
-				 orgasm
+				 orgasm.
 			#ENDIF
-			. Looking up at you, a satisfied smile settles on [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
+			 Looking up at you, a satisfied smile settles on [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
 		#ELSE
-			As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			As you [pc.step] back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished.
+			#IF(npc.isTaur())
+				 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby downpipe in a desperate attempt to masturbate and finish what you started.
+			#ELSEIF(npc.hasLegs())
+				 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ELSE
+				 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -1008,7 +1034,7 @@
 	
 	<htmlContent tag="AFTER_SEX_DEFEAT_APARTMENT"><![CDATA[
 	<p>
-		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. Glancing up at the [npc.race], you see a very satisfied smile cross [npc.her] face, and [npc.she] leans down to pat you on the head and exclaim, [npc.speech(Farewell forever! You and your Enforcer cronies will have to try harder than that to catch me!)]
+		As [npc.name] [npc.steps] back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. Glancing up at the [npc.race], you see a very satisfied smile cross [npc.her] face, and [npc.she] leans down to pat you on the head and exclaim, [npc.speech(Farewell forever! You and your Enforcer cronies will have to try harder than that to catch me!)]
 	</p>
 	<p>
 		With that, [npc.she] quickly gathers up [npc.her] personal possessions, before exiting [npc.her] apartment and leaving you panting on the ground. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way...
@@ -1020,10 +1046,10 @@
 	
 	<htmlContent tag="AFTER_SEX_DEFEAT"><![CDATA[
 	<p>
-		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. Glancing up at the [npc.race], you see a very satisfied smile cross [npc.her] face, and [npc.she] leans down to pat you on the head and exclaim, [npc.speech(Farewell forever! You and your Enforcer cronies will have to try harder than that to catch me!)]
+		As [npc.name] [npc.steps] back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. Glancing up at the [npc.race], you see a very satisfied smile cross [npc.her] face, and [npc.she] leans down to pat you on the head and exclaim, [npc.speech(Farewell forever! You and your Enforcer cronies will have to try harder than that to catch me!)]
 	</p>
 	<p>
-		With that, [npc.she] walks off, leaving you panting on the floor of [npc.her] bedroom...
+		With that, [npc.she] [npc.walks] off, leaving you panting on the floor of [npc.her] bedroom...
 	</p>
 	<p>
 		<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that [style.italicsMinorBad(this was the last time you'll ever see [npc.herHim])], as [npc.sheIs] sure to move on to a new location.</i>

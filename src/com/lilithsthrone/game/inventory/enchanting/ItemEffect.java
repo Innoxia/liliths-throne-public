@@ -213,7 +213,11 @@ public class ItemEffect implements XMLSaving {
 		}
 		
 		try {
-			int time = Integer.valueOf(parentElement.getAttribute("timer"));
+			String timerString = parentElement.getAttribute("timer");
+			int time = 0;
+			if(!timerString.isEmpty()) {
+				time = Integer.valueOf(timerString);
+			}
 			
 			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.5")) {// I think this was to align effects to all be on the hour:
 				int timer = time/60;

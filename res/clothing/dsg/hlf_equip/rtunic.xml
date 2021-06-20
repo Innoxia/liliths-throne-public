@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<authorTag><![CDATA[The tag sewn into the inside reads "MFD by DSG Threadworks".]]></authorTag>
+		<value>250</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[vintage fatigue tunic]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[vintage fatigue tunics]]></namePlural>
+		<description><![CDATA[A waist-length tunic made from cotton twill with two breast pockets. Fabric tabs have been sewn onto the collar but you are not familiar with the style or meaning.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>RARE</rarity>
+		<clothingSet>dsg_hlf_regular</clothingSet>
+		<imageName>rtunic.svg</imageName>
+		<imageEquippedName/>
+		
+		<stickers>
+			<category id="wearntear" priority="1"> 
+				<categoryName><![CDATA[Wear and Tear]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix priority="1"><![CDATA[]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="patched" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BROWN"> 
+					<stickerName><![CDATA[Patched]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Patched ]]></namePrefix> 
+					<namePostfix/> 
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one has been repeatedly patched up, and you don't even want to think about the stains.</i>]]></descriptionModification> 
+					<imageName>rtunic_st_ragged.svg</imageName> 
+					<itemTagsAdded/> 
+					<itemTagsRemoved/> 
+					<unavailabilityText/> 
+					<availabilityText>
+						If you really want that vintage look...
+					</availabilityText> 
+				</sticker>
+			</category>
+		</stickers>
+		
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+					<clothingAccessRequired>
+						<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					</clothingAccessRequired>
+					<blockedBodyParts>
+						<bodyPart>BACK</bodyPart>
+						<bodyPart>ARMPITS</bodyPart>
+					</blockedBodyParts>
+					<clothingAccessBlocked>
+					</clothingAccessBlocked>
+				<concealedSlots>
+				</concealedSlots>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType>
+					<clothingAccessRequired>
+					</clothingAccessRequired>
+					<blockedBodyParts>
+						<bodyPart>BREASTS</bodyPart>
+						<bodyPart>NIPPLES</bodyPart>
+						<bodyPart>STOMACH</bodyPart>
+					</blockedBodyParts>
+					<clothingAccessBlocked>
+						<clothingAccess>CHEST</clothingAccess>
+						<clothingAccess>WAIST</clothingAccess>
+					</clothingAccessBlocked>
+					<concealedSlots>
+						<slot>STOMACH</slot>
+						<slot>CHEST</slot>
+						<slot>NIPPLE</slot>
+						<slot>PIERCING_NIPPLE</slot>
+						<slot>PIERCING_STOMACH</slot>
+					</concealedSlots>
+				</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_OLIVE</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_STEEL"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<customColours>			
+			<customColour copyColourIndex="3" c0="#483737" c1="#6c5353" c2="#916f6f" c3="#ac9393" c4="#c8b7b7">
+				<defaultColours>
+					<colour>CLOTHING_BROWN_DARK</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags/>
+	</coreAtributes>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] tunic and [npc.verb(pull)] it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] tunic and [npc.verb(pull)] it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] practically [npc.verb(rip)] [npc2.namePos] tunic.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the tunic and [npc.verb(button)] it up.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] put the tunic on and [npc.verb(button)] it up.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[CDATA[[npc.Name] [npc.verb(force)] the tunic onto [npc2.name] before roughly buttoning it up.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] tunic.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] tunic.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unbutton)] [npc2.namePos] tunic.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up [npc.her] tunic.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up [npc2.namePos] tunic.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(button)] up [npc2.namePos] tunic.]]>
+		</otherRough>
+	</replacementText>
+	
+</clothing>

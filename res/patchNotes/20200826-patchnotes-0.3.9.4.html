@@ -1,0 +1,121 @@
+<h2>v0.3.9.4</h2>
+<h3>Contributors:</h3>
+<ul>
+	<li>Added an encounter in Dominion's alleyways and Lilaya's home's corridors where you stumble upon two of your slaves having sex with one another. To trigger, you need your slaves to have the appropriate outside/house freedom and sex permissions, and the one initiating sex needs to have not had sex for at least 4 hours and to be attracted to the other. (by PoyntFury)</li>
+	<li>Improved String-matching utility methods and dynamically generated ColorListPreset classes. (PR#1368 by CognitiveMist)</li>
+	<li>Fixed bug where sometimes multiple-partner sex would break upon orgasm. (by CognitiveMist)</li>
+	<li>Added 'broodmother pill', which doubles offspring conceived during its effect. (Usage dialogue written by PoyntFury)</li>
+	<li>Fixed a bug where having multiple arm pairs allowed an all-out strike with a 2-handed weapons. (PR#1384 by AceXP)</li>
+	<li>Added average penis girth in the Encyclopedia information on races. (PR#1385 by AceXP)</li>
+	<li>Prevented any succubus/incubus alleyway attackers from spawning with the 'Prude' trait, as it doesn't fit them. (PR#1386 by AceXP)</li>
+	<li>Fixed issue where 'Arcane impotence' was being applied when arcane was lower than 15, instead of lower than 10 as it should have been. (PR#1388 by AceXP)</li>
+	<li>Standardized all encounters to override getDialogues() instead of accepting Util.newHashMapOfValues() as a parameter. (PR#1389 by DSG)</li>
+	<li>Added a new 'limited' option for the bypass sex action content setting, which allows you to perform sex actions of one corruption level higher than your current corruption. (PR#1391 by AceXP)</li>
+	<li>Added 'wet wipes' item, which cleans the target's dirty inventory slots when used. (by DSG)</li>
+	<li>Added 'peach' as a silly-mode item, sold by Ralph. (Adapted from PR#339 by Rfpnj)</li>
+	<li>Added variation of what your starter spell is based on your character's birth month (fireball, slam, ice shard, or poison cloud). (PR#966 by Rfpnj)</li>
+</ul>
+
+<h3>Engine:</h3>
+<ul>
+	<li>Added modding support for items. You can find a fully-documented example in 'res/items/innoxia/pills/fertility.xml'. Item modding will be expanded at a later date to support enchantments, but for now, the modding framework should be enough for most uses.</li>
+	<li>Converted Combat from an Enum to a class, which can now be accessed via the parser using the command 'combat'.</li>
+</ul>
+
+<h3>Rat Warrens:</h3>
+<ul>
+	<li>Fixed bug where Murk would always use the 'normal' dom pace instead of being rough.</li>
+	<li>Fixed several instances of Murk's sex scenes ending with an action named 'Milking room' with no tooltip description.</li>
+	<li>Fixed bug where Murk would fuck you without first taking out your pussy pump.</li>
+	<li>Fixed issue with missing dialogue node when having sex with Murk in the Gambling Den.</li>
+	<li>THe 'Free captives' action in the milking room is now correctly disabled once you've discovered that the milkers cannot be freed.</li>
+	<li>Filled in all placeholder dialogue for both Vengar's and Murk's post-quest-completion scenes in the Gambling Den.</li>
+	<li>Murk's name now remains as 'Murk' after feminising him in the post-quest gambling den content.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Reduced rarity of crafted 'Fetish Endowment' potions from legendary to epic.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>NPCs will no longer feel the urgent need to expose masculine characters' nipples during sex.</li>
+	<li>You can no longer deny your partner's orgasm in the 'glory hole' sex position.</li>
+	<li>Fixed bug where your sealed clothing wouldn't be displaced at the start of the Enforcer's 'strip search' sex scene.</li>
+	<li>Added positioning requests to the 'glory hole' sex position for when you're dominantly using it, so you can ask the person on the other side to push their pussy or ass up against the hole to be fucked.</li>
+	<li>Blocked 'Offer X' and 'Request X' actions in the 'glory hole' sex position (as they didn't really work due to the position's limitations).</li>
+	<li>NPCs will now only self-use an item type once in sex (so you no longer have to repeatedly use pills on an NPC who wants to use the opposite type of pill).</li>
+	<li>Added an 'Automatic stripping' content option (in the 'sex' property category), which makes it so that all characters start naked in each sex scene. This is disabled by default.</li>
+	<li>Sex scenes in which characters automatically start naked no longer remove their piercings.</li>
+	<li>Fixed issue with NPCs self-using breeder pills in illogical situations.</li>
+	<li>Lowered corruption requirements for most positioning actions.</li>
+</ul>
+
+<h3>Slavery:</h3>
+<ul>
+	<li>Added 'Save Virginity' as a generic permission for slaves, which is enabled by default.</li>
+	<li>Slightly improved wording of slave sex interactions in the log.</li>
+	<li>Reduced the chance for slaves to have the 'bonding' event with one another.</li>
+	<li>Added filtering options for the 'Occupancy ledger' in the Office room. You can filter events by their type and by slaves involved.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Enforcer encounters now have a cooldown of four hours before they can be randomly encountered again.</li>
+	<li>Characters in the 'lying down' sex slot can now kiss/suckle a character's breasts if they are in the 'cowgirl' sex slot.</li>
+	<li>The 'American tourist' occupation now only parses the main dialogue screen when converting spelling to American English (as it was causing some lag when trying to parse everything).</li>
+	<li>Elementals are now always treated as having all their body parts pierced (due to their transformative abilities).</li>
+	<li>Split up Elemental dialogue into 'Interactions' and 'Management' tabs, and added a management option 'Self-clean' to set whether or not your elemental automatically cleans dirty fluids from their body/clothes (enabled by default).</li>
+	<li>Elementals now spawn at maximum affection towards their summoner (this will be retroactively applied to your Elemental when loading into this version).</li>
+	<li>NPCs who do not have the martial artist perk and who have a main weapon equipped and no offhand weapon equipped will now be far less likely to use the 'offhand strike' attack.</li>
+	<li>The SWORD Enforcers in the Enforcer Warehouse (in Claire's teleportation quest) now prefer to attack in combat rather than teasing.</li>
+	<li>If you have anal content disabled, the 'buttslut' fetish is no longer a requirement for unlocking the 'lusty maiden' fetish.</li>
+	<li>You can no longer encounter the same person in the nightclub more than once per night.</li>
+	<li>Moved 'Post-sex clothing replacement' property category from 'gameplay' to 'sex'.</li>
+	<li>You can no longer give Bunny or Loppy items during sex.</li>
+	<li>Added pregnancy reactions for if you manage to impregnate Bunny and Loppy, and slightly improved the flow of dialogue when entering their rooms.</li>
+	<li>Added two new upgrades to the 'Soothing Waters' spell, which cause it to clean the target's body & clothing and wash out fluids from their orifices.</li>
+	<li>Added 'Head pat' action to Nyan's romance actions.</li>
+	<li>Added 'naive' and 'cynical' personality traits. (They are like the other core traits in that they are mostly for roleplaying purposes and will have some limited dialogue variations throughout the game.)</li>
+	<li>Updated 'Enforcer HQ' map.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Numerous parsing and typo fixes.</li>
+	<li>Fixed issue with slaves not being correctly identified as being able to ambush you in Dominion even if you gave them the right permissions.</li>
+	<li>Fixed issue where slaves would never jump you for sex in alleyways that already had a persistent character present in them.</li>
+	<li>Slaves being held in Slavery Administration will no longer generate slave-interaction events with other slaves.</li>
+	<li>Silly-mode items are no longer tracked by the Encyclopedia (so that players doing normal playthroughs will not be confused as to why some items are unobtainable).</li>
+	<li>Fixed minor issue with the display of clothing and weapon Encyclopedia counts passing their totals.</li>
+	<li>Fixed issue where characters with an unknown race would have their body overview tooltip show that they had crotch-boobs, even if they didn't have any.</li>
+	<li>Fixed bug where characters' images wouldn't display in their character overview screen if you had the 'American tourist' occupation.</li>
+	<li>Fixed issue where you couldn't change your Elemental's surname.</li>
+	<li>Fixed bug where attempting to enslave gang members in the Rat Warrens would cause the game to break.</li>
+	<li>Fixed issue with pregnancy roulette where sex would end after the character being bred had orgasmed, even if you hadn't orgasmed yet.</li>
+	<li>You no longer lose affection with characters in the pregnancy roulette game when sex is automatically ended after orgasming.</li>
+	<li>Newly-created characters are no longer considered to have lost their penile virginity if you give them 'handjobs received' experience.</li>
+	<li>A character's oral virginity loss description will now correctly be displayed in their body overview screen.</li>
+	<li>Fixed issue with Natalya's clothing not being displaced when starting sex with her.</li>
+	<li>Fixed issue where sex scenes with pure virgins could sometimes cause the game to lock up and become unresponsive.</li>
+	<li>Fixed bug where you could talk to your elemental via the phone action during combat, sex, or other non-neutral scenes.</li>
+	<li>Fixed issue where Elementals could use arcane scrolls even though they could not use the upgrade points gained from them.</li>
+	<li>Fixed bug where when Lyssieth self-transformed into her human form, her earrings would be unequipped and placed in her inventory.</li>
+	<li>Fixed issue with background error being thrown when first entering the Enforcer Warehouse (in Claire's teleportation quest).</li>
+	<li>Fixed bug where looking at your item Encyclopedia while trading with an NPC would not show any tooltips and throw numerous background errors.</li>
+	<li>Removed ability to contact previous partners in the nightclub if they are no longer attracted to you (if, for example, you've changed your femininity), as it was causing issues with sex immediately ending.</li>
+	<li>Fixed issue where maximum limits of testicle size and penis girth were swapped with one another when enchanting clothing with secondary and tertiary size effects.</li>
+	<li>Clothing which should be discarded on unequip is no longer placed into the unequipping character's inventory as a result of having body parts transformed (such as unequipping a condom when a character's penis is removed).</li>
+	<li>Fixed issue where milking slaves would sometimes not unequip their milking pumps after finishing their work hours in the milking room.</li>
+	<li>Fixed issue where opening the 'characters present' screen while managing a slave would result in background errors being thrown and the UI becoming unresponsive.</li>
+	<li>Fixed bug where if you ran out of items while enchanting during trading, you'd be able to take all of the shopkeeper's items for free.</li>
+	<li>Fixed issue where enslaving your offspring without first beating them in combat would display the interaction interface after enslaving them.</li>
+	<li>Fixed issue where slaves generating background sex interaction events would throw background errors if you were in a sex scene at the time they were generated.</li>
+	<li>Fixed bug where exiting Dominion locations (such as the City Hall or Enforcer HQ) during an arcane storm would spawn persistent characters on your tile without offering you any interactions with them.</li>
+	<li>Upgrading a room into the spa from the Office's 'Occupancy ledger' will no longer place the 'under construction' tile next to the office instead of next to the spa tile.</li>
+	<li>Fixed bug where your elemental was being affected by the 'Blinded by Freedom' status effect (from the silly mode's 'American Tourist' background perk).</li>
+	<li>Fixed bug where the 'Localised Storm' upgrade for the 'Arcane Cloud' spell would not apply lust damage to the character affected by it.</li>
+	<li>Fixed strawberry and blueberry fluid flavour using plural descriptions where all other flavours were singular.</li>
+	<li>In her sex scene in Lilaya's room, Rose should no longer have her orifices penetrated during 'quick sex' action generation.</li>
+</ul>

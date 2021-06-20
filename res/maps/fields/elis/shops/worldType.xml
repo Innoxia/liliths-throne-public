@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Wall's End]]></name>
+	<colour>BASE_GOLD</colour>
+	<sexBlockedReason/>
+	<furniturePresent>false</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<flightEnabled>true</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_shops_street</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_shops_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff8080">innoxia_fields_elis_shops_exit</place>
+		<place colour="#808080">innoxia_fields_elis_shops_street</place>
+		<place colour="#80ff00">innoxia_fields_elis_shops_lawn</place>
+		<place colour="#72c8c5">innoxia_fields_elis_shops_fountain</place>
+		<place colour="#404040">innoxia_fields_elis_shops_generic_shop</place>
+		
+		<place colour="#5fa56f">innoxia_fields_elis_shops_toilets</place>
+		<place colour="#b392ff">innoxia_fields_elis_shops_convenience</place>
+		<place colour="#ffc9ff">innoxia_fields_elis_shops_clothing</place>
+		<place colour="#c800ff">innoxia_fields_elis_shops_spa</place>
+		<place colour="#ffc945">innoxia_fields_elis_shops_blacksmith</place>
+	</places>
+</worldType>

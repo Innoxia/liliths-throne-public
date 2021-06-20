@@ -482,7 +482,7 @@ public class Penis implements BodyPartInterface {
 
 	public String addPenisModifier(GameCharacter owner, PenetrationModifier modifier) {
 		if(hasPenisModifier(modifier)) {
-			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+			return owner == null ? "" : "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
 		if(owner==null || owner.getBody()==null) {
@@ -495,69 +495,80 @@ public class Penis implements BodyPartInterface {
 		}
 		
 		penisModifiers.add(modifier);
+
+		List<String> pmsRemoved = new ArrayList<>();
+		
+		for(PenetrationModifier pm : modifier.getMutuallyExclusivePenetrationModifiers()) {
+			if(hasPenisModifier(pm)) {
+				pmsRemoved.add(pm.getName());
+				penisModifiers.remove(pm);
+			}
+		}
+		String removedText = "";
+		if(!pmsRemoved.isEmpty()) {
+			removedText = "<br/>[style.italicsMinorBad(Due to being mutually exclusive with the '"+modifier.getName()+"' modifier, [npc.namePos] cock is no longer "+Util.stringsToStringList(pmsRemoved, false)+".)]";
+		}
+		
+		String returnText = "";
 		
 		switch(modifier) {
 			case RIBBED:
-				return "<p>"
-							+ "An intense pressure builds up within [npc.namePos] [npc.penis], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(hard, fleshy ribs)] grow up all along its length."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now ribbed!)]"
-						+ "</p>";
+				returnText = "An intense pressure builds up within [npc.namePos] [npc.cock], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(hard, fleshy ribs)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now ribbed!)]";
+				break;
 			case TENTACLED:
-				return "<p>"
-							+ "A pulsating warmth builds up within [npc.namePos] [npc.penis], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(little wriggling tentacles)] grow up all along its length."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now covered with little tentacles, which wriggle with a mind of their own!)]"
-						+ "</p>";
+				returnText = "A pulsating warmth builds up within [npc.namePos] [npc.cock], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(little wriggling tentacles)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now covered with little tentacles, which wriggle with a mind of their own!)]";
+				break;
 			case BARBED:
-				return "<p>"
-							+ "An intense warmth builds up within [npc.namePos] [npc.penis], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(little fleshy barbs)] grow up all along its length."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now lined with fleshy, backwards-facing barbs!)]"
-						+ "</p>";
+				returnText = "An intense warmth builds up within [npc.namePos] [npc.cock], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(little fleshy barbs)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now lined with fleshy, backwards-facing barbs!)]";
+				break;
 			case FLARED:
-				return "<p>"
-							+ "An intense warmth builds up in the tip of [npc.namePos] [npc.penis], and before [npc.she] [npc.has] a chance to react, the [style.boldGrow(head flares out)], much like that of a horse's."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] now has a wide, flared head!)]"
-						+ "</p>";
+				returnText = "An intense warmth builds up in the tip of [npc.namePos] [npc.cock], and before [npc.she] [npc.has] a chance to react, the [style.boldGrow(head flares out)], much like that of a horse's."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] now has a wide, flared head!)]";
+				break;
 			case BLUNT:
-				return "<p>"
-							+ "An intense warmth builds up in the tip of [npc.namePos] [npc.penis], and before [npc.she] [npc.has] a chance to react, the [style.boldGrow(head smoothes over)], much like that of a reptile's."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] now has a smooth, blunt head!)]"
-						+ "</p>";
+				returnText = "An intense warmth builds up in the tip of [npc.namePos] [npc.cock], and before [npc.she] [npc.has] a chance to react, the [style.boldGrow(head smoothes over)], much like that of a reptile's."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] now has a smooth, blunt head!)]";
+				break;
 			case KNOTTED:
-				return "<p>"
-							+ "An intense warmth builds up in the base of [npc.namePos] [npc.penis], and before [npc.she] [npc.has] a chance to react, a [style.boldGrow(fat knot)] quickly grows up there."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] now has a fat knot at the base!)]"
-						+ "</p>";
+				returnText = "An intense warmth builds up in the base of [npc.namePos] [npc.cock], and before [npc.she] [npc.has] a chance to react, a [style.boldGrow(fat knot)] quickly grows up there."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] now has a fat knot at the base!)]";
+				break;
 			case PREHENSILE:
-				return "<p>"
-							+ "A strange tingling sensation works its way up the length of [npc.namePos] [npc.penis], and [npc.she] suddenly becomes aware that it's transformed into being [style.boldGrow(prehensile)],"
+				returnText = "A strange tingling sensation works its way up the length of [npc.namePos] [npc.cock], and [npc.she] suddenly becomes aware that it's transformed into being [style.boldGrow(prehensile)],"
 								+ " allowing [npc.herHim] to twist and move it around just like a primate's tail."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now prehensile!)]"
-						+ "</p>";
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now prehensile!)]";
+				break;
 			case SHEATHED:
-				return "<p>"
-							+ "An intense pressure builds up in the base of [npc.namePos] [npc.penis], and before [npc.she] [npc.has] a chance to react, it pulls back into a brand new [style.boldGrow(sheath)] that's just grown up there."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now sheathed!)]"
-						+ "</p>";
+				returnText = "An intense pressure builds up in the base of [npc.namePos] [npc.cock], and before [npc.she] [npc.has] a chance to react, it pulls back into a brand new [style.boldGrow(sheath)] that's just grown up there."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now sheathed!)]";
+				break;
 			case TAPERED:
-				return "<p>"
-							+ "An intense warmth builds up within [npc.namePos] [npc.penis], but before [npc.she] [npc.has] a chance to react, the shaft suddenly [style.boldGrow(tapers down)]."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now tapered!)]"
-						+ "</p>";
+				returnText = "An intense warmth builds up within [npc.namePos] [npc.cock], but before [npc.she] [npc.has] a chance to react, the shaft suddenly [style.boldGrow(tapers down)]."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now tapered!)]";
+				break;
 			case VEINY:
-				return "<p>"
-							+ "An intense warmth builds up within [npc.namePos] [npc.penis], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now veiny!)]"
-						+ "</p>";
+				returnText = "An intense warmth builds up within [npc.namePos] [npc.cock], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now veiny!)]";
+				break;
 			case OVIPOSITOR:
-				return "<p>"
-							+ "An intense tingling sensation works its up [npc.namePos] [npc.penis], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
-							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now able to lay eggs!)]"
-							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>"
-						+ "</p>";
+				returnText = "An intense tingling sensation works its up [npc.namePos] [npc.cock], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now able to lay eggs!)]"
+							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
+				break;
 		}
 		
-		// Catch:
-		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		if(returnText.isEmpty()) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
+		return UtilText.parse(owner,
+				"<p>"
+					+returnText
+					+removedText
+				+"</p>");
 	}
 
 	public String removePenisModifier(GameCharacter owner, PenetrationModifier modifier) {

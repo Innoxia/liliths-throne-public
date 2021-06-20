@@ -296,41 +296,74 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_A_FINDING_THE_YOUKO(QuestType.MAIN, 20, 250) {
+	MAIN_3_ELIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Finding the youko";
+			return "Destination Elis";
 		}
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
-					+ "[siren.Name] told you that you're going to need the help of the youko if you're to defeat the elder lilin pegataur, Lunette."
-					+ " She said that you should find and enlist the help of her old friend, [youkoGuide.name], who worked in her lab back when she was living in her citadel."
-					+ " [youkoGuide.Name] will have returned to the town of Elis, which is the settlement nearest to the Shinrin Forest, the youko's homeland.";
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " Meraxis additionally mentioned enlisting the aid of the youko, but that can wait until after you've arrived in Elis itself.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You travelled to Elis, where you found the youko, [youkoGuide.name], in an inn called 'The Ninth Tail'."
-					+ " It turned out that she was having to work off a significant debt, and wouldn't be able to help you until it's paid off in full.";
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " To this end, you left Dominion for the first time...";
 		}
 	},
 	
-	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {
+	MAIN_3_B_MEETING_MERAXIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Debts paid";
+			return "To The Red Dragon";
 		}
 
 		@Override
 		public String getDescription() {
-			return "You need to help [youkoGuide.name] clear her debt, and in exchange she's promised to show you where the leader of all the youko lives.";
+			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You helped [youkoGuide.name] clear her debt, and, as agreed, she is ready and willing to take you to the youko leader's hideout.";
+			return "You met Meraxis in 'The Red Dragon' tavern, where she's managed to secure accommodation for you in the form of a rented room on the tavern's first floor.";
+		}
+	},
+	
+	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Meeting Minotallys";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
+					+ "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";
+		}
+	},
+	
+	MAIN_3_D_CALL_TO_ARMS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Call To Arms";
+		}
+
+		@Override
+		public String getDescription() {
+			return "";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";
 		}
 	},
 
@@ -568,6 +601,43 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "The Hypno-Watch appeared to work, although Lilaya stopped the test before it had a permanent effect."
 					+ " She warned that it will have a strong corruptive effect upon the mind of the whoever is targeted, and disenchanted it for good measure, before handing it over to you.";
+		}
+	},
+	
+	
+	LIGHTNING_SPELL_1_PAYMENT(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Price Of Power";
+		}
+		@Override
+		public String getDescription() {
+			return "After showing Arthur the arcane lightning globe which you found in the Enforcer warehouse, you were told that it would be possible to learn the secrets of the lightning spells within it."
+					+ " Although the resulting spells will be more powerful than what the globe is capable of,"
+						+ " Arthur has explained to you that such an extraction will not only require an immense amount of arcane essences, but will also permanently remove the globe's innate spells."
+					+ "<br/>When you're willing and able to do so, give Arthur the arcane lightning globe and let him extract 500 arcane essences from your aura.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You gave Arthur the arcane lightning globe which you found in the Enforcer warehouse, and also let him extract 500 arcane essences from your aura."
+					+ " In exchange, you've been promised that a powerful arcane lightning spell shall soon be yours.";
+		}
+	},
+	
+	LIGHTNING_SPELL_2_WAITING(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Lightning Extraction";
+		}
+		@Override
+		public String getDescription() {
+			return "Arthur informed you that it will take some time to extract the secrets of the arcane lightning from within the globe."
+					+ " You'll have to return to him after two weeks to find out what the results of his research are...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Arthur excitedly informed you that he'd not only been able to extract the secrets of two arcane lightning spells from the globe,"
+					+ " but that he'd also been able to transfer its remaining power into a smaller crystal, which he's had fitted onto a ring for you.";
 		}
 	},
 	
@@ -1312,9 +1382,180 @@ public enum Quest {
 					+ " You can also now freely visit Elle (and Wes) in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
 		}
 	},
+
 	
+	// Rebel Base for HLF Quest
 	
-	
+	REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Hit The Lever!";
+		}
+		@Override
+		public String getDescription() {
+			return "You found a strange handle in the Bat Caverns. Who knows what it's for or what it does.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You pulled the handle against your better judement.";
+		}
+	},
+
+	REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Pull Handle, Receive Mystery";
+		}
+		@Override
+		public String getDescription() {
+			return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
+		}
+	},
+
+	REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Fill In The Blank";
+		}
+		@Override
+		public String getDescription() {
+			return "The other half of the password must be on the other half of the journal page. Perhaps it can still be found nearby.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found both halves of the password, together they make the phrase 'RUAT CAELUM'";
+		}
+	},
+
+	REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Open Says Me";
+		}
+		@Override
+		public String getDescription() {
+			return "With the completed password, you can now give the handle's challenge another try.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You discovered that the handle was actually attached to a door that led to a hidden cave splitting off from the Bat Caverns.";
+		}
+	},
+
+	REBEL_BASE_EXPLORATION(QuestType.SIDE,
+			15,
+			5) {
+		@Override
+		public String getName() {
+			return "Going Spelunking";
+		}
+		@Override
+		public String getDescription() {
+			return "No telling what the hidden cave is for or where it goes. Perhaps you can find some answers inside.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found out that the hidden cave was a hideout for a long gone rebel group. From the looks of things, they didn't win.";
+		}
+	},
+
+	REBEL_BASE_ESCAPE(QuestType.SIDE,
+			15,
+			100) {
+		@Override
+		public String getName() {
+			return "Getting Away With It";
+		}
+		@Override
+		public String getDescription() {
+			return "Time to make your escape, preferably before this cave collapses in on itself.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to get out in one piece. Whatever else that cave held is now buried forever.";
+		}
+	},
+
+	REBEL_BASE_FAILED(QuestType.SIDE,
+			15,
+			0) {
+		@Override
+		public String getName() {
+			return "Cold Feet";
+		}
+		@Override
+		public String getDescription() {
+			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+
+	REBEL_BASE_FIREBOMBS_START(QuestType.SIDE,
+			1,
+			5) {
+		@Override
+		public String getName() {
+			return "Breaking Bombs";
+		}
+		@Override
+		public String getDescription() {
+			return "The firebombs you got from the mysterious cave could come in handy in a fight. You'll need to find someone who can either make or acquire more.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Roxy has agreed to look into getting more firebombs for you.";
+		}
+	},
+
+	REBEL_BASE_FIREBOMBS_FINISH(QuestType.SIDE,
+			1,
+			5) {
+		@Override
+		public String getName() {
+			return "Fire From The Rats";
+		}
+		@Override
+		public String getDescription() {
+			return "It will take Roxy two days to get a new supply of firebombs going. You should return to her then.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Somehow, Roxy didn't swindle you and you've gotten yourself a supply of firebombs.";
+		}
+	},
+
+	REBEL_BASE_FIREBOMBS_FAILED(QuestType.SIDE,
+			1,
+			0) {
+		@Override
+		public String getName() {
+			return "Roxy's Reluctance";
+		}
+		@Override
+		public String getDescription() {
+			return "Without an example to give to Roxy, she either couldn't understand or didn't want to be bothered with trying to replicate the firebombs you found...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+        
 	// Romance quests:
 
 	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
@@ -1726,6 +1967,14 @@ public enum Quest {
 
 	public int getExperienceReward() {
 		return experienceReward;
+	}
+	
+	public static Quest getQuestFromId(String quest) {
+		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
+			return Quest.MAIN_3_ELIS;
+		}
+		
+		return Quest.valueOf(quest);
 	}
 
 }

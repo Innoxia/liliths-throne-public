@@ -65,7 +65,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
+import com.lilithsthrone.game.sex.managers.universal.SMMasturbation;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -309,8 +309,14 @@ public class PhoneDialogue {
 					if(Main.game.getPlayerCell().getPlace().isDangerous()) {
 						return new Response(title, "You can only loiter to pass the time when in a safe area!", null);
 					}
-					if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-						return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+					if(Main.game.getPlayer().getLocationPlace().getPlaceType().isLoiteringEnabledOverride()) {
+						if(!Main.game.getPlayer().getLocationPlace().getPlaceType().isLoiteringEnabled()) {
+							return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+						}
+					} else {
+						if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
+							return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+						}
 					}
 					return new Response(title, "Think about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
 					
@@ -744,15 +750,33 @@ public class PhoneDialogue {
 			boolean sideQuestsFound = false;
 			
 			// Side Quests:
-			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
+			List<QuestLine> sideQuests = new ArrayList<>(Main.game.getPlayer().getQuests().keySet());
+			sideQuests.sort((q1, q2)->
+				Main.game.getPlayer().isQuestCompleted(q1)
+					?(Main.game.getPlayer().isQuestCompleted(q2)
+						?0
+						:1)
+					:(Main.game.getPlayer().isQuestCompleted(q2)
+						?-1
+						:0));
+			for (QuestLine questLine : sideQuests) {
 				if(questLine.getType()==QuestType.SIDE) {
 					sideQuestsFound = true;
-
+					
 					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
 					int index = questList.size()-1;
 					Quest q = questList.get(index);
 					
-					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
+					if(Main.game.getPlayer().isQuestFailed(questLine)) {
+						journalSB.append(
+								"<details>"
+								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.getShades()[1] + ";'>"
+									+ "Failed - " + questLine.getName()
+								+ "</summary>");
+						journalSB.append(getQuestBoxDivFailed(Main.game.getPlayer().getQuestsFailed().get(questLine)));
+//						journalSB.append(getQuestBoxDiv(q, true)); // Do not append, as this was the failed Quest
+						
+					} else if(Main.game.getPlayer().isQuestCompleted(questLine)) {
 						journalSB.append(
 								"<details>"
 								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
@@ -777,20 +801,6 @@ public class PhoneDialogue {
 						index--;
 					}
 	
-					journalSB.append("</details>");
-				}
-			}
-			for(Entry<QuestLine, Quest> questsFailed : Main.game.getPlayer().getQuestsFailed().entrySet()) {
-				if(questsFailed.getKey().getType()==QuestType.SIDE) {
-					sideQuestsFound = true;
-					
-					journalSB.append(
-							"<details open>"
-								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
-									+ "Failed - "+questsFailed.getKey().getName()
-								+ "</summary>");
-					journalSB.append(getQuestBoxDiv(questsFailed.getValue(), false));
-					
 					journalSB.append("</details>");
 				}
 			}
@@ -840,7 +850,7 @@ public class PhoneDialogue {
 
 			boolean relationshipQuestFound = false;
 			
-			// Side Quests:
+			// Romance Quests:
 			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
 				if(questLine.getType()==QuestType.RELATIONSHIP) {
 					relationshipQuestFound = true;
@@ -852,7 +862,7 @@ public class PhoneDialogue {
 					if(Main.game.getPlayer().isQuestFailed(questLine)) {
 						journalSB.append(
 								"<details>"
-								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.toWebHexString() + ";'>"
+								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.getShades()[1] + ";'>"
 									+ "Failed - " + questLine.getName()
 								+ "</summary>");
 						journalSB.append(getQuestBoxDivFailed(Main.game.getPlayer().getQuestsFailed().get(questLine)));
@@ -936,11 +946,12 @@ public class PhoneDialogue {
 	
 	private static String getQuestBoxDiv(Quest q, boolean completed) {
 		if(q==Quest.SIDE_UTIL_COMPLETE) {
-			return "<div class='quest-box'>"
-					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
-							+ "<b>Completed - "+ q.getName() + "</b>"
-					+ "</h6>"
-				+ "</div>";
+			return "";
+//			return "<div class='quest-box'>"
+//					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
+//							+ "<b>Completed - "+ q.getName() + "</b>"
+//					+ "</h6>"
+//				+ "</div>";
 		}
 		
 		if(completed) {
@@ -949,7 +960,7 @@ public class PhoneDialogue {
 					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
 							+ "<b>Completed - "+ q.getName() + "</b>"
 					+ "</h6>"
-					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center; margin-top:0;'>"
 						+ q.getCompletedDescription()
 					+ "</p>" 
 				+ "</div>";
@@ -957,7 +968,7 @@ public class PhoneDialogue {
 		} else {
 			return "<div class='quest-box'>"
 					+ getLevelAndExperienceHTML(q, completed)
-					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center;'>"
+					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center; margin-top:0;'>"
 						+ "<b>" + q.getName() + "</b>"
 					+ "</h6>"
 					+ "<p style='text-align:center;'>"
@@ -1141,10 +1152,30 @@ public class PhoneDialogue {
 			for(AbstractRace race : raceListSorted) {
 				AbstractAttribute attribute = Attribute.racialAttributes.get(race);
 				int damageModifier = (int) Main.game.getPlayer().getAttributeValue(attribute);
-				UtilText.nodeContentSB.append(
-						getAttributeBox(Main.game.getPlayer(), attribute,
-								"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
-								true));
+				if(race==Race.DEMON) {
+					// DEMON is split in IMP, DEMON, LILIN, and ELDER_LILIN damage
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_IMP,
+									"Increases damage vs imps by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_IMP))+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), attribute,
+									"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LILIN,
+									"Increases damage vs lilin by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LILIN))+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ELDER_LILIN,
+									"Increases damage vs elder lilin by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ELDER_LILIN))+"%</b>",
+									true));
+				} else {
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), attribute,
+									"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
+									true));
+				}
 			}
 			
 //			List<AbstractAttribute> encounteredAttributes = new ArrayList<>();
@@ -1660,7 +1691,7 @@ public class PhoneDialogue {
 						+ "<br/>"
 						+ "Your record for most orgasms in one day is currently [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
 						+ "<br/>"
-						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()>1?"different people":"person")+"."
+						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()==1?"person":"different people")+"."
 					+ "</div>"
 					
 					+ sexStatHeader()
@@ -1999,8 +2030,7 @@ public class PhoneDialogue {
 			
 			rowCount = 0;
 			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
-			offspringBirthed.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
-			offspringIncubated.removeAll(offspringBirthed);
+			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
 			if(offspringIncubated.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"
 												+ "[style.italicsDisabled(No Incubated Offspring...)]"

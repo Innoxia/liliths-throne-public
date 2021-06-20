@@ -501,6 +501,7 @@ public class PresetColour {
 	// Brown:
 	public static Colour SKIN_BROWN = new Colour(false, BaseColour.BROWN, "brown") {};
 	// Orange:
+	public static Colour SKIN_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {};
 	// Yellow:
 	public static Colour SKIN_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
 	public static Colour SKIN_AMBER = new Colour(false, BaseColour.AMBER, "amber") {}.setLinkedColourLighter(SKIN_YELLOW);
@@ -555,7 +556,8 @@ public class PresetColour {
 	public static Colour COVERING_SCARLET = new Colour(false, BaseColour.CRIMSON, "scarlet") {}.setLinkedColourLighter(COVERING_RED_DARK);
 	// Brown:
 	public static Colour COVERING_TAN = new Colour(false, BaseColour.TAN, "tan") {};
-	public static Colour COVERING_BROWN = new Colour(false, BaseColour.BROWN, "brown") {}.setLinkedColourLighter(COVERING_TAN);
+	public static Colour COVERING_BROWN_LIGHT = new Colour(false, BaseColour.BROWN_LIGHT, "light brown") {}.setLinkedColourLighter(COVERING_TAN);
+	public static Colour COVERING_BROWN = new Colour(false, BaseColour.BROWN, "brown") {}.setLinkedColourLighter(COVERING_BROWN_LIGHT);
 	public static Colour COVERING_BROWN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark brown") {}.setLinkedColourLighter(COVERING_BROWN);
 	// Orange:
 	public static Colour COVERING_AMBER = new Colour(false, BaseColour.AMBER, "amber") {};
@@ -569,7 +571,8 @@ public class PresetColour {
 	public static Colour COVERING_BLONDE = new Colour(false, BaseColour.YELLOW_LIGHT, "blonde") {}.setLinkedColourLighter(COVERING_YELLOW);
 	public static Colour COVERING_BLEACH_BLONDE = new Colour(false, BaseColour.YELLOW_PALE, "bleach-blonde") {}.setLinkedColourLighter(COVERING_BLONDE);
 	// Green:
-	public static Colour COVERING_GREEN = new Colour(false, BaseColour.GREEN, "green") {};
+	public static Colour COVERING_GREEN_LIGHT = new Colour(false, BaseColour.GREEN_LIGHT, "light green") {};
+	public static Colour COVERING_GREEN = new Colour(false, BaseColour.GREEN, "green") {}.setLinkedColourLighter(COVERING_GREEN_LIGHT);
 	public static Colour COVERING_GREEN_DARK = new Colour(false, BaseColour.GREEN_DARK, "dark green") {}.setLinkedColourLighter(COVERING_GREEN);
 	// Blue:
 	public static Colour COVERING_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
@@ -781,12 +784,14 @@ public class PresetColour {
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,
-			PresetColour.COVERING_BROWN_DARK,
-			PresetColour.COVERING_BROWN,
 			PresetColour.COVERING_TAN,
+			PresetColour.COVERING_BROWN_LIGHT,
+			PresetColour.COVERING_BROWN,
+			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_ORANGE,
 			PresetColour.COVERING_YELLOW,
 			PresetColour.COVERING_AMBER,
+			PresetColour.COVERING_GREEN_LIGHT,
 			PresetColour.COVERING_GREEN,
 			PresetColour.COVERING_GREEN_DARK,
 			PresetColour.COVERING_BLUE_LIGHT,
@@ -828,14 +833,16 @@ public class PresetColour {
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,
 			PresetColour.COVERING_AUBURN,
-			PresetColour.COVERING_BROWN_DARK,
-			PresetColour.COVERING_BROWN,
 			PresetColour.COVERING_TAN,
+			PresetColour.COVERING_BROWN_LIGHT,
+			PresetColour.COVERING_BROWN,
+			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_ORANGE,
 			PresetColour.COVERING_GINGER,
 			PresetColour.COVERING_BLEACH_BLONDE,
 			PresetColour.COVERING_YELLOW,
 			PresetColour.COVERING_AMBER,
+			PresetColour.COVERING_GREEN_LIGHT,
 			PresetColour.COVERING_GREEN,
 			PresetColour.COVERING_GREEN_DARK,
 			PresetColour.COVERING_BLUE_LIGHT,
@@ -873,9 +880,10 @@ public class PresetColour {
 //			PresetColour.COVERING_BLONDE,
 			PresetColour.COVERING_SANDY,
 //			PresetColour.COVERING_GINGER,
+			PresetColour.COVERING_BROWN_LIGHT,
 			PresetColour.COVERING_BROWN,
-			PresetColour.COVERING_TAN,
 			PresetColour.COVERING_BROWN_DARK,
+			PresetColour.COVERING_TAN,
 			PresetColour.COVERING_GREY,
 			PresetColour.COVERING_BLACK
 //			,
@@ -902,9 +910,10 @@ public class PresetColour {
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,
 			PresetColour.COVERING_AUBURN,
-			PresetColour.COVERING_BROWN_DARK,
-			PresetColour.COVERING_BROWN,
 			PresetColour.COVERING_TAN,
+			PresetColour.COVERING_BROWN_LIGHT,
+			PresetColour.COVERING_BROWN,
+			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_ORANGE,
 			PresetColour.COVERING_GINGER,
 			PresetColour.COVERING_SANDY,
@@ -912,6 +921,7 @@ public class PresetColour {
 			PresetColour.COVERING_BLONDE,
 			PresetColour.COVERING_YELLOW,
 			PresetColour.COVERING_AMBER,
+			PresetColour.COVERING_GREEN_LIGHT,
 			PresetColour.COVERING_GREEN,
 			PresetColour.COVERING_GREEN_DARK,
 			PresetColour.COVERING_BLUE_LIGHT,
@@ -936,8 +946,9 @@ public class PresetColour {
 
 	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
 			PresetColour.COVERING_WHITE,
-			PresetColour.COVERING_BROWN,
 			PresetColour.COVERING_TAN,
+			PresetColour.COVERING_BROWN_LIGHT,
+			PresetColour.COVERING_BROWN,
 			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_BLACK,
 			PresetColour.COVERING_JET_BLACK);
@@ -953,6 +964,7 @@ public class PresetColour {
 	public static List<Colour> antlerColours = Util.newArrayListOfValues(
 			PresetColour.COVERING_WHITE,
 			PresetColour.COVERING_TAN,
+			PresetColour.COVERING_BROWN_LIGHT,
 			PresetColour.COVERING_BROWN,
 			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_GREY,
@@ -968,6 +980,7 @@ public class PresetColour {
 			PresetColour.COVERING_DIRTY_BLONDE,
 			PresetColour.COVERING_SANDY,
 			PresetColour.COVERING_GINGER,
+			PresetColour.COVERING_BROWN_LIGHT,
 			PresetColour.COVERING_BROWN,
 			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_AUBURN,
@@ -1275,7 +1288,7 @@ public class PresetColour {
 	}
 	
 	public static Colour getColourFromId(String id) {
-		if(id.equals("HORN_DARK_BROWN")) {
+		if(id.equals("HORN_DARK_BROWN") || id.equals("COVERING_DARK_BROWN")) {
 			return PresetColour.COVERING_BROWN_DARK;
 		}
 		if(id.equals("CLOTHING_MULTICOLOURED")) {

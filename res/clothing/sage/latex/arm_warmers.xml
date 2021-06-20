@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<value>1000</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[latex arm warmers]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[latex arm warmers]]></namePlural>
+		<description><![CDATA[A pair of latex arm warmers that hooks around the middle finger.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		<slot>HAND</slot>
+		<slot>WRIST</slot>
+		</equipSlots>
+		<rarity>EPIC</rarity>
+		<clothingSet>sage_ltxset</clothingSet>
+		<imageName>arm_warmers.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList slot="HAND">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="WRIST">
+		  <blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts/>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		  </blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="HAND"/>
+		<incompatibleSlots slot="WRIST"/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_FINCH</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText slot="HAND" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the arm warmers over [npc.her] forearms and [npc.verb(tighten)] the straps.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the arm warmers over [npc2.namePos] forearms and [npc.verb(tighten)] the straps.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] forearms through the arm warmers and hastily [npc.verb(tighten)] the straps.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="HAND" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc.her] arm warmers and [npc.verb(slip)] them off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc2.namePos] arm warmers and [npc.verb(slip)] them off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] at the straps on [npc2.namePos] arm warmers until they're loose enough and [npc.verb(toss)] them aside.]]>
+		</otherRough>
+	</displacementText>
+	<replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the arm warmers over [npc.her] forearms and [npc.verb(tighten)] the straps.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the arm warmers over [npc2.namePos] forearms and [npc.verb(tighten)] the straps.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] forearms through the arm warmers and hastily [npc.verb(tighten)] the straps.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc.her] arm warmers and [npc.verb(slip)] them off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc2.namePos] arm warmers and [npc.verb(slip)] them off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] at the straps on [npc2.namePos] arm warmers until they're loose enough and [npc.verb(toss)] them aside.]]>
+		</otherRough>
+  </displacementText>
+	
+</clothing>

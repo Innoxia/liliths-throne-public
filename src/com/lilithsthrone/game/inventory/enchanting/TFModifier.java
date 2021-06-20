@@ -656,6 +656,13 @@ public enum TFModifier {
 			PresetColour.BASE_YELLOW,
 			Rarity.LEGENDARY),
 	
+	TF_MOD_LEG_CONFIG_WINGED_BIPED("winged bipedal body",
+			"Applies an effect to give the user a winged bipedal body.",
+			"winged bipedal body",
+			"modifier_circle_tf_legConfig_avian",
+			PresetColour.BASE_YELLOW,
+			Rarity.LEGENDARY),
+	
 	TF_MOD_INTERNAL("internal",
 			"Applies an effect related to making a body part internal.",
 			"internal",

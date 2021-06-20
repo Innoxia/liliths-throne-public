@@ -118,13 +118,13 @@
 					#IF(com.getPregnantLitter().isFatherId(npc.getId()))
 						[npc.speech(Well, well, well, looks like I got you two sluts knocked up!)] [npc.name] sneers as [npc.she] looks down down at both your and [com.namePos] swollen bellies, [npc.speech(Seeing as I've laid claim to your wombs already, you horny breeding sluts should just submit for another good fucking right now!)]
 					#ELSE
-						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers as [npc.she] looks down at your swollen belly, before glancing over at [com.name] and remarking, [npc.speech(I see your friend's been spreading [com.her] legs as well! Hah! What a pair of sluts!)]
+						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers as [npc.she] looks down at your swollen belly, before glancing over at [com.name] and remarking, [npc.speech(I see your friend's been #IF(com.hasLegs())spreading [com.her] legs#ELSEgetting creampied#ENDIF as well! Hah! What a pair of sluts!)]
 					#ENDIF
 				#ELSE
 					#IF(com.getPregnantLitter().isFatherId(npc.getId()))
-						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers as [npc.she] looks down at [com.namePos] swollen belly, before glancing over towards you and remarking, [npc.speech(I see you've been spreading your legs as well! Hah! What a pair of sluts!)]
+						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers as [npc.she] looks down at [com.namePos] swollen belly, before glancing over towards you and remarking, [npc.speech(I see you've been #IF(pc.hasLegs())spreading your legs#ELSEgetting creampied#ENDIF as well! Hah! What a pair of sluts!)]
 					#ELSE
-						[npc.speech(Well, well, well, looks like you two sluts have got yourselves knocked up!)] [npc.name] sneers as [npc.she] looks down at both your and [com.namePos] swollen bellies, [npc.speech(Seeing as you've clearly got a lot of experience at spreading your legs, you whores should just submit for a good fucking right now!)]
+						[npc.speech(Well, well, well, looks like you two sluts have got yourselves knocked up!)] [npc.name] sneers as [npc.she] looks down at both your and [com.namePos] swollen bellies, [npc.speech(Seeing as you've clearly got a lot of experience at it, you whores should just submit for a good fucking right now!)]
 					#ENDIF
 				#ENDIF
 			#ELSE
@@ -132,14 +132,14 @@
 				#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
 					 [npc.speech(Looks like I got you knocked up, slut! Seeing as you've been put in your place, you should just submit for another good fuck!)]
 				#ELSE
-					 [npc.speech(Looks like someone got you knocked up, slut! Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet!)]
+					 [npc.speech(Looks like someone got you knocked up, slut! Been going around town submitting to anyone who wants to pump a load in you, I'll bet!)]
 				#ENDIF
 			#ENDIF
 		#ELSE
 			#IF(com.getPregnantLitter().isFatherId(npc.getId()))
 				[npc.speech(Well, well, well,)] [npc.name] sneers as [npc.she] looks down at [com.namePos] swollen belly, [npc.speech(Looks like I got you knocked up, slut! Seeing as you've been put in your place, you should just submit for another good fuck!)]
 			#ELSE
-				[npc.speech(Well, well, well,)] [npc.name] sneers as [npc.she] looks down at [com.namePos] swollen belly, [npc.speech(Looks like someone got you knocked up, slut! Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet!)]
+				[npc.speech(Well, well, well,)] [npc.name] sneers as [npc.she] looks down at [com.namePos] swollen belly, [npc.speech(Looks like someone got you knocked up, slut! Been going around town submitting to anyone who wants to pump a load in you, I'll bet!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -160,10 +160,10 @@
 					[npc.speech(Hah!)] [npc.name] laughs as [npc.she] looks down at both your and [com.namePos] swollen bellies, [npc.speech(You sluts are still pregnant? As you're only good for being bred, you should both just submit for another good fuck right now!)]
 				#ENDIF
 			#ELSE
-				[npc.speech(Hah!)] [npc.name] laughs as [npc.she] looks down at your swollen belly, [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love spreading your legs so much, just submit already!)]
+				[npc.speech(Hah!)] [npc.name] laughs as [npc.she] looks down at your swollen belly, [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love getting fucked so much, just submit already!)]
 			#ENDIF
 		#ELSE
-			[npc.speech(Hah!)] [npc.name] laughs as [npc.she] looks down at [com.namePos] swollen belly, [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love spreading your legs so much, just submit already!)]
+			[npc.speech(Hah!)] [npc.name] laughs as [npc.she] looks down at [com.namePos] swollen belly, [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love getting fucked so much, just submit already!)]
 		#ENDIF
 	</p>
 	]]>
@@ -436,13 +436,23 @@
 		Looking in the direction that you were going to be travelling in, you see a [npc.feminine] figure suddenly materialise out of thin air. A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground.
 	</p>
 	<p>
-		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer, [npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer,
+		#IF(npc.isMute())
+			you suddenly hear a voice in your head starting to talk [npc.thought(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ELSE
+			[npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ENDIF
 	</p>
 	<p>
 		Although [npc.sheHas] been steadily walking towards you this whole time, [npc.she] comes to a halt a short distance in front of you, and you realise that [npc.sheIs] a little unsure of what you're capable of.
 	</p>
 	<p>
-		[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head. [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
+		#IF(npc.isMute())
+			Again you hear the voice directly in you head as [npc.she] demands [npc.thought(So you're going to make it up to me for ruining my trap, understand?)]
+		#ELSE
+			[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head.
+		#ENDIF
+		 [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -458,13 +468,23 @@
 		Looking in the direction that you were going to be travelling in, you see a [npc.feminine] figure suddenly materialise out of thin air. A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground.
 	</p>
 	<p>
-		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer, [npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]. Unlike the ones that you've seen peacefully walking the streets of Dominion, this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer,
+		#IF(npc.isMute())
+			you suddenly hear a voice in your head starting to talk [npc.thought(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ELSE
+			[npc.she] starts to talk, [npc.speech(Aww, how did you see my little surprise? You must know how to use the arcane! Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it... Actually, no, I <i>am</i> pretty angry! Do you know how long it's been since I fucked someone?!)]
+		#ENDIF
 	</p>
 	<p>
 		Although [npc.sheHas] been steadily walking towards you this whole time, [npc.she] comes to a halt a short distance in front of you, and you realise that [npc.sheIs] a little unsure of what you're capable of.
 	</p>
 	<p>
-		[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head. [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
+		#IF(npc.isMute())
+			Again you hear the voice directly in you head as [npc.she] demands [npc.thought(So you're going to make it up to me for ruining my trap, understand?)]
+		#ELSE
+			[npc.thought(So you're going to make it up to me for ruining my trap, understand?)] [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head.
+		#ENDIF
+		 [npc.thought(Get down on your knees, <b>right now</b>, and beg for me to fuck you!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -539,7 +559,7 @@
 	
 	<htmlContent tag="DEMON_ATTACK_OFFER_COMPANION"><![CDATA[
 	<p>
-		You really don't want to fight [npc.name], and so you decide to do the only other thing you can think of. Turning towards [com.name], you ask, [pc.speech(You'll take one for the team, won't you, [com.name]? I don't really want to get into a fight here. All you need to do is spread your legs...)]
+		You really don't want to fight [npc.name], and so you decide to do the only other thing you can think of. Turning towards [com.name], you ask, [pc.speech(You'll take one for the team, won't you, [com.name]? I don't really want to get into a fight here. All you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
 		<p>
@@ -632,7 +652,7 @@
 	
 	<htmlContent tag="DEMON_ATTACK_PEACEFUL_OFFER_COMPANION"><![CDATA[
 	<p>
-		Wanting to offer [npc.name] something special, you turn towards [com.name] and ask, [pc.speech(You're up for having some fun, aren't you, [com.name]? I don't really want to have sex right now, but I can tell that [npc.name] really needs a good fuck. All you need to do is spread your legs...)]
+		Wanting to offer [npc.name] something special, you turn towards [com.name] and ask, [pc.speech(You're up for having some fun, aren't you, [com.name]? I don't really want to have sex right now, but I can tell that [npc.name] really needs a good fuck. All you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
 		<p>
@@ -1043,7 +1063,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_VICTORY_OFFER_COMPANION"><![CDATA[
 	<p>
-		Feeling sorry for [npc.name] as you see [npc.her] collapsed down on the floor, you turn towards [com.name] and ask, [pc.speech(You'll make [npc.herHim] feel better, won't you, [com.name]? All you need to do is spread your legs...)]
+		Feeling sorry for [npc.name] as you see [npc.her] collapsed down on the floor, you turn towards [com.name] and ask, [pc.speech(You'll make [npc.herHim] feel better, won't you, [com.name]? All you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
 		<p>

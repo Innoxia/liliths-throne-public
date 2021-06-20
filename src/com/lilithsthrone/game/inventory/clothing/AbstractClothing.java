@@ -2405,6 +2405,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
 		}
+		if(clothingOwner.hasDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] equipped a dildo, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
+		}
 		if(!clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
 		}
@@ -2473,6 +2476,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2574,6 +2578,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2616,6 +2621,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:

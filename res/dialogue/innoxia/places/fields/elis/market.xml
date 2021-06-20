@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_market_centre -->
+	<scene id="centre">
+		<content folderPath="txt/places/fields/elis/market">CENTRE</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<!-- Livestock market: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getDayOfWeek()==DOW_SATURDAY || game.getDayOfWeek()==DOW_WEDNESDAY]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Spectate]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Spend some time watching the comings and goings of the livestock market...
+					#ELSE
+						As the livestock market is currently closed, you'll have to come back another day...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_centre_livestock_spectate]]></nextDialogue>
+			</response>
+			<!-- No livestock market: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getDayOfWeek()!=DOW_SATURDAY && game.getDayOfWeek()!=DOW_WEDNESDAY]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Darts]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_darts_won))
+						You've already won a game of darts, and so cannot play again today...
+					#ELSEIF(game.isHourBetween(8, 18))
+						Head over to the darts stall and see what the game's all about.
+					#ELSE
+						As all of the stalls are currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_elis_market_darts_won) && game.isHourBetween(8, 18))
+						innoxia_places_fields_elis_market_centre_game_darts
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getDayOfWeek()!=DOW_SATURDAY && game.getDayOfWeek()!=DOW_WEDNESDAY]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Strength test]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_strength_won))
+						You've already beaten the strength tester, and so cannot play again today...
+					#ELSEIF(game.isHourBetween(8, 18))
+						Head over to the strength tester and see what it's all about.
+					#ELSE
+						As all of the stalls are currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_elis_market_strength_won) && game.isHourBetween(8, 18))
+						innoxia_places_fields_elis_market_centre_game_strength
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="centre_livestock_spectate">
+		<content folderPath="txt/places/fields/elis/market">CENTRE_SPECTATE</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Spectate]]></responseTitle>
+				<responseTooltip><![CDATA[You've already spent some time spectating the livestock market...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!--Darts:-->
+	<scene id="centre_game_darts">
+		<content folderPath="txt/places/fields/elis/market">GAME_DARTS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Play (#IF(pc.getMoney()>=25 && !flags.hasFlag(FLAG_innoxia_elis_market_darts_won))[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_darts_won))
+						You've already won a game of darts, and so cannot play again today...
+					#ELSEIF(pc.getMoney()<25)
+						You cannot afford to play darts...
+					#ELSE
+						Hand over fifteen flames and have a go at hitting the bullseye.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25 && !flags.hasFlag(FLAG_innoxia_elis_market_darts_won))
+						innoxia_places_fields_elis_market_centre_game_darts_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the raccoon-girl that you're not interested in playing her game.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="centre_game_darts_play">
+		<preParsingEffects><![CDATA[
+			#IF(RND.nextInt(100) < Math.max(1, 5 + pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)))
+				[#flags.setFlag(FLAG_innoxia_elis_market_darts_won, true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">GAME_DARTS_PLAY</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Won, choose prize: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Chocolates]]></responseTitle>
+				<responseTooltip><![CDATA[Choose the box of chocolates as your prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_WON_CHOCOLATES'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_GIFT_CHOCOLATES)))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Perfume]]></responseTitle>
+				<responseTooltip><![CDATA[Choose the bottle of perfume as your prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_WON_PERFUME'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_GIFT_PERFUME)))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Teddy bear]]></responseTitle>
+				<responseTooltip><![CDATA[Choose the teddy bear as your prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_WON_TEDDY'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_GIFT_TEDDY_BEAR)))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[No prize]]></responseTitle>
+				<responseTooltip><![CDATA[Say that you don't want any prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_WON_NO_PRIZE'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_darts_won, false)]
+				]]></effects>
+			</response>
+			<!-- Lost: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Try again (#IF(pc.getMoney()>=25 && !flags.hasFlag(FLAG_innoxia_elis_market_darts_won))[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<25)
+						You cannot afford to play darts...
+					#ELSE
+						Hand over fifteen flames and have another go at hitting the bullseye.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25)
+						innoxia_places_fields_elis_market_centre_game_darts_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Turn around and take your leave.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_LOST'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!--Strength:-->
+	<scene id="centre_game_strength">
+		<content folderPath="txt/places/fields/elis/market">GAME_STRENGTH</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Play (#IF(pc.getMoney()>=25 && !flags.hasFlag(FLAG_innoxia_elis_market_strength_won))[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_strength_won))
+						You've already beaten the strength tester, and so cannot play again today...
+					#ELSEIF(pc.getMoney()<25)
+						You cannot afford to have a go at beating the strength tester...
+					#ELSE
+						Hand over fifteen flames and have a go at beating the strength tester.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25 && !flags.hasFlag(FLAG_innoxia_elis_market_strength_won))
+						innoxia_places_fields_elis_market_centre_game_strength_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the ferret-boy that you're not interested in playing his game.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="centre_game_strength_play">
+		<preParsingEffects><![CDATA[
+			#IF(RND.nextInt(100) < Math.max(1, 1 + pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)))
+				[#flags.setFlag(FLAG_innoxia_elis_market_strength_won, true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">GAME_STRENGTH_PLAY</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Won, choose prize: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Meat hamper]]></responseTitle>
+				<responseTooltip><![CDATA[Choose the meat hamper as your prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_WON_MEAT'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_panther_panthers_delight)))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_wolf_meat_and_marrow)))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_horse_equine_cider)))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wooden bat]]></responseTitle>
+				<responseTooltip><![CDATA[Choose the wooden bat as your prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_WON_BAT_WOODEN'))]
+					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_wooden, DAMAGE_TYPE_PHYSICAL)))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Metal bat]]></responseTitle>
+				<responseTooltip><![CDATA[Choose the metal bat as your prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_WON_BAT_METAL'))]
+					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_metal, DAMAGE_TYPE_PHYSICAL)))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[No prize]]></responseTitle>
+				<responseTooltip><![CDATA[Say that you don't want any prize.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_WON_NO_PRIZE'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_strength_won, false)]
+				]]></effects>
+			</response>
+			<!-- Lost: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Try again (#IF(pc.getMoney()>=25 && !flags.hasFlag(FLAG_innoxia_elis_market_strength_won))[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<25)
+						You cannot afford to have a go at beating the strength tester...
+					#ELSE
+						Hand over fifteen flames and have another go at beating the strength tester.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25)
+						innoxia_places_fields_elis_market_centre_game_strength_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Turn around and take your leave.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_LOST'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_market_clothing -->
+	<scene id="clothing">
+		<content folderPath="txt/places/fields/elis/market">CLOTHING</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Take a closer look at what you can buy...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_drinks_alcohol -->
+	<scene id="drinks_alcohol">
+		<content folderPath="txt/places/fields/elis/market">DRINKS_ALCOHOL</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Take a closer look at what you can buy...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_drinks_soft -->
+	<scene id="drinks_soft">
+		<content folderPath="txt/places/fields/elis/market">DRINKS_SOFT</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Take a closer look at what you can buy...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/fields/elis/market">EXIT</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the Farmer's Market and head back out into the rest of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_market)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_food_meals -->
+	<scene id="food_meals">
+		<content folderPath="txt/places/fields/elis/market">FOOD_MEALS</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Take a closer look at what you can buy...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_food_snacks -->
+	<scene id="food_snacks">
+		<content folderPath="txt/places/fields/elis/market">FOOD_SNACKS</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Take a closer look at what you can buy...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_fortunes -->
+	<scene id="fortunes">
+		<content folderPath="txt/places/fields/elis/market">FORTUNES</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Enter the curtained stall and see what's inside...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_kissing -->
+	<scene id="kissing">
+		<content folderPath="txt/places/fields/elis/market">KISSING</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Kiss]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Pay the sheep-girl so that you can have a kiss from the cow-girl...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_path -->
+	<scene id="path">
+		<content folderPath="txt/places/fields/elis/market">PATH</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.isHourBetween(8, 18)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[As the Farmer's Market has closed, there's nothing to do here apart from head back out into the rest of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_market)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_toys -->
+	<scene id="toys">
+		<content folderPath="txt/places/fields/elis/market">TOYS</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Take a closer look at what you can buy...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_trinkets -->
+	<scene id="trinkets">
+		<content folderPath="txt/places/fields/elis/market">TRINKETS</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Take a closer look at what you can buy...
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						As the stall is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

@@ -407,6 +407,20 @@ public class Lab {
 			}
 		}
 		
+		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.obtainedScientistClothing)) {
+			generatedResponses.add(new Response("Scientist outfit",
+					"Ask Lilaya if she has a spare lab coat you could have.",
+					LILAYA_SCIENTIST_OUTFIT){
+				@Override
+				public void effects() {
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_scientist_lab_coat", false), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false), false));
+					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.obtainedScientistClothing, true);
+					setEntryFlags();
+				}
+			});
+		}
+		
 		return generatedResponses;
 	}
 	
@@ -951,6 +965,17 @@ public class Lab {
 		@Override
 		public String getContent() {
 			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LAB_ENTRY.getResponse(0, index);
+		}
+	};
+	
+	public static final DialogueNode LILAYA_SCIENTIST_OUTFIT = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_SCIENTIST_OUTFIT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

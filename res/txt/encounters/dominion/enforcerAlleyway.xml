@@ -60,18 +60,177 @@
 		</p>
 	#ELSE
 		#IF(playerEnforcer)
-			<p>
-				[npc.speech(Oh, it's you again,)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
-			</p>
-			#IF(pc.hasAnyEnforcerStatusEffect())
+			#IF(game.getDialogueFlags().getSavedLong("impersonating_candi") > 0)
+				<p>
+					Upon seeing a familiar face, the two officers visibly relax, and [npc.name] greets you by saying,
+					#IF(game.isDayTime())
+					 [npc.speech(Ah, Constable [candi.surname]. Out for a stroll?)]
+					#ELSE
+					 [npc.speech(Ah, Constable [candi.surname]. You're out here late. Taking a stroll?)]
+					#ENDIF
+					 Putting on your best [candi.Name] impression, you affirm that you are.
+				</p>
+				<p>
+					 [npc2.speech(Taking a break from vacuuming, I'm sure,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow.
+				</p>
+				<p>
+					 Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're still behind on our quota this week... If you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you'll think about it.
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_claire") > 0)
+				<p>
+					Upon seeing a familiar face, the two officers visibly relax and briskly salute you. The [npc.name] greets you by saying,
+					#IF(game.isDayTime())
+					 [npc.speech(Ah, Sergeant [claire.surname], [pc.sir]. Out for a stroll up top?)]
+					#ELSE
+					 [npc.speech(Ah, Sergeant [claire.surname], [pc.sir]. Out for a stroll up top? It's awfully late.)]
+					#ENDIF
+					 Putting on your best [claire.Name] impression, you affirm that you are.
+				</p>
+				<p>
+					 [npc2.speech(Must be nice to get proper breaks,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+				</p>
+				<p>
+					Quickly changing the subject,  the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're still behind on our quota this week... If you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will.
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_brax") > 0)
+				<p>
+					Upon seeing a superior officer, the two officers visibly stiffen and give you a crisp salute. The [npc.race] greets you by saying, [npc.speech(Inspector [brax.surname], [pc.sir], everything is in order here.)] Putting on your best [brax.Name] impression, you tell the pair to be at ease.
+				</p>
+				<p>
+					[npc2.speech(Office must get stuffy with all that pussy,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
+				</p>
+				<p>
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(We'll be around if you need us, [pc.sir], just let us know.)]
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_wes") > 0)
+				<p>
+					Upon seeing a familiar face, the two officers visibly relax and briskly salute you. The [npc.name] greets you by saying,
+					#IF(game.isDayTime())
+					 [npc.speech(Ah, Quartermaster. Out for a stroll, [pc.sir]?)]
+					#ELSE
+					 [npc.speech(Ah, Quartermaster. Taking a stroll, [pc.sir]? It's awfully late.)]
+					#ENDIF
+					 Putting on your best [wes.Name] impression, you affirm that you are.
+				</p>
+				<p>
+					 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.name] mutters mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
+				</p>
+				<p>
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will.
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_elle") > 0)
+				<p>
+					Upon seeing a familiar face, the two officers visibly relax and briskly salute you. The [npc.name] greets you by saying,
+					#IF(game.isDayTime())
+					 [npc.speech(Ah, Quartermaster. Out for a stroll, [pc.sir]?)]
+					#ELSE
+					 [npc.speech(Ah, Quartermaster. Taking a stroll, [pc.sir]? It's awfully late.)]
+					#ENDIF
+					 Putting on your best [elle.Name] impression, you affirm that you are.
+				</p>
+				<p>
+					 [npc2.speech(Armory must get real stuffy from all the fucking,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
+				</p>
+				<p>
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_nysa") > 0)
+				<p>
+					Upon seeing a superior officer, the two officers visibly stiffen and give you a crisp salute. The [npc.name] greets you by saying, [npc.speech(Commissioner, [pc.sir], everything is in order here.)] Putting on your best Nysa impression, you tell the pair to be at ease.
+				</p>
+				<p>
+					[npc2.speech(Just our luck,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
+				</p>
+				<p>
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(We'll be around if you need us, [pc.sir], just let us know.)]
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_sean") > 0)
+				<p>
+					Upon seeing a familiar face, the two officers visibly relax, and the [npc.name] greets you by saying,
+					#IF(game.isDayTime())
+					 [npc.speech(Ah, Constable [sean.surname]. Out for a stroll?)]
+					#ELSE
+					 [npc.speech(Ah, Constable [sean.surname]. You're out here late. Taking a stroll?)]
+					#ENDIF
+					 Putting on your best [sean.Name] impression, you affirm that you are.
+				</p>
+				<p>
+					 [npc2.speech(Probably trying to get into [candi.NamePos] pants again, I'm sure,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow.
+				</p>
+				<p>
+					 Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're still behind on our quota this week... If you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you'll think about it.
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("uniform_passable") > 0)
+				<p>
+					[npc.speech(Oh, it's you again,)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
+				</p>
 				<p>
 					Seeing that you're wearing an Enforcer uniform, the two officers visibly relax, and [npc.name] asks, [npc.speech(Hey, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
+				</p>
+			#ELSEIF(game.getDialogueFlags().getSavedLong("uniform_passable") == 0)
+				<p>
+					Seeing that you're wearing an Enforcer uniform, the two officers visibly relax. [npc.Name] narrows [npc.her] eyes slightly at the state of your uniform and advises you, [npc.speech(Hey, I don't care much for the regs, but you better fix your uniform before sarge catches you. You know how it is, stickler for rules regardless of rank and all that.)] [npc2.Name], not sharing the same concern as [npc2.her] fellow officer asks, [npc2.speech(Oh yeah, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
 				</p>
 			#ELSE
 				<p>
 					Having seen you before in an Enforcer uniform, the two officers seem to still be treating you as though you're one of them, and [npc.name] asks, [npc.speech(Hey, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
 				</p>
 			#ENDIF
+		#ELSEIF(pc.hasAnyEnforcerStatusEffect() && game.getDialogueFlags().getSavedLong("uniform_passable") < 0)
+			<p>
+				[npc.speech(Oh, it's you again,)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you. A look of confusion briefly flashes across both officers' faces that quickly turns into barely-hidden anger.
+			</p>
+			#IF (game.getDialogueFlags().getSavedLong("impersonating_candi") < 0)
+				<p>
+					[npc.speech(Hey! You're not Constable [candi.Surname]! I don't know how your got your [pc.hands] on [candi.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_claire") < 0)
+				<p>
+					[npc.speech(Hey! You're not Sergeant [claire.Surname]! I don't know how your got your [pc.hands] on [claire.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_brax") == -2)
+				<p>
+					[npc.speech(Nice try, but Inspector [brax.Surname] is off the force. I don't know how your got your [pc.hands] on [brax.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_brax") < 0)
+			<p>
+				[npc.speech(Hey! You're not Inspector [brax.Surname]! I don't know how your got your [pc.hands] on [brax.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_wes") < -2)
+				<p>
+					[npc.speech(Nice try, but the Junior Quartermaster's had a career change. I don't know how your got your [pc.hands] on [wes.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_wes") < 0)
+				<p>
+					[npc.speech(Hey! You're not our Quartermaster! I don't know how your got your [pc.hands] on [wes.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_elle") < -2)
+				<p>
+					[npc.speech(Nice try, but we have a new Senior Quartermaster. I don't know how your got your [pc.hands] on that stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_elle") < 0)
+				<p>
+					[npc.speech(Hey! You're not our Quartermaster! I don't know how your got your [pc.hands] on [elle.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_nysa") < 0)
+				<p>
+					[npc.speech(Hey! You're not the Commissioner! I don't know how your got your [pc.hands] on her stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_sean") < 0)
+				<p>
+					[npc.speech(Hey! You're not Constable [sean.Surname]! I don't know how your got your [pc.hands] on [sean.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>
+			#ELSE
+				<p>
+					[npc.speech(You're not fooling anyone with that getup! I don't know where you got that equipment from, but you better hand it over, right now!)] [npc.name] snarls.
+				</p>	
+			#ENDIF
+			<p>
+				[npc2.speech(Better make sure [pc.she] isn't hiding anything else either,)] [npc2.name] huffs.
+			</p>
+			<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>
+				[style.italicsBad(It seems your disguise didn't work and you now have two pissed off Enforcers to deal with.)]
+			</p>
 		#ELSE
 			#IF(playerDemon)
 				<p>
@@ -128,7 +287,7 @@
 	<htmlContent tag="ENFORCER_ALLEYWAY_START"><![CDATA[
 	#VAR
 		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
-		var playerEnforcer = pc.hasAnyEnforcerStatusEffect();
+		var playerEnforcer = npc.hasFlag(NPC_FLAG_thinksPlayerEnforcer);
 		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
 				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
 				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
@@ -152,7 +311,9 @@
 	</p>
 	<p>
 		[npc.speech(Stop right there!)] the [npc.race] calls out as [npc.she] catches sight of you.
-		#IF(pc.isBrave() || pc.isConfident())
+		#IF(pc.hasAnyEnforcerStatusEffect())
+			 Confident that your disguise will protect you, you calmly [pc.walk] forward until you're face-to-face with the pair of uniformed officers.
+		#ELSEIF(pc.isBrave() || pc.isConfident())
 			 Not one to be easily intimidated, you ignore what the Enforcer says and continue [pc.walking] forwards until you're face-to-face with the pair of uniformed officers.
 		#ELSEIF(pc.isCowardly())
 			 Scared at the prospect of what might happen if you disobey the Enforcer's order, you do as you're told and remain still as the pair of uniformed officers stride forwards to stand in front of you.
@@ -161,14 +322,183 @@
 		#ENDIF
 	</p>
 	#IF(playerEnforcer)
+		
+		#IF(game.getDialogueFlags().getSavedLong("impersonating_candi") > 0)
+			<p>
+				Upon seeing a familiar face, the two officers visibly relax, and the [npc.race] greets you by saying,
+				#IF(game.isDayTime())
+				 [npc.speech(Ah, Constable [candi.surname]. Wasn't expecting to see you out and about. Out for a stroll?)]
+				#ELSE
+				 [npc.speech(Ah, Constable [candi.surname]. You're out here late. Taking a stroll?)]
+				#ENDIF
+				 Putting on your best [candi.Name] impression, you affirm that you are.
+			</p>
+			<p>
+				 [npc2.speech(Taking a break from vacuuming, I'm sure,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow.
+			</p>
+			<p>
+				 Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... If you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you'll think about it and take note of the names on their vests.
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_claire") > 0)
+			<p>
+				Upon seeing a familiar face, the two officers visibly relax and briskly salute you. The [npc.race] greets you by saying,
+				#IF(game.isDayTime())
+				 [npc.speech(Ah, Sergeant [claire.surname]. Wasn't expecting to see you topside, [pc.sir]. Taking for a stroll?)]
+				#ELSE
+				 [npc.speech(Ah, Sergeant [claire.surname]. It's awfully late, [pc.sir]. Taking a stroll?)]
+				#ENDIF
+				 Putting on your best [claire.Name] impression, you affirm that you are.
+			</p>
+			<p>
+				 [npc2.speech(Must be nice to get proper breaks,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+			</p>
+			<p>
+				Quickly changing the subject,  the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... If you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_brax") > 0)
+			<p>
+				Upon seeing a superior officer, the two officers visibly stiffen and give you a crisp salute. The [npc.race] greets you by saying, [npc.speech(Inspector [brax.surname], [pc.sir], everything is in order here.)] Putting on your best [brax.Name] impression, you tell the pair to be at ease.
+			</p>
+			<p>
+				[npc2.speech(Office must get stuffy with all that pussy,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+			</p>
+			<p>
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(We'll be around if you need us, [pc.sir], just let us know.)] You take note of the names on their vests. You'll have to be careful to keep the act up around them.
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_wes") > 0)
+			<p>
+				Upon seeing a familiar face, the two officers visibly relax and briskly salute you. The [npc.race] greets you by saying,
+				#IF(game.isDayTime())
+				 [npc.speech(Ah, Quartermaster. Wasn't expecting to see you out and about, [pc.sir]. Taking for a stroll?)]
+				#ELSE
+				 [npc.speech(Ah, Quartermaster. It's awfully late, [pc.sir]. Taking a stroll?)]
+				#ENDIF
+				 Putting on your best [wes.Name] impression, you affirm that you are.
+			</p>
+			<p>
+				 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.race] mutters mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+			</p>
+			<p>
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_elle") > 0)
+			<p>
+				Upon seeing a familiar face, the two officers visibly relax and briskly salute you. The [npc.race] greets you by saying,
+				#IF(game.isDayTime())
+				 [npc.speech(Ah, Quartermaster. Wasn't expecting to see you out and about, [pc.sir]. Taking a stroll?)]
+				#ELSE
+				 [npc.speech(Ah, Quartermaster. It's awfully late, [pc.sir]. Taking a stroll?)]
+				#ENDIF
+				 Putting on your best [elle.Name] impression, you affirm that you are.
+			</p>
+			<p>
+				 [npc2.speech(Armory must get real stuffy from all the fucking,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+			</p>
+			<p>
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_nysa") > 0)
+			<p>
+				Upon seeing a superior officer, the two officers visibly stiffen and give you a crisp salute. The [npc.race] greets you by saying, [npc.speech(Commissioner, [pc.sir], everything is in order here.)] Putting on your best Nysa impression, you tell the pair to be at ease.
+			</p>
+			<p>
+				[npc2.speech(Just our luck,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+			</p>
+			<p>
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(We'll be around if you need us, [pc.sir], just let us know.)] You take note of the names on their vests.
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_sean") > 0)
+			<p>
+				Upon seeing a familiar face, the two officers visibly relax, and the [npc.race] greets you by saying,
+				#IF(game.isDayTime())
+				 [npc.speech(Ah, Constable [sean.surname]. Wasn't expecting to see you out and about. Taking a stroll?)]
+				#ELSE
+				 [npc.speech(Ah, Constable [sean.surname]. You're out here late. Taking a stroll?)]
+				#ENDIF
+				 Putting on your best [sean.Name] impression, you affirm that you are.
+			</p>
+			<p>
+				 [npc2.speech(Probably trying to get into [candi.NamePos] pants again, I'm sure,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow.
+			</p>
+			<p>
+				 Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... If you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you'll think about it and take note of the names on their vests.
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("uniform_passable") > 0)
+			<p>
+				Seeing that you're wearing an Enforcer uniform, the two officers visibly relax, and the [npc.race] introduces [npc.herself] by saying, [npc.speech(I'm [npc.name], and this here's [npc2.name]. I didn't think that there were any other Enforcers assigned in this area...)]
+			</p>
+			<p>
+				[npc2.speech(Those useless desk jockeys have probably gone and fucked up the map again,)] [npc2.name] declares, [npc2.speech(I swear this happens at least once a week!)]
+			</p>
+			<p>
+				[npc.speech(Yeah, well, there's nothing we can do about it. Sarge will probably go apeshit,)] [npc.name] sighs, before asking you, [npc.speech(Hey, if you've seen sign of any criminals nearby, then I'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
+			</p>
+		#ELSEIF(game.getDialogueFlags().getSavedLong("uniform_passable") == 0)
+			<p>
+				Seeing that you're wearing an Enforcer uniform, the two officers visibly relax, and the [npc.race] introduces [npc.herself] by saying, [npc.speech(I'm [npc.name], and this here's [npc2.name]. I didn't think that there were any other Enforcers assigned in this area...)]
+			</p>
+			<p>
+				[npc2.speech(Those useless desk jockeys have probably gone and fucked up the map again,)] [npc2.name] declares, [npc2.speech(I swear this happens at least once a week!)]
+			</p>
+			<p>
+				[npc.speech(Yeah, well, there's nothing we can do about it. Sarge will probably go apeshit,)] [npc.name] sighs, before narrowing [npc.her] eyes slightly at the state of your uniform. [npc.She] advises you, [npc.speech(Speaking of which, I don't really care for the regs, but you better fix your uniform before sarge catches you. You know how it is, stickler for rules regardless of rank and all that.)] [npc2.Name], apparently not sharing [npc.her] fellow officer's concern, asks you, [npc2.speech(Hey, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
+			</p>
+		#ENDIF
+		
+	#ELSEIF(pc.hasAnyEnforcerStatusEffect() && game.getDialogueFlags().getSavedLong("uniform_passable") < 0)
 		<p>
-			Seeing that you're wearing an Enforcer uniform, the two officers visibly relax, and the [npc.race] introduces [npc.herself] by saying, [npc.speech(I'm [npc.name], and this here's [npc2.name]. I didn't think that there were any other Enforcers assigned to patrol this area...)]
+			The [npc.race] introduces [npc.herself] by saying, [npc.speech(I'm [npc.name], and this here's [npc2.name]. I didn't think that...)] [npc.Name] trails off as [npc.she] notices something very off about your uniform. A look of confusion briefly flashes across both officers' faces that quickly turns into barely-hidden anger.
 		</p>
+		#IF (game.getDialogueFlags().getSavedLong("impersonating_candi") < 0)
+			<p>
+				[npc.speech(Hey! You're not Constable [candi.Surname]! I don't know how your got your [pc.hands] on [candi.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_claire") < 0)
+			<p>
+				[npc.speech(Hey! You're not Sergeant [claire.Surname]! I don't know how your got your [pc.hands] on [claire.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_brax") == -2)
+			<p>
+				[npc.speech(Nice try, but Inspector [brax.Surname] is off the force. I don't know how your got your [pc.hands] on [brax.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_brax") < 0)
 		<p>
-			[npc2.speech(Those useless desk jockeys have probably gone and fucked up everyone's shifts again,)] [npc2.name] declares, [npc2.speech(I swear this happens at least once a week!)]
+			[npc.speech(Hey! You're not Inspector [brax.Surname]! I don't know how your got your [pc.hands] on [brax.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
 		</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_wes") < -2)
+			<p>
+				[npc.speech(Nice try, but the Junior Quartermaster's had a career change. I don't know how your got your [pc.hands] on [wes.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_wes") < 0)
+			<p>
+				[npc.speech(Hey! You're not our Quartermaster! I don't know how your got your [pc.hands] on [wes.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_elle") < -2)
+			<p>
+				[npc.speech(Nice try, but we have a new Senior Quartermaster. I don't know how your got your [pc.hands] on that stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_elle") < 0)
+			<p>
+				[npc.speech(Hey! You're not our Quartermaster! I don't know how your got your [pc.hands] on [elle.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_nysa") < 0)
+			<p>
+				[npc.speech(Hey! You're not the Commissioner! I don't know how your got your [pc.hands] on her stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_sean") < 0)
+			<p>
+				[npc.speech(Hey! You're not Constable [sean.Surname]! I don't know how your got your [pc.hands] on [sean.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>
+		#ELSE
+			<p>
+				[npc.speech(You're not fooling anyone with that getup! I don't know where you got that equipment from, but you better hand it over, right now!)] [npc.name] snarls.
+			</p>	
+		#ENDIF
 		<p>
-			[npc.speech(Yeah, well, there's nothing we can do about it,)] [npc.name] sighs, before asking you, [npc.speech(Hey, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
+			[npc2.speech(Better make sure [pc.she] isn't hiding anything else either,)] [npc2.name] huffs.
+		</p>
+		<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>
+			[style.italicsBad(It seems your disguise didn't work and you now have two pissed off Enforcers to deal with.)]
 		</p>
 	#ELSE
 		#IF(pc.getRace()==RACE_DEMON)
@@ -1461,7 +1791,7 @@
 	#ENDVAR
 	
 	<p>
-		Unable to continue fighting any longer, you feel your [pc.legs] give out from under you, and with a defeated sigh, you collapse down onto the ground.
+		Unable to continue fighting any longer, you feel your [pc.legs] giving out from under you, and with a defeated sigh, you collapse down onto the ground.
 	</p>
 	<p>
 		[npc.speech(That'll teach you to try and fight back against us Enforcers!)] [npc.name] boasts as [npc.she] holsters [npc.her] baton and pistol.

@@ -903,7 +903,6 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + (yIncrease * LINE_HEIGHT));
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
-		
 	}
 
 	private void weaponTooltip(AbstractWeapon absWep) {

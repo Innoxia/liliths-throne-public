@@ -292,9 +292,9 @@ public class Vagina implements BodyPartInterface {
 
 		sb.append("<p style='text-align:center;'>");
 			if(this.eggLayer) {
-				sb.append("<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>");
+				sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
 			} else {
-				sb.append("<i>[npc.Name] now [style.colourSex([npc.verb(give)] birth to live young)]!</i>");
+				sb.append(UtilText.parse(owner,"<i>[npc.Name] now [style.colourSex([npc.verb(give)] birth to live young)]!</i>"));
 			}
 		sb.append("</p>");
 		
@@ -303,14 +303,14 @@ public class Vagina implements BodyPartInterface {
 			orificeVagina.addOrificeModifier(owner, om);
 		}
 		
-		sb.append("<p>"
-				+ "Any old modifiers which [npc.her] pussy might have had have [style.boldShrink(transformed away)]!");
+		sb.append(UtilText.parse(owner,"<p>"
+				+ "Any old modifiers which [npc.her] pussy might have had have [style.boldShrink(transformed away)]!"));
 		
 		if(orificeVagina.getOrificeModifiers().isEmpty()) {
 			sb.append("</p>");
 		} else {
-			sb.append("<br/>"
-					+ "Instead, [npc.her] new pussy is:");
+			sb.append(UtilText.parse(owner,"<br/>"
+					+ "Instead, [npc.her] new pussy is:"));
 			
 			for(OrificeModifier om : orificeVagina.getOrificeModifiers()) {
 				sb.append("<br/>[style.boldGrow("+Util.capitaliseSentence(om.getName())+")]");

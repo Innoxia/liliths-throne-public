@@ -3,9 +3,9 @@
 	<coreAttributes>
 		<value>80</value> 
 		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA[Unlikely-Whammer]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Unlikely-Whammer]]></namePlural>
-		<description><![CDATA[Although this may look and taste like an ordinary burger, the packaging declares this 'Unlikely-Whammer' to be 100% meat free. Printed in very small, hard-to-read text, there's a disclaimer which states that the meat substitute is 'dangerously high in female hormones'...]]></description> 
+		<name><![CDATA[Improbable-Whammer]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Improbable-Whammer]]></namePlural>
+		<description><![CDATA[Although this may look and taste like an ordinary burger, the packaging declares this 'Improbable-Whammer' to be 100% meat free. Printed in very small, hard-to-read text, there's a disclaimer which states that the meat substitute is 'dangerously high in female hormones'...]]></description> 
 		
 		<useDescriptor>eat</useDescriptor>
 		
@@ -56,15 +56,16 @@
 			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
+			<tag>SILLY_MODE</tag>
 		</itemTags>
 	</coreAttributes>
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		Unwrapping the Unlikey-Whammer's paper covering, [npc.name] quickly [npc.verb(reveal)] the greasy cheeseburger contained within. Bringing it up to [npc.her] mouth, [npc.she] [npc.verb(take)] a big bite, and [npc.verb(discover)] that it's absolutely delicious. Encouraged by the taste, it only takes [npc.herHim] a few moments to wolf down the meal.
+		Unwrapping the Improbable-Whammer's paper covering, [npc.name] quickly [npc.verb(reveal)] the greasy cheeseburger contained within. Bringing it up to [npc.her] mouth, [npc.she] [npc.verb(take)] a big bite, and [npc.verb(discover)] that it's absolutely delicious. Encouraged by the taste, it only takes [npc.herHim] a few moments to wolf down the meal.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		Unwrapping the Unlikey-Whammer's paper covering, [npc.name] quickly [npc.verb(reveal)] the greasy cheeseburger contained within, before offering it to [npc2.name]. Bringing it up to [npc2.her] mouth, [npc2.name] [npc2.verb(take)] a big bite, and [npc2.verb(discover)] that it's absolutely delicious. Encouraged by the taste, it only takes [npc2.herHim] a few moments to wolf down the meal.
+		Unwrapping the Improbable-Whammer's paper covering, [npc.name] quickly [npc.verb(reveal)] the greasy cheeseburger contained within, before offering it to [npc2.name]. Bringing it up to [npc2.her] mouth, [npc2.name] [npc2.verb(take)] a big bite, and [npc2.verb(discover)] that it's absolutely delicious. Encouraged by the taste, it only takes [npc2.herHim] a few moments to wolf down the meal.
 		]]></otherUse>
 	</useDescriptions>
 

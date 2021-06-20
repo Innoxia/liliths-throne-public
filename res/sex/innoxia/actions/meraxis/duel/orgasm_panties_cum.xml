@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<!-- Sex Actions are the options/actions given to the player during sex.
+		Please note that for every element which uses the <![CDATA[]]> formatting:
+			The 'npc' parser target will be assigned to the performing character.
+			The 'npc2' parser target will be assigned to the targeted character. -->
+	
+	<!-- The priority which this action should have in the ordering of buttons.
+		A higher value means that it will have a higher priority to be rendered close to the first button (top-left).
+		Default value is 0. -->
+	<buttonPriority>0</buttonPriority>
+	
+	<!-- This conditional statement must return true for this action to be available.
+		You can omit it if you want this action to always be available.
+		It is parsed every sex turn to check for availability.
+		A very common check is 'npc.isPlayer()' to check that the character performing this action is the player (or '!npc.isPlayer()' for NPC-only actions). -->
+	<actionConditional><![CDATA[
+		[#npc.isPlayer() && pc.hasPenisIgnoresDildo() && pc.isSexAreaExposed(PENETRATION_PENIS) && pc.getPenisRawOrgasmCumQuantity()>0]
+	]]></actionConditional>
+	
+	<!-- This element defines the type of action this is, and thereby influences the type of behaviour it has.
+		Values, along with their descriptions, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/sexActions/SexActionType.java -->
+	<type>ORGASM</type>
+	
+	<!-- This element defines what sex pace the performer will switch into when using this action.
+		If you decide to set a value here, you'll need to add a check to 'actionConditional' to make sure that the performing character is dominant (if the pace you define is a DOM_X one) or submissive (if you use a SUB_X pace).
+		Values, along with their descriptions, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexPace.java 
+		Example which would set the performing character's pace to DOM_NORMAL:
+			<endsSex>DOM_NORMAL</endsSex> -->
+	<pace/>
+	
+	<!-- This element will make the action end the sex scene if it returns true. -->
+	<endsSex><![CDATA[true]]></endsSex>
+	
+	<!-- Whether this action is an interaction between the performer and their target (NORMAL) or if it's an action that the performer is performing upon themselves (SELF).
+		Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexParticipantType.java -->
+	<participantType>NORMAL</participantType>
+	
+	<!-- The priority category which this action should be assigned to.
+		NPCs will first look for UNIQUE_MAX actions to use, failing finding any they will look for HIGH, then NORMAL, and finally LOW.
+		Player actions will only be influenced by UNIQUE_MAX, for if there are any UNIQUE_MAX actions available, the player will only be able to choose from them.
+		You should almost always be using NORMAL, unless you decide to use a conditional statement and want certain conditions to make the performer use this action over others (HIGH) or not use it unless they have no other choices (LOW).
+		The value you enter here will be parsed on every sex turn. -->
+	<priority><![CDATA[NORMAL]]></priority>
+	
+	<!-- The level of arousal increase the performer will experience when using this action.
+		Please note that arousal gains are further influenced by the performer's fetishes, so while a value of 1.5 might seem low for the THREE_NORMAL value, it will likely end up being higher than that in practice. 
+		Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/ArousalIncrease.java -->
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	
+	<!-- The same as above, but this arousal increase is for the target of this action. -->
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	
+	<!-- An associated corruption means that the performer will gain corruption by using this value if their corruption is lower than it.
+		You can omit this field to make there be no associated corruption value.
+		Corruption levels can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/CorruptionLevel.java -->
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	
+	<!-- The game automatically assigns associated fetishes to this action based on areas being used, whether the characters are dominant/submissive, and many other factors.
+		You can add to these fetish associations by defining custom fetish associations here.
+		Associated fetishes will make the performing/targeted character experience higher/lower arousal gains if they like/dislike those fetishes.
+		You can (and probably should) omit this section for most sex actions and just let the game assign associated fetishes for you.
+		I've assigned fetishes here due to this action being quite a unique one, and as such the game might not detect the correct fetishes if I were to omit them.
+		Fetish values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/fetishes/Fetish.java -->
+	<associatedFetishes>
+		<!-- Fetishes which apply to the character performing the action. -->
+		<performer>
+			<fetish>FETISH_CUM_STUD</fetish>
+		</performer>
+		<!-- Fetishes which apply to the character being targeted by this action. -->
+		<target>
+			<fetish>FETISH_CUM_ADDICT</fetish>
+		</target>
+	</associatedFetishes>
+	
+	<!-- The following two elements determine what areas are interacting with one another when this action is performed.
+		These interactions influence the behaviour of most of the action types.
+			e.g. An action type of START_ONGOING will start an ongoing action (i.e. actions which persist through sex turns until stopped by another action) between the two areas defined here.
+			e.g. An action type of REQUIRES_NO_PENETRATION_AND_EXPOSED will need both of the areas defined here to be exposed and not engaged in an ongoing action for this action to be available for use.
+		You can choose to only define one area here, or neither, but please be aware that some action types require one or both areas to be defined.
+			e.g. If only the 'performingArea' is defined, and the action type is REQUIRES_EXPOSED, then the action will be available so long as the performer has their defined area exposed.
+		Areas can be found in the following two places:
+			Penetrations (you must add the 'PENETRATION_' prefix to these for them to work): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaPenetration.java
+			Orifices (you must add the 'ORIFICE_' prefix to these for them to work): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaOrifice.java
+		Example:
+			<performingArea>PENETRATION_PENIS</performingArea>
+			<targetedArea>ORIFICE_VAGINA</targetedArea> -->
+	<performingArea/>
+	<targetedArea/>
+	
+	<!-- This section is parsed when this sex action is selected, *before* the descriptions have been generated and *before* any generic effects have been applied.
+		Any text returned here will be appended to the start of the description, *before* any other descriptions. -->
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	
+	<!-- This section is parsed when this sex action is selected, *before* the descriptions have been generated, but *after* basic effects such as positioning and starting/stopping ongoing actions have been applied.
+		Any text returned here will be appended to the end of the description, *before* any generic ongoing action descriptions. -->
+	<applyEffects><![CDATA[
+		#IF(!meraxis.hasFetish(FETISH_CUM_ADDICT))
+			[#meraxis.addFetish(FETISH_CUM_ADDICT, true)]
+		#ENDIF
+	]]></applyEffects>
+	
+	<!-- This section is parsed at the end of the sex action, *after* the descriptions have been generated.
+		Any text returned here will be appended to the end of the description, *after* any generic ongoing action descriptions. -->
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	
+	<!-- This section defines which orifice(s) of the target the performing character cums in.
+		The game's generic orgasm actions should probably be responsible for cumming in areas, so only use this section if you're sure that this behaviour is what you want.
+		Only orifices can be defined here, and can be found here (you must add the 'ORIFICE_' prefix to these for them to work): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaOrifice.java
+		Example:
+			<areasCummedIn>
+				<orifice>ORIFICE_VAGINA</orifice>
+			</areasCummedIn> -->
+	<areasCummedIn/>
+	
+	<!-- This section defines which areas of the target the performing character cums on.
+		You can find coverable areas here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+	<areasCummedOn>
+		<area>VAGINA</area>
+	</areasCummedOn>
+	
+	<!-- Information displayed to the player: -->
+	
+	<!-- The title of this action, which is displayed on the button for the player to select.
+		It is also displayed at the top of the description, so even if this action is only ever to be used by NPCs, you should still give it a title. -->
+	<title><![CDATA[
+		#IF(meraxis.hasFetish(FETISH_CUM_ADDICT))
+			Cum in panties
+		#ELSE
+			[style.colourFetish(Cum in panties)]
+		#ENDIF
+	]]></title>
+	
+	<!-- The tooltip for this action, which is displayed to the player when hovering their mouse over this action's button. -->
+	<tooltip><![CDATA[
+		Tell Meraxis to show you her pussy, and when she pulls down her panties, direct your cum both into them and all over her cunt.
+		#IF(!meraxis.hasFetish(FETISH_CUM_ADDICT))
+			<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_CUM_ADDICT.getName(meraxis)]' fetish from this!)]
+		#ENDIF
+	]]></tooltip>
+	
+	<!-- The actual description which is displayed to the player when they (or an NPC) select(s) this action. -->
+	<descriptions>
+		<!-- You can add as many description elements as you want, but please note that only the first one which meets the conditional requirements will be used.
+			The intention is for these description elements to each be mutually exclusive to one another, so that you can have different descriptions returned based on different conditionals. -->
+		<description>
+			<!-- If this returns true, then this description block will be used.
+				You can omit this if you're only defining one description element. -->
+			<descriptionConditional><![CDATA[
+				[#pc.getPenisRawOrgasmCumQuantity()>=CUM_PRODUCTION_SIX_EXTREME.getMinimumValue()]
+			]]></descriptionConditional>
+			<!-- The actual text to be used and displayed to the player.
+				You can add as many text elements as you want, and the game will choose one at random to display every time this action is used.
+				It's advised to add at least 3-4 text elements to sex actions which can be repeated so as to prevent the action text from appearing to be too static to the player.
+					To do this, simply define multiple text elements, like so:
+						<text><![CDATA[Huge cum in panties variation 1.]]></text>
+						<text><![CDATA[Huge cum in panties variation 2.]]></text>
+						<text><![CDATA[Huge cum in panties variation 3.]]></text> -->
+			<text><![CDATA[
+				Feeling that you're about to reach your climax, you start furiously stroking your [pc.cock+] and quickly order Meraxis, [pc.speech(Pull down your panties! I'm going to cum in them!)]
+				<br/><br/>
+				Although she blushes at your command, the [meraxis.race] obediently takes her hands away from her [meraxis.breasts+], before slipping her thumbs into the band of her lacy panties and pulling them both down and forwards. Presenting you with her [meraxis.pussy+], Meraxis breathlessly pants, [meraxis.speechNoEffects(Go on... Shoot it into my panties...)]
+				<br/><br/>
+				[pc.Stepping] forwards, you aim your throbbing cock at the chuuni [meraxis.race]'s exposed pussy, and as your [pc.balls+] tense up, you start unleashing your massive load of [pc.cum+] all over her wet cunt and lacy panties.
+				<br/><br/>
+				[meraxis.speechNoEffects(~Aah!~ You're making such a mess!)] Meraxis exclaims as she watches your massive amount of [pc.cum+] covering her smooth, [meraxis.skinColour] skin and saturating her purple underwear.
+				<br/><br/>
+				After several more violent pumps, your cock finally finishes releasing its massive load, and with a devious grin on your face, you tell Meraxis that she can pull her panties up again. Furiously blushing, she does as you say, and after sliding her underwear back up to cover her cum-coated cunt, she lets out a lewd moan and pants, [meraxis.speechNoEffects(~Aah!~ This is so dirty...)]
+				<br/><br/>
+				Looking down, you see a copious amount of your [pc.cum+] drooling down the insides of Meraxis's smooth thighs, and you tell her what a good girl she is for having done what you told her. With her cheeks turning a deep shade of scarlet, she steps back and says, [meraxis.speechNoEffects(You've had your fun... That's enough now...)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#pc.getPenisRawOrgasmCumQuantity()<CUM_PRODUCTION_SIX_EXTREME.getMinimumValue()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Feeling that you're about to reach your climax, you start furiously stroking your [pc.cock+] and quickly order Meraxis, [pc.speech(Pull down your panties! I'm going to cum in them!)]
+				<br/><br/>
+				Although she blushes at your command, the [meraxis.race] obediently takes her hands away from her [meraxis.breasts+], before slipping her thumbs into the band of her lacy panties and pulling them both down and forwards. Presenting you with her [meraxis.pussy+], Meraxis breathlessly pants, [meraxis.speechNoEffects(Go on... Shoot it into my panties...)]
+				<br/><br/>
+				[pc.Stepping] forwards, you aim your throbbing cock at the chuuni [meraxis.race]'s exposed pussy, and as your [pc.balls+] tense up, you start squirting your [pc.cum+] all over her wet cunt and lacy panties.
+				<br/><br/>
+				[meraxis.speechNoEffects(~Aah!~ You're making such a mess...)] Meraxis moans as she watches your [pc.cum+] splatter onto her smooth, [meraxis.skinColour] skin and purple underwear.
+				<br/><br/>
+				After another couple of squirts, you reach the end of your climax, and with a devious grin on your face, you tell Meraxis that she can pull her panties up again. Furiously blushing, she does as you say, and after sliding her underwear back up to cover her cum-coated cunt, she lets out a lewd moan and pants, [meraxis.speechNoEffects(~Aah!~ This is so dirty...)]
+				<br/><br/>
+				Looking down, you see a trickle of your [pc.cum+] drooling down the insides of Meraxis's smooth thighs, and you tell her what a good girl she is for having done what you told her. With her cheeks turning a deep shade of scarlet, she steps back and says, [meraxis.speechNoEffects(You've had your fun... That's enough now...)]
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

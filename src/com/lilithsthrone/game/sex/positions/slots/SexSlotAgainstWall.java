@@ -7,65 +7,65 @@ import com.lilithsthrone.main.Main;
  * All SexSlots that are used in the AGAINST_WALL position.
  * 
  * @since 0.3.4
- * @version 0.3.4
+ * @version 0.4
  * @author Innoxia
  */
 public class SexSlotAgainstWall {
 	
 	public static final SexSlot FACE_TO_WALL = new SexSlot(
-			"Face-to-wall",
-			"facing wall",
-			"[npc1.Name] [npc1.verb(brace)] [npc1.herself] against the wall in front of [npc1.herHim], letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			"Face-to-[pc.wall]",
+			"facing [pc.wall]",
+			"[npc1.Name] [npc1.verb(brace)] [npc1.herself] against the [pc.wall] in front of [npc1.herHim], letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			true,
 			SexSlotTag.FACE_TO_WALL);
 	public static final SexSlot FACE_TO_WALL_TWO = new SexSlot(FACE_TO_WALL) {
 		@Override
 		public String getDescription() {
-			return "facing wall (2nd)";
+			return "facing [pc.wall] (2nd)";
 		}
 	};
 	public static final SexSlot FACE_TO_WALL_THREE = new SexSlot(FACE_TO_WALL) {
 		@Override
 		public String getDescription() {
-			return "facing wall (3rd)";
+			return "facing [pc.wall] (3rd)";
 		}
 	};
 	public static final SexSlot FACE_TO_WALL_FOUR = new SexSlot(FACE_TO_WALL) {
 		@Override
 		public String getDescription() {
-			return "facing wall (4th)";
+			return "facing [pc.wall] (4th)";
 		}
 	};
 
 	public static final SexSlot BACK_TO_WALL = new SexSlot(
-			"Back against wall",
-			"back to wall",
-			"Leaning back, [npc.name] [npc.verb(brace)] [npc.herself] against the wall as [npc.she] [npc.verb(feel)] [npc.herself] reaching [npc.her] climax.",
+			"Back against [pc.wall]",
+			"back to [pc.wall]",
+			"Leaning back, [npc.name] [npc.verb(brace)] [npc.herself] against the [pc.wall] as [npc.she] [npc.verb(feel)] [npc.herself] reaching [npc.her] climax.",
 			true,
 			SexSlotTag.BACK_TO_WALL);
 	public static final SexSlot BACK_TO_WALL_TWO = new SexSlot(BACK_TO_WALL) {
 		@Override
 		public String getDescription() {
-			return "back to wall (2nd)";
+			return "back to [pc.wall] (2nd)";
 		}
 	};
 	public static final SexSlot BACK_TO_WALL_THREE = new SexSlot(BACK_TO_WALL) {
 		@Override
 		public String getDescription() {
-			return "back to wall (3rd)";
+			return "back to [pc.wall] (3rd)";
 		}
 	};
 	public static final SexSlot BACK_TO_WALL_FOUR = new SexSlot(BACK_TO_WALL) {
 		@Override
 		public String getDescription() {
-			return "back to wall (4th)";
+			return "back to [pc.wall] (4th)";
 		}
 	};
 
 	public static final SexSlot STANDING_WALL = new SexSlot(
 			"Standing",
 			"standing",
-			"Realising that [npc1.sheIs] about to reach [npc1.her] climax, [npc1.name] [npc1.verb(step)] forwards, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(press)] [npc2.name] against the wall.",
+			"Realising that [npc1.sheIs] about to reach [npc1.her] climax, [npc1.name] [npc1.verb(step)] forwards, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(press)] [npc2.name] against the [pc.wall].",
 			true);
 	
 	public static final SexSlot STANDING_WALL_TWO = new SexSlot(STANDING_WALL) {

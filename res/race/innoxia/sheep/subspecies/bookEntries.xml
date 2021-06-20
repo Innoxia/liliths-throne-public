@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bookText>
+	
+	<htmlContent tag="SHEEP_BASIC"><![CDATA[
+	<p>
+		Although tending to shun Dominion itself, sheep-morphs are very commonly found working on farms in the Foloi Fields. A woolly body, with the possibility of having curled horns, is usually enough to identify someone as a sheep-morph.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SHEEP_ADVANCED"><![CDATA[
+	<p>
+		Just like most common races, the personality of sheep-morphs varies wildly from individual to individual. That being said, they do have a tendency for being quite cowardly, and will often flee from physical conflict instead of trying to fight. They also have an instinct to form flocks, which leads to a lot of sheep-morphs being quite kind and friendly to one another.
+	</p>
+	<p>
+		Along with cow, horse, and goat-morphs, sheep-morphs form the core of the workforce in most of the farms found scattered throughout the Foloi Fields. As well as being able to provide physical labour, sheep-morphs are able to make some extra money by selling their wool to the farm. Due to the care which is taken in its maintenance and grooming, a sheep-morph's wool is of much higher quality, and therefore a lot more valuable, than a regular sheep's.
+	</p>
+	<p>
+		Sheep-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make sheep-boys seek out a partner to mate with, while sheep-girls will go into heat.
+	</p>
+	<p>
+		A sheep-morph's offspring will be a mixture of sheep-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+	
+</bookText>

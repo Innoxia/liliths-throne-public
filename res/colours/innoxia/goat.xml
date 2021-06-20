@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	
+	<name><![CDATA[brown]]></name>
+	
+	<colour>ad8d83</colour>
+	<lightColour>ad8d83</lightColour>
+	
+	<formattingNames>
+		<name><![CDATA[goat]]></name>
+		<name><![CDATA[goatMorph]]></name>
+	</formattingNames>
+	
+	<tags/>
+	
+</colour>

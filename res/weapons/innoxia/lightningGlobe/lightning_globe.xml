@@ -10,11 +10,11 @@
 		
 		<determiner><![CDATA[the]]></determiner>
 		
-		<name><![CDATA[Arcane lightning globe]]></name>
+		<name><![CDATA[arcane lightning globe]]></name>
 		
-		<namePlural pluralByDefault="false"><![CDATA[Arcane lightning globes]]></namePlural>
+		<namePlural pluralByDefault="false"><![CDATA[arcane lightning globes]]></namePlural>
 		
-		<description><![CDATA[This curious arcane weapon takes the form of a small crystal globe, and, when held, quickly fills with a crackling, swirling maelstrom of arcane lightning. Although it's no larger than a golf ball, it holds an immense amount of arcane power, and enables its wielder to unleash arcane lightning strikes against their foes.]]></description> 
+		<description><![CDATA[When held, this small crystal globe quickly fills with a crackling, swirling maelstrom of arcane lightning. Although no larger than a golf ball, it holds an immense amount of power, and is able to unleash an uncontrollable surge of arcane lightning. <i>Arthur might know more about it...</p>]]></description> 
 		
 		<attackDescriptor>lightning strike</attackDescriptor>
 		

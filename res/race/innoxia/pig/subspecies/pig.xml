@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>innoxia_pig</race>
+	<colour>innoxia_pig</colour>
+	<secondaryColour>innoxia_pig</secondaryColour>
+	<tertiaryColour>innoxia_pig</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>12000</baseSlaveValue>
+	<attributeItemId>innoxia_race_pig_porcine_pop</attributeItemId>
+	<transformativeItemId>innoxia_race_pig_oinkers_fries</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges/>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_innoxia_pig)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">icon</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>icon</bookIconName>
+	<bookName>Porky Porcines</bookName>
+	<basicDescriptionId>PIG_BASIC</basicDescriptionId>
+	<advancedDescriptionId>PIG_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[pig-morph]]></name>
+	<namePlural><![CDATA[pig-morphs]]></namePlural>
+	<singularMaleName><![CDATA[pig-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[pig-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[pig-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[pig-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic pig, known as a 'pig-morph' when bipedal, and a 'pigtaur' when the lower body is that of a feral pig.]]></description>
+	<feralAttributes>
+		<feralName><![CDATA[pig]]></feralName>
+		<feralNamePlural><![CDATA[pig]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[boar]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[sow]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[boars]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[sows]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>95</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>6</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] body gives [npc.herHim] strong urges to try out all manner of new foods, and as such, [npc.she] [npc.has] a slight resistance to food poisoning.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="5">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="5">RESISTANCE_POISON</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="5" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="2">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="THREE_UNCOMMON">DOMINION</region>
+		<region rarity="THREE_UNCOMMON">FIELDS</region>
+		<region rarity="THREE_UNCOMMON">WOODLAND</region>
+		<region rarity="THREE_UNCOMMON">FIELD_CITY</region>
+		<region rarity="THREE_UNCOMMON">JUNGLE_CITY</region>
+		<region rarity="THREE_UNCOMMON">DESERT_CITY</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="TWO_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

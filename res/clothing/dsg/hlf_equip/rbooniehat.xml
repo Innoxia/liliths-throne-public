@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<authorTag><![CDATA[Sewn into the inside of the crown, a tag reads "MFD by Threadworks."]]></authorTag>
+		<value>150</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[boonie hat]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[boonie hats]]></namePlural>
+		<description><![CDATA[A cotton twill hat with a stiff, downward sloping brim intended to keep the sun and rain off of the wearer's eyes and neck.​ A band of nylon webbing around the crown allows foliage to be inserted to improve camouflage.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HEAD</slot>
+		<rarity>UNCOMMON</rarity>
+		<clothingSet/>
+		<imageName>rbooniehat.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/> 
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>HAIR</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/> 
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_OLIVE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BROWN</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+	</coreAtributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the boonie hat on [npc.her] head.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the boonie hat on [npc2.namePos] head.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(shove)] the boonie hat down on [npc2.namePos] head.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] boonie hat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] boonie hat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(slap)] [npc2.namePos] boonie hat off [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

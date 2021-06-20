@@ -41,11 +41,12 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.3.5.5
+ * @version 0.4.1
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -57,10 +58,13 @@ public class GenericSexualPartner extends NPC {
 	public GenericSexualPartner(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), isImported);
 	}
-	
 
 	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported) {
 		this(gender, worldLocation, location, isImported, null);
+	}
+
+	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, AbstractPlaceType placeType, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
+		this(gender, worldLocation, Main.game.getWorlds().get(worldLocation).getCell(placeType).getLocation(), isImported, subspeciesRemovalFilter);
 	}
 	
 	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
@@ -347,7 +351,11 @@ public class GenericSexualPartner extends NPC {
 				+ "</p>"
 				+ "<p>"
 					+ "You're vaguely aware of [npc.namePos] taunts fading away as [npc.she] starts to focus [npc.her] attention on fucking you."
-					+ " With a desperate moan, you spread your legs and resign yourself to the fact that you're now nothing more than a"
+					+ " With a desperate moan,"
+					+ (Main.game.getPlayer().hasLegs()
+						?" you spread your legs and"
+						:" you")
+					+ " resign yourself to the fact that you're now nothing more than a"
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>";
 	}

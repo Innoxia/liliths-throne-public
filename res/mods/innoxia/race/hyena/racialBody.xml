@@ -46,7 +46,7 @@
 	<genitalArrangement>NORMAL</genitalArrangement>
 	
 	<!-- The following values are slightly randomised upon a character of this race being spawned to give some variation.
-	e.g. A newly-spawned hyena-girl might be 179cm tall (which would have been randomised based on teh defined height of 175).
+	e.g. A newly-spawned hyena-girl might be 179cm tall (which would have been randomised based on the defined height of 175).
 	
 	Height is defined in cm, and should be no smaller than 61 and no larger than 366.
 	Values associated with height can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Height.java
@@ -241,7 +241,11 @@
 		<type>NONE</type>
 	</hornTypes>
 	
-	<!-- Horn length is from 0 to 75, measured in cm. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HornLength.java -->
+	<!-- Horn length is from 0 to 75, measured in cm.
+	If the length is defined as 0, it will ignore they hornTypes above and spawn with NONE.
+		This can be useful for preventing either males or females from spawning with horns by setting their length to 0.
+		As hyenas already have NONE defined as their only HornType, this behaviour isn't seen in this race, but you can take a look at the sheep race's racialBody.xml file for an example of this behaviour in use.
+	Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HornLength.java -->
 	<maleHornLength>0</maleHornLength>
 	<femaleHornLength>0</femaleHornLength>
 	

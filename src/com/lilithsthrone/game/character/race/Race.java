@@ -241,11 +241,11 @@ public class Race {
 	};
 
 	// BOVINES:
-	public static AbstractRace COW_MORPH = new AbstractRace("cow-morph",
-				"cow-morphs",
-				"cow",
-				"cows",
-				"cow",
+	public static AbstractRace COW_MORPH = new AbstractRace("cattle-morph",
+				"cattle-morphs",
+				"cattle",
+				"cattle",
+				"cattle",
 				PresetColour.RACE_COW_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
@@ -1374,7 +1374,7 @@ public class Race {
 	public static Map<String, AbstractRace> idToRaceMap = new HashMap<>();
 	
 	/**
-	 * @param id Will be in the format of: 'innoxia_maid'.
+	 * @param id Will be in the format of: 'innoxia_hyena'.
 	 */
 	public static AbstractRace getRaceFromId(String id) {
 		id = Util.getClosestStringMatch(id, idToRaceMap.keySet());

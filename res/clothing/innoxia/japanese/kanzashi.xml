@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[kanzashi]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[kanzashi]]></namePlural>
+		<description><![CDATA[A traditional Japanese hair ornament, composed primarily of folded cloth flowers.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>HAIR</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_geisha</clothingSet>
+		<imageName>kanzashi.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values ="KIMONO"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values ="KIMONO"/>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(tie)] up [npc.her] [npc.hair(true)] and [npc.verb(fasten)] the kanzashi in place.
+		]]></self>
+		<other> <![CDATA[
+			[npc.Name] [npc.verb(tie)] up [npc2.namePos] [npc2.hair(true)] and [npc.verb(fasten)] the kanzashi in place.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(scrunch)] up [npc2.namePos] [npc2.hair(true)] and [npc.verb(fasten)] the kanzashi in place.
+		]]></otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(slide)] [npc.her] kanzashi out of [npc.her] [npc.hair(true)].
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(slide)] [npc2.namePos] kanzashi out of [npc2.her] [npc2.hair(true)].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] kanzashi out of [npc2.her] [npc2.hair(true)].
+		]]></otherRough>
+	</displacementText>
+	
+</clothing>

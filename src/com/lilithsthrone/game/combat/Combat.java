@@ -79,6 +79,11 @@ public class Combat {
 	
 	private Map<GameCharacter, List<Value<GameCharacter, AbstractItem>>> itemsToBeUsed;
 	
+	// Used if the ResponseCombat which initialises combat came from an external dialogue file:
+	private DialogueNode playerPostVictoryDialogue;
+	private DialogueNode playerPostDefeatDialogue;
+	
+	
 	public Combat() {
 	}
 
@@ -93,6 +98,10 @@ public class Combat {
 			NPC enemyLeader,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions) {
+		
+		// These should be set manually after initialising combat
+		playerPostVictoryDialogue = null;
+		playerPostDefeatDialogue = null;
 		
 		allCombatants = new ArrayList<>();
 		this.allies = new ArrayList<>();
@@ -463,8 +472,10 @@ public class Combat {
 			
 			int money = Main.game.getPlayer().getMoney();
 			int moneyLoss = (-enemyLeader.getLootMoney()/2)*enemies.size();
-			Main.game.getPlayer().incrementMoney(moneyLoss);
-			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
+			if(moneyLoss!=0 && enemyLeader.isLootingPlayerAfterCombat()) {
+				Main.game.getPlayer().incrementMoney(moneyLoss);
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
+			}
 			
 			for(NPC enemy : enemies) {
 				enemy.setWonCombatCount(enemy.getWonCombatCount()+1);
@@ -548,6 +559,16 @@ public class Combat {
 		}
 		return true;
 	}
+	
+	private Response getEndCombatDialogue(boolean applyEffects, boolean playerVictory) {
+		if(playerVictory && getPlayerPostVictoryDialogue()!=null) {
+			return new Response("Victory", "You have won!", getPlayerPostVictoryDialogue());
+		}
+		if(!playerVictory && getPlayerPostDefeatDialogue()!=null) {
+			return new Response("Defeat", "You have lost!", getPlayerPostDefeatDialogue());
+		}
+		return enemyLeader.endCombat(applyEffects, playerVictory);
+	}
 
 	public final DialogueNode ITEM_USED = new DialogueNode("Combat", "Use the item.", true) {
 		@Override
@@ -570,7 +591,7 @@ public class Combat {
 						@Override
 						public void effects() {
 							endCombat(true);
-							Main.game.setContent(enemyLeader.endCombat(true, true));
+							Main.game.setContent(getEndCombatDialogue(true, true));
 						}
 					};
 				} else {
@@ -674,7 +695,7 @@ public class Combat {
 					public void effects() {
 						endCombat(false);
 						Main.game.setResponseTab(0);
-						Main.game.setContent(enemyLeader.endCombat(true, false));
+						Main.game.setContent(getEndCombatDialogue(true, false));
 					}
 				};
 				
@@ -738,21 +759,7 @@ public class Combat {
 				}
 				return null;
 			}
-			if(Main.game.getPlayer().isStunned()) {
-				if (index == 1) {
-					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							combatContent.put(Main.game.getPlayer(), Util.newArrayListOfValues("You are stunned, and are unable to make a move!"));
-							endCombatTurn();
-						}
-					};
-					
-				} else {
-					return null;
-				}
-				
-			} else if(escaped) {
+			if(escaped) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
@@ -777,24 +784,36 @@ public class Combat {
 						public void effects() {
 							endCombat(true);
 							Main.game.setResponseTab(0);
-							Main.game.setContent(enemyLeader.endCombat(true, true));
+							Main.game.setContent(getEndCombatDialogue(true, true));
 						}
 					};
-				} else
-					return null;
+				}
+				return null;
 				
-			}  else if(isAlliedPartyDefeated()) {
+			} else if(isAlliedPartyDefeated()) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Defeat", "You have been defeated!"){
 						@Override
 						public void effects() {
 							endCombat(false);
 							Main.game.setResponseTab(0);
-							Main.game.setContent(enemyLeader.endCombat(true, false));
+							Main.game.setContent(getEndCombatDialogue(true, false));
 						}
 					};
-				} else
-					return null;
+				}
+				return null;
+				
+			} else if(Main.game.getPlayer().isStunned()) {
+				if (index == 1) {
+					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							combatContent.put(Main.game.getPlayer(), Util.newArrayListOfValues("You are stunned, and are unable to make a move!"));
+							endCombatTurn();
+						}
+					};
+				}
+				return null;
 				
 			} else if(isCombatantDefeated(Main.game.getPlayer())) {
 				if (index == 1) {
@@ -805,11 +824,8 @@ public class Combat {
 							endCombatTurn();
 						}
 					};
-					
-				} else {
-					return null;
 				}
-				
+				return null;
 			}
 
 			List<GameCharacter> pcEnemies = getEnemies(Main.game.getPlayer());
@@ -1809,5 +1825,21 @@ public class Combat {
 
 	public Map<GameCharacter, Map<AbstractStatusEffect, Integer>> getStatusEffectsToApply() {
 		return statusEffectsToApply;
+	}
+
+	public DialogueNode getPlayerPostVictoryDialogue() {
+		return playerPostVictoryDialogue;
+	}
+
+	public void setPlayerPostVictoryDialogue(DialogueNode playerPostVictoryDialogue) {
+		this.playerPostVictoryDialogue = playerPostVictoryDialogue;
+	}
+
+	public DialogueNode getPlayerPostDefeatDialogue() {
+		return playerPostDefeatDialogue;
+	}
+
+	public void setPlayerPostDefeatDialogue(DialogueNode playerPostDefeatDialogue) {
+		this.playerPostDefeatDialogue = playerPostDefeatDialogue;
 	}
 }
