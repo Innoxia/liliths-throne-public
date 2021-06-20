@@ -322,7 +322,8 @@ public class ClitMouth {
 					&& !Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction()).containsKey(InventorySlot.HAIR)
 					&& !Main.sex.getCharacterPerformingAction().getInventorySlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(InventorySlot.HAND)
 					&& (Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS
-							|| Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS);
+							|| Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS)
+					&& Main.sex.getCharacterTargetedForSexAction(this).getHairType().isAbleToBeGrabbedInSex();
 		}
 		@Override
 		public String getDescription() {
@@ -1263,8 +1264,14 @@ public class ClitMouth {
 					}
 				}
 				
-				descriptions.add("[npc.Name] [npc.verb(spread)] [npc.her] knees out on either side of [npc2.namePos] head, and before [npc2.she] [npc2.verb(know)] what's happening,"
-									+ " [npc.nameIs] roughly slamming [npc.her] [npc.clit+] in and out of [npc2.her] facial fuck-hole.");
+				if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+					descriptions.add("[npc.Name] [npc.verb(spread)] [npc.her] knees out on either side of [npc2.namePos] head, and before [npc2.she] [npc2.verb(know)] what's happening,"
+							+ " [npc.nameIs] roughly slamming [npc.her] [npc.clit+] in and out of [npc2.her] facial fuck-hole.");
+					
+				} else {
+					descriptions.add("[npc.Name] [npc.verb(push)] [npc.her] groin down onto [npc2.namePos] face, and before [npc2.she] [npc2.verb(know)] what's happening,"
+							+ " [npc.nameIs] roughly slamming [npc.her] [npc.clit+] in and out of [npc2.her] facial fuck-hole.");
+				}
 				
 
 				descriptions.add("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.clit+] all the way down [npc2.namePos] throat."

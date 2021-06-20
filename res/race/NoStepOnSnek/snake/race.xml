@@ -2,17 +2,19 @@
 <race>
 	<racialBody>NoStepOnSnek_snake</racialBody>
 	<applyRaceChanges><![CDATA[
-		#IF(targetedBody.getFace().getType()==FACE_TYPE_NoStepOnSnek_snake_face || targetedBody.getFace().getType()==FACE_TYPE_NoStepOnSnek_snake_face_h)
-			[#targetedBody.getEar().setType(null, EAR_TYPE_NoStepOnSnek_snake_ear)]
-		#ELSEIF(targetedBody.getEar().getType()==EAR_TYPE_NoStepOnSnek_snake_ear)
-			[#targetedBody.getEar().setType(null, EAR_TYPE_NoStepOnSnek_snake_ear_l)]
+		#IF(targetedBody.getFaceType()==FACE_TYPE_NoStepOnSnek_snake_face || targetedBody.getFaceType()==FACE_TYPE_NoStepOnSnek_snake_face_h)
+			[#targetedBody.setEarType(EAR_TYPE_NoStepOnSnek_snake_ear)]
+		#ELSEIF(targetedBody.getEarType()==EAR_TYPE_NoStepOnSnek_snake_ear)
+			[#targetedBody.setEarType(EAR_TYPE_NoStepOnSnek_snake_ear_l)]
 		#ENDIF
-		#IF(targetedBody.getVagina().getType()==VAGINA_TYPE_NoStepOnSnek_snake_vagina_e && RND.nextInt(100)<30)
-			[#targetedBody.getVagina().setType(null, VAGINA_TYPE_NoStepOnSnek_snake_vagina)]
+		#IF(targetedBody.getVagina().getType()==VAGINA_TYPE_NoStepOnSnek_snake_vagina && RND.nextInt(100)<30)
+			[#targetedBody.getVagina().setEggLayer(null, false)]
 		#ENDIF
 	]]></applyRaceChanges>
 	<name><![CDATA[snake-morph]]></name>
 	<namePlural><![CDATA[snake-morphs]]></namePlural>
+	<nameSillyMode><![CDATA[snek-morph]]></nameSillyMode>
+	<namePluralSillyMode><![CDATA[snek-morphs]]></namePluralSillyMode>
 	<nameFeral>
 		<name legConfiguration="TAIL_LONG"><![CDATA[snake]]></name>
 	</nameFeral>

@@ -20,8 +20,10 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -32,11 +34,13 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -51,11 +55,12 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.7.3
+ * @version 0.4
  * @author Innoxia
  */
 public class DebugDialogue {
@@ -112,7 +117,6 @@ public class DebugDialogue {
 						return Main.game.getDefaultDialogue(false);
 					}
 				};
-				
 			}
 			
 			if(responseTab==0) {
@@ -161,6 +165,21 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if (index == 5) {
+					if(!Util.newArrayListOfValues(
+							PlaceType.DOMINION_BACK_ALLEYS,
+							PlaceType.DOMINION_CANAL,
+							PlaceType.DOMINION_CANAL_END,
+							PlaceType.DOMINION_ALLEYS_CANAL_CROSSING,
+							PlaceType.SUBMISSION_TUNNELS
+							).contains(Main.game.getPlayer().getLocationPlace().getPlaceType())) {
+						return new Response("Spawn attacker", "You can only spawn an attacker on: Dominion's alleyway & canal tiles; Submission's tunnel tiles.", null);
+					}
+					if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
+						return new Response("Spawn attacker", "You can only spawn an attacker on empty tiles.", null);
+					}
+					return new Response("Spawn attacker", "Spawn an attacker on this tile.", ATTACKER_SPAWN_MENU);
+					
 				} else if (index == 6) {
 					return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
 					
@@ -177,6 +196,9 @@ public class DebugDialogue {
 					
 				} else if (index == 9) {
 					return new Response("Race resets", "View the race reset options.", BODY_PART_RACE_RESET);
+					
+				} else if (index == 10) {
+					return new Response("Set spawns", "View all of the clothing/weapon sets in the game and spawn them.", SPAWN_MENU_SET);
 					
 				} else if (index == 11) {
 					return new Response(UtilText.formatAsMoney(100_000, "span"), "Add 100,000 flames.", DEBUG_MENU){
@@ -196,6 +218,22 @@ public class DebugDialogue {
 					
 				} else if (index == 13) {
 					return new Response("Very long action text for testing", "Very long action text for testing.", null);
+					
+				} else if (index == 14) {
+					return new Response("Sticker unlocks: ",
+							"Unlocks availability of all stickers for clothing. This is done by ignoring stickers' unavailabilityText and availabilityText, so if you're trying to test those, having this on will be a problem!",
+							DEBUG_MENU){
+						@Override
+						public String getTitle() {
+							return "Sticker unlocks: "+(Main.game.isAllStickersUnlocked()?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+						}
+						
+						@Override
+						public void effects() {
+							Main.getProperties().setValue(PropertyValue.allStickersUnlocked, !Main.game.isAllStickersUnlocked());
+							Main.getProperties().savePropertiesAsXML();
+						}
+					};
 					
 				}
 				
@@ -481,15 +519,6 @@ public class DebugDialogue {
 					};
 					
 				} else if(index==15) {
-					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_WES)) {
-						return new Response("Wes test", "You have already started Wes's quest!", null);
-					}
-					if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.DOMINION_STREET) {
-						return new Response("Wes test", "You need to be on a Dominion Street tile to trigger this!", null);
-					}
-					return new Response("Wes test", "Spawn Wes and start his quest.<br/>[style.italicsBad(Warning! Save your game before testing this! Please only test this if you know what you're doing!!!)]", WesQuest.WES_QUEST_START);
-					
-				} else if(index==16) {
 					return new Response("Bimbos!", "Turn every feminine NPC in the game into a busty, slovenly bimbo.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
 						@Override
 						public Colour getHighlightColour() {
@@ -509,7 +538,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==17) {
+				} else if(index==16) {
 					return new Response("Tiger mode", "Turn every NPC in the game into a greater tiger-morph.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
 						@Override
 						public Colour getHighlightColour() {
@@ -529,7 +558,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==18) {
+				} else if(index==17) {
 					return new Response("Mofu mode", "Every NPC with a covering type that supports the 'fluffy' modifier gains the 'fluffy' modifier.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
 						@Override
 						public Colour getHighlightColour() {
@@ -549,7 +578,8 @@ public class DebugDialogue {
 							}
 						}
 					};
-				} else if(index==19) {
+					
+				} else if(index==18) {
 					return new Response("Moo mode",
 							"Every feminine NPC will have their breast size incremented by 5,"
 									+ " gain the '"+Fetish.FETISH_LACTATION_SELF+"' fetish,"
@@ -571,15 +601,75 @@ public class DebugDialogue {
 									npc.incrementBreastSize(5);
 									npc.incrementAssSize(1);
 									npc.incrementHipSize(1);
-//									npc.setBreastMilkStorage(Math.max(500, npc.getBreastRawMilkStorageValue()));
-//									
-//									npc.setBreastSize(Math.max(CupSize.HH.getMeasurement(), npc.getBreastSize().getMeasurement()));
-//									npc.setAssSize(Math.max(AssSize.FOUR_LARGE.getValue(), npc.getAssSize().getValue()));
-//									npc.setHipSize(Math.max(HipSize.SIX_EXTREMELY_WIDE.getValue(), npc.getHipSize().getValue()));
 								}
 							}
 						}
 					};
+				} else if(index==19) {
+					return new Response("Rat mode", "Turn every NPC in the game into a greater rat-morph.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.RACE_RAT_MORPH;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								Main.game.getCharacterUtils().reassignBody(
+										npc,
+										npc.getBody(),
+										npc.getGender(),
+										Subspecies.RAT_MORPH,
+										RaceStage.GREATER,
+										false);
+							}
+						}
+					};
+					
+				} else if(index==25)  {
+					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
+						@Override
+						public void effects() {
+							spawnrateSB = new StringBuilder("<table><tr><th>Race Name</th><th>Overall</th><th>Masculine</th><th>Feminine</th><th>Race Name</th><th>Overall</th><th>Masculine</th><th>Feminine</th></tr>");
+							spawnTotal = 0;
+							spawnTotalMasculine = 0;
+							spawnTotalFeminine = 0;
+							float spawn;
+							float spawnMasculine;
+							float spawnFeminine;
+							for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+								if (Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).containsKey(s)) {
+									spawn = (1000 * Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).get(s).getChanceMultiplier());
+									spawnTotalMasculine += (spawn * Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s).getValue());
+									spawnTotalFeminine += (spawn * Main.getProperties().getSubspeciesFemininePreferencesMap().get(s).getValue());
+									spawnTotal = spawnTotalMasculine + spawnTotalFeminine;
+								}
+							}
+							boolean even = false;
+							for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+								if (Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).containsKey(s)) {
+									spawn = (1000 * Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).get(s).getChanceMultiplier());
+									spawnMasculine = (spawn * Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s).getValue());
+									spawnFeminine = (spawn * Main.getProperties().getSubspeciesFemininePreferencesMap().get(s).getValue());
+									if (!even) {
+										spawnrateSB.append("<tr>");
+									}
+									spawnrateSB.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(Util.capitaliseSentence(s.getNamePlural(null))).append("</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", (((spawnMasculine + spawnFeminine) * 100) / spawnTotal))).append("%</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", ((spawnMasculine * 100) / spawnTotalMasculine))).append("%</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", ((spawnFeminine * 100) / spawnTotalFeminine))).append("%</td>");
+									if (even) {
+										spawnrateSB.append("</tr>");
+									}
+									even = !even;
+								}
+							}
+							if (!even) {
+								spawnrateSB.append("</tr>");
+							}
+							spawnrateSB.append("</table>");
+						}
+					};
+					
 				}
 				
 			} else if(responseTab == 3) {
@@ -705,13 +795,13 @@ public class DebugDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			for(NPC npc : Main.game.getOffspring(true, true)) {
+			for(NPC npc : Main.game.getOffspring(true)) {
 				boolean isBorn = true;
 				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
 				}
 				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
-						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies()+")"
+						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies().getName(npc)+")"
 						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			if(activeOffspring!=null) {
@@ -731,11 +821,11 @@ public class DebugDialogue {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
-			} else if(index-1 < Main.game.getOffspring(true, true).size()) {
-				return new Response(Main.game.getOffspring(true, true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
+			} else if(index-1 < Main.game.getOffspring(true).size()) {
+				return new Response(Main.game.getOffspring(true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
 					@Override
 					public void effects() {
-						activeOffspring = Main.game.getOffspring(true, true).get(index-1);
+						activeOffspring = Main.game.getOffspring(true).get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
 							activeOffspring.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 						}
@@ -769,8 +859,8 @@ public class DebugDialogue {
 		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
+	
 	public static final DialogueNode SPAWN_MENU = new DialogueNode("Spawn Menu", "Access the spawn menu.", false) {
-
 		@Override
 		public String getHeaderContent() {
 			inventorySB.setLength(0);
@@ -893,14 +983,6 @@ public class DebugDialogue {
 			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
 			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; opacity:0; cursor:default; color:"+PresetColour.BASE_GREEN_DARK.toWebHexString()+";'>Cheats</div>");
 
-//			inventorySB.append("<hr/>");
-//			
-//			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
-//				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
-//				inventorySB.append(sb.getName());
-//				inventorySB.append("</div>");
-//			}
-			
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();
@@ -916,6 +998,37 @@ public class DebugDialogue {
 			return DEBUG_MENU.getResponseTabTitle(index);
 		}
 		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode SPAWN_MENU_SET = new DialogueNode("Set spawns", "", false) {
+		@Override
+		public String getHeaderContent() {
+			inventorySB.setLength(0);
+			
+			inventorySB.append("<div class='container-full-width'>");
+			
+			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
+				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:23%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
+				inventorySB.append(sb.getName());
+				inventorySB.append("</div>");
+			}
+			
+			inventorySB.append("</div>");
+			
+			return inventorySB.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return DEBUG_MENU.getResponse(responseTab, index);
@@ -1062,6 +1175,116 @@ public class DebugDialogue {
 		}
 	};
 	
+	private static NPC attacker;
+	private static void initAttacker() {
+		if(Main.game.getPlayer().getWorldLocation()==WorldType.DOMINION) {
+			attacker = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+		} else {
+			attacker = new SubmissionAttacker(Gender.getGenderFromUserPreferences(false, false));
+		}
+		try {
+			Main.game.addNPC(attacker, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		attacker.setLocation(Main.game.getPlayer(), true);
+		Main.game.setActiveNPC(attacker);
+	}
+	
+	public static final DialogueNode ATTACKER_SPAWN_MENU = new DialogueNode("Spawn Attacker", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			attacker = null;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<p>");
+				sb.append("Choose the attacker's race.");
+			sb.append("</p>");
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(index == 0) {
+				return "[style.colourTfPartial(Partial)]";
+
+			} else if(index == 1) {
+				return "[style.colourTfMinor(Minor)]";
+				
+			} else if(index == 2) {
+				return "[style.colourTfLesser(Lesser)]";
+				
+			} else if(index == 3) {
+				return "[style.colourTfGreater(Greater)]";
+			}
+			return null;
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			List<AbstractSubspecies> availableSubspecies = new ArrayList<>(Subspecies.getAllSubspecies());
+			availableSubspecies.removeIf(s->
+					s.getRace()==Race.ELEMENTAL
+//					|| s==Subspecies.LILIN
+//					|| s==Subspecies.ELDER_LILIN
+//					|| s==Subspecies.ANGEL
+					);
+			
+			if (index!=0 && index<availableSubspecies.size()+1) {
+				AbstractSubspecies subspecies = availableSubspecies.get(index - 1);
+				String name = subspecies.getName(null);
+				
+				return new ResponseEffectsOnly(
+						Util.capitaliseSentence(name),
+						"Spawn an attacker of the subspecies: "+name) {
+					@Override
+					public void effects() {
+						initAttacker();
+						
+						if(subspecies==Subspecies.HALF_DEMON) {
+							attacker.setSubspeciesOverride(null);
+							attacker.setBody(
+									Main.game.getCharacterUtils().generateHalfDemonBody(attacker, attacker.getGender(), Subspecies.HUMAN, false),
+									false);
+						} else {
+							attacker.setSubspeciesOverride(null);
+							RaceStage stage = responseTab==0
+									?RaceStage.PARTIAL
+									:(responseTab==1
+										?RaceStage.PARTIAL_FULL
+										:(responseTab==2
+											?RaceStage.LESSER
+											:RaceStage.GREATER));
+							
+							if(subspecies==Subspecies.DEMON) {
+								stage = RaceStage.GREATER;
+							}
+							
+							Main.game.getCharacterUtils().reassignBody(
+									attacker,
+									attacker.getBody(),
+									attacker.getGender(),
+									subspecies,
+									stage,
+									false);
+						}
+
+						attacker.resetInventory(true);
+						attacker.clearNonEquippedInventory(false);
+						Main.game.getCharacterUtils().generateItemsInInventory(attacker);
+						attacker.equipClothing();
+						
+						Main.game.setContent(new Response("", "", attacker.getEncounterDialogue()));
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "", DEBUG_MENU);
+			}
+			return null;
+		}
+	};
+	
 	public static final DialogueNode BODY_PART_RACE_RESET = new DialogueNode("Reset body", "Set race.", false) {
 
 		@Override
@@ -1165,9 +1388,6 @@ public class DebugDialogue {
 			}
 		}
 	};
-	
-	
-	
 	
 	
 	public static final DialogueNode CLOTHING_COLLAGE = new DialogueNode("Clothing collage", "Clothing collage.", false) {
@@ -1521,7 +1741,7 @@ public class DebugDialogue {
 					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
 							+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>");
 			
-			for(ParserTarget character : ParserTarget.values()) {
+			for(AbstractParserTarget character : ParserTarget.getAllParserTargets()) {
 				UtilText.nodeContentSB.append("<hr/>"
 						+"<p>");
 				
@@ -1850,6 +2070,25 @@ public class DebugDialogue {
 				}
 			}
 			return null;
+		}
+	};
+	
+	private static StringBuilder spawnrateSB;
+	private static float spawnTotal, spawnTotalMasculine, spawnTotalFeminine;
+	public static final DialogueNode SPAWN_RATES = new DialogueNode("", "", false) {
+		@Override
+		public String getAuthor() { return "AceXp"; }
+		@Override
+		public String getContent() {
+			return spawnrateSB.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
 		}
 	};
 

@@ -201,15 +201,6 @@ public class ElementalDialogue {
 							Main.game.updateResponses();
 						}
 					};
-					
-				} else if(index==10) {
-					return new Response("Dispel", "Dispel [el.name]...",  Main.game.getDefaultDialogue(false)) {
-						@Override
-						public void effects() {
-							getElemental().returnToHome();
-							Main.game.getPlayer().setElementalSummoned(false);
-						}
-					};
 				}
 			}
 			
@@ -237,7 +228,17 @@ public class ElementalDialogue {
 						}
 					};
 				}
+				
+			} else if(index==10) {
+				return new Response("Dispel", "Dispel [el.name]...",  Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						getElemental().returnToHome();
+						Main.game.getPlayer().setElementalSummoned(false);
+					}
+				};
 			}
+			
 			if(index==0) {
 				return new Response("Finished", "Tell [el.name] that you've finished talking with [el.herHim] and let [el.herHim] return to [el.her] passive form.", Main.game.getDefaultDialogue(false)) {
 					@Override

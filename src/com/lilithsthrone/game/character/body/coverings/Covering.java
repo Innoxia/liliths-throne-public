@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
- * @version 0.3.7.5
+ * @version 0.4
  * @author Innoxia
  */
 public class Covering implements XMLSaving {
@@ -31,6 +31,23 @@ public class Covering implements XMLSaving {
 	protected boolean primaryGlowing;
 	protected boolean secondaryGlowing;
 
+	// Constructors which call the ones below, just with Strings for the type id:
+	public Covering(String typeId) {
+		this(BodyCoveringType.getBodyCoveringTypeFromId(typeId));
+	}
+	public Covering(String typeId, Colour primaryColour) {
+		this(BodyCoveringType.getBodyCoveringTypeFromId(typeId), primaryColour);
+	}
+	public Covering(String typeId, Colour primaryColour, Colour secondaryColour) {
+		this(BodyCoveringType.getBodyCoveringTypeFromId(typeId), primaryColour, secondaryColour);
+	}
+	public Covering(String typeId, CoveringPattern pattern, Colour primaryColour, boolean primaryGlowing, Colour secondaryColour, boolean secondaryGlowing) {
+		this(BodyCoveringType.getBodyCoveringTypeFromId(typeId), pattern, primaryColour, primaryGlowing, secondaryColour, secondaryGlowing);
+	}
+	public Covering(String typeId, CoveringPattern pattern, CoveringModifier modifier, Colour primaryColour, boolean primaryGlowing, Colour secondaryColour, boolean secondaryGlowing) {
+		this(BodyCoveringType.getBodyCoveringTypeFromId(typeId), pattern, modifier, primaryColour, primaryGlowing, secondaryColour, secondaryGlowing);
+	}
+	
 	/**
 	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to a random value, and boolean glowing to false.
@@ -311,6 +328,12 @@ public class Covering implements XMLSaving {
 		//text-shadow: 0px 0px 4px #FF0000;
 		String descriptor = modifier.getName();
 		String name = type.getName(gc);
+		
+		// For furry body hair, just call it 'fur'
+		if(modifier==CoveringModifier.FURRY && type.getCategory()==BodyCoveringCategory.BODY_HAIR) {
+			descriptor = "";
+			name = "fur";
+		}
 		
 //		if(gc.getRace()==Race.SLIME) {
 //			if(this.getType()!=BodyCoveringType.SLIME) {

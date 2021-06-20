@@ -161,7 +161,15 @@
 		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
-			 [style.colourMinorBad(tomorrow morning at the earliest)].
+			#IF(game.getDayOfWeek()==DOW_SUNDAY || game.getHourOfDay()>=9)
+			 	[style.colourMinorBad(tomorrow morning at the earliest)].
+			#ELSE
+				#IF(game.getHourOfDay()<9)
+				 	[style.colourMinorBad(later this morning)].
+				#ELSE
+				 	[style.colourMinorBad(sometime later)].
+				#ENDIF
+			#ENDIF
 		#ENDIF
 	</p>
 	]]>
@@ -180,7 +188,15 @@
 		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
-			 [style.colourMinorBad(tomorrow morning at the earliest)].
+			#IF(game.getDayOfWeek()==DOW_SUNDAY || game.getHourOfDay()>=9)
+			 	[style.colourMinorBad(tomorrow morning at the earliest)].
+			#ELSE
+				#IF(game.getHourOfDay()<9)
+				 	[style.colourMinorBad(later this morning)].
+				#ELSE
+				 	[style.colourMinorBad(sometime later)].
+				#ENDIF
+			#ENDIF
 		#ENDIF
 	</p>
 	]]>
@@ -472,7 +488,7 @@
 		Not liking the idea of keeping Scarlett as a slave, you turn towards [helena.name] and ask, [pc.speech(Do I need to fill out some kind of form to set Scarlett free?)]
 	</p>
 	<p>
-		[helena.speech(Oh my, it looks like today's your lucky day,)] [helena.name] calmly says to Scarlett, before turning to you and replying, [helena.speech(All that needs to be done is to inform the Slavery Administration of your intention to set Scarlett free. As all newly-bought slaves have to be processed at the same building, I'll fill out the necessary forms for you at the same time.)]
+		[helena.speech(Oh my, it looks like today's your lucky day,)] [helena.name] calmly says to Scarlett, before turning to you and replying, [helena.speech(As a matter of fact, yes, setting slaves free requires a Freedom Certification, which is extremely difficult to obtain... Luckily for you, I happen to have a friend or two in <i>very</i> high places, so getting that Certification would be easy for me. I must admit that I do slightly regret doing this to Scarlett, so if you really do want to set her free, I'll get the paperwork sorted.)]
 	</p>
 	<p>
 		[scarlett.speech(You're really setting me free?)] Scarlett asks, and as you reply in the affirmative, she mumbles, [scarlett.speech(Thank you... I guess...)]

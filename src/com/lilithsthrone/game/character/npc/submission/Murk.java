@@ -113,7 +113,7 @@ public class Murk extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN_DARK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_PALE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
@@ -137,7 +137,7 @@ public class Murk extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.4")) {
 			this.setName(new NameTriplet("Murk"));
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.17")) {
 			this.setPenisGirth(PenetrationGirth.SEVEN_FAT);
 		}
 	}
@@ -154,6 +154,17 @@ public class Murk extends NPC {
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
 
+	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+		equipMove("strike");
+		equipMove("offhand-strike");
+		equipMove("twin-strike");
+		equipMove("block");
+		this.equipAllSpecialMoves();
+		this.equipAllSpellMoves();
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		// Persona:

@@ -2,7 +2,7 @@
 <setBonus>
 	<name><![CDATA[Kitty Lingerie]]></name>
 	
-	<statusEffect>innoxia_set_kitty</statusEffect>
+	<statusEffect>SET_KITTY</statusEffect>
 	
 	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
 	

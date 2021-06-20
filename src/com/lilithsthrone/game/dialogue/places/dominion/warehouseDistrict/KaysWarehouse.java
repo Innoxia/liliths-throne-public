@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -84,6 +85,16 @@ public class KaysWarehouse {
 	private static final int PAY_OFF_PRICE = 50_000;
 	private static final int PAY_OFF_PRICE_WOLFGANG_SHARE = 30_000;
 	private static final int PAY_OFF_PRICE_KARL_SHARE = 20_000;
+
+	/**
+	 * Sets quest progress to RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN and appends to the TextEndStringBuilder.
+	 * <br/>Moves Wolfgang and Karl to the bounty hunter lodge.
+	 */
+	public static void applySuppliersBeatenEffects() {
+		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN));
+		((SupplierLeader)Main.game.getNpc(SupplierLeader.class)).moveToBountyHunterLodge();
+		((SupplierPartner)Main.game.getNpc(SupplierPartner.class)).moveToBountyHunterLodge();
+	}
 	
 	/** The amount of flames the dobermanns give to you if you demonically intimidate them. */
 	private static final int DEMONIC_PAYOFF = 6_000;
@@ -311,16 +322,6 @@ public class KaysWarehouse {
 			}
 		}
 		return null;
-	}
-	
-	/**
-	 * Sets quest progress to RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN and appends to the TextEndStringBuilder.
-	 * <br/>Moves Wolfgang and Karl to the bounty hunter lodge.
-	 */
-	public static void applySuppliersBeatenEffects() {
-		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN));
-		((SupplierLeader)Main.game.getNpc(SupplierLeader.class)).moveToBountyHunterLodge();
-		((SupplierPartner)Main.game.getNpc(SupplierPartner.class)).moveToBountyHunterLodge();
 	}
 	
 	private static ResponseSex getKaySexResponse(String title,
@@ -717,7 +718,7 @@ public class KaysWarehouse {
 							null,
 							null,
 							null,
-							Race.DEMON) {
+							Util.newArrayListOfValues(Subspecies.DEMON)) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
@@ -1119,10 +1120,10 @@ public class KaysWarehouse {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "OFFICE_TALK"));
 							
 							List<String> topics = Util.newArrayListOfValues(
-									"MACHINES",
-									"INTERCOM",
-									"BUSINESS",
-									"BOUNTY_HUNTERS");
+									"KAY_MACHINES",
+									"KAY_INTERCOM",
+									"KAY_BUSINESS",
+									"KAY_BOUNTY_HUNTERS");
 							long lowestValue = 1_000_000;
 							for(String topic : topics) {
 								if(Main.game.getDialogueFlags().getSavedLong(topic)<lowestValue) {
@@ -2150,6 +2151,10 @@ public class KaysWarehouse {
 
 	public static final DialogueNode KAY_OFFICE_DOMINATE_MAKEUP = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			BodyChanging.setTarget( Main.game.getNpc(Kay.class));
+		}
+		@Override
 		public String getHeaderContent() {
 			StringBuilder sb = new StringBuilder();
 
@@ -2158,22 +2163,22 @@ public class KaysWarehouse {
 			sb.append(CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
 					
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
 					
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
 					
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
 					
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 					
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
 					
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true));
+							false, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true));
 			
 			return sb.toString();
 		}

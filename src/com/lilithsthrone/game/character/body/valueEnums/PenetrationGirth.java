@@ -64,7 +64,7 @@ public enum PenetrationGirth {
 	}
 	
 	public static int getMaximum() {
-		return SIX_CHUBBY.getValue();
+		return SEVEN_FAT.getValue();
 	}
 	
 	public Colour getColour() {

@@ -416,7 +416,7 @@ public class AlleywayAttackerDialogue {
 								"You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first.",
 								null);
 						
-					}else {
+					} else {
 						return new Response("Offer room", "Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion.", ALLEY_PEACEFUL_OFFER_ROOM) {
 							@Override
 							public void effects() {

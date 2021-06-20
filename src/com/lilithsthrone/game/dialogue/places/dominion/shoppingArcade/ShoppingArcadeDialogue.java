@@ -27,12 +27,12 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
-import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -386,14 +386,6 @@ public class ShoppingArcadeDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==0) {
-				if(index==1) {
-					if(Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<=23) {
-						return new Response("Reservation", "Step inside the restaurant and inquire about making a reservation.<br/>[style.italicsMinorBad(Restaurant content will be added in a future update!)]", null); //TODO
-					}
-					return new Response("Reservation", "The restaurant is currently closed, so you're unable to inquire about making a reservation.", null);
-				}
-			}
 			return getFastTravelResponses(responseTab, index);
 		}
 	};
@@ -698,7 +690,7 @@ public class ShoppingArcadeDialogue {
 						UtilText.parse(getGloryHoleCharacter(), "Do as [npc.name] says and step up to the glory hole."),
 						true, false,
 						new SMGloryHole(
-								SexPositionUnique.GLORY_HOLE,
+								SexPosition.GLORY_HOLE,
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
 								Util.newHashMapOfValues(new Value<>(getGloryHoleCharacter(), SexSlotUnique.GLORY_HOLE_KNEELING))) {
 							@Override
@@ -766,7 +758,7 @@ public class ShoppingArcadeDialogue {
 						UtilText.parse(getGloryHoleCharacter(), "Do as [npc.name] says and get ready to service [npc.her] cock."),
 						true, false,
 						new SMGloryHole(
-								SexPositionUnique.GLORY_HOLE,
+								SexPosition.GLORY_HOLE,
 								Util.newHashMapOfValues(new Value<>(getGloryHoleCharacter(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING))) {
 							@Override

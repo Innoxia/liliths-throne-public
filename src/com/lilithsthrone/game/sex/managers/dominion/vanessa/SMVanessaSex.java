@@ -46,8 +46,7 @@ public class SMVanessaSex extends SexManagerDefault {
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		// She stops after both of you are satisfied:
-		return Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied()
-				&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Vanessa.class))>=Main.game.getNpc(Vanessa.class).getOrgasmsBeforeSatisfied();
+		return Main.sex.isSatisfiedFromOrgasms(Main.game.getPlayer(), true) && Main.sex.isSatisfiedFromOrgasms(Main.game.getNpc(Vanessa.class), true);
 	}
 	
 }

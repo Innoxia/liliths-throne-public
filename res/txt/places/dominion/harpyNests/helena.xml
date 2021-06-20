@@ -335,7 +335,7 @@
 	
 	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_FLIGHT"><![CDATA[
 	<p>
-		Following in [helena.name]'s footsteps, you hurry to edge of the platform. #IF(!pc.isAbleToFlyFromExtraParts())With a flap of your wings, you#ELSEYou#ENDIF leap off and take flight, following the speck of white in the distance as [helena.name] leads you back to Scarlett's shop.
+		Following in [helena.name]'s footsteps, you hurry to the edge of the platform. #IF(!pc.isAbleToFlyFromExtraParts())With a flap of your wings, you#ELSEYou#ENDIF leap off and take flight, following the speck of white in the distance as [helena.name] leads you back to Scarlett's shop.
 	</p>
 	<p>
 		Somewhere along the way, you lose sight of the harpy matriarch, and it takes you a little while to get your bearings again. Soon enough, however, you spot the familiar pattern of Slaver Alley's passages beneath you, and swoop down to land in front of Scarlett's shop.

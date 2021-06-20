@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<value>200</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[latex corset]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[latex corsets]]></namePlural>
+		<description><![CDATA[A tight corset made from latex.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>STOMACH</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>sage_ltxset</clothingSet>
+		<imageName>corset.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/> 
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots>
+					<slot>PIERCING_STOMACH</slot>
+				</concealedSlots> 
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_FINCH</tag>
+		</itemTags>
+	</coreAtributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(tighten)] the latex corset around [npc.her] waist and [npc.verb(snap)] the clips together.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(tighten)] the latex corset around [npc2.namePos] waist and [npc.verb(snap)] the clips together.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(tighten)] the latex corset around [npc2.namePos] waist as much as possible and forcibly [npc.verb(snap)] the clips together.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] latex corset.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] latex corset.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] the latex corset off [npc2.namePos] waist.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

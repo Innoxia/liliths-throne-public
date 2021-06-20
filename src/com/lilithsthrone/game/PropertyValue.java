@@ -10,6 +10,7 @@ public enum PropertyValue {
 	debugMode(false),
 	mapReveal(false),
 	concealedSlotsReveal(false),
+	allStickersUnlocked(false),
 	
 	enchantmentLimits(true),
 	levelDrain(true),
@@ -24,6 +25,7 @@ public enum PropertyValue {
 	tattooRemovalConfirmations(true),
 	sillyMode(false),
 	weatherInterruptions(true),
+	automaticDialogueCopy(false),
 
 	autoLocale(true),
 	metricSizes(true),
@@ -49,7 +51,7 @@ public enum PropertyValue {
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
-	furryHairContent(true),
+	furryHairContent(false),
 	scalyHairContent(false),
 	
 	nonConContent(false, true),
@@ -58,11 +60,13 @@ public enum PropertyValue {
 	urethralContent(false, true),
 	analContent(true, true),
 	footContent(true, true),
+	armpitContent(true, true),
 	nipplePenContent(true, true),
 	gapeContent(true, true),
 	
 	cumRegenerationContent(true),
 	penetrationLimitations(true),
+	elasticityAffectDepth(false), // Added in PR#1413
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),

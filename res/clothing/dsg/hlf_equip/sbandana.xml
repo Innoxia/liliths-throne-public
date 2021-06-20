@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<authorTag><![CDATA[A small tag sewn into the hem reads "MFD by DSG Threadworks".]]></authorTag>
+		<value>50</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[skull-patterned bandana]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[skull-patterned bandanas]]></namePlural>
+		<description><![CDATA[A square piece of cloth with a stylized canine skull printed on it. Folded and tied just right, it can be made into an intimidating face mask.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>MOUTH</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>sbandana.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+				</clothingAccessBlocked>
+				<concealedSlots>
+				</concealedSlots>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>PIERCING_LIP</slot>
+					<slot>PIERCING_TONGUE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+	</coreAtributes>
+	
+	<resplacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(tie)] the bandana around [npc.her] head and [npc.verb(adjust)] it so that the skull design is over [npc.her] nose and mouth.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(tie)] the bandana around [npc2.namePos] head and [npc.verb(adjust)] it so that the skull design is over [npc2.her] nose and mouth.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(tie)] the bandana around [npc2.namePos] head.]]>
+		</otherRough>
+	</resplacementText>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the bandana from around [npc.her] head.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the bandana from around [npc2.namePos] head.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(tears)] the bandana from around [npc2.namePos] head.]]>
+		</otherRough>
+	</displacementText>
+	
+	<displacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] bandana down.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] bandana down.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] bandana down.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up [npc.her] bandana.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up [npc2.namePos] bandana.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcefully [npc.verb(pull)] up [npc2.namePos] bandana.]]>
+		</otherRough>
+	</replacementText>
+	
+</clothing>

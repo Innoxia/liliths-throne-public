@@ -15,7 +15,7 @@
 		[npc.speech(Well, well, well!)] [npc.she] states, placing [npc.her] [npc.hands] on [npc.her] [npc.hips+] and striking a confident pose. [npc.speech(A trespasser! What kind of business do you have down here?!)]
 	</p>
 	<p>
-		Before you can even start to answer, the talkative [npc.race] continues chattering away, [npc.speech(So you thought you'd just waltz right into my territory, hmm? I mean, not that it's really <i>my</i> territory, there are loads of us living up in the roosts, but I mean that this is the place that I call home. And you came walking past, obviously up to no good, and so I thought to myself, 'Hmmm, that person looks like they're up to no good!'. And so then I swooped down to see who it was, and it was you! And I can just tell from looking at you that you're up to no good, so then I thought, 'Hmmmmmm, I'd better put them in their place!'. Y'know what I mean? I can't just be watching you walk past and choose not to do anything! That would make me, like, irresponsible or something! So now I'm here, and you're there, and I'm gonna have to teach you a lesson! My friends and I were talking about this sort of thing just the other day, y'know? We were saying how we can't just let people go without trying to confront them first! So here I am, confronting you! And now you're going to have to pay me. Yes, that's right, pay me! Two-hundred and fifty flames, to be exact! So you pay me, or else I'm gonna make you pay! Funny how that works, huh? Anyway, what's it going to be? I tried to keep this brief, as I'm very busy right now, so I'd appreciate it if you could do the same. Just hand over your money, and that'll be that, ok?)]
+		Before you can even start to answer, the talkative [npc.race] continues chattering away, [npc.speech(So you thought you'd just waltz right into my territory, hmm? I mean, not that it's really <i>my</i> territory, there are loads of us living up in the roosts, but I mean that this is the place that I call home. And you came walking past, obviously up to no good, and so I thought to myself, 'Hmmm, that person looks like they're up to no good!'. And so then I swooped down to see who it was, and it was you! And I can just tell from looking at you that you're up to no good, so then I thought, 'Hmmmmmm, I'd better put them in their place!'. Y'know what I mean? I can't just be watching you walk past and choose not to do anything! That would make me, like, irresponsible or something! So now I'm here, and you're there, and I'm gonna have to teach you a lesson! My friends and I were talking about this sort of thing just the other day, y'know? We were saying how we can't just let people go without trying to confront them first! So here I am, confronting you! And now you're going to have to pay me. Yes, that's right, pay me! Five hundred flames, to be exact! So you pay me, or else I'm gonna make you pay! Funny how that works, huh? Anyway, what's it going to be? I tried to keep this brief, as I'm very busy right now, so I'd appreciate it if you could do the same. Just hand over your money, and that'll be that, ok?)]
 	</p>
 	<p>
 		With [npc.name]'s fast-paced rant finally at an end, you're given a moment in which to think about your situation. You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
@@ -36,10 +36,10 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc.speech(Good, that's good!)] [npc.name] replies, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(So hand it over, ok? I need that money, or else I'll have failed to confront you! And I can't go back to my friends and say that, now, can I? So give me the money! That's right, two-hundred and fifty flames!)]
+		[npc.speech(Good, that's good!)] [npc.name] replies, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(So hand it over, ok? I need that money, or else I'll have failed to confront you! And I can't go back to my friends and say that, now, can I? So give me the money! That's right, five hundred flames!)]
 	</p>
 	<p>
-		Wanting to put an end to the [npc.race]'s incessant chattering, you quickly give [npc.herHim] the two-hundred and fifty flames. As soon as you've handed the money over, [npc.she] lets out a happy little giggle, before sneering, [npc.speech(Now get out of my sight! I don't want to be standing here talking to you all day, especially not since I just mugged you and everything. That'd be really awkward, wouldn't it? I mean, it's already starting to feel kind of weird the way you haven't left yet, so you really should be thinking about starting to do that right about now. That's a hint, if you didn't pick up on it. What are you waiting for? Run off now before it starts to get awkward!)]
+		Wanting to put an end to the [npc.race]'s incessant chattering, you quickly give [npc.herHim] the five hundred flames. As soon as you've handed the money over, [npc.she] lets out a happy little giggle, before sneering, [npc.speech(Now get out of my sight! I don't want to be standing here talking to you all day, especially not since I just mugged you and everything. That'd be really awkward, wouldn't it? I mean, it's already starting to feel kind of weird the way you haven't left yet, so you really should be thinking about starting to do that right about now. That's a hint, if you didn't pick up on it. What are you waiting for? Run off now before it starts to get awkward!)]
 	</p>
 	<p>
 		#IF(pc.isBrave())
@@ -105,7 +105,7 @@
 	
 	<htmlContent tag="CAVERN_ATTACK_OFFER_COMPANION"><![CDATA[
 	<p>
-		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of. Turning towards [npc2.name], you step towards [npc2.herHim], and in a low tone, you ask, [pc.speech(You'll take one for the team, won't you, [npc2.name]? I don't really want to get into a fight, and I'm not handing over any of my money. All you need to do is spread your legs...)]
+		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of. Turning towards [npc2.name], you step towards [npc2.herHim], and in a low tone, you ask, [pc.speech(You'll take one for the team, won't you, [npc2.name]? I don't really want to get into a fight, and I'm not handing over any of my money. All you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	<p>
 		#IF(npc2.isAttractedTo(npc) || !game.isNonConEnabled())
@@ -155,7 +155,7 @@
 		#ENDIF
 	</p>
 	<p>
-		You look down at [npc.her] swollen belly, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, not pulling out and everything, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, the mother of your children, attacking you just so that [npc.she] can get some money for our kids! That's kind of wrong, don't you think? So hand it over now, ok. Two-hundred and fifty flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
+		You look down at [npc.her] swollen belly, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, not pulling out and everything, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, the mother of your children, attacking you just so that [npc.she] can get some money for our kids! That's kind of wrong, don't you think? So hand it over now, ok. Five hundred flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -163,9 +163,9 @@
 	<htmlContent tag="CAVERN_ATTACK_REPEAT_STILL_PREGNANT"><![CDATA[
 	<p>
 		#IF(npc.getPregnantLitter().isFatherId(pc.getId()))
-				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)],, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, not pulling out and everything, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, the mother of your children, attacking you just so that [npc.she] can get some money for our kids! That's kind of wrong, don't you think? So hand it over now, ok. Two-hundred and fifty flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
+				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)],, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, not pulling out and everything, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, the mother of your children, attacking you just so that [npc.she] can get some money for our kids! That's kind of wrong, don't you think? So hand it over now, ok. Five hundred flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
 		#ELSE
-				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)],, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, a pregnant [npc.girl], resorting to having to attack you just so that [npc.she] can get some money for [npc.her] kids! That's kind of wrong, don't you think? So hand it over now, ok. Two-hundred and fifty flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
+				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)],, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, a pregnant [npc.girl], resorting to having to attack you just so that [npc.she] can get some money for [npc.her] kids! That's kind of wrong, don't you think? So hand it over now, ok. Five hundred flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
 		#ENDIF
 	</p>
 	<p>
@@ -186,23 +186,23 @@
 					#ENDIF
 				#ELSE
 					#IF(npc2.getPregnantLitter().isFatherId(npc.getId()))
-						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers, looking down at [npc2.namePos] swollen belly, before glancing over towards you. [npc.speech(And I see you've been spreading your legs as well! Hah! What a pair of sluts!)]
+						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers, looking down at [npc2.namePos] swollen belly, before glancing over towards you. [npc.speech(And I see you've been #IF(pc.hasLegs())spreading your legs#ELSEgetting creampied#ENDIF as well! Hah! What a pair of sluts!)]
 					#ELSE
-						[npc.speech(Well, well, well, looks like you two sluts have got yourselves knocked up!)] [npc.name] sneers, looking down at both your and [npc2.namePos] swollen bellies. [npc.speech(Seeing as you've clearly got a lot of experience at spreading your legs, you whores should just submit for a good fucking right now!)]
+						[npc.speech(Well, well, well, looks like you two sluts have got yourselves knocked up!)] [npc.name] sneers, looking down at both your and [npc2.namePos] swollen bellies. [npc.speech(Seeing as you've clearly got a lot of experience at it, you whores should just submit for a good fucking right now!)]
 					#ENDIF
 				#ENDIF
 			#ELSE
 				#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
 					[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like I got you knocked up, slut! Seeing as you've been put in your place, you should just submit for another good fuck!)]
 				#ELSE
-					[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like someone got you knocked up, huh, slut?! Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet!)]
+					[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Looks like someone got you knocked up, huh, slut?! Been going around town submitting to anyone who wants to pump a load in you, I'll bet!)]
 				#ENDIF
 			#ENDIF
 		#ELSE
 			#IF(npc2.getPregnantLitter().isFatherId(npc.getId()))
 				[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at [npc2.namePos] swollen belly. [npc.speech(Looks like I got you knocked up, slut! Seeing as you've been put in your place, you should just submit for another good fuck!)]
 			#ELSE
-				[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at [npc2.namePos] swollen belly. [npc.speech(Looks like someone got you knocked up, huh, slut?! Been going around town spreading your legs for anyone who wants to pump a load in you, I'll bet!)]
+				[npc.speech(Well, well, well,)] [npc.name] sneers, looking down at [npc2.namePos] swollen belly. [npc.speech(Looks like someone got you knocked up, huh, slut?! Been going around town submitting to anyone who wants to pump a load in you, I'll bet!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -223,10 +223,10 @@
 					[npc.speech(Hah!)] [npc.name] laughs, looking down at both your and [npc2.namePos] swollen bellies. [npc.speech(You sluts are still pregnant, huh? As you're only good for being bred, you should both just submit for another good fuck right now!)]
 				#ENDIF
 			#ELSE
-				[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love spreading your legs so much, just submit already!)]
+				[npc.speech(Hah!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love getting fucked so much, just submit already!)]
 			#ENDIF
 		#ELSE
-			[npc.speech(Hah!)] [npc.name] laughs, looking down at [npc2.namePos] swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love spreading your legs so much, just submit already!)]
+			[npc.speech(Hah!)] [npc.name] laughs, looking down at [npc2.namePos] swollen belly. [npc.speech(Looks like you're still pregnant, slut! Come on, seeing as you love getting fucked so much, just submit already!)]
 		#ENDIF
 	</p>
 	]]>
@@ -237,7 +237,7 @@
 		[npc.speech(Well, well, well!)] [npc.she] states, placing [npc.her] [npc.hands] on [npc.her] [npc.hips+] and striking a confident pose. [npc.speech(Look who it is! You didn't have enough of me the last time, huh?)]
 	</p>
 	<p>
-		Before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So you thought you'd come back into my territory, hmm? I mean, not that it's really <i>my</i> territory, there are loads of us living up in the roosts, but I mean that this is the place that I call home. And you came walking past, obviously up to no good, and so I thought to myself, 'Hmmm, that person looks like they're up to no good!'. And so then I swooped down to see who it was, and it was you! And I know that <i>you're</i> up to no good, so then I thought, 'Hmmmmmm, I'd better put them in their place!'. Y'know what I mean? I can't just be watching you walk past and choose not to do anything! That would make me, like, irresponsible or something! So now I'm here, and you're there, and I'm gonna have to teach you a lesson! My friends and I were talking about this sort of thing just the other day, y'know? We were saying how we can't just let people go without trying to confront them first! So here I am, confronting you! And now you're going to have to pay me. Yes, that's right, pay me! Two-hundred and fifty flames, to be exact! So you pay me, or else I'm gonna make you pay! Funny how that works, huh? Anyway, what's it going to be? I tried to keep this brief, as I'm very busy right now, so I'd appreciate it if you could do the same. Just hand over your money, and that'll be that, ok?)]
+		Before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So you thought you'd come back into my territory, hmm? I mean, not that it's really <i>my</i> territory, there are loads of us living up in the roosts, but I mean that this is the place that I call home. And you came walking past, obviously up to no good, and so I thought to myself, 'Hmmm, that person looks like they're up to no good!'. And so then I swooped down to see who it was, and it was you! And I know that <i>you're</i> up to no good, so then I thought, 'Hmmmmmm, I'd better put them in their place!'. Y'know what I mean? I can't just be watching you walk past and choose not to do anything! That would make me, like, irresponsible or something! So now I'm here, and you're there, and I'm gonna have to teach you a lesson! My friends and I were talking about this sort of thing just the other day, y'know? We were saying how we can't just let people go without trying to confront them first! So here I am, confronting you! And now you're going to have to pay me. Yes, that's right, pay me! five hundred flames, to be exact! So you pay me, or else I'm gonna make you pay! Funny how that works, huh? Anyway, what's it going to be? I tried to keep this brief, as I'm very busy right now, so I'd appreciate it if you could do the same. Just hand over your money, and that'll be that, ok?)]
 	</p>
 	<p>
 		With [npc.name]'s fast-paced rant finally at an end, you're given a moment in which to think about your situation. You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
@@ -291,7 +291,7 @@
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE
-					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -300,7 +300,7 @@
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE
-					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ENDIF
@@ -310,7 +310,7 @@
 				[npc.speech(Yeah, before you ask, it was you, [npc2.name]! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that [npc2.nameIs] the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -318,7 +318,7 @@
 				[npc.speech(Yeah, before you ask, it was you, [npc2.name]. You got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that [npc2.nameIs] the father of [npc.her] children. 
 				#IF npc.isAttractedTo(npc2)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ENDIF
@@ -328,7 +328,7 @@
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -336,7 +336,7 @@
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]. They got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that your old companion is the father of [npc.her] children. 
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ENDIF
@@ -578,7 +578,7 @@
 	
 	<htmlContent tag="CAVERN_ATTACK_PEACEFUL_OFFER_COMPANION"><![CDATA[
 	<p>
-		Wanting to offer [npc.name] something special, you step over towards [npc2.name], and in a low tone, you ask, [pc.speech(You're up for having some fun, aren't you, [npc2.name]? I don't really want to have sex right now, but I can tell that [npc.name] really needs a good fuck. All you need to do is spread your legs...)]
+		Wanting to offer [npc.name] something special, you step over towards [npc2.name], and in a low tone, you ask, [pc.speech(You're up for having some fun, aren't you, [npc2.name]? I don't really want to have sex right now, but I can tell that [npc.name] really needs a good fuck. All you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	<p>
 		#IF(npc2.isAttractedTo(npc) || !game.isNonConEnabled())
@@ -1094,7 +1094,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_VICTORY_OFFER_COMPANION"><![CDATA[
 	<p>
-		Feeling a little sorry for [npc.name] as you see [npc.her] collapsed down on the floor, you turn towards [npc2.name], and ask, [pc.speech(You'll make [npc.herHim] feel better, won't you, [npc2.name]? All you need to do is spread your legs...)]
+		Feeling a little sorry for [npc.name] as you see [npc.her] collapsed down on the floor, you turn towards [npc2.name], and ask, [pc.speech(You'll make [npc.herHim] feel better, won't you, [npc2.name]? All you need to do is let [npc.herHim] fuck you...)]
 	</p>
 	<p>
 		#IFnpc2.isAttractedTo(npc) || !game.isNonConEnabled()
@@ -1405,7 +1405,7 @@
 	
 	<htmlContent tag="RAPE_BOTH"><![CDATA[
 	<p>
-		[npc.speech(I hope the two of you are looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust, [npc.speech(And if not, then too bad! I'm going to have my fun fucking both of you at once, and that's all that matters!)]
+		[npc.speech(I hope the two of you are looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust, [npc.speech(And if not, then too bad! I'm going to have my fun fucking both of you at once, and that's all that matters!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you and [npc2.name] into position...
@@ -1425,7 +1425,7 @@
 	
 	<htmlContent tag="RAPE_PLAYER_SOLO"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you into position, leaving [npc2.name] to look on...
@@ -1445,7 +1445,7 @@
 	
 	<htmlContent tag="RAPE_COMPANION"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards [npc2.name] and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards [npc2.name] and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters! Your little friend over there can watch us!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move your companion into position, leaving you to look on...
@@ -1465,7 +1465,7 @@
 	
 	<htmlContent tag="RAPE_PLAYER"><![CDATA[
 	<p>
-		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
+		[npc.speech(I hope you're looking forward to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
 	</p>
 	<p>
 		With that, [npc.name] steps forwards and prepares to move you into position...
@@ -1719,7 +1719,14 @@
 	
 	<htmlContent tag="AFTER_SEX_VICTORY_NO_ORGASM"><![CDATA[
 	<p>
-		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished.
+		#IF(npc.isTaur())
+			 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby smooth protrusion of rock in a desperate attempt to masturbate and finish what you started.
+		#ELSEIF(npc.hasLegs())
+			 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+		#ELSE
+			 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

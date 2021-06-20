@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>2500</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[benevolent necklace]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[benevolent necklaces]]></namePlural>
+		<description><![CDATA[A necklace consisting of a thin chain with a youko pendant threaded onto it. A simple necklace given to those trusted by their kind. As an alternative to being worn around the neck, it would be possible to wrap the chain around your wrist.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		  <slot>NECK</slot>
+		  <slot>WRIST</slot>
+		</equipSlots>
+		<rarity>LEGENDARY</rarity>
+		<clothingSet>c4mg1rl_benevolent</clothingSet>
+		<imageName>necklace.svg</imageName>
+		<imageEquippedName/>
+		<stickers/>
+		<enchantmentLimit/>
+		<effects> 
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_BOOST" timer="3500" type="CLOTHING"/>
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_BOOST" timer="3500" type="CLOTHING"/>
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="BOOST" timer="3500" type="CLOTHING"/>
+              <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="BOOST" timer="3500" type="CLOTHING"/>
+		</effects>
+		<blockedPartsList slot="NECK">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="WRIST">
+		  <blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts/>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		  </blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots slot="NECK"/>
+		<incompatibleSlots slot="WRIST"/>
+			
+		<primaryColours values="JUST_SILVER"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_GOLD"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_STEEL"/>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+
+		<itemTags>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the benevolent necklace around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the benevolent necklace around [npc2.namePos] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before fastening the benevolent necklace around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] benevolent necklace, before taking it off from around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] benevolent necklace, before taking it off from around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] benevolent necklace, before yanking it off from around [npc2.her] neck.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] [npc.her] benevolent necklace around [npc.her] wrist and then [npc.verb(fasten)] it in place.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the benevolent necklace around [npc2.namePos] wrist and then [npc.verb(fasten)] it in place.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(wrap)] the benevolent necklace around [npc2.namePos] wrist and then tightly [npc.verb(fasten)] it in place.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] benevolent necklace, before unwrapping it from around [npc.her] wrist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] benevolent necklace, before unwrapping it from around [npc2.her] wrist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] benevolent necklace, before snatching it off [npc2.her] wrist.]]>
+    </otherRough>
+  </displacementText>
+</clothing>

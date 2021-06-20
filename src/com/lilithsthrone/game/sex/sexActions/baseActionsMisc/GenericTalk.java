@@ -83,7 +83,7 @@ public class GenericTalk {
 							"[npc.Name] puts on [npc.her] most dominant voice as [npc.she] [npc.verb(snarl)], "));
 				}
 				
-				sb.append(Main.sex.getCharacterPerformingAction().getRoughTalk());
+				sb.append(Main.sex.getRoughTalk(Main.sex.getCharacterPerformingAction()));
 			}
 			
 			return sb.toString();
@@ -147,7 +147,7 @@ public class GenericTalk {
 						"[npc.Name] [npc.verb(bite)] [npc.her] [npc.lip] and [npc.verb(try)] to look as submissive as possible as [npc.she] [npc.verb(cry)] out, ",
 						"[npc.Name] [npc.verb(put)] on [npc.her] most innocent expression, before [npc.moaning], "));
 	
-				sb.append(Main.sex.getCharacterPerformingAction().getSubmissiveTalk());
+				sb.append(Main.sex.getSubmissiveTalk(Main.sex.getCharacterPerformingAction()));
 			}
 			
 			return sb.toString();

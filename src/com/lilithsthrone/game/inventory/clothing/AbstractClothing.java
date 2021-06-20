@@ -1024,8 +1024,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public int getValue() {
 		float modifier = 1;
 
-		if(this.getRarity()==Rarity.JINXED) {
+		if(!enchantmentKnown) {
 			modifier -= 0.5f;
+		}
+		
+		if(this.getRarity()==Rarity.JINXED) {
+			modifier -= 0.25f;
 		}
 		
 		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {
@@ -1064,10 +1068,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	@Override
 	public int getPrice(float modifier) {
-		if(!enchantmentKnown) {
-			return 50;
-		}
 		return super.getPrice(modifier);
+	}
+	
+	public String getBaseName() {
+		return name;
 	}
 	
 	@Override
@@ -1093,7 +1098,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		String postfix = "";
 		for(Sticker st : orderedStickers) {
 			if(!st.getNamePostfix().isEmpty()) {
-				prefix += " " + st.getNamePostfix();
+				postfix += " " + st.getNamePostfix();
 			}
 		}
 		
@@ -1180,11 +1185,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 
 	/**
 	 * @param withRarityColour If true, the name will be coloured to its rarity.
-	 * @param withEnchantmentPostFix If true, an automatically-generated enchanment postfix will be appended to the name's end.
+	 * @param withEnchantmentPostFix If true, an automatically-generated enchantment postfix will be appended to the name's end.
 	 * @return A string in the format "Blue cap of frostbite" or "Gold circlet of anti-magic"
 	 */
 	public String getDisplayName(boolean withRarityColour, boolean withEnchantmentPostFix) {
 		if(!this.name.replaceAll("\u00A0"," ").equalsIgnoreCase(this.getClothingType().getName().replaceAll("\u00A0"," "))) { // If this item has a custom name, just display that:
+//			System.out.println(this.name+ " | "+this.getClothingType().getName());
 			return (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?PresetColour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
 					: getName());
@@ -1193,7 +1199,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		Colour c = !this.isEnchantmentKnown()?PresetColour.RARITY_UNKNOWN:this.getRarity().getColour();
 		return Util.capitaliseSentence(
 				(getClothingType().isAppendColourName()
-					?getColourName()
+					?
+							getColourName()
 					:"")
 				+ (!this.getPattern().equalsIgnoreCase("none")?" "+Pattern.getPattern(this.getPattern()).getNiceName():"")
 				+ (withRarityColour
@@ -2115,6 +2122,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE) {
 					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_SERVITUDE.getColour().toWebHexString()+";'>servitude</"+tag+">":"servitude");
 					
+				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_ORGASM_PREVENTION) {
+					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_ORGASM_PREVENTION.getColour().toWebHexString()+";'>orgasm denial</"+tag+">":"orgasm denial");
+					
 				} else if(ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BEHAVIOUR || ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BODY_PART) {
 					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+ie.getSecondaryModifier().getDescriptor()+"</"+tag+">":ie.getSecondaryModifier().getDescriptor());
 					
@@ -2395,6 +2405,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
 		}
+		if(clothingOwner.hasDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] equipped a dildo, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
+		}
 		if(!clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
 		}
@@ -2463,6 +2476,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2564,6 +2578,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2606,6 +2621,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:

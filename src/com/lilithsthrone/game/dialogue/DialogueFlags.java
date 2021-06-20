@@ -27,7 +27,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
@@ -35,7 +35,7 @@ public class DialogueFlags implements XMLSaving {
 	public static int MUGGER_DEMAND_1 = 250;
 	public static int MUGGER_DEMAND_2 = 500;
 	
-	public Set<DialogueFlagValue> values;
+	public Set<AbstractDialogueFlagValue> values;
 	
 	public int ralphDiscount;
 	public int scarlettPrice;
@@ -43,15 +43,6 @@ public class DialogueFlags implements XMLSaving {
 	
 	// Timers:
 	public Map<String, Long> savedLongs = new HashMap<>();
-//	public long ralphDiscountStartTime;
-//	public long kalahariBreakStartTime;
-//	public long daddyResetTimer;
-//	public long candiSexTimer;
-//	public long ralphSexTimer;
-//	public long impFortressAlphaDefeatedTime;
-//	public long impFortressDemonDefeatedTime;
-//	public long impFortressFemalesDefeatedTime;
-//	public long impFortressMalesDefeatedTime;
 	public int helenaSlaveOrderDay;
 
 	public int impCitadelImpWave;
@@ -170,8 +161,8 @@ public class DialogueFlags implements XMLSaving {
 		
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
-		for(DialogueFlagValue value : values) {
-			XMLUtil.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
+		for(AbstractDialogueFlagValue value : values) {
+			XMLUtil.createXMLElementWithValue(doc, valuesElement, "dialogueValue", DialogueFlagValue.getIdFromDialogueFlagValue(value));
 		}
 		
 		
@@ -245,6 +236,14 @@ public class DialogueFlags implements XMLSaving {
 				Element e = (Element) ((Element) parentElement.getElementsByTagName("savedLongs").item(0)).getElementsByTagName("save").item(i);
 				
 				String id = e.getAttribute("id");
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.15")) {
+					if(id.equals("MACHINES")
+							|| id.equals("INTERCOM")
+							|| id.equals("BUSINESS")
+							|| id.equals("BOUNTY_HUNTERS")) {
+						id = "KAY_"+id;
+					}
+				}
 				newFlags.setSavedLong(id, Long.valueOf(e.getTextContent()));
 			}
 			
@@ -278,7 +277,10 @@ public class DialogueFlags implements XMLSaving {
 				if(flag.equalsIgnoreCase("punishedByAlexa")) {
 					newFlags.values.add(DialogueFlagValue.punishedByHelena);
 				} else {
-					newFlags.values.add(DialogueFlagValue.valueOf(flag));
+					AbstractDialogueFlagValue flagValue = DialogueFlagValue.getDialogueFlagValueFromId(flag);
+					if(flagValue!=null) {
+						newFlags.values.add(flagValue);
+					}
 				}
 			} catch(Exception ex) {
 			}
@@ -344,11 +346,15 @@ public class DialogueFlags implements XMLSaving {
 		values.removeIf((flag)->flag.isDailyReset());
 	}
 
-	public boolean hasFlag(DialogueFlagValue flag) {
+	public boolean hasFlag(AbstractDialogueFlagValue flag) {
 		return values.contains(flag);
 	}
+
+	public boolean hasFlag(String flagId) {
+		return values.contains(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
+	}
 	
-	public void setFlag(DialogueFlagValue flag, boolean flagMarker) {
+	public void setFlag(AbstractDialogueFlagValue flag, boolean flagMarker) {
 		if(flagMarker) {
 			values.add(flag);
 		} else {
@@ -418,7 +424,8 @@ public class DialogueFlags implements XMLSaving {
 		try {
 			return (NPC) Main.game.getNPCById(managementCompanion);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("getSlaveryManagerSlaveSelected()", managementCompanion);
+			Util.logGetNpcByIdError("getManagementCompanion()", managementCompanion);
+			//e.printStackTrace();
 			return null;
 		}
 	}

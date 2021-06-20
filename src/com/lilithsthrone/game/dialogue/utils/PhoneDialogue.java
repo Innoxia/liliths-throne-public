@@ -65,7 +65,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
+import com.lilithsthrone.game.sex.managers.universal.SMMasturbation;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -309,8 +309,14 @@ public class PhoneDialogue {
 					if(Main.game.getPlayerCell().getPlace().isDangerous()) {
 						return new Response(title, "You can only loiter to pass the time when in a safe area!", null);
 					}
-					if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-						return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+					if(Main.game.getPlayer().getLocationPlace().getPlaceType().isLoiteringEnabledOverride()) {
+						if(!Main.game.getPlayer().getLocationPlace().getPlaceType().isLoiteringEnabled()) {
+							return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+						}
+					} else {
+						if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
+							return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+						}
 					}
 					return new Response(title, "Think about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
 					
@@ -744,15 +750,33 @@ public class PhoneDialogue {
 			boolean sideQuestsFound = false;
 			
 			// Side Quests:
-			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
+			List<QuestLine> sideQuests = new ArrayList<>(Main.game.getPlayer().getQuests().keySet());
+			sideQuests.sort((q1, q2)->
+				Main.game.getPlayer().isQuestCompleted(q1)
+					?(Main.game.getPlayer().isQuestCompleted(q2)
+						?0
+						:1)
+					:(Main.game.getPlayer().isQuestCompleted(q2)
+						?-1
+						:0));
+			for (QuestLine questLine : sideQuests) {
 				if(questLine.getType()==QuestType.SIDE) {
 					sideQuestsFound = true;
-
+					
 					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
 					int index = questList.size()-1;
 					Quest q = questList.get(index);
 					
-					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
+					if(Main.game.getPlayer().isQuestFailed(questLine)) {
+						journalSB.append(
+								"<details>"
+								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.getShades()[1] + ";'>"
+									+ "Failed - " + questLine.getName()
+								+ "</summary>");
+						journalSB.append(getQuestBoxDivFailed(Main.game.getPlayer().getQuestsFailed().get(questLine)));
+//						journalSB.append(getQuestBoxDiv(q, true)); // Do not append, as this was the failed Quest
+						
+					} else if(Main.game.getPlayer().isQuestCompleted(questLine)) {
 						journalSB.append(
 								"<details>"
 								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
@@ -777,20 +801,6 @@ public class PhoneDialogue {
 						index--;
 					}
 	
-					journalSB.append("</details>");
-				}
-			}
-			for(Entry<QuestLine, Quest> questsFailed : Main.game.getPlayer().getQuestsFailed().entrySet()) {
-				if(questsFailed.getKey().getType()==QuestType.SIDE) {
-					sideQuestsFound = true;
-					
-					journalSB.append(
-							"<details open>"
-								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
-									+ "Failed - "+questsFailed.getKey().getName()
-								+ "</summary>");
-					journalSB.append(getQuestBoxDiv(questsFailed.getValue(), false));
-					
 					journalSB.append("</details>");
 				}
 			}
@@ -840,7 +850,7 @@ public class PhoneDialogue {
 
 			boolean relationshipQuestFound = false;
 			
-			// Side Quests:
+			// Romance Quests:
 			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
 				if(questLine.getType()==QuestType.RELATIONSHIP) {
 					relationshipQuestFound = true;
@@ -852,7 +862,7 @@ public class PhoneDialogue {
 					if(Main.game.getPlayer().isQuestFailed(questLine)) {
 						journalSB.append(
 								"<details>"
-								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.toWebHexString() + ";'>"
+								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_TERRIBLE.getShades()[1] + ";'>"
 									+ "Failed - " + questLine.getName()
 								+ "</summary>");
 						journalSB.append(getQuestBoxDivFailed(Main.game.getPlayer().getQuestsFailed().get(questLine)));
@@ -936,11 +946,12 @@ public class PhoneDialogue {
 	
 	private static String getQuestBoxDiv(Quest q, boolean completed) {
 		if(q==Quest.SIDE_UTIL_COMPLETE) {
-			return "<div class='quest-box'>"
-					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
-							+ "<b>Completed - "+ q.getName() + "</b>"
-					+ "</h6>"
-				+ "</div>";
+			return "";
+//			return "<div class='quest-box'>"
+//					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
+//							+ "<b>Completed - "+ q.getName() + "</b>"
+//					+ "</h6>"
+//				+ "</div>";
 		}
 		
 		if(completed) {
@@ -949,7 +960,7 @@ public class PhoneDialogue {
 					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
 							+ "<b>Completed - "+ q.getName() + "</b>"
 					+ "</h6>"
-					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center; margin-top:0;'>"
 						+ q.getCompletedDescription()
 					+ "</p>" 
 				+ "</div>";
@@ -957,7 +968,7 @@ public class PhoneDialogue {
 		} else {
 			return "<div class='quest-box'>"
 					+ getLevelAndExperienceHTML(q, completed)
-					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center;'>"
+					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center; margin-top:0;'>"
 						+ "<b>" + q.getName() + "</b>"
 					+ "</h6>"
 					+ "<p style='text-align:center;'>"
@@ -1141,10 +1152,30 @@ public class PhoneDialogue {
 			for(AbstractRace race : raceListSorted) {
 				AbstractAttribute attribute = Attribute.racialAttributes.get(race);
 				int damageModifier = (int) Main.game.getPlayer().getAttributeValue(attribute);
-				UtilText.nodeContentSB.append(
-						getAttributeBox(Main.game.getPlayer(), attribute,
-								"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
-								true));
+				if(race==Race.DEMON) {
+					// DEMON is split in IMP, DEMON, LILIN, and ELDER_LILIN damage
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_IMP,
+									"Increases damage vs imps by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_IMP))+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), attribute,
+									"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LILIN,
+									"Increases damage vs lilin by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LILIN))+"%</b>",
+									true));
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ELDER_LILIN,
+									"Increases damage vs elder lilin by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ELDER_LILIN))+"%</b>",
+									true));
+				} else {
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), attribute,
+									"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
+									true));
+				}
 			}
 			
 //			List<AbstractAttribute> encounteredAttributes = new ArrayList<>();
@@ -1223,53 +1254,6 @@ public class PhoneDialogue {
 						"<b style='color:"+character.getMuscle().getColour().toWebHexString()+";'>"+character.getMuscleValue()+"</b>"
 								+ " <b>|</b> <b style='color:"+character.getBodySize().getColour().toWebHexString()+";'>"+character.getBodySizeValue()+"</b>",
 						character.getBodyShape().toWebHexStringColour(), Util.capitaliseSentence(character.getBodyShape().getName(false))));
-
-		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
-		rowCount = 0;
-		
-		if(character.hasTail()) {
-			if(Main.game.isPenetrationLimitationsEnabled()) {
-				sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tail Attributes")
-						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Length | Used for penetration",
-							PresetColour.TEXT, Units.size(character.getTailLength(false))+" | "+Units.size(character.getTailLength(true)),
-							PresetColour.GENERIC_SEX, "N/A"));
-			} else {
-				sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tail Attributes")
-						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Length",
-							PresetColour.TEXT, Units.size(character.getTailLength(false)),
-							PresetColour.GENERIC_SEX, "N/A"));
-			}
-			sb.append(
-					statRow(PresetColour.TRANSFORMATION_GENERIC,
-						"Diameter at lengths",
-						PresetColour.TEXT,
-						"[style.colourSize4("+Units.size(character.getTailDiameter(0))+")]"
-							+"<br/>[style.colourSize3("+Units.size(character.getTailDiameter(character.getTailLength(false)*0.33f))+")]"
-							+"<br/>[style.colourSize2("+Units.size(character.getTailDiameter(character.getTailLength(false)*0.66f))+")]"
-							+"<br/>[style.colourSize1("+Units.size(character.getTailDiameter(character.getTailLength(false)))+")]",
-						PresetColour.TRANSFORMATION_GENERIC,
-						"[style.colourSize4(Base)]"
-							+ "<br/>[style.colourSize3(33%)]"
-							+ "<br/>[style.colourSize2(66%)]"
-							+ "<br/>[style.colourSize1(Tip)]")
-					+ statRow(PresetColour.TRANSFORMATION_GENERIC,
-							"Circumference at lengths",
-							PresetColour.TEXT,
-							"[style.colourSize4("+Units.size(character.getTailCircumference(0))+")]"
-								+"<br/>[style.colourSize3("+Units.size(character.getTailCircumference(character.getTailLength(false)*0.33f))+")]"
-								+"<br/>[style.colourSize2("+Units.size(character.getTailCircumference(character.getTailLength(false)*0.66f))+")]"
-								+"<br/>[style.colourSize1("+Units.size(character.getTailCircumference(character.getTailLength(false)))+")]",
-							PresetColour.TRANSFORMATION_GENERIC,
-							"[style.colourSize4(Base)]"
-								+ "<br/>[style.colourSize3(33%)]"
-								+ "<br/>[style.colourSize2(66%)]"
-								+ "<br/>[style.colourSize1(Tip)]"));
-			
-		} else {
-			sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tail Attributes")
-					+ statRow(PresetColour.TEXT, UtilText.parse(character, "[npc.NameHasFull] no tail...")));
-		}
-
 		
 		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
 		rowCount = 0;
@@ -1284,8 +1268,8 @@ public class PhoneDialogue {
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Throat Wetness",
 						PresetColour.TEXT, String.valueOf(character.getFaceWetness().getValue()),
 						PresetColour.GENERIC_SEX, Util.capitaliseSentence(character.getFaceWetness().getDescriptor()))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Throat Capacity Diameter",
-						PresetColour.TEXT, Units.size(character.getFaceRawCapacityValue()), //TODO
+				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Throat Capacity",
+						PresetColour.TEXT, Units.size(character.getFaceRawCapacityValue()),
 						PresetColour.GENERIC_SEX, Util.capitaliseSentence(character.getFaceCapacity().getDescriptor()))
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Throat Depth",
 						PresetColour.TEXT, String.valueOf(character.getFaceDepth().getValue()),
@@ -1310,46 +1294,51 @@ public class PhoneDialogue {
 		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
 		rowCount = 0;
 		
-		sb.append(statRowHeader(PresetColour.TRANSFORMATION_SEXUAL, "Breast Attributes")
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Cup Size",
-						PresetColour.TEXT, String.valueOf(character.getBreastRawSizeValue()),
-						PresetColour.GENERIC_SEX, Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Count",
-						PresetColour.TEXT, String.valueOf(character.getBreastRows()),
-						PresetColour.GENERIC_SEX, Util.capitaliseSentence(Util.capitaliseSentence(Util.intToString(character.getBreastRows()))+" pair"+(character.getBreastRows()==1?"":"s")))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Milk Storage",
-						PresetColour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getBreastRawMilkStorageValue()),
-						PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Milk Regeneration Per Breast",
-						PresetColour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(false)*60)+"/minute",
-						PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Milk Regeneration Total",
-						PresetColour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(true)*60)+"/minute",
-						PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Capacity",
-						PresetColour.TEXT, !knowsNipples?"Unknown":Units.size(character.getNippleRawCapacityValue()),
-						PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNippleCapacity().getDescriptor()))
-				+ (Main.game.isPenetrationLimitationsEnabled() && character.getNippleRawCapacityValue()>0
-					?statRow(PresetColour.TRANSFORMATION_GENERIC, "Nipple Depth",
-						PresetColour.TEXT, String.valueOf(character.getNippleDepth().getValue()),
-						PresetColour.GENERIC_SEX, Util.capitaliseSentence(character.getNippleDepth().getDescriptor()) + " ("+(Math.round(character.getNippleDepth().getDepthPercentage()*100))+"%)")
-					:"")
-				+ (Main.game.isPenetrationLimitationsEnabled() && character.getNippleRawCapacityValue()>0
-					?statRow(PresetColour.TRANSFORMATION_GENERIC, "Comfortable Nipple Depth Limit",
-						PresetColour.GENERIC_MINOR_GOOD, (!knowsNipples?"Unknown":Units.size(character.getNippleMaximumPenetrationDepthComfortable())),
-						PresetColour.TEXT, "N/A")
-					:"")
-				+ (Main.game.isPenetrationLimitationsEnabled() && character.getNippleRawCapacityValue()>0
-					?statRow(PresetColour.TRANSFORMATION_GENERIC, "Uncomfortable Nipple Depth Limit",
-						PresetColour.GENERIC_MINOR_BAD, !character.getBodyMaterial().isOrificesLimitedDepth()?"No limit":(!knowsNipples?"Unknown":Units.size(character.getNippleMaximumPenetrationDepthUncomfortable())),
-						PresetColour.TEXT, "N/A")
-					:"")
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Elasticity",
-						PresetColour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getNippleElasticity().getValue()),
-						PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNippleElasticity().getDescriptor()))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Plasticity",
-						PresetColour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getNipplePlasticity().getValue()),
-						PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNipplePlasticity().getDescriptor())));
+		if(character.hasNipples()) {
+			sb.append(statRowHeader(PresetColour.TRANSFORMATION_SEXUAL, "Breast Attributes")
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Cup Size",
+							PresetColour.TEXT, String.valueOf(character.getBreastRawSizeValue()),
+							PresetColour.GENERIC_SEX, Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Count",
+							PresetColour.TEXT, String.valueOf(character.getBreastRows()),
+							PresetColour.GENERIC_SEX, Util.capitaliseSentence(Util.capitaliseSentence(Util.intToString(character.getBreastRows()))+" pair"+(character.getBreastRows()==1?"":"s")))
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Milk Storage",
+							PresetColour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getBreastRawMilkStorageValue()),
+							PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastMilkStorage().getDescriptor()))
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Milk Regeneration Per Breast",
+							PresetColour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(false)*60)+"/minute",
+							PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()))
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Milk Regeneration Total",
+							PresetColour.TEXT, !knowsNipples?"Unknown":Units.fluid(character.getLactationRegenerationPerSecond(true)*60)+"/minute",
+							PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getBreastLactationRegeneration().getName()))
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Capacity",
+							PresetColour.TEXT, !knowsNipples?"Unknown":Units.size(character.getNippleRawCapacityValue()),
+							PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNippleCapacity().getDescriptor()))
+					+ (Main.game.isPenetrationLimitationsEnabled() && character.getNippleRawCapacityValue()>0
+						?statRow(PresetColour.TRANSFORMATION_GENERIC, "Nipple Depth",
+							PresetColour.TEXT, String.valueOf(character.getNippleDepth().getValue()),
+							PresetColour.GENERIC_SEX, Util.capitaliseSentence(character.getNippleDepth().getDescriptor()) + " ("+(Math.round(character.getNippleDepth().getDepthPercentage()*100))+"%)")
+						:"")
+					+ (Main.game.isPenetrationLimitationsEnabled() && character.getNippleRawCapacityValue()>0
+						?statRow(PresetColour.TRANSFORMATION_GENERIC, "Comfortable Nipple Depth Limit",
+							PresetColour.GENERIC_MINOR_GOOD, (!knowsNipples?"Unknown":Units.size(character.getNippleMaximumPenetrationDepthComfortable())),
+							PresetColour.TEXT, "N/A")
+						:"")
+					+ (Main.game.isPenetrationLimitationsEnabled() && character.getNippleRawCapacityValue()>0
+						?statRow(PresetColour.TRANSFORMATION_GENERIC, "Uncomfortable Nipple Depth Limit",
+							PresetColour.GENERIC_MINOR_BAD, !character.getBodyMaterial().isOrificesLimitedDepth()?"No limit":(!knowsNipples?"Unknown":Units.size(character.getNippleMaximumPenetrationDepthUncomfortable())),
+							PresetColour.TEXT, "N/A")
+						:"")
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Elasticity",
+							PresetColour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getNippleElasticity().getValue()),
+							PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNippleElasticity().getDescriptor()))
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Plasticity",
+							PresetColour.TEXT, !knowsNipples?"Unknown":String.valueOf(character.getNipplePlasticity().getValue()),
+							PresetColour.GENERIC_SEX, !knowsNipples?"Unknown":Util.capitaliseSentence(character.getNipplePlasticity().getDescriptor())));
+		} else {
+			sb.append(statRowHeader(PresetColour.TRANSFORMATION_SEXUAL, "Breast Attributes")
+					+ statRow(PresetColour.TEXT_GREY, UtilText.parse(character, "[npc.NameHasFull] no breasts...")));
+		}
 		
 		if(character.hasBreastsCrotch()) {
 			sb.append("<span style='height:16px;width:100%;float:left;'></span>");
@@ -1404,6 +1393,98 @@ public class PhoneDialogue {
 								PresetColour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(character.getNippleCrotchPlasticity().getValue()),
 								PresetColour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getNippleCrotchPlasticity().getDescriptor())));
 		}
+
+		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
+		rowCount = 0;
+		
+		if(character.hasTail()) {
+			if(Main.game.isPenetrationLimitationsEnabled()) {
+				sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tail Attributes")
+						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Length | Used for penetration",
+							PresetColour.TEXT, Units.size(character.getTailLength(false))+" | "+Units.size(character.getTailLength(true)),
+							PresetColour.GENERIC_SEX, "N/A"));
+			} else {
+				sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tail Attributes")
+						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Length",
+							PresetColour.TEXT, Units.size(character.getTailLength(false)),
+							PresetColour.GENERIC_SEX, "N/A"));
+			}
+			sb.append(
+					statRow(PresetColour.TRANSFORMATION_GENERIC,
+						"Diameter at lengths",
+						PresetColour.TEXT,
+						"[style.colourSize4("+Units.size(character.getTailDiameter(0))+")]"
+							+"<br/>[style.colourSize3("+Units.size(character.getTailDiameter(character.getTailLength(false)*0.33f))+")]"
+							+"<br/>[style.colourSize2("+Units.size(character.getTailDiameter(character.getTailLength(false)*0.66f))+")]"
+							+"<br/>[style.colourSize1("+Units.size(character.getTailDiameter(character.getTailLength(false)))+")]",
+						PresetColour.TRANSFORMATION_GENERIC,
+						"[style.colourSize4(Base)]"
+							+ "<br/>[style.colourSize3(33%)]"
+							+ "<br/>[style.colourSize2(66%)]"
+							+ "<br/>[style.colourSize1(Tip)]")
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC,
+							"Circumference at lengths",
+							PresetColour.TEXT,
+							"[style.colourSize4("+Units.size(character.getTailCircumference(0))+")]"
+								+"<br/>[style.colourSize3("+Units.size(character.getTailCircumference(character.getTailLength(false)*0.33f))+")]"
+								+"<br/>[style.colourSize2("+Units.size(character.getTailCircumference(character.getTailLength(false)*0.66f))+")]"
+								+"<br/>[style.colourSize1("+Units.size(character.getTailCircumference(character.getTailLength(false)))+")]",
+							PresetColour.TRANSFORMATION_GENERIC,
+							"[style.colourSize4(Base)]"
+								+ "<br/>[style.colourSize3(33%)]"
+								+ "<br/>[style.colourSize2(66%)]"
+								+ "<br/>[style.colourSize1(Tip)]"));
+			
+		} else {
+			sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tail Attributes")
+					+ statRow(PresetColour.TEXT_GREY, UtilText.parse(character, "[npc.NameHasFull] no tail...")));
+		}
+
+		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
+		rowCount = 0;
+		
+		if(character.hasTentacle()) {
+			if(Main.game.isPenetrationLimitationsEnabled()) {
+				sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tentacle Attributes")
+						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Length | Used for penetration",
+							PresetColour.TEXT, Units.size(character.getTentacleLength(false))+" | "+Units.size(character.getTentacleLength(true)),
+							PresetColour.GENERIC_SEX, "N/A"));
+			} else {
+				sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tentacle Attributes")
+						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Length",
+							PresetColour.TEXT, Units.size(character.getTentacleLength(false)),
+							PresetColour.GENERIC_SEX, "N/A"));
+			}
+			sb.append(
+					statRow(PresetColour.TRANSFORMATION_GENERIC,
+						"Diameter at lengths",
+						PresetColour.TEXT,
+						"[style.colourSize4("+Units.size(character.getTentacleDiameter(0))+")]"
+							+"<br/>[style.colourSize3("+Units.size(character.getTentacleDiameter(character.getTentacleLength(false)*0.33f))+")]"
+							+"<br/>[style.colourSize2("+Units.size(character.getTentacleDiameter(character.getTentacleLength(false)*0.66f))+")]"
+							+"<br/>[style.colourSize1("+Units.size(character.getTentacleDiameter(character.getTentacleLength(false)))+")]",
+						PresetColour.TRANSFORMATION_GENERIC,
+						"[style.colourSize4(Base)]"
+							+ "<br/>[style.colourSize3(33%)]"
+							+ "<br/>[style.colourSize2(66%)]"
+							+ "<br/>[style.colourSize1(Tip)]")
+					+ statRow(PresetColour.TRANSFORMATION_GENERIC,
+							"Circumference at lengths",
+							PresetColour.TEXT,
+							"[style.colourSize4("+Units.size(character.getTentacleCircumference(0))+")]"
+								+"<br/>[style.colourSize3("+Units.size(character.getTentacleCircumference(character.getTentacleLength(false)*0.33f))+")]"
+								+"<br/>[style.colourSize2("+Units.size(character.getTentacleCircumference(character.getTentacleLength(false)*0.66f))+")]"
+								+"<br/>[style.colourSize1("+Units.size(character.getTentacleCircumference(character.getTentacleLength(false)))+")]",
+							PresetColour.TRANSFORMATION_GENERIC,
+							"[style.colourSize4(Base)]"
+								+ "<br/>[style.colourSize3(33%)]"
+								+ "<br/>[style.colourSize2(66%)]"
+								+ "<br/>[style.colourSize1(Tip)]"));
+			
+		} else {
+			sb.append(statRowHeader(PresetColour.TRANSFORMATION_GENERIC, "Tentacle Attributes")
+					+ statRow(PresetColour.TEXT_GREY, UtilText.parse(character, "[npc.NameHasFull] no tentacles...")));
+		}
 		
 		sb.append( "<span style='height:16px;width:100%;float:left;'></span>");
 		rowCount = 0;
@@ -1435,7 +1516,7 @@ public class PhoneDialogue {
 			
 		} else {
 			sb.append(statRowHeader(PresetColour.TRANSFORMATION_SEXUAL, "Penis Attributes")
-					+ statRow(PresetColour.TEXT, UtilText.parse(character, "[npc.NameHasFull] no penis...")));
+					+ statRow(PresetColour.TEXT_GREY, UtilText.parse(character, "[npc.NameHasFull] no penis...")));
 		}
 			
 		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
@@ -1478,7 +1559,7 @@ public class PhoneDialogue {
 			
 		} else {
 			sb.append(statRowHeader(PresetColour.TRANSFORMATION_SEXUAL, "Vagina Attributes")
-					+ statRow(PresetColour.TEXT, UtilText.parse(character, "[npc.NameHasFull] no vagina...")));
+					+ statRow(PresetColour.TEXT_GREY, UtilText.parse(character, "[npc.NameHasFull] no vagina...")));
 		}
 			
 		sb.append("<span style='height:16px;width:100%;float:left;'></span>");
@@ -1606,8 +1687,11 @@ public class PhoneDialogue {
 		public String getContent() {
 			return "<div class='container-full-width' style='text-align:center; width:100%; padding:0; margin:4px 0;'>"
 						+ "You have orgasmed [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCount()+")] time"+(Main.game.getPlayer().getDaysOrgasmCount()==1?"":"s")
-							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")].<br/>"
-						+ "Your record for most orgasms in one day is currently [style.boldArcane("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
+							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")]."
+						+ "<br/>"
+						+ "Your record for most orgasms in one day is currently [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
+						+ "<br/>"
+						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()==1?"person":"different people")+"."
 					+ "</div>"
 					
 					+ sexStatHeader()
@@ -1865,7 +1949,7 @@ public class PhoneDialogue {
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", PresetColour.MASCULINE.toWebHexString(), sonsFathered);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersFathered);
 
-			for (NPC npc : Main.game.getOffspring(false, true)) {
+			for (NPC npc : Main.game.getOffspring(false)) {
 				childrenMet += ChildMet(npc) ? 1 : 0;
 			}
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
@@ -1902,7 +1986,8 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			int rowCount = 0;
-			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring(false, false));
+			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring(false));
+			offspringBirthed.removeIf(npc -> npc.getIncubator()!=null && npc.getIncubator().isPlayer()); // Only non-egg incubated offspring
 			if(offspringBirthed.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='margin:0; padding:0; width:100%;float:left;'>"
 												+ "[style.italicsDisabled(No Offspring...)]"
@@ -1944,8 +2029,8 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			rowCount = 0;
-			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false, true));
-			offspringIncubated.removeAll(offspringBirthed);
+			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
+			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
 			if(offspringIncubated.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"
 												+ "[style.italicsDisabled(No Incubated Offspring...)]"
@@ -3159,6 +3244,35 @@ public class PhoneDialogue {
 		}
 	};
 	
+	private static List<String> getSubspeciesModifiersAsStringList(AbstractSubspecies subspecies) {
+		LinkedHashMap<AbstractAttribute, Float> attMods;
+
+		attMods = new LinkedHashMap<>(subspecies.getStatusEffectAttributeModifiers(null));
+		
+		ArrayList<String> fullModList = new ArrayList<>(getSubspeciesAttributeModifiersToStringList(attMods));
+		fullModList.addAll(subspecies.getExtraEffects(null));
+		
+		if(subspecies.isFeralConfigurationAvailable()) {
+			fullModList.add("<br/><b>Additional bonuses when in [style.boldFeral(feral form)]:</b>");
+			
+			for(String s : subspecies.getFeralEffects()) {
+				fullModList.add(s);
+			}
+		}
+		
+		return fullModList;
+	}
+
+	private static List<String> getSubspeciesAttributeModifiersToStringList(Map<AbstractAttribute, Float> attributeMap) {
+		List<String> attributeModifiersList = new ArrayList<>();
+		if (attributeMap != null) {
+			for (Entry<AbstractAttribute, Float> e : attributeMap.entrySet()) {
+				attributeModifiersList.add(e.getKey().getFormattedValue(e.getValue()));
+			}
+		}
+		return attributeModifiersList;
+	}
+	
 	public static final DialogueNode SUBSPECIES = new DialogueNode("", "", true) {
 		@Override
 		public String getLabel() {
@@ -3173,9 +3287,10 @@ public class PhoneDialogue {
 			
 			subspeciesSB.append(
 				"<div class='container-full-width' style='width:40%; float:right;'>"
-					
-					+ "<p style='width:100%; text-align:center;'><b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b><br/>"
-							+ "Average stats</p>"
+					+ "<p style='width:100%; text-align:center;'>"
+						+ "<b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b>"
+						+ "<br/>Average stats"
+					+ "</p>"
 					+ "<table align='center'>"
 						+ "<tr>"
 							+ "<td></td>"
@@ -3222,22 +3337,30 @@ public class PhoneDialogue {
 							+ "<td>-</td>"
 						+ "</tr>"
 					+ "</table>"
-				+ "</div>"
+				+ "</div>");
 					
-				+"<p>"
+			subspeciesSB.append("<p>"
 					+ "<b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b>"
 					+ (AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==subspeciesSelected
-							?" ([style.colourGood(Core)] subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName(false))+"</span>)"
+							?" ([style.colourMinorGood(Core)] subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName(false))+"</span>)"
 							:" (Subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName(false))+"</span>)")
 					+ "<br/>"
 					+ "Masculine: <span style='color:"+Femininity.valueOf(maleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularMaleName(null))+"</span>"
 					+ "<br/>"
-					+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularFemaleName(null))+"</span>"
-					+ "<br/><br/>"
+					+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularFemaleName(null))+"</span>");
+
+			subspeciesSB.append("<br/><br/>"
+					+ "<b>Race bonuses:</b>");
+			for(String s : getSubspeciesModifiersAsStringList(subspeciesSelected)) {
+				subspeciesSB.append("<br/>");
+				subspeciesSB.append(s);
+			}
+			
+			subspeciesSB.append("<br/><br/>"
 					+ "<i>"+subspeciesSelected.getDescription(null)+"</i>"
-				+ "</p>"
+				+ "</p>");
 					
-				+"<h6>"+Util.capitaliseSentence(raceSelected.getName(false))+" Lore</h6>"
+			subspeciesSB.append("<h6>"+Util.capitaliseSentence(raceSelected.getName(false))+" Lore</h6>"
 					+subspeciesSelected.getBasicDescription(null)
 					+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspeciesSelected)
 						?subspeciesSelected.getAdvancedDescription(null)
@@ -3265,13 +3388,13 @@ public class PhoneDialogue {
 				return new Response(Util.capitaliseSentence(indexSubspecies.getName(null)),
 						"Take a detailed look at what " + indexSubspecies.getNamePlural(null) + " are like."
 						+ (AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies
-							?"<br/>This is the [style.colourGood(core)] "+raceSelected.getName(false)+" subspecies."
+							?"<br/>This is the [style.colourMinorGood(core)] "+raceSelected.getName(false)+" subspecies."
 							:""),
 						SUBSPECIES){
 					@Override
 					public Colour getHighlightColour() {
 						if(AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies) {
-							return PresetColour.GENERIC_GOOD;
+							return PresetColour.GENERIC_MINOR_GOOD;
 						}
 						return super.getHighlightColour();
 					}

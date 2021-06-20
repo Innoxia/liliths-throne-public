@@ -11,6 +11,7 @@
 		<worldTypes>
 			<world>SUBMISSION</world>
 			<world>RAT_WARRENS</world>
+			<world>BAT_CAVERNS</world>
 		</worldTypes>
 		
 		<outfitTypes>

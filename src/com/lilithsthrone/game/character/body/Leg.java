@@ -15,11 +15,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public class Leg implements BodyPartInterface {
 
+	public static final float LENGTH_PERCENTAGE_MIN_FERAL = 0.05f;
 	public static final float LENGTH_PERCENTAGE_MIN = 2f;
 	public static final float LENGTH_PERCENTAGE_MAX = 10f;
 	
@@ -33,7 +34,7 @@ public class Leg implements BodyPartInterface {
 	public Leg(AbstractLegType type, LegConfiguration legConfiguration) {
 		this.type = type;
 		this.legConfiguration = legConfiguration;
-		this.footStructure = type.getDefaultFootStructure();
+		this.footStructure = type.getDefaultFootStructure(legConfiguration);
 		this.girth = PenetrationGirth.THREE_AVERAGE.getValue();
 		this.lengthAsPercentageOfHeight = LegConfiguration.getDefaultSerpentTailLengthMultiplier();
 	}
@@ -64,7 +65,7 @@ public class Leg implements BodyPartInterface {
 					+ "</p>");
 		}
 		
-		if(!type.getFootType().getPermittedFootStructures().contains(footStructure)) {
+		if(!type.getFootType().getPermittedFootStructures(owner.getLegConfiguration()).contains(footStructure)) {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[style.colourDisabled(Nothing happens, as [npc.namePos] [npc.feet] cannot transform to be "+footStructure.getName()+"...)]"
@@ -93,6 +94,9 @@ public class Leg implements BodyPartInterface {
 			case UNGULIGRADE:
 				sb.append("After just a moment, [npc.sheIs] left with [style.boldTfGeneric(unguligrade [npc.feet])], meaning that [npc.she] now [npc.verb(walk)] on [npc.her] [npc.toes], with the rest of [npc.her] foot being permanently raised.");
 				break;
+			case ARACHNOID:
+				sb.append("After just a moment, [npc.sheIs] left with [style.boldTfGeneric(arachnoid [npc.feet])], meaning that [npc.she] now [npc.verb(walk)] on the ends of [npc.her] segmented arachnoid legs.");
+				break;
 			case TENTACLED:
 				break;
 		}
@@ -111,12 +115,13 @@ public class Leg implements BodyPartInterface {
 
 	public void setLegConfigurationForced(AbstractLegType type, LegConfiguration legConfiguration) {
 		this.type = type;
-		this.footStructure = type.getDefaultFootStructure();
+		this.footStructure = type.getDefaultFootStructure(legConfiguration);
 		this.legConfiguration = legConfiguration;
 	}
 
 	@Override
 	public String getDeterminer(GameCharacter gc) {
+		
 		return type.getDeterminer(gc);
 	}
 
@@ -149,7 +154,7 @@ public class Leg implements BodyPartInterface {
 	public String setType(GameCharacter owner, AbstractLegType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
-			this.footStructure = type.getDefaultFootStructure();
+			this.footStructure = type.getDefaultFootStructure(this.getLegConfiguration());
 			if(Main.game.isStarted() && !type.isLegConfigurationAvailable(this.getLegConfiguration())) {
 				this.getType().applyLegConfigurationTransformation(owner, RacialBody.valueOfRace(type.getRace()).getLegConfiguration(), true, true);
 			}
@@ -175,7 +180,7 @@ public class Leg implements BodyPartInterface {
 		sb.setLength(0);
 		sb.append(s);
 		this.type = type;
-		this.footStructure = type.getDefaultFootStructure();
+		this.footStructure = type.getDefaultFootStructure(this.getLegConfiguration());
 		
 		sb.append(type.getTransformationDescription(owner)+"</p>");
 		
@@ -183,7 +188,7 @@ public class Leg implements BodyPartInterface {
 		owner.setTentacleType(type.getTentacleType());
 		owner.setTentacleCount(type.getTentacleCount());
 		
-		if(!type.isLegsReplacedByTentacles() && type.getDefaultFootStructure()!=FootStructure.NONE) {
+		if(!type.isLegsReplacedByTentacles() && type.getDefaultFootStructure(this.getLegConfiguration())!=FootStructure.NONE) {
 			sb.append(
 					"<p>"
 						+ "The transformation has left the structure of [npc.her] [npc.feet] as [style.boldTFGeneric("+this.footStructure.getName()+")]! "+this.footStructure.getDescription()
@@ -221,16 +226,18 @@ public class Leg implements BodyPartInterface {
 	 */
 	public String setLengthAsPercentageOfHeight(GameCharacter owner, float lengthAsPercentageOfHeight) {
 		if(owner==null) {
-			this.lengthAsPercentageOfHeight = Math.max(LENGTH_PERCENTAGE_MIN, Math.min(lengthAsPercentageOfHeight, LENGTH_PERCENTAGE_MAX));
+			// Allow for setting down to feral minimum, as this could be loading of a feral part:
+			this.lengthAsPercentageOfHeight = Math.max(LENGTH_PERCENTAGE_MIN_FERAL, Math.min(lengthAsPercentageOfHeight, LENGTH_PERCENTAGE_MAX));
 			return "";
 		}
 		
 		float lengthChange = 0;
 		
-		if (lengthAsPercentageOfHeight <= LENGTH_PERCENTAGE_MIN) {
-			if (this.lengthAsPercentageOfHeight != LENGTH_PERCENTAGE_MIN) {
-				lengthChange = LENGTH_PERCENTAGE_MIN - this.lengthAsPercentageOfHeight;
-				this.lengthAsPercentageOfHeight = LENGTH_PERCENTAGE_MIN;
+		float percentageMinimum = owner.isFeral()?LENGTH_PERCENTAGE_MIN_FERAL:LENGTH_PERCENTAGE_MIN;
+		if (lengthAsPercentageOfHeight <= percentageMinimum) {
+			if (this.lengthAsPercentageOfHeight != percentageMinimum) {
+				lengthChange = percentageMinimum - this.lengthAsPercentageOfHeight;
+				this.lengthAsPercentageOfHeight = percentageMinimum;
 			}
 		} else if (lengthAsPercentageOfHeight >= LENGTH_PERCENTAGE_MAX) {
 			if (this.lengthAsPercentageOfHeight != LENGTH_PERCENTAGE_MAX) {

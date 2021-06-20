@@ -319,11 +319,26 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return playerElement;
 	}
 	
+	private static boolean debug = false;
+	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
+		long time = System.nanoTime();
+		if(debug) {
+			System.out.println("Player loading start");
+		}
+		
 		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+
+		if(debug) {
+			System.out.println("character created: "+((System.nanoTime()-time)/1000000000d));
+		}
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
-		
+
+		if(debug) {
+			System.out.println("Variables loaded: "+((System.nanoTime()-time)/1000000000d));
+		}
+
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			character.setGenderIdentity(character.getGender());
 		}
@@ -462,7 +477,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								}
 								
 								QuestLine questLine = QuestLine.valueOf(questLineString);
-								Quest quest = Quest.valueOf(questString);
+								Quest quest = Quest.getQuestFromId(questString);
 								
 								List<Quest> questList = new ArrayList<>();
 								TreeNode<Quest> node = questLine.getQuestTree().getFirstNodeWithData(quest);
@@ -493,12 +508,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								continue;
 							}
 							try {
-								Quest quest = Quest.valueOf(questString);
+								Quest quest = Quest.getQuestFromId(questString);
 								List<Quest> questList = new ArrayList<>();
 								
 								int questIncrement=0;
 								while(!questString.isEmpty()) {
-									quest = Quest.valueOf(questString);
+									quest = Quest.getQuestFromId(questString);
 	
 									questList.add(quest);
 									
@@ -529,7 +544,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 						String questLineString = e.getAttribute("questLine");
 						QuestLine questLine = QuestLine.valueOf(questLineString);
 						String questString = e.getAttribute("q");
-						Quest quest = Quest.valueOf(questString);
+						Quest quest = Quest.getQuestFromId(questString);
 						character.questsFailed.put(
 								questLine,
 								quest);
@@ -558,6 +573,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			} catch(Exception ex) {	
 			}
+		}
+
+		if(debug) {
+			System.out.println("Initial loading: "+((System.nanoTime()-time)/1000000000d));
 		}
 		
 		if(playerSpecificElement!=null && !Main.isVersionOlderThan(version, "0.3.7.7")) {
@@ -616,6 +635,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					}
 				}
 			}
+		}
+
+		if(debug) {
+			System.out.println("encyclopedia loading: "+((System.nanoTime()-time)/1000000000d));
 		}
 		
 		if(Main.isVersionOlderThan(version, "0.3.0.5")) {
@@ -696,6 +719,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 
+		if(debug) {
+			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
+		}
+		
 		return character;
 	}
 
@@ -1377,7 +1404,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	// This behaviour is overridden for unique scenes in which the player's orgasm requires special dialogue or effects.
 	//TODO move this into the NPC's class
 	@Override
-	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects, String description) {
 
 		// SCARLETT:
 		
@@ -1385,8 +1412,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				&& Main.sex.getOngoingSexAreas(this, SexAreaOrifice.ANUS, Main.game.getNpc(Scarlett.class)).contains(SexAreaPenetration.PENIS)
 				&& Main.sex.getSexPace(Main.game.getNpc(Scarlett.class))==SexPace.DOM_ROUGH) { // Orgasm reaction when you cum from Scarlett's anal:
 			StringBuilder sb = new StringBuilder();
-			
-			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			if(description!=null) {
+				sb.append(description);
+			} else {
+				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			}
 			
 			sb.append(UtilText.parseFromXMLFile("characters/dominion/scarlett", "ROUGH_ANAL_ORGASM"));
 			
@@ -1411,8 +1441,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				&& this.getCurrentPenisRawCumStorageValue()>0
 				&& Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lilaya.class)).contains(SexAreaOrifice.VAGINA)) {
 			
-			StringBuilder sb = new StringBuilder();
-			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			StringBuilder sb = new StringBuilder();if(description!=null) {
+				sb.append(description);
+			} else {
+				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			}
 			
 			if(this.isWearingCondom()) {
 				if(sexAction.getCondomFailure(this, Main.game.getNpc(Lilaya.class))!=CondomFailure.NONE) {
@@ -1447,8 +1480,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		// LYSSIETH:
 		
 		if(Main.sex.getSexManager() instanceof SMLyssiethDemonTF) { // Lyssieth's demon TF scene:
-			StringBuilder sb = new StringBuilder();
-			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			StringBuilder sb = new StringBuilder();if(description!=null) {
+				sb.append(description);
+			} else {
+				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			}
 			
 			if(Main.sex.getLastUsedSexAction(Main.game.getNpc(Lyssieth.class)).getActionType()==SexActionType.ORGASM) { //These specials are only for follow-ups to Lyssieth's orgasms:
 				if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1) {
@@ -1465,7 +1501,21 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							public void applyEffects() {
 							}
 						};
-		
+						
+					// Stage 1) Player is eating Lyssieth out:
+					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.TONGUE, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.VAGINA)) {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GIVING_LYSSIETH_CUNNILINGUS_END"));
+						
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
+							@Override
+							public void applyEffects() {
+							}
+						};
+							
 					// Stage 1) Lyssieth is sucking player's cock:
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.MOUTH)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GETTING_BLOWJOB_FROM_LYSSIETH_END"));
@@ -1481,7 +1531,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 						};
 						
 					// Stage 1) Lyssieth is eating the player out:
-					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.TONGUE, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.VAGINA)) {
+					} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.VAGINA, Main.game.getNpc(Lyssieth.class)).contains(SexAreaPenetration.TONGUE)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GETTING_CUNNILINGUS_FROM_LYSSIETH_END"));
 						
 						return new SexActionOrgasmOverride(false) {
@@ -1543,6 +1593,30 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					// Stage 2) The player is fucking Lyssieth:
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.VAGINA)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_PC_FUCKING_LYSSIETH_END"));
+						
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
+							@Override
+							public void applyEffects() {
+							}
+							@Override
+							public void applyEndEffects() {
+								if(applyExtraEffects) {
+									Main.sex.stopAllOngoingActions(Main.game.getPlayer(), Main.game.getNpc(Lyssieth.class));
+								}
+							}
+						};
+						
+					// Stage 2) Scissoring:
+					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.CLIT, Main.game.getNpc(Lyssieth.class)).contains(SexAreaPenetration.CLIT)) {
+						if(Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.SCISSORING) {
+							sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_SCISSOR_PC_TOP_END"));
+						} else {
+							sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_SCISSOR_PC_BOTTOM_END"));
+						}
 						
 						return new SexActionOrgasmOverride(false) {
 							@Override
@@ -1640,7 +1714,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 
-		return super.getSexActionOrgasmOverride(sexAction, target, applyExtraEffects); // Normal scene
+		return super.getSexActionOrgasmOverride(sexAction, target, applyExtraEffects, description); // Normal scene
 	}
 	
 	/**

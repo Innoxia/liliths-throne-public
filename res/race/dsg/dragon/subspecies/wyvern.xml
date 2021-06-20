@@ -11,7 +11,7 @@
 	The 'secondaryColour' and 'tertiaryColour' are used alongside 'colour' in recolouring this subspecies' icon and background. -->
 	<colour>dsg_dragonRed</colour>
 	<secondaryColour>dsg_dragonBone</secondaryColour>
-	<tertiaryColour/>
+	<tertiaryColour>dsg_dragonRed</tertiaryColour>
 	
 	<!-- Whether or not this subspecies is considered the 'main' subspecies of its parent race.
 	One subspecies, no more, of each race should have this set as true. -->
@@ -51,17 +51,15 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_face)
+		#IF(!targetedBody.isFaceHuman() && targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_face)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_face)]
 		#ENDIF
-		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
-			#IF(RND.nextInt(100) < 33)
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurled)]
-			#ELSEIF(RND.nextInt(100) < 50)
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurved)]
-			#ELSE
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
-			#ENDIF
+		#IF(targetedBody.getHornType().isOneOf(HORN_TYPE_dsg_dragon_hornAntlers, HORN_TYPE_NONE))
+			[#targetedBody.setHornType(targetedBody.randomTypeFrom(
+				HORN_TYPE_dsg_dragon_horn,
+				HORN_TYPE_dsg_dragon_hornCurved,
+				HORN_TYPE_dsg_dragon_hornCurled
+			))]
 		#ENDIF
 		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tailSpaded)
 			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tailSpaded)]
@@ -117,26 +115,30 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[wyvern-morph]]></name>
-	<namePlural><![CDATA[wyvern-morphs]]></namePlural>
-	<singularMaleName><![CDATA[wyvern-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[wyvern-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[wyvern-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[wyvern-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[wyvern-morph]]></name>
+			<namePlural><![CDATA[wyvern-morphs]]></namePlural>
+			<singularMaleName><![CDATA[wyvern-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[wyvern-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[wyvern-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[wyvern-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic wyvern, known as a 'wyvern-morph' when bipedal, and a 'wyverntaur' when the lower body is that of a typically-oversized feral dragon. To be identified as a wyvern-morph, a character must be a dragon-morph with arm wings.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[typhon]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[typhons]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[typhon]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[typhon]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[typhons]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[typhons]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[typhon]]></name>
+			<namePlural><![CDATA[typhons]]></namePlural>
+			<singularMaleName><![CDATA[typhon]]></singularMaleName>
+			<singularFemaleName><![CDATA[typhon]]></singularFemaleName>
+			<pluralMaleName><![CDATA[typhons]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[typhons]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>
@@ -150,7 +152,7 @@
 		
 		<!-- The leg configuration that a feral form of this subspecies has.
 		This determines their overall body shape. -->
-		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<legConfiguration>WINGED_BIPED</legConfiguration>
 		<!-- Whether or not this feral form's size is measured as height from floor to head, as for most mammals (true), or from head to tail (false), as for alligators and other low-lying animals which are far longer than they are tall. -->
 		<sizeHeight>true</sizeHeight>
 		<!-- The height/length of this subspecies' feral form, measured in cm. -->
@@ -184,10 +186,11 @@
 	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
 	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
 	<statusEffectAttributeModifiers>
-		<attribute value="20">MAJOR_PHYSIQUE</attribute>
-		<attribute value="20">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
-		<attribute value="5">DAMAGE_FIRE</attribute>
-		<attribute value="10">CRITICAL_DAMAGE</attribute>
+		<attribute value="50">MAJOR_PHYSIQUE</attribute>
+		<attribute value="60">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="30">DAMAGE_FIRE</attribute>
+		<attribute value="30">RESISTANCE_FIRE</attribute>
+		<attribute value="20">RESISTANCE_PHYSICAL</attribute>
 		<attribute value="-10">RESISTANCE_LUST</attribute>
 	</statusEffectAttributeModifiers>
 	
@@ -231,7 +234,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

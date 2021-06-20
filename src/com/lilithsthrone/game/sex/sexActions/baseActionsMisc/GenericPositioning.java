@@ -1117,15 +1117,15 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Face-to-wall";
+			return "Face-to-[pc.wall]";
 		}
 		@Override
 		public String getActionDescription() {
-			return "Push [npc2.name] up against a nearby wall.";
+			return "Push [npc2.name] up against a nearby [pc.wall].";
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] up against a nearby wall."
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] up against a nearby [pc.wall]."
 					+ " Grinding [npc.her] body up against [npc2.her] back, [npc.she] [npc.moansVerb] into [npc2.her] [npc2.ear],"
 					+ " [npc.speech(Good [npc2.girl]! Now hold still while I fuck you!)]";
 		}
@@ -1163,16 +1163,16 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Face-to-wall (R)";
+			return "Face-to-[pc.wall] (R)";
 		}
 		@Override
 		public String getActionDescription() {
-			return "Try and move into a position so that you're facing a nearby wall.<br/>"
+			return "Try and move into a position so that you're facing a nearby [pc.wall].<br/>"
 						+ getRequestTooltipText();
 		}
 		@Override
 		public String getDescription() {
-			return "Before [npc2.name] can react, you quickly move up against a nearby wall."
+			return "Before [npc2.name] can react, you quickly move up against a nearby [pc.wall]."
 					+ " Placing your hands up against the solid surface that's now in front of you, you push your [npc.ass+] out, shaking it at [npc2.name] as you try to encourage [npc2.herHim] to fuck you like this.";
 		}
 		@Override
@@ -1200,15 +1200,15 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Back-to-wall";
+			return "Back-to-[pc.wall]";
 		}
 		@Override
 		public String getActionDescription() {
-			return "Push [npc2.name] back against a nearby wall.";
+			return "Push [npc2.name] back against a nearby [pc.wall].";
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] back against a nearby wall."
+			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] back against a nearby [pc.wall]."
 					+ " Grinding [npc.her] body up against [npc2.hers], [npc.she] [npc.moansVerb] into [npc2.her] [npc2.ear], "
 					+ "[npc.speech(Good [npc2.girl]! Now hold still while I fuck you!)]";
 		}
@@ -1246,16 +1246,16 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Back-to-wall (R)";
+			return "Back-to-[pc.wall] (R)";
 		}
 		@Override
 		public String getActionDescription() {
-			return "Try and move into a position so that your back is up against a nearby wall.<br/>"
+			return "Try and move into a position so that your back is up against a nearby [pc.wall].<br/>"
 						+ getRequestTooltipText();
 		}
 		@Override
 		public String getDescription() {
-			return "Before [npc2.name] can react, you quickly move up against a nearby wall."
+			return "Before [npc2.name] can react, you quickly move up against a nearby [pc.wall]."
 					+ " Leaning back against the solid surface that's now behind you, you give [npc2.name] your most seductive look, trying to encourage [npc2.herHim] to fuck you like this.";
 		}
 		@Override
@@ -1297,9 +1297,15 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] back."
-					+ " Kneeling down between [npc2.her] [npc2.legs], [npc.she] [npc.moansVerb] as [npc.she] looks down into [npc2.her] [npc2.eyes+],"
-					+ " [npc.speech(That's right, spread your legs for me...)]";
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] back."
+						+ " Kneeling down between [npc2.her] [npc2.legs], [npc.she] [npc.moansVerb] as [npc.she] [npc.verb(look)] down into [npc2.her] [npc2.eyes+],"
+						+ " [npc.speech(That's right, spread your legs for me...)]";
+			} else {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] back."
+						+ " Kneeling down over [npc2.her] groin, [npc.she] [npc.moansVerb] as [npc.she] [npc.verb(look)] down into [npc2.her] [npc2.eyes+],"
+						+ " [npc.speech(That's right, present yourself to me...)]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1339,8 +1345,13 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Try to get [npc2.name] to lie down on [npc2.her] back and spread [npc2.her] [npc2.legs] so that you can have sex with [npc2.herHim] in the missionary position.<br/>"
-						+ getRequestTooltipText();
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Try to get [npc2.name] to lie down on [npc2.her] back and spread [npc2.her] [npc2.legs] so that you can have sex with [npc2.herHim] in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			} else {
+				return "Try to get [npc2.name] to lie down on [npc2.her] back and present you with [npc2.her] groin so that you can have sex with [npc2.herHim] in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			}
 		}
 		@Override
 		public String getDescription() {
@@ -1375,13 +1386,23 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Lie down on your back and spread your [npc.legs], ready to have sex with [npc2.name] in the missionary position.";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Lie down on your back and spread your [npc.legs], ready to have sex with [npc2.name] in the missionary position.";
+			} else {
+				return "Lie down on your back and present your groin, ready to have sex with [npc2.name] in the missionary position.";
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] knees."
-					+ " Kneeling down before [npc2.herHim], [npc.she] then [npc.verb(lie)] down on [npc.her] back, spreading [npc.her] [npc.legs] and looking up into [npc2.namePos] [npc2.eyes+] as [npc.she] [npc.moanVerb],"
-					+ " [npc.speech(Come and take me!)]";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] knees."
+						+ " Kneeling down before [npc2.herHim], [npc.she] then [npc.verb(lie)] down on [npc.her] back, spreading [npc.her] [npc.legs] and looking up into [npc2.namePos] [npc2.eyes+] as [npc.she] [npc.moanVerb],"
+						+ " [npc.speech(Come and take me!)]";
+			} else {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto [npc2.her] knees."
+						+ " Kneeling down before [npc2.herHim], [npc.she] then [npc.verb(lie)] down on [npc.her] back, presenting [npc.her] groin and looking up into [npc2.namePos] [npc2.eyes+] as [npc.she] [npc.moanVerb],"
+						+ " [npc.speech(Come and take me!)]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1421,12 +1442,23 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Lie down on your back and spread your [npc.legs] to try and encourage [npc2.name] to have sex with you in the missionary position.<br/>"
-						+ getRequestTooltipText();
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Lie down on your back and spread your [npc.legs] to try and encourage [npc2.name] to have sex with you in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			} else {
+				return "Lie down on your back and present your groin to try and encourage [npc2.name] to have sex with you in the missionary position.<br/>"
+							+ getRequestTooltipText();
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "You lie down on your back before [npc2.name], letting out a little [npc.moan] as you spread your [npc.legs] to try and encourage [npc2.name] to have sex with you in the missionary position.";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "[npc.Name] [npc.verb(lie)] down on [npc.her] back before [npc2.name],"
+						+ " letting out a little [npc.moan] as [npc.she] [npc.verb(spread)] [npc.her] [npc.legs] to try and encourage [npc2.name] to have sex with [npc.herHim] in the missionary position.";
+			} else {
+				return "[npc.Name] [npc.verb(lie)] down on [npc.her] back before [npc2.name],"
+						+ " letting out a little [npc.moan] as [npc.she] [npc.verb(present)] [npc.her] groin to try and encourage [npc2.name] to have sex with [npc.herHim] in the missionary position.";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1938,17 +1970,30 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Force [npc2.name] down onto [npc2.her] back, push [npc2.her] [npc2.legs] apart and up towards [npc2.her] head, and then lie down on top of [npc2.herHim], in the 'mating press' position.";
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Force [npc2.name] down onto [npc2.her] back, push [npc2.her] [npc2.legs] apart and up towards [npc2.her] head, and then lie down on top of [npc2.herHim], in the 'mating press' position.";
+			} else {
+				return "Force [npc2.name] down onto [npc2.her] back, then lie down on top of [npc2.herHim], in the 'mating press' position.";
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto the ground, forcing [npc2.herHim] to lie on [npc2.her] back."
-					+ " Grabbing [npc2.her] [npc2.legs], [npc.name] [npc.verb(push)] them apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] and bumping [npc.her] groin against [npc2.hers]."
-					+ " Pinning [npc2.namePos] wrists to the floor on either side of [npc2.her] head, [npc.name] [npc.moansVerb],"
-					+ " [npc.speech(It's time to"
-					+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
-							"#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN give you a good hard fuck!#ELSE breed you!#ENDIF")
-					+ ")]";
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasLegs()) {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto the ground, forcing [npc2.herHim] to lie on [npc2.her] back."
+						+ " Grabbing [npc2.her] [npc2.legs], [npc.name] [npc.verb(push)] them apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] and bumping [npc.her] groin against [npc2.hers]."
+						+ " Pinning [npc2.namePos] wrists to the floor on either side of [npc2.her] head, [npc.name] [npc.moansVerb],"
+						+ " [npc.speech(It's time to"
+						+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
+								"#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN give you a good hard fuck!#ELSE breed you!#ENDIF")
+						+ ")]";
+			} else {
+				return "Taking hold of [npc2.namePos] shoulders, [npc.name] [npc.verb(push)] [npc2.herHim] down onto the ground, forcing [npc2.herHim] to lie on [npc2.her] back."
+						+ " Quickly lying down on top of [npc2.herHim], [npc.she] [npc.verb(bump)] [npc.her] groin against [npc2.hers], before pinning [npc2.namePos] wrists to the floor on either side of [npc2.her] head and [npc.moaning],"
+						+ " [npc.speech(It's time to"
+						+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
+								"#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN give you a good hard fuck!#ELSE breed you!#ENDIF")
+						+ ")]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -1980,16 +2025,28 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			return "Get down on your back and pull your [npc.legs] apart and back up towards your head, presenting yourself to be mounted and bred in the 'mating press' position.<br/>"
-						+ getRequestTooltipText();
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Get down on your back and pull your [npc.legs] apart and back up towards your head, presenting yourself to be mounted and bred in the 'mating press' position.<br/>"
+							+ getRequestTooltipText();
+			} else {
+				return "Get down on your back and present your groin to [npc2.name] so that you're ready to be mounted and bred in the 'mating press' position.<br/>"
+							+ getRequestTooltipText();
+			}
 		}
 		@Override
 		public String getDescription() {
-			return "Before [npc2.name] can react, you quickly drop down onto your back, before spreading your [npc.legs] and pulling them back up towards your head."
-					+ " Presenting your groin to [npc2.name], you [npc.moansVerb],"
-					+ " [npc.speech(Pin me down and"
-					+ UtilText.parse(Main.sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
-					+ ")]";
+			if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+				return "Before [npc2.name] can react, you quickly drop down onto your back, before spreading your [npc.legs] and pulling them back up towards your head."
+						+ " Presenting your groin to [npc2.name], you [npc.moansVerb],"
+						+ " [npc.speech(Pin me down and"
+						+ UtilText.parse(Main.sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
+						+ ")]";
+			} else {
+				return "Before [npc2.name] can react, you quickly drop down onto your back, before presenting your groin to [npc2.name] and [npc.moaning],"
+						+ " [npc.speech(Pin me down and"
+						+ UtilText.parse(Main.sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
+						+ ")]";
+			}
 		}
 		@Override
 		public void applyEffects() {
@@ -2058,6 +2115,7 @@ public class GenericPositioning {
 			case CEPHALOPOD:
 			case QUADRUPEDAL:
 			case AVIAN:
+			case WINGED_BIPED:
 				return true;
 		}
 		return true;
@@ -2830,11 +2888,21 @@ public class GenericPositioning {
 				if(isHappy) {
 					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
-							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
-									+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
+							if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
+										+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
+							} else {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] presents [npc.her] groin to you, [npc.she] growls in a menacing tone, "
+										+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
+							}
 						default:
-							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, and as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] [npc.moansVerb], "
-									+ "[npc.speech(I like it when my partner shows a bit of initiative! Come take me!)]";
+							if(Main.sex.getCharacterPerformingAction().hasLegs()) {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, and as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] [npc.moansVerb], "
+										+ "[npc.speech(I like it when my partner shows a bit of initiative! Come take me!)]";
+							} else {
+								return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, and as [npc.she] presents [npc.her] groin to you, [npc.she] [npc.moansVerb], "
+										+ "[npc.speech(I like it when my partner shows a bit of initiative! Come take me!)]";
+							}
 					}
 				} else {
 					return "Slapping your [pc.hands] away, [npc.name] pushes you back into your old position as [npc.she] angrily scolds you, "
@@ -2868,7 +2936,7 @@ public class GenericPositioning {
 									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
 					}
 				} else {
-					return "Grabbing you by the shoulders, [npc.name] pulls you away from the wall, pushing you back into your old position as [npc.she] angrily scolds you, "
+					return "Grabbing you by the shoulders, [npc.name] pulls you away from the [pc.wall], pushing you back into your old position as [npc.she] angrily scolds you, "
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
@@ -2877,17 +2945,17 @@ public class GenericPositioning {
 				if(isHappy) {
 					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
-							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the wall."
+							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the [pc.wall]."
 									+ " Moving up to roughly grind [npc.her] body against yours, [npc.she] leans in over your shoulder and growls into your ear, "
 									+ "[npc.speech(Good slut! Now <i>stay still</i> so I can give you a proper fucking!)]";
 						default:
-							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the wall."
+							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the [pc.wall]."
 									+ " Moving up to press [npc.her] body against yours, [npc.she] leans in over your shoulder and [npc.moans] into your ear, "
 									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
 					}
 					
 				} else {
-					return "Grabbing you by the shoulders, [npc.name] pulls you away from the wall, pushing you back into your old position as [npc.she] angrily scolds you, "
+					return "Grabbing you by the shoulders, [npc.name] pulls you away from the [pc.wall], pushing you back into your old position as [npc.she] angrily scolds you, "
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				

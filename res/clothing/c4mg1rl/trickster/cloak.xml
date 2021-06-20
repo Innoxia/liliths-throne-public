@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the cloak's inner lining informs you that it was made by 'C4MG1RL'.]]></clothingAuthorTag>
+		<value>10000</value>
+		<determiner><![CDATA[the]]></determiner>
+		<name><![CDATA[Trickster's Cloak]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Arcanist's Cloaks]]></namePlural>
+		<description><![CDATA[Whether trying to stand out and draw a crowd or hide your identity after executing a devious plan, this weather-proof cloak will suit your needs. Angled for easy access to a sword, and carrying powerful enchantments, the wearer is sure to always look and perform at their best!]]></description>
+		<physicalResistance>3</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		  <slot>TORSO_OVER</slot>
+		  <slot>NECK</slot>
+		</equipSlots>
+		<rarity>LEGENDARY</rarity>
+		<clothingSet>c4mg1rl_trickster</clothingSet>
+		<imageName>cloak.svg</imageName>
+		<imageEquippedName slot="TORSO_OVER">cloak.svg</imageEquippedName>
+		<imageEquippedName/>
+		<enchantmentLimit>15</enchantmentLimit>
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+		</effects>
+		
+		<blockedPartsList slot="TORSO_OVER">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<blockedPartsList slot="NECK">
+		  <blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		  </blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="TORSO_OVER"/>
+		<incompatibleSlots slot="NECK"/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK_JET</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GOLD</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc.her] shoulders, before fastening the brooches around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before fastening the brooches around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly fastening the brooches around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the brooches around [npc.her] neck, before taking off [npc.her] cloak.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the brooches around [npc2.namePos] neck, before taking off [npc2.her] cloak.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the brooches around [npc2.namePos] neck, before pulling off [npc2.her] cloak.]]>
+    </otherRough>
+  </displacementText>
+
+  <replacementText slot="TORSO_OVER" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc.her] shoulders, before fastening the brooches around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before fastening the brooches around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly fastening the brooches around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="TORSO_OVER" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the brooches around [npc.her] neck, before taking off [npc.her] cloak.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the brooches around [npc2.namePos] neck, before taking off [npc2.her] cloak.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the brooches around [npc2.namePos] neck, before pulling off [npc2.her] cloak.]]>
+    </otherRough>
+  </displacementText>
+
+</clothing>

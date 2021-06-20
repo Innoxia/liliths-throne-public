@@ -542,6 +542,23 @@ public class Perk {
 					"The pressure of having to make sure [npc.her] business is successful has caused [npc.name] to have to do a lot of work, building up [npc.her] resistances in the process.");
 		}
 	};
+        
+	public static AbstractPerk JOB_NPC_REBEL_FIGHTER = new AbstractPerk(20,
+			true,
+			"rebel fighter",
+			PerkCategory.JOB,
+			"perks/jobs/npc_rebel_fighter",
+			PresetColour.CLOTHING_RED_DARK,
+			Util.newHashMapOfValues(
+				new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+				new Value<>(Attribute.RESISTANCE_LUST, 20),
+				new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] training has given [npc.herHim] some defence against Lilith's forces.");
+		}
+	};
 
 	public static AbstractPerk JOB_NPC_OFFICE_WORKER = new AbstractPerk(20,
 			true,
@@ -771,6 +788,85 @@ public class Perk {
 		}
 	};
 	
+	public static AbstractPerk JOB_TAUR_TRANSPORT = new AbstractPerk(20,
+			true,
+			"Keep on pulling!",
+			PerkCategory.JOB,
+			"perks/jobs/taur_transport",
+			PresetColour.BASE_GOLD,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Having spent a significant amount of time using [npc.her] tauric body to pull carts and carry cargo, [npc.nameHasFull] built up a considerable level of physical fitness.");
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_MAYOR = new AbstractPerk(20,
+			true,
+			"Weight of Responsibility",
+			PerkCategory.JOB,
+			"perks/jobs/mayor",
+			Util.newArrayListOfValues(
+					PresetColour.BASE_GOLD,
+					PresetColour.BASE_AQUA,
+					PresetColour.BASE_GOLD),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25),
+					new Value<>(Attribute.RESISTANCE_LUST, 5)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Having had to make countless difficult decisions which affect the lives of thousands of people, [npc.nameHasFull] hardened [npc.her] mind and [npc.is] able to act with full conviction.");
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ASSISTANT = new AbstractPerk(20,
+			true,
+			"A Helping Hand",
+			PerkCategory.JOB,
+			"perks/jobs/assistant",
+			PresetColour.BASE_GREEN,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Acting as [npc.her] superior's personal assistant, [npc.nameHasFull] to always be in prime physical condition in order to always be ready to offer a helping hand.");
+		}
+	};
+	
+	public static AbstractPerk JOB_LUNETTE_HERD = new AbstractPerk(20,
+			true,
+			"Merciless Raider",
+			PerkCategory.JOB,
+			"perks/jobs/lunette_raider",
+			Util.newArrayListOfValues(
+					PresetColour.BASE_PURPLE,
+					PresetColour.BASE_CRIMSON),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 25),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 50),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Having spent time training alongside Lunette herself, this demonic-centaur strives to be as destructive and merciless as [npc.her] mother!");
+		}
+	};
 	
 	
 	
@@ -1072,6 +1168,27 @@ public class Perk {
 		}
 	};
 
+	public static AbstractPerk JOB_ARISTOCRAT = new AbstractPerk(20,
+			true,
+			"Blue Blood",
+			PerkCategory.JOB,
+			"perks/jobs/aristocrat",
+			PresetColour.BASE_GOLD,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
+			Util.newArrayListOfValues(
+					"All [style.colourCorruption(corruption)] gains are [style.colourBad(doubled)]",
+					"[style.colourGood(+0.25)] to [style.colourExcellent(all resistances)] per 1 corruption")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] from an ancient aristocratic family, and [npc.has] been given the best education money can buy."
+					+ " Insufferably arrogant, [npc.name] [npc.verb(know)] that [npc.sheIsFull] better than everyone else, and won't let any filthy peasant get the better of [npc.herHim]!");
+		}
+	};
+	
+	
 	public static AbstractPerk JOB_MAID = new AbstractPerk(20,
 			true,
 			"Housekeeper",
@@ -1120,7 +1237,8 @@ public class Perk {
 					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
 			Util.newArrayListOfValues(
 					"All incorrect English spellings are [style.boldExcellent(automatically fixed)]",
-					"Enemies are blinded by your [style.colourFreedom(freedom)] for [style.colourExcellent(-1)] <span style='color:"+Attribute.ACTION_POINTS.getColour().toWebHexString()+";'>"+Attribute.ACTION_POINTS.getName()+"</span>")) {
+					"Enemies are blinded by your [style.colourFreedom(freedom)] for [style.colourExcellent(-1)] <span style='color:"+Attribute.ACTION_POINTS.getColour().toWebHexString()+";'>"+Attribute.ACTION_POINTS.getName()+"</span>",
+					"Burger effects are [style.colourGood(doubled)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.speech(Excuse me! I'm an American! Do you speak English?! My visa expires in four days, where's the embassy?!)]");
@@ -2115,7 +2233,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] very flirtatious, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce women than men.");
+			return UtilText.parse(owner, "[npc.NameIsFull] very flirtatious, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.her] advances are particularly effective against feminine people.");
 		}
 
 	};
@@ -2140,7 +2258,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce men than women.");
+			return UtilText.parse(owner, "[npc.NameIsFull] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.her] advances are particularly effective against masculine people.");
 		}
 	};
 	
@@ -2316,7 +2434,7 @@ public class Perk {
 	public static AbstractPerk BARREN = new AbstractPerk(20,
 			true,
 			"barren",
-			PerkCategory.PHYSICAL,
+			PerkCategory.LUST,
 			"perks/barren",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, -200)),
@@ -2331,7 +2449,7 @@ public class Perk {
 	public static AbstractPerk FIRING_BLANKS = new AbstractPerk(20,
 			true,
 			"sterile",
-			PerkCategory.PHYSICAL,
+			PerkCategory.LUST,
 			"perks/firing_blanks",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, -200)),
@@ -2951,7 +3069,167 @@ public class Perk {
 		}
 	};
 
-	
+	public static AbstractPerk SINGLE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Single tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail1",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] one arcane tail.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk TWO_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Two tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail2",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] two arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk THREE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Three tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail3",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] three arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk FOUR_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Four tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail4",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] four arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk FIVE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Five tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail5",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] five arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk SIX_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Six tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail6",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] six arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk SEVEN_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Seven tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail7",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] seven arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk EIGHT_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Eight tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail8",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] eight arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk NINE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Nine tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail9",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] a youko; a type of arcane-powered fox-morph typically found only in the Shinrin Highlands. [npc.Her] service to a higher-ranked youko has afforded [npc.him] nine arcane tails.");
+		}
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
 	
@@ -5510,7 +5788,20 @@ public class Perk {
 				|| id.equalsIgnoreCase("HEALTH_FANATIC")
 				|| id.equalsIgnoreCase("MARTIAL_BACKGROUND")) {
 			id = "SPECIAL_"+id;
+		} else if(id.equalsIgnoreCase("BRAWLER")) {
+			id = "FEROCIOUS_WARRIOR";
+		} else if(id.equalsIgnoreCase("ARCANE_BASE_NPC")) {
+			id = "ARCANE_BASE";
+		} else if(id.equalsIgnoreCase("PHYSIQUE_5")) {
+			id = "PHYSIQUE_BOOST_MAJOR";
+		} else if(id.equalsIgnoreCase("ARCANE_5")) {
+			id = "ARCANE_BOOST_MAJOR";
+		} else if(id.equalsIgnoreCase("SPELL_DAMAGE_5")) {
+			id = "SPELL_DAMAGE_MAJOR";
+		} else if(id.equalsIgnoreCase("ELEMENTALIST_5")) {
+			id = "ELEMENTAL_BOOST";
 		}
+		
 		
 		id = Util.getClosestStringMatch(id, idToPerkMap.keySet());
 //		System.out.println("  set to: "+id);
@@ -5592,7 +5883,7 @@ public class Perk {
 						return true;
 					}
 				};
-//				System.out.println(subToUse.toString()+" "+racePerk.getName(null)+" "+racePerk.hashCode());
+//				System.out.println("Added perk: "+Subspecies.getIdFromSubspecies(subToUse)+" "+racePerk.getName(null)+" "+racePerk.hashCode());
 				perkToIdMap.put(racePerk, Subspecies.getIdFromSubspecies(subToUse));
 				idToPerkMap.put(Subspecies.getIdFromSubspecies(subToUse), racePerk);
 				allPerks.add(racePerk);

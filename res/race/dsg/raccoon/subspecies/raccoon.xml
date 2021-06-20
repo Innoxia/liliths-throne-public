@@ -22,11 +22,11 @@
 	
 	<!-- The id of the item associated with this race which can be enchanted to modify attributes.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_vanilla_water'. -->
-	<attributeItemId>dsg_race_raccoon_popcorn</attributeItemId>
+	<attributeItemId>dsg_race_raccoon_cotton_candy_soda</attributeItemId>
 	
 	<!-- The id of the item associated with this race which can be enchanted to create a transformation potion.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_bread_roll'. -->
-	<transformativeItemId>dsg_race_raccoon_cotton_candy_soda</transformativeItemId>
+	<transformativeItemId>dsg_race_raccoon_popcorn</transformativeItemId>
 	
 	<!-- An integer representing how important this Subspecies is to be defined as a character's Subspecies override (meaning that this Subspecies will always be their true Subspecies, no matter the race of their body parts).
 	The default value is 0, which, along with any negative integer value, means that this Subspecies does not set an Override.
@@ -86,37 +86,41 @@
 	<bookIconName>raccoonicon</bookIconName>
 	
 	<!-- The name for the book. -->
-	<bookName>Foraging Racoons</bookName>
+	<bookName>Foraging Raccoons</bookName>
 	
 	<!-- The element names which contain the book's basic and advanced descriptions.
 	These should be entered into the 'bookEntries.xml' file in the same folder location as this file. -->
-	<basicDescriptionId>RACOON_BASIC</basicDescriptionId>
-	<advancedDescriptionId>RACOON_ADVANCED</advancedDescriptionId>
+	<basicDescriptionId>RACCOON_BASIC</basicDescriptionId>
+	<advancedDescriptionId>RACCOON_ADVANCED</advancedDescriptionId>
 	
 	<!-- The default preference for this subspecies spawning.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[raccoon-morph]]></name>
-	<namePlural><![CDATA[raccoon-morphs]]></namePlural>
-	<singularMaleName><![CDATA[raccoon-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[raccoon-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[raccoon-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[raccoon-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[raccoon-morph]]></name>
+			<namePlural><![CDATA[raccoon-morphs]]></namePlural>
+			<singularMaleName><![CDATA[raccoon-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[raccoon-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[raccoon-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[raccoon-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic raccoon, known as a 'raccoon-morph' when bipedal, and a 'raccoontaur' when the lower body is that of a typically-oversized feral raccoon.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[azeban]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[azeban]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[azeban]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[azeban]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[azeban]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[azeban]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[azeban]]></name>
+			<namePlural><![CDATA[azeban]]></namePlural>
+			<singularMaleName><![CDATA[azeban]]></singularMaleName>
+			<singularFemaleName><![CDATA[azeban]]></singularFemaleName>
+			<pluralMaleName><![CDATA[azeban]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[azeban]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>
@@ -164,10 +168,11 @@
 	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
 	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
 	<statusEffectAttributeModifiers>
-		<attribute value="10">MAJOR_PHYSIQUE</attribute>
-		<attribute value="1">RESISTANCE_ICE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="15">MAJOR_PHYSIQUE</attribute>
+		<attribute value="25">CRITICAL_DAMAGE</attribute>
+		<attribute value="5">RESISTANCE_ICE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
 		<attribute value="3">RESISTANCE_POISON</attribute>
-		<attribute value="10">DAMAGE_PHYSICAL</attribute>
+		<attribute value="5">DAMAGE_PHYSICAL</attribute>
 	</statusEffectAttributeModifiers>
 	
 	<!-- Any extra effects which should be listed in this subspecies' status effect tooltip.
@@ -219,7 +224,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

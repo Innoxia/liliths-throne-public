@@ -70,7 +70,7 @@
 			#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 				 [ralph.speech(You know, if your pussy wasn't locked up like that, I could have offered you a special deal, but seeing as you're 'unavailable', there's nothing else I can do for you.)]
 			#ELSE
-				 [ralph.speech(Of course, if you're looking for an alternative deal, there's always another option available to you... All you'd need to do is lie down on my desk here, spread your legs, and let me put a kid or two in your belly. Of course, I'll have to test after I'm done that I've got you pregnant, but if I have, I'll give you the lipsticks for free...)]
+				 [ralph.speech(Of course, if you're looking for an alternative deal, there's always another option available to you... All you'd need to do is lie down on my desk here#IF(pc.hasLegs()), spread your legs,#ENDIF and let me put a kid or two in your belly. Of course, I'll have to test after I'm done that I've got you pregnant, but if I have, I'll give you the lipsticks for free...)]
 			#ENDIF
 		</p>
 	#ENDIF
@@ -110,7 +110,7 @@
 		Somehow managing to keep his lust under control for a few moments more, Ralph teases you with the promise of penetration, [ralph.speech(You want me to make you the mother of my children, don't you? Go on, beg for my cock! Beg for me to breed you!)]
 	</p>
 	<p>
-		By this point you're getting desperate for Ralph to start fucking you, and you eagerly cry out for him to breed you. Half-way through your submissive request, he suddenly obliges, and, thrusting forwards, he rams his hot, fat horse-cock deep into your hungry pussy. Arching your back and spreading your [pc.legs], you let out a wild [pc.moan] as you feel Ralph take hold of your [pc.hips+] and start to pump into and out of your [pc.pussy+]...
+		By this point you're getting desperate for Ralph to start fucking you, and you eagerly cry out for him to breed you. Half-way through your submissive request, he suddenly obliges, and, thrusting forwards, he rams his hot, fat horse-cock deep into your hungry pussy. Arching your back#IF(pc.hasLegs()) and spreading your [pc.legs]#ENDIF, you let out a wild [pc.moan] as you feel Ralph take hold of your [pc.hips+] and start to pump into and out of your [pc.pussy+]...
 	</p>
 	]]>
 	</htmlContent>

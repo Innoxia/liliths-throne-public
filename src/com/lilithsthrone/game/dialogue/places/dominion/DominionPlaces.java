@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
+import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
@@ -23,6 +25,10 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.RentalMommyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaHotel;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanDateFinalRepeat;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanFirstDate;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanFirstDoubleDate;
+import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanRepeatDate;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -41,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public class DominionPlaces {
@@ -60,6 +66,15 @@ public class DominionPlaces {
 		
 		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
+
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_NYAN_APARTMENT) {
+			mommySB.append("<p>"
+							+ "[style.boldPinkLight(Nyan's Apartment:)]<br/>"
+							+ (Main.game.getNpc(Nyan.class).getWorldLocation()==WorldType.NYANS_APARTMENT
+								?"Nyan lives in this area, and so if you wanted to, you could head over to her apartment building and pay her a visit..."
+								:"Nyan lives in this area, although you know that she'll be at work at this hour, so there's not much point in heading over to her apartment building...")
+						+ "</p>");
+		}
 		
 		for(NPC npc : characters) {
 			if(npc instanceof RentalMommy) {
@@ -141,6 +156,126 @@ public class DominionPlaces {
 
 		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
+		
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_NYAN_APARTMENT) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumDateCompleted)) {
+				//TODO
+//				if(Main.game.getNpc(Nyan.class).getWorldLocation()==WorldType.NYANS_APARTMENT) {
+//					mommyResponses.add(new Response("Visit Nyan", "Head over to Nyan's apartment building and pay her a visit.", Main.game.getDefaultDialogue(false)));
+//					
+//				} else {
+//					mommyResponses.add(new Response("Visit Nyan", "Nyan is out at work at this time of day, so you're unable to head over to her apartment building and pay her a visit...", null));
+//				}
+			}
+			
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumInterviewPassed)
+					&& (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumDateCompleted) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumGirlfriend))) {
+				int dateCost = 4000;
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanWeekendDated)) {
+					mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You've already taken Nyan and [nyanmum.name] out for a date this weekend. You'll have to wait until next weekend before taking them out again...",
+							null));
+					
+				} else if((Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY)
+						&& (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23)) {
+					if(Main.game.getNpc(Nyan.class).getWorldLocation()!=WorldType.NYANS_APARTMENT) {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"Nyan and [nyanmum.name] are not at home at the moment. You'll have to come back after their work day ends...",
+								null));
+						
+					} else if(Main.game.getPlayer().getMoney()<dateCost) {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"'The Oaken Glade' is a very expensive place to go on a date. You need at least "+Util.intToString(dateCost)+" flames before asking Nyan and [nyanmum.name] out to a date there.",
+								null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"You're not going to be able to go out on a date to a restaurant if you're not able to eat anything!"
+									+ "<br/>[style.italicsMinorBad(You need to be able to access your mouth in order to take Nyan and [nyanmum.name] out on a date...)]",
+								null));
+						
+					} else {
+						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoney(dateCost, "span")+")",
+								"Pick Nyan and [nyanmum.name] up from their apartment building and take them out on a date to the restaurant, 'The Oaken Glade'.",
+								Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumGirlfriend)
+									?NyanDateFinalRepeat.DOUBLE_DATE_START
+									:NyanFirstDoubleDate.DATE_START));
+					}
+					
+				} else {
+					mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You cannot take Nyan and [nyanmum.name] out for a date at this time..."
+								+ "<br/><i>It needs to be either a "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.FRIDAY
+									?"[style.italicsMinorGood(Friday)]"
+									:"[style.italicsMinorBad(Friday)]")
+								+" or "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.SATURDAY
+									?"[style.italicsMinorGood(Saturday)]"
+									:"[style.italicsMinorBad(Saturday)]")
+								+", and between the hours of "
+								+ (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23
+									?"[style.italicsMinorGood([unit.time(18)]-[unit.time(23)])]"
+									:"[style.italicsMinorBad([unit.time(18)]-[unit.time(23)])]")
+								+" in order to take Nyan and [nyanmum.name] out for a date!",
+							null));
+				}
+				
+			} else {
+				int dateCost = 2500;
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanWeekendDated)) {
+					mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You've already taken Nyan out for a date this weekend. You'll have to wait until next weekend before taking her out again...",
+							null));
+					
+				} else if((Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY)
+						&& (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23)) {
+					if(Main.game.getNpc(Nyan.class).getWorldLocation()!=WorldType.NYANS_APARTMENT) {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"Nyan is out at work at the moment. You'll have to come back after her work day ends...",
+								null));
+						
+					} else if(Main.game.getPlayer().getMoney()<dateCost) {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"'The Oaken Glade' looked to be a very expensive place to go on a date. You need at least "+Util.intToString(dateCost)+" flames before asking Nyan out to a date there.",
+								null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+								"You're not going to be able to go out on a date to a restaurant if you're not able to eat anything!"
+									+ "<br/>[style.italicsMinorBad(You need to be able to access your mouth in order to take Nyan out on a date...)]",
+								null));
+						
+					} else {
+						mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoney(dateCost, "span")+")",
+								"Pick Nyan up from her apartment building and take her out on a date to the restaurant, 'The Oaken Glade'.",
+								Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumDateCompleted)
+									?NyanDateFinalRepeat.SOLO_DATE_START
+									:(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanRestaurantDateCompleted) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumInterviewPassed)
+										?NyanRepeatDate.DATE_START
+										:NyanFirstDate.DATE_START)));
+					}
+					
+				} else {
+					mommyResponses.add(new Response("Date Nyan ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
+							"You cannot take Nyan out for a date at this time..."
+								+ "<br/><i>It needs to be either a "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.FRIDAY
+									?"[style.italicsMinorGood(Friday)]"
+									:"[style.italicsMinorBad(Friday)]")
+								+" or "
+								+ (Main.game.getDayOfWeek()==DayOfWeek.SATURDAY
+									?"[style.italicsMinorGood(Saturday)]"
+									:"[style.italicsMinorBad(Saturday)]")
+								+", and between the hours of "
+								+ (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23
+									?"[style.italicsMinorGood([unit.time(18)]-[unit.time(23)])]"
+									:"[style.italicsMinorBad([unit.time(18)]-[unit.time(23)])]")
+								+" in order to take Nyan out for a date!",
+							null));
+				}
+			}
+		}
 		
 		for(NPC npc : characters) {
 			if(npc instanceof RentalMommy) {
@@ -250,7 +385,7 @@ public class DominionPlaces {
 			if(isCloseToEnforcerHQ()) {
 				sb.append("<p style='text-align:center;'><i>");
 					sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
-					if(Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
+					if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 						sb.append("<br/>However, due to the ongoing arcane storm, there's no chance of encountering any patrols at the moment...");
 					}
 				sb.append("</i></p>");
@@ -540,7 +675,6 @@ public class DominionPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."

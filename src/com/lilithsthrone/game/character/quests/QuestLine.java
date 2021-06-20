@@ -49,6 +49,10 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
 
+	SIDE_ARCANE_LIGHTNING("Arcane Lightning", "Arthur was able to extract the secrets of arcane lightning from the globe which you gave to him, allowing you to learn two incredibly powerful spells.",
+			QuestType.SIDE,
+			QuestTree.arcaneLightningTree),
+	
 	SIDE_HARPY_PACIFICATION("Angry Harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",
 			QuestType.SIDE,
 			QuestTree.angryHarpyTree),
@@ -73,9 +77,18 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.vengarTree),
 
+
 	SIDE_WES("The Rogue Enforcer", "You were able to successfully deal with the Enforcer Quartermaster.",
 			QuestType.SIDE,
 			QuestTree.wesTree),
+        
+    SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
+            QuestType.SIDE,
+            QuestTree.rebelBaseTree),
+    
+    SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
+            QuestType.SIDE,
+            QuestTree.rebelBaseFirebombTree),
 	
 	// Romance quests:
 	

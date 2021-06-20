@@ -2,21 +2,25 @@ package com.lilithsthrone.game.dialogue.places.submission;
 
 import java.time.DayOfWeek;
 
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.BatCavernsEncounterDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.3.9.4
- * @author Innoxia
+ * @version 0.3.21
+ * @author Innoxia, DSG
  */
 public class BatCaverns {
 	
@@ -75,7 +79,7 @@ public class BatCaverns {
 			return 5*60;
 		}
 		@Override
-		public String getContent() {
+		public String getContent() { // If this is going to be changed, bare in mind that this is called in the REBEL_BASE DialogueNodes below
 			return UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_DARK");
 		}
 		@Override
@@ -93,6 +97,42 @@ public class BatCaverns {
 						
 			} else if(index==2) {
 				return getElleSearchResponse();
+				
+			} else if(index==3
+				    && (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+				    	|| Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+					if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseDarkPassFound)) {
+					    if (Util.random.nextInt(100) <= 20 + (Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT) ? 30 : 0)) {
+							if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+							    return new Response("Search for password", 
+										"Peer into the darkness and search harder for the password to the mysterious door.", 
+										BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE);
+							    
+							} else {
+							    return new Response("Search for password", 
+										"Peer into the darkness and search harder for the rest of the password to the mysterious door.", 
+										BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO);
+							}
+					    } else {
+					    	return new Response("Search for password", 
+									"Peer into the darkness and search harder for the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SEARCH_FAILED);
+					    }
+					    
+					} else {
+					    return new Response("Search for password", 
+							    "You've already found the password in this area.", 
+							    null);
+					}
+					
+			} else if(index==4
+				&& Main.game.isSillyMode()
+				&& (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+					|| Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+				    return new Response("I'm a busy [pc.man]!", 
+							    "This is such a waste of time."
+								    + "<br/>[style.boldBad(This will skip all content and rewards for the Grave Robbing quest!)]", 
+							    BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SILLY);
 			}
 			return null;
 		}
@@ -126,6 +166,39 @@ public class BatCaverns {
 						
 			} else if(index==2) {
 				return getElleSearchResponse();
+				
+			} else if(index==3
+				    && (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+				    	|| Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+					if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseLightPassFound)) {
+					    if (Util.random.nextInt(100) <= 20 + (Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT) ? 30 : 0)) {
+							if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+							    return new Response("Search for password", 
+										"Poke around the mushrooms and search harder for the password to the mysterious door.", 
+										BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE);
+							} else {
+							    return new Response("Search for password", 
+										"Poke around the mushrooms and search harder for the rest of the password to the mysterious door.", 
+										BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO);
+							}
+					    } else {
+					    	return new Response("Search for password", 
+									"Poke around the mushrooms and search harder for the password to the mysterious door.", 
+									BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SEARCH_FAILED);
+					    }
+					} else {
+					    return new Response("Search for password", 
+							    "You've already found the password in this area.", 
+							    null);
+					}
+			} else if(index==4
+				&& Main.game.isSillyMode()
+				&& (Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_ONE
+				|| Main.game.getPlayer().getQuest(QuestLine.SIDE_REBEL_BASE) == Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+				    return new Response("I'm a busy [pc.man]!", 
+							    "This is such a waste of time."
+								    + "<br/>[style.boldBad(This will skip all content and rewards for the Grave Robbing quest!)]", 
+							    BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_SILLY);
 			}
 			return null;
 		}
@@ -351,4 +424,131 @@ public class BatCaverns {
 			return null;
 		}
 	};
+		
+	public static final DialogueNode REBEL_BASE_ENTRANCE_HANDLE = new DialogueNode("Strange Handle", "", false) {
+		@Override
+		public String getAuthor() {
+			return "DSG";
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(CAVERN_DARK.getContent());
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_ENTRANCE_HANDLE"));
+			
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_ONE)) {
+					return new Response("Pull the handle", "What could possibly go wrong?", BatCavernsEncounterDialogue.REBEL_BASE_DOOR_NO_PASS);
+					
+				} else if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+					return new Response("Pull the handle", "The handle won't budge. Looks like you really do need the password.", null);
+					
+				} else if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)) {
+					return new Response("Pull the handle", "You don't have the complete password!", null);
+					
+				} else if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)) {
+					return new Response("Pull the handle", "You have the complete password now and can therefore try to pull the handle again... if you really want to.", REBEL_BASE_DOOR_OPENED) {
+						@Override
+						public void effects() {
+							Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
+							Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
+						}
+					};
+				}
+			} else {
+				return CAVERN_DARK.getResponse(responseTab, index-1);
+			}
+			return null;
+		}
+	};
+			
+	public static final DialogueNode REBEL_BASE_DOOR_OPENED = new DialogueNode("Hidden Doorway", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
+			Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
+		}
+		@Override
+		public String getAuthor() {
+			return "DSG";
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_OPENED");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere.", PlaceType.REBEL_BASE_ENTRANCE.getDialogue(false)){
+					@Override
+					public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
+							Main.game.getPlayer().setLocation(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE);
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Don't enter", "No telling what's in that cave...", Main.game.getDefaultDialogue(false));
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode REBEL_BASE_ENTRANCE_EXTERIOR = new DialogueNode("Hidden Cave", "", false) {
+		@Override
+		public String getAuthor() {
+			return "DSG";
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(CAVERN_DARK.getContent());
+			
+			if (Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) || Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)) {
+				sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_ENTRANCE_EXTERIOR_COLLAPSED"));
+			} else {
+				sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_ENTRANCE_EXTERIOR"));
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(!Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) 
+					&& !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)) {
+				if (index == 1) {
+					return new Response("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere.", PlaceType.REBEL_BASE_ENTRANCE.getDialogue(false)){
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
+							Main.game.getPlayer().setLocation(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE);
+						}
+					};
+				}
+				
+			} else { // If cave is cleared, give normal responses
+				return CAVERN_DARK.getResponse(responseTab, index);
+			}
+			return null;
+		}
+	};
+		
 }

@@ -55,7 +55,7 @@
 		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 18)]
 		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_SPOTTED)]
 		#IF(targetedBody.isFeminine())
-			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.05)]
+			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.12)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	
@@ -112,37 +112,64 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[spotted hyena-morph]]></name>
-	<namePlural><![CDATA[spotted hyena-morphs]]></namePlural>
-	<singularMaleName><![CDATA[spotted hyena-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[spotted hyena-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[spotted hyena-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[spotted hyena-girls]]></pluralFemaleName>
+	<!-- Names for this subspecies when in a non-feral form.
+	Formatting for bipeds (which should probably be left to be covered by the 'namesDefault' element) should usually follow the pattern of X-morph, X-boy, X-girl. -->
+	<nameAnthro>
+		<namesDefault> <!-- You must include this 'namesDefault' element, which will be used for any undefined legConfiguration names (for example, if the player somehow became a TAIL_LONG hyena). -->
+			<name><![CDATA[spotted hyena-morph]]></name>
+			<namePlural><![CDATA[spotted hyena-morphs]]></namePlural>
+			<singularMaleName><![CDATA[spotted hyena-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[spotted hyena-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[spotted hyena-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[spotted hyena-girls]]></pluralFemaleName>
+		</namesDefault>
+		<names legConfiguration="QUADRUPEDAL"> <!-- This is the usual naming pattern for quadrupeds, even if the names do get a little unwieldy at times... -->
+			<name><![CDATA[spotted hyenataur]]></name>
+			<namePlural><![CDATA[spotted hyenataurs]]></namePlural>
+			<singularMaleName><![CDATA[spotted hyenataur]]></singularMaleName>
+			<singularFemaleName><![CDATA[spotted hyenatauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[spotted hyenataurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[spotted hyenatauresses]]></pluralFemaleName>
+		</names>
+	</nameAnthro>
+	
+	<!-- You can also define names for use in the game's silly mode by creating an element identical to the 'nameAnthro' one above, but instead called 'nameAnthroSillyMode'.
+	See the 'res/race/NoStepOnSnek/snake/subspecies/snake.xml' file for an example in use. -->
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic spotted hyena, known as a 'spotted hyena-morph' when bipedal, and a 'spotted hyenataur' when the lower body is that of a typically-oversized feral spotted hyena. To be identified as a spotted hyena-morph, a character must be a hyena-morph that has spotted fur.]]></description>
 	
 	<!-- Names for this subspecies when the character is a half-demon.
-	You can omit these altogether, in which case the game will automatically generate a generic half-demon name for your subspecies. -->
-	<nameHalfDemon><![CDATA[kishi]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[kishis]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[kishi]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[kishi]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[kishis]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[kishis]]></pluralFemaleNameHalfDemon>
+	You can omit these altogether, in which case the game will automatically generate a generic half-demon name for your subspecies, based on the names you've defined in the 'nameAnthro' element up above. -->
+	<nameHalfDemon>
+		<namesDefault> <!-- If you include the parent element 'nameHalfDemon', you must define this 'namesDefault' element. -->
+			<name><![CDATA[kishi]]></name>
+			<namePlural><![CDATA[kishis]]></namePlural>
+			<singularMaleName><![CDATA[kishi]]></singularMaleName>
+			<singularFemaleName><![CDATA[kishi]]></singularFemaleName>
+			<pluralMaleName><![CDATA[kishis]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[kishi]]></pluralFemaleName>
+		</namesDefault>
+		<names legConfiguration="QUADRUPEDAL">
+			<name><![CDATA[kishitaur]]></name>
+			<namePlural><![CDATA[kishitaurs]]></namePlural>
+			<singularMaleName><![CDATA[kishitaur]]></singularMaleName>
+			<singularFemaleName><![CDATA[kishitauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[kishitaurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[kishitauresses]]></pluralFemaleName>
+		</names>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>
-		<!-- Naming: -->
-		<feralName><![CDATA[spotted hyena]]></feralName>
-		<feralNamePlural><![CDATA[spotted hyenas]]></feralNamePlural>
-		<feralSingularMaleName><![CDATA[spotted hyena]]></feralSingularMaleName>
-		<feralSingularFemaleName><![CDATA[spotted hyena]]></feralSingularFemaleName>
-		<feralPluralMaleName><![CDATA[spotted hyenas]]></feralPluralMaleName>
-		<feralPluralFemaleName><![CDATA[spotted hyenas]]></feralPluralFemaleName>
+		<!-- As ferals can only be of one leg configuration, there is no need to define names based on a 'legConfiguration' attribute as done with half-demons and anthro names.
+		As such, just define your names like so: -->
+		<name><![CDATA[spotted hyena]]></name>
+		<namePlural><![CDATA[spotted hyenas]]></namePlural>
+		<singularMaleName><![CDATA[spotted hyena]]></singularMaleName>
+		<singularFemaleName><![CDATA[spotted hyena]]></singularFemaleName>
+		<pluralMaleName><![CDATA[spotted hyenas]]></pluralMaleName>
+		<pluralFemaleName><![CDATA[spotted hyenas]]></pluralFemaleName>
 		
 		<!-- The leg configuration that a feral form of this subspecies has.
 		This determines their overall body shape. -->
@@ -151,6 +178,13 @@
 		<sizeHeight>true</sizeHeight>
 		<!-- The height/length of this subspecies' feral form, measured in cm. -->
 		<size>85</size>
+		<!-- The length of this feral form's tail when in the form of a serpent.
+		Hyenas cannot transform to gain a serpent-tail lower body, so this really has no effect whatsoever, but if your subspecies is something like a snake, you'll want to set this to a reasonable value.
+		Values are defined as a percentage of the character's 'size', with this percentage being added onto their size to generate their total length.
+		As most of a snake's length is in fact their body, not their tail, the usual value for this element is a lot lower than you might expect, and is by default 0.1 (which represents 10%).
+		For an example of how this works, if this hyena was to somehow become a serpent-tailed feral, they would have a body length of 85 (as defined above in the 'size' element) plus an additional 10% of that from their tail length as defined here.
+			So, they would be: 85 + (0.1*85) = 85 + 8.5 = 93.5cm long. -->
+		<serpentTailLength>0.1</serpentTailLength>
 		
 		<!-- The number of breast rows this feral form has on their chest.
 		This will usually be 0, as it refers to breasts in the position of humans, which most animals lack. -->
@@ -238,7 +272,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

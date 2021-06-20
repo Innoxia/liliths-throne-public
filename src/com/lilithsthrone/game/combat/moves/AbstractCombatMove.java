@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -104,7 +101,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -119,7 +116,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -134,7 +131,7 @@ public abstract class AbstractCombatMove {
 			boolean canTargetEnemies,
 			boolean canTargetSelf,
 			Map<AbstractStatusEffect, Integer> statusEffects) {
-		this(category, name, cooldown, APcost, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
 	}
     
     /**
@@ -150,6 +147,7 @@ public abstract class AbstractCombatMove {
     		String name,
     		int cooldown,
     		int APcost,
+    		int equipWeighting,
     		CombatMoveType type,
     		DamageType damageType,
 			DamageVariance damageVariance,
@@ -158,7 +156,8 @@ public abstract class AbstractCombatMove {
     		boolean canTargetAllies,
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
-			Map<AbstractStatusEffect, Integer> statusEffects) {
+			Map<AbstractStatusEffect, Integer> statusEffects,
+			Map<AbstractStatusEffect, Integer> statusEffectsCritical) {
     	this.fromExternalFile = false;
     	this.mod = false;
     	
@@ -169,7 +168,7 @@ public abstract class AbstractCombatMove {
         
         this.cooldown = cooldown;
         this.APcost = APcost;
-        this.equipWeighting = 1;
+        this.equipWeighting = equipWeighting;
         this.type = type;
         this.baseDamage = 0;
         this.damageType = damageType;
@@ -179,7 +178,7 @@ public abstract class AbstractCombatMove {
         this.canTargetSelf = canTargetSelf;
         
         this.statusEffects = statusEffects;
-        this.statusEffectsCritical = new HashMap<>();
+        this.statusEffectsCritical = statusEffectsCritical;
 
         this.associatedSpell = null;
         
@@ -206,9 +205,7 @@ public abstract class AbstractCombatMove {
 	public AbstractCombatMove(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

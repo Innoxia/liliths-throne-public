@@ -194,8 +194,7 @@ public class EnforcerWarehouse {
 		if(Main.game.getNpc(Claire.class).getLust()>75) {
 			return new ResponseSex(
 					"Offer help",
-					"There's a suitable place behind some nearby crates where you could help Claire get some relief...<br/>"
-							+ "[style.italicsSex(Claire will be unwilling to perform any more sexual actions after doing this.)]",
+					"There's a suitable place behind some nearby crates where you could help Claire get some relief...",
 					true,
 					true,
 					new SMClaireWarehouse(
@@ -498,7 +497,7 @@ public class EnforcerWarehouse {
 		@Override
 		public String getContent() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireWarning)) {
-				NPC guard = Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_WAREHOUSE).getNearestCell(PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST, Main.game.getPlayer().getLocation())).get(0);
+				NPC guard = Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_WAREHOUSE).getClosestCell(Main.game.getPlayer().getLocation(), PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST)).get(0);
 				return UtilText.parseFromXMLFile("places/dominion/enforcerWarehouse/generic", "CLAIRE_WARNING", guard);
 			} else {
 				return CORRIDOR.getContent();
@@ -611,7 +610,7 @@ public class EnforcerWarehouse {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(weapon, 1, false, true));
 								
 							} else {
-								List<AbstractItemType> itemTypes = Util.newArrayListOfValues(ItemType.BOTTLED_ESSENCE_DEMON, ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift"), ItemType.FETISH_UNREFINED);
+								List<AbstractItemType> itemTypes = Util.newArrayListOfValues(ItemType.getItemTypeFromId("BOTTLED_ESSENCE_DEMON"), ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift"), ItemType.FETISH_UNREFINED);
 								AbstractItem item = Main.game.getItemGen().generateItem(Util.randomItemFrom(itemTypes));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(item, 3+Util.random.nextInt(6), false, true));
 							}
@@ -732,7 +731,7 @@ public class EnforcerWarehouse {
 				return new Response("Help", "Ask Claire if she's ok.", CRATES_LUST_WEAPON_OBTAINED) {
 					@Override
 					public void effects() {
-						AbstractItem item = Main.game.getItemGen().generateItem(ItemType.BOTTLED_ESSENCE_DEMON);
+						AbstractItem item = Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("BOTTLED_ESSENCE_DEMON"));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_lightningGlobe_lightning_globe", DamageType.LUST), 1, false, true));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(item, 3, false, true));
 					}

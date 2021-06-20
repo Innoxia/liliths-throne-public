@@ -22,11 +22,11 @@
 	
 	<!-- The id of the item associated with this race which can be enchanted to modify attributes.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_vanilla_water'. -->
-	<attributeItemId>dsg_race_shark_tuna_sashimi</attributeItemId>
+	<attributeItemId>dsg_race_shark_grog</attributeItemId>
 	
 	<!-- The id of the item associated with this race which can be enchanted to create a transformation potion.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_bread_roll'. -->
-	<transformativeItemId>dsg_race_shark_grog</transformativeItemId>
+	<transformativeItemId>dsg_race_shark_tuna_sashimi</transformativeItemId>
 	
 	<!-- An integer representing how important this Subspecies is to be defined as a character's Subspecies override (meaning that this Subspecies will always be their true Subspecies, no matter the race of their body parts).
 	The default value is 0, which, along with any negative integer value, means that this Subspecies does not set an Override.
@@ -97,26 +97,30 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[shark-morph]]></name>
-	<namePlural><![CDATA[shark-morphs]]></namePlural>
-	<singularMaleName><![CDATA[shark-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[shark-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[shark-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[shark-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[shark-morph]]></name>
+			<namePlural><![CDATA[shark-morphs]]></namePlural>
+			<singularMaleName><![CDATA[shark-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[shark-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[shark-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[shark-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic shark, known as a 'shark-morph' when bipedal, and a 'nanaue' when the lower body is that of a typically-oversized feral shark.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[kojin]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[kojin]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[kojin]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[kojin]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[kojin]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[kojin]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[kojin]]></name>
+			<namePlural><![CDATA[kojin]]></namePlural>
+			<singularMaleName><![CDATA[kojin]]></singularMaleName>
+			<singularFemaleName><![CDATA[kojin]]></singularFemaleName>
+			<pluralMaleName><![CDATA[kojin]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[kojin]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>
@@ -209,7 +213,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

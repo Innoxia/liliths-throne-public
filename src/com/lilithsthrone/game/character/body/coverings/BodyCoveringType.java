@@ -230,6 +230,28 @@ public class BodyCoveringType {
 					new Value<>(CoveringPattern.MOTTLED, 1),
 					new Value<>(CoveringPattern.MARKED, 1)))) {
 	};
+
+	/** Used for their leg covering */
+	public static AbstractBodyCoveringType HARPY_SKIN = new AbstractBodyCoveringType(
+			BodyCoveringCategory.MAIN_SKIN,
+			"a layer of", // This colour is set in GameCharacter's getCovering method, based on the colour of the dildo equipped.
+			false,
+			"skin",
+			"skin",
+			Util.newArrayListOfValues(CoveringModifier.LEATHERY),
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(
+					PresetColour.SKIN_EBONY,
+					PresetColour.SKIN_GREY,
+					PresetColour.SKIN_AMBER,
+					PresetColour.SKIN_YELLOW,
+					PresetColour.SKIN_ORANGE),
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
+			null) {
+	};
 	
 	public static AbstractBodyCoveringType DILDO = new AbstractBodyCoveringType(
 			BodyCoveringCategory.ARTIFICIAL,
@@ -1193,7 +1215,7 @@ public class BodyCoveringType {
 							break;
 						case ICE:
 							name = "ice";
-							modifier = CoveringModifier.SHIMMERING;
+							modifier = CoveringModifier.GLITTERING;
 							naturalColours.add(PresetColour.COVERING_BLUE_LIGHT);
 							naturalColours.add(PresetColour.COVERING_WHITE);
 							break;

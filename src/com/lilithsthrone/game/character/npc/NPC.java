@@ -531,9 +531,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case POSITIVE_FIVE_WORSHIP:
 					if(this.isAttractedTo(Main.game.getPlayer()) && Main.game.isIncestEnabled()) {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is [style.italicsSex(head-over-heels in love)] with you.");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and is [style.italicsSex(head-over-heels in love)] with you.");
 					} else {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and would do almost anything you asked of [npc.herHim].");
 					}
 					break;
 			}
@@ -625,9 +625,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case POSITIVE_FIVE_WORSHIP:
 					if(this.isAttractedTo(Main.game.getPlayer())) {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and is head-over-heels in love with you.");
 					} else {
-						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+						sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>adores you</i>, and would do almost anything you asked of [npc.herHim].");
 					}
 					break;
 			}
@@ -687,6 +687,26 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		this.sellModifier = sellModifier;
 	}
 
+	/**
+	 * This method is called every time this NPC is involved in a transaction with the player (in InventoryDialogue.java).
+	 * By default it does nothing, but it can be overridden in individual NPC classes to define special behaviour.
+	 * <br/><br/>
+	 * You can safely set the DialogueFlagValue.removeTraderDescription to true here to prevent this NPC's getTraderDescription() text from being displayed.
+	 * This flag is reset to false at the start of every transaction (before this method is called), so don't worry about manually resetting it to false.
+	 * 
+	 * @param itemSold the item that was the subject of this transaction
+	 * @param quantity how many of these items were sold
+	 * @param individualPrice the price of each item
+	 * @param soldToPlayer true if the item was sold to the player, false if the item was sold by the player to this NPC
+	 */
+	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
+//		if(soldToPlayer) {
+//			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
+//			Main.game.appendToTextStartStringBuilder("<p>You bought something!</p>");
+//		}
+	}
+	
+	
 	// Combat:
 	
 	private List<Spell> getSpellsAbleToCast() {
@@ -730,7 +750,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case POISON_VAPOURS:
 				case SLAM:
 				case VACUUM:
+				case ARCANE_LIGHTNING_SUPERBOLT:
 					if(Main.combat.isOpponent(this, target)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case ARCANE_CHAIN_LIGHTNING:
+					if(Main.combat.getEnemies(this).size()>1) {
 						weightedSpellMap.put(spell, 1);
 					}
 					break;
@@ -925,6 +951,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return (int) ((getLevel() * 25) * (1 + Math.random() - 0.5f));
 	}
 	
+	public boolean isLootingPlayerAfterCombat() {
+		return true;
+	}
+	
 	public List<AbstractCoreItem> getLootItems() {
 		double rnd = Math.random();
 		
@@ -1091,7 +1121,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
 			
 			BodyMaterial material = this.getBodyMaterial();
-			this.setBody(this.getGenderIdentity(), AbstractSubspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBody(this.getGenderIdentity(), this.getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
 			Main.game.getCharacterUtils().randomiseBody(this, false);
 			
@@ -1104,7 +1134,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			
 		} else {
-			AbstractRacialBody racialBody = RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(this).getRace());
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(this.getFleshSubspecies().getRace());
 			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
 				this.setFemininity(racialBody.getFemaleFemininity());
 				

@@ -148,7 +148,7 @@
 			#IF(pc.hasPenis())
 				Having had a good grope of your pussy, Murk pulls his fingers away, before moving his attention down to your [pc.cock+]. Grabbing hold of it, the rat-boy gives it a few strokes as he wonders out loud, [murk.speechNoEffects(I's been thinkin' about gettin' a futa milker fer some time now. You'd love havin' yer cock milked, wouldn't ya, slut?!)]
 			#ELSE
-				After giving your [pc.labia+] a few more rubs, Murk moves his attention down to your [pc.clit+]. Giving it a quick pinch, the rat-boy starts roughly stroking it as he wonders out loud, [murk.speechNoEffects(I's been thinkin' about gettin' a futa milker fer some time now. You'd love ta 'ave a nice big cock between yer legs, wouldn't ya, slut?!)]
+				After giving your [pc.labia+] a few more rubs, Murk moves his attention down to your [pc.clit+]. Giving it a quick pinch, the rat-boy starts roughly stroking it as he wonders out loud, [murk.speechNoEffects(I's been thinkin' about gettin' a futa milker fer some time now. You'd love ta 'ave a nice big cock#IF(pc.hasLegs()) between yer legs#ENDIF, wouldn't ya, slut?!)]
 			#ENDIF
 		</p>
 	#ELSEIF(pc.hasPenis())
@@ -166,7 +166,7 @@
 		</p>
 	#ELSE
 		<p>
-			Letting out a disappointed grunt as he sees that you've got no genitalia at all between your legs, the chubby rat-boy starts running his fingers over your genderless mound as he wonders out loud, [murk.speechNoEffects(I's been thinkin' about gettin' a futa milker fer some time now. You's gonna want a cock, slut, or shall I just give yer a cunt an' make ya a woman like the rest o' these milkers?!)]
+			Letting out a disappointed grunt as he sees that you've got no genitalia at all#IF(pc.hasLegs()) between your legs#ENDIF, the chubby rat-boy starts running his fingers over your genderless mound as he wonders out loud, [murk.speechNoEffects(I's been thinkin' about gettin' a futa milker fer some time now. You's gonna want a cock, slut, or shall I just give yer a cunt an' make ya a woman like the rest o' these milkers?!)]
 		</p>
 	#ENDIF
 	]]>
@@ -208,7 +208,7 @@
 		</p>
 	#ELSE
 		<p>
-			Letting out a disappointed grunt as he sees that you've got no genitalia at all between your legs, the chubby rat-boy gives your ass a sharp slap before walking off to the other side of the room. Although you're unable to turn and see what's going on behind you, the sound of a wooden chair being dragged across the room lets you know what Murk is doing.
+			Letting out a disappointed grunt as he sees that you've got no genitalia at all#IF(pc.hasLegs()) between your legs#ENDIF, the chubby rat-boy gives your ass a sharp slap before walking off to the other side of the room. Although you're unable to turn and see what's going on behind you, the sound of a wooden chair being dragged across the room lets you know what Murk is doing.
 		</p>
 		<p>
 			Placing this chair right behind you, the short rat-boy climbs up on top of it, and then, just a moment later, you feel the head of his cock prodding at your exposed asshole. Letting out an amused chuckle, the rat-boy gives your ass another sharp slap and wonders out loud, [murk.speechNoEffects(So, are ya gonna try an' show me that ya ain't no slut, or are ya gonna reveal ya true nature an' try an' get me ta stuff me fat cock in yer sissy fuck-hole?!)]
@@ -568,7 +568,7 @@
 		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuta))
 			 [murk.speechNoEffects(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be havin' big fat tits, a droolin' cunt, an' a big ol' futa cock!)]
 		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMasculine))
-			 [murk.speechNoEffects(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' real manly, with a big ol' cock between yer legs!)]
+			 [murk.speechNoEffects(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' real manly with a big ol' cock#IF(pc.hasLegs()) between yer legs#ENDIF!)]
 		#ELSE
 			 [murk.speechNoEffects(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' like a pathetic sissy, with a tiny little cock an' a big fuckable ass!)]
 		#ENDIF
@@ -604,7 +604,7 @@
 		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuta))
 			 [murk.speechNoEffects(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be havin' fat tits, a big futa cock, an' a pretty little cunt ready fer breakin!)]
 		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMasculine))
-			 [murk.speechNoEffects(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' real manly, with a big ol' cock between yer legs!)]
+			 [murk.speechNoEffects(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' real manly with a big ol' cock#IF(pc.hasLegs()) between yer legs#ENDIF!)]
 		#ELSE
 			 [murk.speechNoEffects(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' like a pathetic sissy, with a tiny little cock an' a big fuckable ass!)]
 		#ENDIF
@@ -1034,13 +1034,13 @@
 		With her [npc4.breastSize] tits pressing down into your upper back, the milker shuffles back until her exposed rear-end is hanging over your ass. While she's not particularly heavy, you're still annoyed at this girl's decision to use you as a bed, but just as you open your mouth to object, she clasps both of her hands over your mouth and drawls, [npc4.speech(Master says you're not to speak... You have to do what he says... Then you get to receive his reward...)]
 	</p>
 	<p>
-		From somewhere behind you, you hear the sound of wooden furniture being dragged across the floor, and by dropping your head down to look under your body,
+		From somewhere behind you, you hear the sound of wooden furniture being dragged across the floor, 
 		#IF(pc.hasBreasts() && !pc.isTaur())
-			 you're just about able to look past your [pc.breastSize], hanging tits to
+			 and by dropping your head down to look under your body, you're just about able to look past your [pc.breastSize], hanging tits to
 		#ELSE
-			 you're able to
+			 and by tilting your head to one side, you're just about able to
 		#ENDIF
-		 see Murk placing a wooden stool behind you. In addition to this, you see him putting a small, mirror-like object down on the floor between your legs, before angling the circular surface up at forty-five degrees so that it's pointing directly at your groin. Letting out a deep chuckle, the rat-boy steps forwards and places an identical counterpart on the ground in front of you, before evilly snickering, [murk.speech(It's amazin' wot ya can find when breakin' inta dem fancy houses up in Dominion! These things are me prize possessions; dey only works over short distances, but dat's more'n enough fer what I likes ta use 'em for! Heh-heh-heh!)]
+		 see Murk placing a wooden stool behind you. In addition to this, you see him putting a small, mirror-like object down on the floor #IF(pc.hasLegs())between your legs#ELSEbeneath your groin#ENDIF, before angling the circular surface up at forty-five degrees so that it's pointing directly at your groin. Letting out a deep chuckle, the rat-boy steps forwards and places an identical counterpart on the ground in front of you, before evilly snickering, [murk.speech(It's amazin' wot ya can find when breakin' inta dem fancy houses up in Dominion! These things are me prize possessions; dey only works over short distances, but dat's more'n enough fer what I likes ta use 'em for! Heh-heh-heh!)]
 	</p>
 	<p>
 		Looking down at the curious device, you're amazed to see that it's somehow been enchanted to act as some kind of visual portal with its counterpart, and in its circular, glass lens, you're able to see
@@ -2023,7 +2023,7 @@
 			Still chuckling to himself, Murk follows the angry rat-boy out of the room, before returning just a minute later with what sounds like four other rats in tow. Moving over to pull the pumps out of the other milkers' pussies, he waddles back over to give your drooling cunt a sharp slap, before grunting, [murk.speech(This cunt's the one wot yer friend didn't want ta fuck!)]
 		</p>
 		<p>
-			As the other three rats quickly choose their milker and start roughly fucking them, the one who Murk is talking to steps up behind you and grunts, [npc.speech(He usually goes to the red light district up in Dominion, an' I forgot ta tell 'im about the state o' yer milker's stinkin' cunts. Oh well, it's 'is loss; their twats may be fat an' ugly, but there ain't no whore wot moans like they does!)]
+			As the other three rats quickly choose their milker and start roughly fucking them, the one who Murk is talking to steps up behind you and grunts, [npc.speech(He usually goes to the red-light district up in Dominion, an' I forgot ta tell 'im about the state o' yer milker's stinkin' cunts. Oh well, it's 'is loss; their twats may be fat an' ugly, but there ain't no whore wot moans like they does!)]
 		</p>
 		<p>
 			The [npc.race]'s degrading talk about the unsightly appearance of your [pc.pussyColour] pussy massively turns you on, and as you hear [npc.herHim] pulling out [npc.her] cock, you submissively lift your hips and let out an excited moan. Grunting in amusement, the [npc.race] slaps your [pc.ass+], before stepping forwards and teasing the head of [npc.her] cock over your dangling labia. As you feel your pussy uncontrollably drooling in excitement, the [npc.race] teases, [npc.speech(Yer ugly cunt even stinks like all the other milkers'! So come on, slut, beg fer me cock, an' I'll give yer fat twat a real good fuckin'!)]
@@ -2287,21 +2287,21 @@
 				Although you've felt your belly starting to swell over the past few hours, Murk only notices that you're showing signs of being pregnant as you [pc.walk] over and submit to him. Chuckling in delight, he bends down to stroke your pregnant belly, before grunting, [murk.speech(I see that yer womb's been claimed by me seed, slut! Well, unless it were one o' those other rats 'o got ya pregnant, but with 'ow much o' me stinkin' cum I stuffed inside o' ya, I's betting those kids growin' in yer belly are mine! Heh-heh-heh!)]
 			</p>
 			<p>
-				Unlike the previous times the brown-furred rat-boy has fucked you, Murk starts to strip out of all of his clothing, and as he quickly reveals his naked, chubby body to you, he sneers, [murk.speech(Now that yer finished yer milker trainin', it's time fer yer fat, ugly cunt ta commit ta its relationship with me stinkin' cock! This'll be the start o' yer new life, milker, an' yer pregnant belly is proof o' the bond that's already between us! Now lie back an' spread yer legs, tell me that I's yer Master, an' that yer cunt is ferever owned by me fat cock!)]
+				Unlike the previous times the brown-furred rat-boy has fucked you, Murk starts to strip out of all of his clothing, and as he quickly reveals his naked, chubby body to you, he sneers, [murk.speech(Now that yer finished yer milker trainin', it's time fer yer fat, ugly cunt ta commit ta its relationship with me stinkin' cock! This'll be the start o' yer new life, milker, an' yer pregnant belly is proof o' the bond that's already between us! Now lie back an' #IF(pc.hasLegs())spread yer legs#ELSEpresent yerself ta me#ENDIF, tell me that I's yer Master, an' that yer cunt is ferever owned by me fat cock!)]
 			</p>
 		#ELSEIF(pc.hasVagina)
 			<p>
 				Chuckling in delight at your display of absolute submission, he looks down at your flat belly and grunts, [murk.speech(Looks like I ain't managed ta claim yer womb just yet, slut, but I's got plenty o' time ta get ya knocked up!)]
 			</p>
 			<p>
-				Unlike the previous times the brown-furred rat-boy has fucked you, Murk starts to strip out of all of his clothing, and as he quickly reveals his naked, chubby body to you, he sneers, [murk.speech(Now that yer finished yer milker trainin', it's time fer yer fat, ugly cunt ta commit ta its relationship with me stinkin' cock! This'll be the start o' yer new life, milker, an' we's gonna celebrate it by fillin' yer womb with me hot cum again! Now lie back an' spread yer legs, tell me that I's yer Master, an' that yer cunt is ferever owned by me fat cock!)]
+				Unlike the previous times the brown-furred rat-boy has fucked you, Murk starts to strip out of all of his clothing, and as he quickly reveals his naked, chubby body to you, he sneers, [murk.speech(Now that yer finished yer milker trainin', it's time fer yer fat, ugly cunt ta commit ta its relationship with me stinkin' cock! This'll be the start o' yer new life, milker, an' we's gonna celebrate it by fillin' yer womb with me hot cum again! Now lie back an' #IF(pc.hasLegs())spread yer legs#ELSEpresent yerself ta me#ENDIF, tell me that I's yer Master, an' that yer cunt is ferever owned by me fat cock!)]
 			</p>
 		#ELSE
 			<p>
 				Chuckling in delight at your display of absolute submission, he looks down at you and grunts, [murk.speech(That's me good milker bitch!)]
 			</p>
 			<p>
-				Unlike the previous times the brown-furred rat-boy has fucked you, Murk starts to strip out of all of his clothing, and as he quickly reveals his naked, chubby body to you, he sneers, [murk.speech(Now that yer finished yer milker trainin', it's time fer me stinkin' cock ta claim ownership o' ya! This'll be the start o' yer new life, milker, an' we's gonna celebrate it by fillin' yer ass with me hot cum again! Now lie back an' spread yer legs, tell me that I's yer Master, an' that yer asshole is ferever owned by me fat cock!)]
+				Unlike the previous times the brown-furred rat-boy has fucked you, Murk starts to strip out of all of his clothing, and as he quickly reveals his naked, chubby body to you, he sneers, [murk.speech(Now that yer finished yer milker trainin', it's time fer me stinkin' cock ta claim ownership o' ya! This'll be the start o' yer new life, milker, an' we's gonna celebrate it by fillin' yer ass with me hot cum again! Now lie back an' #IF(pc.hasLegs())spread yer legs#ELSEpresent yerself ta me#ENDIF, tell me that I's yer Master, an' that yer asshole is ferever owned by me fat cock!)]
 			</p>
 		#ENDIF
 	#ENDIF
@@ -2310,7 +2310,14 @@
 	
 	<htmlContent tag="CAPTIVE_DAY_3_AFTERNOON_END_SUBMIT_SEX"><![CDATA[
 	#IF(pc.hasVagina())
-		#IF(pc.isTaur())
+		#IF(!pc.hasLegs())
+			<p>
+				Being dominantly told to present yourself and commit to having your ugly, drooling cunt forever owned by that fat, musky cock sends you absolutely wild with lust, and before you know what you're doing, you've turned around and bent over in order to present your rear-facing cloaca to your love. No longer able to see him as anything other than your owner, you turn your head to look back at the evilly-grinning rat-boy and moan, [pc.speech(Here's my pussy for you, Master! ~Mmm!~ My ugly cunt will forever belong to your big, fat cock, so please, fuck me already!)]
+			</p>
+			<p>
+				Letting out a deep, horny grunt, the rat-boy crouches over your lower back, and you can't help but squeal in delight as you feel his fat cock podding at your massive, dangling labia. Not being able to stop yourself, you breathlessly pant, [pc.speech(Yes, Master! ~Ooh!~ Take ownership of my ugly pussy! ~Mmm!~ Yes! ~Aah!~)]
+			</p>
+		#ELSEIF(pc.isTaur())
 			<p>
 				Being dominantly told to present yourself and commit to having your ugly, drooling cunt forever owned by that fat, musky cock sends you absolutely wild with lust, and before you know what you're doing, you've shuffled around to present your hindquarters to your love. No longer able to see him as anything other than your owner, you turn your head to look back at the evilly-grinning rat-boy and moan, [pc.speech(Here's my pussy for you, Master! ~Mmm!~ My ugly cunt will forever belong to your big, fat cock, so please, fuck me already!)]
 			</p>
@@ -2343,7 +2350,14 @@
 			Your Master continues to relentlessly pound your quivering twat as you climax, causing you to experience pleasure like nothing you've ever felt before. Even after your orgasm has faded away, your Master's incessant humping is more than enough to ensure that a steady stream of passionately moans continue to burst forth from between your [pc.lips+]. As your cunt's fat, throbbing owner thrusts in and out of your drooling depths, you realise that it's not going to be long before your Master brings you to your climax yet again...
 		</p>
 	#ELSE
-		#IF(pc.isTaur())
+		#IF(!pc.hasLegs())
+			<p>
+				Being dominantly told to submit to that fat, musky cock sends you absolutely wild with lust, and before you know what you're doing, you've turned around and bent over in order to present your rear-facing cloaca to your love. No longer able to see him as anything other than your owner, you turn your head to look back at the evilly-grinning rat-boy and [pc.moan], [pc.speech(Here's my asshole for you, Master! ~Mmm!~ It will forever belong to your big, fat cock, so please, fuck me already!)]
+			</p>
+			<p>
+				Letting out a deep, horny grunt, the rat-boy crouches over your lower back, and you can't help but [pc.moan] in delight as you feel his fat cock podding at your puffy, wet asshole. Not being able to stop yourself, you breathlessly pant, [pc.speech(Yes, Master! ~Ooh!~ Take ownership of my ass! ~Mmm!~ Yes! ~Aah!~)]
+			</p>
+		#ELSEIF(pc.isTaur())
 			<p>
 				Being dominantly told to submit to that fat, musky cock sends you absolutely wild with lust, and before you know what you're doing, you've shuffled around to present your hindquarters to your love. No longer able to see him as anything other than your owner, you turn your head to look back at the evilly-grinning rat-boy and [pc.moan], [pc.speech(Here's my asshole for you, Master! ~Mmm!~ It will forever belong to your big, fat cock, so please, fuck me already!)]
 			</p>
@@ -2363,7 +2377,7 @@
 		</p>
 		<p>
 			Your eyes open wide as you suddenly realise that your Master is right, and as a desperate heat rises up into your ass, it starts to involuntarily clench down around the fat, musky shaft that's stuffed into it. As your orgasm unexpectedly crashes over you, your [pc.cock+] spurts its [pc.cum+]
-			#IF(pc.isTaur())
+			#IF(pc.isTaur() || !pc.hasLegs())
 				 all over the floor beneath you,
 			#ELSE
 				 down all over your own chest,
@@ -2534,7 +2548,7 @@
 	
 	<htmlContent tag="CAPTIVE_GIVE_BIRTH_END"><![CDATA[
 	<p>
-		Doing as you're told, you lie back and relax as the white-furred rat-girl steps forwards and begins to focus her arcane energy into your pregnant belly. Reassured by Silence's gentle nature, you allow yourself to relax as you spread your legs and prepare to give birth.
+		Doing as you're told, you lie back and relax as the white-furred rat-girl steps forwards and begins to focus her arcane energy into your pregnant belly. Reassured by Silence's gentle nature, you allow yourself to relax as you #IF(pc.hasLegs())spread your legs and #ENDIFprepare to give birth.
 	</p>
 	<p>
 		Although you try to stay awake for this, the power of the arcane energy being transferred into your body very quickly drains your energy, and you find yourself losing consciousness... 
@@ -2544,7 +2558,7 @@
 	
 	<htmlContent tag="CAPTIVE_GIVE_BIRTH_END_EGGS"><![CDATA[
 	<p>
-		Doing as you're told, you lie back and relax as the white-furred rat-girl steps forwards and begins to focus her arcane energy into your pregnant belly. Reassured by Silence's gentle nature you allow yourself to relax as you spread your legs and prepare to lay your eggs.
+		Doing as you're told, you lie back and relax as the white-furred rat-girl steps forwards and begins to focus her arcane energy into your pregnant belly. Reassured by Silence's gentle nature you allow yourself to relax as you #IF(pc.hasLegs())spread your legs and #ENDIFprepare to lay your eggs.
 	</p>
 	<p>
 		Although you try to stay awake for this, the power of the arcane energy being transferred into your body very quickly drains your energy, and you find yourself losing consciousness... 
@@ -2557,7 +2571,7 @@
 	
 	<htmlContent tag="CAPTIVE_GIVE_BIRTH_PROTECT_THE_EGGS"><![CDATA[
 	<p>
-		A short time later, you awake to discover that there's a freshly-laid clutch of your eggs between your legs. Overwhelmed by a burning need to protect them at all costs, you throw your body over them and shout for the nearby rat-girls, Shadow and Silence, to get away from you.
+		A short time later, you awake to discover that there's a freshly-laid clutch of your eggs #IF(pc.hasLegs())between your legs#ELSEbeside your [pc.leg]#ENDIF. Overwhelmed by a burning need to protect them at all costs, you throw your body over them and shout for the nearby rat-girls, Shadow and Silence, to get away from you.
 	</p>
 	<p>
 		Smirking as she leads Silence over towards the door, Shadow calls out, [shadow.speech(Yeah, yeah, don't worry, we's leavin'. We'll be back tomorrow once yer eggs 'ave all hatched!)]
@@ -2592,7 +2606,7 @@
 		You wake up some time later to discover that you've been carried back to Murk's milking room, and, judging from the fact that the other milkers are sleepily moaning in their stocks, it must be morning. With a groan, you sit up on your straw bedding and rub the sleep from your eyes. You immediately notice is how easy it is to move, and your groan turns into a gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
 	</p>
 	<p>
-		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling between your legs. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling #IF(pc.hasLegs())between your legs#ELSEin your groin#ENDIF. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
 	</p>
 	<p>
 		[murk.speechNoEffects(Feelin' empty down there?)] you hear the familiar voice of Murk call out from behind you. As you turn to face the chubby rat-boy, he smirks down at you and continues, [murk.speechNoEffects(Don't ya worry; me fat cock's gonna be fillin' yer dirty little cunt soon enough!)]
@@ -2611,7 +2625,7 @@
 		You wake up some time later to discover that you've been carried back to Murk's milking room, and with a groan, you sit up on your straw bedding and rub the sleep from your eyes. You immediately notice is how easy it is to move, and your groan turns into a gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
 	</p>
 	<p>
-		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling between your legs. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable whine as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling #IF(pc.hasLegs())between your legs#ELSEin your groin#ENDIF. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable whine as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
 	</p>
 	]]>
 	</htmlContent>
@@ -2885,7 +2899,7 @@
 	<htmlContent tag="CAPTIVE_CALL_OUT_SEDUCE"><![CDATA[
 	#IF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
 		<p>
-			Desperate for your Master to fuck you again, you immediately turn around and drop down onto all fours so as to present your
+			Desperate for your Master to fuck you again, you immediately turn around and #IF(pc.hasLegs())drop down onto all fours so as to #ENDIFpresent your
 			#IF(pc.hasVagina())
 				 fat, ugly pussy to him,
 			#ELSE
@@ -2901,7 +2915,9 @@
 		</p>
 		<p>
 			Eagerly doing as you're told, you follow your Master into the milking storage room, before obediently
-			#IF(pc.isTaur())
+			#IF(!pc.hasLegs())
+				 bending over and presenting your rear-facing cloaca to him.
+			#ELSEIF(pc.isTaur())
 				 dropping down onto all fours beside his sofa and presenting your hindquarters to him.
 			#ELSE
 				 lying down before him and spreading your [pc.legs].
@@ -2987,16 +3003,16 @@
 			 your puffy asshole, you submissively groan, [pc.speech(Yes, Master! I'm in love with your cock! ~Mmm!~ Please, fuck my ass! I need you inside of me!)]
 		#ENDIF
 	</p>
-	#IF(pc.isTaur())
+	#IF(pc.isTaur() || !pc.hasLegs())
 		#IF(pc.hasVagina())
 			<p>
-				Grunting in amusement, your Master clambers up onto your hindquarters and starts rubbing the head of his fat, throbbing cock up and down over your
+				Grunting in amusement, your Master clambers up onto your #IF(pc.hasLegs())hindquarters#ELSElower back#ENDIF and starts rubbing the head of his fat, throbbing cock up and down over your
 				#IF(game.isGapeContentEnabled())
 					 drooling, ruined
 				#ELSE
 					 drooling
 				#ENDIF
-				 cunt. Roughly gripping your flanks, he sneers, [murk.speech(Beg fer me cock one more time, slut! Tell me that yer a good milker slut, an' I'll fuck yer ugly pussy!)]
+				 cunt. #IF(pc.hasLegs())Roughly gripping your flanks#ELSEReaching down to roughly grip your [pc.breasts+]#ENDIF, he sneers, [murk.speech(Beg fer me cock one more time, slut! Tell me that yer a good milker slut, an' I'll fuck yer ugly pussy!)]
 			</p>
 			<p>
 				Desperately pushing your hips back against your Master's cock, you obediently squeal, [pc.speech(I'm your good milker slut, Master! ~Ooh!~ Please! I need your cock! ~Aah!~ Please, Master, fuck me!)]
@@ -3012,13 +3028,13 @@
 			</p>
 		#ELSE
 			<p>
-				Grunting in amusement, your Master clambers up onto your hindquarters and starts rubbing the head of his fat, throbbing cock up and down over your
+				Grunting in amusement, your Master clambers up onto your #IF(pc.hasLegs())hindquarters#ELSElower back#ENDIF and starts rubbing the head of his fat, throbbing cock up and down over your
 				#IF(game.isGapeContentEnabled())
 					 puffy, ruined
 				#ELSE
 					 wet, puffy
 				#ENDIF
-				 asshole. Roughly gripping your flanks, he sneers, [murk.speech(Beg fer me cock one more time, slut! Tell me that yer a good milker slut, an' I'll fuck yer ass!)]
+				 asshole. Roughly gripping your #IF(pc.hasLegs())flanks#ELSEsides#ENDIF, he sneers, [murk.speech(Beg fer me cock one more time, slut! Tell me that yer a good milker slut, an' I'll fuck yer ass!)]
 			</p>
 			<p>
 				Desperately pushing your hips back against your Master's cock, you obediently cry out, [pc.speech(I'm your good milker slut, Master! ~Ooh!~ Please! I need your cock! ~Aah!~ Please, Master, fuck me!)]
@@ -3271,16 +3287,16 @@
 	</htmlContent>
 	
 	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_STAY_SEX"><![CDATA[
-	#IF(pc.isTaur())
+	#IF(pc.isTaur() || !pc.hasLegs())
 		#IF(pc.hasVagina())
 			<p>
-				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering the hindquarters of your feral [pc.legRace]'s body into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering #IF(pc.hasLegs())the hindquarters of your feral [pc.legRace]'s body#ELSEyour rear-facing claoca down#ENDIF into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
 				#IF(game.isGapeContentEnabled())
 					 drooling, ruined
 				#ELSE
 					 drooling
 				#ENDIF
-				 cunt. Roughly slapping your flanks, he sneers, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer stinkin', ugly pussy down on me fat cock!)]
+				 cunt. Roughly slapping your #IF(pc.hasLegs())flanks#ELSE[pc.ass+]#ENDIF, he sneers, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer stinkin', ugly pussy down on me fat cock!)]
 			</p>
 			<p>
 				[pc.speech(I'm your good milker slut, Master! ~Ooh!~ Yes! I love your cock!)] you obediently squeal as you drop your hips down and spear your
@@ -3289,20 +3305,20 @@
 				#ELSE
 					 [pc.pussyColour]
 				#ENDIF
-				 cunt on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy continues roughly slapping your flanks, and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
+				 cunt on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy continues roughly slapping your #IF(pc.hasLegs())flanks#ELSE[pc.ass+]#ENDIF, and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
 			</p>
 		#ELSE
 			<p>
-				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering the hindquarters of your feral [pc.legRace]'s body into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering #IF(pc.hasLegs())the hindquarters of your feral [pc.legRace]'s body#ELSEyour rear-facing claoca down#ENDIF into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
 				#IF(game.isGapeContentEnabled())
 					 puffy, ruined
 				#ELSE
 					 wet, puffy
 				#ENDIF
-				 asshole. Roughly slapping your flanks, he sneers, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer slimy asshole down on me fat cock!)]
+				 asshole. Roughly slapping your #IF(pc.hasLegs())flanks#ELSE[pc.ass+]#ENDIF, he sneers, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer slimy asshole down on me fat cock!)]
 			</p>
 			<p>
-				[pc.speech(I'm your good milker slut, Master! ~Ooh!~ Yes! I love your cock!)] you obediently squeal as you drop your hips down and spear your [pc.asshole+] on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy continues roughly slapping your flanks, and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
+				[pc.speech(I'm your good milker slut, Master! ~Ooh!~ Yes! I love your cock!)] you obediently squeal as you drop your hips down and spear your [pc.asshole+] on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy continues roughly slapping your #IF(pc.hasLegs())flanks#ELSE[pc.ass+]#ENDIF, and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
 			</p>
 		#ENDIF
 	#ELSE
@@ -3443,7 +3459,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="DEFEAT_SEX_ORAL_START"><![CDATA[
+	<htmlContent tag="DEFEAT_SEX_ORAL"><![CDATA[
 	<p>
 		Doing as you're told, you lean forwards and plant a big, wet kiss on the tip of Murk's hot cock. Grunting in amusement as his throbbing dick pushes out of its sheath and rises to full attention, the chubby rat-boy crassly orders, [murk.speech(Now tell me fat cock that ya love it!)]
 	</p>

@@ -11,7 +11,7 @@
 	The 'secondaryColour' and 'tertiaryColour' are used alongside 'colour' in recolouring this subspecies' icon and background. -->
 	<colour>dsg_coatlJade</colour>
 	<secondaryColour>dsg_coatlPurple</secondaryColour>
-	<tertiaryColour/>
+	<tertiaryColour>dsg_coatlJade</tertiaryColour>
 	
 	<!-- Whether or not this subspecies is considered the 'main' subspecies of its parent race.
 	One subspecies, no more, of each race should have this set as true. -->
@@ -51,11 +51,8 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_faceCoatl)
+		#IF(!targetedBody.isFaceHuman() && targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_faceCoatl)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_faceCoatl)]
-		#ENDIF
-		#IF(targetedBody.getTongueType()!=TONGUE_TYPE_dsg_dragon_tongueForked)
-			[#targetedBody.setTongueType(TONGUE_TYPE_dsg_dragon_tongueForked)]
 		#ENDIF
 		#IF(!targetedBody.hasTongueModifier(TONGUE_MODIFIER_BIFURCATED))
 			[#targetedBody.addTongueModifier(TONGUE_MODIFIER_BIFURCATED)]
@@ -133,26 +130,30 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[coatl-morph]]></name>
-	<namePlural><![CDATA[coatl-morphs]]></namePlural>
-	<singularMaleName><![CDATA[coatl-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[coatl-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[coatl-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[coatl-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[coatl-morph]]></name>
+			<namePlural><![CDATA[coatl-morphs]]></namePlural>
+			<singularMaleName><![CDATA[coatl-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[coatl-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[coatl-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[coatl-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic coatl, known as a 'coatl-morph' when bipedal, and a 'coatl-naga' when the lower body is that of a typically-oversized feral coatl. To be identified as a coatl-morph, a character must be a dragon-morph with a coatl face, forked tongue, head feathers, internal ears, a normal dragon tail, and feathered wings.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[quetzalcoatl]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[quetzalcoatls]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[quetzalcoatl]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[quetzalcoatl]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[quetzalcoatls]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[quetzalcoatls]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[quetzalcoatl]]></name>
+			<namePlural><![CDATA[quetzalcoatls]]></namePlural>
+			<singularMaleName><![CDATA[quetzalcoatl]]></singularMaleName>
+			<singularFemaleName><![CDATA[quetzalcoatl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[quetzalcoatls]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[quetzalcoatls]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>
@@ -168,9 +169,10 @@
 		This determines their overall body shape. -->
 		<legConfiguration>TAIL_LONG</legConfiguration>
 		<!-- Whether or not this feral form's size is measured as height from floor to head, as for most mammals (true), or from head to tail (false), as for alligators and other low-lying animals which are far longer than they are tall. -->
-		<sizeHeight>true</sizeHeight>
+		<sizeHeight>false</sizeHeight>
 		<!-- The height/length of this subspecies' feral form, measured in cm. -->
 		<size>300</size>
+		<serpentTailLength>0.1</serpentTailLength>
 		
 		<!-- The number of breast rows this feral form has on their chest.
 		This will usually be 0, as it refers to breasts in the position of humans, which most animals lack. -->
@@ -200,10 +202,11 @@
 	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
 	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
 	<statusEffectAttributeModifiers>
-		<attribute value="10">MAJOR_PHYSIQUE</attribute>
-		<attribute value="25">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
-		<attribute value="10">DAMAGE_POISON</attribute>
-		<attribute value="10">CRITICAL_DAMAGE</attribute>
+		<attribute value="45">MAJOR_PHYSIQUE</attribute>
+		<attribute value="65">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="30">DAMAGE_POISON</attribute>
+		<attribute value="30">RESISTANCE_POISON</attribute>
+		<attribute value="20">RESISTANCE_PHYSICAL</attribute>
 		<attribute value="-10">RESISTANCE_LUST</attribute>
 	</statusEffectAttributeModifiers>
 	
@@ -245,7 +248,7 @@
 	<flags/>
 	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
 	<flags>
-		<flag>DISBALE_FURRY_PREFERENCE</flag>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
 	</flags>
 	-->
 	

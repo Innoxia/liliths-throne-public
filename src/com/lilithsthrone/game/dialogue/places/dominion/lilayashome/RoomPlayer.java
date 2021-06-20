@@ -19,8 +19,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
-import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -89,27 +87,7 @@ public class RoomPlayer {
 		charactersPresent.add(Main.game.getPlayer());
 
 		for(GameCharacter character : charactersPresent) {
-			character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
-			character.setLustNoText(character.getRestingLust());
-			
-			character.removeStatusEffect(StatusEffect.WELL_RESTED);
-			character.removeStatusEffect(StatusEffect.WELL_RESTED_BOOSTED);
-			character.removeStatusEffect(StatusEffect.WELL_RESTED_BOOSTED_EXTRA);
-			
-			boolean neet = character.hasTrait(Perk.JOB_UNEMPLOYED, true);
-			boolean emperorBed = Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);
-			AbstractStatusEffect restedEffect = StatusEffect.WELL_RESTED;
-			if(neet) {
-				if(emperorBed) {
-					restedEffect = StatusEffect.WELL_RESTED_BOOSTED_EXTRA;
-				} else {
-					restedEffect = StatusEffect.WELL_RESTED_BOOSTED;
-				}
-			} else if(emperorBed) {
-				restedEffect = StatusEffect.WELL_RESTED_BOOSTED;
-			}
-			character.addStatusEffect(restedEffect, ((neet?12:10)*60*60) + (sleepTimeInMinutes*60));
+			character.applySleep(sleepTimeInMinutes);
 		}
 
 		Main.game.getPlayer().setActive(false);
@@ -248,7 +226,7 @@ public class RoomPlayer {
 		} else if(responseTab==2) {
 			if (index == 1) {
 				return new Response("Quick shower",
-						"Use your room's ensuite to take a bath or shower."
+						"Use your room's ensuite to take a quick shower."
 								+ "<br/>[style.italicsGood(Cleans <b>a maximum of "+Units.fluid(500)+"</b> of fluids from all orifices.)]"
 								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
 //								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
@@ -918,7 +896,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("a sheep-boy and goat-boy, standing side-by-side and presenting their erect cocks as they wink playfully at you.");
 					} else {
-						sb.append("a wooly sheep-girl and goat-girl, who are lying back and spreading their legs, presenting you with their tight, wet pussies.");
+						sb.append("a woolly sheep-girl and goat-girl, who are lying back and spreading their legs, presenting you with their tight, wet pussies.");
 					}
 					break;
 				case SEPTEMBER:
@@ -2117,7 +2095,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Calendar", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			StringBuilder sb = new StringBuilder();
@@ -2173,16 +2151,16 @@ public class RoomPlayer {
 			return "";
 		}
 
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
+//		@Override
+//		public String getResponseTabTitle(int index) {
+//			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+//		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
+//			if(responseTab==1) {
+//				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+//			}
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 			} else if(index==1) {
@@ -2216,7 +2194,7 @@ public class RoomPlayer {
 	};
 	
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2252,7 +2230,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2288,7 +2266,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2330,7 +2308,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {

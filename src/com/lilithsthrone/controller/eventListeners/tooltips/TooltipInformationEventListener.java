@@ -377,7 +377,7 @@ public class TooltipInformationEventListener implements EventListener {
 			int currentCooldown = owner.getMoveCooldown(move.getIdentifier());
 			
 			Main.mainController.setTooltipSize(360,
-					352
+					(Main.game.isInCombat()?320:352)
 					+ (critReqs.size()>0?(32+critReqs.size()*16):0)
 					+ (currentCooldown>0?32:0));
 
@@ -440,13 +440,15 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 			tooltipSB.append("</div>");
 
-			if(owner.getEquippedMoves().contains(move)) {
-				tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
-			} else {
-				if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
-					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Maximum core moves selected.</div>");
+			if(!Main.game.isInCombat()) {
+				if(owner.getEquippedMoves().contains(move)) {
+					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");
+					if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
+						tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Maximum core moves selected.</div>");
+					} else {
+						tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");
+					}
 				}
 			}
 
@@ -910,7 +912,8 @@ public class TooltipInformationEventListener implements EventListener {
 									?"<span style='color:"+PresetColour.BODY_SIZE_FOUR.toWebHexString()+";'>"
 									:"<span>"))
 								+(feral&&!owner.getFeralAttributes().isSizeHeight()
-										?"Length: [unit.sizeShort(" + (owner.getHeightValue() + owner.getLegTailLength(false))+ ")]</span>"
+//										?"Length: [unit.sizeShort(" + (owner.getHeightValue() + owner.getLegTailLength(false))+ ")]</span>"
+										?"Length: [unit.sizeShort(" + (owner.getHeightValue())+ ")]</span>"
 										:"Height: [unit.sizeShort(" + owner.getHeightValue() + ")]</span>")));
 						
 						
@@ -926,6 +929,7 @@ public class TooltipInformationEventListener implements EventListener {
 								break;
 							case BIPEDAL:
 							case QUADRUPEDAL:
+							case WINGED_BIPED:
 								tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" "+owner.getFootStructure().getName()+" legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case CEPHALOPOD:
@@ -939,8 +943,9 @@ public class TooltipInformationEventListener implements EventListener {
 								}
 								break;
 							case TAIL_LONG:
-								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail"+ (feral&&!owner.getFeralAttributes().isSizeHeight()?"":" (Length: "+(Units.size(owner.getLegTailLength(false)))+")"),
-										owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
+//								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail"+ (feral&&!owner.getFeralAttributes().isSizeHeight()?"":" (Length: "+(Units.size(owner.getLegTailLength(false)))+")"),
+//										owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
+								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail (Length: "+(Units.size(owner.getLegTailLength(false)))+")", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case AVIAN:
 								tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" bird legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
@@ -964,7 +969,7 @@ public class TooltipInformationEventListener implements EventListener {
 						}
 						if (owner.getAntennaType() != AntennaType.NONE) {
 							//TODO might need changing if made like horn count:
-							tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getAntennaRows()*2))+" antennae", owner.getAntennaRace(), owner.getAntennaCovering(), owner.isAntennaFeral()));
+							tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getAntennaRows()*owner.getAntennaePerRow()))+" antennae", owner.getAntennaRace(), owner.getAntennaCovering(), owner.isAntennaFeral()));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Antennae", "None"));
 						}
@@ -1281,7 +1286,8 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append(
 					"<div class='subTitle'>"
-					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+//					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+					+"Copy Scene"
 					+ "</div>"
 					+ "<div class='description'>"
 					+ "Click to copy the currently displayed dialogue to your clipboard.<br/><br/>"
@@ -1543,15 +1549,6 @@ public class TooltipInformationEventListener implements EventListener {
 		String raceName;
 		raceName = race.getName(character, feral);
 
-		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "awoo-morph";
-		}
-		if(raceName.equals("cat-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "catte-morph";
-		}
-		if(raceName.equals("harpy") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "birb";
-		}
 		Colour primaryColour = covering.getPrimaryColour();
 		Colour secondaryColour = covering.getSecondaryColour();
 		boolean displaySecondary = covering.getPattern().isNaturalSecondColour(character);

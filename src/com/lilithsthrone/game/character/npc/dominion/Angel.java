@@ -70,7 +70,7 @@ public class Angel extends NPC {
 	
 	public Angel(boolean isImported) {
 		super(isImported, new NameTriplet("Angel"), "Cox",
-				"Angel is the owner of the brothel 'Angel's Kiss', located in Dominion's Red-light district."
+				"Angel is the owner of the brothel 'Angel's Kiss', located in Dominion's red-light district."
 						+ " A beautiful, blonde-haired human, Angel acts in a friendly and professional manner at all times.",
 				34, Month.JANUARY, 4,
 				10, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
@@ -92,6 +92,10 @@ public class Angel extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
+			this.setStartingBody(false);
+			this.equipClothing();
 		}
 	}
 
@@ -195,10 +199,10 @@ public class Angel extends NPC {
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
 		this.setVaginaLabiaSize(LabiaSize.THREE_LARGE);
 		this.setVaginaSquirter(false);
-		this.setVaginaCapacity(Capacity.SEVEN_GAPING, true);
+		this.setVaginaCapacity(Capacity.FIVE_ROOMY, true);
 		this.setVaginaWetness(Wetness.FIVE_SLOPPY);
-		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
+		this.setVaginaElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
 		
 		// Feet:
 		// Foot shape
@@ -206,31 +210,54 @@ public class Angel extends NPC {
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		// No weapons
 		
-		this.addTattoo(InventorySlot.TORSO_UNDER, 
+		this.addTattoo(InventorySlot.TORSO_UNDER,
 				new Tattoo(TattooType.TRIBAL, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, false,
 						new TattooWriting("I'm all yours", PresetColour.COVERING_BLACK, false, TattooWritingStyle.ITALICISED), null));
 		
 		// No scars
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_RED_DARK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED_DARK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_PURPLE_DARK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_PURPLE_DARK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 		
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_plunge_club_dress", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
+
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_SILVER, false), true, this);
+		
+
 		this.setPiercedEar(true);
-		this.setPiercedNavel(true);
+		this.setPiercedNose(true);
+		this.setPiercedNipples(true);
 		this.setPiercedVagina(true);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_STOMACH, true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_VAGINA, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell_pair", PresetColour.CLOTHING_SILVER, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_VAGINA, true, this);
+		
+		
+		
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_RED_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_PURPLE_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_PURPLE_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_SILVER, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_SILVER, false), true, this);
+//		
+//		this.setPiercedEar(true);
+//		this.setPiercedNavel(true);
+//		this.setPiercedVagina(true);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_STOMACH, true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_VAGINA, true, this);
 
 	}
 	

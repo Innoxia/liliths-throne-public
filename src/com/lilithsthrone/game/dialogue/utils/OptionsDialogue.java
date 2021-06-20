@@ -76,6 +76,8 @@ public class OptionsDialogue {
 	private static boolean confirmNewGame = false;
 	public static boolean startingNewGame = false;
 	
+	private static boolean alphabeticalFileSort = false;
+	
 	public static final DialogueNode MENU = new DialogueNode("Menu", "Menu", true) {
 		
 		@Override
@@ -374,9 +376,9 @@ public class OptionsDialogue {
 				i++;
 			}
 			
-			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified).reversed());
+//			Main.getSavedGames(alphabeticalFileSort).sort(Comparator.comparingLong(File::lastModified).reversed());
 			
-			for(File f : Main.getSavedGames()){
+			for(File f : Main.getSavedGames(alphabeticalFileSort)) {
 				saveLoadSB.append(getSaveLoadRow("<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				i++;
 			}
@@ -411,6 +413,22 @@ public class OptionsDialogue {
 					}
 				};
 
+			} else if (index == 2) {
+				return new Response("Sort: Date", "Sort all of your saved games by their date.", SAVE_LOAD) {
+					@Override
+					public void effects() {
+						alphabeticalFileSort = false;
+					}
+				};
+
+			} else if (index == 3) {
+				return new Response("Sort: Name", "Sort all of your saved games by their name.", SAVE_LOAD) {
+					@Override
+					public void effects() {
+						alphabeticalFileSort = true;
+					}
+				};
+
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
 
@@ -438,7 +456,7 @@ public class OptionsDialogue {
 	
 			saveLoadSB.append("<p>"
 						+ "Here you can export your current character, or delete any characters that you've exported in the past."
-						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the small 'export character' button in the top-right."
+						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the 'export character' button (in the bottom-right of the UI)."
 					+ "</p>"
 					+ "<p>"
 						+ "Exported characters can be used as a playable character when starting a new game (choose 'Start (Import)'), or as an importable slave at the Auction Block in Slaver Alley."
@@ -523,7 +541,7 @@ public class OptionsDialogue {
 			String baseName = Util.getFileName(name);
 			String identifierName = Util.getFileIdentifier(name);
 			
-			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ date
 						+ "</div>"
@@ -549,7 +567,7 @@ public class OptionsDialogue {
 					+ "</div>";
 			
 		} else {
-			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ "-"
 						+ "</div>"
@@ -1144,7 +1162,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getContent(){
-			return Main.patchNotes;
+			return Main.getPatchNotes();
 		}
 		
 		@Override
@@ -2048,6 +2066,14 @@ public class OptionsDialogue {
 							"Storm interruptions",
 							"When enabled, arcane storms will interrupt dialogue to let you know that they've started.",
 							Main.getProperties().hasValue(PropertyValue.weatherInterruptions)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+							"DIALOGUE_COPY",
+							PresetColour.BASE_BLUE_STEEL,
+							"Automatic text copying",
+							"When enabled, the current scene's text will automatically be copied to your system's clipboard every time a new scene is loaded."
+								+ " This option is so that you can easily paste the game's text into text readers without needing to select and copy the scene's text every time.",
+							Main.getProperties().hasValue(PropertyValue.automaticDialogueCopy)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 							"SILLY",
@@ -2148,11 +2174,26 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"PENETRATION_LIMITATION_DYNAMIC",
+							PresetColour.BASE_PINK_DEEP,
+							"Elasticity depth effects",
+							"When enabled, if an orifice has an elasticity of at least 'limber', the maximum 'uncomfortable depth' value will be increased, with greater elasticity values increasing it further."
+									+ " (Note: Only applies when 'Penetrative size-difference' is also turned on.)",
+							Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FOOT",
 							PresetColour.BASE_TAN,
 							"Foot Content",
 							"When disabled, removes all foot-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.footContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+					"ARMPIT",
+					PresetColour.BASE_PINK_LIGHT,
+					"Armpit Content",
+					"When disabled, removes all armpit-related actions from being available during sex.",
+					Main.getProperties().hasValue(PropertyValue.armpitContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FURRY_TAIL_PENETRATION",
@@ -2767,8 +2808,10 @@ public class OptionsDialogue {
 					+ "<b style='color:#21bfc5;'>DJ Addi</b></br>"
 					+ "<b style='color:#21bfc5;'>DSG</b></br>"
 					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"
+					+ "<b style='color:#21bfc5;'>Maxis010</b></br>"
 					+ "<b style='color:#21bfc5;'>Nnxx</b></br>"
 					+ "<b style='color:#21bfc5;'>Norin</b></br>"
+					+ "<b style='color:#21bfc5;'>NoStepOnSnek</b></br>"
 					+ "<b style='color:#21bfc5;'>Phlarx</b></br>"
 					+ "<b style='color:#21bfc5;'>Pimgd</b></br>"
 					+ "<b style='color:#21bfc5;'>Rfpnj</b></br>"

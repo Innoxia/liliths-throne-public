@@ -110,6 +110,7 @@ public enum SVGImages {
 			coverableAreaSpinneret,
 			coverableAreaMound,
 			coverableAreaThighs,
+			coverableAreaArmpits,
 			coverableAreaUrethraPenis,
 
 			eggIncubation1, eggIncubation2, eggIncubation3,
@@ -210,7 +211,7 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlowAlwaysLight.svg");
 			cornerGlowAlwaysLight = Util.inputStreamToString(is);
-			cornerGlowAlwaysLight = setColour(cornerGlowAlwaysLight, PresetColour.BASE_PITCH_BLACK, PresetColour.BASE_YELLOW_PALE, null);
+			cornerGlowAlwaysLight = setColour(cornerGlowAlwaysLight, PresetColour.BASE_PITCH_BLACK);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink_small.svg");
 			drinkSmall = Util.inputStreamToString(is);
@@ -741,6 +742,10 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaThighs.svg");
 			coverableAreaThighs = Util.inputStreamToString(is);
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaArmpits.svg");
+			coverableAreaArmpits = Util.inputStreamToString(is);
+			
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeFinger.svg");
 			penetrationTypeFinger = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypePenis.svg");
@@ -1245,7 +1250,11 @@ public enum SVGImages {
 	public String getCoverableAreaThighs() {
 		return coverableAreaThighs;
 	}
-
+	
+	public String getCoverableAreaArmpits() {
+		return coverableAreaArmpits;
+	}
+	
 	public String getPenetrationTypeFinger() {
 		return penetrationTypeFinger;
 	}

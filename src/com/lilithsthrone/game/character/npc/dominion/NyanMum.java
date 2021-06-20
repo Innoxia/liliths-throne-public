@@ -1,11 +1,14 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -74,7 +77,7 @@ public class NyanMum extends NPC {
 				"Although she's the mother of Nyan, Leotie is the polar opposite of her daughter."
 						+ " Extremely confident and assertive, she's one of the most successful businesswomen in all of Lilith's Realm."
 						+ " Considering Nyan to be her most beloved treasure, Leotie's over-protective nature has undoubtedly contributed to her daughter's timid nature.",
-				53, Month.FEBRUARY, 2,
+				47, Month.APRIL, 12,
 				15,
 				Gender.F_V_B_FEMALE,
 				Subspecies.getSubspeciesFromId("innoxia_cat_subspecies_cougar"),
@@ -83,11 +86,26 @@ public class NyanMum extends NPC {
 				WorldType.NYANS_APARTMENT,
 				PlaceType.NYAN_APARTMENT_SPARE_BEDROOM,
 				true);
+		if(!isImported) {
+			this.setPlayerKnowsName(false);
+		}
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.15")) {
+			this.setBirthday(LocalDateTime.of(this.getBirthday().getYear(), Month.APRIL, 12, 12, 0));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.16")) {
+			this.setPlayerKnowsName(false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.17")) {
+			this.setStartingBody(true);
+			this.equipClothing();
+			this.setAgeAppearanceDifference(0);
+			this.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-(46-MINIMUM_AGE), Month.APRIL, 12, 12, 0));
+		}
 	}
 
 	@Override
@@ -111,25 +129,27 @@ public class NyanMum extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE,
-					PersonalityTrait.SELFISH);
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.LEWD);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_BUSINESS_OWNER);
-	
+			
+			this.clearFetishes();
+			
 			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_FOOT_GIVING);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 	
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
+			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ZERO_HATE);
 		}
 		
 		// Body:
-		
-		this.setAgeAppearanceDifference(-8); // So that she looks mid-40's
 		
 		// Core:
 		this.setHeight(176);
@@ -142,7 +162,11 @@ public class NyanMum extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_YELLOW));
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, PresetColour.EYE_YELLOW));
 		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, PresetColour.COVERING_TAN, false, PresetColour.COVERING_TAN, false), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_ROSY, false, PresetColour.SKIN_ROSY, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_TANNED, false, PresetColour.SKIN_TANNED, false), true);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.SKIN_DARK, false, PresetColour.ORIFICE_INTERIOR, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, PresetColour.SKIN_DARK, false, PresetColour.ORIFICE_INTERIOR, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, PresetColour.SKIN_DARK, false, PresetColour.ORIFICE_INTERIOR, false), true);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, CoveringPattern.OMBRE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN, false), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
@@ -152,7 +176,7 @@ public class NyanMum extends NPC {
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
-		this.setPubicHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.TWO_MANICURED);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
 		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_CLEAR));
@@ -200,7 +224,7 @@ public class NyanMum extends NPC {
 		this.setVaginaCapacity(Capacity.FOUR_LOOSE, true);
 		this.setVaginaWetness(Wetness.TWO_MOIST);
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
 		
 		// Feet:
 		// Foot shape
@@ -209,28 +233,35 @@ public class NyanMum extends NPC {
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
+
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_CLEAR));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_CLEAR));
+		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_NONE));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_NONE));
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_bobby_pins", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_bobby_pins", PresetColour.CLOTHING_GOLD, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_BODYCONZIP_DRESS, PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_SILVER, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_BODYCONZIP_DRESS, PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_GOLD, null, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_OPEN_CARDIGAN, PresetColour.CLOTHING_TAN, false), true, this);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_TAN, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_platform_boots", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, false), true, this);
 		
-		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_YELLOW, null, false);
+		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, null, false);
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MINOR_BOOST, 0));
 		this.equipClothingFromNowhere(ring, true, this);
 		
-		AbstractClothing necklace = Main.game.getItemGen().generateClothing("innoxia_neck_gemstone_necklace", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_YELLOW, null, false);
+		AbstractClothing necklace = Main.game.getItemGen().generateClothing("innoxia_neck_gemstone_necklace", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, null, false);
 		necklace.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
 		necklace.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
 		necklace.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
@@ -240,15 +271,50 @@ public class NyanMum extends NPC {
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, false), true, this);
 	}
+	
+	public void wearCasual() {
+		this.unequipAllClothingIntoVoid(true, true);
 
-	@Override
-	public boolean isUnique() {
-		return true;
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_NONE));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_NONE));
+		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_NONE));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_NONE));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_NONE));
+		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_NONE));
+		
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
+
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_asymmetrical_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, PresetColour.CLOTHING_KHAKI, false), true, this);
+	}
+
+	public void wearLingerie(boolean kinky) {
+		this.unequipAllClothingIntoVoid(true, true);
+
+		if(kinky) {
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_bell_collar", PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_tail_ribbon_tail_ribbon", PresetColour.CLOTHING_BLACK, false), true, this);
+			
+		} else {
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+		}
 	}
 	
 	@Override
-	public void endSex() {
-		this.equipClothing();
+	public String getSpeechColour() {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
+			return super.getSpeechColour();
+		}
+		return "#caa1ea";
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override
@@ -265,4 +331,19 @@ public class NyanMum extends NPC {
 		return null;
 	}
 
+//	@Override
+//	public void endPregnancy(boolean withBirth) {
+//		List<String> offspringIds = new ArrayList<>();
+//		if(withBirth) {
+//			offspringIds = pregnantLitter.getOffspring();
+//		}
+//		super.endPregnancy(withBirth);
+//
+//		if(withBirth) {
+//			// Leotie's children can't be encountered as she finds them jobs elsewhere in the Realm:
+//			for(String npc : offspringIds) {
+//				Main.game.removeNPC(npc);
+//			}
+//		}
+//	}
 }

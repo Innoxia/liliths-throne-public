@@ -38,7 +38,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -466,7 +465,10 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBasicCoreRequirementsMet() {
-		if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent) && this.isSadisticAction()) {
+		if(this.isSadisticAction()
+				&& (!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)
+						|| !Main.sex.isSadisticActionsAllowed()
+						|| !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))) {
 			return false;
 		}
 		
@@ -490,9 +492,12 @@ public interface SexActionInterface {
 		} catch(Exception ex) {
 		}
 		
+		boolean underarmAllowed = Main.game.isArmpitContentEnabled() || (!this.getPerformingCharacterOrifices().contains(SexAreaOrifice.ARMPITS) && !this.getTargetedCharacterOrifices().contains(SexAreaOrifice.ARMPITS));
+		
 		return analAllowed
 				&& footAllowed
 				&& crotchBoobsAllowed
+				&& underarmAllowed
 				&& (this.getSexPace()==null
 					|| (this.getSexPace().isDom() == Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop non-self ongoing penetrations if full control
@@ -615,10 +620,23 @@ public interface SexActionInterface {
 				&& isPhysicallyPossible()
 				&& !isBannedFromSexManager()
 				&& !Main.sex.getPosition().isActionBlocked(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), this)) {
-			
+
+			// Forbid self actions if control is limited to NONE:
 			if(this.getParticipantType()==SexParticipantType.SELF
 					&& !this.getActionType().isOrgasmOption()
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
+				return null;
+			}
+			
+			// Forbid non-self actions if control is limited to SELF:
+			if(this.getParticipantType()!=SexParticipantType.SELF
+					&& (this.getActionType()==SexActionType.REQUIRES_EXPOSED
+							 || this.getActionType()==SexActionType.REQUIRES_NO_PENETRATION
+							 || this.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
+							 || this.getActionType()==SexActionType.START_ADDITIONAL_ONGOING
+							 || this.getActionType()==SexActionType.START_ONGOING)
+					&& !this.getActionType().isOrgasmOption()
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()<=SexControl.SELF.getValue()) {
 				return null;
 			}
 			
@@ -663,6 +681,7 @@ public interface SexActionInterface {
 								return null;
 							}
 							break;
+						case ARMPITS:
 						case BREAST_CROTCH:
 						case ANUS:
 						case ASS:
@@ -1194,7 +1213,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return !SexActionInterface.this.isPositionSwap() && (SexActionInterface.this.getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX));
+					return !SexActionInterface.this.isPositionSwap() && (SexActionInterface.this.getActionType()==SexActionType.POSITIONING || (SexActionInterface.this.getActionType()==SexActionType.SPECIAL && SexActionInterface.this.endsSex()));
 				}
 				@Override
 				public Colour getHighlightColour() {
@@ -1354,7 +1373,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return !SexActionInterface.this.isPositionSwap() && (getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX));
+					return !SexActionInterface.this.isPositionSwap() && (getActionType()==SexActionType.POSITIONING || (SexActionInterface.this.getActionType()==SexActionType.SPECIAL && SexActionInterface.this.endsSex()));
 				}
 				@Override
 				public SexPace getSexPace() {
@@ -1475,7 +1494,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public boolean isSexPositioningHighlight() {
-				return !SexActionInterface.this.isPositionSwap() && (getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX));
+				return !SexActionInterface.this.isPositionSwap() && (getActionType()==SexActionType.POSITIONING || (SexActionInterface.this.getActionType()==SexActionType.SPECIAL && SexActionInterface.this.endsSex()));
 			}
 			@Override
 			public SexPace getSexPace() {
@@ -1524,17 +1543,17 @@ public interface SexActionInterface {
 	
 	public default boolean isBannedFromSexManager() {
 		for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
-			if (Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()) != null
-					&& Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()).contains(sArea)) {
-				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterPerformingAction())) {
+			if (Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()) != null
+					&& Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()).contains(sArea)) {
+				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getInitialSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterPerformingAction())) {
 					return true;
 				}
 			}
 		}
 		for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
-			if (Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)) != null
-					&& Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
-				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterTargetedForSexAction(this))) {
+			if (Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)) != null
+					&& Main.sex.getInitialSexManager().getAreasBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
+				if(this.getParticipantType()==SexParticipantType.NORMAL || Main.sex.getInitialSexManager().isAreasBannedMapAppliedToSelfActions(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return true;
 				}
 			}
@@ -1640,7 +1659,7 @@ public interface SexActionInterface {
 						return false;
 					break;
 				case TAIL:
-					if(performingCharacter.getLegConfiguration()!=LegConfiguration.TAIL_LONG && !performingCharacter.getTailType().isSuitableForPenetration()) {
+					if(performingCharacter.getLegConfiguration()!=LegConfiguration.TAIL_LONG && !performingCharacter.isTailSuitableForPenetration()) {
 						return false;
 					}
 					break;
@@ -1667,6 +1686,7 @@ public interface SexActionInterface {
 		// Things that make *any* actions related to the orifice ***physically impossible***:
 		if(performingArea != null && performingArea.isOrifice()) {
 			switch((SexAreaOrifice) performingArea){
+				case ARMPITS:
 				case ANUS:
 				case ASS:
 				case MOUTH:
@@ -1726,9 +1746,13 @@ public interface SexActionInterface {
 		return true;
 	}
 	
-	public default List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
+	public default List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		return null;
+	}
 
-	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
+	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		return null;
+	}
 
 	// This is in the SexAction Interface, as it might be necessary in some special actions to override this to prevent condom breaks.
 	public default CondomFailure getCondomFailure(GameCharacter condomWearer, GameCharacter cumTarget) {

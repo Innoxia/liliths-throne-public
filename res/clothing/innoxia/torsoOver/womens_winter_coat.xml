@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>1400</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[women's winter coat]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[women's winter coats]]></namePlural>
+		<description><![CDATA[A stylish women's winter coat, worn both for keeping warm and to look good while doing it.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_OVER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>womens_winter_coat.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ASS</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>MOUND</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>TESTICLES</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN">
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_TAN</colour>
+			<colour>CLOTHING_BROWN</colour>
+			<colour>CLOTHING_BLUE_GREY</colour>
+			<colour>CLOTHING_BLUE_NAVY</colour>
+			<colour>CLOTHING_PURPLE_ROYAL</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BRASS</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+</clothing>

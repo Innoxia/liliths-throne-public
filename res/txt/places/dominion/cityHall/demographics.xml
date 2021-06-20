@@ -437,11 +437,11 @@
 			</p>
 		#ELSEIF(pc.hasVagina())
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to eat you out, don't you?)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down #IF(pc.hasLegs())between your legs#ELSEin front of you#ENDIF, she looks up and asks, [vanessa.speech(You want me to eat you out, don't you?)]
 			</p>
 		#ELSE
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down #IF(pc.hasLegs())between your legs#ELSEin front of you#ENDIF, she looks up and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
 			</p>
 		#ENDIF
 	#ELSE
@@ -473,11 +473,11 @@
 			</p>
 		#ELSEIF(pc.hasVagina())
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to eat you out, don't you?)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down #IF(pc.hasLegs())between your legs#ELSEin front of you#ENDIF, she looks up and asks, [vanessa.speech(You want me to eat you out, don't you?)]
 			</p>
 		#ELSE
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down #IF(pc.hasLegs())between your legs#ELSEin front of you#ENDIF, she looks up and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
 			</p>
 		#ENDIF
 	#ELSE
@@ -520,13 +520,18 @@
 	<htmlContent tag="START_SEX_EATEN_OUT"><![CDATA[
 	#IF(!pc.isTaur())
 		<p>
-			Smiling down at [vanessa.name], you spread your legs and present your [pc.pussy+] to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your [pc.labia+].
+			#IF(pc.hasLegs())
+				Smiling down at [vanessa.name], you spread your legs and present your [pc.pussy+] to her. Placing her hands on your thighs,
+			#ELSE
+				Smiling down at [vanessa.name], you present your [pc.pussy+] to her and let out [pc.a_moan] in anticipation of what's to come. Placing her hands on your hips,
+			#ENDIF
+			 the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your [pc.labia+].
 		</p>
 		<p>
 			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your [pc.pussy+].
 		</p>
 		<p>
-			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically eat you out...
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her [vanessa.lips+] against your [pc.labia+] as she starts to enthusiastically eat you out...
 		</p>
 	#ELSE
 		<p>
@@ -536,7 +541,7 @@
 			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your [pc.pussy+].
 		</p>
 		<p>
-			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically eat you out...
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her [vanessa.lips+] against your [pc.labia+] as she starts to enthusiastically eat you out...
 		</p>
 	#ENDIF
 	]]>
@@ -545,13 +550,18 @@
 	<htmlContent tag="START_SEX_EATEN_OUT_MOUND"><![CDATA[
 	#IF(!pc.isTaur())
 		<p>
-			Smiling down at [vanessa.name], you spread your legs and present your genderless mound to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your doll-like crotch.
+			#IF(pc.hasLegs())
+				Smiling down at [vanessa.name], you spread your legs and present your genderless mound to her. Placing her hands on your thighs,
+			#ELSE
+				Smiling down at [vanessa.name], you present your genderless mound to her and let out [pc.a_moan] in anticipation of what's to come. Placing her hands on your hips,
+			#ENDIF
+			 the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your doll-like crotch.
 		</p>
 		<p>
 			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your erogenous zone.
 		</p>
 		<p>
-			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically perform oral on you...
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her [vanessa.lips+] against your genderless mound as she starts to enthusiastically perform oral on you...
 		</p>
 	#ELSE
 		<p>
@@ -561,7 +571,7 @@
 			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your erogenous zone.
 		</p>
 		<p>
-			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically perform oral on you...
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her [vanessa.lips+] against your genderless mound as she starts to enthusiastically perform oral on you...
 		</p>
 	#ENDIF
 	]]>

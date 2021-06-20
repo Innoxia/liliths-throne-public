@@ -163,10 +163,10 @@
 		Obediently doing as you're told, you hurry over to where [npc2.name] is standing, and drop down onto your knees before [npc2.herHim]. Smirking down at you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the gleeful chatter coming from [npc2.her] imp guards, and commands, [npc2.speech(So, you know your place! Good! Now, on your back. Let's get you bred.)]
 	</p>
 	<p>
-		Wanting to please [npc2.name], you once more do as you're commanded, and, lying back, you spread your [pc.legs] and beg, [pc.speech(Please, give me your strong seed!)]
+		Wanting to please [npc2.name], you once more do as you're commanded, and, lying back, you #IF(pc.hasLegs())spread your [pc.legs]#ELSEpresent yourself#ENDIF and beg, [pc.speech(Please, give me your strong seed!)]
 	</p>
 	<p>
-		Kneeling down between your [pc.legs], the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against your groin, and bellows, [npc2.speech(Oh, you'll be getting it alright!)]
+		Kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEbefore you#ENDIF, the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against your groin, and bellows, [npc2.speech(Oh, you'll be getting it alright!)]
 	</p>
 	<p>
 		Letting out a happy [pc.moan], you prepare to get bred by [npc2.namePos] [npc2.cockSize] cock...
@@ -182,7 +182,7 @@
 		Wanting to please [npc2.name], you once more do as you're commanded, and, lying back to present yourself to the imps, you look over at them and whine, [pc.speech(Come on, fuck me!)]
 	</p>
 	<p>
-		Quickly moving forwards to surround you, the three alpha-imps start groping and squeezing your body, with the one between your [pc.legs] sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Quickly moving forwards to surround you, the three alpha-imps start groping and squeezing your body, with the one#IF(pc.hasLegs()) between your [pc.legs]#ELSEat your groin#ENDIF sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by [npc2.namePos] guards...
@@ -201,7 +201,7 @@
 		 Smirking down at the two of you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the gleeful chatter coming from [npc2.her] imp guards, and commands, [npc2.speech(So, you two know your place! Good! Now, on your backs. Let's get you both bred.)]
 	</p>
 	<p>
-		Wanting to please [npc2.name], you once more do as you're commanded, and, lying back, you spread your [pc.legs] and beg, [pc.speech(Please, give me your strong seed!)]
+		Wanting to please [npc2.name], you once more do as you're commanded, and, lying back, you #IF(pc.hasLegs())spread your [pc.legs]#ELSEpresent yourself#ENDIF and beg, [pc.speech(Please, give me your strong seed!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
@@ -212,7 +212,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Kneeling down between your [pc.legs], the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against your groin, and bellows, [npc2.speech(Oh, you'll be getting it alright!)]
+		Kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEbefore you#ENDIF, the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against your groin, and bellows, [npc2.speech(Oh, you'll be getting it alright!)]
 	</p>
 	<p>
 		Letting out a happy [pc.moan], you prepare to get bred by [npc2.namePos] [npc2.cockSize] cock...
@@ -231,10 +231,10 @@
 		 Smirking down at the two of you, the [npc2.race] raises [npc2.her] voice so that [npc2.she] can be heard over the gleeful chatter coming from [npc2.her] imp guards, and commands, [npc2.speech(So, you two know your place! Good! Now, on your back, [pc.race]. Let's get you bred, while your friend satisfies my imps.)]
 	</p>
 	<p>
-		Wanting to please [npc2.name], you once more do as you're commanded, and, lying back, you spread your [pc.legs] and beg, [pc.speech(Please, give me your strong seed!)]
+		Wanting to please [npc2.name], you once more do as you're commanded, and, lying back, you #IF(pc.hasLegs())spread your [pc.legs]#ELSEpresent yourself#ENDIF and beg, [pc.speech(Please, give me your strong seed!)]
 	</p>
 	<p>
-		Kneeling down between your [pc.legs], the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against your groin, and bellows, [npc2.speech(Oh, you'll be getting it alright!)]
+		Kneeling down #IF(pc.hasLegs())between your [pc.legs]#ELSEbefore you#ENDIF, the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against your groin, and bellows, [npc2.speech(Oh, you'll be getting it alright!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -245,7 +245,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Quickly moving forwards to surround [npc.herHim], the three alpha-imps start groping and squeezing [npc.namePos] body, with the one between [npc.her] [npc.legs] sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Quickly moving forwards to surround [npc.herHim], the three alpha-imps start groping and squeezing [npc.namePos] body, with the one#IF(npc.hasLegs()) between [npc.her] [npc.legs]#ELSEat [npc.her] groin#ENDIF sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -271,19 +271,19 @@
 	<p>
 		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
 		#THEN
-			Wanting to please [npc2.name], [npc.name] once more does as [npc.sheIs] commanded, and, lying back, [npc.she] spreads [npc.her] [npc.legs] and begs, [npc.speech(Please, give me your strong seed!)]
+			Wanting to please [npc2.name], [npc.name] once more does as [npc.sheIs] commanded, and, lying back, [npc.she] #IF(npc.hasLegs())spreads [npc.her] [npc.legs]#ELSEpresents [npc.herself]#ENDIF and begs, [npc.speech(Please, give me your strong seed!)]
 		#ELSE
 			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to. [npc.speech(Just get it over with.)]
 		#ENDIF
 	</p>
 	<p>
-		Kneeling down between your companion's [npc.legs], the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against [npc.her] groin, and bellows, [npc2.speech(You'll be a mother soon enough!)]
+		Kneeling down #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion#ENDIF, the [npc2.race] shuffles forwards to bump the rapidly-hardening bulge in [npc2.her] crotch against [npc.her] groin, and bellows, [npc2.speech(You'll be a mother soon enough!)]
 	</p>
 	<p>
 		Wanting to get started, you lie back and present yourself to the imps, before whining, [pc.speech(Come on, fuck me!)]
 	</p>
 	<p>
-		Quickly moving forwards to surround you, the three alpha-imps start groping and squeezing your body, with the one between your [pc.legs] sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Quickly moving forwards to surround you, the three alpha-imps start groping and squeezing your body, with the one#IF(pc.hasLegs()) between your [pc.legs]#ELSEat your groin#ENDIF sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by the imp guards, while their leader breeds [npc.name]...
@@ -313,7 +313,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Quickly moving forwards to surround you and [npc.name], the three alpha-imps start groping and squeezing your bodies, with the one between your companion's [npc.legs] sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Quickly moving forwards to surround you and [npc.name], the three alpha-imps start groping and squeezing your bodies, with the one #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion's groin#ENDIF sneering, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -351,7 +351,7 @@
 		[npc2.speech(That's right!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you and [npc.name] down onto your backs. [npc2.speech(For ones such as you, the only suitable punishment is having your bellies filled with imps!)]
 	</p>
 	<p>
-		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to fuck you and your companion in the missionary position...  
+		Taking hold of your [pc.legs]#IF(pc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to fuck you and your companion in the missionary position...  
 	</p>
 	]]>
 	</htmlContent>
@@ -381,7 +381,7 @@
 		[npc2.speech(That's right!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you and [npc.name] down onto your backs. [npc2.speech(For one such as you, the only suitable punishment is having your belly filled with imps!)]
 	</p>
 	<p>
-		As this is happening, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. The one between [npc.her] [npc.legs] sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		As this is happening, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. The one #IF(npc.hasLegs())between [npc.her] [npc.legs]#ELSEin front of [npc.her] groin#ENDIF sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -419,7 +419,7 @@
 		[npc2.speech(That's right!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before your companion and firmly pushing the two of you down onto your backs. [npc2.speech(For one such as you, the only suitable punishment is having your belly filled with imps!)]
 	</p>
 	<p>
-		As this is happening, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. The one between your [pc.legs] sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		As this is happening, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. The one #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by the imp guards, while their leader breeds [npc.name]...
@@ -452,7 +452,7 @@
 		[npc2.speech(That's right!)] [npc2.Name] bellows, before beckoning [npc2.her] imps forwards. [npc2.speech(I prefer to breed insolent trespassers, but as that's not possible with the two of you, I'll just let my guards have some fun!)]
 	</p>
 	<p>
-		As [npc2.she] says this, the three alpha-imps quickly surround you and [npc.name], before starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle the two of you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your companion's [npc.legs] and chuckling at [npc.herHim], [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		As [npc2.she] says this, the three alpha-imps quickly surround you and [npc.name], before starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle the two of you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion's groin#ENDIF and chuckling at [npc.herHim], [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -658,7 +658,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Now, let's get started!)]
 	</p>
 	<p>
-		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to fuck you in the missionary position...  
+		Taking hold of your [pc.legs]#IF(pc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to fuck you in the missionary position...  
 	</p>
 	]]>
 	</htmlContent>
@@ -677,7 +677,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before beckoning [npc2.her] imps forwards. [npc2.speech(Come on, it's not every day I let you three have fun like this!)]
 	</p>
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your [pc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(pc.hasLegs())between your [pc.legs]#ELSEto your groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by [npc2.namePos] guards...
@@ -707,7 +707,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Now, let's get started!)]
 	</p>
 	<p>
-		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to fuck you and [npc.name] in the missionary position...  
+		Taking hold of your [pc.legs]#IF(pc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to fuck you and [npc.name] in the missionary position...  
 	</p>
 	]]>
 	</htmlContent>
@@ -734,7 +734,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Come on, you three, have some fun with that [npc.race]!)]
 	</p>
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. Before [npc.she] can react to what's going on, two of the imps suddenly push [npc.her] down alongside you, with the third stepping up between [npc.her] [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. Before [npc.she] can react to what's going on, two of the imps suddenly push [npc.her] down alongside you, with the third stepping up #IF(npc.hasLegs())between [npc.her] [npc.legs]#ELSEin front of [npc.her] groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -779,7 +779,7 @@
 		</p>
 	#ENDIF
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. The one between your [pc.legs] sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. The one #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by the imp guards, while their leader breeds [npc.name]...
@@ -809,7 +809,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before beckoning [npc2.her] imps forwards. [npc2.speech(Come on, it's not every day I let you three have fun like this!)]
 	</p>
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround you and [npc.name], before starting to grope and squeeze your bodies. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your companion's [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround you and [npc.name], before starting to grope and squeeze your bodies. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion's groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -1015,7 +1015,7 @@
 		[npc2.speech(That's right!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(For one such as you, the only suitable punishment for what you've done is to have your belly filled with imps!)]
 	</p>
 	<p>
-		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to fuck you in the missionary position...  
+		Taking hold of your [pc.legs]#IF(pc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to push them apart, getting ready to fuck you in the missionary position...  
 	</p>
 	]]>
 	</htmlContent>
@@ -1037,7 +1037,7 @@
 		[npc2.speech(I'm only interested in those I can impregnate!)] [npc2.Name] bellows, before roughly shoving you down onto your back in front of [npc2.herHim]. [npc2.speech(No, if I can't knock you up, then I'm not interested. My guards, on the other hand...)]
 	</p>
 	<p>
-		As [npc2.she] says this, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your [pc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		As [npc2.she] says this, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(pc.hasLegs())between your [pc.legs]#ELSEto your groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by [npc2.namePos] guards...
@@ -1080,7 +1080,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Now, let's get started!)]
 	</p>
 	<p>
-		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to fuck you and [npc.name] in the missionary position...  
+		Taking hold of your [pc.legs]#IF(pc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to push them apart, getting ready to fuck you and [npc.name] in the missionary position...  
 	</p>
 	]]>
 	</htmlContent>
@@ -1096,7 +1096,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Come on, you three, have some fun with that [npc.race]!)]
 	</p>
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. Before [npc.she] can react to what's going on, two of the imps suddenly push [npc.her] down alongside you, with the third stepping up between [npc.her] [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. Before [npc.she] can react to what's going on, two of the imps suddenly push [npc.her] down alongside you, with the third stepping up #IF(npc.hasLegs())between [npc.her] [npc.legs]#ELSEin front of [npc.her] groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -1130,7 +1130,7 @@
 		</p>
 	#ENDIF
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. The one between your [pc.legs] sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. The one #IF(pc.hasLegs())between your [pc.legs]#ELSEin front of your groin#ENDIF sneers, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by the imp guards, while their leader breeds [npc.name]...
@@ -1149,7 +1149,7 @@
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before beckoning [npc2.her] imps forwards. [npc2.speech(Come on, it's not every day I let you three have fun like this!)]
 	</p>
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround you and [npc.name], before starting to grope and squeeze your bodies. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your companion's [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround you and [npc.name], before starting to grope and squeeze your bodies. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion's groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -1241,7 +1241,7 @@
 		[npc2.speech(I'm only interested in those I can impregnate!)] [npc2.Name] bellows, before roughly shoving [npc.name] down onto [npc.her] back in front of [npc2.herHim]. [npc2.speech(No, if I can't knock you up, then I'm not interested. You can satisfy my guards instead! Come on, you three, have some fun with this [npc.race]!)]
 	</p>
 	<p>
-		Doing as their leader commands, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. Before [npc.she] can react to what's going on, two of the imps suddenly push [npc.her] down alongside you, with the third stepping up between [npc.her] [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		Doing as their leader commands, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. Before [npc.she] can react to what's going on, two of the imps suddenly push [npc.her] down alongside you, with the third stepping up #IF(npc.hasLegs())between [npc.her] [npc.legs]#ELSEin front of [npc.her] groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		#IFnpc.isAttractedTo(npc3) || !game.isNonConEnabled()
@@ -1269,7 +1269,7 @@
 		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. [npc2.speech(You'll be mothering big broods of imps soon enough!)]
 	</p>
 	<p>
-		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to breed you and [npc.name] in the missionary position...  
+		Taking hold of your [pc.legs]#IF(pc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to push them apart, getting ready to breed you and [npc.name] in the missionary position...  
 	</p>
 	]]>
 	</htmlContent>
@@ -1282,7 +1282,7 @@
 		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. [npc2.speech(I'll make you into a mother soon enough! And as for you, [npc.race], my imps can have some fun with you!)]
 	</p>
 	<p>
-		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to breed you as the three imps rush forwards to take advantage of your companion...
+		Taking hold of your [pc.legs]#IF(pc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to push them apart, getting ready to breed you as the three imps rush forwards to take advantage of your companion...
 	</p>
 	]]>
 	</htmlContent>
@@ -1295,7 +1295,7 @@
 		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. Gazing hungrily down at [npc.name], [npc2.she] bellows, [npc2.speech(Surrender your womb to me! And as for you, [pc.race], my imps can have some fun with you!)]
 	</p>
 	<p>
-		Taking hold of [npc.namePos] [npc.legs], [npc2.name] starts to push them apart, getting ready to breed [npc.herHim] as the three imps rush forwards to take advantage of you...
+		Taking hold of [npc.namePos] [npc.legs]#IF(npc.hasLegs()), [npc2.name] starts to push them apart, getting#ELSE[npc2.name] gets#ENDIF ready to breed [npc.herHim] as the three imps rush forwards to take advantage of you...
 	</p>
 	]]>
 	</htmlContent>
@@ -1312,7 +1312,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_DOUBLE_BREEDING"><![CDATA[
 	<p>
-		Submissively allowing [npc2.name] to spread your [pc.legs], you can't help but let out a small [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc2.race].
+		Submissively allowing [npc2.name] to #IF(pc.hasLegs())spread your [pc.legs]#ELSEtake hold of your hips#ENDIF, you can't help but let out a small [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc2.race].
 	</p>
 	<p>
 		[npc2.speech(Eager to get knocked up, are you?)] [npc2.name] laughs, before shuffling forwards and bumping [npc2.her] bulge against your groin. [npc2.speech(I'll have you know that my seed's extra virile, so you two are all but guaranteed to get pregnant from this!)]
@@ -1325,7 +1325,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_BREEDING_COMPANION_IMPS"><![CDATA[
 	<p>
-		Submissively allowing [npc2.name] to spread your [pc.legs], you can't help but let out a small [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc2.race].
+		Submissively allowing [npc2.name] to #IF(pc.hasLegs())spread your [pc.legs]#ELSEtake hold of your hips#ENDIF, you can't help but let out a small [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc2.race].
 	</p>
 	<p>
 		[npc2.speech(Eager to get knocked up, are you?)] [npc2.name] laughs, before shuffling forwards and bumping [npc2.her] bulge against your groin. [npc2.speech(I'll have you know that my seed's extra virile, so you're all but guaranteed to get pregnant from this!)]
@@ -1338,7 +1338,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_IMPS_COMPANION_BREEDING"><![CDATA[
 	<p>
-		The three alpha-imps move forwards, before quickly surrounding you and starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before turning [npc2.her] attention back towards your companion. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your [pc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		The three alpha-imps move forwards, before quickly surrounding you and starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before turning [npc2.her] attention back towards your companion. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(pc.hasLegs())between your [pc.legs]#ELSEto your groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you prepare to get fucked by [npc2.namePos] guards, while their [npc2.race] leader breeds [npc.name]...
@@ -1348,7 +1348,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_DOUBLE_IMPS"><![CDATA[
 	<p>
-		The three alpha-imps move forwards, before quickly surrounding you and [npc.name] and starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your companion's [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		The three alpha-imps move forwards, before quickly surrounding you and [npc.name] and starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion's groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Letting out a submissive [pc.moan], you prepare to get fucked by [npc2.namePos] guards alongside [npc.name]...
@@ -1358,10 +1358,10 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_DOUBLE_BREEDING_EAGER"><![CDATA[
 	<p>
-		Submissively spreading your [pc.legs] for [npc.name], you can't help but let out a desperate [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc.race]. [pc.speech(Oh, yes! Come on, breed us!)]
+		Submissively #IF(pc.hasLegs())spreading your [pc.legs] for [npc2.name]#ELSEpresenting yourself to [npc2.name]#ENDIF, you can't help but let out a desperate [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc.race]. [pc.speech(Oh, yes! Come on, breed us!)]
 	</p>
 	<p>
-		[npc.speech(My, my, so eager to get knocked up!)] [npc.name] laughs, before shuffling forwards and bumping [npc.her] bulge against your groin. [npc.speech(In that case, I'm sure you'll be pleased to hear that my seed's extra virile, so you two are all but guaranteed to get pregnant from this!)]
+		[npc2.speech(My, my, so eager to get knocked up!)] [npc2.name] laughs, before shuffling forwards and bumping [npc.her] bulge against your groin. [npc2.speech(In that case, I'm sure you'll be pleased to hear that my seed's extra virile, so you two are all but guaranteed to get pregnant from this!)]
 	</p>
 	<p>
 		Letting out yet another [pc.moan] as you hear [npc2.herHim] say that, you prepare for you and [npc.name] to be made into mothers by [npc2.name]... 
@@ -1371,10 +1371,10 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_BREEDING_COMPANION_IMPS_EAGER"><![CDATA[
 	<p>
-		Submissively spreading your [pc.legs] for [npc.name], you can't help but let out a desperate [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc.race]. [pc.speech(Oh, yes! Come on, breed me!)]
+		Submissively #IF(pc.hasLegs())spreading your [pc.legs] for [npc2.name]#ELSEpresenting yourself to [npc2.name]#ENDIF, you can't help but let out a desperate [pc.moan] as you realise that you're about to be bred by this strong, dominant [npc.race]. [pc.speech(Oh, yes! Come on, breed me!)]
 	</p>
 	<p>
-		[npc.speech(My, my, so eager to get knocked up!)] [npc.name] laughs, before shuffling forwards and bumping [npc.her] bulge against your groin. [npc.speech(In that case, I'm sure you'll be pleased to hear that my seed's extra virile, so you're all but guaranteed to get pregnant from this!)]
+		[npc2.speech(My, my, so eager to get knocked up!)] [npc.name] laughs, before shuffling forwards and bumping [npc.her] bulge against your groin. [npc2.speech(In that case, I'm sure you'll be pleased to hear that my seed's extra virile, so you're all but guaranteed to get pregnant from this!)]
 	</p>
 	<p>
 		Letting out yet another [pc.moan] as you hear [npc2.herHim] say that, you eagerly prepare to be made into a mother by [npc2.name], while [npc2.her] imp guards fuck [npc.name] beside you...  
@@ -1384,7 +1384,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_IMPS_COMPANION_BREEDING_EAGER"><![CDATA[
 	<p>
-		The three alpha-imps move forwards, before quickly surrounding you and starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before turning [npc2.her] attention back towards your companion. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your [pc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		The three alpha-imps move forwards, before quickly surrounding you and starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before turning [npc2.her] attention back towards your companion. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(pc.hasLegs())between your [pc.legs]#ELSEto your groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Making a submissive noise in agreement, you eagerly prepare to get fucked by [npc2.namePos] guards, while their [npc2.race] leader breeds [npc.name]...
@@ -1394,7 +1394,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_DOUBLE_IMPS_EAGER"><![CDATA[
 	<p>
-		The three alpha-imps move forwards, before quickly surrounding you and [npc.name] and starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your companion's [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		The three alpha-imps move forwards, before quickly surrounding you and [npc.name] and starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion's groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Letting out a submissive [pc.moan], you eagerly prepare to get fucked by [npc2.namePos] guards alongside [npc.name]...
@@ -1404,7 +1404,13 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_DOUBLE_BREEDING_RESIST"><![CDATA[
 	<p>
-		You frantically try to close your [pc.legs], but [npc2.name] is far too strong, and easily manages to force them open. Realising that you're about to be bred by this strong, dominant [npc2.race], you let out a frantic scream, before trying to shuffle away from [npc2.herHim].
+		You frantically try to
+		 #IF(pc.hasLegs())
+		 	 close your [pc.legs], but [npc2.name] is far too strong, and easily manages to force them open.
+		 #ELSE
+		 	 pull away, but [npc2.name] is far too strong, and easily holds you in position.
+		 #ENDIF
+		  Realising that you're about to be bred by this strong, dominant [npc2.race], you let out a frantic scream, before trying to shuffle away from [npc2.herHim].
 	</p>
 	<p>
 		[npc2.speech(Not liking the idea of being knocked up, eh?)] [npc2.name] laughs, before shuffling forwards and bumping [npc2.her] bulge against your groin. [npc2.speech(Well, you should have thought about that before barging in here uninvited! I'll have you know that my seed's extra virile, so you're all but guaranteed to get pregnant from this!)]
@@ -1417,7 +1423,13 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_BREEDING_COMPANION_IMPS_RESIST"><![CDATA[
 	<p>
-		You frantically try to close your [pc.legs], but [npc2.name] is far too strong, and easily manages to force them open. Realising that you're about to be bred by this strong, dominant [npc2.race], you let out a frantic scream, before trying to shuffle away from [npc2.herHim].
+		You frantically try to
+		 #IF(pc.hasLegs())
+		 	 close your [pc.legs], but [npc2.name] is far too strong, and easily manages to force them open.
+		 #ELSE
+		 	 pull away, but [npc2.name] is far too strong, and easily holds you in position.
+		 #ENDIF
+		  Realising that you're about to be bred by this strong, dominant [npc2.race], you let out a frantic scream, before trying to shuffle away from [npc2.herHim].
 	</p>
 	<p>
 		[npc2.speech(Not liking the idea of being knocked up, eh?)] [npc2.name] laughs, before shuffling forwards and bumping [npc2.her] bulge against your groin. [npc2.speech(Well, you should have thought about that before barging in here uninvited! I'll have you know that my seed's extra virile, so you're all but guaranteed to get pregnant from this!)]
@@ -1430,7 +1442,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_IMPS_COMPANION_BREEDING_RESIST"><![CDATA[
 	<p>
-		The three alpha-imps move forwards, before quickly surrounding you and starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your [pc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		The three alpha-imps move forwards, before quickly surrounding you and starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(pc.hasLegs())between your [pc.legs]#ELSEto your groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Letting out a frantic scream, you do your best to resist as [npc2.namePos] guards prepare to fuck you...
@@ -1440,7 +1452,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_DOUBLE_IMPS_RESIST"><![CDATA[
 	<p>
-		The three alpha-imps move forwards, before quickly surrounding you and [npc.name] and starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your companion's [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
+		The three alpha-imps move forwards, before quickly surrounding you and [npc.name] and starting to grope and squeeze your bodies. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up #IF(npc.hasLegs())between your companion's [npc.legs]#ELSEbefore your companion's groin#ENDIF and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
 	</p>
 	<p>
 		Letting out a frantic scream, you do your best to resist as [npc2.namePos] guards prepare to fuck you...
@@ -1531,7 +1543,7 @@
 				Sliding the thong all the way up to rest in place around your [pc.hips+], the [npc.race] lets out a delighted laugh as [npc.she] then steps back to admire [npc.her] handiwork. [npc.speech(So, how does that feel? Are you desperately wishing to get pregnant from my seed yet?)]
 			</p>
 			<p>
-				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
+				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down#IF(pc.hasLegs()) between your [pc.legs]#ENDIF, you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
 			</p>
 			<p>
 				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
@@ -1557,7 +1569,7 @@
 				Sliding the thong all the way up to rest in place around your [pc.hips+], the [npc.race] lets out a delighted laugh as [npc.she] then steps back to admire [npc.her] handiwork. [npc.speech(So, how does that feel? Are you desperately wishing to get pregnant from my seed yet?)]
 			</p>
 			<p>
-				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you push your [pc.fingers] into your cum-stuffed cunt, before desperately trying to push as much of the precious seed deep into your uterus as you possibly can.
+				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down#IF(pc.hasLegs()) between your [pc.legs]#ENDIF, you push your [pc.fingers] into your cum-stuffed cunt, before desperately trying to push as much of the precious seed deep into your uterus as you possibly can.
 			</p>
 			<p>
 				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
@@ -1611,7 +1623,7 @@
 					Sliding the thong all the way up to rest in place around your [pc.hips+], the [npc2.race] lets out a delighted laugh as [npc2.she] then forces [npc.name] to wear the light pink one. Stepping back to admire [npc2.her] handiwork, [npc2.she] booms, [npc2.speech(So, how does that feel? Are you both desperately wishing to get pregnant from my seed yet?)]
 				</p>
 				<p>
-					As [npc2.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
+					As [npc2.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down#IF(pc.hasLegs()) between your [pc.legs]#ENDIF, you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
 				</p>
 				<p>
 					[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.she] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help the two of you carry, and later birth, your imp broods. Oh, and yes, before you ask, they're sealed too, although with a stronger enchantment than your dildos. You won't be taking them off any time soon!)]
@@ -1630,7 +1642,7 @@
 					Sliding the thong all the way up to rest in place around your [pc.hips+], the [npc2.race] lets out a delighted laugh as [npc2.she] then steps back to admire [npc2.her] handiwork. [npc2.speech(So, how does that feel? Are you desperately wishing to get pregnant from my seed yet?)]
 				</p>
 				<p>
-					As [npc2.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
+					As [npc2.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down#IF(pc.hasLegs()) between your [pc.legs]#ENDIF, you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
 				</p>
 				<p>
 					[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.she] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]

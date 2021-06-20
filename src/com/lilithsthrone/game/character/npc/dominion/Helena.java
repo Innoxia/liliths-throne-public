@@ -89,7 +89,7 @@ public class Helena extends NPC {
 				"Helena is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,
-				10, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
+				10, Gender.F_V_B_FEMALE, Subspecies.HARPY_SWAN, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM, true);
 		
 		if(!isImported) {
@@ -149,6 +149,9 @@ public class Helena extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.7")) {
 			this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_EBONY), false);
+		}
 	}
 
 	@Override
@@ -193,6 +196,7 @@ public class Helena extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_BLUE_LIGHT));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_PALE), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_WHITE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_EBONY), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_WHITE), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
@@ -313,25 +317,31 @@ public class Helena extends NPC {
 					Main.game.banishNPC(id);
 				}
 			}
-			for(GameCharacter character : new ArrayList<>(Main.game.getCharactersPresent(this.getCell()))) { // Catch for old version which had bugged slaves standing on Helena's tile:
+			// Catch for old version which had bugged slaves standing on Helena's tile:
+			for(GameCharacter character : new ArrayList<>(Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY).getCell(PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP)))) {
 				if(character.isSlave() && !character.getOwner().isPlayer() && character instanceof DominionAlleywayAttacker) {
 					Main.game.banishNPC((NPC) character);
 				}
 			}
-			this.removeAllSlaves();
+
+			// Helena's slaves after completing her romance quest are in holding for the player, and so should not be removed.
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && !this.getSlavesOwned().isEmpty() && !Main.game.isWorkTime() && Main.game.getHourOfDay()>12) {
+				sellOffRemainingSlaves();
+			}
+			
+			//this.removeAllSlaves();
 			
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)) {
 				for(int i=0; i<2; i++) {
 					NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-					newSlave.setHistory(Occupation.NPC_SLAVE);
 					try {
-						Main.game.addNPC(newSlave, false);
+						Main.game.addNPC(newSlave, false, true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
+					newSlave.setHistory(Occupation.NPC_SLAVE);
 					newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					addSlave(newSlave);
 					newSlave.resetInventory(true);
@@ -378,11 +388,6 @@ public class Helena extends NPC {
 						
 					} else {
 						this.returnToHome();
-					}
-					
-					// Helena's slaves after completing her romance quest are in holding for the player, and so should not be removed.
-					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && !this.getSlavesOwned().isEmpty() && !Main.game.isWorkTime() && Main.game.getHourOfDay()>12) {
-						sellOffRemainingSlaves();
 					}
 				}
 			}
