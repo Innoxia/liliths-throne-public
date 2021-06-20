@@ -4437,7 +4437,7 @@ public class Game implements XMLSaving {
 		
 		// TODO This needs more thorough testing...
 		if(
-//				Main.game.getPlayer().getTotalTimesHadSex(npc)
+//				Main.game.getPlayer().getTotalTimesHadSex(npc) > 0
 //				|| npc.getPregnantLitter()!=null
 //				|| npc.getLastLitterBirthed()!=null
 //				|| npc.getMother()!=null

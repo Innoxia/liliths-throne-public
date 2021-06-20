@@ -1391,7 +1391,7 @@
 	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_SEX_START_AS_SUB"><![CDATA[
 	<p>
 		Letting Elle take charge, you submissively lean in against her and allow her to pull you into another dominant, forceful kiss. Reaching around to give your [pc.ass+] a good grope, the horny [elle.race] pulls back and moans, 
-		#IF(elle.hasSexCountWith(pc))
+		#IF(elle.getTotalTimesHadSex(pc)>0)
 			 [elle.speech(Let's do this a little differently than the last time we were in here...)]
 		#ELSE
 			 [elle.speech(I'm looking forward to adding you to my list of sexual conquests!)]
@@ -1615,7 +1615,7 @@
 	<htmlContent tag="WES_ELLE_OFFICE_START_AS_SUB"><![CDATA[
 	<p>
 		Letting Elle take charge, you submissively lean in against her and allow her to pull you into a dominant, forceful kiss. Reaching around to give your [pc.ass+] a good grope, the horny [elle.race] pulls back and moans, 
-		#IF(elle.hasSexCountWith(pc))
+		#IF(elle.getTotalTimesHadSex(pc)>0)
 			 [elle.speech(Let's do this a little differently than the last time we were in here...)]
 		#ELSE
 			 [elle.speech(I'm looking forward to adding you to my list of sexual conquests!)]
