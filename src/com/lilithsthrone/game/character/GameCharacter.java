@@ -19547,6 +19547,12 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			this.removeDirtySlot(InventorySlot.VAGINA, true);
 			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA, true);
+			
+			if(this.hasHymen()){
+				this.setVaginaVirgin(false);
+				SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER);
+				this.setVirginityLoss(sexType, this,"while giving birth");
+			}
 
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
@@ -25496,7 +25502,7 @@ public abstract class GameCharacter implements XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "It seems that the ongoing pregnancy is [style.italicsBad(preventing)] [npc.him] from turning into anything other than a slime,"
-							+ " and it looks like [npc.she] will have give birth before it will be possible to transform into having a body made of flesh."
+							+ " and it looks like [npc.she] will have to give birth before it will be possible to transform into having a body made of flesh."
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.NamePos] body is still made out of [style.boldTfGeneric(slime)]!"

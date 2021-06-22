@@ -431,9 +431,11 @@ public class DebugDialogue {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setVaginaVirgin(false);
-							SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
-							Main.game.getPlayer().setVirginityLoss(sexType, Main.game.getNpc(Brax.class),"while fooling around in the debug menu");
+							if(Main.game.getPlayer().hasHymen()) {
+								Main.game.getPlayer().setVaginaVirgin(false);
+								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
+								Main.game.getPlayer().setVirginityLoss(sexType, Main.game.getNpc(Brax.class),"while fooling around in the debug menu");
+							}
 							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Brax.class), Main.game.getNpc(Brax.class).getCum(), SexAreaOrifice.VAGINA, 1000);
 						}
 					};
@@ -442,9 +444,11 @@ public class DebugDialogue {
 					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setVaginaVirgin(false);
-							SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
-							Main.game.getPlayer().setVirginityLoss(sexType, Main.game.getNpc(Lilaya.class),"while fooling around in the debug menu");
+							if(Main.game.getPlayer().hasHymen()) {
+								Main.game.getPlayer().setVaginaVirgin(false);
+								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
+								Main.game.getPlayer().setVirginityLoss(sexType, Main.game.getNpc(Lilaya.class), "while fooling around in the debug menu");
+							}
 							Main.game.getPlayer().ingestFluid(Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getCum(), SexAreaOrifice.VAGINA, 1000);
 						}
 					};
