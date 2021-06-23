@@ -196,11 +196,6 @@ public class Body implements XMLSaving {
 			this.breastCrotch = breastCrotch;
 			return this;
 		}
-		
-		public BodyBuilder breast(Antenna antenna) {
-			this.antenna = antenna;
-			return this;
-		}
 
 		public BodyBuilder horn(Horn horn) {
 			this.horn = horn;
