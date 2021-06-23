@@ -235,6 +235,7 @@ public class Game implements XMLSaving {
 	
 	
 	public static String loadingVersion = Main.VERSION_NUMBER;
+	private static String saveKey;
 	
 	private PlayerCharacter player;
 	private ItemGeneration itemGeneration;
@@ -309,6 +310,7 @@ public class Game implements XMLSaving {
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
 
 	public Game() {
+		saveKey = String.valueOf(this.hashCode());
 		worlds = new HashMap<>();
 		for(AbstractWorldType type : WorldType.getAllWorldTypes()) {
 			worlds.put(type, null);
@@ -522,7 +524,6 @@ public class Game implements XMLSaving {
 				overwrite = true;
 			}
 		}
-		dir.mkdir();
 		
 		if(timeLog) {
 			timeStart = System.nanoTime();
@@ -541,6 +542,7 @@ public class Game implements XMLSaving {
 			Element informationNode = doc.createElement("coreInfo");
 			game.appendChild(informationNode);
 			XMLUtil.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
+			XMLUtil.addAttribute(doc, informationNode, "saveKey", Game.saveKey);
 			XMLUtil.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
 			XMLUtil.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
 			XMLUtil.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
@@ -647,7 +649,7 @@ public class Game implements XMLSaving {
 		}
 		
 		Map<Document, String> saveFiles = new HashMap<>();
-		List<String> keepFiles = Util.newArrayListOfValues("player.xml"); // Always keep the main file
+		List<String> keepFiles = Util.newArrayListOfValues("player.xml", saveKey+".key"); // Always keep the player & key file
 		saveFiles.put(doc, "player");
 		
 		// Add all NPCs:
@@ -691,6 +693,12 @@ public class Game implements XMLSaving {
 		
 		// Ending stuff:
 		try {
+			File saveKeyFile=new File("data/saves/"+exportSaveName+"/"+saveKey+".key");
+			if(!saveKeyFile.exists()) {
+				Main.deleteGame(exportSaveName);
+				dir.mkdir();
+				saveKeyFile.createNewFile();
+			}
 			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
@@ -759,6 +767,9 @@ public class Game implements XMLSaving {
 				Element informationNode = (Element) gameElement.getElementsByTagName("coreInfo").item(0);
 				
 				loadingVersion = informationNode.getAttribute("version");
+				if(!informationNode.getAttribute("saveKey").isEmpty()) {
+					saveKey=informationNode.getAttribute("saveKey");
+				}
 
 				if(!informationNode.getAttribute("lastAutoSaveTime").isEmpty()) {
 					Main.game.lastAutoSaveTime = Long.valueOf(informationNode.getAttribute("lastAutoSaveTime"));
@@ -1134,6 +1145,9 @@ public class Game implements XMLSaving {
 					File[] fileList = dir.listFiles();
 					for(File npcFile : fileList) {
 						if(npcFile.getName().equals("player.xml")) { // Don't try to import the player as an NPC
+							continue;
+						}
+						if(npcFile.getName().equals(saveKey+".key")) { // Don't try to load the key file
 							continue;
 						}
 						if(npcFile.getName().contains("OffspringSeed")) { // Don't import offspringseed here

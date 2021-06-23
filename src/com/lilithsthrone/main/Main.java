@@ -885,7 +885,6 @@ public class Main extends Application {
 				}
 			}
 			file.delete();
-			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			return;
 		} catch(Exception ex) {
 			ex.printStackTrace();
