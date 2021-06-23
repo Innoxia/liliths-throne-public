@@ -1830,6 +1830,7 @@ public class Game implements XMLSaving {
 	
 	public void initNewGame(DialogueNode startingDialogueNode) {
 		NPCMap.clear();
+		OffspringSeedMap.clear();
 		initUniqueNPCs();
 
 		// This is due to the fact that on new world creation, the player is placed at coordinates (0, 0), which reveals the three squares at the bottom left corner of the map:
