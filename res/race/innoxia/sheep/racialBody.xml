@@ -172,11 +172,11 @@
 	
 	<penisType>innoxia_sheep_penis</penisType>
 	
-	<penisLength>18</penisLength>
-	<penisGirth>4</penisGirth>
-	<testicleSize>3</testicleSize>
+	<penisLength>16</penisLength>
+	<penisGirth>3</penisGirth>
+	<testicleSize>2</testicleSize>
 	<testicleQuantity>2</testicleQuantity>
-	<cumProduction>80</cumProduction>
+	<cumProduction>50</cumProduction>
 	
 	
 	<!-- Tail: -->

@@ -48,6 +48,12 @@ import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.npc.fields.Arion;
+import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Jess;
+import com.lilithsthrone.game.character.npc.fields.Minotallys;
+import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
@@ -77,7 +83,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.5
+ * @version 0.4
  * @author Innoxia
  */
 public enum ParserTarget {
@@ -995,6 +1001,66 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Kay.class);
+		}
+	},
+	
+	FLASH(Util.newArrayListOfValues("flash"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Flash.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Flash.class);
+		}
+	},
+	
+	JESS(Util.newArrayListOfValues("jess"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Jess.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Jess.class);
+		}
+	},
+	
+	ASTRAPI(Util.newArrayListOfValues("astrapi"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Astrapi.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Astrapi.class);
+		}
+	},
+	
+	VRONTI(Util.newArrayListOfValues("vronti"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Vronti.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Vronti.class);
+		}
+	},
+	
+	ARION(Util.newArrayListOfValues("arion"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Arion.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Arion.class);
+		}
+	},
+	
+	MINOTALLYS(Util.newArrayListOfValues("minotallys"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Minotallys.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Minotallys.class);
 		}
 	},
 	

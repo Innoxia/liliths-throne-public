@@ -5,18 +5,18 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.1.96
+ * @version 0.4
  * @author Innoxia
  */
 public enum Weather {
 	
-	CLOUD("cloudy", PresetColour.GENERIC_GOOD),
+	CLOUD("cloudy", PresetColour.BASE_GREY),
 	
-	CLEAR("clear", PresetColour.GENERIC_GOOD),
+	CLEAR("clear", PresetColour.BASE_YELLOW_PALE),
 	
-	RAIN("raining", PresetColour.GENERIC_BAD),
+	RAIN("raining", PresetColour.BASE_BLUE),
 
-	SNOW("snowing", PresetColour.GENERIC_BAD),
+	SNOW("snowing", PresetColour.BASE_BLUE_LIGHT),
 	
 	MAGIC_STORM_GATHERING("stormy sky", PresetColour.GENERIC_ARCANE),
 	

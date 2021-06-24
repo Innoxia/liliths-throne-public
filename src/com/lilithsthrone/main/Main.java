@@ -84,7 +84,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.21";
+	public static final String VERSION_NUMBER = "0.4";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -171,6 +171,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Ookurikara", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Inferniken", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Ace Morris", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Zyrodil", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -933,7 +934,11 @@ public class Main extends Application {
 		}
 	}
 	
-	public static List<File> getSavedGames() {
+	/**
+	 * @param sortAlphabetically Pass in true if you want the files sorted alphabetically, false if you want them sorted by date modified.
+	 * @return A list of xml files from the 'data/saves' folder.
+	 */
+	public static List<File> getSavedGames(boolean sortAlphabetically) {
 		List<File> filesList = new ArrayList<>();
 		
 		File dir = new File("data/saves");
@@ -943,8 +948,12 @@ public class Main extends Application {
 				filesList.addAll(Arrays.asList(directoryListing));
 			}
 		}
-
-		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
+		
+		if(sortAlphabetically) {
+			filesList.sort(Comparator.comparing(File::getName));
+		} else {
+			filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
+		}
 		
 		return filesList;
 	}

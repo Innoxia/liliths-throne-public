@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/tavern_f1.xml' dialogue nodes. -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		The corridor which you find yourself travelling down connects all of the rooms of the tavern's first floor. Pictures similar to the ones found downstairs line the walls, and invariably portray some form of idyllic pastoral scene. The wall-mounted arcane lamps cast this area in a pale yellow glow, and you end up making the old, wooden floorboards creak as you [pc.walk] over them on your way forwards... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_GENERIC"><![CDATA[
+	<p>
+		The old wooden door before you leads into one of the many rooms which are rented out to lodgers, and is currently firmly shut. A sign slotted into a brass bracket displays the word 'Occupied', and you think you can hear the sounds of someone moving around within.
+	</p>
+	<p>
+		As you have no business with the room's occupant, there's little else for you to do except turn around and continue on your way down the corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_MERAXIS"><![CDATA[
+	<p>
+		Even if you didn't already know that the door before you leads to Meraxis's room, you could very easily deduce it from the words on the metal sign that's been nailed into its surface.
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			 Smiling to yourself as you see her impressive title, you read:
+		#ELSE
+			 Letting out a despairing sigh as you see her ridiculous title, you read:
+		#ENDIF
+		 'This is the lair of The Dark Siren! Only the brave or foolish dare to disturb my slumber! Mwhahahah!'
+	</p>
+	<p>
+		Wondering whether she dictated the words of this sign to someone else, or actually wrote herself laughing at the bottom, you look around at the door's ill-fitting edges to see that
+		#IF(game.getCharactersPresent().contains(meraxis))
+			 the lights inside are currently on. If you wanted to speak with Meraxis, you could knock on the door, or instead turn around and head back the way you came...
+		#ELSE
+			 the lights don't appear to be on inside. If you wanted to speak with Meraxis, it looks like you'll have to head back the way you came and search for her either in the town hall or at her usual spot downstairs...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_OWNER"><![CDATA[
+	<p>
+		The wooden door before you is tightly shut, and hanging from a nail hammered into its surface, there's a sign which reads: 'Flash's Room. Do not disturb unless in case of emergency.'
+	</p>
+	<p>
+		As there's no emergency,
+		#IF(!game.getCharactersPresent().contains(flash))
+			 and as Flash is currently downstairs working at the bar,
+		#ENDIF
+		 there's nothing to be gained from knocking on the door. Instead, all that's left for you to do is turn around and continue on your way down the corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_SEX"><![CDATA[
+	<p>
+		You find yourself standing before the only door in the corridor that's not in its original state. Not only is it painted a light shade of pink, but someone, who you assume to be Jess, has used white paint to write in flowery, feminine handwriting on the surface: 'Jess's Room. Please do not disturb! See me downstairs if you want something! xxx'
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(jess))
+			Although the door seems to have been reseated so as to form a tight seal around its frame, you can still see some light escaping through its narrow keyhole, letting you know that Jess must be inside.
+			#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+				 The need for the door's tight seal is made clear as you spend a moment standing in front of it; Jess's high-pitched moaning and the creaking of her bed can be quite clearly be heard from through the keyhole, and if the door was as poorly-fitting as the others in the corridor, you imagine that none of the lodgers would be able to get any peace while Jess was working.
+			#ELSE
+				 Honouring her written request to not be disturbed, you [pc.step] away from Jess's door and prepare to continue on your way down the corridor...
+			#ENDIF
+		#ELSE
+			Although the door seems to have been reseated so as to form a tight seal around its frame, you can still see that there's no light escaping through its narrow keyhole, letting you know that Jess isn't currently in her room. With nothing to be gained from standing here any longer, you quickly turn away from the door and prepare to continue on your way down the corridor...
+		#ENDIF
+	</p>
+	<p>
+		
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		The staircase before you winds down in an anti-clockwise fashion to the ground floor. While it's quite wide, the steps are rather steep, which seems to be the reason why a sign identical to the one found at the base has been secured to the wall, reading: 'To avoid any further accidents, please don't run up or down the stairs!'
+	</p>
+	<p>
+		From here you could travel down to the tavern's ground floor, or instead head down the corridor which connects the rooms of this level to one another...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_DOWN"><![CDATA[
+	<p>
+		Deciding to head down to the ground floor, you descend the steep staircase and soon find yourself at the bottom...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

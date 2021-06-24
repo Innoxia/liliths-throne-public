@@ -44,6 +44,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Teargas shotgun (poison damage, ranged, 2-handed, requires 4 essences to fire).
 			Pepperball bolt-action rifle (fire damage, ranged, 2-handed, requires 3 essences to fire).
 	
+	Jam's artwork (https://twitter.com/JamDrawers):
+		Added 3 images for Helena.
+		Added 4 images for Angel.
+		Added 4 images for Epona.
+		
+	KT80's artwork (https://twitter.com/KT80AT):
+		Added 2 images for Claire.
+		Added 3 images for Bunny.
+		Added 3 images for Loppy.
+	
 	Contributors:
 		Fixed issue where Enforcer patrols wouldn't spawn correctly. (by AceXP)
 		Fixed bug where non-human coverings wouldn't appear as recolouring options in Helena's slave creator. (by AceXP)
@@ -72,23 +82,70 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where 'handjob climax' sex action was describing the orgasming character cumming into their own hands, but their partner's hands were the ones that ended up dirty. Also added handjob climax action to masturbation scenes. Fixed some parser errors with Bunny and Loppy at Angel's brothel. Added wash action after seeing a client at Angel's brothel. (PR#1528 by AceXP)
 		Fixed issue with loading NPCs introduced in 0.4. (PR#1529 by AlacoGit)
 		Tidied up some code and simplified some methods for easier race modding. (PR#1523 by Stadler76)
-
+		Hyena lore book typo fixes, adjusted spotted hyena heights to fit in with lore. (by Manwhore)
+		Fixed issue where starting a new game would sometimes throw background errors. (by Stadler76)
+		Added some flavour text at Lilith's Tower, Enforcer HQ, and the statue in Slaver Alley for if the player has the tourist occupation. (by DSG)
+		
+	DSG's clothing contributions:
+		Added 'women's leather jacket' (over-torso slot, feminine, sold by Nyan). (by DSG) (The women's leather jacket already in the game has been renamed to 'Women's fashionable leather jacket'.)
+		Added 'vintage field jacket' (over-torso slot, masculine, sold by Nyan). (by DSG)
+	
+	C4MG1RL's 'Benevolent Blessing' clothing & weapon set contribution:
+		Added status effect and set bonus for 'Benevolent Blessing'. These three clothing items are all unisex and part of this Benevolent Blessing set. These items will be used along with the trickster set during the youko content later on, so can only be spawned via the debug menu for now.
+		Added 'kyudogi' (torso slot).
+		Added 'mitsugake' (hand slot).
+		Added 'benevolent necklace' (neck/wrists slot).
+		Added weapon 'Hama Yumi' (ranged, two-handed, ice/fire/poison damage types).
+		
+	Sage's 'Latex Lover' clothing set contribution:
+		Added status effect and set bonus for 'Latex Lover'. All of the following are sold by Finch.
+		Added 'latex crop top' (torso slot, unisex)
+		Added 'latex zip bra' (chest slot, feminine) 
+		Added 'latex corset' (stomach slot, feminine)
+		Added 'latex panties' (groin slot, feminine)
+		Added 'latex elbow-length gloves' (hands slot, unisex) 
+		Added 'latex arm warmers' (hands/wrists slot, unisex)
+		Added 'latex thigh-high stockings' (calves slot, unisex)
+		Added 'latex open thigh-high stockings' (calves slot, unisex)
+		Added 'latex bodysuit' (stomach slot, feminine)
+		
 	Engine/Modding:
 		Added BodyPartTag 'HAIR_IGNORE_PLAYER_SETTINGS', which tags hair types as always being present on furry heads, even if the player has 'furry hair' turned off. This is applied to hyenas.
 		Added 'genericType' fields for Wing and Horn xml files, so that you can define those types as being generic (not associated with any parent race) or not.
 		Fixed spelling error of 'DISBALE_' instead of 'DISABLE_' in SubspeciesFlag values (I added a catch for this in the code so even if your mod has the incorrect spelling it won't break).
+		Added 'flags' as a parser target for quicker access to 'game.getDialogueFlags()'.
+		Added 'CORRUPTION_LEVEL_' prefix as a parsing hook to the CorruptionLevel enum.
+		Added a few methods to the game class  to give you hooks to some useful UtilText methods: parseFromFile(); addSpecialParsingString(); and clearSpecialParsingStrings().
+		Added support for defining maps (both WorldType and PlaceType classes) as external xml files, which will (soon - hopefully in 0.4.1) allow for map modding.
+		Added support for defining DialogueNodes and Encounters as external xml files, which, like the maps, will (soon - hopefully in 0.4.1) allow for scene modding.
 	
-	Other:
-		Zaranix is now still called 'Zaranix' when in his feminine form, instead of 'Zoelix' (as the name change wasn't being mentioned anywhere or referenced at all, and didn't make much sense).
-		Tidied up Zaranix's post-combat dialogue and added variations for if non-con is turned off, as well as for the player to request Zaranix to transform into succubus form after swallowing his TF potion.
-		Made it so that Zaranix's oral sex scenes now start without you already sucking his cock, instead of having to wait for him to deal with clothing displacements first.
-		The 'flared' and 'tapered' penetration modifiers are now mutually exclusive with one another.
-		Added 'Set spawns' action in debug menu, so that you can easily spawn in all items of any clothing set.
+	Gameplay:
+		Updated descriptions of fields, river, woods, grassland, and Dominion tiles in the world map.
+		Added maps for Elis, Elis's shopping precinct, The Red Dragon tavern (both floors), and Elis town hall (both floors).
+		Added several new unique NPCs for Elis content.
+		The arcane storm status effect message will no longer interrupt scenes if the player character is not within Dominion itself.
+		Added badger race, along with 'Black Stripes Perry' and 'Berry Trifle' as the related drink and food consumables. (Thanks to DSG for creating the trifle image!)
+	
+	Weapons:
+		Added 'dory' spear (melee, one-handed). (Thanks to DSG for svg edits.)
 	
 	Sex:
 		Added 'tentacle-squeeze' and 'tail-squeeze' as miscellaneous sex actions which can be performed once a character is restricting their partner via their tentacles or serpent-tail. (These sex actions have sadist/masochist fetishes associated with them.)
 	
+	Other:
+		Zaranix is now still called 'Zaranix' when in his feminine form, instead of 'Zoelix' (as the name change wasn't being mentioned anywhere or referenced at all, and didn't make much sense).
+		Tidied up Zaranix's post-combat dialogue and added variations for if non-con is turned off, as well as for the player to request Zaranix to transform into succubus form after swallowing his TF potion.
+		Made it so that Zaranix's oral sex scenes now start with you already sucking his cock, instead of having to wait for him to deal with clothing displacements first.
+		The 'flared' and 'tapered' penetration modifiers are now mutually exclusive with one another.
+		Added 'Set spawns' action in debug menu, so that you can easily spawn in all items of any clothing set.
+		Added 'light brown' as a covering colour.
+		Added elder lilin damage attribute so as to separate lilin and elder lilin damage perks.
+		Added functionality to sort saved games by date or alphabetically.
+		Changed 'men's hakama' from being masculine to unisex, and changed the name to just 'hakama'.
+		Added light green as a covering colour.
+	
 	Bugs:
+		Minor typo and parsing fixes.
 		Fixed actions to play dice poker at tables in the gambling den not being greyed out if you didn't have enough money to play.
 		Pate and crackers will now correctly restore 20% health/aura instead of 5%.
 		Fixed issue where Zaranix (and maids) would sometimes not revert to their default bodies after you'd left his home.
@@ -103,13 +160,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
+	
+	Add a more "gentle" variant for tentacle squeeze like for example a tentacle/snake massage perhaps
+	
 	HLF Quest
 		[] Go over Elle dialogue
 		[] Add Roxy recognition of firebombs if you sold at least one to her
 		[] Weapon special attacks to be unlocked should be shown in tooltip description
 		[] Throwable weapon framework
 			[] Test multiple arm rows detection
-			
+	
 	Memoization:
 		-        return script.eval();
 		+        return script.eval(((NashornScriptEngine)engine).getContext());
@@ -121,8 +181,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Lilaya snug
 	
-	[] Posts
-		[] Artwork
+	[] pspsps Nyanmum
 	
 	[] phone map breaks when you learn nyans apartment location
 	
@@ -138,29 +197,31 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Stockroom 
 				[] Counter
 		Antique shop
-		
-	Jam art
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
 		
 	---
 	
-	Map
-		Split into regions?
-	
 	[] deer
 		glade springs - sparkling mineral water
 		tree shoots salad
 		
-	[] latex
+	[x] latex
 	
 	[] mouse
 	
-	[] read cultist doc
+	[x] read cultist doc
 	
 	[] Fields content
-		[-] Map rework
-			[-] Areas to visit/travel through instead of tiles
+		[?] Map rework (after 0.4)
+			Split into regions
+				Make map png
+					Split into regions so that individual ones can be lit up
+				Add html buttons to middle of each area
+					When hover over, light up region
+				Add travel mechanics
+					Rework world map places so that they're regions instead
+					a* region mapping
 		[] Main quest
 			[x] "Maybe you met my friend, youko-girl, in my citadel's lab?"
 			[x] "I guess I head there.​"
@@ -170,19 +231,253 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] Change dialogue so that your task is to head to Elis, and then from there you can find the Youko
 			[x] Change quest name/description
 			[-] Block leaving Dominion until quest stage is met
-			[] Update Foloi fields text
-			[] Demonic futa centaur encounter when get 2 tiles away (one of Lunette's lieutenants)
-				[] First travel (100% chance first time travelling through)
-					[] Lose get fucked
-						[] Made to eat her out then fucked
-					[] Win can fuck
-					[] Meraxis shows up afterwards, if had sex she's clearly been masturbating
-						[] She says mum taught her how to teleport, and she backtracked from Elis
-						[] Says that she's no longer grounded, and says Lyssieth told her to introduce you to the lilin in charge of town
-							[] Add support for Meraxis missing in office
-					[] Mayor meeting
-						[] add Minotallys
-						[] Lilin is extremely soft cow-girl, with an overprotective assistant
+			[x] Update Foloi fields text
+				[x] Dominion suburbs
+				[x] Foloi fields
+					[x] Check for Lunette still a threat or not
+				[x] Forests
+					[x] small Lunette variation
+				[x] Grassland
+					[x] small Lunette variation
+				[x] River
+					[x] small Lunette variation
+			[x] As well as popup when move into them, append bottom description of why cannot enter adjacent areas
+				[x] Make minimap have greyed-out borders for tiles cannot enter
+			[x] Jam art
+			[x] Add races present to Dominion world map tile
+			[x] Elis map
+				[x] Add external world type support
+					[x] Add furniture boolean to place type (overrides world type definition)
+					[x] Add sex blocked
+					[x] Code support
+					[x] Testing
+				[x] Add external place type support
+					[x] sex blocked handling
+					[x] Add inventory init
+					[x] Code support
+					[x] svg background
+					[x] Testing
+						[x] icon size/alignment
+				[x] Add external Encounter support
+					[x] Code support
+					[x] Testing
+				[x] dialogue folder
+					[x] Add custom dialogue flag support
+						[x] Code support
+						[x] Testing
+					[x] Add external DialogueNode support
+						[x] Code support
+							[x] Add DialogueManager
+						[-] conditionals for seconds passed
+						[x] seconds passed for response
+						[x] response colour
+							[x] Test
+						[x] response effects
+						[x] test sex
+							[x] Multiple partners
+							[x] masturbation
+						[x] Sort out file path separators
+						[x] Response: Support null for nextDialogue element
+							[x] Test
+						[-] Dangerous tiles don't take account of background colour?
+						[x] Time passed minutes not working
+						[x] Leave everywhere
+						[x] Encounters not triggering
+						[x] Tabs showing when none defined
+						[x] Need force encounter dialogue
+							[x] Not working
+						[x] Add support for ResponseEffects only (if nextDialogue is missing)
+							[x] Test
+						[x] Need response leading to default dialogue but with no content 'stripContent'
+							[x] test
+			[x] Test all of above
+				[x] Make simple woods encounter work
+					[x] Find berries, can eat for:
+						[x] Red berries: Health boost
+						[x] Purple: Aura boost
+						[x] Both: Corruption
+							[x] Gives max lust, triggers masturbate or calm down actions
+								[x] Masturbate, afterwards see hard seed pops growing where you picked berries
+								[x] Calm down, nothing
+					[x] Add explore action to woods
+					[x] Append dialogue for leaving berries
+				[x] Add clearing text
+				[x] Test when both encounters are 0 with 'Explore action'
+					[x] 'FLAG_innoxia_elis_berries_found, true' is somehow being set before encounter is triggered, which blocks encounter -> In triggerEffects
+					[x] Make 'Explore' action greyed-out if no encounters
+						[x] encounter id
+						[x] method to check for any encounter chance
+				[x] Adjust encounter percentages
+				[x] Artwork preview post
+				[x] Lyssieth power should also give player essences
+					[x] LILIN knowledge perk broken
+					[x] Test sex
+					[x] Test skip sex
+				[x] DSG tourist locations:
+					Approaching Lilith's Tower:
+						"Sure don't look like the brochure..."
+						"Wasn't there supposed to be a big clock somewhere....maybe it's like a big sundial?"
+						And of course attempting to take a selfie with the guards...
+					In at either Lilith or the angel's statue
+						"This must be one of them Baroque pieces I read about."
+						"Europeans sure are blase about nudity"
+					Enforcer HQ:
+						 "I just feel really sad looking at it..."
+				[] Fully write all Elis place descriptions
+					[x] Tile populations
+						[x] Code support
+						[x] Elis
+						[x] Shops
+					[x] Loiter enable
+					[x] Need entering Elis location dialogue (describe walls and skyline)
+					[x] Fields needs walls description appended to it
+						[x] Need fly up from fields
+						[x] Need fly down from walls
+					[x] Handle storm status effect message
+						[x] Handle effect when not in Dominion
+					[x] Make market a bit less exciting before Lunette is dealt with
+					[x] Need loitering allowed boolean for places
+					[x] Add a svg file path override to place type
+					[x] Add 'getPreviousPlaceType' method to check where the player was last
+						[x] Use for lake
+						[x] Use for gatehouse/walls/tower
+					[x] Need to capitalise all words in place names
+					[x] 'Dominant Sex' header on response tooltip should be 'Masturbation'
+					[x] Need to test external res encounter/dialogue/world/place after compiled export for folder name issues
+					[x] Need to standardise the weather effects descriptions formatting
+						[x] Remove (Snow:) (Arcane Storm:)
+					[x] Bug with default place names
+					[x] Need custom day hour definitions for place populations
+					[x] Descriptions for shops
+						[-] Glory hole needs a way to generate NPCs
+					[x] Need attribute 'forceContinue' to nextDialogue
+					[x] Improve discoveredOnStart definition
+					[x] Badger race
+						[x] code
+						[x] items
+							[x] food
+							[x] drink
+						[x] test
+					[x] Tavern map
+						[x] Add map
+							[x] Ground floor
+							[x] First floor
+						[x] Write all place descriptions
+							[x] Ground floor
+							[x] First floor
+						[x] Add action to enter
+					[x] Improve population day/night definitions
+					[x] Clothing
+						[x] dsg jacket
+						[x] C4M clothing
+						[x] latex
+							[x] Latex corset stomach
+					[x] Add artwork
+						[x] jam
+						[x] KT80
+					[] Add NPCs
+						[x] Flash
+						[x] Jess
+						[x] Vronti
+							[x] Need spear
+						[x] Astrapi
+							[] Need hunting bow
+						[] Add encounter buttons to Dominion and Elis
+						[x] Generic demonic centaur
+							[x] marauder
+							[x] hundred paces
+						[] Add town hall map
+							[x] maps
+							[x] dialogue
+								[x] ground floor
+								[x] first floor
+							[x] Minotallys
+							[x] Assistant: alicorn-boy Arion
+							[x] Test dialogue
+							[] Add encounter escorted out when town hall closes
+								[] Prevent loitering
+					[] Minotallys intro
+						[] Describe northern part as being home to a lot of refugees from Fields
+					[x] Woods explore not working again...
+					[] Arcane storm SE tooltip text and icon for when not in Dominion
+					[] Allow quick sex in masturbation
+					[x] Make hakama unisex
+					[] Add 'All masculine clothing is unisex' option
+					[] Fully add Meraxis encounter when leaving
+						[] Mention tavern
+						[] Mention storms not affecting people out here
+						[] Mention centaurs
+						[] Need encounter when first leaving
+							[] Add first leaving scene to describe Dominion's suburbs
+								[] Storm check (effects aren't as bad out here, even see the occasional non-demon, although they look quite horny)
+							[] Meraxis - Says that she's no longer grounded, briefly says it's worse than she remembers out in the fields
+								[] Before it used to just be Lunette going around with her herd extorting the odd village
+								[] Now her herd has grown and split into sub-groups, which are causing absolute carnage all over the Fields
+									[] She gives you the notes Lunette gave to her
+								[] Elis is the last place which has successfully repulsed centaur attacks
+							[] She says mum taught her how to teleport, and she's going to Elis - will meet you there
+								[] Add support for Meraxis missing in office
+					[] Add Meraxis at Elis
+						[] When enter tavern, leads into dialogue
+							[] Introduce Flash, Meraxis corner, room, Takahashi
+								[] She says Minotallys is really busy so let her know and she'll set you up with her
+					[] Fully framework demonic centaur encounters
+					[] Write Demonic centaurs
+					[] Market needs stalls
+						[] Add map
+							[] Interrupt if closing time, send back to Elis map
+						[] Drink
+							[] Alcohol
+							[] Soft drinks
+						[] Food
+							[] Meals
+							[] Snacks
+						[] Clothes
+						[] Trinkets
+						[] Toys
+						[] Fortunes
+							[] Named NPC - hippy rabbit-girl
+								[] Crystal ball is an enchanted item based on telekinesis (so it always involves both of you)
+									[] Results vary if player thinks of:
+										- Power -> shows you sitting on a thronw with the rabbit-girl serving you
+										- Fame -> shows rabbit-girl asking for your autograph
+										- Fortune -> shows rabbit-girl admiring all of the money you have
+										- Peace -> shows you and rabbit-girl relaxing in a villa
+										- Sex -> shows her on her table having sex with you
+											- She gets a bit flustered and tells you to think of something else -> thinking of sex again leads into her wanting sex
+						[] Kissing
+							[] Cow (ara ara main attraction), sheep (shy handling money), and goat (dominant in charge) girls
+								[] Can convince to give blowjob/cunnilingus, give breastfeeding, or receive cunnilingus
+						[] Games
+							[] Darts
+							[] Strength test
+							[] Arcane challenges
+					[] Make market icon change if open or not
+			[x] Backup
+			[-] Make Elis borders a little smaller?
+			[x] Don't show travel disabled black border if scene travel disabled
+			[] Weather based on season
+				[] Add rain status effect
+					[] Add immunity from clothing (and umbrella)
+			[] Make fields and river dangerous
+			[] Add demonic centaur encounter
+				[] Add different sub-groups
+					[] Repeated losses (5?) results in a bad end trigger for each group (encounter their leader and losing to them is a bad end)
+					[] East of Elis (majority of the fields): Lunette's marauders -> Huge, muscular demonic centaurs who charge with lances
+						[] Loss results in being (roughly) fucked (futa centaurs), not interested in anything else
+						[] BE: 'Marauder's Cocksleeve' Taken by the leader for her personal harem
+					[] Southern banks: Hundred paces -> Spry, very fast centaurs who use archery and hit and run tactics
+						[] Loss results in being taken back to their camp and passed around for hours, before being dumped as they then move on
+						[] BE: 'Communal plaything' Kept by the group as their favourite toy
+					--- Just do the ones above
+					[] Northern strip: Sons of the forest -> Strike from out of the forests and raid merchant caravans
+						[] Loss results in heavy money loss and being fucked
+						[] BE: 'Wild camping' Kept in the forest camp as a slave, being regularly fucked by the constantly-changing leadership heirarchy
+					[] East of Dominion: The heart-breakers -> Use seduction and spells
+						[] Loss results in being transformed, they play up to your fetishes and after sex they leave
+						[] BE: 'One of Us' Kept for days having your fantasies indulged, while being fed fetish TF potions so that you end up as one of them
+		[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated, says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
+		[] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
 		[] Elis
 			[] Map
 				[] Town Hall
@@ -192,19 +487,22 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Market
 					[] Buy food/drink/clothing
 				[] Enforcer post
-		[] Encounters
-			[] Fields
-				[] Demonic centaur(s)
+		[] Extra encounters
 			[] Grassland
 				[] Snakes
-				[] Demonic centaurs
-			[] Woodland
+			[] Woodland - can choose to avoid all encounters with forester perk (encountered all encounters at least once)
 				Day:
-					[] Deer (residents)
+					[] Deer (residents of deer village - one in each woodland block)
 					[] Boar (truffle-hunting)
 				Night:
-					[] Wolves (pack)
+					[] Wolf-morphs (pack)
+						[] Generate 9x9 map, player in middle
+						[] Wolves are 3 movements away
+						[] Bramble tiles -2
+						[] Fallen trees -1
+						[] If at 0, have to fight
 					[] Owl harpy (attack)
+						[] Standard attack encounter
 		[] Unique encounters
 			[] Abandoned house in forest
 				Explore and get confronted by a pack of (all sapient) wolves, with a female wolf as their alpha
@@ -238,7 +536,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] Sheared
 			[] Centaur transport
 				06:00-20-00, Sunday off
-				Brother/sister shire-horse centaurs transport, takes 1 hour to get to Elis
+				Brother/sister shire-horse centaurs transport, takes 4 hours to get to Elis
 					[] Brother - Vronti
 						Stoic, muscular, incredibly strong (reason why demonic centaurs leave the two of them alone), dom
 						Olive skinned, black horse hair
@@ -265,6 +563,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Quick travel Elis to Dominion
 				[] Fishing services for discount on fee
 	
+	
+	Combat:
+		If an NPC has a kink which exploits the PC's weakness they should have a higher priority to use that over damage
+		Add a perk or something to add critical damage bonus affecting lust
 	
 		
 	----- Nyan marriage expansion -----
@@ -348,6 +650,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Helena sex without her becoming a total slut
 	Make a non-sloot Helena ending
 	
+	[] Make karada have stomach/hips/torso/over-torso/groin slots
+	[] Make wrist restraints 'leather restraints' and allow ankle equip
+	[] Add blindfold for locked in bondage set
+		[] Add blinded status effect (Doubles all travel times, -50 critical, -50 melee/ranged/unarmed)
+		
 	[] Add ability to lay unfertilised eggs (fertilise during sex, if not, then laid some time afterwards)
 	
 	Frustrated when chastity orgasm?

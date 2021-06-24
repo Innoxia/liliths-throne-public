@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.race;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -315,7 +316,7 @@ public class Subspecies {
 		}
 		@Override
 		public AbstractAttribute getDamageMultiplier() {
-			return Attribute.DAMAGE_LILIN;
+			return Attribute.DAMAGE_ELDER_LILIN;
 		}
 	};
 	
@@ -5463,7 +5464,7 @@ public class Subspecies {
 			id = "innoxia_panther_subspecies_lion";
 		} else if(id.equalsIgnoreCase("CAT_MORPH_TIGER")) {
 			id = "innoxia_panther_subspecies_tiger";
-		} 
+		}
 		id = Util.getClosestStringMatch(id, idToSubspeciesMap.keySet());
 		return idToSubspeciesMap.get(id);
 	}
@@ -5587,6 +5588,10 @@ public class Subspecies {
 	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, AbstractSubspecies... subspeciesToExclude) {
 		return getWorldSpecies(worldType, placeType, onlyCoreRaceSpecies, true, subspeciesToExclude);
 	}
+
+	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, boolean includeRegionSpecies, AbstractSubspecies... subspeciesToExclude) {
+		return getWorldSpecies(worldType, placeType, onlyCoreRaceSpecies, includeRegionSpecies, Arrays.asList(subspeciesToExclude));
+	}
 	
 	/**
 	 * @param worldType The WorldType from which to fetch Subspecies present.
@@ -5596,7 +5601,7 @@ public class Subspecies {
 	 * @param subspeciesToExclude Any Subspecies that should be excluded from the returned map.
 	 * @return A weighted map of subspecies that can spawn in that world, region and/or place.
 	 */
-	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, boolean includeRegionSpecies, AbstractSubspecies... subspeciesToExclude) {
+	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, boolean includeRegionSpecies, List<AbstractSubspecies> subspeciesToExclude) {
 		worldSpecies.putIfAbsent(worldType, new HashMap<>());
 		regionSpecies.putIfAbsent(worldType.getWorldRegion(), new HashMap<>());
 		
@@ -5610,12 +5615,13 @@ public class Subspecies {
 		}
 		if(placeType!=null) {
 			placeSpecies.putIfAbsent(placeType, new HashMap<>());
+			regionSpecies.putIfAbsent(placeType.getWorldRegion(), new HashMap<>());
 		    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> placeEntry : placeSpecies.get(placeType).entrySet()) {
 		        if(!map.containsKey(placeEntry.getKey())) {
 		            map.put(placeEntry.getKey(), placeEntry.getValue());
 		        }
 		    }
-			if (includeRegionSpecies) {
+			if (includeRegionSpecies && regionSpecies.get(placeType.getWorldRegion())!=null) {
 			    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> regionEntry : regionSpecies.get(placeType.getWorldRegion()).entrySet()) {
 			        if(!map.containsKey(regionEntry.getKey())) {
 			            map.put(regionEntry.getKey(), regionEntry.getValue());

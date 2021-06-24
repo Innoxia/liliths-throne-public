@@ -37,6 +37,7 @@
 	<primaryColours>
 		<colour>CLOTHING_BLACK</colour>
 		<colour>CLOTHING_DESATURATED_BROWN</colour>
+		<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
 		<colour>CLOTHING_BROWN_DARK</colour>
 		<colour>CLOTHING_BROWN_VERY_DARK</colour>
 	</primaryColours>
