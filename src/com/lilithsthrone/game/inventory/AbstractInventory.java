@@ -72,6 +72,10 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		return Collections.unmodifiableMap(duplicateCounts);
 	}
 
+	int getUniqueItemCount(){
+		return duplicateCounts.size();
+	}
+
 	int getQuestEntryCount() {
 		return (int) duplicateCounts.keySet().stream().filter(e -> e.getRarity().equals(Rarity.QUEST)).count();
 	}
