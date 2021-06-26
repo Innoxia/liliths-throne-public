@@ -328,18 +328,20 @@ public class LilayaHomeGeneric {
 				try {
 					NPC occupant = (NPC) Main.game.getNPCById(occupantId);
 					if(occupant!=null && charactersHome.contains(occupant) && !Main.game.getCharactersPresent().contains(occupant)) {
-						roomSB.append(UtilText.parse(occupant,
-								"<p>"
-									+ "[npc.Name] doesn't appear to be here at the moment, and as you briefly scan the room for any sign of [npc.herHim], you see a little note has been left on [npc.her] bedside cabinet."
-											+ " Walking over and picking it up, you read:"
-								+ "</p>"
-								+ "<p style='text-align:center;'><i>"
-									+ "Hi, [pc.name]!<br/>"
-									+ "I'm out at work at the moment, my hours are from "+occupant.getHistory().getWorkHourStart()+":00 to "+occupant.getHistory().getWorkHourEnd()+":00, "
-										+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"<br/>"
-									+ "Come and see me when I'm not at work!<br/>"
-									+ "- [npc.Name]"
-								+ "</i></p>"));
+						roomSB.append(UtilText.parse(occupant, "<p>"
+								+"[npc.Name] doesn't appear to be here at the moment, and as you briefly scan the room for any sign of [npc.herHim], you see a little note has been left on [npc.her] bedside cabinet."
+								+" Walking over and picking it up, you read:"
+								+"</p>"+
+								"<p style='text-align:center;'><i>"
+								+"Hi, [pc.name]!<br/>"));
+						if(occupant.hasJob()) {
+							roomSB.append("I'm out at work at the moment, my hours are from "+occupant.getHistory().getWorkHourStart()+":00 to "+occupant.getHistory().getWorkHourEnd()+":00, "
+									+occupant.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"-"+occupant.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"<br/>");
+						} else {
+							roomSB.append(UtilText.parse(occupant, "I'm helping around the mansion right now<br/>"
+									+"- [npc.Name]"
+									+"</i></p>"));
+						}
 					}
 				} catch (Exception e) {
 					Util.logGetNpcByIdError("getRoomModificationsDescription()", occupantId);
