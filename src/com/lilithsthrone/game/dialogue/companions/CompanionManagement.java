@@ -918,7 +918,10 @@ public class CompanionManagement {
 									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+SlaveJob.BASE_STAMINA+"</i>"
 								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
-									float totalStaminaCost = Main.game.getDialogueFlags().getSlaveryManagerJobSelected().getHourlyStaminaDrain()*preset.getLength();
+									float totalStaminaCost=0f;
+									if(!character.isSlave()) {
+										totalStaminaCost=Main.game.getDialogueFlags().getSlaveryManagerJobSelected().getHourlyStaminaDrain()*preset.getLength();
+									}
 									UtilText.nodeContentSB.append("<div class='normal-button"+(totalStaminaCost>stamina?" disabled'":"' id='"+preset+"_TIME'")+" style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
 								}
 			UtilText.nodeContentSB.append(
