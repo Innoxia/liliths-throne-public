@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- HALLWAY -->
+	
+	<htmlContent tag="HALLWAY"><![CDATA[
+	<p>
+		White walls and beige carpets.  The halls looked like someone had just moved in.  They are void of decoration or furniture.  The only things that stick out are the lights and the half-wall that opens to a view of the dining room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRYWAY -->
+	
+	<htmlContent tag="ENTRYWAY"><![CDATA[
+	<p>
+		The entryway of [felicia.namePos] apartment is as empty as the rest of it.  With white walls, and not much decoration.  The only thing that sticks out is the brown rug surrounded by the apartment’s beige carpeting.  To the right is a door which opens to what is probably the coat closet.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FELICIA_BEDROOM -->
+	
+	<htmlContent tag="FELICIA_BEDROOM"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_BEDROOM
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BATHROOM -->
+	
+	<htmlContent tag="BATHROOM"><![CDATA[
+	<p>
+		PLACEHOLDER_FELICIA_APARTMENT_BATHROOM
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- KITCHEN -->
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		The lack of a wall between the kitchen and living room opens the place nicely. The beige carpet is replaced with a light brown wood floor.  The left wall is lined with marble topped counters, a sink in the middle of it all.  At the border between the kitchen and living room is a white fridge with, probably, the only colorful thing in the house; a bright pink, stuffed bear sat upon it.  Beside it is the window and a stove, as barren as the rest of the apartment.  Both the living and dining room were are plain view, with no walls between them. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DINING_AREA -->
+	
+	<htmlContent tag="DINING_AREA"><![CDATA[
+	<p>
+		In the middle of the room is a single, light brown table with barely enough room to fit two people.  Surprisingly enough, there is only a single, equally brown chair; the table has nothing on it, not even a salt shaker.  Instead of the normal beige carpet, the dining room opens to a wooden floor, its color matching the "dining set".  The wall between the dining room and hallway opens to give a view of each other.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LIVING_AREA -->
+	
+	<htmlContent tag="LIVING_AREA"><![CDATA[
+	<p>
+		The only things here are a dark green couch, a light brown coffee table, and a bookcase filled to the brim with an assortment of books.  Next to the bookcase is a window, which opens to a view of the streets of Dominion.  To the left is an open view of the equally as empty kitchen.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- FELICIA_GREETINGS -->
+	
+	<htmlContent tag="FELICIA_GREETINGS"><![CDATA[
+	<p>
+		FELICIA_GREETINGS_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- FELICIA_GREETINGS_APPROACH -->
+	
+	<htmlContent tag="FELICIA_GREETINGS_APPROACH"><![CDATA[
+	<p>
+		The samoyed-girl, Felicia, is sitting on her dark green couch. A book sits in her hand, stealing her focus. When she looks up, she notices you there. [felicia.speech(Ah, still here? Well, if you ever want to talk some more I've got enough tea for a lifetime!)]  She smiles towards you before going back to her book.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FELICIA_GOODBYE"><![CDATA[
+	<p>
+		You stand up from the couch, placing the cup of tea back on its plate. [pc.speech(I should get going,)] you say to the samoyed-girl, who responds normally. [felicia.speech(Ah, alright.  I've got the day free, so if you ever need me, I'll be here.)]  She leans towards the bookshelf, picking out one at seemingly random. Before she opens it, she gives you a small smile, then begins to read.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ARTHUR_WHEREABOUTS -->
+	
+	<htmlContent tag="ARTHUR_WHEREABOUTS"><![CDATA[
+	<p>
+		You oblige, walking in on an empty house. It was a small apartment, with solely a couch, coffee table, and bookcase. The kitchen had the bare essentials, and a pink, stuffed bear on the fridge. You decide to sit closest to the door, the dark-green couch comfier than it looks, the coffee table beside it a title-less book. The doggy follows you, sitting on the other side.  [felicia.speech(So,)] she begins to speak, trying to keep herself calm; her tail not helping, [felicia.speech(Have you found Arthur?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ARTHUR_WHEREABOUTS_NO -->
+	
+	<htmlContent tag="ARTHUR_WHEREABOUTS_NO"><![CDATA[
+	<p>
+		You can visibly see her energy seep from her body, her tail and ears drooping. She takes a few seconds to re-collect herself before speaking softly, [felicia.speech(You’ll find him eventually, don’t worry.)] Figuring you should clear the sadness from the air, you decide to ask her some questions.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ARTHUR_WHEREABOUTS_YES -->
+	
+	<htmlContent tag="ARTHUR_WHEREABOUTS_YES"><![CDATA[
+	<p>
+		Her body visibly lights up with excitement, tail moving faster than the speed of light. The dog-girl pounces on you, hugging you to near death. With how soft her fur is, you welcome it. [felicia.speech(I can’t thank you enough! You are the best person ever!)] There’s a few more seconds of hugging before she finally releases you, allowing you to breathe again. She calms herself down and sits besides you again. [felicia.speech(Is he okay?  Where is he?)]
+	</p>
+	<p>
+		[pc.speech(He’s doing fine, staying at my place. He’s going to be there for a while but you can always visit. I’ll tell Rose to let you in when I get back.)]
+	</p>
+	<p>
+		[felicia.Name] gives a barely visible pout. [felicia.speech(Awh, I wanted him back here.)] It takes her a second to collect herself before her energy returns. [felicia.speech(Well, as long as I'm always welcome there it’ll be fine.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_MENU -->
+	
+	<htmlContent tag="TALK_MENU"><![CDATA[
+	<p>
+		The overly comfy couch almost sucks you in as you sit on it. The samoyed girl takes her book from the coffee table and slots it back into the bookshelf. Before you could ask her about it, she begins to speak. [felicia.speech(So, what do you want to talk about?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_MENU_ARTHUR -->
+	
+	<htmlContent tag="TALK_MENU_ARTHUR"><![CDATA[
+	<p>
+		[pc.speech(Can I ask you about Arthur?)] you ask The white fluff ball, who perks up slightly. [felicia.speech(Ah, what do you want to know??)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_MENU_ABOUT_HER -->
+	
+	<htmlContent tag="TALK_MENU_ABOUT_HER"><![CDATA[
+	<p>
+		[pc.speech(So, mind if I get to know you?)]
+	</p>
+	<p>
+		The white fluff ball's ear pops up; her tail swishes slowly. [felicia.speech(M-me?)] she looks a bit flustered, the faintest of red on her face. [felicia.speech(There's not much to know, but if you want to know.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ARTHUR_PERSONALITY -->
+	
+	<htmlContent tag="TALK_ARTHUR_PERSONALITY"><![CDATA[
+	<p>
+		[pc.speech(What’s Arthur’s personality like?)]
+	</p>
+	<p>
+		#IF(!felicia.isPlayerKnowsName())
+		The fluff ball
+		#ELSE
+		Felicia
+		#ENDIF
+		 takes a few seconds to think, ears all perky. [felicia.speech(The first time you meet him you’d think he was a timid man. Ask him anything about what he’s working on and you see just how full of life he is; if you can stay awake during it. Oh, and he gets so red when I ask what he wants for dinner. I wouldn’t ask so much if he could actually cook.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ARTHUR_HOBBIES -->
+	
+	<htmlContent tag="TALK_ARTHUR_HOBBIES"><![CDATA[
+	<p>
+		You wonder what a man of science would do during his pastime: Read? Cool sparkly science shit? Watch anime? [pc.speech(You ever see him do anything besides science?)]
+	</p>
+	<p>
+		[felicia.speech(Yeah, I’ve seen him read a few times.  Mostly science papers; mainly science papers.  I don’t think I've seen him read anything else actually.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_NAME -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_NAME"><![CDATA[
+	<p>
+		[pc.speech(Name’s [pc.name], what’s your’s?)] You didn’t know how else to ask, definitely in this situation.
+	</p>
+	<p>
+		The dog girl perks up, realising she never told you. Her cheeks slightly flush red from embarrassment, her tail swishing. [felicia.speech(Ah!, it’s Felicia.  Felicia Delilah-Hope Renmorre.)]
+	</p>
+	<p>
+		[pc.speech(That’s quite the name.)]
+	</p>
+	<p>
+		[felicia.speech(Yeah,)] She gets a little flustered, tail slightly swishing.
+	</p>
+	<p>
+		[felicia.speech(Family tradition, our middle name is of both grandmothers.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_PLACE -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_PLACE"><![CDATA[
+	<p>
+		[pc.speech(The place is pretty empty, why don’t you have any decorations?)]
+	</p>
+	<p>
+		[felicia.Name] looks oblivious, looking confused by your question. [felicia.speech(I’ve got all I need, why should I get anything more?)]
+	</p>
+	<p>
+		[pc.speech(To give the place it’s own personality, you never considered it?)]
+	</p>
+	<p>
+		[felicia.speech(No, not really  I’m not interested in all that I guess.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_FUR -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_FUR"><![CDATA[
+	<p>
+		[pc.speech(Your fur is so silky and fluffy, it’s basically perfect. How’d you do it?)]
+	</p>
+	<p>
+		[felicia.NamePos] tail swishes some from the question, liking the compliment. [felicia.speech(Lots. Of. Conditioner.)]
+	</p>
+	<p>
+		Something tells you that’s not the whole truth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ABOUT_HER_FAVORITE_STORE -->
+	
+	<htmlContent tag="TALK_ABOUT_HER_FAVORITE_STORE"><![CDATA[
+	<p>
+		[pc.speech(There are some interesting shops around, what place do you like the most?)]
+	</p>
+	<p>
+		[felicia.Name] takes a moment to think before saying anything. [felicia.speech(Probably Nyan’s Clothing Emporium. I don’t care much about the clothes, I just think cats are cute.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_PET -->
+	
+	<htmlContent tag="TALK_PET"><![CDATA[
+	<p>
+		The fluffiness of her hair, how it sways in the wind, you can’t help but ask to touch it. Sitting next to her, you move your hand close to her head and ask, [pc.speech(May I?)]
+	</p>
+	<p>
+		Felicia’s ears perk up as she looks up at your hand.  Realising what you want, she blushes slightly and responds, [felicia.speech(S-Sure...)]
+	</p>
+	<p>
+		With her permission, your hand plops on her head. Her hair feels even fluffier than it looks. As you rub her head, the faint sound of a tail swooshing on a couch can be heard. The fluffiness is so powerful you almost lose yourself in the head pats, Felicia blushing even more. It seems petting is her weakness.
+	</p>
+	<p>
+		A wicked smile forming, you decide to give her a little scratch behind the ears. Felicia’s ears perk up to what was thought impossible, her tail moving fast enough to become a blur. Within a minute, she’s putty in your ear scratching hand, clearly trying to hold her composure.  
+	</p>
+	<p>
+		Finally, her strength breaks and she lets out the slightest [felicia.speech(Awoo)]; her face completely red. You, your hand starting to cramp, decide that’s enough for now. Felicia, still blushing, gives a small whimper before taking a deep breath to regain herself. Meekly, she asks [felicia.speech(W-Want more tea?)]
+	</p>
+	<p>
+		<b>You've reached the end of Felicia's content (for now)</b>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD -->
+	
+	<htmlContent tag="TALK_LEWD"><![CDATA[
+	<p>
+		[pc.speech(So, do you have a crush on Arthur?)] The way she acts about him, anyone would be curious. The girl looks you down, her puppy eyes gone.  
+	</p>
+	<p>
+		[felicia.speech(No,)] she says flatly, [felicia.speech(He was a friend when I didn’t have any.  Nothing more.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD_CONTINUE -->
+	
+	<htmlContent tag="TALK_LEWD_CONTINUE"><![CDATA[
+	<p>
+		[pc.speech(Do you have a crush on anyone else?)] Surely this dog girl can’t have any. [felicia.speech(No.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD_PUSH -->
+	
+	<htmlContent tag="TALK_LEWD_PUSH"><![CDATA[
+	<p>
+		She must be pent up, so innocent. Too not even have a crush. [pc.speech(What if someone had a crush on you?)] you ask the dog-girl, hoping to get some reaction. 
+	</p>
+	<p>
+		[felicia.speech(I’m fine, please stop.)]
+	</p>
+	<p>
+		Well, maybe you should stop pushing her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_LEWD_DIG_DEEP -->
+	
+	<htmlContent tag="TALK_LEWD_DIG_DEEP"><![CDATA[
+	<p>
+		You move closer to her, the horny clearly in your eyes. Felicia can smell it, and now has a scowl on her face. [felicia.speech(Leave. Now,)] she speaks sternly. Looks like you struck a nerve.
+	</p>
+	<p>
+		[pc.speech(You sur-)]  [felicia.speech(Yes,)] she cuts you off, [felicia.speech(Leave before I force you out.)] 
+	</p>
+	<p>
+		Taken aback, and embarrassed for letting the horny get to you, you quickly leave her place before any further confrontation.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

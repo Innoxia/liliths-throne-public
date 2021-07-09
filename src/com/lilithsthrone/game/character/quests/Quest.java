@@ -65,7 +65,7 @@ public enum Quest {
 		public String getDescription() {
 			return "Lilaya has informed you that her old colleague, Arthur, would know more about the type of magic used in the portal."
 					+ " However, she seems to have an intense dislike of him, and you've ended up being tasked to go and get him to apologise to Lilaya before she'll allow him to" + " come and work with her."
-					+ " Arthur lives in a district of the city called 'Demon Home', so you can find him there.";
+					+ " Arthur lives in an apartment building called 'Sawlty Towers', in the district of the city known as 'Demon Home', so you can find him there.";
 		}
 
 		@Override

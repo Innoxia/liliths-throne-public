@@ -12,6 +12,7 @@ public enum WorldRegion {
 	// Misc:
 	MISC,
 	OLD_WORLD,
+        FELICIA_APARTMENT,
 	
 	// Cities
 	DOMINION,
