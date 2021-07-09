@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>WORLD_MAP_FIELDS</placeType>
+		<placeType>WORLD_MAP_FOREST</placeType>
+		<placeType>WORLD_MAP_GRASSLANDS</placeType>
+		<placeType>WORLD_MAP_RIVER</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[bandit ambush]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+				0
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_bandit_start]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

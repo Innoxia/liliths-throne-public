@@ -1083,7 +1083,7 @@ public class WorldType {
 	private static Map<String, AbstractWorldType> idToWorldMap = new HashMap<>();
 
 	public static List<AbstractWorldType> getAllWorldTypes() {
-		return allWorldTypes;
+		return new ArrayList<>(allWorldTypes);
 	}
 	
 	public static AbstractWorldType getWorldTypeFromId(String id) {

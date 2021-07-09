@@ -133,7 +133,12 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		return removed;
 	}
 
-	boolean removeItemByType(U itemType) {
-		return getItemByType(itemType).map(this::removeItem).orElse(false);
+	boolean removeItemByType(U itemType, int count) {
+		Optional<T> itemFound = getItemByType(itemType);
+		if(!itemFound.isPresent()) {
+			return false;
+		}
+		return removeItem(itemFound.get(), count);
+//		return getItemByType(itemType).map(this::removeItem).orElse(false);
 	}
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Attacked by bandit: -->
+	
+	<htmlContent tag="START"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	
+	<!-- Pay off: -->
+	
+	<htmlContent tag="PAYMENT"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	
+	<!-- Submit to them: -->
+	
+	<htmlContent tag="SUBMIT"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_GENERIC"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_PUSSY"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_KISS_COCK"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_KISS_PUSSY"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_ASSHOLE"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_KISS_ASSHOLE"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_SUB"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	
+	<!-- Won combat: -->
+	
+	<htmlContent tag="COMBAT_WON"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_END"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_GENTLE"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_ROUGH"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SUBMIT"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_DOM_END"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_TALK"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	
+	<!-- Lost combat: -->
+	
+	<htmlContent tag="COMBAT_LOST"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_FUCKED"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_CONTINUE"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_FUCKED_WILLING"><![CDATA[	<p>		TODO	</p>	]]>
+	</htmlContent>
+	
+</dialogue>

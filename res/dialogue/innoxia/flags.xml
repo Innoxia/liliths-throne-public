@@ -34,8 +34,9 @@
 		<flag dailyReset="false">vronti_anal_sex_given</flag>
 		<flag dailyReset="false">astrapi_not_shaving</flag>
 	
-	<!-- Centaur field attackers -->
+	<!-- Field attackers: -->
 		<flag dailyReset="false">fields_centaur_attacker_talked</flag>
+		<flag dailyReset="false">fields_bandit_talked</flag>
 	
 	<!-- Elis -->
 		<!-- Woods -->
@@ -65,9 +66,24 @@
 		<flag dailyReset="false">jess_kissed</flag>
 		<flag dailyReset="false">jess_groped</flag>
 		
+		<!-- Taur tavern -->
+		<flag dailyReset="true">kheiron_smalltalk_complete</flag>
+		<flag dailyReset="true">tavern_fae_met</flag>
+		<flag dailyReset="true">tavern_fae_small_talk</flag>
+		<flag dailyReset="true">tavern_fae_drink</flag>
+		<flag dailyReset="true">tavern_fae_tail_fluffed</flag>
+		<flag dailyReset="true">tavern_fae_flirt</flag>
+		<flag dailyReset="true">tavern_fae_kiss</flag>
+		
 		<!-- Market -->
 		<flag dailyReset="true">elis_market_darts_won</flag>
 		<flag dailyReset="true">elis_market_strength_won</flag>
+		<flag dailyReset="false">elis_market_fae_passionate</flag>
+		<flag dailyReset="false">elis_market_kazik_arcane</flag>
+		<flag dailyReset="true">elis_market_kazik_arcane_cast</flag>
+		<flag dailyReset="true">elis_market_yui_demonstration_complete</flag>
+		<flag dailyReset="true">elis_market_yui_domination_complete</flag>
+		
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
 	meraxis_duel_player_wins (Meraxis duel player wins)

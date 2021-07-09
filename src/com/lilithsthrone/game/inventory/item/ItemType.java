@@ -3125,11 +3125,10 @@ public class ItemType {
 						null,
 						Rarity.EPIC,
 						Util.newArrayListOfValues(new ItemEffect(effectType)),
-						Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-						// TODO revisit this and potentially make demon/angel essence contraband when adding more essence effects
-//						((mainSubspecies.getSubspeciesOverridePriority()>=5) // Half-Demon+ (and Angels) are contraband
-//								?Util.newArrayListOfValues(ItemTag.ESSENCE,ItemTag.CONTRABAND_HEAVY)
-//								:Util.newArrayListOfValues(ItemTag.ESSENCE)))
+						(((mainSubspecies.getRace()==Race.DEMON && mainSubspecies.getSubspeciesOverridePriority()>5) || mainSubspecies.getRace()==Race.ANGEL) // Demon+ (and Angels) are contraband
+								?Util.newArrayListOfValues(ItemTag.ESSENCE, ItemTag.CONTRABAND_HEAVY)
+								:Util.newArrayListOfValues(ItemTag.ESSENCE))) {
+						
 					@Override
 					public String getUseName() {
 						return "absorb";

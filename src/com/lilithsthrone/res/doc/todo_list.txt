@@ -20,209 +20,311 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Replaced depreciated hashmaps with active hashmaps in AbstractClothingType. (PR#1542 by Maxis010)
-		Increased script performance by adding a memoization cache to compile scripting engine scripts. (PR#1442 by CognitiveMist)
-		Fixed several instances of the 'wall' parser tag not being correctly applied in several sex classes. (by AceXP)
-		Fixed parsing errors in TongueVagina sex action class. (by AceXP)
+		Fixed issues with the parsing engine sometimes forgetting set variables and other parsing targets. (by AceXP)
+		Fixed numerous typos and parsing errors in the 'Meraxis's duel', 'Zaranix', 'Wes', and 'Daddy' scenes. (by AceXP)
 	
 	Engine/Modding:
-		Added 'applyItemTransactionEffects()' method to NPC.java class which can be overridden to define special behaviour during item/weapon/clothing transactions.
-		When defining a 'copyFromDialogueId' element in an external DialogueNode's 'responses' element, the game will now prioritise any responses/tabs you've defined within the 'responses' element, and then fall back on those from the 'copyFromDialogueId' element (i.e. you can now override responses/tabs from the copied dialogue node).
-		Added a 'wallName' element to xml sex managers so that you can set the name of walls in sex scenes.
-		Moved all kimono clothing into external res files.
+		The elements 'continuesDialogue', 'travelDisabled', 'inventoryDisabled', and 'regenerationDisabled' in dialogue node modding now all support parsing instead of simply true/false values.
+		Added additional 'startingImmobilisation' element to sex manager definitions, allowing you to define characters as starting a sex scene in an immobilised state.
+		Externally defined Dialogue Nodes now support parsing for the 'index' element of their responses.
 	
 	Gameplay:
-		Added a small side quest for unlocking the spells from the arcane lightning globe (which is found in the warehouse during Claire's teleportation quest). If you have the globe in your inventory, you'll be able to ask Arthur about it to start this quest.
-		Filled in all of Meraxis's placeholder content, and added the option to have sex in her room after you've unlocked vaginal, oral, and anal (if anal content is enabled) actions with her.
-		Added an internal map for the Farmer's Market in Elis. (It's all placeholders at the moment, but will be filled in for the next update.)
-		Added demonic centaur encounters which can be triggered in the Foloi fields, Hubur river, and grassland wilderness tiles in the world map. (These encounters are quite basic and will be expanded upon in future updates.)
-	
+		Added internal map for 'The Centaur's Sword' tavern in Elis, including the centaur owner 'Kheiron'.
+		Added actions to the food and drink stalls in the middle of the Farmer's Market.
+		Added 'Fae' and 'Silvia' as two new characters (futa foxtauress sisters) in the Farmer's Market who sell clothing.
+		Added 'Kazik' as a character (male ferret-boy) who runs a jewellery stall in the Farmer's Market.
+		Added 'Yui' as a new character (female jorogumo) who runs a sex toy stall in the Farmer's Market.
+		
 	Items:
-		Added 'battle axe' weapon (two-handed, all damage types, sold by Vicky).
-		The 'dory' spear is now sold by Vicky.
-		Added 'short kimono' as a short-skirt variation of the kimono. Also made the flowers on the kimono into a 'sticker', which can be removed so as to make a plain kimono. Also added a new 'blossom' pattern for the kimono.
+		Added attribute boosts to the following consumables to bring them in line with others: Fizzy Orange Juice; Cotton Candy Soda; Berry Soda; Chamomile Tea; Popcorn; Sausages; Pâté and Crackers; Honey Bread.
+		The food items 'Meat and Marrow' and 'Panther's Delight' now give the consumer +1 muscle if their muscles were less than 'muscular' (value of 60).
+		Reduced equine cider alcohol content from 15% to 8%.
 	
 	Sex:
-		Tagged 'tentacle-squeeze' and 'tail-squeeze' as being sadistic actions, and added non-sadistic actions 'tentacle-massage' and 'tail-massage' as an alternative for non-sadistic characters. (These 'massage' actions are available to sadistic characters in addition to the 'squeeze' actions.)
-		Enabled availability of forcing creampies and asking for pull-out or creampie for when a character's spinneret was the orifice being penetrated by their partner's cock.
-		Added sex actions to cast and dispel the immobilising effects of the spell 'Witch's Seal' on your sexual partners, so long as you know the spell (obtained from equipping a Witch's broom) and have full control in the sex scene.
-	
+		Added 'armpit slut' and 'armpit lover' fetishes, along with related fetish tease attacks.
+		Added in variations for armpit sex for the 'ask for creampie/pullout' and 'encourage creampie/pullout' orgasm actions.
+		Added 'bondage bitch' and 'bondage applier' fetishes, which are now associated with the tail, tentacle, webbing, and Witch's Seal restricting sex actions.
+		
 	Other:
-		Added 'spinneret creampie' status effect, so cum now correctly leaks out of a creampied spinneret over time.
-		Added correct tracking of spinneret virginity loss, and added spinneret penetration/virginity loss descriptions to sex.
-		Added 'Automatic text copying' as a new option (disabled by default). When enabled, the current scene's text will automatically be copied to your system's clipboard every time a new scene is loaded. This option is so that you can easily paste the game's text into text readers without needing to select and copy the scene's text every time.
-		NPCs will now have more variance in the following body parts: ass and hip sizes, femininity, muscle, body size, nipple and areolae size, crotch nipple and areolae size, and lip size.
-		Quests are now ordered in the phone menu based on whether they're completed or not.
-		Added additional menu 'Misc. spells' in the spell menu to see what spells are available from weapons/unique events.
-		Renamed the race & subspecies of 'cow-morph' to 'cattle-morph', and changed the male name from 'cow-boy' to 'bull-boy'.
-		Greatly increased lust resistance for characters with low levels of corruption: 'pure' level 5->25; 'vanilla' level 0->15; 'dirty' 0->5.
-		Lyssieth's sex scenes are no longer locked to the 'over desk' position, and instead start in the 'standing' position, from which normal positioning options are now available.
-		Added variation to the demon TF scene with Lyssieth so that you can prevent her from growing a cock.
-		The Foloi Fields and Hubur river tiles in the world map are now classified as dangerous, due to the new demonic centaur encounters being in these areas.
-		Added 'Explore' action to the Foloi fields, river Hubur, and the grassland wilderness, which just provides a more convenient method of trying to trigger a random encounter instead of having to travel back and forth.
+		Added 'Dominion', 'Submission', and 'Elis' tabs to the 'map' menu in the phone to make map navigation a little tidier.
+		Demon, lilin, elder lilin, and angel essence is now tagged as heavy contraband, so Vicky no longer sells it.
 	
 	Bugs:
-		Typos and parsing bugs fixed.
-		Fixed bug where the count of total unique sex partners would always start at 1. 
-		Fixed issue where Vengar would get stuck on the Milking Room tile after losing the fight to him.
-		Fixed bugs where loitering or sleeping for multiple hours at a time could cause multiple generic NPCs to spawn and get stuck in Angel's Kiss and on Dominion alleyway tiles occupied by a prostitute.
-		Bat-morphs in the bat caverns will no longer spawn without having bat-morph arms.
-		Fixed issue where Meraxis would sometimes not move to the tile she was supposed to be in.
-		Fixed the spell 'Witch's Seal' being classed as an air school spell instead of arcane.
-		Sadist fetish text now correctly indicates that it unlocks sex actions.
-		Fixed issue where Lyssieth would not return to her human form after having lilin-form sex.
-		Fixed issue where the post-Lyssieth sex scene in Meraxis's office indicated that Meraxis was present, even if she had reloacted to Elis.
-		Elis internal maps now correctly have 'against wall' sex position available in them.
-		Added ability to stop Rose's hand-holding sex scene to rpevent you from getting stuck in it if you weren't able to orgasm.
-		The 'Grow cock' sex actions now correctly give larger penises to leg configurations which have large genitals.
-		Fixed bug where the 'companionsAreAllies' element in a response's 'combatVariables' element would not work correctly and throw background errors when set to true.
-		NPCs who have sexual histories with the player are now fully deleted when removed from the game, instead of simply being moved to the generic holding tile. This will retroactively apply when loading into this version, and should help to cut down on save file size and end turn lag.
-		Fixed bug in sex managers defined in external files where repeat instances of using the sex manager with non-unique NPCs would throw background errors.
-		Fixed issue where the 'incubated offspring' list in the pregnancy stats screen was showing all non-incubated offspring instead of incubated offspring.
+		Parsing fixes.
+		Fixed Meraxis always referring to you as her sibling after impregnating her.
+		Fixed bug where spinneret depth wasn't being loaded properly, causing it to reload to the default depth every time you loaded a saved game.
+		Fixed bug where the game's dialogue would randomly fail to parse in some scenes, resulting in '(Error in conditional parsing!)' messages being displayed.
+		NPCs are now only fully deleted after any pregnancies and incubations related to the player have been resolved, which should fix some issues with offspring birth dates and missing information in the pregnancy stats screen.
+		Fixed issue where deleted NPCs would cause pregnancy stats, offspring map names, pregnancy tester dialogue, and the debug offspring menu to either throw errors or display as 'Unknown' or '???'.
+		Fixed extremely rare bug where it was still possible to impregnate a character who had 0 chance to be impregnated.
+		Takahashi now correctly wears a lab coat while in her lab in the citadel.
+		Fixed issue where trader responses defined in external dialogue nodes wouldn't work.
+		Fixed issue with the 'NPC.applyItemTransactionEffects()' method being called even if the transaction failed to process (such as in the case where the buying character's inventory was full).
+		Fixed issue where selecting a disabled action (i.e. a greyed-out button) would still apply whatever effects that action had to the game.
+		Externally defined sex managers now correctly handle all missing elements which are tagged as being 'optional'.
+		Fixed another issue in externally defined sex managers where the 'slotsAvailable' element's 'slot' elements were not parsing code.
+		Externally-defined dialogue nodes will now parse the 'colour' element within 'response' elements, allowing you to use conditional statements and such in them.
+		Fixed issue where characters would not get the 'frustrated' status effect after finishing sex without orgasming if they'd orgasmed within the last 24 hours.
+		Fixed issue where error log would sometimes display parsing errors when loading a game.
+		Added missing quick sex descriptions for tongue-armpits focus.
+		Fixed raccoon hair covering being associated with raccoon fur (i.e. the covering for their other body parts).
+		Fixed bug with random attackers always spawning as feminine.
 		
 	
-	[x] Misc. spell page border colours need fixing
-	[x] Add sadist fetish text saying actions will be unlocked
-	[x] Lyssieth is also constantly in lilin form now
-	[x] Lyssieth content that doesn't involve her desk
-		[x] Sex without desk
-		[x] Demon TF without penis
-			[x] stage 1 cunnilingus
-			[x] stage 2 scissoring
-				[x] top
-				[x] bottom
-			[x] stage 3 sixty-nine
-				[x] top
-				[x] bottom
-			[x] test all
-				[x] 69 doesn't start player-Lyssieth oral
-				[x] Not TF'ing ears and eyes... DEMON_TF_STAGE_1_PC_GIVING_LYSSIETH_CUNNILINGUS not triggering
-				[x] scissor top TF incorrect
-	[x] the post-Lyssieth sex scene in Meraxis' office says that Meraxis is still around, even if she is in Elis
-	
-	[x] Write all Meraxis dialogue
-		[x] Duels
-			[x] Meraxis pregnancy reaction
-			[x] Sex
-				[x] Hand-holding, fingering
-					[x] writing
-						[x] taur variation for player fingered
-						[x] taur variation for player handjob
-						[x] anilingus was available in fingering taur scene...
-					[x] sex actions
-						[x] Previously written actions shouldn't describe orgasm part
-					[x] test
-						[x] Fix stop sex check for Meraxis in all managers
-				[x] Hug, anal
-					[x] writing
-						[x] taur variations
-					[x] sex actions
-					[x] test
-						[x] anal virginity check
-				[x] Add colouration to fetish gain actions, make them have minimum priority
-				[x] Kiss, oral
-					[x] writing
-						[x] taur variations
-					[x] sex actions
-					[x] test
-				[x] Breasts
-					[x] writing
-						[x] taur variations
-					[x] sex actions
-						[x] Add cum slut from panties orgasm
-					[x] test
-				[x] Pussy
-					[x] writing
-						[x] taur variations
-							[x] intercrural test
-					[x] sex actions
-					[x] test
-				[x] Orgasm count 1 if not associated fetish owned
-		[x] Tavern sex
-			[x] If all Meraxis fetish sex unlocked, can go up to her room and have full anything-goes sex once a day
-			[x] test
-				[x] flag not working
-			[x] writing
-		[x] Meraxis grow cock action
-	
-	[x] search for cow-morph and cow-boy
-	[x] test Meraxis demon TF from Elis
-	[-] make DialogueFlagValue id loading case insensitive
-	[x] add an option for an override to the tile's default wall name in the sex manager xml files
-	[x] someone had a cock cage on themselves enchanted to not let them cum so they couldn’t stop holding Rose’s hand
-	[x] Mother's Week Gift says Father's week
-	[x] Make fields and river dangerous
-	
-	[x] kimono patterns
-	[x] short kimono
-	
-	[#takahashi.setLocation(pc)]
+	[x] Need a generic trader
+		[x] Parsing
+		[x] Add to game
+		[x] hide clothing
 		
-	[x] Add demonic centaur encounter
-		[x] NPC setup
-			[x] Melee axe
-			[x] Ranged bow
-			[x] Add way to spawn from xml
-				[x] game.spawnNewNPC(String classId, String parserTag)
-					[x] Generate NPC and assign parser tag to this new NPC
-					[x] Remove NPC from additional parser tags when NPC is deleted
-					
-		[x] Test NPC
-			[x] addition
-			[x] Parsing target errors
-			[x] move to player tile
-			[x] deletion
-		[x] Combat allies/enemies should be parsed on selection
-		[x] Test penis shape for demonic centaurs
-			[x] Add horse modifiers
-		[x] Test sex manager with attacker id
-		[x] Fix pregnancy stats incubated list
-		[x] river tile explore to fields too
-		[x] Centaur encounters
-			[x] Marauder
-				[x] Spawn & start
-					[x] FIGHT
-						[x] Loss
-							[x] If lost player gets spell's status effect
-								[x] non-con check
-							[x] Fucked END
-						[x] Win
-							[x] Continue END
-							[x] Sex (gentle, rough)
-								[x] Continue END
-								[x] Inventory
-							[x] Submit
-							[x] Inventory
-					[x] Pay
-						[x] Pay END
-					[x] Submit
+	[] Farmer's market
+		[x] Make NPCs persist until 19:00 (packing up)
+		[x] Actions:
+			[x] Drink
+				[x] Alcohol
+				[x] Soft drinks
+			[x] Food
+				[x] Meals
+				[x] Snacks
+			[x] Test all
+			[x] Add +1 of something to all drinks
+			[x] Add +1 of something to all food
+			[x] panther delight and wolf steak to give +1 muscle
+			[x] cider far more alcoholic than beer/perry?
+			[x] add:
+				[x] innoxia_race_sheep_woolly_goodness - 15
+				[x] dsg_race_raccoon_popcorn - 20
+				[x] innoxia_race_dog_canine_crunch - 40
+				[x] innoxia_race_rabbit_bunny_carrot_cake - 50
+				[x] NoStepOnSnek_race_snake_eggs - 75
+				[x] innoxia_race_rabbit_bunny_juice - 40
+			[x] Write all
+				[x] Add variation to all for if stall closing after eating/drinking
+				[x] Alcohol
+				[x] Soft drinks
+					[x] Add customers for all 4 tiles
+				[x] Meals
+					[x] Add oinkers fries
+				[x] Snacks
+			[x] Final test all
+		[] NPC traders:
+			[x] Clothes
+				Add:
+					[x] Greater fox-girl taur twins
+						[x] Fae confident
+						[x] Silvia shy
+					[x] Centaur sword map
+						[x] town dialogue to corner desc.
+						[x] dialogue
+						[x] txt
+					[x] NPC owner at bar - centaur (Astrapi & Vronti's father)
+						[x] clothing
+				[x] Get raffle ticket every time you buy something > 500 flames in value
+				[x] Spin raffle for prizes
+					- 50% nothing
+					- 20% 50 flames
+					- 20% 250 flames
+					- 10% 500 flames or kiss
+						Kiss options for they tell you to find them in the centaur's sword between 19:00-22:00 if you're looking for more
+							Passionately kiss
+				[x] Change wheel to dice
+				[x] Change flame rewards to socks/cap/ring
+				[x] Kiss mouth access
+				[x] Tongue piercing in kiss
+				[x] At tavern
+					[x] Talk
+					[x] Drink
+					[x] Tails
+					[x] Flirt
+					[x] Kiss
+					[x] Take them back to your room
+						[x] Sex
+							[x] Dom
+							[x] Sub
+							[x] Surrender - Eat out/blowjob Silvia while Fae mounts you
+					[x] Post-sex
+						[x] Say goodbye
+						[x] Sleep until morning
+							[x] Morning oral
+				[x] Test all
+					[x] Effects apply even if null???
+					[x] Teleporting every turn
+					[x] cannot change positions in standard scenes
+					[x] Need Silvia blowjob in doggy (positioning allowed, add slot)
+					[x] Need ticket count in tooltip for rolling
+					[x] Test cap and socks
+				[x] Pregnancy & impregnation reactions
+					[x] Prevent them from getting pregnant from anyone but player
+					[x] Stall
+						[x] writing
+						[x] Set pregnancy reaction
+					[x] Tavern
+						[x] writing
+						[x] Set pregnancy reaction
+				[x] Writing
+			[x] Exit market doesn't give actions
+			[x] Opening map screen should set tab based on area player is in
+			[x] Information sign fix at end
+			[x] Trinkets
+				[x] Ferret-boy who can use the arcane
+					[x] Get ticket every time you buy enchanted item
+					[x] Trade in a ticket for spell demonstration
+						[x] Fireball
+						[x] Flash
+						[x] Ice shard
+						[x] Rain cloud
+						[x] Ask about arcane spells, he says he only knows arcane arousal, and it has to be used on a person, which he doesn't advise
+							[x] Convince him to use Arcane arousal on you
+								[x] Player gets horny and he takes advantage (if player feminine)
+									[x] Can have quick sex behind his stall
+										[x] Vaginal
+										[x] Oral
+										[x] Anal
+				[x] Dialogue
 				[x] Test
-					[x] non-con off
-					[x] Post-sex action text
-					[x] Seal timer wrong
-				[x] too many anal toys
-				[x] Give them more money
-				[x] Random items in inventory
-				[x] test all victory options
-					[x] old attacker not being removed correctly
-						[x] Fix issue where NPCs are not being deleted via banishNPC method
-				[x] test all defeat options
-				[x] sex manager needs to be re-initialised...
-			[x] Raider (copy marauder but with different dialogue)
+					[x] Need parsing of 'slotsAvailable' element's 'slot' elements in init
+					[x] Control allowing pen changes
+					[x] Make sure sex manager positionsAvailable are parsed at every start of sex
+					[x] Limit arcane arousal to once a day
+					[x] start smoking when enter stall
+					[x] Prevent cumming on Kazik
+				[x] writing
+				[x] Final test all
+					[x] feminine
+					[x] masculine
+					[x] getTraderDescription() not working
+			[x] Silvia Fae reaction to impregnating player
 			
-	[x] Centaur encounter writing
-		[x] Need encounter dialogue titles
-		[x] Make sure money is rounded to nearest 500
-		[x] check enslavement dialogue
-		[x] Marauder
-		[x] Raider
+			[] Toys
+				[x] Six-armed sadistic demonic(?) spider-girl
+					[x] Leather clothing
+					[x] Need bondage and armpit fetishes
+						[x] armpit
+							[x] icons
+							[x] effects
+							[x] content disable
+							[x] sex use check
+							[x] special tease attacks
+							[x] orgasm request creampie & pullout
+							[x] Astrapi
+						[x] Test Astrapi armpit licking fetish requirements
+						[x] bondage
+							[x] icons
+							[x] effects
+							[x] applications
+							[x] associate with snek, spider, and spell bondage
+							[x] finch, amber, murk
+							[x] test
+				[x] Get ticket if you let her dominate you (only once per day)
+					[x] offer to be her chair for half an hour
+						[x] cunnilingus
+						[x] anilingus
+					[x] foot worship
+					[x] armpit licking
+				[x] 1 tickets for a demonstration, can choose:
+					[x] She ties you up in silk for all
+						[x] ball gags you, riding crop whipping
+						[x] chastity cage, rubs pussy over cock and teases you
+						[x] Dildo play
+						[x] Anal bead play
+					[x] Frustrated effect
+						[x] FRUSTRATED SE removes if orgasmed within 24 hours???	
+							[x] remove when orgasm incremented
+							[x] check orgasm increment to generic sex effects
+				[x] Need sex manager variable for starting restrained
+					[x] getStartingCharactersImmobilised
+					[x] test
+				[x] test
+					[x] submitting
+						[x] armpits
+						[x] No description found for ARMPITS targeting MOUTH!
+					[x] demos
+						[x] remove seal
+				[x] Add weapons
+				[x] foot sex (yui masturbates while foot in player face)
+					[x] test self preferences
+				[x] armpit sex (yui masturbates while armpits in player face)
+				[x] make all three sex public
+				[] writing
+				
+			[x] Error on load: RND.nextInt(100)<50 && targetedBody.getRaceStage()==RACE_STAGE_GREATER
+			
+			[] Make entry based on direction came from
+				
+			[] Centre
+				[] Raccoon-girl Nizhoni
+					[] Get 1 raffle ticket for winning
+					[] Trade raffle tickets for:
+						[] 1 Prize
+						[] 1 go for walk
+							[] she shows you around the backs of some of the stalls
+								[] she asks you to watch out while she goes dumpster diving
+								[] as she leans over a bin, you see that she's not wearing underwear
+								[] can have sex there
+									[] oral
+									[] fuck her
+				[] Horse-boy Alfonso
+					[] Get 1 raffle ticket for winning
+					[] Trade raffle tickets for:
+						[] 1 Prize
+						[] 1 go for walk
+							[] tells you he's at an underground gym every evening, up in the north part of town
+							[] can go there to workout with him, have sex
+							
+			[] Make market icon change if open or not
+			[] Remove MARKET_ENTER placeholder warning
+			[] Ralph needs personality traits
+			
+			[] Add TODO for:
+				[] Fortunes
+					[] Named NPC - hippy rabbit-girl trap (caged) - androphilic
+						[] Card reading (50 flames, boring outcomes)
+						[] Rabbit TF (500 flames)
+						[] Big cock TF (500 flames)
+						[] Crystal ball reading (5 raffle tickets) is an enchanted item based on telekinesis (so it always involves both of you)
+							[] Results vary if player thinks of:
+								- Power -> shows you sitting on a throne with the rabbit-girl serving you
+								- Fame -> shows rabbit-girl asking for your autograph
+								- Fortune -> shows rabbit-girl admiring all of the money you have
+								- Peace -> shows you and rabbit-girl relaxing in a villa
+								- Sex -> (only if androphilic) shows her on her table having sex with you, chastity cage on cock
+									- She gets a bit flustered and tells you to think of something else (if NTR she mentions her boyfriend)
+										- thinking of sex again leads into her wanting sex, depending on what you think:
+											[] Fucking her ass (fuck over desk)
+											[] Receiving oral
+							[] If boyfriend flag set, having sex three times triggers boyfriend fight
+								[] win: trap him
+								[] lose: fucks trap, cums over player
+				[] Kissing
+					[] Cow (slutty bimbo main attraction) and goat (dominant handling money) girls
+						[] 1 ticket for kiss
+							Passionate kiss -> convince to give blowjob/cunnilingus or receive cunnilingus
+						[] Say you want kiss from goat girl
+							She gets angry & refuses, dismissively says she'll kiss you for a thousand flames
+							Can offer 1000 flames for it
+								She reluctantly agrees to kiss
+								Offer 5000 to fuck her
+								Fuck her behind stall
+								Costs 1000 to cum inside
+				
+	[] Cannot resist in post-defeat centaur sex???
+	[] Astrapi no quick sex?
 	
-	[x] test
-		[x] essences needed for weapons
-		[x] reduce toy rate
-		[x] cock is thin
+	[] Add random attackers
 	
-	[x] updoot to 0.4.0.10
+	[] Dialogue parsed before time passed...
+	
+	[] Shopping precinct
+		[] Add 4 main NPCs
+	
+	[] Add Minotallys meeting
+	
+	PRs
+	
+	[] Need a place to deliver pregnancy in Elis
+	
+	Felicia
+	
+	Ashley
 	
 	[] Centaur encounter spell effect expansion:
 		[] Spawn & start 2 slavers
@@ -243,13 +345,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] East of Dominion: The heart-breakers -> Use seduction and spells
 				[] Loss results in being transformed, they play up to your fetishes and after sex they leave
 				[] BE: 'One of Us' Kept for days having your fantasies indulged, while being fed fetish TF potions so that you end up as one of them
-				
-	---- 0.4.0.9 mini-update end ----
-	
-	[] Add Dominion & Elis tabs for maps
-		[] World map on all tabs
-		
-	[] Need a place to deliver pregnancy in Elis
 	
 	"from the tap" demon stone from Lyssieth
 		Ask her about demon stones
@@ -261,43 +356,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Fields bandits
 		[] River mermaids
 		[] Fields ruined village
-		
-	[] Farmer's market
-		[x] market map and push to github
-		[x] Add text variation 18:00-19:00 when closing, and 19:00+
-			[x] Add 'Leave' button when closed
-				[x] Need override responses behaviour for xml
-					[x] test
-		[x] Games/market
-			[x] Darts
-			[x] Strength test
-			[x] test both
-		[] Need a generic trader
-			[] hide clothing
-		[] Drink
-			[] Alcohol
-			[] Soft drinks
-		[] Food
-			[] Meals
-			[] Snacks
-		[] Clothes
-		[] Trinkets
-		[] Toys
-		[] Fortunes
-			[] Named NPC - hippy rabbit-girl
-				[] Crystal ball is an enchanted item based on telekinesis (so it always involves both of you)
-					[] Results vary if player thinks of:
-						- Power -> shows you sitting on a thronw with the rabbit-girl serving you
-						- Fame -> shows rabbit-girl asking for your autograph
-						- Fortune -> shows rabbit-girl admiring all of the money you have
-						- Peace -> shows you and rabbit-girl relaxing in a villa
-						- Sex -> shows her on her table having sex with you
-							- She gets a bit flustered and tells you to think of something else -> thinking of sex again leads into her wanting sex
-		[] Kissing
-			[] Cow (ara ara main attraction), sheep (shy handling money), and goat (dominant in charge) girls
-				[] Can convince to give blowjob/cunnilingus, give breastfeeding, or receive cunnilingus
-		[] Make market icon change if open or not
-		[] Remove MARKET_ENTER placeholder warning
 		
 	[] AoE for special attacks
 	
@@ -341,7 +399,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Antique shop
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
-	[] Add armpit fetish
 	
 	---
 	
