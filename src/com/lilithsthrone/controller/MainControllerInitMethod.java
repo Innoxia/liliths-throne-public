@@ -2049,10 +2049,22 @@ public class MainControllerInitMethod {
 						
 						id = occupantId+"_JOB";
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							if(!occupant.hasJob()) {
+								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+									Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(occupant)) {
+										@Override
+										public void effects() {
+											CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), occupant);
+											Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+										}
+									});
+								}, false);
+							}
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Job", "You cannot manage a free-willed occupant's job.");
+							
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Occupant's Temporary Job",
+									UtilText.parse(occupant, (occupant.hasJob()?"[npc.name] already has a permanent job.":"Set [npc.namePos] temporary job and work hours.")));
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 						

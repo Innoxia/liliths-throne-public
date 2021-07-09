@@ -73,8 +73,8 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 public class OccupancyUtil implements XMLSaving {
 	
 	/** Maps job to ids of slaves who are currently at that job. */
-	private Map<SlaveJob, List<String>> slavesAtJob;
-	private List<NPC> slavesResting;
+	private Map<SlaveJob, List<String>> charactersAtJob;
+	private List<NPC> charactersResting;
 	private int generatedIncome;
 	private int generatedUpkeep;
 	
@@ -88,12 +88,12 @@ public class OccupancyUtil implements XMLSaving {
 	private Map<NPC, Integer> dailyIncome;
 	
 	public OccupancyUtil() {
-		slavesAtJob = new HashMap<>();
+		charactersAtJob = new HashMap<>();
 		for(SlaveJob job : SlaveJob.values()) {
-			slavesAtJob.put(job, new ArrayList<>());
+			charactersAtJob.put(job, new ArrayList<>());
 		}
 		
-		slavesResting = new ArrayList<>();
+		charactersResting = new ArrayList<>();
 		generatedIncome = 0;
 		generatedUpkeep = 0;
 		
@@ -126,7 +126,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		Element slavesAtJobElement = doc.createElement("slavesAtJob");
 		element.appendChild(slavesAtJobElement);
-		for(Entry<SlaveJob, List<String>> entry : slavesAtJob.entrySet()) {
+		for(Entry<SlaveJob, List<String>> entry : charactersAtJob.entrySet()) {
 			if(!entry.getValue().isEmpty()) {
 				Element jobElement = doc.createElement("slaves");
 				XMLUtil.addAttribute(doc, jobElement, "job", entry.getKey().toString());
@@ -161,11 +161,11 @@ public class OccupancyUtil implements XMLSaving {
 				for(int i=0; i<jobs.getLength(); i++) {
 					Element jobElement = ((Element)jobs.item(i));
 					SlaveJob job = SlaveJob.valueOf(jobElement.getAttribute("job"));
-					slaveryUtil.slavesAtJob.put(job, new ArrayList<>());
+					slaveryUtil.charactersAtJob.put(job, new ArrayList<>());
 					NodeList slaveIds = jobElement.getElementsByTagName("id");
 					for(int j=0; j<slaveIds.getLength(); j++) {
 						Element slaveId = ((Element)slaveIds.item(j));
-						slaveryUtil.slavesAtJob.get(job).add(slaveId.getTextContent());
+						slaveryUtil.charactersAtJob.get(job).add(slaveId.getTextContent());
 					}
 				}
 			}
@@ -190,11 +190,11 @@ public class OccupancyUtil implements XMLSaving {
 	}
 	
 	
-	private void clearSlavesJobTracking() {
+	private void clearJobTracking() {
 		for(SlaveJob job : SlaveJob.values()) {
-			slavesAtJob.get(job).clear();
+			charactersAtJob.get(job).clear();
 		}
-		slavesResting.clear();
+		charactersResting.clear();
 	}
 	
 	/**
@@ -209,6 +209,41 @@ public class OccupancyUtil implements XMLSaving {
 				occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
 			}
 		}
+	}
+	
+	public List<String> getAllCharacters() {
+		return Util.mergeLists(Main.game.getPlayer().getFriendlyOccupants(), Main.game.getPlayer().getSlavesOwned());
+	}
+	
+	public int getCharactersWorkingJob(int hour, SlaveJob job) {
+		int i=0;
+		for(String id : this.getAllCharacters()) {
+			try {
+				if(Main.game.getNPCById(id).getSlaveJob(hour)==job) {
+					i++;
+				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("getSlavesWorkingJob()", id);
+			}
+		}
+		return i;
+	}
+	
+	public int getTotalCharactersWorkingJob(SlaveJob job) {
+		int i=0;
+		for(String id : this.getAllCharacters()) {
+			try {
+				for(int hour=0; hour<24; hour++) {
+					if(Main.game.getNPCById(id).getSlaveJob(hour)==job) {
+						i++;
+						break;
+					}
+				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("getTotalSlavesWorkingJob()", id);
+			}
+		}
+		return i;
 	}
 	
 	public void performHourlyUpdate(int day, int hour) {
@@ -233,17 +268,17 @@ public class OccupancyUtil implements XMLSaving {
 		
 		// Slaves:
 		Map<String, SlaveJob> previousJobs = new HashMap<>();
-		for(Entry<SlaveJob, List<String>> entry : slavesAtJob.entrySet()) {
+		for(Entry<SlaveJob, List<String>> entry : charactersAtJob.entrySet()) {
 			for(String npcId : entry.getValue()) {
 				previousJobs.put(npcId, entry.getKey());
 			}
 		}
 		
-		clearSlavesJobTracking(); // Reset slavesAtJob and slavesResting
+		clearJobTracking(); // Reset slavesAtJob and slavesResting
 		
 		// First need to set correct jobs:
-		List<NPC> slavesToSendToWork = new ArrayList<>();
-		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+		List<NPC> charactersToSendToWork = new ArrayList<>();
+		for(String id : this.getAllCharacters()) {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 
@@ -255,7 +290,7 @@ public class OccupancyUtil implements XMLSaving {
 				
 				if(!Main.game.getPlayer().isActive() || !Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
 						|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) { // Also move slaves who are in bedroom but have elsewhere to be
-					slavesAtJob.get(currentJob).add(slave.getId());
+					charactersAtJob.get(currentJob).add(slave.getId());
 					
 					if(slave.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {
 						// Remove client before leaving:
@@ -269,9 +304,9 @@ public class OccupancyUtil implements XMLSaving {
 					}
 
 					if(currentJob==SlaveJob.IDLE) {
-						slavesResting.add(slave);
+						charactersResting.add(slave);
 					} else {
-						slavesToSendToWork.add(slave);
+						charactersToSendToWork.add(slave);
 					}
 
 				}
@@ -279,18 +314,18 @@ public class OccupancyUtil implements XMLSaving {
 					Main.game.updateResponses();
 				}
 			} catch (Exception e) {
-				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section.", id);
+				Util.logGetNpcByIdError("performHourlyUpdate(), all npcs section.", id);
 			}
 		}
 
 		// a slave's room always has enough room, so do this first
-		for(NPC slave : slavesResting) {
-			updateSlaveJob(slave, hour, previousJobs);
+		for(NPC slave : charactersResting) {
+			updateJob(slave, hour, previousJobs);
 		}
 
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
-		for(NPC slave : slavesToSendToWork) {
-			updateSlaveJob(slave, hour, previousJobs);
+		for(NPC slave : charactersToSendToWork) {
+			updateJob(slave, hour, previousJobs);
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
@@ -399,10 +434,10 @@ public class OccupancyUtil implements XMLSaving {
 			boolean eventAdded = false;
 			SlaveryEventLogEntry entry = null;
 			// Interaction events:
-			if(slavesAtJob.get(currentJob).size()>1 || (currentJob==SlaveJob.IDLE && slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
+			if(charactersAtJob.get(currentJob).size()>1 || (currentJob==SlaveJob.IDLE && slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 				if(Math.random()<0.25f && !Main.game.getCharactersPresent().contains(slave)) { // Do not generate sex events if the player is present.
 					List<NPC> slavesPresent = new ArrayList<>();
-					for(String npcId : slavesAtJob.get(currentJob)) {
+					for(String npcId : charactersAtJob.get(currentJob)) {
 						try {
 							NPC slaveAtJob = (NPC) Main.game.getNPCById(npcId);
 							if(slaveAtJob.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
@@ -559,7 +594,7 @@ public class OccupancyUtil implements XMLSaving {
 	 * @param hour Time at which this event is happening.
 	 * @param previousJobs Map with the previous job of all slaves
 	 */
-	private void updateSlaveJob(NPC slave, int hour, Map<String, SlaveJob> previousJobs) {
+	private void updateJob(NPC slave, int hour, Map<String, SlaveJob> previousJobs) {
 		SlaveJob currentJob = slave.getSlaveJob(hour);
 		SlaveJob previousJob = previousJobs.get(slave.getId());
 		// System.out.println(slave.getName()+": "+previousJob+" -> "+currentJob);
@@ -584,7 +619,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		List<SlaveryEventLogEntry> events = new ArrayList<>();
 		//TODO this should be handled in the job itself
-		if(slavesAtJob.get(currentJob).contains(slave.getId()) && currentJob!=SlaveJob.IDLE) { // Slave is working:
+		if(charactersAtJob.get(currentJob).contains(slave.getId()) && currentJob!=SlaveJob.IDLE) { // Slave is working:
 			switch (currentJob) {
 				case CLEANING:
 					//TODO
@@ -1741,8 +1776,8 @@ public class OccupancyUtil implements XMLSaving {
 		dailyIncome.put(slave, dailyIncome.get(slave)+increment);
 	}
 	
-	public List<NPC> getSlavesResting() {
-		return slavesResting;
+	public List<NPC> getCharactersResting() {
+		return charactersResting;
 	}
 	
 	public static boolean isFreeRoomAvailableForOccupant() {

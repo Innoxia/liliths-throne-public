@@ -251,16 +251,7 @@ public class Library {
 	
 				} else if(index>=6 && index-6<charactersPresent.size()) {
 					NPC slave = charactersPresent.get(index-6);
-					return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-						@Override
-						public Colour getHighlightColour() {
-							return slave.getFemininity().getColour();
-						}
-						@Override
-						public void effects() {
-							SlaveDialogue.initDialogue(slave, false);
-						}
-					};
+					return LilayaHomeGeneric.interactWithNPC(slave);
 				}
 				
 			} else if(responseTab==1) {
