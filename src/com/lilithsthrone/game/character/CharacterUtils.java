@@ -2408,58 +2408,66 @@ public class CharacterUtils {
 		List<Fetish> allowedFetishes = new ArrayList<>();
 		
 		for(Fetish f : Fetish.values()) {
-			if (f==Fetish.FETISH_PURE_VIRGIN) {
-				if(character.hasVagina() && (character.getHistory()==Occupation.NPC_PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_BIMBO) {
-				if(character.isFeminine())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_PREGNANCY || f==Fetish.FETISH_VAGINAL_RECEIVING) {
-				if(character.hasVagina())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_IMPREGNATION) {
-				if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_CUM_STUD || f==Fetish.FETISH_PENIS_GIVING) {
-				if(character.hasPenis())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_BREASTS_SELF) {
-				if(character.hasBreasts())
-					allowedFetishes.add(f);
-				
-			// Fetishes for content locks:
-			} else if (f==Fetish.FETISH_NON_CON_DOM || f==Fetish.FETISH_NON_CON_SUB) {
-				if(Main.game.isNonConEnabled()) {
-					allowedFetishes.add(f);
-				}
-				
-			} else if (f==Fetish.FETISH_INCEST) {
-				if(Main.game.isIncestEnabled())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_LACTATION_OTHERS || f==Fetish.FETISH_LACTATION_SELF) {
-				if(Main.game.isLactationContentEnabled())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_ANAL_GIVING || f==Fetish.FETISH_ANAL_RECEIVING) {
-				if(Main.game.isAnalContentEnabled())
-					allowedFetishes.add(f);
-
-			} else if (f==Fetish.FETISH_FOOT_GIVING || f==Fetish.FETISH_FOOT_RECEIVING) {
-				if(Main.game.isFootContentEnabled())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_SIZE_QUEEN) {
-				if(Main.game.isPenetrationLimitationsEnabled())
-					allowedFetishes.add(f);
-				
-			} else if (f.getFetishesForAutomaticUnlock().isEmpty()){
-				allowedFetishes.add(f);
+			switch(f) {
+				case FETISH_PURE_VIRGIN:
+					if(character.hasVagina()||(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))
+						allowedFetishes.add(f);
+					break;
+				case FETISH_PREGNANCY:
+				case FETISH_VAGINAL_RECEIVING:
+					if(character.hasVagina())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_IMPREGNATION:
+					if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
+						allowedFetishes.add(f);
+					break;
+				case FETISH_CUM_STUD:
+				case FETISH_PENIS_GIVING:
+					if(character.hasPenis())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_BREASTS_SELF:
+					if(character.hasBreasts())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_NON_CON_DOM:
+				case FETISH_NON_CON_SUB:
+					if(Main.game.isNonConEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_INCEST:
+					if(Main.game.isIncestEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_LACTATION_OTHERS:
+				case FETISH_LACTATION_SELF:
+					if(Main.game.isLactationContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_ANAL_GIVING:
+				case FETISH_ANAL_RECEIVING:
+					if(Main.game.isAnalContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_FOOT_GIVING:
+				case FETISH_FOOT_RECEIVING:
+					if(Main.game.isFootContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_SIZE_QUEEN:
+					if(Main.game.isPenetrationLimitationsEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_ARMPIT_GIVING:
+				case FETISH_ARMPIT_RECEIVING:
+					if(Main.game.isArmpitContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				default:
+					if (f.getFetishesForAutomaticUnlock().isEmpty())
+						allowedFetishes.add(f);
+					break;
 			}
 		}
 		

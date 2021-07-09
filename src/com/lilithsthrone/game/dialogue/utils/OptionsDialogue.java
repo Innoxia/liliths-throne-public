@@ -1490,6 +1490,9 @@ public class OptionsDialogue {
 			if(!Main.game.isFootContentEnabled() && (fetish == Fetish.FETISH_FOOT_GIVING || fetish == Fetish.FETISH_FOOT_RECEIVING)) {
 				disabledMsg="Foot Content";
 			}
+			if(!Main.game.isArmpitContentEnabled() && (fetish == Fetish.FETISH_ARMPIT_GIVING || fetish == Fetish.FETISH_ARMPIT_RECEIVING)) {
+				disabledMsg="Armpit Content";
+			}
 			if(disabledMsg!=null) {
 				// Disabled fetishes to default, the fetish won't be a valid option for the generator anyway
 				Main.getProperties().fetishPreferencesMap.put(fetish, fetish.getFetishPreferenceDefault().getValue());
