@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.LegConfigurationAquatic;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -22,7 +23,6 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -111,22 +111,36 @@ public class Race {
 	};
 
 	// DEMON:
+	private static HashMap<LegConfigurationAquatic, String> generateDemonNameFeralMap() {
+		HashMap<LegConfigurationAquatic, String> names = new HashMap<>();
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.BIPEDAL, "demon");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.ARACHNID, "demonic-spider");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.CEPHALOPOD, "demonic-octopus");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.QUADRUPEDAL, "demonic-horse");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.AVIAN, "demonic-eagle");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL, "demonic-fish");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL_LONG, "demonic-snake");
+		names.put(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpent");
+
+		return names;
+	}
+	private static HashMap<LegConfigurationAquatic, String> generateDemonNameFeralPluralMap() {
+		HashMap<LegConfigurationAquatic, String> names = new HashMap<>();
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.BIPEDAL, "demons");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.ARACHNID, "demonic-spiders");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.CEPHALOPOD, "demonic-octopuses");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.QUADRUPEDAL, "demonic-horses");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.AVIAN, "demonic-eagles");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL, "demonic-fish");
+		names = LegConfigurationAquatic.getFeralNamesMap(names, LegConfiguration.TAIL_LONG, "demonic-snakes");
+		names.put(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpents");
+
+		return names;
+	}
 	public static AbstractRace DEMON = new AbstractRace("demon",
 			"demons",
-			Util.newHashMapOfValues(
-					new Value<>(LegConfiguration.BIPEDAL, "demon"),
-					new Value<>(LegConfiguration.ARACHNID, "demonic-spider"),
-					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopus"),
-					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horse"),
-					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
-					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snake")),
-			Util.newHashMapOfValues(
-					new Value<>(LegConfiguration.BIPEDAL, "demons"),
-					new Value<>(LegConfiguration.ARACHNID, "demonic-spiders"),
-					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopuses"),
-					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horses"),
-					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
-					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snakes")),
+			generateDemonNameFeralMap(),
+			generateDemonNameFeralPluralMap(),
 			"demonic",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
