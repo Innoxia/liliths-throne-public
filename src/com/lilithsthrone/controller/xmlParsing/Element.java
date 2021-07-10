@@ -5,19 +5,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.lilithsthrone.main.Main;
+import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * @author BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord)
- * @since 0.2.5.8
  * @version 0.2.12
- * 
+ *
  * <p>Wrapper for org.w3c.dom.Element that's supposed to simplify mod support</p>
+ * @since 0.2.5.8
  */
 public class Element {
-
+	
+	private static final DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	private static DocumentBuilder docBuilder;
+	
+	static {
+		if (docBuilder == null) {
+			try {
+				docBuilder = docFactory.newDocumentBuilder();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private final org.w3c.dom.Element innerElement;//contains wrapped element
 	private final String fileDirectory;//contains location of the file to show in case of error
 	private final org.w3c.dom.Document document;//document the element is in, legacy
@@ -42,31 +60,68 @@ public class Element {
 	 * Loads and prepares document for reading and returns root element, for example {@code <clothing>} in clothes mods.
 	 *
 	 * @param xmlFile File in XML format. Throws an exception with necessary details if something goes wrong. {@link XMLLoadException} for mode details.
-	 *
 	 * @return Element at the root of the document
 	 * @throws XMLLoadException
 	 */
 	public static Element getDocumentRootElement(File xmlFile) throws XMLLoadException{
 		try{
 			String fileDirectory = xmlFile.getAbsolutePath();
-			Document parsedDocument = Main.getDocBuilder().parse(xmlFile);
+			Document parsedDocument = docBuilder.parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
 			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
-			
-		} catch(Exception e){
-			throw new XMLLoadException(e);
-		}
-	}
-
-	public static Element getElement(org.w3c.dom.Element w3cElement, String fileDirectory, org.w3c.dom.Document document) throws XMLLoadException{
-		try{
-			return new Element(w3cElement, "", document);
-			
 		} catch(Exception e){
 			throw new XMLLoadException(e);
 		}
 	}
 	
+	public static Element createNewDocument(String root) {
+		if (docBuilder == null) {
+			try {
+				docBuilder = docFactory.newDocumentBuilder();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}
+		}
+		Document doc = docBuilder.newDocument();
+		doc.getDocumentElement().normalize();
+		org.w3c.dom.Element rootElement = doc.createElement(root);
+		doc.appendChild(rootElement);
+		return new Element(doc.getDocumentElement(), "", doc);
+	}
+	
+	public static Element getElement(org.w3c.dom.Element w3cElement, String fileDirectory, org.w3c.dom.Document document) throws XMLLoadException {
+		try {
+			return new Element(w3cElement, "", document);
+		} catch(Exception e){
+			throw new XMLLoadException(e);
+		}
+	}
+	
+	public Element addElement(String tagName) {
+		org.w3c.dom.Element element = document.createElement(tagName);
+		innerElement.appendChild(element);
+		return new Element(element, "", document);
+	}
+	
+	// Add Element with a single attribute - Paired with getValue
+	public Element addElement(String tagName, String value){
+		Element element = addElement(tagName);
+		element.addAttribute("value", value);
+		return element;
+	}
+	
+	public void removeElement(String id) {
+		org.w3c.dom.Element element = document.getElementById(innerElement.getTagName());
+		NodeList children = element.getElementsByTagName(id);
+		for(int i=0; i<children.getLength(); i++) {
+			element.removeChild(children.item(i));
+		}
+	}
+	
+	public void addComment(String comment) {
+		org.w3c.dom.Comment element = document.createComment(comment);
+		innerElement.appendChild(element);
+	}
 	/**
 	 * <p>
 	 * Returns tag name of the element</p>
@@ -80,17 +135,25 @@ public class Element {
 
 	/**
 	 * <p>
-	 * Returns value of attribute requested by name</p>.
+	 * Returns value of attribute requested by name.</p>
 	 *
 	 * @param name String name of the attribute to return value of
-	 *
 	 * @return Attribute as String, for example:
 	 * {@code <element attribute = "value"></element>} returns "value". Returns an empty String if no such attribute was present.
 	 */
 	public String getAttribute(String name) {
 		return innerElement.getAttribute(name);
 	}
+	
+	public String getValue() {
+		return innerElement.getAttribute("value");
+	}
 
+	public void addAttribute(String attributeName, String value){
+		Attr attr = document.createAttribute(attributeName);
+		attr.setValue(value);
+		innerElement.setAttributeNode(attr);
+	}
 	/**
 	 * <p>
 	 * Returns raw text inside the element.</p>
@@ -105,33 +168,23 @@ public class Element {
 	public String getTextContent() {
 		try {
 			return innerElement.getTextContent();
-			
 		} catch (DOMException ex) {
-			System.err.println(String.format("DOM exception: text content in element \"%s\" probably exceeds max allowed."
-			+ "XML parsing will try to continue with empty text content",
-			getTagName()));
+			System.err.printf("DOM exception: text content in element \"%s\" probably exceeds max allowed."
+							+"XML parsing will try to continue with empty text content%n",
+					getTagName());
 			return "";
 		}
 	}
 	
-	/**
-	 * Returns inner element. Used to support legacy code
-	 * 
-	 * @return w3c DOM Element that wrapper contains
-	 * @deprecated 
-	 */
-	@Deprecated
-	public org.w3c.dom.Element getInnerElement(){
-		return innerElement;
+	public void setTextContent(String s) {
+		innerElement.setTextContent(s);
 	}
-
+	
 	/**
-	 * Returns the document. Used for legacy code
+	 * Returns the document.
 	 *
 	 * @return w3c DOM Document element is in.
-	 * @deprecated 
 	 */
-	@Deprecated
 	public org.w3c.dom.Document getDocument(){
 		return document;
 	}
@@ -147,7 +200,6 @@ public class Element {
 	 * details.</p>
 	 *
 	 * @param tag String tag of the element to return.
-	 *
 	 * @return First element found with given tag
 	 * @throws XMLMissingTagException
 	 */
@@ -178,7 +230,6 @@ public class Element {
 	 * </pre>
 	 *
 	 * @param tag String tag of the element to return.
-	 *
 	 * @return First element found with given tag.
 	 */
 	public Optional<Element> getOptionalFirstOf(String tag) {
@@ -194,7 +245,6 @@ public class Element {
 	 * Returns iterable list of all child elements with a given tag</p>
 	 *
 	 * @param tag String tag of elements to return.
-	 *
 	 * @return {@link java.util.List} of Elements with given tag.
 	 */
 	public List<Element> getAllOf(String tag) {
