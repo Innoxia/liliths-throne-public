@@ -810,10 +810,14 @@ public class DebugDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			for(NPC npc : Main.game.getOffspring()) {
-				UtilText.nodeContentSB.append("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
+				boolean isBorn = true;
+				if(npc.getMother()!=null && npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+					isBorn = false;
+				}
+				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
 						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies().getName(npc)+")"
-						+ " M:"+(npc.getMother()!=null?npc.getMother().getName(true):"???")
-						+ " F:"+(npc.getFather()!=null?npc.getFather().getName(true):"???")+"<br/>");
+						+ " M:"+(npc.getMother()!=null?npc.getMother().getName(true):"Deleted NPC")
+						+ " F:"+(npc.getFather()!=null?npc.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			for(OffspringSeed os : Main.game.getOffspringNotSpawned(os -> true,true)) {
 				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+"</span>"

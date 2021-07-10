@@ -196,11 +196,6 @@ public class Body implements XMLSaving {
 			this.breastCrotch = breastCrotch;
 			return this;
 		}
-		
-		public BodyBuilder breast(Antenna antenna) {
-			this.antenna = antenna;
-			return this;
-		}
 
 		public BodyBuilder horn(Horn horn) {
 			this.horn = horn;
@@ -1411,11 +1406,12 @@ public class Body implements XMLSaving {
 		if(spinneret!=null) {
 			importedSpinneret.wetness = Integer.valueOf(spinneret.getAttribute("wetness"));
 			importedSpinneret.capacity = handleCapacityLoading(Float.valueOf(spinneret.getAttribute("capacity")));
-			importedSpinneret.depth = OrificeDepth.TWO_AVERAGE.getValue();
+			depth = OrificeDepth.TWO_AVERAGE.getValue();
 			depthAttribute = spinneret.getAttribute("depth");
 			if(!depthAttribute.isEmpty()) {
 				depth = Integer.valueOf(depthAttribute);
 			}
+			importedSpinneret.depth = depth;
 			importedSpinneret.elasticity = Integer.valueOf(spinneret.getAttribute("elasticity"));
 			importedSpinneret.plasticity = Integer.valueOf(spinneret.getAttribute("plasticity"));
 			importedSpinneret.virgin = Boolean.valueOf(spinneret.getAttribute("virgin"));

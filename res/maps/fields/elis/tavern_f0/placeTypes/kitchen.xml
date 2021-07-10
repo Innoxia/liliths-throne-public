@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
 	<name><![CDATA[kitchen]]></name>
-	<tooltipDescription><![CDATA[The place in which meals are prepared and cooked, the kitchen at The Red Dragon is quite large.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[The place in which meals are prepared and cooked, the kitchen at 'The Red Dragon' is quite large.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the kitchen in 'The Red Dragon' tavern]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
