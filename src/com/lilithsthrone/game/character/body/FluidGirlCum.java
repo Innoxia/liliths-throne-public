@@ -1,13 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -38,78 +34,46 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 		fluidModifiers = new ArrayList<>();
 		fluidModifiers.addAll(type.getDefaultFluidModifiers());
 	}
-
-	public Element saveAsXML(Element parentElement, Document doc) {
-		Element element = doc.createElement("girlcum");
-		parentElement.appendChild(element);
-
-		XMLUtil.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
-		XMLUtil.addAttribute(doc, element, "flavour", this.flavour.toString());
-		
-		Element cumModifiers = doc.createElement("girlcumModifiers");
-		element.appendChild(cumModifiers);
-		for(FluidModifier fm : this.getFluidModifiers()) {
-			XMLUtil.addAttribute(doc, cumModifiers, fm.toString(), "true");
-		}
-		
-		return element;
-	}
-
-	public static FluidGirlCum loadFromXML(Element parentElement, Document doc) {
-		return loadFromXML(parentElement, doc, null);
-	}
 	
-	/**
-	 * 
-	 * @param parentElement
-	 * @param doc
-	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
-	 */
-	public static FluidGirlCum loadFromXML(Element parentElement, Document doc, AbstractFluidType baseType) {
+	public boolean saveAsXML(Element parentElement) {
+		Element girlcumElement = parentElement.addElement("girlcum");
+		girlcumElement.addAttribute("type", FluidType.getIdFromFluidType(type));
+		girlcumElement.addAttribute("flavour", flavour.toString());
 		
-		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
+		Element modifiers = girlcumElement.addElement("girlcumModifiers");
+		for(FluidModifier fm : fluidModifiers) {
+			modifiers.addAttribute(fm.toString(), "true");
+		}
+		return true;
+	}
 
-		AbstractFluidType fluidType = FluidType.GIRL_CUM_HUMAN;
-		
-		if(baseType!=null) {
-			fluidType = baseType;
-			
-		} else {
-			try {
-				fluidType = FluidType.getFluidTypeFromId(girlcum.getAttribute("type"));
-			} catch(Exception ex) {
+	public static FluidGirlCum loadFromXML(Element parentElement) {
+		try {
+			Element girlcumElement = parentElement.getMandatoryFirstOf("girlcum");
+			FluidGirlCum fluidGirlcum = new FluidGirlCum(FluidType.getFluidTypeFromId(girlcumElement.getAttribute("type")));
+			fluidGirlcum.flavour = FluidFlavour.valueOf(girlcumElement.getAttribute("flavour"));
+			if(girlcumElement.getOptionalFirstOf("girlcumModifiers").isPresent()) {
+				Element cumModifiersElement = girlcumElement.getMandatoryFirstOf("girlcumModifiers");
+				for(FluidModifier fm : FluidModifier.values()) {
+					if(!cumModifiersElement.getAttribute(fm.toString()).isEmpty()) {
+						fluidGirlcum.fluidModifiers.add(fm);
+					}
+				}
 			}
+			return fluidGirlcum;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
 		}
-		
-		FluidGirlCum fluidGirlcum = new FluidGirlCum(fluidType);
-		
-		String flavourId = girlcum.getAttribute("flavour");
-		if(flavourId.equalsIgnoreCase("SLIME")) {
-			fluidGirlcum.flavour = FluidFlavour.BUBBLEGUM;
-		} else {
-			fluidGirlcum.flavour = FluidFlavour.valueOf(flavourId);
-		}
-		
-
-		Element girlcumModifiersElement = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
-		fluidGirlcum.fluidModifiers.clear();
-		if(girlcumModifiersElement!=null) {
-			Collection<FluidModifier> girlcumFluidModifiers = fluidGirlcum.fluidModifiers;
-			Body.handleLoadingOfModifiers(FluidModifier.values(), null, girlcumModifiersElement, girlcumFluidModifiers);
-		}
-		
-		return fluidGirlcum;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof FluidGirlCum){
-			if(((FluidGirlCum)o).getType().equals(this.getType())
-				&& ((FluidGirlCum)o).getFlavour() == this.getFlavour()
-				&& ((FluidGirlCum)o).getFluidModifiers().equals(this.getFluidModifiers())
-				&& ((FluidGirlCum)o).getTransformativeEffects().equals(this.getTransformativeEffects())){
-					return true;
-			}
+			return ((FluidGirlCum) o).getType().equals(this.getType())
+					&& ((FluidGirlCum) o).getFlavour() == this.getFlavour()
+					&& ((FluidGirlCum) o).getFluidModifiers().equals(this.getFluidModifiers())
+					&& ((FluidGirlCum) o).getTransformativeEffects().equals(this.getTransformativeEffects());
 		}
 		return false;
 	}

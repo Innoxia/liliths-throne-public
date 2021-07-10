@@ -1,13 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -43,76 +39,46 @@ public class FluidMilk implements FluidInterface {
 		this.crotchMilk = crotchMilk;
 	}
 	
-	public Element saveAsXML(String rootElementName, Element parentElement, Document doc) {
-		Element element = doc.createElement(rootElementName);
-		parentElement.appendChild(element);
-
-		XMLUtil.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
-		XMLUtil.addAttribute(doc, element, "flavour", this.flavour.toString());
+	public boolean saveAsXML(Element parentElement) {
+		Element milkElement = parentElement.addElement("milk");
+		milkElement.addAttribute("type", FluidType.getIdFromFluidType(type));
+		milkElement.addAttribute("flavour", flavour.toString());
+		milkElement.addAttribute("crotchMilk", String.valueOf(crotchMilk));
 		
-		Element milkModifiers = doc.createElement("milkModifiers");
-		element.appendChild(milkModifiers);
-		for(FluidModifier fm : this.getFluidModifiers()) {
-			XMLUtil.addAttribute(doc, milkModifiers, fm.toString(), "true");
+		Element modifiers = milkElement.addElement("milkModifiers");
+		for(FluidModifier fm : fluidModifiers) {
+			modifiers.addAttribute(fm.toString(), "true");
 		}
-		
-		return element;
+		return true;
 	}
 	
-	public static FluidMilk loadFromXML(String rootElementName, Element parentElement, Document doc) {
-		return loadFromXML(rootElementName, parentElement, doc, null, false);
-	}
-	
-	/**
-	 * 
-	 * @param parentElement
-	 * @param doc
-	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
-	 */
-	public static FluidMilk loadFromXML(String rootElementName, Element parentElement, Document doc, AbstractFluidType baseType, boolean crotchMilk) {
-		
-		Element milk = (Element)parentElement.getElementsByTagName(rootElementName).item(0);
-		
-		AbstractFluidType fluidType = FluidType.MILK_HUMAN;
-		
-		if(baseType!=null) {
-			fluidType = baseType;
-			
-		} else {
-			try {
-				fluidType = FluidType.getFluidTypeFromId(milk.getAttribute("type"));
-			} catch(Exception ex) {
+	public static FluidMilk loadFromXML(Element parentElement) {
+		try {
+			Element milkElement = parentElement.getMandatoryFirstOf("milk");
+			FluidMilk fluidMilk = new FluidMilk(FluidType.getFluidTypeFromId(milkElement.getAttribute("type")), Boolean.parseBoolean(milkElement.getAttribute("crotchMilk")));
+			fluidMilk.flavour = FluidFlavour.valueOf(milkElement.getAttribute("flavour"));
+			if(milkElement.getOptionalFirstOf("milkModifiers").isPresent()) {
+				Element milkModifiersElement = milkElement.getMandatoryFirstOf("milkModifiers");
+				for(FluidModifier fm : FluidModifier.values()) {
+					if(!milkModifiersElement.getAttribute(fm.toString()).isEmpty()) {
+						fluidMilk.fluidModifiers.add(fm);
+					}
+				}
 			}
+			return fluidMilk;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
 		}
-		
-		FluidMilk fluidMilk = new FluidMilk(fluidType, crotchMilk);
-		
-		String flavourId = milk.getAttribute("flavour");
-		if(flavourId.equalsIgnoreCase("SLIME")) {
-			fluidMilk.flavour = FluidFlavour.BUBBLEGUM;
-		} else {
-			fluidMilk.flavour = FluidFlavour.valueOf(flavourId);
-		}
-		
-		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-		fluidMilk.fluidModifiers.clear();
-		if(milkModifiersElement!=null) {
-			Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
-			Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
-		}
-		
-		return fluidMilk;
 	}
 	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof FluidMilk){
-			if(((FluidMilk)o).getType().equals(this.getType())
-				&& ((FluidMilk)o).getFlavour() == this.getFlavour()
-				&& ((FluidMilk)o).getFluidModifiers().equals(this.getFluidModifiers())
-				&& ((FluidMilk)o).getTransformativeEffects().equals(this.getTransformativeEffects())){
-					return true;
-			}
+			return ((FluidMilk) o).getType().equals(this.getType())
+					&& ((FluidMilk) o).getFlavour() == this.getFlavour()
+					&& ((FluidMilk) o).getFluidModifiers().equals(this.getFluidModifiers())
+					&& ((FluidMilk) o).getTransformativeEffects().equals(this.getTransformativeEffects());
 		}
 		return false;
 	}
