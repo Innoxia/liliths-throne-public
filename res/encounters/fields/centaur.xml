@@ -11,14 +11,14 @@
 		<encounter>
 			<name><![CDATA[demonic centauress marauder]]></name>
 			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
-				5
+				3
 			]]></chanceToTrigger>
 			<dialogueReturned><![CDATA[innoxia_encounters_fields_centaur_melee_start]]></dialogueReturned>
 		</encounter>
 		<encounter>
 			<name><![CDATA[demonic centauress raider]]></name>
 			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
-				5
+				3
 			]]></chanceToTrigger>
 			<dialogueReturned><![CDATA[innoxia_encounters_fields_centaur_ranged_start]]></dialogueReturned>
 		</encounter>

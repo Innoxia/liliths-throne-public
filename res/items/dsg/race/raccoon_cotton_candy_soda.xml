@@ -7,7 +7,7 @@
 		<determiner><![CDATA[a cup of]]></determiner>
 		<name><![CDATA[Cotton Candy Soda]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Cotton Candy Sodas]]></namePlural>
-		<description><![CDATA[A large translucent plastic cup of blue raspberry cotton candy flavored soda. The label depicts a raccoon-boy in a lab coat dangling a wad of cotton candy over a bowl of carbonated water.]]></description> 
+		<description><![CDATA[A large translucent plastic cup of blue raspberry cotton candy flavoured soda. The label depicts a raccoon-boy in a lab coat dangling a wad of cotton candy over a bowl of carbonated water.]]></description> 
 		
 		<useDescriptor>drink</useDescriptor>
 		
@@ -31,10 +31,16 @@
 		
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(1)] to 'potion effects']]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
 			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A cool wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 1)]
 		]]></applyEffects>
 		
 		<itemTags>

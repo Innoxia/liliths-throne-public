@@ -149,6 +149,8 @@ public class ImpCitadelDialogue {
 				character.returnToHome();
 			}
 		}
+		
+		getArcanist().equipClothing(EquipClothingSetting.getAllClothingSettings()); // Remove lab coat
 	}
 	
 	private static void banishImps() {
@@ -297,8 +299,8 @@ public class ImpCitadelDialogue {
 		return Main.game.getNpc(DarkSiren.class);
 	}
 	
-	public static GameCharacter getArcanist() {
-		return Main.game.getNpc(SubmissionCitadelArcanist.class);
+	public static SubmissionCitadelArcanist getArcanist() {
+		return (SubmissionCitadelArcanist) Main.game.getNpc(SubmissionCitadelArcanist.class);
 	}
 
 	public static GameCharacter getMainCompanion() {

@@ -42,6 +42,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -431,6 +432,16 @@ public class ItemEffectType {
 				target.getPotentialPartnersAsMother().removeIf((pp) -> !pp.getFatherId().equals(target.getPregnantLitter().getFatherId()));
 				
 				GameCharacter father = target.getPregnantLitter().getFather();
+				String unknownFatherName = "Unknown!";
+				if(father==null) {
+					try {
+						GameCharacter offspring0 = target.getPregnantLitter().getOffspringCharacters().iterator().next();
+						if(!offspring0.getFatherName().equals("???")) {
+							unknownFatherName = offspring0.getFatherName();
+						}
+					} catch(Exception ex) {
+					}
+				}
 				
 				return "<p>"
 						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
@@ -440,7 +451,7 @@ public class ItemEffectType {
 						+ "<i>"
 						+ "Father: "+(father!=null
 										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father))+")"
-										:"Unknown!"+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(target))+")")+"<br/>"
+										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class)))+")")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
 						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
@@ -736,6 +747,12 @@ public class ItemEffectType {
 				fetishesToAdd.remove(Fetish.FETISH_FOOT_RECEIVING);
 				fetishesToRemove.remove(Fetish.FETISH_FOOT_GIVING);
 				fetishesToRemove.remove(Fetish.FETISH_FOOT_RECEIVING);
+			}
+			if(!Main.game.isArmpitContentEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_GIVING);
+				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_RECEIVING);
+				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_GIVING);
+				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_RECEIVING);
 			}
 			if(!Main.game.isIncestEnabled()) {
 				fetishesToAdd.remove(Fetish.FETISH_INCEST);

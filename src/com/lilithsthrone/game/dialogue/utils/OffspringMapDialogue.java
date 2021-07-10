@@ -74,9 +74,18 @@ public class OffspringMapDialogue {
 					for(NPC npc : npcsToShow) {
 						UtilText.nodeContentSB.append("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+"</span>");
 						
+						String unknownMotherName = "Unknown";
+						if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
+							unknownMotherName = npc.getMotherName();
+						}
+						String unknownFatherName = "Unknown";
+						if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
+							unknownFatherName = npc.getFatherName();
+						}
+						
 						UtilText.nodeContentSB.append(" (<span style='color:"+npc.getSubspecies().getColour(npc).toWebHexString()+";'>"+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+"</span>)"
-								+ " Mother: "+(npc.getMother()==null?"Unknown":npc.getMother().getName(true))
-								+ " Father: "+(npc.getFather()==null?"Unknown":npc.getFather().getName(true))
+								+ " Mother: "+(npc.getMother()==null?unknownMotherName:npc.getMother().getName(true))
+								+ " Father: "+(npc.getFather()==null?unknownFatherName:npc.getFather().getName(true))
 								+ "<br/>");
 					}
 					
@@ -89,9 +98,19 @@ public class OffspringMapDialogue {
 					}
 					for(NPC npc : npcsToShow) {
 						UtilText.nodeContentSB.append("[style.colourDisabled("+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+")]");
+
+						String unknownMotherName = "Unknown";
+						if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
+							unknownMotherName = npc.getMotherName();
+						}
+						String unknownFatherName = "Unknown";
+						if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
+							unknownFatherName = npc.getFatherName();
+						}
+						
 						UtilText.nodeContentSB.append(" (<span style='color:"+npc.getSubspecies().getColour(npc).toWebHexString()+";'>"+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+"</span>)"
-								+ " Mother: "+(npc.getMother()==null?"Unknown":npc.getMother().getName(true))
-								+ " Father: "+(npc.getFather()==null?"Unknown":npc.getFather().getName(true))
+								+ " Mother: "+(npc.getMother()==null?unknownMotherName:npc.getMother().getName(true))
+								+ " Father: "+(npc.getFather()==null?unknownFatherName:npc.getFather().getName(true))
 								+ "<br/>");
 					}
 				}
