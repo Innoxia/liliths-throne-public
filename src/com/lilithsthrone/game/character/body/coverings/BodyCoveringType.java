@@ -982,42 +982,61 @@ public class BodyCoveringType {
 	public static AbstractBodyCoveringType getBodyCoveringTypeFromId(String id) {
 		
 		// Imp changes:
-		if(id.equals("IMP")) {
-			id = "DEMON_COMMON";
-		} else if(id.equals("HAIR_IMP")) {
-			id = "HAIR_DEMON";
-		} else if(id.equals("BODY_HAIR_IMP")) {
-			id = "BODY_HAIR_DEMON";
-		} else if(id.equals("EYE_IMP")) {
-			id = "EYE_DEMON_COMMON";
+		switch (id) {
+			case "IMP":
+				id = "DEMON_COMMON";
+				break;
+			case "HAIR_IMP":
+				id = "HAIR_DEMON";
+				break;
+			case "BODY_HAIR_IMP":
+				id = "BODY_HAIR_DEMON";
+				break;
+			case "EYE_IMP":
+				id = "EYE_DEMON_COMMON";
+				break;
 		}
 		// Material updates in v0.4:
-		if(id.equals("SLIME")) {
-			id = "SLIME_MAIN_SKIN";
-		} else if(id.equals("SLIME_EYE")) {
-			id = "SLIME_EYE_IRIS";
-		} else if(id.equals("SLIME_PUPILS")) {
-			id = "SLIME_EYE_PUPIL";
-		} else if(id.equals("SLIME_SCLERA")) {
-			id = "SLIME_EYE_SCLERA";
-		} else if(id.equals("SLIME_NIPPLES")) {
-			id = "SLIME_NIPPLE";
-		} else if(id.equals("SLIME_NIPPLES_CROTCH")) {
-			id = "SLIME_NIPPLE_CROTCH";
-		} else if(id.equals("FIRE")) {
-			id = "FIRE_MAIN_SKIN";
-		} else if(id.equals("WATER")) {
-			id = "WATER_MAIN_SKIN";
-		} else if(id.equals("ICE")) {
-			id = "ICE_MAIN_SKIN";
-		} else if(id.equals("AIR")) {
-			id = "AIR_MAIN_SKIN";
-		} else if(id.equals("STONE")) {
-			id = "STONE_MAIN_SKIN";
-		} else if(id.equals("RUBBER")) {
-			id = "RUBBER_MAIN_SKIN";
-		} else if(id.equals("ARCANE")) {
-			id = "ARCANE_MAIN_SKIN";
+		switch (id) {
+			case "SLIME":
+				id = "SLIME_MAIN_SKIN";
+				break;
+			case "SLIME_EYE":
+				id = "SLIME_EYE_IRIS";
+				break;
+			case "SLIME_PUPILS":
+				id = "SLIME_EYE_PUPIL";
+				break;
+			case "SLIME_SCLERA":
+				id = "SLIME_EYE_SCLERA";
+				break;
+			case "SLIME_NIPPLES":
+				id = "SLIME_NIPPLE";
+				break;
+			case "SLIME_NIPPLES_CROTCH":
+				id = "SLIME_NIPPLE_CROTCH";
+				break;
+			case "FIRE":
+				id = "FIRE_MAIN_SKIN";
+				break;
+			case "WATER":
+				id = "WATER_MAIN_SKIN";
+				break;
+			case "ICE":
+				id = "ICE_MAIN_SKIN";
+				break;
+			case "AIR":
+				id = "AIR_MAIN_SKIN";
+				break;
+			case "STONE":
+				id = "STONE_MAIN_SKIN";
+				break;
+			case "RUBBER":
+				id = "RUBBER_MAIN_SKIN";
+				break;
+			case "ARCANE":
+				id = "ARCANE_MAIN_SKIN";
+				break;
 		}
 		// Other changes:
 		if(id.equals("DEMON_HORSE_HAIR")) {
@@ -1061,7 +1080,7 @@ public class BodyCoveringType {
 				} catch(Exception ex) {
 					System.err.println("Loading modded bodyCoveringType failed at 'BodyCoveringType'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
-					ex.printStackTrace(System.err);
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -1080,7 +1099,7 @@ public class BodyCoveringType {
 				} catch(Exception ex) {
 					System.err.println("Loading bodyCoveringType failed at 'BodyCoveringType'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
-					ex.printStackTrace(System.err);
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -1174,7 +1193,7 @@ public class BodyCoveringType {
 						}
 						
 						if(bct!=null) {
-							String id =  mat.toString()+"_"+cat.toString();
+							String id =  mat+"_"+cat;
 							bodyCoveringTypesToIdMap.put(bct,id);
 							idToBodyCoveringTypesMap.put(id, bct);
 							allBodyCoveringTypes.add(bct);
@@ -1188,9 +1207,6 @@ public class BodyCoveringType {
 					List<Colour> naturalColours = new ArrayList<>();
 					
 					switch(mat) {
-						case FLESH:
-						case SLIME:
-							break;
 						case AIR:
 							name = "vapours";
 							modifier = CoveringModifier.SWIRLING;
@@ -1255,6 +1271,9 @@ public class BodyCoveringType {
 								case MAIN_SKIN:
 								case PENIS:
 								case TONGUE:
+								case ARTIFICIAL:
+								case FLUID:
+								case MAKEUP:
 									break;
 								case EYE_IRIS:
 									pattern = CoveringPattern.EYE_IRISES;
@@ -1283,14 +1302,10 @@ public class BodyCoveringType {
 								case SPINNERET:
 									pattern = CoveringPattern.ORIFICE_SPINNERET;
 									break;
-								case ARTIFICIAL:
-								case FLUID:
-								case MAKEUP:
-									break;
 							}
 							AbstractBodyCoveringType bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createElemental(name, modifier, pattern, naturalColours)) {};
 							
-							String id =  mat.toString()+"_"+cat.toString();
+							String id =  mat+"_"+cat;
 							bodyCoveringTypesToIdMap.put(bct, id);
 							idToBodyCoveringTypesMap.put(id, bct);
 							allBodyCoveringTypes.add(bct);
