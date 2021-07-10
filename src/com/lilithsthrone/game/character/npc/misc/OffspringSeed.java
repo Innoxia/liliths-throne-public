@@ -48,6 +48,18 @@ public class OffspringSeed  implements XMLSaving {
 	protected String fatherId;
 	protected String incubatorId;
 	protected LocalDateTime conceptionDate;
+	// Used as a backup for when motherId is pointing to a null NPC:
+	protected String motherName = "???";
+	protected Femininity motherFemininity = Femininity.FEMININE;
+	protected AbstractSubspecies motherSubspecies = Subspecies.HUMAN;
+	// Used as a backup for when fatherId is pointing to a null NPC:
+	protected String fatherName = "???";
+	protected Femininity fatherFemininity = Femininity.MASCULINE;
+	protected AbstractSubspecies fatherSubspecies = Subspecies.HUMAN;
+	// Used as a backup for when incubatorId is pointing to a null NPC:
+	protected String incubatorName = "???";
+	protected Femininity incubatorFemininity = Femininity.ANDROGYNOUS;
+	protected AbstractSubspecies incubatorSubspecies = Subspecies.HUMAN;
 	
 	public OffspringSeed() {
 	}
@@ -137,7 +149,7 @@ public class OffspringSeed  implements XMLSaving {
 		if(preGeneratedBody!=null) {
 			setBody(preGeneratedBody);
 		} else {
-			this.body = Main.game.getCharacterUtils().generateBody(template, gender, mother, father);;
+			this.body = Main.game.getCharacterUtils().generateBody(template, gender, mother, father);
 		}
 		
 		setName(Name.getRandomTriplet(getRace()));
@@ -186,9 +198,19 @@ public class OffspringSeed  implements XMLSaving {
 		parentElement.appendChild(offspringSeedFamily);
 		
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "motherId", this.getMotherId());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "motherName", this.getMotherName());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "motherFemininity", this.getMotherFemininity().toString());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "motherSubspecies", Subspecies.getIdFromSubspecies(this.getMotherSubspecies()));
+		
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "fatherId", this.getFatherId());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "fatherName", this.getFatherName());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "fatherFemininity", this.getFatherFemininity().toString());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "fatherSubspecies", Subspecies.getIdFromSubspecies(this.getFatherSubspecies()));
 		if(incubatorId!=null) {
 			XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "incubatorId", this.getIncubatorId());
+			XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "incubatorName", this.getIncubatorName());
+			XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "incubatorFemininity", this.getIncubatorFemininity().toString());
+			XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "incubatorSubspecies", Subspecies.getIdFromSubspecies(this.getIncubatorSubspecies()));
 		}
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedFamily, "monthOfConception", String.valueOf(this.getConceptionDate().getMonth()));
@@ -262,10 +284,29 @@ public class OffspringSeed  implements XMLSaving {
 		Element familyElement = (Element) nodes.item(0);
 		if(familyElement!=null) {
 			os.setMother(((Element)familyElement.getElementsByTagName("motherId").item(0)).getAttribute("value"));
+			try {
+				os.motherName = (((Element)familyElement.getElementsByTagName("motherName").item(0)).getAttribute("value"));
+				os.motherFemininity = Femininity.valueOf(((Element)familyElement.getElementsByTagName("motherFemininity").item(0)).getAttribute("value"));
+				os.motherSubspecies = Subspecies.getSubspeciesFromId(((Element)familyElement.getElementsByTagName("motherSubspecies").item(0)).getAttribute("value"));
+			} catch(Exception ex) {
+			}
+			
 			os.setFather(((Element)familyElement.getElementsByTagName("fatherId").item(0)).getAttribute("value"));
+			try {
+				os.fatherName = (((Element)familyElement.getElementsByTagName("fatherName").item(0)).getAttribute("value"));
+				os.fatherFemininity = Femininity.valueOf(((Element)familyElement.getElementsByTagName("fatherFemininity").item(0)).getAttribute("value"));
+				os.fatherSubspecies = Subspecies.getSubspeciesFromId(((Element)familyElement.getElementsByTagName("fatherSubspecies").item(0)).getAttribute("value"));
+			} catch(Exception ex) {
+			}
 			
 			if(familyElement.getElementsByTagName("incubatorId").getLength()>0) {
 				os.setIncubator(((Element)familyElement.getElementsByTagName("incubatorId").item(0)).getAttribute("value"));
+			}
+			try {
+				os.incubatorName = (((Element)familyElement.getElementsByTagName("incubatorName").item(0)).getAttribute("value"));
+				os.incubatorFemininity = Femininity.valueOf(((Element)familyElement.getElementsByTagName("incubatorFemininity").item(0)).getAttribute("value"));
+				os.incubatorSubspecies = Subspecies.getSubspeciesFromId(((Element)familyElement.getElementsByTagName("incubatorSubspecies").item(0)).getAttribute("value"));
+			} catch(Exception ex) {
 			}
 			
 			try {
@@ -338,6 +379,18 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public void setMother(GameCharacter mother) { motherId = mother.getId(); }
 	
+	public String getMotherName() {
+		return motherName;
+	}
+	
+	public Femininity getMotherFemininity() {
+		return motherFemininity;
+	}
+	
+	public AbstractSubspecies getMotherSubspecies() {
+		return motherSubspecies;
+	}
+	
 	public GameCharacter getFather() {
 		if(fatherId==null || fatherId.isEmpty() || fatherId.equals("NOT_SET")) {
 			return null;
@@ -361,6 +414,17 @@ public class OffspringSeed  implements XMLSaving {
 		fatherId = father.getId();
 	}
 	
+	public String getFatherName() {
+		return fatherName;
+	}
+	
+	public Femininity getFatherFemininity() {
+		return fatherFemininity;
+	}
+	
+	public AbstractSubspecies getFatherSubspecies() {
+		return fatherSubspecies;
+	}
 	public String getIncubatorId() { return incubatorId; }
 	
 	public void setIncubator(String incubatorId) {
@@ -370,6 +434,12 @@ public class OffspringSeed  implements XMLSaving {
 		}
 	}
 	
+	public void setIncubator(GameCharacter incubator) {
+		incubatorId = incubator.getId();
+		incubatorName = incubator.getNameIgnoresPlayerKnowledge();
+		incubatorFemininity = incubator.getFemininity();
+		incubatorSubspecies = incubator.getTrueSubspecies();
+	}
 	public GameCharacter getIncubator() {
 		if(getIncubatorId()==null || getIncubatorId().isEmpty() || getIncubatorId().equals("NOT_SET")) {
 			return null;
@@ -380,7 +450,19 @@ public class OffspringSeed  implements XMLSaving {
 			return null;
 		}
 	}
-
+	
+	public String getIncubatorName() {
+		return incubatorName;
+	}
+	
+	public Femininity getIncubatorFemininity() {
+		return incubatorFemininity;
+	}
+	
+	public AbstractSubspecies getIncubatorSubspecies() {
+		return incubatorSubspecies;
+	}
+	
 	public LocalDateTime getConceptionDate() { return conceptionDate; }
 	
 	public void setConceptionDate(LocalDateTime conceptionDate) { this.conceptionDate = conceptionDate; }
@@ -388,6 +470,11 @@ public class OffspringSeed  implements XMLSaving {
 	public Body getBody() {	return body; }
 	
 	public void setBody(Body body) { this.body = body; }
+	
+	public void setBody(Gender startingGender, GameCharacter mother, GameCharacter father) {
+		GenericAndrogynousNPC template = new GenericAndrogynousNPC();
+		body = Main.game.getCharacterUtils().generateBody(template, startingGender, mother, father);
+	}
 	
 	public String getName() {
 		switch(this.getFemininity()) {

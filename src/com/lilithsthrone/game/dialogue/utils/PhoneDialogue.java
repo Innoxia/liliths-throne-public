@@ -1,26 +1,14 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
-import com.lilithsthrone.game.character.attributes.AbstractAttribute;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
-import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
+import com.lilithsthrone.game.character.attributes.*;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -34,11 +22,7 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
-import com.lilithsthrone.game.character.race.AbstractRace;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
-import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.*;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -73,6 +57,10 @@ import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
 /**
  * @since 0.1.0
  * @version 0.3.9
@@ -98,8 +86,20 @@ public class PhoneDialogue {
 					? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
 					: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
 			this.mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true)));
+			if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
+				mother = npc.getMotherName();
+			}
+			
 			this.father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true)));
+			if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
+				father = npc.getFatherName();
+			}
+			
 			this.incubator = npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true)));
+			if(npc.getIncubator()==null && !npc.getIncubatorName().equals("???")) {
+				incubator = npc.getIncubatorName();
+			}
+			
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
 			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
 			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
@@ -129,8 +129,19 @@ public class PhoneDialogue {
 					? Util.capitaliseSentence(os.getSubspecies().getSingularFemaleName(null))
 					: Util.capitaliseSentence(os.getSubspecies().getSingularMaleName(null));
 			this.mother = os.getMother() == null ? "???" : (os.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getMother().getName(true)));
+			if(os.getMother()==null && !os.getMotherName().equals("???")) {
+				mother = os.getMotherName();
+			}
+			
 			this.father = os.getFather() == null ? "???" : (os.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getFather().getName(true)));
+			if(os.getFather()==null && !os.getFatherName().equals("???")) {
+				father = os.getFatherName();
+			}
+			
 			this.incubator = os.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (os.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getIncubator().getName(true)));
+			if(os.getIncubator()==null && !os.getIncubatorName().equals("???")) {
+				incubator = os.getIncubatorName();
+			}
 			this.relationships = new ArrayList<>();
 //			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(os, Relationship.Parent);
 //			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
@@ -2312,9 +2323,17 @@ public class PhoneDialogue {
 			for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 				String unknownName = "[style.colourDisabled(Unknown)]";
 				try {
-					GameCharacter offspring0 = litter.getOffspringCharacters().iterator().next();
-					if(!offspring0.getFatherName().equals("???")) {
-						unknownName = "<span style='color:"+offspring0.getFatherFemininity().getColour().toWebHexString()+";'>"+offspring0.getFatherName()+"</span>";
+					String offspring0 = litter.getOffspring().iterator().next();
+					if(offspring0.contains("NPCOffspring")) {
+						GameCharacter c = Main.game.getNPCById(offspring0);
+						if(!c.getFatherName().equals("???")) {
+							unknownName = "<span style='color:"+c.getFatherFemininity().getColour().toWebHexString()+";'>"+c.getFatherName()+"</span>";
+						}
+					} else {
+						OffspringSeed o = Main.game.getOffspringSeedById(offspring0);
+						if(!o.getFatherName().equals("???")) {
+							unknownName = "<span style='color:"+o.getFatherFemininity().getColour().toWebHexString()+";'>"+o.getFatherName()+"</span>";
+						}
 					}
 				} catch(Exception ex) {
 				}
@@ -2455,9 +2474,17 @@ public class PhoneDialogue {
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()) {
 				String unknownName = "[style.colourDisabled(Unknown)]";
 				try {
-					GameCharacter offspring0 = litter.getOffspringCharacters().iterator().next();
-					if(!offspring0.getIncubatorName().equals("???")) {
-						unknownName = "<span style='color:"+offspring0.getIncubatorFemininity().getColour().toWebHexString()+";'>"+offspring0.getIncubatorName()+"</span>";
+					String offspring0 = litter.getOffspring().iterator().next();
+					if(offspring0.contains("NPCOffspring")) {
+						GameCharacter c = Main.game.getNPCById(offspring0);
+						if(!c.getFatherName().equals("???")) {
+							unknownName = "<span style='color:"+c.getFatherFemininity().getColour().toWebHexString()+";'>"+c.getFatherName()+"</span>";
+						}
+					} else {
+						OffspringSeed o = Main.game.getOffspringSeedById(offspring0);
+						if(!o.getFatherName().equals("???")) {
+							unknownName = "<span style='color:"+o.getFatherFemininity().getColour().toWebHexString()+";'>"+o.getFatherName()+"</span>";
+						}
 					}
 				} catch(Exception ex) {
 				}
@@ -2483,9 +2510,17 @@ public class PhoneDialogue {
 			for (Litter litter : incubatorCompletedLitters) {
 				String unknownName = "[style.colourDisabled(Unknown)]";
 				try {
-					GameCharacter offspring0 = litter.getOffspringCharacters().iterator().next();
-					if(!offspring0.getMotherName().equals("???")) {
-						unknownName = "<span style='color:"+offspring0.getMotherFemininity().getColour().toWebHexString()+";'>"+offspring0.getMotherName()+"</span>";
+					String offspring0 = litter.getOffspring().iterator().next();
+					if(offspring0.contains("NPCOffspring")) {
+						GameCharacter c = Main.game.getNPCById(offspring0);
+						if(!c.getFatherName().equals("???")) {
+							unknownName = "<span style='color:"+c.getFatherFemininity().getColour().toWebHexString()+";'>"+c.getFatherName()+"</span>";
+						}
+					} else {
+						OffspringSeed o = Main.game.getOffspringSeedById(offspring0);
+						if(!o.getFatherName().equals("???")) {
+							unknownName = "<span style='color:"+o.getFatherFemininity().getColour().toWebHexString()+";'>"+o.getFatherName()+"</span>";
+						}
 					}
 				} catch(Exception ex) {
 				}
