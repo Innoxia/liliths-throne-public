@@ -253,7 +253,9 @@ public class SexType implements XMLSaving {
 					fetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
 					break;
 				case SPINNERET:
+					break;
 				case ARMPITS:
+					fetishes.add(Fetish.FETISH_ARMPIT_RECEIVING);
 					break;
 			}
 		}
@@ -287,6 +289,7 @@ public class SexType implements XMLSaving {
 		if(getTargetedSexArea()!=null && getTargetedSexArea().isOrifice()) {
 			switch((SexAreaOrifice)getTargetedSexArea()) {
 				case ARMPITS:
+					fetishes.add(Fetish.FETISH_ARMPIT_GIVING);
 					break;
 				case ANUS:
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);
@@ -384,6 +387,8 @@ public class SexType implements XMLSaving {
 					oppositeFetishes.add(Fetish.FETISH_ANAL_GIVING);
 					break;
 				case FETISH_BIMBO:
+				case FETISH_BONDAGE_APPLIER:
+				case FETISH_BONDAGE_VICTIM:
 					break;
 				case FETISH_BREASTS_OTHERS:
 					oppositeFetishes.add(Fetish.FETISH_BREASTS_SELF);
@@ -496,6 +501,12 @@ public class SexType implements XMLSaving {
 					break;
 				case FETISH_FOOT_RECEIVING:
 					oppositeFetishes.add(Fetish.FETISH_FOOT_GIVING);
+					break;
+				case FETISH_ARMPIT_GIVING:
+					oppositeFetishes.add(Fetish.FETISH_ARMPIT_RECEIVING);
+					break;
+				case FETISH_ARMPIT_RECEIVING:
+					oppositeFetishes.add(Fetish.FETISH_ARMPIT_GIVING);
 					break;
 				case FETISH_SIZE_QUEEN:
 					break;

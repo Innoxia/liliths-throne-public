@@ -31,6 +31,7 @@
 		
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 20% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(3)] to 'potion effects']]></line>
 			<line><![CDATA[If body size is less than [style.colourBodySizeThree('large')], increases body size by 1]]></line>
 		</effectTooltipLines>
 		
@@ -38,11 +39,12 @@
 			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
 			
 			<p style='margin-bottom:0; padding-bottom:0;'>
-				[npc.Name] [npc.verb(start)] to feel heavier...
+				[npc.Name] [npc.verb(start)] to feel heavier and stronger...
 			</p>
 			#IF(npc.getBodySizeValue()<60)
 				[#npc.incrementBodySize(1)]
 			#ENDIF
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 3)]
 		]]></applyEffects>
 		
 		<itemTags>

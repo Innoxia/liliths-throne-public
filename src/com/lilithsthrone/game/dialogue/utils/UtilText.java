@@ -9451,7 +9451,7 @@ public class UtilText {
 			clearSpecialParsingStrings();
 		}
 		specialParsingStrings.add(string);
-		initScriptEngine();
+//		initScriptEngine();
 		return specialParsingStrings.size();
 	}
 	
@@ -9489,6 +9489,8 @@ public class UtilText {
 		
 //		ScriptEngineManager manager = new ScriptEngineManager();
 //		engine = manager.getEngineByName("javascript");
+
+		engine.put("RND", Util.random);
 		
 		// Parser targets:
 		if(Main.game.isStarted()) {
@@ -9509,7 +9511,6 @@ public class UtilText {
 		engine.put("sex", Main.sex);
 		engine.put("combat", Main.combat);
 		engine.put("properties", Main.getProperties());
-		engine.put("RND", Util.random);
 		engine.put("itemGen", Main.game.getItemGen());
 		engine.put("flags", Main.game.getDialogueFlags());
 		engine.put("dialogueManager", Main.game.getDialogueManager());
@@ -9560,6 +9561,9 @@ public class UtilText {
 		}
 		for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 			engine.put("SUBSPECIES_"+Subspecies.getIdFromSubspecies(subspecies), subspecies);
+		}
+		for(Gender gender : Gender.values()) {
+			engine.put("GENDER_"+gender.toString(), gender);
 		}
 		for(LegConfiguration legConf : LegConfiguration.values()) {
 			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);
@@ -10508,8 +10512,8 @@ public class UtilText {
 		engine.put(tag, getInventoryForParsing());
 	}
 	
-	private static final Map<String, CompiledScript> memo = new HashMap<>();
-	private static final int memo_limit = 500;
+//	private static final Map<String, CompiledScript> memo = new HashMap<>();
+//	private static final int memo_limit = 500;
 	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason.
 	// It seems to have been fixed by changing return script.eval(); to return script.eval(((NashornScriptEngine)engine).getContext());
 	/**
@@ -10523,19 +10527,25 @@ public class UtilText {
 	 * @throws ScriptException
 	 */
 	private static Object evaluate(String command) throws ScriptException {
-		CompiledScript script;
-		if (!memo.containsKey(command)) {
-			script = ((NashornScriptEngine)engine).compile(command);
-			if (memo.size() < memo_limit) {
-				memo.put(command, script);
-				if (memo.size() == memo_limit) {
-					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
-				}
-			}
-		} else {
-			script = memo.get(command);
-		}
-		return script.eval(((NashornScriptEngine)engine).getContext());
-//		return script.eval();
+		// Commented out in 0.4.0.10 as it was continuing to throw parsing errors
+		// Unable to reliably replicate the bug - sometimes everything worked fine, sometimes the #VAR parsing sections would fail to parse completely
+		
+//		CompiledScript script;
+//		if (!memo.containsKey(command)) {
+//			script = ((NashornScriptEngine)engine).compile(command);
+//			if (memo.size() < memo_limit) {
+//				memo.put(command, script);
+//				if (memo.size() == memo_limit) {
+//					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
+//				}
+//			}
+//		} else {
+//			script = memo.get(command);
+//		}
+//		return script.eval(((NashornScriptEngine)engine).getContext());
+////		return script.eval();
+
+		CompiledScript script = ((NashornScriptEngine)engine).compile(command);
+		return script.eval();
 	}
 }

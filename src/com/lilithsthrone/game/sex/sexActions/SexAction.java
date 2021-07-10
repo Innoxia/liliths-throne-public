@@ -391,7 +391,10 @@ public abstract class SexAction implements SexActionInterface {
 					switch(area) {
 						case NONE:
 						case TAIL:
+							break;
 						case ARMPITS:
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_RECEIVING);
 							break;
 						case ANUS: case ASS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
@@ -456,8 +459,11 @@ public abstract class SexAction implements SexActionInterface {
 				for(CoverableArea area : cummedOnList) {
 					switch(area) {
 						case NONE:
-						case ARMPITS:
 						case TAIL:
+							break;
+						case ARMPITS:
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_GIVING);
 							break;
 						case ANUS: case ASS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);
@@ -557,6 +563,9 @@ public abstract class SexAction implements SexActionInterface {
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
 								break;
 							case ARMPITS:
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_GIVING);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_RECEIVING);
+								break;
 							case SPINNERET:
 							case URETHRA_PENIS:
 							case URETHRA_VAGINA:
@@ -642,6 +651,9 @@ public abstract class SexAction implements SexActionInterface {
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
 								break;
 							case ARMPITS:
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_RECEIVING);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ARMPIT_GIVING);
+								break;
 							case SPINNERET:
 							case URETHRA_PENIS:
 							case URETHRA_VAGINA:

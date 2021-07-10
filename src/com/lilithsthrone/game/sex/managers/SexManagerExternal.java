@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.managers;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,6 +19,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -82,6 +84,8 @@ public class SexManagerExternal extends SexManagerDefault {
 	
 	private Map<GameCharacter, List<SexType>> sexTypesBannedMap;
 	private Map<GameCharacter, List<SexAreaInterface>> areasBannedMap;
+	
+	private Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> startingCharactersImmobilised;
 	
 	// Public sex:
 	
@@ -228,6 +232,8 @@ public class SexManagerExternal extends SexManagerDefault {
 
 		public String control;
 		public SexControl controlParsed;
+		
+		public Value<String, String> startingImmobilisation;
 
 		public String orgasmBehaviour;
 		public OrgasmBehaviour orgasmBehaviourParsed;
@@ -318,9 +324,11 @@ public class SexManagerExternal extends SexManagerDefault {
 			if(sexPace!=null && !sexPace.isEmpty()) {
 				sexPaceParsed = SexPace.valueOf(sexPace);
 			}
+			
 			if(control!=null && !control.isEmpty()) {
 				controlParsed = SexControl.valueOf(control);
 			}
+			
 			if(orgasmBehaviour!=null && !orgasmBehaviour.isEmpty()) {
 				orgasmBehaviourParsed = OrgasmBehaviour.valueOf(orgasmBehaviour);
 			}
@@ -335,7 +343,10 @@ public class SexManagerExternal extends SexManagerDefault {
 					slotsAvailable = SexSlotManager.getAllSexSlots();
 					for(String id : slotsAvailableIds) {
 						if(!id.isEmpty()) {
-							slotsAvailable.remove(SexSlotManager.getSexSlotFromId(id));
+							String sexSlotParsed = UtilText.parse(id).trim();
+							if(!sexSlotParsed.isEmpty()) {
+								slotsAvailable.remove(SexSlotManager.getSexSlotFromId(sexSlotParsed));
+							}
 						}
 					}
 					
@@ -343,7 +354,10 @@ public class SexManagerExternal extends SexManagerDefault {
 					slotsAvailable = new ArrayList<>();
 					for(String id : slotsAvailableIds) {
 						if(!id.isEmpty()) {
-							slotsAvailable.add(SexSlotManager.getSexSlotFromId(id));
+							String sexSlotParsed = UtilText.parse(id).trim();
+							if(!sexSlotParsed.isEmpty()) {
+								slotsAvailable.add(SexSlotManager.getSexSlotFromId(sexSlotParsed));
+							}
 						}
 					}
 				}
@@ -548,6 +562,10 @@ public class SexManagerExternal extends SexManagerDefault {
 		}
 		
 		// Parse on check booleans:
+
+		public boolean isPartnerClothingRemovalUsed() {
+			return partnerClothingRemoval!=null;
+		}
 		
 		public boolean isPartnerClothingRemoval(GameCharacter target, AbstractClothing clothing) {
 			UtilText.setClothingTypeForParsing(clothing==null?null:clothing.getClothingType());
@@ -569,6 +587,10 @@ public class SexManagerExternal extends SexManagerDefault {
 			return controlParsed;
 		}
 
+		public Value<String, String> getStartingImmobilisation() {
+			return startingImmobilisation;
+		}
+		
 		public OrgasmBehaviour getOrgasmBehaviour() {
 			return orgasmBehaviourParsed;
 		}
@@ -803,6 +825,12 @@ public class SexManagerExternal extends SexManagerDefault {
 							behaviour.control = characterElement.getMandatoryFirstOf("control").getTextContent();
 						}
 
+						if(elementPresentAndNotEmpty(characterElement, "startingImmobilisation")) {
+							behaviour.startingImmobilisation = new Value<>(
+									characterElement.getMandatoryFirstOf("startingImmobilisation").getMandatoryFirstOf("applierId").getTextContent(),
+									characterElement.getMandatoryFirstOf("startingImmobilisation").getMandatoryFirstOf("type").getTextContent());
+						}
+						
 						if(characterElement.getOptionalFirstOf("sexClothingEquippable").isPresent()) {
 							behaviour.sexClothingEquippable = characterElement.getMandatoryFirstOf("sexClothingEquippable").getTextContent();
 						}
@@ -838,23 +866,24 @@ public class SexManagerExternal extends SexManagerDefault {
 							behaviour.orgasmBehaviour = characterElement.getMandatoryFirstOf("orgasmBehaviour").getTextContent();
 						}
 						
+						//TODO moved all init of maps from here outside conditional presence
+						behaviour.orgasmCumTargets = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("orgasmCumTarget").isPresent()) {
-							behaviour.orgasmCumTargets = new HashMap<>();
 							for(Element targetElement : characterElement.getMandatoryFirstOf("orgasmCumTarget").getAllOf("target")) {
 								behaviour.orgasmCumTargets.put(targetElement.getAttribute("id"), characterElement.getTextContent());
 							}
 						}
-						
+
+						behaviour.orgasmEncourageBehaviours = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("orgasmEncourageBehaviours").isPresent()) {
-							behaviour.orgasmEncourageBehaviours = new HashMap<>();
 							for(Element behaviourElement : characterElement.getMandatoryFirstOf("orgasmEncourageBehaviours").getAllOf("behaviour")) {
 								behaviour.orgasmEncourageBehaviours.putIfAbsent(behaviourElement.getAttribute("orgasming"), new HashMap<>());
 								behaviour.orgasmEncourageBehaviours.get(behaviourElement.getAttribute("orgasming")).put(behaviourElement.getAttribute("target"), behaviourElement.getTextContent());
 							}
 						}
-						
+
+						behaviour.concealedSlotIds = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("concealedSlots").isPresent()) {
-							behaviour.concealedSlotIds = new HashMap<>();
 							for(Element viewingCharacterElement : characterElement.getMandatoryFirstOf("concealedSlots").getAllOf("viewingCharacter")) {
 								String targetId = viewingCharacterElement.getAttribute("id");
 								List<String> slotIds = new ArrayList<>();
@@ -865,9 +894,9 @@ public class SexManagerExternal extends SexManagerDefault {
 							}
 						}
 
+						behaviour.foreplayPreferenceIds = new HashMap<>();
+						behaviour.sexPreferenceIds = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("preferences").isPresent()) {
-							behaviour.foreplayPreferenceIds = new HashMap<>();
-							behaviour.sexPreferenceIds = new HashMap<>();
 							for(Element targetElement : characterElement.getMandatoryFirstOf("preferences").getAllOf("character")) {
 								String targetId = targetElement.getAttribute("id");
 								boolean copyForeplay = false;
@@ -897,8 +926,8 @@ public class SexManagerExternal extends SexManagerDefault {
 							}
 						}
 
+						behaviour.sexTypesBannedIds = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("sexTypesBanned").isPresent()) {
-							behaviour.sexTypesBannedIds = new HashMap<>();
 							for(Element sexTypeElement : characterElement.getMandatoryFirstOf("sexTypesBanned").getAllOf("sexType")) {
 								behaviour.sexTypesBannedIds.put(
 										sexTypeElement.getMandatoryFirstOf("performing").getTextContent(),
@@ -906,8 +935,8 @@ public class SexManagerExternal extends SexManagerDefault {
 							}
 						}
 
+						behaviour.areasBannedIds = new ArrayList<>();
 						if(characterElement.getOptionalFirstOf("areasBanned").isPresent()) {
-							behaviour.areasBannedIds = new ArrayList<>();
 							behaviour.areaBansApplyToSelf = Boolean.valueOf(characterElement.getMandatoryFirstOf("areasBanned").getAttribute("appliesToSelf"));
 							for(Element areaElement : characterElement.getMandatoryFirstOf("areasBanned").getAllOf("sexArea")) {
 								behaviour.areasBannedIds.add(areaElement.getTextContent());
@@ -985,16 +1014,16 @@ public class SexManagerExternal extends SexManagerDefault {
 							behaviour.preferredTarget = characterElement.getMandatoryFirstOf("preferredTarget").getTextContent();
 						}
 						
-						
+
+						behaviour.sexClassesIds = new ArrayList<>();
 						if(elementPresentAndNotEmpty(characterElement, "uniqueSexActions")) {
-							behaviour.sexClassesIds = new ArrayList<>();
 							for(Element sexActionElement : characterElement.getMandatoryFirstOf("uniqueSexActions").getAllOf("sexAction")) {
 								behaviour.sexClassesIds.add(sexActionElement.getTextContent());
 							}
 						}
-						
+
+						behaviour.bannedOrgasmCumTargets = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("orgasmCumTargetsBlocked").isPresent()) {
-							behaviour.bannedOrgasmCumTargets = new HashMap<>();
 							for(Element characterBlocksElement : characterElement.getMandatoryFirstOf("orgasmCumTargetsBlocked").getAllOf("character")) {
 								String targetBlocksId = characterBlocksElement.getAttribute("id");
 								behaviour.bannedOrgasmCumTargets.put(targetBlocksId, new ArrayList<>());
@@ -1060,6 +1089,7 @@ public class SexManagerExternal extends SexManagerDefault {
 
 		sexTypesBannedMap = new HashMap<>();
 		areasBannedMap =  new HashMap<>();
+		startingCharactersImmobilised = new HashMap<>();
 		
 		characterBehaviours = new HashMap<>();
 		for(Entry<String, CharacterBehaviour> entry : characterBehavioursWithParserIds.entrySet()) {
@@ -1069,6 +1099,13 @@ public class SexManagerExternal extends SexManagerDefault {
 			}
 			if(entry.getValue().getAreasBanned()!=null) {
 				areasBannedMap.put(character, entry.getValue().getAreasBanned());
+			}
+			if(entry.getValue().getStartingImmobilisation()!=null) {
+				ImmobilisationType type = ImmobilisationType.valueOf(UtilText.parse(entry.getValue().getStartingImmobilisation().getValue()).trim());
+				GameCharacter applier = UtilText.findFirstCharacterFromParserTarget(UtilText.parse(entry.getValue().getStartingImmobilisation().getKey()).trim());
+				startingCharactersImmobilised.putIfAbsent(type, new HashMap<>());
+				startingCharactersImmobilised.get(type).putIfAbsent(applier, new HashSet<>());
+				startingCharactersImmobilised.get(type).get(applier).add(character);
 			}
 			characterBehaviours.put(character.getId(), entry.getValue());
 		}
@@ -1250,6 +1287,11 @@ public class SexManagerExternal extends SexManagerDefault {
 		}
 		return super.getSexControl(character);
 	}
+
+	@Override
+	public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+		return startingCharactersImmobilised;
+	}
 	
 	@Override
 	public boolean isAbleToEquipSexClothing(GameCharacter character){
@@ -1269,7 +1311,7 @@ public class SexManagerExternal extends SexManagerDefault {
 
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		if(characterBehaviours.containsKey(character.getId())) {
+		if(characterBehaviours.containsKey(character.getId()) && characterBehaviours.get(character.getId()).isPartnerClothingRemovalUsed()) {
 			return characterBehaviours.get(character.getId()).isPartnerClothingRemoval(character, clothing);
 		}
 		return super.isHidden(character);

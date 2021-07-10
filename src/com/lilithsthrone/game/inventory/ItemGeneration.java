@@ -140,7 +140,6 @@ public class ItemGeneration {
 	}
 	
 	
-	
 	// Clothing generation:
 	
 	public AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {

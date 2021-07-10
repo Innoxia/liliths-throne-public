@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 
@@ -113,29 +114,33 @@ public abstract class DialogueNode {
 					String secondsPassed = node.getMandatoryFirstOf("secondsPassed").getTextContent().trim();
 					boolean minutes = Boolean.valueOf(node.getMandatoryFirstOf("secondsPassed").getAttribute("minutes"));
 					
-					boolean continuesDialogue = false;
+					String continuesDialogue = "false";
 					if(node.getOptionalFirstOf("continuesDialogue").isPresent()) {
-						continuesDialogue = Boolean.valueOf(node.getMandatoryFirstOf("continuesDialogue").getTextContent().trim());
+						continuesDialogue = node.getMandatoryFirstOf("continuesDialogue").getTextContent();
 					}
+					// Thanks, Java!
+					String finalContinuesDialogue = continuesDialogue;
 					
-					boolean travelDisabled = false;
+					String travelDisabled = "false";
 					if(node.getOptionalFirstOf("travelDisabled").isPresent()) {
-						travelDisabled = Boolean.valueOf(node.getMandatoryFirstOf("travelDisabled").getTextContent().trim());
+						travelDisabled = node.getMandatoryFirstOf("travelDisabled").getTextContent();
 					}
+					// Thanks, Java!
+					String finalTravelDisabled = travelDisabled;
 					
-					boolean inventoryDisabled = continuesDialogue;
-					if(node.getOptionalFirstOf("inventoryDisabled").isPresent() && !continuesDialogue) {
-						inventoryDisabled = Boolean.valueOf(node.getMandatoryFirstOf("inventoryDisabled").getTextContent().trim());
+					String inventoryDisabled = "";
+					if(node.getOptionalFirstOf("inventoryDisabled").isPresent()) {
+						inventoryDisabled = node.getMandatoryFirstOf("inventoryDisabled").getTextContent();
 					}
 					// Thanks, Java!
-					boolean finalInventoryDisabled = inventoryDisabled;
+					String finalInventoryDisabled = inventoryDisabled;
 
-					boolean regenerationDisabled = false;
-					if(node.getOptionalFirstOf("regenerationDisabled").isPresent() && !continuesDialogue) {
-						regenerationDisabled = Boolean.valueOf(node.getMandatoryFirstOf("regenerationDisabled").getTextContent().trim());
+					String regenerationDisabled = "";
+					if(node.getOptionalFirstOf("regenerationDisabled").isPresent()) {
+						regenerationDisabled = node.getMandatoryFirstOf("regenerationDisabled").getTextContent();
 					}
 					// Thanks, Java!
-					boolean finalRegenerationDisabled = regenerationDisabled;
+					String finalRegenerationDisabled = regenerationDisabled;
 					
 					// Response tabs:
 					
@@ -152,7 +157,7 @@ public abstract class DialogueNode {
 					// Responses:
 					
 					String copyFromDialogueId = "";
-					Map<Integer, Map<Integer, List<Response>>> loadedResponses = new HashMap<>();
+					Map<Integer, Map<String, List<Response>>> loadedResponses = new HashMap<>();
 					if(node.getOptionalFirstOf("responses").isPresent()) {
 						if(!node.getMandatoryFirstOf("responses").getAttribute("copyFromDialogueId").isEmpty()) {
 							copyFromDialogueId = node.getMandatoryFirstOf("responses").getAttribute("copyFromDialogueId");
@@ -165,7 +170,7 @@ public abstract class DialogueNode {
 								}
 								
 								int responseTabIndex = Integer.valueOf(response.getMandatoryFirstOf("responseTabIndex").getTextContent());
-								int index = Integer.valueOf(response.getMandatoryFirstOf("index").getTextContent());
+								String index = response.getMandatoryFirstOf("index").getTextContent();
 	
 								String responseTitle = response.getMandatoryFirstOf("responseTitle").getTextContent();
 								String responseTooltip = response.getMandatoryFirstOf("responseTooltip").getTextContent();
@@ -546,7 +551,7 @@ public abstract class DialogueNode {
 					}
 					String copyFromDialogueFinalThanksJava = copyFromDialogueId;
 					
-					DialogueNode newNode = new DialogueNode(title, tooltip, travelDisabled, continuesDialogue) {
+					DialogueNode newNode = new DialogueNode(title, tooltip, false) {
 						@Override
 						public boolean isMod() {
 							return isMod;
@@ -596,13 +601,23 @@ public abstract class DialogueNode {
 						@Override
 						public Response getResponse(int responseTab, int index) {
 							if(loadedResponses.containsKey(responseTab)) {
-								if(loadedResponses.get(responseTab).containsKey(index)) {
-									for(Response response : loadedResponses.get(responseTab).get(index)) {
-										if(response.isAvailableFromConditional()) {
-											return response;
+								for(Entry<String, List<Response>> entry : loadedResponses.get(responseTab).entrySet()) {
+									int parsedIndex = Integer.valueOf(UtilText.parse(entry.getKey()).trim());
+									if(parsedIndex==index) {
+										for(Response response : entry.getValue()) {
+											if(response.isAvailableFromConditional()) {
+												return response;
+											}
 										}
 									}
 								}
+//								if(loadedResponses.get(responseTab).containsKey(index)) {
+//									for(Response response : loadedResponses.get(responseTab).get(index)) {
+//										if(response.isAvailableFromConditional()) {
+//											return response;
+//										}
+//									}
+//								}
 							}
 							if(copyFromDialogueFinalThanksJava!=null && !copyFromDialogueFinalThanksJava.isEmpty()) {
 								return DialogueManager.getDialogueFromId(copyFromDialogueFinalThanksJava).getResponse(responseTab, index);
@@ -610,12 +625,20 @@ public abstract class DialogueNode {
 							return null;
 						};
 						@Override
+						public boolean isContinuesDialogue() {
+							return Boolean.valueOf(UtilText.parse(finalContinuesDialogue).trim());
+						}
+						@Override
+						public boolean isTravelDisabled() {
+							return Boolean.valueOf(UtilText.parse(finalTravelDisabled).trim());
+						}
+						@Override
 						public boolean isInventoryDisabled() {
-							return finalInventoryDisabled;
+							return isTravelDisabled() || Boolean.valueOf(UtilText.parse(finalInventoryDisabled).trim());
 						}
 						@Override
 						public boolean isRegenerationDisabled() {
-							return finalRegenerationDisabled;
+							return Boolean.valueOf(UtilText.parse(finalRegenerationDisabled).trim());
 						}
 					};
 					

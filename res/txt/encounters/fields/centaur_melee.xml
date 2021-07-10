@@ -323,7 +323,7 @@
 		Wanting to know if there are any of the [attacker.race]'s comrades roaming in the nearby area, you ask her where her camp is and how many other demonic centauresses are out looking for innocent victims to attack. Defiantly spitting on the ground, the marauder snarls, [attacker.speech(I'm not telling you anything, [pc.insult]! Either fuck me or fuck off.)]
 	</p>
 	<p>
-		#IF(pc.hasFetish(FETISH_SADISTIC))
+		#IF(pc.hasFetish(FETISH_SADIST))
 			Slapping the [attacker.race] across the face, you repeat your question, but once again the [attacker.race] refuses to play along and snaps, [attacker.speech(Hit me all you like, I'm not telling you anything!)]
 		#ELSE
 			Trying a different approach, you promise the [attacker.race] a reward if she tells you what you want to know, but once again she refuses to play along and snaps, [attacker.speech(Your tricks won't work on me, I'm not telling you anything!)]

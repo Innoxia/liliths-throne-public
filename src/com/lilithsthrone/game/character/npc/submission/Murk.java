@@ -140,6 +140,9 @@ public class Murk extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.17")) {
 			this.setPenisGirth(PenetrationGirth.SEVEN_FAT);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1")) {
+			this.addFetish(Fetish.FETISH_BONDAGE_APPLIER);
+		}
 	}
 
 	@Override
@@ -186,6 +189,7 @@ public class Murk extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			this.addFetish(Fetish.FETISH_BONDAGE_APPLIER);
 			
 			this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);

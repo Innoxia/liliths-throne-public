@@ -24,6 +24,7 @@
 		
 	To avoid cluttering the comments, here is an alphabetical list of all the values used in the elements below:
 		CoverableAreas: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/CoverableArea.java
+		Immobilisation types: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/ImmobilisationType.java
 		InventorySlots: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java
 		OrgasmBehaviours: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/managers/OrgasmBehaviour.java
 		OrgasmCumTargets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/OrgasmCumTarget.java
@@ -48,7 +49,7 @@
 	
 	<!-- You can optionally override the name of walls in this sex scene by defining a value here.
 		It should not be capitalised unless a proper noun.
-		e.g.: <title><![CDATA[tree]]></title> -->
+		e.g.: <wallName><![CDATA[tree]]></wallName> -->
 	<wallName/>
 	
 	<!-- Whether or not this sex scene is a consensual one between the dominant and submissive partner(s).
@@ -173,6 +174,18 @@
 				OPTIONAL: Default is calculated based on the character's lust at the time sex starts.
 				PARSER: Initial -->
 			<sexPace locked="false"><![CDATA[DOM_NORMAL]]></sexPace>
+			
+			<!-- The type of immobilisation which this character should start in.
+					The 'applierId' element determines which character is responsible for applying the immobilisation.
+					The 'type' element corresponds to the immobilisation type.
+				To define this, use the following format:
+					<startingImmobilisation>
+						<applierId><![CDATA[lilaya]]></applierId>
+						<type><![CDATA[WITCH_SEAL]]></type>
+					</startingImmobilisation>
+				OPTIONAL: Default is no immobilisation type applied at the start of sex.
+				PARSER: Initial -->
+			<startingImmobilisation/>
 			
 			<!-- Whether or not this character can access the self-transformation menu during this sex scene.
 				OPTIONAL: Default true
@@ -436,6 +449,7 @@
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			<sexPace locked="true"><![CDATA[SUB_EAGER]]></sexPace>
+			<startingImmobilisation/>
 			<canSelfTransform><![CDATA[false]]></canSelfTransform>
 			<hidden><![CDATA[false]]></hidden>
 			<control><![CDATA[SELF]]></control>
