@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
@@ -762,9 +762,9 @@ public class LegType {
 						LegConfiguration.AVIAN), false) {
 	};
 	
-	private static List<AbstractLegType> allLegTypes;
-	private static Map<AbstractLegType, String> legToIdMap = new HashMap<>();
-	private static Map<String, AbstractLegType> idToLegMap = new HashMap<>();
+	private static final List<AbstractLegType> allLegTypes;
+	private static final Map<AbstractLegType, String> legToIdMap = new HashMap<>();
+	private static final Map<String, AbstractLegType> idToLegMap = new HashMap<>();
 	
 	static {
 		allLegTypes = new ArrayList<>();
@@ -774,16 +774,16 @@ public class LegType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("leg")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("leg")) {
 						AbstractLegType type = new AbstractLegType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allLegTypes.add(type);
 						legToIdMap.put(type, id);
 						idToLegMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -793,48 +793,42 @@ public class LegType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("leg")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("leg")) {
 						AbstractLegType type = new AbstractLegType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allLegTypes.add(type);
 						legToIdMap.put(type, id);
 						idToLegMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded leg types:
-		
 		Field[] fields = LegType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractLegType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractLegType ct;
 				try {
 					ct = ((AbstractLegType) f.get(null));
-
 					legToIdMap.put(ct, f.getName());
 					idToLegMap.put(f.getName(), ct);
-					
 					allLegTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allLegTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allLegTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractLegType getLegTypeFromId(String id) {
@@ -844,7 +838,6 @@ public class LegType {
 		if(id.equals("LYCAN")) {
 			return LegType.WOLF_MORPH;
 		}
-
 		id = Util.getClosestStringMatch(id, idToLegMap.keySet());
 		return idToLegMap.get(id);
 	}
@@ -857,7 +850,7 @@ public class LegType {
 		return allLegTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractLegType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractLegType>> typesMap = new HashMap<>();
 	public static List<AbstractLegType> getLegTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);

@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -403,9 +403,9 @@ public class ArmType {
 	};
 	
 	
-	private static List<AbstractArmType> allArmTypes;
-	private static Map<AbstractArmType, String> armToIdMap = new HashMap<>();
-	private static Map<String, AbstractArmType> idToArmMap = new HashMap<>();
+	private static final List<AbstractArmType> allArmTypes;
+	private static final Map<AbstractArmType, String> armToIdMap = new HashMap<>();
+	private static final Map<String, AbstractArmType> idToArmMap = new HashMap<>();
 	
 	static {
 		allArmTypes = new ArrayList<>();
@@ -415,16 +415,16 @@ public class ArmType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("arm")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("arm")) {
 						AbstractArmType type = new AbstractArmType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allArmTypes.add(type);
 						armToIdMap.put(type, id);
 						idToArmMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -434,58 +434,51 @@ public class ArmType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("arm")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("arm")) {
 						AbstractArmType type = new AbstractArmType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allArmTypes.add(type);
 						armToIdMap.put(type, id);
 						idToArmMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded arm types:
-		
 		Field[] fields = ArmType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractArmType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractArmType ct;
 				try {
 					ct = ((AbstractArmType) f.get(null));
-
 					armToIdMap.put(ct, f.getName());
 					idToArmMap.put(f.getName(), ct);
-					
 					allArmTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allArmTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allArmTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractArmType getArmTypeFromId(String id) {
-		if(id.equals("IMP")) {
-			return ArmType.DEMON_COMMON;
+		switch (id) {
+			case "IMP":
+				return ArmType.DEMON_COMMON;
+			case "LYCAN":
+				return ArmType.WOLF_MORPH;
 		}
-		if(id.equals("LYCAN")) {
-			return ArmType.WOLF_MORPH;
-		}
-
 		id = Util.getClosestStringMatch(id, idToArmMap.keySet());
 		return idToArmMap.get(id);
 	}
@@ -498,7 +491,7 @@ public class ArmType {
 		return allArmTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractArmType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractArmType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractArmType> getArmTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -562,9 +563,9 @@ public class FluidType {
 	};
 	
 	
-	private static List<AbstractFluidType> allFluidTypes;
-	private static Map<AbstractFluidType, String> fluidToIdMap = new HashMap<>();
-	private static Map<String, AbstractFluidType> idToFluidMap = new HashMap<>();
+	private static final List<AbstractFluidType> allFluidTypes;
+	private static final Map<AbstractFluidType, String> fluidToIdMap = new HashMap<>();
+	private static final Map<String, AbstractFluidType> idToFluidMap = new HashMap<>();
 	
 	static {
 		allFluidTypes = new ArrayList<>();
@@ -574,16 +575,16 @@ public class FluidType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("fluid")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("fluid")) {
 						AbstractFluidType type = new AbstractFluidType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allFluidTypes.add(type);
 						fluidToIdMap.put(type, id);
 						idToFluidMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -593,36 +594,30 @@ public class FluidType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("fluid")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("fluid")) {
 						AbstractFluidType type = new AbstractFluidType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allFluidTypes.add(type);
 						fluidToIdMap.put(type, id);
 						idToFluidMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded fluid types:
-		
 		Field[] fields = FluidType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractFluidType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractFluidType ct;
 				try {
 					ct = ((AbstractFluidType) f.get(null));
-
 					fluidToIdMap.put(ct, f.getName());
 					idToFluidMap.put(f.getName(), ct);
-					
 					allFluidTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
@@ -631,19 +626,18 @@ public class FluidType {
 	}
 	
 	public static AbstractFluidType getFluidTypeFromId(String id) {
-		if(id.equals("CUM_IMP")) {
-			id = "CUM_DEMON";
-			
-		} else if(id.equals("GIRL_CUM_IMP")) {
-			id = "GIRL_CUM_DEMON";
-			
-		} else if(id.equals("MILK_IMP")) {
-			id = "MILK_DEMON";
-			
-		} else if(id.equals("MILK_DEMON_COMMON")) {
-			id = "MILK_DEMON";
+		switch (id) {
+			case "CUM_IMP":
+				id = "CUM_DEMON";
+				break;
+			case "GIRL_CUM_IMP":
+				id = "GIRL_CUM_DEMON";
+				break;
+			case "MILK_IMP":
+			case "MILK_DEMON_COMMON":
+				id = "MILK_DEMON";
+				break;
 		}
-		
 		id = Util.getClosestStringMatch(id, idToFluidMap.keySet());
 		return idToFluidMap.get(id);
 	}
@@ -656,7 +650,7 @@ public class FluidType {
 		return allFluidTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractFluidType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractFluidType>> typesMap = new HashMap<>();
 	public static List<AbstractFluidType> getFluidTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);

@@ -194,28 +194,23 @@ public class FootType {
 	
 	
 
-	private static List<AbstractFootType> allFootTypes;
-	private static Map<AbstractFootType, String> footToIdMap = new HashMap<>();
-	private static Map<String, AbstractFootType> idToFootMap = new HashMap<>();
+	private static final List<AbstractFootType> allFootTypes;
+	private static final Map<AbstractFootType, String> footToIdMap = new HashMap<>();
+	private static final Map<String, AbstractFootType> idToFootMap = new HashMap<>();
 	
 	static {
 		allFootTypes = new ArrayList<>();
 		
 		// Add in hard-coded foot types:
 		Field[] fields = FootType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractFootType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractFootType ct;
 				try {
 					ct = ((AbstractFootType) f.get(null));
-
 					footToIdMap.put(ct, f.getName());
 					idToFootMap.put(f.getName(), ct);
-					
 					allFootTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}

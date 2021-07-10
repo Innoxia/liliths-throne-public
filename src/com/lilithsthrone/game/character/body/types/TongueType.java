@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
@@ -210,9 +210,9 @@ public class TongueType {
 			Util.newArrayListOfValues()) {
 	};
 	
-	private static List<AbstractTongueType> allTongueTypes;
-	private static Map<AbstractTongueType, String> tongueToIdMap = new HashMap<>();
-	private static Map<String, AbstractTongueType> idToTongueMap = new HashMap<>();
+	private static final List<AbstractTongueType> allTongueTypes;
+	private static final Map<AbstractTongueType, String> tongueToIdMap = new HashMap<>();
+	private static final Map<String, AbstractTongueType> idToTongueMap = new HashMap<>();
 	
 	static {
 		allTongueTypes = new ArrayList<>();
@@ -222,16 +222,16 @@ public class TongueType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tongue")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("tongue")) {
 						AbstractTongueType type = new AbstractTongueType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTongueTypes.add(type);
 						tongueToIdMap.put(type, id);
 						idToTongueMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -241,61 +241,53 @@ public class TongueType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tongue")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("tongue")) {
 						AbstractTongueType type = new AbstractTongueType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTongueTypes.add(type);
 						tongueToIdMap.put(type, id);
 						idToTongueMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded tongue types:
-		
 		Field[] fields = TongueType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractTongueType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractTongueType ct;
 				try {
 					ct = ((AbstractTongueType) f.get(null));
-
 					tongueToIdMap.put(ct, f.getName());
 					idToTongueMap.put(f.getName(), ct);
-					
 					allTongueTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allTongueTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allTongueTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractTongueType getTongueTypeFromId(String id) {
-		if(id.equals("IMP")) {
-			return TongueType.DEMON_COMMON;
+		switch (id) {
+			case "IMP":
+				return TongueType.DEMON_COMMON;
+			case "LYCAN":
+				return TongueType.WOLF_MORPH;
+			case "TENGU":
+				return TongueType.HARPY;
 		}
-		if(id.equals("LYCAN")) {
-			return TongueType.WOLF_MORPH;
-		}
-		if(id.equals("TENGU")) {
-			return TongueType.HARPY;
-		}
-		
 		id = Util.getClosestStringMatch(id, idToTongueMap.keySet());
 		return idToTongueMap.get(id);
 	}
@@ -308,7 +300,7 @@ public class TongueType {
 		return allTongueTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractTongueType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractTongueType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractTongueType> getTongueTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

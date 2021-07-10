@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -77,9 +77,9 @@ public class TesticleType {
 	};
 
 
-	private static List<AbstractTesticleType> allTesticleTypes;
-	private static Map<AbstractTesticleType, String> testicleToIdMap = new HashMap<>();
-	private static Map<String, AbstractTesticleType> idToTesticleMap = new HashMap<>();
+	private static final List<AbstractTesticleType> allTesticleTypes;
+	private static final Map<AbstractTesticleType, String> testicleToIdMap = new HashMap<>();
+	private static final Map<String, AbstractTesticleType> idToTesticleMap = new HashMap<>();
 	
 	static {
 		allTesticleTypes = new ArrayList<>();
@@ -89,16 +89,16 @@ public class TesticleType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("testicle")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("testicle")) {
 						AbstractTesticleType type = new AbstractTesticleType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTesticleTypes.add(type);
 						testicleToIdMap.put(type, id);
 						idToTesticleMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -108,48 +108,42 @@ public class TesticleType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("testicle")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("testicle")) {
 						AbstractTesticleType type = new AbstractTesticleType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTesticleTypes.add(type);
 						testicleToIdMap.put(type, id);
 						idToTesticleMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded testicle types:
-		
 		Field[] fields = TesticleType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractTesticleType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractTesticleType ct;
 				try {
 					ct = ((AbstractTesticleType) f.get(null));
-
 					testicleToIdMap.put(ct, f.getName());
 					idToTesticleMap.put(f.getName(), ct);
-					
 					allTesticleTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allTesticleTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allTesticleTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractTesticleType getTesticleTypeFromId(String id) {
@@ -165,7 +159,7 @@ public class TesticleType {
 		return allTesticleTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractTesticleType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractTesticleType>> typesMap = new HashMap<>();
 	public static List<AbstractTesticleType> getTesticleTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);

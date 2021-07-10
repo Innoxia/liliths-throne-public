@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -183,9 +183,9 @@ public class WingType {
 	};
 
 
-	private static List<AbstractWingType> allWingTypes;
-	private static Map<AbstractWingType, String> wingToIdMap = new HashMap<>();
-	private static Map<String, AbstractWingType> idToWingMap = new HashMap<>();
+	private static final List<AbstractWingType> allWingTypes;
+	private static final Map<AbstractWingType, String> wingToIdMap = new HashMap<>();
+	private static final Map<String, AbstractWingType> idToWingMap = new HashMap<>();
 	
 	static {
 		allWingTypes = new ArrayList<>();
@@ -195,16 +195,16 @@ public class WingType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("wing")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("wing")) {
 						AbstractWingType type = new AbstractWingType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allWingTypes.add(type);
 						wingToIdMap.put(type, id);
 						idToWingMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -214,56 +214,50 @@ public class WingType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("wing")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("wing")) {
 						AbstractWingType type = new AbstractWingType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allWingTypes.add(type);
 						wingToIdMap.put(type, id);
 						idToWingMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded wing types:
-		
 		Field[] fields = WingType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractWingType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractWingType ct;
 				try {
 					ct = ((AbstractWingType) f.get(null));
-
 					wingToIdMap.put(ct, f.getName());
 					idToWingMap.put(f.getName(), ct);
-					
 					allWingTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allWingTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allWingTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractWingType getWingTypeFromId(String id) {
-		if(id.equals("IMP")) {
-			return WingType.DEMON_COMMON;
-		}
-		if(id.equals("PEGASUS")) {
-			return WingType.FEATHERED;
+		switch (id) {
+			case "IMP":
+				return WingType.DEMON_COMMON;
+			case "PEGASUS":
+				return WingType.FEATHERED;
 		}
 		id = Util.getClosestStringMatch(id, idToWingMap.keySet());
 		return idToWingMap.get(id);
@@ -277,7 +271,7 @@ public class WingType {
 		return allWingTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractWingType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractWingType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractWingType> getWingTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

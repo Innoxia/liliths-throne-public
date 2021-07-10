@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -63,9 +63,9 @@ public class MouthType {
 			Util.newArrayListOfValues()) {
 	};
 	
-	private static List<AbstractMouthType> allMouthTypes;
-	private static Map<AbstractMouthType, String> mouthToIdMap = new HashMap<>();
-	private static Map<String, AbstractMouthType> idToMouthMap = new HashMap<>();
+	private static final List<AbstractMouthType> allMouthTypes;
+	private static final Map<AbstractMouthType, String> mouthToIdMap = new HashMap<>();
+	private static final Map<String, AbstractMouthType> idToMouthMap = new HashMap<>();
 	
 	static {
 		allMouthTypes = new ArrayList<>();
@@ -75,16 +75,16 @@ public class MouthType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("mouth")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("mouth")) {
 						AbstractMouthType type = new AbstractMouthType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allMouthTypes.add(type);
 						mouthToIdMap.put(type, id);
 						idToMouthMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -94,55 +94,48 @@ public class MouthType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("mouth")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("mouth")) {
 						AbstractMouthType type = new AbstractMouthType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allMouthTypes.add(type);
 						mouthToIdMap.put(type, id);
 						idToMouthMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded mouth types:
-		
 		Field[] fields = MouthType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractMouthType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractMouthType ct;
 				try {
 					ct = ((AbstractMouthType) f.get(null));
-
 					mouthToIdMap.put(ct, f.getName());
 					idToMouthMap.put(f.getName(), ct);
-					
 					allMouthTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allMouthTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allMouthTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractMouthType getMouthTypeFromId(String id) {
 		if(id.equals("IMP")) {
 			return MouthType.DEMON_COMMON;
 		}
-		
 		id = Util.getClosestStringMatch(id, idToMouthMap.keySet());
 		return idToMouthMap.get(id);
 	}
@@ -155,7 +148,7 @@ public class MouthType {
 		return allMouthTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractMouthType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractMouthType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractMouthType> getMouthTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

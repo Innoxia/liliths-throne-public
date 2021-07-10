@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -404,9 +404,9 @@ public class EarType {
 				+ "#IF(npc.isPiercedEar()) They have been cleverly pierced so as to allow [npc.herHim] to wear ear-specific jewellery.#ENDIF") {
 	};
 	
-	private static List<AbstractEarType> allEarTypes;
-	private static Map<AbstractEarType, String> earToIdMap = new HashMap<>();
-	private static Map<String, AbstractEarType> idToEarMap = new HashMap<>();
+	private static final List<AbstractEarType> allEarTypes;
+	private static final Map<AbstractEarType, String> earToIdMap = new HashMap<>();
+	private static final Map<String, AbstractEarType> idToEarMap = new HashMap<>();
 	
 	static {
 		allEarTypes = new ArrayList<>();
@@ -416,16 +416,16 @@ public class EarType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("ear")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("ear")) {
 						AbstractEarType type = new AbstractEarType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allEarTypes.add(type);
 						earToIdMap.put(type, id);
 						idToEarMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -435,56 +435,50 @@ public class EarType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("ear")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("ear")) {
 						AbstractEarType type = new AbstractEarType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allEarTypes.add(type);
 						earToIdMap.put(type, id);
 						idToEarMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded ear types:
-		
 		Field[] fields = EarType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractEarType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractEarType ct;
 				try {
 					ct = ((AbstractEarType) f.get(null));
-
 					earToIdMap.put(ct, f.getName());
 					idToEarMap.put(f.getName(), ct);
-					
 					allEarTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allEarTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allEarTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractEarType getEarTypeFromId(String id) {
-		if(id.equals("IMP")) {
-			return EarType.DEMON_COMMON;
-		}
-		if(id.equals("LYCAN")) {
-			return EarType.WOLF_MORPH;
+		switch (id) {
+			case "IMP":
+				return EarType.DEMON_COMMON;
+			case "LYCAN":
+				return EarType.WOLF_MORPH;
 		}
 		id = Util.getClosestStringMatch(id, idToEarMap.keySet());
 		return idToEarMap.get(id);
@@ -498,7 +492,7 @@ public class EarType {
 		return allEarTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractEarType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractEarType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractEarType> getEarTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

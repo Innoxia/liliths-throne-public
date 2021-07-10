@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -203,9 +203,9 @@ public class TorsoType {
 	};
 	
 	
-	private static List<AbstractTorsoType> allTorsoTypes;
-	private static Map<AbstractTorsoType, String> torsoToIdMap = new HashMap<>();
-	private static Map<String, AbstractTorsoType> idToTorsoMap = new HashMap<>();
+	private static final List<AbstractTorsoType> allTorsoTypes;
+	private static final Map<AbstractTorsoType, String> torsoToIdMap = new HashMap<>();
+	private static final Map<String, AbstractTorsoType> idToTorsoMap = new HashMap<>();
 	
 	static {
 		allTorsoTypes = new ArrayList<>();
@@ -215,16 +215,16 @@ public class TorsoType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("torso")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("torso")) {
 						AbstractTorsoType type = new AbstractTorsoType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTorsoTypes.add(type);
 						torsoToIdMap.put(type, id);
 						idToTorsoMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -234,65 +234,62 @@ public class TorsoType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("torso")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("torso")) {
 						AbstractTorsoType type = new AbstractTorsoType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTorsoTypes.add(type);
 						torsoToIdMap.put(type, id);
 						idToTorsoMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded torso types:
-		
 		Field[] fields = TorsoType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractTorsoType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractTorsoType ct;
 				try {
 					ct = ((AbstractTorsoType) f.get(null));
-
 					torsoToIdMap.put(ct, f.getName());
 					idToTorsoMap.put(f.getName(), ct);
-					
 					allTorsoTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allTorsoTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allTorsoTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractTorsoType getTorsoTypeFromId(String id) {
-		Map<String, String> torsoTypeConverterMap = new HashMap<>();
-		torsoTypeConverterMap.put("IMP", "DEMON_COMMON");
-		torsoTypeConverterMap.put("CANINE_FUR", "DOG_MORPH");
-		torsoTypeConverterMap.put("LYCAN_FUR", "LYCAN");
-		torsoTypeConverterMap.put("LYCAN", "WOLF_MORPH");
-		torsoTypeConverterMap.put("FELINE_FUR", "CAT_MORPH");
-		torsoTypeConverterMap.put("SQUIRREL_FUR", "SQUIRREL_MORPH");
-		torsoTypeConverterMap.put("HORSE_HAIR", "HORSE_MORPH");
-		torsoTypeConverterMap.put("SLIME", "SLIME");
-		torsoTypeConverterMap.put("FEATHERS", "HARPY");
-		if(torsoTypeConverterMap.containsKey(id)) {
-			id = torsoTypeConverterMap.get(id);
+		switch (id) {
+			case "IMP":
+				return TorsoType.DEMON_COMMON;
+			case "CANINE_FUR":
+				return TorsoType.DOG_MORPH;
+			case "LYCAN_FUR":
+			case "LYCAN":
+				return TorsoType.WOLF_MORPH;
+			case "FELINE_FUR":
+				return TorsoType.CAT_MORPH;
+			case "SQUIRREL_FUR":
+				return TorsoType.SQUIRREL_MORPH;
+			case "HORSE_HAIR":
+				return TorsoType.HORSE_MORPH;
+			case "FEATHERS":
+				return TorsoType.HARPY;
 		}
-		
 		id = Util.getClosestStringMatch(id, idToTorsoMap.keySet());
 		return idToTorsoMap.get(id);
 	}
@@ -305,7 +302,7 @@ public class TorsoType {
 		return allTorsoTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractTorsoType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractTorsoType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractTorsoType> getTorsoTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

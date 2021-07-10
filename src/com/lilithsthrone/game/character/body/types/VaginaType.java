@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -464,9 +464,9 @@ public class VaginaType {
 	};
 	
 	
-	private static List<AbstractVaginaType> allVaginaTypes;
-	private static Map<AbstractVaginaType, String> vaginaToIdMap = new HashMap<>();
-	private static Map<String, AbstractVaginaType> idToVaginaMap = new HashMap<>();
+	private static final List<AbstractVaginaType> allVaginaTypes;
+	private static final Map<AbstractVaginaType, String> vaginaToIdMap = new HashMap<>();
+	private static final Map<String, AbstractVaginaType> idToVaginaMap = new HashMap<>();
 	
 	static {
 		allVaginaTypes = new ArrayList<>();
@@ -476,16 +476,16 @@ public class VaginaType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("vagina")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("vagina")) {
 						AbstractVaginaType type = new AbstractVaginaType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allVaginaTypes.add(type);
 						vaginaToIdMap.put(type, id);
 						idToVaginaMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -495,56 +495,52 @@ public class VaginaType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("vagina")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("vagina")) {
 						AbstractVaginaType type = new AbstractVaginaType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allVaginaTypes.add(type);
 						vaginaToIdMap.put(type, id);
 						idToVaginaMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded vagina types:
-		
 		Field[] fields = VaginaType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractVaginaType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractVaginaType ct;
 				try {
 					ct = ((AbstractVaginaType) f.get(null));
-
 					vaginaToIdMap.put(ct, f.getName());
 					idToVaginaMap.put(f.getName(), ct);
-					
 					allVaginaTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allVaginaTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allVaginaTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractVaginaType getVaginaTypeFromId(String id) {
-		if(id.equals("IMP") || id.equals("DEMON_EGGS")) {
-			return VaginaType.DEMON_COMMON;
-		}
-		if(id.equals("NoStepOnSnek_snake_vagina_e")) {
-			id = "NoStepOnSnek_snake_vagina";
+		switch (id) {
+			case "IMP":
+			case "DEMON_EGGS":
+				return VaginaType.DEMON_COMMON;
+			case "NoStepOnSnek_snake_vagina_e":
+				id = "NoStepOnSnek_snake_vagina";
+				break;
 		}
 		id = Util.getClosestStringMatch(id, idToVaginaMap.keySet());
 		return idToVaginaMap.get(id);
@@ -558,7 +554,7 @@ public class VaginaType {
 		return allVaginaTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractVaginaType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractVaginaType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractVaginaType> getVaginaTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -129,9 +129,9 @@ public class TentacleType {
 	};
 	
 
-	private static List<AbstractTentacleType> allTentacleTypes;
-	private static Map<AbstractTentacleType, String> tentacleToIdMap = new HashMap<>();
-	private static Map<String, AbstractTentacleType> idToTentacleMap = new HashMap<>();
+	private static final List<AbstractTentacleType> allTentacleTypes;
+	private static final Map<AbstractTentacleType, String> tentacleToIdMap = new HashMap<>();
+	private static final Map<String, AbstractTentacleType> idToTentacleMap = new HashMap<>();
 	
 	static {
 		allTentacleTypes = new ArrayList<>();
@@ -141,16 +141,16 @@ public class TentacleType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tentacle")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("tentacle")) {
 						AbstractTentacleType type = new AbstractTentacleType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTentacleTypes.add(type);
 						tentacleToIdMap.put(type, id);
 						idToTentacleMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -160,48 +160,42 @@ public class TentacleType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tentacle")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("tentacle")) {
 						AbstractTentacleType type = new AbstractTentacleType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allTentacleTypes.add(type);
 						tentacleToIdMap.put(type, id);
 						idToTentacleMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded tentacle types:
-		
 		Field[] fields = TentacleType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractTentacleType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractTentacleType ct;
 				try {
 					ct = ((AbstractTentacleType) f.get(null));
-
 					tentacleToIdMap.put(ct, f.getName());
 					idToTentacleMap.put(f.getName(), ct);
-					
 					allTentacleTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allTentacleTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allTentacleTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractTentacleType getTentacleTypeFromId(String id) {
@@ -217,7 +211,7 @@ public class TentacleType {
 		return allTentacleTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractTentacleType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractTentacleType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractTentacleType> getTentacleTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

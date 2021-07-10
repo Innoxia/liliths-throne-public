@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -365,9 +365,9 @@ public class PenisType {
 	};
 	
 	
-	private static List<AbstractPenisType> allPenisTypes;
-	private static Map<AbstractPenisType, String> penisToIdMap = new HashMap<>();
-	private static Map<String, AbstractPenisType> idToPenisMap = new HashMap<>();
+	private static final List<AbstractPenisType> allPenisTypes;
+	private static final Map<AbstractPenisType, String> penisToIdMap = new HashMap<>();
+	private static final Map<String, AbstractPenisType> idToPenisMap = new HashMap<>();
 	
 	static {
 		allPenisTypes = new ArrayList<>();
@@ -377,16 +377,16 @@ public class PenisType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("penis")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("penis")) {
 						AbstractPenisType type = new AbstractPenisType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allPenisTypes.add(type);
 						penisToIdMap.put(type, id);
 						idToPenisMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -396,74 +396,62 @@ public class PenisType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("penis")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("penis")) {
 						AbstractPenisType type = new AbstractPenisType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allPenisTypes.add(type);
 						penisToIdMap.put(type, id);
 						idToPenisMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded penis types:
-		
 		Field[] fields = PenisType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractPenisType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractPenisType ct;
 				try {
 					ct = ((AbstractPenisType) f.get(null));
-
 					penisToIdMap.put(ct, f.getName());
 					idToPenisMap.put(f.getName(), ct);
-					
 					allPenisTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allPenisTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allPenisTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractPenisType getPenisTypeFromId(String id) {
-		if(id.equals("IMP")) {
-			return PenisType.DEMON_COMMON;
-		}
-		if(id.equals("BOVINE")) {
-			return PenisType.COW_MORPH;
-		}
-		if(id.equals("CANINE")) {
-			return PenisType.DOG_MORPH;
-		}
-		if(id.equals("LUPINE")) {
-			return PenisType.WOLF_MORPH;
-		}
-		if(id.equals("VULPINE")) {
-			return PenisType.FOX_MORPH;
-		}
-		if(id.equals("FELINE")) {
-			return PenisType.CAT_MORPH;
-		}
-		if(id.equals("AVIAN")) {
-			return PenisType.HARPY;
-		}
-		if(id.equals("SQUIRREL")) {
-			return PenisType.SQUIRREL_MORPH;
+		switch (id) {
+			case "IMP":
+				return PenisType.DEMON_COMMON;
+			case "BOVINE":
+				return PenisType.COW_MORPH;
+			case "CANINE":
+				return PenisType.DOG_MORPH;
+			case "LUPINE":
+				return PenisType.WOLF_MORPH;
+			case "VULPINE":
+				return PenisType.FOX_MORPH;
+			case "FELINE":
+				return PenisType.CAT_MORPH;
+			case "AVIAN":
+				return PenisType.HARPY;
+			case "SQUIRREL":
+				return PenisType.SQUIRREL_MORPH;
 		}
 		id = Util.getClosestStringMatch(id, idToPenisMap.keySet());
 		return idToPenisMap.get(id);
@@ -477,7 +465,7 @@ public class PenisType {
 		return allPenisTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractPenisType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractPenisType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractPenisType> getPenisTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

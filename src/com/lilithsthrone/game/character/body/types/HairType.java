@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -261,9 +261,9 @@ public class HairType {
 		}
 	};
 
-	private static List<AbstractHairType> allHairTypes;
-	private static Map<AbstractHairType, String> hairToIdMap = new HashMap<>();
-	private static Map<String, AbstractHairType> idToHairMap = new HashMap<>();
+	private static final List<AbstractHairType> allHairTypes;
+	private static final Map<AbstractHairType, String> hairToIdMap = new HashMap<>();
+	private static final Map<String, AbstractHairType> idToHairMap = new HashMap<>();
 	
 	static {
 		allHairTypes = new ArrayList<>();
@@ -273,16 +273,16 @@ public class HairType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("hair")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("hair")) {
 						AbstractHairType type = new AbstractHairType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allHairTypes.add(type);
 						hairToIdMap.put(type, id);
 						idToHairMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -292,55 +292,50 @@ public class HairType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("hair")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("hair")) {
 						AbstractHairType type = new AbstractHairType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allHairTypes.add(type);
 						hairToIdMap.put(type, id);
 						idToHairMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		// Add in hard-coded hair types:
-		
 		Field[] fields = HairType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractHairType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractHairType ct;
 				try {
 					ct = ((AbstractHairType) f.get(null));
-
 					hairToIdMap.put(ct, f.getName());
 					idToHairMap.put(f.getName(), ct);
-					
 					allHairTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 
-		Collections.sort(allHairTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allHairTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractHairType getHairTypeFromId(String id) {
-		if(id.equals("IMP") || id.equals("DEMON_COMMON")) {
-			return HairType.DEMON;
-		}
-		if(id.equals("LYCAN")) {
-			return HairType.WOLF_MORPH;
+		switch (id) {
+			case "IMP":
+			case "DEMON_COMMON":
+				return HairType.DEMON;
+			case "LYCAN":
+				return HairType.WOLF_MORPH;
 		}
 		id = Util.getClosestStringMatch(id, idToHairMap.keySet());
 		return idToHairMap.get(id);
@@ -354,7 +349,7 @@ public class HairType {
 		return allHairTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractHairType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractHairType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractHairType> getHairTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

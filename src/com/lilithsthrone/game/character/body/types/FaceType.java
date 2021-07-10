@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -485,9 +485,9 @@ public class FaceType {
 	};
 	
 
-	private static List<AbstractFaceType> allFaceTypes;
-	private static Map<AbstractFaceType, String> faceToIdMap = new HashMap<>();
-	private static Map<String, AbstractFaceType> idToFaceMap = new HashMap<>();
+	private static final List<AbstractFaceType> allFaceTypes;
+	private static final Map<AbstractFaceType, String> faceToIdMap = new HashMap<>();
+	private static final Map<String, AbstractFaceType> idToFaceMap = new HashMap<>();
 	
 	static {
 		allFaceTypes = new ArrayList<>();
@@ -497,16 +497,16 @@ public class FaceType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("face")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("face")) {
 						AbstractFaceType type = new AbstractFaceType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allFaceTypes.add(type);
 						faceToIdMap.put(type, id);
 						idToFaceMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -516,64 +516,56 @@ public class FaceType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("face")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("face")) {
 						AbstractFaceType type = new AbstractFaceType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allFaceTypes.add(type);
 						faceToIdMap.put(type, id);
 						idToFaceMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded face types:
-		
 		Field[] fields = FaceType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractFaceType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractFaceType ct;
 				try {
 					ct = ((AbstractFaceType) f.get(null));
-
 					faceToIdMap.put(ct, f.getName());
 					idToFaceMap.put(f.getName(), ct);
-					
 					allFaceTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allFaceTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allFaceTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractFaceType getFaceTypeFromId(String id) {
-		if(id.equals("IMP")) {
-			return FaceType.DEMON_COMMON;
+		switch (id) {
+			case "IMP":
+				return FaceType.DEMON_COMMON;
+			case "LYCAN":
+				return FaceType.WOLF_MORPH;
+			case "TENGU":
+				return FaceType.HARPY;
+			case "CAT_MORPH_PANTHER":
+				id = "innoxia_panther_face";
+				break;
 		}
-		if(id.equals("LYCAN")) {
-			return FaceType.WOLF_MORPH;
-		}
-		if(id.equals("TENGU")) {
-			return FaceType.HARPY;
-		}
-		if(id.equals("CAT_MORPH_PANTHER")) {
-			id = "innoxia_panther_face";
-		}
-		
 		id = Util.getClosestStringMatch(id, idToFaceMap.keySet());
 		return idToFaceMap.get(id);
 	}
@@ -586,7 +578,7 @@ public class FaceType {
 		return allFaceTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractFaceType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractFaceType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractFaceType> getFaceTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {

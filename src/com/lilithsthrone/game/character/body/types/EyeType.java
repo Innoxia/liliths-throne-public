@@ -3,12 +3,12 @@ package com.lilithsthrone.game.character.body.types;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -336,9 +336,9 @@ public class EyeType {
 	};
 	
 
-	private static List<AbstractEyeType> allEyeTypes;
-	private static Map<AbstractEyeType, String> eyeToIdMap = new HashMap<>();
-	private static Map<String, AbstractEyeType> idToEyeMap = new HashMap<>();
+	private static final List<AbstractEyeType> allEyeTypes;
+	private static final Map<AbstractEyeType, String> eyeToIdMap = new HashMap<>();
+	private static final Map<String, AbstractEyeType> idToEyeMap = new HashMap<>();
 	
 	static {
 		allEyeTypes = new ArrayList<>();
@@ -348,16 +348,16 @@ public class EyeType {
 		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("eye")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("eye")) {
 						AbstractEyeType type = new AbstractEyeType(innerEntry.getValue(), entry.getKey(), true) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allEyeTypes.add(type);
 						eyeToIdMap.put(type, id);
 						idToEyeMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -367,56 +367,50 @@ public class EyeType {
 		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("eye")) {
-					try {
+				try {
+					if(Element.getDocumentRootElement(innerEntry.getValue()).getTagName().equals("eye")) {
 						AbstractEyeType type = new AbstractEyeType(innerEntry.getValue(), entry.getKey(), false) {};
 						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
 						allEyeTypes.add(type);
 						eyeToIdMap.put(type, id);
 						idToEyeMap.put(id, type);
-					} catch(Exception ex) {
-						ex.printStackTrace(System.err);
 					}
+				} catch(Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
 		
 		// Add in hard-coded eye types:
-		
 		Field[] fields = EyeType.class.getFields();
-		
 		for(Field f : fields){
 			if (AbstractEyeType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractEyeType ct;
 				try {
 					ct = ((AbstractEyeType) f.get(null));
-
 					eyeToIdMap.put(ct, f.getName());
 					idToEyeMap.put(f.getName(), ct);
-					
 					allEyeTypes.add(ct);
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		Collections.sort(allEyeTypes, (t1, t2)->
-			t1.getRace()==Race.NONE
-				?-1
-				:(t2.getRace()==Race.NONE
-					?1
-					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
+		allEyeTypes.sort((t1, t2)->
+				t1.getRace() == Race.NONE
+						?-1
+						:(t2.getRace() == Race.NONE
+						?1
+						:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractEyeType getEyeTypeFromId(String id) {
-		if(id.equals("IMP")) {
-			return EyeType.DEMON_COMMON;
-		}
-		if(id.equals("LYCAN")) {
-			return EyeType.WOLF_MORPH;
+		switch (id) {
+			case "IMP":
+				return EyeType.DEMON_COMMON;
+			case "LYCAN":
+				return EyeType.WOLF_MORPH;
 		}
 		id = Util.getClosestStringMatch(id, idToEyeMap.keySet());
 		return idToEyeMap.get(id);
@@ -430,7 +424,7 @@ public class EyeType {
 		return allEyeTypes;
 	}
 	
-	private static Map<AbstractRace, List<AbstractEyeType>> typesMap = new HashMap<>();
+	private static final Map<AbstractRace, List<AbstractEyeType>> typesMap = new HashMap<>();
 	
 	public static List<AbstractEyeType> getEyeTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
