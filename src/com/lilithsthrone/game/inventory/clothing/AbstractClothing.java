@@ -2,6 +2,7 @@ package com.lilithsthrone.game.inventory.clothing;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,12 +11,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import com.lilithsthrone.controller.xmlParsing.XMLUtil;
-import com.lilithsthrone.game.Game;
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -41,6 +37,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemGeneration;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
@@ -59,12 +56,12 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.5
+ * @version 0.4.1
  * @author Innoxia
  */
 public abstract class AbstractClothing extends AbstractCoreItem implements XMLSaving {
 
-	private AbstractClothingType clothingType;
+	private final AbstractClothingType clothingType;
 	
 	private InventorySlot slotEquippedTo;
 	
@@ -282,21 +279,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public boolean equals(Object o) {
 		if(super.equals(o)){
 			if(o instanceof AbstractClothing){
-				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
-						&& ((AbstractClothing)o).getColours().equals(getColours())
-						&& ((AbstractClothing)o).getPattern().equals(getPattern())
-						&& (this.getPattern()!="none"
-							?((AbstractClothing)o).getPatternColours().equals(getPatternColours())
-							:true)
-						&& ((AbstractClothing)o).isSealed()==this.isSealed()
-						&& ((AbstractClothing)o).isDirty()==this.isDirty()
-						&& ((AbstractClothing)o).isEnchantmentKnown()==this.isEnchantmentKnown()
-						&& ((AbstractClothing)o).isBadEnchantment()==this.isBadEnchantment()
-						&& ((AbstractClothing)o).getEffects().equals(this.getEffects())
-						&& ((AbstractClothing)o).getSlotEquippedTo()==this.getSlotEquippedTo()
-						){
-					return true;
-				}
+				return ((AbstractClothing) o).getClothingType().equals(getClothingType())
+						&& ((AbstractClothing) o).getColours().equals(getColours())
+						&& ((AbstractClothing) o).getPattern().equals(getPattern())
+						&& (this.getPattern().equals("none") || ((AbstractClothing) o).getPatternColours().equals(getPatternColours()))
+						&& ((AbstractClothing) o).isSealed() == this.isSealed()
+						&& ((AbstractClothing) o).isDirty() == this.isDirty()
+						&& ((AbstractClothing) o).isEnchantmentKnown() == this.isEnchantmentKnown()
+						&& ((AbstractClothing) o).isBadEnchantment() == this.isBadEnchantment()
+						&& ((AbstractClothing) o).getEffects().equals(this.getEffects())
+						&& ((AbstractClothing) o).getSlotEquippedTo() == this.getSlotEquippedTo();
 			}
 		}
 		return false;
@@ -308,7 +300,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		result = 31 * result + getClothingType().hashCode();
 		result = 31 * result + getColours().hashCode();
 		result = 31 * result + getPattern().hashCode();
-		if(this.getPattern()!="none") {
+		if(!this.getPattern().equals("none")) {
 			result = 31 * result + getPatternColours().hashCode();
 		}
 		result = 31 * result + (this.isSealed() ? 1 : 0);
@@ -322,498 +314,121 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return result;
 	}
 	
-	public Element saveAsXML(Element parentElement, Document doc) {
-		Element element = doc.createElement("clothing");
-		parentElement.appendChild(element);
-		
-		XMLUtil.addAttribute(doc, element, "id", this.getClothingType().getId());
-		XMLUtil.addAttribute(doc, element, "name", name);
+	public boolean saveAsXML(Element parentElement) {
+		Element clothingElement = parentElement.addElement("clothing");
+		clothingElement.addAttribute("id", clothingType.getId());
+		clothingElement.addAttribute("name", name);
+		clothingElement.addAttribute("dirty", String.valueOf(dirty));
+		clothingElement.addAttribute("enchantmentKnown", String.valueOf(enchantmentKnown));
+		clothingElement.addAttribute("unlocked", String.valueOf(unlocked));
 		if(slotEquippedTo!=null) {
-			XMLUtil.addAttribute(doc, element, "slotEquippedTo", slotEquippedTo.toString());
+			clothingElement.addAttribute("slotEquippedTo", slotEquippedTo.toString());
 		}
 
-		if(!this.getColours().isEmpty()) {
-			Element innerElement = doc.createElement("colours");
-			element.appendChild(innerElement);
-			
-			for(int i=0; i<this.getColours().size(); i++) {
-				Element colourElement = doc.createElement("colour");
-				innerElement.appendChild(colourElement);
-				colourElement.setAttribute("i", String.valueOf(i));
-				colourElement.setTextContent(this.getColour(i).getId());
+		if(!colours.isEmpty()) {
+			Element coloursElement = clothingElement.addElement("colours");
+			for(int i=0; i<getColours().size(); i++) {
+				Element colourElement = coloursElement.addElement("colour");
+				colourElement.addAttribute("pos", String.valueOf(i));
+				colourElement.addAttribute("id", getColour(i).getId());
 			}
 		}
 		
-		if(!this.getPattern().equals("none")) {
-			Element innerElement = doc.createElement("pattern");
-			element.appendChild(innerElement);
-			innerElement.setAttribute("id", this.getPattern());
-			
-			for(int i=0; i<this.getPatternColours().size(); i++) {
-				Element colourElement = doc.createElement("colour");
-				innerElement.appendChild(colourElement);
-				colourElement.setAttribute("i", String.valueOf(i));
-				colourElement.setTextContent(this.getPatternColour(i).getId());
+		if(!pattern.equals("none")) {
+			Element patternElement = clothingElement.addElement("pattern", pattern);
+			for(int i=0; i<getPatternColours().size(); i++) {
+				Element colourElement = patternElement.addElement("colour");
+				colourElement.addAttribute("pos", String.valueOf(i));
+				colourElement.addAttribute("id", getColour(i).getId());
 			}
 		}
 		
-		if(!this.getStickers().isEmpty()) {
-			Element innerElement = doc.createElement("stickers");
-			element.appendChild(innerElement);
-			
-			for(Entry<String, String> entry : this.getStickers().entrySet()) {
-				Element stickerElement = doc.createElement("sticker");
-				innerElement.appendChild(stickerElement);
-				stickerElement.setAttribute("category", String.valueOf(entry.getKey()));
-				stickerElement.setTextContent(entry.getValue());
+		if(!stickers.isEmpty()) {
+			Element stickersElement = clothingElement.addElement("stickers");
+			for(Entry<String, String> entry : stickers.entrySet()) {
+				Element stickerElement = stickersElement.addElement("sticker");
+				stickerElement.addAttribute("category", String.valueOf(entry.getKey()));
+				stickerElement.addAttribute("id", entry.getValue());
 			}
 		}
 		
-		XMLUtil.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
-		XMLUtil.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
-		
-		if(!this.getEffects().isEmpty()) {
-			Element innerElement = doc.createElement("effects");
-			element.appendChild(innerElement);
-			
-			for(ItemEffect ie : this.getEffects()) {
-				ie.saveAsXML(innerElement, doc);
+		if(!effects.isEmpty()) {
+			Element effectsElement = clothingElement.addElement("effects");
+			for(ItemEffect ie : effects) {
+				ie.saveAsXML(effectsElement.addElement("item"));
 			}
 		}
 
-		if(!this.getDisplacedList().isEmpty()) {
-			Element innerElement = doc.createElement("displacedList");
-			element.appendChild(innerElement);
-			for(DisplacementType dt : this.getDisplacedList()) {
-				Element displacementType = doc.createElement("displacementType");
-				innerElement.appendChild(displacementType);
-				XMLUtil.addAttribute(doc, displacementType, "value", dt.toString());
+		if(!displacedList.isEmpty()) {
+			Element displacedListElement = clothingElement.addElement("displacedList");
+			for(DisplacementType dt : displacedList) {
+				displacedListElement.addElement("displacementType", dt.toString());
 			}
 		}
 		
-		return element;
+		return true;
 	}
 	
-	public static AbstractClothing loadFromXML(Element parentElement, Document doc) {
-		AbstractClothing clothing = null;
-		String slotHint = null;
-		
+	public static AbstractClothing loadFromXML(Element parentElement) {
 		try {
-			slotHint = parentElement.getAttribute("slotEquippedTo");
-		} catch(Exception ex) {
-			// pass
-		}
-		
-		try {
-			String loadedId = parentElement.getAttribute("id");
+			// Create clothing object and load core
+			Element clothingElement = parentElement.getMandatoryFirstOf("clothing");
 			
-			// Handle old Enforcer clothing ids (pre-sticker update):
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.6")) {
-				// Berets:
-				if(loadedId.equals("dsg_eep_servequipset_enfberet")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
-					clothing.setSticker("flash", "flash_patrol_dominion");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfberet_academy")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
-					clothing.setSticker("flash", "flash_academy");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfberet_oricl")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
-					clothing.setSticker("flash", "flash_oricl");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfberet_sword")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
-					clothing.setSticker("flash", "flash_sword");
-					return clothing;
-				}
-				
-				// Hats:
-				if(loadedId.equals("dsg_eep_ptrlequipset_bwhat")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_bwhat", false);
-					clothing.setSticker("badge", "badge_dominion");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_ptrlequipset_pcap")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", false);
-					clothing.setSticker("badge", "badge_dominion");
-					return clothing;
-				}
-				
-				// Jackets:
-				if(loadedId.equals("dsg_eep_servequipset_enfdjacket_cs")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
-					clothing.setSticker("collar", "tab_cs");
-					clothing.setSticker("name", "name_cs");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_ip")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
-					clothing.setSticker("collar", "tab_ip");
-					clothing.setSticker("name", "name_ip");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_pc")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
-					clothing.setSticker("collar", "tab_pc");
-					clothing.setSticker("name", "name_pc");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_sg")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
-					clothing.setSticker("collar", "tab_sg");
-					clothing.setSticker("name", "name_sg");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_su")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
-					clothing.setSticker("collar", "tab_su");
-					clothing.setSticker("name", "name_su");
-					return clothing;
-				}
-				
-				// Unique jackets:
-				if(loadedId.equals("dsg_eep_uniques_enfdjacket_brax")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
-					clothing.setSticker("collar", "tab_ip");
-					clothing.setSticker("name", "name_brax");
-					clothing.setSticker("ribbon", "ribbon_brax");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_candi")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, null, false);
-					clothing.setSticker("collar", "tab_pc");
-					clothing.setSticker("name", "name_candi");
-					clothing.setSticker("ribbon", "ribbon_candi");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_claire")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, null, false);
-					clothing.setSticker("collar", "tab_sg");
-					clothing.setSticker("name", "name_claire");
-					clothing.setSticker("ribbon", "ribbon_claire");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_elle")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, null, false);
-					clothing.setSticker("collar", "tab_su");
-					clothing.setSticker("name", "name_elle");
-					clothing.setSticker("ribbon", "ribbon_elle");
-					clothing.setSticker("qual", "qual_flyer");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_wesley")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
-					clothing.setSticker("collar", "tab_ip");
-					clothing.setSticker("name", "name_wesley");
-					clothing.setSticker("ribbon", "ribbon_wes");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_wesley_su")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
-					clothing.setSticker("collar", "tab_su");
-					clothing.setSticker("name", "name_wesley");
-					clothing.setSticker("ribbon", "ribbon_wes");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_uniques_stpvest_claire")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_stpvest", false);
-					clothing.setSticker("name_plate", "claire");
-					return clothing;
-				}
-				
-				// Waistcoats:
-				if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_cs")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
-					clothing.setSticker("collar", "tab_cs");
-					clothing.setSticker("name", "name_cs");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_ip")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
-					clothing.setSticker("collar", "tab_ip");
-					clothing.setSticker("name", "name_ip");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_pc")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
-					clothing.setSticker("collar", "tab_pc");
-					clothing.setSticker("name", "name_pc");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_sg")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
-					clothing.setSticker("collar", "tab_sg");
-					clothing.setSticker("name", "name_sg");
-					return clothing;
-				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_su")) {
-					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
-					clothing.setSticker("collar", "tab_su");
-					clothing.setSticker("name", "name_su");
-					return clothing;
+			AbstractClothing clothing = ItemGeneration.generateClothing(ClothingType.getClothingTypeFromId(clothingElement.getAttribute("id"), clothingElement.getAttribute("slotEquippedTo")), false);
+			clothing.setName(clothingElement.getAttribute("name"));
+			clothing.dirty = Boolean.parseBoolean(clothingElement.getAttribute("dirty"));
+			clothing.enchantmentKnown = Boolean.parseBoolean(clothingElement.getAttribute("enchantmentKnown"));
+			clothing.unlocked = Boolean.parseBoolean(clothingElement.getAttribute("unlocked"));
+			
+			// Colours
+			if(clothingElement.getOptionalFirstOf("colours").isPresent()) {
+				for (Element colourElement : clothingElement.getMandatoryFirstOf("colours").getAllOf("colour")) {
+					clothing.setColour(Integer.parseInt(colourElement.getAttribute("pos")),
+							PresetColour.getColourFromId(colourElement.getAttribute("id")));
 				}
 			}
 			
-			clothing = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId(loadedId, slotHint), false);
-		} catch(Exception ex) {
-			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
+			// Pattern
+			if(clothingElement.getOptionalFirstOf("pattern").isPresent()) {
+				Element patternElement = parentElement.getMandatoryFirstOf("pattern");
+				clothing.setPattern(patternElement.getValue());
+				for (Element colourElement : patternElement.getAllOf("colour")) {
+					clothing.setPatternColour(Integer.parseInt(colourElement.getAttribute("pos")),
+							PresetColour.getColourFromId(colourElement.getAttribute("id")));
+				}
+			}
+			
+			// Stickers
+			if(clothingElement.getOptionalFirstOf("stickers").isPresent()) {
+				for (Element stickerElement : clothingElement.getMandatoryFirstOf("stickers").getAllOf("sticker")) {
+					clothing.setSticker(stickerElement.getAttribute("category"), stickerElement.getAttribute("id"));
+				}
+			}
+			
+			// Effects
+			if(clothingElement.getOptionalFirstOf("effects").isPresent()) {
+				for (Element itemElement : clothingElement.getMandatoryFirstOf("effects").getAllOf("item")) {
+					clothing.addEffect(ItemEffect.loadFromXML(itemElement));
+				}
+			}
+			
+			// Displaced List
+			if(clothingElement.getOptionalFirstOf("displacedList").isPresent()) {
+				for (Element displacementTypeElement : clothingElement.getMandatoryFirstOf("displacedList").getAllOf("displacementType")) {
+					clothing.displacedList.add(DisplacementType.valueOf(displacementTypeElement.getValue()));
+				}
+			}
+			return clothing;
+		} catch (Exception ex) {
+			System.out.println("Failed to load AbstractClothing");
+			ex.printStackTrace();
 			return null;
 		}
-		
-		if(clothing==null) {
-			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
-			return null;
-		}
-		
-		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.6") || clothing.getClothingType().getStickers().isEmpty()) { // Reset name at version 0.3.9.6 for clothing which has had sticker support added
-			if(!parentElement.getAttribute("name").isEmpty()) {
-				clothing.setName(parentElement.getAttribute("name"));
-			}
-		}
-		
-		if(!parentElement.getAttribute("slotEquippedTo").isEmpty()) {
-			InventorySlot slot = InventorySlot.valueOf(parentElement.getAttribute("slotEquippedTo"));
-			if(!clothing.getClothingType().getEquipSlots().contains(slot)) {
-				return null; // If the clothing type doens't support this slot, then something has gone wrong and the clothing should not be laoded.
-			}
-			clothing.setSlotEquippedTo(slot);
-		}
-		
-		
-		// Try to load colours:
-		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.8")) {
-			Element colourElement = (Element) parentElement.getElementsByTagName("colours").item(0);
-			if(colourElement!=null) {
-				NodeList nodes = colourElement.getElementsByTagName("colour");
-				for(int i=0; i<nodes.getLength(); i++) {
-					Element cElement = (Element) nodes.item(i);
-					clothing.setColour(Integer.valueOf(cElement.getAttribute("i")), PresetColour.getColourFromId(cElement.getTextContent()));
-				}
-			}
-			
-		} else if((!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4") || !clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_scientist_safety_goggles")))
-					&& !clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_rainbow_gloves"))
-					&& !clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_rainbow_stockings"))) {
-			
-			if((clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("BDSM_CHOKER")) && Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6"))
-					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_ankle_shin_guards")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6"))
-					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_TRAINERS")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2"))
-					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_sock_toeless_striped_stockings")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.2"))) {
-				try {
-					clothing.setColour(0, PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
-					clothing.setColour(1, PresetColour.getColourFromId(parentElement.getAttribute("colour")));
-				} catch(Exception ex) {
-				}
-				
-			} else if(clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_LOW_TOP_SKATER_SHOES")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2")){
-				try {
-					clothing.setColour(1, PresetColour.CLOTHING_WHITE);
-					if(!parentElement.getAttribute("colour").isEmpty()) {
-						clothing.setColour(0, PresetColour.getColourFromId(parentElement.getAttribute("colour")));
-					} else {
-						clothing.setColour(0, AbstractClothingType.DEFAULT_COLOUR_VALUE);
-					}
-				} catch(Exception ex) {
-				}
-				
-			} else {
-				try {
-					if(!parentElement.getAttribute("colour").isEmpty()) {
-						clothing.setColour(0, PresetColour.getColourFromId(parentElement.getAttribute("colour")));
-					} else {
-						clothing.setColour(0, AbstractClothingType.DEFAULT_COLOUR_VALUE);
-					}
-				} catch(Exception ex) {
-				}
-				
-				try {
-					if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
-						Colour secColour = PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary"));
-						if(clothing.getClothingType().getPatternColourReplacement(1)!=null && clothing.getClothingType().getPatternColourReplacement(1).getAllColours().contains(secColour)) {
-							clothing.setColour(1, secColour);
-						}
-					} else {
-						clothing.setColour(1, AbstractClothingType.DEFAULT_COLOUR_VALUE);
-						if(clothing.getClothingType().getPatternColourReplacement(1)!=null && !clothing.getClothingType().getPatternColourReplacement(1).getAllColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
-							clothing.setColour(1, clothing.getClothingType().getPatternColourReplacement(1).getRandomOfDefaultColours());
-						}
-					}
-				} catch(Exception ex) {
-				}
-			}
-			try {
-				if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
-					Colour terColour = PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary"));
-					if(clothing.getClothingType().getPatternColourReplacement(2)!=null && clothing.getClothingType().getPatternColourReplacement(2).getAllColours().contains(terColour)) {
-						clothing.setColour(2, terColour);
-					}
-				} else {
-					clothing.setColour(2, AbstractClothingType.DEFAULT_COLOUR_VALUE);
-					if(clothing.getClothingType().getPatternColourReplacement(2)!=null && !clothing.getClothingType().getPatternColourReplacement(2).getAllColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
-						clothing.setColour(2, clothing.getClothingType().getPatternColourReplacement(2).getRandomOfDefaultColours());
-					}
-				}
-			} catch(Exception ex) {
-			}
-		}
-		
-		// Try to load patterns:
-		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.8")) {
-			Element patternElement = (Element) parentElement.getElementsByTagName("pattern").item(0);
-			if(patternElement!=null) {
-				clothing.setPattern(patternElement.getAttribute("id"));
-				NodeList nodes = patternElement.getElementsByTagName("colour");
-				for(int i=0; i<nodes.getLength(); i++) {
-					Element cElement = (Element) nodes.item(i);
-					clothing.setPatternColour(Integer.valueOf(cElement.getAttribute("i")), PresetColour.getColourFromId(cElement.getTextContent()));
-				}
-				
-			} else {
-				clothing.setPattern("none");
-			}
-			
-		} else {
-			try {
-				if(!parentElement.getAttribute("pattern").isEmpty()) {
-					String pat = parentElement.getAttribute("pattern");
-					clothing.setPattern(pat);
-				} else {
-					clothing.setPattern("none");
-				}
-				
-				if(!parentElement.getAttribute("patternColour").isEmpty()) {
-					Colour colour = PresetColour.getColourFromId(parentElement.getAttribute("patternColour"));
-					clothing.setPatternColour(0, colour);
-				} else {
-					clothing.setPatternColour(0, AbstractClothingType.DEFAULT_COLOUR_VALUE);
-				}
-				
-				if(!parentElement.getAttribute("patternColourSecondary").isEmpty()) {
-					Colour secColour = PresetColour.getColourFromId(parentElement.getAttribute("patternColourSecondary"));
-					clothing.setPatternColour(1, secColour);
-				} else {
-					clothing.setPatternColour(1, AbstractClothingType.DEFAULT_COLOUR_VALUE);
-				}
-				
-				if(!parentElement.getAttribute("patternColourTertiary").isEmpty()) {
-					Colour terColour = PresetColour.getColourFromId(parentElement.getAttribute("patternColourTertiary"));
-					clothing.setPatternColour(2, terColour);
-				} else {
-					clothing.setPatternColour(2, AbstractClothingType.DEFAULT_COLOUR_VALUE);
-				}
-				
-			} catch(Exception ex) {
-			}
-		}
-		
-		// Load stickers:
-		Element stickersElement = (Element) parentElement.getElementsByTagName("stickers").item(0);
-		if(stickersElement!=null) {
-			NodeList nodes = stickersElement.getElementsByTagName("sticker");
-			for(int i=0; i<nodes.getLength(); i++) {
-				Element stickerElement = (Element) nodes.item(i);
-				clothing.setSticker(stickerElement.getAttribute("category").toLowerCase(), stickerElement.getTextContent().toLowerCase());
-			}
-		}
-		
-		// Try to load core features:
-		try {
-			if(!parentElement.getAttribute("sealed").isEmpty()) {
-				clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
-			}
-			clothing.setDirty(null, Boolean.valueOf(parentElement.getAttribute("isDirty")));
-			clothing.setEnchantmentKnown(null, Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
-		} catch(Exception ex) {
-		}
-		
-		// Try to load attributes:
-		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5") || !clothing.isCondom(clothing.getClothingType().getEquipSlots().get(0))) { // Do not load condom effects from versions prior to 0.3.0.5
-			if(parentElement.getElementsByTagName("attributeModifiers")!=null && parentElement.getElementsByTagName("attributeModifiers").getLength()>0) {
-				if(clothing.getClothingType().getClothingSet()==null) {
-					clothing.getEffects().clear();
-					
-					Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
-					NodeList modifierElements = element.getElementsByTagName("modifier");
-					for(int i = 0; i < modifierElements.getLength(); i++){
-						Element e = ((Element)modifierElements.item(i));
-						try {
-							AbstractAttribute att = Attribute.getAttributeFromId(e.getAttribute("attribute"));
-							int value = Integer.valueOf(e.getAttribute("value"));
-							
-							TFPotency pot = TFPotency.BOOST;
-							if(value <= -5) {
-								pot = TFPotency.MAJOR_DRAIN;
-							} else if(value <= -3) {
-								pot = TFPotency.DRAIN;
-							} else if(value <= -1) {
-								pot = TFPotency.MINOR_DRAIN;
-							} else if(value <= 1) {
-								pot = TFPotency.MINOR_BOOST;
-							} else if(value <= 3) {
-								pot = TFPotency.BOOST;
-							} else {
-								pot = TFPotency.MAJOR_BOOST;
-							}
-							
-							for(TFModifier mod : TFModifier.getClothingAttributeList()) {
-								if(mod.getAssociatedAttribute()==att) {
-									clothing.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, mod, pot, 0));
-									break;
-								}
-							}
-							
-							for(TFModifier mod : TFModifier.getClothingMajorAttributeList()) {
-								if(mod.getAssociatedAttribute()==att) {
-									clothing.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, mod, pot, 0));
-									break;
-								}
-							}
-							
-						} catch(Exception ex) {
-						}
-					}
-				}
-				
-			} else {
-				try {
-					clothing.getEffects().clear();
-					
-					Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
-					if(element!=null) {
-						NodeList effectElements = element.getElementsByTagName("effect");
-						for(int i=0; i<effectElements.getLength(); i++){
-							Element e = ((Element)effectElements.item(i));
-							ItemEffect ie = ItemEffect.loadFromXML(e, doc);
-							if(ie!=null) {
-								clothing.addEffect(ie);
-							}
-						}
-					}
-				} catch(Exception ex) {
-				}
-			}
-		} else {
-			clothing.setEnchantmentKnown(null, true);
-		}
-		
-		// Try to load displacements:
-		try {
-			clothing.displacedList = new ArrayList<>();
-			Element displacementElement = (Element)parentElement.getElementsByTagName("displacedList").item(0);
-			if(displacementElement!=null) {
-				NodeList displacementTypeElements = displacementElement.getElementsByTagName("displacementType");
-				for(int i = 0; i < displacementTypeElements.getLength(); i++){
-					Element e = ((Element)displacementTypeElements.item(i));
-					
-					DisplacementType dt = DisplacementType.valueOf(e.getAttribute("value"));
-					boolean displacementTypeFound = false;
-					for (BlockedParts bp : clothing.getBlockedPartsMap(null, clothing.getSlotEquippedTo())) {
-						if(bp.displacementType == dt) {
-							displacementTypeFound = true;
-						}
-					}
-					if(displacementTypeFound) {
-						clothing.displacedList.add(dt);
-					} else {
-						System.err.println("Warning: Invalid displacement");
-					}
-				}
-			}
-		} catch(Exception ex) {
-		}
-		
-		return clothing;
 	}
 	
 	/**
 	 * Returns the name of a pattern that the clothing has.
-	 * @return
+	 * @return String
 	 */
 	public String getPattern() {
 		if(pattern == null) {
@@ -824,7 +439,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	/**
 	 * Changes pattern to specified one. Will not render that pattern if it doesn't exist or the item doesn't support it anyway.
-	 * @param pattern
+	 * @param pattern Pattern type
 	 */
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
@@ -902,20 +517,20 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	private static StringBuilder descriptionSB = new StringBuilder();
 
 	public String getTypeDescription() {
-		String description = this.getClothingType().getDescription();
+		StringBuilder description = new StringBuilder(this.getClothingType().getDescription());
 		
 		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
 		List<Sticker> orderedStickers = new ArrayList<>(stickersAsObjects.values());
-		Collections.sort(orderedStickers, (s1, s2)->s1.getDescriptionPriority()-s2.getDescriptionPriority());
+		orderedStickers.sort(Comparator.comparingInt(Sticker::getDescriptionPriority));
 		for(Sticker st : orderedStickers) {
 			if(st.isDescriptionFullReplacement()) {
-				description = st.getDescription();
+				description = new StringBuilder(st.getDescription());
 				break;
 			}
-			description += st.getDescription();
+			description.append(st.getDescription());
 		}
 		
-		return description;
+		return description.toString();
 	}
 	
 	@Override
@@ -1086,19 +701,19 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
 		List<Sticker> orderedStickers = new ArrayList<>(stickersAsObjects.values());
 		
-		Collections.sort(orderedStickers, (s1, s2)->s1.getNamePrefixPriority()-s2.getNamePrefixPriority());
-		String prefix = "";
+		orderedStickers.sort(Comparator.comparingInt(Sticker::getNamePrefixPriority));
+		StringBuilder prefix = new StringBuilder();
 		for(Sticker st : orderedStickers) {
 			if(!st.getNamePrefix().isEmpty()) {
-				prefix += st.getNamePrefix() + " ";
+				prefix.append(st.getNamePrefix()).append(" ");
 			}
 		}
 		
-		Collections.sort(orderedStickers, (s1, s2)->s1.getNamePostfixPriority()-s2.getNamePostfixPriority());
-		String postfix = "";
+		orderedStickers.sort(Comparator.comparingInt(Sticker::getNamePostfixPriority));
+		StringBuilder postfix = new StringBuilder();
 		for(Sticker st : orderedStickers) {
 			if(!st.getNamePostfix().isEmpty()) {
-				postfix += " " + st.getNamePostfix();
+				postfix.append(" ").append(st.getNamePostfix());
 			}
 		}
 		
@@ -1107,7 +722,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	public String getColourName() {
 		try {
-			if(this.getClothingType().isColourDerivedFromPattern() && this.getPattern()!="none") {
+			if(this.getClothingType().isColourDerivedFromPattern() && !this.getPattern().equals("none")) {
 				return this.getPatternColour(0).getName();
 			}
 			return getColour(0).getName();
@@ -1231,11 +846,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 
 	/**
 	 * Applies any extra effects this clothing causes when being equipped. To be called <b>immediately after</b> equipping clothing.
-	 * 
+	 *
 	 * @return A description of this clothing being equipped.
 	 */
 	public String onEquipApplyEffects(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough) {
-		StringBuilder sb = new StringBuilder(); 
+		StringBuilder sb = new StringBuilder();
 		
 		if(!enchantmentKnown) {
 			this.setEnchantmentKnown(clothingOwner, true);
@@ -1436,7 +1051,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 
 	/**
 	 * Applies any extra effects this clothing causes when being unequipped. To be called <b>immediately before</b> actually unequipping.
-	 * 
+	 *
 	 * @return A description of this clothing being unequipped.
 	 */
 	public String onUnequipApplyEffects(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough) {
@@ -1450,7 +1065,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return getClothingType().unequipText(clothingOwner, clothingEquipper, this.getSlotEquippedTo(), rough, this, false);
 	}
 
-	private static List<String> incompatibleClothing = new ArrayList<>();
+	private static final List<String> incompatibleClothing = new ArrayList<>();
 	
 	public String getDisplacementBlockingDescriptions(GameCharacter equippedToCharacter){
 		descriptionSB = new StringBuilder("<p><b>Displacement types:</b>");
@@ -1477,7 +1092,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 
 	/**
 	 * null should be passed as the argument for 'slotToBeEquippedTo' in order to return non-slot-specific descriptions.
-	 * 
+	 *
 	 * @param equippedToCharacter The character this clothing is equipped to.
 	 * @param slotToBeEquippedTo The slot for which this clothing's effects effects are to be described.
 	 * @param verbose true if you want a lengthy description of each effect.
@@ -1967,11 +1582,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			if(effect.getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
 				switch(effect.getPotency()) {
 					case BOOST:
+					case MAJOR_BOOST:
 						break;
 					case DRAIN:
 						cost = ItemEffect.SEALED_COST_DRAIN;
-						break;
-					case MAJOR_BOOST:
 						break;
 					case MAJOR_DRAIN:
 						cost = ItemEffect.SEALED_COST_MAJOR_DRAIN;
@@ -2112,7 +1726,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		for(Entry<AbstractAttribute, Integer> entry : getAttributeModifiers().entrySet()) {
 			att = entry.getKey();
 			if(Math.abs(entry.getValue()) > max) {
-				att = entry.getKey();
 				max = Math.abs(entry.getValue());
 			}
 		}
@@ -2158,7 +1771,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				((e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE))
 					?e.getPotency().getClothingBonusValue()*(e.getSecondaryModifier()==TFModifier.CORRUPTION?-1:1)
 					:0)
-				+ 
+				+
 				(e.getSecondaryModifier()==TFModifier.CLOTHING_SEALING?-10:0)
 				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_SERVITUDE?-10:0)
 			).sum()<0;
@@ -2277,7 +1890,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
 		for(Sticker st : stickersAsObjects.values()) {
 			clothingTags.addAll(st.getTagsApplied());
-			clothingTags.removeAll(st.getTagsRemoved());
+			st.getTagsRemoved().forEach(clothingTags::remove);
 		}
 		
 		return clothingTags;
@@ -2296,7 +1909,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
 		for(Sticker st : stickersAsObjects.values()) {
 			clothingTags.addAll(st.getTagsApplied());
-			clothingTags.removeAll(st.getTagsRemoved());
+			st.getTagsRemoved().forEach(clothingTags::remove);
 		}
 		
 		return clothingTags;
