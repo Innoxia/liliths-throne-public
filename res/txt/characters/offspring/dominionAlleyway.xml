@@ -200,21 +200,29 @@
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		<p>
 			You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you greet your [npc.daughter],
-			#IF(pcIsMother)
-				[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure Lilaya told you, but I'm-)]
+			#IF(npc.getIncubator()!=null && !npc.getIncubator().isPlayer())
+				[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getIncubator().getName(true)] told you, but I'm-)]
 			#ELSE
-				#IF(npc.getMother()==null || !npc.getMother().isPlayerKnowsName())
-					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure your mother told you, but I'm-)]
+				#IF(pcIsMother)
+					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure Lilaya told you, but I'm-)]
 				#ELSE
-					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getMother().getName(true)] told you, but I'm-)]
+					#IF(npc.getMother()==null || !npc.getMother().isPlayerKnowsName())
+						[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure your mother told you, but I'm-)]
+					#ELSE
+						[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getMother().getName(true)] told you, but I'm-)]
+					#ENDIF
 				#ENDIF
 			#ENDIF
 		</p>
 		<p>
-			#IF(pcIsMother)
-				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
+			#IF(npc.getIncubator()!=null && !npc.getIncubator().isPlayer())
+				[npc.speech([pc.Name], yeah, [#npc.getIncubator().getName(true)] told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				#IF(pcIsMother)
+					[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
+				#ELSE
+					[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				#ENDIF
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
@@ -237,21 +245,29 @@
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		<p>
 			You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you wrap your [pc.arms] around your [npc.daughter], before pulling [npc.herHim] into a loving hug. [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other. Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,
-			#IF(pcIsMother)
-				[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure Lilaya told you, but I'm-)]
+			#IF(npc.getIncubator()!=null && !npc.getIncubator().isPlayer())
+				[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getIncubator().getName(true)] told you, but I'm-)]
 			#ELSE
-				#IF(npc.getMother()==null || !npc.getMother().isPlayerKnowsName())
-					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure your mother told you, but I'm-)]
+				#IF(pcIsMother)
+					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure Lilaya told you, but I'm-)]
 				#ELSE
-					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getMother().getName(true)] told you, but I'm-)]
+					#IF(npc.getMother()==null || !npc.getMother().isPlayerKnowsName())
+						[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure your mother told you, but I'm-)]
+					#ELSE
+						[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getMother().getName(true)] told you, but I'm-)]
+					#ENDIF
 				#ENDIF
 			#ENDIF
 		</p>
 		<p>
-			#IF(pcIsMother)
-				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
+			#IF(npc.getIncubator()!=null && !npc.getIncubator().isPlayer())
+				[npc.speech([pc.Name], yeah, [#npc.getIncubator().getName(true)] told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				#IF(pcIsMother)
+					[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
+				#ELSE
+					[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				#ENDIF
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
@@ -274,21 +290,29 @@
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		<p>
 			You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you wrap your [pc.arms] around your [npc.daughter], before planting a wet kiss on [npc.her] cheek and pulling [npc.herHim] into a loving hug. [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other. Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,
-			#IF(pcIsMother)
-				[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure Lilaya told you, but I'm-)]
+			#IF(npc.getIncubator()!=null && !npc.getIncubator().isPlayer())
+				[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getIncubator().getName(true)] told you, but I'm-)]
 			#ELSE
-				#IF(npc.getMother()==null || !npc.getMother().isPlayerKnowsName())
-					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure your mother told you, but I'm-)]
+				#IF(pcIsMother)
+					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure Lilaya told you, but I'm-)]
 				#ELSE
-					[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getMother().getName(true)] told you, but I'm-)]
+					#IF(npc.getMother()==null || !npc.getMother().isPlayerKnowsName())
+						[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure your mother told you, but I'm-)]
+					#ELSE
+						[pc.speech([npc.Name], was it? I'm so happy to meet you! I'm sure [#npc.getMother().getName(true)] told you, but I'm-)]
+					#ENDIF
 				#ENDIF
 			#ENDIF
 		</p>
 		<p>
-			#IF(pcIsMother)
-				[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
+			#IF(npc.getIncubator()!=null && !npc.getIncubator().isPlayer())
+				[npc.speech([pc.Name], yeah, [#npc.getIncubator().getName(true)] told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
 			#ELSE
-				[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				#IF(pcIsMother)
+					[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]
+				#ELSE
+					[npc.speech([pc.Name], yeah, mum told me about you. I didn't really hang around to get the full story, though. You know how it is...)]
+				#ENDIF
 			#ENDIF
 			 [npc.name] explains, clearly feeling a little guilty about it. [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]
 		</p>
