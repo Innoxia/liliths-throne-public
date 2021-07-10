@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.main.Main;
-import org.w3c.dom.Document;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -93,11 +90,6 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 	public AbstractHornType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
 				Element coreElement = Element.getDocumentRootElement(XMLFile);
 
 				this.mod = mod;
@@ -107,12 +99,12 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				if(coreElement.getOptionalFirstOf("genericType").isPresent()) {
-					this.generic = Boolean.valueOf(coreElement.getMandatoryFirstOf("genericType").getTextContent());
+					this.generic = Boolean.parseBoolean(coreElement.getMandatoryFirstOf("genericType").getTextContent());
 				} else {
 					this.generic = false;
 				}
 				
-				this.defaultHornsPerRow = Integer.valueOf(coreElement.getMandatoryFirstOf("defaultHornsPerRow").getTextContent());
+				this.defaultHornsPerRow = Integer.parseInt(coreElement.getMandatoryFirstOf("defaultHornsPerRow").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				

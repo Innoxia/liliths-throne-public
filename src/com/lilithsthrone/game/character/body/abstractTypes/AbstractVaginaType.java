@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.main.Main;
-import org.w3c.dom.Document;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -144,11 +141,6 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	public AbstractVaginaType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
 				Element coreElement = Element.getDocumentRootElement(XMLFile);
 
 				this.mod = mod;
@@ -162,11 +154,11 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 
 				this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
 				if(coreElement.getOptionalFirstOf("pubicHairAllowed").isPresent()) {
-					this.pubicHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
+					this.pubicHairAllowed = Boolean.parseBoolean(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
 				}
 				
 				this.fluidType = FluidType.getFluidTypeFromId(coreElement.getMandatoryFirstOf("fluidType").getTextContent());
-				this.eggLayer = Boolean.valueOf(coreElement.getMandatoryFirstOf("eggLayer").getTextContent());
+				this.eggLayer = Boolean.parseBoolean(coreElement.getMandatoryFirstOf("eggLayer").getTextContent());
 				
 				this.names = new ArrayList<>();
 				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
@@ -248,10 +240,23 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		if(!gc.isVaginaVirgin()) {
 			returnNames.remove("cherry");
 		}
-		
-		if(names==null || names.isEmpty()) {
+		return getRandomName(returnNames, names);
+	}
+	
+	@Override
+	public String getNamePlural(GameCharacter gc) {
+		String name;
+		Map<String, Integer> returnNames = new HashMap<>(BASE_NAMES_PLURAL);
+		if(!gc.isVaginaVirgin()) {
+			returnNames.remove("cherries");
+		}
+		return getRandomName(returnNames, namesPlural);
+	}
+	
+	private String getRandomName(Map<String, Integer> returnNames, List<String> names) {
+		String name;
+		if(names ==null || names.isEmpty()) {
 			name = Util.getRandomObjectFromWeightedMap(returnNames);
-			
 		} else {
 			name = Util.randomItemFrom(names);
 		}
@@ -270,35 +275,6 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		return name;
 	}
 	
-	@Override
-	public String getNamePlural(GameCharacter gc) {
-		String name;
-		Map<String, Integer> returnNames = new HashMap<>(BASE_NAMES_PLURAL);
-		if(!gc.isVaginaVirgin()) {
-			returnNames.remove("cherries");
-		}
-		
-		if(namesPlural==null || namesPlural.isEmpty()) {
-			name = Util.getRandomObjectFromWeightedMap(returnNames);
-			
-		} else {
-			name = Util.randomItemFrom(namesPlural);
-		}
-		
-		if(name.endsWith("-")) {
-			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
-			} else {
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
-			}
-		}
-		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
-		}
-		
-		return name;
-	}
-
 	@Override
 	public String getDescriptor(GameCharacter gc) {
 		if(descriptors!=null) {

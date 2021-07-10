@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.main.Main;
-import org.w3c.dom.Document;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -136,11 +133,6 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	public AbstractPenisType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
 				Element coreElement = Element.getDocumentRootElement(XMLFile);
 
 				this.mod = mod;
@@ -154,7 +146,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 
 				this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
 				if(coreElement.getOptionalFirstOf("pubicHairAllowed").isPresent()) {
-					this.pubicHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
+					this.pubicHairAllowed = Boolean.parseBoolean(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
 				}
 				
 				this.testicleType = TesticleType.getTesticleTypeFromId(coreElement.getMandatoryFirstOf("testicleType").getTextContent());
@@ -283,17 +275,20 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			returnNames.remove("shaft");
 		}
 		
+		return getRandomName(gc, returnNames);
+	}
+	
+	private String getRandomName(GameCharacter gc, Map<String, Integer> returnNames) {
+		String name;
 		if(gc.isFeminine()) {
-			if(namesFeminine==null || namesFeminine.isEmpty()) {
+			if(namesFeminine ==null || namesFeminine.isEmpty()) {
 				name = Util.getRandomObjectFromWeightedMap(returnNames);
-				
 			} else {
 				name = Util.randomItemFrom(namesFeminine);
 			}
 		} else {
-			if(namesMasculine==null || namesMasculine.isEmpty()) {
+			if(namesMasculine ==null || namesMasculine.isEmpty()) {
 				name = Util.getRandomObjectFromWeightedMap(returnNames);
-				
 			} else {
 				name = Util.randomItemFrom(namesMasculine);
 			}
@@ -321,34 +316,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			returnNames.remove("shafts");
 		}
 		
-		if(gc.isFeminine()) {
-			if(namesPluralFeminine==null || namesPluralFeminine.isEmpty()) {
-				name = Util.getRandomObjectFromWeightedMap(returnNames);
-				
-			} else {
-				name = Util.randomItemFrom(namesPluralFeminine);
-			}
-		} else {
-			if(namesPluralMasculine==null || namesPluralMasculine.isEmpty()) {
-				name = Util.getRandomObjectFromWeightedMap(returnNames);
-				
-			} else {
-				name = Util.randomItemFrom(namesPluralMasculine);
-			}
-		}
-		
-		if(name.endsWith("-")) {
-			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
-			} else {
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
-			}
-		}
-		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
-		}
-		
-		return name;
+		return getRandomName(gc, returnNames);
 	}
 
 	@Override

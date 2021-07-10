@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.main.Main;
-import org.w3c.dom.Document;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -79,11 +76,6 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 	public AbstractTesticleType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
 				Element coreElement = Element.getDocumentRootElement(XMLFile);
 
 				this.mod = mod;
@@ -94,7 +86,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 				
 				this.fluidType = FluidType.getFluidTypeFromId(coreElement.getMandatoryFirstOf("fluidType").getTextContent());
 
-				this.internal = Boolean.valueOf(coreElement.getMandatoryFirstOf("internal").getTextContent());
+				this.internal = Boolean.parseBoolean(coreElement.getMandatoryFirstOf("internal").getTextContent());
 				
 				this.names = new ArrayList<>();
 				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {

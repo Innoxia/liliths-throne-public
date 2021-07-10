@@ -13,24 +13,24 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
  */
 public abstract class AbstractFootType {
 	
-	private String typeName;
+	private final String typeName;
 	
-	private String footName;
-	private String footNamePlural;
+	private final String footName;
+	private final String footNamePlural;
 	
-	private List<String> footDescriptorsMasculine;
-	private List<String> footDescriptorsFeminine;
+	private final List<String> footDescriptorsMasculine;
+	private final List<String> footDescriptorsFeminine;
 	
-	private String toeSingularName;
-	private String toePluralName;
-	private List<String> toesDescriptorsMasculine;
-	private List<String> toesDescriptorsFeminine;
+	private final String toeSingularName;
+	private final String toePluralName;
+	private final List<String> toesDescriptorsMasculine;
+	private final List<String> toesDescriptorsFeminine;
 	
-	private String footjobName;
+	private final String footjobName;
 	
-	private String footBodyDescription;
+	private final String footBodyDescription;
 	
-	private List<FootStructure> permittedFootStructures;
+	private final List<FootStructure> permittedFootStructures;
 
 	/**
 	 * @param typeName The name/singular descriptor of this foot type.

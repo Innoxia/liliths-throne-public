@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.main.Main;
-import org.w3c.dom.Document;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -88,11 +85,6 @@ public abstract class AbstractAntennaType implements BodyPartTypeInterface {
 	public AbstractAntennaType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
 				Element coreElement = Element.getDocumentRootElement(XMLFile);
 
 				this.mod = mod;
@@ -101,7 +93,7 @@ public abstract class AbstractAntennaType implements BodyPartTypeInterface {
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 				
-				this.defaultAntennaePerRow = Integer.valueOf(coreElement.getMandatoryFirstOf("defaultAntennaePerRow").getTextContent());
+				this.defaultAntennaePerRow = Integer.parseInt(coreElement.getMandatoryFirstOf("defaultAntennaePerRow").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				

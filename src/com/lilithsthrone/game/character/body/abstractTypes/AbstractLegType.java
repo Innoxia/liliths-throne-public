@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.w3c.dom.Document;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Ass;
@@ -163,11 +161,6 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	public AbstractLegType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
 				Element coreElement = Element.getDocumentRootElement(XMLFile);
 
 				this.mod = mod;
@@ -188,10 +181,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				}
 				
 				this.footType = FootType.getFootTypeFromId(coreElement.getMandatoryFirstOf("footType").getTextContent());
-				this.spinneret = Boolean.valueOf(coreElement.getMandatoryFirstOf("spinneret").getTextContent());
+				this.spinneret = Boolean.parseBoolean(coreElement.getMandatoryFirstOf("spinneret").getTextContent());
 				
 				this.tentacleType = TentacleType.getTentacleTypeFromId(coreElement.getMandatoryFirstOf("tentacleType").getTextContent());
-				this.tentacleCount = Integer.valueOf(coreElement.getMandatoryFirstOf("tentacleCount").getTextContent());
+				this.tentacleCount = Integer.parseInt(coreElement.getMandatoryFirstOf("tentacleCount").getTextContent());
 				
 				this.allowedLegConfigurations = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("allowedLegConfigurations").isPresent()) {
@@ -912,7 +905,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				}
 				
 			} else {
-				boolean virgin = body.getVagina().getType()!=VaginaType.NONE?body.getVagina().getOrificeVagina().isVirgin():true;
+				boolean virgin = body.getVagina().getType() == VaginaType.NONE || body.getVagina().getOrificeVagina().isVirgin();
 				body.setVagina(
 						body.getVagina().getType()!=VaginaType.NONE
 							? new Vagina(

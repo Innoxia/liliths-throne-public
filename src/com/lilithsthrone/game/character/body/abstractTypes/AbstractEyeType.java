@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.main.Main;
-import org.w3c.dom.Document;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -103,11 +100,6 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 	public AbstractEyeType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
 				Element coreElement = Element.getDocumentRootElement(XMLFile);
 
 				this.mod = mod;
@@ -125,7 +117,7 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 					}
 				}
 				
-				this.defaultPairCount = Integer.valueOf(coreElement.getMandatoryFirstOf("defaultPairCount").getTextContent());
+				this.defaultPairCount = Integer.parseInt(coreElement.getMandatoryFirstOf("defaultPairCount").getTextContent());
 				
 				this.defaultIrisShape = EyeShape.valueOf(coreElement.getMandatoryFirstOf("defaultIrisShape").getTextContent());
 				this.defaultPupilShape = EyeShape.valueOf(coreElement.getMandatoryFirstOf("defaultPupilShape").getTextContent());
