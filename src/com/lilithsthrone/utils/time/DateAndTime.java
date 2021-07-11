@@ -36,7 +36,7 @@ public class DateAndTime {
 	 * @param date The date to convert to julianDate
 	 * @return A double value representing days since 4713 BCE.
 	 */
-	private static double julianDate(LocalDateTime date) {
+	static double julianDate(LocalDateTime date) {
 		int years = Math.abs(-4713 - date.getYear()) - 1; // -1 to get rid of the year which we are currently in
 		int leapYearSwitch = 4713 + 1582;
 		int leapYears = 0;
