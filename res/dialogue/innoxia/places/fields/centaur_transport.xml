@@ -1000,7 +1000,7 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#!astrapi.hasSexCountWith(pc)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(astrapi.getTotalTimesHadSex(pc)==0)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Offer clean]]></responseTitle>
@@ -1008,7 +1008,7 @@
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#astrapi.hasSexCountWith(pc)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(astrapi.getTotalTimesHadSex(pc)>0)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Offer clean]]></responseTitle>

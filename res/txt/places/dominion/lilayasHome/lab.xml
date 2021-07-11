@@ -102,7 +102,7 @@
 	</p>
 	<p>
 		Although most of her anger seems directed at your now-shared mother, Lilaya is definitely more than a little upset with you. As you're wondering whether to agree with her demands and convince Lyssieth to transform her into a full demon, she continues,
-		#IF lilaya.getTotalTimesHadSex(pc)>0
+		#IF(lilaya.getTotalTimesHadSex(pc)>0)
 		#THEN [lilaya.speech(And don't think for <i>one second</i> that I'm going to let you fuck me again until you agree to do as I say!)]
 		#ELSE [lilaya.speech(And don't think for <i>one second</i> that I'm going to offer you any special tests until you agree to do as I say!)]
 		#ENDIF

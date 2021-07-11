@@ -310,7 +310,7 @@ public class Jess extends NPC {
 		List<NPC> npcs = new ArrayList<>(Main.game.getCharactersPresent(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex")));
 		for(NPC npc : npcs) {
 			if(npc instanceof GenericSexualPartner && !npc.isSubordinateInParty()) {
-				if(!this.hasSexCountWith(npc)) {
+				if(this.getTotalTimesHadSex(npc)==0) {
 					boolean dom = Math.random()<=0.5f;
 					SexType st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
 					if(!npc.hasPenis()) {

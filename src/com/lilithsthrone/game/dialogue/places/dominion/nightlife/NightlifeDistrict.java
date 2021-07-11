@@ -1159,7 +1159,7 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							character.setLocation(WorldType.NIGHTLIFE_CLUB, Main.game.getPlayer().getLocation(), false);
-							if(!character.hasSexCountWith(Main.game.getPlayer())) {
+							if(character.getTotalTimesHadSex(Main.game.getPlayer()) == 0) {
 								character.setAffection(Main.game.getPlayer(), 5);
 							}
 						}
