@@ -111,6 +111,7 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.DayPeriod;
+import com.lilithsthrone.utils.time.Lunation;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
@@ -1711,7 +1712,8 @@ public class MainController implements Initializable {
 						+ "<br/>"
 						+ "It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
 						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]"
-						+"<br/><i>Click to toggle between a date and day count.</i>");
+						+ "<br/>" + Lunation.lunarDescription()
+						+ "<br/><i>Click to toggle between a date and day count.</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
