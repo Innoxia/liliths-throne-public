@@ -1,12 +1,5 @@
 package com.lilithsthrone.game.sex.sexActions;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -27,21 +20,15 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.CondomFailure;
-import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexControl;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
@@ -723,10 +710,11 @@ public interface SexActionInterface {
 					return convertToResponse();
 				}
 			}
-			// Your partner can't prepare for orgasms if you won't orgasm on the next turn:
+			// Can't prepare for orgasms if the target won't orgasm on the next turn or is hidden:
 			if(!Main.sex.getCharacterPerformingAction().isPlayer()
 					&& getActionType() == SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
-				if(!Main.sex.isReadyToOrgasm(Main.game.getPlayer())) {
+				if(!Main.sex.isReadyToOrgasm(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+					|| Main.sex.getInitialSexManager().isHidden(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return null;
 				} else {
 					return convertToResponse();
