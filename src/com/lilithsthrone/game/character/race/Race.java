@@ -241,11 +241,11 @@ public class Race {
 	};
 
 	// BOVINES:
-	public static AbstractRace COW_MORPH = new AbstractRace("cow-morph",
-				"cow-morphs",
-				"cow",
-				"cows",
-				"cow",
+	public static AbstractRace COW_MORPH = new AbstractRace("cattle-morph",
+				"cattle-morphs",
+				"cattle",
+				"cattle",
+				"cattle",
 				PresetColour.RACE_COW_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,

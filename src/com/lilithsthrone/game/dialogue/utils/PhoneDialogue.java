@@ -76,6 +76,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -750,7 +751,16 @@ public class PhoneDialogue {
 			boolean sideQuestsFound = false;
 			
 			// Side Quests:
-			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
+			List<QuestLine> sideQuests = new ArrayList<>(Main.game.getPlayer().getQuests().keySet());
+			sideQuests.sort((q1, q2)->
+				Main.game.getPlayer().isQuestCompleted(q1)
+					?(Main.game.getPlayer().isQuestCompleted(q2)
+						?0
+						:1)
+					:(Main.game.getPlayer().isQuestCompleted(q2)
+						?-1
+						:0));
+			for (QuestLine questLine : sideQuests) {
 				if(questLine.getType()==QuestType.SIDE) {
 					sideQuestsFound = true;
 					
@@ -794,55 +804,6 @@ public class PhoneDialogue {
 	
 					journalSB.append("</details>");
 				}
-			
-//				if(questLine.getType()==QuestType.SIDE) {
-//					sideQuestsFound = true;
-//
-//					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
-//					int index = questList.size()-1;
-//					Quest q = questList.get(index);
-//					
-//					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
-//						journalSB.append(
-//								"<details>"
-//								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
-//									+ "Completed - " + questLine.getName()
-//								+ "</summary>");
-//						journalSB.append(getQuestBoxDiv(q, true));
-//						
-//					} else{
-//						journalSB.append(
-//								"<details open>"
-//									+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
-//										+ questLine.getName()
-//									+ "</summary>");
-//						journalSB.append(getQuestBoxDiv(q, false));
-//					}
-//					
-//					index--;
-//						
-//					while(index>=0) {
-//						q = questList.get(index);
-//						journalSB.append(getQuestBoxDiv(q, true));
-//						index--;
-//					}
-//	
-//					journalSB.append("</details>");
-//				}
-//			}
-//			for(Entry<QuestLine, Quest> questsFailed : Main.game.getPlayer().getQuestsFailed().entrySet()) {
-//				if(questsFailed.getKey().getType()==QuestType.SIDE) {
-//					sideQuestsFound = true;
-//					
-//					journalSB.append(
-//							"<details open>"
-//								+ "<summary class='quest-title' style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
-//									+ "Failed - "+questsFailed.getKey().getName()
-//								+ "</summary>");
-//					journalSB.append(getQuestBoxDiv(questsFailed.getValue(), false));
-//					
-//					journalSB.append("</details>");
-//				}
 			}
 			
 			if(!sideQuestsFound) {
@@ -986,11 +947,12 @@ public class PhoneDialogue {
 	
 	private static String getQuestBoxDiv(Quest q, boolean completed) {
 		if(q==Quest.SIDE_UTIL_COMPLETE) {
-			return "<div class='quest-box'>"
-					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
-							+ "<b>Completed - "+ q.getName() + "</b>"
-					+ "</h6>"
-				+ "</div>";
+			return "";
+//			return "<div class='quest-box'>"
+//					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
+//							+ "<b>Completed - "+ q.getName() + "</b>"
+//					+ "</h6>"
+//				+ "</div>";
 		}
 		
 		if(completed) {
@@ -999,7 +961,7 @@ public class PhoneDialogue {
 					+ "<h6 style='color:" + q.getQuestType().getColour().getShades()[1] + ";text-align:center;'>"
 							+ "<b>Completed - "+ q.getName() + "</b>"
 					+ "</h6>"
-					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+					+ "<p style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";text-align:center; margin-top:0;'>"
 						+ q.getCompletedDescription()
 					+ "</p>" 
 				+ "</div>";
@@ -1007,7 +969,7 @@ public class PhoneDialogue {
 		} else {
 			return "<div class='quest-box'>"
 					+ getLevelAndExperienceHTML(q, completed)
-					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center;'>"
+					+ "<h6 style='color:" + q.getQuestType().getColour().toWebHexString()+ "; text-align:center; margin-top:0;'>"
 						+ "<b>" + q.getName() + "</b>"
 					+ "</h6>"
 					+ "<p style='text-align:center;'>"
@@ -1730,7 +1692,7 @@ public class PhoneDialogue {
 						+ "<br/>"
 						+ "Your record for most orgasms in one day is currently [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
 						+ "<br/>"
-						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()>1?"different people":"person")+"."
+						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()==1?"person":"different people")+"."
 					+ "</div>"
 					
 					+ sexStatHeader()
@@ -1892,8 +1854,20 @@ public class PhoneDialogue {
 								? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
 								: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
 			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true)));
+			if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
+				mother = npc.getMotherName();
+			}
+			
 			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true)));
+			if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
+				father = npc.getFatherName();
+			}
+			
 			String incubator = npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true)));
+			if(npc.getIncubator()==null && !npc.getIncubatorName().equals("???")) {
+				incubator = npc.getIncubatorName();
+			}
+			
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
 //			boolean isGreyedOut = extraRelationships.isEmpty();
 			List<String> relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
@@ -2069,8 +2043,7 @@ public class PhoneDialogue {
 			
 			rowCount = 0;
 			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
-			offspringBirthed.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
-			offspringIncubated.removeAll(offspringBirthed);
+			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
 			if(offspringIncubated.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"
 												+ "[style.italicsDisabled(No Incubated Offspring...)]"
@@ -2293,12 +2266,20 @@ public class PhoneDialogue {
 		
 		if(!Main.game.getPlayer().getLittersBirthed().isEmpty()) {
 			for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
+				String unknownName = "[style.colourDisabled(Unknown)]";
+				try {
+					GameCharacter offspring0 = litter.getOffspringCharacters().iterator().next();
+					if(!offspring0.getFatherName().equals("???")) {
+						unknownName = "<span style='color:"+offspring0.getFatherFemininity().getColour().toWebHexString()+";'>"+offspring0.getFatherName()+"</span>";
+					}
+				} catch(Exception ex) {
+				}
 				contentSB.append(pregnancyRow("[style.boldGood(Resolved Pregnancy)]",
 						(litter.getFather()!=null
 							?(litter.getFather().isPlayer()
 								?"Father: [style.colourExcellent(Yourself)]"
 								:UtilText.parse(litter.getFather(), "Father: <span style='color:"+litter.getFather().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
-							:"Father: [style.colourDisabled(Unknown)]"),
+							:"Father: "+unknownName),
 						"Conceived: "
 							+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 							+" | Delivered: "
@@ -2425,12 +2406,21 @@ public class PhoneDialogue {
 		
 		if(!Main.game.getPlayer().getLittersFathered().isEmpty()) {
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()) {
+				String unknownName = "[style.colourDisabled(Unknown)]";
+				try {
+					GameCharacter offspring0 = litter.getOffspringCharacters().iterator().next();
+					if(!offspring0.getIncubatorName().equals("???")) {
+						unknownName = "<span style='color:"+offspring0.getIncubatorFemininity().getColour().toWebHexString()+";'>"+offspring0.getIncubatorName()+"</span>";
+					}
+				} catch(Exception ex) {
+				}
+				
 				contentSB.append(pregnancyRow("[style.boldGood(Resolved Pregnancy)]",
 						(litter.getMother()!=null
 							?(litter.getMother().isPlayer()
 								?"Mother: [style.colourExcellent(Yourself)]"
 								:UtilText.parse(litter.getMother(), "Mother: <span style='color:"+litter.getMother().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
-							:"Mother: [style.colourDisabled(Unknown)]"),
+							:"Mother: "+unknownName),
 						"Conceived: "
 							+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 							+" | Delivered: "
@@ -2444,12 +2434,21 @@ public class PhoneDialogue {
 			List<Litter> incubatorCompletedLitters = new ArrayList<>(Main.game.getPlayer().getLittersImplanted());
 			incubatorCompletedLitters.removeAll(incubatorOngoingLitters);
 			for (Litter litter : incubatorCompletedLitters) {
+				String unknownName = "[style.colourDisabled(Unknown)]";
+				try {
+					GameCharacter offspring0 = litter.getOffspringCharacters().iterator().next();
+					if(!offspring0.getMotherName().equals("???")) {
+						unknownName = "<span style='color:"+offspring0.getMotherFemininity().getColour().toWebHexString()+";'>"+offspring0.getMotherName()+"</span>";
+					}
+				} catch(Exception ex) {
+				}
+				
 				contentSB.append(pregnancyRow("[style.boldGood(Resolved)] [style.boldPurple(Incubation)]",
 						(litter.getIncubator()!=null
 							?(litter.getIncubator().isPlayer()
 								?"Incubator: [style.colourExcellent(Yourself)]"
 								:UtilText.parse(litter.getIncubator(), "Incubator: <span style='color:"+litter.getIncubator().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
-							:"Incubator: [style.colourDisabled(Unknown)]"),
+							:"Incubator: "+unknownName),
 						"Implanted: "
 							+Units.date(litter.getIncubationStartDate(), Units.DateType.LONG)
 							+" | Delivered: "
@@ -3554,6 +3553,9 @@ public class PhoneDialogue {
 			if(Main.game.isFootContentEnabled()) {
 				journalSB.append(getFetishEntry(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
 			}
+			if(Main.game.isFootContentEnabled()) {
+				journalSB.append(getFetishEntry(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING));
+			}
 			journalSB.append(getFetishEntry(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT));
 			journalSB.append(getFetishEntry(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN));
 			journalSB.append(getFetishEntry(Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY));
@@ -3563,8 +3565,8 @@ public class PhoneDialogue {
 			if(Main.game.isNonConEnabled()) {
 				journalSB.append(getFetishEntry(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB));
 			}
-			
-//			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold; margin-top:16px;'><h6>Individual Fetishes</h6></div>");
+
+			journalSB.append(getFetishEntry(Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM));
 			journalSB.append(getFetishEntry(Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF));
 			journalSB.append(getFetishEntry(Fetish.FETISH_VOYEURIST, Fetish.FETISH_EXHIBITIONIST));
 			journalSB.append(getFetishEntry(Fetish.FETISH_BIMBO, Fetish.FETISH_CROSS_DRESSER));
@@ -3699,28 +3701,66 @@ public class PhoneDialogue {
 	
 	public static AbstractWorldType worldTypeMap = WorldType.DOMINION;
 
+	private static void setMapResponseTabToCurrentMap() {
+		AbstractWorldType world = Main.game.getPlayer().getWorldLocation();
+		if(world.getWorldRegion()==WorldRegion.SUBMISSION) {
+			Main.game.setResponseTab(1);
+		} else if(world.getWorldRegion()==WorldRegion.FIELD_CITY) {
+			Main.game.setResponseTab(2);
+		} else {
+			Main.game.setResponseTab(0);
+		}
+	}
+	
 	public static final DialogueNode MAP = new DialogueNode("Maps", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			if(Main.game.getCurrentDialogueNode()!=MAP) {
+				setMapResponseTabToCurrentMap();
+			}
+		}
 		@Override
 		public String getLabel() {
 			return "Map: "+Util.capitaliseSentence(worldTypeMap.getName());
 		}
-		
 		@Override
 		public String getContent() {
 			if(worldTypeMap==WorldType.WORLD_MAP) {
-//				return RenderingEngine.ENGINE.getFullWorldMap();
 				return RenderingEngine.ENGINE.getFullMap(worldTypeMap, true, false);
 			} else {
 				return RenderingEngine.ENGINE.getFullMap(worldTypeMap, true, true);
 			}
 		}
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(index==0) {
+				return "Dominion";
+			} else if(index==1) {
+				return "Submission";
+			} else if(index==2) {
+				return "Elis";
+			}
+			return null;
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			int i=2;
-			List<AbstractWorldType> worldTypes = Main.getProperties().hasValue(PropertyValue.mapReveal)?WorldType.getAllWorldTypes():new ArrayList<>(Main.game.getPlayer().getWorldsVisited());
-			for(AbstractWorldType world : worldTypes) {//WorldType.values()) {
-				if(world != WorldType.WORLD_MAP
+			List<AbstractWorldType> worldTypes = new ArrayList<>(Main.getProperties().hasValue(PropertyValue.mapReveal)?WorldType.getAllWorldTypes():Main.game.getPlayer().getWorldsVisited());
+			
+			worldTypes.sort((w1, w2) -> w1.getName().compareTo(w2.getName()));
+			
+			for(AbstractWorldType world : worldTypes) {
+				boolean correctRegion = false;
+				if(world.getWorldRegion()==WorldRegion.SUBMISSION) {
+					correctRegion = responseTab==1;
+				} else if(world.getWorldRegion()==WorldRegion.FIELD_CITY) {
+					correctRegion = responseTab==2;
+				} else {
+					correctRegion = responseTab==0;
+				}
+				
+				if(correctRegion
+						&& world != WorldType.WORLD_MAP
 						&& world != WorldType.EMPTY
 						&& world != WorldType.MUSEUM
 						&& world != WorldType.MUSEUM_LOST) {

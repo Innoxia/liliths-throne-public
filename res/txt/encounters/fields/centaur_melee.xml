@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Attacked by melee centaur: -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_WORLD_MAP_GRASSLANDS)
+			While most of your surroundings consist of open, natural meadows, it's impossible to keep your distance from the many hills, ponds, and valleys which are scattered throughout this grassland wilderness.​ These terrain features are almost always home to a significant amount of long grasses, scattered shrubs, and dense, bramble-packed thickets, which provide excellent spots from which a malicious foe might spring an ambush.
+		#ELSE
+			Although for the most part the landscape beside the road you're [pc.walking] down consists of wide open fields, you can never go far without passing some kind of small copse or thicket.​ These small clusters of trees are invariably home to many types of densely-packed shrubs and bushes, which provide excellent concealment for any potential foe that might be waiting to spring an ambush.
+		#ENDIF
+	</p>
+	<p>
+		Just as you feared, as you're cautiously passing a small, isolated patch of woodland, [attacker.a_fullRace(true)] suddenly launches out of the undergrowth to block your passage. With a manic grin on her face, she points her [attacker.mainWeapon] at you and shouts, [attacker.speech(Stop right there, you filthy scum! You're trespassing on the territory of 'Lunette's Marauders', and you're going to fucking pay for it!)]
+	</p>
+	<p>
+		With her [attacker.hairColour] hair blowing in the breeze, this [attacker.race] locks her wild, [attacker.eyeColour] eyes on you and excitedly paws at this ground with one of her huge horse-like hoofs. As you look over her [attacker.skinColour] skin and [attacker.legColour] horse-hair, this demonic centauress, who stands at [attacker.heightValue], flexes her huge muscles in an attempt to intimidate you. Taking a bold step forwards, the marauder's crazed grin shifts into a terrifying snarl as she issues an ultimatum, [attacker.speech(You've got two choices! You can either pay the toll for travelling through my land, or submit to me and show me what a pathetic worm you are!)]
+	</p>
+	<p>
+		As she's clearly not afraid of a fight, you realise that you're going to have to either do as this sadistic [attacker.race] says or defeat her in combat before you can continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Pay off: -->
+	
+	<htmlContent tag="PAYMENT"><![CDATA[
+	<p>
+		#IF(pc.isCowardly())
+			Well and truly terrified at the prospect of this mighty [attacker.race] choosing to attack, you hastily grab [#SPECIAL_PARSE_0] flames and offer them to her. Pleading for her not to be violent, you flinch and cry out as she delivers a swift smack across the back of your head. Snatching the money from your trembling [pc.hands], she snarls, [attacker.speech(You pathetic scum... You're lucky that I'm in a hurry today, or else I would have taken the time to punish you for your cowardice...)]
+		#ELSEIF(pc.isBrave())
+			Unafraid of this mighty [attacker.race] or whatever violence she might choose to unleash, you tell her that you're in too much of a hurry to give her the beating she deserves. Grabbing [#SPECIAL_PARSE_0] flames, you ignore the look of absolute fury upon the marauder's face and offer them to her. Avoiding a swift swipe that she takes at the back of your head, you tell the [attacker.race] not to do anything she'll regret as you let her snatch the money from your [pc.hands]. Incensed by your lack of fear, she furiously stomps her hoofs on the ground and shouts, [attacker.speech(You fucking scum! How <i>dare</i> you speak to me in such a manner! You're lucky that I'm in a hurry today, or else I would have taken the time to punish you for your insolence!)]
+		#ELSE
+			Not wanting to engage this mighty [attacker.race] in combat, you tell her that you'll pay the toll if it means that you can avoid a fight. Grabbing [#SPECIAL_PARSE_0] flames, you offer them to the marauder and calmly let her snatch the money from your [pc.hands]. Seemingly incensed by your decision to pay her off, she furiously stomps her hoofs on the ground and shouts, [attacker.speech(You're lucky that I'm in a hurry today, or else I would have taken the time to give you a good beating!)]
+		#ENDIF
+	</p>
+	<p>
+		With that, the [attacker.race] turns around on the spot and gallops off, sending clods of mud flying through the air behind her as she swiftly crosses a nearby field and disappears behind a hill. Happy with your decision to hand over [#SPECIAL_PARSE_0] flames in order to avoid fighting such an angry character, you look around to make sure that there's no other immediate danger and then prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Submit to her: -->
+	
+	<htmlContent tag="SUBMIT"><![CDATA[
+	<p>
+		#IF(pc.hasFetish(FETISH_SUBMISSIVE))
+			Starting to feel turned on at the prospect of surrendering to this strong, dominant [attacker.race], you drop down onto the ground before her and tell her that you submit to her.
+		#ELSE
+			Not wanting to hand over any of your money, and equally unwilling to fight this strong, dominant [attacker.race], you drop down onto the ground before her and tell her that you submit to her.
+		#ENDIF
+		 The marauder lets out an angry huff as she looks down at you, and, after stepping forwards, she lifts one of her huge hoofs and uses it to kick you down onto your back. With her face turned up into a furious snarl, she shouts, [attacker.speech(You worthless [pc.insult]! You're almost not even worth my time... Then again, it is rather fun to utterly dominate pathetic worms like yourself...)]
+	</p>
+	<p>
+		As you look up at this sadistic centauress, she once again kicks out with her hoof and sends you sprawling back onto the ground before her. Letting out a deep, mocking laugh, she looks down at you with a crazed grin on her face and demands, [attacker.speech(Come on then, [pc.insult]! Show me how you submit to your betters! I'm going to enjoy fucking you!)]
+	</p>
+	<p>
+		Given a moment in which to make a move, you quickly have to decide how best to submit to this demonic centauress...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_GENERIC"><![CDATA[
+	<p>
+		Not wanting to do anything to offend her, you decide to simply drop your head down before this [attacker.race] and submissively grovel on the floor before her. Sharply exhaling, the marauder violently stomps her hoof on the ground in front of your face, sending dirt flying in all directions as she sneers, [attacker.speech(What a pathetic worm... You're so frightened of me that you can't do anything but bow and hope for mercy?!)]
+	</p>
+	<p>
+		Before you can reply, the [attacker.race] once again uses one of her strong forelegs to violently kick you back onto the ground. Reaching down, she roughly grabs hold of you, before pulling you to your [pc.feet] and delivering a swift smack to the back of your head. Laughing as she makes you flinch, the sadistic [attacker.race] gives you no time in which to make a move before grabbing your face and squeezing your cheeks. Licking her lips, she fixes her wild, crazed gaze upon you and snarls, [attacker.speech(You worthless cunt! I'll show you your true place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_PUSSY"><![CDATA[
+	<p>
+		Knowing that you only have a moment in which to please her, you quickly expose your [pc.pussy+] and drop down onto all fours. Presenting the dominant centauress with your rear end, you look back over your shoulder and tell her that your [pc.pussy+] is free for her to use in any way she sees fit.
+	</p>
+	<p>
+		[attacker.speech(Raise your ass, you filthy slut!)] the [attacker.race] demands, and as you obediently do so, she steps forwards over the top of you and mounts you.
+		#IF(attacker.hasPenis())
+			 Immediately, you feel the flat, flared head of her [attacker.penisSize], horse-like cock prodding at your [pc.labia+].
+		#ELSE
+			 Using her self-transformative powers, she takes a moment in which to grow a demonic penis, and then immediately starts prodding the flat, flared head of her [attacker.penisSize], horse-like cock against your [pc.labia+].
+		#ENDIF
+		 Grunting in amusement, the marauder wastes no time in any kind of foreplay, and quickly steps forwards, forcing her [attacker.cock+] into your [pc.pussy+].
+	</p>
+	<p>
+		[attacker.speech(That's it, take it all, you fucking scum!)] the sadistic [attacker.race] shouts. Continuing to step forwards, she forcefully rams [style.size] after [style.size] into your [pc.pussy+], stuffing as much of her [attacker.penisGirth] cock inside of you as she possibly can. Pulling back, she starts violently rutting your [pc.pussy+], leaving you with no choice but to hold yourself steady and endure this brutal fucking until the [attacker.race] decides that she's had enough....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_KISS_COCK"><![CDATA[
+	<p>
+		Knowing that you only have a moment in which to please her, you quickly crawl beneath this dominant centauress's body and position yourself so that your head is beneath her horse-like groin. Calling out, you ask her for permission to kiss her cock.
+	</p>
+	<p>
+		#IF(attacker.hasPenis())
+			[attacker.speech(Get on with it then, you worthless worm!)] the marauder snaps. As her [attacker.penisSize], horse-like cock pushes out of its sheath and stands to attention, she paws at the ground and spits, [attacker.speech(Get those whorish lips of yours to work!)]
+		#ELSE
+			[attacker.speech(Does it look like I have a cock, you stupid fucking slut?)] the marauder snaps. Despite saying this, however, you look on as the [attacker.race] quickly uses her self-transformative powers to grow a demonic penis. Watching the [attacker.penisSize], horse-like cock take shape before your [pc.eyes], you stay still and wait for the demonic centauress to give you permission to kiss it. Impatiently pawing at the ground, she spits, [attacker.speech(Get on with it, you worthless worm! Get those whorish lips of yours to work!)]
+		#ENDIF
+	</p>
+	<p>
+		Quickly moving to do as she commands, you open your mouth and plant a big, wet kiss on the flat, flared head of the [attacker.race]'s cock. Encouraged by the deep, growling moan which the marauder lets out, you part your [pc.lips+] and take the head of her [attacker.penisGirth] shaft into your mouth. As soon as you do this, the sadistic centauress steps forwards, forcing her throbbing dick deep down your throat and snarling, [attacker.speech(That's it! ~Mmm!~ Take it deep, you filthy slut!)]
+	</p>
+	<p>
+		Continuing to step forwards, the sadistic [attacker.race] forcefully rams [style.size] after [style.size] down your throat, stuffing as much of her [attacker.penisGirth] cock inside of you as she possibly can. Pulling back, she starts violently fucking your face, leaving you with no choice but to hold yourself steady and endure this brutal fucking until the [attacker.race] decides that she's had enough....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_KISS_PUSSY"><![CDATA[
+	<p>
+		Knowing that you only have a moment in which to please her, you quickly crawl around behind this dominant centauress's body and position yourself so that your head is close to her horse-like groin. Calling out, you ask her for permission to kiss her pussy.
+	</p>
+	<p>
+		#IF(attacker.hasVagina())
+			[attacker.speech(Get on with it then, you worthless worm!)] the marauder snaps. As you lean forwards to plant a big, wet kiss on her [attacker.labia+], she paws at the ground and spits, [attacker.speech(Get that tongue of yours to work!)]
+		#ELSE
+			[attacker.speech(Does it look like I have a cunt, you stupid fucking slut?)] the marauder snaps. Despite saying this, however, you look on as the [attacker.race] quickly uses her self-transformative powers to grow a demonic vagina. Watching the horse-like pussy take shape before your [pc.eyes], you stay still and wait for the demonic centauress to give you permission to kiss it. Impatiently pawing at the ground, she spits, [attacker.speech(Get on with it, you worthless worm! Get that tongue of yours to work!)]
+		#ENDIF
+	</p>
+	<p>
+		Quickly moving to do as she commands, you open your mouth and press your [pc.lips+] against the [attacker.race]'s pussy. Darting out your [pc.tongue+], you lick her puffy, horse-like cunt as you greedily start eating her out. Despite your best efforts, however, the sadistic centauress doesn't seem to be getting what she wants from you, and snarls, [attacker.speech(You can do better than that, slut! I'll teach you how to properly service a horse cunt!)]
+	</p>
+	<p>
+		With that, the centauress takes a sudden step back, slamming her cunt against your face and sending you sprawling out on your back behind her. Giving you no time in which to stand up, the [attacker.race] continues to move backwards, before dropping her hind legs and forcefully planting her huge, heavy horse's body onto your face. Completely smothering your mouth with her animalistic cunt, the marauder lets out a sadistic laugh and snarls, [attacker.speech(Get to it, you worthless whore! Eat me out like your life depends on it!)]
+	</p>
+	<p>
+		Left with no other option but to do as the sadistic [attacker.race] says, you do your best to lick, kiss, and suck on the horse-like pussy that's completely smothering your mouth. Completely at the mercy of this dominant centauress, you realise that you're going to have to continue eating her out until she decides that she's had enough....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_ASSHOLE"><![CDATA[
+	<p>
+		Knowing that you only have a moment in which to please her, you quickly expose your [pc.asshole+] and drop down onto all fours. Presenting the dominant centauress with your rear end, you look back over your shoulder and tell her that your [pc.asshole+] is free for her to use in any way she sees fit.
+	</p>
+	<p>
+		[attacker.speech(Raise your hips, you filthy slut!)] the [attacker.race] demands, and as you obediently do so, she steps forwards over the top of you and mounts you.
+		#IF(attacker.hasPenis())
+			 Immediately, you feel the flat, flared head of her [attacker.penisSize], horse-like cock prodding at your [pc.asshole+].
+		#ELSE
+			 Using her self-transformative powers, she takes a moment in which to grow a demonic penis, and then immediately starts prodding the flat, flared head of her [attacker.penisSize], horse-like cock against your [pc.asshole+].
+		#ENDIF
+		 Grunting in amusement, the marauder wastes no time in any kind of foreplay, and quickly steps forwards, forcing her [attacker.cock+] into your [pc.asshole+].
+	</p>
+	<p>
+		[attacker.speech(That's it, take it all, you fucking scum!)] the sadistic [attacker.race] shouts. Continuing to step forwards, she forcefully rams [style.size] after [style.size] into your [pc.asshole+], stuffing as much of her [attacker.penisGirth] cock inside of you as she possibly can. Pulling back, she starts violently rutting your [pc.ass+], leaving you with no choice but to hold yourself steady and endure this brutal fucking until the [attacker.race] decides that she's had enough....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_KISS_ASSHOLE"><![CDATA[
+	<p>
+		Knowing that you only have a moment in which to please her, you quickly crawl around behind this dominant centauress's body and position yourself so that your head is close to her horse-like asshole. Calling out, you ask her for permission to kiss her puffy doughnut.
+	</p>
+	<p>
+		[attacker.speech(Get on with it then, you worthless worm!)] the marauder snaps. As you lean forwards to plant a big, wet kiss on her [attacker.asshole+], she paws at the ground and spits, [attacker.speech(Get that tongue of yours to work!)]
+	</p>
+	<p>
+		Quickly moving to do as she commands, you open your mouth and press your [pc.lips+] against the [attacker.race]'s asshole. Darting out your [pc.tongue+], you lick her puffy, horse-like butt as you greedily start performing anilingus.
+		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+			 Thanks to your training as one of Natalya's fillies, your skills seem to please the sadistic centauress, who moans, [attacker.speech(Fuck... ~Mmm!~ You're good at this, slut! Oh yeah... Give it to me!)]
+		#ELSE
+			 Despite your best efforts, however, the sadistic centauress doesn't seem to be getting what she wants from you, and snarls, [attacker.speech(You can do better than that, slut! I'll teach you how to properly service a horse's ass!)]
+		#ENDIF
+	</p>
+	<p>
+		With that, the centauress takes a sudden step back, slamming her asshole against your face and sending you sprawling out on your back behind her. Giving you no time in which to stand up, the [attacker.race] continues to move backwards, before dropping her hind legs and forcefully planting her huge, heavy horse's body onto your face.
+		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+			 Completely smothering your mouth with her animalistic asshole, the marauder lets out a sadistic laugh and snarls, [attacker.speech(I can tell that you've been trained to service horse ass! ~Mmm!~ Come on, lick my butt and show me what you've got!)]
+		#ELSE
+			 Completely smothering your mouth with her animalistic asshole, the marauder lets out a sadistic laugh and snarls, [attacker.speech(Get to it, you worthless whore! Lick my ass like your life depends on it!)]
+		#ENDIF
+	</p>
+	<p>
+		Left with no other option but to do as the sadistic [attacker.race] says, you do your best to lick, kiss, and suck on the horse-like asshole that's completely smothering your mouth. Completely at the mercy of this dominant centauress, you realise that you're going to have to continue performing anilingus on her until she decides that she's had enough....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_SUB"><![CDATA[
+	<p>
+		Finally reaching the point of satisfaction, the [attacker.race] lets out a deep sigh and takes a step back, putting an end to the ruthless fucking. Despite her energetic performance, she still has the energy to kick you down onto the ground and laugh, [attacker.speech(That wasn't half bad, slut! I'll give you permission to think about today when you touch yourself at night!)]
+	</p>
+	<p>
+		Flashing you one last manic grin, the sadistic centauress turns around on the spot and gallops off, sending clods of mud flying through the air behind her as she swiftly crosses a nearby field and disappears behind a hill. Picking yourself up, you get your things back in order and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	<!-- Expansion:
+	#IF(game.isNonConEnabled())
+		<p>
+			#IF(pc.hasStatusEffect(SE_innoxia_centaur_melee_seal))
+				Energised after fucking you, she pins you to the ground and reapplies the spell to mark you for slavers.
+			#ELSE
+				Energised after fucking you, she pins you to the ground and casts a spell on you. Says that it'll last for quite a few hours, and that it acts as a beacon for slavers to come and collect you.
+			#ENDIF
+		</p>
+		<p>
+			She stands back up and laughs as you find out that the spell's effects are making your arm and leg movements incredibly sluggish. She tells you to submit when the slavers find you if you know what's good for you.
+		</p>
+	#ELSE
+	
+	AFTER_SEX: The centauress leaves and you continue on your way, struggling to move under the spell's effects...
+	-->
+	
+	
+	<!-- Won combat: -->
+	
+	<htmlContent tag="COMBAT_WON"><![CDATA[
+	<p>
+		The [attacker.race] staggers back, and although she tries to continue fighting, her legs give way from under her, causing her to collapse to the ground in utter defeat. [pc.Stepping] forwards, you approach the demonic centauress, who looks up and breathlessly snarls, [attacker.speech(You... You [pc.insult]... You'll pay for this...)]
+	</p>
+	<p>
+		Despite her words, you sense that there's no real resistance left in this marauder. Sure enough, after letting out a deep sigh, she bites her lip and moans, [attacker.speech(What are you waiting for, you dumb [pc.insult]? Come fuck me already!)] 
+	</p>
+	<p>
+		With what little strength she has left, the [attacker.race] stands up, and on trembling legs she moves around to present you with her
+		#IF(attacker.hasPenis())
+			#IF(attacker.hasVagina())
+				 rapidly-hardening, horse-like cock and similarly animalistic pussy.
+			#ELSE
+				 rapidly-hardening, horse-like cock.
+			#ENDIF
+		#ELSE
+			 puffy, horse-like pussy.
+		#ENDIF
+		 As she repeats her demand for you to fuck her, you wonder what to do about this demonic centauress...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_END"><![CDATA[
+	<p>
+		Having no desire to have sex with this angry, dominant [attacker.race], you turn around and [pc.walk] off. Letting out a frustrated moan as she sees that you're leaving, the marauder calls out after you, [attacker.speech(My sisters will exact my revenge upon you! ~Mmm!~ You... You [pc.insult]!)]
+	</p>
+	<p>
+		Ignoring her words, you leave the horny [attacker.race] behind and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[
+	<p>
+		Seeing no reason not to give the horny [attacker.race] what she wants, you [pc.step] up to her and tell her that you'll give her the fucking she's after. Letting out a deep, passionate moan as she hears you say this, the marauder pants, [attacker.speech(Yes... Come on, give it to me...)]
+	</p>
+	<p>
+		Running your [pc.hands] over her sexy, muscular body, you wonder how best to have sex with this [attacker.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_GENTLE"><![CDATA[
+	<p>
+		Seeing no reason not to give the horny [attacker.race] what she wants, you [pc.step] up to her and gently tell her that you'll give her what she's after. Letting out a deep, passionate moan as she hears you say this, the marauder pants, [attacker.speech(Yes... Come on, give it to me...)]
+	</p>
+	<p>
+		Softly running your [pc.hands] over her sexy, muscular body, you wonder how best to have sex with this [attacker.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_ROUGH"><![CDATA[
+	<p>
+		Seeing no reason not to give the horny [attacker.race] what she wants, you [pc.step] up to her and tell her that you'll give her the rough, hard fucking she's after. Letting out a deep, passionate moan as she hears you say this, the marauder pants, [attacker.speech(Yes... Come on, give it to me...)]
+	</p>
+	<p>
+		Running your [pc.hands] over her sexy, muscular body, you give her rump a sharp slap and wonder how best to fuck this [attacker.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SUBMIT"><![CDATA[
+	<p>
+		#IF(pc.hasFetish(FETISH_SUBMISSIVE))
+			Starting to feel turned on at the prospect of surrendering to this strong, dominant [attacker.race], you drop down onto the ground before her and tell her that you submit to her.
+		#ELSE
+			Despite besting her in combat, you decide that it would best for you to surrender to this strong, dominant [attacker.race], you drop down onto the ground before her and tell her that you submit to her.
+		#ENDIF
+			Caught off guard by your unexpected move, the marauder pants, [attacker.speech(What... You're doing what?! You... You pathetic [pc.insult]!)]
+	</p>
+	<p>
+		Energised by the prospect of being able to dominate you, the [attacker.race] lets out an angry huff, before quickly stepping forwards and lifting one of her huge hoofs. Kicking you down onto the floor, the marauder's face turns up into a furious snarl, and she shouts, [attacker.speech(I can't believe anyone would be so pathetic as to submit to the person they've defeated! You worthless [pc.insult]! I'm going to take great pleasure in dominating you!)]
+	</p>
+	<p>
+		As you look up at this sadistic centauress, she once again kicks out with her hoof and sends you sprawling back onto the ground before her. Letting out a deep, mocking laugh, she looks down at you with a crazed grin on her face and demands, [attacker.speech(Come on then, [pc.insult]! Show me how you submit to your betters!)]
+	</p>
+	<p>
+		Given a moment in which to make a move, you quickly have to decide how best to submit to this demonic centauress...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[
+	<p>
+		Feeling satisfied from your dominant sex with the [attacker.race], you [pc.step] away from her and start to get your things back in order.
+		#IF(attacker.isSatisfiedFromLastSex())
+			 Feeling just as happy as you are, the marauder lets out a deep sigh and moans, [attacker.speech(That wasn't half bad... You're lucky that you managed to please me, [pc.insult].)]
+		#ELSE
+			 Not feeling as happy as you are, the marauder lets out a frustrated sigh and moans, [attacker.speech(You could have at least tried to satisfy me... You [pc.insult]...)]
+		#ENDIF
+	</p>
+	<p>
+		Ignoring the [attacker.race]'s rude words, you brush yourself off and wonder what to do next. You could always help yourself to any items or cash that the marauder is carrying, or instead simply set off and continue on your way... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_DOM_END"><![CDATA[
+	<p>
+		Leaving the demonic centauress behind, you once again continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_TALK"><![CDATA[
+	<p>
+		Wanting to know if there are any of the [attacker.race]'s comrades roaming in the nearby area, you ask her where her camp is and how many other demonic centauresses are out looking for innocent victims to attack. Defiantly spitting on the ground, the marauder snarls, [attacker.speech(I'm not telling you anything, [pc.insult]! Either fuck me or fuck off.)]
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_SADIST))
+			Slapping the [attacker.race] across the face, you repeat your question, but once again the [attacker.race] refuses to play along and snaps, [attacker.speech(Hit me all you like, I'm not telling you anything!)]
+		#ELSE
+			Trying a different approach, you promise the [attacker.race] a reward if she tells you what you want to know, but once again she refuses to play along and snaps, [attacker.speech(Your tricks won't work on me, I'm not telling you anything!)]
+		#ENDIF
+	</p>
+	<p>
+		As you're clearly not going to be able to find out anything from this uncooperative marauder, you give up on your line of questioning and wonder what to do with her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Lost combat: -->
+	
+	<htmlContent tag="COMBAT_LOST"><![CDATA[
+	<p>
+		Unable to continue fighting any longer, you collapse to the ground, defeated. Immediately capitalising upon your sign of weakness, the [attacker.race] gallops forwards and roughly grabs hold of you.
+		#IF(game.isNonConEnabled())
+			 With a sadistic grin on her face, she snarls, [attacker.speech(You're mine now, [pc.insult]! I'm going to make you pay for daring to fight back!)]
+		#ELSE
+			 With a sadistic grin on her face, she snarls, [attacker.speech(You're mine now, [pc.insult]! Ready for a good fuck?!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_FUCKED"><![CDATA[
+	<p>
+		Before you can reply, the [attacker.race] lets out a wicked laugh and delivers a swift smack to the back of your head. Grinning in delight as she makes you flinch, the sadistic [attacker.race] gives you no time in which to make a move before grabbing your face and squeezing your cheeks. Licking her lips, she fixes her wild, crazed gaze upon you and snarls, [attacker.speech(You worthless cunt! I'll show you your true place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_CONTINUE"><![CDATA[
+	<p>
+		Although you've been defeated, you're not willing to submit to this sadistic [attacker.race]. As you tell her that you refuse to have sex with her, the marauder lets out an angry shout, before kicking you down and snarling, [attacker.speech(You dumb [pc.insult]! You're lucky that you're not worth my time!)]
+	</p>
+	<p>
+		With that, the [attacker.race] turns around on the spot and gallops off, sending clods of mud flying through the air behind her as she swiftly crosses a nearby field and disappears behind a hill. brushing yourself down, you look around to make sure that there's no other immediate danger and then prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_FUCKED_WILLING"><![CDATA[
+	<p>
+		Deciding that it would be best to submit to the marauder and let her do what she wants with you, you tell her that you're willing to have sex with her.
+	</p>
+	<p>
+		As she hears your submissive response, the [attacker.race] lets out a wicked laugh and delivers a swift smack to the back of your head. Grinning in delight as she makes you flinch, the sadistic [attacker.race] gives you no time in which to make a move before grabbing your face and squeezing your cheeks. Licking her lips, she fixes her wild, crazed gaze upon you and snarls, [attacker.speech(You worthless cunt! I'll show you your true place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -68,7 +68,8 @@ public class PopulationType {
 	public static AbstractPopulationType RECEPTIONIST = new AbstractPopulationType("receptionist", "receptionists") {};
 
 	public static AbstractPopulationType GANG_MEMBER = new AbstractPopulationType("gang member", "gang members") {};
-	
+
+	public static AbstractPopulationType STALL_HOLDER = new AbstractPopulationType("stallholder", "stallholders") {};
 
 	private static List<AbstractPopulationType> allPopulationTypes = new ArrayList<>();
 	private static Map<AbstractPopulationType, String> populationToIdMap = new HashMap<>();

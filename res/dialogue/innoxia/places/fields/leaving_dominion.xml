@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="start">
+		<content folderPath="txt/places/fields/leaving_dominion">START</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[North]]></responseTitle>
+				<responseTooltip><![CDATA[The yellow arrow lead you out to the north of Dominion.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_leaving_dominion_moving_north</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="moving_north">
+		<preParsingEffects><![CDATA[
+			[#pc.moveLocation(0, 1)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/leaving_dominion">MOVING_NORTH</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Prepare]]></responseTitle>
+				<responseTooltip><![CDATA[Prepare yourself for whatever is about to appear!]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_leaving_dominion_meraxis</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="meraxis">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_leftDominionFirstTime, true)]
+			[#meraxis.equipClothing()]
+			[#meraxis.setLocation(pc, false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/leaving_dominion">MERAXIS</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Question]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Meraxis what she's doing here.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_leaving_dominion_meraxis_question</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="meraxis_question">
+		<content folderPath="txt/places/fields/leaving_dominion">MERAXIS_QUESTION</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Listen to what Meraxis has to say.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_leaving_dominion_meraxis_info</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="meraxis_info">
+		<content folderPath="txt/places/fields/leaving_dominion">MERAXIS_INFO</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis that you're not interested in duelling her.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_leaving_dominion_meraxis_no_duel</nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Duel]]></responseTitle>
+				<responseTooltip><![CDATA[Accept Meraxis's offer of a duel!]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_start</nextDialogue> <!-- This links to generic duel dialogues -->
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, true)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="meraxis_no_duel">
+		<content folderPath="txt/places/fields/leaving_dominion">MERAXIS_NO_DUEL</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Goodbye]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Meraxis and tell her that you look forward to seeing her at Elis.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

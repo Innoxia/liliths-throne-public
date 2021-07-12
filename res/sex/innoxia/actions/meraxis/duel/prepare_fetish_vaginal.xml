@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()
+		&& !meraxis.hasFetish(FETISH_VAGINAL_RECEIVING)
+		&& (sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_THIGHS, PENETRATION_PENIS).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_PENIS).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(meraxis, PENETRATION_CLIT, PENETRATION_CLIT).contains(pc))]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_KINK_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_KINK_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#meraxis.addFetish(FETISH_VAGINAL_RECEIVING, true)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		[style.colourFetish(Pussy slut)]
+	]]></title>
+	<tooltip><![CDATA[
+		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_THIGHS, PENETRATION_PENIS).contains(pc))
+			Make Meraxis admit to you that she wants to have her pussy fucked as she cums from receiving intercrural sex.
+		#ELSEIF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_PENIS).contains(pc))
+			Make Meraxis admit to you that she loves having her pussy fucked as she cums from the feeling of your cock inside of her.
+		#ELSE
+			Make Meraxis admit to you that she loves having her pussy stimulated as she cums from scissoring with you.
+		#ENDIF
+		<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_VAGINAL_RECEIVING.getName(meraxis)]' fetish from this!)]
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_THIGHS, PENETRATION_PENIS).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing that Meraxis is on the verge of orgasming, you stop sliding your [pc.cock+] between her thighs, before teasing, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop performing intercrural sex, Meraxis desperately tries to slide her legs up and down against your cock as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards receiving vaginal sex, you push forwards and slide just the tip of your [pc.cock+] up over her [meraxis.pussy+]. Smirking at the desperate moan she lets out in response to your move, you make your demand, [pc.speech(Tell me that you're a dirty little slut who loves using her pussy, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and rub your hard shaft over her wet cunt a couple more times, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little slut who loves using her pussy! Now let me cum!)]
+				<br/><br/>
+				Pushing forwards and driving your [pc.cock+] over her [meraxis.labia+], you continue where you left off, and dominantly slide your [pc.cock+] back and forth between Meraxis's soft thighs. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_PENIS).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing that Meraxis is on the verge of orgasming, you slide your [pc.cock+] out of her pussy, before rubbing the [pc.cockHead+] over her [meraxis.labia+] and teasing, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop fucking her, Meraxis desperately tries to push her [meraxis.pussy+] out against your cock as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards receiving vaginal sex, you push forwards and slide just the tip of your [pc.cock+] into her [meraxis.pussy+]. Smirking at the desperate moan she lets out in response to your limited penetration, you make your demand, [pc.speech(Tell me that you're a dirty little slut who loves using her pussy, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and start to slide your cock out of her cunt, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little slut who loves using her pussy! Now let me cum!)]
+				<br/><br/>
+				Pushing forwards and driving your [pc.cock+] back into her [meraxis.pussy+], you continue where you left off, and dominantly pump your [pc.cock+] in and out of Meraxis's well-fucked cunt. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, PENETRATION_CLIT, PENETRATION_CLIT).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing that Meraxis is on the verge of orgasming, you lift your [pc.hips+] and take your [pc.clit+] away from her pussy, before teasing, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop tribbing with her, Meraxis desperately tries to push her [meraxis.pussy+] up against your clit as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards receiving vaginal sex, you drop down and slide your [pc.clit+] over her [meraxis.labia+]. Smirking at the desperate moan she lets out in response to your move, you make your demand, [pc.speech(Tell me that you're a dirty little slut who loves using her pussy, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you lift up and take your pussy away from hers again, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I'm a dirty little slut who loves using her pussy! Now let me cum!)]
+				<br/><br/>
+				Dropping down and rubbing your [pc.clit+] over her [meraxis.pussy+], you continue where you left off, and dominantly start grinding your [pc.pussy+] against Meraxis's [meraxis.pussy+]. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -30,7 +30,7 @@
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
 			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
-			<line><![CDATA[[style.boldMinorBad(Adds)] 15% to [style.boldAlcohol(intoxication level)]]]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 8% to [style.boldAlcohol(intoxication level)]]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
@@ -40,7 +40,7 @@
 				A powerful wave of arcane energy washes over [npc.name]...
 			</p>
 			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
-			[#npc.incrementAlcoholLevel(0.15)]
+			[#npc.incrementAlcoholLevel(0.08)]
 		]]></applyEffects>
 		
 		<itemTags>

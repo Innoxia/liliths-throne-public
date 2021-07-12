@@ -13,7 +13,7 @@
 		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your rifle.]]></attackTooltipDescription>
 		<rarity>RARE</rarity>
 		<weaponSet/>
-		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the shotgun, carefully [npc.verb(load)] it, and [npc.verb(crank)] the bolt once before disengaging the safety. The needle on the gauge moves to the green zone as the internal gas reservoir self-pressurizes.]]></equipText>
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the rifle, carefully [npc.verb(load)] it, and [npc.verb(crank)] the bolt once before disengaging the safety. The needle on the gauge moves to the green zone as the internal gas reservoir self-pressurizes.]]></equipText>
 		<unequipText><![CDATA[[npc.Name] [npc.verb(open)] the bolt and [npc.verb(check)] to see that the chamber is empty before putting the rifle away.]]></unequipText>
 		<imageName>pbboltrifle_uneq.svg</imageName>
 		<imageEquippedName>pbboltrifle.svg</imageEquippedName>

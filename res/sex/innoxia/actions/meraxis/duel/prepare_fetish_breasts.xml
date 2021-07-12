@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()
+		&& !meraxis.hasFetish(FETISH_BREASTS_SELF)
+		&& (sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_NIPPLE, PENETRATION_TONGUE).contains(pc)
+			|| sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, ORIFICE_BREAST).contains(meraxis))]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_KINK_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_KINK_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#meraxis.addFetish(FETISH_BREASTS_SELF, true)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		[style.colourFetish(Breasts lover)]
+	]]></title>
+	<tooltip><![CDATA[
+		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_NIPPLE, PENETRATION_TONGUE).contains(pc))
+			Make Meraxis admit to you that she loves having her breasts used as you suck on her nipples and make her cum.
+		#ELSE
+			Make Meraxis admit to you that she loves having her breasts used as you push your cock up against them and make her cum.
+		#ENDIF
+		<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_BREASTS_SELF.getName(meraxis)]' fetish from this!)]
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_NIPPLE, PENETRATION_TONGUE).contains(pc)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing that Meraxis is on the verge of orgasming, you pull back and stop sucking on her [meraxis.nipples+] to tease, [pc.speech(You want to cum from this?)]
+				<br/><br/>
+				Driven to the point of climax, and then suddenly having you stop stimulating her nipples, Meraxis desperately tries to push her [meraxis.breasts+] against your face as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+				<br/><br/>
+				Realising that you have the opportunity to permanently impact Meraxis's attitude towards having her breasts used, you lean forwards and plant a big, wet kiss on each of her [meraxis.nipples+]. Smirking at the desperate moan she lets out in response to your touch, you make your demand, [pc.speech(Tell me that you love having your sexy tits used, and I'll let you cum.)]
+				<br/><br/>
+				[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you lean in and deliver a slow, wet lick to her right nipple, she relents and cries out, [meraxis.speechNoEffects(Fine! I... I love having my tits used! Now let me cum!)]
+				<br/><br/>
+				#IF(meraxis.getBreastRawSizeValue()>5)
+				Burying your face between her [meraxis.breasts+],
+				#ELSE
+				Nuzzling into her flat chest,
+				#ENDIF
+				 you continue where you left off, and greedily lick and kiss Meraxis's [meraxis.nipples+]. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, ORIFICE_BREAST).contains(meraxis)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				#IF(meraxis.isBreastFuckablePaizuri())
+					Sensing that Meraxis is on the verge of orgasming, you stop sliding your [pc.cock+] between her [meraxis.breasts+], before teasing, [pc.speech(You want to cum from this?)]
+					<br/><br/>
+					Driven to the point of climax, and then suddenly having you stop fucking her tits, Meraxis desperately tries to slide her [meraxis.breasts+] up and down around your cock as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+					<br/><br/>
+					Realising that you have the opportunity to permanently impact Meraxis's attitude towards having her breasts used, you push forwards and slide your [pc.cock+] up into her cleavage once more. Smirking at the desperate moan she lets out in response to your move, you make your demand, [pc.speech(Tell me that you love having your sexy tits used, and I'll let you cum.)]
+					<br/><br/>
+					[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and slap your hard cock against her [meraxis.breasts+] a couple of times, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I love having my tits used! Now let me cum!)]
+					<br/><br/>
+					Pushing forwards and driving your [pc.cock+] up into her cleavage, you continue where you left off, and dominantly slide your [pc.cock+] up and down between Meraxis's [meraxis.breasts+]. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+				#ELSE
+					Sensing that Meraxis is on the verge of orgasming, you stop sliding your [pc.cock+] over her [meraxis.breasts+], before teasing, [pc.speech(You want to cum from this?)]
+					<br/><br/>
+					Driven to the point of climax, and then suddenly having you stop grinding against her flat chest, Meraxis desperately tries to rub her [meraxis.breasts+] up and down against your cock as she squeals, [meraxis.speechNoEffects(Yes! ~Aah!~ Why did you stop?! Come on, I'm so close! ~Mmm!~ Give it to me!)]
+					<br/><br/>
+					Realising that you have the opportunity to permanently impact Meraxis's attitude towards having her breasts used, you push forwards and slide your [pc.cock+] over her chest once more. Smirking at the desperate moan she lets out in response to your move, you make your demand, [pc.speech(Tell me that you love having your sexy tits used, and I'll let you cum.)]
+					<br/><br/>
+					[meraxis.speechNoEffects(What?! I... You're so perverted, [pc.name]...)] she whines, but as you pull back and slap your hard cock against her [meraxis.breasts+] a couple of times, she relents and desperately cries out, [meraxis.speechNoEffects(Fine! I... I love having my tits used! Now let me cum!)]
+					<br/><br/>
+					Pushing forwards and driving your [pc.cock+] over her flat chest, you continue where you left off, and dominantly slide your [pc.cock+] up and down between Meraxis's [meraxis.breasts+]. Letting out a series of increasingly-louder squeals, the [meraxis.race] screams, [meraxis.speechNoEffects(~Aah!~ I'm cumming!)]
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

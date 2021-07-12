@@ -11,10 +11,10 @@
 		Walking up the steps to the front door, you see yet another sign of this area's affluence, as there's an arcane intercom system securely bolted to the wall. Looking over the half a dozen name plates, you see one which is labelled as 'Nyan [nyan.surname]', and you waste no time in pressing the little button beside it. After a loud buzz and a momentary pause, you hear the voice of your girlfriend call out over the intercom, [nyan.speechNoEffects(H-Hello? This is Ms. [nyan.surname], w-who is it?)]
 	</p>
 	<p>
-		After quickly telling her that it's you, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! C-Come on in! I'm on the second floor, p-please come on up!)]
+		After quickly telling her that it's you, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! C-Come on in! I'm on the third floor, p-please come on up!)]
 	</p>
 	<p>
-		Hearing a loud clicking noise from behind the front door, you experimentally push on it and discover that it's been unlocked. Doing as your girlfriend says, you cross the smartly-kept foyer and proceed up several flights of stairs to the second floor. As you reach your destination, you see that the cute cat-girl already has her apartment door open, and with a happy smile on her face, she exclaims, [nyan.speechNoEffects(I-It's good to see you, [pc.name]! W-What did you come here for?)]
+		Hearing a loud clicking noise from behind the front door, you experimentally push on it and discover that it's been unlocked. Doing as your girlfriend says, you cross the smartly-kept foyer and proceed up several flights of stairs to the third floor. As you reach your destination, you see that the cute cat-girl already has her apartment door open, and with a happy smile on her face, she exclaims, [nyan.speechNoEffects(I-It's good to see you, [pc.name]! W-What did you come here for?)]
 	</p>
 	<p>
 		[pc.Stepping] up to where your girlfriend is waiting, you tell her that you're here to collect her for your evening's date. As she hears you say this, Nyan's bright blue eyes light up, and she excitedly claps her hands together and exclaims, [nyan.speechNoEffects(Oh! Oh, how wonderful! C-Come on in, [pc.name], you can wait in my lounge while I g-get ready!)]
@@ -497,7 +497,11 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_INTERVIEW_2_OCCUPATION"><![CDATA[
 	<p>
-		Knowing that [nyanmum.name] is sure to respect professional qualifications, you tell her that you're an accomplished [pc.job], and so no matter what happens, you'll always be able to find work and support Nyan. The cougar-girl's eyes narrow a little as you say this, and she growls, [nyanmum.speech(Very well... You've might be able to provide for my daughter, but do you have the sorts of friends who can help you out if things go bad? Go on, tell me who you'd turn to if you lost everything.)]
+		#IF(pc.getOccupation()==OCCUPATION_ARISTOCRAT)
+			Knowing that [nyanmum.name] is sure to respect your aristocratic lineage, you tell her that you're a member of a highly prestigious noble family, and so no matter what happens, your wealth and status will always be more than enough to support Nyan. The cougar-girl's eyes light up a little as you say this, but not yet convinced by your words, she muses, [nyanmum.speech(Is that so... Tell me, which aristocratic family do you belong to? How do you manage to trace your lineage to Lilith?)]
+		#ELSE
+			Knowing that [nyanmum.name] is sure to respect professional qualifications, you tell her that you're an accomplished [pc.job], and so no matter what happens, you'll always be able to find work and support Nyan. The cougar-girl's eyes narrow a little as you say this, and she growls, [nyanmum.speech(Very well... You might be able to provide for my daughter, but do you have the sorts of friends who can help you out if things go bad? Go on, tell me who you'd turn to if you lost everything.)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -511,7 +515,11 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_INTERVIEW_2_LILAYA_REVEAL"><![CDATA[
 	<p>
-		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the name of your demonic [lilaya.relation(pc)]. As you tell Nyan's mother that you're very close to Lilaya, and that she'd surely help you out if you were in a rough spot, you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
+		#IF(pc.getOccupation()==OCCUPATION_ARISTOCRAT)
+			Realising that [nyanmum.name] won't be impressed by the name of your noble line from your old reality, you decide to fall back on the name of your demonic [lilaya.relation(pc)]. As you tell Nyan's mother that Lilaya is your [lilaya.relation(pc)], you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth, and so Lilith herself?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
+		#ELSE
+			Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the name of your demonic [lilaya.relation(pc)]. As you tell Nyan's mother that you're very close to Lilaya, and that she'd surely help you out if you were in a rough spot, you see her eyes widen in surprise, and with a detectable hint of awe in her voice, she asks, [nyanmum.speech(You're that closely related to Lyssieth?! Wait... <i>You're</i> the [pc.race] who moved in with Lilaya?! Hmm... I guess that'll do...)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
