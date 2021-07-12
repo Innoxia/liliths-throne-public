@@ -51,12 +51,6 @@ public class DateAndTime {
 
 		double day = date.get(ChronoField.DAY_OF_YEAR);
 		double fraction = date.get(ChronoField.HOUR_OF_DAY)/24d + date.get(ChronoField.MINUTE_OF_HOUR)/1440d + date.get(ChronoField.SECOND_OF_MINUTE)/86400d;
-//		System.err.println("day: "+day);
-//		System.err.println("fraction: "+fraction);		
-//		System.err.println("H: "+date.get(ChronoField.HOUR_OF_DAY));
-//		System.err.println("M: "+date.get(ChronoField.MINUTE_OF_HOUR));
-//		System.err.println("S: "+date.get(ChronoField.SECOND_OF_MINUTE));
-		
 		double julianDate = (years * 365d) + day + leapYears - 11 - 0.5 + (dayFraction?fraction:0); // Subtract 10 to account for changeover from Julian to Gregorian in 1582, and 1 more to get correct date
 		
 		if(DEBUG) {
