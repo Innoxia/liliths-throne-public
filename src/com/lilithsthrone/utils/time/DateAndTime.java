@@ -34,9 +34,10 @@ public class DateAndTime {
 	 * <b>Only works for dates of 4712 BCE or greater.</b>
 	 * 
 	 * @param date The date to convert to julianDate
+	 * @param dayFraction Include fractions of a day for lunar time keeping
 	 * @return A double value representing days since 4713 BCE.
 	 */
-	static double julianDate(LocalDateTime date) {
+	static double julianDate(LocalDateTime date, boolean dayFraction) {
 		int years = Math.abs(-4713 - date.getYear()) - 1; // -1 to get rid of the year which we are currently in
 		int leapYearSwitch = 4713 + 1582;
 		int leapYears = 0;
@@ -49,7 +50,14 @@ public class DateAndTime {
 		}
 
 		double day = date.get(ChronoField.DAY_OF_YEAR);
-		double julianDate = (years * 365d) + day + leapYears - 10 - 0.5; // Subtract 10 to account for changeover from Julian to Gregorian in 1582
+		double fraction = date.get(ChronoField.HOUR_OF_DAY)/24d + date.get(ChronoField.MINUTE_OF_HOUR)/1440d + date.get(ChronoField.SECOND_OF_MINUTE)/86400d;
+//		System.err.println("day: "+day);
+//		System.err.println("fraction: "+fraction);		
+//		System.err.println("H: "+date.get(ChronoField.HOUR_OF_DAY));
+//		System.err.println("M: "+date.get(ChronoField.MINUTE_OF_HOUR));
+//		System.err.println("S: "+date.get(ChronoField.SECOND_OF_MINUTE));
+		
+		double julianDate = (years * 365d) + day + leapYears - 11 - 0.5 + (dayFraction?fraction:0); // Subtract 10 to account for changeover from Julian to Gregorian in 1582, and 1 more to get correct date
 		
 		if(DEBUG) {
 			System.out.println("leapYears: "+leapYears);
@@ -58,6 +66,10 @@ public class DateAndTime {
 //		System.out.println("julianDate: "+julianDate);
 		
 		return julianDate;
+	}
+	
+	static double julianDate(LocalDateTime date) {
+		return julianDate(date, false);
 	}
 	
 	/**
