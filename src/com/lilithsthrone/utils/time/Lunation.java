@@ -3,18 +3,14 @@ package com.lilithsthrone.utils.time;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 
-import com.lilithsthrone.main.Main;
-
 /**
- * Implemented using equations found here: https://www.subsystems.us/uploads/9/8/9/4/98948044/moonphase.pdf
- * 
  * @since 0.4
  * @version 0.4.1
  * @author Amarok
  */
  public class Lunation {
 
-	private static double synodicMonth = 29.5305888531;
+	private static double synodicMonth = 29.530589;
 	private static LocalDateTime referenceDate = LocalDateTime.of(2020, 1, 24, 21, 42, 0, 0);    // reference new moon, 2020/1/24 21:42 UTC
 
 	private static double lunarPhase(LocalDateTime date) {	// 0 = new moon, 0.5 = full moon
@@ -38,7 +34,7 @@ import com.lilithsthrone.main.Main;
 			sb.append("Today is the day of the " + getMoonPhaseName(date));
 			
 		} else if(isMaximumPhaseToday(date.plusDays(1), MoonPhase.FULL_MOON)
-				&& dateOfNextPhase(date, MoonPhase.FULL_MOON, 0).get(ChronoField.MINUTE_OF_DAY) < Main.game.getSunriseTimeInMinutes()) {
+				&& dateOfNextPhase(date, MoonPhase.FULL_MOON, 0).get(ChronoField.MINUTE_OF_DAY) < 720) {
 			sb.append("Today is the eve of the " + getMoonPhaseName(date));
 			
 		} else if(isMaximumPhaseToday(date, MoonPhase.FIRST_QUARTER)
@@ -142,11 +138,13 @@ import com.lilithsthrone.main.Main;
 	}
 
 	public boolean isSocialFullMoon(LocalDateTime date) {
+		date = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 0, 0, 0, 0);	// this stops the equations from going weird when the time surpasses the time of the lunar phase
+		
 		if(isMaximumPhaseToday(date.plusDays(1), MoonPhase.FULL_MOON)	// if full moon is this evening, but actually happens tomorrow morning
-				&& dateOfNextPhase(date, MoonPhase.FULL_MOON, 0).get(ChronoField.MINUTE_OF_DAY) < Main.game.getSunriseTimeInMinutes()) {
+				&& dateOfNextPhase(date, MoonPhase.FULL_MOON, 0).get(ChronoField.MINUTE_OF_DAY) < 720) {
 			return true;
 		} else if(isMaximumPhaseToday(date, MoonPhase.FULL_MOON)		// if the full moon is this evening, and happens today
-				&& dateOfNextPhase(date, MoonPhase.FULL_MOON, 1).get(ChronoField.MINUTE_OF_DAY) >= Main.game.getSunsetTimeInMinutes()) {
+				&& dateOfNextPhase(date, MoonPhase.FULL_MOON, 1).get(ChronoField.MINUTE_OF_DAY) >= 720) {
 			return true;
 		}
 		return false;
