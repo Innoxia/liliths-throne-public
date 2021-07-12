@@ -184,6 +184,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DayPeriod;
+import com.lilithsthrone.utils.time.Lunation.MoonPhase;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
@@ -9578,6 +9579,9 @@ public class UtilText {
 		}
 		for(DayPeriod dayPeriod : DayPeriod.values()) {
 			engine.put("DAY_PERIOD_"+dayPeriod.toString(), dayPeriod);
+		}
+		for(MoonPhase phase : MoonPhase.values()) {
+			engine.put("MOON_PHASE_"+phase.toString(), phase);
 		}
 		for(AbstractDialogueFlagValue flag : DialogueFlagValue.getAllDialogueFlagValues()) {
 			engine.put("FLAG_"+flag.getId(), flag);

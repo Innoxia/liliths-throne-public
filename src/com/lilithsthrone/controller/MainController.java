@@ -1712,7 +1712,7 @@ public class MainController implements Initializable {
 						+ "<br/>"
 						+ "It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
 						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]"
-						+ "<br/>" + Lunation.lunarDescription()
+						+ "<br/>" + Lunation.lunarDescription(Main.game.getDateNow())
 						+ "<br/><i>Click to toggle between a date and day count.</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}

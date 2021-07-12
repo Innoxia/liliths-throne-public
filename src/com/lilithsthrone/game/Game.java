@@ -205,7 +205,9 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.DayPeriod;
+import com.lilithsthrone.utils.time.Lunation;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
+import com.lilithsthrone.utils.time.Lunation.MoonPhase;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Generation;
@@ -4124,6 +4126,23 @@ public class Game implements XMLSaving {
 		return getDateNow().getDayOfWeek();
 	}
 
+	// Lunar time keeping
+	public double daysToNextPhase(LocalDateTime date, MoonPhase phase, long dayOffset) {
+		return Lunation.daysToNextPhase(date, phase, dayOffset);
+	}
+	
+	public LocalDateTime dateOfNextPhase(LocalDateTime date, MoonPhase phase, long dayOffset) {
+		return Lunation.dateOfNextPhase(date, phase, dayOffset);
+	}
+	
+	public static MoonPhase getMoonPhase(LocalDateTime date) {
+		return Lunation.getMoonPhase(date);
+	}
+	
+	public static String getMoonPhaseName(LocalDateTime date) {
+		return Lunation.getMoonPhaseName(date);
+	}
+	
 	public boolean isInCombat() {
 		return inCombat;
 	}
