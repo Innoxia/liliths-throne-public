@@ -1,10 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -17,13 +13,19 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @since 0.4
  * @version 0.4
  * @author Innoxia
  */
-public class OrificeSpinneret implements OrificeInterface {
+public class OrificeSpinneret implements OrificeInterface, XMLSaving {
 
 	protected int wetness;
 	protected float capacity;
@@ -33,6 +35,17 @@ public class OrificeSpinneret implements OrificeInterface {
 	protected int plasticity;
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
+	
+	public OrificeSpinneret(int wetness, float capacity, float stretchedCapacity, int depth, int elasticity, int plasticity, boolean virgin, Set<OrificeModifier> orificeModifiers) {
+		this.wetness = wetness;
+		this.capacity = capacity;
+		this.stretchedCapacity = stretchedCapacity;
+		this.depth = depth;
+		this.elasticity = elasticity;
+		this.plasticity = plasticity;
+		this.virgin = virgin;
+		this.orificeModifiers = orificeModifiers;
+	}
 
 	public OrificeSpinneret() {
 		this.wetness = Wetness.ONE_SLIGHTLY_MOIST.getValue();
@@ -471,5 +484,43 @@ public class OrificeSpinneret implements OrificeInterface {
 	public void clearOrificeModifiers() {
 		orificeModifiers.clear();
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element orificeSpinneretElement = parentElement.addElement("orificeSpinneret");
+		orificeSpinneretElement.addAttribute("wetness", String.valueOf(wetness));
+		orificeSpinneretElement.addAttribute("depth", String.valueOf(depth));
+		orificeSpinneretElement.addAttribute("elasticity", String.valueOf(elasticity));
+		orificeSpinneretElement.addAttribute("plasticity", String.valueOf(plasticity));
+		orificeSpinneretElement.addAttribute("capacity", String.valueOf(capacity));
+		orificeSpinneretElement.addAttribute("stretchedCapacity", String.valueOf(stretchedCapacity));
+		orificeSpinneretElement.addAttribute("virgin", String.valueOf(virgin));
+		Element spinneretModifiersElement = orificeSpinneretElement.addElement("spinneretModifiers");
+		for(OrificeModifier om : orificeModifiers) {
+			spinneretModifiersElement.addAttribute(om.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static OrificeSpinneret loadFromXML(Element parentElement) {
+		try {
+			Element orificeSpinneretElement = parentElement.getMandatoryFirstOf("orificeSpinneret");
+			Element spinneretModifiersElement = orificeSpinneretElement.getMandatoryFirstOf("spinneretModifiers");
+			Set<OrificeModifier> modifiers = new HashSet<>();
+			for(String key : spinneretModifiersElement.getAttributes().keySet()) {
+				modifiers.add(OrificeModifier.valueOf(key));
+			}
+			return new OrificeSpinneret(Integer.parseInt(orificeSpinneretElement.getAttribute("wetness")),
+					Integer.parseInt(orificeSpinneretElement.getAttribute("capacity")),
+					Integer.parseInt(orificeSpinneretElement.getAttribute("stretchedCapacity")),
+					Integer.parseInt(orificeSpinneretElement.getAttribute("depth")),
+					Integer.parseInt(orificeSpinneretElement.getAttribute("elasticity")),
+					Integer.parseInt(orificeSpinneretElement.getAttribute("plasticity")),
+					Boolean.parseBoolean(orificeSpinneretElement.getAttribute("virgin")),
+					modifiers);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

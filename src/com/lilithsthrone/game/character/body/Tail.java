@@ -1,8 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
@@ -15,13 +13,17 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.0
  * @version 0.4.0
  * @author Innoxia
  */
-public class Tail implements BodyPartInterface {
+public class Tail implements BodyPartInterface, XMLSaving {
 
 	public static final int MAXIMUM_COUNT = 9;
 	public static final float LENGTH_PERCENTAGE_MIN = 0.05f;
@@ -31,7 +33,14 @@ public class Tail implements BodyPartInterface {
 	protected int tailCount;
 	protected int girth;
 	protected float lengthAsPercentageOfHeight;
-
+	
+	public Tail(AbstractTailType type, int tailCount, int girth, float lengthAsPercentageOfHeight) {
+		this.type = type;
+		this.tailCount = tailCount;
+		this.girth = girth;
+		this.lengthAsPercentageOfHeight = lengthAsPercentageOfHeight;
+	}
+	
 	public Tail(AbstractTailType type) {
 		this.type = type;
 		this.tailCount = 1;
@@ -326,7 +335,7 @@ public class Tail implements BodyPartInterface {
 		
 		if (girth <= 0) {
 			if (this.girth != 0) {
-				girthChange = 0 - this.girth;
+				girthChange = -this.girth;
 				this.girth = 0;
 			}
 		} else if (girth >= PenetrationGirth.getMaximum()) {
@@ -460,5 +469,28 @@ public class Tail implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tail.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element tailElement = parentElement.addElement("tail");
+		tailElement.addAttribute("type", String.valueOf(type));
+		tailElement.addAttribute("tailCount", String.valueOf(tailCount));
+		tailElement.addAttribute("girth", String.valueOf(girth));
+		tailElement.addAttribute("lengthAsPercentageOfHeight", String.valueOf(lengthAsPercentageOfHeight));
+		return true;
+	}
+	
+	public static Tail loadFromXML(Element parentElement) {
+		try {
+			Element tailElement = parentElement.getMandatoryFirstOf("tail");
+			return new Tail(TailType.getTailTypeFromId(tailElement.getAttribute("type")),
+					Integer.parseInt(tailElement.getAttribute("tailCount")),
+					Integer.parseInt(tailElement.getAttribute("girth")),
+					Float.parseFloat(tailElement.getAttribute("lengthAsPercentageOfHeight")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

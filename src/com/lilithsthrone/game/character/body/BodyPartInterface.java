@@ -11,20 +11,20 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
  */
 public interface BodyPartInterface {
 
-	public abstract BodyPartTypeInterface getType();
+	BodyPartTypeInterface getType();
 
-	public abstract String getDeterminer(GameCharacter gc);
+	String getDeterminer(GameCharacter gc);
 	
-	public abstract String getName(GameCharacter gc);
+	String getName(GameCharacter gc);
 	
-	public abstract String getNameSingular(GameCharacter gc);
+	String getNameSingular(GameCharacter gc);
 
-	public abstract String getNamePlural(GameCharacter gc);
+	String getNamePlural(GameCharacter gc);
 	
-	public abstract String getDescriptor(GameCharacter gc);
+	String getDescriptor(GameCharacter gc);
 	
 	/** @return The name of this body part with its descriptor. */
-	public default String getName(GameCharacter gc, boolean withDescriptor) {
+	default String getName(GameCharacter gc, boolean withDescriptor) {
 		if(withDescriptor) {
 			if(getType().getDescriptor(gc)==null) {
 				return getType().getName(gc);
@@ -37,7 +37,7 @@ public interface BodyPartInterface {
 	}
 	
 	/** @return The name of this body part with its descriptor. */
-	public default String getNameSingular(GameCharacter gc, boolean withDescriptor) {
+	default String getNameSingular(GameCharacter gc, boolean withDescriptor) {
 		if(withDescriptor) {
 			if(getType().getDescriptor(gc)==null)
 				return getType().getNameSingular(gc);
@@ -48,17 +48,17 @@ public interface BodyPartInterface {
 		}
 	}
 	
-	public default AbstractBodyCoveringType getBodyCoveringType(GameCharacter gc) {
+	default AbstractBodyCoveringType getBodyCoveringType(GameCharacter gc) {
 		return getType().getBodyCoveringType(gc.getBody());
 	}
 	
-	public default AbstractBodyCoveringType getBodyCoveringType(Body body) {
+	default AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return getType().getBodyCoveringType(body);
 	}
 	
 	/**
 	 * @return true if this part is (near enough to) 100% animal-like, with no anthropomorphic qualities at all. This will almost certainly only ever be seen on feral characters or characters who have a non-bipedal body.
 	 */
-	public boolean isFeral(GameCharacter owner);
+	boolean isFeral(GameCharacter owner);
 	
 }

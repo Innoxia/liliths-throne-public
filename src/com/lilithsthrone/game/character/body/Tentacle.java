@@ -1,8 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -13,13 +11,17 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.2.8
  * @version 0.3.8.9
  * @author Innoxia
  */
-public class Tentacle implements BodyPartInterface {
+public class Tentacle implements BodyPartInterface, XMLSaving {
 
 	public static final int MAXIMUM_COUNT = 100;
 	public static final float LENGTH_PERCENTAGE_MIN = 1f;
@@ -29,7 +31,14 @@ public class Tentacle implements BodyPartInterface {
 	protected int tentacleCount;
 	protected int girth;
 	protected float lengthAsPercentageOfHeight;
-
+	
+	public Tentacle(AbstractTentacleType type, int tentacleCount, int girth, float lengthAsPercentageOfHeight) {
+		this.type = type;
+		this.tentacleCount = tentacleCount;
+		this.girth = girth;
+		this.lengthAsPercentageOfHeight = lengthAsPercentageOfHeight;
+	}
+	
 	public Tentacle(AbstractTentacleType type) {
 		this.type = type;
 		this.tentacleCount = 1;
@@ -217,7 +226,7 @@ public class Tentacle implements BodyPartInterface {
 		
 		if (girth <= 0) {
 			if (this.girth != 0) {
-				girthChange = 0 - this.girth;
+				girthChange = -this.girth;
 				this.girth = 0;
 			}
 		} else if (girth >= PenetrationGirth.getMaximum()) {
@@ -334,5 +343,28 @@ public class Tentacle implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tentacle.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element tentacleElement = parentElement.addElement("tentacle");
+		tentacleElement.addAttribute("type", String.valueOf(type));
+		tentacleElement.addAttribute("tentacleCount", String.valueOf(tentacleCount));
+		tentacleElement.addAttribute("girth", String.valueOf(girth));
+		tentacleElement.addAttribute("lengthAsPercentageOfHeight", String.valueOf(lengthAsPercentageOfHeight));
+		return true;
+	}
+	
+	public static Tentacle loadFromXML(Element parentElement) {
+		try {
+			Element tentacleElement = parentElement.getMandatoryFirstOf("tentacle");
+			return new Tentacle(TentacleType.getTentacleTypeFromId(tentacleElement.getAttribute("type")),
+					Integer.parseInt(tentacleElement.getAttribute("tentacleCount")),
+					Integer.parseInt(tentacleElement.getAttribute("girth")),
+					Float.parseFloat(tentacleElement.getAttribute("lengthAsPercentageOfHeight")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

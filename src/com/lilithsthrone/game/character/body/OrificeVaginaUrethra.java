@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -14,13 +11,18 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @since 0.1.?
  * @version 0.3.7
  * @author Innoxia
  */
-public class OrificeVaginaUrethra implements OrificeInterface {
+public class OrificeVaginaUrethra implements OrificeInterface, XMLSaving {
 
 	protected int wetness;
 	protected float capacity;
@@ -31,10 +33,10 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeVaginaUrethra(int wetness, int capacity, int depth, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeVaginaUrethra(int wetness, int capacity, float stretchedCapacity, int depth, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
 		this.capacity = capacity;
-		stretchedCapacity = capacity;
+		this.stretchedCapacity = stretchedCapacity;
 		this.depth = depth;
 		this.elasticity = elasticity;
 		this.plasticity = plasticity;
@@ -422,5 +424,43 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 	public Set<OrificeModifier> getOrificeModifiers() {
 		return orificeModifiers;
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element orificeVaginaUrethraElement = parentElement.addElement("orificeVaginaUrethra");
+		orificeVaginaUrethraElement.addAttribute("wetness", String.valueOf(wetness));
+		orificeVaginaUrethraElement.addAttribute("depth", String.valueOf(depth));
+		orificeVaginaUrethraElement.addAttribute("elasticity", String.valueOf(elasticity));
+		orificeVaginaUrethraElement.addAttribute("plasticity", String.valueOf(plasticity));
+		orificeVaginaUrethraElement.addAttribute("capacity", String.valueOf(capacity));
+		orificeVaginaUrethraElement.addAttribute("stretchedCapacity", String.valueOf(stretchedCapacity));
+		orificeVaginaUrethraElement.addAttribute("virgin", String.valueOf(virgin));
+		Element vaginaUrethraModifiersElement = orificeVaginaUrethraElement.addElement("vaginaUrethraModifiers");
+		for(OrificeModifier om : orificeModifiers) {
+			vaginaUrethraModifiersElement.addAttribute(om.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static OrificeVaginaUrethra loadFromXML(Element parentElement) {
+		try {
+			Element orificeVaginaUrethraElement = parentElement.getMandatoryFirstOf("orificeVaginaUrethra");
+			Element vaginaUrethraModifiersElement = orificeVaginaUrethraElement.getMandatoryFirstOf("vaginaUrethraModifiers");
+			Set<OrificeModifier> modifiers = new HashSet<>();
+			for(String key : vaginaUrethraModifiersElement.getAttributes().keySet()) {
+				modifiers.add(OrificeModifier.valueOf(key));
+			}
+			return new OrificeVaginaUrethra(Integer.parseInt(orificeVaginaUrethraElement.getAttribute("wetness")),
+					Integer.parseInt(orificeVaginaUrethraElement.getAttribute("capacity")),
+					Integer.parseInt(orificeVaginaUrethraElement.getAttribute("stretchedCapacity")),
+					Integer.parseInt(orificeVaginaUrethraElement.getAttribute("depth")),
+					Integer.parseInt(orificeVaginaUrethraElement.getAttribute("elasticity")),
+					Integer.parseInt(orificeVaginaUrethraElement.getAttribute("plasticity")),
+					Boolean.parseBoolean(orificeVaginaUrethraElement.getAttribute("virgin")),
+					modifiers);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

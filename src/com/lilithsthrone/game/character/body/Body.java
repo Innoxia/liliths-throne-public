@@ -1,63 +1,19 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import com.lilithsthrone.game.character.body.valueEnums.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import com.lilithsthrone.controller.xmlParsing.XMLUtil;
-import com.lilithsthrone.game.Game;
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.body.abstractTypes.*;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringSkinToneColorHelper;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -77,12 +33,20 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Builder;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @since 0.1.0
@@ -114,13 +78,13 @@ public class Body implements XMLSaving {
 	private Vagina vagina;
 	private Wing wing;
 
-	private OrificeSpinneret spinneret;
+	private final OrificeSpinneret spinneret;
 	
 	private GenitalArrangement genitalArrangement;
 	
 	private boolean feral;
 	
-	private Map<AbstractRace, Integer> raceWeightMap = new ConcurrentHashMap<>();
+	private final Map<AbstractRace, Integer> raceWeightMap = new ConcurrentHashMap<>();
 	private AbstractSubspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
@@ -132,16 +96,16 @@ public class Body implements XMLSaving {
 	private int muscle;
 	private BodyHair pubicHair;
 
-	private Set<AbstractBodyCoveringType> heavyMakeup;
-	private Map<AbstractBodyCoveringType, Covering> coverings;
-	private Set<AbstractBodyCoveringType> coveringsDiscovered;
+	private final Set<AbstractBodyCoveringType> heavyMakeup;
+	private final Map<AbstractBodyCoveringType, Covering> coverings;
+	private final Set<AbstractBodyCoveringType> coveringsDiscovered;
 
 	private List<BodyPartInterface> allBodyParts;
 
 	private boolean takesAfterMother = true;
 	
 	
-	public static class BodyBuilder implements Builder<Body> {
+	public static class BodyBuilder {
 		// Required parameters:
 		private final Arm arm;
 		private final Ass ass;
@@ -153,7 +117,7 @@ public class Body implements XMLSaving {
 		private final Leg leg;
 		private final Torso torso;
 		private final BodyMaterial bodyMaterial;
-		private GenitalArrangement genitalArrangement;
+		private final GenitalArrangement genitalArrangement;
 		private final int height;
 		private final int femininity, bodySize, muscle;
 		
@@ -235,11 +199,6 @@ public class Body implements XMLSaving {
 		public BodyBuilder spinneret(OrificeSpinneret spinneret) {
 			this.spinneret = spinneret;
 			return this;
-		}
-
-		@Override
-		public Body build() {
-			return new Body(this);
 		}
 	}
 
@@ -416,1587 +375,127 @@ public class Body implements XMLSaving {
 	}
 	
 	@Override
-	public Element saveAsXML(Element parentElement, Document doc) {
+	public boolean saveAsXML(Element parentElement) {
+		Element bodyElement = parentElement.addElement("body");
 		// Core:
-		Element bodyCore = doc.createElement("bodyCore");
-		parentElement.appendChild(bodyCore);
-		XMLUtil.addAttribute(doc, bodyCore, "version", Main.VERSION_NUMBER);
-		XMLUtil.addAttribute(doc, bodyCore, "piercedStomach", String.valueOf(this.isPiercedStomach()));
-		XMLUtil.addAttribute(doc, bodyCore, "height", String.valueOf(this.getHeightValue()));
-		XMLUtil.addAttribute(doc, bodyCore, "femininity", String.valueOf(this.getFemininity()));
-		XMLUtil.addAttribute(doc, bodyCore, "bodySize", String.valueOf(this.getBodySize()));
-		XMLUtil.addAttribute(doc, bodyCore, "muscle", String.valueOf(this.getMuscle()));
-		XMLUtil.addAttribute(doc, bodyCore, "pubicHair", String.valueOf(this.getPubicHair()));
-		XMLUtil.addAttribute(doc, bodyCore, "bodyMaterial", String.valueOf(this.getBodyMaterial()));
-		XMLUtil.addAttribute(doc, bodyCore, "genitalArrangement", String.valueOf(this.getGenitalArrangement()));
-		XMLUtil.addAttribute(doc, bodyCore, "feral", String.valueOf(this.isFeral()));
+		bodyElement.addAttribute("version", Main.VERSION_NUMBER);
+		bodyElement.addAttribute("piercedStomach", String.valueOf(piercedStomach));
+		bodyElement.addAttribute("height", String.valueOf(height));
+		bodyElement.addAttribute("femininity", String.valueOf(femininity));
+		bodyElement.addAttribute("bodySize", String.valueOf(bodySize));
+		bodyElement.addAttribute("muscle", String.valueOf(muscle));
+		bodyElement.addAttribute("pubicHair", String.valueOf(pubicHair));
+		bodyElement.addAttribute("bodyMaterial", String.valueOf(bodyMaterial));
+		bodyElement.addAttribute("genitalArrangement", String.valueOf(genitalArrangement));
+		bodyElement.addAttribute("feral", String.valueOf(feral));
+		bodyElement.addAttribute("takesAfterMother", String.valueOf(takesAfterMother));
 		if(this.getSubspeciesOverride()!=null) {
-			XMLUtil.addAttribute(doc, bodyCore, "subspeciesOverride", Subspecies.getIdFromSubspecies(this.getSubspeciesOverride()));
+			bodyElement.addAttribute("subspeciesOverride", Subspecies.getIdFromSubspecies(subspeciesOverride));
 		}
-		XMLUtil.addAttribute(doc, bodyCore, "takesAfterMother", String.valueOf(this.isTakesAfterMother()));
 		
+		Element coveringsElement = bodyElement.addElement("coverings");
 		for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
-			if(this.isBodyCoveringTypesDiscovered(bct)
+			if(isBodyCoveringTypesDiscovered(bct)
 					|| ((bct == BodyCoveringType.MAKEUP_BLUSHER
-							|| bct == BodyCoveringType.MAKEUP_EYE_LINER
-							|| bct == BodyCoveringType.MAKEUP_EYE_SHADOW
-							|| bct == BodyCoveringType.MAKEUP_LIPSTICK
-							|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_FEET
-							|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
-							&& this.coverings.get(bct).getPrimaryColour()!=PresetColour.COVERING_NONE)
+					|| bct == BodyCoveringType.MAKEUP_EYE_LINER
+					|| bct == BodyCoveringType.MAKEUP_EYE_SHADOW
+					|| bct == BodyCoveringType.MAKEUP_LIPSTICK
+					|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_FEET
+					|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
+					&& coverings.get(bct).getPrimaryColour()!=PresetColour.COVERING_NONE)
 					|| bct == BodyCoveringType.EYE_PUPILS
 					|| bct.getCategory()==BodyCoveringCategory.FLUID
-					|| bct == getBodyHairCoveringType(this.getRace())) {
-				Element element = doc.createElement("bodyCovering");
-				bodyCore.appendChild(element);
-				
-				XMLUtil.addAttribute(doc, element, "type", BodyCoveringType.getIdFromBodyCoveringType(bct));
-				XMLUtil.addAttribute(doc, element, "pattern", this.coverings.get(bct).getPattern().toString());
-				XMLUtil.addAttribute(doc, element, "modifier", this.coverings.get(bct).getModifier().toString());
-				XMLUtil.addAttribute(doc, element, "c1", this.coverings.get(bct).getPrimaryColour().getId());
-				if(this.coverings.get(bct).isPrimaryGlowing()) {
-					XMLUtil.addAttribute(doc, element, "g1", String.valueOf(this.coverings.get(bct).isPrimaryGlowing()));
-				}
-				XMLUtil.addAttribute(doc, element, "c2", this.coverings.get(bct).getSecondaryColour().getId());
-				if(this.coverings.get(bct).isSecondaryGlowing()) {
-					XMLUtil.addAttribute(doc, element, "g2", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
-				}
-//				if(this.isBodyCoveringTypesDiscovered(bct)) {
-//					XMLUtil.addAttribute(doc, element, "discovered", String.valueOf(this.isBodyCoveringTypesDiscovered(bct)));
-//				}
+					|| bct == getBodyHairCoveringType(getRace())) {
+				Element itemElement = coveringsElement.addElement("item", bct.getName());
+				coverings.get(bct).saveAsXML(itemElement);
 			}
 		}
 		
 		if(!heavyMakeup.isEmpty()) {
-			Element element = doc.createElement("heavyMakeup");
-			bodyCore.appendChild(element);
+			Element heavyMakeupElement = bodyElement.addElement("heavyMakeup");
 			for(AbstractBodyCoveringType bct : heavyMakeup) {
-				Element bctElement = doc.createElement("type");
-				element.appendChild(bctElement);
-				bctElement.setTextContent(BodyCoveringType.getIdFromBodyCoveringType(bct));
+				heavyMakeupElement.addElement("type", BodyCoveringType.getIdFromBodyCoveringType(bct));
 			}
 		}
-		
 
-		// Antennae:
-		Element bodyAntennae = doc.createElement("antennae");
-		parentElement.appendChild(bodyAntennae);
-			XMLUtil.addAttribute(doc, bodyAntennae, "type", AntennaType.getIdFromAntennaType(this.antenna.getType()));
-			XMLUtil.addAttribute(doc, bodyAntennae, "rows", String.valueOf(this.antenna.getAntennaRows()));
-			XMLUtil.addAttribute(doc, bodyAntennae, "length", String.valueOf(this.antenna.length));
-			XMLUtil.addAttribute(doc, bodyAntennae, "antennaePerRow", String.valueOf(this.antenna.antennaePerRow));
-		
-		// Arm:
-		Element bodyArm = doc.createElement("arm");
-		parentElement.appendChild(bodyArm);
-			XMLUtil.addAttribute(doc, bodyArm, "type", ArmType.getIdFromArmType(this.arm.getType()));
-			XMLUtil.addAttribute(doc, bodyArm, "rows", String.valueOf(this.arm.getArmRows()));
-			XMLUtil.addAttribute(doc, bodyArm, "underarmHair", this.arm.getUnderarmHair().toString());
-		
-		// Ass:
-		Element bodyAss = doc.createElement("ass");
-		parentElement.appendChild(bodyAss);
-			XMLUtil.addAttribute(doc, bodyAss, "type", AssType.getIdFromAssType(this.ass.getType()));
-			XMLUtil.addAttribute(doc, bodyAss, "assSize", String.valueOf(this.ass.getAssSize().getValue()));
-			XMLUtil.addAttribute(doc, bodyAss, "hipSize", String.valueOf(this.ass.getHipSize().getValue()));
-
-		Element bodyAnus = doc.createElement("anus");
-		parentElement.appendChild(bodyAnus);
-			XMLUtil.addAttribute(doc, bodyAnus, "wetness", String.valueOf(this.ass.anus.orificeAnus.wetness));
-			XMLUtil.addAttribute(doc, bodyAnus, "depth", String.valueOf(this.ass.anus.orificeAnus.depth));
-			XMLUtil.addAttribute(doc, bodyAnus, "elasticity", String.valueOf(this.ass.anus.orificeAnus.elasticity));
-			XMLUtil.addAttribute(doc, bodyAnus, "plasticity", String.valueOf(this.ass.anus.orificeAnus.plasticity));
-			XMLUtil.addAttribute(doc, bodyAnus, "capacity", String.valueOf(this.ass.anus.orificeAnus.capacity));
-			XMLUtil.addAttribute(doc, bodyAnus, "stretchedCapacity", String.valueOf(this.ass.anus.orificeAnus.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodyAnus, "virgin", String.valueOf(this.ass.anus.orificeAnus.virgin));
-			XMLUtil.addAttribute(doc, bodyAnus, "bleached", String.valueOf(this.ass.anus.bleached));
-			XMLUtil.addAttribute(doc, bodyAnus, "assHair", this.ass.anus.assHair.toString());
-			Element anusModifiers = doc.createElement("anusModifiers");
-			bodyAnus.appendChild(anusModifiers);
-			for(OrificeModifier om : this.ass.anus.orificeAnus.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, anusModifiers, om.toString(), "true");
-			}
-		
-		// Breasts:
-		Element bodyBreast = doc.createElement("breasts");
-		parentElement.appendChild(bodyBreast);
-			XMLUtil.addAttribute(doc, bodyBreast, "type", BreastType.getIdFromBreastType(this.breast.getType()));
-			XMLUtil.addAttribute(doc, bodyBreast, "shape", this.breast.shape.toString());
-			XMLUtil.addAttribute(doc, bodyBreast, "size", String.valueOf(this.breast.size));
-			XMLUtil.addAttribute(doc, bodyBreast, "rows", String.valueOf(this.breast.rows));
-			XMLUtil.addAttribute(doc, bodyBreast, "milkStorage", String.valueOf(this.breast.milkStorage));
-			XMLUtil.addAttribute(doc, bodyBreast, "storedMilk", String.valueOf(this.breast.milkStored));
-			XMLUtil.addAttribute(doc, bodyBreast, "milkRegeneration", String.valueOf(this.breast.milkRegeneration));
-			XMLUtil.addAttribute(doc, bodyBreast, "nippleCountPerBreast", String.valueOf(this.breast.nippleCountPerBreast));
-
-		Element bodyNipple = doc.createElement("nipples");
-		parentElement.appendChild(bodyNipple);
-			XMLUtil.addAttribute(doc, bodyNipple, "depth", String.valueOf(this.breast.nipples.orificeNipples.depth));
-			XMLUtil.addAttribute(doc, bodyNipple, "elasticity", String.valueOf(this.breast.nipples.orificeNipples.elasticity));
-			XMLUtil.addAttribute(doc, bodyNipple, "plasticity", String.valueOf(this.breast.nipples.orificeNipples.plasticity));
-			XMLUtil.addAttribute(doc, bodyNipple, "capacity", String.valueOf(this.breast.nipples.orificeNipples.capacity));
-			XMLUtil.addAttribute(doc, bodyNipple, "stretchedCapacity", String.valueOf(this.breast.nipples.orificeNipples.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodyNipple, "virgin", String.valueOf(this.breast.nipples.orificeNipples.virgin));
-			XMLUtil.addAttribute(doc, bodyNipple, "pierced", String.valueOf(this.breast.nipples.pierced));
-			XMLUtil.addAttribute(doc, bodyNipple, "nippleSize", String.valueOf(this.breast.nipples.nippleSize));
-			XMLUtil.addAttribute(doc, bodyNipple, "nippleShape", this.breast.nipples.nippleShape.toString());
-			XMLUtil.addAttribute(doc, bodyNipple, "areolaeSize", String.valueOf(this.breast.nipples.areolaeSize));
-			XMLUtil.addAttribute(doc, bodyNipple, "areolaeShape", this.breast.nipples.areolaeShape.toString());
-			Element nippleModifiers = doc.createElement("nippleModifiers");
-			bodyNipple.appendChild(nippleModifiers);
-			for(OrificeModifier om : this.breast.nipples.orificeNipples.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, nippleModifiers, om.toString(), "true");
-			}
-			
-		this.breast.milk.saveAsXML("milk", parentElement, doc);
-		
-		// Crotch Breasts:
-		Element bodyCrotchBreast = doc.createElement("breastsCrotch");
-		parentElement.appendChild(bodyCrotchBreast);
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "type", BreastType.getIdFromBreastType(this.breastCrotch.getType()));
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "shape", this.breastCrotch.shape.toString());
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "size", String.valueOf(this.breastCrotch.size));
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "rows", String.valueOf(this.breastCrotch.rows));
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "milkStorage", String.valueOf(this.breastCrotch.milkStorage));
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "storedMilk", String.valueOf(this.breastCrotch.milkStored));
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "milkRegeneration", String.valueOf(this.breastCrotch.milkRegeneration));
-			XMLUtil.addAttribute(doc, bodyCrotchBreast, "nippleCountPerBreast", String.valueOf(this.breastCrotch.nippleCountPerBreast));
-
-		Element bodyCrotchNipple = doc.createElement("nipplesCrotch");
-		parentElement.appendChild(bodyCrotchNipple);
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "depth", String.valueOf(this.breastCrotch.nipples.orificeNipples.depth));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "elasticity", String.valueOf(this.breastCrotch.nipples.orificeNipples.elasticity));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "plasticity", String.valueOf(this.breastCrotch.nipples.orificeNipples.plasticity));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "capacity", String.valueOf(this.breastCrotch.nipples.orificeNipples.capacity));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "stretchedCapacity", String.valueOf(this.breastCrotch.nipples.orificeNipples.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "virgin", String.valueOf(this.breastCrotch.nipples.orificeNipples.virgin));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "pierced", String.valueOf(this.breastCrotch.nipples.pierced));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "nippleSize", String.valueOf(this.breastCrotch.nipples.nippleSize));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "nippleShape", this.breastCrotch.nipples.nippleShape.toString());
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "areolaeSize", String.valueOf(this.breastCrotch.nipples.areolaeSize));
-			XMLUtil.addAttribute(doc, bodyCrotchNipple, "areolaeShape", this.breastCrotch.nipples.areolaeShape.toString());
-			Element crotchNippleModifiers = doc.createElement("nippleModifiers");
-			bodyCrotchNipple.appendChild(crotchNippleModifiers);
-			for(OrificeModifier om : this.breastCrotch.nipples.orificeNipples.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, crotchNippleModifiers, om.toString(), "true");
-			}
-			
-		this.breastCrotch.milk.saveAsXML("milkCrotch", parentElement, doc);
-		
-		
-		// Ear:
-		Element bodyEar = doc.createElement("ear");
-		parentElement.appendChild(bodyEar);
-			XMLUtil.addAttribute(doc, bodyEar, "type", EarType.getIdFromEarType(this.ear.type));
-			XMLUtil.addAttribute(doc, bodyEar, "pierced", String.valueOf(this.ear.pierced));
-
-		// Eye:
-		Element bodyEye = doc.createElement("eye");
-		parentElement.appendChild(bodyEye);
-			XMLUtil.addAttribute(doc, bodyEye, "type", EyeType.getIdFromEyeType(this.eye.type));
-			XMLUtil.addAttribute(doc, bodyEye, "eyePairs", String.valueOf(this.eye.eyePairs));
-			XMLUtil.addAttribute(doc, bodyEye, "irisShape", this.eye.irisShape.toString());
-			XMLUtil.addAttribute(doc, bodyEye, "pupilShape", this.eye.pupilShape.toString());
-		
-		// Face:
-		Element bodyFace = doc.createElement("face");
-		parentElement.appendChild(bodyFace);
-			XMLUtil.addAttribute(doc, bodyFace, "type", FaceType.getIdFromFaceType(this.face.type));
-			XMLUtil.addAttribute(doc, bodyFace, "piercedNose", String.valueOf(this.face.piercedNose));
-			XMLUtil.addAttribute(doc, bodyFace, "facialHair", this.face.facialHair.toString());
-
-		Element bodyMouth = doc.createElement("mouth");
-		parentElement.appendChild(bodyMouth);
-			XMLUtil.addAttribute(doc, bodyMouth, "depth", String.valueOf(this.face.mouth.orificeMouth.depth));
-			XMLUtil.addAttribute(doc, bodyMouth, "elasticity", String.valueOf(this.face.mouth.orificeMouth.elasticity));
-			XMLUtil.addAttribute(doc, bodyMouth, "plasticity", String.valueOf(this.face.mouth.orificeMouth.plasticity));
-			XMLUtil.addAttribute(doc, bodyMouth, "capacity", String.valueOf(this.face.mouth.orificeMouth.capacity));
-			XMLUtil.addAttribute(doc, bodyMouth, "wetness", String.valueOf(this.face.mouth.orificeMouth.wetness));
-			XMLUtil.addAttribute(doc, bodyMouth, "stretchedCapacity", String.valueOf(this.face.mouth.orificeMouth.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodyMouth, "virgin", String.valueOf(this.face.mouth.orificeMouth.virgin));
-			XMLUtil.addAttribute(doc, bodyMouth, "piercedLip", String.valueOf(this.face.mouth.piercedLip));
-			XMLUtil.addAttribute(doc, bodyMouth, "lipSize", String.valueOf(this.face.mouth.lipSize));
-			Element mouthModifiers = doc.createElement("mouthModifiers");
-			bodyMouth.appendChild(mouthModifiers);
-			for(OrificeModifier om : this.face.mouth.orificeMouth.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, mouthModifiers, om.toString(), "true");
-			}
-			
-		Element bodyTongue = doc.createElement("tongue");
-		parentElement.appendChild(bodyTongue);
-			XMLUtil.addAttribute(doc, bodyTongue, "piercedTongue", String.valueOf(this.face.tongue.pierced));
-			XMLUtil.addAttribute(doc, bodyTongue, "tongueLength", String.valueOf(this.face.tongue.tongueLength));
-			Element tongueModifiers = doc.createElement("tongueModifiers");
-			bodyTongue.appendChild(tongueModifiers);
-			for(TongueModifier tm : this.face.tongue.tongueModifiers) {
-				XMLUtil.addAttribute(doc, tongueModifiers, tm.toString(), "true");
-			}
-			
-		
-		// Hair:
-		Element bodyHair = doc.createElement("hair");
-		parentElement.appendChild(bodyHair);
-			XMLUtil.addAttribute(doc, bodyHair, "type", HairType.getIdFromHairType(this.hair.type));
-			XMLUtil.addAttribute(doc, bodyHair, "length", String.valueOf(this.hair.length));
-			XMLUtil.addAttribute(doc, bodyHair, "hairStyle", this.hair.style.toString());
-		
-		// Horn:
-		Element bodyHorn = doc.createElement("horn");
-		parentElement.appendChild(bodyHorn);
-			XMLUtil.addAttribute(doc, bodyHorn, "type", HornType.getIdFromHornType(this.horn.type));
-			XMLUtil.addAttribute(doc, bodyHorn, "length", String.valueOf(this.horn.length));
-			XMLUtil.addAttribute(doc, bodyHorn, "rows", String.valueOf(this.horn.rows));
-			XMLUtil.addAttribute(doc, bodyHorn, "hornsPerRow", String.valueOf(this.horn.hornsPerRow));
-		
-		// Leg:
-		Element bodyLeg = doc.createElement("leg");
-		parentElement.appendChild(bodyLeg);
-			XMLUtil.addAttribute(doc, bodyLeg, "type", LegType.getIdFromLegType(this.leg.type));
-			XMLUtil.addAttribute(doc, bodyLeg, "footStructure", this.leg.footStructure.toString());
-			XMLUtil.addAttribute(doc, bodyLeg, "configuration", this.leg.legConfiguration.toString());
-		
-		// Penis:
-		Element bodyPenis = doc.createElement("penis");
-		parentElement.appendChild(bodyPenis);
-			XMLUtil.addAttribute(doc, bodyPenis, "type", PenisType.getIdFromPenisType(this.penis.type));
-			XMLUtil.addAttribute(doc, bodyPenis, "size", String.valueOf(this.penis.length));
-			XMLUtil.addAttribute(doc, bodyPenis, "girth", String.valueOf(this.penis.girth));
-			XMLUtil.addAttribute(doc, bodyPenis, "pierced", String.valueOf(this.penis.pierced));
-			XMLUtil.addAttribute(doc, bodyPenis, "virgin", String.valueOf(this.penis.virgin));
-			Element penisModifiers = doc.createElement("penisModifiers");
-			bodyPenis.appendChild(penisModifiers);
-			for(PenetrationModifier pm : this.penis.getPenisModifiers()) {
-				XMLUtil.addAttribute(doc, penisModifiers, pm.toString(), "true");
-			}
-			XMLUtil.addAttribute(doc, bodyPenis, "depth", String.valueOf(this.penis.orificeUrethra.depth));
-			XMLUtil.addAttribute(doc, bodyPenis, "elasticity", String.valueOf(this.penis.orificeUrethra.elasticity));
-			XMLUtil.addAttribute(doc, bodyPenis, "plasticity", String.valueOf(this.penis.orificeUrethra.plasticity));
-			XMLUtil.addAttribute(doc, bodyPenis, "capacity", String.valueOf(this.penis.orificeUrethra.capacity));
-			XMLUtil.addAttribute(doc, bodyPenis, "stretchedCapacity", String.valueOf(this.penis.orificeUrethra.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodyPenis, "urethraVirgin", String.valueOf(this.penis.orificeUrethra.virgin));
-			Element urethraModifiers = doc.createElement("urethraModifiers");
-			bodyPenis.appendChild(urethraModifiers);
-			for(OrificeModifier om : this.penis.orificeUrethra.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, urethraModifiers, om.toString(), "true");
-			}
-			
-		Element bodyTesticle = doc.createElement("testicles");
-		parentElement.appendChild(bodyTesticle);
-			XMLUtil.addAttribute(doc, bodyTesticle, "testicleSize", String.valueOf(this.penis.testicle.testicleSize));
-			XMLUtil.addAttribute(doc, bodyTesticle, "cumStorage", String.valueOf(this.penis.testicle.cumStorage));
-			XMLUtil.addAttribute(doc, bodyTesticle, "storedCum", String.valueOf(this.penis.testicle.cumStored));
-			XMLUtil.addAttribute(doc, bodyTesticle, "cumRegeneration", String.valueOf(this.penis.testicle.cumRegeneration));
-			XMLUtil.addAttribute(doc, bodyTesticle, "cumExpulsion", String.valueOf(this.penis.testicle.cumExpulsion));
-			XMLUtil.addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(this.penis.testicle.testicleCount));
-			XMLUtil.addAttribute(doc, bodyTesticle, "internal", String.valueOf(this.penis.testicle.internal));
-		
-		this.penis.testicle.cum.saveAsXML(parentElement, doc);
-
-		// Spinneret:
-		Element bodySpinneret = doc.createElement("spinneret");
-		parentElement.appendChild(bodySpinneret);
-			XMLUtil.addAttribute(doc, bodySpinneret, "wetness", String.valueOf(this.spinneret.wetness));
-			XMLUtil.addAttribute(doc, bodySpinneret, "depth", String.valueOf(this.spinneret.depth));
-			XMLUtil.addAttribute(doc, bodySpinneret, "elasticity", String.valueOf(this.spinneret.elasticity));
-			XMLUtil.addAttribute(doc, bodySpinneret, "plasticity", String.valueOf(this.spinneret.plasticity));
-			XMLUtil.addAttribute(doc, bodySpinneret, "capacity", String.valueOf(this.spinneret.capacity));
-			XMLUtil.addAttribute(doc, bodySpinneret, "stretchedCapacity", String.valueOf(this.spinneret.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodySpinneret, "virgin", String.valueOf(this.spinneret.virgin));
-			Element spinneretModifiers = doc.createElement("spinneretModifiers");
-			bodySpinneret.appendChild(spinneretModifiers);
-			for(OrificeModifier om : this.spinneret.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, spinneretModifiers, om.toString(), "true");
-			}
-			
-		// Torso:
-		Element bodyTorso = doc.createElement("torso");
-		parentElement.appendChild(bodyTorso);
-			XMLUtil.addAttribute(doc, bodyTorso, "type", TorsoType.getIdFromTorsoType(this.torso.type));
-		
-		// Tail:
-		Element bodyTail = doc.createElement("tail");
-		parentElement.appendChild(bodyTail);
-			XMLUtil.addAttribute(doc, bodyTail, "type", TailType.getIdFromTailType(this.tail.type));
-			XMLUtil.addAttribute(doc, bodyTail, "count", String.valueOf(this.tail.tailCount));
-			XMLUtil.addAttribute(doc, bodyTail, "girth", String.valueOf(this.tail.girth));
-			XMLUtil.addAttribute(doc, bodyTail, "length", String.valueOf(this.tail.lengthAsPercentageOfHeight));
-		
-		// Tail:
-		Element bodyTentacle = doc.createElement("tentacle");
-		parentElement.appendChild(bodyTentacle);
-			XMLUtil.addAttribute(doc, bodyTentacle, "type", TentacleType.getIdFromTentacleType(this.tentacle.type));
-			XMLUtil.addAttribute(doc, bodyTentacle, "count", String.valueOf(this.tentacle.tentacleCount));
-			XMLUtil.addAttribute(doc, bodyTentacle, "girth", String.valueOf(this.tentacle.girth));
-			XMLUtil.addAttribute(doc, bodyTentacle, "length", String.valueOf(this.tentacle.lengthAsPercentageOfHeight));
-			
-		// Vagina
-		Element bodyVagina = doc.createElement("vagina");
-		parentElement.appendChild(bodyVagina);
-			XMLUtil.addAttribute(doc, bodyVagina, "type", VaginaType.getIdFromVaginaType(this.vagina.type));
-			XMLUtil.addAttribute(doc, bodyVagina, "labiaSize", String.valueOf(this.vagina.labiaSize));
-			XMLUtil.addAttribute(doc, bodyVagina, "clitSize", String.valueOf(this.vagina.clitoris.clitSize));
-			XMLUtil.addAttribute(doc, bodyVagina, "clitGirth", String.valueOf(this.vagina.clitoris.girth));
-			Element clitModifiers = doc.createElement("clitModifiers");
-			bodyVagina.appendChild(clitModifiers);
-			for(PenetrationModifier pm : this.vagina.clitoris.getClitorisModifiers()) {
-				XMLUtil.addAttribute(doc, clitModifiers, pm.toString(), "true");
-			}
-			XMLUtil.addAttribute(doc, bodyVagina, "pierced", String.valueOf(this.vagina.pierced));
-			XMLUtil.addAttribute(doc, bodyVagina, "eggLayer", String.valueOf(this.vagina.eggLayer));
-			
-			XMLUtil.addAttribute(doc, bodyVagina, "wetness", String.valueOf(this.vagina.orificeVagina.wetness));
-			XMLUtil.addAttribute(doc, bodyVagina, "depth", String.valueOf(this.vagina.orificeVagina.depth));
-			XMLUtil.addAttribute(doc, bodyVagina, "elasticity", String.valueOf(this.vagina.orificeVagina.elasticity));
-			XMLUtil.addAttribute(doc, bodyVagina, "plasticity", String.valueOf(this.vagina.orificeVagina.plasticity));
-			XMLUtil.addAttribute(doc, bodyVagina, "capacity", String.valueOf(this.vagina.orificeVagina.capacity));
-			XMLUtil.addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(this.vagina.orificeVagina.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodyVagina, "virgin", String.valueOf(this.vagina.orificeVagina.virgin));
-			XMLUtil.addAttribute(doc, bodyVagina, "hymen", String.valueOf(this.vagina.orificeVagina.hymen));
-			XMLUtil.addAttribute(doc, bodyVagina, "squirter", String.valueOf(this.vagina.orificeVagina.squirter));
-			Element vaginaModifiers = doc.createElement("vaginaModifiers");
-			bodyVagina.appendChild(vaginaModifiers);
-			for(OrificeModifier om : this.vagina.orificeVagina.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, vaginaModifiers, om.toString(), "true");
-			}
-
-			XMLUtil.addAttribute(doc, bodyVagina, "urethraDepth", String.valueOf(this.vagina.orificeUrethra.depth));
-			XMLUtil.addAttribute(doc, bodyVagina, "urethraElasticity", String.valueOf(this.vagina.orificeUrethra.elasticity));
-			XMLUtil.addAttribute(doc, bodyVagina, "urethraPlasticity", String.valueOf(this.vagina.orificeUrethra.plasticity));
-			XMLUtil.addAttribute(doc, bodyVagina, "urethraCapacity", String.valueOf(this.vagina.orificeUrethra.capacity));
-			XMLUtil.addAttribute(doc, bodyVagina, "urethraStretchedCapacity", String.valueOf(this.vagina.orificeUrethra.stretchedCapacity));
-			XMLUtil.addAttribute(doc, bodyVagina, "urethraVirgin", String.valueOf(this.vagina.orificeUrethra.virgin));
-			urethraModifiers = doc.createElement("urethraModifiers");
-			bodyVagina.appendChild(urethraModifiers);
-			for(OrificeModifier om : this.vagina.orificeUrethra.getOrificeModifiers()) {
-				XMLUtil.addAttribute(doc, urethraModifiers, om.toString(), "true");
-			}
-			
-		this.vagina.girlcum.saveAsXML(parentElement, doc);
-
-		// Wing:
-		Element bodyWing = doc.createElement("wing");
-		parentElement.appendChild(bodyWing);
-		XMLUtil.addAttribute(doc, bodyWing, "type", WingType.getIdFromWingType(this.wing.type));
-		XMLUtil.addAttribute(doc, bodyWing, "size", String.valueOf(this.wing.size));
-
-//		System.out.println("Difference1: "+(System.nanoTime()-timeStart)/1000000000f);
-		
-		return parentElement;
+		// Save Body Parts
+		antenna.saveAsXML(bodyElement);
+		arm.saveAsXML(bodyElement);
+		ass.saveAsXML(bodyElement);
+		breast.saveAsXML(bodyElement);
+		breastCrotch.saveAsXML(bodyElement);
+		ear.saveAsXML(bodyElement);
+		eye.saveAsXML(bodyElement);
+		face.saveAsXML(bodyElement);
+		hair.saveAsXML(bodyElement);
+		horn.saveAsXML(bodyElement);
+		leg.saveAsXML(bodyElement);
+		penis.saveAsXML(bodyElement);
+		spinneret.saveAsXML(bodyElement);
+		tail.saveAsXML(bodyElement);
+		tentacle.saveAsXML(bodyElement);
+		torso.saveAsXML(bodyElement);
+		vagina.saveAsXML(bodyElement);
+		wing.saveAsXML(bodyElement);
+		return true;
 	}
 
-	
-	private void setBodyCoveringForXMLImport(AbstractBodyCoveringType bct, CoveringPattern pattern, CoveringModifier modifier, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
-		this.getCoverings().put(bct, new Covering(bct, pattern, modifier, primary, primaryGlow, secondary, secondaryGlow));
-	}
-	private void setBodyCoveringForXMLImport(AbstractBodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
-		this.getCoverings().put(bct, new Covering(bct, pattern, primary, primaryGlow, secondary, secondaryGlow));
-	}
-	
-	public static Body loadFromXML(StringBuilder log, Element parentElement, Document doc) {
-		
-		// **************** Core **************** //
-		
-		Element element = (Element) parentElement.getElementsByTagName("bodyCore").item(0);
-		
-		String version = element.getAttribute("version");
-		
-		int importedFemininity = (Integer.valueOf(element.getAttribute("femininity")));
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
-		
-		int importedHeight =(Integer.valueOf(element.getAttribute("height")));
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
-		
-		int importedBodySize = (Integer.valueOf(element.getAttribute("bodySize")));
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
-	
-		int importedMuscle = (Integer.valueOf(element.getAttribute("muscle")));
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
-		
-		GenitalArrangement importedGenitalArrangement = GenitalArrangement.NORMAL;
-		if(element.getAttribute("genitalArrangement") != null && !element.getAttribute("genitalArrangement").isEmpty()) {
-			importedGenitalArrangement = GenitalArrangement.valueOf(element.getAttribute("genitalArrangement"));
-		}
-		
-		BodyMaterial importedBodyMaterial = BodyMaterial.FLESH;
-		if(element.getAttribute("bodyMaterial") != null && !element.getAttribute("bodyMaterial").isEmpty()) {
-			importedBodyMaterial = BodyMaterial.valueOf(element.getAttribute("bodyMaterial"));
-		}
-
-		boolean feralBody = false;
-		if(element.getAttribute("feral") != null && !element.getAttribute("feral").isEmpty()) {
-			feralBody = Boolean.valueOf(element.getAttribute("feral"));
-		}
-		
-		AbstractSubspecies importedSubspeciesOverride = null;
+	public static Body loadFromXML(Element parentElement) {
 		try {
-			if(element.getAttribute("subspeciesOverride") != null && !element.getAttribute("subspeciesOverride").isEmpty()) {
-				importedSubspeciesOverride = Subspecies.getSubspeciesFromId(element.getAttribute("subspeciesOverride"));
-			}
-		} catch(Exception ex) {	
-		}
-		
-		
-		// **************** Antenna **************** //
-		
-		Element antennae = (Element)parentElement.getElementsByTagName("antennae").item(0);
-		
-		Antenna importedAntenna = new Antenna(AntennaType.getAntennaTypeFromId(antennae.getAttribute("type")), 0);
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Antennae:"+ "<br/>type: "+importedAntenna.getType());
-		importedAntenna.setAntennaRows(null, Integer.valueOf(antennae.getAttribute("rows")));
-		if(!antennae.getAttribute("length").isEmpty()) {
-			importedAntenna.length = Integer.valueOf(antennae.getAttribute("length"));
-		}
-		if(!antennae.getAttribute("antennaePerRow").isEmpty()) {
-			importedAntenna.antennaePerRow = Integer.valueOf(antennae.getAttribute("antennaePerRow"));
-		}
-		
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>rows: "+importedAntenna.getAntennaRows());
-		
-		
-		// **************** Arm **************** //
-		
-		Element arm = (Element)parentElement.getElementsByTagName("arm").item(0);
-		
-		Arm importedArm = new Arm(ArmType.getArmTypeFromId(arm.getAttribute("type")), Integer.valueOf(arm.getAttribute("rows")));
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Arm:"+ "<br/>type: "+importedArm.getType());
-
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>rows: "+importedArm.getArmRows());
-
-		try {
-			importedArm.underarmHair = BodyHair.valueOf(arm.getAttribute("underarmHair"));
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>underarm hair: "+importedArm.getUnderarmHair());
-		} catch(IllegalArgumentException e) {
-			importedArm.underarmHair = BodyHair.ZERO_NONE;
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>underarm hair: OLD_VALUE - Set to NONE");
-		}
-		
-		// **************** Ass **************** //
-		
-		Element ass = (Element)parentElement.getElementsByTagName("ass").item(0);
-		Element anus = (Element)parentElement.getElementsByTagName("anus").item(0);
-		
-		int depth = OrificeDepth.TWO_AVERAGE.getValue();
-		String depthAttribute = anus.getAttribute("depth");
-		if(!depthAttribute.isEmpty()) {
-			depth = Integer.valueOf(depthAttribute);
-		}
-		
-		Ass importedAss = new Ass(AssType.getAssTypeFromId(ass.getAttribute("type")),
-				Integer.valueOf(ass.getAttribute("assSize")),
-				Integer.valueOf(ass.getAttribute("hipSize")),
-				Integer.valueOf(anus.getAttribute("wetness")),
-				handleCapacityLoading(Float.valueOf(anus.getAttribute("capacity"))),
-				depth,
-				Integer.valueOf(anus.getAttribute("elasticity")),
-				Integer.valueOf(anus.getAttribute("plasticity")),
-				Boolean.valueOf(anus.getAttribute("virgin")));
-
-		importedAss.anus.orificeAnus.stretchedCapacity = handleCapacityLoading(Float.valueOf(anus.getAttribute("stretchedCapacity")));
-		importedAss.anus.bleached = (Boolean.valueOf(anus.getAttribute("bleached")));
-		try {
-			importedAss.anus.assHair = (BodyHair.valueOf(anus.getAttribute("assHair")));
-		} catch(IllegalArgumentException e) {
-			importedAss.anus.assHair = BodyHair.ZERO_NONE;
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>ass hair: OLD_VALUE - Set to NONE");
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Ass:"
-				+ "<br/>type: "+importedAss.getType()
-				+ "<br/>assSize: "+importedAss.getAssSize()
-				+ "<br/>hipSize: "+importedAss.getHipSize());
-		
-		if (anus != null) {
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Anus:"
-					+ "<br/>wetness: "+importedAss.anus.orificeAnus.wetness
-					+ "<br/>depth: "+importedAss.anus.orificeAnus.depth
-					+ "<br/>elasticity: "+importedAss.anus.orificeAnus.elasticity
-					+ "<br/>elasticity: "+importedAss.anus.orificeAnus.plasticity
-					+ "<br/>capacity: "+importedAss.anus.orificeAnus.capacity
-					+ "<br/>stretchedCapacity: "+importedAss.anus.orificeAnus.stretchedCapacity
-					+ "<br/>virgin: "+importedAss.anus.orificeAnus.virgin
-					+ "<br/>bleached: "+importedAss.anus.bleached
-					+ "<br/>assHair: "+importedAss.anus.assHair
-					+"<br/>Modifiers:");
-			Element anusModifiersElement = (Element)anus.getElementsByTagName("anusModifiers").item(0);
-			Collection<OrificeModifier> anusModifiers = importedAss.anus.orificeAnus.orificeModifiers;
-			anusModifiers.clear();
-			if(anusModifiersElement!=null) {
-				if(anusModifiersElement.hasAttribute("EXTRA_DEEP")) {
-					importedAss.anus.orificeAnus.setDepth(null, depth+2);
-				}
-				handleLoadingOfModifiers(OrificeModifier.values(), log, anusModifiersElement, anusModifiers);
-			}
-		}
-		
-
-		// **************** Breasts **************** //
-		
-		Element breasts = (Element)parentElement.getElementsByTagName("breasts").item(0);
-		Element nipples = (Element)parentElement.getElementsByTagName("nipples").item(0);
-		
-		BreastShape breastShape = BreastShape.ROUND;
-		try {
-			breastShape = BreastShape.valueOf(breasts.getAttribute("shape"));
-		} catch(Exception e) {
-		}
-		
-		int milkStorage = 0;
-		try {
-			if(!breasts.getAttribute("lactation").isEmpty()) {
-				milkStorage = Integer.valueOf(breasts.getAttribute("lactation"));
-			} else {
-				milkStorage = Integer.valueOf(breasts.getAttribute("milkStorage"));
-			}
-		} catch(Exception ex) {
-		}
-
-		depth = OrificeDepth.TWO_AVERAGE.getValue();
-		depthAttribute = nipples.getAttribute("depth");
-		if(!depthAttribute.isEmpty()) {
-			depth = Integer.valueOf(depthAttribute);
-		}
-		
-		Breast importedBreast = new Breast(BreastType.getBreastTypeFromId(breasts.getAttribute("type")),
-				breastShape,
-				Integer.valueOf(breasts.getAttribute("size")),
-				milkStorage,
-				Integer.valueOf(breasts.getAttribute("rows")),
-				Integer.valueOf(nipples.getAttribute("nippleSize")),
-				NippleShape.valueOf(nipples.getAttribute("nippleShape")),
-				Integer.valueOf(nipples.getAttribute("areolaeSize")),
-				AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")),
-				Integer.valueOf(breasts.getAttribute("nippleCountPerBreast")),
-				handleCapacityLoading(Float.valueOf(nipples.getAttribute("capacity"))),
-				depth,
-				Integer.valueOf(nipples.getAttribute("elasticity")),
-				Integer.valueOf(nipples.getAttribute("plasticity")),
-				Boolean.valueOf(nipples.getAttribute("virgin")));
-
-		try {
-			importedBreast.milkStored = Float.valueOf(breasts.getAttribute("storedMilk"));
-			importedBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.9")) { // Change from percentage-based to set value:
-				importedBreast.milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
-			}
-		} catch(Exception ex) {
-		}
-		
-		importedBreast.nipples.crotchNipples = false;
-		importedBreast.nipples.orificeNipples.stretchedCapacity = handleCapacityLoading(Float.valueOf(nipples.getAttribute("stretchedCapacity")));
-		importedBreast.nipples.pierced = (Boolean.valueOf(nipples.getAttribute("pierced")));
-//		importedBreast.nipples.areolaeShape = (AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")));
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Breasts:"
-				+ "<br/>type: "+importedBreast.getType()
-				+ "<br/>size: "+importedBreast.getSize()
-				+ "<br/>rows: "+importedBreast.getRows()
-				+ "<br/>lactation: "+importedBreast.getRawMilkStorageValue()
-				+ "<br/>nippleCountPer: "+importedBreast.getNippleCountPerBreast()
-				
-				+ "<br/><br/>Nipples:"
-				+ "<br/>depth: "+importedBreast.nipples.orificeNipples.getDepth(null)
-				+ "<br/>elasticity: "+importedBreast.nipples.orificeNipples.getElasticity()
-				+ "<br/>plasticity: "+importedBreast.nipples.orificeNipples.getPlasticity()
-				+ "<br/>capacity: "+importedBreast.nipples.orificeNipples.getRawCapacityValue()
-				+ "<br/>stretchedCapacity: "+importedBreast.nipples.orificeNipples.getStretchedCapacity()
-				+ "<br/>virgin: "+importedBreast.nipples.orificeNipples.isVirgin()
-				+ "<br/>pierced: "+importedBreast.nipples.isPierced()
-				+ "<br/>nippleSize: "+importedBreast.nipples.getNippleSize()
-				+ "<br/>nippleShape: "+importedBreast.nipples.getNippleShape()
-				+ "<br/>areolaeSize: "+importedBreast.nipples.getAreolaeSize()
-				+ "<br/>areolaeShape: "+importedBreast.nipples.getAreolaeShape()
-				+"<br/>Modifiers:");
-		
-		Element nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
-		Collection<OrificeModifier> nippleOrificeModifiers = importedBreast.nipples.orificeNipples.orificeModifiers;
-		nippleOrificeModifiers.clear();
-		if(nippleModifiersElement!=null) {
-			if(nippleModifiersElement.hasAttribute("EXTRA_DEEP")) {
-				importedBreast.nipples.orificeNipples.setDepth(null, depth+2);
-			}
-			handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Milk:");
-		
-		importedBreast.milk = FluidMilk.loadFromXML("milk", parentElement, doc, importedBreast.getType().getFluidType(), false);
-		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
-			importedBreast.milk.type = importedBreast.getType().getFluidType();
-		}
-		
-		// **************** Ear **************** //
-		
-		Element ear = (Element)parentElement.getElementsByTagName("ear").item(0);
-
-		Ear importedEar = new Ear(EarType.getEarTypeFromId(ear.getAttribute("type")));
-		
-		importedEar.pierced = (Boolean.valueOf(ear.getAttribute("pierced")));
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Ear:"
-				+ "<br/>type: "+importedEar.getType()
-				+ "<br/>pierced: "+importedEar.isPierced());
-
-		
-		
-		// **************** Eye **************** //
-		
-		Element eye = (Element)parentElement.getElementsByTagName("eye").item(0);
-		
-		String eyeTypeFromSave = eye.getAttribute("type");
-		
-		Map<String, String> eyeTypeConverterMap = new HashMap<>();
-		eyeTypeConverterMap.put("EYE_HUMAN", "HUMAN");
-		eyeTypeConverterMap.put("EYE_ANGEL", "ANGEL");
-		eyeTypeConverterMap.put("EYE_DEMON_COMMON", "DEMON_COMMON");
-		eyeTypeConverterMap.put("EYE_DOG_MORPH", "DOG_MORPH");
-		eyeTypeConverterMap.put("EYE_LYCAN", "LYCAN");
-		eyeTypeConverterMap.put("EYE_FELINE", "CAT_MORPH");
-		eyeTypeConverterMap.put("EYE_SQUIRREL", "SQUIRREL_MORPH");
-		eyeTypeConverterMap.put("EYE_HORSE_MORPH", "HORSE_MORPH");
-		eyeTypeConverterMap.put("EYE_HARPY", "HARPY");
-		eyeTypeConverterMap.put("EYE_SLIME", "SLIME");
-		if(eyeTypeConverterMap.containsKey(eyeTypeFromSave)) {
-			eyeTypeFromSave = eyeTypeConverterMap.get(eyeTypeFromSave);
-		}
-		
-		Eye importedEye = new Eye(EyeType.getEyeTypeFromId(eyeTypeFromSave));
-		
-		if(Main.isVersionOlderThan(version, "0.3.9") && importedSubspeciesOverride==Subspecies.HALF_DEMON) { // Fix to taurs spawning with no demon parts at all in v0.3.8.9
-			importedEye = new Eye(EyeType.DEMON_COMMON);
-		}
-		
-		importedEye.eyePairs = (Integer.valueOf(eye.getAttribute("eyePairs")));
-		importedEye.irisShape = (EyeShape.valueOf(eye.getAttribute("irisShape")));
-		importedEye.pupilShape = (EyeShape.valueOf(eye.getAttribute("pupilShape")));
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Eye:"
-				+ "<br/>type: "+importedEye.getType()
-				+ "<br/>pairs: "+importedEye.getEyePairs()
-				+ "<br/>iris shape: "+importedEye.getIrisShape()
-				+ "<br/>pupil shape: "+importedEye.getPupilShape());
-		
-		
-		// **************** Face **************** //
-	
-		Element face = (Element)parentElement.getElementsByTagName("face").item(0);
-		Element mouth = (Element)parentElement.getElementsByTagName("mouth").item(0);
-		
-		boolean oldPantherReplacement = face.getAttribute("type").equals("CAT_MORPH_PANTHER");
-		
-		Face importedFace = new Face(FaceType.getFaceTypeFromId(face.getAttribute("type")), Integer.valueOf(mouth.getAttribute("lipSize")));
-		
-		importedFace.piercedNose = (Boolean.valueOf(face.getAttribute("piercedNose")));
-		try {
-			importedFace.facialHair = (BodyHair.valueOf(face.getAttribute("facialHair")));
-		} catch(IllegalArgumentException e) {
-			importedFace.facialHair = BodyHair.ZERO_NONE;
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>facial hair: OLD_VALUE - Set to NONE");
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Face: "
-				+ "<br/>type: "+importedFace.getType()
-				+ "<br/>piercedNose: "+importedFace.isPiercedNose()
-				+ "<br/>facial hair: "+importedFace.getFacialHair()
-				
-				+ "<br/><br/>Mouth: ");
-
-		depth = OrificeDepth.TWO_AVERAGE.getValue();
-		depthAttribute = mouth.getAttribute("depth");
-		if(!depthAttribute.isEmpty()) {
-			depth = Integer.valueOf(depthAttribute);
-		}
-		importedFace.mouth.orificeMouth.depth = depth;
-		importedFace.mouth.orificeMouth.elasticity = (Integer.valueOf(mouth.getAttribute("elasticity")));
-		importedFace.mouth.orificeMouth.plasticity = (Integer.valueOf(mouth.getAttribute("plasticity")));
-		importedFace.mouth.orificeMouth.capacity = handleCapacityLoading(Float.valueOf(mouth.getAttribute("capacity")));
-		try {
-			importedFace.mouth.orificeMouth.wetness = (Integer.valueOf(mouth.getAttribute("wetness")));
-		} catch(Exception ex) {
-		}
-		importedFace.mouth.orificeMouth.stretchedCapacity = handleCapacityLoading(Float.valueOf(mouth.getAttribute("stretchedCapacity")));
-		importedFace.mouth.orificeMouth.virgin = (Boolean.valueOf(mouth.getAttribute("virgin")));
-		importedFace.mouth.piercedLip = (Boolean.valueOf(mouth.getAttribute("piercedLip")));
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, 
-				"<br/>depth: "+importedFace.mouth.orificeMouth.getDepth(null)
-				+ "<br/>elasticity: "+importedFace.mouth.orificeMouth.getElasticity()
-				+ "<br/>plasticity: "+importedFace.mouth.orificeMouth.getPlasticity()
-				+ "<br/>capacity: "+importedFace.mouth.orificeMouth.getCapacity()
-				+ "<br/>stretchedCapacity: "+importedFace.mouth.orificeMouth.getStretchedCapacity()
-				+ "<br/>virgin: "+importedFace.mouth.orificeMouth.isVirgin()
-				+ "<br/>piercedLip: "+importedFace.mouth.isPiercedLip()
-				+ "<br/>lipSize: "+importedFace.mouth.getLipSize()
-				+ "<br/>Modifiers: ");
+			Element bodyElement = parentElement.getMandatoryFirstOf("body");
+			BodyBuilder bodyBuilder = new BodyBuilder(Arm.loadFromXML(bodyElement),
+					Ass.loadFromXML(bodyElement),
+					Breast.loadFromXML(bodyElement),
+					Face.loadFromXML(bodyElement),
+					Eye.loadFromXML(bodyElement),
+					Ear.loadFromXML(bodyElement),
+					Hair.loadFromXML(bodyElement),
+					Leg.loadFromXML(bodyElement),
+					Torso.loadFromXML(bodyElement),
+					BodyMaterial.valueOf(bodyElement.getAttribute("bodyMaterial")),
+					GenitalArrangement.valueOf(bodyElement.getAttribute("genitalArrangement")),
+					Integer.parseInt(bodyElement.getAttribute("height")),
+					Integer.parseInt(bodyElement.getAttribute("femininity")),
+					Integer.parseInt(bodyElement.getAttribute("bodySize")),
+					Integer.parseInt(bodyElement.getAttribute("muscle")));
+			bodyBuilder.antenna = Antenna.loadFromXML(bodyElement);
+			bodyBuilder.breastCrotch = BreastCrotch.loadFromXML(bodyElement);
+			bodyBuilder.horn = Horn.loadFromXML(bodyElement);
+			bodyBuilder.penis = Penis.loadFromXML(bodyElement);
+			bodyBuilder.spinneret = OrificeSpinneret.loadFromXML(bodyElement);
+			bodyBuilder.tail = Tail.loadFromXML(bodyElement);
+			bodyBuilder.tentacle = Tentacle.loadFromXML(bodyElement);
+			bodyBuilder.vagina = Vagina.loadFromXML(bodyElement);
+			bodyBuilder.wing = Wing.loadFromXML(bodyElement);
+			Body body = new Body(bodyBuilder);
 			
-		Element mouthModifiersElement = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
-		Collection<OrificeModifier> mouthOrificeModifiers = importedFace.mouth.orificeMouth.orificeModifiers;
-		mouthOrificeModifiers.clear();
-		if(mouthModifiersElement!=null) {
-			if(mouthModifiersElement.hasAttribute("EXTRA_DEEP")) {
-				importedFace.mouth.orificeMouth.setDepth(null, depth+2);
-			}
-			handleLoadingOfModifiers(OrificeModifier.values(), log, mouthModifiersElement, mouthOrificeModifiers);
-		}
-
-		Element tongue = (Element)parentElement.getElementsByTagName("tongue").item(0);
-			importedFace.tongue.pierced = (Boolean.valueOf(tongue.getAttribute("piercedTongue")));
-			importedFace.tongue.tongueLength = (Integer.valueOf(tongue.getAttribute("tongueLength")));
+			body.piercedStomach = Boolean.parseBoolean(bodyElement.getAttribute("piercedStomach"));
+			body.pubicHair = BodyHair.valueOf(bodyElement.getAttribute("pubicHair"));
+			body.feral = Boolean.parseBoolean(bodyElement.getAttribute("feral"));
+			body.takesAfterMother = Boolean.parseBoolean(bodyElement.getAttribute("takesAfterMother"));
 			
-			Main.game.getCharacterUtils().appendToImportLog(log, 
-					"<br/><br/>Tongue: "
-					+ "<br/>piercedTongue: "+importedFace.tongue.isPierced()
-					+ "<br/>tongueLength: "+importedFace.tongue.getTongueLength()
-					+ "<br/>Modifiers: ");
-			
-			Element tongueModifiersElement = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
-			Collection<TongueModifier> tongueModifiers = importedFace.tongue.tongueModifiers;
-			tongueModifiers.clear();
-			if(tongueModifiersElement!=null) {
-				handleLoadingOfModifiers(TongueModifier.values(), log, tongueModifiersElement, tongueModifiers);
+			String loadedSubspeciesOverride = bodyElement.getAttribute("subspeciesOverride");
+			if(!loadedSubspeciesOverride.isEmpty()) {
+				body.setSubspeciesOverride(Subspecies.getSubspeciesFromId(loadedSubspeciesOverride));
 			}
-			if(version.isEmpty()) { // Version tracking was added in v0.3.7, so if there is no version, it is before then. Add new default modifiers added in v0.3.7:
-				for(TongueModifier mod :importedFace.tongue.getType().getDefaultRacialTongueModifiers()) {
-					if(mod==TongueModifier.FLAT || mod==TongueModifier.WIDE || mod==TongueModifier.STRONG) {
-						importedFace.tongue.tongueModifiers.add(mod);
-					}
+			
+			for(Element coveringElement : bodyElement.getMandatoryFirstOf("coverings").getAllOf("item")) {
+				body.coverings.put(BodyCoveringType.getBodyCoveringTypeFromId(coveringElement.getValue()), Covering.loadFromXML(coveringElement));
+			}
+			
+			if(bodyElement.getOptionalFirstOf("heavyMakeup").isPresent()) {
+				for(Element heavyMakeupElement : bodyElement.getMandatoryFirstOf("heavyMakeup").getAllOf("type")) {
+					body.heavyMakeup.add(BodyCoveringType.getBodyCoveringTypeFromId(heavyMakeupElement.getValue()));
 				}
 			}
 			
+			body.calculateRace(null);
 			
-		// **************** Hair **************** //
-		
-		Element hair = (Element)parentElement.getElementsByTagName("hair").item(0);
-		String hairTypeFromSave = hair.getAttribute("type");
-		
-		Map<String, String> hairTypeConverterMap = new HashMap<>();
-		hairTypeConverterMap.put("HAIR_HUMAN", "HUMAN");
-		hairTypeConverterMap.put("HAIR_ANGEL", "ANGEL");
-		hairTypeConverterMap.put("HAIR_DEMON", "DEMON_COMMON");
-		hairTypeConverterMap.put("HAIR_CANINE_FUR", "DOG_MORPH");
-		hairTypeConverterMap.put("HAIR_LYCAN_FUR", "LYCAN");
-		hairTypeConverterMap.put("HAIR_FELINE_FUR", "CAT_MORPH");
-		hairTypeConverterMap.put("HAIR_HORSE_HAIR", "HORSE_MORPH");
-		hairTypeConverterMap.put("HAIR_SQUIRREL_FUR", "SQUIRREL_MORPH");
-		hairTypeConverterMap.put("SLIME", "SLIME");
-		hairTypeConverterMap.put("HAIR_HARPY", "HARPY");
-		if(hairTypeConverterMap.containsKey(hairTypeFromSave)) {
-			hairTypeFromSave = hairTypeConverterMap.get(hairTypeFromSave);
+			return body;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
 		}
-		
-		Hair importedHair = new Hair(HairType.getHairTypeFromId(hairTypeFromSave), Integer.valueOf(hair.getAttribute("length")), HairStyle.valueOf(hair.getAttribute("hairStyle")));
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Hair: "
-				+ "<br/>type: "+importedHair.getType()
-				+ "<br/>length: "+importedHair.getLength()
-				+ "<br/>hairStyle: "+importedHair.getStyle());
-
-		
-		// **************** Horn **************** //
-		Element horn = (Element)parentElement.getElementsByTagName("horn").item(0);
-		
-		Horn importedHorn = new Horn(HornType.NONE, 0);
-		int rows = (Integer.valueOf(horn.getAttribute("rows")));
-		
-		String hornType = horn.getAttribute("type");
-		if(hornType.equals("DEMON")) {
-			hornType = "";
-		}
-		if(hornType.equals("BOVINE")) {
-			hornType = "";
-		}
-		int length = 0;
-		if(!hornType.equals("NONE")) {
-			length = HornLength.TWO_LONG.getMedianValue();
-		}
-		if(!horn.getAttribute("length").isEmpty()) {
-			try {
-				length = Integer.valueOf(horn.getAttribute("length"));
-			} catch(IllegalArgumentException e) {
-			}
-		}
-		int hornsPerRow = 2;
-		if(!horn.getAttribute("hornsPerRow").isEmpty()) {
-			try {
-				hornsPerRow = Integer.valueOf(horn.getAttribute("hornsPerRow"));
-			} catch(IllegalArgumentException e) {
-			}
-		}
-		try {
-			importedHorn = new Horn(HornType.getHornTypeFromId(hornType), length);
-			importedHorn.rows = rows;
-			importedHorn.hornsPerRow = hornsPerRow;
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Horn: "
-					+ "<br/>type: "+importedHorn.getType()
-					+ "<br/>length: "+length
-					+ "<br/>rows: "+importedHorn.getHornRows()
-					+ "<br/>horns per row: "+importedHorn.getHornsPerRow());
-			
-		} catch(IllegalArgumentException e) {
-			if(horn.getAttribute("type").startsWith("DEMON")) {
-				importedHorn = new Horn(HornType.SWEPT_BACK, length);
-				importedHorn.rows = rows;
-				
-			} else if(horn.getAttribute("type").startsWith("BOVINE")) {
-				importedHorn = new Horn(HornType.CURVED, length);
-				importedHorn.rows = rows;
-			}
-			
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Horn: "
-					+ "<br/>type NOT FOUND, defaulted to: "+importedHorn.getType()
-					+ "<br/>rows: "+importedHorn.getHornRows());
-		}
-		
-		
-			
-		// **************** Leg **************** //
-		
-		Element leg = (Element)parentElement.getElementsByTagName("leg").item(0);
-
-		AbstractLegType legType = LegType.getLegTypeFromId(leg.getAttribute("type"));
-		
-		LegConfiguration configuration = LegConfiguration.BIPEDAL;
-		try {
-			configuration = LegConfiguration.getValueFromString(leg.getAttribute("configuration"));
-		} catch(Exception ex) {}
-		
-		FootStructure footStructure = legType.getDefaultFootStructure(configuration);
-		try {
-			footStructure = FootStructure.valueOf(leg.getAttribute("footStructure"));
-		} catch(Exception ex) {}
-		
-		Leg importedLeg = new Leg(legType, configuration);
-		importedLeg.setFootStructure(null, footStructure);
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Leg: "
-				+ "<br/>type: "+importedLeg.getType());
-
-		
-		// **************** Penis **************** //
-		
-		Element penis = (Element)parentElement.getElementsByTagName("penis").item(0);
-		Element testicles = (Element)parentElement.getElementsByTagName("testicles").item(0);
-		
-		int girth = 2;
-		if(penis.getAttribute("girth") != null && !penis.getAttribute("girth").isEmpty()) {
-			girth = Integer.valueOf(penis.getAttribute("girth"));
-			if(Main.isVersionOlderThan(version, "0.3.7.6")) {// An extra level was added in 0.3.7.6, so +1 if the version is older than that
-				girth+=1;
-			}
-		}
-		
-		int cumStorage = 0;
-		try {
-			if(testicles.hasAttribute("cumProduction")) {
-				cumStorage = Integer.valueOf(testicles.getAttribute("cumProduction"));
-			} else {
-				cumStorage = Integer.valueOf(testicles.getAttribute("cumStorage"));
-			}
-		} catch(Exception ex) {
-		}
-		
-		Penis importedPenis = new Penis(PenisType.getPenisTypeFromId(penis.getAttribute("type")),
-				Integer.valueOf(penis.getAttribute("size")),
-				false,
-				girth,
-				Integer.valueOf(testicles.getAttribute("testicleSize")),
-				cumStorage,
-				Integer.valueOf(testicles.getAttribute("numberOfTesticles")));
-		
-		importedPenis.pierced = (Boolean.valueOf(penis.getAttribute("pierced")));
-		
-		if(!penis.getAttribute("virgin").isEmpty()) {
-			importedPenis.virgin = (Boolean.valueOf(penis.getAttribute("virgin")));
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Penis: "
-				+ "<br/>type: "+importedPenis.getType()
-				+ "<br/>size: "+importedPenis.getRawLengthValue()
-				+ "<br/>pierced: "+importedPenis.isPierced()
-				+ "<br/>Penis Modifiers: ");
-		
-		Collection<PenetrationModifier> penisModifiers = importedPenis.penisModifiers;
-		penisModifiers.clear();
-		Element penisModifiersElement = (Element)penis.getElementsByTagName("penisModifiers").item(0);
-		if (penisModifiersElement != null) {
-			handleLoadingOfModifiers(PenetrationModifier.values(), log, penisModifiersElement, penisModifiers);
-		}
-
-		depth = OrificeDepth.TWO_AVERAGE.getValue();
-		depthAttribute = penis.getAttribute("depth");
-		if(!depthAttribute.isEmpty()) {
-			depth = Integer.valueOf(depthAttribute);
-		}
-		importedPenis.orificeUrethra.depth = depth;
-		importedPenis.orificeUrethra.elasticity = (Integer.valueOf(penis.getAttribute("elasticity")));
-		importedPenis.orificeUrethra.plasticity = (Integer.valueOf(penis.getAttribute("plasticity")));
-		importedPenis.orificeUrethra.capacity = handleCapacityLoading(Float.valueOf(penis.getAttribute("capacity")));
-		importedPenis.orificeUrethra.stretchedCapacity = handleCapacityLoading(Float.valueOf(penis.getAttribute("stretchedCapacity")));
-		if(!penis.getAttribute("urethraVirgin").isEmpty()) {
-			importedPenis.orificeUrethra.virgin = (Boolean.valueOf(penis.getAttribute("urethraVirgin")));
-		} else {
-			importedPenis.orificeUrethra.virgin = true;
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, 
-				"<br/>depth: "+importedPenis.orificeUrethra.getDepth(null)
-				+ "<br/>elasticity: "+importedPenis.orificeUrethra.getElasticity()
-				+ "<br/>plasticity: "+importedPenis.orificeUrethra.getPlasticity()
-				+ "<br/>capacity: "+importedPenis.orificeUrethra.getCapacity()
-				+ "<br/>stretchedCapacity: "+importedPenis.orificeUrethra.getStretchedCapacity()
-				+ "<br/>virgin: "+importedPenis.orificeUrethra.isVirgin()
-				+ "<br/>Urethra Modifiers:");
-		
-		Element urethraModifiersElement = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
-		Collection<OrificeModifier> urethraOrificeModifiers = importedPenis.orificeUrethra.orificeModifiers;
-		urethraOrificeModifiers.clear();
-		if (urethraModifiersElement != null) {
-			if(urethraModifiersElement.hasAttribute("EXTRA_DEEP")) {
-				importedPenis.orificeUrethra.setDepth(null, depth+2);
-			}
-			handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, urethraOrificeModifiers);
-		}
-		
-		importedPenis.testicle.internal = (Boolean.valueOf(testicles.getAttribute("internal")));
-		
-		try {
-			importedPenis.testicle.cumStored = Float.valueOf(testicles.getAttribute("storedCum"));
-			importedPenis.testicle.cumRegeneration = Integer.valueOf(testicles.getAttribute("cumRegeneration"));
-			importedPenis.testicle.setCumExpulsion(null, Integer.valueOf(testicles.getAttribute("cumExpulsion")));
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.9")) { // Change from percentage-based to set value:
-				importedPenis.testicle.cumRegeneration = FluidRegeneration.CUM_REGEN_DEFAULT;
-			}
-		} catch(Exception ex) {
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Testicles: "
-				+ "<br/>cumProduction: "+importedPenis.testicle.getCumStorage()
-				+ "<br/>numberOfTesticles: "+importedPenis.testicle.getTesticleCount()
-				+ "<br/>testicleSize: "+importedPenis.testicle.getTesticleSize()
-				+ "<br/>internal: "+importedPenis.testicle.internal);
-		
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Cum:");
-		
-		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc, importedPenis.getType().getTesticleType().getFluidType());
-
-		
-		// **************** Skin **************** //
-		
-		Element torso;
-		if(parentElement.getElementsByTagName("skin").getLength()>0) {
-			torso = (Element)parentElement.getElementsByTagName("skin").item(0);
-		} else {
-			torso = (Element)parentElement.getElementsByTagName("torso").item(0);
-		}
-		String torsoTypeFromSave = torso.getAttribute("type");
-		
-		Torso importedTorso = new Torso(TorsoType.getTorsoTypeFromId(torsoTypeFromSave));
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Torso: "
-				+ "<br/>type: "+importedTorso.getType());
-
-
-		// **************** Spinneret **************** //
-		
-		Element spinneret = (Element)parentElement.getElementsByTagName("spinneret").item(0);
-
-		OrificeSpinneret importedSpinneret = new OrificeSpinneret();
-		
-		if(spinneret!=null) {
-			importedSpinneret.wetness = Integer.valueOf(spinneret.getAttribute("wetness"));
-			importedSpinneret.capacity = handleCapacityLoading(Float.valueOf(spinneret.getAttribute("capacity")));
-			depth = OrificeDepth.TWO_AVERAGE.getValue();
-			depthAttribute = spinneret.getAttribute("depth");
-			if(!depthAttribute.isEmpty()) {
-				depth = Integer.valueOf(depthAttribute);
-			}
-			importedSpinneret.depth = depth;
-			importedSpinneret.elasticity = Integer.valueOf(spinneret.getAttribute("elasticity"));
-			importedSpinneret.plasticity = Integer.valueOf(spinneret.getAttribute("plasticity"));
-			importedSpinneret.virgin = Boolean.valueOf(spinneret.getAttribute("virgin"));
-			
-			importedSpinneret.stretchedCapacity = handleCapacityLoading(Float.valueOf(spinneret.getAttribute("stretchedCapacity")));
-			
-			Element spinneretModifiers = (Element)spinneret.getElementsByTagName("spinneretModifiers").item(0);
-			Collection<OrificeModifier> spinneretOrificeModifiers = importedSpinneret.orificeModifiers;
-			spinneretOrificeModifiers.clear();
-			if(spinneretModifiers!=null) {
-				handleLoadingOfModifiers(OrificeModifier.values(), log, spinneretModifiers, spinneretOrificeModifiers);
-			}
-		}
-		
-		// **************** Tail **************** //
-		
-		Element tail = (Element)parentElement.getElementsByTagName("tail").item(0);
-		AbstractTailType tailType = TailType.getTailTypeFromId(tail.getAttribute("type"));
-		
-		Tail importedTail = new Tail(tailType);
-		
-		importedTail.tailCount = (Integer.valueOf(tail.getAttribute("count")));
-		
-		if(tail.getAttribute("girth") != null && !tail.getAttribute("girth").isEmpty()) {
-			int tailGirth = Integer.valueOf(tail.getAttribute("girth"));
-			if(Main.isVersionOlderThan(version, "0.3.7.6")) {// An extra level was added in 0.3.7.6, so +1 if the version is older than that
-				tailGirth+=1;
-			}
-			importedTail.girth = tailGirth;
-		}
-		
-		if(Main.isVersionOlderThan(version, "0.3.10")) {
-			importedTail.lengthAsPercentageOfHeight = tailType.getDefaultLengthAsPercentageOfHeight();
-			
-		} else {
-			if(tail.getAttribute("length") != null && !tail.getAttribute("length").isEmpty()) {
-				float tailLength = Float.valueOf(tail.getAttribute("length"));
-				importedTail.lengthAsPercentageOfHeight = tailLength;
-			}
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Tail: "
-				+ "<br/>type: "+importedTail.getType()
-				+ "<br/>count: "+importedTail.getTailCount());
-
-		
-		// **************** Tentacle **************** //
-
-		Tentacle importedTentacle = new Tentacle(TentacleType.NONE);	
-		
-		Element tentacle = (Element)parentElement.getElementsByTagName("tentacle").item(0);
-		if(tentacle!=null) {
-			AbstractTentacleType tentacleType = TentacleType.getTentacleTypeFromId(tentacle.getAttribute("type"));
-	
-			importedTentacle = new Tentacle(tentacleType);
-			
-			importedTentacle.tentacleCount = (Integer.valueOf(tentacle.getAttribute("count")));
-			
-			if(tentacle.getAttribute("girth") != null && !tentacle.getAttribute("girth").isEmpty()) {
-				int tentacleGirth = Integer.valueOf(tentacle.getAttribute("girth"));
-				importedTentacle.girth = tentacleGirth;
-			}
-			
-			if(tentacle.getAttribute("length")!=null && !tentacle.getAttribute("length").isEmpty()) {
-				float tentacleLength = Float.valueOf(tentacle.getAttribute("length"));
-				importedTentacle.lengthAsPercentageOfHeight = tentacleLength;
-			} else {
-				importedTentacle.lengthAsPercentageOfHeight = tentacleType.getDefaultLengthAsPercentageOfHeight();
-			}
-			
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Tentacle: "
-					+ "<br/>type: "+importedTentacle.getType()
-					+ "<br/>count: "+importedTentacle.getTentacleCount());
-		}
-		
-		
-		// **************** Vagina **************** //
-		
-		Element vagina = (Element)parentElement.getElementsByTagName("vagina").item(0);
-
-		depth = OrificeDepth.TWO_AVERAGE.getValue();
-		depthAttribute = vagina.getAttribute("depth");
-		if(!depthAttribute.isEmpty()) {
-			depth = Integer.valueOf(depthAttribute);
-		}
-		
-		Vagina importedVagina = new Vagina(VaginaType.getVaginaTypeFromId(vagina.getAttribute("type")),
-				(vagina.getAttribute("labiaSize").isEmpty()?1:Integer.valueOf(vagina.getAttribute("labiaSize"))),
-				Integer.valueOf(vagina.getAttribute("clitSize")),
-				vagina.hasAttribute("clitGirth")?Integer.valueOf(vagina.getAttribute("clitGirth")):PenetrationGirth.THREE_AVERAGE.getValue(),
-				Integer.valueOf(vagina.getAttribute("wetness")),
-				handleCapacityLoading(Float.valueOf(vagina.getAttribute("capacity"))),
-				depth,
-				Integer.valueOf(vagina.getAttribute("elasticity")),
-				Integer.valueOf(vagina.getAttribute("plasticity")),
-				Boolean.valueOf(vagina.getAttribute("virgin")));
-		
-		try {
-//			importedVagina.clitoris.girth = Integer.valueOf(vagina.getAttribute("clitGirth"));
-			
-			Collection<PenetrationModifier> clitModifiers = importedVagina.clitoris.clitModifiers;
-			clitModifiers.clear();
-			Element clitModifiersElement = (Element)vagina.getElementsByTagName("clitModifiers").item(0);
-			if (clitModifiersElement != null) {
-				handleLoadingOfModifiers(PenetrationModifier.values(), log, clitModifiersElement, clitModifiers);
-			}
-			
-		} catch(Exception ex) {
-		}
-		
-		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
-		
-		if(vagina.hasAttribute("eggLayer")) {
-			importedVagina.eggLayer = (Boolean.valueOf(vagina.getAttribute("eggLayer")));
-		} else if(vagina.getAttribute("type").equals("DEMON_EGGS") || vagina.getAttribute("type").equals("NoStepOnSnek_snake_vagina_e")){ // Removed egg-laying vagina variants in 0.4
-			importedVagina.eggLayer = true;
-		}
-		
-		importedVagina.orificeVagina.stretchedCapacity = handleCapacityLoading(Float.valueOf(vagina.getAttribute("stretchedCapacity")));
-		try {
-			importedVagina.orificeVagina.squirter = (Boolean.valueOf(vagina.getAttribute("squirter")));
-		} catch(Exception ex) {
-		}
-		if(Main.isVersionOlderThan(version, "0.3.6.9")) {
-			importedVagina.orificeVagina.hymen = importedVagina.getOrificeVagina().isVirgin();
-			
-		} else {
-			importedVagina.orificeVagina.hymen = Boolean.valueOf(vagina.getAttribute("hymen"));
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Vagina: "
-				+ "<br/>type: "+importedVagina.getType()
-				+ "<br/>clitSize: "+importedVagina.clitoris.getClitorisSize()
-				+ "<br/>pierced: "+importedVagina.isPierced()
-
-				+ "<br/>wetness: "+importedVagina.orificeVagina.wetness
-				+ "<br/>depth: "+importedVagina.orificeVagina.getDepth(null)
-				+ "<br/>elasticity: "+importedVagina.orificeVagina.getElasticity()
-				+ "<br/>plasticity: "+importedVagina.orificeVagina.getPlasticity()
-				+ "<br/>capacity: "+importedVagina.orificeVagina.getCapacity()
-				+ "<br/>stretchedCapacity: "+importedVagina.orificeVagina.getStretchedCapacity()
-				+ "<br/>virgin: "+importedVagina.orificeVagina.isVirgin());
-		
-		Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
-		Collection<OrificeModifier> vaginaOrificeModifiers = importedVagina.orificeVagina.orificeModifiers;
-		vaginaOrificeModifiers.clear();
-		if(vaginaModifiers!=null) {
-			if(vaginaModifiers.hasAttribute("EXTRA_DEEP")) {
-				importedVagina.orificeVagina.setDepth(null, depth+2);
-			}
-			handleLoadingOfModifiers(OrificeModifier.values(), log, vaginaModifiers, vaginaOrificeModifiers);
-		}
-		
-		try {
-			depth = OrificeDepth.TWO_AVERAGE.getValue();
-			depthAttribute = vagina.getAttribute("urethraDepth");
-			if(!depthAttribute.isEmpty()) {
-				depth = Integer.valueOf(depthAttribute);
-			}
-			importedVagina.orificeUrethra.depth = depth;
-			importedVagina.orificeUrethra.elasticity = (Integer.valueOf(vagina.getAttribute("urethraElasticity")));
-			importedVagina.orificeUrethra.plasticity = (Integer.valueOf(vagina.getAttribute("urethraPlasticity")));
-			importedVagina.orificeUrethra.capacity = handleCapacityLoading(Float.valueOf(vagina.getAttribute("urethraCapacity")));
-			importedVagina.orificeUrethra.stretchedCapacity = handleCapacityLoading(Float.valueOf(vagina.getAttribute("urethraStretchedCapacity")));
-			if(!vagina.getAttribute("urethraVirgin").isEmpty()) {
-				importedVagina.orificeUrethra.virgin = (Boolean.valueOf(vagina.getAttribute("urethraVirgin")));
-			} else {
-				importedVagina.orificeUrethra.virgin = true;
-			}
-			
-			urethraModifiersElement = (Element)vagina.getElementsByTagName("urethraModifiers").item(0);
-			Collection<OrificeModifier> vaginaUrethraOrificeModifiers = importedVagina.orificeUrethra.orificeModifiers;
-			vaginaUrethraOrificeModifiers.clear();
-			if (urethraModifiersElement != null) {
-				if(urethraModifiersElement.hasAttribute("EXTRA_DEEP")) {
-					importedVagina.orificeUrethra.setDepth(null, depth+2);
-				}
-				handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, vaginaUrethraOrificeModifiers);
-			}
-		} catch(Exception ex) {
-		}
-		
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Girlcum:");
-		
-		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc, importedVagina.getType().getFluidType());
-		
-		// **************** Wing **************** //
-		
-		Element wing = (Element)parentElement.getElementsByTagName("wing").item(0);
-		int wingSize = 0;
-		if(!wing.getAttribute("size").isEmpty()) {
-			wingSize = Integer.valueOf(wing.getAttribute("size"));
-		}
-		Wing importedWing = new Wing(WingType.getWingTypeFromId(wing.getAttribute("type")), wingSize);
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Wing: "
-				+ "<br/>type: "+importedWing.getType()+"<br/>"
-				+ "<br/>size: "+importedWing.getSizeValue()+"<br/>");
-
-
-		// ************** Version Overrides **************//
-
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.5.1")) {
-			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
-			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
-			importedBreast.milk.type = importedBreast.getType().getFluidType();
-		}
-
-
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.8")) {
-			// Convert all sizes from inch to cm
-			importedHair.length *= 2.54;
-			importedHorn.length *= 2.54;
-			importedFace.tongue.tongueLength *= 2.54;
-			importedPenis.length *= 2.54;
-			importedVagina.clitoris.clitSize *= 2.54;
-
-			// Convert all capacities from inch to cm
-			importedFace.mouth.orificeMouth.capacity *= 2.54;
-			importedFace.mouth.orificeMouth.stretchedCapacity *= 2.54;
-			importedPenis.orificeUrethra.capacity *= 2.54;
-			importedPenis.orificeUrethra.stretchedCapacity *= 2.54;
-			importedVagina.orificeVagina.capacity *= 2.54;
-			importedVagina.orificeVagina.stretchedCapacity *= 2.54;
-			importedVagina.orificeUrethra.capacity *= 2.54;
-			importedVagina.orificeUrethra.stretchedCapacity *= 2.54;
-			importedAss.anus.orificeAnus.capacity *= 2.54;
-			importedAss.anus.orificeAnus.stretchedCapacity *= 2.54;
-			importedBreast.nipples.orificeNipples.capacity *= 2.54;
-			importedBreast.nipples.orificeNipples.stretchedCapacity *= 2.54;
-		}
-		
-		if(oldPantherReplacement) {
-			if(importedArm.getType().getRace()==Race.CAT_MORPH) {
-				importedArm.setType(null, ArmType.getArmTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedAss.getType().getRace()==Race.CAT_MORPH) {
-				importedAss.setType(null, AssType.getAssTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedBreast.getType().getRace()==Race.CAT_MORPH) {
-				importedBreast.setType(null, BreastType.getBreastTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedFace.getType().getRace()==Race.CAT_MORPH) {
-				importedFace.setType(null, FaceType.getFaceTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedEye.getType().getRace()==Race.CAT_MORPH) {
-				importedEye.setType(null, EyeType.getEyeTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedEar.getType().getRace()==Race.CAT_MORPH) {
-				importedEar.setType(null, EarType.getEarTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedHair.getType().getRace()==Race.CAT_MORPH) {
-				importedHair.setType(null, HairType.getHairTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedLeg.getType().getRace()==Race.CAT_MORPH) {
-				importedLeg.setType(null, LegType.getLegTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedTorso.getType().getRace()==Race.CAT_MORPH) {
-				importedTorso.setType(null, TorsoType.getTorsoTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			
-			if(importedVagina.getType().getRace()==Race.CAT_MORPH) {
-				importedVagina.setType(null, VaginaType.getVaginaTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedPenis.getType().getRace()==Race.CAT_MORPH) {
-				importedPenis.setType(null, PenisType.getPenisTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-			if(importedTail.getType().getRace()==Race.CAT_MORPH) {
-				importedTail.setType(null, TailType.getTailTypes(Race.getRaceFromId("innoxia_panther")).get(0));
-			}
-		}
-		
-		Body body = new Body.BodyBuilder(
-				importedArm,
-				importedAss,
-				importedBreast,
-				importedFace,
-				importedEye,
-				importedEar,
-				importedHair,
-				importedLeg,
-				importedTorso,
-				importedBodyMaterial,
-				importedGenitalArrangement,
-				importedHeight,
-				importedFemininity,
-				importedBodySize,
-				importedMuscle)
-						.vagina(importedVagina)
-						.penis(importedPenis)
-						.horn(importedHorn)
-						.antenna(importedAntenna)
-						.tail(importedTail)
-						.wing(importedWing)
-						.spinneret(importedSpinneret)
-						.tentacle(importedTentacle)
-						.build();
-
-
-		// **************** Crotch Breasts **************** //
-
-		breasts = (Element)parentElement.getElementsByTagName("breastsCrotch").item(0);
-		nipples = (Element)parentElement.getElementsByTagName("nipplesCrotch").item(0);
-		BreastCrotch importedCrotchBreast = null;
-
-		if(breasts!=null) {
-			breastShape = BreastShape.ROUND;
-			try {
-				breastShape = BreastShape.valueOf(breasts.getAttribute("shape"));
-			} catch(Exception e) {
-			}
-
-			milkStorage = 0;
-			try {
-				if(!breasts.getAttribute("lactation").isEmpty()) {
-					milkStorage = Integer.valueOf(breasts.getAttribute("lactation"));
-				} else {
-					milkStorage = Integer.valueOf(breasts.getAttribute("milkStorage"));
-				}
-			} catch(Exception ex) {
-			}
-
-			AbstractBreastType crotchBoobType = BreastType.getBreastTypeFromId(breasts.getAttribute("type"));
-			if(oldPantherReplacement) {
-				if(crotchBoobType.getRace()==Race.CAT_MORPH) {
-					crotchBoobType = BreastType.getBreastTypes(Race.getRaceFromId("innoxia_panther")).get(0);
-				}
-			}
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6") && importedLeg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) { // Reset crotch-boob type as I accidentally applied crotch-boobs to demons
-				if(body.isFeminine()) {
-					crotchBoobType = RacialBody.valueOfRace(body.getRace()).getBreastCrotchType();
-				} else {
-					crotchBoobType = BreastType.NONE;
-				}
-			}
-			
-			depth = OrificeDepth.TWO_AVERAGE.getValue();
-			depthAttribute = nipples.getAttribute("depth");
-			if(!depthAttribute.isEmpty()) {
-				depth = Integer.valueOf(depthAttribute);
-			}
-			
-			importedCrotchBreast = new BreastCrotch(crotchBoobType,
-					breastShape,
-					Integer.valueOf(breasts.getAttribute("size")),
-					milkStorage,
-					Integer.valueOf(breasts.getAttribute("rows")),
-					Integer.valueOf(nipples.getAttribute("nippleSize")),
-					NippleShape.valueOf(nipples.getAttribute("nippleShape")),
-					Integer.valueOf(nipples.getAttribute("areolaeSize")),
-					AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")),
-					Integer.valueOf(breasts.getAttribute("nippleCountPerBreast")),
-					Float.valueOf(nipples.getAttribute("capacity")),
-					depth,
-					Integer.valueOf(nipples.getAttribute("elasticity")),
-					Integer.valueOf(nipples.getAttribute("plasticity")),
-					Boolean.valueOf(nipples.getAttribute("virgin")));
-
-			try {
-				importedCrotchBreast.milkStored = Float.valueOf(breasts.getAttribute("storedMilk"));
-				importedCrotchBreast.milkRegeneration = Integer.valueOf(breasts.getAttribute("milkRegeneration"));
-				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2")) { // Change from percentage-based to set value:
-					importedCrotchBreast.milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
-				}
-			} catch(Exception ex) {
-			}
-
-			importedCrotchBreast.nipples.crotchNipples = true;
-			importedCrotchBreast.nipples.orificeNipples.stretchedCapacity = (Float.valueOf(nipples.getAttribute("stretchedCapacity")));
-			importedCrotchBreast.nipples.pierced = (Boolean.valueOf(nipples.getAttribute("pierced")));
-//			importedCrotchBreast.nipples.areolaeShape = (AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")));
-
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Crotch Breasts:"
-					+ "<br/>type: "+importedCrotchBreast.getType()
-					+ "<br/>size: "+importedCrotchBreast.getSize()
-					+ "<br/>rows: "+importedCrotchBreast.getRows()
-					+ "<br/>lactation: "+importedCrotchBreast.getRawMilkStorageValue()
-					+ "<br/>nippleCountPer: "+importedCrotchBreast.getNippleCountPerBreast()
-
-					+ "<br/><br/>Nipples:"
-					+ "<br/>depth: "+importedCrotchBreast.nipples.orificeNipples.getDepth(null)
-					+ "<br/>elasticity: "+importedCrotchBreast.nipples.orificeNipples.getElasticity()
-					+ "<br/>plasticity: "+importedCrotchBreast.nipples.orificeNipples.getPlasticity()
-					+ "<br/>capacity: "+importedCrotchBreast.nipples.orificeNipples.getRawCapacityValue()
-					+ "<br/>stretchedCapacity: "+importedCrotchBreast.nipples.orificeNipples.getStretchedCapacity()
-					+ "<br/>virgin: "+importedCrotchBreast.nipples.orificeNipples.isVirgin()
-					+ "<br/>pierced: "+importedCrotchBreast.nipples.isPierced()
-					+ "<br/>nippleSize: "+importedCrotchBreast.nipples.getNippleSize()
-					+ "<br/>nippleShape: "+importedCrotchBreast.nipples.getNippleShape()
-					+ "<br/>areolaeSize: "+importedCrotchBreast.nipples.getAreolaeSize()
-					+ "<br/>areolaeShape: "+importedCrotchBreast.nipples.getAreolaeShape()
-					+"<br/>Modifiers:");
-
-			nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
-			nippleOrificeModifiers = importedCrotchBreast.nipples.orificeNipples.orificeModifiers;
-			nippleOrificeModifiers.clear();
-			if (nippleModifiersElement != null) {
-				if(nippleModifiersElement.hasAttribute("EXTRA_DEEP")) {
-					importedCrotchBreast.nipples.orificeNipples.setDepth(null, depth+2);
-				}
-				handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
-			}
-
-			Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Milk:");
-
-			if(parentElement.getElementsByTagName("milkCrotch").item(0)==null) {
-				importedCrotchBreast.milk = FluidMilk.loadFromXML("milk", parentElement, doc, importedCrotchBreast.getType().getFluidType(), true);
-			} else {
-				importedCrotchBreast.milk = FluidMilk.loadFromXML("milkCrotch", parentElement, doc, importedCrotchBreast.getType().getFluidType(), true);
-			}
-			if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
-				importedCrotchBreast.milk.type = importedCrotchBreast.getType().getFluidType();
-			}
-		}
-
-
-		if(importedCrotchBreast!=null) {
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.8")) {
-				importedCrotchBreast.nipples.orificeNipples.capacity *= 2.54;
-				importedCrotchBreast.nipples.orificeNipples.stretchedCapacity *= 2.54;
-			}
-
-			body.setBreastCrotch(importedCrotchBreast);
-		}
-		
-		body.setSubspeciesOverride(importedSubspeciesOverride);
-		
-		body.setPiercedStomach(Boolean.valueOf(element.getAttribute("piercedStomach")));
-		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
-		
-		try {
-			if(element.getAttribute("takesAfterMother") != null && !element.getAttribute("takesAfterMother").isEmpty()) {
-				body.setTakesAfterMother(Boolean.valueOf(element.getAttribute("takesAfterMother")));
-			}
-		} catch(Exception ex) {	
-		}
-		
-		if(element.getAttribute("pubicHair")!=null && !element.getAttribute("pubicHair").isEmpty()) {
-			try {
-				body.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
-				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set pubicHair: "+body.getPubicHair());
-			} catch(IllegalArgumentException e) {
-				body.pubicHair = BodyHair.ZERO_NONE;
-				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>pubic hair: OLD_VALUE - Set to NONE");
-			}
-		}
-		
-		
-		NodeList bodyCoverings = element.getElementsByTagName("bodyCovering");
-		for(int i = 0; i < bodyCoverings.getLength(); i++){
-			Element e = ((Element)bodyCoverings.item(i));
-
-			String type = e.getAttribute("type");
-			if(type.equals("HORN_COW") || type.equals("HORN_DEMON")) {
-				type = "HORN";
-			}
-			try {
-				String colourPrimary = e.getAttribute("colourPrimary");
-				if(colourPrimary.isEmpty()) {
-					colourPrimary = e.getAttribute("c1");
-				}
-				String colourSecondary = e.getAttribute("colourSecondary");
-				if(colourSecondary.isEmpty()) {
-					colourSecondary = e.getAttribute("c2");
-				}
-				
-				if(type.startsWith("HAIR_")) {
-					if(colourPrimary.equals("COVERING_TAN")) {
-						colourPrimary = "COVERING_DIRTY_BLONDE";
-					}
-					if(colourSecondary.equals("COVERING_TAN")) {
-						colourSecondary = "COVERING_DIRTY_BLONDE";
-					}
-				}
-
-				if(type.startsWith("EYE_")) {
-					if(colourPrimary.equals("COVERING_BLUE")) {
-						colourPrimary = "COVERING_BLUE_LIGHT";
-					}
-					if(colourSecondary.equals("COVERING_BLUE")) {
-						colourSecondary = "COVERING_BLUE_LIGHT";
-					}
-				}
-
-				AbstractBodyCoveringType coveringType = BodyCoveringType.getBodyCoveringTypeFromId(type);
-				CoveringPattern loadedPattern = CoveringPattern.valueOf(e.getAttribute("pattern"));
-				if(!coveringType.getAllPatterns().containsKey(loadedPattern)) {
-					loadedPattern = Util.getRandomObjectFromWeightedMap(coveringType.getNaturalPatterns());
-				}
-				if(e.getAttribute("modifier").isEmpty()) {
-					body.setBodyCoveringForXMLImport(coveringType,
-							loadedPattern,
-							PresetColour.getColourFromId(colourPrimary),
-							!e.getAttribute("g1").isEmpty()?Boolean.valueOf(e.getAttribute("g1")):false,
-							PresetColour.getColourFromId(colourSecondary),
-							!e.getAttribute("g2").isEmpty()?Boolean.valueOf(e.getAttribute("g2")):false);
-					
-				} else { //TODO
-					CoveringModifier modifier = CoveringModifier.valueOf(e.getAttribute("modifier"));
-					
-					body.setBodyCoveringForXMLImport(coveringType,
-							loadedPattern,
-							coveringType.getNaturalModifiers().contains(modifier) || coveringType.getExtraModifiers().contains(modifier) ? modifier : coveringType.getNaturalModifiers().get(0),
-							PresetColour.getColourFromId(colourPrimary),
-							!e.getAttribute("g1").isEmpty()?Boolean.valueOf(e.getAttribute("g1")):false,
-							PresetColour.getColourFromId(colourSecondary),
-							!e.getAttribute("g2").isEmpty()?Boolean.valueOf(e.getAttribute("g2")):false);
-				}
-				
-				if(oldPantherReplacement && coveringType==BodyCoveringType.FELINE_FUR) {
-					Covering felineCovering = body.getCovering(coveringType, false);
-					body.setBodyCoveringForXMLImport(BodyCoveringType.getBodyCoveringTypeFromId("innoxia_panther_fur"),
-							felineCovering.getPattern(),
-							felineCovering.getModifier(),
-							felineCovering.getPrimaryColour(),
-							felineCovering.isPrimaryGlowing(),
-							felineCovering.getSecondaryColour(),
-							felineCovering.isSecondaryGlowing());
-					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getBodyCoveringTypeFromId("innoxia_panther_fur"));
-				}
-				
-//				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
-					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getBodyCoveringTypeFromId(type));
-//				}
-				
-				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set bodyCovering: "+colourPrimary+", "+colourSecondary);
-			} catch(Exception ex) {
-			}
-		}
-		
-
-		try {
-			Element heavyMakeupElement = (Element)element.getElementsByTagName("heavyMakeup").item(0);
-			
-			NodeList bodyTypes = heavyMakeupElement.getElementsByTagName("type");
-			for(int i = 0; i < bodyTypes.getLength(); i++){
-				Element e = ((Element)bodyTypes.item(i));
-				body.addHeavyMakeup(BodyCoveringType.getBodyCoveringTypeFromId(e.getTextContent()));
-			}
-		} catch(Exception ex) {	
-		}
-
-		body.feral = feralBody;
-		
-		body.addDiscoveredBodyCoveringsFromMaterial(importedBodyMaterial);
-		
-		body.calculateRace(null);
-		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
-			body.updateNippleCrotchColouring();
-		}
-		
-		return body;
-	}
-
-	static <T extends Enum<T>> void handleLoadingOfModifiers(T[] enumValues, StringBuilder log, Element modifiersElement, Collection<T> modifiers) {
-		for(T enumValue : enumValues) {
-			String attributeValue = modifiersElement.getAttribute(enumValue.toString());
-			if(!attributeValue.isEmpty()) {
-				if(Boolean.valueOf(attributeValue)) {
-					if(!modifiers.contains(enumValue)) {
-						modifiers.add(enumValue);
-					}
-					if(log!=null) {
-						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>"+enumValue.toString()+":true");
-					}
-				} else if (!attributeValue.isEmpty()) {
-					modifiers.remove(enumValue);
-					if(log!=null) {
-						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>"+enumValue.toString()+":false");
-					}
-				} else {
-					if(log!=null) {
-						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>"+enumValue.toString()+":not present, defaulted to "+modifiers.contains(enumValue));
-					}
-				}
-			}
-		}
-	}
-	
-	private static float handleCapacityLoading(float input) {
-		float loadedCapacity = input;
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.7")) {
-			loadedCapacity = Penis.getGenericDiameter((int)loadedCapacity, PenetrationGirth.THREE_AVERAGE);
-		}
-		return loadedCapacity;
 	}
 	
 	public List<BodyPartInterface> getAllBodyParts() {
@@ -2007,10 +506,6 @@ public class Body implements XMLSaving {
 		return "<p style='padding-top:0; margin-top:0;'>[style.colourDisabled("+header+":)]<br/>";
 	}
 	
-	/**
-	 * @param owner
-	 * @return
-	 */
 	public String getDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
 		boolean observant = Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true);
@@ -2026,7 +521,7 @@ public class Body implements XMLSaving {
 //				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] "
 //						+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			} else {
-				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] [npc.heightValue]";
+				heightDescription = " From head to tail, [npc.she] [npc.verb(measure)] [npc.heightValue]";
 			}
 		}
 		
@@ -2319,7 +814,7 @@ public class Body implements XMLSaving {
 					switch(owner.getFacialHair()) {
 						case ZERO_NONE:
 							if(!owner.isFeminine()) {
-								sb.append(" [npc.She] [npc.do]n't have any trace of rough, stubbly "+owner.getFacialHairType().getName(owner)+".");
+								sb.append(" [npc.She] [npc.do]n't have any trace of rough, stubbly "+owner.getFacialHairType().getName()+".");
 							}
 							break;
 						case ONE_STUBBLE:
@@ -2348,7 +843,7 @@ public class Body implements XMLSaving {
 					switch(owner.getFacialHair()) {
 						case ZERO_NONE:
 							if(!owner.isFeminine()) {
-								sb.append(" [npc.She] [npc.do]n't have any trace of facial "+owner.getFacialHairType().getName(owner)+".");
+								sb.append(" [npc.She] [npc.do]n't have any trace of facial "+owner.getFacialHairType().getName()+".");
 							}
 							break;
 						case ONE_STUBBLE:
@@ -2469,14 +964,7 @@ public class Body implements XMLSaving {
 						+ " [style.colourSex("+ Units.size(Capacity.getMaximumComfortableDiameter(face.getMouth().getOrificeMouth().getElasticity(), face.getMouth().getOrificeMouth().getRawCapacityValue(), true)) + ")] in diameter.");
 				
 				if(Main.game.isPenetrationLimitationsEnabled()) {
-					switch(owner.getFaceDepth()) {
-						default:
-							sb.append(" [npc.Her] throat is <span style='color:"+owner.getFaceDepth().getColour().toWebHexString()+";'>[npc.throatDepth]</span>,");
-							break;
-						case TWO_AVERAGE:
-							sb.append(" [npc.Her] throat is of an <span style='color:"+owner.getFaceDepth().getColour().toWebHexString()+";'>average depth</span>,");
-							break;
-					}
+					sb.append(" [npc.Her] throat is <span style='color:"+owner.getFaceDepth().getColour().toWebHexString()+";'>[npc.throatDepth]</span>,");
 					if(owner.getBodyMaterial().isOrificesLimitedDepth()) {
 						if(owner.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
 							sb.append(" and as [npc.sheIsFull] a "+Fetish.FETISH_SIZE_QUEEN.getName(owner)+", [npc.she] can be pushed to [style.colourMinorGood(comfortably)] accommodate objects of a maximum length of "
@@ -2726,7 +1214,7 @@ public class Body implements XMLSaving {
 				if(owner.getUnderarmHairType().getType()==BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR) {
 					switch(owner.getUnderarmHair()) {
 						case ZERO_NONE:
-							sb.append(" There is no trace of any rough "+owner.getUnderarmHairType().getName(owner)+" in [npc.her] armpits.");
+							sb.append(" There is no trace of any rough "+owner.getUnderarmHairType().getName()+" in [npc.her] armpits.");
 							break;
 						case ONE_STUBBLE:
 							sb.append(" [npc.SheHasFull] a rough patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -2753,7 +1241,7 @@ public class Body implements XMLSaving {
 				} else {
 					switch(owner.getUnderarmHair()) {
 						case ZERO_NONE:
-							sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner)+" in [npc.her] armpits.");
+							sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName()+" in [npc.her] armpits.");
 							break;
 						case ONE_STUBBLE:
 							sb.append(" [npc.SheHasFull] a stubbly patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -2875,6 +1363,8 @@ public class Body implements XMLSaving {
 				case ARACHNID:
 				case CEPHALOPOD:
 				case AVIAN:
+				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case BIPEDAL:
@@ -2887,10 +1377,6 @@ public class Body implements XMLSaving {
 					sb.append(" It measures ").append(Units.size(owner.getLegTailLength(false))).append(" in length,");
 					sb.append(" and tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
 					sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
-					break;
-				case QUADRUPEDAL:
-				case WINGED_BIPED:
-					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
 			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
@@ -3163,7 +1649,7 @@ public class Body implements XMLSaving {
 //			target.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
 //		}
 		
-		AbstractRace race = Race.HUMAN;
+		AbstractRace race;
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 			race = Race.SLIME;
 			this.raceStage = RaceStage.GREATER;
@@ -3843,7 +2329,7 @@ public class Body implements XMLSaving {
 		if(Main.game.isAssHairEnabled()) {
 			switch(ass.getAnus().getAssHair()) {
 				case ZERO_NONE:
-					descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner)+" around [npc.her] asshole.");
+					descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName()+" around [npc.her] asshole.");
 					break;
 				case ONE_STUBBLE:
 					descriptionSB.append(" [npc.She] [npc.has] a few strands of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
@@ -4418,8 +2904,8 @@ public class Body implements XMLSaving {
 		
 		String penisAppearance = owner.getPenisType().getBodyDescription(owner);
 		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.CUM)) {
-			penisAppearance = penisAppearance.replaceAll("\\[npc\\.a_cockGirth\\]", UtilText.generateSingularDeterminer(viewedPenis.getGirth().getName())+" "+viewedPenis.getGirth().getName());
-			penisAppearance = penisAppearance.replaceAll("\\[npc\\.cockLengthValue\\]", Units.size(viewedPenis.getRawLengthValue(), Units.UnitType.LONG_SINGULAR));
+			penisAppearance = penisAppearance.replaceAll("\\[npc\\.a_cockGirth]", UtilText.generateSingularDeterminer(viewedPenis.getGirth().getName())+" "+viewedPenis.getGirth().getName());
+			penisAppearance = penisAppearance.replaceAll("\\[npc\\.cockLengthValue]", Units.size(viewedPenis.getRawLengthValue(), Units.UnitType.LONG_SINGULAR));
 			descriptionSB.append(penisAppearance);
 			descriptionSB.append(" It measures "+Units.size(viewedPenis.getDiameter(), Units.UnitType.LONG)+" in diameter ("+Units.size(viewedPenis.getDiameter()* Math.PI, Units.UnitType.LONG)+" in circumference).");
 			
@@ -4598,7 +3084,7 @@ public class Body implements XMLSaving {
 				if(owner.getPubicHairType().getType()==BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR) {
 					switch(owner.getPubicHair()) {
 						case ZERO_NONE:
-							descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName(owner)+" around the base of [npc.her] cock.");
+							descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName()+" around the base of [npc.her] cock.");
 							break;
 						case ONE_STUBBLE:
 							descriptionSB.append(" [npc.She] [npc.has] a small amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
@@ -4625,7 +3111,7 @@ public class Body implements XMLSaving {
 				} else {
 					switch(owner.getPubicHair()) {
 						case ZERO_NONE:
-							descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around the base of [npc.her] cock.");
+							descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName()+" around the base of [npc.her] cock.");
 							break;
 						case ONE_STUBBLE:
 							descriptionSB.append(" [npc.She] [npc.has] a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
@@ -5204,7 +3690,7 @@ public class Body implements XMLSaving {
 			if(owner.getPubicHairType().getType()==BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR) {
 				switch(owner.getPubicHair()) {
 					case ZERO_NONE:
-						descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy].");
+						descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName()+" around [npc.her] [npc.pussy].");
 						break;
 					case ONE_STUBBLE:
 						descriptionSB.append(" [npc.SheHasFull] a small amount of rough "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
@@ -5231,7 +3717,7 @@ public class Body implements XMLSaving {
 			} else {
 				switch(owner.getPubicHair()) {
 					case ZERO_NONE:
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around [npc.her] [npc.pussy].");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName()+" around [npc.her] [npc.pussy].");
 						break;
 					case ONE_STUBBLE:
 						descriptionSB.append(" [npc.SheHasFull] a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] [npc.pussy].");
@@ -6429,18 +4915,6 @@ public class Body implements XMLSaving {
 
 	public boolean isAbleToFlyFromExtraParts() {
 		return getAllBodyParts().stream().anyMatch(bpi -> bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT));
-	}
-
-	/**
-	 * Basically the opposite of isAbleToFly, but skips the minimumWingSizeForFlight-checks
-	 * and the checks for slime bodies.
-	 * @return true if the body is incapable of flight
-	 */
-	public Boolean isInCapableOfFlight() {
-		return !(
-			isAbleToFlyFromExtraParts() ||
-			arm.getType().allowsFlight() ||
-			wing.getType().allowsFlight());
 	}
 
 	public boolean isTakesAfterMother() {

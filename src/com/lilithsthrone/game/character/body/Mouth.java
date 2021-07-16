@@ -1,10 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
+import com.lilithsthrone.game.character.body.types.MouthType;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -12,23 +11,34 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.83
  * @version 0.3.7
  * @author Innoxia
  */
-public class Mouth implements BodyPartInterface {
+public class Mouth implements BodyPartInterface, XMLSaving {
 	
 	protected AbstractMouthType type;
 	protected OrificeMouth orificeMouth;
 	protected int lipSize;
 	protected boolean piercedLip;
 
+	public Mouth(AbstractMouthType type, OrificeMouth orificeMouth, int lipSize, boolean piercedLip) {
+		this.type = type;
+		this.orificeMouth = orificeMouth;
+		this.lipSize = lipSize;
+		this.piercedLip = piercedLip;
+	}
+	
 	public Mouth(AbstractMouthType type, int lipSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.lipSize = lipSize;
-		orificeMouth = new OrificeMouth(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeMouth = new OrificeMouth(wetness, capacity, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 	}
 
 	@Override
@@ -52,9 +62,8 @@ public class Mouth implements BodyPartInterface {
 	
 	@Override
 	public String getName(GameCharacter gc, boolean withDescriptor) {
-		String name = getName(gc);
 		return //UtilText.generateSingularDeterminer(name)+" "+
-				name;
+				getName(gc);
 	}
 
 	@Override
@@ -81,11 +90,11 @@ public class Mouth implements BodyPartInterface {
 		return Util.randomItemFrom(descriptorList);
 	}
 	
-	public String getLipsNameSingular(GameCharacter gc) {
+	public String getLipsNameSingular() {
 		return UtilText.returnStringAtRandom("lip");
 	}
 	
-	public String getLipsNamePlural(GameCharacter gc) {
+	public String getLipsNamePlural() {
 		return UtilText.returnStringAtRandom("lips");
 	}
 
@@ -132,7 +141,7 @@ public class Mouth implements BodyPartInterface {
 			}
 		}
 		
-		String transformation = "";
+		String transformation;
 		
 		if(this.lipSize > effectiveLipSize) {
 			if(owner.isPlayer()) {
@@ -210,4 +219,26 @@ public class Mouth implements BodyPartInterface {
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Mouth.class) && getType().getRace().isFeralPartsAvailable());
 	}
 	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element mouthElement = parentElement.addElement("mouth");
+		mouthElement.addAttribute("type", MouthType.getIdFromMouthType(type));
+		orificeMouth.saveAsXML(mouthElement);
+		mouthElement.addAttribute("lipSize", String.valueOf(lipSize));
+		mouthElement.addAttribute("hornsPerRow", String.valueOf(piercedLip));
+		return true;
+	}
+	
+	public static Mouth loadFromXML(Element parentElement) {
+		try {
+			Element mouthElement = parentElement.getMandatoryFirstOf("mouth");
+			return new Mouth(MouthType.getMouthTypeFromId(mouthElement.getAttribute("type")),
+					OrificeMouth.loadFromXML(mouthElement),
+					Integer.parseInt(mouthElement.getAttribute("lipSize")),
+					Boolean.parseBoolean(mouthElement.getAttribute("piercedLip")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

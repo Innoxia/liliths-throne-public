@@ -1,10 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
+import com.lilithsthrone.game.character.body.types.TesticleType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
@@ -13,14 +12,18 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.PresetColour;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.83
  * @version 0.3.8.8
  * @author Innoxia
  */
-public class Testicle implements BodyPartInterface {
+public class Testicle implements BodyPartInterface, XMLSaving {
 
 	
 	public static final int MIN_TESTICLE_COUNT = 2;
@@ -40,7 +43,19 @@ public class Testicle implements BodyPartInterface {
 	protected boolean internal;
 	
 	protected FluidCum cum;
-
+	
+	public Testicle(AbstractTesticleType type, int testicleSize, int cumStorage, float cumStored, int cumRegeneration, int testicleCount, int cumExpulsion, boolean internal, FluidCum cum) {
+		this.type = type;
+		this.testicleSize = testicleSize;
+		this.cumStorage = cumStorage;
+		this.cumStored = cumStored;
+		this.cumRegeneration = cumRegeneration;
+		this.testicleCount = testicleCount;
+		this.cumExpulsion = cumExpulsion;
+		this.internal = internal;
+		this.cum = cum;
+	}
+	
 	public Testicle(AbstractTesticleType type, int testicleSize, int cumStorage, int testicleCount) {
 		this.type = type;
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
@@ -96,7 +111,7 @@ public class Testicle implements BodyPartInterface {
 		return Util.randomItemFrom(list);
 	}
 	
-	public void setType(GameCharacter owner, AbstractTesticleType type) {
+	public void setType(AbstractTesticleType type) {
 		this.type = type;
 		cum.setType(type.getFluidType());
 	}
@@ -388,5 +403,38 @@ public class Testicle implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Testicle.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element testicleElement = parentElement.addElement("testicle");
+		testicleElement.addAttribute("type", String.valueOf(type));
+		testicleElement.addAttribute("testicleSize", String.valueOf(testicleSize));
+		testicleElement.addAttribute("cumStorage", String.valueOf(cumStorage));
+		testicleElement.addAttribute("cumStored", String.valueOf(cumStored));
+		testicleElement.addAttribute("cumRegeneration", String.valueOf(cumRegeneration));
+		testicleElement.addAttribute("testicleCount", String.valueOf(testicleCount));
+		testicleElement.addAttribute("cumExpulsion", String.valueOf(cumExpulsion));
+		testicleElement.addAttribute("internal", String.valueOf(internal));
+		cum.saveAsXML(testicleElement);
+		return true;
+	}
+	
+	public static Testicle loadFromXML(Element parentElement) {
+		try {
+			Element testicleElement = parentElement.getMandatoryFirstOf("testicle");
+			return new Testicle(TesticleType.getTesticleTypeFromId(testicleElement.getAttribute("type")),
+					Integer.parseInt(testicleElement.getAttribute("testicleSize")),
+					Integer.parseInt(testicleElement.getAttribute("cumStorage")),
+					Float.parseFloat(testicleElement.getAttribute("cumStored")),
+					Integer.parseInt(testicleElement.getAttribute("cumRegeneration")),
+					Integer.parseInt(testicleElement.getAttribute("testicleCount")),
+					Integer.parseInt(testicleElement.getAttribute("cumExpulsion")),
+					Boolean.parseBoolean(testicleElement.getAttribute("internal")),
+					FluidCum.loadFromXML(testicleElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

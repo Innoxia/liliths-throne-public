@@ -1,8 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.types.BreastType;
@@ -20,14 +18,18 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.PresetColour;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.3.1
  * @version 0.3.7
  * @author Innoxia
  */
-public class BreastCrotch implements BodyPartInterface {
+public class BreastCrotch implements BodyPartInterface, XMLSaving {
 	
 	public static final int MAXIMUM_BREAST_ROWS = 6;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
@@ -43,6 +45,19 @@ public class BreastCrotch implements BodyPartInterface {
 	
 	protected Nipples nipples;
 	protected FluidMilk milk;
+	
+	public BreastCrotch(AbstractBreastType type, BreastShape shape, int size, int rows, int milkStorage, float milkStored, int milkRegeneration, int nippleCountPerBreast, Nipples nipples, FluidMilk milk) {
+		this.type = type;
+		this.shape = shape;
+		this.size = size;
+		this.rows = rows;
+		this.milkStorage = milkStorage;
+		this.milkStored = milkStored;
+		this.milkRegeneration = milkRegeneration;
+		this.nippleCountPerBreast = nippleCountPerBreast;
+		this.nipples = nipples;
+		this.milk = milk;
+	}
 	
 	public BreastCrotch(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows,
 			int nippleSize, NippleShape nippleShape, int areolaeSize, AreolaeShape areolaeShape, int nippleCountPerBreast, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
@@ -172,7 +187,7 @@ public class BreastCrotch implements BodyPartInterface {
 		
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
-			nipples.setType(owner, type.getNippleType());
+			nipples.setType(type.getNippleType());
 			milk.setType(type.getFluidType());
 			if(owner!=null) {
 				owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
@@ -233,7 +248,7 @@ public class BreastCrotch implements BodyPartInterface {
 		sb.setLength(0);
 		sb.append(s);
 		this.type = type;
-		nipples.setType(owner, type.getNippleType());
+		nipples.setType(type.getNippleType());
 		milk.setType(type.getFluidType());
 		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
 		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
@@ -583,5 +598,39 @@ public class BreastCrotch implements BodyPartInterface {
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(BreastCrotch.class) && getType().getRace().isFeralPartsAvailable());
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element breastsCrotchElement = parentElement.addElement("breastsCrotch");
+		breastsCrotchElement.addAttribute("type", BreastType.getIdFromBreastType(type));
+		breastsCrotchElement.addAttribute("shape", shape.toString());
+		breastsCrotchElement.addAttribute("size", String.valueOf(size));
+		breastsCrotchElement.addAttribute("rows", String.valueOf(rows));
+		breastsCrotchElement.addAttribute("milkStorage", String.valueOf(milkStorage));
+		breastsCrotchElement.addAttribute("storedMilk", String.valueOf(milkStored));
+		breastsCrotchElement.addAttribute("milkRegeneration", String.valueOf(milkRegeneration));
+		breastsCrotchElement.addAttribute("nippleCountPerBreast", String.valueOf(nippleCountPerBreast));
+		nipples.saveAsXML(breastsCrotchElement);
+		milk.saveAsXML(breastsCrotchElement);
+		return true;
+	}
+	
+	public static BreastCrotch loadFromXML(Element parentElement) {
+		try {
+			Element breastsCrotchElement = parentElement.getMandatoryFirstOf("breastsCrotch");
+			return new BreastCrotch(BreastType.getBreastTypeFromId(breastsCrotchElement.getAttribute("type")),
+					BreastShape.valueOf(breastsCrotchElement.getAttribute("shape")),
+					Integer.parseInt(breastsCrotchElement.getAttribute("size")),
+					Integer.parseInt(breastsCrotchElement.getAttribute("rows")),
+					Integer.parseInt(breastsCrotchElement.getAttribute("milkStorage")),
+					Float.parseFloat(breastsCrotchElement.getAttribute("storedMilk")),
+					Integer.parseInt(breastsCrotchElement.getAttribute("milkRegeneration")),
+					Integer.parseInt(breastsCrotchElement.getAttribute("nippleCountPerBreast")),
+					Nipples.loadFromXML(breastsCrotchElement),
+					FluidMilk.loadFromXML(breastsCrotchElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

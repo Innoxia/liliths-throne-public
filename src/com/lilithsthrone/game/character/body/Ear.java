@@ -1,22 +1,30 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
  * @version 0.3.2
  * @author Innoxia
  */
-public class Ear implements BodyPartInterface {
+public class Ear implements BodyPartInterface, XMLSaving {
 	
 	protected AbstractEarType type;
 	protected boolean pierced;
 
+	public Ear(AbstractEarType type, boolean pierced) {
+		this.type = type;
+		this.pierced = pierced;
+	}
+	
 	public Ear(AbstractEarType type) {
 		this.type = type;
 		pierced = false;
@@ -141,5 +149,23 @@ public class Ear implements BodyPartInterface {
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Ear.class) && getType().getRace().isFeralPartsAvailable());
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element earElement = parentElement.addElement("ear");
+		earElement.addAttribute("type", String.valueOf(type));
+		earElement.addAttribute("pierced", String.valueOf(pierced));
+		return true;
+	}
+	
+	public static Ear loadFromXML(Element parentElement) {
+		try {
+			Element earElement = parentElement.getMandatoryFirstOf("ear");
+			return new Ear(EarType.getEarTypeFromId(earElement.getAttribute("type")),
+					Boolean.parseBoolean(earElement.getAttribute("pierced")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

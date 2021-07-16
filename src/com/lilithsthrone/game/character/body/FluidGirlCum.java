@@ -1,8 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
@@ -13,6 +10,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.83
@@ -25,6 +25,13 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 	protected FluidFlavour flavour;
 	protected List<FluidModifier> fluidModifiers;
 	protected List<ItemEffect> transformativeEffects;
+	
+	public FluidGirlCum(AbstractFluidType type, FluidFlavour flavour, List<FluidModifier> fluidModifiers, List<ItemEffect> transformativeEffects) {
+		this.type = type;
+		this.flavour = flavour;
+		this.fluidModifiers = fluidModifiers;
+		this.transformativeEffects = transformativeEffects;
+	}
 
 	public FluidGirlCum(AbstractFluidType type) {
 		this.type = type;
@@ -36,31 +43,38 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 	}
 	
 	public boolean saveAsXML(Element parentElement) {
-		Element girlcumElement = parentElement.addElement("girlcum");
-		girlcumElement.addAttribute("type", FluidType.getIdFromFluidType(type));
-		girlcumElement.addAttribute("flavour", flavour.toString());
-		
-		Element modifiers = girlcumElement.addElement("girlcumModifiers");
+		Element girlCumElement = parentElement.addElement("girlCum");
+		girlCumElement.addAttribute("type", FluidType.getIdFromFluidType(type));
+		girlCumElement.addAttribute("flavour", flavour.toString());
+		Element modifiers = girlCumElement.addElement("cumModifiers");
 		for(FluidModifier fm : fluidModifiers) {
 			modifiers.addAttribute(fm.toString(), "true");
 		}
+		Element transformativeEffectsElement = girlCumElement.addElement("transformativeEffects");
+		for(ItemEffect ie : transformativeEffects) {
+			Element itemElement = transformativeEffectsElement.addElement("item");
+			ie.saveAsXML(itemElement);
+		}
 		return true;
 	}
-
+	
 	public static FluidGirlCum loadFromXML(Element parentElement) {
 		try {
-			Element girlcumElement = parentElement.getMandatoryFirstOf("girlcum");
-			FluidGirlCum fluidGirlcum = new FluidGirlCum(FluidType.getFluidTypeFromId(girlcumElement.getAttribute("type")));
-			fluidGirlcum.flavour = FluidFlavour.valueOf(girlcumElement.getAttribute("flavour"));
-			if(girlcumElement.getOptionalFirstOf("girlcumModifiers").isPresent()) {
-				Element cumModifiersElement = girlcumElement.getMandatoryFirstOf("girlcumModifiers");
-				for(FluidModifier fm : FluidModifier.values()) {
-					if(!cumModifiersElement.getAttribute(fm.toString()).isEmpty()) {
-						fluidGirlcum.fluidModifiers.add(fm);
-					}
-				}
+			Element girlCumElement = parentElement.getMandatoryFirstOf("girlCum");
+			Element girlCumModifiersElement = girlCumElement.getMandatoryFirstOf("cumModifiers");
+			List<FluidModifier> modifiers = new ArrayList<>();
+			for(String key : girlCumModifiersElement.getAttributes().keySet()) {
+				modifiers.add(FluidModifier.valueOf(key));
 			}
-			return fluidGirlcum;
+			Element transformativeEffectsElement = girlCumElement.getMandatoryFirstOf("transformativeEffects");
+			List<ItemEffect> effects = new ArrayList<>();
+			for(Element item : transformativeEffectsElement.getAllOf("item")) {
+				effects.add(ItemEffect.loadFromXML(item));
+			}
+			return new FluidGirlCum(FluidType.getFluidTypeFromId(girlCumElement.getAttribute("type")),
+					FluidFlavour.valueOf(girlCumElement.getAttribute("flavour")),
+					modifiers,
+					effects);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			return null;

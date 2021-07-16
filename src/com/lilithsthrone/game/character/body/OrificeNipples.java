@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -14,13 +11,20 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @since 0.1.?
  * @version 0.3.7
  * @author Innoxia
  */
-public class OrificeNipples implements OrificeInterface {
+public class OrificeNipples implements OrificeInterface, XMLSaving {
 
 	protected int wetness;
 	protected float capacity;
@@ -33,10 +37,10 @@ public class OrificeNipples implements OrificeInterface {
 
 	protected boolean crotchNipples;
 
-	public OrificeNipples(int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, boolean crotchNipples, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeNipples(int wetness, float capacity, float stretchedCapacity, int depth, int elasticity, int plasticity, boolean virgin, boolean crotchNipples, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
 		this.capacity = capacity;
-		stretchedCapacity = capacity;
+		this.stretchedCapacity = stretchedCapacity;
 		this.depth = depth;
 		this.elasticity = elasticity;
 		this.plasticity = plasticity;
@@ -428,5 +432,44 @@ public class OrificeNipples implements OrificeInterface {
 	public Set<OrificeModifier> getOrificeModifiers() {
 		return orificeModifiers;
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element orificeNipplesElement = parentElement.addElement("orificeNipples");
+		orificeNipplesElement.addAttribute("wetness", String.valueOf(wetness));
+		orificeNipplesElement.addAttribute("depth", String.valueOf(depth));
+		orificeNipplesElement.addAttribute("elasticity", String.valueOf(elasticity));
+		orificeNipplesElement.addAttribute("plasticity", String.valueOf(plasticity));
+		orificeNipplesElement.addAttribute("capacity", String.valueOf(capacity));
+		orificeNipplesElement.addAttribute("stretchedCapacity", String.valueOf(stretchedCapacity));
+		orificeNipplesElement.addAttribute("virgin", String.valueOf(virgin));
+		Element nipplesModifiersElement = orificeNipplesElement.addElement("nipplesModifiers");
+		for(OrificeModifier om : orificeModifiers) {
+			nipplesModifiersElement.addAttribute(om.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static OrificeNipples loadFromXML(Element parentElement) {
+		try {
+			Element orificeNipplesElement = parentElement.getMandatoryFirstOf("orificeNipples");
+			Element nipplesModifiersElement = orificeNipplesElement.getMandatoryFirstOf("nipplesModifiers");
+			List<OrificeModifier> modifiers = new ArrayList<>();
+			for(String key : nipplesModifiersElement.getAttributes().keySet()) {
+				modifiers.add(OrificeModifier.valueOf(key));
+			}
+			return new OrificeNipples(Integer.parseInt(orificeNipplesElement.getAttribute("wetness")),
+					Integer.parseInt(orificeNipplesElement.getAttribute("capacity")),
+					Integer.parseInt(orificeNipplesElement.getAttribute("stretchedCapacity")),
+					Integer.parseInt(orificeNipplesElement.getAttribute("depth")),
+					Integer.parseInt(orificeNipplesElement.getAttribute("elasticity")),
+					Integer.parseInt(orificeNipplesElement.getAttribute("plasticity")),
+					Boolean.parseBoolean(orificeNipplesElement.getAttribute("virgin")),
+					parentElement.getTagName().equals("nipplesCrotch"),
+					modifiers);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

@@ -1,8 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -22,13 +20,17 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.0
  * @version 0.4
  * @author Innoxia
  */
-public class Vagina implements BodyPartInterface {
+public class Vagina implements BodyPartInterface, XMLSaving {
 	
 	protected AbstractVaginaType type;
 	protected Clitoris clitoris;
@@ -39,7 +41,18 @@ public class Vagina implements BodyPartInterface {
 	protected OrificeVagina orificeVagina;
 	protected FluidGirlCum girlcum;
 	protected OrificeVaginaUrethra orificeUrethra;
-
+	
+	public Vagina(AbstractVaginaType type, Clitoris clitoris, int labiaSize, boolean pierced, boolean eggLayer, OrificeVagina orificeVagina, FluidGirlCum girlcum, OrificeVaginaUrethra orificeUrethra) {
+		this.type = type;
+		this.clitoris = clitoris;
+		this.labiaSize = labiaSize;
+		this.pierced = pierced;
+		this.eggLayer = eggLayer;
+		this.orificeVagina = orificeVagina;
+		this.girlcum = girlcum;
+		this.orificeUrethra = orificeUrethra;
+	}
+	
 	public Vagina(AbstractVaginaType type, int labiaSize, int clitSize, int clitGirth, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
@@ -47,7 +60,7 @@ public class Vagina implements BodyPartInterface {
 		this.pierced = false;
 		this.eggLayer = type.isEggLayer();
 		orificeVagina = new OrificeVagina(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
-		orificeUrethra = new OrificeVaginaUrethra(Wetness.TWO_MOIST.getValue(), 0, 2, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
+		orificeUrethra = new OrificeVaginaUrethra(Wetness.TWO_MOIST.getValue(), 0, 0, 2, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
 		girlcum = new FluidGirlCum(type.getFluidType());
 	}
 
@@ -189,7 +202,7 @@ public class Vagina implements BodyPartInterface {
 						+ "[npc.NamePos] pussy remains [style.boldTfSex(unchanged)]."
 					+ "</p>"));
 			
-			return sb.toString()
+			return sb
 					+ "<p>"
 						+owner.postTransformationCalculation()
 					+"</p>";
@@ -265,12 +278,12 @@ public class Vagina implements BodyPartInterface {
 			
 			if(type==VaginaType.HUMAN) {
 				this.girlcum.setType(type.getFluidType());
-				return sb.toString()
+				return sb
 						+ "<p>"
 							+owner.postTransformationCalculation()
 						+"</p>";
 			} else {
-				return sb.toString()
+				return sb
 						+ owner.setVaginaType(type);
 			}
 			
@@ -306,19 +319,17 @@ public class Vagina implements BodyPartInterface {
 		sb.append(UtilText.parse(owner,"<p>"
 				+ "Any old modifiers which [npc.her] pussy might have had have [style.boldShrink(transformed away)]!"));
 		
-		if(orificeVagina.getOrificeModifiers().isEmpty()) {
-			sb.append("</p>");
-		} else {
-			sb.append(UtilText.parse(owner,"<br/>"
-					+ "Instead, [npc.her] new pussy is:"));
+		if (!orificeVagina.getOrificeModifiers().isEmpty()) {
+			sb.append(UtilText.parse(owner, "<br/>"
+					+"Instead, [npc.her] new pussy is:"));
 			
-			for(OrificeModifier om : orificeVagina.getOrificeModifiers()) {
+			for (OrificeModifier om : orificeVagina.getOrificeModifiers()) {
 				sb.append("<br/>[style.boldGrow("+Util.capitaliseSentence(om.getName())+")]");
 			}
-			sb.append("</p>");
 		}
+		sb.append("</p>");
 		
-		return sb.toString()
+		return sb
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -471,5 +482,36 @@ public class Vagina implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Vagina.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element vaginaElement = parentElement.addElement("vagina");
+		vaginaElement.addAttribute("type", VaginaType.getIdFromVaginaType(type));
+		vaginaElement.addAttribute("labiaSize", String.valueOf(labiaSize));
+		vaginaElement.addAttribute("pierced", String.valueOf(pierced));
+		vaginaElement.addAttribute("eggLayer", String.valueOf(eggLayer));
+		clitoris.saveAsXML(vaginaElement);
+		orificeVagina.saveAsXML(vaginaElement);
+		girlcum.saveAsXML(vaginaElement);
+		orificeUrethra.saveAsXML(vaginaElement);
+		return true;
+	}
+	
+	public static Vagina loadFromXML(Element parentElement) {
+		try {
+			Element vaginaElement = parentElement.getMandatoryFirstOf("vagina");
+			return new Vagina(VaginaType.getVaginaTypeFromId(vaginaElement.getAttribute("type")),
+					Clitoris.loadFromXML(vaginaElement),
+					Integer.parseInt(vaginaElement.getAttribute("labiaSize")),
+					Boolean.parseBoolean(vaginaElement.getAttribute("pierced")),
+					Boolean.parseBoolean(vaginaElement.getAttribute("eggLayer")),
+					OrificeVagina.loadFromXML(vaginaElement),
+					FluidGirlCum.loadFromXML(vaginaElement),
+					OrificeVaginaUrethra.loadFromXML(vaginaElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

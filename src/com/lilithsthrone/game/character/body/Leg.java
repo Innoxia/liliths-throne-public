@@ -1,24 +1,26 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.0
  * @version 0.4
  * @author Innoxia
  */
-public class Leg implements BodyPartInterface {
+public class Leg implements BodyPartInterface, XMLSaving {
 
 	public static final float LENGTH_PERCENTAGE_MIN_FERAL = 0.05f;
 	public static final float LENGTH_PERCENTAGE_MIN = 2f;
@@ -28,14 +30,19 @@ public class Leg implements BodyPartInterface {
 	protected FootStructure footStructure;
 	protected LegConfiguration legConfiguration;
 	
-	protected int girth;
 	protected float lengthAsPercentageOfHeight;
 
+	public Leg(AbstractLegType type, FootStructure footStructure, LegConfiguration legConfiguration, float lengthAsPercentageOfHeight) {
+		this.type = type;
+		this.footStructure = footStructure;
+		this.legConfiguration = legConfiguration;
+		this.lengthAsPercentageOfHeight = lengthAsPercentageOfHeight;
+	}
+	
 	public Leg(AbstractLegType type, LegConfiguration legConfiguration) {
 		this.type = type;
 		this.legConfiguration = legConfiguration;
 		this.footStructure = type.getDefaultFootStructure(legConfiguration);
-		this.girth = PenetrationGirth.THREE_AVERAGE.getValue();
 		this.lengthAsPercentageOfHeight = LegConfiguration.getDefaultSerpentTailLengthMultiplier();
 	}
 
@@ -316,11 +323,32 @@ public class Leg implements BodyPartInterface {
 		 // Linear diameter tapering:
 		// y = 1 - (0.95x)
 		// At maximum length, diameter is 5% base diameter
-		float diameter = (1 - (0.95f * lengthPercentage)) * baseDiameter;
 
 //		System.out.println("FD: "+diameter);
 		
-		return diameter;
+		return (1 - (0.95f * lengthPercentage)) * baseDiameter;
 	}
 
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element legElement = parentElement.addElement("leg");
+		legElement.addAttribute("type", LegType.getIdFromLegType(type));
+		legElement.addAttribute("footStructure", footStructure.getName());
+		legElement.addAttribute("legConfiguration", legConfiguration.getName());
+		legElement.addAttribute("lengthAsPercentageOfHeight", String.valueOf(lengthAsPercentageOfHeight));
+		return true;
+	}
+	
+	public static Leg loadFromXML(Element parentElement) {
+		try {
+			Element legElement = parentElement.getMandatoryFirstOf("leg");
+			return new Leg(LegType.getLegTypeFromId(legElement.getAttribute("type")),
+					FootStructure.valueOf(legElement.getAttribute("footStructure")),
+					LegConfiguration.getValueFromString(legElement.getAttribute("legConfiguration")),
+					Float.parseFloat(legElement.getAttribute("lengthAsPercentageOfHeight")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

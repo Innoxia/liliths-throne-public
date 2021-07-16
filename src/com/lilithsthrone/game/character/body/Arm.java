@@ -1,22 +1,25 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.0
  * @version 0.3.1
  * @author Innoxia
  */
-public class Arm implements BodyPartInterface {
+public class Arm implements BodyPartInterface, XMLSaving {
 
 	
 	public static final int MAXIMUM_ROWS = 3;
@@ -24,6 +27,12 @@ public class Arm implements BodyPartInterface {
 	protected AbstractArmType type;
 	protected int armRows;
 	protected BodyHair underarmHair;
+	
+	public Arm(AbstractArmType type, int armRows, BodyHair underarmHair) {
+		this.type = type;
+		this.armRows = armRows;
+		this.underarmHair = underarmHair;
+	}
 
 	public Arm(AbstractArmType type, int armRows) {
 		this.type = type;
@@ -255,5 +264,26 @@ public class Arm implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Arm.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element armElement = parentElement.addElement("arm");
+		armElement.addAttribute("type", ArmType.getIdFromArmType(type));
+		armElement.addAttribute("rows", String.valueOf(armRows));
+		armElement.addAttribute("underarmHair", underarmHair.toString());
+		return true;
+	}
+	
+	public static Arm loadFromXML(Element parentElement) {
+		try {
+			Element armElement = parentElement.getMandatoryFirstOf("arm");
+			return new Arm(ArmType.getArmTypeFromId(armElement.getAttribute("type")),
+					Integer.parseInt(armElement.getAttribute("rows")),
+					BodyHair.valueOf(armElement.getAttribute("underarmHair")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

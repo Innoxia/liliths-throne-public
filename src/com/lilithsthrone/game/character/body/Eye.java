@@ -1,26 +1,36 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
  * @version 0.3.7
  * @author Innoxia
  */
-public class Eye implements BodyPartInterface {
+public class Eye implements BodyPartInterface, XMLSaving {
 
 	public static final int MAXIMUM_PAIRS = 4;
 	
 	protected AbstractEyeType type;
 	protected int eyePairs;
 	protected EyeShape irisShape, pupilShape;
+	
+	public Eye(AbstractEyeType type, int eyePairs, EyeShape irisShape, EyeShape pupilShape) {
+		this.type = type;
+		this.eyePairs = eyePairs;
+		this.irisShape = irisShape;
+		this.pupilShape = pupilShape;
+	}
 	
 	public Eye(AbstractEyeType type) {
 		this.type = type;
@@ -212,5 +222,28 @@ public class Eye implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Eye.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element eyeElement = parentElement.addElement("eye");
+		eyeElement.addAttribute("type", EyeType.getIdFromEyeType(type));
+		eyeElement.addAttribute("eyePairs", String.valueOf(eyePairs));
+		eyeElement.addAttribute("irisShape", String.valueOf(irisShape));
+		eyeElement.addAttribute("pupilShape", String.valueOf(pupilShape));
+		return true;
+	}
+	
+	public static Eye loadFromXML(Element parentElement) {
+		try {
+			Element eyeElement = parentElement.getMandatoryFirstOf("eye");
+			return new Eye(EyeType.getEyeTypeFromId(eyeElement.getAttribute("type")),
+					Integer.parseInt(eyeElement.getAttribute("eyePairs")),
+					EyeShape.valueOf(eyeElement.getAttribute("irisShape")),
+					EyeShape.valueOf(eyeElement.getAttribute("pupilShape")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

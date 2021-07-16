@@ -1,12 +1,11 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractNippleType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.NippleType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -19,13 +18,17 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.83
  * @version 0.4
  * @author Innoxia
  */
-public class Nipples implements BodyPartInterface {
+public class Nipples implements BodyPartInterface, XMLSaving {
 	
 	protected AbstractNippleType type;
 	protected OrificeNipples orificeNipples;
@@ -35,6 +38,17 @@ public class Nipples implements BodyPartInterface {
 	protected int nippleSize;
 	protected boolean pierced;
 	protected boolean crotchNipples;
+	
+	public Nipples(AbstractNippleType type, NippleShape nippleShape, AreolaeShape areolaeShape, int areolaeSize, int nippleSize, boolean pierced, boolean crotchNipples, OrificeNipples orificeNipples) {
+		this.type = type;
+		this.orificeNipples = orificeNipples;
+		this.nippleShape = nippleShape;
+		this.areolaeShape = areolaeShape;
+		this.areolaeSize = areolaeSize;
+		this.nippleSize = nippleSize;
+		this.pierced = pierced;
+		this.crotchNipples = crotchNipples;
+	}
 
 	public Nipples(AbstractNippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, AreolaeShape areolaeShape, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
 		this.type = type;
@@ -42,7 +56,7 @@ public class Nipples implements BodyPartInterface {
 		this.nippleShape = nippleShape;
 		this.areolaeShape = areolaeShape;
 		this.areolaeSize = areolaeSize;
-		orificeNipples = new OrificeNipples(wetness, capacity, depth, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
+		orificeNipples = new OrificeNipples(wetness, capacity, capacity, depth, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
 		this.crotchNipples = crotchNipples;
 	}
 	
@@ -161,7 +175,7 @@ public class Nipples implements BodyPartInterface {
 		return type;
 	}
 
-	public void setType(GameCharacter owner, AbstractNippleType type) {
+	public void setType(AbstractNippleType type) {
 		this.type = type;
 	}
 
@@ -179,7 +193,7 @@ public class Nipples implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
 		}
 		
-		String transformation = "";
+		String transformation;
 		
 		if(this.nippleSize > boundNippleSize) {
 			transformation = UtilText.parse(owner, "<p>A soothing coolness rises up into [npc.namePos] [npc.nipples], causing [npc.herHim] to let out a surprised gasp as [npc.she] [npc.verb(feel)] them start to [style.boldShrink(shrink)].<br/>");
@@ -291,7 +305,7 @@ public class Nipples implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] areolae doesn't change...)]</p>");
 		}
 		
-		String transformation = "";
+		String transformation;
 		
 		if (this.areolaeSize > boundAreolaeSize) {
 			transformation = UtilText.parse(owner,
@@ -367,5 +381,36 @@ public class Nipples implements BodyPartInterface {
 			return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(BreastCrotch.class) && getType().getRace().isFeralPartsAvailable());
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Breast.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element nipplesElement = parentElement.addElement((parentElement.getTagName().equals("breastsCrotch")?"nipplesCrotch":"nipples"));
+		nipplesElement.addAttribute("type", NippleType.getIdFromNippleType(type));
+		orificeNipples.saveAsXML(nipplesElement);
+		nipplesElement.addAttribute("nippleShape", String.valueOf(nippleShape));
+		nipplesElement.addAttribute("areolaeShape", String.valueOf(areolaeShape));
+		nipplesElement.addAttribute("areolaeSize", String.valueOf(areolaeSize));
+		nipplesElement.addAttribute("nippleSize", String.valueOf(nippleSize));
+		nipplesElement.addAttribute("pierced", String.valueOf(pierced));
+		return true;
+	}
+	
+	public static Nipples loadFromXML(Element parentElement) {
+		try {
+			boolean crotchNipples = parentElement.getTagName().equals("breastsCrotch");
+			Element nipplesElement = parentElement.addElement((crotchNipples?"nipplesCrotch":"nipples"));
+			return new Nipples(NippleType.getNippleTypeFromId(nipplesElement.getAttribute("type")),
+					NippleShape.valueOf(nipplesElement.getAttribute("nippleShape")),
+					AreolaeShape.valueOf(nipplesElement.getAttribute("areolaeShape")),
+					Integer.parseInt(nipplesElement.getAttribute("areolaeSize")),
+					Integer.parseInt(nipplesElement.getAttribute("nippleSize")),
+					Boolean.parseBoolean(nipplesElement.getAttribute("pierced")),
+					crotchNipples,
+					OrificeNipples.loadFromXML(nipplesElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

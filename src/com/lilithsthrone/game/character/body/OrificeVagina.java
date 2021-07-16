@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -14,13 +11,18 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @since 0.1.?
  * @version 0.3.7
  * @author Innoxia
  */
-public class OrificeVagina implements OrificeInterface {
+public class OrificeVagina implements OrificeInterface, XMLSaving {
 
 	protected int wetness;
 	protected float capacity;
@@ -33,6 +35,19 @@ public class OrificeVagina implements OrificeInterface {
 
 	protected boolean hymen;
 	protected boolean squirter;
+	
+	public OrificeVagina(int wetness, float capacity, float stretchedCapacity, int depth, int elasticity, int plasticity, boolean virgin, Set<OrificeModifier> orificeModifiers, boolean hymen, boolean squirter) {
+		this.wetness = wetness;
+		this.capacity = capacity;
+		this.stretchedCapacity = stretchedCapacity;
+		this.depth = depth;
+		this.elasticity = elasticity;
+		this.plasticity = plasticity;
+		this.virgin = virgin;
+		this.orificeModifiers = orificeModifiers;
+		this.hymen = hymen;
+		this.squirter = squirter;
+	}
 
 	public OrificeVagina(int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
@@ -512,5 +527,47 @@ public class OrificeVagina implements OrificeInterface {
 					+ "</p>");
 		}
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element orificeVaginaElement = parentElement.addElement("orificeVagina");
+		orificeVaginaElement.addAttribute("wetness", String.valueOf(wetness));
+		orificeVaginaElement.addAttribute("depth", String.valueOf(depth));
+		orificeVaginaElement.addAttribute("elasticity", String.valueOf(elasticity));
+		orificeVaginaElement.addAttribute("plasticity", String.valueOf(plasticity));
+		orificeVaginaElement.addAttribute("capacity", String.valueOf(capacity));
+		orificeVaginaElement.addAttribute("stretchedCapacity", String.valueOf(stretchedCapacity));
+		orificeVaginaElement.addAttribute("virgin", String.valueOf(virgin));
+		orificeVaginaElement.addAttribute("hymen", String.valueOf(hymen));
+		orificeVaginaElement.addAttribute("squirter", String.valueOf(squirter));
+		Element vaginaModifiersElement = orificeVaginaElement.addElement("vaginaModifiers");
+		for(OrificeModifier om : orificeModifiers) {
+			vaginaModifiersElement.addAttribute(om.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static OrificeVagina loadFromXML(Element parentElement) {
+		try {
+			Element orificeVaginaElement = parentElement.getMandatoryFirstOf("orificeVagina");
+			Element vaginaModifiersElement = orificeVaginaElement.getMandatoryFirstOf("vaginaModifiers");
+			Set<OrificeModifier> modifiers = new HashSet<>();
+			for(String key : vaginaModifiersElement.getAttributes().keySet()) {
+				modifiers.add(OrificeModifier.valueOf(key));
+			}
+			return new OrificeVagina(Integer.parseInt(orificeVaginaElement.getAttribute("wetness")),
+					Integer.parseInt(orificeVaginaElement.getAttribute("capacity")),
+					Integer.parseInt(orificeVaginaElement.getAttribute("stretchedCapacity")),
+					Integer.parseInt(orificeVaginaElement.getAttribute("depth")),
+					Integer.parseInt(orificeVaginaElement.getAttribute("elasticity")),
+					Integer.parseInt(orificeVaginaElement.getAttribute("plasticity")),
+					Boolean.parseBoolean(orificeVaginaElement.getAttribute("virgin")),
+					modifiers,
+					Boolean.parseBoolean(orificeVaginaElement.getAttribute("hymen")),
+					Boolean.parseBoolean(orificeVaginaElement.getAttribute("squirter")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

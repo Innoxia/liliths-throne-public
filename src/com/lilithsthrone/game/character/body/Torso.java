@@ -1,16 +1,19 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
  * @version 0.3.8.9
  * @author Innoxia
  */
-public class Torso implements BodyPartInterface {
+public class Torso implements BodyPartInterface, XMLSaving {
 	
 	protected AbstractTorsoType type;
 
@@ -90,5 +93,22 @@ public class Torso implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Torso.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element torsoElement = parentElement.addElement("torso");
+		torsoElement.addAttribute("type", TorsoType.getIdFromTorsoType(type));
+		return true;
+	}
+	
+	public static Torso loadFromXML(Element parentElement) {
+		try {
+			Element torsoElement = parentElement.getMandatoryFirstOf("tongue");
+			return new Torso(TorsoType.getTorsoTypeFromId(torsoElement.getAttribute("type")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -1,10 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
@@ -13,17 +9,29 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @since 0.2.8
  * @version 0.3.5.5
  * @author Innoxia
  */
-public class Clitoris implements BodyPartInterface {
+public class Clitoris implements BodyPartInterface, XMLSaving {
 
 	protected int clitSize;
 	protected int girth;
 	protected Set<PenetrationModifier> clitModifiers;
+	
+	public Clitoris(int clitSize, int girth, Set<PenetrationModifier> clitModifiers) {
+		this.clitSize = clitSize;
+		this.girth = girth;
+		this.clitModifiers = clitModifiers;
+	}
 	
 	public Clitoris(int clitSize, int girth) {
 		this.clitSize = clitSize;
@@ -31,7 +39,6 @@ public class Clitoris implements BodyPartInterface {
 		
 		clitModifiers = new HashSet<>();
 	}
-
 	@Override
 	public BodyPartTypeInterface getType() {
 		return null;
@@ -98,15 +105,15 @@ public class Clitoris implements BodyPartInterface {
 		return Util.randomItemFrom(descriptors);
 	}
 	
-	public String getClitTipNameSingular(GameCharacter gc) {
+	public String getClitTipNameSingular() {
 		return UtilText.returnStringAtRandom("tip", "tip", "end");
 	}
 	
-	public String getClitTipNamePlural(GameCharacter gc) {
+	public String getClitTipNamePlural() {
 		return UtilText.returnStringAtRandom("tips", "tips", "ends");
 	}
 	
-	public String getClitTipDescriptor(GameCharacter gc) {
+	public String getClitTipDescriptor() {
 		List<String> descriptors = new ArrayList<>();
 		for(PenetrationModifier mod : this.getClitorisModifiers()) {
 			switch(mod) {
@@ -225,7 +232,7 @@ public class Clitoris implements BodyPartInterface {
 		
 		if (girth <= 0) {
 			if (this.girth != 0) {
-				girthChange = 0 - this.girth;
+				girthChange = -this.girth;
 				this.girth = 0;
 			}
 		} else if (girth >= PenetrationGirth.getMaximum()) {
@@ -525,4 +532,32 @@ public class Clitoris implements BodyPartInterface {
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Clitoris.class) && getType().getRace().isFeralPartsAvailable());
 	}
 	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element clitorisElement = parentElement.addElement("clitoris");
+		clitorisElement.addAttribute("clitSize", String.valueOf(clitSize));
+		clitorisElement.addAttribute("clitGirth", String.valueOf(girth));
+		Element clitModifiersElement = clitorisElement.addElement("clitModifiers");
+		for(PenetrationModifier pm : clitModifiers) {
+			clitModifiersElement.addAttribute(pm.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static Clitoris loadFromXML(Element parentElement) {
+		try {
+			Element clitorisElement = parentElement.getMandatoryFirstOf("clitoris");
+			Element clitModifiersElement = clitorisElement.getMandatoryFirstOf("clitModifiers");
+			Set<PenetrationModifier> modifiers = new HashSet<>();
+			for(String key : clitModifiersElement.getAttributes().keySet()) {
+				modifiers.add(PenetrationModifier.valueOf(key));
+			}
+			return new Clitoris(Integer.parseInt(clitorisElement.getAttribute("clitSize")),
+					Integer.parseInt(clitorisElement.getAttribute("clitGirth")),
+					modifiers);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

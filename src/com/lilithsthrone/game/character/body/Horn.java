@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -7,13 +8,14 @@ import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
  * @version 0.3.1
  * @author Innoxia
  */
-public class Horn implements BodyPartInterface {
+public class Horn implements BodyPartInterface, XMLSaving {
 
 	public static final int MAXIMUM_ROWS = 3;
 	public static final int MAXIMUM_HORNS_PER_ROW = 4;
@@ -22,6 +24,13 @@ public class Horn implements BodyPartInterface {
 	protected int rows;
 	protected int hornsPerRow;
 	protected int length;
+	
+	public Horn(AbstractHornType type, int rows, int hornsPerRow, int length) {
+		this.type = type;
+		this.rows = rows;
+		this.hornsPerRow = hornsPerRow;
+		this.length = length;
+	}
 	
 	public Horn(AbstractHornType type, int length) {
 		if(length<=0) {
@@ -270,5 +279,27 @@ public class Horn implements BodyPartInterface {
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Horn.class) && getType().getRace().isFeralPartsAvailable());
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element hornElement = parentElement.addElement("horn");
+		hornElement.addAttribute("type", HornType.getIdFromHornType(type));
+		hornElement.addAttribute("rows", String.valueOf(rows));
+		hornElement.addAttribute("length", String.valueOf(length));
+		hornElement.addAttribute("hornsPerRow", String.valueOf(hornsPerRow));
+		return true;
+	}
+	
+	public static Horn loadFromXML(Element parentElement) {
+		try {
+			Element hornElement = parentElement.getMandatoryFirstOf("horn");
+			return new Horn(HornType.getHornTypeFromId(hornElement.getAttribute("type")),
+					Integer.parseInt(hornElement.getAttribute("length")),
+					Integer.parseInt(hornElement.getAttribute("rows")),
+					Integer.parseInt(hornElement.getAttribute("hornsPerRow")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

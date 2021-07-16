@@ -1,11 +1,10 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAnusType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -13,13 +12,17 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.83
  * @version 0.3.7
  * @author Innoxia
  */
-public class Anus implements BodyPartInterface {
+public class Anus implements BodyPartInterface, XMLSaving {
 	
 	// Asshole variables:
 	protected AbstractAnusType type;
@@ -27,10 +30,17 @@ public class Anus implements BodyPartInterface {
 	protected boolean bleached;
 	protected BodyHair assHair;
 
+	public Anus(AbstractAnusType type, OrificeAnus orificeAnus, boolean bleached, BodyHair assHair) {
+		this.type = type;
+		this.orificeAnus = orificeAnus;
+		this.bleached = bleached;
+		this.assHair = assHair;
+	}
+	
 	public Anus(AbstractAnusType type, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		
-		orificeAnus = new OrificeAnus(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeAnus = new OrificeAnus(wetness, capacity, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 		
 		bleached = false;
 		assHair = BodyHair.ZERO_NONE;
@@ -58,7 +68,7 @@ public class Anus implements BodyPartInterface {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		List<String> descriptorList = new ArrayList<String>();
+		List<String> descriptorList = new ArrayList<>();
 		
 		for(OrificeModifier om : orificeAnus.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
@@ -189,4 +199,25 @@ public class Anus implements BodyPartInterface {
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Anus.class) && getType().getRace().isFeralPartsAvailable());
 	}
 
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element anusElement = parentElement.addElement("anus");
+		anusElement.addAttribute("bleached", String.valueOf(bleached));
+		anusElement.addAttribute("assHair", assHair.toString());
+		orificeAnus.saveAsXML(anusElement);
+		return true;
+	}
+	
+	public static Anus loadFromXML(Element parentElement) {
+		try {
+			Element anusElement = parentElement.getMandatoryFirstOf("anus");
+			return new Anus(AssType.getAssTypeFromId(parentElement.getAttribute("type")).getAnusType(),
+					OrificeAnus.loadFromXML(anusElement),
+					Boolean.parseBoolean(anusElement.getAttribute("bleached")),
+					BodyHair.getBodyHairFromValue(Integer.parseInt(anusElement.getAttribute("assHair"))));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

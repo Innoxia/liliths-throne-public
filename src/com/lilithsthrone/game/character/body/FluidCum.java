@@ -1,8 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -15,6 +12,9 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @since 0.1.83
  * @version 0.3.8.2
@@ -26,6 +26,13 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	protected FluidFlavour flavour;
 	protected List<FluidModifier> fluidModifiers;
 	protected List<ItemEffect> transformativeEffects;
+	
+	public FluidCum(AbstractFluidType type, FluidFlavour flavour, List<FluidModifier> fluidModifiers, List<ItemEffect> transformativeEffects) {
+		this.type = type;
+		this.flavour = flavour;
+		this.fluidModifiers = fluidModifiers;
+		this.transformativeEffects = transformativeEffects;
+	}
 
 	public FluidCum(AbstractFluidType type) {
 		this.type = type;
@@ -40,10 +47,14 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		Element cumElement = parentElement.addElement("cum");
 		cumElement.addAttribute("type", FluidType.getIdFromFluidType(type));
 		cumElement.addAttribute("flavour", flavour.toString());
-		
 		Element modifiers = cumElement.addElement("cumModifiers");
 		for(FluidModifier fm : fluidModifiers) {
 			modifiers.addAttribute(fm.toString(), "true");
+		}
+		Element transformativeEffectsElement = cumElement.addElement("transformativeEffects");
+		for(ItemEffect ie : transformativeEffects) {
+			Element itemElement = transformativeEffectsElement.addElement("item");
+			ie.saveAsXML(itemElement);
 		}
 		return true;
 	}
@@ -51,17 +62,20 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	public static FluidCum loadFromXML(Element parentElement) {
 		try {
 			Element cumElement = parentElement.getMandatoryFirstOf("cum");
-			FluidCum fluidCum = new FluidCum(FluidType.getFluidTypeFromId(cumElement.getAttribute("type")));
-			fluidCum.flavour = FluidFlavour.valueOf(cumElement.getAttribute("flavour"));
-			if(cumElement.getOptionalFirstOf("cumModifiers").isPresent()) {
-				Element cumModifiersElement = cumElement.getMandatoryFirstOf("cumModifiers");
-				for(FluidModifier fm : FluidModifier.values()) {
-					if(!cumModifiersElement.getAttribute(fm.toString()).isEmpty()) {
-						fluidCum.fluidModifiers.add(fm);
-					}
-				}
+			Element cumModifiersElement = cumElement.getMandatoryFirstOf("cumModifiers");
+			List<FluidModifier> modifiers = new ArrayList<>();
+			for(String key : cumModifiersElement.getAttributes().keySet()) {
+				modifiers.add(FluidModifier.valueOf(key));
 			}
-			return fluidCum;
+			Element transformativeEffectsElement = cumElement.getMandatoryFirstOf("transformativeEffects");
+			List<ItemEffect> effects = new ArrayList<>();
+			for(Element item : transformativeEffectsElement.getAllOf("item")) {
+				effects.add(ItemEffect.loadFromXML(item));
+			}
+			return new FluidCum(FluidType.getFluidTypeFromId(cumElement.getAttribute("type")),
+					FluidFlavour.valueOf(cumElement.getAttribute("flavour")),
+					modifiers,
+					effects);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			return null;

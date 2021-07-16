@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -8,15 +9,14 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
  * @version 0.3.8.2
  * @author Innoxia
  */
-public class Wing implements BodyPartInterface {
-
-	
+public class Wing implements BodyPartInterface, XMLSaving {
 	protected AbstractWingType type;
 	protected int size;
 	
@@ -139,8 +139,7 @@ public class Wing implements BodyPartInterface {
 	
 	public String setSize(GameCharacter owner, int wingSize) {
 		if(owner==null) {
-			int effectiveSize = Math.max(this.getType().getMinimumSize().getValue(), Math.min(wingSize, this.getType().getMaximumSize().getValue()));
-			this.size = effectiveSize;
+			this.size = Math.max(this.getType().getMinimumSize().getValue(), Math.min(wingSize, this.getType().getMaximumSize().getValue()));
 			return "";
 		}
 		
@@ -192,5 +191,24 @@ public class Wing implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Wing.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element wingElement = parentElement.addElement("wing");
+		wingElement.addAttribute("type", WingType.getIdFromWingType(type));
+		wingElement.addAttribute("size", String.valueOf(size));
+		return true;
+	}
+	
+	public static Wing loadFromXML(Element parentElement) {
+		try {
+			Element wingElement = parentElement.getMandatoryFirstOf("wing");
+			return new Wing(WingType.getWingTypeFromId(wingElement.getAttribute("type")),
+					Integer.parseInt(wingElement.getAttribute("size")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

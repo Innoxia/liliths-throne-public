@@ -1,10 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -21,13 +17,19 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @since 0.1.0
  * @version 0.3.8.8
  * @author Innoxia
  */
-public class Penis implements BodyPartInterface {
+public class Penis implements BodyPartInterface, XMLSaving {
 	
 	public static final float TWO_PENIS_SIZE_MULTIPLIER = 1.6f;
 
@@ -41,6 +43,17 @@ public class Penis implements BodyPartInterface {
 	protected Testicle testicle;
 	protected OrificePenisUrethra orificeUrethra;
 
+	public Penis(AbstractPenisType type, int length, int girth, boolean pierced, boolean virgin, Set<PenetrationModifier> penisModifiers, Testicle testicle, OrificePenisUrethra orificeUrethra) {
+		this.type = type;
+		this.length = length;
+		this.girth = girth;
+		this.pierced = pierced;
+		this.virgin = virgin;
+		this.penisModifiers = penisModifiers;
+		this.testicle = testicle;
+		this.orificeUrethra = orificeUrethra;
+	}
+	
 	public Penis(AbstractPenisType type, int length, boolean usePenisSizePreference, int girth, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;
 		if(usePenisSizePreference) {
@@ -54,7 +67,7 @@ public class Penis implements BodyPartInterface {
 		
 		testicle = new Testicle(type.getTesticleType(), testicleSize, cumProduction, testicleCount);
 		
-		orificeUrethra = new OrificePenisUrethra(testicle.getCumStorage().getAssociatedWetness().getValue(), 0, 2, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
+		orificeUrethra = new OrificePenisUrethra(testicle.getCumStorage().getAssociatedWetness().getValue(), 0, 0, 2, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
 		
 		this.penisModifiers = new HashSet<>();
 		this.penisModifiers.addAll(type.getDefaultRacialPenetrationModifiers());
@@ -156,7 +169,7 @@ public class Penis implements BodyPartInterface {
 		return Util.randomItemFrom(descriptorList);
 	}
 	
-	public String getPenisHeadName(GameCharacter gc) {
+	public String getPenisHeadName() {
 		List<String> list = new ArrayList<>();
 		list.add("head");
         
@@ -167,7 +180,7 @@ public class Penis implements BodyPartInterface {
 		return Util.randomItemFrom(list);
 	}
 	
-	public String getPenisHeadDescriptor(GameCharacter gc) {
+	public String getPenisHeadDescriptor() {
 		List<String> list = new ArrayList<>();
         
 		if(penisModifiers.contains(PenetrationModifier.TAPERED)) {
@@ -190,7 +203,7 @@ public class Penis implements BodyPartInterface {
 		
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
-			testicle.setType(owner, type.getTesticleType());
+			testicle.setType(type.getTesticleType());
 			if(owner!=null) {
 				owner.resetAreaKnownByCharacters(CoverableArea.PENIS);
 				owner.resetAreaKnownByCharacters(CoverableArea.TESTICLES);
@@ -263,7 +276,7 @@ public class Penis implements BodyPartInterface {
 			sb.append(s);
 			sb.append(this.type.applyAdditionalTransformationEffects(owner, false));
 			this.type = type;
-			testicle.setType(owner, type.getTesticleType());
+			testicle.setType(type.getTesticleType());
 			owner.resetAreaKnownByCharacters(CoverableArea.PENIS);
 			owner.resetAreaKnownByCharacters(CoverableArea.TESTICLES);
 			sb.append(this.type.getTransformationDescription(owner));
@@ -318,7 +331,7 @@ public class Penis implements BodyPartInterface {
 		
 		if (girth <= 0) {
 			if (this.girth != 0) {
-				girthChange = 0 - this.girth;
+				girthChange = -this.girth;
 				this.girth = 0;
 			}
 		} else if (girth >= PenetrationGirth.getMaximum()) {
@@ -379,7 +392,7 @@ public class Penis implements BodyPartInterface {
 		
 		if (length <= 0) {
 			if (this.length != 0) {
-				lengthChange = 0 - this.length;
+				lengthChange = -this.length;
 				this.length = 0;
 			}
 		} else if (length >= PenisLength.SEVEN_STALLION.getMaximumValue()) {
@@ -571,7 +584,7 @@ public class Penis implements BodyPartInterface {
 				+"</p>");
 	}
 
-	public String removePenisModifier(GameCharacter owner, PenetrationModifier modifier) {
+	public String removePenisModifier(PenetrationModifier modifier) {
 		if(!hasPenisModifier(modifier)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -651,5 +664,44 @@ public class Penis implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Penis.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element penisElement = parentElement.addElement("penis");
+		penisElement.addAttribute("type", String.valueOf(type));
+		penisElement.addAttribute("length", String.valueOf(length));
+		penisElement.addAttribute("girth", String.valueOf(girth));
+		penisElement.addAttribute("pierced", String.valueOf(pierced));
+		penisElement.addAttribute("virgin", String.valueOf(virgin));
+		testicle.saveAsXML(penisElement);
+		orificeUrethra.saveAsXML(penisElement);
+		Element penisModifiersElement = penisElement.addElement("penisModifiers");
+		for(PenetrationModifier pm : PenetrationModifier.values()) {
+			penisModifiersElement.addAttribute(pm.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static Penis loadFromXML(Element parentElement) {
+		try {
+			Element penisElement = parentElement.getMandatoryFirstOf("penis");
+			Element penisModifiersElement = penisElement.getMandatoryFirstOf("penisModifiers");
+			Set<PenetrationModifier> modifiers = new HashSet<>();
+			for(String key : penisModifiersElement.getAttributes().keySet()) {
+				modifiers.add(PenetrationModifier.valueOf(key));
+			}
+			return new Penis(PenisType.getPenisTypeFromId(penisElement.getAttribute("type")),
+					Integer.parseInt(penisElement.getAttribute("length")),
+					Integer.parseInt(penisElement.getAttribute("girth")),
+					Boolean.parseBoolean(penisElement.getAttribute("pierced")),
+					Boolean.parseBoolean(penisElement.getAttribute("virgin")),
+					modifiers,
+					Testicle.loadFromXML(penisElement),
+					OrificePenisUrethra.loadFromXML(penisElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -7,13 +8,14 @@ import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
  * @version 0.4
  * @author Innoxia
  */
-public class Antenna implements BodyPartInterface {
+public class Antenna implements BodyPartInterface, XMLSaving {
 
 	public static final int MAXIMUM_ROWS = 3;
 	public static final int MAXIMUM_ANTENNAE_PER_ROW = 4;
@@ -22,6 +24,13 @@ public class Antenna implements BodyPartInterface {
 	protected int rows;
 	protected int antennaePerRow;
 	protected int length;
+	
+	public Antenna(AbstractAntennaType type, int rows, int antennaePerRow, int length) {
+		this.type = type;
+		this.rows = rows;
+		this.antennaePerRow = antennaePerRow;
+		this.length = length;
+	}
 	
 	public Antenna(AbstractAntennaType type, int length) {
 		this.type = type;
@@ -63,9 +72,6 @@ public class Antenna implements BodyPartInterface {
 	public String setType(GameCharacter owner, AbstractAntennaType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
-			if(owner!=null) {
-				owner.postTransformationCalculation();
-			}
 			return "";
 		}
 		
@@ -80,20 +86,17 @@ public class Antenna implements BodyPartInterface {
 		StringBuilder sb = new StringBuilder();
 		
 		if(this.type.equals(AntennaType.NONE)) {
-			sb.append(UtilText.parse(owner, 
-					"<p>"
+			sb.append("<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp and [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive."
-						+ " After just a moment, [npc.her] [npc.eyes] widen in shock as something starts pushing out from under the [npc.faceSkin] of [npc.her] forehead."));
+						+ " After just a moment, [npc.her] [npc.eyes] widen in shock as something starts pushing out from under the [npc.faceSkin] of [npc.her] forehead.");
 		} else {
-			sb.append(UtilText.parse(owner, 
-					"<p>"
+			sb.append("<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] [npc.antennae]."
-						+ " Before [npc.she] [npc.has] any time in which to react, they rapidly crumble away, and within moments they've completely disappeared. "));
+						+ " Before [npc.she] [npc.has] any time in which to react, they rapidly crumble away, and within moments they've completely disappeared. ");
 		}
 		
 		if(type!=AntennaType.NONE) {
-			sb.append(UtilText.parse(owner, 
-					" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into "));
+			sb.append(UtilText.parse(" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into "));
 		}
 		
 		this.type = type;
@@ -239,5 +242,28 @@ public class Antenna implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Antenna.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element antennaeElement = parentElement.addElement("antennae");
+		antennaeElement.addAttribute("type", AntennaType.getIdFromAntennaType(type));
+		antennaeElement.addAttribute("rows", String.valueOf(rows));
+		antennaeElement.addAttribute("antennaePerRow", String.valueOf(antennaePerRow));
+		antennaeElement.addAttribute("length", String.valueOf(length));
+		return true;
+	}
+	
+	public static Antenna loadFromXML(Element parentElement) {
+		try {
+			Element antennaeElement = parentElement.getMandatoryFirstOf("antennae");
+			return new Antenna(AntennaType.getAntennaTypeFromId(antennaeElement.getAttribute("type")),
+					Integer.parseInt(antennaeElement.getAttribute("rows")),
+					Integer.parseInt(antennaeElement.getAttribute("antennaePerRow")),
+					Integer.parseInt(antennaeElement.getAttribute("length")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

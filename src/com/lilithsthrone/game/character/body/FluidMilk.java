@@ -1,8 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
@@ -12,13 +9,17 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.83
  * @version 0.3.8.2
  * @author Innoxia
  */
-public class FluidMilk implements FluidInterface {
+public class FluidMilk implements FluidInterface, XMLSaving {
 
 	
 	protected AbstractFluidType type;
@@ -27,6 +28,14 @@ public class FluidMilk implements FluidInterface {
 	protected List<ItemEffect> transformativeEffects;
 	
 	protected boolean crotchMilk;
+	
+	public FluidMilk(AbstractFluidType type, FluidFlavour flavour, List<FluidModifier> fluidModifiers, List<ItemEffect> transformativeEffects, boolean crotchMilk) {
+		this.type = type;
+		this.flavour = flavour;
+		this.fluidModifiers = fluidModifiers;
+		this.transformativeEffects = transformativeEffects;
+		this.crotchMilk = crotchMilk;
+	}
 
 	public FluidMilk(AbstractFluidType type, boolean crotchMilk) {
 		this.type = type;
@@ -44,10 +53,14 @@ public class FluidMilk implements FluidInterface {
 		milkElement.addAttribute("type", FluidType.getIdFromFluidType(type));
 		milkElement.addAttribute("flavour", flavour.toString());
 		milkElement.addAttribute("crotchMilk", String.valueOf(crotchMilk));
-		
-		Element modifiers = milkElement.addElement("milkModifiers");
+		Element modifiers = milkElement.addElement("cumModifiers");
 		for(FluidModifier fm : fluidModifiers) {
 			modifiers.addAttribute(fm.toString(), "true");
+		}
+		Element transformativeEffectsElement = milkElement.addElement("transformativeEffects");
+		for(ItemEffect ie : transformativeEffects) {
+			Element itemElement = transformativeEffectsElement.addElement("item");
+			ie.saveAsXML(itemElement);
 		}
 		return true;
 	}
@@ -55,17 +68,21 @@ public class FluidMilk implements FluidInterface {
 	public static FluidMilk loadFromXML(Element parentElement) {
 		try {
 			Element milkElement = parentElement.getMandatoryFirstOf("milk");
-			FluidMilk fluidMilk = new FluidMilk(FluidType.getFluidTypeFromId(milkElement.getAttribute("type")), Boolean.parseBoolean(milkElement.getAttribute("crotchMilk")));
-			fluidMilk.flavour = FluidFlavour.valueOf(milkElement.getAttribute("flavour"));
-			if(milkElement.getOptionalFirstOf("milkModifiers").isPresent()) {
-				Element milkModifiersElement = milkElement.getMandatoryFirstOf("milkModifiers");
-				for(FluidModifier fm : FluidModifier.values()) {
-					if(!milkModifiersElement.getAttribute(fm.toString()).isEmpty()) {
-						fluidMilk.fluidModifiers.add(fm);
-					}
-				}
+			Element milkModifiersElement = milkElement.getMandatoryFirstOf("cumModifiers");
+			List<FluidModifier> modifiers = new ArrayList<>();
+			for(String key : milkModifiersElement.getAttributes().keySet()) {
+				modifiers.add(FluidModifier.valueOf(key));
 			}
-			return fluidMilk;
+			Element transformativeEffectsElement = milkElement.getMandatoryFirstOf("transformativeEffects");
+			List<ItemEffect> effects = new ArrayList<>();
+			for(Element item : transformativeEffectsElement.getAllOf("item")) {
+				effects.add(ItemEffect.loadFromXML(item));
+			}
+			return new FluidMilk(FluidType.getFluidTypeFromId(milkElement.getAttribute("type")),
+					FluidFlavour.valueOf(milkElement.getAttribute("flavour")),
+					modifiers,
+					effects,
+					Boolean.parseBoolean(milkElement.getAttribute("crotchMilk")));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			return null;

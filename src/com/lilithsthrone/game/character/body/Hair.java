@@ -1,19 +1,22 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
  * @version 0.3.8.2
  * @author Innoxia
  */
-public class Hair implements BodyPartInterface {
+public class Hair implements BodyPartInterface, XMLSaving {
 
 	protected AbstractHairType type;
 	protected int length;
@@ -246,5 +249,26 @@ public class Hair implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Hair.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element hairElement = parentElement.addElement("hair");
+		hairElement.addAttribute("type", HairType.getIdFromHairType(type));
+		hairElement.addAttribute("length", String.valueOf(length));
+		hairElement.addAttribute("style", style.toString());
+		return true;
+	}
+	
+	public static Hair loadFromXML(Element parentElement) {
+		try {
+			Element hairElement = parentElement.getMandatoryFirstOf("hair");
+			return new Hair(HairType.getHairTypeFromId(hairElement.getAttribute("type")),
+					Integer.parseInt(hairElement.getAttribute("length")),
+					HairStyle.valueOf(hairElement.getAttribute("style")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

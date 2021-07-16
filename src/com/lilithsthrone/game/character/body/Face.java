@@ -1,12 +1,12 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
+import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -18,13 +18,16 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.List;
 
 /**
  * @since 0.1.0
  * @version 0.3.7
  * @author Innoxia
  */
-public class Face implements BodyPartInterface {
+public class Face implements BodyPartInterface, XMLSaving {
 	
 	protected AbstractFaceType type;
 	protected boolean piercedNose;
@@ -33,6 +36,14 @@ public class Face implements BodyPartInterface {
 	protected Mouth mouth;
 	protected Tongue tongue;
 
+	public Face(AbstractFaceType type, boolean piercedNose, BodyHair facialHair, Mouth mouth, Tongue tongue) {
+		this.type = type;
+		this.piercedNose = piercedNose;
+		this.facialHair = facialHair;
+		this.mouth = mouth;
+		this.tongue = tongue;
+	}
+	
 	public Face(AbstractFaceType type, int lipSize) {
 		this.type = type;
 		piercedNose = false;
@@ -267,5 +278,28 @@ public class Face implements BodyPartInterface {
 	
 	public boolean isSharkTeeth() {
 		return this.getTypeTags().contains(BodyPartTag.FACE_SHARK_TEETH);
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element faceElement = parentElement.addElement("face");
+		faceElement.addAttribute("type", FaceType.getIdFromFaceType(type));
+		faceElement.addAttribute("piercedNose", String.valueOf(piercedNose));
+		faceElement.addAttribute("facialHair", String.valueOf(facialHair));
+		return true;
+	}
+	
+	public static Face loadFromXML(Element parentElement) {
+		try {
+			Element faceElement = parentElement.getMandatoryFirstOf("face");
+			return new Face(FaceType.getFaceTypeFromId(faceElement.getAttribute("type")),
+					Boolean.parseBoolean(faceElement.getAttribute("piercedNose")),
+					BodyHair.valueOf(faceElement.getAttribute("facialHair")),
+					Mouth.loadFromXML(faceElement),
+					Tongue.loadFromXML(faceElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

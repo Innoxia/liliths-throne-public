@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -14,13 +11,20 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @since 0.1.?
  * @version 0.3.7
  * @author Innoxia
  */
-public class OrificePenisUrethra implements OrificeInterface {
+public class OrificePenisUrethra implements OrificeInterface, XMLSaving {
 
 	protected int wetness;
 	protected float capacity;
@@ -31,10 +35,10 @@ public class OrificePenisUrethra implements OrificeInterface {
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificePenisUrethra(int wetness, int capacity, int depth, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificePenisUrethra(int wetness, int capacity, float stretchedCapacity, int depth, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
 		this.capacity = capacity;
-		stretchedCapacity = capacity;
+		this.stretchedCapacity = stretchedCapacity;
 		this.depth = depth;
 		this.elasticity = elasticity;
 		this.plasticity = plasticity;
@@ -428,5 +432,43 @@ public class OrificePenisUrethra implements OrificeInterface {
 	public Set<OrificeModifier> getOrificeModifiers() {
 		return orificeModifiers;
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element orificePenisUrethraElement = parentElement.addElement("orificePenisUrethra");
+		orificePenisUrethraElement.addAttribute("wetness", String.valueOf(wetness));
+		orificePenisUrethraElement.addAttribute("depth", String.valueOf(depth));
+		orificePenisUrethraElement.addAttribute("elasticity", String.valueOf(elasticity));
+		orificePenisUrethraElement.addAttribute("plasticity", String.valueOf(plasticity));
+		orificePenisUrethraElement.addAttribute("capacity", String.valueOf(capacity));
+		orificePenisUrethraElement.addAttribute("stretchedCapacity", String.valueOf(stretchedCapacity));
+		orificePenisUrethraElement.addAttribute("virgin", String.valueOf(virgin));
+		Element penisUrethraModifiersElement = orificePenisUrethraElement.addElement("penisUrethraModifiers");
+		for(OrificeModifier om : orificeModifiers) {
+			penisUrethraModifiersElement.addAttribute(om.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static OrificePenisUrethra loadFromXML(Element parentElement) {
+		try {
+			Element orificePenisUrethraElement = parentElement.getMandatoryFirstOf("orificePenisUrethra");
+			Element penisUrethraModifiersElement = orificePenisUrethraElement.getMandatoryFirstOf("penisUrethraModifiers");
+			List<OrificeModifier> modifiers = new ArrayList<>();
+			for(String key : penisUrethraModifiersElement.getAttributes().keySet()) {
+				modifiers.add(OrificeModifier.valueOf(key));
+			}
+			return new OrificePenisUrethra(Integer.parseInt(orificePenisUrethraElement.getAttribute("wetness")),
+					Integer.parseInt(orificePenisUrethraElement.getAttribute("capacity")),
+					Integer.parseInt(orificePenisUrethraElement.getAttribute("stretchedCapacity")),
+					Integer.parseInt(orificePenisUrethraElement.getAttribute("depth")),
+					Integer.parseInt(orificePenisUrethraElement.getAttribute("elasticity")),
+					Integer.parseInt(orificePenisUrethraElement.getAttribute("plasticity")),
+					Boolean.parseBoolean(orificePenisUrethraElement.getAttribute("virgin")),
+					modifiers);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

@@ -1,10 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -17,14 +16,18 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.PresetColour;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.0
  * @version 0.3.7
  * @author Innoxia
  */
-public class Breast implements BodyPartInterface {
+public class Breast implements BodyPartInterface, XMLSaving {
 	
 	public static final int MAXIMUM_BREAST_ROWS = 6;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
@@ -41,6 +44,19 @@ public class Breast implements BodyPartInterface {
 	
 	protected Nipples nipples;
 	protected FluidMilk milk;
+	
+	public Breast(AbstractBreastType type, BreastShape shape, int size, int rows, int milkStorage, float milkStored, int milkRegeneration, int nippleCountPerBreast, Nipples nipples, FluidMilk milk) {
+		this.type = type;
+		this.shape = shape;
+		this.size = size;
+		this.rows = rows;
+		this.milkStorage = milkStorage;
+		this.milkStored = milkStored;
+		this.milkRegeneration = milkRegeneration;
+		this.nippleCountPerBreast = nippleCountPerBreast;
+		this.nipples = nipples;
+		this.milk = milk;
+	}
 	
 	/**
 	 * @param size in inches from bust to underbust using the UK system.
@@ -150,7 +166,7 @@ public class Breast implements BodyPartInterface {
 	public String setType(GameCharacter owner, AbstractBreastType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
-			nipples.setType(owner, type.getNippleType());
+			nipples.setType(type.getNippleType());
 			milk.setType(type.getFluidType());
 			if(owner!=null) {
 				owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
@@ -180,7 +196,7 @@ public class Breast implements BodyPartInterface {
 		sb.setLength(0);
 		sb.append(s);
 		this.type = type;
-		nipples.setType(owner, type.getNippleType());
+		nipples.setType(type.getNippleType());
 		milk.setType(type.getFluidType());
 		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
 		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
@@ -497,5 +513,39 @@ public class Breast implements BodyPartInterface {
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Breast.class) && getType().getRace().isFeralPartsAvailable());
 	}
-
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element breastsElement = parentElement.addElement("breasts");
+		breastsElement.addAttribute("type", BreastType.getIdFromBreastType(type));
+		breastsElement.addAttribute("shape", shape.toString());
+		breastsElement.addAttribute("size", String.valueOf(size));
+		breastsElement.addAttribute("rows", String.valueOf(rows));
+		breastsElement.addAttribute("milkStorage", String.valueOf(milkStorage));
+		breastsElement.addAttribute("storedMilk", String.valueOf(milkStored));
+		breastsElement.addAttribute("milkRegeneration", String.valueOf(milkRegeneration));
+		breastsElement.addAttribute("nippleCountPerBreast", String.valueOf(nippleCountPerBreast));
+		nipples.saveAsXML(breastsElement);
+		milk.saveAsXML(breastsElement);
+		return true;
+	}
+	
+	public static Breast loadFromXML(Element parentElement) {
+		try {
+			Element breastsElement = parentElement.getMandatoryFirstOf("breasts");
+			return new Breast(BreastType.getBreastTypeFromId(breastsElement.getAttribute("type")),
+					BreastShape.valueOf(breastsElement.getAttribute("shape")),
+					Integer.parseInt(breastsElement.getAttribute("size")),
+					Integer.parseInt(breastsElement.getAttribute("rows")),
+					Integer.parseInt(breastsElement.getAttribute("milkStorage")),
+					Float.parseFloat(breastsElement.getAttribute("storedMilk")),
+					Integer.parseInt(breastsElement.getAttribute("milkRegeneration")),
+					Integer.parseInt(breastsElement.getAttribute("nippleCountPerBreast")),
+					Nipples.loadFromXML(breastsElement),
+					FluidMilk.loadFromXML(breastsElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }

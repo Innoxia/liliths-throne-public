@@ -1,12 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.types.TongueType;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -14,19 +11,32 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @since 0.1.0
  * @version 0.3.7
  * @author Innoxia
  */
-public class Tongue implements BodyPartInterface {
+public class Tongue implements BodyPartInterface, XMLSaving {
 
 	
 	protected AbstractTongueType type;
 	protected Set<TongueModifier> tongueModifiers;
 	protected int tongueLength;
 	protected boolean pierced;
+	
+	public Tongue(AbstractTongueType type, Set<TongueModifier> tongueModifiers, int tongueLength, boolean pierced) {
+		this.type = type;
+		this.tongueModifiers = tongueModifiers;
+		this.tongueLength = tongueLength;
+		this.pierced = pierced;
+	}
 
 	public Tongue(AbstractTongueType type) {
 		this.type = type;
@@ -228,7 +238,7 @@ public class Tongue implements BodyPartInterface {
 		return UtilText.parse(owner, sb.toString());
 	}
 
-	public String removeTongueModifier(GameCharacter owner, TongueModifier modifier) {
+	public String removeTongueModifier(TongueModifier modifier) {
 		if(!hasTongueModifier(modifier)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -294,5 +304,36 @@ public class Tongue implements BodyPartInterface {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tongue.class) && getType().getRace().isFeralPartsAvailable());
+	}
+	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element tongueElement = parentElement.addElement("tongue");
+		tongueElement.addAttribute("type", TongueType.getIdFromTongueType(type));
+		tongueElement.addAttribute("tongueLength", String.valueOf(tongueLength));
+		tongueElement.addAttribute("pierced", String.valueOf(pierced));
+		Element tongueModifiersElement = tongueElement.addElement("tongueModifiers");
+		for(TongueModifier tm : TongueModifier.values()) {
+			tongueModifiersElement.addAttribute(tm.toString(), "true");
+		}
+		return true;
+	}
+	
+	public static Tongue loadFromXML(Element parentElement) {
+		try {
+			Element tongueElement = parentElement.getMandatoryFirstOf("tongue");
+			Element tongueModifiersElement = tongueElement.getMandatoryFirstOf("tongueModifiers");
+			Set<TongueModifier> modifiers = new HashSet<>();
+			for(String key : tongueModifiersElement.getAttributes().keySet()) {
+				modifiers.add(TongueModifier.valueOf(key));
+			}
+			return new Tongue(TongueType.getTongueTypeFromId(tongueElement.getAttribute("type")),
+					modifiers,
+					Integer.parseInt(tongueElement.getAttribute("tongueLength")),
+					Boolean.parseBoolean(tongueElement.getAttribute("pierced")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -1,28 +1,38 @@
 package com.lilithsthrone.game.character.body;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
+import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @since 0.1.0
  * @version 0.4
  * @author Innoxia
  */
-public class Ass implements BodyPartInterface {
+public class Ass implements BodyPartInterface, XMLSaving {
 
 	protected AbstractAssType type;
 	protected int assSize;
 	protected int hipSize;
 	
 	protected Anus anus;
+	
+	public Ass(AbstractAssType type, int assSize, int hipSize, Anus anus) {
+		this.type = type;
+		this.assSize = assSize;
+		this.hipSize = hipSize;
+		this.anus = anus;
+	}
 
 	public Ass(AbstractAssType type, int assSize, int hipSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
@@ -215,4 +225,26 @@ public class Ass implements BodyPartInterface {
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Ass.class) && getType().getRace().isFeralPartsAvailable());
 	}
 	
+	@Override
+	public boolean saveAsXML(Element parentElement) {
+		Element assElement = parentElement.addElement("ass");
+		assElement.addAttribute("type", AssType.getIdFromAssType(type));
+		assElement.addAttribute("assSize", String.valueOf(assSize));
+		assElement.addAttribute("hipSize", String.valueOf(hipSize));
+		anus.saveAsXML(assElement);
+		return true;
+	}
+	
+	public static Ass loadFromXML(Element parentElement) {
+		try {
+			Element assElement = parentElement.getMandatoryFirstOf("ass");
+			return new Ass(AssType.getAssTypeFromId(assElement.getAttribute("type")),
+					Integer.parseInt(assElement.getAttribute("assSize")),
+					Integer.parseInt(assElement.getAttribute("hipSize")),
+					Anus.loadFromXML(assElement));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 }
