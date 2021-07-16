@@ -78,6 +78,15 @@ public class OffspringSeed  implements XMLSaving {
 		this.fatherId = npc.getFatherId();
 		this.incubatorId = npc.getIncubatorId();
 		this.conceptionDate = npc.getConceptionDate();
+		this.motherName = npc.getMotherName();
+		this.motherFemininity = npc.getMotherFemininity();
+		this.motherSubspecies = npc.getMotherSubspecies();
+		this.fatherName = npc.getFatherName();
+		this.fatherFemininity = npc.getFatherFemininity();
+		this.fatherSubspecies = npc.getFatherSubspecies();
+		this.incubatorName = npc.getIncubatorName();
+		this.incubatorFemininity = npc.getIncubatorFemininity();
+		this.incubatorSubspecies = npc.getIncubatorSubspecies();
 		
 		try {
 			boolean carried = false;

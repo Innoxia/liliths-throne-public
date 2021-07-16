@@ -55,6 +55,15 @@ public class NPCOffspring extends NPC {
 				1, os.body.getGender(), os.body.getSubspecies(), os.body.getRaceStage(), new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		this.conceptionDate = os.conceptionDate;
+		this.motherName = os.getMotherName();
+		this.motherFemininity = os.getMotherFemininity();
+		this.motherSubspecies = os.getMotherSubspecies();
+		this.fatherName = os.getFatherName();
+		this.fatherFemininity = os.getFatherFemininity();
+		this.fatherSubspecies = os.getFatherSubspecies();
+		this.incubatorName = os.getIncubatorName();
+		this.incubatorFemininity = os.getIncubatorFemininity();
+		this.incubatorSubspecies = os.getIncubatorSubspecies();
 		
 		// Set random level from 1 to 3:
 		setLevel(Util.random.nextInt(3) + 1);
