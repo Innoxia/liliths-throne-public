@@ -386,7 +386,12 @@ public class OffspringSeed  implements XMLSaving {
 		this.motherId = motherId;
 	}
 	
-	public void setMother(GameCharacter mother) { motherId = mother.getId(); }
+	public void setMother(GameCharacter mother) {
+		motherId = mother.getId();
+		motherName = mother.getNameIgnoresPlayerKnowledge();
+		motherFemininity = mother.getFemininity();
+		motherSubspecies = mother.getTrueSubspecies();
+	}
 	
 	public String getMotherName() {
 		return motherName;
@@ -421,6 +426,9 @@ public class OffspringSeed  implements XMLSaving {
 	
 	public void setFather(GameCharacter father) {
 		fatherId = father.getId();
+		fatherName = father.getNameIgnoresPlayerKnowledge();
+		fatherFemininity = father.getFemininity();
+		fatherSubspecies = father.getTrueSubspecies();
 	}
 	
 	public String getFatherName() {
