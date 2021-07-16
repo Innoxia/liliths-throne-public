@@ -137,8 +137,8 @@ import java.time.temporal.ChronoField;
 		return MoonPhase.valueOf(date).getName();
 	}
 
-	public boolean isSocialFullMoon(LocalDateTime date) {
-		date = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 0, 0, 0, 0);	// this stops the equations from going weird when the time surpasses the time of the lunar phase
+	public static boolean isSocialFullMoon(LocalDateTime date) {
+		date = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 0, 0, 0, 0);	// this stops the equations from going weird when the current time surpasses the time of the lunar phase
 		
 		if(isMaximumPhaseToday(date.plusDays(1), MoonPhase.FULL_MOON)	// if full moon is this evening, but actually happens tomorrow morning
 				&& dateOfNextPhase(date, MoonPhase.FULL_MOON, 0).get(ChronoField.MINUTE_OF_DAY) < 720) {

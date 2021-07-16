@@ -4236,19 +4236,19 @@ public class Game implements XMLSaving {
 		return Lunation.dateOfNextPhase(date, phase, dayOffset);
 	}
 	
-	public static boolean isMaximumPhaseToday(LocalDateTime date, MoonPhase phase) {
+	public boolean isMaximumPhaseToday(LocalDateTime date, MoonPhase phase) {
 		return Lunation.isMaximumPhaseToday(date, phase);
 	}
 	
-	public static MoonPhase getMoonPhase(LocalDateTime date) {
+	public MoonPhase getMoonPhase(LocalDateTime date) {
 		return Lunation.getMoonPhase(date);
 	}
 	
-	public static String getMoonPhaseName(LocalDateTime date) {
+	public String getMoonPhaseName(LocalDateTime date) {
 		return Lunation.getMoonPhaseName(date);
 	}
 	
-	public static boolean isSocialFullMoon(LocalDateTime date) {
+	public boolean isSocialFullMoon(LocalDateTime date) {
 		return Lunation.isSocialFullMoon(date);
 	}
 	
