@@ -1068,7 +1068,6 @@ public class Game implements XMLSaving {
 				Map<String, Class<? extends NPC>> npcClasses=new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods=new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors=new ConcurrentHashMap<>();
-				List<String> offspringToBeDeleted = new ArrayList<>();
 				if(npcs.getLength()>0) { // No NPCs found, assume it's a save folder
 					int totalNpcCount=npcs.getLength();
 					IntStream.range(0, totalNpcCount).parallel().mapToObj(i->((Element) npcs.item(i)))
@@ -1094,28 +1093,8 @@ public class Game implements XMLSaving {
 										if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
 											className=className.replace("Alexa", "Helena");
 										}
-										NPC npc=loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-									//TODO This needs more thorough testing...
-									// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
-									// This was causing save file bloat, so now they are fully deleted.
-									if(npc!=null
-											&& Main.isVersionOlderThan(loadingVersion, "0.4.1")
-											&& (!npc.isUnique()
-													&& !(npc instanceof Elemental)
-													&& !(npc instanceof ReindeerOverseer)
-													&& !(npc instanceof GenericFemaleNPC)
-													&& !(npc instanceof GenericMaleNPC)
-													&& !(npc instanceof GenericAndrogynousNPC)
-													&& !(npc instanceof PrologueFemale)
-													&& !(npc instanceof PrologueMale)
-													&& !(npc instanceof NPCOffspring))
-											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
-										if(npc.getPregnantLitter()!=null) {
-											offspringToBeDeleted.addAll(npc.getPregnantLitter().getOffspring());
-										}
-										System.out.println("Deleted NPC: "+npc.getId());
-
-									} else if(npc!=null) {
+									NPC npc=loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
+									if(npc!=null) {
 											if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
 													|| (npc.getClass()!=DarkSiren.class
 													&& npc.getClass()!=FortressAlphaLeader.class
@@ -1192,38 +1171,12 @@ public class Game implements XMLSaving {
 						}
 					}
 				}
-				
-				for(String os : offspringToBeDeleted) {
-					try {
-						if(os.contains("NPCOffspring")) {
-							NPC npc = (NPC) Main.game.getNPCById(os);
-							if(npc!=null &&
-									(npc.getMother()==null || npc.getMother()!=null && !npc.getMother().isPlayer()) &&
-									(npc.getFather()==null || npc.getFather()!=null && !npc.getFather().isPlayer()) &&
-									(npc.getIncubator()==null || npc.getIncubator()!=null && !npc.getIncubator().isPlayer())) {
-								Main.game.removeNPC(os);
-							}
-						} else {
-							OffspringSeed offspringSeed = Main.game.getOffspringSeedById(os);
-							if(offspringSeed!=null && !offspringSeed.isFromPlayer()) {
-								Main.game.removeOffspringSeed(os);
-							}
-						}
-						System.out.println("Deleted offspring: "+os);
-					} catch (Exception e) {
-						System.out.println("Error when deleting offspring: "+os);
-					}
-				}
-				
-				if(debug) {
-					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
-				}
-				
+
 				// Load offspringSeed:
-				NodeList offspringSeed = gameElement.getElementsByTagName("OffspringSeed");
-				if(offspringSeed.getLength()>0) {
-					for(int i = 0; i < offspringSeed.getLength(); i++){
-						Element e = (Element) offspringSeed.item(i);
+				NodeList offspringSeedList = gameElement.getElementsByTagName("OffspringSeed");
+				if(offspringSeedList.getLength()>0) {
+					for(int i = 0; i < offspringSeedList.getLength(); i++){
+						Element e = (Element) offspringSeedList.item(i);
 						Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
 					}
 				} else {
@@ -1240,7 +1193,6 @@ public class Game implements XMLSaving {
 						Element e = (Element) offspringDoc.getElementsByTagName("OffspringSeed").item(0);
 						Main.game.addOffspringSeed(OffspringSeed.loadFromXML(e, doc), true);
 					}
-				
 				}
 				
 				if(debug) {
@@ -1264,7 +1216,24 @@ public class Game implements XMLSaving {
 
 				// Add in new NPCS:
 				Main.game.initUniqueNPCs();
-				
+
+				//TODO This needs more thorough testing...
+				// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
+				// This was causing save file bloat, so now they are fully deleted.
+				for(NPC npc: Main.game.getAllNPCs()) {
+					if(npc!=null
+						&& Main.isVersionOlderThan(loadingVersion, "0.4.1")
+						&& npc.getLocationPlace().getPlaceType() == PlaceType.GENERIC_EMPTY_TILE
+						&& npc.isReadyToBeDeleted()) {
+						Main.game.removeNPC(npc);
+						System.out.println("Deleted NPC: "+npc.getId());
+					}
+				}
+
+				if(debug) {
+					System.out.println("NPCs finished: "+ (System.nanoTime()-time)/1000000000d);
+				}
+
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) { // Fix for incorrect positioning bug in an old version:
 					Main.game.getNpc(Jules.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_ENTRANCE);
 					Main.game.getNpc(Kruger.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
@@ -4624,38 +4593,12 @@ public class Game implements XMLSaving {
 //				|| npc.getLastLitterBirthed()!=null
 //				|| npc.getMother()!=null
 //				|| npc.getFather()!=null
-		
-		boolean incubatingPlayerLitter = false;
-		if(!npc.getIncubatingLitters().isEmpty()) {
-			for(Litter litter : npc.getIncubatingLitters().values()) {
-				if((litter.getMother()!=null && litter.getMother().isPlayer()) || (litter.getFather()!=null && litter.getFather().isPlayer())) {
-					incubatingPlayerLitter = true;
-					break;
-				}
-			}
-		}
-		
-		boolean playerIncubatingLitter = false;
-		if(!Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
-			for(Litter litter : Main.game.getPlayer().getIncubatingLitters().values()) {
-				if((litter.getMother()!=null && litter.getMother().equals(npc)) || (litter.getFather()!=null && litter.getFather().equals(npc))) {
-					playerIncubatingLitter = true;
-					break;
-				}
-			}
-		}
-		
-		if((npc.getPregnantLitter()!=null && npc.getPregnantLitter().getFather()!=null && npc.getPregnantLitter().getFather().isPlayer()) // NPC needs to birth litter where player is father
-				|| (Main.game.getPlayer().getPregnantLitter()!=null && Main.game.getPlayer().getPregnantLitter().getFather()!=null && Main.game.getPlayer().getPregnantLitter().getFather().equals(npc)) // player needs to birth litter where NPC is father
-				|| incubatingPlayerLitter
-				|| playerIncubatingLitter
-				|| npc.isUnique()) {
-			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-			return false;
-			
-		} else {
+		if (npc.isReadyToBeDeleted()) {
 			removeNPC(npc);
 			return true;
+		} else {
+			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+			return false;
 		}
 	}
 	

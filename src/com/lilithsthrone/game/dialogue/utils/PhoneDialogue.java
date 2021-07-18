@@ -85,17 +85,17 @@ public class PhoneDialogue {
 			this.species_name = this.female
 					? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
 					: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
-			this.mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true)));
+			this.mother = (npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true))));
 			if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
 				mother = npc.getMotherName();
 			}
 			
-			this.father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true)));
+			this.father = (npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true))));
 			if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
 				father = npc.getFatherName();
 			}
 			
-			this.incubator = npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true)));
+			this.incubator = (npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true))));
 			if(npc.getIncubator()==null && !npc.getIncubatorName().equals("???")) {
 				incubator = npc.getIncubatorName();
 			}
@@ -128,17 +128,17 @@ public class PhoneDialogue {
 			this.species_name = this.female
 					? Util.capitaliseSentence(os.getSubspecies().getSingularFemaleName(null))
 					: Util.capitaliseSentence(os.getSubspecies().getSingularMaleName(null));
-			this.mother = os.getMother() == null ? "???" : (os.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getMother().getName(true)));
+			this.mother = (os.getMother() == null ? "???" : (os.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getMother().getName(true))));
 			if(os.getMother()==null && !os.getMotherName().equals("???")) {
 				mother = os.getMotherName();
 			}
 			
-			this.father = os.getFather() == null ? "???" : (os.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getFather().getName(true)));
+			this.father = (os.getFather() == null ? "???" : (os.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getFather().getName(true))));
 			if(os.getFather()==null && !os.getFatherName().equals("???")) {
 				father = os.getFatherName();
 			}
 			
-			this.incubator = os.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (os.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getIncubator().getName(true)));
+			this.incubator = (os.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (os.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getIncubator().getName(true))));
 			if(os.getIncubator()==null && !os.getIncubatorName().equals("???")) {
 				incubator = os.getIncubatorName();
 			}
@@ -2477,13 +2477,13 @@ public class PhoneDialogue {
 					String offspring0 = litter.getOffspring().iterator().next();
 					if(offspring0.contains("NPCOffspring")) {
 						GameCharacter c = Main.game.getNPCById(offspring0);
-						if(!c.getFatherName().equals("???")) {
-							unknownName = "<span style='color:"+c.getFatherFemininity().getColour().toWebHexString()+";'>"+c.getFatherName()+"</span>";
+						if(!c.getMotherName().equals("???")) {
+							unknownName = "<span style='color:"+c.getMotherFemininity().getColour().toWebHexString()+";'>"+c.getMotherName()+"</span>";
 						}
 					} else {
 						OffspringSeed o = Main.game.getOffspringSeedById(offspring0);
-						if(!o.getFatherName().equals("???")) {
-							unknownName = "<span style='color:"+o.getFatherFemininity().getColour().toWebHexString()+";'>"+o.getFatherName()+"</span>";
+						if(!o.getMotherName().equals("???")) {
+							unknownName = "<span style='color:"+o.getMotherFemininity().getColour().toWebHexString()+";'>"+o.getMotherName()+"</span>";
 						}
 					}
 				} catch(Exception ex) {
@@ -2513,13 +2513,13 @@ public class PhoneDialogue {
 					String offspring0 = litter.getOffspring().iterator().next();
 					if(offspring0.contains("NPCOffspring")) {
 						GameCharacter c = Main.game.getNPCById(offspring0);
-						if(!c.getFatherName().equals("???")) {
-							unknownName = "<span style='color:"+c.getFatherFemininity().getColour().toWebHexString()+";'>"+c.getFatherName()+"</span>";
+						if(!c.getIncubatorName().equals("???")) {
+							unknownName = "<span style='color:"+c.getIncubatorFemininity().getColour().toWebHexString()+";'>"+c.getIncubatorName()+"</span>";
 						}
 					} else {
 						OffspringSeed o = Main.game.getOffspringSeedById(offspring0);
-						if(!o.getFatherName().equals("???")) {
-							unknownName = "<span style='color:"+o.getFatherFemininity().getColour().toWebHexString()+";'>"+o.getFatherName()+"</span>";
+						if(!o.getIncubatorName().equals("???")) {
+							unknownName = "<span style='color:"+o.getIncubatorFemininity().getColour().toWebHexString()+";'>"+o.getIncubatorName()+"</span>";
 						}
 					}
 				} catch(Exception ex) {
