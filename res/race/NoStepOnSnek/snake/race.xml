@@ -35,4 +35,7 @@
 	<defaultFemininePreference>NORMAL</defaultFemininePreference>
 	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
 	<affectedByFurryPreference>true</affectedByFurryPreference>
+	<racialFetishModifiers>
+		<fetish love="3" like="3">FETISH_BONDAGE_GIVING</fetish>
+	</racialFetishModifiers>
 </race>
