@@ -3,7 +3,7 @@
 
 	<!-- Note: I use the words 'dialogue node' and 'scene' interchangeably in these comments, as the game's 'dialogue nodes' are simply different scenes which are presented to the player. -->
 	
-	<!-- Each one of these xml files can contain any number of dialogue nodes, each one of which is encompassed by 'node' element tags. -->
+	<!-- Each one of these xml files can contain any number of dialogue nodes, each one of which is encompassed by 'scene' element tags. -->
 	<scene id ="berries_found">
 		
 		<!-- What name you'd like to use to claim credit for creating this scene.
@@ -53,23 +53,23 @@
 		I don't want an encounter to display the tile's default dialogue above it (which is what would be the scene prior to this), so I'll leave this as false.
 		Please use either 'true' or 'false' for the values here.
 		You can also omit this value entirely, in which case it will default to false. -->
-		<continuesDialogue>false</continuesDialogue>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		
 		<!-- This defines whether or not this scene disables the player's ability to move, and should be defined as true when you want to prevent the player from simply walking away from the scene without choosing a response.
 		Please use either 'true' or 'false' for the values here.
 		You can also omit this value entirely, in which case it will default to false. -->
-		<travelDisabled>true</travelDisabled>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
 		
 		<!-- This defines whether or not the player's inventory is disabled.
 		You can omit this value entirely if you want, in which case it will default to false (or true if travelDisabled is true).
 			NOTE: This will always be true regardless of what you put here if the 'travelDisabled' element above is true (this is because some items could potentially move the player out of the scene, so if a scene's travel is disabled, items must be too.)
 		Please use either 'true' or 'false' for the values here. -->
-		<inventoryDisabled>true</inventoryDisabled>
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>
 		
 		<!-- This defines whether the player's health and aura regenerate as normal during this scene.
 		This should almost always be false unless you have a specific reason for not letting the player recover their health/aura.
 		Please use either 'true' or 'false' for the values here. -->
-		<regenerationDisabled>false</regenerationDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
 		
 		<!-- Responses: -->
 		<!-- The actual content and handling of a scene is only half of what a dialogue node is about.
@@ -102,7 +102,14 @@
 		With that being said, please bear in mind:
 			The response in index 0 is displayed as the bottom-right action to the player, which I often reserve for 'back'/'return' actions.
 			Responses of an index of 15 or higher will only be displayed to the player if the previous 14 actions are used, and will be on the next 'page' of responses, which are unlikely to get as much attention from the player as the actions on the first page.
-				As such, you should really try to limit your number of responses to under 15. -->
+				As such, you should really try to limit your number of responses to under 15.
+		You can define an optional attribute 'copyFromDialogueId' to define a dialogue node from which to copy responses for this dialogue node.
+			For example, to make this dialogue node have the same responses as the 'berries_eaten' dialogue node below, you'd define it as so:
+				<responses copyFromDialogueId="innoxia_encounters_fields_elis_woods_berries_eaten"/>
+			Please note that by doing this the responseTabs will also be copied from the dialogue node defined, and so you don't need to define responseTabs above.
+			Additional note: You can still define responses and response tabs when using the 'copyFromDialogueId' attribute.
+				When doing so, the game will prioritise using the responses/tabs you've defined, and then fall back on those from the 'copyFromDialogueId' element.
+				In this manner, it is possible to override responses defined in the dialogue node from 'copyFromDialogueId'. -->
 		<responses>
 			<!-- Sometimes you might want to vary the properties of a response based on gameplay variables.
 			As such, all of the elements within a response support conditional statements. -->
@@ -174,7 +181,7 @@
 				This action does not have any associated fetishes, but if you wanted to add one or more, just use this format:
 					<requiredFetishes>
 						<fetish><![CDATA[FETISH_TRANSFORMATION_RECEIVING]]></fetish>
-					<requiredFetishes>
+					</requiredFetishes>
 				Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/fetishes/Fetish.java
 				-->
 				<requiredFetishes/>
@@ -193,8 +200,8 @@
 				If you use a conditional statement, either return a perk name (as they appear in the Perk.java class) or nothing.
 				This action does not have any associated perks, but if you wanted to add one or more, just use this format:
 					<requiredPerks>
-						<perk><![CDATA[PERK_OBSERVANT]]></perk>
-					<requiredPerks>
+						<perk><![CDATA[OBSERVANT]]></perk>
+					</requiredPerks>
 				Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/Perk.java
 				-->
 				<requiredPerks/>
@@ -251,7 +258,7 @@
 					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_elis_berries_fight_won]]></nextDialoguePlayerVictory>
 					<!-- The dialogue node which the game will progress to if the player loses combat.
 					This element also does not support the special 'default' values. -->
-					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_elis_berries_fight_won]]></nextDialoguePlayerDefeat>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_elis_berries_fight_lost]]></nextDialoguePlayerDefeat>
 					<!-- A list of allies who will be on your side during the fight.
 					If the 'companionsAreAllies' attribute is true, the player's companions are included as allies. -->
 					<allies companionsAreAllies="true">
@@ -277,10 +284,9 @@
 				<!-- Responses can, of course, lead into the start of a sex scene.
 				As such, there are several elements here which provide the required information to the sex code to get a sex scene started.
 				If your response doesn't lead into a sex scene, you need to either delete this section or set the 'enabled' attribute to false (as I've done - I've added that attribute so that I can show you a full example without it actually affecting the response).
-				Note: Unlike combat scenes, the requirements above are all taken into account, except for the 'nextDialogue' element (as the next dialogue to be shown is the sex engine's dialogue).
-				Additional note: Modded sex managers are not supported yet, so custom sex scenes cannot be added.
-					As such, you're limited to generic ones (with starting behaviour determined by the 'tags' element below), which should nevertheless be suitable for most sex scenes. -->
+				Note: Unlike combat scenes, the requirements above are all taken into account, except for the 'nextDialogue' element (as the next dialogue to be shown is the sex engine's dialogue). -->
 				<sexVariables enabled="false">
+					<conditional><![CDATA[false]]></conditional>
 					<!-- Whether this is a consensual scene or not.
 					You should be using the game.isNonConEnabled() method somewhere (likely in the 'availabilityConditional' element above) to make sure you aren't displaying non-con scenes to players who have that content turned off. -->
 					<consensual><![CDATA[true]]></consensual>
@@ -318,7 +324,78 @@
 					<tags>
 						<tag>PREFER_ORAL</tag>
 					</tags>
+					<!-- You can additionally define any number of sex actions to already be ongoing at the start of this sex scene. -->
+					<ongoingActionsAtStart>
+						<action>
+							<!-- The condition which must be met for this ongoing sex type to be applied.
+								Must return either true or false.
+								If omitted or left empty, defaults to true. -->
+							<condition><![CDATA[
+								[#pc.hasPenis()]
+							]]></condition>
+							<!-- The id of the sex action to be performed.
+								SexAction ids are generated from their parent class name plus the name of the action, such as 'PenisVagina_PENIS_FUCKING_START' and 'ClitClit_TRIBBING_START'
+								A list of the SexAction classes which have ids can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/sexActions/SexActionManager.java -->
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<!-- The id of the character who is performing this action. -->
+							<performer><![CDATA[lilaya]]></performer>
+							<!-- The id of the character who is the target of this action. -->
+							<target><![CDATA[pc]]></target>
+							<!-- This determines whether or not the description for the sex action is displayed at the start of sex.
+								Must return either true or false.
+								If omitted or left empty, defaults to true. -->
+							<showDescription><![CDATA[true]]></showDescription>
+							<!-- This determines whether or not the effects of the sex action are displayed at the start of sex.
+								Must return either true or false, although you should probably always return true so the player gets information on what effects are being applied.
+								If omitted or left empty, defaults to true. -->
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
 				</sexVariables>
+				
+				<!-- The 'sexVariables' element up above offers one of two ways to define a sex scene.
+					You can also make use of a pre-defined sex manager.
+					If you would prefer to use this definition, then you should either omit the 'sexVariables' element up above entirely or set its 'enabled' attribute to "false".
+					Please note that there is nothing wrong with using the 'sexVariables' element above, but that sex managers offer far more control over the sex scene.
+					Almost all of the sex scene's information is defined within the sex manager, although you still need to set the sex scene's starting position, as well as participants and what slots they start in. -->
+				<sexVariablesWithManager enabled="false">
+					<!-- The id of the sex manager to use for this sex scene.
+						This is parsed upon triggering this response. -->
+					<id><![CDATA[innoxia_meraxis_masturbation]]></id>
+					<!-- The position which this sex scene will start in.
+						Positions can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/positions/SexPosition.java -->
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<!-- The id of this character -->
+							<id>pc</id>
+							<!-- The sex slot which they start in.
+								The ids for each of these slots are what you should use for the 'slot' attribute, and will take the generic format 'POSITION_SLOT'.
+									The id generation code can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/positions/slots/SexSlotManager.java
+									A typical id will look like one of the following: 'ALL_FOURS_BEHIND', 'LYING_DOWN_LYING_DOWN', 'SITTING_SITTING_IN_LAP_TWO', etc.
+								Make sure that this slot is supported in the starting position (defined in the SexManager that's drawn from the 'manager' element's 'id' element), or else it will break!-->
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>lilaya</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<!-- A list of the dominant spectators in this sex scene. -->
+					<dominantSpectators>
+						<character><![CDATA[rose]]></character>
+					</dominantSpectators>
+					<!-- A list of the submissive spectators in this sex scene. -->
+					<submissiveSpectators>
+						<character><![CDATA[meraxis]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_encounters_elis_fields_berries_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/elis/woods">WOODLAND_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+				
 			</response>
 			
 			<response>

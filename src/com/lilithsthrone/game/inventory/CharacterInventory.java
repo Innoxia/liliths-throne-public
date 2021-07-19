@@ -702,7 +702,11 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean removeItemByType(AbstractItemType itemType) {
-		return itemSubInventory.removeItemByType(itemType);
+		return removeItemByType(itemType, 1);
+	}
+
+	public boolean removeItemByType(AbstractItemType itemType, int count) {
+		return itemSubInventory.removeItemByType(itemType, count);
 	}
 	
 	public boolean removeAllItemsByRarity(Rarity rarity) {
@@ -813,7 +817,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean removeWeaponByType(AbstractWeaponType weaponType) {
-		return weaponSubInventory.removeItemByType(weaponType);
+		return weaponSubInventory.removeItemByType(weaponType, 1);
 	}
 	
 	public boolean removeAllWeaponsByRarity(Rarity rarity) {
@@ -977,7 +981,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean removeClothingByType(AbstractClothingType clothingType) {
-		return clothingSubInventory.removeItemByType(clothingType);
+		return clothingSubInventory.removeItemByType(clothingType, 1);
 	}
 	
 	public boolean removeAllClothingByRarity(Rarity rarity) {

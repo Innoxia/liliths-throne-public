@@ -1288,7 +1288,7 @@ public class PresetColour {
 	}
 	
 	public static Colour getColourFromId(String id) {
-		if(id.equals("HORN_DARK_BROWN")) {
+		if(id.equals("HORN_DARK_BROWN") || id.equals("COVERING_DARK_BROWN")) {
 			return PresetColour.COVERING_BROWN_DARK;
 		}
 		if(id.equals("CLOTHING_MULTICOLOURED")) {

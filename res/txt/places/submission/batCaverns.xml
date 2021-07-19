@@ -336,6 +336,27 @@
 	]]>
 	</htmlContent>
 	
+	<!-- REBEL_BASE_DOOR_PASS_SEARCH_FAIL -->
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_SEARCH_FAIL"><![CDATA[
+	<p>
+		You carefully examine every nook and cranny of the area around you. Despite your best efforts, your search turns up nothing.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- REBEL_BASE_DOOR_PASS_SILLY -->
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_SILLY"><![CDATA[
+	<p>
+		You rage at having been given yet another pointless side quest. [pc.speech(Can't they see I have things to see and people to do?)] you rant at nobody in particular, [pc.speech(I bet there's not even anybody to fuck behind that stupid door!)]
+	</p>
+	<p>
+		As if in reply to your humble cry of anguish, a gust of wind howls through the caverns. You suddenly feel more accomplished but also terribly unsatisfied.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- In the BatCaverns.java dialogue class -->
 	

@@ -1056,7 +1056,7 @@ public class WorldType {
 			PresetColour.BASE_GREY,
 			false,
 			false,
-			TeleportPermissions.BOTH,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/submission/rebelBase/rebelBase.png",
 			PlaceType.WORLD_MAP_DOMINION,
 			PlaceType.REBEL_BASE_ENTRANCE,
@@ -1083,7 +1083,7 @@ public class WorldType {
 	private static Map<String, AbstractWorldType> idToWorldMap = new HashMap<>();
 
 	public static List<AbstractWorldType> getAllWorldTypes() {
-		return allWorldTypes;
+		return new ArrayList<>(allWorldTypes);
 	}
 	
 	public static AbstractWorldType getWorldTypeFromId(String id) {

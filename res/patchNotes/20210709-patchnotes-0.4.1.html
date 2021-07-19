@@ -1,0 +1,66 @@
+<h2>v0.4.1</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issues with the parsing engine sometimes forgetting set variables and other parsing targets. (by AceXP)</li>
+	<li>Fixed numerous typos and parsing errors in the 'Meraxis's duel', 'Zaranix', 'Wes', and 'Daddy' scenes. (by AceXP)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>The elements 'continuesDialogue', 'travelDisabled', 'inventoryDisabled', and 'regenerationDisabled' in dialogue node modding now all support parsing instead of simply true/false values.</li>
+	<li>Added additional 'startingImmobilisation' element to sex manager definitions, allowing you to define characters as starting a sex scene in an immobilised state.</li>
+	<li>Externally defined Dialogue Nodes now support parsing for the 'index' element of their responses.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added internal map for 'The Centaur's Sword' tavern in Elis, including the centaur owner 'Kheiron'.</li>
+	<li>Added actions to the food and drink stalls in the middle of the Farmer's Market.</li>
+	<li>Added 'Fae' and 'Silvia' as two new characters (futa foxtauress sisters) in the Farmer's Market who sell clothing.</li>
+	<li>Added 'Kazik' as a character (male ferret-boy) who runs a jewellery stall in the Farmer's Market.</li>
+	<li>Added 'Yui' as a new character (female jorogumo) who runs a sex toy stall in the Farmer's Market.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Added attribute boosts to the following consumables to bring them in line with others: Fizzy Orange Juice; Cotton Candy Soda; Berry Soda; Chamomile Tea; Popcorn; Sausages; Pâté and Crackers; Honey Bread.</li>
+	<li>The food items 'Meat and Marrow' and 'Panther's Delight' now give the consumer +1 muscle if their muscles were less than 'muscular' (value of 60).</li>
+	<li>Reduced equine cider alcohol content from 15% to 8%.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Added 'armpit slut' and 'armpit lover' fetishes, along with related fetish tease attacks.</li>
+	<li>Added in variations for armpit sex for the 'ask for creampie/pullout' and 'encourage creampie/pullout' orgasm actions.</li>
+	<li>Added 'bondage bitch' and 'bondage applier' fetishes, which are now associated with the tail, tentacle, webbing, and Witch's Seal restricting sex actions.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added 'Dominion', 'Submission', and 'Elis' tabs to the 'map' menu in the phone to make map navigation a little tidier.</li>
+	<li>Demon, lilin, elder lilin, and angel essence is now tagged as heavy contraband, so Vicky no longer sells it.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing fixes.</li>
+	<li>Fixed Meraxis always referring to you as her sibling after impregnating her.</li>
+	<li>Fixed bug where spinneret depth wasn't being loaded properly, causing it to reload to the default depth every time you loaded a saved game.</li>
+	<li>Fixed bug where the game's dialogue would randomly fail to parse in some scenes, resulting in '(Error in conditional parsing!)' messages being displayed.</li>
+	<li>NPCs are now only fully deleted after any pregnancies and incubations related to the player have been resolved, which should fix some issues with offspring birth dates and missing information in the pregnancy stats screen.</li>
+	<li>Fixed issue where deleted NPCs would cause pregnancy stats, offspring map names, pregnancy tester dialogue, and the debug offspring menu to either throw errors or display as 'Unknown' or '???'.</li>
+	<li>Fixed extremely rare bug where it was still possible to impregnate a character who had 0 chance to be impregnated.</li>
+	<li>Takahashi now correctly wears a lab coat while in her lab in the citadel.</li>
+	<li>Fixed issue where trader responses defined in external dialogue nodes wouldn't work.</li>
+	<li>Fixed issue with the 'NPC.applyItemTransactionEffects()' method being called even if the transaction failed to process (such as in the case where the buying character's inventory was full).</li>
+	<li>Fixed issue where selecting a disabled action (i.e. a greyed-out button) would still apply whatever effects that action had to the game.</li>
+	<li>Externally defined sex managers now correctly handle all missing elements which are tagged as being 'optional'.</li>
+	<li>Fixed another issue in externally defined sex managers where the 'slotsAvailable' element's 'slot' elements were not parsing code.</li>
+	<li>Externally-defined dialogue nodes will now parse the 'colour' element within 'response' elements, allowing you to use conditional statements and such in them.</li>
+	<li>Fixed issue where characters would not get the 'frustrated' status effect after finishing sex without orgasming if they'd orgasmed within the last 24 hours.</li>
+	<li>Fixed issue where error log would sometimes display parsing errors when loading a game.</li>
+	<li>Added missing quick sex descriptions for tongue-armpits focus.</li>
+	<li>Fixed raccoon hair covering being associated with raccoon fur (i.e. the covering for their other body parts).</li>
+	<li>Fixed bug with random attackers always spawning as feminine.</li>
+</ul>

@@ -296,7 +296,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_ELIS(QuestType.MAIN, 20, 250) {
+	MAIN_3_ELIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Destination Elis";
@@ -304,25 +304,61 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
-					+ "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
 					+ " Meraxis additionally mentioned enlisting the aid of the youko, but that can wait until after you've arrived in Elis itself.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After encountering a particularly aggressive demonic centaur, you once again met Meraxis and then finally made it to Elis, where you introduced yourself to the lilin, Minotallys.";
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " To this end, you left Dominion for the first time...";
 		}
 	},
 	
-	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {//TODO
+	MAIN_3_B_MEETING_MERAXIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "-";
+			return "To The Red Dragon";
 		}
 
 		@Override
 		public String getDescription() {
+			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You met Meraxis in 'The Red Dragon' tavern, where she's managed to secure accommodation for you in the form of a rented room on the tavern's first floor.";
+		}
+	},
+	
+	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Meeting Minotallys";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
+					+ "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
 			return "-";
+		}
+	},
+	
+	MAIN_3_D_CALL_TO_ARMS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Call To Arms";
+		}
+
+		@Override
+		public String getDescription() {
+			return "";
 		}
 
 		@Override
@@ -565,6 +601,43 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "The Hypno-Watch appeared to work, although Lilaya stopped the test before it had a permanent effect."
 					+ " She warned that it will have a strong corruptive effect upon the mind of the whoever is targeted, and disenchanted it for good measure, before handing it over to you.";
+		}
+	},
+	
+	
+	LIGHTNING_SPELL_1_PAYMENT(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Price Of Power";
+		}
+		@Override
+		public String getDescription() {
+			return "After showing Arthur the arcane lightning globe which you found in the Enforcer warehouse, you were told that it would be possible to learn the secrets of the lightning spells within it."
+					+ " Although the resulting spells will be more powerful than what the globe is capable of,"
+						+ " Arthur has explained to you that such an extraction will not only require an immense amount of arcane essences, but will also permanently remove the globe's innate spells."
+					+ "<br/>When you're willing and able to do so, give Arthur the arcane lightning globe and let him extract 500 arcane essences from your aura.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You gave Arthur the arcane lightning globe which you found in the Enforcer warehouse, and also let him extract 500 arcane essences from your aura."
+					+ " In exchange, you've been promised that a powerful arcane lightning spell shall soon be yours.";
+		}
+	},
+	
+	LIGHTNING_SPELL_2_WAITING(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Lightning Extraction";
+		}
+		@Override
+		public String getDescription() {
+			return "Arthur informed you that it will take some time to extract the secrets of the arcane lightning from within the globe."
+					+ " You'll have to return to him after two weeks to find out what the results of his research are...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Arthur excitedly informed you that he'd not only been able to extract the secrets of two arcane lightning spells from the globe,"
+					+ " but that he'd also been able to transfer its remaining power into a smaller crystal, which he's had fitted onto a ring for you.";
 		}
 	},
 	
@@ -1441,7 +1514,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "The firebombs you got from the mysterious cave could come in handy, if only you had a way to get more.";
+			return "The firebombs you got from the mysterious cave could come in handy in a fight. You'll need to find someone who can either make or acquire more.";
 		}
 		@Override
 		public String getCompletedDescription() {

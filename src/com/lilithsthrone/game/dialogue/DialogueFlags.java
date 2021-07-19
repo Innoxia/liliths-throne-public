@@ -277,7 +277,10 @@ public class DialogueFlags implements XMLSaving {
 				if(flag.equalsIgnoreCase("punishedByAlexa")) {
 					newFlags.values.add(DialogueFlagValue.punishedByHelena);
 				} else {
-					newFlags.values.add(DialogueFlagValue.getDialogueFlagValueFromId(flag));
+					AbstractDialogueFlagValue flagValue = DialogueFlagValue.getDialogueFlagValueFromId(flag);
+					if(flagValue!=null) {
+						newFlags.values.add(flagValue);
+					}
 				}
 			} catch(Exception ex) {
 			}
@@ -345,6 +348,10 @@ public class DialogueFlags implements XMLSaving {
 
 	public boolean hasFlag(AbstractDialogueFlagValue flag) {
 		return values.contains(flag);
+	}
+
+	public boolean hasFlag(String flagId) {
+		return values.contains(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
 	}
 	
 	public void setFlag(AbstractDialogueFlagValue flag, boolean flagMarker) {

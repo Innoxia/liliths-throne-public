@@ -20,7 +20,6 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -323,10 +322,11 @@ public class Litter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(incubatorId);
 		} catch (Exception e) {
-			if(!incubatorId.equals("NOT_SET")) {
-				Util.logGetNpcByIdError("Litter.incubatorId()", incubatorId);
-			}
-			return Main.game.getNpc(GenericFemaleNPC.class);
+//			if(!incubatorId.equals("NOT_SET")) {
+//				Util.logGetNpcByIdError("Litter.incubatorId()", incubatorId);
+//			}
+//			return Main.game.getNpc(GenericFemaleNPC.class);
+			return null;
 		}
 	}
 	
@@ -334,10 +334,11 @@ public class Litter implements XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch (Exception e) {
-			if(!motherId.equals("NOT_SET")) {
-				Util.logGetNpcByIdError("Litter.getMother()", motherId);
-			}
-			return Main.game.getNpc(GenericFemaleNPC.class);
+//			if(!motherId.equals("NOT_SET")) {
+//				Util.logGetNpcByIdError("Litter.getMother()", motherId);
+//			}
+//			return Main.game.getNpc(GenericFemaleNPC.class);
+			return null;
 		}
 	}
 

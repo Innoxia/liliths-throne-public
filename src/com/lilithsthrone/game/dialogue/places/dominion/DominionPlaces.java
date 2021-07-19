@@ -1126,9 +1126,6 @@ public class DominionPlaces {
 				return "<p>"
 						+ "A pair of elite demon Enforcers are keeping a close watch on everyone who enters or leaves the city."
 						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
-					+ "</p>"
-					+ "<p>"
-						+ "[style.italicsMinorBad(Innoxia's note: World map travel has been temporarily disabled until the next version so that I can get the Elis & Fields content into a presentable state!)]" //TODO remove for 0.4.1
 					+ "</p>";
 				
 			} else {
@@ -1146,15 +1143,13 @@ public class DominionPlaces {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().isDiscoveredWorldMap()) {
-					 //TODO revert for 0.4.1
-					return new Response("World travel", "Exit Dominion and head out into the wide world...<br/>[style.italicsBad(This has been temporarily disabled until the next version so that Elis/Fields content can be finished!)]", null);
-//					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
-//							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
-//						}
-//					};
+					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
+						}
+					};
 					
 				} else {
 					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);

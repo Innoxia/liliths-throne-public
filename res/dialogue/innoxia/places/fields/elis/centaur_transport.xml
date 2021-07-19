@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="exterior">
+		<content folderPath="txt/places/fields/elis/centaur_transport">EXTERIOR</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Barn]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_centaur_transport_introduced))
+						The barn looks to be well and truly deserted. There's nothing for you to do here except continue on your way.
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+						As Astrapi informed you that she and Vronti will not be offering rides for the rest of today, you'll have to come back tomorrow if you wanted to make use of their services.
+					#ELSE
+						Approach the barn and see if you can find Astrapi or Vronti.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_centaur_transport_introduced) || flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+						null
+					#ELSE
+						innoxia_places_fields_elis_centaur_transport_approach
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="approach">
+		<content folderPath="txt/places/fields/elis/centaur_transport">APPROACH</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Inside]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						The barn is open between [style.italicsMinorGood([units.time(5.75)]-[units.time(15)])], and as such you could [pc.step] inside the intact barn and potentially find Astrapi or Vronti.
+					#ELSE
+						The barn is open between [style.italicsMinorBad([units.time(5.75)]-[units.time(15)])], and as such is currently deserted. You'll have to come back during opening times if you wanted to meet Astrapi or Vronti again.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						innoxia_places_fields_elis_centaur_transport_approach_inside
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.isHourBetween(5.75, 15)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wait & enter]]></responseTitle>
+				<responseTooltip><![CDATA[As the barn is currently closed, you could wait here until [units.time(5.75)] for it to open and then head inside, should you want to...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_centaur_transport_approach_inside]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#game.getMinutesUntilTimeInMinutes(5.75*60)]
+				]]></secondsPassed>
+				<!-- Manually set Vronti here in effects as preParsing is called after time passed -->
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/centaur_transport', 'APPROACH_WAIT'))]
+					[#vronti.setLocation(pc, false)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5.75, 15))
+						Decide against heading inside the building.
+					#ELSE
+						As the barn is currently closed, there's nothing for you to do here. You'll have to come back between [style.italicsMinorBad([units.time(5.75)]-[units.time(15)])] if you wanted to meet Astrapi or Vronti again.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/centaur_transport', 'LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="approach_inside">
+		<!-- If time is:
+			05:45-6:00 - Vronti waiting there
+			08:45-9:00 - Astrapi waiting there
+			11:45-12:00 - Vronti waiting there
+			14:45-15:00 - Astrapi waiting there
+			-->
+		<preParsingEffects><![CDATA[
+			#IF(game.isHourBetween(5.75, 6) || game.isHourBetween(11.75, 12))
+				[#vronti.setLocation(pc, false)]
+			#ELSEIF(game.isHourBetween(8.75, 9) || game.isHourBetween(14.75, 15))
+				[#astrapi.setLocation(pc, false)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/centaur_transport">APPROACH_INSIDE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.getCharactersPresent().contains(astrapi) && !game.getCharactersPresent().contains(vronti)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[As neither Astrapi nor Vronti are here right now, you'll need to wait for the next departure time if you wanted to get a ride to Elis.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_centaur_transport_approach_inside]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					#IF(game.getHourOfDay()>12)
+						[#game.getMinutesUntilTimeInMinutes(14.75*60)]
+					#ELSEIF(game.getHourOfDay()>9)
+						[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+					#ELSEIF(game.getHourOfDay()>6)
+						[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+					#ENDIF
+				]]></secondsPassed>
+				<!-- Duplicate effects as preParsing is called after time passed, so these effects aren't applied unless put here -->
+				<effects><![CDATA[
+					#IF(game.getHourOfDay()>12)
+						[#vronti.setLocation(pc, false)]
+					#ELSEIF(game.getHourOfDay()>9)
+						[#astrapi.setLocation(pc, false)]
+					#ELSEIF(game.getHourOfDay()>6)
+						[#vronti.setLocation(pc, false)]
+					#ELSE
+						[#astrapi.setLocation(pc, false)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(astrapi) || game.getCharactersPresent().contains(vronti)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.getMoney()>=250)
+						Dominion [style.moneyFormat(250, span)]
+					#ELSE
+						Dominion [style.moneyFormatUncoloured(250, span)]
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()>=250)
+						#IF(game.getCharactersPresent().contains(astrapi))
+							Take up Astrapi's offer and have her take you to Dominion now.
+						#ELSE
+							Take up Vronti's offer and have him take you to Dominion now.
+						#ENDIF
+					#ELSE
+						You don't have enough money to get a ride to Dominion!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=250)
+						#IF(game.getCharactersPresent().contains(astrapi))
+							innoxia_places_fields_centaur_transport_astrapi_start
+						#ELSE
+							innoxia_places_fields_centaur_transport_vronti_start
+						#ENDIF
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_centaur_travel_to_elis, false)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(astrapi) || game.getCharactersPresent().contains(vronti)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Astrapi that you don't want a ride to Dominion right now and exit the barn.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/centaur_transport', 'LEAVE_BARN'))]
+					[#astrapi.returnToHome()]
+					[#vronti.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

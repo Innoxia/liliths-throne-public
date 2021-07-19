@@ -24,6 +24,120 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class SadisticActions {
 	
+	/**
+	 * A non-sadistic version of 'slap ass'.
+	 */
+	public static final SexAction SPANK_ASS = new SexAction(
+			SexActionType.REQUIRES_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return SLAP_ASS.isBaseRequirementsMet()
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+					&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST);
+		}
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Spank [npc2.herHim]";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Start playfully spanking [npc2.namePos] [npc2.ass+].";
+		}
+		@Override
+		public String getDescription() {
+			String tailSpecial1 = "", tailSpecial2 = "";
+			
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(reach)] down and playfully [npc.verb(grope)] [npc2.her] [npc2.ass+],"
+							+ " before starting to deliver a series of firm spanks to [npc2.her] exposed cheeks.";
+				} else {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], [npc.name] playfully [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(pull)] upwards,"
+									+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of firm spanks to [npc2.her] exposed cheeks.";
+				}
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.moansVerb] that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
+							+ " before starting to make good on [npc.her] threat by playfully slapping [npc2.her] exposed ass cheeks.";
+				} else {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
+										+ " before playfully pulling [npc2.her] [npc2.ass+] up high in the air and starting to firmly spank [npc2.her] exposed cheeks.";
+				}
+				
+				return UtilText.returnStringAtRandom(
+							tailSpecial1,
+							tailSpecial2,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] playfully spanking [npc2.her] [npc2.ass+] in time with [npc.her] thrusts into [npc2.her] [npc2.pussy+].",
+							
+							"Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy], [npc.name] [npc.verb(use)] one [npc.hand] to hold [npc2.herHim] still,"
+								+ " while using [npc.her] other to deliver a series of firm spanks to [npc2.her] exposed ass cheeks.",
+							
+							"While [npc.name] [npc.verb(continue)] pounding away at [npc2.namePos] [npc2.pussy+], [npc.she] [npc.verb(reach)] down and [npc.verb(start)] to playfully slap [npc2.her] [npc2.ass+],"
+									+ " which causes [npc2.herHim] to [npc2.verb(squirm)] and [npc2.verb(squeal)] in response.");
+				
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(reach)] down and playfully [npc.verb(grope)] [npc2.her] [npc2.ass+],"
+							+ " before starting to deliver a series of firm spanks to [npc2.her] exposed cheeks.";
+				} else {
+					tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], [npc.name] playfully [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(pull)] upwards,"
+									+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of firm spanks to [npc2.her] exposed cheeks.";
+				}
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.moansVerb] that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
+							+ " before starting to make good on [npc.her] threat by playfully slapping [npc2.her] exposed ass cheeks.";
+				} else {
+					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
+										+ " before playfully pulling [npc2.her] [npc2.ass+] up high in the air and starting to firmly spank [npc2.her] exposed cheeks.";
+				}
+				
+				return UtilText.returnStringAtRandom(
+							tailSpecial1,
+							tailSpecial2,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] playfully spanking [npc2.her] [npc2.ass+] in time with [npc.her] thrusts into [npc2.her] [npc2.asshole+].",
+							
+							"Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole], [npc.name] [npc.verb(use)] one [npc.hand] to hold [npc2.herHim] still,"
+								+ " while using [npc.her] other to deliver a series of firm spanks to [npc2.her] exposed ass cheeks.",
+							
+							"While [npc.name] [npc.verb(continue)] pounding away at [npc2.namePos] [npc2.asshole+], [npc.she] [npc.verb(reach)] down and [npc.verb(start)] to playfully slap [npc2.her] [npc2.ass+],"
+									+ " which causes [npc2.herHim] to [npc2.verb(squirm)] and [npc2.verb(squeal)] in response.");
+				
+			} else {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial1 = "Letting out [npc.a_moan+], [npc.name] [npc.verb(reach)] down and [npc.verb(grab)] [npc2.namePos] waist, using one [npc.hand(true)] to hold [npc2.herHim] still,"
+										+ " while using [npc.her] other to deliver a series of firm spanks to [npc2.her] [npc2.ass+].";
+				} else {
+					tailSpecial1 = "Letting out [npc.a_moan+], [npc.name] playfully [npc.verb(grab)] the base of [npc2.her] [npc2.tail+] and [npc.verb(pull)] upwards,"
+								+ " raising [npc2.her] [npc2.ass+] up high in the air before starting to deliver a series of firm spanks to [npc2.her] exposed cheeks.";
+				}
+				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
+					tailSpecial2 = "[npc.Name] [npc.verb(reach)] down and [npc.verb(grab)] [npc2.namePos] waist with one hand,"
+							+ " holding [npc2.herHim] firmly in [npc.her] grip as [npc.she] [npc.verb(start)] to playfully slap [npc2.her] exposed cheeks.";
+				} else {
+					tailSpecial2 = "[npc.Name] [npc.verb(reach)] down and [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+], causing [npc2.herHim] to let out a surprised yelp as [npc.she] playfully [npc.verb(pull)] upwards,"
+										+ " forcing [npc2.herHim] to push [npc2.her] [npc2.ass+] up high in the air as [npc.name] [npc.verb(start)] to firmly spank [npc2.her] exposed cheeks.";
+				}
+			
+				return UtilText.returnStringAtRandom(
+							tailSpecial1,
+							tailSpecial2,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] playfully spanking [npc2.her] [npc2.ass+].",
+							
+							"[npc.Name] [npc.verb(use)] one [npc.hand] to hold [npc2.name] still, while using [npc.her] other to deliver a series of firm spanks to [npc2.her] exposed ass cheeks.",
+							
+							"[npc.Name] [npc.verb(reach)] down and [npc.verb(start)] to playfully spank [npc2.her] [npc2.ass+], which causes [npc2.herHim] to [npc2.verb(squirm)] and [npc2.verb(squeal)] in response.");
+			}
+		}
+	};
+	
 	public static final SexAction SLAP_ASS = new SexAction(
 			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
@@ -32,6 +146,11 @@ public class SadisticActions {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -92,7 +211,7 @@ public class SadisticActions {
 				}
 				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
 					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.verb(growl)] down that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
-							+ " before starting make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
+							+ " before starting to make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
 				} else {
 					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.pussy+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
 										+ " roughly yanking [npc2.her] [npc2.ass+] up high in the air before starting to aggressively slap [npc2.her] exposed cheeks.";
@@ -119,7 +238,7 @@ public class SadisticActions {
 				}
 				if(!Main.sex.getCharacterTargetedForSexAction(this).hasTail()) {
 					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.verb(growl)] down that [npc.sheIs] going to put [npc2.name] in [npc2.her] place,"
-							+ " before starting make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
+							+ " before starting to make good on [npc.her] threat by aggressively slapping [npc2.her] exposed ass cheeks.";
 				} else {
 					tailSpecial2 = "Still ploughing away at [npc2.her] [npc2.asshole+], [npc.name] [npc.verb(grab)] the base of [npc2.namePos] [npc2.tail+] in one [npc.hand],"
 										+ " roughly yanking [npc2.her] [npc2.ass+] up high in the air before starting to aggressively slap [npc2.her] exposed cheeks.";
@@ -165,7 +284,6 @@ public class SadisticActions {
 									+ " smirking down at [npc2.her] submissive form as [npc2.she] squeals and cries out beneath [npc.her] relentless blows.");
 			}
 		}
-		
 	};
 	
 	public static final SexAction SLAP_FACE = new SexAction(

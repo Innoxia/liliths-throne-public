@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -38,6 +39,7 @@ public class DialogueManager {
 	}
 	
 	public static DialogueNode getDialogueFromId(String id) {
+		id = id.trim(); // Just make sure that any parsed ids have been trimmed
 		if(id==null || id.equalsIgnoreCase("null") || id.equalsIgnoreCase("empty") || id.isEmpty()) {
 			return null;
 			
@@ -63,24 +65,33 @@ public class DialogueManager {
 	}
 	
 	static {
-//		// Modded dialogue types:
-//		
-//		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", null, "dialogue");
-//		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
-//			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-//				try {
-//					DialogueNode dialogue = new DialogueNode(innerEntry.getValue(), entry.getKey(), true) {};
-//					allDialogues.add(dialogue);
-//					dialogueToIdMap.put(dialogue, innerEntry.getKey());
-//					idToDialogueMap.put(innerEntry.getKey(), dialogue);
-////					System.out.println("modded WT: "+innerEntry.getKey());
-//				} catch(Exception ex) {
-//					System.err.println("Loading modded dialogue type failed at 'Dialogue'. File path: "+innerEntry.getValue().getAbsolutePath());
-//					System.err.println("Actual exception: ");
-//					ex.printStackTrace(System.err);
-//				}
-//			}
-//		}
+		// Special hard-coded dialogues which need to be accessed in external files:
+		String id = "MERAXIS_DEMON_TF_START";
+		allDialogues.add(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		dialogueToIdMap.put(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START, id);
+		idToDialogueMap.put(id, LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		
+		// Modded dialogue types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/dialogue");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					List<DialogueNode> nodes = DialogueNode.loadDialogueNodesFromFile(innerEntry.getKey(), innerEntry.getValue(), entry.getKey(), true);
+//					System.out.println("size: "+nodes.size());
+					for(DialogueNode node : nodes) {
+//						System.out.println("modded dialogue: "+node.getId());
+						allDialogues.add(node);
+						dialogueToIdMap.put(node, node.getId());
+						idToDialogueMap.put(node.getId(), node);
+					}
+				} catch(Exception ex) {
+					System.err.println("Loading modded dialogue type failed at 'Dialogue'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
 		
 		// External res dialogue types:
 		
