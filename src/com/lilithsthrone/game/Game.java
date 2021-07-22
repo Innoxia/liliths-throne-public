@@ -1222,7 +1222,6 @@ public class Game implements XMLSaving {
 				// This was causing save file bloat, so now they are fully deleted.
 				for(NPC npc: Main.game.getAllNPCs()) {
 					if(npc!=null
-						&& Main.isVersionOlderThan(loadingVersion, "0.4.1")
 						&& npc.getLocationPlace().getPlaceType() == PlaceType.GENERIC_EMPTY_TILE
 						&& npc.isReadyToBeDeleted()) {
 						Main.game.removeNPC(npc);

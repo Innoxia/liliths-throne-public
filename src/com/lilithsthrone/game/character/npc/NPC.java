@@ -144,8 +144,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			NPCGenerationFlag... generationFlags) {
 		super(nameTriplet, surname, description, level,
 				age<MINIMUM_AGE
-					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0)
-					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, birthDay, 12, 0),
+					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0)
+					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
 		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);

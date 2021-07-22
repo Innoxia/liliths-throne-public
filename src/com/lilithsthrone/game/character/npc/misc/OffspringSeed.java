@@ -198,7 +198,7 @@ public class OffspringSeed  implements XMLSaving {
 		
 		Element offspringSeedBody = doc.createElement("body");
 		parentElement.appendChild(offspringSeedBody);
-		
+
 		this.body.saveAsXML(offspringSeedBody, doc);
 		
 		// ************** Family **************//
@@ -277,13 +277,13 @@ public class OffspringSeed  implements XMLSaving {
 			Month month = Month.valueOf(((Element)element.getElementsByTagName("monthOfBirth").item(0)).getAttribute("value"));
 			int year = Integer.parseInt(((Element)element.getElementsByTagName("yearOfBirth").item(0)).getAttribute("value"));
 			
-			os.setBirthday(LocalDateTime.of(year, month, day, 12, 0));
+			os.setBirthday(LocalDateTime.of(year, month, (month==Month.FEBRUARY&&day==29?28:day), 12, 0));
 			
 		} catch(Exception ex) {
 		}
 		
 		// ************** Body **************//
-		
+
 		os.body = Body.loadFromXML(sb, (Element) parentElement.getElementsByTagName("body").item(0), doc);
 		os.body.calculateRace(null);
 		
