@@ -1,154 +1,18 @@
 package com.lilithsthrone.game.character;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.TextStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
-
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.attributes.AbstractAttribute;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
-import com.lilithsthrone.game.character.attributes.AlcoholLevel;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
-import com.lilithsthrone.game.character.attributes.LustLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
-import com.lilithsthrone.game.character.body.Arm;
-import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.BodyPartInterface;
-import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.FluidCum;
-import com.lilithsthrone.game.character.body.FluidGirlCum;
-import com.lilithsthrone.game.character.body.FluidInterface;
-import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractNippleType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.attributes.*;
+import com.lilithsthrone.game.character.body.*;
+import com.lilithsthrone.game.character.body.abstractTypes.*;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.FluidType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
-import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
-import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.HornLength;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.Lactation;
-import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
-import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Addiction;
@@ -166,19 +30,7 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
-import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
-import com.lilithsthrone.game.character.npc.dominion.Helena;
-import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
-import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.*;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
@@ -228,6 +80,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemGeneration;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -251,18 +104,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.DifficultyLevel;
-import com.lilithsthrone.game.sex.CondomFailure;
-import com.lilithsthrone.game.sex.GenericSexFlag;
-import com.lilithsthrone.game.sex.ImmobilisationType;
-import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrgasmCumTarget;
-import com.lilithsthrone.game.sex.PregnancyDescriptor;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
@@ -290,6 +132,22 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
+import org.w3c.dom.NodeList;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
@@ -300,51 +158,31 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  */
 public abstract class GameCharacter implements XMLSaving {
 
-	/** Calculations description as used in getAttributeValue() */
-	public static final String HEALTH_CALCULATION = "10 + (5*level) + (2*Physique) + Bonus Energy";
-	public static final String MANA_CALCULATION = "5 + (2*level) + (5*Arcane) + Bonus Aura";
-	public static final String RESTING_LUST_CALCULATION = "(Corruption/2) + Bonuses";
-
+	// Constants
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
 	public static final int MAX_COMBAT_MOVES = 8;
 	public static final int DEFAULT_COMBAT_AP = 3;
-
 	public static final int MINIMUM_AGE = 18;
-	
 	public static final int DEFAULT_TIME_START_VALUE = -1;
 	
-	// Core variables:
+	// Core
 	protected String id;
 	protected NameTriplet nameTriplet;
 	protected String surname;
 	protected String genericName;
-	protected boolean playerKnowsName;
-	protected boolean playerOnFirstNameTerms;
-	protected boolean raceConcealed;
-	protected boolean captive;
 	protected Map<String, String> petNameMap;
 	protected String description;
-	protected int level;
 	protected LocalDateTime birthday;
+	protected LocalDateTime conceptionDate;
 	protected int ageAppearanceDifference;
 	
-	protected Occupation occupation;
-	protected Set<Occupation> desiredJobs;
-	protected Set<PersonalityTrait> personalityTraits;
-	protected SexualOrientation sexualOrientation;
-	private float obedience;
-
-	private int experience;
-	private int perkPoints;
-	private Map<PerkCategory, Integer> perkCategoryPoints;
-
+	// Artwork
 	protected List<Artwork> artworkList;
 	private int artworkIndex = -1;
 	private String artworkFolderName = "";
 	
-	
-	// Location:
+	// Location
 	protected AbstractWorldType worldLocation;
 	protected AbstractWorldType homeWorldLocation;
 	protected Vector2i location;
@@ -352,48 +190,39 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Vector2i globalLocation;
 	protected Cell lastCell;
 	
-	
-	// Body:
+	// Body
 	protected Body body;
-	protected Gender genderIdentity; // What gender this character prefers to be. Used to determine NPC demonic transformations (i.e. a demon who identifies as a female will transform back into a female whenever possible.)
-	protected Map<CoverableArea, Set<String>> areasKnownByCharactersMap;
-	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	protected AbstractSubspecies fleshSubspecies;
 	
+	// Personality
+	protected Set<PersonalityTrait> personalityTraits;
+	protected SexualOrientation sexualOrientation;
+	protected Gender genderIdentity; // What gender this character prefers to be. Used to determine NPC demonic transformations (i.e. a demon who identifies as a female will transform back into a female whenever possible.)
 	
-	// Inventory:
+	// Inventory
 	protected CharacterInventory inventory;
-	private List<Outfit> savedOutfits;
+	/** Clothing which has been temporarily unequipped as part of a scene which requires this character to be naked. */
+	private Map<InventorySlot, AbstractClothing> holdingClothing;
+
+	// Character Maps
+	protected Map<CoverableArea, Set<String>> areasKnownByCharactersMap;
+	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	private Map<InventorySlot, Scar> scars;
 	private Map<InventorySlot, Tattoo> tattoos;
 	private Map<InventorySlot, SizedStack<Covering>> lipstickMarks;
-	/** Clothing which has been temporarily unequipped as part of a scene which requires this character to be naked. */
-	private Map<InventorySlot, AbstractClothing> holdingClothing;
 	
-	
-	// Attributes, perks & status effects:
-	protected Map<AbstractAttribute, Float> attributes;
-	protected Map<AbstractAttribute, Float> bonusAttributes;
-	protected Map<AbstractAttribute, Float> potionAttributes;
-	protected List<AbstractPerk> traits;
-	protected Map<Integer, Set<AbstractPerk>> perks;
-	protected Set<AbstractPerk> specialPerks;
+	// Fetishes
 	protected Set<Fetish> fetishes;
 	protected Map<Fetish, FetishDesire> fetishDesireMap;
+	protected Map<Fetish, Integer> fetishExperienceMap;
 	protected Map<Fetish, Integer> clothingFetishDesireModifiersMap;
 	protected List<Fetish> fetishesFromClothing;
-	protected Map<Fetish, Integer> fetishExperienceMap;
-	protected List<AppliedStatusEffect> statusEffects;
-	/** Maps seconds passed to Maps of StatusEffect-descriptions. */
-	protected Map<Long, Map<AbstractStatusEffect, String>> statusEffectDescriptions;
 	
-	protected boolean requiresAttributeStatusEffectCheck = true;
-	protected boolean requiresInventoryStatusEffectCheck = true;
-	
-	// Relationship stats:
+	// Relations
 	/** String is character ID*/
 	private Map<String, Float> affectionMap;
-	
+	private float obedience;
+	protected boolean captive;
 	
 	// Pregnancy:
 	protected List<String> pregnancyReactions;
@@ -407,51 +236,35 @@ public abstract class GameCharacter implements XMLSaving {
 	protected List<Litter> littersFathered;
 	protected List<Litter> implantedLitters; // Ovipositors
 	protected List<Litter> incubatedLitters;
-	protected int littersGenerated;
 	
-	// Family:
-	protected String motherId;
-	protected String fatherId;
-	protected String incubatorId;
-	protected LocalDateTime conceptionDate;
-	// Used as a backup for when motherId is pointing to a null NPC:
-	protected String motherName = "???";
-	protected Femininity motherFemininity = Femininity.FEMININE;
-	protected AbstractSubspecies motherSubspecies = Subspecies.HUMAN;
-	 // Used as a backup for when fatherId is pointing to a null NPC:
-	protected String fatherName = "???";
-	protected Femininity fatherFemininity = Femininity.MASCULINE;
-	protected AbstractSubspecies fatherSubspecies = Subspecies.HUMAN;
-	 // Used as a backup for when incubatorId is pointing to a null NPC:
-	protected String incubatorName = "???";
-	protected Femininity incubatorFemininity = Femininity.ANDROGYNOUS;
-	protected AbstractSubspecies incubatorSubspecies = Subspecies.HUMAN;
+	// Job, Levels & Perks
+	protected Occupation occupation;
+	protected int level;
+	private int experience;
+	protected List<AbstractPerk> traits;
+	protected Map<Integer, Set<AbstractPerk>> perks;
+	private int perkPoints;
+	private Map<PerkCategory, Integer> perkCategoryPoints;
+	protected Set<AbstractPerk> specialPerks;
 	
+	// Attributes & status effects:
+	protected Map<AbstractAttribute, Float> attributes;
+	protected Map<AbstractAttribute, Float> bonusAttributes;
+	protected Map<AbstractAttribute, Float> potionAttributes;
+	protected List<AppliedStatusEffect> statusEffects;
+	/** Maps seconds passed to Maps of StatusEffect-descriptions. */
+	protected Map<Long, Map<AbstractStatusEffect, String>> statusEffectDescriptions;
 	
-	// Slavery:
-	protected boolean ableToBeEnslaved;
-	protected List<String> slavesOwned;
-	protected String owner;
-	protected DialogueNode enslavementDialogue;
-	protected AbstractClothing enslavementClothing;
-	
-	protected Map<SlavePermission, Set<SlavePermissionSetting>> slavePermissionSettings;
-	
-	protected SlaveJob[] workHours;
-	protected Map<SlaveJob, Set<SlaveJobSetting>> slaveJobSettings;
-	
-	
-	//Companion
-	private boolean elementalSummoned;
+	// Elemental & Companion
 	private String elementalID;
-	private List<String> companions;
+	private boolean elementalSummoned;
 	String partyLeader;
-	
 	private int maxCompanions;
+	private List<String> companions;
 	
-	
-	// Combat:
-	protected CombatBehaviour combatBehaviour;
+	// Combat
+	protected float health;
+	protected float mana;
 	protected List<AbstractCombatMove> equippedMoves;
 	protected List<AbstractCombatMove> knownMoves;
 	protected List<Value<GameCharacter, AbstractCombatMove>> selectedMoves;
@@ -465,44 +278,26 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Set<SpellUpgrade> spellUpgrades;
 	protected Map<SpellSchool, Integer> spellUpgradePoints;
 	
-	protected float health;
-	protected float mana;
-	
-	
 	// Sex:
 	private int totalOrgasmCount = 0;
 	private int daysOrgasmCount = 0;
 	private int daysOrgasmCountRecord = 0;
 	protected long lastTimeHadSex = DEFAULT_TIME_START_VALUE;
 	protected long lastTimeOrgasmed = DEFAULT_TIME_START_VALUE;
-	protected Map<GameCharacter, SexType> foreplayPreference = new HashMap<>();
-	protected Map<GameCharacter, SexType> mainSexPreference = new HashMap<>();
-	
-	
-	// Stats:
-	// Combat stats:
-	private int foughtPlayerCount = 0;
-	private int lostCombatCount = 0;
-	private int wonCombatCount = 0;
-	
-	
-	// Sex stats:
 	protected Map<String, SexCount> sexCount; // Character ID to count
-//	private Map<SexType, Integer> sexCountMap;
-//	private Map<SexType, Integer> cumCountMap;
-//	/** String is partner ID*/
-//	private Map<String, Map<SexType, Integer>> sexPartnerMap;
 	/** Entry Strings are: Character ID who took virginity, virginity loss description.*/
 	protected Map<SexType, Entry<String, String>> virginityLossMap;
 	
-	// Fluids:
+	// Drugs
 	private float alcoholLevel = 0f;
 	private List<Addiction> addictions;
 	private Set<AbstractFluidType> psychoactiveFluidsIngested;
 	
-	
-	// Misc.:
+	// Misc
 	private List<Dice> dice; // For gambling
+	protected boolean requiresAttributeStatusEffectCheck = true;
+	protected boolean requiresInventoryStatusEffectCheck = true;
+	protected List<String> slavesOwned;
 	
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> NPCAttributeChangeEventListeners = new ArrayList<>();
@@ -529,9 +324,6 @@ public abstract class GameCharacter implements XMLSaving {
 		id = "NOT_SET"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
 		
 		genericName = "";
-		playerKnowsName = true;
-		playerOnFirstNameTerms = false;
-		raceConcealed = false;
 		captive = false;
 		this.description = description;
 		this.level = level;
@@ -561,37 +353,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		obedience = 0;
 		
-		ableToBeEnslaved = false;
 		slavesOwned = new ArrayList<>();
-		owner = "";
-		enslavementDialogue = null;
 
-		workHours = new SlaveJob[24];
-		for(int i=0; i<workHours.length; i++) {
-			workHours[i] = SlaveJob.IDLE;
-		}
-		
-		slaveJobSettings = new HashMap<>();
-		for(SlaveJob job : SlaveJob.values()) {
-			slaveJobSettings.putIfAbsent(job, new HashSet<>());
-			for(SlaveJobSetting jobSetting : job.getDefaultMutuallyExclusiveSettings()) {
-				addSlaveJobSettings(job, jobSetting);
-			}
-		}
-		
-		slavePermissionSettings = new HashMap<>();
-		for(SlavePermission permission : SlavePermission.values()) {
-			slavePermissionSettings.put(permission, new HashSet<>());
-			for(SlavePermissionSetting setting : permission.getSettings()) {
-				if(setting.isDefaultValue()) {
-					slavePermissionSettings.get(permission).add(setting);
-				}
-			}
-		}
-		
-		motherId = "";
-		fatherId = "";
-		incubatorId = "";
 		conceptionDate = this.birthday.minusDays(this.isPlayer()?280:60);
 		
 		experience = 0;
@@ -601,8 +364,6 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			this.inventory = inventory;
 		}
-		
-		savedOutfits = new ArrayList<>();
 		
 		scars = new HashMap<>();
 		tattoos = new HashMap<>();
@@ -628,9 +389,6 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		potionAttributes = new HashMap<>();
 
-		combatBehaviour = startingSubspecies!=null
-						?startingSubspecies.getRace().getPreferredCombatBehaviour()
-						:CombatBehaviour.BALANCED;
 		
 		moveCooldowns = new HashMap<>();
 		moveTypeDisruptionMap = new EnumMap<>(CombatMoveType.class);
@@ -669,12 +427,8 @@ public abstract class GameCharacter implements XMLSaving {
 		littersFathered = new ArrayList<>();
 		potentialPartnersAsMother = new ArrayList<>();
 		potentialPartnersAsFather = new ArrayList<>();
-		littersGenerated = 0;
 
 		// Stats:
-		foughtPlayerCount=0;
-		lostCombatCount=0;
-		wonCombatCount=0;
 		
 		// Sex Stats:
 		sexCount = new HashMap<>();
@@ -695,7 +449,6 @@ public abstract class GameCharacter implements XMLSaving {
 			bonusAttributes.put(a, 0f);
 		}
 		
-		desiredJobs = new HashSet<>();
 		
 		if(this.isPlayer()) {
 			setHistory(Occupation.UNEMPLOYED);
@@ -758,682 +511,1019 @@ public abstract class GameCharacter implements XMLSaving {
 		this.resetPerksMap(true, !this.isUnique());
 		PerkManager.initialiseSpecialPerksUponCreation(this);
 	}
-
-
+	
 	@Override
-	public Element saveAsXML(Element parentElement, Document doc) {
-		Element properties = doc.createElement("character");
-		parentElement.appendChild(properties);
-
-		// ************** Core information **************//
+	public boolean saveAsXML(Element parentElement) {
+		Element characterElement = parentElement.addElement("character");
+		characterElement.addAttribute("version", Main.VERSION_NUMBER);
+		characterElement.addComment("If you want to edit any of these values, just be warned that it might break the game...");
 		
-		Element characterCoreInfo = doc.createElement("core");
-		Comment comment = doc.createComment("If you want to edit any of these values, just be warned that it might break the game...");
-		properties.appendChild(characterCoreInfo);
-		
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "pathName", this.getClass().getCanonicalName());
-		
-		Element name = doc.createElement("name");
-		characterCoreInfo.appendChild(name);
-		XMLUtil.addAttribute(doc, name, "nameFeminine", this.getNameTriplet().getFeminine());
-		XMLUtil.addAttribute(doc, name, "nameAndrogynous", this.getNameTriplet().getAndrogynous());
-		XMLUtil.addAttribute(doc, name, "nameMasculine", this.getNameTriplet().getMasculine());
-		
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "genericName", this.getGenericName());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "playerOnFirstNameTerms", String.valueOf(this.isPlayerOnFirstNameTerms()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "raceConcealed", String.valueOf(this.isRaceConcealed()));
-		if(captive) {
-			XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "captive", String.valueOf(captive));
+		// Core
+		Element coreElement = characterElement.addElement("core");
+		coreElement.addElement("id", id);
+		coreElement.addElement("pathName", getClass().getCanonicalName());
+		Element nameTripletElement = coreElement.addElement("nameTriplet");
+		nameTripletElement.addAttribute("nameMasculine", nameTriplet.getMasculine());
+		nameTripletElement.addAttribute("nameAndrogynous", nameTriplet.getAndrogynous());
+		nameTripletElement.addAttribute("nameFeminine", nameTriplet.getFeminine());
+		coreElement.addElement("surname", surname);
+		coreElement.addElement("genericName", genericName);
+		if(!petNameMap.isEmpty()) {
+			coreElement.addElement("petNames");
+			for (Entry<String, String> entry : petNameMap.entrySet()) {
+				Element petName = coreElement.addElement("petName");
+				petName.addAttribute("id", entry.getKey());
+				petName.addAttribute("name", entry.getValue());
+			}
 		}
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "ageAppearanceDifference", String.valueOf(this.getAgeAppearanceDifference()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "yearOfBirth", String.valueOf(this.getBirthday().getYear()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "monthOfBirth", this.getBirthMonth().toString());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "elementalSummoned", String.valueOf(elementalSummoned));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "combatBehaviour", this.getCombatBehaviour().toString());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
-		
-		Element desiredJobsElement = doc.createElement("desiredJobs");
-		characterCoreInfo.appendChild(desiredJobsElement);
-		for(Occupation job : getDesiredJobs()){
-			Element element = doc.createElement("job");
-			desiredJobsElement.appendChild(element);
-			element.setTextContent(job.toString());
+		coreElement.addElement("description", description);
+		Element birthdayElement = coreElement.addElement("birthday");
+		birthdayElement.addAttribute("year", String.valueOf(birthday.getYear()));
+		birthdayElement.addAttribute("month", String.valueOf(birthday.getMonthValue()));
+		birthdayElement.addAttribute("day", String.valueOf(birthday.getDayOfMonth()));
+		Element conceptionElement = coreElement.addElement("conception");
+		conceptionElement.addAttribute("year", String.valueOf(conceptionDate.getYear()));
+		conceptionElement.addAttribute("month", String.valueOf(conceptionDate.getMonthValue()));
+		conceptionElement.addAttribute("day", String.valueOf(conceptionDate.getDayOfMonth()));
+		if(ageAppearanceDifference != 0) {
+			coreElement.addElement("ageAppearanceDifference", String.valueOf(ageAppearanceDifference));
 		}
 		
-		
-		Element petnamesElement = doc.createElement("petNames");
-		characterCoreInfo.appendChild(petnamesElement);
-		for(Entry<String, String> entry: getPetNameMap().entrySet()){
-			Element element = doc.createElement("petNameEntry");
-			petnamesElement.appendChild(element);
-			
-			XMLUtil.addAttribute(doc, element, "id", entry.getKey().toString());
-			XMLUtil.addAttribute(doc, element, "petName", entry.getValue().toString());
-		}
-		
-		Element personalityElement = doc.createElement("personality");
-		characterCoreInfo.appendChild(personalityElement);
-		for(PersonalityTrait trait : getPersonalityTraits()){
-			Element element = doc.createElement("trait");
-			personalityElement.appendChild(element);
-			element.setTextContent(trait.toString());
-		}
-		
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "genderIdentity", String.valueOf(this.getGenderIdentity()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "foughtPlayerCount", String.valueOf(this.getFoughtPlayerCount()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lostCombatCount", String.valueOf(this.getLostCombatCount()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "wonCombatCount", String.valueOf(this.getWonCombatCount()));
-		
-
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getAdditionalPerkPoints()));
-		
-		Element perkCategoryPointsElement = doc.createElement("perkCategoryPoints");
-		characterCoreInfo.appendChild(perkCategoryPointsElement);
-		for(Entry<PerkCategory, Integer> entry : perkCategoryPoints.entrySet()){
-			Element element = doc.createElement("points");
-			perkCategoryPointsElement.appendChild(element);
-			element.setAttribute("category", entry.getKey().toString());
-			element.setTextContent(entry.getValue().toString());
-		}
-		
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
-		
-		// Knows area map:
-		Element areasKnownByCharactersElement = doc.createElement("areasKnownByCharacters");
-		characterCoreInfo.appendChild(areasKnownByCharactersElement);
-		for(CoverableArea area: CoverableArea.values()){
-			if(!this.areasKnownByCharactersMap.get(area).isEmpty()) {
-				Element element = doc.createElement("area");
-				areasKnownByCharactersElement.appendChild(element);
-				XMLUtil.addAttribute(doc, element, "type", area.toString());
-				
-				for(String id : areasKnownByCharactersMap.get(area)) {
-					Element elementId = doc.createElement("character");
-					element.appendChild(elementId);
-					XMLUtil.addAttribute(doc, elementId, "id", id);
-				}
+		// Artwork
+		if(hasArtwork()) {
+			Element artwork = characterElement.addElement("artwork");
+			int index = getArtworkIndex();
+			if (index != getDefaultArtworkIndex()) {
+				artwork.addAttribute("artist", String.valueOf(index));
+			}
+			if (getCurrentArtwork().getIndex() != 0) {
+				artwork.addAttribute("index", String.valueOf(getCurrentArtwork().getIndex()));
 			}
 		}
 		
-		characterCoreInfo.getParentNode().insertBefore(comment, characterCoreInfo);
+		// Location
+		Element locationElement = characterElement.addElement("location");
+		Element globalElement = locationElement.addElement("global");
+		globalElement.addAttribute("x", String.valueOf(globalLocation.getX()));
+		globalElement.addAttribute("y", String.valueOf(globalLocation.getY()));
+		Element worldElement = locationElement.addElement("world");
+		worldElement.addAttribute("id", worldLocation.getId());
+		worldElement.addAttribute("x", String.valueOf(location.getX()));
+		worldElement.addAttribute("y", String.valueOf(location.getY()));
+		Element homeElement = locationElement.addElement("home");
+		homeElement.addAttribute("id", homeWorldLocation.getId());
+		homeElement.addAttribute("x", String.valueOf(homeLocation.getX()));
+		homeElement.addAttribute("y", String.valueOf(homeLocation.getY()));
 		
-
-		// ************** Location Information **************//
+		// Body
+		body.saveAsXML(characterElement);
+		characterElement.addElement("fleshSubspecies", fleshSubspecies.toString());
 		
-		Element locationInformation = doc.createElement("locationInformation");
-		properties.appendChild(locationInformation);
-		XMLUtil.createXMLElementWithValue(doc, locationInformation, "worldLocation", WorldType.getIdFromWorldType(this.getWorldLocation()));
-		XMLUtil.createXMLElementWithValue(doc, locationInformation, "homeWorldLocation", WorldType.getIdFromWorldType(this.getHomeWorldLocation()));
-		Element location = doc.createElement("location");
-		locationInformation.appendChild(location);
-		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
-		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
-		location = doc.createElement("homeLocation");
-		locationInformation.appendChild(location);
-		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getHomeLocation().getX()));
-		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getHomeLocation().getY()));
-		location = doc.createElement("globalLocation");
-		locationInformation.appendChild(location);
-		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getGlobalLocation().getX()));
-		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getGlobalLocation().getY()));
+		// Personality
+		if(!personalityTraits.isEmpty()) {
+			Element personalityElement = characterElement.addElement("personality");
+			for (PersonalityTrait trait : personalityTraits) {
+				personalityElement.addElement("trait", trait.getName());
+			}
+		}
+		characterElement.addElement("sexualOrientation", sexualOrientation.getName());
+		characterElement.addElement("genderIdentity", genderIdentity.getName());
 		
+		// Inventory
+		inventory.saveAsXML(characterElement);
 		
-
-		// ************** Body **************//
-		
-		Element characterBody = doc.createElement("body");
-		properties.appendChild(characterBody);
-		
-		this.body.saveAsXML(characterBody, doc);
-		
-		
-		
-		// ************** Inventory **************//
-		
-		this.inventory.saveAsXML(properties, doc);
-		
+		// Holding Clothing
 		if(!holdingClothing.isEmpty()) {
-			Element holdingClothingElement = doc.createElement("holdingClothing");
-			properties.appendChild(holdingClothingElement);
-			for(Entry<InventorySlot, AbstractClothing> clothing : this.holdingClothing.entrySet()) {
-				clothing.getValue().setSlotEquippedTo(clothing.getKey()); // Set slot here for ease of saving.
-				clothing.getValue().saveAsXML(holdingClothingElement, doc);
+			Element holdingClothingElement = characterElement.addElement("holdingClothing");
+			for (Entry<InventorySlot, AbstractClothing> entry : holdingClothing.entrySet()) {
+				Element itemElement = holdingClothingElement.addElement("item", entry.getKey().toString());
+				entry.getValue().saveAsXML(itemElement);
 			}
 		}
 		
-		// ************** Outfits **************//
-
-		if(!savedOutfits.isEmpty()) {
-			Element outfitsElement = doc.createElement("savedOutfits");
-			properties.appendChild(outfitsElement);
-			for(Outfit outfit : savedOutfits) {
-				outfitsElement.appendChild(outfit.saveAsXML(outfitsElement, doc));
-			}
-		}
-		
-		
-		// ************** Markings **************//
-		
-		if(!this.scars.isEmpty()) {
-			Element scarsElement = doc.createElement("scars");
-			properties.appendChild(scarsElement);
-			for(Entry<InventorySlot, Scar> scar : this.scars.entrySet()) {
-				Element element = doc.createElement("scarEntry");
-				scarsElement.appendChild(element);
-	
-				XMLUtil.addAttribute(doc, element, "slot", scar.getKey().toString());
-				scar.getValue().saveAsXML(element, doc);
-			}
-		}
-
-		if(!this.tattoos.isEmpty()) {
-			Element tattooElement = doc.createElement("tattoos");
-			properties.appendChild(tattooElement);
-			for(Entry<InventorySlot, Tattoo> tattoo : this.tattoos.entrySet()) {
-				Element element = doc.createElement("tattooEntry");
-				tattooElement.appendChild(element);
-	
-				XMLUtil.addAttribute(doc, element, "slot", tattoo.getKey().toString());
-				tattoo.getValue().saveAsXML(element, doc);
-			}
-		}
-
-		if(!this.lipstickMarks.isEmpty()) {
-			Element lipstickMarksElement = doc.createElement("lipstickMarks");
-			properties.appendChild(lipstickMarksElement);
-			for(Entry<InventorySlot, SizedStack<Covering>> lipstickEntry : this.lipstickMarks.entrySet()) {
-				Element element = doc.createElement("lipstickEntry");
-				lipstickMarksElement.appendChild(element);
-				XMLUtil.addAttribute(doc, element, "slot", lipstickEntry.getKey().toString());
-				
-				for(Covering covering : lipstickEntry.getValue()) {
-					covering.saveAsXML(element, doc);
-				}
-			}
-		}
-		
-		
-		// ************** Attributes **************//
-		
-		// Attributes:
-		Element characterCoreAttributes = doc.createElement("attributes");
-		properties.appendChild(characterCoreAttributes);
-		for(AbstractAttribute att : Attribute.getAllAttributes()){
-			if(this.getBaseAttributeValue(att) != att.getBaseValue()) {
-				Element element = doc.createElement("attribute");
-				characterCoreAttributes.appendChild(element);
-				
-				XMLUtil.addAttribute(doc, element, "type", Attribute.getIdFromAttribute(att));
-				XMLUtil.addAttribute(doc, element, "value", String.valueOf(this.getBaseAttributeValue(att)));
-			}
-		}
-		
-		Element characterPotionAttributes = doc.createElement("potionAttributes");
-		properties.appendChild(characterPotionAttributes);
-		for(Entry<AbstractAttribute, Float> entry : getPotionAttributes().entrySet()){
-			Element element = doc.createElement("attribute");
-			characterPotionAttributes.appendChild(element);
-			
-			XMLUtil.addAttribute(doc, element, "type", Attribute.getIdFromAttribute(entry.getKey()));
-			XMLUtil.addAttribute(doc, element, "value", String.valueOf(entry.getValue()));
-		}
-		
-		// Perks:
-		
-		Element characterEquippedPerks = doc.createElement("traits");
-		properties.appendChild(characterEquippedPerks);
-		for(AbstractPerk p : this.getTraits()){
-			Element element = doc.createElement("perk");
-			characterEquippedPerks.appendChild(element);
-			XMLUtil.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
-		}
-
-		Element characterSpecialPerks = doc.createElement("specialPerks");
-		properties.appendChild(characterSpecialPerks);
-		for(AbstractPerk p : this.getSpecialPerks()){
-			Element element = doc.createElement("perk");
-			characterSpecialPerks.appendChild(element);
-			XMLUtil.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
-		}
-		
-		Element characterPerks = doc.createElement("perks");
-		properties.appendChild(characterPerks);
-		for(Entry<Integer, Set<AbstractPerk>> p : this.getPerksMap().entrySet()){
-			for(AbstractPerk perk : p.getValue()) {
-				Element element = doc.createElement("perk");
-				characterPerks.appendChild(element);
-	
-				XMLUtil.addAttribute(doc, element, "row", p.getKey().toString());
-				XMLUtil.addAttribute(doc, element, "type",  Perk.getIdFromPerk(perk));
-			}
-		}
-		
-		// Spells:
-		Element characterSpells = doc.createElement("knownSpells");
-		properties.appendChild(characterSpells);
-		for(Spell spell : this.getSpells()) {
-			Element element = doc.createElement("spell");
-			characterSpells.appendChild(element);
-			XMLUtil.addAttribute(doc, element, "type", spell.toString());
-		}
-		
-		Element characterSpellUpgrades = doc.createElement("spellUpgrades");
-		properties.appendChild(characterSpellUpgrades);
-		for(SpellUpgrade upgrade : this.getSpellUpgrades()) {
-			Element element = doc.createElement("upgrade");
-			characterSpellUpgrades.appendChild(element);
-			XMLUtil.addAttribute(doc, element, "type", upgrade.toString());
-		}
-
-		Element characterSpellUpgradePoints = doc.createElement("spellUpgradePoints");
-		properties.appendChild(characterSpellUpgradePoints);
-		for(SpellSchool school : SpellSchool.values()) {
-			Element element = doc.createElement("upgradeEntry");
-			characterSpellUpgradePoints.appendChild(element);
-			XMLUtil.addAttribute(doc, element, "school", school.toString());
-			XMLUtil.addAttribute(doc, element, "points", String.valueOf(this.getSpellUpgradePoints(school)));
-		}
-		
-		// Fetishes:
-		Element characterFetishes = doc.createElement("fetishes");
-		properties.appendChild(characterFetishes);
-		for(Fetish f : this.getFetishes(false)){
-			Element element = doc.createElement("fetish");
-			characterFetishes.appendChild(element);
-			
-			XMLUtil.addAttribute(doc, element, "type", f.toString());
-		}
-		
-		Element fetishDesire = doc.createElement("fetishDesire");
-		properties.appendChild(fetishDesire);
-		for(Entry<Fetish, FetishDesire> entry : this.getFetishDesireMap().entrySet()){
-			Element fondnessEntry = doc.createElement("entry");
-			fetishDesire.appendChild(fondnessEntry);
-			
-			XMLUtil.addAttribute(doc, fondnessEntry, "fetish", entry.getKey().toString());
-			XMLUtil.addAttribute(doc, fondnessEntry, "desire", entry.getValue().toString());
-		}
-		
-		Element fetishExperience = doc.createElement("fetishExperience");
-		properties.appendChild(fetishExperience);
-		for(Entry<Fetish, Integer> entry : this.getFetishExperienceMap().entrySet()){
-			Element expEntry = doc.createElement("entry");
-			fetishExperience.appendChild(expEntry);
-			
-			XMLUtil.addAttribute(doc, expEntry, "fetish", entry.getKey().toString());
-			XMLUtil.addAttribute(doc, expEntry, "experience", String.valueOf(entry.getValue()));
-		}
-		
-		
-		// Status effects:
-		Element characterStatusEffects = doc.createElement("statusEffects");
-		properties.appendChild(characterStatusEffects);
-		for(AppliedStatusEffect ase : statusEffects){
-			Element element = doc.createElement("statusEffect");
-			characterStatusEffects.appendChild(element);
-			
-			XMLUtil.addAttribute(doc, element, "type", StatusEffect.getIdFromStatusEffect(ase.getEffect()));
-			XMLUtil.addAttribute(doc, element, "sr", String.valueOf(ase.getSecondsRemaining()));
-			XMLUtil.addAttribute(doc, element, "sp", String.valueOf(ase.getSecondsPassed()));
-			XMLUtil.addAttribute(doc, element, "lta", String.valueOf(ase.getLastTimeAppliedEffect()));
-			if(ase.getEffect().forceLoad()) {
-				XMLUtil.addAttribute(doc, element, "fl", "true");
-			}
-		}
-
-
-
-		
-		// Moves
-		Element characterMoves = doc.createElement("knownMoves");
-		properties.appendChild(characterMoves);
-		for(AbstractCombatMove move : this.knownMoves){
-			Element element = doc.createElement("move");
-			characterMoves.appendChild(element);
-
-			XMLUtil.addAttribute(doc, element, "type", move.getIdentifier());
-		}
-
-		// Equipped moves
-		Element characterEquippedMoves = doc.createElement("equippedMoves");
-		properties.appendChild(characterEquippedMoves);
-		for(AbstractCombatMove move : this.equippedMoves){
-			Element element = doc.createElement("move");
-			characterEquippedMoves.appendChild(element);
-
-			XMLUtil.addAttribute(doc, element, "type", move.getIdentifier());
-		}
-		
-		
-		
-		// ************** Relationships **************//
-		
-		Element characterRelationships = doc.createElement("characterRelationships");
-		properties.appendChild(characterRelationships);
-		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()){
-			Element relationship = doc.createElement("relationship");
-			characterRelationships.appendChild(relationship);
-			
-			XMLUtil.addAttribute(doc, relationship, "character", entry.getKey());
-			XMLUtil.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
-		}
-		
-		
-		
-		// ************** Pregnancy **************//
-		
-		// Pregnancy:
-		Element characterPregnancy = doc.createElement("pregnancy");
-		properties.appendChild(characterPregnancy);
-		XMLUtil.addAttribute(doc, characterPregnancy, "timeProgressedToFinalPregnancyStage", String.valueOf(this.getTimeProgressedToFinalPregnancyStage()));
-
-		XMLUtil.addAttribute(doc, characterPregnancy, "littersGenerated", String.valueOf(this.getLittersGenerated()));
-
-
-		if(!timeProgressedToFinalIncubationStage.isEmpty()) {
-			Element incubationStageElement = doc.createElement("timeProgressedToFinalIncubationStage");
-			characterPregnancy.appendChild(incubationStageElement);
-			for(Entry<SexAreaOrifice, Long> entry : timeProgressedToFinalIncubationStage.entrySet()) {
-				Element e = doc.createElement("entry");
-				incubationStageElement.appendChild(e);
-				e.setAttribute("orifice", entry.getKey().toString());
-				e.setTextContent(String.valueOf(entry.getValue()));
-			}
-		}
-		
-		if(!this.getPotentialPartnersAsMother().isEmpty()) {
-			Element characterPotentialPartnersAsMother = doc.createElement("potentialPartnersAsMother");
-			characterPregnancy.appendChild(characterPotentialPartnersAsMother);
-			for(PregnancyPossibility pregPoss : this.getPotentialPartnersAsMother()) {
-				pregPoss.saveAsXML(characterPotentialPartnersAsMother, doc);
-			}
-		}
-		
-		if(!this.getPotentialPartnersAsFather().isEmpty()) {
-			Element characterPotentialPartnersAsFather = doc.createElement("potentialPartnersAsFather");
-			characterPregnancy.appendChild(characterPotentialPartnersAsFather);
-			for(PregnancyPossibility pregPoss : this.getPotentialPartnersAsFather()) {
-				pregPoss.saveAsXML(characterPotentialPartnersAsFather, doc);
-			}
-		}
-
-		if(this.getPregnantLitter() != null) {
-			Element characterPregnancyCurrentLitter = doc.createElement("pregnantLitter");
-			characterPregnancy.appendChild(characterPregnancyCurrentLitter);
-			this.getPregnantLitter().saveAsXML(characterPregnancyCurrentLitter, doc);
-		}
-		
-		if(!incubatingLitters.isEmpty()) {
-			Element incubatingLittersElement = doc.createElement("incubatingLitters");
-			characterPregnancy.appendChild(incubatingLittersElement);
-			for(Entry<SexAreaOrifice, Litter> entry : incubatingLitters.entrySet()) {
-				Element incubatingLittersEntryElement = doc.createElement("entry");
-				incubatingLittersElement.appendChild(incubatingLittersEntryElement);
-				incubatingLittersEntryElement.setAttribute("orifice", entry.getKey().toString());
-				entry.getValue().saveAsXML(incubatingLittersEntryElement, doc);
-			}
-		}
-		
-		if(!this.getLittersBirthed().isEmpty()) {
-			Element characterPregnancyBirthedLitters = doc.createElement("birthedLitters");
-			characterPregnancy.appendChild(characterPregnancyBirthedLitters);
-			for(Litter litter : this.getLittersBirthed()) {
-				litter.saveAsXML(characterPregnancyBirthedLitters, doc);
-			}
-		}
-
-		if(!this.getLittersFathered().isEmpty()) {
-			Element characterPregnancyLittersFathered = doc.createElement("littersFathered");
-			characterPregnancy.appendChild(characterPregnancyLittersFathered);
-			for(Litter litter : this.getLittersFathered()) {
-				litter.saveAsXML(characterPregnancyLittersFathered, doc);
-			}
-		}
-
-		if(!this.getLittersIncubated().isEmpty()) {
-			Element characterPregnancyLittersIncubated = doc.createElement("incubatedLitters");
-			characterPregnancy.appendChild(characterPregnancyLittersIncubated);
-			for(Litter litter : this.getLittersIncubated()) {
-				litter.saveAsXML(characterPregnancyLittersIncubated, doc);
-			}
-		}
-
-		if(!this.getLittersImplanted().isEmpty()) {
-			Element characterPregnancyLittersImplanted = doc.createElement("implantedLitters");
-			characterPregnancy.appendChild(characterPregnancyLittersImplanted);
-			for(Litter litter : this.getLittersImplanted()) {
-				litter.saveAsXML(characterPregnancyLittersImplanted, doc);
-			}
-		}
-		
-		if(!pregnancyReactions.isEmpty()) {
-			Element pregnancyReactionsElement = doc.createElement("pregnancyReactions");
-			characterPregnancy.appendChild(pregnancyReactionsElement);
-			for(String value : pregnancyReactions) {
-				XMLUtil.createXMLElementWithValue(doc, pregnancyReactionsElement, "id", value.toString());
-			}
-		}
-		
-		
-		
-		// ************** Family **************//
-
-		Element characterFamily = doc.createElement("family");
-		properties.appendChild(characterFamily);
-		
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "motherId", this.getMotherId());
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "motherName", this.getMotherName());
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "motherFemininity", this.getMotherFemininity().toString());
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "motherSubspecies", Subspecies.getIdFromSubspecies(this.getMotherSubspecies()));
-		
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "fatherId", this.getFatherId());
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "fatherName", this.getFatherName());
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "fatherFemininity", this.getFatherFemininity().toString());
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "fatherSubspecies", Subspecies.getIdFromSubspecies(this.getFatherSubspecies()));
-		
-		if(!incubatorId.isEmpty()) {
-			XMLUtil.createXMLElementWithValue(doc, characterFamily, "incubatorId", this.getIncubatorId());
-			XMLUtil.createXMLElementWithValue(doc, characterFamily, "incubatorName", this.getIncubatorName());
-			XMLUtil.createXMLElementWithValue(doc, characterFamily, "incubatorFemininity", this.getIncubatorFemininity().toString());
-			XMLUtil.createXMLElementWithValue(doc, characterFamily, "incubatorSubspecies", Subspecies.getIdFromSubspecies(this.getIncubatorSubspecies()));
-		}
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "monthOfConception", this.getConceptionDate().getMonth().toString());
-		XMLUtil.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
-		
-		
-		
-		// ************** Slavery **************//
-
-		Element slaveryElement = doc.createElement("slavery");
-		properties.appendChild(slaveryElement);
-		
-		if(this.isAbleToBeEnslaved()) {
-			XMLUtil.createXMLElementWithValue(doc, slaveryElement, "ableToBeEnslaved", String.valueOf(this.isAbleToBeEnslaved()));
-		}
-		
-		Element slavesOwned = doc.createElement("slavesOwned");
-		slaveryElement.appendChild(slavesOwned);
-		for(String slave : this.getSlavesOwned()) {
-			Element element = doc.createElement("slave");
-			slavesOwned.appendChild(element);
-			
-			XMLUtil.addAttribute(doc, element, "id", slave);
-		}
-		
-		XMLUtil.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
-		
-		if(this.isSlave()) {
-			Element slaveJobSettings = doc.createElement("slaveJobSettings");
-			slaveryElement.appendChild(slaveJobSettings);
-			for(SlaveJob job : SlaveJob.values()) {
-				if(!this.getSlaveJobSettings(job).isEmpty()) {
-					Element element = doc.createElement("jobSetting");
-					XMLUtil.addAttribute(doc, element, "job", job.toString());
-					slaveJobSettings.appendChild(element);
-					for(SlaveJobSetting setting : this.getSlaveJobSettings(job)) {
-						Element settingElement = doc.createElement("setting");
-						element.appendChild(settingElement);
-						settingElement.setTextContent(setting.toString());
+		// Areas known
+		if(!areasKnownByCharactersMap.isEmpty()) {
+			Element areasKnownByCharactersElement = characterElement.addElement("areasKnownByCharacters");
+			for (CoverableArea area : CoverableArea.values()) {
+				if (!this.areasKnownByCharactersMap.get(area).isEmpty()) {
+					Element areaElement = areasKnownByCharactersElement.addElement("area", area.toString());
+					for (String id : areasKnownByCharactersMap.get(area)) {
+						areaElement.addElement("id", id);
 					}
 				}
 			}
-			
-			Element slavePermissionSettings = doc.createElement("slavePermissionSettings");
-			slaveryElement.appendChild(slavePermissionSettings);
-			for(Entry<SlavePermission, Set<SlavePermissionSetting>> entry : this.getSlavePermissionSettings().entrySet()) {
-				Element element = doc.createElement("permission");
-				slavePermissionSettings.appendChild(element);
-	
-				XMLUtil.addAttribute(doc, element, "type", entry.getKey().toString());
-				for(SlavePermissionSetting setting : entry.getValue()) {
-					Element settingElement = doc.createElement("setting");
-					element.appendChild(settingElement);
-					XMLUtil.addAttribute(doc, settingElement, "value", setting.toString());
-				}
-			}
-			
-			Element slaveAssignedJobs = doc.createElement("slaveAssignedJobs");
-			slaveryElement.appendChild(slaveAssignedJobs);
-			for(int i=0; i<workHours.length; i++) {
-				if(workHours[i]!=SlaveJob.IDLE) {
-					XMLUtil.addAttribute(doc, slaveAssignedJobs, "h"+String.valueOf(i), workHours[i].toString());
+		}
+		
+		// Fluids
+		if(!fluidsStoredMap.isEmpty()) {
+			Element fluidsStoredElement = characterElement.addElement("fluidsStored");
+			for (Entry<SexAreaOrifice, List<FluidStored>> entry : fluidsStoredMap.entrySet()) {
+				if (!entry.getValue().isEmpty()) {
+					Element orificeElement = fluidsStoredElement.addElement("orifice", entry.getKey().toString());
+					for (FluidStored fluid : entry.getValue()) {
+						fluid.saveAsXML(orificeElement.addElement("item"));
+					}
 				}
 			}
 		}
 		
-		
-		// ************** Companions **************//
-
-		Element companionElement = doc.createElement("companions");
-		properties.appendChild(companionElement);
-		
-		Element companionsFollowing = doc.createElement("companionsFollowing");
-		companionElement.appendChild(companionsFollowing);
-		for(String companion : this.getCompanionsId()) {
-			Element element = doc.createElement("companion");
-			companionsFollowing.appendChild(element);
-			
-			XMLUtil.addAttribute(doc, element, "id", companion);
+		// Markings
+		if(!scars.isEmpty()) {
+			Element scarsElement = characterElement.addElement("scars");
+			for (Entry<InventorySlot, Scar> entry : scars.entrySet()) {
+				Element scarElement = scarsElement.addElement("scar", entry.getKey().toString());
+				entry.getValue().saveAsXML(scarElement);
+			}
+		}
+		if(!tattoos.isEmpty()) {
+			Element tattoosElement = characterElement.addElement("tattoos");
+			for (Entry<InventorySlot, Tattoo> entry : tattoos.entrySet()) {
+				Element tattooElement = tattoosElement.addElement("tattoo", entry.getKey().toString());
+				entry.getValue().saveAsXML(tattooElement);
+			}
+		}
+		if(!lipstickMarks.isEmpty()) {
+			Element lipstickMarksElement = characterElement.addElement("lipstickMarks");
+			for (Entry<InventorySlot, SizedStack<Covering>> entry : lipstickMarks.entrySet()) {
+				Element lipstickElement = lipstickMarksElement.addElement("lipstick", entry.getKey().toString());
+				for (Covering covering : entry.getValue()) {
+					covering.saveAsXML(lipstickElement.addElement("item"));
+				}
+			}
 		}
 		
-		XMLUtil.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
-		XMLUtil.createXMLElementWithValue(doc, companionElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
+		// Fetishes
+		if(!fetishes.isEmpty()) {
+			Element fetishesElement = characterElement.addElement("fetishes");
+			for (Fetish fetish : fetishes) {
+				fetishesElement.addElement("fetish", fetish.toString());
+			}
+		}
+		if(!fetishDesireMap.isEmpty()) {
+			Element desiresElement = characterElement.addElement("desires");
+			for (Entry<Fetish, FetishDesire> entry : fetishDesireMap.entrySet()) {
+				Element fetishElement = desiresElement.addElement("fetish");
+				fetishElement.addAttribute("name", entry.getKey().toString());
+				fetishElement.addAttribute("type", entry.getValue().toString());
+			}
+		}
+		if(!fetishExperienceMap.isEmpty()) {
+			Element fetishExperienceElement = characterElement.addElement("fetishExperience");
+			for (Entry<Fetish, Integer> entry : fetishExperienceMap.entrySet()) {
+				Element fetishElement = fetishExperienceElement.addElement("fetish");
+				fetishElement.addAttribute("name", entry.getKey().toString());
+				fetishElement.addAttribute("experience", String.valueOf(entry.getValue()));
+			}
+		}
 		
+		// Affection
+		if(!affectionMap.isEmpty()) {
+			Element affectionMapElement = characterElement.addElement("affection");
+			for (Entry<String, Float> entry : affectionMap.entrySet()) {
+				Element relationshipElement = affectionMapElement.addElement("relationship");
+				relationshipElement.addAttribute("id", entry.getKey());
+				relationshipElement.addAttribute("value", String.valueOf(entry.getValue()));
+			}
+		}
+		if(obedience != 0f) {
+			characterElement.addElement("obedience", String.valueOf(obedience));
+		}
+		if(captive) {
+			characterElement.addElement("captive", String.valueOf(captive));
+		}
 		
+		// Pregnancy
+		if(!pregnancyReactions.isEmpty()) {
+			Element pregnancyReactionsElement = characterElement.addElement("pregnancyReactions");
+			for(String value : pregnancyReactions) {
+				pregnancyReactionsElement.addElement("id", value);
+			}
+		}
+		if (pregnantLitter != null) {
+			Element pregnancyElement = characterElement.addElement("pregnancy");
+			pregnantLitter.saveAsXML(pregnancyElement);
+			pregnancyElement.addAttribute("timeProgressedToFinalPregnancyStage", String.valueOf(timeProgressedToFinalPregnancyStage));
+		}
+		if(!potentialPartnersAsMother.isEmpty()) {
+			Element potentialPartnersAsMotherElement = characterElement.addElement("potentialPartnersAsMother");
+			for(PregnancyPossibility pregPoss : potentialPartnersAsMother) {
+				pregPoss.saveAsXML(potentialPartnersAsMotherElement.addElement("item"));
+			}
+		}
+		if(!potentialPartnersAsFather.isEmpty()) {
+			Element potentialPartnersAsFatherElement = characterElement.addElement("potentialPartnersAsFather");
+			for(PregnancyPossibility pregPoss : potentialPartnersAsFather) {
+				pregPoss.saveAsXML(potentialPartnersAsFatherElement.addElement("item"));
+			}
+		}
+		if(!incubatingLitters.isEmpty()) {
+			Element incubationElement = characterElement.addElement("incubation");
+			for (Entry<SexAreaOrifice, Litter> entry : incubatingLitters.entrySet()) {
+				Element orificeElement = incubationElement.addElement("orifice", entry.getKey().toString());
+				orificeElement.addAttribute("timeProgressedToFinalIncubationStage", String.valueOf(timeProgressedToFinalIncubationStage.get(entry.getKey())));
+				entry.getValue().saveAsXML(orificeElement);
+			}
+		}
+		if(!littersBirthed.isEmpty()) {
+			Element littersBirthedElement = characterElement.addElement("littersBirthed");
+			for(Litter litter : littersBirthed) {
+				litter.saveAsXML(littersBirthedElement.addElement("item"));
+			}
+		}
+		if(!littersFathered.isEmpty()) {
+			Element littersFatheredElement = characterElement.addElement("littersFathered");
+			for(Litter litter : littersFathered) {
+				litter.saveAsXML(littersFatheredElement.addElement("item"));
+			}
+		}
+		if(!implantedLitters.isEmpty()) {
+			Element implantedLittersElement = characterElement.addElement("implantedLitters");
+			for(Litter litter : implantedLitters) {
+				litter.saveAsXML(implantedLittersElement.addElement("item"));
+			}
+		}
+		if(!incubatedLitters.isEmpty()) {
+			Element incubatedLittersElement = characterElement.addElement("incubatedLitters");
+			for(Litter litter : incubatedLitters) {
+				litter.saveAsXML(incubatedLittersElement.addElement("item"));
+			}
+		}
 		
-		// ************** Sex Stats **************//
+		// Job, Levels & Perks
+		characterElement.addElement("occupation", occupation.toString());
+		characterElement.addElement("level", String.valueOf(level));
+		characterElement.addElement("experience", String.valueOf(experience));
+		if(!traits.isEmpty()) {
+			Element traitsElement = characterElement.addElement("traits");
+			for (AbstractPerk perk : traits) {
+				traitsElement.addElement("trait", Perk.getIdFromPerk(perk));
+			}
+		}
+		if(!perks.isEmpty()) {
+			Element perksElement = characterElement.addElement("perks");
+			for (Entry<Integer, Set<AbstractPerk>> entry : perks.entrySet()) {
+				Element perkSetElement = perksElement.addElement("perkSet");
+				perkSetElement.addAttribute("row", String.valueOf(entry.getKey()));
+				for (AbstractPerk perk : entry.getValue()) {
+					perkSetElement.addElement("perk", Perk.getIdFromPerk(perk));
+				}
+			}
+		}
+		characterElement.addElement("perkPoints", String.valueOf(perkPoints));
+		if(!perkCategoryPoints.isEmpty()) {
+			Element perkCategoryPointsElement = characterElement.addElement("perkCategoryPoints");
+			for (Entry<PerkCategory, Integer> entry : perkCategoryPoints.entrySet()) {
+				Element categoryElement = perkCategoryPointsElement.addElement("category");
+				categoryElement.addAttribute("name", entry.getKey().toString());
+				categoryElement.addAttribute("amount", String.valueOf(entry.getValue()));
+			}
+		}
+		if(!specialPerks.isEmpty()) {
+			Element specialPerksElement = characterElement.addElement("specialPerks");
+			for (AbstractPerk perk : specialPerks) {
+				specialPerksElement.addElement("specialPerk", Perk.getIdFromPerk(perk));
+			}
+		}
 		
-		Element characterSexStats = doc.createElement("sexStats");
-		properties.appendChild(characterSexStats);
-		
-		Element fluidsStoredMapElement = doc.createElement("fluidsStoredMap");
-		characterSexStats.appendChild(fluidsStoredMapElement);
-		for(Entry<SexAreaOrifice, List<FluidStored>> entry : fluidsStoredMap.entrySet()) {
-			Element element = doc.createElement("entry");
-			fluidsStoredMapElement.appendChild(element);
-
-			XMLUtil.addAttribute(doc, element, "orifice", entry.getKey().toString());
-			for(FluidStored f : entry.getValue()) {
-				f.saveAsXML(element, doc);
+		// Attributes
+		Element attributesElement = characterElement.addElement("attributes");
+		for(AbstractAttribute att : Attribute.getAllAttributes()){
+			if(getBaseAttributeValue(att) != att.getBaseValue()) {
+				Element attributeElement = attributesElement.addElement("attribute");
+				attributeElement.addAttribute("type", Attribute.getIdFromAttribute(att));
+				attributeElement.addAttribute("value", String.valueOf(getBaseAttributeValue(att)));
+			}
+		}
+		if(!potionAttributes.isEmpty()) {
+			Element potionAttributesElement = characterElement.addElement("potionAttributes");
+			for (Entry<AbstractAttribute, Float> entry : potionAttributes.entrySet()) {
+				Element attributeElement = potionAttributesElement.addElement("attribute");
+				attributeElement.addAttribute("type", Attribute.getIdFromAttribute(entry.getKey()));
+				attributeElement.addAttribute("value", String.valueOf(entry.getValue()));
 			}
 		}
 
-		XMLUtil.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCount", String.valueOf(this.getDaysOrgasmCount()));
-		XMLUtil.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCountRecord", String.valueOf(this.getDaysOrgasmCountRecord()));
-		XMLUtil.createXMLElementWithValue(doc, characterSexStats, "totalOrgasmCount", String.valueOf(this.getTotalOrgasmCount()));
-		
-		Element sexPartners = doc.createElement("sexPartners");
-		characterSexStats.appendChild(sexPartners);
-		for(Entry<String, SexCount> entry : sexCount.entrySet()){
-			Element element = entry.getValue().saveAsXML(sexPartners, doc);
-			element.setAttribute("id", entry.getKey());
-		}
-		
-		Element virginityLossesElement = doc.createElement("virginityLosses");
-		characterSexStats.appendChild(virginityLossesElement);
-		for(Entry<SexType, Entry<String, String>> entry : this.getVirginityLossMap().entrySet()) {
-			Element e = entry.getKey().saveAsXML(parentElement, doc);
-			e.setAttribute("takenBy", entry.getValue().getKey());
-			e.setAttribute("takenDescription", entry.getValue().getValue());
-			virginityLossesElement.appendChild(e);
-		}
-		
-		
-		
-		// ************** Fluids **************//
-		
-		
-		Element characterAddictionsCore = doc.createElement("addictionsCore");
-		properties.appendChild(characterAddictionsCore);
-
-		XMLUtil.addAttribute(doc, characterAddictionsCore, "alcoholLevel", String.valueOf(alcoholLevel));
-		
-		Element characterAddictions = doc.createElement("addictions");
-		characterAddictionsCore.appendChild(characterAddictions);
-		for(Addiction add : addictions) {
-			add.saveAsXML(characterAddictions, doc);
-		}
-		
-		
-		Element psychoactives = doc.createElement("psychoactiveFluids");
-		characterAddictionsCore.appendChild(psychoactives);
-		for(AbstractFluidType ft : this.getPsychoactiveFluidsIngested()) {
-			Element element = doc.createElement("fluid");
-			psychoactives.appendChild(element);
-			XMLUtil.addAttribute(doc, element, "value", FluidType.getIdFromFluidType(ft));
-		}
-
-
-
-		// ************** Artwork overrides **************//
-
-		if (hasArtwork()) {
-			Element artworkOverride = doc.createElement("artwork");
-			properties.appendChild(artworkOverride);
-
-			int index = getArtworkIndex();
-			if (index != getDefaultArtworkIndex()) {
-				Element artistElement = doc.createElement("overrideArtist");
-				artworkOverride.appendChild(artistElement);
-				XMLUtil.addAttribute(doc, artistElement, "index", String.valueOf(index));
-			}
-
-			index = getCurrentArtwork().getIndex();
-			if (getCurrentArtwork().getIndex() != 0) {
-				Element imageElement = doc.createElement("overrideImage");
-				artworkOverride.appendChild(imageElement);
-				XMLUtil.addAttribute(doc, imageElement, "index", String.valueOf(index));
+		// Status Effects
+		Element statusEffectsElement = characterElement.addElement("statusEffects");
+		for(AppliedStatusEffect ase : statusEffects){
+			Element statusEffectElement = statusEffectsElement.addElement("statusEffect");
+			statusEffectElement.addAttribute("type", StatusEffect.getIdFromStatusEffect(ase.getEffect()));
+			statusEffectElement.addAttribute("sr", String.valueOf(ase.getSecondsRemaining()));
+			statusEffectElement.addAttribute("sp", String.valueOf(ase.getSecondsPassed()));
+			statusEffectElement.addAttribute("lta", String.valueOf(ase.getLastTimeAppliedEffect()));
+			if(ase.getEffect().forceLoad()) {
+				statusEffectElement.addAttribute("fl", "true");
 			}
 		}
-
-		return properties;
+		
+		// Companions & Elementals
+		Element elementalElement = characterElement.addElement("elemental");
+		elementalElement.addAttribute("id", elementalID);
+		elementalElement.addAttribute("summonned", String.valueOf(elementalSummoned));
+		if(!partyLeader.isEmpty()) {
+			characterElement.addElement("partyLeader", partyLeader);
+		}
+		characterElement.addElement("maxCompanions", String.valueOf(maxCompanions));
+		if(!companions.isEmpty()) {
+			Element companionsElement = characterElement.addElement("companions");
+			for (String id : companions) {
+				companionsElement.addElement("id", id);
+			}
+		}
+		
+		// Combat
+		characterElement.addElement("health", String.valueOf(health));
+		characterElement.addElement("mana", String.valueOf(mana));
+		Element equippedMovesElement = characterElement.addElement("equippedMoves");
+		for(AbstractCombatMove combatMove : equippedMoves) {
+			equippedMovesElement.addElement("combatMove", combatMove.getIdentifier());
+		}
+		Element knownMovesElement = characterElement.addElement("knownMoves");
+		for(AbstractCombatMove combatMove : knownMoves) {
+			knownMovesElement.addElement("combatMove", combatMove.getIdentifier());
+		}
+		
+		// Spells
+		if(!spells.isEmpty()) {
+			Element knownSpellsElement = characterElement.addElement("knownSpells");
+			for (Spell spell : spells) {
+				knownSpellsElement.addElement("spell", spell.toString());
+			}
+		}
+		if(!spellUpgrades.isEmpty()) {
+			Element spellUpgradesElement = characterElement.addElement("spellUpgrades");
+			for (SpellUpgrade upgrade : spellUpgrades) {
+				spellUpgradesElement.addElement("upgrade", upgrade.toString());
+			}
+		}
+		if(!spellUpgradePoints.isEmpty()) {
+			Element characterSpellUpgradePoints = characterElement.addElement("spellUpgradePoints");
+			for (Entry<SpellSchool, Integer> entry : spellUpgradePoints.entrySet()) {
+				if (entry.getValue() != 0) {
+					characterSpellUpgradePoints.addAttribute(entry.getKey().getName(), String.valueOf(entry.getValue()));
+				}
+			}
+		}
+		
+		// Sex
+		if(totalOrgasmCount != 0) {
+			characterElement.addElement("totalOrgasmCount", String.valueOf(totalOrgasmCount));
+		}
+		if(daysOrgasmCount != 0) {
+			characterElement.addElement("daysOrgasmCount", String.valueOf(daysOrgasmCount));
+		}
+		if(daysOrgasmCountRecord != 0) {
+			characterElement.addElement("daysOrgasmCountRecord", String.valueOf(daysOrgasmCountRecord));
+		}
+		if(lastTimeHadSex != DEFAULT_TIME_START_VALUE) {
+			characterElement.addElement("lastTimeHadSex", String.valueOf(lastTimeHadSex));
+		}
+		if(lastTimeOrgasmed != DEFAULT_TIME_START_VALUE) {
+			characterElement.addElement("lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
+		}
+		if(!sexCount.isEmpty()) {
+			Element sexCountElement = characterElement.addElement("sexCount");
+			for (Entry<String, SexCount> entry : sexCount.entrySet()) {
+				Element countElement = sexCountElement.addElement("count");
+				countElement.addAttribute("id", entry.getKey());
+				entry.getValue().saveAsXML(countElement);
+			}
+		}
+		if(!virginityLossMap.isEmpty()) {
+			Element virginityLossesElement = characterElement.addElement("virginityLosses");
+			for (Entry<SexType, Entry<String, String>> entry : virginityLossMap.entrySet()) {
+				Element sexTypeElement = virginityLossesElement.addElement("sexType");
+				entry.getKey().saveAsXML(sexTypeElement);
+				sexTypeElement.addAttribute("takenBy", entry.getValue().getKey());
+				sexTypeElement.addAttribute("takenDescription", entry.getValue().getValue());
+			}
+		}
+		
+		// Drugs
+		if(alcoholLevel != 0f) {
+			characterElement.addElement("alcoholLevel", String.valueOf(alcoholLevel));
+		}
+		if(!addictions.isEmpty()) {
+			Element addictionsElement = characterElement.addElement("addictions");
+			for (Addiction addiction : addictions) {
+				addiction.saveAsXML(addictionsElement.addElement("item"));
+			}
+		}
+		if(!psychoactiveFluidsIngested.isEmpty()) {
+			Element psychoactiveFluidsElement = characterElement.addElement("psychoactiveFluids");
+			for (AbstractFluidType fluid : psychoactiveFluidsIngested) {
+				psychoactiveFluidsElement.addElement("fluid", FluidType.getIdFromFluidType(fluid));
+			}
+		}
+		
+		// Misc
+		Element slavesOwnedElement = characterElement.addElement("slavesOwned");
+		for(String slave : slavesOwned) {
+			slavesOwnedElement.addElement("slave", slave);
+		}
+		return true;
+	}
+		
+	public void loadFromXML(Element parentElement, CharacterImportSetting... settings) {
+		Map<CharacterImportSetting, Boolean> importSettings = CharacterUtils.convertImportSettings(settings);
+		
+		// Check element passed contains a character else return false
+		Element characterElement;
+		try {
+			characterElement = parentElement.getMandatoryFirstOf("character");
+		} catch (Exception ex) {
+			System.out.println("Failed to load character - Invalid XML passed to loadFromXML");
+			ex.printStackTrace();
+			return;
+		}
+		
+		// Core
+		try {
+			Element coreElement = characterElement.getMandatoryFirstOf("core");
+			id = coreElement.getMandatoryFirstOf("id").getValue();
+			Element nameTripletElement = coreElement.getMandatoryFirstOf("nameTriplet");
+			nameTriplet = new NameTriplet(
+					nameTripletElement.getAttribute("nameMasculine"),
+					nameTripletElement.getAttribute("nameAndrogynous"),
+					nameTripletElement.getAttribute("nameFeminine"));
+			surname = coreElement.getMandatoryFirstOf("surname").getValue();
+			genericName = coreElement.getMandatoryFirstOf("genericName").getValue();
+			if(coreElement.getOptionalFirstOf("petNames").isPresent()
+					&& importSettings.get(CharacterImportSetting.CLEAR_RELATIONS)) {
+				for(Element petNameElement : coreElement.getMandatoryFirstOf("petNames").getAllOf("petName")) {
+					petNameMap.put(petNameElement.getAttribute("id"),
+							petNameElement.getAttribute("name"));
+				}
+			}
+			description = coreElement.getMandatoryFirstOf("description").getValue();
+			Element birthdayElement = coreElement.getMandatoryFirstOf("birthday");
+			birthday = LocalDateTime.of(
+					Integer.parseInt(birthdayElement.getMandatoryFirstOf("year").getValue()),
+					Integer.parseInt(birthdayElement.getMandatoryFirstOf("month").getValue()),
+					Integer.parseInt(birthdayElement.getMandatoryFirstOf("day").getValue()),
+					12,
+					0);
+			Element conceptionDateElement = coreElement.getMandatoryFirstOf("conceptionDate");
+			conceptionDate = LocalDateTime.of(
+					Integer.parseInt(conceptionDateElement.getMandatoryFirstOf("year").getValue()),
+					Integer.parseInt(conceptionDateElement.getMandatoryFirstOf("month").getValue()),
+					Integer.parseInt(conceptionDateElement.getMandatoryFirstOf("day").getValue()),
+					12,
+					0);
+			if(coreElement.getOptionalFirstOf("ageAppearanceDifference").isPresent()) {
+				ageAppearanceDifference = Integer.parseInt(conceptionDateElement.getMandatoryFirstOf("year").getValue());
+			} else {
+				ageAppearanceDifference = 0;
+			}
+		} catch (Exception ex) {
+			System.out.println("Failed to load character - Invalid core element");
+			ex.printStackTrace();
+			return;
+		}
+		
+		// Artwork
+		if(characterElement.getOptionalFirstOf("artwork").isPresent()
+				&& !importSettings.get(CharacterImportSetting.CLEAR_ARTWORK)
+				|| !importSettings.get(CharacterImportSetting.IS_IMPORT)) {
+			try {
+				Element artworkElement = characterElement.getMandatoryFirstOf("artwork");
+				String artist = artworkElement.getAttribute("artist");
+				if(!artist.isEmpty()) {
+					setArtworkIndex(Integer.parseInt(artist));
+				}
+				String index = artworkElement.getAttribute("index");
+				if(!index.isEmpty()) {
+					getCurrentArtwork().setIndex(Integer.parseInt(index));
+				}
+				//TODO Is forceReload: true required?
+				loadImages(true);
+			} catch (Exception ex) {
+				System.out.println("Error loading artwork");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Location
+		try {
+			if(!importSettings.get(CharacterImportSetting.IS_IMPORT)) {
+				Element locationElement = characterElement.getMandatoryFirstOf("location");
+				Element globalElement = locationElement.getMandatoryFirstOf("global");
+				globalLocation = new Vector2i(
+						Integer.parseInt(globalElement.getAttribute("x")),
+						Integer.parseInt(globalElement.getAttribute("y")));
+				Element worldElement = locationElement.getMandatoryFirstOf("world");
+				worldLocation = WorldType.getWorldTypeFromId(worldElement.getAttribute("id"));
+				location = new Vector2i(
+						Integer.parseInt(worldElement.getAttribute("x")),
+						Integer.parseInt(worldElement.getAttribute("y")));
+				Element homeElement = locationElement.getMandatoryFirstOf("home");
+				homeWorldLocation = WorldType.getWorldTypeFromId(worldElement.getAttribute("id"));
+				homeLocation = new Vector2i(
+						Integer.parseInt(homeElement.getAttribute("x")),
+						Integer.parseInt(homeElement.getAttribute("y")));
+			}
+		} catch (Exception ex) {
+			System.out.println("Failed to load character - Invalid location element");
+			ex.printStackTrace();
+			return;
+		}
+		
+		// Body
+		try {
+			body.loadFromXML(characterElement);
+			fleshSubspecies = Subspecies.getSubspeciesFromId(characterElement.getMandatoryFirstOf("fleshSubspecies").getValue());
+		} catch (Exception ex) {
+			System.out.println("Failed to load character - Invalid body element");
+			ex.printStackTrace();
+			return;
+		}
+		
+		// Personality
+		try {
+			if(!characterElement.getOptionalFirstOf("personality").isPresent()) {
+				for (Element traitElement : characterElement.getMandatoryFirstOf("personality").getAllOf("trait")) {
+					personalityTraits.add(PersonalityTrait.valueOf(traitElement.getValue()));
+				}
+			}
+			sexualOrientation = SexualOrientation.valueOf(characterElement.getMandatoryFirstOf("sexualOrientation").getValue());
+			genderIdentity = Gender.valueOf(characterElement.getMandatoryFirstOf("genderIdentity").getValue());
+		} catch (Exception ex) {
+			System.out.println("Failed to load character - Invalid personality element");
+			ex.printStackTrace();
+			return;
+		}
+		
+		// Inventory
+		try {
+			inventory.loadFromXML(characterElement);
+		} catch (Exception ex) {
+			System.out.println("Failed to load character - Invalid inventory element");
+			ex.printStackTrace();
+			return;
+		}
+		
+		// Holding Clothing
+		if(characterElement.getOptionalFirstOf("holdingClothing").isPresent()) {
+			try {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("holdingClothing").getAllOf("item")) {
+					holdingClothing.put(InventorySlot.valueOf(itemElement.getValue()), AbstractClothing.loadFromXML(itemElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading holding clothing");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Areas known
+		if(!characterElement.getOptionalFirstOf("areasKnownByCharacters").isPresent() ) {
+			try {
+				for (Element areaElement : characterElement.getMandatoryFirstOf("areasKnownByCharacters").getAllOf("area")) {
+					HashSet<String> areaMap = new HashSet<String>();
+					for (Element idElement : areaElement.getAllOf("id")) {
+						areaMap.add(idElement.getValue());
+					}
+					areasKnownByCharactersMap.put(CoverableArea.valueOf(areaElement.getValue()), areaMap);
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading areas known");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Fluids
+		if(!characterElement.getOptionalFirstOf("fluidsStored").isPresent() ) {
+			try {
+				for (Element orificeElement : characterElement.getMandatoryFirstOf("fluidsStored").getAllOf("orifice")) {
+					List<FluidStored> fluidStored = new ArrayList<>();
+					for (Element itemElement : orificeElement.getAllOf("item")) {
+						fluidStored.add(FluidStored.loadFromXML(itemElement));
+					}
+					fluidsStoredMap.put(SexAreaOrifice.valueOf(orificeElement.getValue()), fluidStored);
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading fluids stored");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Markings
+		if(characterElement.getOptionalFirstOf("scars").isPresent()) {
+			try {
+				for (Element scarElement : characterElement.getMandatoryFirstOf("scars").getAllOf("scar")) {
+					scars.put(InventorySlot.valueOf(scarElement.getValue()), Scar.loadFromXML(scarElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading scars");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("tattoos").isPresent()) {
+			try {
+				for (Element tattooElement : characterElement.getMandatoryFirstOf("tattoos").getAllOf("tattoo")) {
+					tattoos.put(InventorySlot.valueOf(tattooElement.getValue()), Tattoo.loadFromXML(tattooElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading tattoos");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("lipstickMarks").isPresent()) {
+			try {
+				for (Element lipstickElement : characterElement.getMandatoryFirstOf("lipstickMarks").getAllOf("lipstick")) {
+					SizedStack<Covering> marks = new SizedStack<Covering>(3);
+					for (Element itemElement : lipstickElement.getAllOf("item")) {
+						marks.add(Covering.loadFromXML(itemElement));
+					}
+					lipstickMarks.put(InventorySlot.valueOf(lipstickElement.getValue()), marks);
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading lipstickMarks");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Fetishes
+		if(characterElement.getOptionalFirstOf("fetishes").isPresent()) {
+			try {
+				for (Element fetishElement : characterElement.getMandatoryFirstOf("fetishes").getAllOf("fetish")) {
+					fetishes.add(Fetish.valueOf(fetishElement.getValue()));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading fetishes");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("desires").isPresent()) {
+			try {
+				for (Element fetishElement : characterElement.getMandatoryFirstOf("desires").getAllOf("fetish")) {
+					fetishDesireMap.put(Fetish.valueOf(fetishElement.getAttribute("name")), FetishDesire.valueOf(fetishElement.getAttribute("type")));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading fetishes");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("fetishExperience").isPresent()) {
+			try {
+				for (Element fetishElement : characterElement.getMandatoryFirstOf("fetishExperience").getAllOf("fetish")) {
+					fetishExperienceMap.put(Fetish.valueOf(fetishElement.getAttribute("name")), Integer.parseInt(fetishElement.getAttribute("experience")));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading fetishes");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Affection
+		if(characterElement.getOptionalFirstOf("affection").isPresent()) {
+			try {
+				for (Element relationshipElement : characterElement.getMandatoryFirstOf("affection").getAllOf("relationship")) {
+					affectionMap.put(relationshipElement.getAttribute("id"), Float.valueOf(relationshipElement.getAttribute("value")));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading affection");
+				ex.printStackTrace();
+			}
+		}
+		try {
+			if(characterElement.getOptionalFirstOf("obedience").isPresent()) {
+				obedience = Float.parseFloat(characterElement.getMandatoryFirstOf("obedience").getValue());
+			}
+			if(characterElement.getOptionalFirstOf("captive").isPresent()) {
+				captive = Boolean.parseBoolean(characterElement.getMandatoryFirstOf("captive").getValue());
+			}
+		} catch (Exception ex) {
+			System.out.println("Error loading secondary relation values");
+			ex.printStackTrace();
+		}
+		
+		// Pregnancy
+		if(characterElement.getOptionalFirstOf("pregnancyReactions").isPresent()) {
+			try {
+				for (Element idElement : characterElement.getMandatoryFirstOf("pregnancyReactions").getAllOf("id")) {
+					pregnancyReactions.add(idElement.getValue());
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading pregnancy reactions");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("pregnancy").isPresent()) {
+			try {
+				Element pregnancyElement = characterElement.getMandatoryFirstOf("pregnancy");
+				pregnantLitter = Litter.loadFromXML(pregnancyElement);
+				timeProgressedToFinalPregnancyStage = Long.parseLong(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage"));
+			} catch (Exception ex) {
+				System.out.println("Error loading pregnancy litter");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("potentialPartnersAsMother").isPresent()) {
+			try {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("potentialPartnersAsMother").getAllOf("item")) {
+					potentialPartnersAsMother.add(PregnancyPossibility.loadFromXML(itemElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading potential mothers");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("potentialPartnersAsFather").isPresent()) {
+			try {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("potentialPartnersAsFather").getAllOf("item")) {
+					potentialPartnersAsFather.add(PregnancyPossibility.loadFromXML(itemElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading potential fathers");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("incubation").isPresent()) {
+			try {
+				for (Element orificeElement : characterElement.getMandatoryFirstOf("incubation").getAllOf("orifice")) {
+					SexAreaOrifice orifice = SexAreaOrifice.valueOf(orificeElement.getValue());
+					timeProgressedToFinalIncubationStage.put(orifice, Long.valueOf(orificeElement.getAttribute("timeProgressedToFinalIncubationStage")));
+					incubatingLitters.put(orifice, Litter.loadFromXML(orificeElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading incubating litters");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("littersBirthed").isPresent()) {
+			try {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("littersBirthed").getAllOf("item")) {
+					littersBirthed.add(Litter.loadFromXML(itemElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading birthed litters");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("littersFathered").isPresent()) {
+			try {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("littersFathered").getAllOf("item")) {
+					littersFathered.add(Litter.loadFromXML(itemElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading fathered litters");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("implantedLitters").isPresent()) {
+			try {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("implantedLitters").getAllOf("item")) {
+					implantedLitters.add(Litter.loadFromXML(itemElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading implanted litters");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("incubatedLitters").isPresent()) {
+			try {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("incubatedLitters").getAllOf("item")) {
+					incubatedLitters.add(Litter.loadFromXML(itemElement));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading incubated litters");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Job, Levels & Perks
+		try {
+			occupation = Occupation.valueOf(characterElement.getMandatoryFirstOf("occupation").getValue());
+			level = Integer.parseInt(characterElement.getMandatoryFirstOf("level").getValue());
+			experience = Integer.parseInt(characterElement.getMandatoryFirstOf("experience").getValue());
+		} catch (Exception ex) {
+			System.out.println("Error loading job and level");
+			ex.printStackTrace();
+		}
+		if(characterElement.getOptionalFirstOf("traits").isPresent()) {
+			try {
+				for (Element traitElement : characterElement.getMandatoryFirstOf("traits").getAllOf("trait")) {
+					traits.add(Perk.getPerkFromId(traitElement.getValue()));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading traits");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("perks").isPresent()) {
+			try {
+				for (Element rowElement : characterElement.getMandatoryFirstOf("perkSet").getAllOf("row")) {
+					Integer row = Integer.valueOf(rowElement.getAttribute("row"));
+					perks.put(row, new HashSet<>());
+					for(Element perkElement : rowElement.getAllOf("perk")) {
+						perks.get(row).add(Perk.getPerkFromId(perkElement.getValue()));
+					}
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading perks");
+				ex.printStackTrace();
+			}
+		}
+		try {
+			perkPoints = Integer.parseInt(characterElement.getMandatoryFirstOf("perkPoints").getValue());
+			if(characterElement.getOptionalFirstOf("perkCategoryPoints").isPresent()) {
+				for (Element categoryElement : characterElement.getMandatoryFirstOf("perkCategoryPoints").getAllOf("category")) {
+					perkCategoryPoints.put(PerkCategory.valueOf(categoryElement.getAttribute("name")), Integer.valueOf(categoryElement.getAttribute("amount")));
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println("Error loading perk points");
+			ex.printStackTrace();
+		}
+		if(characterElement.getOptionalFirstOf("specialPerks").isPresent()) {
+			try {
+				for (Element specialPerkElement : characterElement.getMandatoryFirstOf("specialPerks").getAllOf("specialPerk")) {
+					specialPerks.add(Perk.getPerkFromId(specialPerkElement.getValue()));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading special perks");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Attributes
+		if(characterElement.getOptionalFirstOf("attributes").isPresent()) {
+			try {
+				for (Element attributeElement : characterElement.getMandatoryFirstOf("attributes").getAllOf("attribute")) {
+					attributes.put(Attribute.getAttributeFromId(attributeElement.getAttribute("type")), Float.valueOf(attributeElement.getAttribute("value")));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading attributes");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("potionAttributes").isPresent()) {
+			try {
+				for (Element attributeElement : characterElement.getMandatoryFirstOf("potionAttributes").getAllOf("attribute")) {
+					potionAttributes.put(Attribute.getAttributeFromId(attributeElement.getAttribute("type")), Float.valueOf(attributeElement.getAttribute("value")));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading potion attributes");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Status Effects
+		if(characterElement.getOptionalFirstOf("statusEffects").isPresent()) {
+			try {
+				for (Element statusEffectElement : characterElement.getMandatoryFirstOf("statusEffects").getAllOf("statusEffect")) {
+					if(!statusEffectElement.getAttribute("fl").isEmpty() || Integer.parseInt(statusEffectElement.getAttribute("sr")) > 0) {
+						statusEffects.add(new AppliedStatusEffect(StatusEffect.getStatusEffectFromId(statusEffectElement.getAttribute("type")),
+								Long.parseLong(statusEffectElement.getAttribute("lta")),
+								Long.parseLong(statusEffectElement.getAttribute("sp")),
+								Integer.parseInt(statusEffectElement.getAttribute("sr"))));
+					}
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading status effects");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Companions & Elementals
+		try {
+			Element elementalElement = characterElement.getMandatoryFirstOf("elemental");
+			elementalID = elementalElement.getAttribute("id");
+			elementalSummoned = Boolean.parseBoolean(elementalElement.getAttribute("summonned"));
+			if(characterElement.getOptionalFirstOf("partyLeader").isPresent()) {
+				partyLeader = characterElement.getMandatoryFirstOf("partyLeader").getValue();
+			}
+			maxCompanions = Integer.parseInt(characterElement.getMandatoryFirstOf("maxCompanions").getValue());
+			if(characterElement.getOptionalFirstOf("partyLeader").isPresent()) {
+				partyLeader = characterElement.getMandatoryFirstOf("partyLeader").getValue();
+			}
+			for (Element idElement : characterElement.getMandatoryFirstOf("companions").getAllOf("id")) {
+				companions.add(idElement.getValue());
+			}
+		} catch (Exception ex) {
+			System.out.println("Error loading status effects");
+			ex.printStackTrace();
+		}
+		
+		// Combat
+		try {
+			health = Float.parseFloat(characterElement.getMandatoryFirstOf("health").getValue());
+			mana = Float.parseFloat(characterElement.getMandatoryFirstOf("mana").getValue());
+			for (Element idElement : characterElement.getMandatoryFirstOf("equippedMoves").getAllOf("combatMove")) {
+				equippedMoves.add(CombatMove.getCombatMoveFromId(idElement.getValue()));
+			}
+			for (Element idElement : characterElement.getMandatoryFirstOf("knownMoves").getAllOf("combatMove")) {
+				knownMoves.add(CombatMove.getCombatMoveFromId(idElement.getValue()));
+			}
+		} catch (Exception ex) {
+			System.out.println("Error loading combat stats & moves");
+			ex.printStackTrace();
+		}
+		
+		// Spells
+		if(characterElement.getOptionalFirstOf("knownSpells").isPresent()) {
+			try {
+				for (Element spellElement : characterElement.getMandatoryFirstOf("knownSpells").getAllOf("spell")) {
+					spells.add(Spell.valueOf(spellElement.getValue()));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading known spells");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("spellUpgrades").isPresent()) {
+			try {
+				for (Element upgradeElement : characterElement.getMandatoryFirstOf("spellUpgrades").getAllOf("upgrade")) {
+					spellUpgrades.add(SpellUpgrade.valueOf(upgradeElement.getValue()));
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading spell upgrades");
+				ex.printStackTrace();
+			}
+		}
+		if(characterElement.getOptionalFirstOf("spellUpgradePoints").isPresent()) {
+			try {
+				for (SpellSchool spellSchool : SpellSchool.values()) {
+					Integer points;
+					if(characterElement.getMandatoryFirstOf("spellUpgradePoints").getAttribute(spellSchool.getName()).isEmpty()) {
+						points = 0;
+					} else {
+						points = Integer.parseInt(characterElement.getMandatoryFirstOf("spellUpgradePoints").getAttribute(spellSchool.getName()));
+					}
+					spellUpgradePoints.put(spellSchool, points);
+				}
+			} catch (Exception ex) {
+				System.out.println("Error loading spell upgrade points");
+				ex.printStackTrace();
+			}
+		}
+		
+		// Sex
+		try {
+			if(characterElement.getOptionalFirstOf("totalOrgasmCount").isPresent()) {
+				totalOrgasmCount = Integer.parseInt(characterElement.getMandatoryFirstOf("totalOrgasmCount").getValue());
+			}
+			if(characterElement.getOptionalFirstOf("daysOrgasmCount").isPresent()) {
+				daysOrgasmCount = Integer.parseInt(characterElement.getMandatoryFirstOf("daysOrgasmCount").getValue());
+			}
+			if(characterElement.getOptionalFirstOf("daysOrgasmCountRecord").isPresent()) {
+				daysOrgasmCountRecord = Integer.parseInt(characterElement.getMandatoryFirstOf("daysOrgasmCountRecord").getValue());
+			}
+			if(characterElement.getOptionalFirstOf("lastTimeHadSex").isPresent()) {
+				lastTimeHadSex = Integer.parseInt(characterElement.getMandatoryFirstOf("lastTimeHadSex").getValue());
+			}
+			if(characterElement.getOptionalFirstOf("lastTimeOrgasmed").isPresent()) {
+				lastTimeOrgasmed = Integer.parseInt(characterElement.getMandatoryFirstOf("lastTimeOrgasmed").getValue());
+			}
+			if(characterElement.getOptionalFirstOf("sexCount").isPresent()) {
+				for (Element countElement : characterElement.getMandatoryFirstOf("sexCount").getAllOf("count")) {
+					sexCount.put(countElement.getAttribute("id"), SexCount.loadFromXML(countElement));
+				}
+			}
+			if(characterElement.getOptionalFirstOf("virginityLosses").isPresent()) {
+				for (Element sexTypeElement : characterElement.getMandatoryFirstOf("virginityLosses").getAllOf("sexType")) {
+					HashMap lossValue = new HashMap<String, String>();
+					lossValue.put(sexTypeElement.getAttribute("takenBy"), sexTypeElement.getAttribute("takenDescription"));
+					virginityLossMap.putIfAbsent(SexType.loadFromXML(sexTypeElement), lossValue);
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println("Error loading sex stats");
+			ex.printStackTrace();
+		}
+		
+		// Drugs
+		try {
+			if(characterElement.getOptionalFirstOf("alcoholLevel").isPresent()) {
+				alcoholLevel = Float.parseFloat(characterElement.getMandatoryFirstOf("alcoholLevel").getValue());
+			}
+			if(characterElement.getOptionalFirstOf("addictions").isPresent()) {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("addictions").getAllOf("item")) {
+					addictions.add(Addiction.loadFromXML(itemElement));
+				}
+			}
+			if(characterElement.getOptionalFirstOf("psychoactiveFluids").isPresent()) {
+				for (Element itemElement : characterElement.getMandatoryFirstOf("psychoactiveFluids").getAllOf("fluid")) {
+					psychoactiveFluidsIngested.add(FluidType.getFluidTypeFromId(itemElement.getValue()));
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println("Error loading drugs");
+			ex.printStackTrace();
+		}
+		
+		// Misc
+		try {
+			for (Element slaveElement : characterElement.getMandatoryFirstOf("slavesOwned").getAllOf("slave")) {
+				slavesOwned.add(slaveElement.getValue());
+			}
+		} catch (Exception ex) {
+			System.out.println("Error loading slaves owned");
+			ex.printStackTrace();
+		}
 	}
 	
-	public static String getValueFromElementWithTagName(Element parentElement, String tagName) {
-		return getValueFromElementWithTagName(parentElement, tagName, null);
-	}
-	
-	public static String getValueFromElementWithTagName(Element parentElement, String tagName, String defaultValue) {
-		Element x = (Element) parentElement.getElementsByTagName(tagName).item(0);
-		return x != null ? x.getAttribute("value") : defaultValue;
-	}
-	
-	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
+	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, CharacterImportSetting... settings) {
 
 		boolean noPregnancy = Arrays.asList(settings).contains(CharacterImportSetting.NO_PREGNANCY);
 		boolean noCompanions = Arrays.asList(settings).contains(CharacterImportSetting.NO_COMPANIONS);
@@ -3082,7 +3172,6 @@ public abstract class GameCharacter implements XMLSaving {
 		// ************** Addictions **************//
 
 //		Element characterAddictions = doc.createElement("addictions");
-//		properties.appendChild(characterAddictions);
 //		for(Addiction add : addictions) {
 //			add.saveAsXML(characterAddictions, doc);
 //		}
@@ -3090,10 +3179,8 @@ public abstract class GameCharacter implements XMLSaving {
 //		XMLUtil.addAttribute(doc, characterAddictions, "alcoholLevel", String.valueOf(alcoholLevel));
 //		
 //		Element psychoactives = doc.createElement("psychoactiveFluids");
-//		properties.appendChild(psychoactives);
 //		for(FluidType ft : this.getPsychoactiveFluidsIngested()) {
 //			Element element = doc.createElement("fluid");
-//			psychoactives.appendChild(element);
 //			XMLUtil.addAttribute(doc, element, "value", ft.toString());
 //		}
 		
@@ -3894,11 +3981,11 @@ public abstract class GameCharacter implements XMLSaving {
 			AbstractSubspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			
 			if(gender.isFeminine()) {
-				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
+				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species));
 				setBody(gender, species, stage, additionalSetups);
 				
 			} else {
-				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
+				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species));
 				setBody(gender, species, stage, additionalSetups);
 			}
 		}
@@ -21174,12 +21261,12 @@ public abstract class GameCharacter implements XMLSaving {
 					break;
 				case NOWHERE:
 					if(!mainEquipped) {
-						AbstractWeapon weapon = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
+						AbstractWeapon weapon = ItemGeneration.generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
 						this.equipMainWeaponFromNowhere(weapon);
 						mainEquipped = true;
 						
 					} else if(!offhandEquipped) {
-						AbstractWeapon weapon = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
+						AbstractWeapon weapon = ItemGeneration.generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
 						this.equipOffhandWeaponFromNowhere(weapon);
 						offhandEquipped = true;
 					}
@@ -21228,7 +21315,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					break;
 				case NOWHERE:
-					AbstractClothing c = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId(entry.getValue()));
+					AbstractClothing c = ItemGeneration.generateClothing(ClothingType.getClothingTypeFromId(entry.getValue()));
 					this.equipClothingFromNowhere(c, true, this);
 					break;
 			}
@@ -21291,7 +21378,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getItemCount(item);
 	}
 	public int getItemCount(AbstractItemType itemType) {
-		return getItemCount(Main.game.getItemGen().generateItem(itemType));
+		return getItemCount(ItemGeneration.generateItem(itemType));
 	}
 	public int getUniqueQuestItemCount() {
 		return inventory.getUniqueQuestItemCount();
@@ -24353,7 +24440,7 @@ public abstract class GameCharacter implements XMLSaving {
 				if(bct!=null) {
 					this.addBodyCoveringTypesDiscovered(bct);
 					
-					String bctName = bct.getName(this);
+					String bctName = bct.getName();
 					
 					if(displayColourDiscovered) {
 						postTFSB.append(UtilText.parse(this,
@@ -27079,10 +27166,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Lip Names:
 	public String getLipsNameSingular() {
-		return body.getFace().getMouth().getLipsNameSingular(this);
+		return body.getFace().getMouth().getLipsNameSingular();
 	}
 	public String getLipsNamePlural() {
-		return body.getFace().getMouth().getLipsNamePlural(this);
+		return body.getFace().getMouth().getLipsNamePlural();
 	}
 	public String getLipsDescriptor() {
 		return body.getFace().getMouth().getLipsDescriptor(this);
@@ -27790,7 +27877,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getFace().getTongue().addTongueModifier(this, modifier);
 	}
 	public String removeTongueModifier(TongueModifier modifier) {
-		return body.getFace().getTongue().removeTongueModifier(this, modifier);
+		return body.getFace().getTongue().removeTongueModifier(modifier);
 	}
 	
 	
@@ -27986,7 +28073,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return getCurrentPenis().addPenisModifier(this, modifier);
 	}
 	public String removePenisModifier(PenetrationModifier modifier) {
-		return getCurrentPenis().removePenisModifier(this, modifier);
+		return getCurrentPenis().removePenisModifier(modifier);
 	}
 	public void clearPenisModifiers() {
 		getCurrentPenis().clearPenisModifiers();
@@ -28143,7 +28230,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getSecondPenis().addPenisModifier(this, modifier);
 	}
 	public String removeSecondPenisModifier(PenetrationModifier modifier) {
-		return body.getSecondPenis().removePenisModifier(this, modifier);
+		return body.getSecondPenis().removePenisModifier(modifier);
 	}
 	// Urethra:
 	// Capacity:
@@ -28556,7 +28643,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if (!affectedParts.isEmpty()) {
 				if (isPlayer()) {
 					return "<p>"
-								+ "The " + coveringType.getName(this) + " on your " + Util.stringsToStringList(affectedParts, false) + " suddenly start" + (coveringType.isDefaultPlural() ? "" : "s") + " to itch, and you let out a startled cry as "
+								+ "The " + coveringType.getName() + " on your " + Util.stringsToStringList(affectedParts, false) + " suddenly start" + (coveringType.isDefaultPlural() ? "" : "s") + " to itch, and you let out a startled cry as "
 								+ (coveringType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour.<br/>"
 								+ "You now have "+covering.getFullDescription(this, true)+"."
 							+ "</p>"
@@ -28564,7 +28651,7 @@ public abstract class GameCharacter implements XMLSaving {
 				} else {
 					return UtilText.parse(this,
 							"<p>"
-								+ "[npc.Name] feels the " + coveringType.getName(this) + " on [npc.her] " + Util.stringsToStringList(affectedParts, false) + " suddenly start to itch, and [npc.she] lets out a startled cry as "
+								+ "[npc.Name] feels the " + coveringType.getName() + " on [npc.her] " + Util.stringsToStringList(affectedParts, false) + " suddenly start to itch, and [npc.she] lets out a startled cry as "
 								+ (coveringType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour.<br/>"
 								+ "[npc.She] now has "+covering.getFullDescription(this, true)+"."
 							+ "</p>"
