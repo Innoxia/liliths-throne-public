@@ -162,6 +162,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			if(!flags.contains(NPCGenerationFlag.NO_CLOTHING_EQUIP) && this.getBody()!=null) {
 				equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
+			if(this.getBody()!=null && ((flags.contains(NPCGenerationFlag.DIRTY) || hasFetish(Fetish.FETISH_CUM_ADDICT)) && Math.random() > 0.9)) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 		}
 		
 		if(this.getBody()!=null) {

@@ -2930,6 +2930,24 @@ public class CharacterUtils {
 		}
 	}
 	
+	public void applyDirtiness(GameCharacter character) {
+		ArrayList<InventorySlot> validSlots = new ArrayList<>();
+		
+		for(InventorySlot slot : InventorySlot.getClothingSlots()) {
+			if(slot.getBodyPartClothingBlock(character) == null) {
+				validSlots.add(slot);
+			}
+		}
+		
+		int dirtySlots = Util.random.nextInt(validSlots.size()/2) + 1;
+		
+		for(int i = 0; i < dirtySlots; i++) {
+			InventorySlot slot = Util.randomItemFrom(validSlots);
+			character.inventory.addDirtySlot(slot);
+			validSlots.remove(slot);
+		}
+	}
+	
 	public List<AbstractClothing> generateEnchantedClothingForTrader(GameCharacter trader, List<AbstractClothing> clothingToSell, int numberOfUncommonsToGenerate, int numberofRaresToGenerate) {
 
 		List<AbstractClothing> clothingGenerated = new ArrayList<>();
