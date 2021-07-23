@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue.elemental;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -475,12 +476,7 @@ public class ElementalDialogue {
 						+ "All Slaves"
 					+ "</div>");
 			
-			UtilText.nodeContentSB.append(UtilText.parse(getElemental(), 
-						"<p style='text-align:center; margin-top:4px;'>"
-							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
-							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
-						+ "</p>"
-					+ "</div>"));
+			UtilText.nodeContentSB.append(UtilText.parse(getElemental(), GameCharacter.getAdaptivePetNameMessage() + "</div>"));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			

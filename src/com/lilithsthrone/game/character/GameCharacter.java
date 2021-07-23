@@ -4005,22 +4005,54 @@ public abstract class GameCharacter implements XMLSaving {
 		return petNameMap;
 	}
 	
-	public String getPetName(GameCharacter target) {
-		String petName = getPetNameMap().get(target.getId());
-		
-		if(petName!=null) {
-			if(petName.equalsIgnoreCase("Mom") || petName.equalsIgnoreCase("Dad")) {
-				return target.isFeminine()?"mom":"dad";
-				
-			} else if (petName.equalsIgnoreCase("Mommy") || petName.equalsIgnoreCase("Daddy")) {
-				return target.isFeminine()?"mommy":"daddy";
-				
-			} else if (petName.equalsIgnoreCase("Mistress") || petName.equalsIgnoreCase("Master")) {
-				return target.isFeminine()?"Mistress":"Master";
-				
-			} else if (petName.equalsIgnoreCase("Ma'am") || petName.equalsIgnoreCase("Sir")) {
-				return target.isFeminine()?"Ma'am":"Sir";
+	/* androgynous name is unused for the pet name system */
+	public static List<NameTriplet> adaptivePetNames = List.of(
+			new NameTriplet("dad", "", "mom"),
+			new NameTriplet("daddy", "", "mommy"),
+			new NameTriplet("son", "", "daughter"),
+			new NameTriplet("brother", "", "sister"),
+			new NameTriplet("bro", "", "sis"),
+			new NameTriplet("uncle", "", "auntie"),
+			new NameTriplet("nephew", "", "niece"),
+			new NameTriplet("Master", "", "Mistress"),
+			new NameTriplet("Mister", "", "Miss"),
+			new NameTriplet("Sir", "", "Ma'am"),
+			new NameTriplet("Boy", "", "Girl"),
+			new NameTriplet("Boyfriend", "", "Girlfriend"),
+			new NameTriplet("Lad", "", "Lass"),
+			new NameTriplet("Laddie", "", "Lassie")
+	);
+	
+	public static String getAdaptivePetNameMessage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p style='text-align:center; margin-top:4px;'><i>");
+		sb.append("If [npc.name] is told to call you a gendered name, such as 'Mistress' or 'Master', then [npc.she] ");
+		sb.append("will automatically switch to the appropriate paired name depending on the femininity of your ");
+		sb.append("character. The full list of supported names are:");
+		sb.append("</i></p><p style='text-align:center; margin-top:4px;'><i>");
+		for(NameTriplet name : adaptivePetNames) {
+			sb.append("" + name.getFeminine() + " / " + name.getMasculine() + "<br/>");
+		}
+		sb.append("</i></p>");
+		return sb.toString();
+	}
+
+	/**
+	 * @return If the given pet name is in the list of adaptive pet names, return the variant that matches the desired femininity. Otherwise, return the given pet name as-is.
+	 */
+	public static String getAdaptivePetName(String petName, boolean isFeminine) {
+		for(NameTriplet name : adaptivePetNames) {
+			if(name.getFeminine().equalsIgnoreCase(petName) || name.getMasculine().equalsIgnoreCase(petName)) {
+				return isFeminine ? name.getFeminine() : name.getMasculine();
 			}
+		}
+		return petName;
+	}
+	
+	public String getPetName(GameCharacter target) {
+		String petName = getAdaptivePetName(getPetNameMap().get(target.getId()), target.isFeminine());
+
+		if(petName != null) {
 			return petName;
 		}
 		

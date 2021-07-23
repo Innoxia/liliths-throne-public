@@ -1789,12 +1789,7 @@ public class CompanionManagement {
 						+ "</div>");
 			}
 			
-			UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
-						"<p style='text-align:center; margin-top:4px;'>"
-							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
-							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
-						+ "</p>"
-					+ "</div>"));
+			UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), GameCharacter.getAdaptivePetNameMessage() + "</div>"));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			
