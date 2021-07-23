@@ -52,7 +52,7 @@ public class NPCOffspring extends NPC {
 	public NPCOffspring(OffspringSeed os) {
 		super(false, os.nameTriplet, os.surname, os.description,
 				0, os.getBirthday().getMonth(), os.getBirthday().getDayOfMonth(),
-				1, os.body.getGender(), os.body.getSubspecies(), os.body.getRaceStage(), new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+				1, os.body.getGender(), os.subspecies, os.body.getRaceStage(), new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		this.conceptionDate = os.conceptionDate;
 		this.motherName = os.getMotherName();

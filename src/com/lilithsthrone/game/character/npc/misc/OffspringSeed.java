@@ -29,7 +29,7 @@ import java.util.Map;
  * @version 0.4.0
  * @author Innoxia, AceXp
  */
-public class OffspringSeed  implements XMLSaving {
+public class OffspringSeed implements XMLSaving {
 	
 	// Core variables:
 	protected String id;
@@ -41,6 +41,7 @@ public class OffspringSeed  implements XMLSaving {
 	protected LocalDateTime birthday;
 	
 	// Body:
+	protected AbstractSubspecies subspecies;
 	protected Body body;
 	
 	// Family:
@@ -73,6 +74,7 @@ public class OffspringSeed  implements XMLSaving {
 		this.surname = npc.getSurname();
 		this.description = npc.getDescription();
 		this.birthday = npc.getBirthday();
+		this.subspecies = npc.getSubspecies();
 		this.body = npc.getBody();
 		this.motherId = npc.getMotherId();
 		this.fatherId = npc.getFatherId();
@@ -160,7 +162,9 @@ public class OffspringSeed  implements XMLSaving {
 		} else {
 			this.body = Main.game.getCharacterUtils().generateBody(template, gender, mother, father);
 		}
-		
+
+		this.subspecies = body.getSubspecies();
+
 		setName(Name.getRandomTriplet(getRace()));
 		
 		this.setMother(mother);
@@ -199,6 +203,7 @@ public class OffspringSeed  implements XMLSaving {
 		Element offspringSeedBody = doc.createElement("body");
 		parentElement.appendChild(offspringSeedBody);
 
+		XMLUtil.addAttribute(doc, offspringSeedBody, "subspecies", Subspecies.getIdFromSubspecies(this.subspecies));
 		this.body.saveAsXML(offspringSeedBody, doc);
 		
 		// ************** Family **************//
@@ -283,6 +288,8 @@ public class OffspringSeed  implements XMLSaving {
 		}
 		
 		// ************** Body **************//
+		element = (Element) parentElement.getElementsByTagName("body").item(0);
+		os.subspecies = Subspecies.getSubspeciesFromId(element.getAttribute("subspecies"));
 
 		os.body = Body.loadFromXML(sb, (Element) parentElement.getElementsByTagName("body").item(0), doc);
 		os.body.calculateRace(null);
@@ -511,7 +518,7 @@ public class OffspringSeed  implements XMLSaving {
 
 	public AbstractRace getRace() {	return getSubspecies().getRace(); }
 	
-	public AbstractSubspecies getSubspecies() { return body.getSubspecies(); }
+	public AbstractSubspecies getSubspecies() { return subspecies; }
 	
 	public boolean isFeminine() {
 		return body==null || body.isFeminine();
