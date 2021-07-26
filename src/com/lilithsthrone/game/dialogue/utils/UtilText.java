@@ -9367,6 +9367,10 @@ public class UtilText {
 				}
 			}
 
+			if(specialItem != null) {
+				engine.put("item", specialItem);
+			}
+
 			// Companion parsing tags:
 			if(Main.game.getPlayer().hasCompanions()) {
 				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
