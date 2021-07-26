@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.race;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -312,6 +313,10 @@ public class Subspecies {
 			// As Elder Lilin will always have a SubspeciesOverride, there is no need to set any conditional weighting for it.
 			return 0;
 		}
+		@Override
+		public AbstractAttribute getDamageMultiplier() {
+			return Attribute.DAMAGE_ELDER_LILIN;
+		}
 	};
 	
 	public static AbstractSubspecies LILIN = new AbstractSubspecies(false,
@@ -369,6 +374,10 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			// As Elder Lilin will always have a SubspeciesOverride, there is no need to set any conditional weighting for it.
 			return 0;
+		}
+		@Override
+		public AbstractAttribute getDamageMultiplier() {
+			return Attribute.DAMAGE_LILIN;
 		}
 	};
 	
@@ -439,6 +448,7 @@ public class Subspecies {
 				case TAIL:
 				case TAIL_LONG:
 				case AVIAN:
+				case WINGED_BIPED:
 					return r==Race.HUMAN || r==Race.DEMON
 							?Race.DEMON.getFeralName(legConfiguration, false)
 							:"demonic-"+r.getName(character, true);
@@ -849,11 +859,11 @@ public class Subspecies {
 			"innoxia_race_cow_bubble_cream",
 			"statusEffects/race/raceCowMorph",
 			"statusEffects/race/raceBackground",
-			"cow-morph",
-			"cow-morphs",
-			"cow-boy",
+			"cattle-morph",
+			"cattle-morphs",
+			"bull-boy",
 			"cow-girl",
-			"cow-boys",
+			"bull-boys",
 			"cow-girls",
 			new FeralAttributes(
 					"cattle",
@@ -891,7 +901,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 0)),
 			PresetColour.RACE_COW_MORPH,
-			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cow-morph' when bipedal, and a 'cowtaur' when the lower body is that of a feral cow.",
+			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cattle-morph' when bipedal, and a 'cattletaur' when the lower body is that of a feral cow or bull.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
@@ -1785,14 +1795,18 @@ public class Subspecies {
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getTailCount();
+			if(character==null) {
+				return 15000;
+			} else {
+				return 15000 * character.getMaxTailCount();
+			}
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -1808,8 +1822,8 @@ public class Subspecies {
 		
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
-			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+			if(character.getMaxTailCount()<9) {
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
 				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
@@ -1817,19 +1831,20 @@ public class Subspecies {
 
 		@Override
 		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character!=null && character.getTailCount()<9) {
+			//TODO move the variable racial bonuses out of Subspecies and put them in the special youko perks
+			if(character!=null && character.getMaxTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getMaxTailCount())),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
-						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
+						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getMaxTailCount())),
+						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getMaxTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<>(Attribute.MAJOR_ARCANE, 100f),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<>(Attribute.SPELL_COST_MODIFIER, 60f),
 						new Value<>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
@@ -1839,7 +1854,7 @@ public class Subspecies {
 			if(character==null) {
 				return youkoIconMap.get(9);
 			}
-			return getBipedBackground(youkoIconMap.get(character.getTailCount()), character, this.getColour(character));
+			return getBipedBackground(youkoIconMap.get(character.getMaxTailCount()), character, this.getColour(character));
 		}
 
 		@Override
@@ -1847,7 +1862,7 @@ public class Subspecies {
 			if(character==null) {
 				return youkoDesaturatedIconMap.get(9);
 			}
-			return getBipedBackground(youkoDesaturatedIconMap.get(character.getTailCount()), character, PresetColour.BASE_GREY);
+			return getBipedBackground(youkoDesaturatedIconMap.get(character.getMaxTailCount()), character, PresetColour.BASE_GREY);
 		}
 		
 		@Override
@@ -1855,13 +1870,14 @@ public class Subspecies {
 			if(character!=null && character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
 				return super.getHalfDemonSVGString(character);
 			} else {
-				return getBipedBackground(youkoHalfDemonIconMap.get(character.getTailCount()), character, PresetColour.RACE_HALF_DEMON);
+				return getBipedBackground(youkoHalfDemonIconMap.get(character.getMaxTailCount()), character, PresetColour.RACE_HALF_DEMON);
 			}
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
 				if(body.getTail().getType()==TailType.FOX_MORPH_MAGIC) {
+					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT);
 					return 200;
 				}
 			}
@@ -1916,14 +1932,18 @@ public class Subspecies {
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getTailCount();
+			if(character==null) {
+				return 15000;
+			} else {
+				return 15000 * character.getMaxTailCount();
+			}
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -1942,8 +1962,8 @@ public class Subspecies {
 		
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
-			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+			if(character.getMaxTailCount()<9) {
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
 				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
@@ -1951,19 +1971,19 @@ public class Subspecies {
 
 		@Override
 		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character!=null && character.getTailCount()<9) {
+			if(character!=null && character.getMaxTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getMaxTailCount())),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
-						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
+						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getMaxTailCount())),
+						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getMaxTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<>(Attribute.MAJOR_ARCANE, 100f),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<>(Attribute.SPELL_COST_MODIFIER, 60f),
 						new Value<>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
@@ -1984,6 +2004,7 @@ public class Subspecies {
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
 				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE &&  body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
+					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT_ARCTIC);
 					return 250;
 				}
 			}
@@ -2038,14 +2059,18 @@ public class Subspecies {
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getTailCount();
+			if(character==null) {
+				return 15000;
+			} else {
+				return 15000 * character.getMaxTailCount();
+			}
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -2074,27 +2099,27 @@ public class Subspecies {
 		}
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
-			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+			if(character.getMaxTailCount()<9) {
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
 				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 		@Override
 		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character!=null && character.getTailCount()<9) {
+			if(character!=null && character.getMaxTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getMaxTailCount())),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
-						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
+						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getMaxTailCount())),
+						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getMaxTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<>(Attribute.MAJOR_ARCANE, 100f),
 //						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<>(Attribute.SPELL_COST_MODIFIER, 60f),
 						new Value<>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
@@ -2117,6 +2142,7 @@ public class Subspecies {
 						&& (fennecColours.contains(fox_fur.getSecondaryColour()) || fox_fur.getPattern()==CoveringPattern.NONE)
 						&& (body.getEar().getType()==EarType.FOX_MORPH_BIG)
 						&& body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
+					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT_FENNEC);
 					return 250;
 				}
 			}
@@ -2931,7 +2957,7 @@ public class Subspecies {
 					"stallions",
 					"mares",
 					LegConfiguration.QUADRUPEDAL,
-					150,
+					175,
 					0,
 					1,
 					1,
@@ -3030,7 +3056,7 @@ public class Subspecies {
 					"unicorn-stallions",
 					"unicorn-mares",
 					LegConfiguration.QUADRUPEDAL,
-					150,
+					175,
 					0,
 					1,
 					1,
@@ -3133,7 +3159,7 @@ public class Subspecies {
 					"pegasus-stallions",
 					"pegasus-mares",
 					LegConfiguration.QUADRUPEDAL,
-					150,
+					175,
 					0,
 					1,
 					1,
@@ -3231,7 +3257,7 @@ public class Subspecies {
 					"alicorn-stallions",
 					"alicorn-mares",
 					LegConfiguration.QUADRUPEDAL,
-					150,
+					175,
 					0,
 					1,
 					1,
@@ -4400,12 +4426,17 @@ public class Subspecies {
 			new FeralAttributes(
 					"bat",
 					"bats",
-					LegConfiguration.QUADRUPEDAL,
+					LegConfiguration.WINGED_BIPED,
 					30,
 					0,
 					1,
 					1,
-					1, false),
+					1, false) {
+				@Override
+				public boolean isArmsOrWingsPresent() {
+					return true;
+				}
+			},
 			"Due to their unique echolocation ability, all bat-morphs have a natural desire to talk as much as possible."
 					+ " Due to this, [npc.name] continuously [npc.verb(play)] out conversations in [npc.her] head, allowing [npc.herHim] to think up new and exciting ways to seduce people before having ever met them.",
 			Util.newHashMapOfValues(
@@ -4474,6 +4505,7 @@ public class Subspecies {
 					0,
 					1,
 					true) {
+				@Override
 				public boolean isArmsOrWingsPresent() {
 					return true;
 				}
@@ -4513,8 +4545,8 @@ public class Subspecies {
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.FOUR_COMMON),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-				SubspeciesFlag.DISBALE_SPAWN_PREFERENCE,
-				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+				SubspeciesFlag.DISABLE_SPAWN_PREFERENCE,
+				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public String getName(GameCharacter character) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
@@ -4635,7 +4667,7 @@ public class Subspecies {
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour ravenColour = PresetColour.COVERING_BLACK;
@@ -4740,7 +4772,7 @@ public class Subspecies {
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
@@ -4844,7 +4876,7 @@ public class Subspecies {
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
@@ -4960,7 +4992,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
 			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			CoveringPattern pattern = CoveringPattern.OMBRE;
@@ -5431,7 +5463,7 @@ public class Subspecies {
 			id = "innoxia_panther_subspecies_lion";
 		} else if(id.equalsIgnoreCase("CAT_MORPH_TIGER")) {
 			id = "innoxia_panther_subspecies_tiger";
-		} 
+		}
 		id = Util.getClosestStringMatch(id, idToSubspeciesMap.keySet());
 		return idToSubspeciesMap.get(id);
 	}
@@ -5551,29 +5583,49 @@ public class Subspecies {
 	public static List<AbstractSubspecies> getAllSubspecies() {
 		return allSubspecies;
 	}
+
+	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, AbstractSubspecies... subspeciesToExclude) {
+		return getWorldSpecies(worldType, placeType, onlyCoreRaceSpecies, true, subspeciesToExclude);
+	}
+
+	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, boolean includeRegionSpecies, AbstractSubspecies... subspeciesToExclude) {
+		return getWorldSpecies(worldType, placeType, onlyCoreRaceSpecies, includeRegionSpecies, Arrays.asList(subspeciesToExclude));
+	}
 	
 	/**
 	 * @param worldType The WorldType from which to fetch Subspecies present.
 	 * @param placeType The PlaceType from which to fetch Subspecies present. Can be passed in as null to ignore.
 	 * @param onlyCoreRaceSpecies true if only core Subspecies should be returned. (e.g. Cat-morph would be returned, but not Lion-morph, Tiger-morph, etc.)
+	 * @param includeRegionSpecies true if the species of the WorldRegion should be included.
 	 * @param subspeciesToExclude Any Subspecies that should be excluded from the returned map.
+	 * @return A weighted map of subspecies that can spawn in that world, region and/or place.
 	 */
-	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, AbstractSubspecies... subspeciesToExclude) {
+	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, boolean includeRegionSpecies, List<AbstractSubspecies> subspeciesToExclude) {
 		worldSpecies.putIfAbsent(worldType, new HashMap<>());
 		regionSpecies.putIfAbsent(worldType.getWorldRegion(), new HashMap<>());
 		
 		Map<AbstractSubspecies, SubspeciesSpawnRarity> map = new HashMap<>(worldSpecies.get(worldType));
-		for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> regionEntry : regionSpecies.get(worldType.getWorldRegion()).entrySet()) {
-			if(!map.containsKey(regionEntry.getKey())) {
-				map.put(regionEntry.getKey(), regionEntry.getValue());
+		if (includeRegionSpecies) {
+			for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> regionEntry : regionSpecies.get(worldType.getWorldRegion()).entrySet()) {
+				if(!map.containsKey(regionEntry.getKey())) {
+					map.put(regionEntry.getKey(), regionEntry.getValue());
+				}
 			}
 		}
 		if(placeType!=null) {
 			placeSpecies.putIfAbsent(placeType, new HashMap<>());
-			for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> placeEntry : placeSpecies.get(placeType).entrySet()) {
-				if(!map.containsKey(placeEntry.getKey())) {
-					map.put(placeEntry.getKey(), placeEntry.getValue());
-				}
+			regionSpecies.putIfAbsent(placeType.getWorldRegion(), new HashMap<>());
+		    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> placeEntry : placeSpecies.get(placeType).entrySet()) {
+		        if(!map.containsKey(placeEntry.getKey())) {
+		            map.put(placeEntry.getKey(), placeEntry.getValue());
+		        }
+		    }
+			if (includeRegionSpecies && regionSpecies.get(placeType.getWorldRegion())!=null) {
+			    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> regionEntry : regionSpecies.get(placeType.getWorldRegion()).entrySet()) {
+			        if(!map.containsKey(regionEntry.getKey())) {
+			            map.put(regionEntry.getKey(), regionEntry.getValue());
+			        }
+			    }
 			}
 		}
 		

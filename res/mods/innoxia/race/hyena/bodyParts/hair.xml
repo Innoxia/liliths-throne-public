@@ -22,6 +22,7 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
 	<tags>
 		<tag>HAIR_HANDLES_IN_SEX</tag>
+		<tag>HAIR_IGNORE_PLAYER_SETTINGS</tag>
 	</tags>
 	
 	<!-- The way in which this hair is referred to.

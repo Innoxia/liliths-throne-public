@@ -1960,26 +1960,35 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return unlocked;
 	}
 
-	public int getJinxRemovalCost() {
+	public int getJinxRemovalCost(GameCharacter remover, boolean selfUnseal) {
+		int cost = ItemEffect.SEALED_COST_MINOR_BOOST;
+		
 		for(ItemEffect effect : this.getEffects()) {
 			if(effect.getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
 				switch(effect.getPotency()) {
 					case BOOST:
 						break;
 					case DRAIN:
-						return ItemEffect.SEALED_COST_DRAIN;
+						cost = ItemEffect.SEALED_COST_DRAIN;
+						break;
 					case MAJOR_BOOST:
 						break;
 					case MAJOR_DRAIN:
-						return ItemEffect.SEALED_COST_MAJOR_DRAIN;
+						cost = ItemEffect.SEALED_COST_MAJOR_DRAIN;
+						break;
 					case MINOR_BOOST:
-						return ItemEffect.SEALED_COST_MINOR_BOOST;
+						cost = ItemEffect.SEALED_COST_MINOR_BOOST;
+						break;
 					case MINOR_DRAIN:
-						return ItemEffect.SEALED_COST_MINOR_DRAIN;
+						cost = ItemEffect.SEALED_COST_MINOR_DRAIN;
+						break;
 				}
 			}
 		}
-		return ItemEffect.SEALED_COST_MINOR_BOOST;
+		if(remover.hasFetish(Fetish.FETISH_BONDAGE_VICTIM) && selfUnseal) {
+			cost *= 5;
+		}
+		return cost;
 	}
 
 	public TFPotency getVibratorIntensity() {
@@ -2405,6 +2414,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
 		}
+		if(clothingOwner.hasDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] equipped a dildo, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
+		}
 		if(!clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
 		}
@@ -2473,6 +2485,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2574,6 +2587,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
@@ -2616,6 +2630,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case TAIL:
 				case TAIL_LONG:
 				case CEPHALOPOD:
+				case WINGED_BIPED:
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:

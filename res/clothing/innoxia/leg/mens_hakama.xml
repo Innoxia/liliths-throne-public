@@ -6,15 +6,15 @@
 		
 		<determiner><![CDATA[a]]></determiner>
 		
-		<name><![CDATA[men's hakama]]></name>
+		<name><![CDATA[hakama]]></name>
 		
-		<namePlural pluralByDefault="false"><![CDATA[men's hakama]]></namePlural> 
+		<namePlural pluralByDefault="false"><![CDATA[hakama]]></namePlural> 
 		
 		<description><![CDATA[Tied at the waist and falling approximately to the ankles, hakama, such as this one, are meant to be worn over a kimono.]]></description> 
 		
 		<physicalResistance>0</physicalResistance> 
 		
-		<femininity>MASCULINE</femininity> 
+		<femininity>ANDROGYNOUS</femininity> 
 		
 		<slot>LEG</slot> 
 		

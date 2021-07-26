@@ -653,13 +653,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public boolean willBuy(AbstractCoreItem item) {
 		return false;
 	}
-	
-	/**
-	 * Handles any extra effects that need to be taken into account when selling an item to the player.
-	 * @param item
-	 */
-	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice) {
-	}
 
 	public float getBuyModifier() {
 		return buyModifier;
@@ -687,6 +680,26 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		this.sellModifier = sellModifier;
 	}
 
+	/**
+	 * This method is called every time this NPC is involved in a transaction with the player (in InventoryDialogue.java).
+	 * By default it does nothing, but it can be overridden in individual NPC classes to define special behaviour.
+	 * <br/><br/>
+	 * You can safely set the DialogueFlagValue.removeTraderDescription to true here to prevent this NPC's getTraderDescription() text from being displayed.
+	 * This flag is reset to false at the start of every transaction (before this method is called), so don't worry about manually resetting it to false.
+	 * 
+	 * @param itemSold the item that was the subject of this transaction
+	 * @param quantity how many of these items were sold
+	 * @param individualPrice the price of each item
+	 * @param soldToPlayer true if the item was sold to the player, false if the item was sold by the player to this NPC
+	 */
+	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
+//		if(soldToPlayer) {
+//			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
+//			Main.game.appendToTextStartStringBuilder("<p>You bought something!</p>");
+//		}
+	}
+	
+	
 	// Combat:
 	
 	private List<Spell> getSpellsAbleToCast() {
@@ -730,7 +743,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case POISON_VAPOURS:
 				case SLAM:
 				case VACUUM:
+				case ARCANE_LIGHTNING_SUPERBOLT:
 					if(Main.combat.isOpponent(this, target)) {
+						weightedSpellMap.put(spell, 1);
+					}
+					break;
+				case ARCANE_CHAIN_LIGHTNING:
+					if(Main.combat.getEnemies(this).size()>1) {
 						weightedSpellMap.put(spell, 1);
 					}
 					break;
@@ -923,6 +942,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	public int getLootMoney() {
 		return (int) ((getLevel() * 25) * (1 + Math.random() - 0.5f));
+	}
+	
+	public boolean isLootingPlayerAfterCombat() {
+		return true;
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {
@@ -2030,7 +2053,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		pairedFetishMap.put(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF);
 		pairedFetishMap.put(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING);
 		pairedFetishMap.put(Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER);
-		
+		pairedFetishMap.put(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING);
+
+		pairedFetishMap.put(Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM);
 		pairedFetishMap.put(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE);
 		pairedFetishMap.put(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT);
 //		pairedFetishMap.put(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN); // Do not give deflowering if pure virgin fetish...
@@ -2444,7 +2469,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_SELF, "Wouldn't you love to put your breasts to good use?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_SELF, "You're way too into your breasts.");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, "That beautiful mouth of yours is about to get a lot more use");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, "That beautiful mouth of yours is about to get a lot more use.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, "You don't really need to suck every cock you come across, do you?");
 		
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_RECEIVING, "Don't you just love getting head?");
@@ -2459,8 +2484,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_LEG_LOVER, "A nice pair of stems makes all the difference, right?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_LEG_LOVER, "Maybe focus a bit more on what's above the waist -- or at least around the hips?");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_STRUTTER, "You've got legs that don't quit -- you really ought to use them");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_STRUTTER, "You've got legs that don't quit -- you really ought to use them.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_STRUTTER, "Maybe focus a bit more on what's above your waist -- or at least around the hips?");
+
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_RECEIVING, "You're going to want to have your armpits used all the time.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_RECEIVING, "Forget about using your armpits.");
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_GIVING, "Armpits are far better than ass, pussy, or cock. At least, that's what you're going to think.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_GIVING, "You don't need to be so obsessed with armpits.");
 		
 		// Behavioral
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DOMINANT, "Don't you think you deserve to be the one in charge?");
@@ -2502,14 +2533,20 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL, "The only thing better than coming is telling your partner they can't, right?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL, "If they're willing to fuck you, at least let them come once in a while.");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL_SELF, "Where's the fun in coming right away? Wouldn't you rather savor the experience?");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL_SELF, "Where's the fun in coming right away? Wouldn't you rather savour the experience?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL_SELF, "What's the point if you aren't getting off?");
 		
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_VOYEURIST, "Sometimes it's just fun to watch, isn't it?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_VOYEURIST, "Privacy is a thing worth respecting.");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, "You've got it -- you should flaunt it");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, "You've got it -- you should flaunt it.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, "Not everyone wants to see what you've got to offer.");
+
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_APPLIER, "It's fun to see others tied up and at your mercy, isn't it?");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_APPLIER, "Not everybody likes to be tied up, you know.");
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_VICTIM, "You're going to want nothing more than to be locked up and have the key thrown away.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_VICTIM, "Things are a lot more fun if you're able to move.");
 		
 		// Behavioral unpaired
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BIMBO, "I think it's time you embraced your inner braindead slut.");

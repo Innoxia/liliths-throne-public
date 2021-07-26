@@ -656,6 +656,13 @@ public enum TFModifier {
 			PresetColour.BASE_YELLOW,
 			Rarity.LEGENDARY),
 	
+	TF_MOD_LEG_CONFIG_WINGED_BIPED("winged bipedal body",
+			"Applies an effect to give the user a winged bipedal body.",
+			"winged bipedal body",
+			"modifier_circle_tf_legConfig_avian",
+			PresetColour.BASE_YELLOW,
+			Rarity.LEGENDARY),
+	
 	TF_MOD_INTERNAL("internal",
 			"Applies an effect related to making a body part internal.",
 			"internal",
@@ -1338,11 +1345,15 @@ public enum TFModifier {
 	TF_MOD_FETISH_STRUTTER(Fetish.FETISH_STRUTTER),
 	TF_MOD_FETISH_FOOT_GIVING(Fetish.FETISH_FOOT_GIVING),
 	TF_MOD_FETISH_FOOT_RECEIVING(Fetish.FETISH_FOOT_RECEIVING),
+	TF_MOD_FETISH_ARMPIT_GIVING(Fetish.FETISH_ARMPIT_GIVING),
+	TF_MOD_FETISH_ARMPIT_RECEIVING(Fetish.FETISH_ARMPIT_RECEIVING),
 	TF_MOD_FETISH_LACTATION_OTHERS(Fetish.FETISH_LACTATION_OTHERS),
 	TF_MOD_FETISH_LACTATION_SELF(Fetish.FETISH_LACTATION_SELF),
 	
 	TF_MOD_FETISH_DOMINANT(Fetish.FETISH_DOMINANT),
 	TF_MOD_FETISH_SUBMISSIVE(Fetish.FETISH_SUBMISSIVE),
+	TF_MOD_FETISH_BONDAGE_VICTIM(Fetish.FETISH_BONDAGE_VICTIM),
+	TF_MOD_FETISH_BONDAGE_APPLIER(Fetish.FETISH_BONDAGE_APPLIER),
 	TF_MOD_FETISH_CROSS_DRESSER(Fetish.FETISH_CROSS_DRESSER),
 	TF_MOD_FETISH_CUM_ADDICT(Fetish.FETISH_CUM_ADDICT),
 	TF_MOD_FETISH_CUM_STUD(Fetish.FETISH_CUM_STUD),
@@ -1463,11 +1474,15 @@ public enum TFModifier {
 		TFBodyPartFetishList.add(TF_MOD_FETISH_STRUTTER);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_FOOT_GIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_FOOT_RECEIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_ARMPIT_GIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_ARMPIT_RECEIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_LACTATION_OTHERS);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_LACTATION_SELF);
 
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_DOMINANT);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_SUBMISSIVE);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_BONDAGE_APPLIER);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_BONDAGE_VICTIM);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_CUM_STUD);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_CUM_ADDICT);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_DEFLOWERING);

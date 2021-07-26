@@ -421,6 +421,97 @@
 	]]>
 	</htmlContent>
 	
+	<!-- Lightning globe quest: -->
 	
+	<!-- ROOM_ARTHUR_ARCANE_LIGHTNING_START -->
+	
+	<htmlContent tag="ROOM_ARTHUR_ARCANE_LIGHTNING_START"><![CDATA[
+	<p>
+		Thinking that Arthur is the right person to ask about the matter, you show him your arcane lightning globe, and explain to him how you found it in the Enforcer warehouse. His eyes light up as you place the arcane artefact on his desk, and he rudely interrupts the end of your tale to exclaim, [arthur.speech(Bloody hell! This looks to be some kind of container for arcane lightning! No, wait, it's not actually <i>creating</i> the lightning, is it?! You say those pig-headed Enforcers were holding on to this?)]
+	</p>
+	<p>
+		Responding in the affirmative, you finish your tale of how you discovered it, before asking Arthur if he knows of any way to more reliably harness its power.
+	</p>
+	<p>
+		[arthur.speech(Hmm, yes, well, that is the question, isn't it?)] he muses as he experimentally prods the globe's smooth glass surface. Smiling in delight as the arcane object lights up in response to his touch, Arthur grabs a nearby piece of paper and starts furiously scribbling down notes. Suddenly seeming to remember that you're still here, he clears his throat and offers, [arthur.speech(I'm certain that given enough time and arcane essences, I'd be able to extract the secrets of this object's power. Of course, performing such a procedure will certainly cause irreversible damage to it, but just think of the secrets we could discover! Why, I'll bet that I could formulate a spell nobody's ever seen before!)]
+	</p>
+	<p>
+		Asking Arthur what exactly he's asking for, you wait as he silently thinks for a few moments, before declaring, [arthur.speech(I'll need five hundred arcane essences. Also, the globe itself is almost certainly going to be destroyed in the process. Oh, and it's going to take me a couple of weeks to finish my research. I should be able to convince Lilaya to give me that long...)]
+	</p>
+	<p>
+		With it now being your turn to think for a moment, you need to decide whether or not to agree to Arthur's proposal. You'll have to let him extract five hundred essences from your aura, and also agree to let him destroy the globe in the process of unlocking its secrets. In return, you'll gain a spell that you won't be able to find anywhere else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_ARTHUR_ARCANE_LIGHTNING_START_LEAVE"><![CDATA[
+	<p>
+		Not wanting to agree to Arthur's proposal right now, you tell him that the secrets of the arcane globe will have to remain a mystery for at least a while longer. Letting out a frustrated sigh, Arthur throws his hands up in the air and laments, [arthur.speech(But just think of the arcane research we could discover! Speaking of which, I have some very important matters to attend to, so if you'll excuse me...)]
+	</p>
+	<p>
+		Giving him some space, you pick up the arcane lightning globe and exit Arthur's room. [pc.Stepping] back out into the corridor, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ROOM_ARTHUR_ARCANE_LIGHTNING_PAYMENT -->
+	
+	<htmlContent tag="ROOM_ARTHUR_ARCANE_LIGHTNING_PAYMENT"><![CDATA[
+	<p>
+		Deciding that the loss of the arcane lightning globe is worth it in return for a unique spell, you give it to Arthur and tell him that you're happy to let him run his destructive experiments on it. Letting out a delighted, and slightly manic, laugh in response, Arthur asks, [arthur.speech(And do you have five hundred essences in that remarkable aura of yours?)]
+	</p>
+	<p>
+		Replying in the affirmative, you give Arthur permission to use one of the many arcane contraptions in his room to extract these essences. As he activates a curious, vacuum-like instrument and begins the process of extracting your essences, he muses, [arthur.speech(I wonder who made this lightning globe... You know, there's an arcane university in the city of Thinis. If I were a betting man, I'd wager that it was created by one of the professors there. After that, it's easy to imagine how the Enforcers would have confiscated it, believing it to be a dangerous weapon. They've always been like that, interfering with our research...)]
+	</p>
+	<p>
+		At that moment, the essence extraction device lets out a high-pitched whistle. With his thoughts interrupted, Arthur turns off the instrument and claps his hands, before declaring, [arthur.speech(Right! Now I'll need about two weeks to really investigate this thoroughly. Come and see me again then, and if all's gone according to plan then I should have a spell waiting for you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_ARTHUR_ARCANE_LIGHTNING_PAYMENT_LEAVE"><![CDATA[
+	<p>
+		As he's very obviously impatient to be getting started on the research, you say goodbye to Arthur and head out of his room. [pc.Stepping] back out into the corridor, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ROOM_ARTHUR_ARCANE_LIGHTNING_END -->
+	
+	<htmlContent tag="ROOM_ARTHUR_ARCANE_LIGHTNING_END"><![CDATA[
+	<p>
+		With two weeks having passed since you gave him your arcane lightning globe, you ask Arthur if he's finished his research. With a big grin on his face, he quickly replies, [arthur.speech(I certainly have! Oh, and it turned out far better than I could ever have hoped for! I've already shared my results with Lilaya, and she was so impressed that she said she'd consider forgiving me within the next decade!)]
+	</p>
+	<p>
+		Walking over to a bookcase on the far side of his room, Arthur grabs a stack of what must be hundreds of papers, before pulling open a nearby drawer and grabbing a small object from out of it. Striding back over to you, he places the papers down on a nearby table and explains, [arthur.speech(It turns out that the globe's power originated from a sort of teleportation spell which was infused into its core. At a rate of many thousands of times per second, the globe was repeatedly and randomly teleporting a small amount of ordinary air particles through the stratosphere. By a series of incredibly complex arcane mechanisms, the teleportation spell's arcane power was then being infused into the resulting build up of static electricity. As a result, it created arcane lightning!)]
+	</p>
+	<p>
+		Wanting to know how to harness this power, you ask Arthur if he was able to make a spell from this discovered behaviour. With a big smile on his face, he leafs through the papers and pulls out a dozen of them, before placing them down in front of you and revealing, [arthur.speech(I not only managed to create the chain lightning spell which I was expecting, but I also managed to refine the equations for summoning arcane lightning into another, more powerful spell! This 'superbolt' spell is far more powerful than chain lightning, although it can only be concentrated into a single point... Anyway, all of the details that you need to learn these spells are written down right here. It's a good job that you've got such a remarkable aura; it would likely take a normal person many weeks or even months to learn these spells, but for you it should take no more than an hour or so.)]
+	</p>
+	<p>
+		With that, Arthur returns to the other side of the room, giving you some time and space in which to read through the papers and learn these two spells...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_ARTHUR_ARCANE_LIGHTNING_END_FINAL"><![CDATA[
+	<p>
+		Just as Arthur predicted, it takes you less than an hour to read through and fully understand the papers' contents. Thanks to your exceptional arcane aura, you're able to intuitively comprehend what would doubtless prove to be an impenetrable wall of technical information to a normal person. Learning how to cast what Arthur's named 'chain lightning' and 'lightning superbolt', you quickly test these spells out by casting a weakened version of them in mid-air.
+	</p>
+	<p>
+		[arthur.speech(All done then?)] Arthur asks as he sees that you've just cast each of the two spells. As you reply in the affirmative, he finally reveals what he'd taken out of the drawer earlier, and places the small object down on the table beside his research papers. Looking down at it, you see that this object is a metal ring, and in place of a gemstone it has what appears to be a miniaturised duplicate of the arcane lightning globe. Nodding his head as you look at it, Arthur gloats, [arthur.speech(I really am quite brilliant, aren't I? I was able to save the core essence of the globe, and implanted it inside that tiny crystal ball. Although the spells which it was once capable of were stripped away as a result of my research, it should be every bit as effective as it once was when being used in a regular manner.)]
+	</p>
+	<p>
+		Beckoning for you to take it, Arthur pushes his glasses up onto the bridge of his nose and concludes, [arthur.speech(Thanks to my experiments, I've got enough raw data to keep me occupied for at least the next year. I'm not going to be able to produce any more practical applications from it, like those two spells, but it should make for some fine research publications once I'm done. Thank you for allowing me to experiment on that globe, [pc.name]. Now if you'll excuse me, I have to get back to work...)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_ARTHUR_ARCANE_LIGHTNING_END_FINAL_LEAVE"><![CDATA[
+	<p>
+		Thanking Arthur for the spells and for the arcane lightning ring, you say goodbye to him and head out of his room. [pc.Stepping] back out into the corridor, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

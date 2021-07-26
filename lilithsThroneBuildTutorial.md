@@ -11,17 +11,16 @@ You may download Oracle's "Java SE Development Kit 8u172" here: https://www.orac
 *If you already have Eclipse, verify that you are running a version between Luna and 2018 (some newer builds have been found to be incompatible).*
 
 You may download a compatible version of Eclipse here: https://www.eclipse.org/downloads/packages/release/oxygen/3a/eclipse-ide-java-developers
+
+1. Go to https://github.com/Innoxia/liliths-throne-public.
+1. Click the button that says "master", and click the line that says "dev". You've now switched the branch to "dev", and the button should have changed to reflect this.
+1. Now click the green "Code" button and choose "Download ZIP".
+1. You should now have a "liliths-throne-public-dev.zip", save this somewhere, for example C:\JavaCode.
+1. Extract the zip, you should have a folder "liliths-throne-public-dev" now.
 1. Open Eclipse.
-1. Click [File -> Import] it will then open a wizard, open "Git" and choose "Projects from Git", click "Next".
-1. Choose "Clone URL" and then click "Next".
-1. Put "https://github.com/Innoxia/liliths-throne-public.git" into the first box in Location.
-1. Put "github.com" into the second box in Location, this may be done automatically.
-1. Put "/Innoxia/liliths-throne-public" in the third box in Location, this may be done automatically. Then click "Next".
-1. The wizard will now ask which branch you want, this will be "master" (or "dev" for dev branch), select this and then click "Next".
-1. Unless you want to change the directory, click "Next".
-1. It will now download the repository.
-1. Make sure "Import existing Eclipse projects" is selected, then click "Next".
-1. Make sure the Lilith's Throne project is selected, then click "Finish".
+1. Click [File -> New -> Java Project] it will then open a wizard. Uncheck "Use default location", and click browse.
+1. Browse to the folder where you unzipped the files, and select it. The project name should update, you can change it if you want.    
+1. Click "Next", and then click "Finish".
 1. Click [File -> Export].
 1. Open "Java", and then choose "Runnable JAR File".
 1. Choose "Main - LilithsThrone" under Launch Configuration (IF THERE ARE NO OPTIONS, READ HELP BELOW).
@@ -33,10 +32,13 @@ If the jar does not run:
 1. Check menu: [File -> Properties -> left pane:Java Build Path -> tab:Libraries].
 1. If this does not list a JDK 1.8 system library, download the JDK from the above oracle link.
 1. Extract it and follow instructions in eclipse [menu:Help -> Search -> type:"Adding a new JRE definition"].
-1. Possibly you may have to [menu:Source -> Clean Up], then try again steps 12-17.
+1. Possibly you may have to [menu:Source -> Clean Up], then try again steps 10-15.
+
+####*IMPORTANT* 
+*If you're building through github, you'll need to place the 'liliths-throne-public-dev/res' folder in the same directory as the exported .jar!*
 
 ## Help
-#### No Launch Configuration OR "Could not find main method from given launch configuration."
+#### No Launch Configuration OR "Could not find main method from given launch configuration." OR "No resources selected" error.
 1. First close the Export wizard, and click on the icon in the top of the left pane.
 1. Select the Project in the Package Explorer.
 1. In the top bar, click [Project -> Properties].
@@ -48,6 +50,15 @@ If the jar does not run:
 1. Click "OK".
 1. Click "Apply" and "Close".
 1. Try Exporting again.
+
+If this does not help.
+
+1. Click [Project -> Clean] and wait for this to finish.
+1. Select the Project in the Package Explorer.
+1. Open the tree, and locate [src -> com.lilithsthrone.main -> Main.java].
+1. Right click on this file and choose [Run As -> 1 Java Application] 
+1. The program should now launch, you can play like this, or close it now.
+1. Try exporting again, but in the Launch Configuration there should be a new one added. Choose this.
 
 
 ####  "C:\Users\[USERNAME]\git\liliths-throne-public is not an empty directory."

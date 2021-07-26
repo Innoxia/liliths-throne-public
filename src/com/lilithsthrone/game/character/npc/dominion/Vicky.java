@@ -166,6 +166,8 @@ public class Vicky extends NPC {
 				case DARK_SIREN_SIRENS_CALL:
 				case LIGHTNING_SPHERE_DISCHARGE:
 				case LIGHTNING_SPHERE_OVERCHARGE:
+				case ARCANE_CHAIN_LIGHTNING:
+				case ARCANE_LIGHTNING_SUPERBOLT:
 					break;
 			}
 		}
@@ -543,8 +545,10 @@ public class Vicky extends NPC {
 		
 //		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(AbstractItemType itemType : ItemType.getEssences()) {
-				AbstractItem item = Main.game.getItemGen().generateItem(itemType);
-				itemsForSale.put(item, 500+Util.random.nextInt(251));
+				if (!itemType.getItemTags().contains(ItemTag.CONTRABAND_HEAVY)) {
+					AbstractItem item = Main.game.getItemGen().generateItem(itemType);
+					itemsForSale.put(item, 500+Util.random.nextInt(251));
+				}
 			}
 //		}
 	}
@@ -561,30 +565,32 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
-		int oldCount;
-		if(weaponsForSale.containsKey(item)) {
-			oldCount = weaponsForSale.get(item);
-			if(oldCount > count) {
-				weaponsForSale.put((AbstractWeapon) item, oldCount-count);
-			} else {
-				weaponsForSale.remove((AbstractWeapon) item);
+	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
+		if(soldToPlayer) {
+			int oldCount;
+			if(weaponsForSale.containsKey(itemSold)) {
+				oldCount = weaponsForSale.get(itemSold);
+				if(oldCount > quantity) {
+					weaponsForSale.put((AbstractWeapon) itemSold, oldCount-quantity);
+				} else {
+					weaponsForSale.remove((AbstractWeapon) itemSold);
+				}
 			}
-		}
-		if(clothingForSale.containsKey(item)) {
-			oldCount = clothingForSale.get(item);
-			if(oldCount > count) {
-				clothingForSale.put((AbstractClothing) item, oldCount-count);
-			} else {
-				clothingForSale.remove((AbstractClothing) item);
+			if(clothingForSale.containsKey(itemSold)) {
+				oldCount = clothingForSale.get(itemSold);
+				if(oldCount > quantity) {
+					clothingForSale.put((AbstractClothing) itemSold, oldCount-quantity);
+				} else {
+					clothingForSale.remove((AbstractClothing) itemSold);
+				}
 			}
-		}
-		if(itemsForSale.containsKey(item)) {
-			oldCount = itemsForSale.get(item);
-			if(oldCount > count) {
-				itemsForSale.put((AbstractItem) item, oldCount-count);
-			} else {
-				itemsForSale.remove((AbstractItem) item);
+			if(itemsForSale.containsKey(itemSold)) {
+				oldCount = itemsForSale.get(itemSold);
+				if(oldCount > quantity) {
+					itemsForSale.put((AbstractItem) itemSold, oldCount-quantity);
+				} else {
+					itemsForSale.remove((AbstractItem) itemSold);
+				}
 			}
 		}
 	}

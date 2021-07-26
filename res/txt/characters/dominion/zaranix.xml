@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		Zaranix staggers back, reaching out to grab hold of the edge of a nearby table as he pants, [zaranix.speech(Please! No more!)]
+	</p>
+	<p>
+		It's quite clear that he's completely unable to continue fighting any longer, so, [pc.stepping] forwards, you make your demands known, [pc.speech(You're going to hand over Arthur now, understood?)]
+	</p>
+	<p>
+		[zaranix.speech(F-Fine...)] he sighs, understanding that he has little choice in the matter, [zaranix.speech(You heard the [pc.race], Arthur, you're free to go...)]
+	</p>
+	<p>
+		Arthur, up until now having been hiding behind one of the laboratory's cabinets, slowly stands up and exclaims, [arthur.speech(Bloody hell! Well, you're certainly letting me go easily! Not that I should be complaining...)]
+	</p>
+	<p>
+		[zaranix.speech(If it were anyone else, I'd have refused to let you go, but I just realised who this [pc.race] is,)] Zaranix says, stepping back and collapsing down into a nearby chair. [zaranix.speech(<i>[pc.SheIs]</i> the [pc.race] who's moved in with Lilaya... Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]
+	</p>
+	<p>
+		By this time already half-way across the room towards the door, Arthur stops to once again exclaim, [arthur.speech(Bloody hell! So it's Lilaya who's behind this rescue? The last I heard, oh, what was it now... Oh yes! She was going to 'blast me into a million pieces, or banish me into an alternate dimension' the next time she saw me. I mean, considering that nobody's managed to travel between dimensions before, I couldn't quite take her threat seriously, but she <i>did</i> seem to be pretty angry. Maybe I'd be better off staying he-)]
+	</p>
+	<p>
+		[zaranix.speech(Be quiet Arthur!)] Zaranix shouts, [zaranix.speech(I may have wealth and a modicum of power in this city, but having never been recognised by my Lilin mother, I'd be a fool to stand against the wishes of a demon who has. And it's not just any demon! Hah! Lyssieth's precious little half-demon herself! So go on, get out of here!)]
+	</p>
+	<p>
+		[arthur.speech(Well, when you put it like that... Maybe I'll see you around Zaranix. It wasn't too bad living here, all things considered,)] Arthur says, before turning to you and stating, [arthur.speech(I'll go on ahead, so I suppose I'll see you over at Lilaya's place.)]
+	</p>
+	<p>
+		With that, he steps past you and makes his hasty exit, leaving you alone in the lab with the defeated incubus. You wonder if you should take advantage of his weakened state, or simply turn around and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_USE_HIM"><![CDATA[
+	<p>
+		[pc.speech(You made me go through a lot of trouble to find Arthur,)] you say, stepping towards the exhausted [zaranix.race], [pc.speech(I think you owe me an apology...)]
+	</p>
+	<p>
+		Despite the fact that [zaranix.sheIs] a powerful demon, [zaranix.name] lets out a lewd little sigh as [zaranix.she] looks up into your [pc.eyes]. Your strong arcane aura is quite clearly having a profound effect on [zaranix.herHim], and as you approach, [zaranix.she] pleads, [zaranix.speech(Please! Let me make it up to you!)]
+	</p>
+	<p>
+		Grinning down at [zaranix.name], you prepare to have some fun...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SUBMIT"><![CDATA[
+	<p>
+		You weren't really expecting it to be so easy to convince [zaranix.name] to part with Arthur, and subsequently feeling a little guilty for fighting [zaranix.herHim] in [zaranix.her] own house, you decide to try and make it up to [zaranix.herHim]. Looking down at [zaranix.her] crotch and biting your [pc.lip], you let out a pleading little whine, [pc.speech(Sorry for all this trouble, [zaranix.name]... Perhaps you'd like me to do something for you...)]
+	</p>
+	<p>
+		[zaranix.Name] looks up at you, a big grin spreading across [zaranix.her] face as [zaranix.she] realises what it is you want. Standing up, [zaranix.she] steps over towards you, before running [zaranix.her] hands over your [pc.hips] and around to give your [pc.ass+] a firm squeeze. You can tell by the hungry look in [zaranix.her] eyes that your arcane aura is filling [zaranix.her] mind with lust, and, to confirm your suspicions, the [zaranix.race] leans forwards, before [zaranix.moaning], [zaranix.speech(There is one thing you can do... I want to hear you call out my name as I fuck you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_VICTORY -->
+	
+	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		#IF(sex.getNumberOfOrgasms(zaranix) >= zaranix.getOrgasmsBeforeSatisfied())
+			[npc.Name] steps back and sinks down into a nearby chair, a happy smile on [npc.her] face as [npc.she] gazes up at you, [npc.speech(That was fun... I guess losing Arthur for that wasn't too bad a deal...)]
+		#ELSE
+			[npc.Name] steps back and sinks down to the floor, letting out [npc.a_moan+] as [npc.her] hands drop down between [npc.her] legs, [npc.speech(Ah! You didn't even satisfy me...)]
+		#ENDIF
+	</p>
+	<p>
+		Smirking down at the [npc.race] one last time, you turn around and take your leave. Retracing your steps through [npc.her] house, you soon find yourself back out in the streets of Demon Home. Now that Arthur's been rescued, you realise that you should probably head over to Lilaya's house to find out what your next step will be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT"><![CDATA[
+	#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+		<p>
+			You can't continue fighting any longer, and after letting out a defeated groan, you stagger backwards and slump down against one wall of Zaranix's lab. Glancing up at your conqueror, you see the imposing form of the huge incubus towering over you with a stern expression on his face.
+		</p>
+		<p>
+			[zaranix.speech(So, you thought you'd barge into my lab, pick a fight, and get away with it?!)] he scolds you, [zaranix.speech(Instead of simply throwing you out, I had plans to make you into a test subject, but seeing as you've got your mouth all blocked like that, I guess I'll have to forget that plan...)]
+		</p>
+	#ELSEIF(game.isNonConEnabled())
+		<p>
+			You can't continue fighting any longer, and after letting out a defeated groan, you stagger backwards and slump down against one wall of Zaranix's lab. Glancing up at your conqueror, you see the imposing form of the huge incubus towering over you with a maniacal grin on his face.
+		</p>
+		<p>
+			[zaranix.speech(So, you thought you'd barge into my lab, pick a fight, and get away with it?! Hah!)] he shouts while stepping over to one of the lab's many cabinets. Grabbing a small glass bottle, he turns to face you once more and declares, [zaranix.speech(Well, Arthur and I were in need of a test subject, and you'll do nicely!)]
+		</p>
+		<p>
+			Before you can say anything, the huge incubus pulls the stopper out of the top of the bottle, and after quickly advancing upon you,
+			#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+				 he kneels down and displaces your clothing so as to gain access to your mouth, after which he forces the rim of the bottle against your lips and demands,
+			#ELSE
+				 he kneels down and forces the rim against your lips, demanding,
+			#ENDIF
+			 [zaranix.speech(Come on, drink up! Arthur assures me that this particular concoction will transform you into the perfect little cock-sucker, and I can't wait to be the judge of that myself!)]
+		</p>
+		<p>
+			You still have a little energy left, and as you feel the first few drops of the potion seeping into your mouth, you realise that you could spit it out and try to throw the bottle to the floor. Then again, maybe it's best to just do as the demon says...
+		</p>
+	#ELSE
+		<p>
+			You can't continue fighting any longer, and after letting out a defeated groan, you stagger backwards and slump down against one wall of Zaranix's lab. Glancing up at your conqueror, you see the imposing form of the huge incubus towering over you with a stern expression on his face.
+		</p>
+		<p>
+			[zaranix.speech(So, you thought you'd barge into my lab, pick a fight, and get away with it?!)] he scolds you, before an idea suddenly seems to enter his mind and he asks, [zaranix.speech(Instead of simply being thrown out, how about you apologise by volunteering as a test subject?)]
+		</p>
+		<p>
+			Before you can say anything, the huge incubus grabs a glass bottle from out of a nearby cabinet, and after quickly advancing upon you, kneels down and playfully swirls around the liquid contained within.
+			#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+				 Displacing your clothing so as to gain access to your mouth, he looks into your eyes and he states,
+			#ELSE
+				 Looking into your eyes, he states,
+			#ENDIF
+			 [zaranix.speech(Arthur assures me that this particular concoction will transform the drinker into the perfect little cock-sucker. I'm not going to force this on you, but if you feel even slightly sorry for what you've done, you can make it up to me by drinking this. After that, I'm sure you won't object to sucking my cock...)]
+		</p>
+		<p>
+			With both Zaranix and Arthur awaiting your response, you wonder whether to agree to drink the transformative liquid and then give the incubus a blowjob or instead simply get thrown out of the building...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_NO_MOUTH"><![CDATA[
+	<p>
+		With access to your mouth being blocked, Zaranix cannot make use of you as a test subject, and so instead of wasting any further time with you, he angrily reaches down and grabs your [pc.arm]. The grip of his big, strong hand is too much for you to escape from, and so left with little choice but to shuffle and crawl alongside Zaranix, you're quickly dragged back through the house and to the front door.
+	</p>
+	<p>
+		[zaranix.speech(I wouldn't bother coming back, if I were you!)] he shouts as he throws you out into the street and slams the door behind you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_REFUSE"><![CDATA[
+	<p>
+		Not at all interested in being transformed and then sucking Zaranix's cock, you flatly refuse to drink his potion. Before you can say anything further, the incubus angrily reaches down and grabs your [pc.arm]. The grip of his big, strong hand is too much for you to escape from, and so left with little choice but to shuffle and crawl alongside Zaranix, you're quickly dragged back through the house and to the front door.
+	</p>
+	<p>
+		[zaranix.speech(I wouldn't bother coming back, if I were you!)] he shouts as he throws you out into the street and slams the door behind you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_DEFEAT_SPIT -->
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SPIT"><![CDATA[
+	<p>
+		There's no way you want to be transformed into Zaranix's 'perfect little cock-sucker'. Summoning the last of your energy, you twist your head to one side, spitting the few drops of the potion that entered your mouth to the floor, before grabbing the little glass bottle and hurling it to the other side of the room.
+	</p>
+	<p>
+		The sound of smashing glass is accompanied by a deep, booming roar as the now-furious incubus shouts, [zaranix.speech(You insolent #IF(pc.isFeminine())whore#ELSEbastard#ENDIF! You'll suck my cock, with or without that potion!)]
+	</p>
+	<p>
+		Grabbing you by the [pc.arm], Zaranix roughly drags you across the lab. Collapsing down in a nearby chair, he grabs you by the shoulders and pulls you forwards as he spreads his legs, bringing your face right up against his crotch and booming, [zaranix.speech(You're going to love my cock, slut!)]
+	</p>
+	<p>
+		Quickly undoing his trousers and pulling both them and his underwear down, he fully exposes his rapidly-hardening cock to you. Although a hefty [zaranix.cockLengthValues] in length, his girthy, [zaranix.cockColour] shaft is relatively plain for a demon, as its only uncommon attribute is being circled by a series of hard, fleshy ribs. As a bead of slimy precum starts to ooze from his urethra, the incubus grabs the back of your head and starts to pull your mouth towards his erect cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SPIT_SEX_START"><![CDATA[
+	<p>
+		You're far too exhausted from your fight to put up much of a resistance, and so quickly resigning yourself to your fate, you allow Zaranix to pull your face down into his groin. Pressing your [pc.lips+] against the head of his [zaranix.cock+], you obediently give it a big, wet kiss. Delighted by your submission, the incubus happily grunts, [zaranix.speech(That's it, slut. Keep on kissing it... Just like that...)]
+	</p>
+	<p>
+		Doing as you're told, you plant a series of kisses on Zaranix's demonic cock, licking up his salty, oozing precum in the process. Following yet more of his instructions, you then move down and dart out your [pc.tongue+], before starting to lick the underside of his girthy shaft. It's only as you proceed to start kissing and licking his huge balls that you realise the incubus has let go of your head, but by this point you're so into what you're doing that you don't even consider pulling away.
+	</p>
+	<p>
+		After he's made you spend a good few minutes kissing and licking his cock and balls, Zaranix seems ready for the main event, and after leaning back on his chair and spreading his legs, he commands, [zaranix.speech(Go on then, slut, take my cock down your throat. Show me what a good little cock-sucker you are...)]
+	</p>
+	<p>
+		Feeling incredibly turned on and happy to obey, you lift your mouth up to the [zaranix.cockHead+] of Zaranix's cock, and after parting your [pc.lips+], you drop your head down and take his [zaranix.cock+] down your throat. Placing a hand on the back of your head, Zaranix lets out an approving grunt, which encourages you to start bobbing your head up and down and do your best to give him a good blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SPIT_SEX_START_EAGER"><![CDATA[
+	<p>
+		Although you didn't like the idea of being transformed, you're excited as the prospect of getting to suck Zaranix's cock, and so you submissively let him pull your face down into his groin. Eagerly pressing your [pc.lips+] against the head of his [zaranix.cock+], you lovingly give it a big, wet kiss. Delighted by your enthusiasm, the incubus happily grunts, [zaranix.speech(That's it, slut. Keep on kissing it... Just like that...)]
+	</p>
+	<p>
+		Not needing to be told what to do, you plant a series of passionate kisses on Zaranix's demonic cock, greedily licking up his salty, oozing precum in the process. Seeing that he doesn't need to give you any more instructions, Zaranix simply lets out a series of deep grunts as you then move down and dart out your [pc.tongue+], before starting to lick the underside of his girthy shaft. It's only as you proceed to start kissing and licking his huge balls that you realise the incubus has let go of your head, but the thought of pulling away doesn't even enter your mind for a moment.
+	</p>
+	<p>
+		After you've spent a good few minutes kissing and licking his cock and balls, Zaranix seems ready for the main event, and after leaning back on his chair and spreading his legs, he commands, [zaranix.speech(Go on then, slut, take my cock down your throat. Show me what a good little cock-sucker you are...)]
+	</p>
+	<p>
+		Feeling incredibly turned on and happy to obey, you lift your mouth up to the [zaranix.cockHead+] of Zaranix's cock, and after parting your [pc.lips+], you drop your head down and take his [zaranix.cock+] down your throat. Placing a hand on the back of your head, Zaranix lets out an approving grunt, which encourages you to start bobbing your head up and down and do your best to give him a good blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SPIT_SEX_START_RESIST"><![CDATA[
+	<p>
+		Desperate not to have that thing in your mouth, you try to pull away from Zaranix's cock, but his grip on the back of your head is too strong, and after preventing your escape, he growls, [zaranix.speech(I see you're not going to play along, so we can skip the foreplay. Open wide, bitch!)]
+	</p>
+	<p>
+		You're far too exhausted from your fight to put up much of a resistance, and feel totally powerless as the strong incubus pulls your head into his groin and forces the precum-coated head of his cock up against your [pc.lips+]. Pinching your nose, the incubus waits until you have to open your mouth to take a breath, and at that moment he roughly thrusts his hips and forces his hard cock into your mouth. With tears streaming down your face, you try to ignore the salty taste of the demon's precum as his girthy shaft forces its way past your tongue and down your throat.
+	</p>
+	<p>
+		[zaranix.speech(Fuck, your throat feels good,)] Zaranix teases as he ignores your muffled, choking sobs. Using both hands, he starts forcefully bobbing your head up and down, and as he dominantly fucks your throat in this manner, he grunts, [zaranix.speech(That's it, slut... ~Mmm!~ You'll be swallowing my cum soon enough...)]
+	</p>
+	<p>
+		Although your efforts are completely fruitless, you continue to do your best to try and resist as Zaranix continues to dominantly thrust his [zaranix.cock+] deep down your throat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_DEFEAT_SWALLOW -->
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SWALLOW"><![CDATA[
+	<p>
+		#IF(pc.hasFetish(FETISH_TRANSFORMATION_RECEIVING))
+			Loving the idea of being transformed, the thought of refusing this dominant incubus doesn't enter your head for even a moment. Opening wide to accept the neck of the bottle past your lips, you obediently take the thick, creamy liquid into your mouth.
+		#ELSEIF(game.isNonConEnabled())
+			You decide that there's no point in resisting the dominant incubus, and so you obediently part your lips and take the thick, creamy liquid into your mouth.
+		#ELSE
+			Feeling as though being Zaranix's test subject is the least you could do, you obediently part your lips and take the thick, creamy liquid into your mouth.
+		#ENDIF
+		 The potion turns out to have an extremely strong, salty taste to it, which is far from what anyone in their right mind could consider to be appetising. Scrunching your eyes shut and forcing yourself to start swallowing the unpleasant mixture, you quickly find yourself becoming accustomed to the taste, and by the time you've quickly downed the entire bottle, you're desperately licking and sucking every last drop from off of its rim.
+	</p>
+	<p>
+		As Zaranix takes the now-empty bottle away from your mouth, a fuzzy, warm feeling starts spreading across your face and up into your head. You suddenly find yourself thinking how utterly wonderful it would be if Zaranix gave you even more of that liquid to drink. Even better, you think, if there was an endless supply...
+	</p>
+	<p>
+		Perhaps you could convince Zaranix to enchant his cock so that he cums that delicious liquid...
+	</p>
+	<p>
+		You'd happily wrap your fat, juicy, cock-sucking lips -<i>were they always this big?</i>- around his huge, thick cock if it meant you got to taste that again... You can't help but salivate at the thought, and absently-mindedly run your slimy tongue over your gigantic lips as you imagine getting to taste that same salty mixture again...
+	</p>
+	<i>[#pc.incrementLipSize(7)]</i>
+	<i>[#pc.incrementFaceWetness(7)]</i>
+	<p>
+		Now that you think about it, just getting to suck his cock would be reward enough! A desperate, overwhelming need to orally service Zaranix's huge demonic dick causes you to let out an incredibly lewd moan. You need to kiss his cock... You <i>need</i> his cock in your mouth... No, you <b><i>need</i></b> it thrusting as deep as possible down your throat!
+	</p>
+	<i>[#pc.addFetish(FETISH_ORAL_GIVING)]</i>
+	<i>[#pc.incrementFaceDepth(2)]</i>
+	<p>
+		You can't help but continue to lick your massive, cock-sucking lips as you imagine the incubus hilting his shaft deep down your throat and giving you your delicious reward; a huge load of his salty, demonic cum... You'd swallow every drop and beg for more... You can't help it; you simply <i>need</i> to drink some cum!
+	</p>
+	<i>[#pc.addFetish(FETISH_CUM_ADDICT)]</i>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SWALLOW_START"><![CDATA[
+	<p>
+		With a triumphant smirk on [zaranix.her] face, Zaranix steps back and sits down on one of the lab's many chairs. Spreading [zaranix.her] legs, [zaranix.she] grins at you and teases, [zaranix.speech(I bet you want to put those new lips of yours to use, don't you, my little cock-sucker?)]
+	</p>
+	<p>
+		You let out an intense, desperate whine as you gaze hungrily at the bulge in Zaranix's groin. Before you know what you're doing, you've dropped down in front of [zaranix.herHim] and are running your hands over [zaranix.her] groin. Your huge, juicy lips cause you to uncontrollably speak with a lisp as you plead, [pc.speechNoEffects(~Mmm!~ Plea<i>th</i>e! Need... cock!)]
+	</p>
+	<p>
+		[zaranix.speech(Hah!)] the [zaranix.race] booms, [zaranix.speech(Then get to it, cock-sucker!)]
+	</p>
+	<p>
+		Letting out a desperate, horny whine, you move as quickly as you can to undo Zaranix's trousers, before pulling both them and [zaranix.her] underwear down and fully exposing [zaranix.her] rapidly-hardening cock. Although a hefty [zaranix.cockLengthValues] in length, [zaranix.her] girthy, [zaranix.cockColour] shaft is relatively plain for a demon, as its only uncommon attribute is being circled by a series of hard, fleshy ribs. As a bead of slimy precum starts to ooze from [zaranix.her] urethra, you feel your saliva uncontrollably drooling from the corners of your mouth.
+	</p>
+	<p>
+		[zaranix.speech(No sense in keeping you waiting; you'll be getting the floor wet at this rate!)] Zaranix laughs, before thrusting [zaranix.her] erect cock towards your face. Desperate to get started, you let out a series of horny little whines as you set about planting a series of passionate, wet kisses on Zaranix's demonic cock, greedily licking up [zaranix.her] salty, oozing precum in the process. The dominant demon simply lets out a series of deep grunts as you then move down and dart out your [pc.tongue+], before starting to lick the underside of [zaranix.her] girthy shaft. You then proceed to move your juicy lips down to start kissing and licking [zaranix.her] huge balls, and within a few moments, you've coated the demon's genitalia in a slimy layer of your slippery saliva.
+	</p>
+	<p>
+		[zaranix.speech(This potion turned out to be a huge success,)] Zaranix teases, before leaning back on [zaranix.her] chair and spreading [zaranix.her] legs. Grinning down at you, [zaranix.she] commands, [zaranix.speech(Go on then, slut, take my cock down your throat. Show me what a good little cock-sucker you've turned into...)]
+	</p>
+	<p>
+		Feeling incredibly turned on and happy to obey, you lift your mouth up to the [zaranix.cockHead+] of Zaranix's cock, and after parting your huge, juicy lips, you drop your head down and take [zaranix.her] [zaranix.cock+] down your throat. Placing a hand on the back of your head, Zaranix lets out an approving grunt, which encourages you to start bobbing your head up and down as you desperately anticipate [zaranix.her] hot cum shooting deep down your throat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SWALLOW_ZARANIX_TF_START"><![CDATA[
+	<p>
+		Although your mind is almost totally fogged over with the desperate need to suck Zaranix's cock, you still can't help but feel slightly uncomfortable about how masculine he is. Momentarily shaking the overwhelming desire to suck cock out of your mind, you ask the dominant demon if he could use his self-transformative powers to take on a feminine form.
+	</p>
+	<p>
+		[zaranix.speech(Oh, you want to see me as a succubus?)] Zaranix asks in a slightly annoyed tone, before rolling his eyes and sighing, [zaranix.speech(I suppose I'm a rare exception to the rule in that I'm a demon that prefers to stay as an incubus, but I don't particularly dislike my succubus form. Seeing as you've agreed to swallow that potion, I suppose it's only fair that I do something for you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SWALLOW_ZARANIX_TF_END"><![CDATA[
+	<p>
+		As you watch, Zaranix's masculine features start to soften and become distinctly more feminine, and while she retains her muscles and short, black hair, she shrinks down a little and gains more mass around her hips, ass, and chest. Within a few moments, Zaranix has completely transformed into her tomboyish succubus form, and after clearing her throat, she teases, [zaranix.speech(You prefer me like this then? Do these get you turned on too?)]
+	</p>
+	<p>
+		With that, the succubus unbuttons her shirt and reveals her breasts to you. While extremely small by succubus standards, they're still about a [zaranix.cupSize]-cup, and sport large, dark-purple nipples on each of their perky tips. Liking Zaranix's new form far more than the one she had before, you find yourself lustfully gazing first at her chest, and then down to her groin, where there's still a large bulge pressing out from beneath her trousers. Seeing what it is you're looking at, the succubus laughs and teases, [zaranix.speech(Still hungry for cock, huh? Well, I guess I should indulge you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_DEFEAT -->
+	
+	<htmlContent tag="AFTER_SEX_DEFEAT"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_zaranixTransformedPlayer))
+		<p>
+			Having had enough of using your mouth, Zaranix rather unceremoniously pushes you away and stands up, before stating, [zaranix.speech(I'd definitely call that potion a success! Those lewd, juicy lips of yours feel better than most pussies!)]
+		</p>
+		<p>
+			Before you can reply, the [zaranix.race] reaches down and pushes [zaranix.her] thumb into your mouth. Grinning as [zaranix.she] gets a good feel of your massive, cum-coated lips, [zaranix.she] turns [zaranix.her] head towards the door and calls out, [zaranix.speech(Arthur, get back in here! You can have a go at fucking [pc.her] face too; this potion was your creation, so it's only fitting that you get to enjoy it!)]
+		</p>
+		<p>
+			Arthur, who you'd forgotten about until now, seemed to have hastily exited the room some time during your transformation, and after returning from his brief exile to the corridor, flatly states, [arthur.speech(No thank you, Zaranix. I created that potion to your specifications; it's not like I had any intention of using it.)]
+		</p>
+	#ELSE
+		<p>
+			Having had enough of using your mouth, Zaranix rather unceremoniously pushes you away and stands up, before stating, [zaranix.speech(You're not half bad at sucking cock, slut!)]
+		</p>
+		<p>
+			Before you can reply, the [zaranix.race] reaches down and pushes [zaranix.her] thumb into your mouth. Grinning as [zaranix.she] gets a good feel of your cum-coated lips, [zaranix.she] turns [zaranix.her] head towards the door and calls out, [zaranix.speech(Arthur, get back in here! You can have a go at fucking [pc.her] face too!)]
+		</p>
+		<p>
+			Arthur, who you'd forgotten about until now, seemed to have hastily exited the room some time before you started sucking Zaranix's cock, and after returning from his brief exile to the corridor, flatly states, [arthur.speech(No thank you, Zaranix. I'd like to get back on with my work.)]
+		</p>
+	#ENDIF
+	<p>
+		[zaranix.speech(Your loss,)] Zaranix huffs, before grabbing hold of your [pc.arm] and unceremoniously pulling you along beside [zaranix.herHim] as [zaranix.she] heads towards the door. Looking down at you, [zaranix.she] growls, [zaranix.speech(I'll forgive your earlier actions, but you're still trespassing, so I'll show you to the door.)]
+	</p>
+	<p>
+		Left with little choice but to shuffle and crawl alongside the dominant [zaranix.race], you're quickly dragged back through the house and to the front door. [zaranix.speech(I wouldn't bother coming back, unless you want another taste of my cock, slut!)] Zaranix laughs, before throwing you out into the street and slamming the door behind you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

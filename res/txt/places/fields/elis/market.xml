@@ -1,0 +1,1840 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/market.xml' dialogue nodes. -->
+	
+	<!-- Centre of market, livestock on Wednesdays and Saturdays, games on all other days. -->
+	
+	<htmlContent tag="CENTRE"><![CDATA[
+	#IF(game.getDayOfWeek()==DOW_SATURDAY || game.getDayOfWeek()==DOW_WEDNESDAY)
+		<p>
+			As you continue on your way through the market, you see that a large area in the very middle of the square has been cordoned off with wooden fences. Notice boards attached to this fencing reveal that today is a livestock market day, which is stating the obvious due to the fact that you're able to see for yourself the countless animals being bought, sold, and auctioned off within this fenced-off area.
+		</p>
+	#ELSE
+		<p>
+			Several games stalls have been set up here. Out of the dozen or so stalls, there are only two which really catch your interest; one offering a game of darts, and one that offers a strength test.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CENTRE_SPECTATE"><![CDATA[
+	<p>
+		Spend some time watching livestock being bought and sold.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Darts: -->
+	
+	<htmlContent tag="GAME_DARTS"><![CDATA[
+	<p>
+		Raccoon-girl tells you that you get three darts and have to hit the bullseye to win a prize. Costs 15 flames to have a go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_LEAVE"><![CDATA[
+	<p>
+		You decide against having a go at darts and turn around and leave. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_PLAY"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_elis_market_darts_won))
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=66)
+				You hit the bullseye on your first throw, then to show off you hit it again with the second and third darts.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=33)
+				You hit the bullseye on your second throw, then to show off you hit it again with the third dart.
+			#ELSE
+				You manage to hit the bullseye on your third throw.
+			#ENDIF
+		</p>
+		<p>
+			The raccoon-girl happily congratulates you and asks what prize you'd like.
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=66)
+				You find yourself distracted by people around you, and so despite your considerable skill at using ranged weapons, you somehow manage to just miss the bullseye with all three darts.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=33)
+				You find yourself distracted by people around you, and so despite your skill at using ranged weapons, you miss the bullseye with all three darts.
+			#ELSE
+				You miss the bullseye with all three darts.
+			#ENDIF
+		</p>
+		<p>
+			The raccoon-girl says better luck next time and asks if you want to have another try.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_CHOCOLATES"><![CDATA[
+	<p>
+		You ask for the chocolates. The raccoon-girl hands them over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_PERFUME"><![CDATA[
+	<p>
+		You ask for the perfume. The raccoon-girl hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_TEDDY"><![CDATA[
+	<p>
+		You ask for the teddy bear. The raccoon-girl hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_HER"><![CDATA[
+	<p>
+		You say that you want to get to know the raccoon-girl a little better as your prize, and suggest taking her for a coffee or snack. She agrees and closes the stall for 30 minutes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_WON_NO_PRIZE"><![CDATA[
+	<p>
+		You say that you don't want a prize. The raccoon-girl says that she has a rule that winners can't play again in the same day, but seeing as you aren't taking a prize, you can come back and play again later if you'd like.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_DARTS_LOST"><![CDATA[
+	<p>
+		You [pc.step] away from the stall and let the next person in line play, who also misses all of their shots. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Strength: -->
+	
+	<htmlContent tag="GAME_STRENGTH"><![CDATA[
+	<p>
+		Horse-boy tells you that you get one hit to try and get the puck to hit the bell to win a prize. Costs 15 flames to have a go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_LEAVE"><![CDATA[
+	<p>
+		You decide against having a go at the strength tester and turn around and leave. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_PLAY"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_elis_market_strength_won))
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
+				You hit the strength tester so hard that the puck flies up and smashes the bell into pieces.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
+				You hit the strength tester and cause the puck to fly up and whack into the bell with some force.
+			#ELSE
+				You hit the strength tester and just about manage to cause the puck to fly up and tap into the bell.
+			#ENDIF
+		</p>
+		<p>
+			The horse-boy happily congratulates you and asks what prize you'd like.
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
+				You find yourself distracted by people around you, and so despite your considerable strength, you end up slightly missing the strength tester's strike pad.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
+				You find yourself distracted by people around you, and so despite your strength, you end up slightly missing the strength tester's strike pad.
+			#ELSE
+				You hit the strike pad but the puck only flies half way up, leaving the bell unrung.
+			#ENDIF
+		</p>
+		<p>
+			The horse-boy says better luck next time and asks if you want to have another go.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_MEAT"><![CDATA[
+	<p>
+		You ask for the meat hamper. The horse-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	<p>
+		You open the hamper to find some meat and a bottle of cider.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_BAT_WOODEN"><![CDATA[
+	<p>
+		You ask for the wooden bat. The horse-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_BAT_METAL"><![CDATA[
+	<p>
+		You ask for the metal bat. The horse-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_HIM"><![CDATA[
+	<p>
+		You say that you want to get to know the horse-boy a little better as your prize, and suggest taking him for a coffee or snack. He agrees and closes the stall for 30 minutes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON_NO_PRIZE"><![CDATA[
+	<p>
+		You say that you don't want a prize. The horse-boy says that he has a rule that winners can't play again in the same day, but seeing as you aren't taking a prize, you can come back and play again later if you'd like.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_LOST"><![CDATA[
+	<p>
+		You [pc.step] away from the stall and let the next person in line play, who also fails to hit the bell. You wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Clothing -->
+	
+	<htmlContent tag="CLOTHING"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		#IF(fae.isPlayerKnowsName())
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see that Fae and Silvia are busily packing their stall away. Not wanting to trouble them, you decide to leave them to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				#IF(fae.isVisiblyPregnant())
+					<p>
+						#IF(!fae.isCharacterReactedToPregnancy(pc))
+							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Fae is the first to spot you as you draw near, and as you come to a halt in front of the counter, she points down to her swollen belly and declares, [fae.speech(Look, [pc.name], you got me knocked up!)]
+						#ELSE
+							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Fae is the first to spot you as you draw near, and as you come to a halt in front of the counter, she points down at her rounded belly and declares, [fae.speech(Look, [pc.name], I'm still pregnant with our kids!)]
+						#ENDIF
+					</p>
+				#ENDIF
+				#IF(silvia.isVisiblyPregnant())
+					<p>
+						#IF(fae.isVisiblyPregnant())
+							Hearing her sister greet you, Silvia looks over at you and flashes you a big grin, before pointing down at her own pregnant bump and teasing,
+						#ELSE
+							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Silvia is the first to spot you as you draw near, and as you come to a halt in front of the counter, she runs her hands over her pregnant bump and teases,
+						#ENDIF
+						#IF(!silvia.isCharacterReactedToPregnancy(pc))
+							 [silvia.speech(Look what you did, you naughty [pc.girl]... These are your kids in here...)]
+						#ELSE
+							 [silvia.speech(I'm still carrying our kids around...)]
+						#ENDIF
+					</p>
+				#ENDIF
+				#IF(fae.isVisiblyPregnant())
+					<p>
+						#IF(silvia.isVisiblyPregnant())
+							The two pregnant sisters step up beside one another, and with their swollen bellies gently touching, Fae lets out a little laugh and asks, [fae.speech(So then, [pc.name], are you here to buy something?)]
+						#ELSE
+							Hearing her sister greet you, Silvia looks over at you and flashes you a big grin. Seeing her sister's reaction, Fae lets out a little laugh, before asking, [fae.speech(So then, [pc.name], are you here to buy something?)]
+						#ENDIF
+					</p>
+				#ELSEIF(silvia.isVisiblyPregnant())
+					<p>
+						Hearing her sister greet you, Fae looks over at you and flashes you a big grin, before asking, [fae.speech(So then, [pc.name], are you here to buy something?)]
+					</p>
+				#ELSE
+					<p>
+						You once again find yourself approaching the clothing stall, 'Rainbow's End'. The foxtauress sisters, Fae and Silvia, are standing behind the counter, and as they see you approach Fae waves you over and calls out, [fae.speech([pc.Name]! Are you here to buy something?)]
+					</p>
+				#ENDIF
+				#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(fae))
+					<p>
+						#IF(!pc.isCharacterReactedToPregnancy(fae))
+							At that moment, the two sisters suddenly notice that you're sporting a swollen, pregnant belly. Telling Fae that she's the one who knocked you up, you smile as the foxtauress teases, [fae.speech(It's not my fault; your pussy was just so good, I didn't want to pull out! Hey, are you wanting to buy some clothing for our kids?)]
+						#ELSE
+							At that moment, the two sisters look down at your swollen, pregnant belly. Knowing that she's the one who knocked you up, Fae smirks and teases, [fae.speech(Still carrying our kids around, huh? Hey, are you wanting to buy some clothing for them?)]
+						#ENDIF
+					</p>
+				#ELSEIF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(silvia))
+					<p>
+						#IF(!pc.isCharacterReactedToPregnancy(silvia))
+							At that moment, the two sisters suddenly notice that you're sporting a swollen, pregnant belly. Telling Silvia that she's the one who knocked you up, you smile as the foxtauress teases, [silvia.speech(It's not my fault; your pussy was just so good, I didn't want to pull out!)]
+						#ELSE
+							At that moment, the two sisters look down at your swollen, pregnant belly. Knowing that she's the one who knocked you up, Silvia smirks and teases, [silvia.speech(Still carrying our kids around, huh?)]
+						#ENDIF
+					</p>
+					<p>
+						Sensing that there's an opportunity to get some business from you, Fae asks, [fae.speech(Hey, are you wanting to buy some clothing for your kids?)]
+					</p>
+				#ENDIF
+				<p>
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_fae_passionate))
+						[silvia.speech(Or are you here to try and win another kiss?)]
+					#ELSE
+						[silvia.speech(Or are you here to try and win a kiss?)]
+					#ENDIF
+					 Silvia adds, before shyly smiling at you and seductively biting her lip.
+				</p>
+				<p>
+					[fae.speech(That's right, remember that you get a kiss from each of us if you roll a six on my dice,)] Fae says, before reminding you, [fae.speech(Remember that it costs one 'Faire ticket' for a roll, and you win a prize on a four, five, or six. So, are you going to buy anything, or do you have a ticket to trade in with us?)] 
+				</p>
+				<p>
+					Happily smiling at you, the foxtauress sisters look at you with their blue and green eyes and wait to hear what it is you want...
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see a pair of foxtauresses are busily packing their stall away in this area. Not wanting to trouble them, you decide to leave them to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					Although there are many stalls throughout the Farmer's Market which offer clothing for sale, the one before you is by far the largest and most colourful. Consisting of a long counter covered by a rainbow-coloured, canvas awning, the stall before you is packed full of clothing of all sorts and colours. Looking up, you see that the wooden sign that's attached to the canvas awning displays this stall's name as 'Rainbow's End'. 
+				</p>
+				<p>
+					Looking over the counter, you see that the stall's owners are a pair of orange-furred greater foxtauresses, who each look to be in their early thirties. While both of them stand at [fae.heightValue] and have remarkably similar facial appearances, one of them has bright blue eyes, while the other's are a mossy shade of green.
+				</p>
+				<p>
+					The green-eyed foxtauress has a head of long, dark brown hair, that's been highlighted with streaks of red dye and tied back into a pony tail by means of a red-and-black scrunchie. She's wearing a black leather jacket, which is unzipped to reveal a dark red crop top, the fabric of which is tightly hugging her [fae.cupSize]-cup breasts. Aside from those three items of clothing, she's wearing nothing else except a significant amount of gold jewellery. Rings in her ears and nose, as well as a gemstone barbell in her navel, are joined by a necklace, a wrist bangle, and an anklet around one of her paws, all in gold. There are even the unmistakable bumps of a pair of nipple barbells pressing out from under her tight crop top.
+				</p>
+				<p>
+					The blue-eyed foxtauress has hair of a similar length and dark brown shade as her companion, although hers is woven into a braid and dyed with streaks of pink instead of red. She's wearing the same kind of stylish leather jacket as the green-eyed foxtauress, although hers is brown, and instead of a red crop top she's wearing an equally tight-fitting white tube top. The fabric of this top is similarly stretched out by a pair of nipple piercings, although instead of barbells, hers look to be rings. She's wearing a similar amount and style of jewellery as her companion, although instead of gold hers is all silver.
+				</p>
+				<p>
+					As they see you stop and look at their stall, these foxtauresses exchange a cheeky glance and smirk with one another. Before you can react, they quickly turn around on the spot and flick their huge, fluffy tails aside, shamelessly flashing you their animalistic fox-pussies and assholes. Even without any kind of stimulation, each of their cunts looks to be wet and begging to be fucked. Continuing to look down, you see that these foxtauresses both have a complete set of male genitalia in addition to their female sexes, and from the considerable size of their furry sheaths, you can tell that their cocks must be quite large when erect.
+				</p>
+				<p>
+					Turning her head back to smile at you, the green-eyed foxtauress winks and teases, [fae.speech(See anything you like, hun? I haven't seen you around before, and my sister and I like to give first timers a bit of a treat... So come on, what do we call you?)]
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_INTRO"><![CDATA[
+	<p>
+		Seeing no reason not to give these exhibitionists your name, you respond to the green-eyed foxtauress and ask her for her name in return. Having had their fun, the two of them drop their tails back down, before turning to face you once again. Clearly being the more confident of the two, the green-eyed foxtauress is again the one to speak, and reveals, [fae.speech(I'm Fae, and this here's my sister Silvia.)]
+	</p>
+	<p>
+		[silvia.speech(Hi,)] Silvia says, before flashing you a shy smile and batting her eyelids at you.
+	</p>
+	<p>
+		[fae.speech(So, you're here to buy some clothing, right?)] Fae asks, [fae.speech(We've got a special deal thanks to Elis's tourism board; you buy any item for over five hundred flames, and we give you one 'Faire ticket'! You can trade a ticket in for a roll of a dice, and depending on what you roll, you get a special reward. Better than any old normal clothing shop, right?)]
+	</p>
+	<p>
+		Curious to know more about these 'special rewards', you ask Fae what you could potentially win from a roll of her dice. Flashing you a smirk, she explains, [fae.speech(You roll a one, two, or three, and you get nothing, I'm afraid. Roll a four and you get a pair of socks, roll a five and you get a cap, and roll a six...)]
+	</p>
+	<p>
+		[silvia.speech(And you get to kiss us!)] Silvia excitedly interjects, before falling silent and expectedly looking over at her sister.
+	</p>
+	<p>
+		[fae.speech(That's right, you get a kiss from each of us if you roll a six. You can instead choose to have a ring as your prize, but nobody ever chooses that...)] Fae says, before finishing by revealing, [fae.speech(The tourism board compensates us for all prizes given out, so we really don't mind giving away as many socks, caps, or rings as you can win. Just remember that it costs one 'Faire ticket' for a roll! So, are you going to buy anything, or do you already have any tickets from elsewhere to trade in with us?)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TRANSACTION_START"><![CDATA[
+	<p>
+		As you [pc.step] forwards and take a look at what Fae and Silvia have for sale, the green-eyed foxtauress flashes you a grin and asks, [fae.speech(So, what's caught your fancy? Remember, if you spend over five hundred flames, on an item, you get a 'Faire ticket'!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TRANSACTION_NO_TICKET"><![CDATA[
+	<p>
+		Taking your flames in exchange for the [#SPECIAL_PARSE_0], Fae pouts and says, [fae.speech(Sorry, [pc.name], but you need to spend at least five hundred flames in order to get a Faire ticket... Why don't you try buying something more expensive?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TRANSACTION_TICKET"><![CDATA[
+	<p>
+		Taking your flames in exchange for the [#SPECIAL_PARSE_0], Fae flashes you a happy smile and gives you a small paper Faire ticket, before exclaiming, [fae.speech(Thanks for shopping with us, [pc.name]! You can trade in your ticket for a roll of the dice at any time to try and win a prize!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_DICE"><![CDATA[
+	<p>
+		Wanting to take a shot at winning a prize, you place a Faire ticket on the counter and tell Fae that you'd like to have a roll of her dice. The foxtauress's green eyes light up as she hears this, and after taking your ticket and tearing it in half, she hands you her dice and teases, [fae.speech(You're hoping to roll a six, right? Silvia and I could do with a kiss right now...)]
+	</p>
+	<p>
+		[silvia.speech(That's right,)] Silvia happily nods, before fixing her blue eyes down on the dice in your hand.
+	</p>
+	#IF(flags.getSavedLong('fae_dice_roll')<4)
+		<p>
+			Seeing no reason to wait, you give the dice a good shake and roll it onto the counter. The three of you watch as it tumbles across the wooden surface, before bumping off a piece of clothing and clattering to a stop. Looking down at it, you see that it's landed on a [style.italicsMinorBad([style.intFormat([#flags.getSavedLong('fae_dice_roll')])])], meaning that you unfortunately [style.colourMinorBad(win nothing)].
+		</p>
+		<p>
+			Picking up her dice, Fae consoles you on your loss, [fae.speech(Aww, that's a shame... Better luck next time, [pc.name]! Why don't you buy some expensive clothing to get another ticket?)]
+		</p>
+	#ELSEIF(flags.getSavedLong('fae_dice_roll')==4)
+		<p>
+			Seeing no reason to wait, you give the dice a good shake and roll it onto the counter. The three of you watch as it tumbles across the wooden surface, before clattering to a sudden stop. Looking down at it, you see that it's landed on a [style.italicsMinorGood(four)], meaning you [style.colourMinorGood(win a pair of socks)].
+		</p>
+		<p>
+			Picking up her dice, Fae flashes you a big smile and exclaims, [fae.speech(Congratulations, [pc.name]!)]
+		</p>
+		<p>
+			[silvia.speech(Here you go, [pc.name]. These are the socks that the tourism board supplies us with as a prize,)] Silvia says as she hands you a pair of lime-green socks.
+		</p>
+		<p>
+			#IF(pc.hasLegs())
+				As you don't have any feet on which to wear them, you're not exactly sure what to do with this pair of socks, but nevertheless take them from Silvia and thank her for the prize.
+			#ELSE
+				You're not entirely convinced that you'll end up wearing these offensively-coloured socks, but nevertheless take them from Silvia and thank her for the prize.
+			#ENDIF
+			 Leaning forwards and flashing you a cheeky smile, Fae asks, [fae.speech(Hey, why don't you buy some expensive clothing to get another ticket? I'm sure you'd like to keep rolling until you win a kiss from the two of us, right?)]
+		</p>
+	#ELSEIF(flags.getSavedLong('fae_dice_roll')==5)
+		<p>
+			Seeing no reason to wait, you give the dice a good shake and roll it onto the counter. The three of you watch as it tumbles across the wooden surface, before clattering to a stop just before it was about to fall off the edge. Looking down at it, you see that it's landed on a [style.italicsGood(five)], meaning you [style.colourGood(win a cap)].
+		</p>
+		<p>
+			Picking up her dice, Fae flashes you a big smile and exclaims, [fae.speech(Congratulations, [pc.name]!)]
+		</p>
+		<p>
+			[silvia.speech(Here you go, [pc.name]. This is one of the caps that the tourism board supplies us with as a prize,)] Silvia says as she hands you a lime-green cap.
+		</p>
+		<p>
+			You're not entirely convinced that you'll end up wearing this offensively-coloured piece of headgear, but nevertheless take it from Silvia and thank her for the prize. Leaning forwards and flashing you a cheeky smile, Fae asks, [fae.speech(Hey, why don't you buy some expensive clothing to get another ticket? I'm sure you'd like to keep rolling until you win a kiss from the two of us, right?)]
+		</p>
+	#ELSE
+		<p>
+			Seeing no reason to wait, you give the dice a good shake and roll it onto the counter. The three of you watch as it tumbles across the wooden surface, before eventually clattering to a halt. Looking down at it, you see that it's landed on a [style.italicsExcellent(six)], meaning you've [style.colourExcellent(won either a ring or a kiss from the two foxtauresses)].
+		</p>
+		<p>
+			Picking up her dice, Fae flashes you a big smile and exclaims, [fae.speech(Congratulations, [pc.name]! Now, do you want some lame old silver ring as your prize...)]
+		</p>
+		<p>
+			[silvia.speech(Or would you rather get a kiss from each of us?)] Silvia finishes.
+		</p>
+		<p>
+			With both of the foxtauresses hungrily eyeing you up, you wonder whether to ask for the silver ring or the kiss as your prize...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_DICE_END"><![CDATA[
+	<p>
+		Taking a [pc.step] back from the counter, you wonder whether to do as Fae suggests and buy some clothing in order to get another Faire ticket, or instead head off and forget about trying to win
+		#IF(flags.getSavedLong('fae_dice_roll')<4)
+			 a prize...
+		#ELSE
+			 another prize...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_DICE_END_RING"><![CDATA[
+	<p>
+		Not being interested in getting a kiss from the two foxtauresses, you tell them that you'd like the ring as your prize. As they hear you say this, both Fae and Silvia pout at you and let out a disappointed whine. Placing her hands on her hips, Fae sighs, [fae.speech(I can't believe that you'd rather have some old ring than getting to kiss us...)]
+	</p>
+	<p>
+		[silvia.speech(Here you go, [pc.name]...)] Silvia whines as she hands you a silver ring. [silvia.speech(These are what the tourism board gives us to hand out as a prize.)]
+	</p>
+	<p>
+		Quick to change her attitude, Far leans forwards and flashes you a smile, before aking, [fae.speech(Hey, why don't you buy some expensive clothing to get another ticket? I'm sure you're regretting not choosing a kiss, right? You should keep on rolling until you get a six again!)]
+	</p>
+	<p>
+		Taking a [pc.step] back from the counter, you wonder whether to do as Fae suggests and buy some clothing in order to get another Faire ticket, or instead head off and forget about trying to win another prize...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_KISS"><![CDATA[
+	<p>
+		Not wanting to miss this opportunity, you tell the foxtauresses that you want to kiss them. Their faces light up as they hear you say this, and Fae and Siliva quickly step forwards and lean over the counter in anticipation of what's about to happen. Batting her eyelids, Fae teases, [fae.speech(Come on, [pc.name]. I'll be your first...)]
+	</p>
+	<p>
+		Moving forwards, you lean in towards Fae, and as you bring your mouth towards hers, she reaches forwards and takes hold of your head, before pulling you in and planting a big, wet kiss on your [pc.lips+]. The scent of delicate perfume surrounds you as the horny foxtauress continues to press her lips against yours, and she lets out a muffled, happy little moan as she kisses you.
+	</p>
+	<p>
+		[silvia.speech(Come on, Fae, it's my turn now!)] Silvia impatiently declares, before playfully pushing her sister aside. Fae's lips pull away from yours with a loud, wet smacking noise, and before you can do or say anything, Silvia leans forwards and presses her own lips against your mouth. Happily leaning in to you, the blue-eyed foxtauress continues where her sister left off, and plants a series of big, wet kisses on your [pc.lips].
+	</p>
+	<p>
+		Just as you're really starting to enjoy the experience, Silvia pulls back and sighs, [silvia.speech(You're a good kisser, [pc.name]...)] 
+	</p>
+	<p>
+		With more than a hint of jealousy in her voice, Fae declares, [fae.speech(Well, <i>my</i> kiss was better than yours, Silvia.)]
+	</p>
+	<p>
+		With the two foxtauresses continuing to lean forwards over the counter, and with their eyes continuing to hungrily roam over your body, you wonder whether to take things further or to end things here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_KISS_END"><![CDATA[
+	<p>
+		Having had your fun, you [pc.step] back from the counter and thank Fae and Silvia for the prize. Standing upright once again, Fae flashes you a cheeky smile and asks, [fae.speech(Hey, why don't you buy some expensive clothing to get another ticket? I'm sure you'd like to win another kiss from the two of us, right?)]
+	</p>
+	<p>
+		With the two foxtauresses waiting to hear what your response will be, you wonder whether to do as Fae suggests and buy some clothing in order to get another Faire ticket, or instead head off and forget about trying to win another kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_KISS_END_PASSION"><![CDATA[
+	<p>
+		Not yet satisfied, you lean back over towards Fae and once again press your [pc.lips+] against her mouth, before taking hold of her head and starting to passionately kiss her. Her bushy fox-tail excitedly twists around behind her, and with a happy, muffled moan, she desperately returns your kiss. Parting her lips, the foxtauress thrusts her tongue into your mouth and leans even further forwards over her counter in her desperation to make out with you. As her tongue slides over yours, you feel that she's got a barbell piercing through it, and as you experimentally run your tongue over it, she lets out a muffled giggle.
+	</p>
+	<p>
+		After watching your lewd display for a couple of minutes, Silvia lets out a loud, frustrated sigh, before rudely butting in and pushing her sister away. Before either of you can react, the blue-eyed foxtauress impatiently grabs hold of your head and desperately presses her mouth against yours. Happy to give Silvia a turn, you spend another few minutes making out with her, during which time you discover that she too has a barbell piercing through her tongue. Eventually, at the incessant prompting of her sister, Silvia reluctantly pulls back, bringing an end to your fun.
+	</p>
+	<p>
+		[fae.speech(We don't get customers like you very often...)] Fae whines, before flashing Siliva a questioning glance. After her sister has given her an approving nod, the green-eyed foxtauress looks back at you and says, [fae.speech(The two of us go to 'The Centaur's Sword' every evening after work. If you want more than just a kiss, then you can find us in there between seven and ten...)]
+	</p>
+	<p>
+		[silvia.speech(I hope we'll see you in there soon,)] Silvia says, before letting out a playful giggle and asking, [silvia.speech(Did you want to buy anything, [pc.name]? Or if you've got another ticket, then maybe you could roll to earn another kiss...)]
+	</p>
+	<p>
+		With the two foxtauresses waiting to hear what your response will be, you wonder whether to do as Silvia suggests, or instead say goodbye and take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Alcoholic drinks -->
+	
+	<htmlContent tag="DRINKS_ALCOHOL"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		<p>
+			Consisting of a long table and an orange-and-white canvas awning, the stall in front of you bears a large wooden sign that reads 'The Beer Brigade'. As to be expected, this business sells alcoholic beverages, and you're able to see bottles of beer, cider, and perry within the portable arcane refrigeration units that are lined up at the rear of the stall.
+		</p>
+		#IF(game.getHourOfDay()>=18)
+			<p>
+				As it's past closing time, the trio of boisterous, broad-shouldered bog-boys who work here are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
+			</p>
+		#ELSE
+			<p>
+				A trio of boisterous, broad-shouldered bog-boys are manning the counter, and as you watch, they call out to the passing crowds, [style.speechMasculine(Cold beers for sale!)]
+			</p>
+			<p>
+				[style.speechMasculineStrong(Get your perry and cider here!)]
+			</p>
+			<p>
+				[style.speechMasculine(All locally brewed!)]
+			</p>
+			<p>
+				Pausing for a moment, you wonder whether to [pc.step] up to the stall and buy a drink from these dog-boys... 
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_ALCOHOL_BEER"><![CDATA[
+	<p>
+		Deciding that you'd like a drink of beer, you [pc.step] up to the counter and order a bottle of 'Canine Crush' from one of the dog-boys behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the dog-boy pops off the cap and hands you the bottle of beer that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_ALCOHOL_CIDER"><![CDATA[
+	<p>
+		Deciding that you'd like a drink of cider, you [pc.step] up to the counter and order a bottle of 'Equine Cider' from one of the dog-boys behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the dog-boy pops off the cap and hands you the bottle of cider that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_ALCOHOL_PERRY"><![CDATA[
+	<p>
+		Deciding that you'd like a drink of perry, you [pc.step] up to the counter and order a bottle of 'Black Stripes Perry' from one of the dog-boys behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the dog-boy pops off the cap and hands you the bottle of perry that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_ALCOHOL_END"><![CDATA[
+	<p>
+		[pc.Stepping] away from the counter, you find a quiet spot in which to relax and drink your alcoholic beverage. After five minutes of watching the crowds of shoppers amble past, you've emptied the entire bottle, and after throwing it away in a nearby recycling bin, you wonder what to do next.
+	</p>
+	<p>
+		#IF(game.getDayMinutes() + 5 >= 18 * 60)
+			As the time has passed six while you were busy drinking, 'The Beer Brigade' stall is now closed for the day, and you look across to see the three dog-boys packing up. As all of the other stalls in the Farmer's Market will similarly be closed, there's not much for you to do here except head off back into Elis...
+		#ELSE
+			With 'The Beer Brigade' stall still open for business, you hear the three dog-boys behind its counter continuing to call out to passersby. You could always buy another drink if you wanted to, or instead head off into the market once again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Soft drinks -->
+	
+	<htmlContent tag="DRINKS_SOFT"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		<p>
+			You find yourself standing before a particularly long stall, which has a yellow-and-white canvas awning and a white cloth decorated with colourful flowers draped over its counter. A large canvas sign attached to the awning displays the words 'Freshly Squeezed' beside embroidered images of oranges and carrots. Behind the counter, there are several arcane refrigeration units filled with all sorts of non-alcoholic beverages.
+		</p>
+		#IF(game.getHourOfDay()>=18)
+			<p>
+				As it's past closing time, the family of rabbit-morphs who operate the business 'Freshly Squeezed' are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
+			</p>
+		#ELSE
+			<p>
+				A family of rabbit-morphs are running this stall, and alongside two older-looking individuals, who you assume to be the mother and father, you count no less than eight rabbit-girls and boys. Every last one of them looks to be having fun running their business, which gives this stall a wholesome, friendly atmosphere.
+			</p>
+			<p>
+				Pausing for a moment, you wonder whether to [pc.step] up to the stall and join one of the stall's many customers in buying a drink from these rabbit-morphs... 
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_WATER"><![CDATA[
+	<p>
+		Deciding that you'd like a drink, you [pc.step] up to the counter and order a bottle of 'Vanilla Water' from one of the rabbit-morphs behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the happy rabbit-morph hands you the bottle of water that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_ORANGE_JUICE"><![CDATA[
+	<p>
+		Deciding that you'd like a drink, you [pc.step] up to the counter and order a can of 'Fizzy Orange Juice' from one of the rabbit-morphs behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the happy rabbit-morph hands you the can of carbonated orange juice that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_BERRY_SODA"><![CDATA[
+	<p>
+		Deciding that you'd like a drink, you [pc.step] up to the counter and order a can of 'Berry Soda' from one of the rabbit-morphs behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the happy rabbit-morph hands you the can of berry soda that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_COLA"><![CDATA[
+	<p>
+		Deciding that you'd like a drink, you [pc.step] up to the counter and order a bottle of 'Porcine Pop' from one of the rabbit-morphs behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the happy rabbit-morph hands you the bottle of cola that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_CARROT_JUICE"><![CDATA[
+	<p>
+		Deciding that you'd like a drink, you [pc.step] up to the counter and order a bottle of 'Bunny Juice' from one of the rabbit-morphs behind the counter. After you've handed over the [#SPECIAL_PARSE_0] flames asked of you, the happy rabbit-morph hands you the bottle of carrot juice that you've asked for.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRINKS_SOFT_END"><![CDATA[
+	<p>
+		[pc.Stepping] away from the counter, you find a quiet spot in which to relax and enjoy your drink. After five minutes of watching the crowds of shoppers amble past, you've finished off your refreshing beverage, and after throwing it away in a nearby recycling bin, you wonder what to do next.
+	</p>
+	<p>
+		#IF(game.getDayMinutes() + 5 >= 18 * 60)
+			As the time has passed six while you were busy drinking, the 'Freshly Squeezed' stall is now closed for the day, and you look across to see the family of rabbit-morphs packing up. As all of the other stalls in the Farmer's Market will similarly be closed, there's not much for you to do here except head off back into Elis...
+		#ELSE
+			With the 'Freshly Squeezed' stall still open for business, you see the family of rabbit-morphs behind its counter continuing to serve the many customers which are drawn to it. You could always buy another drink if you wanted to, or instead head off into the market once again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Exit -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		Along each of the four sides of the market, the road leads off into the rest of Elis.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		You exit the Farmer's Market and head back out into Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Hot meals -->
+	
+	<htmlContent tag="FOOD_MEALS"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		<p>
+			A metal sign attached to the counter of the stall in front of you declares that it's selling 'Burgers, Fries, & Pies'. This fact could also have been ascertained from the smell of greasy, fried food that's emanating from its ovens and deep-fat fryers. The canvas awning which covers this business is a solid shade of dark green, which you imagine might have been chosen due to its ability to conceal splashes of oil.
+		</p>
+		#IF(game.getHourOfDay()>=18)
+			<p>
+				As it's past closing time, the pair of pig-boys who operate the hot food business are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
+			</p>
+		#ELSE
+			<p>
+				A pair of portly pig-boys are stationed behind the counter, and you watch for a moment as they busily flip burgers and serve up plates of greasy fries. Although the food served here is far from what anyone would consider to be healthy, you see that there's a relatively constant trickle of hungry customers placing orders.
+			</p>
+			<p>
+				Pausing for a moment, you wonder whether to [pc.step] up to the stall and buy some kind of hot meal from these pig-boys... 
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_MEALS_FISH_CHIPS"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and order a serving of 'Fish and Chips' from one of the pig-boys behind the counter. After you've given him the [#SPECIAL_PARSE_0] flames, the rotund pig-boy asks you to wait while he cooks your meal. Thankfully, it only takes him five minutes to get your order ready, and with a big smile on his chubby face, he hands you the box of fish and chips that you've ordered.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_MEALS_SAUSAGES"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and order a serving of 'Sausages' from one of the pig-boys behind the counter. After you've given him the [#SPECIAL_PARSE_0] flames, the rotund pig-boy asks you to wait while he cooks your meal. Thankfully, it only takes him five minutes to get your order ready, and with a big smile on his chubby face, he hands you the box of sausages that you've ordered.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_MEALS_BURGER"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and order a 'Brown Rat's Burger' with 'Oinkers Fries' from one of the pig-boys behind the counter. After you've given him the [#SPECIAL_PARSE_0] flames, the rotund pig-boy asks you to wait while he cooks your meal. Thankfully, it only takes him five minutes to get your order ready, and with a big smile on his chubby face, he hands you the greasy burger and side of curly fries that you've ordered.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_MEALS_CHICKEN_PIE"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and order a 'Chicken Pot Pie' from one of the pig-boys behind the counter. After you've given him the [#SPECIAL_PARSE_0] flames, the rotund pig-boy asks you to wait while he cooks your meal. Thankfully, it only takes him five minutes to get your order ready, and with a big smile on his chubby face, he hands you the pie that you've ordered.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_MEALS_STEAK"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and order a 'Meat and Marrow' steak sandwich from one of the pig-boys behind the counter. After you've given him the [#SPECIAL_PARSE_0] flames, the rotund pig-boy asks you to wait while he cooks your meal. Thankfully, it only takes him five minutes to get your order ready, and with a big smile on his chubby face, he hands you the steak sandwich that you've ordered.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_MEALS_END"><![CDATA[
+	<p>
+		[pc.Stepping] away from the counter, you find a quiet spot in which to relax and enjoy your meal. After fifteen minutes of watching the crowds of shoppers amble past, you've finished off your food, and after throwing the paper packaging into a nearby recycling bin, you wonder what to do next.
+	</p>
+	<p>
+		#IF(game.getDayMinutes() + 5 >= 18 * 60)
+			As the time has passed six while you were busy eating, the stall is now closed for the day, and you look across to see the pig-boys packing up. As all of the other stalls in the Farmer's Market will similarly be closed, there's not much for you to do here except head off back into Elis...
+		#ELSE
+			With the stall still open for business, you see the pig-boys behind its counter continuing to flip burgers and cook up plates of fries. You could always buy another meal if you wanted to, or instead head off into the market once again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Snacks -->
+	
+	<htmlContent tag="FOOD_SNACKS"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		<p>
+			The canvas awning which covers the stall in front of you is patterned in alternating stripes of light-green and white, while the cloth that's draped over its counter is a pretty, delicate shade of yellow. Numerous wicker baskets have been placed on the counter's surface, each one of which is full of different types of individually-packaged snacks. The stall's name has been hand sewn into the table's cloth, which reveals it to be 'Sweets & Treats'.
+		</p>
+		#IF(game.getHourOfDay()>=18)
+			<p>
+				As it's past closing time, the sheep-girls who operate 'Sweets & Treats' are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
+			</p>
+		#ELSE
+			<p>
+				A group of pretty sheep-girls are stationed behind the counter, and are busily serving the many customers who've decided to make a quick stop and buy a snack.
+			</p>
+			<p>
+				Pausing for a moment, you wonder whether to [pc.step] up to the stall and buy a snack from these sheep-girls... 
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_CANDY_FLOSS"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up a 'Wooly Goodness' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your candy floss.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_POPCORN"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up a bag of 'Popcorn' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your popcorn.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_CANINE_CRUNCH"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up an individually-wrapped 'Canine Crunch' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your cookie.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_BREAD"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up an individually-wrapped 'Bread Roll' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your bread roll.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_NUTS"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up a bag of 'Round Nuts' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your mixed nuts.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_CARROT_CAKE"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up an individually-wrapped 'Bunny Carrot-Cake' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your cake.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_EGGS"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up a box of 'Boiled Eggs' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your eggs.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_HONEY_BREAD"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up an individually-wrapped slice of 'Honey Bread' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your honey bread.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_BERRY_TRIFLE"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up a pot of 'Berry Trifle' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your trifle.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_BROWNIE"><![CDATA[
+	<p>
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up an individually-wrapped slice of 'Chocolate Brownie' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your brownie.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOOD_SNACKS_END"><![CDATA[
+	<p>
+		[pc.Stepping] away from the counter, you find a quiet spot in which to relax and enjoy your snack. After five minutes of watching the crowds of shoppers amble past, you've finished off your food, and after throwing the packaging into a nearby recycling bin, you wonder what to do next.
+	</p>
+	<p>
+		#IF(game.getDayMinutes() + 5 >= 18 * 60)
+			As the time has passed six while you were busy eating, the stall is now closed for the day, and you look across to see the sheep-girls packing up. As all of the other stalls in the Farmer's Market will similarly be closed, there's not much for you to do here except head off back into Elis...
+		#ELSE
+			With the stall still open for business, you see the sheep-girls behind its counter continuing to serve their many customers. You could always buy another meal if you wanted to, or instead head off into the market once again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="FORTUNES"><![CDATA[
+	<p>
+		Behind the curtains of this stall, a rabbit-girl offers to tell people their fortune in exchange for a huge amount of flames.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING"><![CDATA[
+	<p>
+		A beautiful, busty cow-girl is offering kisses for a reasonable price from out of this stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PATH"><![CDATA[
+	#IF(game.getHourOfDay()>=18)
+		<p>
+			As you [pc.walk] through the market, you see that all of the stallholders are packing up their goods and disassembling their stalls. With the day's market coming to an end, there's really very little left for you to do here. You should probably head back out into the rest of Elis and return tomorrow if you wanted to do any more shopping.
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(The market is closed, and will reopen at [units.time(8)] tomorrow...)]
+		</p>
+	#ELSE
+		<p>
+			As you [pc.walk] through the busy avenues formed between countless brightly-coloured stalls, you see all manner of food, drink, and other items for sale. Unlike a regular farmer's market, the one here in Elis seems to have evolved into a type of low-key festival, complete with a band somewhere in the distance playing live music.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+				 While there are certainly exceptions, almost everyone you pass looks to be in high spirits,
+				#IF(game.getCurrentWeather()==WEATHER_RAIN)
+					 with not even the rain being able to bring the mood down.
+				#ELSEIF(game.getCurrentWeather()==WEATHER_SNOW)
+					 with not even the snow being able to bring the mood down.
+				#ELSE
+					 with the smiles on their faces making it clear that they're greatly enjoying the market's festive atmosphere.
+				#ENDIF
+			#ELSE
+				 Although a lot of the people who you pass look to be in high spirits, there are many whose forlorn expressions seem to be unaffected by the market's festive atmosphere, and you can only assume that they're victims in one way or another of Lunette's raiding.
+			#ENDIF
+			 While races of all kinds can be seen if you search hard enough, the vast majority of the shoppers and vendors consist of all manner of domesticated animal morphs.
+		</p>
+		#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+			<p>
+				Unable to resist the urge to take a photo, you pull out your phone and take a picture of the busy market, talking to yourself as you do so, [pc.speech([game.random(
+				The folks back home will love this.
+				| Neat, it's like a Medieval Times back home.
+				| These Europeans sure look funny.
+				| So this is what they have instead of malls in Europe.)])]
+			</p>
+		#ENDIF
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+				Thanks to the fact that Lunette is no longer raiding the surrounding farmland, the market seems to be busier than ever. Catching brief snippets of conversation as you [pc.walk] past some of the stalls, you soon get the impression that the quantity and quality of produce which the vendors are able to acquire is better than it's ever been. Thanks to this, there are a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
+			#ELSE
+				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
+			#ENDIF
+		</p>
+		#IF(game.getMinutesUntilTimeInMinutes(1080)<30)
+			<p style='text-align:center;'>
+				[style.italicsMinorBad(The market closes at [units.time(18)], so you should hurry up and finish your business here before all the stalls shut for the day...)]
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Yui's 'Yui's Toys' stall: -->
+	
+	<htmlContent tag="TOYS"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		#IF(yui.isPlayerKnowsName())
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see that Yui is busily packing her stall away. Not wanting to trouble her, you decide to leave her to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					You once again find yourself standing before the stall 'Yui's Toys'. Its dark-purple awning and curtains, combined with the black cloth draped over its counter, gives business a very ominous appearance. Yui herself, the demonic, yellow-and-black striped spider-girl, is standing behind the counter, and fixes her eight glowing-crimson eyes on your face as you draw near.
+				</p>
+				<p>
+					[yui.speech(Back for some of my toys, are you?)] she asks. Swiftly smacking her riding crop down against the counter-top, she flashes you a wild, sadistic grin and teases, [yui.speech(Or are you here for some punishment?)] 
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see a demonic spider-girl busily packing her stall away in this area. Not wanting to trouble her, you decide to leave her to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					In stark contrast to the colourful canvas seen throughout most of the Farmer's Market, the awning which covers the stall in front of you is a dark shade of purple. The counter upon which dozens of sex toys are on display is draped in a black cloth, which combined with the dark purple curtains that hang from three of the stall's four sides, gives this business a very ominous appearance. Thick strands of white spider webbing have not only been spun into webs in each of the corners of this stall, but have also have been skilfully woven into the words 'Yui's Toys'.
+				</p>
+				<p>
+					You almost don't notice this stall's unusual décor, as your attention is immediately drawn to the demonic spider-girl who's standing behind the counter. Although she's standing at a relatively small [yui.heightValue], this [yui.race] gives off an incredibly threatening vibe. It's not the striking, black-and-yellow stripes of her chitinous skin that sends a shudder down your spine, nor the jet-black leather fetish gear that she's wearing, nor even the fact that she's got six arms that are all quickly moving as they play with strands of thin spider webbing shot out of the spinneret at the end of her bulbous, spider-like tail. What really makes you stop dead in your tracks is the fact that this spider-girl has eight glowing-crimson eyes spread across her upper face, each one of which is gazing at you with a look of petrifying malice.
+				</p>
+				<p>
+					[yui.speech(Don't you know that it's rude to stare?)] she asks, her voice dripping with patronising amusement. Using one of her six arms to tuck a loose strand of her black-and-red head back into her bun, this small spider-girl leans forwards over her counter and beckons you forwards. With a thin smirk on her pretty face, she demands, [yui.speech(So go on then, tell me who you are.)]
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_INTRO"><![CDATA[
+	<p>
+		Deciding to do as she says, you tell this demonic spider-girl who you are, to which she replies, [yui.speech([pc.Name]... I don't think I've had a toy called [pc.name] before... Anyway, you can call me Yui. Are you here to buy something?)]
+	</p>
+	<p>
+		Gesturing over her stall's counter, she draws your attention to the numerous sex toys and leather fetish gear that's on display. Picking up a black riding crop from under the table, Yui swiftly strikes it down against the counter, before letting out an evil laugh and revealing, [yui.speech(If you're here looking to earn a Faire ticket, then you can submit to me for an hour. I do enjoy playing with toys, and you look like you'll be a fun one...)]
+	</p>
+	<p>
+		As if this wasn't enough to reveal to you that she has some strong sadistic urges, Yui bites her lip and continues, [yui.speech(You can also trade in a Faire ticket to have a very personal demonstration of one of my sex toys. I'll tie you up and give you some real punishment... ~Mmm!~ Yes, I can tell that your squirming and screams will be simply delicious...)]
+	</p>
+	<p>
+		With the sadistic spider-girl hungrily gazing at you with her eight glowing-crimson eyes, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_TRANSACTION_START"><![CDATA[
+	<p>
+		[yui.speech(Interested in my goods, are you?)] Yui asks, [yui.speech(Perhaps you've got a slave or two who could do with being locked up and punished? If so, please do give them a reason to scream and let them know that it's from me...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DOMINATION"><![CDATA[
+	<p>
+		Wanting to earn a Faire ticket from Yui, you tell her that you're willing to submit to her. Immediately upon hearing this, each of her eight, glowing-crimson eyes narrow down, and she flashes you an evil grin before demanding, [yui.speech(Kneel down and call me 'Mistress Yui', and I'll consider playing with you.)] 
+	</p>
+	<p>
+		Doing as she asks, you drop down in front of the demonic spider-girl and beg, [pc.speech(Please, Mistress Yui, I want you to dominate me...)]
+	</p>
+	<p>
+		Letting out an amused, high-pitched laugh, the small sadist swipes her riding crop down at the floor beside her and orders, [yui.speech(Crawl around here, toy.)]
+	</p>
+	<p>
+		Once again doing as you're told, you crawl around to the other side of the counter. Licking her lips in anticipation of getting to dominate you, Yui 
+		#IF(game.isFootContentEnabled())
+			 raises one of her feet, before pushing the gothic boot that she's wearing into your face and sneering,
+			#IF(game.isArmpitContentEnabled())
+				 [yui.speech(So, what'll it be, toy? You want me to sit on your face, or smother your mouth with my feet or armpits? I'm in a good mood today, so I'll let you choose...)]
+			#ELSE
+				 [yui.speech(So, what'll it be, toy? You want me to sit on your face, or smother your mouth with my feet? I'm in a good mood today, so I'll let you choose...)]
+			#ENDIF
+		#ELSEIF(game.isArmpitContentEnabled())
+			 raises one of her arms, showing off her chitinous armpit and sneering, [yui.speech(So, what'll it be, toy? You want me to sit on your face, or smother your mouth with my pits? I'm in a good mood today, so I'll let you choose...)]
+		#ELSE
+			 drops two of her hands down towards her groin and plays with the zip on her leather panties as she sneers, [yui.speech(Tell me that you want me to sit on your face, toy...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DOMINATION_FOOT_WORSHIP"><![CDATA[
+	<p>
+		As Yui continues pushing her gothic boot into your face, you find yourself moaning, [pc.speech(Please, Mistress Yui, I want to worship your feet...)]
+	</p>
+	<p>
+		[yui.speech(What a kinky little toy you are,)] Yui laughs, before reaching back to her spinneret and squirting out a stream of thick, sticky webbing. As she begins to elegantly run this thread out between her six hands, she suddenly kicks you down onto the ground, before stepping over you and sneering down, [yui.speech(Toys don't get to move, do they?)]
+	</p>
+	<p>
+		[pc.speech(No, Mistress Yui,)] you reply.
+	</p>
+	<p>
+		Looking down at you with her eight glowing eyes, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small spider-girl starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
+	</p>
+	<p>
+		Doing as you're told, you try to move your [pc.arms] and [pc.legs], but quickly discover that they're completely wrapped up in strong, sticky webbing. Sadistically grinning at you as she watches you struggle, Yui pulls on a strand of webbing with two of her six arms, which causes you to tumble down to the floor. Dropping down and using her many limbs to reposition you into a kneeling pose, the small [yui.race] grabs a small, padded seat from under her counter and sits down on it. Kicking off her heavy, gothic boots to reveal her latex stockings, she lifts her feet and places them down onto your still-exposed [pc.hands].
+	</p>
+	<p>
+		[yui.speech(Be a good toy for me, and I'll let you taste my bare feet later,)] she sneers, before sadistically pushing her stocking-clad feet down against your [pc.hands]. Swiping her riding crop down to slap your side, she orders, [yui.speech(Now get started, toy. Massage my feet.)]
+	</p>
+	<p>
+		Almost entirely unable to move, you really have no choice but to do exactly as Yui commands, and so for the next half an hour you massage the [yui.race]'s stocking-clad feet. During this time several customers come up to Yui's stall to purchase toys from her, and they all make derogatory comments on how pathetic you look as you stroke and squeeze your Mistress's feet.
+	</p>
+	<p>
+		Eventually, Yui seems to have had enough of your massaging, and after delivering a quick smack to your side with her riding crop, she says, [yui.speech(You've been a good toy. Now, are you ready for your reward? Tell me that you'd like to lick my sweaty feet, and I'll let you have your fun...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DOMINATION_FOOT_WORSHIP_START"><![CDATA[
+	<p>
+		Getting madly turned on at the thought of being able to orally worship this demonic spider-girl's feet, you tell her what she wants to hear, [pc.speech(Yes, Mistress Yui! Please, I want to lick your sweaty feet!)]
+	</p>
+	<p>
+		[yui.speech(Good toy...)] she says with a big smirk on her face. Tucking her thumbs into the top of her latex stocking, she slowly slides them down her legs, before pulling them off and revealing her shiny, chitin-coated feet. Having been encased in latex or such a length of time, they're coated in a fine layer of glistening sweat, and as Yui lifts them up to your face, she teases, [yui.speech(You really are such a dirty little toy, aren't you? You like your Mistress's feet being all hot and sweaty? Go on then, toy, have a good smell of them...)]
+	</p>
+	<p>
+		Doing as Yui commands, and being unable to move away due to the fact that you're almost completely encased in her web cocoon, you take in a deep breath. Thanks to the fact that her feet are covered in an insect-like chitin, Yui's feet aren't nearly as smelly as you might have expected, although they do have a subtle, sweaty odour to them. Turned on at the thought of being able to worship these delicate, feminine feet, you do your best to lean forwards and kiss them. Letting out a laugh as she sees how eager you are, Yui gives you what you want, and sadistically pushes her feet into your face.
+	</p>
+	<p>
+		[yui.speech(You like that, toy? Go on, lick them clean!)] she squeals. Clearly getting almost as turned on as you are, she reaches down between her legs and unzips her latex panties, before sliding them off and revealing her tight, dripping-wet pussy. Shaking her finger at you, she teases, [yui.speech(No, no, no. My tight, wet pussy isn't for you. You'll have to make do with servicing my feet.)]
+	</p>
+	<p>
+		With that, Yui slides her fingers into her cunt and starts fingering herself, while at the same time pushing her sweaty feet into your face. Left with no other choice, you start licking and kissing your Mistress's feet, and as the salty taste of her sweat fills your mouth, you watch her slender fingers slide in and out of her drooling cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DOMINATION_ARMPIT_WORSHIP"><![CDATA[
+	<p>
+		As Yui glares down at you with her eight glowing-crimson eyes, you find yourself moaning, [pc.speech(Please, Mistress Yui, I want to worship your armpits...)]
+	</p>
+	<p>
+		[yui.speech(What a kinky little toy you are,)] Yui laughs, before reaching back to her spinneret and squirting out a stream of thick, sticky webbing. As she begins to elegantly run this thread out between her six hands, she suddenly kicks you down onto the ground, before stepping over you and sneering down, [yui.speech(Toys don't get to move, do they?)]
+	</p>
+	<p>
+		[pc.speech(No, Mistress Yui,)] you reply.
+	</p>
+	<p>
+		Smirking down at you and biting her lip, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small spider-girl starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
+	</p>
+	<p>
+		Doing as you're told, you try to move your [pc.arms] and [pc.legs], but quickly discover that they're completely wrapped up in strong, sticky webbing. Sadistically grinning at you as she watches you struggle, Yui pulls on a strand of webbing with two of her six arms, which causes you to stand up straight in front of her. Lifting one of her arms, she presents you with her sweaty armpit and sneers, [yui.speech(This is what you wanted, then? You filthy little toy...)]
+	</p>
+	<p>
+		before you can reply, Yui sadistically pushes her sweaty armpit over your face, forcing you to breathe in the odour of her smelly pit. Using one of her other arms to swipe her riding crop down to slap your side, she orders, [yui.speech(Now get started, toy. Lick my pits clean.)]
+	</p>
+	<p>
+		Almost entirely unable to move, you really have no choice but to do exactly as Yui commands, and so for the next half an hour you're made to alternate between all six of the [yui.race]'s sweaty pits as you lick and kiss them clean. During this time several customers come up to Yui's stall to purchase toys from her, and they all make derogatory comments on how pathetic you look as you continue to orally service your Mistress's armpits.
+	</p>
+	<p>
+		Eventually, Yui seems to get quite turned on by getting to dominate you in this fashion, and after delivering a quick smack to your side with her riding crop, she reaches down between her legs and unzips her latex panties, before sliding them off and revealing her tight, dripping-wet pussy. Shaking her finger at you, she teases, [yui.speech(No, no, no. My tight, wet pussy isn't for you. You'll have to make do with servicing my pits.)]
+	</p>
+	<p>
+		With that, Yui slides her fingers into her cunt and starts fingering herself, while at the same time pushing her sweaty armpit into your face. Left with no other choice, you continue licking and kissing your Mistress's pit, and as the salty taste of her sweat fills your mouth, you look down to see her slender fingers slide in and out of her drooling cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DOMINATION_FACE_SITTING"><![CDATA[
+	<p>
+		As Yui glares down at you with her eight glowing-crimson eyes, you find yourself moaning, [pc.speech(Please, Mistress Yui, I want you to sit on my face...)]
+	</p>
+	<p>
+		[yui.speech(What a kinky little toy you are,)] Yui laughs, before reaching back to her spinneret and squirting out a stream of thick, sticky webbing. As she begins to elegantly run this thread out between her six hands, she suddenly kicks you down onto the ground, before stepping over you and sneering down, [yui.speech(Toys don't get to move, do they?)]
+	</p>
+	<p>
+		[pc.speech(No, Mistress Yui,)] you reply.
+	</p>
+	<p>
+		Smirking down at you and biting her lip, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small spider-girl starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
+	</p>
+	<p>
+		Doing as you're told, you try to move your [pc.arms] and [pc.legs], but quickly discover that they're completely wrapped up in strong, sticky webbing. Sadistically grinning at you as she watches you struggle, Yui grabs a padded bench from under her counter, before pulling on a strand of webbing with two of her six arms, which causes you to tumble down onto this seat. Using her many limbs to reposition you so that you're lying down on your back, the small [yui.race] steps over the top of you and roughly plants her latex panties down over your face.
+	</p>
+	<p>
+		[yui.speech(Be a good toy for me, and I'll let you get a taste of me later,)] she sneers, before sadistically grinding her ass down against your mouth. Swiping her riding crop down to slap your side, she orders, [yui.speech(Now get started, toy. Lick my panties.)]
+	</p>
+	<p>
+		Almost entirely unable to move, you really have no choice but to do exactly as Yui commands, and so for the next half an hour you lick and kiss the [yui.race]'s latex panties. During this time several customers come up to Yui's stall to purchase toys from her, and they all make derogatory comments on how pathetic you look as your Mistress continues to grind her ass down over your face.
+	</p>
+	<p>
+		Eventually, Yui seems to have had enough, and after delivering a quick smack to your side with her riding crop, she says,
+		#IF(game.isAnalContentEnabled())
+			[yui.speech(You've been a good toy. Now, are you ready for your reward? Tell me if you'd rather get a taste of my pussy or ass, and I'll let you have some real fun...)]
+		#ELSE
+			[yui.speech(You've been a good toy. Now, are you ready for your reward? Tell me how desperate you are to taste my pussy, and I'll let you have some real fun...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DOMINATION_FACE_SITTING_PUSSY"><![CDATA[
+	<p>
+		Having endured Yui's latex panties being pressed down against your mouth for the past half an hour, you desperately plead, [pc.speech(Please, Mistress Yui, let me taste your pussy!)]
+	</p>
+	<p>
+		Letting out a derisive laugh, the demonic spider-girl lifts her hips, before unzipping her latex panties and sliding them off. Looking up at her now-exposed groin, you see that there's a steady stream of slick girlcum tricking out of Yui's tight cunt, and as she sees what you're staring at, she teases, [yui.speech(Bet you've never seen a pussy as wet as mine, huh? You want a taste? Go on, toy, beg for it!)] 
+	</p>
+	<p>
+		As you open your mouth to start begging for a taste of your Mistress's pussy, she suddenly drops down onto your face with a loud, wet squelch. The copious amount of girlcum being produced by her hot cunt immediately squirts out all over you, and you let out [pc.a_moan+] as you start licking up every last drop your tongue can reach. Firmly planting her pussy down over your mouth, Yui squeals, [yui.speech(That's it, toy! ~Mmm!~ Get your tongue in my tight little pussy!)]
+	</p>
+	<p>
+		As you obediently start eating Yui out, you're vaguely aware of the fact that several passing shoppers have stopped to watch the show, and as they loudly comment on the lewd scene in front of them, Yui teases, [yui.speech(That's it, show the nice strangers what a good little toy you are!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DOMINATION_FACE_SITTING_ASSHOLE"><![CDATA[
+	<p>
+		Having endured Yui's latex panties being pressed down against your mouth for the past half an hour, you desperately plead, [pc.speech(Please, Mistress Yui, let me taste your ass!)]
+	</p>
+	<p>
+		Letting out a derisive laugh, the demonic spider-girl lifts her hips, before unzipping her latex panties and sliding them off. Looking up at her now-exposed groin, you see that there's a steady stream of slick girlcum tricking out of Yui's tight cunt, and as she sees what you're staring at, she drops one of her hands down to spread the slimy mixture over her tight asshole, teasing as she does so, [yui.speech(Bet you've never seen a pussy as wet as mine, huh? Regretting your decision to go for my ass? Well, too late, toy, my asshole's all you're going to be getting today! Now beg for it!)] 
+	</p>
+	<p>
+		As you open your mouth to start begging for a taste of your Mistress's ass, she suddenly drops down onto your face with a loud, wet squelch. The copious amount of girlcum being produced by her hot cunt immediately squirts out all over you, and you let out [pc.a_moan+] as you start licking up every last drop your tongue can reach. Firmly planting her asshole down over your mouth, Yui squeals, [yui.speech(That's it, toy! ~Mmm!~ Get your tongue in my ass!)]
+	</p>
+	<p>
+		As you obediently start performing anilingus on Yui, you're vaguely aware of the fact that several passing shoppers have stopped to watch the show, and as they loudly comment on the lewd scene in front of them, Yui teases, [yui.speech(That's it, show the nice strangers what a good little toy you are!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_AFTER_DOMINATION"><![CDATA[
+	#IF(sex.getSexTypeCount(yui, pc, sex.newSexType(ORIFICE_VAGINA, PENETRATION_TONGUE))>0)
+		<p>
+			Satisfied from her orgasms, Yui lets out one last moan and sighs, [yui.speech(You're good at eating pussy, toy. Now lick me clean.)]
+		</p>
+		<p>
+			Lifting her hips a little, the demonic spider-girl holds still as you obediently lick up every last drop of girlcum from around her still-quivering cunt. After you've finished, she uses a tissue to wipe herself completely clean, and only after pulling her latex panties back on does she think about releasing you from your cocoon.
+		</p>
+	#ELSEIF(sex.getSexTypeCount(yui, pc, sex.newSexType(ORIFICE_ANUS, PENETRATION_TONGUE))>0)
+		<p>
+			Satisfied from her orgasms, Yui lets out one last moan and sighs, [yui.speech(You're good at eating ass, toy. Now lick my cunt clean.)]
+		</p>
+		<p>
+			Lifting her hips a little, the demonic spider-girl holds still as you obediently lick up every last drop of girlcum from around her still-quivering cunt. After you've finished, she uses a tissue to wipe herself completely clean, and only after pulling her latex panties back on does she think about releasing you from your cocoon.
+		</p>
+	#ELSEIF(sex.getSexTypeCount(yui, pc, sex.newSexType(ORIFICE_ARMPITS, PENETRATION_TONGUE))>0)
+		<p>
+			Satisfied from her orgasms, Yui lets out one last moan and sighs, [yui.speech(You really are a dirty little toy, aren't you? Loving my sweaty pits like that... Now before you go, you're to lick my cunt clean.)]
+		</p>
+		<p>
+			With a few tugs on the strands of silk that are connected to your cocoon, the demonic spider-girl repositions you so that you're kneeling down in front of her tight, slimy pussy. Being given no say in the matter, you find yourself having to lick up every last drop of girlcum from around Yui's still-quivering cunt. After you've finished, she uses a tissue to wipe herself completely clean, and only after pulling her latex panties back on does she think about releasing you from your cocoon.
+		</p>
+	#ELSE
+		<p>
+			Satisfied from her orgasms, Yui lets out one last moan and sighs, [yui.speech(You really are a dirty little toy, aren't you? Loving my sweaty feet like that... Now before you go, you're to lick my cunt clean.)]
+		</p>
+		<p>
+			With a few tugs on the strands of silk that are connected to your cocoon, the demonic spider-girl repositions you so that you're kneeling down in front of her tight, slimy pussy. Being given no say in the matter, you find yourself having to lick up every last drop of girlcum from around Yui's still-quivering cunt. After you've finished, she uses a tissue to wipe herself completely clean, and only after pulling her panties, stockings and boots back on does she think about releasing you from your cocoon.
+		</p>
+	#ENDIF
+	<p>
+		[yui.speech(It would be fun to keep you as my toy,)] she muses with a evil smirk on her face, [yui.speech(but I've already got a few tied up and waiting to be played with back home. I suppose I'll let you go...)]
+	</p>
+	<p>
+		With a flick of her wrists, the [yui.race] severs the webbing that's been binding your cocoon in place, and as the strands fall away from your body, you suddenly find yourself able to move freely again. Reaching under the counter, Yui produces a Faire ticket, and as she hands it to you, she says, [yui.speech(There you go, toy. It should really be reward enough just getting to be dominated by me, but the tourism board thinks otherwise... Now go on, back around to the other side of my counter.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_AFTER_DOMINATION_END"><![CDATA[
+	<p>
+		Doing as Mistress Yui says, you [pc.step] back around to the other side of the counter. Quickly clearing up the remains of the cocoon which you were encased in just moments ago, the sadistic spider-girl crosses all six of her arms, and with a sly smirk on her face, asks, [yui.speech(So, would you like to buy something, 'toy'? Oh, and don't get too addicted to being dominated by me; I limit these little sessions to one per person per day.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Ball gag: -->
+	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG"><![CDATA[
+	<p>
+		Wanting Yui to demonstrate how to use a ballgag, you give her one of your Faire tickets and make your request. Narrowing her eight, glowing-crimson eyes, a sadistic smirk settles on the demonic spider-girl's face, and with a swift crack of her riding crop, she orders, [yui.speech(Come around to my side of the counter, toy.)]
+	</p>
+	<p>
+		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you into the air so that your [pc.ass+] is pointing towards teh open side of the stall.
+	</p>
+	<p>
+		[yui.speech(That's a good toy,)] she sneers as she steps around in front of you. Holding up a hot-pink ball gag, she places four of her arms down on her hips and explains in a mock-patronising voice, [yui.speech(Ball gags are very useful for keeping toys quiet. Open wide, so that I can demonstrate this to you.)]
+	</p>
+	<p>
+		Having specifically asked for this, you're more than willing to obey Yui's command. Opening your mouth, you stay still as the demonic spider-girl fastens the ball gag into place. Stepping around behind you, Yui lifts her riding crop and uses it to deliver a sharp smack to your rear end. Your surprised cry is almost completely muffled by the gag that's now in your mouth, and as she hears that it's working, Yui teases, [yui.speech(See? You're almost completely unable to make any protests while wearing that. Now be a good toy and raise your ass so that I can give you a good public whipping and further demonstrate the gag's effectiveness.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_OBEY"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You obey, Yui uses her riding crop to smack your ass. Public stop to laugh.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_RESIST"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You refuse, Yui uses her webbing to force you to comply, then uses her riding crop to smack your ass. Public stop to laugh.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_END"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		Yui unequips your ball gag and with a flick of her fingers severs the threads holding you in place.
+	</p>
+	<p>
+		Tells you to get back to the other side of her stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Chastity: -->
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		Yui ties you up in webbing. Forces you to wear a chastity cage. Takes off her underwear and teases you by rubbing her drooling pussy over your caged cock. Tells you to remain still like a good caged bitch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_RESIST"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You obey, Yui continues to tease you for a while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_HUMP"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You refuse and try to hump her, Yui slaps you and continues to tease you for a while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_END"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		Yui unequips your cage and with a flick of her fingers severs the threads holding you in place.
+	</p>
+	<p>
+		Tells you to get back to the other side of her stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Dildo: -->
+	<htmlContent tag="TOYS_DEMONSTRATION_DILDO"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		Yui ties you up in webbing. Shoves a pink dildo half-way into your pussy (variation if player has hymen). Tells you to push back and take it all.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_PUSH_BACK"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You obey, Yui continues to fuck you with the dildo for a while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_PULL_AWAY"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You refuse and try to pull away, Yui laughs and sadistically fucks you with the dildo for a while.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_END"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		Yui slides the dildo out of your pussy, and with a flick of her fingers severs the threads holding you in place.
+	</p>
+	<p>
+		Tells you to get back to the other side of her stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Anal beads: -->
+	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		Yui ties you up in webbing. Starts forcing anal beads into your asshole (variation if player is anal virgin). Tells you to relax so she can push them all in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_RELAX"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You obey, Yui forces all beads into your asshole, before pulling them out and starting again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_CLENCH"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You refuse and clench your asshole, Yui sadistically forces all beads into your asshole, before pulling them out and starting again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_END"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		Yui takes the beads out of your asshole, and with a flick of her fingers severs the threads holding you in place.
+	</p>
+	<p>
+		Tells you to get back to the other side of her stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_AFTER_DEMONSTRATION"><![CDATA[
+	<p>
+		TODO Placeholder content!
+	</p>
+	<p>
+		You [pc.step] back around to the other side of the counter.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Kazik's 'Golden Treasures' stall: -->
+	
+	<htmlContent tag="TRINKETS"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		#IF(kazik.isPlayerKnowsName())
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see that Kazik is busily packing his stall away. Not wanting to trouble him, you decide to leave him to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					You once again find yourself approaching the jewellery stall, 'Golden Treasures', and you see that the handsome ferret-boy, Kazik, is once again standing behind the counter with his arms crossed.
+				#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(kazik))
+						#IF(!pc.isCharacterReactedToPregnancy(kazik))
+							 As he sees you approaching, he immediately notices your swollen belly, and after taking a drag on the cigarette which he must have lit just before you arrived, he asks, [kazik.speech(You got knocked up after I finished inside of you? Come here, let me have a feel.)]
+						#ELSE
+							 As he sees you approaching, he immediately notices your swollen belly, and after taking a drag on the cigarette which he must have lit just before you arrived, he asks, [kazik.speech(Still pregnant with our kids? Come here, let me have a feel.)]
+						#ENDIF
+					</p>
+					<p>
+						Replying in the affirmative, you [pc.step] forwards and present Kazik with your pregnant bump. Reaching over the counter, he gently runs one of his furry hands over your tummy, before pulling back and flashing you a charming smile. Exhaling another cloud of smoke that quickly dissipates into the air, he reveals, [kazik.speech(I love knocking hot babes like you up... Anyway, what're you here for? Wanting to buy something, or did you just want to check in with the father of your kids? Oh, and if you've got a Faire ticket to trade in, I guess I could also cast a spell for you.)]
+					</p>
+				#ELSE
+						 As he sees you approaching, he takes a long drag on the cigarette which he must have lit just before you arrived, before calling out, [kazik.speech(Hi, [pc.name]. What're you here for? Wanting to buy something, or you got a Faire ticket to trade in to see me cast a spell?)]
+					</p>
+				#ENDIF
+				<p>
+					Continuing to casually smoke, the ferret-boy waits to hear what it is you want...
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see a handsome ferret-boy busily packing his stall away in this area. Not wanting to trouble him, you decide to leave him to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					Although the stall before you is definitely one of the smallest you've seen throughout the Farmer's Market, you find yourself drawn towards it due to the interesting assortment of jewellery and small items of clothing that are scattered across its counter. Although a sign hanging from its orange canvas awning declares this stall to be called 'Golden Treasures', only a few of the goods on offer actually look to be made out of gold.
+				</p>
+				<p>
+					The owner of this stall is standing behind the counter with his arms crossed, and takes the form of a strikingly-handsome greater ferret-boy. Sporting a black leather jacket, navy-blue jeans, and a pair of aviators, he looks like some kind of biker, although as motor vehicles don't exist in this reality, his fashion sense must have come from somewhere else. Tapping a cigarette out of an already opened pack, he lights it up and takes a deep drag, before slowly exhaling and casting his [kazik.eyeColour] eyes over in your direction.
+				</p>
+				<p>
+					[kazik.speech(See something you like?)] he calls out in a deep voice. Flashing you a smile, he beckons you forwards, and after taking another drag on his cigarette, he says, [kazik.speech(If you're looking for jewellery, then this is the place. What's your name? I haven't seen you around before.)]
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_INTRO"><![CDATA[
+	<p>
+		After greeting this ferret-boy and giving him your name,
+		#IF(pc.getSexualOrientation().isAttractedToMasculine())
+			 you feel your heart skip a beat as he flashes you one of the most charming smiles you've ever seen and
+		#ELSE
+			 he flashes you a charming smile and
+		#ENDIF
+		 reveals, [kazik.speech(I'm Kazik, pleased to meet you, [pc.name]. Say... You know how to use the arcane, don't you?)]
+	</p>
+	<p>
+		Surprised to hear this question, you cautiously confirm that you do indeed know how to use the arcane, before asking Kazik how he could tell. With the hint of a smirk on his face, he explains, [kazik.speech(I spent five years studying at the arcane university down at Thinis, so I'm able to sense when someone's got a strong arcane affinity. I know, I know, I don't look like the typical arcane user, do I?)] 
+	</p>
+	<p>
+		Looking like a rebellious biker, this ferret-boy doesn't give off any impression of being an accomplished practitioner of the arcane, and so you honestly respond to his question by telling him that you'd never have known. Letting out a deep chuckle, he takes another drag on his cigarette and reveals, [kazik.speech(I enchant some of the stuff I've got here for sale myself. The Elis tourism board sure were happy to find out about my skills, and as part of the contract for running this stall, I have to perform a spell demonstration to anyone who gives me one of their 'Faire' tickets. I also give one of those tickets out to anyone who buys enchanted stuff from me, so if you want to see a spell being fired off, you can buy one of the enchanted items I've got for sale.)]
+	</p>
+	<p>
+		Gesturing down to the items scattered over the counter before him, Kazik takes another drag on his cigarette and waits to hear if you'll want to buy anything or trade in a ticket for a spell demonstration...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_TRANSACTION_START"><![CDATA[
+	<p>
+		As you move to take a closer look at what Kazik has for sale, he reminds you, [kazik.speech(If you buy one of my enchanted items, I'll give you a Faire ticket.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_TRANSACTION_NO_TICKET"><![CDATA[
+	<p>
+		Taking your flames in exchange for the [#SPECIAL_PARSE_0], Kazik says, [kazik.speech(Thanks for the business, [pc.name]. Although as that wasn't an enchanted item, I can't give you a Faire ticket...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_TRANSACTION_TICKET"><![CDATA[
+	<p>
+		Taking your flames in exchange for the [#SPECIAL_PARSE_0], Kazik hands you a Faire ticket and says, [kazik.speech(Thanks for the business, [pc.name]. Here's one of the tickets I've been given to hand out. You can trade it in with me if you want a spell demonstration...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS"><![CDATA[
+	<p>
+		Wanting Kazik to demonstrate his arcane abilities, you give him one of your Faire tickets and ask him to cast a spell for you. Tearing the ticket in half and discarding it in a bin beneath his coutner, the handsome ferret-boy asks, [kazik.speech(What spell would you like to see? I can cast 'Fireball', 'Flash', 'Ice Shard', and 'Rain Cloud'.)] 
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane_cast))
+			Knowing that Kazik can also cast 'Arcane Arousal', you open your mouth to ask him about that one, but he anticipates your question and states, [kazik.speech(No, I'm not casting any more arcane spells today. Perhaps tomorrow. Now which one of the four I said would you like to see?)]
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane))
+			Knowing that Kazik can also cast an arcane spell, you open your mouth to ask him about that one, but he anticipates your question and states, [kazik.speech(Yes, I know, I can cast 'Arcane Arousal' as well, but that's really not a responsible thing for me to be doing, is it? Now which one of the four I said would you like to see?)]
+		#ELSE
+			Thinking that Kazik is holding something back, you ask him if those are all the spells he knows, to which he states, [kazik.speech(I do know an arcane spell as well, but it's not suitable for a demonstration. Now which one of the four I said would you like to see?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_FIREBALL"><![CDATA[
+	<p>
+		Thinking that it would be fun to see Kazik cast 'Fireball', you tell him that you'd like him to perform that one. Stepping around from behind his counter, the ferret-boy calls out to the surrounding shoppers, [kazik.speech(Gather around! Thanks to [pc.name] here, you've got an opportunity to see an arcane fireball! Come on, don't be shy!)]
+	</p>
+	<p>
+		Clearly wanting to make the most of this event in order to drum up business, Kazik spends the next couple of minutes calling for members of the public to stop and watch his performance. After about two dozen shoppers have gathered around in a semicircle, the ferret-boy starts the show, and with a series of fancy steps and swirling hand movements, you see the distinctive orange glow of arcane fire start to materialise around his right arm. Drawing out the incantation to create as much of a spectacle as possible, Kazik slowly builds up the arcane energy around his arm, before focusing it into a huge ball of roiling flames.
+	</p>
+	<p>
+		[kazik.speech(Now for the grand finale!)] the handsome ferret-boy shouts, before thrusting his arm skywards and launching the massive fireball directly up into the sky. You and the rest of the crowd watch as this incandescent arcane maelstrom shoots off towards the heavens, and a collective gasp rings out as, after travelling high up over Elis, the fireball explodes in a fantastic, dazzling array of sparks and swirls. As the arcane manifestation fades away, the crowd breaks out in applause, and Kazik takes a small bow before stepping back around to the other side of his counter.
+	</p>
+	<p>
+		Flashing you a confident smile, he asks, [kazik.speech(So, how was that?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="TRINKETS_SPELLS_FLASH"><![CDATA[
+	<p>
+		Thinking that it would be fun to see Kazik cast 'Flash', you tell him that you'd like him to perform that one. Nodding his head, he says, [kazik.speech(A fully-powered flash isn't a pleasant thing to witness, so I'll cast a few of them at a fraction of their usual strength. It's not the most impressive spell I'm capable of, but it's still a bit of fun.)]
+	</p>
+	<p>
+		With that, the ferret-boy starts the show, and with a series of exaggerated hand movements, you see the distinctive orange glow of arcane fire start to materialise around both of his arms. Drawing out the incantation to create as much of a spectacle as possible, Kazik slowly builds up the arcane fire around his arms, before starting to release it in tiny, concentrated bursts of energy. The resulting sparkles and flashes remind you of the type of hand-held sparkler associated with fireworks, and as the ferret-boy continues to produce a crackling series of flashes, several passing shoppers stop to watch.
+	</p>
+	<p>
+		[kazik.speech(Now for the grand finale!)] Kazik shouts, before thrusting his arms skywards and launching his remaining arcane energy into the air. You and the rest of the shoppers watch as this arcane fire shoots up and bursts into an impressive shower of multicoloured flashes. As the arcane manifestation fades away, the people around you break out in applause, and Kazik takes a small bow before crossing his arms and smirking at you.
+	</p>
+	<p>
+		[kazik.speech(So, how was that?)] he asks.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ICE_SHARD"><![CDATA[
+	<p>
+		Thinking that it would be fun to see Kazik cast 'Ice Shard', you tell him that you'd like him to perform that one. Stepping around from behind his counter, the ferret-boy calls out to the surrounding shoppers, [kazik.speech(Gather around! Thanks to [pc.name] here, you've got an opportunity to see an arcane ice shard! Come on, don't be shy!)]
+	</p>
+	<p>
+		Clearly wanting to make the most of this event in order to drum up business, Kazik spends the next couple of minutes calling for members of the public to stop and watch his performance. After about two dozen shoppers have gathered around in a semicircle, the ferret-boy starts the show, and with a series of fancy steps and swirling hand movements, you see the distinctive light blue glow of arcane ice start to materialise around his right arm. Drawing out the incantation to create as much of a spectacle as possible, Kazik slowly builds up the arcane energy around his arm, before focusing it into a huge, javelin-like spike of glistening ice.
+	</p>
+	<p>
+		[kazik.speech(Now for the grand finale!)] the handsome ferret-boy shouts, before thrusting his arm skywards and launching the massive shard of ice directly up into the sky. You and the rest of the crowd watch as this freezing arcane projectile shoots off towards the heavens, and a collective gasp rings out as, after travelling high up over Elis, the ice shard explodes in a fantastic, dazzling array of water vapour and ice crystals. As the arcane manifestation fades away, the crowd breaks out in applause, and Kazik takes a small bow before stepping back around to the other side of his counter.
+	</p>
+	<p>
+		Flashing you a confident smile, he asks, [kazik.speech(So, how was that?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_RAIN_CLOUD"><![CDATA[
+	<p>
+		Thinking that it would be fun to see Kazik cast 'Rain Cloud', you tell him that you'd like him to perform that one. Nodding his head, he says, [kazik.speech(This is the least impressive spell I can cast, but I'll see if I can put on a show for you.)]
+	</p>
+	<p>
+		With that, the ferret-boy starts casting the spell, and with a series of exaggerated hand movements, you see the distinctive light blue glow of arcane water start to materialise around both of his arms. Drawing out the incantation to create as much of a spectacle as possible, Kazik slowly builds up the arcane water around his arms, before starting to release it in a concentrated burst of energy. The maelstrom of twisting clouds which form before you looks like a miniature hurricane, and as the ferret-boy continues to produce this localised atmospheric anomaly, several passing shoppers stop to watch.
+	</p>
+	<p>
+		[kazik.speech(Now let's get it started!)] Kazik shouts, before thrusting his arms skywards and launching his remaining arcane energy into the air. You and the rest of the shoppers watch as this tiny cloud formation suddenly starts to produce multicoloured rain, which falls down to form a rainbow before heavily splashing on the ground. After about thirty seconds of this sustained miniature downpour, the arcane manifestation fades away, and the people around you break out in applause. Taking a small bow, Kazik crosses his arms and smirks at you.
+	</p>
+	<p>
+		[kazik.speech(So, how was that?)] he asks.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_REVEAL"><![CDATA[
+	<p>
+		Curious to know more about Kazik's knowledge of arcane spells, you ask him exactly which one he knows. Shaking his head, he flatly states, [kazik.speech(I already told you; it's not suitable for a demonstration. Just pick one of the spells I named already.)]
+	</p>
+	<p>
+		Not taking no for an answer, you ask him why this mysterious spell can't be demonstrated. Lowering his aviators and glaring at you for a moment, Kazik lets out a sigh and reveals, [kazik.speech(Fine. I know how to cast 'Arcane Arousal', and it's not suitable as I need to cast it on a person for it to work. I don't want you getting so turned on that you start masturbating right here in front of my stall or something. It'd be bad for business if people saw that.)]
+	</p>
+	<p>
+		Satisfied with Kazik's answer, you push him a little further by asking him exactly what would happen if he were to cast it on you. Letting out a short laugh, he replies,
+		#IF(pc.isFeminine())
+			 [kazik.speech(You're a persistent one... Fine, I'll tell you; if I cast arcane arousal on you then you'd get an overwhelming urge to have sex. You'd either have to spend a while really focusing on calming down, or, more likely, beg me to have sex with you. Thing is, you're kind of hot, so if that happened then who knows what we'd end up doing together...)]
+		#ELSE
+			 [kazik.speech(You're a persistent one... Fine, I'll tell you; if I cast arcane arousal on you then you'd get an overwhelming urge to have sex. You'd either have to spend a while really focusing on calming down, or, more likely, beg me to have sex with you. I'm only into girls, so you'd have to deal with it yourself.)]
+		#ENDIF
+	</p>
+	<p>
+		With all of his secrets revealed, Kazik impatiently taps his foot on the ground and asks for the last time, [kazik.speech(So, what spell do you want me to cast?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_CAST"><![CDATA[
+	<p>
+		Flashing Kazik a sly grin, you tell him that he already knows which one you want him to cast. Shaking his head, he warns,
+		#IF(pc.isFeminine())
+			 [kazik.speech(Look, if you really want me to cast arcane arousal on you, then I can't be held responsible for what happens afterwards. If you get horny, then you're going to make me horny, and then I think we can all guess where that will end.)]
+		#ELSE
+			 [kazik.speech(Look, if you really want me to cast arcane arousal on you, then I can't be held responsible for what happens afterwards. If you get horny, then you're going to make me feel pretty uncomfortable; I'm only into girls, so I'm not doing anything sexual with you.)]
+		#ENDIF
+	</p>
+	<p>
+		Telling Kazik to get on with it already, you gesture for him to hit you with the spell. Letting out a defeated sigh, the handsome ferret-boy reluctantly does as you ask, and after making a wide, sweeping gesture with both hands, he starts to summon forth a few wisps of bright pink arcane energy around his arms. Focusing all of his power into the spell, Kazik unleashes the arousing force, and you watch as the pink energy shoots up into your head. Instantly, you feel that your receptivity to the spell has magnified its power, and you're presented with extremely graphic, vivid images of
+		#IF(pc.getSexualOrientation().isAttractedToMasculine())
+			 Kazik fucking you
+		#ELSE
+			 hot girls having sex with you
+		#ENDIF
+		 right here in the middle of the Farmer's Market.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_CAST_END"><![CDATA[
+	<p>
+		[kazik.speech(Hey! Are you ok?)] Kazik shouts, snapping you out of your arcane-induced daydream. Letting out an extremely horny [pc.moan] in response, you tell the ferret-boy that you need a good hard fuck.
+	</p>
+	<p>
+		[kazik.speech(See? I told you this would happen,)] he replies with a sigh.
+		#IF(pc.isFeminine())
+			 As you let out another lewd squeal and tell him that you're getting absolutely desperate for sex, the ferret-boy starts getting visibly agitated, and he lowers his voice to offer, [kazik.speech(I can help you out, I guess. You like cock? All your moaning's got me hard...)]
+		#ELSE
+			 As you let out another lewd squeal and tell him that you're getting absolutely desperate for sex, the ferret-boy shakes his head and says, [kazik.speech(I'm not interested in helping you out. I've demonstrated the spell for you, now deal with the consequences.)]
+		#ENDIF
+	</p>
+	<p>
+		Letting out another [pc.moan+], you wonder what to do...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_FINISHED_IMPRESSED"><![CDATA[
+	<p>
+		Duly impressed by Kazik's proficiency with the arcane, you tell him that his spell was a sight to behold. Puffing himself up as he hears your praise, the ferret-boy boasts, [kazik.speech(Well, I <i>was</i> one of the best students in my year at the university. I was even able to achieve higher grades than some demons!)]
+	</p>
+	<p>
+		After you've made another comment about how fantastic his spell was, Kazik crosses his arms and asks, [kazik.speech(So, now that the show's over, did you want to buy something, [pc.name]?)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_FINISHED_BORING"><![CDATA[
+	<p>
+		Not at all impressed by Kazik's measly arcane abilities, you tell him that his spell was not at all what you were hoping for. Letting out an annoyed grunt as he hears your negative feedback, the ferret-boy states, [kazik.speech(What do you know? <i>I</i> was one of the best students in my year at the university. I was even able to achieve higher grades than some demons!)]
+	</p>
+	<p>
+		After you've made another dismissive comment about how disappointing his spell was, Kazik crosses his arms and huffs, [kazik.speech(Whatever. Everyone else liked it... So did you want to buy something, or just keep on insulting me?)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_CONTINUE"><![CDATA[
+	<p>
+		With Kazik unwilling to offer you a hand in dealing with your intense arousal, you do your best to focus on anything but sex and try to calm your overwhelming libido. At first it seems like nothing is going to work, and it's only as you're just on the verge of breaking down and masturbating right here in public when you finally feel yourself starting to regain control. A few deep breaths and a moment spent in silence later, and you feel your lust starting to fade away.
+	</p>
+	<p>
+		[kazik.speech(All done?)] Kazik asks. After taking one last deep breath, you respond in the affirmative, and the ferret-boy shakes his head and says, [kazik.speech(I told you what would happen... Anyway, do you want to buy something?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_REFUSE"><![CDATA[
+	<p>
+		Not wanting to take Kazik up on his offer of helping you to deal with your intense arousal, you do your best to focus on anything but sex and try to calm your overwhelming libido. At first it seems like nothing is going to work, and it's only as you're just on the verge of breaking down and masturbating right here in public when you finally feel yourself starting to regain control. A few deep breaths and a moment spent in silence later, and you feel your lust starting to fade away.
+	</p>
+	<p>
+		[kazik.speech(You actually managed to overcome my spell?)] Kazik asks with one eyebrow raised. After taking one last deep breath, you respond in the affirmative, and the ferret-boy lets out a huff and says, [kazik.speech(I told you what would happen. That's why I don't offer that spell as a demonstration. Anyway, do you want to buy something?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_ORAL"><![CDATA[
+	<p>
+		Hearing Kazik say that he's got an erection from all your moaning only turns you on even more, and after [pc.stepping] right up to his counter, you lick your lips and tell the handsome ferret-boy that you could do with his cock in your mouth right about now. Looking down over the table, you tell him to get his cock out and let you see what you'll be sucking in a moment.
+	</p>
+	<p>
+		[kazik.speech(I shouldn't be doing this...)] he muses, but despite his words, he unzips his jeans and unbuttons his boxers, before taking out his rapidly-hardening cock and showing it to you. Biting your lip and letting out a hungry moan, you look down to see that his [kazik.cockColour], [kazik.cockGirth] shaft is [kazik.cockLengthValue] long, and there's already a bead of slimy precum starting to ooze out of the tip.
+	</p>
+	<p>
+		The intense effect of Kazik's spell, combined with the sight of his hardening cock, is far too much for you to resist, and you desperately demand that the ferret-boy lets you give him a blowjob. Looking around to make sure that nobody's watching, he gestures around to the side of his stall and says, [kazik.speech(Come on then... There's a space behind some crates back there where we can do it.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_ORAL_START"><![CDATA[
+	<p>
+		Following Kazik's instructions, you [pc.step] around to the side of his stall, and after squeezing through a gap between two high stacks of wooden crates, you find yourself in a spacious alcove that's formed between the rear of several other stalls. Swinging and locking a long, glass cover shut over his goods, the ferret-boy steps around to join you in the hidden alcove, before taking hold of his hard cock and saying, [kazik.speech(Get to it then.)]
+	</p>
+	<p>
+		Dropping down in front of the handsome ferret-boy, you open your mouth and deliver a big, wet kiss to the [kazik.cockHead+] of his throbbing shaft. Darting out your [pc.tongue+], you happily lick up his salty precum, which causes him to let out a deep groan and grunt, [kazik.speech(Stop teasing... Just get to it already...)]
+	</p>
+	<p>
+		Letting out a little giggle, you press your mouth against his cock and give it a loud, wet kiss. Parting your [pc.lips+], you take his [kazik.cockHead] into your mouth with the intention of teasing him a little longer, but Kazik impatiently takes hold of your head and pulls you forwards, sliding his hard, hot shaft down your throat and grunting, [kazik.speech(Yes... That's it...)]
+	</p>
+	<p>
+		Letting out a muffled, spluttering moan, you decide to forgo any more foreplay and start bobbing your head up and down as you happily give the handsome ferret-boy a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_VAGINAL"><![CDATA[
+	<p>
+		Hearing Kazik say that he's got an erection from all your moaning only turns you on even more, and after [pc.stepping] right up to his counter, you
+		#IF(pc.isTaur())
+			 turn around and
+		#ENDIF
+		 shamelessly flash the handsome ferret-boy your [pc.pussy+]. Biting your lip, you seductively moan that you're desperate to feel his cock thrusting deep into your horny little cunt. Looking down over the table, you tell him to get his cock out and let you see what's going to be stuffed inside of you in a moment.
+	</p>
+	<p>
+		[kazik.speech(I shouldn't be doing this...)] he muses, but despite his words, he unzips his jeans and unbuttons his boxers, before taking out his rapidly-hardening cock and showing it to you. Biting your lip and letting out a hungry moan, you look down to see that his [kazik.cockColour], [kazik.cockGirth] shaft is [kazik.cockLengthValue] long, and there's already a bead of slimy precum starting to ooze out of the tip.
+	</p>
+	<p>
+		The intense effect of Kazik's spell, combined with the sight of his hardening cock, is far too much for you to resist, and you desperately demand that the ferret-boy fucks you. Looking around to make sure that nobody's watching, he gestures around to the side of his stall and says, [kazik.speech(Come on then... There's a space behind some crates back there where we can do it.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_VAGINAL_START"><![CDATA[
+	<p>
+		Following Kazik's instructions, you [pc.step] around to the side of his stall, and after squeezing through a gap between two high stacks of wooden crates, you find yourself in a spacious alcove that's formed between the rear of several other stalls. Swinging and locking a long, glass cover shut over his goods, the ferret-boy steps around to join you in the hidden alcove, before taking hold of his hard cock and ordering, [kazik.speech(Present yourself.)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Desperate to get started, you obediently turn around and flash your pussy to Kazik, before dropping down onto all fours and telling him to rut you like an animal.
+		#ELSE
+			Desperate to get started, you obediently face the nearby crates and lean against them, pushing your ass out behind you and spreading your [pc.legs] so as to present yourself to Kazik. Looking back over your shoulder, you let out another lewd moan and tell him to start pounding your hot cunt.
+		#ENDIF
+		 The sight of your exposed pussy is too much for the ferret-boy to resist, and he quickly steps forwards to rub the [kazik.cockHead+] of his hard cock up and down over your [pc.labia+]. Letting out a deep groan, he grunts, [kazik.speech(Come on... Ask for it...)]
+	</p>
+	<p>
+		Feeling that you're just a moment away from being penetrated, you push your [pc.ass+] back and desperately beg for the handsome ferret-boy to give you his cock. Happy to oblige, he grabs hold of your [pc.hips+] and lines his shaft up to your pussy, before thrusting forwards and stuffing you full of his [kazik.cockGirth], throbbing cock. Letting out a delighted, horny squeal, you start pushing back against him as he proceeds to start eagerly fucking you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_ANAL"><![CDATA[
+	<p>
+		Hearing Kazik say that he's got an erection from all your moaning only turns you on even more, and after [pc.stepping] right up to his counter, you
+		#IF(pc.isTaur())
+			 turn around and
+		#ENDIF
+		 shamelessly flash the handsome ferret-boy your [pc.asshole+]. Biting your lip, you seductively moan that you're desperate to feel his cock thrusting deep into your [pc.assSize] butt. Looking down over the table, you tell him to get his cock out and let you see what's going to be stuffed inside of you in a moment.
+	</p>
+	<p>
+		[kazik.speech(I shouldn't be doing this...)] he muses, but despite his words, he unzips his jeans and unbuttons his boxers, before taking out his rapidly-hardening cock and showing it to you. Biting your lip and letting out a hungry moan, you look down to see that his [kazik.cockColour], [kazik.cockGirth] shaft is [kazik.cockLengthValue] long, and there's already a bead of slimy precum starting to ooze out of the tip.
+	</p>
+	<p>
+		The intense effect of Kazik's spell, combined with the sight of his hardening cock, is far too much for you to resist, and you desperately demand that the ferret-boy fucks your ass. Looking around to make sure that nobody's watching, he gestures around to the side of his stall and says, [kazik.speech(Come on then... There's a space behind some crates back there where we can do it.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_SPELLS_ARCANE_ANAL_START"><![CDATA[
+	<p>
+		Following Kazik's instructions, you [pc.step] around to the side of his stall, and after squeezing through a gap between two high stacks of wooden crates, you find yourself in a spacious alcove that's formed between the rear of several other stalls. Swinging and locking a long, glass cover shut over his goods, the ferret-boy steps around to join you in the hidden alcove, before taking hold of his hard cock and ordering, [kazik.speech(Present yourself.)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Desperate to get started, you obediently turn around and flash your rear entrance to Kazik, before dropping down onto all fours and telling him to rut you like an animal.
+		#ELSE
+			Desperate to get started, you obediently face the nearby crates and lean against them, pushing your ass out behind you and spreading your [pc.legs] so as to present yourself to Kazik. Looking back over your shoulder, you let out another lewd moan and tell him to start pounding your rear entrance.
+		#ENDIF
+		 The sight of your exposed asshole is too much for the ferret-boy to resist, and he quickly steps forwards to rub the [kazik.cockHead+] of his hard cock up and down over your butt. Letting out a deep groan, he grunts, [kazik.speech(Come on... Ask for it...)]
+	</p>
+	<p>
+		Feeling that you're just a moment away from being penetrated, you push your [pc.ass+] back and desperately beg for the handsome ferret-boy to give you his cock. Happy to oblige, he grabs hold of your [pc.hips+] and lines his shaft up to your [pc.asshole+], before thrusting forwards and stuffing you full of his [kazik.cockGirth], throbbing cock. Letting out a delighted, horny squeal, you start pushing back against him as he proceeds to start eagerly fucking your ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_AFTER_SEX"><![CDATA[
+	#IF(sex.getSexTypeCount(kazik, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))>0)
+		<p>
+			#IF(pc.isCharactersCumInOrifice(ORIFICE_VAGINA, kazik))
+				#IF(pc.isVisiblyPregnant())
+					Letting out a deeply satisfied groan, Kazik takes one last moment to rub the head of his cock up and down over your cum-stuffed pussy, teasing, [kazik.speech(Shame you're already pregnant, but I still love giving hot babes like you a nice big creampie...)]
+				#ELSE
+					Letting out a deeply satisfied groan, Kazik takes one last moment to push his fingers into your cum-stuffed pussy, and as he pushes his seed deep into your cunt, he teases, [kazik.speech(Here's hoping that you'll get pregnant from this... I want to see you with a big, round belly...)]
+				#ENDIF
+			#ELSE
+				Letting out a deeply satisfied groan, Kazik takes one last moment to rub the head of his cock up and down over your [pc.labia+], teasing, [kazik.speech(Your pussy was a real good fuck...)]
+			#ENDIF
+		</p>
+		<p>
+			Letting out a happy moan, you lean back into the handsome ferret-boy and tell him that you loved having your pussy stuffed full of his cock. Grunting in approval at your words, Kazik leans in to plant a quick kiss on your [pc.lips+], before stepping back and cleaning himself off with a tissue.
+		</p>
+	#ELSEIF(sex.getSexTypeCount(kazik, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_ANUS))>0)
+		<p>
+			#IF(pc.isCharactersCumInOrifice(ORIFICE_ANUS, kazik))
+				Letting out a deeply satisfied groan, Kazik takes one last moment to rub the head of his cock up and down over your cum-stuffed asshole, teasing, [kazik.speech(I love giving hot babes like you a nice big anal creampie...)]
+			#ELSE
+				Letting out a deeply satisfied groan, Kazik takes one last moment to rub the head of his cock up and down over your [pc.asshole+], teasing, [kazik.speech(Your ass was a real good fuck...)]
+			#ENDIF
+		</p>
+		<p>
+			Letting out a happy moan, you lean back into the handsome ferret-boy and tell him that you loved having your butt stuffed full of his cock. Grunting in approval at your words, Kazik leans in to plant a quick kiss on your [pc.lips+], before stepping back and cleaning himself off with a tissue.
+		</p>
+	#ELSE
+		<p>
+			Letting out a deeply satisfied groan, Kazik takes one last moment to rub the head of his cock up and down over your [pc.lips+], teasing, [kazik.speech(You sure know how to suck cock...)]
+		</p>
+		<p>
+			Letting out a happy moan, you plant a big, wet kiss on his softening shaft and tell him that you loved having your throat stuffed full of his cock. Grunting in approval at your words, Kazik leans in to plant a quick kiss on your forehead, before stepping back and cleaning himself off with a tissue.
+		</p>
+	#ENDIF
+	<p>
+		After you've similarly cleaned yourself up and get your things back in order, the ferret-boy asks, [kazik.speech(Ready to head out?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRINKETS_AFTER_SEX_END"><![CDATA[
+	<p>
+		Telling Kazik that you're ready to go, you join him in [pc.stepping] out of the alcove and returning to his stall. As the ferret-boy takes his usual place behind his counter, you continue on around to the other side, before turning to flash him a sly smile.
+	</p>
+	<p>
+		With a smirk on his face, he says, [kazik.speech(Ok, that turned out a lot better than I thought, I'll admit. I'm not going to cast that spell again today, though. If you want to do this again, then come back tomorrow.)]
+	</p>
+	<p>
+		After you've flirtily suggested to Kazik that you might just do that, he lets out a short laugh and asks, [kazik.speech(So, are you going to buy anything?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

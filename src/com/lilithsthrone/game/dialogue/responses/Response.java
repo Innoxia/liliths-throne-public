@@ -11,10 +11,13 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -25,6 +28,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
@@ -43,7 +47,7 @@ public class Response {
 	protected CorruptionLevel corruptionBypass;
 	private List<AbstractPerk> perksRequired;
 	private Femininity femininityRequired;
-	private AbstractRace raceRequired;
+	private List<AbstractSubspecies> subspeciesRequired;
 
 	private AbstractCombatMove combatMove;
 	
@@ -56,11 +60,33 @@ public class Response {
 
 	private GameCharacter characterTargetedForSexAction;
 	private List<SexAreaInterface> sexAreaAccessRequiredForTargeted;
+
+	protected boolean stripContent = false;
+	protected boolean forceContinue = false; // Forces the next dialogue node to act as though isContinuesDialogue() is true
+	
+	// For use when loaded from external files
+	
+	private boolean fromExternalFile = false;
+	
+	private String conditional;
+	
+	private String colourId;
+	private String secondsPassedString;
+	private boolean asMinutes;
+
+	protected String nextDialogueId;
+
+	protected String effectsString;
+	
+	private List<String> fetishesRequiredId;
+	private String corruptionBypassId;
+	private List<String> perksRequiredId;
+	private String femininityRequiredId;
+	private List<String> subspeciesRequiredId;
 	
 	public Response(String title,
 			String tooltipText,
 			DialogueNode nextDialogue) {
-		
 		this(title, tooltipText, nextDialogue,
 				null, null,
 				null, null, null);
@@ -73,11 +99,10 @@ public class Response {
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
-			AbstractRace raceRequired) {
-		
+			List<AbstractSubspecies> subspeciesRequired) {
 		this(title, tooltipText, nextDialogue,
 				fetishesForUnlock, corruptionBypass,
-				perksRequired, femininityRequired, raceRequired,
+				perksRequired, femininityRequired, subspeciesRequired,
 				null, null, null, null, null);
 	}
 	
@@ -88,7 +113,7 @@ public class Response {
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
-			AbstractRace raceRequired,
+			List<AbstractSubspecies> subspeciesRequired,
 			SexActionType sexActionType,
 			GameCharacter characterPenetrating,
 			Collection<SexAreaInterface> sexAreaAccessRequiredForPerformer,
@@ -103,7 +128,7 @@ public class Response {
 		this.corruptionBypass = corruptionBypass;
 		this.perksRequired = perksRequired;
 		this.femininityRequired = femininityRequired;
-		this.raceRequired = raceRequired;
+		this.subspeciesRequired = subspeciesRequired;
 		
 		combatMove = null;
 		
@@ -123,22 +148,100 @@ public class Response {
 
 		this.characterPerformingSexAction=characterPenetrating;
 		this.characterTargetedForSexAction=characterPenetrated;
+		
+		this.conditional = "";
+	}
+	
+	public Response(String title,
+			String tooltipText,
+			String nextDialogueId,
+			String secondsPassedString,
+			boolean asMinutes,
+			String colourId,
+			String effectsString,
+			List<String> fetishesForUnlockId,
+			String corruptionBypassId,
+			List<String> perksRequiredId,
+			String femininityRequiredId,
+			List<String> subspeciesRequiredId) {
+		
+		this.fromExternalFile = true;
+		
+		this.title = title;
+		this.tooltipText = tooltipText;
+		this.nextDialogueId = nextDialogueId;
+
+		this.secondsPassedString = secondsPassedString;
+		this.asMinutes = asMinutes;
+		
+		this.colourId = colourId;
+		
+		this.effectsString = effectsString;
+
+		resetCalculatedVariables();
+		
+		this.fetishesRequiredId = fetishesForUnlockId;
+		this.corruptionBypassId = corruptionBypassId;
+		this.perksRequiredId = perksRequiredId;
+		this.femininityRequiredId = femininityRequiredId;
+		this.subspeciesRequiredId = subspeciesRequiredId;
+		
+		this.conditional = "";
+		
+		
+		// Init other variables not used in this:
+		
+		this.sexAreaAccessRequiredForPerformer = new ArrayList<>();
+		this.sexAreaAccessRequiredForTargeted = new ArrayList<>();
+	}
+	
+	private void resetCalculatedVariables() {
+		this.fetishesRequired = null;
+		this.corruptionBypass = null;
+		this.perksRequired = null;
+		this.femininityRequired = null;
+		this.subspeciesRequired = null;
 	}
 
 	public String getTitle() {
+		if(fromExternalFile) {
+			return UtilText.parse(title).trim();
+		}
 		return title;
 	}
 
 	public String getTooltipText() {
+		if(fromExternalFile) {
+			return UtilText.parse(tooltipText).trim();
+		}
 		return tooltipText;
 	}
 
 	public DialogueNode getNextDialogue() {
 		if(isAvailable() || isAbleToBypass()) {
+			if(getDefaultPlaceTypeForNextDialogue()!=null && !getDefaultPlaceTypeForNextDialogue().isEmpty()) {
+//				System.out.println("getNextDialogue() place type return");
+				return PlaceType.getPlaceTypeFromId(getDefaultPlaceTypeForNextDialogue()).getDialogue(false);
+			}
+			if(fromExternalFile && nextDialogueId!=null) {
+				DialogueNode dn = DialogueManager.getDialogueFromId(UtilText.parse(nextDialogueId).trim());
+//				System.out.println("getNextDialogue(): "+(dn==null?"null":dn.getId()));
+				return dn;
+			}
+//			System.out.println("getNextDialogue() (no external): "+(nextDialogue==null?"null":nextDialogue.getId()));
 			return nextDialogue;
+			
 		} else {
+//			System.out.println("getNextDialogue(): null");
 			return null;
 		}
+	}
+	
+	/**
+	 * @return A non-empty String, representing a PlaceType id, if this Response should link to the default dialogue for that PlaceType in getNextDialogue()
+	 */
+	public String getDefaultPlaceTypeForNextDialogue() {
+		return null;
 	}
 
 	/**
@@ -147,6 +250,9 @@ public class Response {
 	 * @return The number of seconds that pass when choosing this response.
 	 */
 	public int getSecondsPassed() {
+		if(fromExternalFile && secondsPassedString!=null && !secondsPassedString.isEmpty()) {
+			return Integer.valueOf(UtilText.parse(secondsPassedString).trim()) * (asMinutes?60:1);
+		}
 		return DEFAULT_TIME_PASSED_VALUE;
 	}
 	
@@ -183,6 +289,17 @@ public class Response {
 	}
 	
 	public Colour getHighlightColour() {
+		if(fromExternalFile && colourId!=null && !colourId.isEmpty()) {
+			if(colourId.startsWith("#")) {
+				return new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
+			} else {
+				String colourParsed = UtilText.parse(colourId).trim();
+				if(!colourParsed.isEmpty()) {
+					return PresetColour.getColourFromId(colourParsed);
+				}
+			}
+		}
+		
 		if(isSexHighlight()) {
 			return PresetColour.GENERIC_SEX;
 			
@@ -235,11 +352,37 @@ public class Response {
 		return getAdditionalOngoingAvailableMap()!=null && !getAdditionalOngoingAvailableMap().values().contains(false);
 	}
 
+	/**
+	 * @return true if the next dialogue node should not display its default content.
+	 */
+	public boolean isStripContent() {
+		return stripContent;
+	}
+	
+	public void setStripContent(boolean stripContent) {
+		this.stripContent = stripContent;
+	}
+	
+	/**
+	 * @return true if the next dialogue node should behave as though isContinuesDialogue() returns true.
+	 */
+	public boolean isForceContinue() {
+		return forceContinue;
+	}
+	
+	public void setForceContinue(boolean forceContinue) {
+		this.forceContinue = forceContinue;
+	}
+	
 	public final void applyEffects() {
 		effects();
 	}
 
 	public void effects() {
+		if(fromExternalFile && effectsString!=null && !effectsString.isEmpty()) {
+			UtilText.parse(effectsString);
+			resetCalculatedVariables(); // Reset values here so that they are re-calculated if this response is encountered again
+		}
 	}
 	
 	/**
@@ -255,11 +398,11 @@ public class Response {
 	 * @return true if this response has any related requirements in order for it to be selected.
 	 */
 	public boolean hasRequirements() {
-		return fetishesRequired != null
-				|| corruptionBypass != null
-				|| perksRequired != null
-				|| femininityRequired != null
-				|| raceRequired != null
+		return getFetishesForUnlock() != null
+				|| getCorruptionNeeded() != null
+				|| getPerksRequired() != null
+				|| getFemininityRequired() != null
+				|| getSubspeciesRequired() != null
 				|| sexActionType==SexActionType.SPEECH
 				|| getAdditionalOngoingAvailableMap()!=null
 				|| !sexAreaAccessRequiredForPerformer.isEmpty()
@@ -276,13 +419,19 @@ public class Response {
 		if(sexActionType!=null && !Main.game.isBypassSexActionsEnabled() && !isCorruptionWithinRange() && !isAvailableFromFetishes()) {
 			return false;
 		}
+		if(getConditional()!=null
+				&& getConditional().isEmpty()
+				&& !getConditional().equalsIgnoreCase("true")
+				&& !isAvailableFromConditional()) {
+			return false;
+		}
 		
 		boolean corruptionOrFetishReqs = false;
 		if(sexActionType!=null) {
-			corruptionOrFetishReqs = isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null);
+			corruptionOrFetishReqs = isCorruptionWithinRange() || isAvailableFromFetishes() || (getCorruptionNeeded()==null && getFetishesForUnlock()==null);
 		} else {
-			if(corruptionBypass==null) {
-				corruptionOrFetishReqs = isAvailableFromFetishes() || fetishesRequired==null;
+			if(getCorruptionNeeded()==null) {
+				corruptionOrFetishReqs = isAvailableFromFetishes() || getFetishesForUnlock()==null;
 			} else {
 				corruptionOrFetishReqs = isCorruptionWithinRange() || isAvailableFromFetishes();
 			}
@@ -291,7 +440,7 @@ public class Response {
 		return corruptionOrFetishReqs
 					&& !isBlockedFromPerks()
 					&& isFemininityInRange()
-					&& isRequiredRace()
+					&& isRequiredSubspecies()
 					&& (sexActionType!=SexActionType.SPEECH || !Main.sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer()))
 					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()));
 	}
@@ -304,10 +453,10 @@ public class Response {
 				&& (!Main.game.isInSex() || Main.game.isBypassSexActionsEnabled())
 				&& !isBlockedFromPerks()
 				&& isFemininityInRange()
-				&& isRequiredRace()
+				&& isRequiredSubspecies()
 				&& !isAvailableFromFetishes()
 				&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()))) {
-			if(!Main.game.isInSex() && corruptionBypass==null) { // Do not allow bypass out of sex if there is no corruption bypassing
+			if(!Main.game.isInSex() && getCorruptionNeeded()==null) { // Do not allow bypass out of sex if there is no corruption bypassing
 				return false;
 			}
 			return ((Main.getProperties().bypassSexActions==2 && !isCorruptionWithinRange()) ||
@@ -336,12 +485,12 @@ public class Response {
 				return SB.toString();
 			}
 			
-			if(corruptionBypass != null) {
+			if(getCorruptionNeeded() != null) {
 				if(!isActionCorrupting()) {
 					SB.append("Your <span style='color:"+Main.game.getPlayer().getCorruptionLevel().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getCorruptionLevel().getName())+"</span>"
 							+ " [style.colourCorruption(corruption)] has unlocked this action!");
 				} else {
-					SB.append("You will gain <b>+"+corruptionBypass.getCorruptionBypass()+"</b> [style.boldCorruption(corruption)], as you don't meet the [style.colourCorruption(corruption)] or [style.colourFetish(fetish)] requirements!");
+					SB.append("You will gain <b>+"+getCorruptionNeeded().getCorruptionBypass()+"</b> [style.boldCorruption(corruption)], as you don't meet the [style.colourCorruption(corruption)] or [style.colourFetish(fetish)] requirements!");
 				}
 			} else {
 				SB.append("This action cannot be unlocked with [style.colourCorruption(corruption)].");
@@ -397,8 +546,8 @@ public class Response {
 	public String getTooltipBlockingList(){
 		SB = new StringBuilder();
 		
-		if(perksRequired!=null) {
-			for(AbstractPerk p : perksRequired){
+		if(getPerksRequired()!=null) {
+			for(AbstractPerk p : getPerksRequired()){
 				if(p.isEquippableTrait()
 						?Main.game.getPlayer().hasTrait(p, true)
 						:Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
@@ -415,31 +564,31 @@ public class Response {
 			}
 		}
 		
-		if(femininityRequired!=null) {
+		if(getFemininityRequired()!=null) {
 			if(isFemininityInRange()) {
 				SB.append("<br/>"
 						+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Femininity): "
-						+ "<span style='color:"+femininityRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
+						+ "<span style='color:"+getFemininityRequired().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(getFemininityRequired().getName(false))+"</span>");
 			} else {
 				SB.append("<br/>"
 						+"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Femininity): "
-						+ "<span style='color:"+femininityRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
+						+ "<span style='color:"+getFemininityRequired().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(getFemininityRequired().getName(false))+"</span>");
 			}
 		}
 		
-		if(raceRequired!=null) {
-			if(isRequiredRace()) {
-				SB.append("<br/>"
-						+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
-						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
+		if(getSubspeciesRequired()!=null) {
+			if(isRequiredSubspecies()) {
+				SB.append("<br/><b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>");
+
 			} else {
-				SB.append("<br/>"
-						+"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
-						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
+				SB.append("<br/><b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>");
+			}
+
+			SB.append(" (Subspecies): ");
+			for(AbstractSubspecies subspecies : getSubspeciesRequired()) {
+				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer()))+"</span>");
 			}
 		}
 		
@@ -576,8 +725,8 @@ public class Response {
 	public String getTooltipRequiredList(){
 		SB = new StringBuilder();
 		
-		if(fetishesRequired!=null) {
-			for(Fetish f : fetishesRequired){
+		if(getFetishesForUnlock()!=null) {
+			for(Fetish f : getFetishesForUnlock()){
 				if(Main.game.getPlayer().hasFetish(f)) {
 					SB.append("<br/>"
 							+"[style.colourFetish(Associated Fetish)]"
@@ -593,21 +742,21 @@ public class Response {
 			}
 		}
 		
-		if(corruptionBypass!=null) {
+		if(getCorruptionNeeded()!=null) {
 			if(isCorruptionWithinRange()) {
 				SB.append("<br/>"
 						+"[style.colourCorruption(Associated Corruption)]"
 						+ (!isActionCorrupting()
 							?" ([style.colourMinorGood(within range)]): "
 							:" ([style.colourMinorBad(just out of range)]): ")
-						+ Util.capitaliseSentence(corruptionBypass.getName()));
+						+ Util.capitaliseSentence(getCorruptionNeeded().getName()));
 			} else {
 				SB.append("<br/>"
 						+"[style.colourCorruption(Associated Corruption)]"
 						+ (!Main.game.isBypassSexActionsEnabled()
 								?" ([style.colourTerrible(out of range)]): "
 								:" ([style.colourMinorBad(out of range)]): ")
-						+ Util.capitaliseSentence(corruptionBypass.getName()));
+						+ Util.capitaliseSentence(getCorruptionNeeded().getName()));
 			}
 		}
 		
@@ -617,23 +766,23 @@ public class Response {
 	public int lineHeight(){
 		int lineHeight = 0;
 		
-		if(perksRequired!=null) {
-			lineHeight+=perksRequired.size();
+		if(getPerksRequired()!=null) {
+			lineHeight+=getPerksRequired().size();
 		}
-		if(femininityRequired!=null) {
+		if(getFemininityRequired()!=null) {
 			lineHeight++;
 		}
-		if(raceRequired!=null) {
+		if(getSubspeciesRequired()!=null) {
 			lineHeight++;
 		}
 		if(sexActionType==SexActionType.SPEECH) {
 			lineHeight++;
 		}
 		
-		if(fetishesRequired!=null) {
-			lineHeight+=fetishesRequired.size();
+		if(getFetishesForUnlock()!=null) {
+			lineHeight+=getFetishesForUnlock().size();
 		}
-		if(corruptionBypass!=null) {
+		if(getCorruptionNeeded()!=null) {
 			lineHeight++;
 		}
 		
@@ -652,23 +801,23 @@ public class Response {
 
 	public boolean isCorruptionWithinRange() {
 		if (Main.getProperties().bypassSexActions==1) {
-			return corruptionBypass!=null && Main.game.getPlayer().getCorruptionLevel().isAbleToPerformCorruptiveAction(corruptionBypass);
+			return getCorruptionNeeded()!=null && Main.game.getPlayer().getCorruptionLevel().isAbleToPerformCorruptiveAction(getCorruptionNeeded());
 		}
 		else {
-			return corruptionBypass!=null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
+			return getCorruptionNeeded()!=null && getCorruptionNeeded().getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
 		}
 	}
 
 	public boolean isActionCorrupting() {
-		return corruptionBypass!=null && corruptionBypass.getMinimumValue() > Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
+		return getCorruptionNeeded()!=null && getCorruptionNeeded().getMinimumValue() > Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
 	}
 	
 	public boolean isAvailableFromFetishes() {
-		if(fetishesRequired==null) {
+		if(getFetishesForUnlock()==null) {
 			return false;
 		}
 		
-		for (Fetish f : fetishesRequired) {
+		for (Fetish f : getFetishesForUnlock()) {
 			if(Main.game.getPlayer().hasFetish(f)) {
 				if(f==Fetish.FETISH_PURE_VIRGIN) {
 					if(Main.game.getPlayer().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) { // Virginity fetish only blocks if player is still a virgin.
@@ -683,10 +832,10 @@ public class Response {
 	}
 	
 	public boolean isBlockedFromPerks() {
-		if(perksRequired==null) {
+		if(getPerksRequired()==null) {
 			return false;
 		}
-		for(AbstractPerk p : perksRequired) {
+		for(AbstractPerk p : getPerksRequired()) {
 			if(p.isEquippableTrait()
 					?Main.game.getPlayer().hasTrait(p, true)
 					:Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
@@ -697,26 +846,26 @@ public class Response {
 	}
 	
 	public boolean isFemininityInRange() {
-		if(femininityRequired==null) {
+		if(getFemininityRequired()==null) {
 			return true;
 		}
 		
-		switch(femininityRequired){
+		switch(getFemininityRequired()){
 			case ANDROGYNOUS:
 				return Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS;
 			case FEMININE:
 			case FEMININE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() >= femininityRequired.getMinimumFemininity();
+				return Main.game.getPlayer().getFemininityValue() >= getFemininityRequired().getMinimumFemininity();
 			case MASCULINE:
 			case MASCULINE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() <= femininityRequired.getMaximumFemininity();
+				return Main.game.getPlayer().getFemininityValue() <= getFemininityRequired().getMaximumFemininity();
 			default:
 				return true;
 		}
 	}
 	
-	public boolean isRequiredRace() {
-		return raceRequired == null || Main.game.getPlayer().getRace() == raceRequired;
+	public boolean isRequiredSubspecies() {
+		return getSubspeciesRequired() == null || getSubspeciesRequired().contains(Main.game.getPlayer().getSubspecies());
 	}
 	
 	public boolean isPenetrationTypeAvailable() {
@@ -828,23 +977,47 @@ public class Response {
 	}
 
 	public List<Fetish> getFetishesForUnlock() {
+		if(fromExternalFile && fetishesRequired==null && fetishesRequiredId!=null && !fetishesRequiredId.isEmpty()) {
+			fetishesRequired = new ArrayList<>();
+			for(String fetishId : fetishesRequiredId) {
+				fetishesRequired.add(Fetish.valueOf(UtilText.parse(fetishId).trim()));
+			}
+		}
 		return fetishesRequired;
 	}
 
 	public CorruptionLevel getCorruptionNeeded() {
+		if(fromExternalFile && corruptionBypass==null && corruptionBypassId!=null && !corruptionBypassId.isEmpty()) {
+			corruptionBypass = CorruptionLevel.valueOf(UtilText.parse(corruptionBypassId).trim());
+		}
 		return corruptionBypass;
 	}
 
 	public List<AbstractPerk> getPerksRequired() {
+		if(fromExternalFile && perksRequired==null && perksRequiredId!=null && !perksRequiredId.isEmpty()) {
+			perksRequired = new ArrayList<>();
+			for(String perkId : perksRequiredId) {
+				perksRequired.add(Perk.getPerkFromId(UtilText.parse(perkId).trim()));
+			}
+		}
 		return perksRequired;
 	}
 
 	public Femininity getFemininityRequired() {
+		if(fromExternalFile && femininityRequired==null && femininityRequiredId!=null && !femininityRequiredId.isEmpty()) {
+			femininityRequired = Femininity.valueOf(UtilText.parse(femininityRequiredId).trim());
+		}
 		return femininityRequired;
 	}
 
-	public AbstractRace getRaceRequired() {
-		return raceRequired;
+	public List<AbstractSubspecies> getSubspeciesRequired() {
+		if(fromExternalFile && subspeciesRequired==null && subspeciesRequiredId!=null && !subspeciesRequiredId.isEmpty()) {
+			subspeciesRequired = new ArrayList<>();
+			for(String subspeciesId : subspeciesRequiredId) {
+				subspeciesRequired.add(Subspecies.getSubspeciesFromId(UtilText.parse(subspeciesId).trim()));
+			}
+		}
+		return subspeciesRequired;
 	}
 
 	public static Response getDisallowedSpittingResponse() {
@@ -853,5 +1026,44 @@ public class Response {
 
 	public static Response getDisallowedSpittingResponse(String desc) {
 		return new Response(desc, "You are being forced to drink down the potion!<br/>[style.italicsBad(Rejection of TF potions is disabled in the gameplay options!)]", null);
+	}
+
+	public String getConditional() {
+		return conditional;
+	}
+
+	public void setConditional(String conditional) {
+		this.conditional = conditional;
+	}
+	
+	public boolean isAvailableFromConditional() {
+		if(getConditional()!=null && !getConditional().isEmpty()) {
+			return Boolean.valueOf(UtilText.parse(getConditional()).trim());
+		}
+		return true;
+	}
+
+	public String getColourId() {
+		return colourId;
+	}
+
+	public void setColourId(String colourId) {
+		this.colourId = colourId;
+	}
+
+	public String getSecondsPassedString() {
+		return secondsPassedString;
+	}
+
+	public void setSecondsPassedString(String secondsPassedString) {
+		this.secondsPassedString = secondsPassedString;
+	}
+
+	public String getEffectsString() {
+		return effectsString;
+	}
+
+	public void setEffectsString(String effectsString) {
+		this.effectsString = effectsString;
 	}
 }

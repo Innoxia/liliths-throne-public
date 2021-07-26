@@ -128,8 +128,7 @@ public class CharacterCreation {
 		
 		@Override
 		public String getContent() {
-			return Main.patchNotes;
-			
+			return Main.getPatchNotes();
 		}
 
 		@Override

@@ -377,7 +377,7 @@ public class TooltipInformationEventListener implements EventListener {
 			int currentCooldown = owner.getMoveCooldown(move.getIdentifier());
 			
 			Main.mainController.setTooltipSize(360,
-					352
+					(Main.game.isInCombat()?320:352)
 					+ (critReqs.size()>0?(32+critReqs.size()*16):0)
 					+ (currentCooldown>0?32:0));
 
@@ -440,13 +440,15 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 			tooltipSB.append("</div>");
 
-			if(owner.getEquippedMoves().contains(move)) {
-				tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
-			} else {
-				if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
-					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Maximum core moves selected.</div>");
+			if(!Main.game.isInCombat()) {
+				if(owner.getEquippedMoves().contains(move)) {
+					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");
+					if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
+						tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Maximum core moves selected.</div>");
+					} else {
+						tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");
+					}
 				}
 			}
 
@@ -927,6 +929,7 @@ public class TooltipInformationEventListener implements EventListener {
 								break;
 							case BIPEDAL:
 							case QUADRUPEDAL:
+							case WINGED_BIPED:
 								tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" "+owner.getFootStructure().getName()+" legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case CEPHALOPOD:
@@ -1283,7 +1286,8 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append(
 					"<div class='subTitle'>"
-					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+//					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+					+"Copy Scene"
 					+ "</div>"
 					+ "<div class='description'>"
 					+ "Click to copy the currently displayed dialogue to your clipboard.<br/><br/>"

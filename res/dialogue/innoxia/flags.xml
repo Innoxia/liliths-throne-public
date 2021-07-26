@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueFlags>
+	<!-- Additional dialogue flags for use in the game.
+	The 'dailyReset' value determines whether or not the flag gets reset to false at midnight every day.
+	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
+		i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
+	
+	<!-- Meraxis -->
+		<flag dailyReset="false">meraxis_any_sex_unlocked</flag>
+		<flag dailyReset="false">meraxis_handjobs_unlocked</flag>
+		<flag dailyReset="false">meraxis_oral_unlocked</flag>
+		<flag dailyReset="false">meraxis_anal_unlocked</flag>
+		<flag dailyReset="false">meraxis_paizuri_unlocked</flag>
+		<flag dailyReset="false">meraxis_vaginal_unlocked</flag>
+		<flag dailyReset="false">meraxis_demon_tf_teleported</flag>
+		<flag dailyReset="true">meraxis_daily_sex</flag>
+	<!-- Meraxis Duels -->
+		<flag dailyReset="true">meraxis_duel_daily_complete</flag>
+		<flag dailyReset="false">meraxis_duel_place_dominion</flag>
+		<flag dailyReset="false">meraxis_duel_place_elis</flag>
+		<flag dailyReset="false">meraxis_duel_reward_money</flag>
+		<flag dailyReset="false">meraxis_duel_reward_transform</flag>
+		<flag dailyReset="false">meraxis_duel_reward_sex</flag>
+	
+	
+	<!-- Astrapi and Vronti -->
+		<flag dailyReset="false">centaur_transport_introduced</flag>
+		<flag dailyReset="true">centaur_transport_setup_in_progress</flag>
+		<flag dailyReset="false">centaur_travel_to_elis</flag>
+		<flag dailyReset="false">vronti_handjob_given</flag>
+		<flag dailyReset="false">vronti_blowjob_given</flag>
+		<flag dailyReset="false">vronti_sex_given</flag>
+		<flag dailyReset="false">vronti_anilingus_given</flag>
+		<flag dailyReset="false">vronti_anal_sex_given</flag>
+		<flag dailyReset="false">astrapi_not_shaving</flag>
+	
+	<!-- Field attackers: -->
+		<flag dailyReset="false">fields_centaur_attacker_talked</flag>
+		<flag dailyReset="false">fields_bandit_talked</flag>
+	
+	<!-- Elis -->
+		<!-- Woods -->
+		<flag dailyReset="true">elis_berries_found</flag>
+		<flag dailyReset="false">elis_berries_eaten</flag>
+		<flag dailyReset="false">elis_berries_encountered</flag>
+		
+		<!-- Town -->
+		<flag dailyReset="false">elis_blacksmith_visited</flag>
+		<flag dailyReset="false">elis_clothing_visited</flag>
+		<flag dailyReset="false">elis_convenience_visited</flag>
+		<flag dailyReset="false">elis_toilets_hole_ever_made</flag>
+		<flag dailyReset="true">elis_toilets_hole_made</flag>
+		
+		<!-- NPC introductions -->
+		<flag dailyReset="false">elis_minotallys_introduced</flag>
+		<flag dailyReset="false">elis_flash_introduced</flag>
+		<flag dailyReset="false">elis_jess_introduced</flag>
+	
+		<!-- Tavern -->
+		<flag dailyReset="true">flash_smalltalk_complete</flag>
+		<flag dailyReset="false">jess_talked</flag>
+		<flag dailyReset="false">jess_talked_history</flag>
+		<flag dailyReset="false">jess_tail_fluffed</flag>
+		<flag dailyReset="false">jess_drinks</flag>
+		<flag dailyReset="false">jess_intimate</flag>
+		<flag dailyReset="false">jess_kissed</flag>
+		<flag dailyReset="false">jess_groped</flag>
+		
+		<!-- Taur tavern -->
+		<flag dailyReset="true">kheiron_smalltalk_complete</flag>
+		<flag dailyReset="true">tavern_fae_met</flag>
+		<flag dailyReset="true">tavern_fae_small_talk</flag>
+		<flag dailyReset="true">tavern_fae_drink</flag>
+		<flag dailyReset="true">tavern_fae_tail_fluffed</flag>
+		<flag dailyReset="true">tavern_fae_flirt</flag>
+		<flag dailyReset="true">tavern_fae_kiss</flag>
+		
+		<!-- Market -->
+		<flag dailyReset="true">elis_market_darts_won</flag>
+		<flag dailyReset="true">elis_market_strength_won</flag>
+		<flag dailyReset="false">elis_market_fae_passionate</flag>
+		<flag dailyReset="false">elis_market_kazik_arcane</flag>
+		<flag dailyReset="true">elis_market_kazik_arcane_cast</flag>
+		<flag dailyReset="true">elis_market_yui_demonstration_complete</flag>
+		<flag dailyReset="true">elis_market_yui_domination_complete</flag>
+		
+	
+	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
+	meraxis_duel_player_wins (Meraxis duel player wins)
+	meraxis_duel_player_losses (Meraxis duel player losses)
+	-->
+	
+</dialogueFlags>

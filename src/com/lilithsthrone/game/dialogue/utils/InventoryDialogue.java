@@ -29,6 +29,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -153,10 +154,14 @@ public class InventoryDialogue {
 		
 		for(AbstractClothing c : zlayerClothing) { 
 			if((!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) && !c.isMilkingEquipment()) {
-				if(Main.game.isInNewWorld()) {
-					character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				if (c.isDiscardedOnUnequip(null)) {
+					character.unequipClothingIntoVoid(c, true, Main.game.getPlayer());
 				} else {
-					character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+					if(Main.game.isInNewWorld()) {
+						character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+					} else {
+						character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+					}
 				}
 				sb.append("<p style='text-align:center;'>"+character.getUnequipDescription()+"</p>");
 			}
@@ -182,16 +187,20 @@ public class InventoryDialogue {
 				return "Inventory";
 			}
 		}
+
 		@Override
 		public String getHeaderContent() {
 			return inventoryView();
 		}
+
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(inventoryNPC!=null && interactionType==InventoryInteraction.TRADING) {
-				UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.removeTraderDescription)) {
+					UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
+				}
 				
 			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
 				return CharacterCreation.getCheckingClothingDescription();
@@ -1111,7 +1120,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -1368,7 +1377,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -1754,7 +1763,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
+								if(item.getEnchantmentItemType(null)==null || item.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2720,7 +2729,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -2901,7 +2910,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3124,7 +3133,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
+								if(weapon.getEnchantmentItemType(null)==null || weapon.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()
@@ -3934,7 +3943,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4119,7 +4128,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -4473,7 +4482,7 @@ public class InventoryDialogue {
 								}
 								if(Main.game.isDebugMode()
 										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									if(clothing.getEnchantmentItemType(null)==null) {
+									if(clothing.getEnchantmentItemType(null)==null || clothing.getItemTags().contains(ItemTag.UNENCHANTABLE)) {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
@@ -5716,7 +5725,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 									
 							} else {
 								if(clothing.isCondom()) {
@@ -5805,7 +5814,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -5989,7 +5998,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6085,7 +6094,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6203,7 +6212,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6343,7 +6352,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -8407,9 +8416,9 @@ public class InventoryDialogue {
 //		}
 	}
 	
-	private static Response getJinxRemovalResponse() {
+	private static Response getJinxRemovalResponse(boolean selfUnseal) {
 		boolean ownsKey = Main.game.getPlayer().getUnlockKeyMap().containsKey(owner.getId()) && Main.game.getPlayer().getUnlockKeyMap().get(owner.getId()).contains(clothing.getSlotEquippedTo());
-		int removalCost = clothing.getJinxRemovalCost();
+		int removalCost = clothing.getJinxRemovalCost(Main.game.getPlayer(), selfUnseal);
 		
 		if(interactionType==InventoryInteraction.COMBAT) {
 			return new Response("Unseal"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
@@ -8447,7 +8456,9 @@ public class InventoryDialogue {
 				public void effects() {
 					String s = "";
 					if(ownsKey) {
-						Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						if(!Main.game.isInSex()) {
+							Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						}
 						s = "<p>"
 								+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
 							+ "</p>";
@@ -8509,6 +8520,8 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
+		
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			from.incrementMoney(itemPrice*count);
 			to.incrementMoney(-itemPrice*count);
@@ -8539,7 +8552,7 @@ public class InventoryDialogue {
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(item, count, itemPrice);
+				//((NPC) from).handleSellingEffects(item, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
@@ -8547,7 +8560,15 @@ public class InventoryDialogue {
 								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
+			
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(item, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(item, count, itemPrice, false);
+			}
 		}
+		
 		resetPostAction();
 	}
 	
@@ -8577,6 +8598,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 
 			from.incrementMoney(itemPrice*count);
@@ -8608,7 +8630,7 @@ public class InventoryDialogue {
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(weapon, count, itemPrice);
+				//((NPC) from).handleSellingEffects(weapon, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
@@ -8616,7 +8638,16 @@ public class InventoryDialogue {
 								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
+			
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(weapon, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(weapon, count, itemPrice, false);
+			}
 		}
+		
+		
 		resetPostAction();
 	}
 	
@@ -8654,8 +8685,8 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
-
 			from.incrementMoney(itemPrice*count);
 			to.incrementMoney(-itemPrice*count);
 			
@@ -8685,7 +8716,7 @@ public class InventoryDialogue {
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
+				//((NPC) from).handleSellingEffects(clothing, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
@@ -8693,7 +8724,15 @@ public class InventoryDialogue {
 								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
+			
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(clothing, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(clothing, count, itemPrice, false);
+			}
 		}
+		
 		resetPostAction();
 	}
 	

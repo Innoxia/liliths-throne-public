@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/generic.xml' dialogue nodes.
+	Apart from the top four, the rest are in (roughly) alphabetical order. -->
+	
+	<htmlContent tag="EXTERNAL_ROAD"><![CDATA[
+	<p>
+		Leading out from Elis via gatehouses in the Eastern and Western walls, the main road which you find yourself standing on is well maintained and
+		#IF(game.isDayTime())
+			 flanked
+		#ELSE
+			 illuminated
+		#ENDIF
+		 by a series of arcane-powered lampposts. Consisting of countless tightly-packed and perfectly-levelled cobblestones, the road's firm surface is ideal for both pedestrians and centaur or horse-drawn carts.
+		#IF(game.isDayTime())
+			 Of these, there are very few to be seen out here on the roads outside Elis, although you can see through the open gatehouse that the town itself is very busy.
+		#ELSE
+			 Due to the current hour, there are none of these to be seen out here on the roads outside Elis, although you can see through the open gatehouse that there are some people out and about within the town itself.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			Although the surrounding trees and fields are covered in a thick blanket of snow, the road remains completely clear, thanks to what you assume to be some kind of spell.
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 As the fluffy white flakes touch the cobblestone surface, you see them immediately melt and evaporate, confirming your suspicions that the arcane has been put to work on heating the road.
+			#ELSE
+				 Casually looking around, you see that there's absolutely no sign of ice or even a single flurry of snow on the cobblestone surface, all but confirming your suspicions that the arcane has been put to work on heating the road.
+			#ENDIF
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			Being completely exposed to the elements, you watch as the rain bounces off the cobblestone surface and runs down into the stone gutters which run parallel to the road's edges.
+		#ELSEIF(game.getCurrentWeather()==WEATHER_CLEAR)
+			With the clear skies overhead showing no sign of rain in the immediate future, you continue on your way down the cobblestone road.
+		#ELSE
+			With the clouded skies overhead hinting at the possibility of rain, you continue on your way down the cobblestone road.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE_ELIS"><![CDATA[
+	<p style='text-align:center;'>
+		<i>
+			From here you can leave Elis and head back out into the Foloi Fields.
+		</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTER_ELIS"><![CDATA[
+	<p>
+		Starting off as no more than just a grey strip on the horizon, the silhouette of Elis gets larger and larger as you approach. Soon enough you're able to pick out the distinctive shape of towers embedded into the corners of the ramparts, as well as the roofs of the taller buildings within the town itself. The one which stands out the most, and the one which truly defines the town's silhouette, is the tall, highly-steepled roof of the town hall's tower.
+	</p>
+	<p>
+		As you get ever closer to Elis, you're able to pick out the crenellations of its walls, and can thankfully see that the gatehouse has its gates wide open.
+		#IF(game.isDayTime())
+			 While there aren't many people leaving or entering the town via the same cobblestone road which you find yourself on, you can see through the entrance that the interior of the town looks to be quite busy.
+		#ELSE
+			 Due to the current hour, there isn't a single person leaving or entering the town via the same cobblestone road which you find yourself on, although you can see through the entrance that the interior of the town looks to be not completely deserted.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+			Thanks to the close proximity of the town, the nearby fields are very well protected from raiders or bandits. Despite this, however, there doesn't appear to be a single residential building outside of the walls, giving the surrounding area a very rural feel to it.
+		#ELSE
+			Taking a look around at the nearby fields, you notice that they don't seem to have suffered the same sort of damage from Lunette's centaurs as those out in the Foloi Fields. Despite the apparent protection from raids, however, there doesn't appear to be a single residential building outside of the walls, giving these fields a very rural feel to them.
+		#ENDIF
+	</p>
+	<p>
+		Continuing on your way towards Elis, 
+		#IF(!game.isDayTime())
+			 you see
+		#ELSE
+			 you're able to see from the light of the lampposts which flank the road
+		#ENDIF
+		 that there are a couple of Enforcers standing guard over to one side of the gatehouse. They don't seem to be paying much attention to who's coming and going from their town, and so it looks like you'll be able to continue on your way into Elis without any trouble.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_TO_WORLD_MAP"><![CDATA[
+	<p>
+		Deciding to leave Elis, you set off on your journey away from the town. After about half an hour of travelling, and with Elis being no more than a grey strip off in the distance, you find yourself back out in the Foloi Fields...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ALLEY"><![CDATA[
+	<p>
+		The northern half of Elis is quite unlike the rest of the town, as it's home to an intricate, twisting network of narrow alleyways. Permanently cast in shade from the ramshackle buildings teetering precariously overhead, the cobblestone which the ground is pathed in is poorly maintained and filled with potholes and puddles.
+	</p>
+	<p>
+		Despite their claustrophobic nature and the dilapidated state of the surrounding structures, these alleyways don't have the same dangerous feeling to them as those in Dominion, largely due to the fact that there's always at least a few harmless residents either loitering about or travelling past you. There are also numerous clotheslines linking the buildings above your head, and the bright colours of the clothing hung out to dry helps to lend a cheery atmosphere to what would otherwise be some very drab surroundings.
+	</p>
+	<p>
+		While you're confident that these alleyways are safe to be travelling through, you can't help but notice how they're home to the town's more disreputable elements. Thanks to the fact that there's a backalley brothel or a sleazy gambling den never more than a few turns away, you find yourself often having to filter out the sounds of whorish moaning or drunken laughter as you travel ever onwards... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BANK"><![CDATA[
+	<p>
+		Excluding the town hall, the Bank of Elis can confidently make the claim that it's housed in the largest and most impressive building within the entire town. In stark contrast to the medieval aesthetic of the surrounding timber-framed structures, the building before you is made out of large blocks of pale stone. With a frontage consisting of huge columns holding up a steepled roof, it's a perfect example of neoclassical architecture.
+	</p>
+	<p>
+		Whether due to a lawful requirement, or simply to display their loyalty to the public, a pair of identical flags hang down on either side of the bank's entrance, each of which carries the black pentagram of Lilith. Looking between these flags, 
+		#IF(game.getDayOfWeek()==DOW_SUNDAY)
+			#IF((game.getHourOfDay()<10 || game.getHourOfDay()>15))
+				 you see that the bank's large metal doors are firmly shut, and a sign hanging on them explains that the business is usually open between [units.time(9)]-[units.time(17)], but on Sundays they operate reduced hours, and are only open between [style.colourMinorBad([units.time(10)]-[units.time(16)])].
+			#ELSE
+				 you see that the bank's large metal doors are fully open, and a sign hanging on them explains that the business is usually open between [units.time(9)]-[units.time(17)], but on Sundays they operate reduced hours, and are only open between [style.colourMinorGood([units.time(10)]-[units.time(16)])].
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()<9 || game.getHourOfDay()>16)
+				 you see that the bank's large metal doors are firmly shut, and a sign hanging on them explains that the business is usually open between [style.colourMinorBad([units.time(9)]-[units.time(17)])], but on Sundays they operate reduced hours, and are only open between [units.time(10)]-[units.time(16)].
+			#ELSE
+				 you see that the bank's large metal doors are fully open, and a sign hanging on them explains that the business is usually open between [style.colourMinorGood([units.time(9)]-[units.time(17)])], but on Sundays they operate reduced hours, and are only open between [units.time(10)]-[units.time(16)].
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF((game.getDayOfWeek()==DOW_SUNDAY && (game.getHourOfDay()<10 || game.getHourOfDay()>15)) || (game.getDayOfWeek()!=DOW_SUNDAY && (game.getHourOfDay()<9 || game.getHourOfDay()>16)))
+			As the bank is currently [style.colourBad(closed)], there's nothing more for you to do here...
+		#ELSE
+			As the bank is currently [style.colourGood(open)], you could head inside and take a look around...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CULT"><![CDATA[
+	<p>
+		Positioned on the western side of town, one otherwise-ordinary building stands out from those around it due to the copious amount of flags which hang from its windows. With each one bearing the black pentagram of Lilith, the fanatical loyalty of the building's occupants is apparent to anyone who so much as glances its way.
+	</p>
+	<p>
+		The reason for this unusual display isn't hard to figure out, for there's a large sign over the building's entrance which reads: 'Cult of Lilith; Elis Headquarters'. A pair of attractive succubi handing out promotional pamphlets are stationed to either side of the entrance, and as they see you looking in their general direction, one of them flashes you a disarming smile and beckons you forwards.
+	</p>
+	<p>
+		You're not sure if you want to get caught up in the cult's affairs at the moment, so you break eye contact with the succubus and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCERS"><![CDATA[
+	<p>
+		While nowhere near as huge or imposing as its Dominion counterpart, the building which houses the Elis Enforcers is nevertheless a suitably large and official-looking one. Although it's of the same timber-framed style as most of the other structures in the town, the Enforcer station differs from those around it by nature of the fact that it sits back from the road, and is separated from where you're standing by an attractive knot garden. If it wasn't for the large sign declaring this to be the Enforcer's Elis branch, as well as the Enforcers themselves occasionally coming and going from the main entrance, you could easily be mistaken for thinking that this building was simply a wealthy resident's manor.
+	</p>
+	<p>
+		Clearly not having to deal with anywhere near the same level of crime as the Realm's capital, the Enforcers which you see all have a relaxed, friendly look about them. Not having any business with the Enforcers at this time, you don't see any need to engage one in conversation and discover if that friendly appearance is simply skin deep, and so turn around and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIELDS"><![CDATA[
+	<p>
+		Just like those out in the rest of the Foloi Fields, the fields surrounding Elis
+		#IF(game.getSeason()==SEASON_WINTER)
+			 are primarily given over to the production of crops, which at this time of year include, among many others, things such as
+		#ELSE
+			 have been ploughed and slurried in preparation for the coming year.
+		#ENDIF
+		#IF(game.getSeason()==SEASON_SPRING)
+			 potatoes, rhubarb, and cauliflower. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are filled with beautifully-blossoming trees.
+		#ELSEIF(game.getSeason()==SEASON_SUMMER)
+			 corn, hops, and wheat. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are filled with leafy green trees already showing signs of the fruit they'll bear come autumn.
+		#ELSEIF(game.getSeason()==SEASON_AUTUMN)
+			 beetroot, artichoke, and pumpkins. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are either heavily-laden with fruit, or have already been picked clean of their produce.
+		#ELSE
+			 Although not as common as these currently-barren crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are filled with leafless trees.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
+			Thanks to the close proximity of the town, these fields are very well protected from raiders or bandits. Despite this, however, there doesn't appear to be a single residential building outside of the walls, giving the surrounding area a very rural feel to it.
+		#ELSE
+			Thanks to the close proximity of the town, these fields haven't been subjected to the same sort of damage as those out in the rest of the Foloi Fields. Despite the apparent protection from Lunette's raiding, however, there doesn't appear to be a single residential building outside of the walls, giving the surrounding area a very rural feel to it.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			The trees and fields around you are all covered in a thick blanket of snow,
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 and with fluffy white flakes continuing to drift down from the dark grey clouds overhead, it looks as though your surroundings are going to remain encased in ice for some time yet...
+			#ELSE
+				 although thankfully there are several animal tracks which you can use to efficiently travel through the icy landscape...
+			#ENDIF
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			The rain splashes down all around you as you travel through the fields, forming puddles of wildly-varying sizes and sending the local wildlife ducking for cover...
+		#ELSEIF(game.getCurrentWeather()==WEATHER_CLEAR)
+			With the clear skies overhead showing no sign of rain in the immediate future, you continue on your way through the fields...
+		#ELSE
+			With the clouded skies overhead hinting at the possibility of rain, you continue on your way through the fields...
+		#ENDIF
+	</p>
+	#IF(pc.getNearestCellDistance(PLACE_TYPE_innoxia_fields_elis_town_wall)<3 || pc.getNearestCellDistance(PLACE_TYPE_innoxia_fields_elis_town_tower)<3)
+		<p>
+			#IF(pc.isAbleToFly())
+				The nearby stone walls of Elis form an impassable barrier to anyone who can't fly, preventing them from entering the town from this area. As you're capable of flight, however, you don't need to [pc.walk] to the nearest gatehouse and can instead simply fly up onto the wall if you wanted to gain access to Elis...
+			#ELSE
+				The nearby stone walls of Elis form an impassable barrier, preventing you from entering the town from this area. You'll have to [pc.walk] to the nearest gatehouse if you wanted to gain access to Elis...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIELDS_FLY_TO_WALL"><![CDATA[
+	<p>
+		Wanting to head back into town, but not liking the idea of [pc.walking] all the way to the nearest gatehouse, you take a short run-up and launch yourself into the air, before flying up above the walls of Elis. Smoothly gliding down, you land on the wooden ramparts, before looking around and wondering where to go from here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIELDS_FLY_TO_TOWER"><![CDATA[
+	<p>
+		Wanting to head back into town, but not liking the idea of [pc.walking] all the way to the nearest gatehouse, you take a short run-up and launch yourself into the air, before flying up above the walls of Elis. Smoothly gliding down, you land beside the nearest of the crenellated towers, before looking around and wondering where to go from here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEHOUSE"><![CDATA[
+	<p>
+		Consisting of a pair of crenellated towers flanking a pair of huge wooden gates, this gatehouse guards one of the the two roads which grant access to the town of Elis. Standing guard to one side of the open gates, a pair of Enforcers are keeping a very casual watch over anyone who passes them by.
+	</p>
+	<p>
+		#IF(pc.getLastPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_wall)
+			As you're currently travelling along the wall's wooden ramparts, you have to pass through the gatehouse in order to continue on your way. Thankfully it's fully open to members of the public, and as you [pc.walk] through the stone structure, you see that there's another Enforcer guarding what appears to be a raised portcullis. Although this Enforcer offers you a polite greeting, they don't pay you much attention, allowing you to continue on your way without being stopped...
+		#ELSE
+			As you travel past these Enforcers, you look up to see that there's a raised portcullis which can be dropped to provide additional strength and protection to the already-sturdy gates. With the Enforcers continuing to talk to one another and paying you very little attention, you're able to continue on your way without being stopped...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAKE"><![CDATA[
+	<p>
+		To the north-east of Elis, there lies a relatively large body of fresh water, and it's by the sandy shore of this lake which you currently find yourself standing.
+		#IF(game.getSeason()==SEASON_WINTER)
+			 Due to the ambient temperature at this time of year, the edges of the water have frozen solid, with the rest of the lake's bluish-grey surface looking particularly cold and uninviting. Despite this, however, as you look out across the water, you suddenly spot the distinctive shape of a shark-like fin circling around in the middle of the lake, before it quickly dips down out of sight.
+		#ELSE
+			 Looking out across the water's bluish-grey surface, you suddenly spot the distinctive shape of a shark-like fin circling around in the middle of the lake, before it quickly dips down out of sight.
+		#ENDIF
+	</p>
+	<p>
+		Equally spaced around the shoreline, there are about a dozen or so wooden signposts, and with the nearest one being close to where you're standing, you're able to quickly walk over to it and read:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+		<b>Attention!</b>
+		<br/>
+		The residents of this lake prefer not to be disturbed.<br/>
+		Please refrain from the following activities:
+		<br/>
+		- Swimming<br/>
+		- Stone skipping<br/>
+		- Littering<br/>
+		- Noisy gatherings<br/>
+		[style.italicsBrown(Annoy me and I'll eat ya!)]
+		</i>
+	</p>
+	<p>
+		That last sentence appears to have been carved into the signpost some time after it was erected. Although you seriously doubt anyone runs the actual risk of being eaten as punishment for annoying the residents of this lake, you imagine that they wouldn't be too happy about being disturbed.
+	</p>
+	<p>
+		Deciding against doing anything more here, you turn away from the lake and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAKE_DEEP"><![CDATA[
+	<p>
+		You shouldn't be able to get here yet!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET"><![CDATA[
+	<p>
+		Located at the intersection between the town's major roads, a huge public square has been constructed. Unlike the cobblestone of the streets, this square has been paved using large blocks of stone, the smooth surface of which is broken only by a series of shallow channels which lead into drains. At all four entrances to this square, large, touristy-looking signs offer information on the market's history to people who might be interested in it, as well as declaring in large, bold font that this area is 'The Farmer's Market; Open every day between
+		#IF(game.getHourOfDay()>=8 && game.getHourOfDay()<=17)
+			[style.colourMinorGood([units.time(8)]-[units.time(18)])]'.
+		#ELSE
+			[style.colourMinorBad([units.time(8)]-[units.time(18)])]'.
+		#ENDIF
+	</p>
+	#IF(game.getHourOfDay()>=8 && game.getHourOfDay()<=17)
+		<p>
+			Sure enough, the market is currently open, and as you look down one of the busy avenues formed between countless brightly-coloured stalls, you see all manner of food, drink, and other items for sale. Unlike a regular farmer's market, the one here in Elis seems to have evolved into a type of low-key festival, complete with a band somewhere in the distance playing live music. Stopping for a moment, you wonder whether to head into the market and take a closer look around...
+		</p>
+	#ELSE
+		<p>
+			#IF(game.getHourOfDay()==7)
+				Due to the early hour, the market's many stalls are still being set up, and as such they aren't ready to start trading just yet. If you wanted to buy something from the market, you'll have to come back in an hour or so. 
+			#ELSEIF(game.getHourOfDay()==18)
+				Due to the late hour, the market's many stalls are being packed up and wheeled away, with the vendors having ceased trading for the day. If you wanted to buy something from the market, you'll have to come back tomorrow.
+			#ELSE
+				Due to the current hour, the market's many stalls have all been packed up and taken away,
+				#IF(game.getSeason()==SEASON_WINTER)
+					 and due to the cold temperatures at this time of year, the square isn't being used in any capacity whatsoever.
+				#ELSEIF(game.getHourOfDay()<=23)
+					 leaving the square to be used by some of the surrounding restaurants as a convenient place in which to put out their tables and chairs for outdoor eating.
+				#ELSE
+					 leaving the square completely deserted.
+				#ENDIF
+				 If you wanted to buy something from the market, you'll have to come back some time after eight in the morning.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_ENTER"><![CDATA[
+	<p>
+		[style.boldBad(PLEASE NOTE:)] All content in this market is placeholders!
+	</p>
+	<p>
+		Wanting to spend some time looking around the Farmer's Market and perhaps doing some shopping, you [pc.walk] towards the centre of the large, cobblestone square. After passing numerous brightly-coloured stalls, you soon find yourself right in the middle of the market, wondering where to go from here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_INFO"><![CDATA[
+	<p>
+		Heading over to the nearest entrance to the market, you approach the touristy-looking sign and spend a few minutes reading over the information it contains:
+	</p>
+	<hr/>
+	<i>
+		<p style='text-align:center; font-size:1.1em'>
+			<b>The Farmer's Market; Open every day</b>
+		</p>
+		<p>
+			<b>History</b>
+			<br/>
+			Did you know that the town of Elis started right here where you're standing? That's right, before there was a town at all, Elis was no more than a tiny hamlet and a livestock market. Despite its position on the outskirts of the Foloi Fields, Elis rose to become the region's largest and most prosperous town, and it was all thanks to this very market!
+			<br/><br/>
+			But how did that happen, you ask? Well, the answer's an easy one! The youko of the nearby Shinrin Highlands, who up until a hundred or so years ago had mostly kept to themselves, started using the market here at Elis as a way to obtain food and drink which they otherwise didn't have access to. With the youko's considerable arcane abilities sometimes being offered in exchange for goods, the tiny hamlet of Elis was able to embark on several ambitious construction projects, allowing it to quickly grow into a thriving village!
+			<br/><br/>
+			And what next? I'm glad you asked! From there, the village continued to grow, with this very market continuing to be the focal point. Unfortunately, the village's new-found prosperity attracted the attention of bandits. Striking from out of the Foloi Forests, they brought Elis to the brink of utter ruin. It was only thanks to the help of a mysterious youko, who built the first walls of Elis, that everything you see around you was made possible!
+			<br/><br/>
+			Over time, the village of Elis grew into a town, although despite the size of our settlement, the threat of bandit raids has never gone away. Due to this, the walls had to be expanded to the north, and have since been filled with new buildings and fellow residents! And the market which started off as a field beside a tiny hamlet has expanded into the one before your eyes; the best market in all of Lilith's Realm!
+		</p>
+		<br/>
+		<p>
+			<b>Today's Market</b>
+			<br/>
+			The market as it exists today offers everything you could possibly ever need! From food and drink to entertainment (and maybe even love?), it's the best place for both shopping and relaxation.
+			<br/><br/>
+			The market is open every day, between [units.time(8)]-[units.time(18)]. Please note that a large part of the market is used as a traditional livestock market on Wednesdays and Saturdays.
+		</p>
+		<p style='text-align:center; font-size:0.75em'>
+			This information has been provided by the Elis tourism board. For complaints or queries, please inquire at the town hall.
+		</p>
+	</i>
+	<hr/>
+	<p>
+		Having read through all of the information the sign contains, you take a [pc.step] back and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POND"><![CDATA[
+	<p>
+		A short distance from the southern walls of Elis, a large pond can be found, and its in front of this pool of still water that you find yourself standing. Choked by algae and with thick bushes of tall reeds growing all around its perimeter, this body of water looks, and smells, more like a swamp than a pond. What little of the murky green water which you're able to see through the blanket of algae looks extremely uninviting, and you can't imagine that many creatures are able to survive in a place such as this.
+	</p>
+	<p>
+		Despite the absence of any sign of fauna, there are a few warning signs scattered about near to the pond's edges. Other than advising you not to swim in the water, these signs also warn of a 'pond monster' which has been known to attack people who linger beside the murky water for too long. Almost as if to prove to you that the sign's warning should be heeded, ripples suddenly start spreading over the pond's surface, the size of which look to be far too large to have been formed by a simple fish or frog.
+	</p>
+	<p>
+		Unless you want to run the risk of being attacked by the 'pond monster' which calls this fetid, swampy pond its home, you'd better leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOPS"><![CDATA[
+	<p>
+		Although Elis has most of its commercial needs met by its large farmer's market, there still exists a need for more permanent stores, and it's within the town's open-air shopping precinct that this need is met. A wide gap between the houses on the northern side of this street forms the entrance to this precinct, which is clearly signposted and named as 'Wall's End'.
+	</p>
+	<p>
+		There's no form of barrier or other mechanism to restrict entry to this shopping precinct, and so if you wanted to you could head through its entrance and take a look around...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STREET"><![CDATA[
+	<p>
+		The cobblestone streets of Elis are flanked by timber-framed buildings, the vast majority of which are either two or three stories tall. The late-medieval aesthetic of this town is further enhanced by the old, ornate design of the arcane street lamps,
+		#IF(game.isDayTime())
+			 which once night falls will cast their surroundings in a pale yellow glow.
+		#ELSE
+			 which are casting their surroundings in a pale yellow glow.
+		#ENDIF
+		 Most of the structures which you pass are residential in nature, although you are able to spot a few local businesses situated on the ground floor of the odd building.
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			Due to the current hour, there are a lot of people out and about, with those that you see walking the streets mostly taking the form of some kind of domestic animal-morph. Cows, sheep, dogs, and all other manner of morphs are able to be sighted.
+		#ELSE
+			Due to the current hour, there are far fewer people out and about, with those that you do see walking the streets mostly taking the form of a nocturnal animal-morph. Foxes, badgers, and even the occasional owl-harpy who's decided to walk instead of fly are just some of the morphs which you're able see.
+		#ENDIF
+		 Although this town is far smaller than Dominion, it's not so rural as to be home to the sort of behaviour where strangers say hello to one another, and so none of the people who you pass pay you any attention as they continue on their way to whatever destination awaits them.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			Although the roofs and tops of the lamp posts are covered in a thick blanket of snow, the road remains completely clear, thanks to what you assume to be some kind of spell.
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 As the fluffy white flakes touch the cobblestone surface, you see them immediately melt and evaporate, confirming your suspicions that the arcane has been put to work on heating the road.
+			#ELSE
+				 Casually looking around, you see that there's absolutely no sign of ice or even a single flurry of snow on the cobblestone surface, all but confirming your suspicions that the arcane has been put to work on heating the road.
+			#ENDIF
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			Being completely exposed to the elements, you watch as the rain bounces off the roofs and tops of the lamp posts before running down into the stone gutters which run parallel to the road's edges.
+		#ELSEIF(game.getCurrentWeather()==WEATHER_CLEAR)
+			With the clear skies overhead showing no sign of rain in the immediate future, you continue on your way down the cobblestone road.
+		#ELSE
+			With the clouded skies overhead hinting at the possibility of rain, you continue on your way down the cobblestone road.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TAVERN"><![CDATA[
+	<p>
+		Likely due to the original owner's business acumen, 'The Red Dragon' tavern is one of the first buildings to be seen by people entering Elis via the eastern gate. Although it's of a similar timber-framed design to those around it, this two-story tavern is at least twice their length, and despite whatever age it might be, looks to be an impressive example of late medieval architecture. It's due to this size that the tavern has two entrances, both of which display the opening times as being twenty four hours a day, seven days of the week.
+	</p>
+	<p>
+		The tavern's main sign hangs from a pole which juts out from the building's upper floor, and displays a stylised image of a huge red dragon giving a pile of golden treasure to a bewildered-looking sheep-boy. Beneath this, the words 'The Red Dragon' are painted in a dark burgundy hue. 
+	</p>
+	<p>
+		Through the tavern's leaded windows, you can see that the
+		#IF(!game.isDayTime())
+			 well-lit
+		#ENDIF
+		 interior is
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			 very busy, and the typical sounds of drunken revelry which spill out into the street inform you that the patrons are having a good time.
+		#ELSE
+			 not particularly busy, although there are still several patrons sitting at some of the tables or leaning against the wooden bar.
+		#ENDIF
+		 If you wanted to, you could head inside and take a look around...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TAVERN_ENTER"><![CDATA[
+	<p>
+		Deciding that you want to head inside the tavern, you approach the nearest of the two entrances and push open the door, before [pc.stepping] into 'The Red Dragon'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TAVERN_SEEDY"><![CDATA[
+	<p>
+		An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, at which a dozen or so locals are sitting and passing the hours by drinking and gambling with one another. The establishment responsible for their supply of alcohol is situated on the far side of the courtyard, and takes the form of a rather dilapidated timber-framed structure. A weathered sign precariously hanging from a sagging metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
+	</p>
+	<p>
+		While the patrons who're sitting out in the courtyard seem to be relatively well-behaved, there are some very rowdy sounds of laughter, cursing, and the occasional cheer coming from within the pub itself. Although there are large, leaded windows on the ground floor, they're so grimy that
+		#IF(game.isDayTime())
+			 you can't see much of the interior through them, 
+		#ELSE
+			 you can only barely tell that the lights are on inside,
+		#ENDIF
+		 and so if you wanted to find out what this pub is like, you'll have to risk heading inside...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TAVERN_TAUR"><![CDATA[
+	<p>
+		Positioned on the street corner directly adjacent to the Farmer's Market, 'The Centaur's Sword' tavern occupies one of the largest two-story buildings within Elis. Prominently displayed beside each of its two remarkably-wide entrances, information boards declare this tavern to have a 'taur-friendly interior design' and a bar that's able to 'accommodate more than a dozen centaurs'.
+	</p>
+	<p>
+		The tavern's sign hangs from a purpose-built post situated a few [style.lSizes] away from the building's corner, and displays an image of a naked, muscular centaur showing off his enormous erection. The words 'The Centaur's Sword' are written beneath this in flowing gold script, while an additional sign hanging beneath that reads 'Open 24/7'.
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			The sounds of laughter and the distinctive stomping of hoofs on wooden floorboards can quite clearly be heard from where you're standing, letting you know that the tavern's occupants are having a good time. Looking through the leaded windows, you see that there are a large number of taurs at the bar, and you wonder whether to head inside and take a look around...
+		#ELSE
+			The odd sound of laughter or the distinctive stomping of hoofs on wooden floorboards can occasionally be heard from where you're standing, letting you know that there are at least a few people inside the tavern. Looking through the leaded windows, you confirm this by seeing that there are several taurs at the bar, and you wonder whether to head inside and take a look around...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TAVERN_TAUR_ENTER"><![CDATA[
+	<p>
+		Deciding that you want to head inside the tavern, you approach the nearest of the two entrances and push open the door, before [pc.stepping] into 'The Centaur's Sword'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOWER"><![CDATA[
+	<p>
+		Constructed out of the same large, stone blocks as the connecting walls, this square tower is three stories tall. A wide, spiral staircase links all three of its floors, as well as providing access to the flat wooden platform which serves as the roof. Unlike the town's walls, this tall vantage point is manned by a member of the town guard, who's able to look over the crenellated walls and survey the surrounding landscape for any sign of approaching bandits or raiders.
+	</p>
+	<p>
+		Access to this tower is completely unrestricted, and there seems to always be at least one member of the public who's decided to travel up to the top in order to enjoy the view or keep the guard company. With little to keep you here, you quickly find yourself leaving the tower behind as you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOWER_FLY_TO_FIELDS"><![CDATA[
+	<p>
+		Deciding that you want to head down into the fields which surround Elis, you [pc.step] out onto the wall beside the tower, and after taking a short run-up, launch yourself into the air and gracefully fly down to the grass below. Smoothly landing on a flat, clear patch of land, you look around and wonder where to go from here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOWN_HALL"><![CDATA[
+	<p>
+		Consisting of two long, timber-framed buildings joined in the middle by a five-story, steepled tower, the town hall is by far the largest structure in all of Elis. Serving as the centre of administration not only for the town itself but also a significant portion of the Foloi Fields, the town hall has very long opening hours, which are listed beside each of its many entrances as being
+		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+			 [style.colourMinorBad([units.time(7)]-[units.time(21)])].
+		#ELSE
+			 [style.colourMinorGood([units.time(7)]-[units.time(21)])].
+		#ENDIF
+	</p>
+	<p>
+		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+			Due to the fact that it's currently [style.colourBad(closed)] to members of the public, all of the doors are firmly shut and locked, and only a couple of lights can be seen to still be on in some of the rooms on the upper floors. If you wanted to enter the town hall, you'll have to come back during opening hours...
+		#ELSE
+			Due to the fact that it's currently [style.colourGood(open)] to members of the public, you can witness the odd person heading in or out of the building. If you wanted to, you could follow their example and make use of one of the door signposted as the public entrance to head inside...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOWN_HALL_ENTER"><![CDATA[
+	<p>
+		Heading over to the door marked as the public entrance, you push it open and [pc.step] into Elis's town hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WALL"><![CDATA[
+	<p>
+		While they seem to be very strong and sturdy from the outside, the walls of Elis are not particularly impressive from up close. Although the stone blocks from which these walls are constructed are very large, there's only a single layer of them, with the stairs, ramparts, and supporting scaffolding being made out of thick beams of wood. Standing at a little over two-stories tall, they're large enough to stop any force short of a well-prepared army, and so even despite their relative weakness, these walls are able to completely protect the residents of Elis from bandits and Lunette's raiders.
+	</p>
+	<p>
+		Due to there being no imminent threat of attack, there are no guards or Enforcers manning the parapets, and with no signs prohibiting access to members of the public, you're able to freely head up and travel along the wide, wooden walkway. Although there's a road running parallel to the wall, it seems a lot more interesting to travel along this elevated platform, which seems to be the opinion of several other residents of Elis, who have similarly decided to take the high road.
+	</p>
+	<p>
+		Looking over the stone crenelations, 
+		#IF(game.isDayTime())
+			 you're able to get a fine view of the surrounding fields and woodland.
+		#ELSE
+			 you're able to get a view of the surrounding fields and woodland as they appear during the night.
+		#ENDIF
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			 Everything apart from the lake and roads are covered in a thick blanket of snow,
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 and as the fluffy white flakes continue to fall, you take a moment to look over the winter scene before continuing on your way...
+			#ELSE
+				 and you take a moment to look over the winter scene before continuing on your way...
+			#ENDIF
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			 Despite the fact that it's currently raining, the vista is pleasant enough to draw you in for a few moments, and you pause to appreciate the view before continuing on your way...
+		#ELSEIF(game.getCurrentWeather()==WEATHER_CLEAR)
+			 The vista is pleasant enough to draw you in for a few moments, and you pause to appreciate the view before continuing on your way...
+		#ELSE
+			 Despite the fact that the overcast skies are casting a deep shade over the surrounding landscape, the vista is pleasant enough to draw you in for a few moments, and you pause to appreciate the view before continuing on your way...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WALL_FLY_TO_FIELDS"><![CDATA[
+	<p>
+		Deciding that you want to head down into the fields which surround Elis, you take a short run-up and launch yourself into the air, before gracefully flying down to the grass below. Smoothly landing on a flat, clear patch of land, you look around and wonder where to go from here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WOOD_HUT"><![CDATA[
+	<p>
+		Looking over to the edge of the nearby woodland, you see what must be the only residential structure to be found outside of the walls of Elis. Taking the form of a single-story log cabin, this modest dwelling looks to be occupied, as a lazy stream of thin white smoke rises from its single metal chimney.
+	</p>
+	<p>
+		A short distance away from this cabin sits a very large, open-sided storage shed, which you can see is mostly filled with chopped logs. The only remaining space inside this shed is taken up by a section of tree trunk, which looks to be used as a chopping block due to the fact that a large wood-cutting axe has been sunk into it at a low angle. A sign nailed to the wall of this shed reads: 'Firewood for sale. Deliveries available. Please knock.'
+	</p>
+	<p>
+		Although you don't have much of a need for firewood, there's nothing stopping you from knocking on the log cabin's door and introducing yourself...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WOODS"><![CDATA[
+	<p>
+		The patches of woodland surrounding Elis are composed primarily of deciduous trees, although there are a few coniferous species scattered about here and there.
+		#IF(game.isDayTime())
+			#IF(game.getSeason()==SEASON_SPRING)
+				 Thanks to the safety offered by the close proximity of Elis, you can take the time to truly appreciate the woodland's spring-time beauty. Small, leafy shoots are mixed in amongst the many trees' blossoms, and in the light of day, these woods have an almost enchanted feel to it. The tweeting of birds and gentle rustle of the wind in the branches is soothing to your [pc.ears], and you can't help but smile as you find yourself being put at ease by nature's calm ambience.
+			#ELSEIF(game.getSeason()==SEASON_SUMMER)
+				 Thanks to the safety offered by the close proximity of Elis, you can take the time to truly appreciate the woodland's summer-time beauty. Large, semi-translucent leaves cast the light of day into a mottled green covering overhead, giving these woods an almost enchanted feel to it. The tweeting of birds and the soft whisper of wind in the branches is soothing to your [pc.ears], and you can't help but smile as you find yourself being put at ease by nature's calm ambience.
+			#ELSEIF(game.getSeason()==SEASON_AUTUMN)
+				 Thanks to the safety offered by the close proximity of Elis, you can take the time to truly appreciate the woodland's autumnal beauty. The canopy's countless leaves are casting the light of day into a mottled orange, brown, and red, and with the faint smell of mulch, as well as the slight chill in the air, you can definitely feel that winter is not too far away. The tweeting of birds and the gentle rustle of wind in the branches is soothing to your [pc.ears], and you can't help but smile as you find yourself being put at ease by nature's calm ambience.
+			#ELSE
+				 Despite the safety offered by the close proximity of Elis, you can't help but feel a little uneasy as you travel through the dreary and lifeless wintertime woodland. With the trees having shed all of their leaves, the cool light of day shines down unobstructed onto the
+				#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+					 snow-covered
+				#ELSE
+					 muddy brown
+				#ENDIF
+				 floor of the forest, offering almost no warmth to take the chill out of the air. The occasional tweet of a non-migratory bird, or the sudden, rustling gust of wind in the barren branches keeps you on edge, and you find yourself ruing the inconsistency of nature's winter ambience.
+			#ENDIF
+		#ELSE
+			#IF(game.getSeason()!=SEASON_WINTER)
+				 Although pleasant enough during daylight hours, the woodland feels particularly ominous at night. The ground beneath your [pc.feet] has transformed into a mat of inky blackness, and with oddly-shaped shadows lurking behind every tree, it's hard to convince yourself that the proximity of Elis makes these woods safe to travel through. An odd owl's hoot or distant wolf's howl leaves you wondering if a wild animal is close by, and every time there's a gentle rustle of wind in the branches, you have to stop and listen to make sure that nothing's sneaking up on you.
+			#ELSE
+				 Although dreary and depressing enough in daylight hours at this time of year, the winter woodland feels particularly ominous at night. The ground beneath your [pc.feet] has transformed into a twisted mass of shadows, and with the inky-blackness behind each tree offering places from which to spring an ambush, it's hard to convince yourself that the proximity of Elis makes these woods safe to travel through. An odd owl's hoot or distant wolf's howl leaves you wondering if a wild animal is close by, and every time there's a sudden, rustling gust of wind in the branches, you have to stop and listen to make sure that nothing's sneaking up on you.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_hasSnowedThisWinter) && game.getSeason()==SEASON_WINTER)
+			Thanks to the snow which
+			#IF(game.getCurrentWeather()==WEATHER_SNOW)
+				 has not only covered the land, but which is also currently falling in big flurries,
+			#ELSE
+				 has covered the land,
+			#ENDIF
+			 the forest floor is transformed into a clean, white blanket, which crunches loudly
+			#IF(pc.hasLegs())
+				 underfoot.
+			#ELSE
+				 beneath your [pc.feet].
+			#ENDIF
+		#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN)
+			#IF(game.getSeason()!=SEASON_WINTER)
+				The drops of rain falling on the canopy up above adds another layer of sound to the forest, and every now and again a leaf bends down to deposit a particularly large drop of accumulated water onto either the ground or your head.
+			#ELSE
+				Thanks to the fact that the trees bear no leaves at this time of year, the rain freely falls through the forest's canopy, quickly saturating the ground beneath your [pc.feet] and adding another obstacle in the form of patches of thick, squelching mud.
+			#ENDIF
+		#ELSEIF(game.getCurrentWeather()==WEATHER_CLEAR)
+			With the clear skies above promising no chance of precipitation, you continue on your way through the woods...
+		#ELSE
+			With the cloudy skies above threatening to burst at any moment, you continue on your way through the woods...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

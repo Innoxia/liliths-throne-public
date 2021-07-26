@@ -37,6 +37,7 @@ import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobHours;
@@ -1890,9 +1891,13 @@ public class CompanionManagement {
 				if(index == 1) {
 					return new Response("Continue",
 							"Now that your slave has been freed and left your life for good, there's little else for you to do except continue with your other plans for the day...",
-							Main.game.getDefaultDialogue(false));
+							Main.game.getDefaultDialogue(false)) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
+						}
+					};
 				}
-				
 			} else {
 				if(index == 1) {
 					return new Response("Offer room",
@@ -1900,6 +1905,7 @@ public class CompanionManagement {
 							SET_SLAVE_FREE_GUEST_ROOM) {
 						@Override
 						public void effects() {
+							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 							Cell c = OccupancyUtil.getFreeRoomForOccupant();
 							characterSelected().setLocation(c.getType(), c.getLocation(), true);
 							Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
@@ -1918,6 +1924,7 @@ public class CompanionManagement {
 						}
 						@Override
 						public void effects() {
+							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_GOODBYE", characterSelected()));
 							Main.game.banishNPC(characterSelected());
 							Main.game.getDialogueFlags().setManagementCompanion(null);
@@ -1934,6 +1941,7 @@ public class CompanionManagement {
 						}
 						@Override
 						public void effects() {
+							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_THROWN_OUT", characterSelected()));
 							Main.game.banishNPC(characterSelected());
 							Main.game.getDialogueFlags().setManagementCompanion(null);

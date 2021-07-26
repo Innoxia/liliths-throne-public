@@ -27,7 +27,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
@@ -35,7 +35,7 @@ public class DialogueFlags implements XMLSaving {
 	public static int MUGGER_DEMAND_1 = 250;
 	public static int MUGGER_DEMAND_2 = 500;
 	
-	public Set<DialogueFlagValue> values;
+	public Set<AbstractDialogueFlagValue> values;
 	
 	public int ralphDiscount;
 	public int scarlettPrice;
@@ -161,8 +161,8 @@ public class DialogueFlags implements XMLSaving {
 		
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
-		for(DialogueFlagValue value : values) {
-			XMLUtil.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
+		for(AbstractDialogueFlagValue value : values) {
+			XMLUtil.createXMLElementWithValue(doc, valuesElement, "dialogueValue", DialogueFlagValue.getIdFromDialogueFlagValue(value));
 		}
 		
 		
@@ -277,7 +277,10 @@ public class DialogueFlags implements XMLSaving {
 				if(flag.equalsIgnoreCase("punishedByAlexa")) {
 					newFlags.values.add(DialogueFlagValue.punishedByHelena);
 				} else {
-					newFlags.values.add(DialogueFlagValue.valueOf(flag));
+					AbstractDialogueFlagValue flagValue = DialogueFlagValue.getDialogueFlagValueFromId(flag);
+					if(flagValue!=null) {
+						newFlags.values.add(flagValue);
+					}
 				}
 			} catch(Exception ex) {
 			}
@@ -343,11 +346,15 @@ public class DialogueFlags implements XMLSaving {
 		values.removeIf((flag)->flag.isDailyReset());
 	}
 
-	public boolean hasFlag(DialogueFlagValue flag) {
+	public boolean hasFlag(AbstractDialogueFlagValue flag) {
 		return values.contains(flag);
 	}
+
+	public boolean hasFlag(String flagId) {
+		return values.contains(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
+	}
 	
-	public void setFlag(DialogueFlagValue flag, boolean flagMarker) {
+	public void setFlag(AbstractDialogueFlagValue flag, boolean flagMarker) {
 		if(flagMarker) {
 			values.add(flag);
 		} else {

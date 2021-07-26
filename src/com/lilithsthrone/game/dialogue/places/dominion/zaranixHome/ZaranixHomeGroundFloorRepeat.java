@@ -53,7 +53,6 @@ public class ZaranixHomeGroundFloorRepeat {
 	private static NPC pet;
 	private static NPC owner;
 	
-
 	public static void resetHouseAfterLeaving() {
 		((Zaranix)Main.game.getNpc(Zaranix.class)).setStartingBody(false);
 		((Amber)Main.game.getNpc(Amber.class)).setStartingBody(false);
@@ -423,7 +422,7 @@ public class ZaranixHomeGroundFloorRepeat {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.katherineRepeatEncountered)) {
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.katherineRepeatEncountered) && Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKatherine.class))) {
 					return new Response("Upstairs", "You need to respond to Katherine first!", null);
 					
 				} else {

@@ -96,7 +96,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.ARMS_UP_TO_SHOULDER,
 									ClothingAccess.HEAD),
-							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null
 							),
@@ -179,7 +181,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
 							null)),
 			null,
@@ -231,7 +235,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null),
 					new BlockedParts(
@@ -280,9 +286,9 @@ public class ClothingType {
 	public static AbstractClothingType TORSO_OVER_WOMENS_LEATHER_JACKET = new AbstractClothingType(600,
 			"a",
 			false,
-			"women's leather jacket",
-			"women's leather jackets",
-			"A feminine leather jacket, able to be worn both open and, by means of a zip, closed.",
+			"women's fashionable leather jacket",
+			"women's fashionable leather jackets",
+			"A fashionable feminine leather jacket, able to be worn both open and, by means of a zip, closed.",
 			2f,
 			Femininity.FEMININE,
 			InventorySlot.TORSO_OVER,
@@ -295,7 +301,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null),
 					new BlockedParts(
@@ -358,7 +366,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null
 							),
@@ -422,7 +432,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
-							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null
 							),
@@ -554,7 +566,8 @@ public class ClothingType {
 						Util.newArrayListOfValues(
 								ClothingAccess.ARMS_UP_TO_SHOULDER,
 								ClothingAccess.HEAD),
-						null,
+						Util.newArrayListOfValues(
+								CoverableArea.ARMPITS),
 						Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
 						null),
 					new BlockedParts(DisplacementType.PULLS_UP,
@@ -596,7 +609,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.ARMS_UP_TO_SHOULDER,
 									ClothingAccess.HEAD),
-							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null),
 					new BlockedParts(DisplacementType.PULLS_UP,
@@ -641,7 +655,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									ClothingAccess.ARMS_UP_TO_SHOULDER,
 									ClothingAccess.HEAD),
-							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
 							null),
 					new BlockedParts(DisplacementType.PULLS_DOWN,
@@ -1440,7 +1455,8 @@ public class ClothingType {
 									CoverableArea.BREASTS,
 									CoverableArea.NIPPLES,
 									CoverableArea.STOMACH,
-									CoverableArea.BACK),
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
@@ -4093,7 +4109,8 @@ public class ClothingType {
 									CoverableArea.BREASTS,
 									CoverableArea.NIPPLES,
 									CoverableArea.STOMACH,
-									CoverableArea.BACK),
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
@@ -4830,7 +4847,9 @@ public class ClothingType {
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							null,
 							null),
 					new BlockedParts(
@@ -5209,7 +5228,8 @@ public class ClothingType {
 									CoverableArea.BREASTS,
 									CoverableArea.NIPPLES,
 									CoverableArea.STOMACH,
-									CoverableArea.BACK),
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
@@ -5248,398 +5268,403 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType KIMONO_HAIR_KANZASHI = new AbstractClothingType(500,
-			"a",
-			false,
-			"kanzashi",
-			"kanzashi",
-			"A traditional Japanese hair ornament, composed primarily of folded cloth flowers.",
-			0,
-			Femininity.FEMININE,
-			InventorySlot.HAIR,
-			Rarity.EPIC,
-			SetBonus.getSetBonusFromId("innoxia_geisha"),
-			"clothing/kimono_hair_kanzashi",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
-			null,
-			null,
-			ColourListPresets.KIMONO,
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_WHITE,
-			ColourListPresets.ALL,
-			ColourListPresets.KIMONO,
-			ColourListPresets.ALL,
-			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You tie up your [pc.hair(true)] and fasten the kanzashi in place.",
-					"You tie up [npc.namePos] [npc.hair(true)] and fasten the kanzashi in place.",
-					null,
-					"[npc.Name] ties up [npc.her] [npc.hair(true)] and fastens the kanzashi in place.",
-					"[npc.Name] ties up your [pc.hair(true)] and fastens the kanzashi in place.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your kanzashi.",
-					"You take off [npc.namePos] kanzashi.",
-					null,
-					"[npc.Name] takes [npc.her] kanzashi off.",
-					"[npc.Name] takes your kanzashi off.",
-					null, null, null);
-		}
-
-	};
+	//TODO delet this
 	
-	public static AbstractClothingType KIMONO_DRESS = new AbstractClothingType(3000,
-			"a",
-			false,
-			"kimono",
-			"kimonos",
-			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
-			0,
-			Femininity.FEMININE,
-			InventorySlot.TORSO_UNDER,
-			Rarity.EPIC,
-			SetBonus.getSetBonusFromId("innoxia_geisha"),
-			"clothing/kimono_torso_kimono",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.ARMS_UP_TO_SHOULDER,
-									ClothingAccess.HEAD),
-							Util.newArrayListOfValues(
-									CoverableArea.BREASTS,
-									CoverableArea.NIPPLES,
-									CoverableArea.BACK),
-							Util.newArrayListOfValues(
-									ClothingAccess.CHEST,
-									ClothingAccess.WAIST), 
-							null),
-					new BlockedParts(
-							DisplacementType.UNTIE,
-							null,
-							Util.newArrayListOfValues(
-									CoverableArea.PENIS,
-									CoverableArea.VAGINA,
-									CoverableArea.BREASTS,
-									CoverableArea.NIPPLES,
-									CoverableArea.STOMACH),
-							Util.newArrayListOfValues(
-									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS,
-									ClothingAccess.CHEST,
-									ClothingAccess.WAIST),
-							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList()),
-					new BlockedParts(
-							DisplacementType.PULLS_UP,
-							null,
-							Util.newArrayListOfValues(
-									CoverableArea.ANUS,
-									CoverableArea.PENIS,
-									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
-							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
-			null,
-			ColourListPresets.KIMONO,
-			ColourListPresets.ALL,
-			ColourListPresets.KIMONO,
-			ColourListPresets.ALL,
-			ColourListPresets.KIMONO,
-			ColourListPresets.ALL,
-			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+//	public static AbstractClothingType KIMONO_HAIR_KANZASHI = new AbstractClothingType(500,
+//			"a",
+//			false,
+//			"kanzashi",
+//			"kanzashi",
+//			"A traditional Japanese hair ornament, composed primarily of folded cloth flowers.",
+//			0,
+//			Femininity.FEMININE,
+//			InventorySlot.HAIR,
+//			Rarity.EPIC,
+//			SetBonus.getSetBonusFromId("innoxia_geisha"),
+//			"clothing/kimono_hair_kanzashi",
+//			Util.newArrayListOfValues(
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
+//			null,
+//			null,
+//			ColourListPresets.KIMONO,
+//			ColourListPresets.ALL,
+//			ColourListPresets.JUST_WHITE,
+//			ColourListPresets.ALL,
+//			ColourListPresets.KIMONO,
+//			ColourListPresets.ALL,
+//			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
+//
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You tie up your [pc.hair(true)] and fasten the kanzashi in place.",
+//					"You tie up [npc.namePos] [npc.hair(true)] and fasten the kanzashi in place.",
+//					null,
+//					"[npc.Name] ties up [npc.her] [npc.hair(true)] and fastens the kanzashi in place.",
+//					"[npc.Name] ties up your [pc.hair(true)] and fastens the kanzashi in place.",
+//					null, null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You take off your kanzashi.",
+//					"You take off [npc.namePos] kanzashi.",
+//					null,
+//					"[npc.Name] takes [npc.her] kanzashi off.",
+//					"[npc.Name] takes your kanzashi off.",
+//					null, null, null);
+//		}
+//
+//	};
+//	public static AbstractClothingType KIMONO_DRESS = new AbstractClothingType(3000,
+//			"a",
+//			false,
+//			"kimono",
+//			"kimonos",
+//			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
+//			0,
+//			Femininity.FEMININE,
+//			InventorySlot.TORSO_UNDER,
+//			Rarity.EPIC,
+//			SetBonus.getSetBonusFromId("innoxia_geisha"),
+//			"clothing/kimono_torso_kimono",
+//			Util.newArrayListOfValues(
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
+//			Util.newArrayListOfValues(
+//					new BlockedParts(
+//							DisplacementType.REMOVE_OR_EQUIP,
+//							Util.newArrayListOfValues(
+//									ClothingAccess.ARMS_UP_TO_SHOULDER,
+//									ClothingAccess.HEAD),
+//							Util.newArrayListOfValues(
+//									CoverableArea.BREASTS,
+//									CoverableArea.NIPPLES,
+//									CoverableArea.BACK,
+//									CoverableArea.ARMPITS),
+//							Util.newArrayListOfValues(
+//									ClothingAccess.CHEST,
+//									ClothingAccess.WAIST), 
+//							null),
+//					new BlockedParts(
+//							DisplacementType.UNTIE,
+//							null,
+//							Util.newArrayListOfValues(
+//									CoverableArea.PENIS,
+//									CoverableArea.VAGINA,
+//									CoverableArea.BREASTS,
+//									CoverableArea.NIPPLES,
+//									CoverableArea.STOMACH),
+//							Util.newArrayListOfValues(
+//									
+//									ClothingAccess.GROIN,
+//									ClothingAccess.ANUS,
+//									ClothingAccess.CHEST,
+//									ClothingAccess.WAIST),
+//							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList()),
+//					new BlockedParts(
+//							DisplacementType.PULLS_UP,
+//							null,
+//							Util.newArrayListOfValues(
+//									CoverableArea.ANUS,
+//									CoverableArea.PENIS,
+//									CoverableArea.VAGINA),
+//							Util.newArrayListOfValues(
+//									ClothingAccess.GROIN,
+//									ClothingAccess.ANUS),
+//							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
+//			null,
+//			ColourListPresets.KIMONO,
+//			ColourListPresets.ALL,
+//			ColourListPresets.KIMONO,
+//			ColourListPresets.ALL,
+//			ColourListPresets.KIMONO,
+//			ColourListPresets.ALL,
+//			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+//
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You pull on the kimono.",
+//					"You pull the kimono onto [npc.name].",
+//					null,
+//					"[npc.Name] pulls on the kimono.",
+//					"[npc.Name] pulls the kimono onto you.",
+//					null, null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You take off your kimono.",
+//					"You pull off [npc.namePos] kimono.",
+//					null,
+//					"[npc.Name] takes [npc.her] kimono off.",
+//					"[npc.Name] takes your kimono off.",
+//					null, null, null);
+//		}
+//	};
 
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull on the kimono.",
-					"You pull the kimono onto [npc.name].",
-					null,
-					"[npc.Name] pulls on the kimono.",
-					"[npc.Name] pulls the kimono onto you.",
-					null, null, null);
-		}
+//	public static AbstractClothingType KIMONO_GETA = new AbstractClothingType(350,
+//			"a pair of",
+//			true,
+//			"geta",
+//			"geta",
+//			"These sandals have a slightly elevated wooden base, and are held onto the foot by means of a cloth thong.",
+//			0,
+//			Femininity.FEMININE,
+//			InventorySlot.FOOT,
+//			Rarity.EPIC,
+//			SetBonus.getSetBonusFromId("innoxia_geisha"),
+//			"clothing/kimono_foot_geta",
+//			Util.newArrayListOfValues(
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
+//			Util.newArrayListOfValues(
+//					new BlockedParts(
+//							DisplacementType.REMOVE_OR_EQUIP,
+//							Util.newArrayListOfValues(ClothingAccess.FEET),
+//							Util.newArrayListOfValues(CoverableArea.FEET),
+//							Util.newArrayListOfValues(ClothingAccess.FEET),
+//							null)),
+//			null,
+//			ColourListPresets.KIMONO,
+//			ColourListPresets.ALL,
+//			ColourListPresets.JUST_BLACK,
+//			ColourListPresets.ALL,
+//			null,
+//			null,
+//			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
+//
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You slip your [pc.feet] into the geta.",
+//					"You push [npc.namePos] [npc.feet] into the geta.",
+//					"You force the geta onto [npc.namePos] [npc.feet].",
+//					"[npc.Name] slips [npc.her] [npc.feet] into the geta.",
+//					"[npc.Name] pushes your [pc.feet] into the geta.",
+//					"[npc.Name] forces the geta onto your [pc.feet].", null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You slide off your geta.",
+//					"You pull [npc.namePos] geta off.",
+//					"You grab [npc.namePos] [npc.feet] and pull [npc.her] geta off.",
+//					"[npc.Name] slides off [npc.her] geta.",
+//					"[npc.Name] pulls off your geta.",
+//					"[npc.Name] grabs your [pc.feet] and pulls your geta off.", null, null);
+//		}
+//	};
 
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your kimono.",
-					"You pull off [npc.namePos] kimono.",
-					null,
-					"[npc.Name] takes [npc.her] kimono off.",
-					"[npc.Name] takes your kimono off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType KIMONO_GETA = new AbstractClothingType(350,
-			"a pair of",
-			true,
-			"geta",
-			"geta",
-			"These sandals have a slightly elevated wooden base, and are held onto the foot by means of a cloth thong.",
-			0,
-			Femininity.FEMININE,
-			InventorySlot.FOOT,
-			Rarity.EPIC,
-			SetBonus.getSetBonusFromId("innoxia_geisha"),
-			"clothing/kimono_foot_geta",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.FEET),
-							Util.newArrayListOfValues(CoverableArea.FEET),
-							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null)),
-			null,
-			ColourListPresets.KIMONO,
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
+//	public static AbstractClothingType KIMONO_MENS_KIMONO = new AbstractClothingType(1500,
+//			"a",
+//			false,
+//			"men's kimono",
+//			"men's kimonos",
+//			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
+//			0,
+//			Femininity.MASCULINE,
+//			InventorySlot.TORSO_UNDER,
+//			Rarity.EPIC,
+//			SetBonus.getSetBonusFromId("innoxia_ronin"),
+//			"clothing/kimono_torso_mens_kimono",
+//			Util.newArrayListOfValues(
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
+//			Util.newArrayListOfValues(
+//					new BlockedParts(
+//							DisplacementType.REMOVE_OR_EQUIP,
+//							Util.newArrayListOfValues(
+//									ClothingAccess.ARMS_UP_TO_SHOULDER,
+//									ClothingAccess.HEAD),
+//							Util.newArrayListOfValues(
+//									CoverableArea.BREASTS,
+//									CoverableArea.NIPPLES,
+//									CoverableArea.BACK,
+//									CoverableArea.ARMPITS),
+//							Util.newArrayListOfValues(
+//									ClothingAccess.CHEST,
+//									ClothingAccess.WAIST), 
+//							null),
+//					new BlockedParts(
+//							DisplacementType.UNTIE,
+//							null,
+//							Util.newArrayListOfValues(
+//									CoverableArea.PENIS,
+//									CoverableArea.VAGINA,
+//									CoverableArea.BREASTS,
+//									CoverableArea.NIPPLES,
+//									CoverableArea.STOMACH),
+//							Util.newArrayListOfValues(
+//									
+//									ClothingAccess.GROIN,
+//									ClothingAccess.ANUS,
+//									ClothingAccess.CHEST,
+//									ClothingAccess.WAIST),
+//							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList()),
+//					new BlockedParts(
+//							DisplacementType.PULLS_UP,
+//							null,
+//							Util.newArrayListOfValues(
+//									CoverableArea.ANUS,
+//									CoverableArea.PENIS,
+//									CoverableArea.VAGINA),
+//							Util.newArrayListOfValues(
+//									ClothingAccess.GROIN,
+//									ClothingAccess.ANUS),
+//							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
+//			null,
+//			Util.newArrayListOfValues(
+//							PresetColour.CLOTHING_BLACK,
+//							PresetColour.CLOTHING_GREY,
+//							PresetColour.CLOTHING_BLUE),
+//			ColourListPresets.ALL,
+//			Util.newArrayListOfValues(
+//							PresetColour.CLOTHING_BLUE_LIGHT,
+//							PresetColour.CLOTHING_WHITE),
+//			ColourListPresets.ALL,
+//			ColourListPresets.JUST_GREY,
+//			ColourListPresets.ALL,
+//			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+//
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You pull on the kimono.",
+//					"You pull the kimono onto [npc.name].",
+//					null,
+//					"[npc.Name] pulls on the kimono.",
+//					"[npc.Name] pulls the kimono onto you.",
+//					null, null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You take off your kimono.",
+//					"You pull off [npc.namePos] kimono.",
+//					null,
+//					"[npc.Name] takes [npc.her] kimono off.",
+//					"[npc.Name] takes your kimono off.",
+//					null, null, null);
+//		}
+//	};
 
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slip your [pc.feet] into the geta.",
-					"You push [npc.namePos] [npc.feet] into the geta.",
-					"You force the geta onto [npc.namePos] [npc.feet].",
-					"[npc.Name] slips [npc.her] [npc.feet] into the geta.",
-					"[npc.Name] pushes your [pc.feet] into the geta.",
-					"[npc.Name] forces the geta onto your [pc.feet].", null, null);
-		}
+//	public static AbstractClothingType KIMONO_HAORI = new AbstractClothingType(750,
+//			"a",
+//			false,
+//			"men's haori",
+//			"men's haori",
+//			"A traditional thigh-length kimono-style jacket.",
+//			0,
+//			Femininity.MASCULINE,
+//			InventorySlot.TORSO_OVER,
+//			Rarity.EPIC,
+//			SetBonus.getSetBonusFromId("innoxia_ronin"),
+//			"clothing/kimono_torso_over_haori",
+//			Util.newArrayListOfValues(
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
+//			Util.newArrayListOfValues(
+//					new BlockedParts(
+//							DisplacementType.REMOVE_OR_EQUIP,
+//							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+//							Util.newArrayListOfValues(
+//									CoverableArea.BACK,
+//									CoverableArea.ARMPITS),
+//							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+//							null)),
+//			null,
+//			Util.newArrayListOfValues(
+//							PresetColour.CLOTHING_BLACK,
+//							PresetColour.CLOTHING_GREY,
+//							PresetColour.CLOTHING_BLUE),
+//			ColourListPresets.ALL,
+//			null,
+//			null,
+//			null,
+//			null,
+//			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.FITS_ARM_WINGS)){
+//		
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You pull on the haori.",
+//					"You guide [npc.namePos] [npc.arms] through the haori's sleeves as you pull it on [npc.herHim].",
+//					null,
+//					"[npc.Name] pulls on the haori.",
+//					"[npc.Name] guides your [pc.arms] through the haori's sleeves as [npc.she] pulls it on you.",
+//					null, null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You take off your haori.",
+//					"You pull off [npc.namePos] haori.",
+//					null,
+//					"[npc.Name] takes [npc.her] haori off.",
+//					"[npc.Name] pulls your haori off.",
+//					null, null, null);
+//		}
+//	};
 
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slide off your geta.",
-					"You pull [npc.namePos] geta off.",
-					"You grab [npc.namePos] [npc.feet] and pull [npc.her] geta off.",
-					"[npc.Name] slides off [npc.her] geta.",
-					"[npc.Name] pulls off your geta.",
-					"[npc.Name] grabs your [pc.feet] and pulls your geta off.", null, null);
-		}
-	};
-	
-	public static AbstractClothingType KIMONO_MENS_KIMONO = new AbstractClothingType(1500,
-			"a",
-			false,
-			"men's kimono",
-			"men's kimonos",
-			"Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.",
-			0,
-			Femininity.MASCULINE,
-			InventorySlot.TORSO_UNDER,
-			Rarity.EPIC,
-			SetBonus.getSetBonusFromId("innoxia_ronin"),
-			"clothing/kimono_torso_mens_kimono",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.ARMS_UP_TO_SHOULDER,
-									ClothingAccess.HEAD),
-							Util.newArrayListOfValues(
-									CoverableArea.BREASTS,
-									CoverableArea.NIPPLES,
-									CoverableArea.BACK),
-							Util.newArrayListOfValues(
-									ClothingAccess.CHEST,
-									ClothingAccess.WAIST), 
-							null),
-					new BlockedParts(
-							DisplacementType.UNTIE,
-							null,
-							Util.newArrayListOfValues(
-									CoverableArea.PENIS,
-									CoverableArea.VAGINA,
-									CoverableArea.BREASTS,
-									CoverableArea.NIPPLES,
-									CoverableArea.STOMACH),
-							Util.newArrayListOfValues(
-									
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS,
-									ClothingAccess.CHEST,
-									ClothingAccess.WAIST),
-							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList()),
-					new BlockedParts(
-							DisplacementType.PULLS_UP,
-							null,
-							Util.newArrayListOfValues(
-									CoverableArea.ANUS,
-									CoverableArea.PENIS,
-									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
-							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
-			null,
-			Util.newArrayListOfValues(
-							PresetColour.CLOTHING_BLACK,
-							PresetColour.CLOTHING_GREY,
-							PresetColour.CLOTHING_BLUE),
-			ColourListPresets.ALL,
-			Util.newArrayListOfValues(
-							PresetColour.CLOTHING_BLUE_LIGHT,
-							PresetColour.CLOTHING_WHITE),
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_GREY,
-			ColourListPresets.ALL,
-			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull on the kimono.",
-					"You pull the kimono onto [npc.name].",
-					null,
-					"[npc.Name] pulls on the kimono.",
-					"[npc.Name] pulls the kimono onto you.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your kimono.",
-					"You pull off [npc.namePos] kimono.",
-					null,
-					"[npc.Name] takes [npc.her] kimono off.",
-					"[npc.Name] takes your kimono off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType KIMONO_HAORI = new AbstractClothingType(750,
-			"a",
-			false,
-			"men's haori",
-			"men's haori",
-			"A traditional thigh-length kimono-style jacket.",
-			0,
-			Femininity.MASCULINE,
-			InventorySlot.TORSO_OVER,
-			Rarity.EPIC,
-			SetBonus.getSetBonusFromId("innoxia_ronin"),
-			"clothing/kimono_torso_over_haori",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							Util.newArrayListOfValues(CoverableArea.BACK),
-							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
-							null)),
-			null,
-			Util.newArrayListOfValues(
-							PresetColour.CLOTHING_BLACK,
-							PresetColour.CLOTHING_GREY,
-							PresetColour.CLOTHING_BLUE),
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.FITS_ARM_WINGS)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull on the haori.",
-					"You guide [npc.namePos] [npc.arms] through the haori's sleeves as you pull it on [npc.herHim].",
-					null,
-					"[npc.Name] pulls on the haori.",
-					"[npc.Name] guides your [pc.arms] through the haori's sleeves as [npc.she] pulls it on you.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your haori.",
-					"You pull off [npc.namePos] haori.",
-					null,
-					"[npc.Name] takes [npc.her] haori off.",
-					"[npc.Name] pulls your haori off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType KIMONO_MENS_GETA = new AbstractClothingType(350,
-			"a pair of",
-			true,
-			"men's geta",
-			"men's geta",
-			"These sandals have a slightly elevated wooden base, and are held onto the foot by means of a cloth thong.",
-			0,
-			Femininity.MASCULINE,
-			InventorySlot.FOOT,
-			Rarity.EPIC,
-			SetBonus.getSetBonusFromId("innoxia_ronin"),
-			"clothing/kimono_foot_mens_geta",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.FEET),
-							Util.newArrayListOfValues(CoverableArea.FEET),
-							Util.newArrayListOfValues(ClothingAccess.FEET),
-							null)),
-			null,
-			Util.newArrayListOfValues(
-							PresetColour.CLOTHING_BLACK,
-							PresetColour.CLOTHING_GREY,
-							PresetColour.CLOTHING_BLUE),
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slip your [pc.feet] into the geta.",
-					"You push [npc.namePos] [npc.feet] into the geta.",
-					"You force the geta onto [npc.namePos] [npc.feet].",
-					"[npc.Name] slips [npc.her] [npc.feet] into the geta.",
-					"[npc.Name] pushes your [pc.feet] into the geta.",
-					"[npc.Name] forces the geta onto your [pc.feet].", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slide off your geta.",
-					"You pull [npc.namePos] geta off.",
-					"You grab [npc.namePos] [npc.feet] and pull [npc.her] geta off.",
-					"[npc.Name] slides off [npc.her] geta.",
-					"[npc.Name] pulls off your geta.",
-					"[npc.Name] grabs your [pc.feet] and pulls your geta off.", null, null);
-		}
-	};
+//	public static AbstractClothingType KIMONO_MENS_GETA = new AbstractClothingType(350,
+//			"a pair of",
+//			true,
+//			"men's geta",
+//			"men's geta",
+//			"These sandals have a slightly elevated wooden base, and are held onto the foot by means of a cloth thong.",
+//			0,
+//			Femininity.MASCULINE,
+//			InventorySlot.FOOT,
+//			Rarity.EPIC,
+//			SetBonus.getSetBonusFromId("innoxia_ronin"),
+//			"clothing/kimono_foot_mens_geta",
+//			Util.newArrayListOfValues(
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.BOOST, 0)),
+//			Util.newArrayListOfValues(
+//					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+//							Util.newArrayListOfValues(ClothingAccess.FEET),
+//							Util.newArrayListOfValues(CoverableArea.FEET),
+//							Util.newArrayListOfValues(ClothingAccess.FEET),
+//							null)),
+//			null,
+//			Util.newArrayListOfValues(
+//							PresetColour.CLOTHING_BLACK,
+//							PresetColour.CLOTHING_GREY,
+//							PresetColour.CLOTHING_BLUE),
+//			ColourListPresets.ALL,
+//			ColourListPresets.JUST_BLACK,
+//			ColourListPresets.ALL,
+//			null,
+//			null,
+//			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
+//
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You slip your [pc.feet] into the geta.",
+//					"You push [npc.namePos] [npc.feet] into the geta.",
+//					"You force the geta onto [npc.namePos] [npc.feet].",
+//					"[npc.Name] slips [npc.her] [npc.feet] into the geta.",
+//					"[npc.Name] pushes your [pc.feet] into the geta.",
+//					"[npc.Name] forces the geta onto your [pc.feet].", null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You slide off your geta.",
+//					"You pull [npc.namePos] geta off.",
+//					"You grab [npc.namePos] [npc.feet] and pull [npc.her] geta off.",
+//					"[npc.Name] slides off [npc.her] geta.",
+//					"[npc.Name] pulls off your geta.",
+//					"[npc.Name] grabs your [pc.feet] and pulls your geta off.", null, null);
+//		}
+//	};
 	
 	
 	public static AbstractClothingType JOLNIR_HAT = new AbstractClothingType(400,
@@ -5717,7 +5742,8 @@ public class ClothingType {
 									CoverableArea.BREASTS,
 									CoverableArea.NIPPLES,
 									CoverableArea.STOMACH,
-									CoverableArea.BACK),
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
 							PresetConcealmentLists.CONCEALED_FULL_TORSO.getPresetInventorySlotList())),
 			null,
@@ -5777,7 +5803,8 @@ public class ClothingType {
 									CoverableArea.BREASTS,
 									CoverableArea.NIPPLES,
 									CoverableArea.STOMACH,
-									CoverableArea.BACK),
+									CoverableArea.BACK,
+									CoverableArea.ARMPITS),
 							Util.newArrayListOfValues(
 									ClothingAccess.CHEST,
 									ClothingAccess.WAIST),
@@ -6118,7 +6145,13 @@ public class ClothingType {
 		oldIdConversionMap.put("SCIENTIST_TORSO_OVER_LAB_COAT", "innoxia_scientist_lab_coat");
 
 		oldIdConversionMap.put("AMBERS_BITCH_CHOKER", "innoxia_neck_ambers_bitch_collar");
-		
+
+		oldIdConversionMap.put("KIMONO_HAIR_KANZASHI", "innoxia_japanese_kanzashi");
+		oldIdConversionMap.put("KIMONO_DRESS", "innoxia_japanese_kimono");
+		oldIdConversionMap.put("KIMONO_GETA", "innoxia_japanese_geta");
+		oldIdConversionMap.put("KIMONO_MENS_KIMONO", "innoxia_japanese_mens_kimono");
+		oldIdConversionMap.put("KIMONO_HAORI", "innoxia_japanese_haori");
+		oldIdConversionMap.put("KIMONO_MENS_GETA", "innoxia_japanese_mens_geta");
 		
 		// Standard items:
 		oldIdConversionMap.put("kobolds_belt_leather_belt", "innoxia_hips_leather_belt");
@@ -6224,6 +6257,8 @@ public class ClothingType {
 		oldIdConversionMap.put("SOCK_TOELESS_STRIPED_STOCKINGS", "innoxia_sock_toeless_striped_stockings");
 
 		oldIdConversionMap.put("innoxia_insertableVibrator_insertable_vibrator", "innoxia_vagina_insertable_dildo");
+
+		oldIdConversionMap.put("dsg_eep_servequipset_enfdjacket_pc", "dsg_eep_servequipset_enfdjacket");
 		
 		
 		commonClothingMap = new EnumMap<>(InventorySlot.class);

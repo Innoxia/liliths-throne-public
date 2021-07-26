@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[street]]></name>
+	<tooltipDescription><![CDATA[The streets of Elis are paved in cobblestones, and with the majority of the flanking buildings being of a timber-framed design, the entire town has a late-medieval look about it.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the streets of Elis]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREY</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_generic_street</dialogue>
+	<populationPresent>
+		<population day="true">
+			<populationType plural="true" density="NUMEROUS">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population day="true">
+			<populationType plural="false" density="OCCASIONAL">CENTAUR_CARTS</populationType>
+			<subspeciesPresent>
+				<subspecies>CENTAUR</subspecies>
+			</subspeciesPresent>
+		</population>
+		<population day="true">
+			<populationType plural="false" density="OCCASIONAL">ENFORCER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town">
+				<subspeciesToRemove>HUMAN</subspeciesToRemove>
+			</subspeciesPresent>
+		</population>
+		<population night="true">
+			<populationType plural="false" density="OCCASIONAL">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population night="true">
+			<populationType plural="false" density="OCCASIONAL">ENFORCER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town">
+				<subspeciesToRemove>HUMAN</subspeciesToRemove>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

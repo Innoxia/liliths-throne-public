@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>0</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Faire ticket]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Faire tickets]]></namePlural>
+		<description><![CDATA[A type of fairground ticket given out at the Farmer's Market in Elis. It can be traded in at some of the stalls for special rewards.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>faire_ticket.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_GREEN_LIME</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Exchanged for rewards at stalls in the Farmer's Market]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			A small paper ticket, bearing the icon of a bull's head and the word 'Faire'. It can be traded in for special rewards at some of the stalls in the Farmer's Market at Elis.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the ticket...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] ticket to [npc2.name]...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

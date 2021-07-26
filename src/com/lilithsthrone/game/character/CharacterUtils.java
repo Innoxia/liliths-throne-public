@@ -47,6 +47,7 @@ import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -258,7 +259,9 @@ public class CharacterUtils {
 	
 	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
 		Body body = null;
-		if(father!=null) {
+		
+		// If the mother is feral, preGeneratedBodies are not taken into account, as the offspring must be feral:
+		if(!mother.isFeral() && father!=null) {
 			body = AbstractSubspecies.getPreGeneratedBody(linkedCharacter, startingGender, mother, father);
 		}
 
@@ -309,62 +312,40 @@ public class CharacterUtils {
 				raceFromMother = false;
 			}
 			
-			// If one partner is a human, race stage has a 66% chance to be lowered.
-			if((motherHuman && !fatherHuman) || (!motherHuman && fatherHuman)) {
-				if(stage == RaceStage.GREATER) {
-					double rnd = Math.random();
-					if(rnd<0.33) {
-						stage = RaceStage.PARTIAL_FULL;
-					} else if(rnd<0.66) {
-						stage = RaceStage.LESSER;
-					}
-					
-				} else if(stage == RaceStage.LESSER) {
-					double rnd = Math.random();
-					if(rnd<0.33) {
-						stage = RaceStage.PARTIAL;
-					} else if(rnd<0.66) {
-						stage = RaceStage.PARTIAL_FULL;
-					}
-					
-				} else if(stage == RaceStage.PARTIAL_FULL) {
-					double rnd = Math.random();
-					if(rnd<0.66) {
-						stage = RaceStage.PARTIAL;
+			if(!takesAfterMother && father.isFeral()) { // Offspring from a feral father are always fully furry
+				stage = RaceStage.GREATER;
+				
+			} else {
+				// If one partner is a human, race stage has a 66% chance to be lowered.
+				if((motherHuman && !fatherHuman) || (!motherHuman && fatherHuman)) {
+					if(stage == RaceStage.GREATER) {
+						double rnd = Math.random();
+						if(rnd<0.33) {
+							stage = RaceStage.PARTIAL_FULL;
+						} else if(rnd<0.66) {
+							stage = RaceStage.LESSER;
+						}
+						
+					} else if(stage == RaceStage.LESSER) {
+						double rnd = Math.random();
+						if(rnd<0.33) {
+							stage = RaceStage.PARTIAL;
+						} else if(rnd<0.66) {
+							stage = RaceStage.PARTIAL_FULL;
+						}
+						
+					} else if(stage == RaceStage.PARTIAL_FULL) {
+						double rnd = Math.random();
+						if(rnd<0.66) {
+							stage = RaceStage.PARTIAL;
+						}
 					}
 				}
 			}
 			
-			// Offspring shouldn't take into account these preferences, as otherwise it messes up players' perception of genetics.
-//			switch(startingGender.isFeminine()
-//					?Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(raceTakesAfter)
-//					:Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(raceTakesAfter)) {
-//				case HUMAN:
-//					stage = RaceStage.HUMAN;
-//					break;
-//				case MINIMUM:
-//					if(stage!=RaceStage.HUMAN
-//						|| stage!=RaceStage.PARTIAL) {
-//						stage = RaceStage.PARTIAL;
-//					}
-//					break;
-//				case REDUCED:
-//					if(stage!=RaceStage.HUMAN
-//						|| stage!=RaceStage.PARTIAL
-//						|| stage!=RaceStage.LESSER) {
-//						stage = RaceStage.LESSER;
-//					}
-//					break;
-//				case NORMAL:
-//					break;
-//				case MAXIMUM:
-//					stage = RaceStage.GREATER;
-//					break;
-//			}
-			
 			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
 		}
-
+		
 		linkedCharacter.setGenderIdentity(startingGender);
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
@@ -714,7 +695,20 @@ public class CharacterUtils {
 				body.getHorn().setHornRows(blankNPC, father.getHornRows());
 			}
 		}
-		
+
+		// Horn type and length:
+		if (body.getHornType() == HornType.NONE) {
+			if (Math.random() >= takesAfterMotherChance) {
+				if (mother.hasGenericHorns()) {
+					body.getHorn().setTypeAndLength(mother.getHornType(), mother.getHornLength());
+				}
+			} else {
+				if (father.hasGenericHorns()) {
+					body.getHorn().setTypeAndLength(father.getHornType(), father.getHornLength());
+				}
+			}
+		}
+
 		// Penis:
 		boolean inheritsFromMotherPenis = mother.hasPenis();
 		boolean inheritsFromFatherPenis = father.hasPenis();
@@ -824,6 +818,19 @@ public class CharacterUtils {
 					inheritsFromFatherPenis, father.getPenisRawCumStorageValue()));
 		}
 		
+		// Wings:
+		if(!body.getArm().getType().allowsFlight() && body.getWing().getType() == WingType.NONE) { // Do not give back wings to characters who have arm wings.
+			if (Math.random()>=takesAfterMotherChance) {
+				if (mother.hasGenericWings()) {
+					body.getWing().setTypeAndSize(mother.getWingType(), mother.getWingSizeValue());
+				}
+			} else {
+				if (father.hasGenericWings()) {
+					body.getWing().setTypeAndSize(father.getWingType(), father.getWingSizeValue());
+				}
+			}
+		}
+
 		// Tail:
 		if(Math.random()>0.75) {
 			if(Math.random()>=takesAfterMotherChance) {
@@ -882,6 +889,10 @@ public class CharacterUtils {
 					}
 				}
 			}
+		}
+
+		if(mother.isFeral()) { // Feral mothers always birth feral offspring. This is done after the genetics section to make sure that the feral offspring is not modified in an unintended manner (such as making them as tall as the father).
+			body.setFeral(raceTakesAfter.isFeralConfigurationAvailable()?raceTakesAfter:mother.getSubspecies());
 		}
 		
 		if(!body.isFeral()
@@ -960,11 +971,15 @@ public class CharacterUtils {
 	}
 
 	public Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, AbstractSubspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
+		return generateHalfDemonBody(linkedCharacter, startingGender, halfSubspecies, applyHalfDemonAttributeChanges, null);
+	}
+	
+	public Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, AbstractSubspecies halfSubspecies, boolean applyHalfDemonAttributeChanges, RaceStage overrideStage) {
 //		Gender startingGender;
 		if(startingGender==null) {
 			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
 		}
-		RaceStage stage = getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
+		RaceStage stage = overrideStage!=null?overrideStage:getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
 		AbstractRacialBody demonBody = RacialBody.DEMON;
 		
 		if(linkedCharacter!=null) {
@@ -1199,8 +1214,8 @@ public class CharacterUtils {
 		
 //		System.out.println(species+", "+stage);
 		
-		boolean furryHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_FURRY);
-		boolean scalyHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY);
+		boolean furryHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_FURRY) && !startingBodyType.getHairType().getTags().contains(BodyPartTag.HAIR_IGNORE_PLAYER_SETTINGS);
+		boolean scalyHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY) && !startingBodyType.getHairType().getTags().contains(BodyPartTag.HAIR_IGNORE_PLAYER_SETTINGS);
 		
 		Body body = new Body.BodyBuilder(
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
@@ -1399,8 +1414,8 @@ public class CharacterUtils {
 		
 		body.setEar(new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN));
 		
-		boolean furryHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_FURRY);
-		boolean scalyHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY);
+		boolean furryHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_FURRY) && !startingBodyType.getHairType().getTags().contains(BodyPartTag.HAIR_IGNORE_PLAYER_SETTINGS);
+		boolean scalyHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY) && !startingBodyType.getHairType().getTags().contains(BodyPartTag.HAIR_IGNORE_PLAYER_SETTINGS);
 		body.setHair(new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
 					((scalyHairCheck && !Main.game.isScalyHairEnabled()) || (furryHairCheck && !Main.game.isFurryHairEnabled())
 						?0
@@ -1455,7 +1470,7 @@ public class CharacterUtils {
 		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())));
 		
 		body.setTail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE));
-		
+
 		body.setTentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE));
 		
 		body.setWing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())));
@@ -1475,6 +1490,8 @@ public class CharacterUtils {
 			species.applySpeciesChanges(body);
 		}
 		body.calculateRace(linkedCharacter);
+		// To add or remove youko perks
+		body.getTail().setTailCount(linkedCharacter, body.getTail().getTailCount(), true);
 
 		if(!body.isFeral()
 				&& (Main.getProperties().getUddersLevel()==0
@@ -1524,6 +1541,7 @@ public class CharacterUtils {
 		}
 		
 		boolean halfDemon = character.getSubspeciesOverride()==Subspecies.HALF_DEMON;
+		AbstractHairType furryHairType = Util.randomItemFrom(HairType.getHairTypes(character.getLegRace()));
 		
 		switch(raceStage) {
 			case FERAL:
@@ -1573,7 +1591,7 @@ public class CharacterUtils {
 				character.setArmType(Util.randomItemFrom(ArmType.getArmTypes(character.getLegRace())));
 				character.setEarType(Util.randomItemFrom(EarType.getEarTypes(character.getLegRace())));
 				character.setFaceType(FaceType.HUMAN);
-				character.setHairType(Util.randomItemFrom(HairType.getHairTypes(character.getLegRace())));
+				character.setHairType(furryHairType);
 				character.setTorsoType(TorsoType.HUMAN);
 				// Reset hair length:
 				character.setHairLength((character.isFeminine()
@@ -1588,8 +1606,8 @@ public class CharacterUtils {
 				}
 				
 				AbstractFaceType faceType = Util.randomItemFrom(FaceType.getFaceTypes(character.getLegRace()));
-				boolean furryHairCheck = faceType.getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_FURRY);
-				boolean scalyHairCheck = faceType.getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY);
+				boolean furryHairCheck = faceType.getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_FURRY) && !furryHairType.getTags().contains(BodyPartTag.HAIR_IGNORE_PLAYER_SETTINGS);
+				boolean scalyHairCheck = faceType.getTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY) && !furryHairType.getTags().contains(BodyPartTag.HAIR_IGNORE_PLAYER_SETTINGS);
 				
 				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
 				character.setArmType(Util.randomItemFrom(ArmType.getArmTypes(character.getLegRace())));
@@ -1856,7 +1874,7 @@ public class CharacterUtils {
 			}
 		}
 		
-		//Ass:
+		// Ass:
 		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
@@ -1864,10 +1882,12 @@ public class CharacterUtils {
 		} else {
 			character.setAssVirgin(true);
 		}
+		int assHipVariation = - 1 + Util.random.nextInt(3); // -1 to 1
+		character.setAssSize(character.getAssSize().getValue() + assHipVariation);
+		character.setHipSize(character.getHipSize().getValue() - assHipVariation);
 		
-		// Body:
+		// Body (height):
 		int height = character.getHeightValue()-15 + Util.random.nextInt(30) +1;
-		
 		if(character.getHeight()==Height.NEGATIVE_TWO_MINIMUM) {
 			character.setHeight(Math.min(Height.NEGATIVE_TWO_MINIMUM.getMaximumValue()-1, Math.max(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), height)));
 			
@@ -1877,6 +1897,30 @@ public class CharacterUtils {
 		} else {
 			character.setHeight(Math.max(Height.ZERO_TINY.getMinimumValue(), height));
 		}
+		
+		// Body (femininity):
+		int femininityVariation = -10 + Util.random.nextInt(21); // -10 to 10
+		
+		switch(character.getFemininity()) { // Do not move out of masculine/feminine/androgynous zones:
+			case ANDROGYNOUS:
+				character.setFemininity(Math.max(Femininity.ANDROGYNOUS.getMinimumFemininity(), Math.min(Femininity.ANDROGYNOUS.getMaximumFemininity(), character.getFemininityValue()+femininityVariation)));
+				break;
+			case FEMININE:
+			case FEMININE_STRONG:
+				character.setFemininity(Math.max(Femininity.FEMININE.getMinimumFemininity(), character.getFemininityValue()+femininityVariation));
+				break;
+			case MASCULINE:
+			case MASCULINE_STRONG:
+				character.setFemininity(Math.min(Femininity.MASCULINE.getMaximumFemininity(), character.getFemininityValue()+femininityVariation));
+				break;
+		}
+		
+		// Body (muscle and size):
+		int muscleVariation = -5 + Util.random.nextInt(11); // -5 to 5
+		character.incrementMuscle(muscleVariation);
+
+		int bodySizeVariation = -5 + Util.random.nextInt(11); // -5 to 5
+		character.incrementBodySize(bodySizeVariation);
 		
 		//Breasts:
 		if(character.hasBreasts()) {
@@ -1894,6 +1938,11 @@ public class CharacterUtils {
 					&& Math.random()<0.025) {
 				character.setNippleShape(NippleShape.INVERTED);
 			}
+		}
+		if(character.isFeminine()) {
+			int nippleVariation = Util.random.nextInt(2); // 0-1
+			character.incrementNippleSize(nippleVariation);
+			character.incrementAreolaeSize(nippleVariation);
 		}
 		
 		//BreastsCrotch:
@@ -1918,6 +1967,11 @@ public class CharacterUtils {
 				character.setNippleCrotchShape(NippleShape.INVERTED);
 			}
 		}
+		if(character.isFeminine()) {
+			int nippleCrotchVariation = Util.random.nextInt(2); // 0-1
+			character.incrementNippleCrotchSize(nippleCrotchVariation);
+			character.incrementAreolaeCrotchSize(nippleCrotchVariation);
+		}
 		
 		// Face:
 		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
@@ -1930,6 +1984,10 @@ public class CharacterUtils {
 			} else {
 				character.setFaceVirgin(true);
 			}
+		}
+		if(character.isFeminine()) {
+			int lipVariation = Util.random.nextInt(2); // 0-1
+			character.incrementLipSize(lipVariation);
 		}
 		
 		// Hair:
@@ -2452,6 +2510,11 @@ public class CharacterUtils {
 		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
 			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
 			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
+		}
+
+		if(!Main.game.isArmpitContentEnabled()) {
+			availableFetishes.remove(Fetish.FETISH_ARMPIT_GIVING);
+			availableFetishes.remove(Fetish.FETISH_ARMPIT_RECEIVING);
 		}
 		
 		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
