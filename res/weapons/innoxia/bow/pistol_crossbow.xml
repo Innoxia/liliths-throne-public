@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<value>2800</value>
+		<value>3500</value>
 		<melee>false</melee>
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[a]]></determiner>
@@ -10,7 +10,7 @@
 		<description><![CDATA[Consisting of a bow-like assembly mounted horizontally on a pistol-shaped frame, this small crossbow can easily be wielded in one hand. When the string is drawn back, an arcane essence is extracted from the wielder and converted into an ethereal bolt, ready to be fired at a target.]]></description>
 		<attackDescriptor>shoot</attackDescriptor>
 		<attackTooltipDescription>Shoot [npc2.name] with your pistol crossbow.</attackTooltipDescription>
-		<rarity>COMMON</rarity>
+		<rarity>UNCOMMON</rarity>
 		<weaponSet/>
 		<equipText><![CDATA[[npc.Name] [npc.verb(draw)] [npc.her] pistol crossbow, ready to use it in combat.]]></equipText>
 		<unequipText><![CDATA[[npc.Name] [npc.verb(holster)] [npc.her] pistol crossbow.]]></unequipText>
@@ -18,17 +18,14 @@
 		<imageName>pistol_crossbow.svg</imageName> 
 		<imageEquippedName>pistol_crossbow_equipped.svg</imageEquippedName>
 		
-		<damage>20</damage> 
+		<damage>17</damage> 
 		
 		<arcaneCost>1</arcaneCost> 
 		
-		<damageVariance>MEDIUM</damageVariance> 
+		<damageVariance>LOW</damageVariance> 
 		
 		<availableDamageTypes>
 			<damageType>PHYSICAL</damageType>
-			<damageType>ICE</damageType>
-			<damageType>FIRE</damageType>
-			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
 		<spells/>
@@ -36,6 +33,24 @@
 		<enchantmentLimit>10</enchantmentLimit>
 		
 		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[
+				[style.boldExcellent(High chances)] of applying [style.boldExcellent(extra)] '[style.boldPhysical(Precision Strikes)]' damage on hit.
+			]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<65)
+			#THEN [##npc2.addStatusEffect(SE_TELEKENETIC_SHOWER_PRECISION_STRIKES, 1)] [Npc.Name] [style.boldExcellent(expertly)] lands a few '[style.boldPhysical(Precision Strikes)]' past [npc2.namePos] defense!
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<85)
+			#THEN [##npc2.addStatusEffect(SE_TELEKENETIC_SHOWER_PRECISION_STRIKES, 1)] [Npc.Name] [style.boldExcellent(expertly)] lands a few '[style.boldPhysical(Precision Strikes)]' past [npc2.namePos] defense!
+			#ENDIF
+		]]></onCriticalHitEffect>
 		
 		<primaryColours>
 			<colour>CLOTHING_BLACK_STEEL</colour>

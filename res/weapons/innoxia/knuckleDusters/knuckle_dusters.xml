@@ -20,7 +20,7 @@
 		
 		<attackTooltipDescription>Punch [npc2.name] with your knuckle dusters.</attackTooltipDescription>
 		
-		<rarity>COMMON</rarity> 
+		<rarity>UNCOMMON</rarity> 
 		
 		<equipText><![CDATA[[npc.Name] [npc.verb(fit)] [npc.her] knuckle dusters onto [npc.her] fist, so that they're ready to use in combat.]]></equipText>
 		
@@ -30,7 +30,7 @@
 		
 		<imageEquippedName/>
 		
-		<damage>15</damage> 
+		<damage>3</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		

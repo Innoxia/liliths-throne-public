@@ -13,7 +13,7 @@
 		
 		<attackDescriptor>shield-bash</attackDescriptor>
 		<attackTooltipDescription>Bash [npc2.name] with your buckler.</attackTooltipDescription>
-		<rarity>EPIC</rarity> 
+		<rarity>RARE</rarity> 
 		
 		<equipText><![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] buckler, and [npc.verb(prepare)] to use it to defend [npc.herself] in combat.]]></equipText>
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] buckler away.]]></unequipText>
@@ -22,7 +22,7 @@
 		<imageEquippedName>buckler.svg</imageEquippedName>
 		
 		<physicalResistance>5</physicalResistance> 
-		<damage>10</damage> 
+		<damage>1</damage> 
 		<arcaneCost>0</arcaneCost>
 		<damageVariance>HIGH</damageVariance> 
 		

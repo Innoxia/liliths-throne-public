@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<value>2500</value>
+		<value>1400</value>
 		<melee>false</melee>
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[rough arcane feather]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[rough arcane feather]]></namePlural>
 		<description><![CDATA[This feather is said to have been plucked from a Lilin's wings. Its arcane nature allows it to be absorbed into someone's aura to grant them the ability to cast a ranged attack. This particular feather is in rough shape, limiting its power.]]></description>
-		<attackDescriptor>feather bolt</attackDescriptor>
-		<attackTooltipDescription>Use your feather's power to shoot a bolt of energy at [npc2.name].</attackTooltipDescription>
+		<attackDescriptor>Feather bolt</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Use your feather's power to shoot a bolt of energy at [npc2.name].]]></attackTooltipDescription>
 		<rarity>RARE</rarity>
 		<weaponSet/>
 		<equipText><![CDATA[[npc.Name] [npc.verb(focus)] on the energy in the arcane feather. As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] aura, granting [npc.herHim] the ability to perform arcane-imbued attacks at range.]]></equipText>
@@ -18,7 +18,7 @@
 		<imageName>rare.svg</imageName> 
 		<imageEquippedName/>
 		
-		<damage>15</damage> 
+		<damage>5</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -31,12 +31,12 @@
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
-		<spells changeOnReforge="true">
-			<spell damageType="FIRE">FLASH</spell>
-			<spell damageType="ICE">RAIN_CLOUD</spell>
-			<spell damageType="LUST">TELEPATHIC_COMMUNICATION</spell>
-			<spell damageType="PHYSICAL">TELEKENETIC_SHOWER</spell>
-			<spell damageType="POISON">VACUUM</spell>
+		<spells>
+			<spell>FLASH</spell>
+			<spell>SOOTHING_WATERS</spell>
+			<spell>TELEPATHIC_COMMUNICATION</spell>
+			<spell>STONE_SHELL</spell>
+			<spell>VACUUM</spell>
 		</spells>
 		
 		<enchantmentLimit>10</enchantmentLimit>
@@ -64,7 +64,7 @@
 	<hitDescriptions>
 		<hitText><![CDATA[
 		#IF(npc.isFeral())
-			Harnessing the power of the arcane feather, [npc.name] materialises a bolt of arcane energy around [npc.her] body, before shooting it out to strike [npc2.name]!
+			Harnessing the power of the arcane feather, [npc.name] [npc.verb(materialise)] a bolt of arcane energy around [npc.her] body, before shooting it out to strike [npc2.name]!
 		#ELSE
 			Thrusting [npc.her] [npc.arm] out in front of [npc.herHim], a bolt of arcane energy materialises around [npc.namePos] [npc.arm], before shooting out to strike [npc2.name]!
 		#ENDIF

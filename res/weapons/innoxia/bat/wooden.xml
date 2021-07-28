@@ -4,7 +4,7 @@
 	
 		<value>600</value>
 		<melee>true</melee>
-		<twoHanded>false</twoHanded>
+		<twoHanded>true</twoHanded>
 		<determiner><![CDATA[]]></determiner>
 		<name><![CDATA[wooden bat]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[wooden bats]]></namePlural>
@@ -14,7 +14,7 @@
 		
 		<attackTooltipDescription><![CDATA[Whack [npc2.name] with your wooden bat.]]></attackTooltipDescription>
 		
-		<rarity>COMMON</rarity> 
+		<rarity>UNCOMMON</rarity> 
 		
 		<weaponSet/> 
 		
@@ -26,17 +26,14 @@
 		
 		<imageEquippedName/> 
 		
-		<damage>15</damage> 
+		<damage>20</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
-		<damageVariance>LOW</damageVariance> 
+		<damageVariance>MEDIUM</damageVariance> 
 		
 		<availableDamageTypes>
 			<damageType>PHYSICAL</damageType>
-			<damageType>FIRE</damageType>
-			<damageType>ICE</damageType>
-			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
 		<spells/>
@@ -44,6 +41,24 @@
 		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[
+				[style.boldExcellent(High chances)] of getting target '[style.boldPhysical(Dazed)]' on hit.
+			]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<65)
+			#THEN [##npc2.addStatusEffect(SE_DAZED, 3)] [npc.Name] [npc.verb(see)] [npc2.name] [style.boldBad(stumbling)] after the blow, with a '[style.boldPhysical(Dazed)]' and rather clumsy expression on [npc2.his] face.
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<65)
+			#THEN [##npc2.addStatusEffect(SE_DAZED, 3)] [npc.Name] [npc.verb(see)] [npc2.name] [style.boldBad(stumbling)] after the blow, with a '[style.boldPhysical(Dazed)]' and rather clumsy expression on [npc2.his] face.
+			#ENDIF
+		]]></onCriticalHitEffect>
 		
 		<primaryColours>
 			<colour>CLOTHING_DESATURATED_BROWN</colour>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>5000</value> 
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[dory]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[dories]]></namePlural>
+		<description><![CDATA[A long, wooden-shafted spear, almost [style.sizes(300)] from tip to butt. The arcane blade on the end has a leaf-like shape, while an arcane, spiked counterpart on the opposite end, known as a 'sauroter', acts as a counter-weight.]]></description> 
+		<attackDescriptor>skewer</attackDescriptor>
+		<attackTooltipDescription>Thrust your dory at [npc2.name] and skewer [npc2.herHim]!</attackTooltipDescription>
+		<rarity>RARE</rarity> 
+		<weaponSet/> 
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] dory as [npc.she] [npc.verb(ready)] [npc.herself] to use it in combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] away [npc.her] dory.]]></unequipText>
+		<imageName>dory.svg</imageName> 
+		<imageEquippedName>dory.svg</imageEquippedName>
+		<damage>25</damage> 
+		<arcaneCost>0</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<enchantmentLimit>10</enchantmentLimit>
+		<effects/>
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours> 
+			<colour>CLOTHING_KHAKI</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		<itemTags>
+			<tag>SOLD_BY_VICKY</tag>
+			<tag>WEAPON_BLADE</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Thrusting out with [npc.her] dory, [npc.name] [npc.verb(manage)] to stab [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] dory, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick [npc.step] forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] dory, sinking the ethereal blade into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
+		]]></hitText>
+		<criticalHitText><![CDATA[
+		Expertly sidestepping around [npc2.namePos] attempt to block [npc.her] attack, [npc.name] [npc.verb(deal)] a devastating strike with [npc.her] dory!
+		]]></criticalHitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Thrusting out with [npc.her] dory, [npc.name] [npc.verb(attempt)] to stab [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] dory, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick [npc.step] forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] dory, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

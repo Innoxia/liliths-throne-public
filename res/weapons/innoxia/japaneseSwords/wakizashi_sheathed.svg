@@ -1,12 +1,22 @@
-<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
  <defs>
   <linearGradient id="linearGradient2493" x1="213.71" x2="226.85" y1="45.45" y2="54.558" gradientTransform="rotate(-3.06 491.17 781.57)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#ffb380" offset="0"/>
    <stop stop-color="#ff7f2a" offset="1"/>
   </linearGradient>
   <linearGradient id="linearGradient2505" x1="117.64" x2="135.01" y1="151.66" y2="173.63" gradientTransform="rotate(-3.06 491.17 781.57)" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#c8b7b7" offset="0"/>
-   <stop stop-color="#916f6f" offset="1"/>
+   <stop stop-color="#fea" offset="0"/>
+   <stop stop-color="#ffd42a" offset="1"/>
   </linearGradient>
  </defs>
  <path d="m152.61 96.764c-21.614 31.153-56.298 70.74-100.72 110.45-1.182 2.413 1.959 6.917 5.322 8.82 41.79-36.547 78.727-74.322 106.14-111.56z" fill="url(#linearGradient2505)" fill-rule="evenodd" stroke="#000" stroke-width=".581"/>
@@ -20,73 +30,73 @@
   <path d="M66.657 194.794c.016.009.005.142.02.15.3.164.917.48 1.478.91.632.485.965.94 1.118 1.298-.157-.367-.425-.836-1.037-1.394a8.054 8.054 0 0 0-1.441-1.028c-.016-.009-.122.073-.138.064zM66.528 195.826c.02.035.009.187.03.225.136.237.49.832.777 1.504.141.33.254.649.327.945.1.397.109.677.09.865.02-.19.025-.465-.053-.873a6.4 6.4 0 0 0-.277-.971 11.083 11.083 0 0 0-.714-1.556c-.021-.038-.16-.104-.18-.139z"/>
   <path d="M74.717 188.716c1.666-1.352 6.8-1.239 5.576 2.052-.681 1.832-3.31 2.353-3.124.864.629.414 1.193-.835.32-.948-.525-.069-.672.153-.823.82-.49 2.153 3.175 2.16 4.074-.653 1.085-3.392-2.447-3.736-4.02-3.482.915-.745 1.099-1.774.697-2.502 0 0-.471.358-.445.361.404.89-.484 1.978-2.028 2.726zM60.608 204.103c1.491 1.543 3.113 5.912-.384 5.6-1.947-.173-3.144-2.57-1.658-2.785-.234.717 1.12.931.998.058-.072-.524-.324-.607-1.009-.577-2.205.097-1.245 3.634 1.707 3.758 3.559.15 2.86-3.372 2.342-4.253.794.7 2.377 1.83 4.167.279 2.254-1.953-.295-3.495-.792-3.613-.999-.238-1.502.06-1.295.8.168.601 1.146.738 1.176-.248.496.04 2.228 1.082.427 2.595-1.82 1.531-2.829.314-5.241-2.005a38.11 38.11 0 0 0-2.603-2.267l-.566.501c.993.57 1.899 1.297 2.73 2.157z" fill-rule="evenodd" stroke="#000" stroke-width=".234"/>
  </g>
- <g fill-rule="evenodd" stroke="#000">
-  <path d="M153.345 109.609c-.064-.635-.757-.596-.4-.936.343-.326.858-.531 1.504-.644.557-1.74 2.154-1.098 2.209-.9 1.324-.834 2.824-.044 2.184 1.795.388.208.585.44.663.692a270.366 270.366 0 0 1-4.393 5.815c-.586.094-1.18.162-1.705.243.624-2.229 1.255-4.543-.062-6.065zM152.09 116.397c-1.04 1.492-1.568 3.666-3.96 3.354-.9.869-1.861.645-2.86-.247-1.712.643-2.198-1.009-2.077-1.174-1.475-.521-1.786-2.188.053-2.827-.514-1.267.705-1.84 1.495-1.624.127-.57.47-.862.865-.986.238.546-.052 1.106 1.252 1.436 1.234 2.234 3.15 1.866 5.232 2.068z" fill="#ac9d93" stroke-width=".291"/>
-  <path d="m185.9 50.962s7.434 5.101 7.542 4.987 5.38-9.558 5.38-9.558c-1.535-2.43-3.691-4.1-7.023-4.332z" fill="#ffe680" stroke-width="1.162"/>
-  <path d="M193.294 57.63l-3.9-1.019 2.1-3.384 2.172 1.574 1.23-1.983c-2.296-1.053.54-5.835 2.04-3.98 0 0 .551-1.284.482-1.898-.126-1.113-2.032-.717-3.126-1.459-.954-.646-1.049-2.519-1.91-2.371-.84.144-1.566 1.062-1.566 1.062 2.328.49-.308 6.978-2.442 4.302l-1.453 1.988 1.694.848-.879 3.157-3.853-2.435c.316-.537.257-1.792.571-2.325 1.625-2.759 3.614-4.737 5.328-7.22.647-.936 2.353-2.105 3.7-1.21 0 0 2.135.38 2.936.912.799.531 1.863 2.277 1.863 2.277 1.634 1.086 1.694 2.576.846 3.915-1.63 2.575-2.567 5.554-4.265 8.17-.324.5-1.228.573-1.568 1.078z" fill="#fd5" stroke-width=".581"/>
-  <path d="m184.3 51.416c1.645 0.996 2.575 1.353 3.513 1.899 2.673-6.071 8.773-4.298 2.658 2.55l2.944 1.696c-13.201 20.706-13.445 20.989-26.259 40.72l-10.357-7.533c14.136-20.039 21.339-29.726 27.501-39.332z" fill="url(#linearGradient2493)" stroke-width=".581"/>
-  <path d="m156.92 90.59-3.311 4.46 10.535 7.475c0.984-1.235 2.262-2.843 3.454-4.868-3.895-2.3353-7.6517-4.6225-10.678-7.067z" fill="#fd5" stroke-width=".581"/>
-  <path d="M147.906 93.038c-2.495-1.977-1.21-3.192 1.241-1.51 7.043 4.835 13.83 9.897 19.629 14.563 2.422 1.949.835 2.93-1.143 1.527-6.687-4.742-13.342-9.519-19.727-14.58z" fill="#ffe680" stroke-width=".581"/>
- </g>
- <g fill="#c8beb7" stroke="#000" stroke-linecap="square" stroke-width=".471">
-  <ellipse transform="rotate(-46.489)" cx="33.55" cy="179.44" rx=".835" ry=".737" paint-order="stroke fill markers"/>
-  <ellipse transform="rotate(-46.489)" cx="34.246" cy="184.47" rx=".835" ry=".737" paint-order="stroke fill markers"/>
-  <ellipse transform="rotate(-46.489)" cx="34.803" cy="189.29" rx=".835" ry=".737" paint-order="stroke fill markers"/>
- </g>
- <g fill="#fca" stroke="#000" stroke-linecap="square">
-  <ellipse transform="rotate(-46.489)" cx="41.767" cy="187.7" rx="1.024" ry=".954" stroke-width=".594" paint-order="stroke fill markers"/>
-  <circle transform="rotate(-46.489)" cx="41.196" cy="183.08" r="1.005" stroke-width=".604" paint-order="stroke fill markers"/>
-  <ellipse transform="rotate(-46.489)" cx="40.722" cy="178.4" rx="1.012" ry=".956" stroke-width=".591" paint-order="stroke fill markers"/>
- </g>
- <path d="m167.52 94.755-2.165-4.436-5.27-1.085zm2.915-4.932-3.997-0.737-2.798-4.12 4.692 1.066zm3.221-4.673-3.997-0.737-2.799-4.12 4.692 1.066zm3.361-4.73-3.997-0.738-2.799-4.119 4.692 1.065zm3.22-4.674-3.997-0.737-2.798-4.119 4.692 1.065zm3.04-4.806-3.997-0.736-2.799-4.12 4.692 1.066zm2.991-4.945-3.997-0.737-2.8-4.119 4.693 1.065zm3.168-4.642-3.997-0.737-2.799-4.12 4.692 1.066z" fill="#ffe680" fill-rule="evenodd" stroke="#000" stroke-width=".581"/>
- <g fill="#fca" stroke="#000" stroke-linecap="square">
-  <g stroke-width=".591">
-   <ellipse transform="rotate(-46.489)" cx="96.844" cy="169.44" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
-   <ellipse transform="rotate(-46.489)" cx="98.105" cy="176.92" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
-   <ellipse transform="rotate(-46.489)" cx="103.01" cy="171.78" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
-  </g>
-  <ellipse transform="rotate(-46.489)" cx="93.042" cy="179.16" rx=".628" ry=".6" stroke-width=".369" paint-order="stroke fill markers"/>
-  <ellipse transform="rotate(-46.489)" cx="91.35" cy="169.05" rx=".628" ry=".6" stroke-width=".369" paint-order="stroke fill markers"/>
- </g>
  <g stroke="#000">
-  <path d="m135.77 124.06c-2.167-1.843-0.014-5.38 2.592-3.188l5.527 4.649c1.869 1.572-0.598 4.936-2.62 3.217z" fill="#fd5" fill-rule="evenodd" stroke-width=".581"/>
-  <ellipse transform="rotate(-46.489)" cx="5.509" cy="183.57" rx="1.012" ry=".956" fill="#c8beb7" stroke-linecap="square" stroke-width=".591" paint-order="stroke fill markers"/>
-  <ellipse transform="rotate(-46.489)" cx="5.942" cy="190.81" rx="1.012" ry=".956" fill="#c8beb7" stroke-linecap="square" stroke-width=".591" paint-order="stroke fill markers"/>
-  <path d="m100.73 162.47c-2.1181-2.5992-0.66268-4.6978 1.7874-1.5176 1.7567 2.2787 4.7891 5.136 5.968 6.0729 2.254 1.7905 0.78065 3.5763-1.6301 1.584-0.83504-0.69043-1.6743-1.4911-2.5124-2.2841l-1.1703 0.95368c0.769 2.0027-3.9429 5.4722-5.6328 3.705-1.6169-1.6896 2.4392-6.3351 4.1512-5.2956l0.9994-0.81234z" fill="#ffe680" fill-rule="evenodd" stroke-width=".581"/>
- </g>
- <g fill="#c8beb7" stroke="#000" stroke-linecap="square">
-  <ellipse transform="rotate(-46.488)" cx="-54.12" cy="188.75" rx="1.012" ry=".956" stroke-width=".591" style="paint-order:stroke fill markers"/>
-  <g stroke-width=".395">
-   <ellipse transform="rotate(-46.488)" cx="-48.577" cy="189.12" rx=".692" ry=".623" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-46.488)" cx="-47.185" cy="184.43" rx=".692" ry=".623" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-46.488)" cx="-47.519" cy="193.9" rx=".692" ry=".623" style="paint-order:stroke fill markers"/>
+  <g fill-rule="evenodd">
+   <path d="M153.345 109.609c-.064-.635-.757-.596-.4-.936.343-.326.858-.531 1.504-.644.557-1.74 2.154-1.098 2.209-.9 1.324-.834 2.824-.044 2.184 1.795.388.208.585.44.663.692a270.366 270.366 0 0 1-4.393 5.815c-.586.094-1.18.162-1.705.243.624-2.229 1.255-4.543-.062-6.065zM152.09 116.397c-1.04 1.492-1.568 3.666-3.96 3.354-.9.869-1.861.645-2.86-.247-1.712.643-2.198-1.009-2.077-1.174-1.475-.521-1.786-2.188.053-2.827-.514-1.267.705-1.84 1.495-1.624.127-.57.47-.862.865-.986.238.546-.052 1.106 1.252 1.436 1.234 2.234 3.15 1.866 5.232 2.068z" fill="#ac9d93" stroke-width=".291"/>
+   <path d="m185.9 50.962s7.434 5.101 7.542 4.987 5.38-9.558 5.38-9.558c-1.535-2.43-3.691-4.1-7.023-4.332z" fill="#dde9af" stroke-width="1.162"/>
+   <g stroke-width=".581">
+    <path d="M193.294 57.63l-3.9-1.019 2.1-3.384 2.172 1.574 1.23-1.983c-2.296-1.053.54-5.835 2.04-3.98 0 0 .551-1.284.482-1.898-.126-1.113-2.032-.717-3.126-1.459-.954-.646-1.049-2.519-1.91-2.371-.84.144-1.566 1.062-1.566 1.062 2.328.49-.308 6.978-2.442 4.302l-1.453 1.988 1.694.848-.879 3.157-3.853-2.435c.316-.537.257-1.792.571-2.325 1.625-2.759 3.614-4.737 5.328-7.22.647-.936 2.353-2.105 3.7-1.21 0 0 2.135.38 2.936.912.799.531 1.863 2.277 1.863 2.277 1.634 1.086 1.694 2.576.846 3.915-1.63 2.575-2.567 5.554-4.265 8.17-.324.5-1.228.573-1.568 1.078z" fill="#bcd35f"/>
+    <path d="m184.3 51.416c1.645 0.996 2.575 1.353 3.513 1.899 2.673-6.071 8.773-4.298 2.658 2.55l2.944 1.696c-13.201 20.706-13.445 20.989-26.259 40.72l-10.357-7.533c14.136-20.039 21.339-29.726 27.501-39.332z" fill="url(#linearGradient2493)"/>
+    <path d="m156.92 90.59-3.311 4.46 10.535 7.475c0.984-1.235 2.262-2.843 3.454-4.868-3.895-2.3353-7.6517-4.6225-10.678-7.067z" fill="#bcd35f"/>
+    <path d="M147.906 93.038c-2.495-1.977-1.21-3.192 1.241-1.51 7.043 4.835 13.83 9.897 19.629 14.563 2.422 1.949.835 2.93-1.143 1.527-6.687-4.742-13.342-9.519-19.727-14.58z" fill="#dde9af"/>
+   </g>
   </g>
- </g>
- <g stroke="#000">
-  <path d="m100.24 176.5c-1.4538-0.21852-2.7576 0.2782-3.9105 1.5028-5.8533-0.85958-5.1078 4.3784-3.3372 4.6518-3.4326 4.0379-12.403 12.359-28.026 26.307-0.98517 0.87945-1.8797 0.70796-3.002 1.7585-0.24388-1.3278-1.9448-1.7529-3.7069-0.11722-2.7339 2.5363-0.83624 3.4554 0.21874 3.7307-0.68248 0.59433-2.0293 1.2036-2.7687 0.39229-0.69657-0.76308 0.41131-1.508-0.87287-3.1914-1.4568-1.9111-3.5985 0.84372-2.6951-1.9174 1.1031-3.3712 1.1468 0.93401 4.1934-1.4005 0.79956-0.61389 1.6701-3.1256 0.077-2.7875 1.1498-0.97574 1.3753-2.3754 1.4668-2.7051 2.6477-2.411 10.389-9.1833 14.706-13.396 2.3531 3.6236 5.1356-0.19903 4.5814-3.1954 2.368-2.2322 1.7594-4.0539 1.5221-4.2732-0.17692-0.16225-7.0592 7.1062-15.372 14.911-5.4359 5.1059-10.829 9.4595-11.056 9.6824-2.4974 2.4566-2.8307 3.6124-2.1997 4.5908 0.68462 1.0628 2.452 3.1219 4.4405 5.0478 1.1303 1.0952 2.6694 0.3021 3.3095-0.0684 5.1305-2.9748 36.086-31.677 36.272-33.146 1.2422-0.54024 6.3856-6.1737 6.1593-6.3767z" fill="#ffe680" fill-rule="evenodd" stroke-width=".581"/>
-  <ellipse transform="rotate(-52.71)" cx="-87.526" cy="184.1" rx=".831" ry=".741" fill="#c8beb7" stroke-linecap="square" stroke-width=".472" style="paint-order:stroke fill markers"/>
-  <path d="m80.499 183.38c-2.075-2.4694-0.78405-4.5794 1.6993-1.6218 1.7805 2.1199 4.8218 4.7172 5.9993 5.5558 2.2519 1.6036 0.80556 3.545-1.5441 1.677-3.1351-2.4922-4.8364-4.0403-6.1545-5.611z" fill="#ffe680" fill-rule="evenodd" stroke-width=".57"/>
-  <path d="m68.239 194.72c-2.01-2.3936-0.75542-4.4424 1.6513-1.5748 1.7232 2.0548 4.6715 4.5731 5.8112 5.385 2.1828 1.5534 0.77893 3.439-1.4983 1.628-3.0374-2.4155-4.6853-3.9154-5.9642-5.4383zm-10.434 9.5596c-1.9717-2.4265-0.68606-4.4546 1.6748-1.55 1.6916 2.0817 4.599 4.6465 5.7271 5.4762 2.1574 1.5884 0.72443 3.451-1.524 1.6042-2.9992-2.4619-4.6241-3.9881-5.8779-5.5302z" fill="#ffe680" fill-rule="evenodd" stroke-width=".553"/>
- </g>
- <g fill="#c8beb7" stroke="#000" stroke-linecap="square">
-  <g stroke-width=".373">
-   <ellipse transform="rotate(-51.49)" cx="-109.3" cy="178.74" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-51.49)" cx="-108.72" cy="174.26" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-51.49)" cx="-109.22" cy="183.26" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-48.976)" cx="-115.42" cy="181.54" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-48.976)" cx="-114.85" cy="177.07" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-48.976)" cx="-115.35" cy="186.07" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-49.414)" cx="-85.611" cy="179.8" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-49.414)" cx="-86.109" cy="188.8" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+  <g fill="#faa" stroke-linecap="square" stroke-width=".471">
+   <ellipse transform="rotate(-46.489)" cx="33.55" cy="179.44" rx=".835" ry=".737" paint-order="stroke fill markers"/>
+   <ellipse transform="rotate(-46.489)" cx="34.246" cy="184.47" rx=".835" ry=".737" paint-order="stroke fill markers"/>
+   <ellipse transform="rotate(-46.489)" cx="34.803" cy="189.29" rx=".835" ry=".737" paint-order="stroke fill markers"/>
   </g>
-  <g stroke-width=".591">
-   <ellipse transform="rotate(-52.71)" cx="-103.93" cy="173.53" rx="1.012" ry=".956" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-52.71)" cx="-132.75" cy="176.18" rx="1.012" ry=".956" style="paint-order:stroke fill markers"/>
-   <ellipse transform="rotate(-52.71)" cx="-131.23" cy="168.56" rx="1.012" ry=".956" style="paint-order:stroke fill markers"/>
+  <g fill="#faa" stroke-linecap="square">
+   <ellipse transform="rotate(-46.489)" cx="41.767" cy="187.7" rx="1.024" ry=".954" stroke-width=".594" paint-order="stroke fill markers"/>
+   <circle transform="rotate(-46.489)" cx="41.196" cy="183.08" r="1.005" stroke-width=".604" paint-order="stroke fill markers"/>
+   <ellipse transform="rotate(-46.489)" cx="40.722" cy="178.4" rx="1.012" ry=".956" stroke-width=".591" paint-order="stroke fill markers"/>
   </g>
-  <ellipse transform="rotate(-52.71)" cx="-136.86" cy="171.51" rx=".86" ry=".805" stroke-width=".5" style="paint-order:stroke fill markers"/>
+  <path d="m167.52 94.755-2.165-4.436-5.27-1.085zm2.915-4.932-3.997-0.737-2.798-4.12 4.692 1.066zm3.221-4.673-3.997-0.737-2.799-4.12 4.692 1.066zm3.361-4.73-3.997-0.738-2.799-4.119 4.692 1.065zm3.22-4.674-3.997-0.737-2.798-4.119 4.692 1.065zm3.04-4.806-3.997-0.736-2.799-4.12 4.692 1.066zm2.991-4.945-3.997-0.737-2.8-4.119 4.693 1.065zm3.168-4.642-3.997-0.737-2.799-4.12 4.692 1.066z" fill="#ff8080" fill-rule="evenodd" stroke-width=".581"/>
+  <g fill="#faa" stroke-linecap="square">
+   <g stroke-width=".591">
+    <ellipse transform="rotate(-46.489)" cx="96.844" cy="169.44" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
+    <ellipse transform="rotate(-46.489)" cx="98.105" cy="176.92" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
+    <ellipse transform="rotate(-46.489)" cx="103.01" cy="171.78" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
+   </g>
+   <ellipse transform="rotate(-46.489)" cx="93.042" cy="179.16" rx=".628" ry=".6" stroke-width=".369" paint-order="stroke fill markers"/>
+   <ellipse transform="rotate(-46.489)" cx="91.35" cy="169.05" rx=".628" ry=".6" stroke-width=".369" paint-order="stroke fill markers"/>
+  </g>
+  <path d="m135.77 124.06c-2.167-1.843-0.014-5.38 2.592-3.188l5.527 4.649c1.869 1.572-0.598 4.936-2.62 3.217z" fill="#dde9af" fill-rule="evenodd" stroke-width=".581"/>
+  <ellipse transform="rotate(-46.489)" cx="5.509" cy="183.57" rx="1.012" ry=".956" fill="#faa" stroke-linecap="square" stroke-width=".591" paint-order="stroke fill markers"/>
+  <ellipse transform="rotate(-46.489)" cx="5.942" cy="190.81" rx="1.012" ry=".956" fill="#faa" stroke-linecap="square" stroke-width=".591" paint-order="stroke fill markers"/>
+  <path d="m100.73 162.47c-2.1181-2.5992-0.66268-4.6978 1.7874-1.5176 1.7567 2.2787 4.7891 5.136 5.968 6.0729 2.254 1.7905 0.78065 3.5763-1.6301 1.584-0.83504-0.69043-1.6743-1.4911-2.5124-2.2841l-1.1703 0.95368c0.769 2.0027-3.9429 5.4722-5.6328 3.705-1.6169-1.6896 2.4392-6.3351 4.1512-5.2956l0.9994-0.81234z" fill="#dde9af" fill-rule="evenodd" stroke-width=".581"/>
+  <g fill="#faa" stroke-linecap="square">
+   <ellipse transform="rotate(-46.488)" cx="-54.12" cy="188.75" rx="1.012" ry=".956" stroke-width=".591" style="paint-order:stroke fill markers"/>
+   <g stroke-width=".395">
+    <ellipse transform="rotate(-46.488)" cx="-48.577" cy="189.12" rx=".692" ry=".623" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-46.488)" cx="-47.185" cy="184.43" rx=".692" ry=".623" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-46.488)" cx="-47.519" cy="193.9" rx=".692" ry=".623" style="paint-order:stroke fill markers"/>
+   </g>
+  </g>
+  <path d="m100.24 176.5c-1.4538-0.21852-2.7576 0.2782-3.9105 1.5028-5.8533-0.85958-5.1078 4.3784-3.3372 4.6518-3.4326 4.0379-12.403 12.359-28.026 26.307-0.98517 0.87945-1.8797 0.70796-3.002 1.7585-0.24388-1.3278-1.9448-1.7529-3.7069-0.11722-2.7339 2.5363-0.83624 3.4554 0.21874 3.7307-0.68248 0.59433-2.0293 1.2036-2.7687 0.39229-0.69657-0.76308 0.41131-1.508-0.87287-3.1914-1.4568-1.9111-3.5985 0.84372-2.6951-1.9174 1.1031-3.3712 1.1468 0.93401 4.1934-1.4005 0.79956-0.61389 1.6701-3.1256 0.077-2.7875 1.1498-0.97574 1.3753-2.3754 1.4668-2.7051 2.6477-2.411 10.389-9.1833 14.706-13.396 2.3531 3.6236 5.1356-0.19903 4.5814-3.1954 2.368-2.2322 1.7594-4.0539 1.5221-4.2732-0.17692-0.16225-7.0592 7.1062-15.372 14.911-5.4359 5.1059-10.829 9.4595-11.056 9.6824-2.4974 2.4566-2.8307 3.6124-2.1997 4.5908 0.68462 1.0628 2.452 3.1219 4.4405 5.0478 1.1303 1.0952 2.6694 0.3021 3.3095-0.0684 5.1305-2.9748 36.086-31.677 36.272-33.146 1.2422-0.54024 6.3856-6.1737 6.1593-6.3767z" fill="#dde9af" fill-rule="evenodd" stroke-width=".581"/>
+  <ellipse transform="rotate(-52.71)" cx="-87.526" cy="184.1" rx=".831" ry=".741" fill="#faa" stroke-linecap="square" stroke-width=".472" style="paint-order:stroke fill markers"/>
+  <path d="m80.499 183.38c-2.075-2.4694-0.78405-4.5794 1.6993-1.6218 1.7805 2.1199 4.8218 4.7172 5.9993 5.5558 2.2519 1.6036 0.80556 3.545-1.5441 1.677-3.1351-2.4922-4.8364-4.0403-6.1545-5.611z" fill="#eef4d7" fill-rule="evenodd" stroke-width=".57"/>
+  <path d="m68.239 194.72c-2.01-2.3936-0.75542-4.4424 1.6513-1.5748 1.7232 2.0548 4.6715 4.5731 5.8112 5.385 2.1828 1.5534 0.77893 3.439-1.4983 1.628-3.0374-2.4155-4.6853-3.9154-5.9642-5.4383zm-10.434 9.5596c-1.9717-2.4265-0.68606-4.4546 1.6748-1.55 1.6916 2.0817 4.599 4.6465 5.7271 5.4762 2.1574 1.5884 0.72443 3.451-1.524 1.6042-2.9992-2.4619-4.6241-3.9881-5.8779-5.5302z" fill="#eef4d7" fill-rule="evenodd" stroke-width=".553"/>
+  <g fill="#faa" stroke-linecap="square">
+   <g stroke-width=".373">
+    <ellipse transform="rotate(-51.49)" cx="-109.3" cy="178.74" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-51.49)" cx="-108.72" cy="174.26" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-51.49)" cx="-109.22" cy="183.26" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-48.976)" cx="-115.42" cy="181.54" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-48.976)" cx="-114.85" cy="177.07" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-48.976)" cx="-115.35" cy="186.07" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-49.414)" cx="-85.611" cy="179.8" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-49.414)" cx="-86.109" cy="188.8" rx=".651" ry=".59" style="paint-order:stroke fill markers"/>
+   </g>
+   <g stroke-width=".591">
+    <ellipse transform="rotate(-52.71)" cx="-103.93" cy="173.53" rx="1.012" ry=".956" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-52.71)" cx="-132.75" cy="176.18" rx="1.012" ry=".956" style="paint-order:stroke fill markers"/>
+    <ellipse transform="rotate(-52.71)" cx="-131.23" cy="168.56" rx="1.012" ry=".956" style="paint-order:stroke fill markers"/>
+   </g>
+   <ellipse transform="rotate(-52.71)" cx="-136.86" cy="171.51" rx=".86" ry=".805" stroke-width=".5" style="paint-order:stroke fill markers"/>
+  </g>
+  <path d="M152.597 115.85c-1.888-.407-4.38.508-5.331-1.95-1.193-.373-1.457-1.325-1.152-2.63-1.383-1.194-.166-2.411.036-2.384-.247-1.544 1.067-2.615 2.508-1.307.867-1.058 1.954-.26 2.142.536 1.487-.427 1.987 1.413 1.821 1.844 1.755.886.326 4.048-.024 5.892z" fill="#ac9d93" fill-rule="evenodd" stroke-width=".291"/>
  </g>
- <path d="M152.597 115.85c-1.888-.407-4.38.508-5.331-1.95-1.193-.373-1.457-1.325-1.152-2.63-1.383-1.194-.166-2.411.036-2.384-.247-1.544 1.067-2.615 2.508-1.307.867-1.058 1.954-.26 2.142.536 1.487-.427 1.987 1.413 1.821 1.844 1.755.886.326 4.048-.024 5.892z" fill="#ac9d93" fill-rule="evenodd" stroke="#000" stroke-width=".291"/>
  <path d="M152.543 115.665l.193-.115c-.554-.932-1.615-2.692-2.635-3.88-1.191-1.387-2.464-2.255-3.66-3.008 1.184.746 2.42 1.725 3.485 3.149.873 1.166 1.903 3.094 2.424 3.969l.193-.115z"/>
  <path d="M150.178 112.23c.01-.035.154-.108.164-.144.073-.248.248-.93.325-1.597.039-.333.052-.645.035-.933a2.828 2.828 0 0 0-.162-.824c.064.178.119.445.112.825-.005.284-.045.59-.109.913-.126.634-.356 1.316-.425 1.55-.01.036.07.175.06.21z"/>
  <path d="M150.4 112.076c-.017.002-.072-.093-.089-.092-.203.007-.495-.014-.91-.15a6.198 6.198 0 0 1-1.084-.492c-.37-.208-.724-.44-1.017-.642a22.543 22.543 0 0 1-.802-.582c.271.209.507.406.779.614.284.218.625.467.99.696.373.234.736.426 1.08.557.424.161.742.201.971.193.019 0 .065-.1.082-.102zM151.131 113.288l-.05-.177a2.69 2.69 0 0 1-1.28.047 4.677 4.677 0 0 1-1.271-.467 9.845 9.845 0 0 1-1.137-.71c-.336-.24-.809-.602-.874-.652.158.122.429.372.83.71.301.253.675.55 1.089.812.421.266.855.476 1.296.595.599.162 1.086.122 1.448.02l-.05-.178z"/>

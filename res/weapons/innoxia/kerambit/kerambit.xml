@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<value>1500</value> 
+		<value>3000</value> 
 		<melee>true</melee>
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[a]]></determiner>
@@ -13,7 +13,7 @@
 		
 		<attackTooltipDescription><![CDATA[Slash at [npc2.name] with your kerambit.]]></attackTooltipDescription>
 		
-		<rarity>COMMON</rarity> 
+		<rarity>RARE</rarity> 
 		
 		<weaponSet/> 
 		
@@ -25,16 +25,13 @@
 		
 		<physicalResistance>0</physicalResistance> 
 		
-		<damage>20</damage> 
+		<damage>12</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
 		<damageVariance>HIGH</damageVariance> 
 		
 		<availableDamageTypes>
-			<damageType>PHYSICAL</damageType>
-			<damageType>ICE</damageType>
-			<damageType>FIRE</damageType>
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
@@ -42,18 +39,43 @@
 		
 		<enchantmentLimit>5</enchantmentLimit>
 		
-		<effects/>
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+		</effects>
+		
+		<extraEffects>
+			<effect><![CDATA[
+				[style.boldExcellent(High chances)] of '[style.boldPoison(Venom)]' infliction on hit.
+			]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<75)
+			#THEN [##npc2.addStatusEffect(SE_POISONED, 4)] [npc2.Name] [style.boldTerrible([npc2.verb(struggle)])] to defend [npc2.herself] as [npc2.her] vision gets blurred from the '[style.boldPoison(Venom)]' taking its toll on [npc2.his] body.
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<90)
+			#THEN [##npc2.addStatusEffect(SE_POISONED, 4)] [npc2.Name] [style.boldTerrible([npc2.verb(struggle)])] to defend [npc2.herself] as [npc2.her] vision gets blurred from the '[style.boldPoison(Venom)]' taking its toll on [npc2.his] body.
+			#ENDIF
+		]]></onCriticalHitEffect>
 		
 		<primaryColours>
 			<colour>CLOTHING_DESATURATED_BROWN</colour>
 		</primaryColours>
-		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<primaryColoursDye values="ALL"/>
 		<secondaryColours>
-			<colour>CLOTHING_BLACK_STEEL</colour>
-			<colour>CLOTHING_STEEL</colour>
-			<colour>CLOTHING_BRASS</colour>
-		</secondaryColours> 
-		<secondaryColoursDye values="ALL_WITH_METALS"/>
+			<colour>CLOTHING_GREY_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_BRASS"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<quaternaryColours values="JUST_BRASS"/>
+		<quaternaryColoursDye values="ALL_METAL"/>
+		<quinaryColours values="JUST_BRASS"/>
+		<quinaryColoursDye values="ALL_METAL"/>
 		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>

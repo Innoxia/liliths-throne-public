@@ -62,7 +62,7 @@
 		<physicalResistance>0</physicalResistance> 
 		
 		<!-- The base damage that this weapon deals. -->
-		<damage>20</damage>
+		<damage>15</damage>
 		<!-- If you want to define additional AoE damages, use this format (an example of it in use can be found in 'res/weapons/innoxia/lightningGlobe/lightning_globe.xml'):
 		<aoe chance="50">10</aoe> 50% chance of hitting an additional enemy (who has not been hit yet) for 10 damage
 		<aoe chance="25">5</aoe> 25% chance of hitting an additional enemy (who has not been hit yet) for 5 damage
@@ -192,10 +192,20 @@
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
 		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
-		<primaryColours recolouringAllowed="true" values="JUST_STEEL"/> <!-- You can leave the attribute 'recolouringAllowed' out of colour definitions. If you want the player to be unable to change this colour, then set it as false. This is only used in very niche situations (such as for the filly choker).-->
-		<primaryColoursDye values="ALL_METAL"/>
-		<secondaryColours values="JUST_BLACK"/> 
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK_JET</colour>
+		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_GOLD"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<quaternaryColours values="JUST_GOLD"/>
+		<quaternaryColoursDye values="ALL_METAL"/>
+		<quinaryColours values="JUST_GOLD"/>
+		<quinaryColoursDye values="ALL_METAL"/>
 		
 		<!-- You can define any number of custom colours to replace the shades you've coloured your svg with.
 		If you have used the primary/secondary/tertiary elements up above, then do not use their associated colour hexes.

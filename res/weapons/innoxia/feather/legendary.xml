@@ -8,7 +8,7 @@
 		<name><![CDATA[pristine arcane feather]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[pristine arcane feather]]></namePlural>
 		<description><![CDATA[This feather is said to have been plucked from a Lilin's wings. Its arcane nature allows it to be absorbed into someone's aura to grant them the ability to cast a ranged attack. This particular feather is in pristine condition, granting immense power.]]></description>
-		<attackDescriptor>feather bolt</attackDescriptor>
+		<attackDescriptor>Feather bolt</attackDescriptor>
 		<attackTooltipDescription>Use your feather's power to shoot a bolt of energy at [npc2.name].</attackTooltipDescription>
 		<rarity>LEGENDARY</rarity>
 		<weaponSet/>
@@ -31,12 +31,12 @@
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
-		<spells changeOnReforge="true">
-			<spell damageType="FIRE">FLASH</spell>
-			<spell damageType="ICE">RAIN_CLOUD</spell>
-			<spell damageType="LUST">TELEPATHIC_COMMUNICATION</spell>
-			<spell damageType="PHYSICAL">TELEKENETIC_SHOWER</spell>
-			<spell damageType="POISON">VACUUM</spell>
+		<spells>
+			<spell>FLASH</spell>
+			<spell>SOOTHING_WATERS</spell>
+			<spell>TELEPATHIC_COMMUNICATION</spell>
+			<spell>STONE_SHELL</spell>
+			<spell>VACUUM</spell>
 		</spells>
 		
 		<enchantmentLimit>10</enchantmentLimit>

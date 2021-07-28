@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>katana.svg</imageEquippedName> 
 		
-		<damage>35</damage> 
+		<damage>25</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -56,14 +56,40 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
 		</effects>
 		
+		<extraEffects>
+			<effect><![CDATA[
+				[style.boldGood(Moderate chances)] of applying [style.boldExcellent(extra)] '[style.boldPhysical(Precision Strikes)]' damage on hit.
+			]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<35)
+			#THEN [##npc2.addStatusEffect(SE_TELEKENETIC_SHOWER_PRECISION_STRIKES, 1)] [Npc.Name] [style.boldExcellent(expertly)] lands a few '[style.boldPhysical(Precision Strikes)]' past [npc2.namePos] defense!
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<55)
+			#THEN [##npc2.addStatusEffect(SE_TELEKENETIC_SHOWER_PRECISION_STRIKES, 1)] [Npc.Name] [style.boldExcellent(expertly)] lands a few '[style.boldPhysical(Precision Strikes)]' past [npc2.namePos] defense!
+			#ENDIF
+		]]></onCriticalHitEffect>
+		
 		<primaryColours>
-			<colour>CLOTHING_TAN</colour>
-		</primaryColours> 
+			<colour>CLOTHING_WHITE</colour>
+		</primaryColours>
 		<primaryColoursDye values="ALL"/>
-		<secondaryColours> 
-			<colour>CLOTHING_BLACK</colour>
-		</secondaryColours> 
+		<secondaryColours>
+			<colour>CLOTHING_BLUE_NAVY</colour>
+		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_BRONZE"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<quaternaryColours values="JUST_BRONZE"/>
+		<quaternaryColoursDye values="ALL_METAL"/>
+		<quinaryColours>
+			<colour>CLOTHING_YELLOW</colour>
+		</quinaryColours>
+		<quinaryColoursDye values="ALL"/>
 		
 		<customColours>
 			<customColour c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">

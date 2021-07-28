@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>wakizashi.svg</imageEquippedName> 
 		
-		<damage>25</damage> 
+		<damage>17</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -54,14 +54,40 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
 		</effects>
 		
+		<extraEffects>
+			<effect><![CDATA[
+				[style.boldExcellent(High chances)] of '[style.boldHealth(Wounding)]' target on hit.
+			]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<65)
+			#THEN [##npc2.addStatusEffect(SE_CRIPPLE, 4)] [Npc2.Name] [npc2.verb(sense)] [npc2.his] [style.boldHealth(Life Energy)] [style.boldTerrible(vanish)] after suffering a '[style.boldHealth(Wound)]' from [npc.namePos] attrack!
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<90)
+			#THEN [##npc2.addStatusEffect(SE_CRIPPLE, 4)] [Npc2.Name] [npc2.verb(sense)] [npc2.his] [style.boldHealth(Life Energy)] [style.boldTerrible(vanish)] after suffering a '[style.boldHealth(Wound)]' from [npc.namePos] attrack!
+			#ENDIF
+		]]></onCriticalHitEffect>
+		
 		<primaryColours>
-			<colour>CLOTHING_TAN</colour>
-		</primaryColours> 
+			<colour>CLOTHING_WHITE</colour>
+		</primaryColours>
 		<primaryColoursDye values="ALL"/>
-		<secondaryColours> 
-			<colour>CLOTHING_BLACK</colour>
-		</secondaryColours> 
+		<secondaryColours>
+			<colour>CLOTHING_YELLOW</colour>
+		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_BRONZE"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<quaternaryColours values="JUST_BRONZE"/>
+		<quaternaryColoursDye values="ALL_METAL"/>
+		<quinaryColours>
+			<colour>CLOTHING_YELLOW</colour>
+		</quinaryColours>
+		<quinaryColoursDye values="ALL"/>
 		
 		<customColours>
 			<customColour c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">

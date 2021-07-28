@@ -17,14 +17,11 @@
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] riding crop away.]]></unequipText>
 		<imageName>riding_crop.svg</imageName> 
 		<imageEquippedName/> 
-		<damage>8</damage> 
+		<damage>15</damage> 
 		<arcaneCost>0</arcaneCost> 
 		<damageVariance>LOW</damageVariance> 
 		<availableDamageTypes>
-			<damageType>PHYSICAL</damageType>
-			<damageType>ICE</damageType>
-			<damageType>FIRE</damageType>
-			<damageType>POISON</damageType>
+			<damageType>LUST</damageType>
 		</availableDamageTypes>
 		
 		<spells/>
@@ -50,6 +47,7 @@
 		
 		<itemTags> 
 			<tag>SOLD_BY_FINCH</tag>
+			<tag>SOLD_BY_VICKY</tag>
 		</itemTags>
 		
 	</coreAttributes>

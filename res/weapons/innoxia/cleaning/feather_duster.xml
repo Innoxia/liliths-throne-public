@@ -22,11 +22,11 @@
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] feather duster away.]]></unequipText>
 		<imageName>feather_duster.svg</imageName> 
 		<imageEquippedName/> 
-		<damage>2</damage> 
+		<damage>10</damage> 
 		<arcaneCost>0</arcaneCost> 
-		<damageVariance>LOW</damageVariance> 
+		<damageVariance>HIGH</damageVariance> 
 		<availableDamageTypes>
-			<damageType>PHYSICAL</damageType>
+			<damageType>LUST</damageType>
 		</availableDamageTypes>
 		
 		<spells/>
