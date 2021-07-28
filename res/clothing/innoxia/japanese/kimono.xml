@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>3000</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[kimono]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[kimonos]]></namePlural>
+		<description><![CDATA[Primarily worn by the reclusive youko, these full-length robes are identical to their traditional Japanese namesake.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_geisha</clothingSet>
+		<imageName>kimono.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<stickers>
+			<category id="kimono_pattern" priority="1">
+				<categoryName><![CDATA[Pattern]]></categoryName>
+				<sticker id="flowers" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Flowers]]></stickerName>
+					<namePrefix/>
+					<namePostfix priority="1"><![CDATA[(flowers)]]></namePostfix>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[ <i>This particular kimono has a floral pattern.</i>]]></descriptionModification>
+					<imageName zLayer="1" slot="TORSO_UNDER">kimono_flowers.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="blossom" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Blossom]]></stickerName>
+					<namePrefix/>
+					<namePostfix priority="1"><![CDATA[(blossom)]]></namePostfix>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[ <i>This particular kimono has a cherry blossom pattern.</i>]]></descriptionModification>
+					<imageName zLayer="1" slot="TORSO_UNDER">kimono_blossom.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="none" priority="0" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNTIE</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_DRESS_FRONT_FULL"/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values ="KIMONO"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="KIMONO"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values ="KIMONO"/>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+			<tag>DRESS</tag>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] on the kimono and [npc.verb(spend)] a moment securely tying it up.
+		]]></self>
+		<other> <![CDATA[
+			[npc.Name] [npc.verb(pull)] on the kimono onto [npc2.name] and [npc.verb(spend)] a moment securely tying it up.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(force)] [npc2.name] into the kimono and [npc.verb(spend)] a moment securely tying it up.
+		]]></otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(untie)] [npc.her] kimono and [npc.verb(slip)] out of it.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(untie)] [npc2.namePos] kimono and [npc.verb(pull)] it off of [npc2.herHim].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(untie)] [npc2.namePos] kimono and [npc.verb(yank)] it off of [npc2.herHim].
+		]]></otherRough>
+	</displacementText>
+	
+</clothing>
