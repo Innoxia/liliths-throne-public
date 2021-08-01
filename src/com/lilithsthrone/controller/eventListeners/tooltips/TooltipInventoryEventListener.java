@@ -800,7 +800,6 @@ public class TooltipInventoryEventListener implements EventListener {
 			yIncrease += 2 + absItem.getExtraDescriptions(equippedToCharacter).size();
 		}
 		
-		yIncrease += Math.max(0, listIncrease-4);
 		
 		// Title:
 		tooltipSB.setLength(0);
@@ -820,11 +819,35 @@ public class TooltipInventoryEventListener implements EventListener {
 				+ "<span style='color:" + absItem.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absItem.getRarity().getName())+"</span>"
 				);
 		
-		for(ItemEffect ie : absItem.getEffects()) {
+		
+		String effectEntry = "";
+		int effectMulti = 0;
+		for(int it = 0; it<absItem.getEffects().size(); it++) {
+			ItemEffect ie = absItem.getEffects().get(it);
+			StringBuilder effectSB = new StringBuilder();
 			for(int i=0; i<ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size(); i++) {
-				tooltipSB.append("</br>"+ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
+				if(i!=0) {
+					effectSB.append("</br>");
+				}
+				effectSB.append(ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
+			}
+
+			effectEntry = effectSB.toString();
+			if(it==absItem.getEffects().size()-1 || !absItem.getEffects().get(it+1).equals(ie)) {
+				tooltipSB.append("</br>");
+				if(effectMulti>0) {
+					tooltipSB.append("[style.colourArcane(x"+(effectMulti+1)+")] ");
+					listIncrease-=effectMulti;
+				}
+				tooltipSB.append(effectEntry);
+				effectMulti = 0;
+				
+			} else {
+				effectMulti++;
 			}
 		}
+		yIncrease += Math.max(0, listIncrease-4);
+		
 		for(String s : absItem.getItemType().getEffectTooltipLines()) {
 			tooltipSB.append("</br>"+s);
 		}

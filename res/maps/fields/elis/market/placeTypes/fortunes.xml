@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
 	<name><![CDATA[The Third Eye]]></name>
-	<tooltipDescription><![CDATA[Behind the curtains of this stall, a rabbit-girl offers to tell people their fortune in exchange for a huge amount of flames.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[Behind the curtains of this stall, a rabbit-girl offers to tell people their fortune in exchange for a Faire ticket.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
@@ -15,6 +15,8 @@
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<furniturePresent deskName="table">true</furniturePresent>
+	<wallsPresent wallName="shelving">true</wallsPresent>
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
 	<teleportPermissions>BOTH</teleportPermissions>

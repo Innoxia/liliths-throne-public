@@ -863,7 +863,7 @@ public class SexPosition {
 	};
 	
 
-	public static final AbstractSexPosition OVER_DESK = new AbstractSexPosition("Over desk",
+	public static final AbstractSexPosition OVER_DESK = new AbstractSexPosition("Over [pc.desk]",
 			8,
 			true,
 			SexActionPresets.positioningActionsNew, Util.newArrayListOfValues(MissionaryDesk.class)) {
@@ -904,7 +904,7 @@ public class SexPosition {
 					|| (slot==SexSlotDesk.HUMPING_TWO && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_FRONT_TWO) && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_BACK_TWO))
 					|| (slot==SexSlotDesk.HUMPING_THREE && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_FRONT_THREE) && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_BACK_THREE))
 					|| (slot==SexSlotDesk.HUMPING_FOUR && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_FRONT_FOUR) && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_BACK_FOUR))) {
-				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "There is no free character lying over a desk to hump!"));
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "There is no free character lying over a [pc.desk] to hump!"));
 			}
 
 			// Cannot hump when the person standing behind the intended target is a taur:
@@ -933,7 +933,7 @@ public class SexPosition {
 						|| slot==SexSlotDesk.OVER_DESK_ON_BACK_TWO
 						|| slot==SexSlotDesk.OVER_DESK_ON_BACK_THREE
 						|| slot==SexSlotDesk.OVER_DESK_ON_BACK_FOUR)) {
-				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to lie down on [npc.her] back over the desk."));
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to lie down on [npc.her] back over the [pc.desk]."));
 			}
 			
 			return new Value<Boolean, String>(true, "");
@@ -973,7 +973,7 @@ public class SexPosition {
 				}
 			}
 			if(!suitablePositionDesk || !suitablePositionStandingOrOral) {
-				return new Value<Boolean, String>(false, "At least one character needs to be on top of the desk, and another either standing, humping, receiving oral, or performing oral for this position to work.");
+				return new Value<Boolean, String>(false, "At least one character needs to be on top of the [pc.desk], and another either standing, humping, receiving oral, or performing oral for this position to work.");
 			}
 			return new Value<Boolean, String>(true, "");
 		}
@@ -1112,10 +1112,10 @@ public class SexPosition {
 			
 			int deskBackCount = deskBackNames.size();
 			if(deskBackCount>=2) {
-				sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskBackNames, false))+" are lying back over the desk");
+				sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskBackNames, false))+" are lying back over the [pc.desk]");
 				
 			} else if(deskBackCount==1) {
-				sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskBackNames, false))+UtilText.parse(mainDeskBack, " [npc.is] lying back over the desk"));
+				sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskBackNames, false))+UtilText.parse(mainDeskBack, " [npc.is] lying back over the [pc.desk]"));
 			}
 			
 			if(deskFrontNames.size()>=2) {
@@ -1123,14 +1123,14 @@ public class SexPosition {
 					sb.append(", while "+Util.stringsToStringList(deskFrontNames, false)+" are lying down, face-first, beside "
 								+(deskBackCount==1?UtilText.parse(mainDeskBack,"[npc.herHim]"):(playerDeskBack?"you":"them"))+". ");
 				} else {
-					sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskFrontNames, false))+" are lying down, face-first, over the desk. "); 
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskFrontNames, false))+" are lying down, face-first, over the [pc.desk]. "); 
 				}
 				
 			} else if(deskFrontNames.size()==1) {
 				if(deskBackCount>0) {
-					sb.append(", while "+Util.stringsToStringList(deskFrontNames, false)+UtilText.parse(mainDeskFront, " [npc.is] lying down, face-first, over the desk. "));
+					sb.append(", while "+Util.stringsToStringList(deskFrontNames, false)+UtilText.parse(mainDeskFront, " [npc.is] lying down, face-first, over the [pc.desk]. "));
 				} else {
-					sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskFrontNames, false))+UtilText.parse(mainDeskFront, " [npc.is] lying down, face-first, over the desk. "));
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskFrontNames, false))+UtilText.parse(mainDeskFront, " [npc.is] lying down, face-first, over the [pc.desk]. "));
 				}
 				
 			} else if(deskBackCount>0) {
@@ -1143,11 +1143,11 @@ public class SexPosition {
 			
 			// Desk taurs:
 			if(deskFrontTaurNames.size()>=2) {
-				sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskFrontTaurNames, false))+" have used their front legs to step up on top of the desk, before lying down and resting their animalistic lower bodies over it. ");
+				sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskFrontTaurNames, false))+" have used their front legs to step up on top of the [pc.desk], before lying down and resting their animalistic lower bodies over it. ");
 				
 			} else if(deskFrontTaurNames.size()==1) {
 				sb.append(Util.capitaliseSentence(Util.stringsToStringList(deskFrontTaurNames, false))+UtilText.parse(mainDeskFrontTaur,
-						" [npc.has] used [npc.her] front legs to step up on top of the desk, before lying down and resting [npc.her] animalistic lower body over it. "));
+						" [npc.has] used [npc.her] front legs to step up on top of the [pc.desk], before lying down and resting [npc.her] animalistic lower body over it. "));
 			}
 			
 
@@ -1179,11 +1179,11 @@ public class SexPosition {
 			
 			int standingCountTaurs = standingNamesTaur.size();
 			if(standingCountTaurs>=2) {
-				sb.append(Util.capitaliseSentence(Util.stringsToStringList(standingNamesTaur, false))+" have stepped up onto the desk with their front legs, and are ready to use their feral lower bodies");
+				sb.append(Util.capitaliseSentence(Util.stringsToStringList(standingNamesTaur, false))+" have stepped up onto the [pc.desk] with their front legs, and are ready to use their feral lower bodies");
 				
 			} else if(standingCountTaurs==1) {
 				sb.append(Util.capitaliseSentence(Util.stringsToStringList(standingNamesTaur, false))
-							+UtilText.parse(mainStandingTaur," [npc.has] stepped up onto the desk with [npc.her] front legs, and [npc.is] ready to use [npc.her] feral lower body"));
+							+UtilText.parse(mainStandingTaur," [npc.has] stepped up onto the [pc.desk] with [npc.her] front legs, and [npc.is] ready to use [npc.her] feral lower body"));
 			}
 			if(standingCountTaurs>0) {
 				if(totalDeskCount>1) {
@@ -1199,10 +1199,10 @@ public class SexPosition {
 			int humpingCount = humpingNames.size();
 			if(humpingCount>0) {
 				if(humpingCount>=2) {
-					sb.append(Util.capitaliseSentence(Util.stringsToStringList(humpingNames, false))+" have eagerly clambered up onto the edge of the desk, and are ready to start humping their partners.");
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(humpingNames, false))+" have eagerly clambered up onto the edge of the [pc.desk], and are ready to start humping their partners.");
 					
 				} else if(humpingCount==1) {
-					sb.append(UtilText.parse(mainHumping, "[npc.Name] [npc.has] eagerly clambered up onto the edge of the desk, and [npc.is] ready to start humping"));
+					sb.append(UtilText.parse(mainHumping, "[npc.Name] [npc.has] eagerly clambered up onto the edge of the [pc.desk], and [npc.is] ready to start humping"));
 					if(totalDeskCount>1) {
 						sb.append(UtilText.parse(mainHumping," [npc.her] partner. "));
 					} else {
@@ -1230,13 +1230,13 @@ public class SexPosition {
 			
 			boolean additionalDoms = !standingNames.isEmpty() || !standingNamesTaur.isEmpty() || !performingOralNames.isEmpty();
 			if(receivingOralNames.size()>=2) {
-				sb.append(Util.capitaliseSentence(Util.stringsToStringList(receivingOralNames, false))+(additionalDoms?", meanwhile,":"")+" are positioned around the other side of the desk, next to "
+				sb.append(Util.capitaliseSentence(Util.stringsToStringList(receivingOralNames, false))+(additionalDoms?", meanwhile,":"")+" are positioned around the other side of the [pc.desk], next to "
 							+(totalDeskCount>1
 									?(playerDeskBack||playerDeskFront?"your faces":"their faces")+", in order to receive oral from "+(playerDeskBack||playerDeskFront?"you.":"them.")
 									:UtilText.parse(mainDesk, "[npc.namePos] [npc.face], in order to receive oral from [npc.herHim].")));
 				
 			} else if(receivingOralNames.size()==1) {
-				sb.append(Util.capitaliseSentence(Util.stringsToStringList(receivingOralNames, false))+(additionalDoms?", meanwhile,":"")+UtilText.parse(mainReceivingOral, " [npc.is] positioned around the other side of the desk, next to ")
+				sb.append(Util.capitaliseSentence(Util.stringsToStringList(receivingOralNames, false))+(additionalDoms?", meanwhile,":"")+UtilText.parse(mainReceivingOral, " [npc.is] positioned around the other side of the [pc.desk], next to ")
 						+(totalDeskCount>1
 								?(playerDeskBack||playerDeskFront?"your faces":"their faces")+", in order to receive oral from "+(playerDeskBack||playerDeskFront?"you.":"them.")
 								:UtilText.parse(mainDesk, "[npc.namePos] [npc.face], in order to receive oral from [npc.herHim].")));
