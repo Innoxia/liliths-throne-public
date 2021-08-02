@@ -330,7 +330,7 @@
 	
 	<htmlContent tag="BAR_DRINK_CIDER"><![CDATA[
 	<p>
-		Feeling thirsty, you get Flash's attention and ask him for a pint of cider. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Qquine Cider'. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
+		Feeling thirsty, you get Flash's attention and ask him for a pint of cider. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Equine Cider'. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
@@ -802,7 +802,7 @@
 			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and matching your pose with one of her own. As she moves, you see that she's using one hand to cradle her conspicuously-swollen belly, and she sighs,
 			#IF(!siren.isCharacterReactedToPregnancy(pc))
 				#IF(siren.getPregnantLitter().getFather().equals(pc))
-					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
+					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
 				#ELSE
 					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
@@ -839,7 +839,7 @@
 			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and striking what she must think is an intimidating pose. As she moves, you see that she's using one hand to cradle her conspicuously-swollen belly, and she sighs,
 			#IF(!siren.isCharacterReactedToPregnancy(pc))
 				#IF(siren.getPregnantLitter().getFather().equals(pc))
-					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
+					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
 				#ELSE
 					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]

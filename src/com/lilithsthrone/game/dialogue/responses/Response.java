@@ -293,7 +293,10 @@ public class Response {
 			if(colourId.startsWith("#")) {
 				return new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
 			} else {
-				return PresetColour.getColourFromId(colourId);
+				String colourParsed = UtilText.parse(colourId).trim();
+				if(!colourParsed.isEmpty()) {
+					return PresetColour.getColourFromId(colourParsed);
+				}
 			}
 		}
 		

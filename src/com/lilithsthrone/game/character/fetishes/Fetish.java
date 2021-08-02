@@ -537,6 +537,72 @@ public enum Fetish {
 			return CorruptionLevel.ONE_VANILLA;
 		}
 	},
+
+	FETISH_ARMPIT_GIVING(60,
+			"armpit lover",
+			"performing armpit",
+			"fetish_armpit_giving",
+			FetishExperience.BASE_EXPERIENCE_GAIN,
+			PresetColour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>armpit worship tease</span>",
+					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>armpit slut tease</span>"),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if(owner==null) {
+				return "This fetish relates to a person's desire to perform sex actions on their partner's armpits.";
+				
+			} else {
+				return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] nothing more than to pleasure [npc.her] partner's armpits, and even prefers it to penetrative sexual acts.");
+			}
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "performing armpit sex actions");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.THREE_DIRTY;
+		}
+	},
+	
+	FETISH_ARMPIT_RECEIVING(60,
+			"armpit slut",
+			"receiving armpit",
+			"fetish_armpit_receiving",
+			FetishExperience.BASE_EXPERIENCE_GAIN,
+			PresetColour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>armpit slut tease</span>",
+					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>armpit worship tease</span>"),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if(owner==null) {
+				return "This fetish relates to a person's desire to have their armpits used.";
+				
+			} else {
+				return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] nothing more than to have [npc.her] armpits sexually serviced by [npc.her] partners, and even prefers it to penetrative sexual acts.");
+			}
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "receiving any armpit attention");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.THREE_DIRTY;
+		}
+	},
 	
 	FETISH_PENIS_RECEIVING(60,
 			"cock addict",
@@ -1358,6 +1424,65 @@ public enum Fetish {
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.FOUR_LUSTFUL;
+		}
+	},
+	
+	FETISH_BONDAGE_VICTIM(60,
+			"bondage bitch",
+			"being bound",
+			"fetish_bondage_victim",
+			FetishExperience.BASE_EXPERIENCE_GAIN,
+			Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD),
+			null,
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(5x cost)] to [style.colourSeal(unseal)] self-worn clothing",
+					"BDSM set bonus applies [style.colourGood(positive effects)]"),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if(owner==null) {
+				return "This fetish relates to a person's desire for wearing sealed clothing.";
+				
+			} else {
+				return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] being bound up in clothing that [npc.sheIs] unable to remove, leaving [npc.herHim] at the mercy of others...");
+			}
+		}
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "wearing sealed clothing");
+		}
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.THREE_DIRTY;
+		}
+	},
+	
+	FETISH_BONDAGE_APPLIER(60,
+			"bondage applier",
+			"applying bondage",
+			"fetish_bondage_applier",
+			FetishExperience.BASE_EXPERIENCE_GAIN,
+			Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD),
+			null,
+			Util.newArrayListOfValues(
+					"[style.colourGood(Removes essence cost for sealing, servitude, and enslavement enchantments)]"),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if(owner==null) {
+				return "This fetish relates to a person's desire for locking others into sealed clothing.";
+				
+			} else {
+				return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] binding people up in clothing that they're unable to remove, and then taking advantage of their immobility...");
+			}
+		}
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "others wearing sealed clothing");
+		}
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.THREE_DIRTY;
 		}
 	},
 

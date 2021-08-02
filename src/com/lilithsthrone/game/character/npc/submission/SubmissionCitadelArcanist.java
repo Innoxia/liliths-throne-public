@@ -133,11 +133,15 @@ public class SubmissionCitadelArcanist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4")) {
 			this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.11")) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL, false);
 			this.setStartingBody(true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
+				this.applyLabGear();
+			}
 		}
+		
 	}
 
 	@Override
@@ -231,7 +235,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.THREE_NORMAL);
 		this.setHipSize(HipSize.THREE_GIRLY);
-		// Anus settings and modifiers
+		this.clearAssOrificeModifiers();
 		
 		// Penis:
 		// n/a
@@ -245,6 +249,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		this.setVaginaWetness(Wetness.THREE_WET);
 		this.setVaginaElasticity(OrificeElasticity.TWO_FIRM.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
+		this.clearVaginaOrificeModifiers();
 		
 		// Feet:
 		// Foot shape
@@ -264,13 +269,9 @@ public class SubmissionCitadelArcanist extends NPC {
 		kimono.setSticker("kimono_pattern", "blossom");
 		this.equipClothingFromNowhere(kimono, true, this);
 
-//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_japanese_geta", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, null, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_elemental_snowflake_necklace", PresetColour.CLOTHING_SILVER, false), true, this);
-
-//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false), true, this);
-//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false), true, this);
 		
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_elemental_piercing_ear_snowflakes", PresetColour.CLOTHING_SILVER, false), true, this);
@@ -288,6 +289,14 @@ public class SubmissionCitadelArcanist extends NPC {
 		return UtilText.parse(this,
 				"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."
 						+ " Placed in charge of the Dark Siren's laboratory, she oversees the production of transformative potions.");
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "TakahashiPregnant";
+		}
+		return "Takahashi";
 	}
 	
 	@Override
@@ -424,5 +433,10 @@ public class SubmissionCitadelArcanist extends NPC {
 		}
 		
 		return effects;
+	}
+	
+	public void applyLabGear() {
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false), true, this);
 	}
 }

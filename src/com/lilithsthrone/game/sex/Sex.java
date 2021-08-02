@@ -902,7 +902,7 @@ public class Sex {
 						clothingEquipped = character.getClothingInSlot(entry2.getKey()); // check if now equipped
 						if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
 							for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
-								if(clothing.getClothingType().equals(c.getClothingType())) {
+								if(clothing.getClothingType().equals(c.getClothingType()) && clothing.getSlotEquippedTo().equals(c.getSlotEquippedTo())) {
 									clothing.getDisplacedList().clear();
 									if(entry2.getValue().get(c)!=null) {
 										for(DisplacementType displacement : entry2.getValue().get(c)) {

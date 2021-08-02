@@ -1083,7 +1083,7 @@ public class WorldType {
 	private static Map<String, AbstractWorldType> idToWorldMap = new HashMap<>();
 
 	public static List<AbstractWorldType> getAllWorldTypes() {
-		return allWorldTypes;
+		return new ArrayList<>(allWorldTypes);
 	}
 	
 	public static AbstractWorldType getWorldTypeFromId(String id) {
@@ -1107,9 +1107,10 @@ public class WorldType {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
 					AbstractWorldType worldType = new AbstractWorldType(innerEntry.getValue(), entry.getKey(), true) {};
+					String id = innerEntry.getKey().replace("_worldType", "");
 					allWorldTypes.add(worldType);
-					worldToIdMap.put(worldType, innerEntry.getKey());
-					idToWorldMap.put(innerEntry.getKey(), worldType);
+					worldToIdMap.put(worldType, id);
+					idToWorldMap.put(id, worldType);
 //					System.out.println("modded WT: "+innerEntry.getKey());
 				} catch(Exception ex) {
 					System.err.println("Loading modded world type failed at 'WorldType'. File path: "+innerEntry.getValue().getAbsolutePath());
