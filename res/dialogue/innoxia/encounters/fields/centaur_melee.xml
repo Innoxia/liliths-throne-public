@@ -467,10 +467,10 @@
 				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
 				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Decide against doing anything further with the marauder and continue on your way...
+					As the marauder has left, there's nothing else for you to do except continue on your way...
 					<br/>[style.italicsBad(The centauress will be permanently removed from the game.)]
 				]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.banishNPC(attacker)]
@@ -720,6 +720,34 @@
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_encounters_fields_centaur_melee_after_sex_sub]]></postSexDialogue>
 					<sexStartContent folderPath="txt/encounters/fields/centaur_melee">COMBAT_LOST_FUCKED</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Resist]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to submit to the centauress and try to resist as she dominantly fucks you...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_centaur_player_sub_standard_noncon]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>attacker</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_centaur_melee_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/centaur_melee">COMBAT_LOST_FUCKED_RESIST</sexStartContent>
 					<ongoingActionsAtStart/>
 				</sexVariablesWithManager>
 			</response>

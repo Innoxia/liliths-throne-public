@@ -570,7 +570,7 @@ public class ItemType {
 	
 	// Crafting outputs:
 	
-	public static AbstractItemType POTION = new AbstractItemType(750,
+	public static AbstractItemType POTION = new AbstractItemType(500,
 			"",
 			false,
 			"potion",
@@ -584,6 +584,14 @@ public class ItemType {
 			Rarity.RARE,
 			null,
 			null) {
+		@Override
+		public int getValue(List<ItemEffect> effects) {
+			int val = super.getValue(effects);
+			
+			val += (effects.size() * 25);
+			
+			return val;
+		}
 		@Override
 		public boolean isTransformative() {
 			return false;
@@ -604,7 +612,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType ELIXIR = new AbstractItemType(1500,
+	public static AbstractItemType ELIXIR = new AbstractItemType(750,
 			"",
 			false,
 			"elixir",
@@ -618,6 +626,14 @@ public class ItemType {
 			Rarity.EPIC,
 			null,
 			null) {
+		@Override
+		public int getValue(List<ItemEffect> effects) {
+			int val = super.getValue(effects);
+			
+			val += (effects.size() * 50);
+			
+			return val;
+		}
 		@Override
 		public boolean isTransformative() {
 			return true;

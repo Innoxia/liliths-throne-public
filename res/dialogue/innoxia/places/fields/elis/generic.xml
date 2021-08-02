@@ -330,14 +330,23 @@
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
 					#IF(game.isHourBetween(8, 18))
-						innoxia_places_fields_elis_market_centre
+						innoxia_places_fields_elis_market_exit
 					#ELSE
 						null
 					#ENDIF
 				]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<effects><![CDATA[
-					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_entry_north))
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_north)]
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_elis_market_entry_east))
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_east)]
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_elis_market_entry_south))
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_south)]
+					#ELSE
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_west)]
+					#ENDIF
+					
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'MARKET_ENTER'))]
 				]]></effects>
 			</response>
@@ -450,7 +459,24 @@
 		<author><![CDATA[Innoxia]]></author>
 		<title/>
 		<tooltip/>
-		<preParsingEffects/>
+		<preParsingEffects><![CDATA[
+			#IF(!pc.isAtMapEdge())
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_north, false)]
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_east, false)]
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_south, false)]
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_west, false)]
+					
+				#IF(pc.getCellFromLocation(0, -1).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_north, true)]
+				#ELSEIF(pc.getCellFromLocation(-1, 0).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_east, true)]
+				#ELSEIF(pc.getCellFromLocation(0, 1).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_south, true)]
+				#ELSEIF(pc.getCellFromLocation(1, 0).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_west, true)]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/elis/generic">STREET</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>

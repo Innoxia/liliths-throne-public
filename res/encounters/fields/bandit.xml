@@ -12,7 +12,7 @@
 		<encounter>
 			<name><![CDATA[bandit ambush]]></name>
 			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
-				0
+				4
 			]]></chanceToTrigger>
 			<dialogueReturned><![CDATA[innoxia_encounters_fields_bandit_start]]></dialogueReturned>
 		</encounter>
