@@ -108,17 +108,28 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Fae;
+import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Jess;
+import com.lilithsthrone.game.character.npc.fields.Kazik;
+import com.lilithsthrone.game.character.npc.fields.Kheiron;
 import com.lilithsthrone.game.character.npc.fields.LunetteMelee;
 import com.lilithsthrone.game.character.npc.fields.LunetteRanged;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
+import com.lilithsthrone.game.character.npc.fields.Moreno;
+import com.lilithsthrone.game.character.npc.fields.Nizhoni;
+import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
+import com.lilithsthrone.game.character.npc.fields.Yui;
+import com.lilithsthrone.game.character.npc.fields.Ziva;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.npc.misc.GenericTrader;
 import com.lilithsthrone.game.character.npc.misc.LodgerImport;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
@@ -720,6 +731,7 @@ public class Game implements XMLSaving {
 	
 	public static void importGame(File file) {
 		Main.game = new Game();
+		UtilText.initScriptEngine(); // Have to init the script engine before loading game variables as some classes (such as race) call parsing as part of their initialisation (Race's 'applyRaceChanges')
 		
 		if (file.exists()) {
 			try {
@@ -877,6 +889,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
 							&& (!worldType.equals("DOMINION_EXPRESS") || !Main.isVersionOlderThan(loadingVersion, "0.3.7.9"))
 							&& (!worldType.equals("SHOPPING_ARCADE") || !Main.isVersionOlderThan(loadingVersion, "0.3.14"))
+							&& (!worldType.equals("innoxia_fields_elis_market") || !Main.isVersionOlderThan(loadingVersion, "0.4.1.1"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
 //                          && !worldType.equals("REBEL_BASE")
@@ -949,7 +962,10 @@ public class Game implements XMLSaving {
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						Main.game.getWorlds().put(wt, gen.worldGeneration(wt));
+						//System.out.println(WorldType.getIdFromWorldType(wt));
 					}
+					//System.out.println("Hmmmmmmmmmmmm "+WorldType.getIdFromWorldType(wt));
+					
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.6.9")) {
@@ -1747,6 +1763,7 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericAndrogynousNPC.class))) { addNPC(new GenericAndrogynousNPC(), false); addedNpcs.add(GenericAndrogynousNPC.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(PrologueMale.class))) { addNPC(new PrologueMale(), false); addedNpcs.add(PrologueMale.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(PrologueFemale.class))) { addNPC(new PrologueFemale(), false); addedNpcs.add(PrologueFemale.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(GenericTrader.class))) { addNPC(new GenericTrader(), false); addedNpcs.add(GenericTrader.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(TestNPC.class))) { addNPC(new TestNPC(), false); addedNpcs.add(TestNPC.class); }
 
 			// Contributors:
@@ -2010,13 +2027,23 @@ public class Game implements XMLSaving {
 				Main.game.getNpc(Flash.class).setAffection(Main.game.getNpc(Jess.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 			}
 			
-			// Astrapi/Vronti:
+			// Astrapi/Vronti/Kheiron:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Astrapi.class))) { addNPC(new Astrapi(), false); addedNpcs.add(Astrapi.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Vronti.class))) { addNPC(new Vronti(), false); addedNpcs.add(Vronti.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kheiron.class))) { addNPC(new Kheiron(), false); addedNpcs.add(Kheiron.class); }
 
-			if(addedNpcs.contains(Astrapi.class) || addedNpcs.contains(Vronti.class)) {
+			if(addedNpcs.contains(Astrapi.class) || addedNpcs.contains(Vronti.class) || addedNpcs.contains(Kheiron.class)) {
 				Main.game.getNpc(Astrapi.class).setAffection(Main.game.getNpc(Vronti.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				Main.game.getNpc(Astrapi.class).setAffection(Main.game.getNpc(Kheiron.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				
 				Main.game.getNpc(Vronti.class).setAffection(Main.game.getNpc(Astrapi.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				Main.game.getNpc(Vronti.class).setAffection(Main.game.getNpc(Kheiron.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+
+				Main.game.getNpc(Kheiron.class).setAffection(Main.game.getNpc(Astrapi.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				Main.game.getNpc(Kheiron.class).setAffection(Main.game.getNpc(Vronti.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+
+				getNpc(Astrapi.class).setFather(getNpc(Kheiron.class));
+				getNpc(Vronti.class).setFather(getNpc(Kheiron.class));
 			}
 			
 			// Minotallys/Arion
@@ -2027,6 +2054,22 @@ public class Game implements XMLSaving {
 				Main.game.getNpc(Arion.class).setAffection(Main.game.getNpc(Minotallys.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 				Main.game.getNpc(Minotallys.class).setAffection(Main.game.getNpc(Arion.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 			}
+			
+			// Farmer's Market:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Fae.class))) { addNPC(new Fae(), false); addedNpcs.add(Fae.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Silvia.class))) { addNPC(new Silvia(), false); addedNpcs.add(Silvia.class); }
+
+			if(addedNpcs.contains(Fae.class) || addedNpcs.contains(Silvia.class)) {
+				Main.game.getNpc(Silvia.class).setAffection(Main.game.getNpc(Fae.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+				Main.game.getNpc(Fae.class).setAffection(Main.game.getNpc(Silvia.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kazik.class))) { addNPC(new Kazik(), false); addedNpcs.add(Kazik.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Yui.class))) { addNPC(new Yui(), false); addedNpcs.add(Yui.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Nizhoni.class))) { addNPC(new Nizhoni(), false); addedNpcs.add(Nizhoni.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Moreno.class))) { addNPC(new Moreno(), false); addedNpcs.add(Moreno.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Heather.class))) { addNPC(new Heather(), false); addedNpcs.add(Heather.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ziva.class))) { addNPC(new Ziva(), false); addedNpcs.add(Ziva.class); }
 			
 			
 		} catch (Exception e) {
@@ -2682,7 +2725,9 @@ public class Game implements XMLSaving {
 			
 			String chosenResponse = response.getTitle();
 			DialogueNode node = response.getNextDialogue();
-			response.applyEffects();
+			if(node!=null || response instanceof ResponseCombat || response instanceof ResponseSex || response instanceof ResponseEffectsOnly || response instanceof ResponseTrade) {
+				response.applyEffects(); // Only apply effects if this response is a non-standard one or if the next response is not null
+			}
 			if(node!=null) {
 				node.specialPreParsingEffects();
 				node.applyPreParsingEffects();
@@ -2921,7 +2966,9 @@ public class Game implements XMLSaving {
 		informationTooltips = new HashMap<>();
 		
 		DialogueNode node = response.getNextDialogue();
-		response.applyEffects();
+		if(node!=null || response instanceof ResponseCombat || response instanceof ResponseSex || response instanceof ResponseEffectsOnly || response instanceof ResponseTrade) {
+			response.applyEffects(); // Only apply effects if this response is a non-standard one or if the next response is not null
+		}
 		if(node!=null) {
 			node.specialPreParsingEffects();
 			node.applyPreParsingEffects();
@@ -4350,6 +4397,8 @@ public class Game implements XMLSaving {
 			npc = new LunetteMelee();
 		} else if(npcGenerationId.equalsIgnoreCase("LunetteRanged")) {
 			npc = new LunetteRanged();
+		} else if(npcGenerationId.equalsIgnoreCase("FieldsBandit")) {
+			npc = new FieldsBandit();
 		}
 		if(npc!=null) {
 			String idGenerated = addNPC(npc, false, forceImmediateAddition);
@@ -4447,14 +4496,36 @@ public class Game implements XMLSaving {
 		}
 		
 		// TODO This needs more thorough testing...
-		if(
 //				Main.game.getPlayer().hasSexCountWith(npc)
-//				|| npc.getPregnantLitter()!=null
 //				|| npc.getLastLitterBirthed()!=null
 //				|| npc.getMother()!=null
 //				|| npc.getFather()!=null
-//				|| 
-				npc.isUnique()) {
+		
+		boolean incubatingPlayerLitter = false;
+		if(!npc.getIncubatingLitters().isEmpty()) {
+			for(Litter litter : npc.getIncubatingLitters().values()) {
+				if((litter.getMother()!=null && litter.getMother().isPlayer()) || (litter.getFather()!=null && litter.getFather().isPlayer())) {
+					incubatingPlayerLitter = true;
+					break;
+				}
+			}
+		}
+		
+		boolean playerIncubatingLitter = false;
+		if(!Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+			for(Litter litter : Main.game.getPlayer().getIncubatingLitters().values()) {
+				if((litter.getMother()!=null && litter.getMother().equals(npc)) || (litter.getFather()!=null && litter.getFather().equals(npc))) {
+					playerIncubatingLitter = true;
+					break;
+				}
+			}
+		}
+		
+		if((npc.getPregnantLitter()!=null && npc.getPregnantLitter().getFather()!=null && npc.getPregnantLitter().getFather().isPlayer()) // NPC needs to birth litter where player is father
+				|| (Main.game.getPlayer().getPregnantLitter()!=null && Main.game.getPlayer().getPregnantLitter().getFather()!=null && Main.game.getPlayer().getPregnantLitter().getFather().equals(npc)) // player needs to birth litter where NPC is father
+				|| incubatingPlayerLitter
+				|| playerIncubatingLitter
+				|| npc.isUnique()) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
 			
@@ -4789,6 +4860,7 @@ public class Game implements XMLSaving {
 	public boolean isSillyMode() {
 		return isSillyModeEnabled();
 	}
+	
 	public boolean isSillyModeEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.sillyMode);
 	}
@@ -4911,6 +4983,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isCrotchBoobContentEnabled() {
 		return Main.getProperties().getUddersLevel()>0;
+	}
+	
+	public boolean isMuskContentEnabled() {
+		return true; //TODO
 	}
 	
 	public boolean isPlotDiscovered() {

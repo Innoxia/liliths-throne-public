@@ -17,8 +17,13 @@
 	<places>
 		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
 		
-		<place colour="#dd4343">innoxia_fields_elis_market_exit</place>
+		<place colour="#ff0000">innoxia_fields_elis_market_exit_north</place>
+		<place colour="#ff0040">innoxia_fields_elis_market_exit_east</place>
+		<place colour="#ff0080">innoxia_fields_elis_market_exit_south</place>
+		<place colour="#ff00bf">innoxia_fields_elis_market_exit_west</place>
+		
 		<place colour="#808080">innoxia_fields_elis_market_path</place>
+		<place colour="#3b3b3b">innoxia_fields_elis_market_path_bins</place>
 		<place colour="#ffbe58">innoxia_fields_elis_market_centre</place>
 		
 		<place colour="#ff7f2a">innoxia_fields_elis_market_drinks_alcohol</place>

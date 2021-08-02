@@ -311,10 +311,7 @@
 	
 	<htmlContent tag="MARKET_ENTER"><![CDATA[
 	<p>
-		[style.boldBad(PLEASE NOTE:)] All content in this market is placeholders!
-	</p>
-	<p>
-		Wanting to spend some time looking around the Farmer's Market and perhaps doing some shopping, you [pc.walk] towards the centre of the large, cobblestone square. After passing numerous brightly-coloured stalls, you soon find yourself right in the middle of the market, wondering where to go from here...
+		Wanting to spend some time looking around and potentially doing some shopping, you [pc.step] forwards and enter the Farmer's Market...
 	</p>
 	]]>
 	</htmlContent>
@@ -353,7 +350,7 @@
 	</i>
 	<hr/>
 	<p>
-		Having read through all of the information the sign contains, there's little else for you to do except [pc.step] back and continue on your way through the market...
+		Having read through all of the information the sign contains, you take a [pc.step] back and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -466,13 +463,24 @@
 	
 	<htmlContent tag="TAVERN_TAUR"><![CDATA[
 	<p>
-		Positioned on the street corner directly adjacent to the farmer's market, 'The Centaur's Sword' tavern occupies three interlinked two-story buildings. Prominently displayed beside its remarkably-wide entrance, an information board declares this tavern to have a 'taur-friendly interior design' and a bar that's able to 'accommodate more than a dozen centaurs'.
+		Positioned on the street corner directly adjacent to the Farmer's Market, 'The Centaur's Sword' tavern occupies one of the largest two-story buildings within Elis. Prominently displayed beside each of its two remarkably-wide entrances, information boards declare this tavern to have a 'taur-friendly interior design' and a bar that's able to 'accommodate more than a dozen centaurs'.
 	</p>
 	<p>
-		The tavern's sign hangs from a purpose-built post situated a few [style.lSizes] away from the main entrance, and displays an image of a naked, muscular centaur showing off his enormous erection. The words 'The Centaur's Sword' are written beneath this in flowing gold script, while an additional sign hanging beneath that reads 'Open 24/7'.
+		The tavern's sign hangs from a purpose-built post situated a few [style.lSizes] away from the building's corner, and displays an image of a naked, muscular centaur showing off his enormous erection. The words 'The Centaur's Sword' are written beneath this in flowing gold script, while an additional sign hanging beneath that reads 'Open 24/7'.
 	</p>
 	<p>
-		The sounds of laughter and the distinctive stomping of hoofs on wooden floorboards can quite clearly be heard from where you're standing, letting you know that the tavern's occupants are having a good time. Looking through the leaded windows, you see that there are a large number of taurs at the bar, and you wonder whether to head inside and take a look around...
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			The sounds of laughter and the distinctive stomping of hoofs on wooden floorboards can quite clearly be heard from where you're standing, letting you know that the tavern's occupants are having a good time. Looking through the leaded windows, you see that there are a large number of taurs at the bar, and you wonder whether to head inside and take a look around...
+		#ELSE
+			The odd sound of laughter or the distinctive stomping of hoofs on wooden floorboards can occasionally be heard from where you're standing, letting you know that there are at least a few people inside the tavern. Looking through the leaded windows, you confirm this by seeing that there are several taurs at the bar, and you wonder whether to head inside and take a look around...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TAVERN_TAUR_ENTER"><![CDATA[
+	<p>
+		Deciding that you want to head inside the tavern, you approach the nearest of the two entrances and push open the door, before [pc.stepping] into 'The Centaur's Sword'...
 	</p>
 	]]>
 	</htmlContent>

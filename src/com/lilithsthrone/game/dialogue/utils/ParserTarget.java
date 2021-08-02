@@ -56,13 +56,23 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Jess;
+import com.lilithsthrone.game.character.npc.fields.Kazik;
+import com.lilithsthrone.game.character.npc.fields.Kheiron;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
+import com.lilithsthrone.game.character.npc.fields.Moreno;
+import com.lilithsthrone.game.character.npc.fields.Nizhoni;
+import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
+import com.lilithsthrone.game.character.npc.fields.Yui;
+import com.lilithsthrone.game.character.npc.fields.Ziva;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericTrader;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.npc.submission.Axel;
@@ -330,6 +340,18 @@ public class ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(GenericAndrogynousNPC.class);
+		}
+	};
+	
+	public static AbstractParserTarget NPC_TRADER = new AbstractParserTarget(Util.newArrayListOfValues(
+			"trader",
+			"genericTrader"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(GenericTrader.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(GenericTrader.class);
 		}
 	};
 	
@@ -1125,6 +1147,99 @@ public class ParserTarget {
 		}
 	};
 	
+	public static AbstractParserTarget FAE = new AbstractParserTarget(Util.newArrayListOfValues("fae"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Fae.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Fae.class);
+		}
+	};
+	
+	public static AbstractParserTarget SILVIA = new AbstractParserTarget(Util.newArrayListOfValues("silvia"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Silvia.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Silvia.class);
+		}
+	};
+	
+	public static AbstractParserTarget KHEIRON = new AbstractParserTarget(Util.newArrayListOfValues("kheiron"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Kheiron.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Kheiron.class);
+		}
+	};
+	
+	public static AbstractParserTarget KAZIK = new AbstractParserTarget(Util.newArrayListOfValues("kazik"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Kazik.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Kazik.class);
+		}
+	};
+	
+	public static AbstractParserTarget YUI = new AbstractParserTarget(Util.newArrayListOfValues("yui"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Yui.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Yui.class);
+		}
+	};
+	
+	public static AbstractParserTarget NIZHONI = new AbstractParserTarget(Util.newArrayListOfValues("nizhoni"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Nizhoni.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Nizhoni.class);
+		}
+	};
+	
+	public static AbstractParserTarget MORENO = new AbstractParserTarget(Util.newArrayListOfValues("moreno"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Moreno.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Moreno.class);
+		}
+	};
+	
+	public static AbstractParserTarget HEATHER = new AbstractParserTarget(Util.newArrayListOfValues("heather"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Heather.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Heather.class);
+		}
+	};
+	
+	public static AbstractParserTarget ZIVA = new AbstractParserTarget(Util.newArrayListOfValues("ziva"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Ziva.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Ziva.class);
+		}
+	};
+	
+	
+	
+	
 	/** A list of the hard-coded parser targets above. */
 	private static List<AbstractParserTarget> coreParserTargets = new ArrayList<>();
 	
@@ -1147,7 +1262,6 @@ public class ParserTarget {
 
 	/**
 	 * Adds an associated between the tag and the target for parsing.
-	 * @return The NPC which was previously assigned to this tag, or null if no NPC was previously assigned.
 	 */
 	public static void addAdditionalParserTarget(String tag, NPC target) {
 		AbstractParserTarget newParserTarget = new AbstractParserTarget(Util.newArrayListOfValues(tag), "") {
@@ -1161,6 +1275,7 @@ public class ParserTarget {
 		};
 		if(idToParserTargetMap.containsKey(tag)) {
 			System.err.println("Warning: Parser target of '"+tag+"' has been replaced!");
+			removeAdditionalParserTarget((NPC) idToParserTargetMap.get(tag).getCharacter(null, null));
 		}
 		
 		parserTargetToIdMap.put(newParserTarget, tag);

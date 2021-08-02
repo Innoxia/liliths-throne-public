@@ -12,11 +12,15 @@
 	<encounterType>null</encounterType>
 	<dialogue>innoxia_places_fields_elis_market_food_snacks</dialogue>
 	<populationPresent>
-		<population startMinutes="480" endMinutes="1049"> <!-- 8-5:30 -->
+		<population startMinutes="480" endMinutes="1139"> <!-- 8-19 -->
 			<populationType plural="true" density="SEVERAL">STALL_HOLDER</populationType>
 			<subspeciesPresent>
 				<subspecies>innoxia_sheep_subspecies_sheep</subspecies>
 			</subspeciesPresent>
+		</population>
+		<population startMinutes="480" endMinutes="1079">
+			<populationType plural="true" density="SEVERAL">SHOPPER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
 	</populationPresent>
 	<globalMapTile>false</globalMapTile>

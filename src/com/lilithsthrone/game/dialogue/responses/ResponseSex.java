@@ -639,7 +639,6 @@ public class ResponseSex extends Response {
 	public DialogueNode initSex() {
 		if(isFromExternalFile) {
 			if(isUsingExternalManager) {
-
 				Map<GameCharacter, SexSlot> dominantPositions = new HashMap<>();
 				for(Entry<String, String> entry : dominantPositionIds.entrySet()) {
 					dominantPositions.put(

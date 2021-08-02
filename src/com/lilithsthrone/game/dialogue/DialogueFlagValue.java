@@ -511,7 +511,7 @@ public class DialogueFlagValue {
 						allDialogueFlagValues.add(loadedFlag);
 						dialogueFlagValueToIdMap.put(loadedFlag, loadedFlag.getId());
 						idToDialogueFlagValueMap.put(loadedFlag.getId(), loadedFlag);
-						System.out.println("modded DFV: "+innerEntry.getKey());
+//						System.out.println("modded DFV: "+innerEntry.getKey()+" "+loadedFlag.getId());
 					}
 				} catch(Exception ex) {
 					System.err.println("Loading modded dialogueFlagValue failed at 'DialogueFlagValue'. File path: "+innerEntry.getValue().getAbsolutePath());
