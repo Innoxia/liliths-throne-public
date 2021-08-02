@@ -41,6 +41,7 @@ public enum LegConfiguration {
 			0,
 			true,
 			true,
+			false,
 			WingSize.THREE_LARGE,
 			false,
 			2,
@@ -81,6 +82,7 @@ public enum LegConfiguration {
 			0,
 			false,
 			false,
+			true,
 			WingSize.FOUR_HUGE,
 			true,
 			4,
@@ -168,6 +170,7 @@ public enum LegConfiguration {
 			0,
 			true,
 			true,
+			false,
 			WingSize.FOUR_HUGE,
 			false,
 			0,
@@ -294,6 +297,7 @@ public enum LegConfiguration {
 			-95,
 			true,
 			true,
+			false,
 			WingSize.THREE_LARGE,
 			false, 
 			0,
@@ -390,6 +394,7 @@ public enum LegConfiguration {
 			-25,
 			100,
 			false,
+			true,
 			true,
 			WingSize.FOUR_HUGE,
 			true,
@@ -507,6 +512,7 @@ public enum LegConfiguration {
 			-75,
 			true,
 			true,
+			false,
 			WingSize.THREE_LARGE,
 			false,
 			8,
@@ -591,6 +597,38 @@ public enum LegConfiguration {
 		public boolean isTailLostOnInitialTF() {
 			return true;
 		}
+		@Override
+		public String getMovementVerbPresentFirstPersonSingular() {
+			return "crawl";
+		}
+		@Override
+		public String getMovementVerbPresentThirdPersonSingular() {
+			return "crawls";
+		}
+		@Override
+		public String getMovementVerbPresentParticiple() {
+			return "crawling";
+		}
+		@Override
+		public String getMovementVerbPastParticiple() {
+			return "crawled";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentFirstPersonSingular() {
+			return "slide";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentThirdPersonSingular() {
+			return "slides";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentParticiple() {
+			return "sliding";
+		}
+		@Override
+		public String getIndividualMovementVerbPastParticiple() {
+			return "slid";
+		}
 	},
 	
 
@@ -601,6 +639,7 @@ public enum LegConfiguration {
 			0,
 			0,
 			false,
+			true,
 			true,
 			WingSize.THREE_LARGE,
 			true,
@@ -698,6 +737,7 @@ public enum LegConfiguration {
 			0,
 			true,
 			true,
+			false,
 			WingSize.THREE_LARGE,
 			false,
 			2,
@@ -754,6 +794,7 @@ public enum LegConfiguration {
 	private int waterSpeedModifier;
 	private boolean bipedalPositionedGenitals;
 	private boolean bipedalPositionedCrotchBoobs;
+	private boolean largeGenitals;
 	
 	private WingSize minimumWingSizeForFlight;
 	private boolean wingsOnLegConfiguration;
@@ -773,6 +814,7 @@ public enum LegConfiguration {
 			int waterSpeedModifier,
 			boolean bipedalPositionedGenitals,
 			boolean bipedalPositionedCrotchBoobs,
+			boolean largeGenitals,
 			WingSize minimumWingSizeForFlight,
 			boolean wingsOnLegConfiguration,
 			int numberOfLegs,
@@ -788,6 +830,7 @@ public enum LegConfiguration {
 		
 		this.bipedalPositionedGenitals = bipedalPositionedGenitals;
 		this.bipedalPositionedCrotchBoobs = bipedalPositionedCrotchBoobs;
+		this.largeGenitals = largeGenitals;
 		
 		this.minimumWingSizeForFlight=minimumWingSizeForFlight;
 		this.wingsOnLegConfiguration=wingsOnLegConfiguration;
@@ -894,6 +937,10 @@ public enum LegConfiguration {
 	 */
 	public boolean isBipedalPositionedCrotchBoobs() {
 		return bipedalPositionedCrotchBoobs;
+	}
+
+	public boolean isLargeGenitals() {
+		return largeGenitals;
 	}
 
 	public boolean isThighSexAvailable() {

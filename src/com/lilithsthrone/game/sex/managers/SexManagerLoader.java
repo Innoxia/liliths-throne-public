@@ -37,24 +37,26 @@ public class SexManagerLoader {
 	}
 	
 	static {
-//		// Modded sexManager types:
-//		
-//		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", null, "sexManager");
-//		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
-//			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
-//				try {
-//					SexManagerNode sexManager = new SexManagerNode(innerEntry.getValue(), entry.getKey(), true) {};
-//					allSexManagers.add(sexManager);
-//					sexManagerToIdMap.put(sexManager, innerEntry.getKey());
-//					idToSexManagerMap.put(innerEntry.getKey(), sexManager);
-////					System.out.println("modded WT: "+innerEntry.getKey());
-//				} catch(Exception ex) {
-//					System.err.println("Loading modded sexManager type failed at 'SexManager'. File path: "+innerEntry.getValue().getAbsolutePath());
-//					System.err.println("Actual exception: ");
-//					ex.printStackTrace(System.err);
-//				}
-//			}
-//		}
+		// Modded sexManager types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/sex/managers");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					SexManagerExternal sexManager = new SexManagerExternal(innerEntry.getValue(), innerEntry.getKey(), true);
+					String id = innerEntry.getKey();
+					id = id.replaceAll("sex_managers_", "");
+					allSexManagers.add(sexManager);
+					sexManagerToIdMap.put(sexManager, id);
+					idToSexManagerMap.put(id, sexManager);
+//					System.out.println("modded sex manager: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading modded sexManager type failed at 'SexManager'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
 		
 		// External res sexManager types:
 

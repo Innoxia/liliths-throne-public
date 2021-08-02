@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>WORLD_MAP_FIELDS</placeType>
+		<placeType>WORLD_MAP_GRASSLANDS</placeType>
+		<placeType>WORLD_MAP_RIVER</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[demonic centauress marauder]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+				3
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_centaur_melee_start]]></dialogueReturned>
+		</encounter>
+		<encounter>
+			<name><![CDATA[demonic centauress raider]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+				3
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_centaur_ranged_start]]></dialogueReturned>
+		</encounter>
+		<!-- TODO
+		<encounter>
+			<name><![CDATA[demonic centauress slavers]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+			#IF(pc.hasStatusEffect(SE_innoxia_centaur_melee_seal))
+				10
+			#ELSE
+				0
+			#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_centaur_melee_slavers_start]]></dialogueReturned>
+		</encounter>
+		-->
+	</possibleEncounters>
+	
+</encounterRoot>

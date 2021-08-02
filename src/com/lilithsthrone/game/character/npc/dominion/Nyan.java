@@ -695,21 +695,23 @@ public class Nyan extends NPC {
 	}
 	
 	@Override
-	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
-		for(int i=0; i<count; i++) {
-			commonFemaleClothing.remove(item);
-			commonFemaleUnderwear.remove(item);
-			commonFemaleAccessories.remove(item);
-			
-			commonMaleClothing.remove(item);
-			commonMaleLingerie.remove(item);
-			commonMaleAccessories.remove(item);
-			
-			commonAndrogynousClothing.remove(item);
-			commonAndrogynousLingerie.remove(item);
-			commonAndrogynousAccessories.remove(item);
-			
-			specials.remove(item);
+	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
+		if(soldToPlayer) {
+			for(int i=0; i<quantity; i++) {
+				commonFemaleClothing.remove(itemSold);
+				commonFemaleUnderwear.remove(itemSold);
+				commonFemaleAccessories.remove(itemSold);
+				
+				commonMaleClothing.remove(itemSold);
+				commonMaleLingerie.remove(itemSold);
+				commonMaleAccessories.remove(itemSold);
+				
+				commonAndrogynousClothing.remove(itemSold);
+				commonAndrogynousLingerie.remove(itemSold);
+				commonAndrogynousAccessories.remove(itemSold);
+				
+				specials.remove(itemSold);
+			}
 		}
 	}
 	

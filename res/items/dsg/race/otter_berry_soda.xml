@@ -6,8 +6,8 @@
 		<value>15</value> 
 		<determiner><![CDATA[a can of]]></determiner>
 		<name><![CDATA[Berry Soda]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Grogs]]></namePlural>
-		<description><![CDATA[An aluminum can of berry-flavored soda. The label on the can depicts an otter-boy in some swim trunks sitting on the bank of a river while drinking from a similar can.
+		<namePlural pluralByDefault="false"><![CDATA[Berry Sodas]]></namePlural>
+		<description><![CDATA[An aluminium can of berry-flavoured soda. The label on the can depicts an otter-boy in some swim trunks sitting on the bank of a river while drinking from a similar can.
 		]]></description> 
 		
 		<useDescriptor>drink</useDescriptor>
@@ -32,10 +32,16 @@
 		
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 15% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_HEALTH_MAXIMUM.getFormattedValue(2)] to 'potion effects']]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
 			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/15)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				An uplifting wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_HEALTH_MAXIMUM, 2)]
 		]]></applyEffects>
 		
 		<itemTags>

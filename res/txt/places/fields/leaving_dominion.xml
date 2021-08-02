@@ -59,7 +59,7 @@
 			 At that moment you suddenly notice that she's using one hand to cradle her conspicuously-swollen belly, and as she sees what it is you're looking at, she sighs,
 			#IF(!siren.isCharacterReactedToPregnancy(pc))
 				#IF(siren.getPregnantLitter().getFather().equals(pc))
-					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... J-Just because you're the father of our child, that doesn't mean you're not my nemesis anymore!)]
+					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore!)]
 				#ELSE
 					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease!)]
@@ -69,7 +69,7 @@
 				#ENDIF
 			#ELSE
 				#IF(siren.getPregnantLitter().getFather().equals(pc))
-					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore!)]
+					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... B-But this doesn't mean you're not my nemesis anymore!)]
 				#ELSE
 					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
 						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers!)]
@@ -121,7 +121,7 @@
 		Shaking her head so as to clear her mind of the depressing chain of thought she's on, Meraxis continues, [meraxis.speech(Anyway, you shouldn't treat these centaurs lightly; they're extremely aggressive and dangerous, and you need to be careful when crossing the fields! I wouldn't want my nemesis being defeated by some oversized ponies!)]
 	</p>
 	<p>
-		As you thank Meraxis for the warning, she holds up her hand in a gesture to silence you. Before you can make an objection to her behaviour, the chuuni [meraxis.race] performs some kind of matter-manipulation spell and seemingly pulls her huge scythe from out of mid-air. Pointing the arcane-bladed weapon at you, she declares, [meraxis.speech(Now that that's out of the way, the two of us shall duel! Prepare yourself, my nemeis, for I shall surely defeat you today!)]
+		As you thank Meraxis for the warning, she holds up her hand in a gesture to silence you. Before you can make an objection to her behaviour, the chuuni [meraxis.race] performs some kind of matter-manipulation spell and seemingly pulls her huge scythe from out of mid-air. Pointing the arcane-bladed weapon at you, she declares, [meraxis.speech(Now that that's out of the way, the two of us shall duel! Prepare yourself, my nemesis, for I shall surely defeat you today!)]
 	</p>
 	<p>
 		While she clearly wants to fight, you're sure that a simple 'no' will be enough to make Meraxis back down. Then again, if you think you have what it takes to beat her, you could always accept her offer of a duel...

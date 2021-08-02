@@ -340,7 +340,7 @@
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE
-					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -349,7 +349,7 @@
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE
-					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ENDIF
@@ -359,7 +359,7 @@
 				[npc.speech(Yeah, before you ask, it was you, [npc2.name]! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that [npc2.nameIs] the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -367,7 +367,7 @@
 				[npc.speech(Yeah, before you ask, it was you, [npc2.name]. You got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that [npc2.nameIs] the father of [npc.her] children. 
 				#IF npc.isAttractedTo(npc2)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ENDIF
@@ -377,7 +377,7 @@
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -385,7 +385,7 @@
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]. They got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that your old companion is the father of [npc.her] children. 
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
-				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
+				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)]
 				#ENDIF
 			</p>
 		#ENDIF

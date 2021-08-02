@@ -35,6 +35,8 @@ public class DialogueFlagValue {
 	
 	// Misc.:
 	public static AbstractDialogueFlagValue quickTrade = new AbstractDialogueFlagValue();
+	/** This is reset to false every time a transaction occurs, and should only be set to true in an NPC's applyItemTransactionEffects() method to prevent their default getTraderDescription() text from being displayed. */
+	public static AbstractDialogueFlagValue removeTraderDescription = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue stormTextUpdateRequired = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue hasSnowedThisWinter = new AbstractDialogueFlagValue();
 	
@@ -375,6 +377,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked4 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked5 = new AbstractDialogueFlagValue();
 
+	public static AbstractDialogueFlagValue lyssiethNoCockDemonTF = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue meraxisRepeatDemonTF = new AbstractDialogueFlagValue();
 	
 	
@@ -464,6 +467,11 @@ public class DialogueFlagValue {
 	 * @return The flag that has an id closest to the supplied id. <b>Will return null</b> if the matching distance is greater than 3 (which typically will be more than enough to catch spelling errors, indicating that the flag has been removed).
 	 */
 	public static AbstractDialogueFlagValue getDialogueFlagValueFromId(String id) {
+		// Removed flags:
+		if(id.equals("ratWarrensRaid")) {
+			return null;
+		}
+		
 		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet());
 		
 		if(Util.getLastStringMatchDistance()>3) {
@@ -492,7 +500,7 @@ public class DialogueFlagValue {
 						allDialogueFlagValues.add(loadedFlag);
 						dialogueFlagValueToIdMap.put(loadedFlag, loadedFlag.getId());
 						idToDialogueFlagValueMap.put(loadedFlag.getId(), loadedFlag);
-//						System.out.println("modded DFV: "+innerEntry.getKey());
+//						System.out.println("modded DFV: "+innerEntry.getKey()+" "+loadedFlag.getId());
 					}
 				} catch(Exception ex) {
 					System.err.println("Loading modded dialogueFlagValue failed at 'DialogueFlagValue'. File path: "+innerEntry.getValue().getAbsolutePath());

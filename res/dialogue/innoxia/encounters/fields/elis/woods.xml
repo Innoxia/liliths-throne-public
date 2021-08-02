@@ -53,23 +53,23 @@
 		I don't want an encounter to display the tile's default dialogue above it (which is what would be the scene prior to this), so I'll leave this as false.
 		Please use either 'true' or 'false' for the values here.
 		You can also omit this value entirely, in which case it will default to false. -->
-		<continuesDialogue>false</continuesDialogue>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		
 		<!-- This defines whether or not this scene disables the player's ability to move, and should be defined as true when you want to prevent the player from simply walking away from the scene without choosing a response.
 		Please use either 'true' or 'false' for the values here.
 		You can also omit this value entirely, in which case it will default to false. -->
-		<travelDisabled>true</travelDisabled>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
 		
 		<!-- This defines whether or not the player's inventory is disabled.
 		You can omit this value entirely if you want, in which case it will default to false (or true if travelDisabled is true).
 			NOTE: This will always be true regardless of what you put here if the 'travelDisabled' element above is true (this is because some items could potentially move the player out of the scene, so if a scene's travel is disabled, items must be too.)
 		Please use either 'true' or 'false' for the values here. -->
-		<inventoryDisabled>true</inventoryDisabled>
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>
 		
 		<!-- This defines whether the player's health and aura regenerate as normal during this scene.
 		This should almost always be false unless you have a specific reason for not letting the player recover their health/aura.
 		Please use either 'true' or 'false' for the values here. -->
-		<regenerationDisabled>false</regenerationDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
 		
 		<!-- Responses: -->
 		<!-- The actual content and handling of a scene is only half of what a dialogue node is about.
@@ -106,7 +106,10 @@
 		You can define an optional attribute 'copyFromDialogueId' to define a dialogue node from which to copy responses for this dialogue node.
 			For example, to make this dialogue node have the same responses as the 'berries_eaten' dialogue node below, you'd define it as so:
 				<responses copyFromDialogueId="innoxia_encounters_fields_elis_woods_berries_eaten"/>
-			Please note that by doing this the responseTabs will also be copied from the dialogue node defined, as so you don't need to define responseTabs above. -->
+			Please note that by doing this the responseTabs will also be copied from the dialogue node defined, and so you don't need to define responseTabs above.
+			Additional note: You can still define responses and response tabs when using the 'copyFromDialogueId' attribute.
+				When doing so, the game will prioritise using the responses/tabs you've defined, and then fall back on those from the 'copyFromDialogueId' element.
+				In this manner, it is possible to override responses defined in the dialogue node from 'copyFromDialogueId'. -->
 		<responses>
 			<!-- Sometimes you might want to vary the properties of a response based on gameplay variables.
 			As such, all of the elements within a response support conditional statements. -->
@@ -281,10 +284,9 @@
 				<!-- Responses can, of course, lead into the start of a sex scene.
 				As such, there are several elements here which provide the required information to the sex code to get a sex scene started.
 				If your response doesn't lead into a sex scene, you need to either delete this section or set the 'enabled' attribute to false (as I've done - I've added that attribute so that I can show you a full example without it actually affecting the response).
-				Note: Unlike combat scenes, the requirements above are all taken into account, except for the 'nextDialogue' element (as the next dialogue to be shown is the sex engine's dialogue).
-				Additional note: Modded sex managers are not supported yet, so custom sex scenes cannot be added.
-					As such, you're limited to generic ones (with starting behaviour determined by the 'tags' element below), which should nevertheless be suitable for most sex scenes. -->
+				Note: Unlike combat scenes, the requirements above are all taken into account, except for the 'nextDialogue' element (as the next dialogue to be shown is the sex engine's dialogue). -->
 				<sexVariables enabled="false">
+					<conditional><![CDATA[false]]></conditional>
 					<!-- Whether this is a consensual scene or not.
 					You should be using the game.isNonConEnabled() method somewhere (likely in the 'availabilityConditional' element above) to make sure you aren't displaying non-con scenes to players who have that content turned off. -->
 					<consensual><![CDATA[true]]></consensual>

@@ -97,6 +97,12 @@ public class Astrapi extends NPC {
 			this.setPlayerKnowsName(false);
 			this.setupPerks(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.6")) {
+			this.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1")) {
+			this.setFetishDesire(Fetish.FETISH_ARMPIT_RECEIVING, FetishDesire.THREE_LIKE);
+		}
 	}
 
 	@Override
@@ -137,6 +143,8 @@ public class Astrapi extends NPC {
 			this.setFetishDesire(Fetish.FETISH_DENIAL_SELF, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_ARMPIT_RECEIVING, FetishDesire.THREE_LIKE);
+			
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 		}
 		

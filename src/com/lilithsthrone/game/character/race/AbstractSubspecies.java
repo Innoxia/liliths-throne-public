@@ -793,6 +793,7 @@ public abstract class AbstractSubspecies {
 		if(subspecies==null) {
 			if(Main.game.isStarted()) { // Races get recalculated after the game starts in Game.handlePostGameInit(), so only show errors if the detection is still failing after that
 				System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies!");
+				new Exception().printStackTrace();
 			}
 			return Subspecies.HUMAN;
 		}

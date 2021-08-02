@@ -514,7 +514,8 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESISTANCE_LUST, 25f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -546,7 +547,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f)),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESISTANCE_LUST, 15f),
+					new Value<>(Attribute.DAMAGE_LUST, 5f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -578,7 +581,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESISTANCE_LUST, 5f),
+					new Value<>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -1425,7 +1430,7 @@ public class StatusEffect {
 				
 				if(!place.equals(PlaceType.WORLD_MAP_DOMINION)){
 					sb.append("<p>"
-							+ "Although it breaks high over Dominion, the storm isn't contained to just within the city, and swiftly sweeps out across the Foloi fields and into the surrounding forests and grassland wilderness."
+							+ "Although it breaks high over Dominion, the storm isn't contained to just within the city, and swiftly sweeps out across the Foloi Fields and into the surrounding forests and grassland wilderness."
 							+ " Like a chain reaction, flashes of purple lightning streak across the sky in all directions, which are quickly followed by the erotic moaning of arcane thunder."
 						+ "</p>");
 
@@ -3623,11 +3628,11 @@ public class StatusEffect {
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			
 			StringBuilder sb = new StringBuilder();
 			
 			if (target.isPregnant()) {
 				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
+				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
@@ -6244,7 +6249,87 @@ public class StatusEffect {
 			return getCreampieSVGString(owner, SexAreaOrifice.MOUTH);
 		}
 	};
-	
+
+	public static AbstractStatusEffect CREAMPIE_SPINNERET = new AbstractStatusEffect(80,
+			"Spinneret Creampie",
+			"creampie",
+			PresetColour.CUM,
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newArrayListOfValues("<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+		@Override
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+			if(isCumEffectPositive(target)) {
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
+				
+			} else {
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
+			}
+		}
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			List<String> attributeModifiersList = attributeModifiersToStringList(getAttributeModifiers(target));
+			
+			attributeModifiersList.addAll(this.getExtraEffects(target));
+			
+			return attributeModifiersList;
+		}
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			if(Main.game.isInSex()) {
+				return "";
+			}
+			float cumLost = SexAreaOrifice.SPINNERET.getCharactersCumLossPerSecond(target) * secondsPassed;
+			
+			StringBuilder sb = new StringBuilder();
+			
+			AbstractClothing clothingBlocking = target.getLowestZLayerCoverableArea(SexAreaOrifice.SPINNERET.getRelatedCoverableArea(target));
+			boolean dirtyArea = clothingBlocking==null;
+			
+			if(dirtyArea) {
+				InventorySlot spinneretSlot = SexAreaOrifice.SPINNERET.getRelatedInventorySlot(target);
+				if(!target.getDirtySlots().contains(spinneretSlot)) {
+					target.addDirtySlot(spinneretSlot);
+				}
+			}
+			
+			target.drainTotalFluidsStored(SexAreaOrifice.SPINNERET, cumLost);
+			
+			return sb.toString();
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			float cumLost = SexAreaOrifice.SPINNERET.getCharactersCumLossPerSecond(target) * 60;
+			float cumInArea = target.getTotalFluidInArea(SexAreaOrifice.SPINNERET);
+			
+			if(target.isPlayer()) {
+				return "As you walk, you can feel cum drooling out of your recently-used spinneret.<br/>"
+						+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+						+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)";
+			} else {
+				return UtilText.parse(target, 
+						"[npc.NamePos] spinneret has recently been filled with cum.<br/>"
+						+ "Current creampie: [style.colourSex("+Units.fluid(cumInArea)+")]<br/>"
+						+ "(-"+Units.fluid(cumLost, ValueType.PRECISE)+"/minute)");
+			}
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getTotalFluidInArea(SexAreaOrifice.SPINNERET)>0;
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getCreampieSVGString(owner, SexAreaOrifice.SPINNERET);
+		}
+	};
 	
 	public static AbstractStatusEffect CUM_INFLATION_1 = new AbstractStatusEffect(80,
 			"swollen belly",
@@ -6583,9 +6668,9 @@ public class StatusEffect {
 		}
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(target.getLastTimeOrgasmedSeconds()>=Main.game.getSecondsPassed()-(60*60*24)) {
-				target.removeStatusEffect(FRUSTRATED_NO_ORGASM); // Remove this effect if orgasmed within the last day
-			}
+//			if(target.getLastTimeOrgasmedSeconds()>=Main.game.getSecondsPassed()-(60*60*24)) {
+//				target.removeStatusEffect(FRUSTRATED_NO_ORGASM); // Remove this effect if orgasmed within the last day
+//			}
 			return "";
 		}
 		@Override
@@ -6756,6 +6841,10 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean forceLoad() {
 			return true;
 		}
 	};
@@ -7756,8 +7845,18 @@ public class StatusEffect {
 			"clothingSets/bdsm",
 			PresetColour.CLOTHING_BLACK,
 			false,
-			Util.newHashMapOfValues( new Value<>(Attribute.MAJOR_PHYSIQUE, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
+		@Override
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+			if(target!=null && target.hasFetish(Fetish.FETISH_BONDAGE_VICTIM)) {
+				return Util.newHashMapOfValues(
+						new Value<>(Attribute.HEALTH_MAXIMUM, 10f),
+						new Value<>(Attribute.RESISTANCE_PHYSICAL, 10f),
+						new Value<>(Attribute.DAMAGE_LUST, 10f));
+			}
+			return super.getAttributeModifiers(target);
+		}
 		@Override
 		public StatusEffectCategory getCategory() {
 			return StatusEffectCategory.INVENTORY;
@@ -7765,16 +7864,13 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer()) {
-					return "You have been tied up in bondage gear, and are struggling to move.";
-					
+				if(target.hasFetish(Fetish.FETISH_BONDAGE_VICTIM)) {
+					return UtilText.parse(target, "[npc.Name] [npc.has] been tied up in bondage gear, and [npc.is] absolutely loving the fact that [npc.she] [npc.is] struggling to move.");
 				} else {
-					return UtilText.parse(target, "[npc.Name] has been tied up in bondage gear, and is struggling to move.");
-					
+					return UtilText.parse(target, "[npc.Name] [npc.has] been tied up in bondage gear, and [npc.is] struggling to move.");
 				}
-			} else {
-				return "";
 			}
+			return "";
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -8219,6 +8315,10 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getLust()>=100 && !target.isVulnerableToLustLoss();
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
 		}
 	};
 

@@ -95,12 +95,24 @@
 			</preferences>
 			<sexTypesBanned/>
 			<areasBanned appliesToSelf="true">
+				<sexArea><![CDATA[
+					#IF(pc.isTaur())
+						PENETRATION_TONGUE
+					#ENDIF
+				]]></sexArea>
+				<sexArea><![CDATA[
+					#IF(pc.isTaur())
+						ORIFICE_MOUTH
+					#ENDIF
+				]]></sexArea>
 				<sexArea><![CDATA[ORIFICE_VAGINA]]></sexArea>
 				<sexArea><![CDATA[ORIFICE_ANUS]]></sexArea>
 			</areasBanned>
 			<stopSexCondition><![CDATA[
 				#IF(!meraxis.hasFetish(FETISH_MASTURBATION))
 					[#sex.isOrgasmCountMet(pc, 1, true)]
+				#ELSE
+					[#sex.isSatisfiedFromOrgasms(pc, true) && sex.isSatisfiedFromOrgasms(meraxis, true)]
 				#ENDIF
 			]]></stopSexCondition>
 			<dirtyTalk/>

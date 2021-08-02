@@ -625,6 +625,51 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if(index==25)  {
+					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
+						@Override
+						public void effects() {
+							spawnrateSB = new StringBuilder("<table><tr><th>Race Name</th><th>Overall</th><th>Masculine</th><th>Feminine</th><th>Race Name</th><th>Overall</th><th>Masculine</th><th>Feminine</th></tr>");
+							spawnTotal = 0;
+							spawnTotalMasculine = 0;
+							spawnTotalFeminine = 0;
+							float spawn;
+							float spawnMasculine;
+							float spawnFeminine;
+							for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+								if (Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).containsKey(s)) {
+									spawn = (1000 * Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).get(s).getChanceMultiplier());
+									spawnTotalMasculine += (spawn * Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s).getValue());
+									spawnTotalFeminine += (spawn * Main.getProperties().getSubspeciesFemininePreferencesMap().get(s).getValue());
+									spawnTotal = spawnTotalMasculine + spawnTotalFeminine;
+								}
+							}
+							boolean even = false;
+							for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+								if (Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).containsKey(s)) {
+									spawn = (1000 * Subspecies.getWorldSpecies(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocationPlace().getPlaceType(), false).get(s).getChanceMultiplier());
+									spawnMasculine = (spawn * Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s).getValue());
+									spawnFeminine = (spawn * Main.getProperties().getSubspeciesFemininePreferencesMap().get(s).getValue());
+									if (!even) {
+										spawnrateSB.append("<tr>");
+									}
+									spawnrateSB.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(Util.capitaliseSentence(s.getNamePlural(null))).append("</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", (((spawnMasculine + spawnFeminine) * 100) / spawnTotal))).append("%</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", ((spawnMasculine * 100) / spawnTotalMasculine))).append("%</td>")
+												.append("<td style='color:").append(s.getColour(null).toWebHexString()).append(";'>").append(String.format("%.02f", ((spawnFeminine * 100) / spawnTotalFeminine))).append("%</td>");
+									if (even) {
+										spawnrateSB.append("</tr>");
+									}
+									even = !even;
+								}
+							}
+							if (!even) {
+								spawnrateSB.append("</tr>");
+							}
+							spawnrateSB.append("</table>");
+						}
+					};
+					
 				}
 				
 			} else if(responseTab == 3) {
@@ -752,12 +797,12 @@ public class DebugDialogue {
 			
 			for(NPC npc : Main.game.getOffspring(true)) {
 				boolean isBorn = true;
-				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+				if(npc.getMother()!=null && npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
 				}
 				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
 						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies().getName(npc)+")"
-						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
+						+ " M:"+(npc.getMother()!=null?npc.getMother().getName(true):"Deleted NPC")+" F:"+(npc.getFather()!=null?npc.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			if(activeOffspring!=null) {
 				for(Fetish f : activeOffspring.getFetishes(true)) {
@@ -1696,7 +1741,7 @@ public class DebugDialogue {
 					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
 							+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>");
 			
-			for(ParserTarget character : ParserTarget.values()) {
+			for(AbstractParserTarget character : ParserTarget.getAllParserTargets()) {
 				UtilText.nodeContentSB.append("<hr/>"
 						+"<p>");
 				
@@ -2025,6 +2070,25 @@ public class DebugDialogue {
 				}
 			}
 			return null;
+		}
+	};
+	
+	private static StringBuilder spawnrateSB;
+	private static float spawnTotal, spawnTotalMasculine, spawnTotalFeminine;
+	public static final DialogueNode SPAWN_RATES = new DialogueNode("", "", false) {
+		@Override
+		public String getAuthor() { return "AceXp"; }
+		@Override
+		public String getContent() {
+			return spawnrateSB.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
 		}
 	};
 

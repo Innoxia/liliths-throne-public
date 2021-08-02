@@ -59,7 +59,7 @@ public class SexSlot {
 	}
 
 	/**
-	 * @param description The description for this slot. Should be unique to sex position so that player knows exactly which slot this is in any tooltips.
+	 * @return The description for this slot. Should be unique to sex position so that player knows exactly which slot this is in any tooltips.
 	 */
 	public String getDescription() {
 		return description;
@@ -70,6 +70,9 @@ public class SexSlot {
 	 * If orgasmDescription is null, getGenericOrgasmDescription() is returned instead.
 	 */
 	public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+		if(orgasmingCharacter.equals(targetedCharacter)) {
+			return "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+		}
 		if(orgasmDescription==null) {
 			return getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
@@ -80,8 +83,13 @@ public class SexSlot {
 	 * @return A generic orgasm description, based on who the character in this slot is targeting. Will be returned if orgasmDescription is null.
 	 */
 	public String getGenericOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-		return UtilText.parse(orgasmingCharacter, targetedCharacter,
-				"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.");
+		if(orgasmingCharacter.equals(targetedCharacter)) {
+			return UtilText.parse(orgasmingCharacter, targetedCharacter,
+					"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.");
+		} else {
+			return UtilText.parse(orgasmingCharacter, targetedCharacter,
+					"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.");
+		}
 	}
 
 	/**

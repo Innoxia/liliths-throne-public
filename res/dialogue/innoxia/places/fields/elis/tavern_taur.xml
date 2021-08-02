@@ -1,0 +1,1409 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_bar -->
+	<scene id="bar">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">BAR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[
+			[#!kheiron.isPlayerKnowsName()]
+		]]></travelDisabled>
+		<responseTabs>
+			<tab index="0"><![CDATA[
+				#IF(game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName())
+					Talk
+				#ENDIF
+			]]></tab>
+			<tab index="1"><![CDATA[
+				#IF(game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName())
+					Drinks
+				#ENDIF
+			]]></tab>
+			<tab index="2"><![CDATA[
+				#IF(game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName())
+					Food
+				#ENDIF
+			]]></tab>
+		</responseTabs>
+		<responses>
+			<!-- Tab 0: Talk -->
+			<response> <!-- Initial greeting: -->
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(kheiron) && !kheiron.isPlayerKnowsName()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Introduce yourself to the centaur.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_bar_intro_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#kheiron.setPlayerKnowsName(true)]
+				]]></effects>
+			</response>
+			
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Small talk]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_kheiron_smalltalk_complete))
+						You've already spent time making small talk with Kheiron today. You'll have to wait until tomorrow before you can repeat this.
+					#ELSE
+						Spend fifteen minutes talking to Kheiron about the weather, local news, and other such trivial topics.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_kheiron_smalltalk_complete))
+						innoxia_places_fields_elis_tavern_taur_bar
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_TALK'))]
+					#IF(kheiron.getAffection(pc)<40)
+						[#game.appendToTextStartStringBuilder(kheiron.incrementAffection(pc, 5))]
+					#ENDIF
+					[#flags.setFlag(FLAG_innoxia_kheiron_smalltalk_complete, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Lunette]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Kheiron what he knows about Lunette.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_fields_elis_tavern_taur_bar</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_TALK_LUNETTE'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[History]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Kheiron about his history and how he came to own this tavern.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_fields_elis_tavern_taur_bar</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_TALK_HISTORY'))]
+				]]></effects>
+			</response>
+			<!-- Kheiron not present: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					Water (Free)
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Order a glass of water.
+				]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_fields_elis_tavern_taur_bar</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_WATER'))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_human_vanilla_water').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Orange juice (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a glass of carbonated orange juice. #ELSE You can't afford a glass of carbonated orange juice... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_ORANGE_JUICE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_ferret_orange_juice').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Berry soda (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a glass of berry-flavoured soda. #ELSE You can't afford a glass of berry-flavoured soda... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_BERRY_SODA'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_otter_berry_soda').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Cola (#IF(pc.getMoney()>=25)[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=25) Order a glass of carbonated cola. #ELSE You can't afford a glass of carbonated cola... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=25)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_COLA'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-25))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_pig_porcine_pop').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Coffee (#IF(pc.getMoney()>=30)[style.moneyFormat(30, span)]#ELSE[style.moneyFormatUncoloured(30, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=30) Order a glass of cold-brew, black coffee. #ELSE You can't afford a glass of cold-brew, black coffee... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=30)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_COFFEE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-30))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('charisma_race_spider_jet_black_coffee').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Bread rolls (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a small basket of freshly-baked bread rolls from the 'starters & sides' menu. #ELSE You can't afford a small basket of freshly-baked bread rolls from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_BREAD'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_human_bread_roll').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Mixed nuts (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a serving of mixed nuts from the 'starters & sides' menu. #ELSE You can't afford a serving of mixed nuts from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_NUTS'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_squirrel_round_nuts').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Pâté and crackers (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a serving of meat pâté and crackers from the 'starters & sides' menu. #ELSE You can't afford a serving of meat pâté and crackers from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_PATE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_gryphon_pate_and_crackers').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Honey bread (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a serving of honey bread from the dessert menu. #ELSE You can't afford a serving of honey bread from the dessert menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_HONEY_BREAD'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_bear_honey_bread').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(kheiron)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Brownie (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a chocolate brownie from the dessert menu. #ELSE You can't afford a chocolate brownie from the dessert menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_BROWNIE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('NoStepOnSnek_race_capybara_brownie').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			
+			<!-- Tab 1: Drinks -->
+			<!-- Non-alcoholic: -->
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					Water (Free)
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Order a glass of water.
+				]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_fields_elis_tavern_taur_bar</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_WATER'))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_human_vanilla_water').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Orange juice (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a glass of carbonated orange juice. #ELSE You can't afford a glass of carbonated orange juice... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_ORANGE_JUICE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_ferret_orange_juice').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Berry soda (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a glass of berry-flavoured soda. #ELSE You can't afford a glass of berry-flavoured soda... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_BERRY_SODA'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_otter_berry_soda').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Cola (#IF(pc.getMoney()>=25)[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=25) Order a glass of carbonated cola. #ELSE You can't afford a glass of carbonated cola... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=25)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_COLA'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-25))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_pig_porcine_pop').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Coffee (#IF(pc.getMoney()>=30)[style.moneyFormat(30, span)]#ELSE[style.moneyFormatUncoloured(30, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=30) Order a glass of cold-brew, black coffee. #ELSE You can't afford a glass of cold-brew, black coffee... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=30)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_COFFEE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-30))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('charisma_race_spider_jet_black_coffee').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<!-- Alcoholic: -->
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Beer (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of beer. #ELSE You can't afford a pint of beer... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_BEER'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-40))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Cider (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of cider. #ELSE You can't afford a pint of cider... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_CIDER'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-40))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_horse_equine_cider').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Perry (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of pear cider, which is commonly known as perry. #ELSE You can't afford a pint of pear cider... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_PERRY'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-40))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_badger_black_stripes_perry').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Red wine (#IF(pc.getMoney()>=60)[style.moneyFormat(60, span)]#ELSE[style.moneyFormatUncoloured(60, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=60) Order a glass of red wine. #ELSE You can't afford a glass of red wine... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=60)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_WINE_RED'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-60))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_fox_vulpines_vineyard').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[White wine (#IF(pc.getMoney()>=60)[style.moneyFormat(60, span)]#ELSE[style.moneyFormatUncoloured(60, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=60) Order a glass of white wine. #ELSE You can't afford a glass of white wine... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=60)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_WINE_WHITE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-60))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_fox_vulpines_vineyard').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<responseTitle><![CDATA[Vodka (#IF(pc.getMoney()>=100)[style.moneyFormat(100, span)]#ELSE[style.moneyFormatUncoloured(100, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=100) Order a glass of vodka. #ELSE You can't afford a glass of vodka... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=100)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_VODKA'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-100))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_bear_vodka').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[12]]></index>
+				<responseTitle><![CDATA[Rum (#IF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120) Order a glass of rum. #ELSE You can't afford a glass of rum... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_RUM'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-120))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_rat_black_rats_rum').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[13]]></index>
+				<responseTitle><![CDATA[Whiskey (#IF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120) Order a glass of whiskey. #ELSE You can't afford a glass of whiskey... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_WHISKEY'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-120))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_wolf_wolf_whiskey').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[14]]></index>
+				<responseTitle><![CDATA[Champagne (#IF(pc.getMoney()>=160)[style.moneyFormat(160, span)]#ELSE[style.moneyFormatUncoloured(160, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=160) Order a glass of champagne. #ELSE You can't afford a glass of champagne... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=160)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_DRINK_CHAMPAGNE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-160))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_goat_pans_flute').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			
+			<!-- Tab 2: Food -->
+			<!-- Starters: -->
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Bread rolls (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a small basket of freshly-baked bread rolls from the 'starters & sides' menu. #ELSE You can't afford a small basket of freshly-baked bread rolls from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_BREAD'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_human_bread_roll').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Mixed nuts (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a serving of mixed nuts from the 'starters & sides' menu. #ELSE You can't afford a serving of mixed nuts from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_NUTS'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_squirrel_round_nuts').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Curly fries (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a serving of curly fries from the 'starters & sides' menu. #ELSE You can't afford a serving of curly fries from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_FRIES'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_pig_oinkers_fries').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Shrimp cocktail (#IF(pc.getMoney()>=75)[style.moneyFormat(75, span)]#ELSE[style.moneyFormatUncoloured(75, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=75) Order a serving of shrimp cocktail from the 'starters & sides' menu. #ELSE You can't afford a serving of shrimp cocktail from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=75)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_SHRIMP'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-75))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('NoStepOnSnek_race_octopus_shrimp_cocktail').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Pâté and crackers (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a serving of meat pâté and crackers from the 'starters & sides' menu. #ELSE You can't afford a serving of meat pâté and crackers from the 'starters & sides' menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_PATE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_gryphon_pate_and_crackers').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<!-- Main courses: -->
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Fish & chips (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a serving of fish and chips from the main menu. #ELSE You can't afford a serving of fish and chips from the main menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_FISH_CHIPS'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-150))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_otter_fish_and_chips').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Sausages (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a serving of high-quality sausages from the main menu. #ELSE You can't afford a serving of high-quality sausages from the main menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_SAUSAGES'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-150))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_ferret_sausages').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Burger (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a burger from the main menu. #ELSE You can't afford a burger from the main menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_BURGER'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-150))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_rat_brown_rats_burger').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Chicken pie (#IF(pc.getMoney()>=180)[style.moneyFormat(180, span)]#ELSE[style.moneyFormatUncoloured(180, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=180) Order a chicken pie from the main menu. #ELSE You can't afford a chicken pie from the main menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=180)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_CHICKEN_PIE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-180))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_fox_chicken_pot_pie').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Steak (#IF(pc.getMoney()>=250)[style.moneyFormat(250, span)]#ELSE[style.moneyFormatUncoloured(250, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=250) Order a steak from the main menu. #ELSE You can't afford a steak from the main menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=250)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_STEAK'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_wolf_meat_and_marrow').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<!-- Pudding -->
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<responseTitle><![CDATA[Fruit salad (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a fruit salad from the dessert menu. #ELSE You can't afford a fruit salad from the dessert menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_FRUIT_SALAD'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_bat_fruit_bats_salad').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[12]]></index>
+				<responseTitle><![CDATA[Honey bread (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a serving of honey bread from the dessert menu. #ELSE You can't afford a serving of honey bread from the dessert menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_HONEY_BREAD'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_bear_honey_bread').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[13]]></index>
+				<responseTitle><![CDATA[Berry trifle (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a serving of berry trifle from the dessert menu. #ELSE You can't afford a serving of berry trifle from the dessert menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_BERRY_TRIFLE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_badger_berry_trifle').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[2]]></responseTabIndex>
+				<index><![CDATA[14]]></index>
+				<responseTitle><![CDATA[Brownie (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a chocolate brownie from the dessert menu. #ELSE You can't afford a chocolate brownie from the dessert menu... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_tavern_taur_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_FOOD_BROWNIE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('NoStepOnSnek_race_capybara_brownie').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bar_intro_talk">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">BAR_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_taur_bar"/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_corridor -->
+	<scene id="corridor">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">CORRIDOR</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_exit -->
+	<scene id="exit">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">EXIT</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the tavern and head back out into the streets of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_tavern_taur)]
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_street)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_kitchen -->
+	<scene id="kitchen">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">KITCHEN</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_seating -->
+	<scene id="seating">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">SEATING</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(fae)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fae & Silvia]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						Approach the table where Fae and Silvia are sitting and say hello.
+					#ELSE
+						You need to be able to access your mouth in order to have fun with Fae and Silvia...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						innoxia_places_fields_elis_tavern_taur_seating_fae
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<!-- Reset all flags: -->
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_met, true)]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_small_talk, false)]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_drink, false)]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_flirt, false)]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_kiss, false)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_fae">
+		<author><![CDATA[Innoxia]]></author>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE'))]
+			[#fae.setCharacterReactedToPregnancy(pc, true)]
+			[#silvia.setCharacterReactedToPregnancy(pc, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Talk: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<responseTitle><![CDATA[Talk]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_small_talk))
+						Spend some time talking with the foxtauresses.
+					#ELSE
+						The foxtauresses don't seem interested in spending any more time talking with you tonight.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_small_talk))
+						innoxia_places_fields_elis_tavern_taur_seating_fae_interaction
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_TALK'))]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_small_talk, true)]
+				]]></effects>
+			</response>
+			<!-- Drink: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Drinks]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_drink))
+						Ask the foxtauresses if they'd like a drink.
+					#ELSE
+						The foxtauresses already have a drink.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_drink))
+						innoxia_places_fields_elis_tavern_taur_seating_fae_interaction
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_DRINKS'))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_fox_vulpines_vineyard').applyEffect(pc, pc))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_fox_vulpines_vineyard').applyEffect(fae, fae))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_fox_vulpines_vineyard').applyEffect(silvia, silvia))]
+					[#game.appendToTextStartStringBuilder(fae.incrementAffection(pc, 2))]
+					[#game.appendToTextStartStringBuilder(silvia.incrementAffection(pc, 2))]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_drink, true)]
+				]]></effects>
+			</response>
+			<!-- Tails: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fluff tails]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_tail_fluffed))
+						Get the foxtauresses to turn around and let you fluff their tails.
+					#ELSE
+						The foxtauresses have already let you fluff their tails, and now want more physical contact...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_tail_fluffed))
+						innoxia_places_fields_elis_tavern_taur_seating_fae_interaction
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_TAILS'))]
+					[#game.appendToTextStartStringBuilder(fae.incrementAffection(pc, 2))]
+					[#game.appendToTextStartStringBuilder(silvia.incrementAffection(pc, 2))]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_tail_fluffed, true)]
+				]]></effects>
+			</response>
+			<!-- Flirt: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_flirt))
+						Start flirting with the foxtauresses.
+					#ELSE
+						You've already flirted with the foxtauresses, and now they want some real physical contact...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_flirt))
+						innoxia_places_fields_elis_tavern_taur_seating_fae_interaction
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_FLIRT'))]
+					[#game.appendToTextStartStringBuilder(fae.incrementAffection(pc, 2))]
+					[#game.appendToTextStartStringBuilder(silvia.incrementAffection(pc, 2))]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_flirt, true)]
+				]]></effects>
+			</response>
+			<!-- Kiss: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Kiss]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_flirt) && !flags.hasFlag(FLAG_innoxia_tavern_fae_tail_fluffed))
+						You need to spend some time flirting with Fae and Silvia before making a move on them...
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_tavern_fae_kiss))
+						Start kissing the foxtauresses.
+					#ELSE
+						You've already spent some time kissing the foxtauresses, and now they want sex...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF((flags.hasFlag(FLAG_innoxia_tavern_fae_flirt) || flags.hasFlag(FLAG_innoxia_tavern_fae_tail_fluffed)) && !flags.hasFlag(FLAG_innoxia_tavern_fae_kiss))
+						innoxia_places_fields_elis_tavern_taur_seating_fae_interaction
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_KISS'))]
+					[#game.appendToTextStartStringBuilder(fae.incrementAffection(pc, 5))]
+					[#game.appendToTextStartStringBuilder(silvia.incrementAffection(pc, 5))]
+					[#flags.setFlag(FLAG_innoxia_tavern_fae_kiss, true)]
+				]]></effects>
+			</response>
+			<!-- Sex: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Take home]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_kiss))
+						You're going to need to get the foxtauresses in the mood by kissing them before offering to take them back to your room in 'The Red Dragon'.
+					#ELSE
+						Offer to take the foxtauresses back to your room in 'The Red Dragon'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_tavern_fae_kiss))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_taur_seating_fae_take_home
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_player)]
+					[#fae.setLocation(pc)]
+					[#silvia.setLocation(pc)]
+				]]></effects>
+			</response>
+			<!-- leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the foxtauresses that you've got to go.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_taur_tables]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_fae_interaction">
+		<author><![CDATA[Innoxia]]></author>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_taur_seating_fae"/>
+	</scene>
+	
+	<scene id="seating_fae_take_home">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_TAKE_HOME</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Dom: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take charge]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell the foxtauresses that you'll be the one taking charge...
+					<br/>[style.colourSex(This will start a normal sex scene in which Fae and Silvia are the submissive participants.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fae_standard]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>fae</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+						<character>
+							<id>silvia</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE_TWO]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_TAKE_HOME_DOM</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Submit: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell the foxtauresses that you want them to take charge...
+					<br/>[style.colourSex(This will start a normal sex scene in which Fae and Silvia are the dominant participants.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fae_standard]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>fae</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+						<character>
+							<id>silvia</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT_TWO]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_TAKE_HOME_SUB</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Doggy: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Doggy-styled]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina())
+						As you don't have a vagina, you cannot get doggy-styled...
+					#ELSE
+						As you can't gain access to your vagina, you cannot get doggy-styled...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Doggy-styled]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell the foxtauresses that you want them to fuck you in the doggy-style position...
+					<br/>[style.colourSex(Fae will fuck your pussy while you perform oral on Silvia.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fae_doggy]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>fae</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+						<character>
+							<id>silvia</id>
+							<slot><![CDATA[ALL_FOURS_IN_FRONT_ANAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_TAKE_HOME_DOGGY</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[fae]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[silvia]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Doggy anal: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && !pc.isAbleToAccessCoverableArea(CA_ANUS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Doggy-styled]]></responseTitle>
+				<responseTooltip><![CDATA[As you can't gain access to your asshole, you cannot get anally doggy-styled...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Doggy-styled (anal)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell the foxtauresses that you want them to anally fuck you in the doggy-style position...
+					<br/>[style.colourSex(Fae will fuck your ass while you perform oral on Silvia.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fae_doggy]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>fae</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+						<character>
+							<id>silvia</id>
+							<slot><![CDATA[ALL_FOURS_IN_FRONT_ANAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_TAKE_HOME_DOGGY_ANAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[fae]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[silvia]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_fae_after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The foxtauresses seem satisfied and bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Say goodbye]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Fae and Silvia.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#fae.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+					[#silvia.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sleep over]]></responseTitle>
+				<responseTooltip><![CDATA[Offer to let Fae and Silvia stay the night with you here in your room.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_sleep_over]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#~~(game.getMinutesUntilNextMorningOrEvening() + 5)]
+				]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.applySleep(~~(game.getMinutesUntilNextMorningOrEvening() + 5))]
+					[#fae.applySleep(~~(game.getMinutesUntilNextMorningOrEvening() + 5))]
+					[#silvia.applySleep(~~(game.getMinutesUntilNextMorningOrEvening() + 5))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_fae_end">
+		<author><![CDATA[Innoxia]]></author>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_f1_room_player"/>
+	</scene>
+	
+	<scene id="seating_fae_sleep_over">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_SLEEP</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[No sex]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Fae and Silvia that you're not interested in more sex and say goodbye to them.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#fae.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+					[#silvia.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_SLEEP_END'))]
+				]]></effects>
+			</response>
+			<!-- Blowjob: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Suck cock]]></responseTitle>
+				<responseTooltip><![CDATA[Take Fae's fox-cock into your mouth and give her a blowjob.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fae_oral_on_fae]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>fae</id>
+							<slot><![CDATA[LYING_DOWN_FACE_SITTING]]></slot>
+						</character>
+						<character>
+							<id>silvia</id>
+							<slot><![CDATA[LYING_DOWN_MISSIONARY_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_after_sleep_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_SLEEP_SEX_COCK</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[fae]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<!-- Silvia: -->
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[silvia]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina()]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[silvia]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Cunnilingus: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Eat her out]]></responseTitle>
+				<responseTooltip><![CDATA[Get Fae to plant her fox-pussy over your mouth so that you can eat her out.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fae_oral_on_fae_pussy]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>fae</id>
+							<slot><![CDATA[LYING_DOWN_FACE_SITTING]]></slot>
+						</character>
+						<character>
+							<id>silvia</id>
+							<slot><![CDATA[LYING_DOWN_MISSIONARY_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_after_sleep_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_SLEEP_SEX_PUSSY</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[fae]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<!-- Silvia: -->
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[silvia]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina()]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[silvia]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_fae_after_sleep_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The foxtauresses seem satisfied and bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_taur">SEATING_FAE_SLEEP_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Say goodbye]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Fae and Silvia.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_seating_fae_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#fae.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+					[#silvia.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'SEATING_FAE_SLEEP_SEX_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_stairs -->
+	<scene id="stairs">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STAIRS</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_tables -->
+	<scene id="tables">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">TABLES</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_taur_toilet -->
+	<scene id="toilets">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">TOILETS</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Enter the toilets.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_toilets_interior]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toilets_interior">
+		<content folderPath="txt/places/fields/elis/tavern_taur">TOILETS_INTERIOR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Exit the toilets and head back out into the shopping precinct.
+				]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_tavern_taur, PLACE_TYPE_innoxia_fields_elis_tavern_taur_corridor)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'TOILETS_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Toilet]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Use the toilet.
+				]]></responseTooltip>
+				<nextDialogue forceContinue="true" stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_taur_toilets_interior]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'TOILETS_USE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wash]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Use the sinks to wash your [pc.hands] and face.
+					<br/>[style.italicsGood(This will clean all inventory slots associated with head and hand slots, as well as any clothing worn in these slots.)]
+				]]></responseTooltip>
+				<nextDialogue forceContinue="true" stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_taur_toilets_interior]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.applyLimitedWash(IS_HEAD, IS_EYES, IS_MOUTH, IS_NECK, IS_HAIR, IS_FINGER, IS_HAND, IS_WRIST)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'TOILETS_WASH'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

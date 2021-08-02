@@ -188,6 +188,23 @@ public class FieldsDialogue {
 						}
 					};
 				}
+				
+			} else {
+				if (index == 1) {
+					return new ResponseEffectsOnly(
+							"Explore",
+							"Take some time to explore the fields. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public int getSecondsPassed() {
+								return 30*60;
+							}
+							@Override
+							public void effects() {
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+				} 
 			}
 			return null;
 		}
@@ -241,12 +258,19 @@ public class FieldsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Explore", "Explore some of the valleys and see what you can find.<br/>[style.italicsBad(Will be added soon!)]", null) {
-					@Override
-					public void effects() {
-						//TODO generate world
-					}
-				};
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore some of the valleys and see what you can find. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
+						}
+						@Override
+						public void effects() {
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
+							Main.game.setContent(new Response("", "", dn));
+						}
+					};
 
 			} else {
 				return null;
@@ -273,12 +297,19 @@ public class FieldsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Explore", "Take some time to explore the shores of the river.<br/>[style.italicsBad(Will be added soon!)]", null) {
-					@Override
-					public void effects() {
-						//TODO generate world
-					}
-				};
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Take some time to explore the shores of the river. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
+						}
+						@Override
+						public void effects() {
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
+							Main.game.setContent(new Response("", "", dn));
+						}
+					};
 
 			} else {
 				return null;
@@ -305,7 +336,7 @@ public class FieldsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Enter (East)", "Approach Elis from the East.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_east")) {
+				return new Response("Enter (main)", "Approach Elis from the East so that you can enter the town via its main gatehouse.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_east")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_entry_east"));
@@ -318,7 +349,7 @@ public class FieldsDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Enter (West)", "Approach Elis from the West.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_west")) {
+				return new Response("Enter (rear)", "Approach Elis from the West so that you can enter the town via its rear gatehouse.", DialogueManager.getDialogueFromId("innoxia_places_fields_elis_generic_road_west")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_entry_west"));

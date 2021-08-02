@@ -74,8 +74,10 @@
 				<secondsPassed minutes="true"><![CDATA[
 					[#game.getMinutesUntilTimeInMinutes(5.75*60)]
 				]]></secondsPassed>
+				<!-- Manually set Astrapi here in effects as preParsing is called after time passed -->
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'APPROACH_WAIT'))]
+					[#astrapi.setLocation(pc, false)]
 				]]></effects>
 			</response>
 			<response>
@@ -211,12 +213,14 @@
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Wait & enter]]></responseTitle>
 				<responseTooltip><![CDATA[As the depot is currently closed, you could wait here until [units.time(5.75)] for it to open and then head inside, should you want to...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_approach_inside]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_approach_inside_repeat]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[
 					[#game.getMinutesUntilTimeInMinutes(5.75*60)]
 				]]></secondsPassed>
+				<!-- Manually set Astrapi here in effects as preParsing is called after time passed -->
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'APPROACH_REPEAT_WAIT'))]
+					[#astrapi.setLocation(pc, false)]
 				]]></effects>
 			</response>
 			<response>
@@ -273,7 +277,7 @@
 						[#game.getMinutesUntilTimeInMinutes(14.75*60)]
 					#ELSEIF(game.getHourOfDay()>9)
 						[#game.getMinutesUntilTimeInMinutes(11.75*60)]
-					#ELSEIF(game.getHourOfDay()>6)
+					#ELSE
 						[#game.getMinutesUntilTimeInMinutes(8.75*60)]
 					#ENDIF
 				]]></secondsPassed>
@@ -961,14 +965,18 @@
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_JOURNEY_END</content>
 		<secondsPassed minutes="true"><![CDATA[
-			#IF(game.getHourOfDay()>=15)
-				[#game.getMinutesUntilTimeInMinutes(17.75*60)]
-			#ELSEIF(game.getHourOfDay()>=12)
-				[#game.getMinutesUntilTimeInMinutes(14.75*60)]
-			#ELSEIF(game.getHourOfDay()>=9)
-				[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+			#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_setup_in_progress))
+				60
 			#ELSE
-				[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+				#IF(game.getHourOfDay()>=15)
+					[#game.getMinutesUntilTimeInMinutes(17.75*60)]
+				#ELSEIF(game.getHourOfDay()>=12)
+					[#game.getMinutesUntilTimeInMinutes(14.75*60)]
+				#ELSEIF(game.getHourOfDay()>=9)
+					[#game.getMinutesUntilTimeInMinutes(11.75*60)]
+				#ELSE
+					[#game.getMinutesUntilTimeInMinutes(8.75*60)]
+				#ENDIF
 			#ENDIF
 		]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
@@ -1041,6 +1049,10 @@
 				<responseTitle><![CDATA[Lick armpits]]></responseTitle>
 				<responseTooltip><![CDATA[As Astrapi is clearly getting turned on, you're certain that she'll consent to letting you lick the sweat from her armpits.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_clean_armpits]]></nextDialogue>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_ARMPIT_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
 			</response>
 		</responses>
 	</scene>
@@ -1802,13 +1814,13 @@
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/centaur_transport">VRONTI_JOURNEY_END</content>
 		<secondsPassed minutes="true"><![CDATA[
-			#IF(game.getHourOfDay()>15)
+			#IF(game.getHourOfDay()>=15)
 				[#game.getMinutesUntilTimeInMinutes(17.75*60)]
-			#ELSEIF(game.getHourOfDay()>12)
+			#ELSEIF(game.getHourOfDay()>=12)
 				[#game.getMinutesUntilTimeInMinutes(14.75*60)]
-			#ELSEIF(game.getHourOfDay()>9)
+			#ELSEIF(game.getHourOfDay()>=9)
 				[#game.getMinutesUntilTimeInMinutes(11.75*60)]
-			#ELSEIF(game.getHourOfDay()>6)
+			#ELSE
 				[#game.getMinutesUntilTimeInMinutes(8.75*60)]
 			#ENDIF
 		]]></secondsPassed>

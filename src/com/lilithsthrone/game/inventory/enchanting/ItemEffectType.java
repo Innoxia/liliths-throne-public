@@ -2,6 +2,7 @@ package com.lilithsthrone.game.inventory.enchanting;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -431,6 +433,16 @@ public class ItemEffectType {
 				target.getPotentialPartnersAsMother().removeIf((pp) -> !pp.getFatherId().equals(target.getPregnantLitter().getFatherId()));
 				
 				GameCharacter father = target.getPregnantLitter().getFather();
+				String unknownFatherName = "Unknown!";
+				if(father==null) {
+					try {
+						GameCharacter offspring0 = target.getPregnantLitter().getOffspringCharacters().iterator().next();
+						if(!offspring0.getFatherName().equals("???")) {
+							unknownFatherName = offspring0.getFatherName();
+						}
+					} catch(Exception ex) {
+					}
+				}
 				
 				return "<p>"
 						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
@@ -440,7 +452,7 @@ public class ItemEffectType {
 						+ "<i>"
 						+ "Father: "+(father!=null
 										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father))+")"
-										:"Unknown!"+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(target))+")")+"<br/>"
+										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class)))+")")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
 						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
@@ -736,6 +748,12 @@ public class ItemEffectType {
 				fetishesToAdd.remove(Fetish.FETISH_FOOT_RECEIVING);
 				fetishesToRemove.remove(Fetish.FETISH_FOOT_GIVING);
 				fetishesToRemove.remove(Fetish.FETISH_FOOT_RECEIVING);
+			}
+			if(!Main.game.isArmpitContentEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_GIVING);
+				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_RECEIVING);
+				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_GIVING);
+				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_RECEIVING);
 			}
 			if(!Main.game.isIncestEnabled()) {
 				fetishesToAdd.remove(Fetish.FETISH_INCEST);
@@ -1067,13 +1085,13 @@ public class ItemEffectType {
 			clothingMap.put(ClothingType.JOLNIR_DRESS, 4);
 			clothingMap.put(ClothingType.JOLNIR_HAT, 4);
 			
-			clothingMap.put(ClothingType.KIMONO_DRESS, 4);
-			clothingMap.put(ClothingType.KIMONO_GETA, 4);
-			clothingMap.put(ClothingType.KIMONO_HAIR_KANZASHI, 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_kimono"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_geta"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_kanzashi"), 4);
 
-			clothingMap.put(ClothingType.KIMONO_MENS_KIMONO, 4);
-			clothingMap.put(ClothingType.KIMONO_MENS_GETA, 4);
-			clothingMap.put(ClothingType.KIMONO_HAORI, 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_mens_kimono"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_mens_geta"), 4);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_japanese_haori"), 4);
 			
 			// 50% chance for consumable, 50% for clothing:
 			if(Math.random()<0.5f) {
@@ -2160,34 +2178,20 @@ public class ItemEffectType {
 				if(targetItem instanceof AbstractClothing) {
 					 //If this clothing is a 'sex toy' or groin/nipple clothing, then allow vibration and orgasm denial enchantments:
 					if(((AbstractClothing)targetItem).getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP)
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.GROIN
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.VAGINA
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PENIS
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.NIPPLE
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.CHEST
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_NIPPLE
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_PENIS
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_VAGINA) {
+							|| !Collections.disjoint(
+									((AbstractClothing)targetItem).getClothingType().getEquipSlots(),
+									Util.newArrayListOfValues(
+											InventorySlot.GROIN,
+											InventorySlot.VAGINA,
+											InventorySlot.PENIS,
+											InventorySlot.ANUS,
+											InventorySlot.NIPPLE,
+											InventorySlot.CHEST,
+											InventorySlot.PIERCING_NIPPLE,
+											InventorySlot.PIERCING_PENIS,
+											InventorySlot.PIERCING_VAGINA))) {
 						mods.add(TFModifier.CLOTHING_VIBRATION);
 						mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
-						
-					} else {
-						for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
-							List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
-							if(tags.contains(ItemTag.ENABLE_SEX_EQUIP)
-									|| slot==InventorySlot.GROIN
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.VAGINA
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PENIS
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.NIPPLE
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.CHEST
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_NIPPLE
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_PENIS
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_VAGINA) {
-								mods.add(TFModifier.CLOTHING_VIBRATION);
-								mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
-								break;
-							}
-						}
 					}
 				}
 				if(Main.game.getPlayer().isHasSlaverLicense()) {
@@ -2236,16 +2240,16 @@ public class ItemEffectType {
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				if(potency==TFPotency.MINOR_DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(25)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(25)])</b>");
 					
 				} else if(potency==TFPotency.DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(100)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(100)])</b>");
 					
 				} else if(potency==TFPotency.MAJOR_DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(500)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(500)])</b>");
 					
 				} else {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(5)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(5)])</b>");
 				}
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SERVITUDE) {

@@ -98,33 +98,6 @@
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
 				]]></effects>
 			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[10]]></index>
-				<responseTitle><![CDATA[Masturbate]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Meraxis to continue playing with her breasts while you masturbate to the sight of them.]]></responseTooltip>
-				<nextDialogue/>
-				<effects/>
-				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_meraxis_masturbation]]></id>
-					<startingPosition><![CDATA[STANDING]]></startingPosition>
-					<dominants>
-						<character>
-							<id>pc</id>
-							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
-						</character>
-					</dominants>
-					<submissives>
-						<character>
-							<id>meraxis</id>
-							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
-						</character>
-					</submissives>
-					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_masturbation]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/leaving_dominion">WON_SEX_PLAY_BREASTS_MASTURBATE</sexStartContent>
-					<ongoingActionsAtStart/>
-				</sexVariablesWithManager>
-			</response>
 		</responses>
 	</scene>
 	
@@ -930,7 +903,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Compliment]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Meraxis how pretty she is.]]></responseTooltip>
+				<responseTooltip><![CDATA[Simply tell Meraxis how pretty she is.]]></responseTooltip>
 				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_HOLD_HANDS_FINISHED'))]
@@ -1036,13 +1009,25 @@
 					<dominants>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							<slot><![CDATA[
+							#IF(pc.isTaur())
+								STANDING_STANDING_DOMINANT
+							#ELSE
+								STANDING_STANDING_DOMINANT
+							#ENDIF
+							]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
 							<id>meraxis</id>
-							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									STANDING_PERFORMING_ORAL_BEHIND
+								#ELSE
+									STANDING_STANDING_SUBMISSIVE
+								#ENDIF
+							]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_fingered]]></postSexDialogue>
@@ -1089,13 +1074,25 @@
 					<dominants>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							<slot><![CDATA[
+							#IF(pc.isTaur())
+								STANDING_STANDING_DOMINANT
+							#ELSE
+								STANDING_STANDING_DOMINANT
+							#ENDIF
+							]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
 							<id>meraxis</id>
-							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									STANDING_PERFORMING_ORAL_BEHIND
+								#ELSE
+									STANDING_STANDING_SUBMISSIVE
+								#ENDIF
+							]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_handjob]]></postSexDialogue>
@@ -1115,6 +1112,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_fingering">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_FINGERING</content>
@@ -1125,6 +1125,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_fingered">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_FINGERED</content>
@@ -1135,6 +1138,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_handjob">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_HANDJOB</content>
@@ -1266,17 +1272,35 @@
 				<effects/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_meraxis_duel_hotdogging]]></id>
-					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
+					<startingPosition><![CDATA[
+						#IF(pc.isTaur())
+							ALL_FOURS
+						#ELSE
+							AGAINST_WALL
+						#ENDIF
+					]]></startingPosition>
 					<dominants>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[AGAINST_WALL_STANDING_WALL]]></slot>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_BEHIND
+								#ELSE
+									AGAINST_WALL_STANDING_WALL
+								#ENDIF
+							]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
 							<id>meraxis</id>
-							<slot><![CDATA[AGAINST_WALL_FACE_TO_WALL]]></slot>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									AGAINST_WALL_FACE_TO_WALL
+								#ENDIF
+							]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_hotdogging]]></postSexDialogue>
@@ -1349,6 +1373,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_anilingus">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_ANILINGUS</content>
@@ -1359,6 +1386,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_hotdogging">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_HOTDOGGING</content>
@@ -1369,6 +1399,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_anal">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_ANAL</content>
@@ -1430,7 +1463,7 @@
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 						You can't gain access to your mouth, so can't perform cunnilingus on Meraxis even if she'd let you!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to let you perform cunnilingus on her!
@@ -1483,7 +1516,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasVagina())
 						You don't have a vagina, so Meraxis couldn't perform cunnilingus on you even if she wanted to!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 						You can't gain access to your vagina, so Meraxis couldn't perform cunnilingus on you even if she wanted to!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to perform cunnilingus on you!
@@ -1511,7 +1544,13 @@
 					<submissives>
 						<character>
 							<id>meraxis</id>
-							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+							<slot><![CDATA[
+							#IF(pc.isTaur())
+								STANDING_PERFORMING_ORAL_BEHIND
+							#ELSE
+								STANDING_PERFORMING_ORAL
+							#ENDIF
+							]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_cunnilingus_receive]]></postSexDialogue>
@@ -1536,7 +1575,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasPenis())
 						You don't have a penis, so Meraxis couldn't give you a blowjob even if she wanted to!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 						You can't gain access to your penis, so Meraxis couldn't give you a blowjob even if she wanted to!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to give you a blowjob!
@@ -1584,6 +1623,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_cunnilingus">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_CUNNILINGUS</content>
@@ -1594,6 +1636,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_cunnilingus_receive">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_CUNNILINGUS_RECEIVE</content>
@@ -1604,6 +1649,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_blowjob">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_BLOWJOB</content>
@@ -1806,6 +1854,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_masturbation_breasts">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_MASTURBATION_BREASTS</content>
@@ -1816,6 +1867,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_breast_kissing">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_BREASTS_KISSING</content>
@@ -1826,6 +1880,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_breast_fuck">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_BREAST_FUCK</content>
@@ -1908,17 +1965,35 @@
 				<effects/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_meraxis_duel_intercrural]]></id>
-					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<startingPosition><![CDATA[
+						#IF(pc.isTaur())
+							ALL_FOURS
+						#ELSE
+							STANDING
+						#ENDIF
+					]]></startingPosition>
 					<dominants>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_BEHIND
+								#ELSE
+									STANDING_STANDING_DOMINANT
+								#ENDIF
+							]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
 							<id>meraxis</id>
-							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									STANDING_STANDING_SUBMISSIVE
+								#ENDIF
+							]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_intercrural]]></postSexDialogue>
@@ -1989,7 +2064,7 @@
 			</response>
 			<!-- 5 -->
 			<response>
-				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) || pc.isTaur() || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Scissor]]></responseTitle>
@@ -1998,6 +2073,8 @@
 						You don't have a vagina, so couldn't scissor with Meraxis even if she'd let you!
 					#ELSEIF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
 						Meraxis doesn't feel comfortable enough to let you scissor with her!
+					#ELSEIF(pc.isTaur())
+						Due to the configuration of your lower body, you're unable to get into a suitable position in which to scissor with Meraxis!
 					#ELSE
 						You can't gain access to your pussy, so cannot scissor with Meraxis even if she'd let you!
 					#ENDIF
@@ -2005,7 +2082,7 @@
 				<nextDialogue>null</nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && !pc.isTaur() && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Scissor]]></responseTitle>
@@ -2044,6 +2121,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_intercrural">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_INTERCRURAL</content>
@@ -2054,6 +2134,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_fuck">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_FUCK</content>
@@ -2064,6 +2147,9 @@
 	</scene>
 	
 	<scene id="won_sex_post_scissor">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
 		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_SCISSOR</content>
@@ -2097,11 +2183,8 @@
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'POST_SEX_END'))]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
 					#ENDIF
-					#IF(game.getHourOfDay()>=1 && game.getHourOfDay()<=8)
-						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
-					#ELSE
-						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f0, PLACE_TYPE_innoxia_fields_elis_tavern_f0_meraxis, true)]
-					#ENDIF
+					[#meraxis.returnToHome()]
+					[#meraxis.hourlyUpdate()]
 					[#meraxis.equipClothing()]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]

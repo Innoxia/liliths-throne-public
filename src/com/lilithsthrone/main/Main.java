@@ -3,18 +3,20 @@ package com.lilithsthrone.main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
-import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
 import com.lilithsthrone.game.PropertyValue;
@@ -84,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.0.5";
+	public static final String VERSION_NUMBER = "0.4.1.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -98,7 +100,7 @@ public class Main extends Application {
 	
 	private static Properties properties;
 	
-	public static String patchNotes = "";
+	private static String patchNotes = "";
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 
@@ -123,10 +125,6 @@ public class Main extends Application {
 	
 	public static List<CreditsSlot> credits = new ArrayList<>();
 
-	static {
-		loadPatchNotes();
-	}
-	
 	// World generation:
 	public static Generation gen;
 	@Override
@@ -172,6 +170,9 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Inferniken", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Ace Morris", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Zyrodil", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Vorst", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("MegaJank", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Fox-Sama", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -526,6 +527,7 @@ public class Main extends Application {
 			Alert a = new Alert(AlertType.WARNING,
 					"Could not find the 'res' folder ("+dir.getAbsolutePath()+"). This WILL cause errors and present sections of missing text."
 							+ "\nMake sure that you've extracted the game from the zip file, and that the file has write permissions."
+							+ "\nIf you use the command line or a batch/script file to start the game, please try starting it in the game folder to prevent this error."
 							+ "\n(Please read section 'MISSING FOLDERS' in the README.txt file.)"
 							+ "\nContinue?",
 					ButtonType.YES, ButtonType.NO);
@@ -587,50 +589,49 @@ public class Main extends Application {
 		return docBuilder;
 	}
 
-	private static void loadPatchNotes() {
-		// toc.xml parsing
-		File tocXMLFile = new File("res/patchnotes/toc.xml");
-		if (!tocXMLFile.exists()) {
-			System.err.println("File 'res/patchnotes/toc.xml' could not be loaded!");
-		} else {
-			try {
-				Document doc = Main.getDocBuilder().parse(tocXMLFile);
+	public static String getPatchNotes() {
+		if (!patchNotes.isEmpty()) {
+			return patchNotes;
+		}
 
-				// Cast magic:
-				doc.getDocumentElement().normalize();
+		String prefaceText = "";
+		StringBuilder patchNotesText = new StringBuilder();
 
-				Element coreElement = Element.getDocumentRootElement(tocXMLFile);
+		File patchNotesFolder = new File("res/patchNotes");
+		if (!patchNotesFolder.exists() || !patchNotesFolder.isDirectory()) {
+			System.err.println("Folder 'res/patchNotes' could not be loaded!");
+			return "";
+		}
 
-				for (Element e : coreElement.getAllOf("section")) {
-					String type = e.getAttribute("type");
-					String fileName = e.getTextContent();
+		File[] fileList = patchNotesFolder.listFiles((dir, name) -> name.endsWith(".html"));
+		Arrays.sort(fileList, Collections.reverseOrder());
 
-					try {
-						FileInputStream fis = new FileInputStream("res/patchnotes/" + fileName + ".html");
-						String contentHTML = Util.inputStreamToString(fis);
+		for (File file : fileList) {
+			Matcher matcher = Pattern.compile("^\\d{8}-(preface|patchnotes)-", Pattern.CASE_INSENSITIVE).matcher(file.getName());
+			if (!matcher.find()) {
+				continue;
+			}
 
-						switch (type) {
-							case "patchnotes":
-								patchNotes += "<br />\n<div class=\"list\">\n";
-								patchNotes += contentHTML;
-								patchNotes += "</div>\n";
-								break;
-
-							case "preface":
-							default:
-								patchNotes += contentHTML;
+			try (FileInputStream fis = new FileInputStream(file)) {
+				String contentHTML = Util.inputStreamToString(fis);
+				switch (matcher.group(1).toLowerCase()) {
+					case "preface":
+						if (prefaceText.isEmpty()) {
+							prefaceText = contentHTML;
 						}
-						
-						fis.close();
-						
-					} catch (FileNotFoundException ex) {
-						ex.printStackTrace();
-					}
+						break;
+
+					case "patchnotes":
+						patchNotesText.append("<br />\n<div class=\"list\">\n").append(contentHTML).append("</div>\n");
+						break;
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (IOException ex) {
+				ex.printStackTrace();
 			}
 		}
+		patchNotes = prefaceText + patchNotesText;
+
+		return patchNotes;
 	}
 
 	public static void main(String[] args) {
