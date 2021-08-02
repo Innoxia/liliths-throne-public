@@ -3628,11 +3628,11 @@ public class StatusEffect {
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			
 			StringBuilder sb = new StringBuilder();
 			
 			if (target.isPregnant()) {
 				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
+				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
@@ -6668,9 +6668,9 @@ public class StatusEffect {
 		}
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(target.getLastTimeOrgasmedSeconds()>=Main.game.getSecondsPassed()-(60*60*24)) {
-				target.removeStatusEffect(FRUSTRATED_NO_ORGASM); // Remove this effect if orgasmed within the last day
-			}
+//			if(target.getLastTimeOrgasmedSeconds()>=Main.game.getSecondsPassed()-(60*60*24)) {
+//				target.removeStatusEffect(FRUSTRATED_NO_ORGASM); // Remove this effect if orgasmed within the last day
+//			}
 			return "";
 		}
 		@Override
@@ -7845,8 +7845,18 @@ public class StatusEffect {
 			"clothingSets/bdsm",
 			PresetColour.CLOTHING_BLACK,
 			false,
-			Util.newHashMapOfValues( new Value<>(Attribute.MAJOR_PHYSIQUE, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
+		@Override
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+			if(target!=null && target.hasFetish(Fetish.FETISH_BONDAGE_VICTIM)) {
+				return Util.newHashMapOfValues(
+						new Value<>(Attribute.HEALTH_MAXIMUM, 10f),
+						new Value<>(Attribute.RESISTANCE_PHYSICAL, 10f),
+						new Value<>(Attribute.DAMAGE_LUST, 10f));
+			}
+			return super.getAttributeModifiers(target);
+		}
 		@Override
 		public StatusEffectCategory getCategory() {
 			return StatusEffectCategory.INVENTORY;
@@ -7854,16 +7864,13 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer()) {
-					return "You have been tied up in bondage gear, and are struggling to move.";
-					
+				if(target.hasFetish(Fetish.FETISH_BONDAGE_VICTIM)) {
+					return UtilText.parse(target, "[npc.Name] [npc.has] been tied up in bondage gear, and [npc.is] absolutely loving the fact that [npc.she] [npc.is] struggling to move.");
 				} else {
-					return UtilText.parse(target, "[npc.Name] has been tied up in bondage gear, and is struggling to move.");
-					
+					return UtilText.parse(target, "[npc.Name] [npc.has] been tied up in bondage gear, and [npc.is] struggling to move.");
 				}
-			} else {
-				return "";
 			}
+			return "";
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -8308,6 +8315,10 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getLust()>=100 && !target.isVulnerableToLustLoss();
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
 		}
 	};
 

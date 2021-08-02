@@ -1960,26 +1960,35 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return unlocked;
 	}
 
-	public int getJinxRemovalCost() {
+	public int getJinxRemovalCost(GameCharacter remover, boolean selfUnseal) {
+		int cost = ItemEffect.SEALED_COST_MINOR_BOOST;
+		
 		for(ItemEffect effect : this.getEffects()) {
 			if(effect.getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
 				switch(effect.getPotency()) {
 					case BOOST:
 						break;
 					case DRAIN:
-						return ItemEffect.SEALED_COST_DRAIN;
+						cost = ItemEffect.SEALED_COST_DRAIN;
+						break;
 					case MAJOR_BOOST:
 						break;
 					case MAJOR_DRAIN:
-						return ItemEffect.SEALED_COST_MAJOR_DRAIN;
+						cost = ItemEffect.SEALED_COST_MAJOR_DRAIN;
+						break;
 					case MINOR_BOOST:
-						return ItemEffect.SEALED_COST_MINOR_BOOST;
+						cost = ItemEffect.SEALED_COST_MINOR_BOOST;
+						break;
 					case MINOR_DRAIN:
-						return ItemEffect.SEALED_COST_MINOR_DRAIN;
+						cost = ItemEffect.SEALED_COST_MINOR_DRAIN;
+						break;
 				}
 			}
 		}
-		return ItemEffect.SEALED_COST_MINOR_BOOST;
+		if(remover.hasFetish(Fetish.FETISH_BONDAGE_VICTIM) && selfUnseal) {
+			cost *= 5;
+		}
+		return cost;
 	}
 
 	public TFPotency getVibratorIntensity() {

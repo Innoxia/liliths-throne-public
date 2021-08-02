@@ -323,7 +323,7 @@
 		Wanting to know if there are any of the [attacker.race]'s comrades roaming in the nearby area, you ask her where her camp is and how many other demonic centauresses are out looking for innocent victims to attack. Defiantly spitting on the ground, the marauder snarls, [attacker.speech(I'm not telling you anything, [pc.insult]! Either fuck me or fuck off.)]
 	</p>
 	<p>
-		#IF(pc.hasFetish(FETISH_SADISTIC))
+		#IF(pc.hasFetish(FETISH_SADIST))
 			Slapping the [attacker.race] across the face, you repeat your question, but once again the [attacker.race] refuses to play along and snaps, [attacker.speech(Hit me all you like, I'm not telling you anything!)]
 		#ELSE
 			Trying a different approach, you promise the [attacker.race] a reward if she tells you what you want to know, but once again she refuses to play along and snaps, [attacker.speech(Your tricks won't work on me, I'm not telling you anything!)]
@@ -353,6 +353,13 @@
 	<htmlContent tag="COMBAT_LOST_FUCKED"><![CDATA[
 	<p>
 		Before you can reply, the [attacker.race] lets out a wicked laugh and delivers a swift smack to the back of your head. Grinning in delight as she makes you flinch, the sadistic [attacker.race] gives you no time in which to make a move before grabbing your face and squeezing your cheeks. Licking her lips, she fixes her wild, crazed gaze upon you and snarls, [attacker.speech(You worthless cunt! I'll show you your true place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_FUCKED_RESIST"><![CDATA[
+	<p>
+		Realising that the [attacker.race] is seriously about to rape you, you try to ward her off by shouting and pleading for her to leave you alone. Letting out an evil cackle as she sees that you're not submitting to her, she steps forwards and delivers a swift smack to the back of your head. Grinning in delight as she makes you flinch, the sadistic [attacker.race] gives you no time in which to make a move before grabbing your face and squeezing your cheeks. Licking her lips, she fixes her wild, crazed gaze upon you and snarls, [attacker.speech(You worthless cunt! You can squirm and scream all you like; it's not going to stop me from showing you your true place!)]
 	</p>
 	]]>
 	</htmlContent>

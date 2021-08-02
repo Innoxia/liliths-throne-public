@@ -113,6 +113,7 @@ import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.population.Population;
@@ -496,11 +497,14 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							for(NPC npc : Main.game.getAllNPCs()) {
-//								if(npc.isUnique() && !npc.hasArtwork() && npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN) {
-//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
-//								}
-//							}
+							for(NPC npc : Main.game.getAllNPCs()) {
+								if(npc.isUnique() && !npc.hasArtwork()
+										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
+//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+										) {
+									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
+								}
+							}
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);

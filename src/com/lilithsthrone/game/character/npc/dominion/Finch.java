@@ -34,6 +34,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -102,6 +103,9 @@ public class Finch extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.equipClothing();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1")) {
+			this.setFetishDesire(Fetish.FETISH_BONDAGE_APPLIER, FetishDesire.THREE_LIKE);
+		}
 	}
 
 	@Override
@@ -131,6 +135,8 @@ public class Finch extends NPC {
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_NON_CON_DOM);
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
+			
+			this.setFetishDesire(Fetish.FETISH_BONDAGE_APPLIER, FetishDesire.THREE_LIKE);
 		}
 		
 		// Body:

@@ -93,7 +93,7 @@
 				 As she stands up from behind her desk, you see that she's using one hand to cradle her conspicuously-swollen belly, and as she notices what it is you're looking at, she sighs,
 				#IF siren.getPregnantLitter().getFather().equals(pc)
 				#THEN
-					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore! S-So, what do you want?!)]
+					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore! S-So, what do you want?!)]
 				#ELSE
 					#IF siren.getPregnantLitter().getFather().equals(lilaya)
 					#THEN
@@ -253,7 +253,7 @@
 	<p>
 		#IF pc.hasTraitActivated(PERK_CHUUNI)
 		#THEN [pc.speech(That's lucky for you; I'm vastly more powerful than you could ever imagine!)] you declare, before marching over to the door on the far side of the room and quickly making your exit.
-		#ELSE [pc.speech(Ok, see you next time,)] you say, rolling your eyes. Before the little chunni can make any more outrageous statements, you march over to the door on the far side of the room and quickly make your exit.
+		#ELSE [pc.speech(Ok, see you next time,)] you say, rolling your eyes. Before the little chuuni can make any more outrageous statements, you march over to the door on the far side of the room and quickly make your exit.
 		#ENDIF
 	</p>
 	<p>
@@ -269,7 +269,7 @@
 	<p>
 		#IF pc.hasTraitActivated(PERK_CHUUNI)
 		#THEN [pc.speech(That's lucky for you; I'm vastly more powerful than you could ever imagine!)] you declare, before telling [npc.name] to follow you and then marching over to the door on the far side of the room.
-		#ELSE [pc.speech(Ok, see you next time,)] you say, rolling your eyes. Before the little chunni can make any more outrageous statements, you tell [npc.name] to follow you and then march over to the door on the far side of the room.
+		#ELSE [pc.speech(Ok, see you next time,)] you say, rolling your eyes. Before the little chuuni can make any more outrageous statements, you tell [npc.name] to follow you and then march over to the door on the far side of the room.
 		#ENDIF
 	</p>
 	<p>

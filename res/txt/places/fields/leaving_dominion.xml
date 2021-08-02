@@ -59,7 +59,7 @@
 			 At that moment you suddenly notice that she's using one hand to cradle her conspicuously-swollen belly, and as she sees what it is you're looking at, she sighs,
 			#IF(!siren.isCharacterReactedToPregnancy(pc))
 				#IF(siren.getPregnantLitter().getFather().equals(pc))
-					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore!)]
+					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore!)]
 				#ELSE
 					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease!)]

@@ -214,7 +214,7 @@ public class GenericTalk {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.DOM_ROUGH
-					&& Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_MASOCHIST);
+					&& (Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_MASOCHIST) || Main.sex.getCharacterPerformingAction().isPlayer());
 		}
 
 		@Override
@@ -329,11 +329,9 @@ public class GenericTalk {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& !Main.sex.isDom(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
-					&& Main.sex.isConsensual()
 					&& Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))==SexPace.DOM_ROUGH
-					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_MASOCHIST).isNegative();
+					&& (Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_MASOCHIST).isNegative() || Main.sex.getCharacterPerformingAction().isPlayer());
 		}
 
 		@Override
