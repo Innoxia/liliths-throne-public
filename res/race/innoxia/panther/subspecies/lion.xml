@@ -26,6 +26,9 @@
 			#ENDIF
 		#ENDIF
 		[#targetedBody.updateCoverings(true, true, true, true)]
+		#IF(targetedBody.getTailType()==TAIL_TYPE_innoxia_panther_tail)
+			[#targetedBody.setTailType(TAIL_TYPE_innoxia_panther_tail_tufted)]
+		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_panther && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_panther_fur, true).getPattern()!=COVERING_PATTERN_STRIPED && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_panther_fur, true).getPattern()!=COVERING_PATTERN_SPOTTED)

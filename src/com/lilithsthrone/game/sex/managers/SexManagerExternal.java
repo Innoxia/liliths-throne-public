@@ -52,7 +52,8 @@ public class SexManagerExternal extends SexManagerDefault {
 	
 	private String titleString;
 	private String title;
-	
+
+	private String deskName;
 	private String wallName;
 	
 	private String consensualString;
@@ -213,6 +214,9 @@ public class SexManagerExternal extends SexManagerDefault {
 		public String selfClothingRemoval;
 		public boolean selfClothingRemovalBool;
 
+		public String canRemoveClothingSeals;
+		public boolean canRemoveClothingSealsBool;
+		
 		public String startNaked;
 		public boolean startNakedBool;
 
@@ -318,6 +322,7 @@ public class SexManagerExternal extends SexManagerDefault {
 			sadisticActionsAllowed = initBool(sadisticActionsAllowedString, true);
 			sexClothingEquippableBool = initBool(sexClothingEquippable, true);
 			selfClothingRemovalBool = initBool(selfClothingRemoval, true);
+			canRemoveClothingSealsBool = initBool(canRemoveClothingSeals, true);
 			startNakedBool = initBool(startNaked, false);
 			
 			// Other values:
@@ -553,6 +558,10 @@ public class SexManagerExternal extends SexManagerDefault {
 			return selfClothingRemovalBool;
 		}
 
+		public boolean isCanRemoveClothingSealsBool() {
+			return canRemoveClothingSealsBool;
+		}
+		
 		public boolean isStartNakedBool() {
 			return startNakedBool;
 		}
@@ -685,7 +694,13 @@ public class SexManagerExternal extends SexManagerDefault {
 				} else {
 					titleString = "";
 				}
-
+				
+				if(elementPresentAndNotEmpty(sexManagerElement, "deskName")) {
+					deskName = sexManagerElement.getMandatoryFirstOf("deskName").getTextContent();
+				} else {
+					deskName = null;
+				}
+				
 				if(elementPresentAndNotEmpty(sexManagerElement, "wallName")) {
 					wallName = sexManagerElement.getMandatoryFirstOf("wallName").getTextContent();
 				} else {
@@ -839,6 +854,10 @@ public class SexManagerExternal extends SexManagerDefault {
 							behaviour.selfClothingRemoval = characterElement.getMandatoryFirstOf("selfClothingRemoval").getTextContent();
 						}
 
+						if(characterElement.getOptionalFirstOf("canRemoveClothingSeals").isPresent()) {
+							behaviour.canRemoveClothingSeals = characterElement.getMandatoryFirstOf("canRemoveClothingSeals").getTextContent();
+						}
+						
 						if(characterElement.getOptionalFirstOf("partnerClothingRemoval").isPresent()) {
 							behaviour.partnerClothingRemoval = characterElement.getMandatoryFirstOf("partnerClothingRemoval").getTextContent();
 						}
@@ -1150,6 +1169,11 @@ public class SexManagerExternal extends SexManagerDefault {
 	}
 
 	@Override
+	public String getDeskName() {
+		return deskName;
+	}
+	
+	@Override
 	public String getWallName() {
 		return wallName;
 	}
@@ -1298,7 +1322,7 @@ public class SexManagerExternal extends SexManagerDefault {
 		if(characterBehaviours.containsKey(character.getId())) {
 			return characterBehaviours.get(character.getId()).isSexClothingEquippableBool();
 		}
-		return super.isHidden(character);
+		return super.isAbleToEquipSexClothing(character);
 	}
 
 	@Override
@@ -1306,7 +1330,7 @@ public class SexManagerExternal extends SexManagerDefault {
 		if(characterBehaviours.containsKey(character.getId())) {
 			return characterBehaviours.get(character.getId()).isSelfClothingRemovalBool();
 		}
-		return super.isHidden(character);
+		return super.isAbleToRemoveSelfClothing(character);
 	}
 
 	@Override
@@ -1314,7 +1338,15 @@ public class SexManagerExternal extends SexManagerDefault {
 		if(characterBehaviours.containsKey(character.getId()) && characterBehaviours.get(character.getId()).isPartnerClothingRemovalUsed()) {
 			return characterBehaviours.get(character.getId()).isPartnerClothingRemoval(character, clothing);
 		}
-		return super.isHidden(character);
+		return super.isAbleToRemoveOthersClothing(character, clothing);
+	}
+
+	@Override
+	public boolean isAbleToRemoveClothingSeals(GameCharacter character) {
+		if(characterBehaviours.containsKey(character.getId())) {
+			return characterBehaviours.get(character.getId()).isCanRemoveClothingSealsBool();
+		}
+		return super.isAbleToRemoveClothingSeals(character);
 	}
 
 	@Override
@@ -1322,7 +1354,7 @@ public class SexManagerExternal extends SexManagerDefault {
 		if(characterBehaviours.containsKey(character.getId())) {
 			return characterBehaviours.get(character.getId()).isStartNakedBool();
 		}
-		return super.isHidden(character);
+		return super.isCharacterStartNaked(character);
 	}
 	
 	@Override
@@ -1346,7 +1378,7 @@ public class SexManagerExternal extends SexManagerDefault {
 		if(characterBehaviours.containsKey(character.getId())) {
 			return characterBehaviours.get(character.getId()).isPreferExposingRemoval();
 		}
-		return super.isHidden(character);
+		return super.isExposeAtStartOfSexMapRemoval(character);
 	}
 
 	@Override

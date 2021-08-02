@@ -8425,6 +8425,13 @@ public class InventoryDialogue {
 					"You can't unseal clothing in combat!",
 					null);
 		}
+
+		if(interactionType==InventoryInteraction.SEX && !Main.sex.getInitialSexManager().isAbleToRemoveClothingSeals(Main.game.getPlayer())) {
+			return new Response("Unseal"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
+					"You can't unseal clothing in this sex scene!",
+					null);
+		}
+		
 		
 		if(!ownsKey) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {

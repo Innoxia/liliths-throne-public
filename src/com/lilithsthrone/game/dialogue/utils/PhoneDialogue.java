@@ -3635,7 +3635,7 @@ public class PhoneDialogue {
 			if(Main.game.isFootContentEnabled()) {
 				journalSB.append(getFetishEntry(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
 			}
-			if(Main.game.isFootContentEnabled()) {
+			if(Main.game.isArmpitContentEnabled()) {
 				journalSB.append(getFetishEntry(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING));
 			}
 			journalSB.append(getFetishEntry(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT));

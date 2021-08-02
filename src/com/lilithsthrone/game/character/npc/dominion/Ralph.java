@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -105,6 +106,12 @@ public class Ralph extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
 			this.setPenisCumStorage(250);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.1")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.LEWD);
+		}
 	}
 
 	@Override
@@ -123,6 +130,11 @@ public class Ralph extends NPC {
 	public void setStartingBody(boolean setPersona) {
 		// Persona:
 		if(setPersona) {
+			this.setPersonalityTraits(
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.LEWD);
+			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_STORE_OWNER);

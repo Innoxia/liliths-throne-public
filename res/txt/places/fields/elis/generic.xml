@@ -311,10 +311,7 @@
 	
 	<htmlContent tag="MARKET_ENTER"><![CDATA[
 	<p>
-		[style.boldBad(PLEASE NOTE:)] All content in this market is placeholders!
-	</p>
-	<p>
-		Wanting to spend some time looking around the Farmer's Market and perhaps doing some shopping, you [pc.walk] towards the centre of the large, cobblestone square. After passing numerous brightly-coloured stalls, you soon find yourself right in the middle of the market, wondering where to go from here...
+		Wanting to spend some time looking around and potentially doing some shopping, you [pc.step] forwards and enter the Farmer's Market...
 	</p>
 	]]>
 	</htmlContent>

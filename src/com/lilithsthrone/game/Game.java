@@ -110,6 +110,7 @@ import com.lilithsthrone.game.character.npc.fields.Astrapi;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Kazik;
 import com.lilithsthrone.game.character.npc.fields.Kheiron;
@@ -122,6 +123,7 @@ import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.misc.*;
 import com.lilithsthrone.game.character.npc.fields.Yui;
+import com.lilithsthrone.game.character.npc.fields.Ziva;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
@@ -929,6 +931,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
 							&& (!worldType.equals("DOMINION_EXPRESS") || !Main.isVersionOlderThan(loadingVersion, "0.3.7.9"))
 							&& (!worldType.equals("SHOPPING_ARCADE") || !Main.isVersionOlderThan(loadingVersion, "0.3.14"))
+							&& (!worldType.equals("innoxia_fields_elis_market") || !Main.isVersionOlderThan(loadingVersion, "0.4.1.1"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
 //                          && !worldType.equals("REBEL_BASE")
@@ -2164,6 +2167,8 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Yui.class))) { addNPC(new Yui(), false); addedNpcs.add(Yui.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Nizhoni.class))) { addNPC(new Nizhoni(), false); addedNpcs.add(Nizhoni.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Moreno.class))) { addNPC(new Moreno(), false); addedNpcs.add(Moreno.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Heather.class))) { addNPC(new Heather(), false); addedNpcs.add(Heather.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ziva.class))) { addNPC(new Ziva(), false); addedNpcs.add(Ziva.class); }
 			
 			
 		} catch (Exception e) {

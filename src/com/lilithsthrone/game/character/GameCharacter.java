@@ -19611,7 +19611,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isVisiblyPregnant() {
-		return pregnantLitter!=null && !hasStatusEffect(StatusEffect.PREGNANT_0);
+		return pregnantLitter!=null && (hasStatusEffect(StatusEffect.PREGNANT_1) || hasStatusEffect(StatusEffect.PREGNANT_2) || hasStatusEffect(StatusEffect.PREGNANT_3));
 	}
 	
 	public long getTimeProgressedToFinalPregnancyStage() {
@@ -19722,6 +19722,8 @@ public abstract class GameCharacter implements XMLSaving {
 		pregnantLitter = null;
 		
 		this.resetAllPregnancyReactions();
+		
+		this.loadImages(true); // Reload images for non-pregnant versions
 	}
 	
 	public void endIncubationPregnancy(SexAreaOrifice orifice, boolean withBirth) {
@@ -20406,6 +20408,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	/**
 	 * Walks the character down the path to the destination provided. <b>Make sure that the character is already in the worldType you define!</b>
+	 * @param percentageTravel From 0->1 mapping to 0-100%
 	 */
 	public void walkPathNoEffects(AbstractPlaceType end, boolean preferSafe, float percentageTravel) {
 		walkPathNoEffects( 
@@ -20416,6 +20419,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	/**
 	 * Walks the character down the path to the destination provided. <b>Make sure that the character is already in the worldType you define!</b>
+	 * @param percentageTravel From 0->1 mapping to 0-100%
 	 */
 	public void walkPathNoEffects(Vector2i end, boolean preferSafe, float percentageTravel) {
 		Pathing.walkPathNoEffects(this, this.getWorldLocation(), end, preferSafe, percentageTravel);
@@ -20497,6 +20501,18 @@ public abstract class GameCharacter implements XMLSaving {
 		return Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation());
 	}
 
+	/**
+	 * @return The cell located x width and y height away from this character's current cell. Returns null if the coordinate is out of bounds.
+	 */
+	public Cell getCellFromLocation(int x, int y) {
+		Vector2i loc = getLocation();
+		if(loc.getX() + x < 0 || loc.getX() + x >= Main.game.getWorlds().get(this.getWorldLocation()).WORLD_WIDTH
+				|| loc.getY() + y < 0 || loc.getY() + y >= Main.game.getWorlds().get(this.getWorldLocation()).WORLD_HEIGHT) {
+			return null;
+		}
+		return Main.game.getWorlds().get(getWorldLocation()).getCell(loc.increment(x, y));
+	}
+	
 	public Cell getHomeCell() {
 		return Main.game.getWorlds().get(getHomeWorldLocation()).getCell(getHomeLocation());
 	}
@@ -24572,6 +24588,14 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Add a lipstick marking to this character's inventory slot. <b>Only adds the covering if this covering is not already present in this slot!</b>
 	 * @param partner The person who is applying this lipstick via kissing. Only used for the returned description.
 	 */
+	public String addLipstickMarking(GameCharacter partner, InventorySlot invSlot, Colour lipstickColour) {
+		return addLipstickMarking(partner, invSlot, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, lipstickColour));
+	}
+	
+	/**
+	 * Add a lipstick marking to this character's inventory slot. <b>Only adds the covering if this covering is not already present in this slot!</b>
+	 * @param partner The person who is applying this lipstick via kissing. Only used for the returned description.
+	 */
 	public String addLipstickMarking(GameCharacter partner, InventorySlot invSlot, Covering covering) {
 		lipstickMarks.putIfAbsent(invSlot, new SizedStack<>(3));
 		
@@ -24592,6 +24616,12 @@ public abstract class GameCharacter implements XMLSaving {
 								+ "[npc.NamePos] "+invSlot.getNameOfAssociatedPart(this)+" "+(invSlot.isPlural()?"are":"is")+" [style.italicsPinkDeep(marked)] by [npc2.namePos] "+lipstickToAdd.getFullDescription(partner, true)+"!"
 							+ "</i></p>");
 				}
+				
+			} else {
+				return UtilText.parse(this,
+						"<p style='text-align:center;'><i>"
+							+ "[npc.NamePos] "+invSlot.getNameOfAssociatedPart(this)+" "+(invSlot.isPlural()?"are":"is")+" [style.italicsPinkDeep(marked)] by "+lipstickToAdd.getFullDescription(this, true)+"!"
+						+ "</i></p>");
 			}
 		}
 		return "";
@@ -24746,7 +24776,7 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean isFem = body.getFemininity() < femininity;
 		
 		if(body.setFemininity(femininity)) {
-			loadImages();
+			loadImages(true);
 			return UtilText.parse(this,
 					"<p style='text-align:center;'>"
 						+ "[npc.NamePos] body subtly shifts to become "
@@ -29332,7 +29362,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getVagina().getOrificeUrethra().setPlasticity(this, plasticity);
 	}
 	public String incrementVaginaUrethraPlasticity(int increment) {
-		return setUrethraPlasticity(getVaginaUrethraPlasticity().getValue() + increment);
+		return setVaginaUrethraPlasticity(getVaginaUrethraPlasticity().getValue() + increment);
 	}
 	// Virgin:
 	public boolean isVaginaUrethraVirgin() {

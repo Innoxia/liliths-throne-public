@@ -1,5 +1,13 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -39,13 +47,6 @@ import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * @since 0.1.7
@@ -2154,34 +2155,20 @@ public class ItemEffectType {
 				if(targetItem instanceof AbstractClothing) {
 					 //If this clothing is a 'sex toy' or groin/nipple clothing, then allow vibration and orgasm denial enchantments:
 					if(((AbstractClothing)targetItem).getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP)
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.GROIN
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.VAGINA
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PENIS
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.NIPPLE
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.CHEST
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_NIPPLE
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_PENIS
-							|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_VAGINA) {
+							|| !Collections.disjoint(
+									((AbstractClothing)targetItem).getClothingType().getEquipSlots(),
+									Util.newArrayListOfValues(
+											InventorySlot.GROIN,
+											InventorySlot.VAGINA,
+											InventorySlot.PENIS,
+											InventorySlot.ANUS,
+											InventorySlot.NIPPLE,
+											InventorySlot.CHEST,
+											InventorySlot.PIERCING_NIPPLE,
+											InventorySlot.PIERCING_PENIS,
+											InventorySlot.PIERCING_VAGINA))) {
 						mods.add(TFModifier.CLOTHING_VIBRATION);
 						mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
-						
-					} else {
-						for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
-							List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
-							if(tags.contains(ItemTag.ENABLE_SEX_EQUIP)
-									|| slot==InventorySlot.GROIN
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.VAGINA
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PENIS
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.NIPPLE
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.CHEST
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_NIPPLE
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_PENIS
-									|| ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.PIERCING_VAGINA) {
-								mods.add(TFModifier.CLOTHING_VIBRATION);
-								mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
-								break;
-							}
-						}
 					}
 				}
 				if(Main.game.getPlayer().isHasSlaverLicense()) {
@@ -2230,16 +2217,16 @@ public class ItemEffectType {
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				if(potency==TFPotency.MINOR_DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(25)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(25)])</b>");
 					
 				} else if(potency==TFPotency.DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(100)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(100)])</b>");
 					
 				} else if(potency==TFPotency.MAJOR_DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(500)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(500)])</b>");
 					
 				} else {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(5)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(5)])</b>");
 				}
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SERVITUDE) {

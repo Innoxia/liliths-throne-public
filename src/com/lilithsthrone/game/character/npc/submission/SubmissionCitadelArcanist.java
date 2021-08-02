@@ -290,6 +290,14 @@ public class SubmissionCitadelArcanist extends NPC {
 				"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."
 						+ " Placed in charge of the Dark Siren's laboratory, she oversees the production of transformative potions.");
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "TakahashiPregnant";
+		}
+		return "Takahashi";
+	}
 	
 	@Override
 	public boolean isUnique() {

@@ -46,7 +46,7 @@ public class SexSlotManager {
 		positionIdToSexSlotFields.put("AGAINST_WALL", SexSlotAgainstWall.class.getFields());
 		positionIdToSexSlotFields.put("ALL_FOURS", SexSlotAllFours.class.getFields());
 		positionIdToSexSlotFields.put("BREEDING_STALL", SexSlotBreedingStall.class.getFields());
-		positionIdToSexSlotFields.put("DESK", SexSlotDesk.class.getFields());
+		positionIdToSexSlotFields.put("OVER_DESK", SexSlotDesk.class.getFields());
 		positionIdToSexSlotFields.put("GENERIC", SexSlotGeneric.class.getFields());
 		positionIdToSexSlotFields.put("LYING_DOWN", SexSlotLyingDown.class.getFields());
 		positionIdToSexSlotFields.put("MASTURBATION", SexSlotMasturbation.class.getFields());
