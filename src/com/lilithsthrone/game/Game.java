@@ -4930,6 +4930,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.futanariTesticles);
 	}
 
+	public boolean isVestigialMultiBreastsEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.vestigialMultiBreasts);
+	}
+	
 	public boolean isAnalContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.analContent);
 	}

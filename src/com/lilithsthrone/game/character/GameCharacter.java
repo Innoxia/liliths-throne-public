@@ -27460,6 +27460,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setHairStyle(HairStyle hairStyle) {
 		return body.getHair().setStyle(this, hairStyle);
 	}
+	// Neck fluff:
+	public boolean isNeckFluff() {
+		return body.getHair().isNeckFluff();
+	}
+	public String setNeckFluff(boolean neckFluff) {
+		return body.getHair().setNeckFluff(this, neckFluff);
+	}
 	// Covering:
 	public String setHairCovering(Covering covering, boolean updateBodyHair) {
 		if(!getCovering(getHairCovering()).equals(covering)) {

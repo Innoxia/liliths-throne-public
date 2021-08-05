@@ -235,7 +235,7 @@ public class ScarlettsShop {
 			@Override
 			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaScarlettSleepoverSex)) { // If this is the morning oral scene, Scarlett stops after cumming.
-					return super.isPartnerWantingToStopSex(partner);
+					return Main.sex.isSatisfiedFromOrgasms(partner, true);
 				}
 				return Main.sex.isSatisfiedFromOrgasms(partner, true) && (Main.sex.isOrgasmCountMet(Main.game.getPlayer(), 1, true) || Main.sex.getNumberOfOrgasms(partner)>=3);
 			}

@@ -4983,6 +4983,29 @@ public class MainControllerInitMethod {
 				}
 			}
 			
+			id = "NECK_FLUFF_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+						@Override
+						public void effects() {
+							BodyChanging.getTarget().setNeckFluff(true);
+						}
+					});
+				}, false);
+			}
+			id = "NECK_FLUFF_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+						@Override
+						public void effects() {
+							BodyChanging.getTarget().setNeckFluff(false);
+						}
+					});
+				}, false);
+			}
+			
 			for(HairStyle hairStyle: HairStyle.values()) {
 				id = "HAIR_STYLE_"+hairStyle;
 				
@@ -6632,6 +6655,7 @@ public class MainControllerInitMethod {
 					new Value<>("ARMPIT", PropertyValue.armpitContent),
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),
+					new Value<>("VESTIGIAL_MULTI_BREAST", PropertyValue.vestigialMultiBreasts),
 					new Value<>("COMPANION", PropertyValue.companionContent),
 					new Value<>("BAD_END", PropertyValue.badEndContent),
 					new Value<>("AGE", PropertyValue.ageContent),

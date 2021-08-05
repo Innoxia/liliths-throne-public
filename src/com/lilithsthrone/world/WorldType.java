@@ -1087,6 +1087,7 @@ public class WorldType {
 	}
 	
 	public static AbstractWorldType getWorldTypeFromId(String id) {
+		id = id.replace("_worldType", "");
 		id.replaceAll("SEWERS", "SUBMISSION");
 		if(id.equals("SUPPLIER_DEN")) {
 			return TEXTILES_WAREHOUSE;

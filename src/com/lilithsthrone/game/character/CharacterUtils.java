@@ -1074,7 +1074,8 @@ public class CharacterUtils {
 		if(halfSubspecies==Subspecies.HUMAN) {
 			body.setHair(new Hair(HairType.DEMON,
 					(startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()),
-					HairStyle.getRandomHairStyle(body.isFeminine(), (startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()))));
+					HairStyle.getRandomHairStyle(body.isFeminine(), (startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength())),
+					stage));
 		}
 		
 		body.setHorn(new Horn(demonBody.getRandomHornType(false),
@@ -1255,7 +1256,8 @@ public class CharacterUtils {
 							:(startingGender.isFeminine()
 								? startingBodyType.getFemaleHairLength()
 								: startingBodyType.getMaleHairLength())),
-						HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
+						HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
+						stage),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()),
 				new Torso(stage.isSkinFurry()?startingBodyType.getTorsoType():TorsoType.HUMAN),
 						startingBodyType.getBodyMaterial(),
@@ -1422,7 +1424,8 @@ public class CharacterUtils {
 						:(startingGender.isFeminine()
 							? startingBodyType.getFemaleHairLength()
 							: startingBodyType.getMaleHairLength())),
-					HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))));
+					HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
+					stage));
 		
 		body.setLeg(new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()));
 		
