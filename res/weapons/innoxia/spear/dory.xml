@@ -36,7 +36,8 @@
 			<colour>CLOTHING_KHAKI</colour>
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
-		<itemTags> 
+		<itemTags>
+			<tag>SOLD_BY_VICKY</tag>
 			<tag>WEAPON_BLADE</tag>
 		</itemTags>
 	</coreAttributes>
@@ -49,7 +50,7 @@
 		Striking out at [npc2.name] with [npc.her] dory, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!
 		]]></hitText>
 		<hitText><![CDATA[
-		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] dory, sinking the ethereal blade into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
+		With a quick [npc.step] forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] dory, sinking the ethereal blade into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
 		]]></hitText>
 		<criticalHitText><![CDATA[
 		Expertly sidestepping around [npc2.namePos] attempt to block [npc.her] attack, [npc.name] [npc.verb(deal)] a devastating strike with [npc.her] dory!
@@ -64,7 +65,7 @@
 		Striking out at [npc2.name] with [npc.her] dory, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
 		]]></missText>
 		<missText><![CDATA[
-		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] dory, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		With a quick [npc.step] forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] dory, but [npc.she] [npc.verb(miss)] [npc.her] target!
 		]]></missText>
 	</missDescriptions>
 	

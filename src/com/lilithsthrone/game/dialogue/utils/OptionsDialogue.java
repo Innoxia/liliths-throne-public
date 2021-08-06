@@ -2066,6 +2066,14 @@ public class OptionsDialogue {
 							"Storm interruptions",
 							"When enabled, arcane storms will interrupt dialogue to let you know that they've started.",
 							Main.getProperties().hasValue(PropertyValue.weatherInterruptions)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+							"DIALOGUE_COPY",
+							PresetColour.BASE_BLUE_STEEL,
+							"Automatic text copying",
+							"When enabled, the current scene's text will automatically be copied to your system's clipboard every time a new scene is loaded."
+								+ " This option is so that you can easily paste the game's text into text readers without needing to select and copy the scene's text every time.",
+							Main.getProperties().hasValue(PropertyValue.automaticDialogueCopy)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 							"SILLY",
@@ -2230,6 +2238,15 @@ public class OptionsDialogue {
 									+ " When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
 									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
 							Main.getProperties().hasValue(PropertyValue.bipedalCloaca)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
+							"VESTIGIAL_MULTI_BREAST",
+							PresetColour.BASE_PURPLE_LIGHT,
+							"Vestigial Multi-breasts",
+							"When enabled, characters who have multiple rows of breasts will have the rows beneath their top one described as being vestigial in size."
+									+ " When disabled, breast rows will be described as being one cup size smaller than the one above them.",
+							Main.getProperties().hasValue(PropertyValue.vestigialMultiBreasts)));
+			
 			
 			if(contentOptionsPage==ContentOptionsPage.BODIES) {
 				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose how you want the game to display multi-breasts."));
@@ -2800,6 +2817,7 @@ public class OptionsDialogue {
 					+ "<b style='color:#21bfc5;'>DJ Addi</b></br>"
 					+ "<b style='color:#21bfc5;'>DSG</b></br>"
 					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"
+					+ "<b style='color:#21bfc5;'>Maxis010</b></br>"
 					+ "<b style='color:#21bfc5;'>Nnxx</b></br>"
 					+ "<b style='color:#21bfc5;'>Norin</b></br>"
 					+ "<b style='color:#21bfc5;'>NoStepOnSnek</b></br>"

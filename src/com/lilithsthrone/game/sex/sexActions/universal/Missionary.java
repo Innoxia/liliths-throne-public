@@ -48,7 +48,8 @@ public class Missionary {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LYING_DOWN))
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.MISSIONARY))
-					&& !Main.sex.isMasturbation();
+					&& !Main.sex.isMasturbation()
+					&& Main.sex.getCharacterPerformingAction().hasLegs();
 		}
 
 		@Override

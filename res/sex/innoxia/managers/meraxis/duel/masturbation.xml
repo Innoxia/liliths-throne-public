@@ -24,6 +24,7 @@
 		
 	To avoid cluttering the comments, here is an alphabetical list of all the values used in the elements below:
 		CoverableAreas: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/CoverableArea.java
+		Immobilisation types: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/ImmobilisationType.java
 		InventorySlots: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java
 		OrgasmBehaviours: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/managers/OrgasmBehaviour.java
 		OrgasmCumTargets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/OrgasmCumTarget.java
@@ -45,6 +46,16 @@
 	<!-- You can optionally override the default title in the sex scene by defining a value here.
 		e.g.: <title><![CDATA[Woodland Sex]]></title> -->
 	<title/>
+	
+	<!-- You can optionally override the name of the desk in this sex scene by defining a value here.
+		It should not be capitalised unless a proper noun.
+		e.g.: <deskName><![CDATA[fallen log]]></deskName> -->
+	<deskName/>
+	
+	<!-- You can optionally override the name of walls in this sex scene by defining a value here.
+		It should not be capitalised unless a proper noun.
+		e.g.: <wallName><![CDATA[tree]]></wallName> -->
+	<wallName/>
 	
 	<!-- Whether or not this sex scene is a consensual one between the dominant and submissive partner(s).
 		OPTIONAL: Default true
@@ -169,6 +180,18 @@
 				PARSER: Initial -->
 			<sexPace locked="false"><![CDATA[DOM_NORMAL]]></sexPace>
 			
+			<!-- The type of immobilisation which this character should start in.
+					The 'applierId' element determines which character is responsible for applying the immobilisation.
+					The 'type' element corresponds to the immobilisation type.
+				To define this, use the following format:
+					<startingImmobilisation>
+						<applierId><![CDATA[lilaya]]></applierId>
+						<type><![CDATA[WITCH_SEAL]]></type>
+					</startingImmobilisation>
+				OPTIONAL: Default is no immobilisation type applied at the start of sex.
+				PARSER: Initial -->
+			<startingImmobilisation/>
+			
 			<!-- Whether or not this character can access the self-transformation menu during this sex scene.
 				OPTIONAL: Default true
 				PARSER: Initial -->
@@ -198,13 +221,18 @@
 			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
 			
 			<!-- Whether or not this character is able to remove their partner's clothing during this sex scene.
-				Please note that self clothing removal is typically restricted based on the character's SexControl level, so this value should only be set to false if you want to restrict the character's ability to remove their own clothing no matter what level of control they have.
+				Please note that clothing removal is typically restricted based on the character's SexControl level, so this value should only be set to false if you want to restrict the character's ability to remove their partner's clothing no matter what level of control they have.
 				You can use the optional parser tag 'clothing' in this section to get a handle on the clothing *type* being targeted for unequip.
 					Please note that 'clothing' might be null, so always handle a potential null when using the 'clothing' tag.
 				The parser tag 'npc' targets the character whose clothing is to be unequipped.
 				OPTIONAL: Default true
 				PARSER: Every check -->
 			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			
+			<!-- Whether or not this character is able to remove seals on sealed clothing. This is only taken into account if this character has permission to remove their target's clothing (either via SexControl permissions, or the 'selfClothingRemoval'/'partnerClothingRemoval' elements above).
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<canRemoveClothingSeals><![CDATA[true]]></canRemoveClothingSeals>
 			
 			<!-- Whether or not this character starts this sex scene with all of their non-jewellery, non-milking-equipment clothing removed (as much as possible, anyway - sealed clothing is taken into account during this, so some clothing may not be removed).
 				OPTIONAL: Default false
@@ -214,22 +242,20 @@
 			<!-- Areas which should be exposed at the start of this sex scene, defined as CoverableAreas.
 				Obviously, if 'startNaked' is defined as true, then this section is not needed.
 				Clothing will be displaced in order to reveal the defined areas, unless you set the 'preferRemoval' attribute to be true, in which case clothing will be removed instead of displaced.
-				Example:
-					<exposeAtStart preferRemoval="false">
-						<coverableArea><![CDATA[
-							#IF(pc.hasPenis())
-								PENIS
-							#ENDIF
-						]]></coverableArea>
-						<coverableArea><![CDATA[
-							#IF(pc.hasVagina())
-								VAGINA
-							#ENDIF
-						]]></coverableArea>
-					</exposeAtStart>
 				OPTIONAL: Default no areas will be exposed at the start
 				PARSER: Initial -->
-			<exposeAtStart/>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[
+					#IF(pc.hasPenis())
+						PENIS
+					#ENDIF
+				]]></coverableArea>
+				<coverableArea><![CDATA[
+					#IF(pc.hasVagina())
+						VAGINA
+					#ENDIF
+				]]></coverableArea>
+			</exposeAtStart>
 			
 			<!-- The partners which this character is banned from forcing to creampie them, via leg-locking, hug-locking, or any other similar method.
 				i.e. This character will be unable to force the characters defined in this element to creampie them.
@@ -433,12 +459,14 @@
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			<sexPace locked="true"><![CDATA[SUB_EAGER]]></sexPace>
+			<startingImmobilisation/>
 			<canSelfTransform><![CDATA[false]]></canSelfTransform>
 			<hidden><![CDATA[false]]></hidden>
 			<control><![CDATA[SELF]]></control>
 			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
 			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
 			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<canRemoveClothingSeals><![CDATA[true]]></canRemoveClothingSeals>
 			<startNaked><![CDATA[false]]></startNaked>
 			<exposeAtStart preferRemoval="true">
 				<coverableArea><![CDATA[NIPPLES]]></coverableArea>

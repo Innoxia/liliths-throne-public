@@ -49,6 +49,10 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
 
+	SIDE_ARCANE_LIGHTNING("Arcane Lightning", "Arthur was able to extract the secrets of arcane lightning from the globe which you gave to him, allowing you to learn two incredibly powerful spells.",
+			QuestType.SIDE,
+			QuestTree.arcaneLightningTree),
+	
 	SIDE_HARPY_PACIFICATION("Angry Harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",
 			QuestType.SIDE,
 			QuestTree.angryHarpyTree),

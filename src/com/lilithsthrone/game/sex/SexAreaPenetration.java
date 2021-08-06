@@ -1327,6 +1327,35 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			} else {
 				switch((SexAreaOrifice)targetArea) {
 					case ARMPITS:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("[npc.Name] pressed [npc.her] [npc.lips+] against [npc2.namePos] [npc2.armpits+], before starting to [npc.sexPaceVerb] kiss and lick them.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to resist, but [npc.was] unable to stop [npc2.name] from pulling [npc.herHim] into [npc2.her] [npc2.armpits+] and forcing [npc.herHim] to kiss and lick them.");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" Letting out muffled [npc2.moans], [npc2.name] [npc2.sexPaceVerb] pushed [npc2.her] [npc2.armpits] into [npc.namePos] [npc.face] and encouraged [npc.herHim] to continue orally pleasuring them.");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried to pull away, but [npc2.was] unable to stop [npc.name] from pressing [npc.her] [npc.face] into [npc2.her] [npc2.armpits].");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] kissing [npc2.namePos] [npc2.armpits].");
+						}
 						break;
 					case ANUS:
 						if(pastTense) {

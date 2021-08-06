@@ -1049,6 +1049,10 @@
 				<responseTitle><![CDATA[Lick armpits]]></responseTitle>
 				<responseTooltip><![CDATA[As Astrapi is clearly getting turned on, you're certain that she'll consent to letting you lick the sweat from her armpits.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_clean_armpits]]></nextDialogue>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_ARMPIT_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
 			</response>
 		</responses>
 	</scene>

@@ -120,6 +120,20 @@ public interface SexManagerInterface {
 	public default boolean isHidden(GameCharacter character) {
 		return false;
 	}
+
+	/**
+	 * @return The name of the desk over which sex will be taking place during this manager's sex scene. Leave as null or an empty String if not used.
+	 */
+	public default String getDeskName() {
+		return null;
+	}
+	
+	/**
+	 * @return The name of the wall against which sex will be taking place during this manager's sex scene. Leave as null or an empty String if not used.
+	 */
+	public default String getWallName() {
+		return null;
+	}
 	
 	public default SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		return character.getForeplayPreference(targetedCharacter);
@@ -253,7 +267,11 @@ public interface SexManagerInterface {
 			}
 		}
 		
-		if(Main.sex.isDom(partner) && (!Main.sex.isConsensual() || subsResisting || !Main.sex.isSubHasEqualControl() || (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
+		if(Main.sex.isDom(partner)
+				&& (!Main.sex.isConsensual()
+						|| subsResisting
+//						|| !Main.sex.isSubHasEqualControl() // 0.4.1.1 change
+						|| (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
 			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
 				return true;
 			}
@@ -329,6 +347,10 @@ public interface SexManagerInterface {
 	 */
 	public default boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
 		// The only thing that should limit this is overridden special conditions:
+		return true;
+	}
+
+	public default boolean isAbleToRemoveClothingSeals(GameCharacter character){
 		return true;
 	}
 	

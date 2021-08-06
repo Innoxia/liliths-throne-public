@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Attacked by bandit: -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_WORLD_MAP_GRASSLANDS)
+			While most of your surroundings consist of open, natural meadows, it's impossible to keep your distance from the many hills, ponds, and valleys which are scattered throughout this grassland wilderness.​ These terrain features are almost always home to a significant amount of long grasses, scattered shrubs, and dense, bramble-packed thickets, which provide excellent spots from which a malicious foe might spring an ambush.
+		#ELSE
+			Although for the most part the landscape beside the road you're [pc.walking] down consists of wide open fields, you can never go far without passing some kind of small copse or thicket.​ These small clusters of trees are invariably home to many types of densely-packed shrubs and bushes, which provide excellent concealment for any potential foe that might be waiting to spring an ambush.
+		#ENDIF
+	</p>
+	<p>
+		Just as you feared, as you're cautiously passing a small, isolated patch of woodland, [attacker.a_fullRace(true)] suddenly launches out of the undergrowth to block your passage. With a wicked smirk on [attacker.her] face, this [attacker.race]
+		#IF(!attacker.isMute())
+			 asks, [attacker.speech(Well, well, well, what do we have here? Didn't you know that there's a toll to pass through this area? Now pay up, or else...)]
+		#ELSE
+			 motions for you to stop, before rubbing [attacker.her] [attacker.fingers] together in a sign that [attacker.she] wants you to hand over your money.
+		#ENDIF
+	</p>
+	<p>
+		Realising that this bandit is willing to use force to get what [attacker.she] wants, you wonder whether to simply give [attacker.herHim] what [attacker.she] wants, or prepare to defend yourself...
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMIT_SEX_START"><![CDATA[
+	<p>
+		Seeing that [attacker.name] has a horny look in their [attacker.eyes], you decide to offer them an alternative to a payment in cash. [pc.Stepping] forwards, you put on your most seductive look and tease, [pc.speech(I bet you don't get much sex out here in the middle of nowhere... How about I help you change that...)]
+	</p>
+	#IF(!attacker.isMute())
+		<p>
+			Hungrily eyeing you up, the [attacker.race] [attacker.steps] forwards and eagerly takes hold of you, before replying, [attacker.speech(Sure, I could do with a good fuck!)]
+		</p>
+		<p>
+			Without giving you any time in which to change your mind, [attacker.she] lets out a horny [attacker.moan] and starts feeling you up. Leaning in to you, [attacker.she] plants a passionate kiss on your [pc.lips+], before moving into position to start to fuck you...
+		</p>
+	#ELSE
+		<p>
+			Hungrily eyeing you up, the [attacker.race] [attacker.steps] forwards and eagerly takes hold of you, and without giving you any time in which to change your mind, [attacker.she] lets out a horny [attacker.moan] and starts feeling you up. Leaning in to you, [attacker.she] plants a passionate kiss on your [pc.lips+], before moving into position to start to fuck you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Pay off: -->
+	
+	<htmlContent tag="PAYMENT"><![CDATA[	<p>
+		#IF(pc.isCowardly())
+			Well and truly terrified at the prospect of this [attacker.race] choosing to engage you in physical combat, you hastily grab [#SPECIAL_PARSE_0] flames and offer them to [attacker.herHim]. Letting out an amused chuckle as [attacker.she] sees how scared you are, the [attacker.race] snatches the money from your trembling [pc.hands]
+		#ELSEIF(pc.isBrave())
+			Not wanting to waste any time on this [attacker.race], you grab [#SPECIAL_PARSE_0] flames and offer them to [attacker.herHim]. Letting out an annoyed tut as [attacker.she] sees the stoic look on your face, the [attacker.race] snatches the money from your [pc.hands]
+		#ELSE
+			Not wanting to engage this [attacker.race] in combat, you tell [attacker.herHim] that you'll pay the toll if it means that you can avoid a fight. Grabbing [#SPECIAL_PARSE_0] flames, you remain in place as the [attacker.race] snatches the money from your [pc.hands]
+		#ENDIF
+		#IF(!attacker.isMute())
+			 and sneers, [attacker.speech(That's all I needed... Go on, be on your way, before I decide to change my mind and give you a beating!)]
+		#ELSE
+			 and impatiently motions for you to continue on your way past [attacker.herHim].
+		#ENDIF
+	</p>
+	<p>
+		As you continue on your way, the [attacker.race] melts back into the undergrowth from whence [attacker.she] came. Happy with your decision to hand over [#SPECIAL_PARSE_0] flames in order to avoid fighting such a character, you look around to make sure that there's no other immediate danger and then prepare to continue on your way...
+	</p>	]]>
+	</htmlContent>
+	
+	
+	<!-- After sub sex: -->
+	
+	<htmlContent tag="AFTER_SEX_SUB"><![CDATA[
+	<p>
+		Letting out a satisfied sigh, the [attacker.race] takes a [attacker.step] back and brings an end to the sex. As [attacker.she] starts to get [attacker.her] things back in order, [attacker.she]
+		#IF(!attacker.isMute())
+			 teases, [attacker.speech(You were a good fuck... That's just what I needed today...)]
+		#ELSE
+			 smirks down at you and motions for you to move away from [attacker.herHim].
+		#ENDIF
+	</p>
+	<p>
+		Moving back, you take a moment in which to catch your breath and get your own things sorted out, during which time [attacker.name] finishes getting [attacker.her] clothing back in position. With one last triumphant sneer thrown your way, the [attacker.race] melts back into the undergrowth from whence [attacker.she] came. After taking a moment in which to recover your energy, you look around to make sure that there's no other immediate danger and then prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Won combat: -->
+	
+	<htmlContent tag="COMBAT_WON"><![CDATA[	<p>		Staggering back, the [attacker.race] sinks down onto the ground,
+		#IF(!attacker.isMute())
+			#IF(attacker.isAttractedTo(pc))
+				 before starting to touch [attacker.herself] and desperately pant, [attacker.speech(No more... I surrender... Please, just come and fuck me already!)]
+			#ELSE
+				 panting, [attacker.speech(No more... I surrender...)]
+			#ENDIF
+		#ELSE
+			#IF(attacker.isAttractedTo(pc))
+				 before starting to touch [attacker.herself] and let out a series of desperate, pleading whines.
+			#ELSE
+				 holding up [attacker.her] [attacker.hands] in a clear sign of surrender.
+			#ENDIF
+		#ENDIF	</p>
+	<p>
+		Feeling encouraged by your triumph, you confidently [pc.step] forwards and wonder what to do with this defeated [attacker.race]...
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_END"><![CDATA[	<p>
+		Not wanting anything more to do with this [attacker.race], you turn around and [pc.walk] off.
+		#IF(!attacker.isMute())
+			#IF(attacker.isAttractedTo(pc))
+				  Letting out a horny [attacker.moan] as you [pc.step] past [attacker.herHim], [attacker.name] whines, [attacker.speech(Fuck, I'm so horny! Damn it...)]
+			#ELSE
+				  Letting out a deep sigh as you [pc.step] past [attacker.herHim], [attacker.name] taunts, [attacker.speech(You got lucky...)]
+			#ENDIF
+		#ELSE
+			#IF(attacker.isAttractedTo(pc))
+				 Letting out a horny [attacker.moan] as you [pc.step] past [attacker.herHim], [attacker.name] desperately intimates that [attacker.she] wants you to fuck [attacker.herHim].
+			#ELSE
+				 Letting out a deep sigh as you [pc.step] past [attacker.herHim], [attacker.name] taunts you by throwing up a rude hand gesture.
+			#ENDIF
+		#ENDIF	</p>
+	<p>
+		Ignoring [attacker.her] pathetic display, you leave the bandit behind and continue on your way through the Foloi Fields...
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[
+	<p>
+		#IF(attacker.isAttractedTo(pc))			More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a dominant kiss on [attacker.her] [attacker.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [attacker.herHim]...
+		#ELSE
+			Ignoring the fact that [attacker.name] doesn't seem at all attracted to you, you [pc.step] up to [attacker.herHim] and pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a dominant kiss on [attacker.her] [attacker.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [attacker.herHim]...
+		#ENDIF
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_GENTLE"><![CDATA[
+	<p>
+		#IF(attacker.isAttractedTo(pc))
+			More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and gently pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a soft kiss on [attacker.her] [attacker.lips+], you can't help but let out a quiet [pc.moan] as you prepare to have sex with [attacker.herHim]...
+		#ELSE
+			Ignoring the fact that [attacker.name] doesn't seem at all attracted to you, you [pc.step] up to [attacker.herHim] and gently, yet firmly, pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a soft kiss on [attacker.her] [attacker.lips+], and can't help but let out a quiet [pc.moan] as you prepare to rape [attacker.herHim]...
+		#ENDIF
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_ROUGH"><![CDATA[
+	<p>
+		#IF(attacker.isAttractedTo(pc))
+			More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and roughly pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a forceful, dominant kiss on [attacker.her] [attacker.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [attacker.herHim]...
+		#ELSE
+			Ignoring the fact that [attacker.name] doesn't seem at all attracted to you, you [pc.step] up to [attacker.herHim] and roughly pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a forceful, dominant kiss on [attacker.her] [attacker.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [attacker.herHim]...
+		#ENDIF
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_SUBMIT_START"><![CDATA[
+	<p>
+		Feeling bad for having given [attacker.name] such a sound beating, you drop down in front of [attacker.herHim] and apologise for your actions, before telling [attacker.herHim] that [attacker.she] can do whatever [attacker.she] likes with you. Looking at you with a mixture of disbelief and resentment, the [attacker.race] rises to [attacker.her] [attacker.feet] and
+		#IF(!attacker.isMute())
+			 asks, [attacker.speech(You're serious? You... You're going to submit to me?)]
+		#ELSE
+			 narrows [attacker.her] [attacker.eyes] to give you a questioning, suspicious look.
+		#ENDIF
+	</p>
+	<p>
+		Confirming to [attacker.herHim] that you'll let [attacker.herHim] use you in any way [attacker.she] sees fit, you allow [attacker.name] to take hold of you and pull you into [attacker.her] body. Planting a dominant kiss on your [pc.lips+], and realising that you're truly going to submit to [attacker.herHim], the [attacker.race] lets out [attacker.a_moan+] and prepares to fuck you...
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[	<p>
+		Feeling satisfied from your dominant sex with the [attacker.race], you [pc.step] away from [attacker.herHim] and start to get your things back in order.
+		#IF(!attacker.isMute())
+			#IF(attacker.isSatisfiedFromLastSex())
+				 Feeling just as happy as you are, [attacker.name] lets out a deep sigh and moans, [attacker.speech(~Mmm!~ That was just what I needed...)]
+			#ELSE
+				 Not feeling as happy as you are, [attacker.name] lets out a frustrated sigh and moans, [attacker.speech(~Aah! I'm not satisfied from that!)]
+			#ENDIF
+		#ELSE
+			#IF(attacker.isSatisfiedFromLastSex())
+				 Feeling just as happy as you are, [attacker.name] lets out a deep sigh and moans in contentment to convey the fact that [attacker.sheIs] satisfied.
+			#ELSE
+				 Not feeling as happy as you are, [attacker.name] lets out a frustrated sigh and moans in annoyance to convey the fact that [attacker.sheIs] not satisfied.
+			#ENDIF
+		#ENDIF	</p>
+	<p>
+		Continuing to get your things back in order, you brush yourself off and wonder what to do next. You could always help yourself to any items or cash that the [attacker.race] is carrying, or instead simply set off and continue on your way... 
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_TALK"><![CDATA[	<p>		Wanting to know why this [attacker.race] is attempting to rob innocent travellers of their possessions, you ask the bandit who [attacker.she] is and what led to [attacker.her] choosing a life of criminality. Clearly not wanting to discuss such personal matters with you, the [attacker.race] sneers at you for a moment, before
+		#IF(!attacker.isMute())
+			#IF(attacker.isAttractedTo(pc))
+				 snapping, [attacker.speech(I'm not telling you anything! Either fuck me or fuck off!)]
+			#ELSE
+				 snapping, [attacker.speech(Fuck off and leave me alone!)]
+			#ENDIF
+		#ELSE
+			 turning [attacker.her] head and refusing to look at you.
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_SADIST))
+			Slapping the [attacker.race] across the face, you repeat your question, but once again [attacker.she] refuses to play along.
+		#ELSE
+			Trying a different approach, you promise the [attacker.race] a reward if she tells you what you want to know, but once again she refuses to play along.
+		#ENDIF
+		 As you're clearly not going to be able to find out anything from this uncooperative [attacker.race], you give up on your line of questioning and wonder what to do with [attacker.herHim]...	</p>	]]>
+	</htmlContent>
+	
+	
+	<!-- Lost combat: -->
+	
+	<htmlContent tag="COMBAT_LOST"><![CDATA[	<p>		Unable to continue fighting any longer, you stagger back and collapse to the ground, utterly defeated.
+		#IF(!attacker.isMute())
+			 [attacker.Stepping] forwards, the [attacker.race] lets out a triumphant laugh and declares, [attacker.speech(That was too easy! You really thought you stood a chance against me?!)]
+		#ELSE
+			 [attacker.Stepping] forwards, the [attacker.race] lets out a triumphant laugh and looks down at you with a big smirk on [attacker.her] face.
+		#ENDIF	</p>
+	#IF(attacker.isAttractedTo(pc))
+		<p>
+			Clearly finding you irresistibly attractive, [attacker.name] grabs hold of your [pc.arm] and pulls you to your [pc.feet], before grinding up against you and
+			#IF(attacker.isWillingToRape(pc))
+				#IF(!attacker.isMute())
+					 declaring, [attacker.speech(All that fighting got me turned on, and you look like a good fuck right about now!)]
+				#ELSE
+					 starting to grope and fondle your body...
+				#ENDIF
+			#ELSE
+				#IF(!attacker.isMute())
+					 declaring, [attacker.speech(All that fighting got me turned on... You're up for a quick fuck, right?)]
+				#ELSE
+					 throwing you a questioning look as [attacker.she] starts to run [attacker.her] [attacker.hands] over your body...
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Clearly not having any interest in having sex with you, [attacker.name] turns around and prepares to leave...
+		</p>
+	#ENDIF	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_FUCKED"><![CDATA[
+	<p>
+		Giving you no say in the matter, the bandit continues to grope you, and as you open your mouth to say something, [attacker.she] leans forwards and pulls you into a dominant kiss. After grinding up against you for a few moments, [attacker.she] pulls back and prepares to fuck you...
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_CONTINUE"><![CDATA[
+	#IF(attacker.isAttractedTo(pc))
+		<p>
+			Refusing to have sex with the [attacker.race], you watch as [attacker.she] melts back into the undergrowth from whence [attacker.she] came. After taking a moment in which to recover your energy, you look around to make sure that there's no other immediate danger and then prepare to continue on your way...
+		</p>
+	#ELSE
+		<p>
+			With one last triumphant sneer thrown your way, [attacker.she] melts back into the undergrowth from whence [attacker.she] came. After taking a moment in which to recover your energy, you look around to make sure that there's no other immediate danger and then prepare to continue on your way...
+		</p>
+	#ENDIF	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_FUCKED_WILLING"><![CDATA[
+	<p>
+		Agreeing to have sex with [attacker.herHim], you let the bandit continue to grope you, and as you open your mouth to say something, [attacker.she] leans forwards and pulls you into a dominant kiss. After grinding up against you for a few moments, [attacker.she] pulls back and prepares to fuck you...
+	</p>	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -12,6 +12,12 @@ STATUS EFFECT MODS: res/mods/(yourname)/statusEffects
 COLOUR MODS: res/mods/(yourname)/colours
 RACE MODS: res/mods/(yourname)/race
 COMBAT MOVE MODS: res/mods/(yourname)/combatMove
+DIALOGUE FLAGS AND NODES: res/mods/(yourname)/dialogue/
+ENCOUNTERS: res/mods/(yourname)/encounters/
+SEX ACTIONS AND MANAGERS: res/mods/(yourname)/sex/
+	(probably best to keep them separate in actions and managers folders within that directory)
+MAPS: res/mods/(yourname)/maps/
+	(follow the standard of putting a new map in a named folder and then placeTypes folder, map.png for the map file, and worldType.xml for the map data)
 
 Just to clarify, (yourName) should be whatever nickname the mod creator is using, or any unique name which encompasses everything inside your created mod folder (e.g. 'beeModding').
 
@@ -19,6 +25,19 @@ Just to clarify, (yourName) should be whatever nickname the mod creator is using
 Within these mod folders (which you create), place the .xml and .svg files that are needed for each piece of clothing/tattoo.
 
 I've included at least one example in each directory for you to reference (the 'clothing' example is in the 'template' folder). If you need any help, there is a 'mod-discussion' channel in the LT discord. ^^
+
+Commented examples not found in the mod folder can be found here:
+Dialogue:
+	res/dialogue/innoxia/flags.xml for dialogue flags
+	res/dialogue/innoxia/encounters/fields/elis/woods.xml for dialogue nodes
+Encounters:
+	res/encounters/elis/woodland.xml for encounters
+Maps:
+	res/maps/fields/elis/town/worldType.xml folder for new maps
+	res/maps/fields/elis/town/placeTypes/entry_east.xml for place types
+Sex:
+	res/sex/innoxia/managers/meraxis/duel/masturbation.xml for sex managers
+	res/sex/innoxia/actions/meraxis/duel/orgasm_panties_cum.xml for sex actions
 
 
 

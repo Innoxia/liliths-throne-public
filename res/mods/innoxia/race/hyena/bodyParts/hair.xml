@@ -17,6 +17,11 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>innoxia_hyena_hair</coveringType>
 	
+	<!-- The chance of this hair giving the owning character 'neck fluff' when they're first spawned-in, using a float value in the range of 0-100, representing 0-100%.
+		If you need to set neck fluff for just males or females for your subspecies, then use the 'applySubspeciesChanges' in your subspecies xml file, using the method 'targetedBody.getHair().setNeckFluff(null, true)'
+		The 'requiresGreaterMorph' attribute defines whether or not neck fluff is only applied on spawn if the character is a greater morph. -->
+	<neckFluffChance requiresGreaterMorph="true">0</neckFluffChance>
+	
 	<!-- Tags which are associated with this hair type.
 	You should most likely only be using the 'hair' tags for your hair type, which is just: HAIR_HANDLES_IN_SEX
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->

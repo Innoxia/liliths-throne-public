@@ -673,6 +673,10 @@ public class Properties {
 						} catch(Exception ex) {
 						}
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.1.5")) {
+						values.add(PropertyValue.vestigialMultiBreasts);
+					}
+					
 					
 				} else {
 					// Old values support:

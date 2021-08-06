@@ -25,6 +25,7 @@ public enum PropertyValue {
 	tattooRemovalConfirmations(true),
 	sillyMode(false),
 	weatherInterruptions(true),
+	automaticDialogueCopy(false),
 
 	autoLocale(true),
 	metricSizes(true),
@@ -69,6 +70,7 @@ public enum PropertyValue {
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),
+	vestigialMultiBreasts(true),
 	
 	// I know a lot of people hate NTR, but this 'voluntary NTR' setting is just giving the player the option to give their companion to other people, rather than having their companion taken against their will.
 	// For this reason, it's on by default (to give the player more options), but involutary NTR will always be off by default.

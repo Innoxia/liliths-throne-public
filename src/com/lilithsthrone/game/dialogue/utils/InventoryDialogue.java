@@ -198,7 +198,9 @@ public class InventoryDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(inventoryNPC!=null && interactionType==InventoryInteraction.TRADING) {
-				UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.removeTraderDescription)) {
+					UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
+				}
 				
 			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
 				return CharacterCreation.getCheckingClothingDescription();
@@ -5723,7 +5725,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 									
 							} else {
 								if(clothing.isCondom()) {
@@ -5812,7 +5814,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -5996,7 +5998,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6092,7 +6094,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6210,7 +6212,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6350,7 +6352,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -8414,15 +8416,22 @@ public class InventoryDialogue {
 //		}
 	}
 	
-	private static Response getJinxRemovalResponse() {
+	private static Response getJinxRemovalResponse(boolean selfUnseal) {
 		boolean ownsKey = Main.game.getPlayer().getUnlockKeyMap().containsKey(owner.getId()) && Main.game.getPlayer().getUnlockKeyMap().get(owner.getId()).contains(clothing.getSlotEquippedTo());
-		int removalCost = clothing.getJinxRemovalCost();
+		int removalCost = clothing.getJinxRemovalCost(Main.game.getPlayer(), selfUnseal);
 		
 		if(interactionType==InventoryInteraction.COMBAT) {
 			return new Response("Unseal"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
 					"You can't unseal clothing in combat!",
 					null);
 		}
+
+		if(interactionType==InventoryInteraction.SEX && !Main.sex.getInitialSexManager().isAbleToRemoveClothingSeals(Main.game.getPlayer())) {
+			return new Response("Unseal"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
+					"You can't unseal clothing in this sex scene!",
+					null);
+		}
+		
 		
 		if(!ownsKey) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
@@ -8518,6 +8527,8 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
+		
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			from.incrementMoney(itemPrice*count);
 			to.incrementMoney(-itemPrice*count);
@@ -8548,7 +8559,7 @@ public class InventoryDialogue {
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(item, count, itemPrice);
+				//((NPC) from).handleSellingEffects(item, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
@@ -8556,7 +8567,15 @@ public class InventoryDialogue {
 								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
+			
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(item, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(item, count, itemPrice, false);
+			}
 		}
+		
 		resetPostAction();
 	}
 	
@@ -8586,6 +8605,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
 
 			from.incrementMoney(itemPrice*count);
@@ -8617,7 +8637,7 @@ public class InventoryDialogue {
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(weapon, count, itemPrice);
+				//((NPC) from).handleSellingEffects(weapon, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
@@ -8625,7 +8645,16 @@ public class InventoryDialogue {
 								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
+			
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(weapon, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(weapon, count, itemPrice, false);
+			}
 		}
+		
+		
 		resetPostAction();
 	}
 	
@@ -8663,8 +8692,8 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
-
 			from.incrementMoney(itemPrice*count);
 			to.incrementMoney(-itemPrice*count);
 			
@@ -8694,7 +8723,7 @@ public class InventoryDialogue {
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
+				//((NPC) from).handleSellingEffects(clothing, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
@@ -8702,7 +8731,15 @@ public class InventoryDialogue {
 								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
+			
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(clothing, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(clothing, count, itemPrice, false);
+			}
 		}
+		
 		resetPostAction();
 	}
 	

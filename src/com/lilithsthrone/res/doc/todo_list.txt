@@ -19,10 +19,52 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Engine/Modding:
+		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
+	
+	Body:
+		Added 'neck hair/fur' as a purely cosmetic transformation tied to a character's hair, which can be applied via potion or clothing TFs.
+		Chances to spawn with neck fur are: 25% for greater fox and wolf morphs, 100% for male lion morphs, 10% for greater female rabbit-morphs.
+	
+	Clothing:
+		Added 'heavy gemstone ring' (finger slot, unisex, sold by Nyan). Also limited the default colours that these rings can spawn in with.
+	
+	Other:
+		Added a 'Vestigial Multi-breast' content setting to the 'Body' category (on by default), which affects whether multiple rows of breasts are described as being 'vestigial' or 'one cup size smaller than the one above' in size.
+	
+	Bugs:
+		Fixed bug where characters without hair could still be targeted for the 'Twintail pull' sex action.
+		Fixed bug in the 'Rogue Enforcer' quest, where completing the quest would sometimes lock you in a travel-disabled dialogue screen with no responses to choose from.
+		Fixed bug where the 'Morning cunnilingus'/'Morning blowjob' sex scenes with Scarlett during Helena's romance quest would never come to an end.
 	
 	
 	
-	Felicia:
+	[x] Full Fields main quest written out from plan
+	[x] twintail pull available when they have no hair
+	[x] neck fluff
+		[x] Add TF
+			[x] test clothing
+			[x] test potion
+		[x] Body description
+		[x] Add to lions, wolves, foxes, female rabbits
+			[x] Apply to spawn method
+		[x] Save/load
+		[x] Self-TF menu
+		[x] test all
+	[x] add an option to make multitit vestigial
+		[x] property setting
+		[x] test
+	[x] unisex gemstone ring
+		[x] limit gemstone colours
+	[x] trouble when you go to Enforcer HQ to talk to Wes to finish that side quest for me I get locked in place and can’t advance dialogue or change my location is anyone else having this problem or did I mess up when setting up the new update
+		 (I honestly default to blaming myself but I would like to know if anyone else has had this problem and if they were able to fix it)
+			https://github.com/Innoxia/liliths-throne-public/issues/1527
+	[x] Anyone else getting stuck in infinite morning cunnilingus loops with scarlet during the harpy business quests?
+	[x] Make post
+		[x] KT80 poll
+	[x] Ace's mod
+	
+	[] Felicia
 		Changes:
 			Formatting, minor grammatical changes.
 			Sawlty towers:
@@ -36,147 +78,55 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Writing style is quite different
 		[-] check Sawlty towers to see if it's retroactively created
 			[-] creation check from new
-		
+	
+	[] Bugs
+		[] Are the field bandits supposed to be the same level as city bandits? That seems like a bug or oversight of some kind?
+		[] One of my slaves seems to be stuck on being a maid and their job won't change depending on what button I hit
+		[] some sex scenes never end, i have to press the quicksex button to end it, and in some cases i can't even do that, like the handjob scene with Scarlett at the slaver's den
+		[] from another user, the harpy boss transformatives still work when used as a demon
+		[] Scarlett does not end sex scene, and player cannot end it either, when inviting her out to lunch after trading back to Helena.
+		[] Takahashi has AddedToContacts set to false
+		[] Bug reports channel
+	
+	[] Maxis github permission
+	
+	[] I found that quick move to a location will not trigger the encounter? You have to move there by normal means?
+	
+	[] PRs
+	
+	[] Add Minotallys meeting
+		Overview:
+			She is refusing to believe that there's a problem (she says Lilith would intervene if there was a real issue)
+			Assistant knows it's serious, but cannot convince her
+			Manage to convince her to send contact to Themiscyra to confirm if Lunette's centaurs have attacked there yet
+		[] Meraxis meeting start
+		[] Town Hall access
+		[] Meet assistant
+			[] Portraits of Minotallys on the walls, he explains that she likes to change her appearance (and flavours) based on the day of the week
+		[] Minotallys meeting
+			[] She offers milk, Meraxis happily drinks it
+			[] Minotallys gets visibly turned on as she watches you drink (what it quite obviously) her milk
+		[] Business of Lunette
+		[] She agrees to have you and Meraxis visit Themiscyra to confirm if Lunette's centaurs have attacked there yet
+			[] Add to map
+			
+	[] Dialogue parsed before time passed
+		[] Add option to change this in dialogue, keep as it is for default as changing would probably break things
+	
+	[] Shopping precinct
+		[] Add 4 main NPCs
+	
+	[] Need a place to deliver pregnancy in Elis
+		[] Medical centre
+			[] Incubus & succubus doctors
 	
 	
-	On the Phone contacts you can pick your kids from the menu until you have picked someone, you can only pick Unique NPCs after that without backing out of the menu
-	Please copy getResponse from com/lilithsthrone/game/dialogue/utils/PhoneDialogue.java:2657
-	And use it to replace the getResponse at com/lilithsthrone/game/dialogue/utils/PhoneDialogue.java:2700
-	Plz fix
+	Ashley
 	
-	[x] Mod support:
-		[x] dialogue
-		[x] encounters
-		[x] sex manager
-		[x] sex actions
-	[] add examples for all and test
-	
-	KILL DESK
-	
-	Sadistic fetish tooltip about actions
-	
-	parsing error: "as you enter the area. Spitting on the ground, [NPC parsing error]"
-	
-	Add a more "gentle" variant for tentacle squeeze like for example a tentacle/snake massage perhaps
-	Make squeeze sadistic/rough
-	
-	the spinneret is still missing some bits. For example the virginity loss is not tracked, and there is also no cream pie status effect. That last one is amusing if you manage to get psychoactive fluids in there, guaranteed trip every hour.
-	
-	performance issues - tattoo mods are slow
-	
-	Add a place in inventory to see keys owned
-	Could we possibly have an option to voluntarily drop keys to items we locked? For instance to keep an item locked on ourselves or to punish a particularly disliked slave?
-	
-	Memoization:
-		-        return script.eval();
-		+        return script.eval(((NashornScriptEngine)engine).getContext());
-	
-	add an option to have the main dialogue in each scene automatically copied to the clipboard
-		 bold or italic highlighting can be used for text readers
-	
-	the bug in which there were a lot of people in Angel's Kiss still exists.
-		QuickSave_Kinu BusinessCat
-	
-	Make essences contraband
-		search: revisit this and potentially make demon/angel essence contraband when adding more essence effects
-	
-	Is it intentional for randomly generated NPCs to have no variation to their body size and femininity? E.g. A feminine human will always be lightly muscled, average size, and girly (as opposed to womanly)
-		Yep, those attributes don't seem to change. Neither does ass size.
-	
-	Maybe lock out the Perk Tree if you're in a controlled scene, same as Inventory and Quicksave are locked out
-	
-	cum bottle?
-		I thought of it partially as moo milker and condom.
-		It would differentie who's the owner of cum, it's properties - strawberry, bubbly, etc.
-		Amount and how high is it's value (money) letting us know what we eat.
-		Apart for that the bottle wouldn't break apart upon overfilling, the rest would just spill preventing a waste of money (I once waisted a lot of condoms) 
-		The bottle could be large or have various capacities like 1L 5L or 10L letting us store a bit of it! 
-		The bottles would work as consumables - full bottle turns into empty bottle (or something) if we eat/spill/use the cum
-		It won't disappear like condom. 
-		It could also be used in combat (resulting in destruction of the bottle) you just throw the bottle of cum at enemy giving physical/lust damage (your choice)
-	
-	HLF Quest
-		[x] Go over Elle dialogue
-		[] Add Roxy recognition of firebombs if you sold at least one to her
-		[] Weapon special attacks to be unlocked should be shown in tooltip description
-		[] Throwable weapon framework
-			[] Test multiple arm rows detection
-	
-	
-	[] Bat-boy spawned with all bat parts except arms (which were human)???
-	
-	[] lewd pink lightning spell and a "from the tap" demon stone from Lyssieth
-	
-	[] Lilaya snug
-	
-	[] pspsps Nyanmum
-	
-	[] phone map breaks when you learn nyans apartment location
-	
-	[] Change prostitution license
-		[] Angel pays for your license, but your first 5000 earnings go to her
-		[] Can't sell self while dirty
-			[x] Add showers (added from PR1528)
-			[] Add room description of showers
-		
-	[] Add way to earn money by (very simply) working for
-		Ralph (behind counter)
-			Can only start in morning (after work can get fucked by him to double earnings)
-				[] Stockroom 
-				[] Counter
-		Antique shop
-	
-	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
-		
-	---
-	
-	[] deer
-		glade springs - sparkling mineral water
-		tree shoots salad
-	
-	[] mouse
-	
-	[] Write all Meraxis dialogue
-		[x] Leaving Dominion
-		[x] Add Takahashi dialogue option
-		[] Duels
-			[x] Starting
-			[x] Loss
-			[x] No reward
-			[x] Money reward
-			[x] Transform reward
-				[x] affections
-				[x] knowledge of breasts/pussy
-			[] Meraxis pregnancy reaction
-			[] Sex
-				[x] Fully test all sex routes
-				[] Sex actions
-					[] test all
-						[x] Bug: they end sex
-						[x] Bug: Error: No suitable description found for this action!
-						[x] Formatting brs
-						[x] Prohibited areas not working
-						[x] Add tooltips saying what each action leads to
-						[x] tree as wall in fields
-						[x] Stop Meraxis from self-penetrating mouth in breast masturbation
-						[] Cum slut from panties orgasm?
-					[] write
-						[x] panties
-						[x] anal
-						[] breasts
-						[] vaginal
-						[] oral
-						[] masturbation
-				[x] Orgasm count 1 if not associated fetish owned
-		[] Tavern sex
-			[] If Meraxis fetish sex unlocked, can go up to her room and have fetish sex once a day
-			[] If all sex unlocked, she does anything with player
-	
-	[] Vengar bug?
-		I completed the quest line, went back in, strangely the milkers were still here and so was Vengar. I tried to see if attacking the guy who enslaved the milkers would solve anything, and then boom, couldn't leave and the only thing i can do with Vengar is bang
-	
-	[] Make fields and river dangerous
-	[] Add demonic centaur encounter
+	[] Centaur encounter spell effect expansion:
+		[] Spawn & start 2 slavers
+			[] Hide
+			[] Ambush
 		[] Add different sub-groups
 			[] Repeated losses (5?) results in a bad end trigger for each group (encounter their leader and losing to them is a bad end)
 			[] East of Elis (majority of the fields): Lunette's marauders -> Huge, muscular demonic centaurs who charge with lances
@@ -192,7 +142,71 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] East of Dominion: The heart-breakers -> Use seduction and spells
 				[] Loss results in being transformed, they play up to your fetishes and after sex they leave
 				[] BE: 'One of Us' Kept for days having your fantasies indulged, while being fed fetish TF potions so that you end up as one of them
-				
+	
+	"from the tap" demon stone from Lyssieth
+		Ask her about demon stones
+		She tells you that the rumours may be true, asks if you'd like to find out
+		Sex, and at orgasm she casts a spell and creates a unique demon stone (better than legendary ones)
+		
+	[] World map
+		[] Forest bandits
+		[] Fields bandits
+		[] River mermaids
+		[] Fields ruined village
+		
+	[] AoE for special attacks
+	
+	HLF Quest
+		[x] Go over Elle dialogue
+		[] Add Roxy recognition of firebombs if you sold at least one to her
+		[] Weapon special attacks to be unlocked should be shown in tooltip description
+		[] Throwable weapon framework
+			[] Test multiple arm rows detection
+	
+	Make the rough/resist pace different from rape so the slime queen isn't such a turn off.
+	
+	Helena sex without her becoming a total slut
+	Make a non-sloot Helena ending
+	
+	Why is there no dialogue variation for Arthur/Lyssieth scenes when you already know teleport?
+	Why can't we pick/plant roses in Lilaya's garden?
+	Why we don't have a gardener job for slaves?
+	Why do we have a kitchen but no dining hall?
+	Why can't I give guest jobs so they don't have to go out and find one?
+	Why isn't there an alternative to the foot scenes for Amber or Ms Cunningham if you have feet disabled?
+	Why isn't there an alternative to the Vicky scene if you have anal disabled?
+	Why do some scenes still sometimes refer to crotch boobs even though I have them disabled?
+	Being able to put dildos in penetrable nipples when?
+	
+	Finger urethra insertion
+	
+	[] Lilaya snug
+	
+	[] pspsps Nyanmum
+	
+	[] Change prostitution license
+		[] Angel pays for your license, but your first 5000 earnings go to her
+		[] Can't sell self while dirty
+			[x] Add showers (added from PR1528)
+			[] Add room description of showers
+		
+	[] Add way to earn money by (very simply) working for
+		Ralph (behind counter)
+			Can only start in morning (after work can get fucked by him to double earnings)
+				[] Stockroom 
+				[] Counter
+		Antique shop
+	
+	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
+	
+	---
+	
+	[] deer
+		glade springs - sparkling mineral water
+		tree shoots salad
+	
+	[] mouse
+	
 	[] Elis
 		[] Minotallys intro
 			[] Describe northern part as being home to a lot of refugees from Fields
@@ -201,36 +215,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Add 'All masculine clothing is unisex' option
 		[] Fully framework demonic centaur encounters
 		[] Write Demonic centaurs
-		[] Market needs stalls
-			[] Add map
-				[] Interrupt if closing time, send back to Elis map
-			[] Drink
-				[] Alcohol
-				[] Soft drinks
-			[] Food
-				[] Meals
-				[] Snacks
-			[] Clothes
-			[] Trinkets
-			[] Toys
-			[] Fortunes
-				[] Named NPC - hippy rabbit-girl
-					[] Crystal ball is an enchanted item based on telekinesis (so it always involves both of you)
-						[] Results vary if player thinks of:
-							- Power -> shows you sitting on a thronw with the rabbit-girl serving you
-							- Fame -> shows rabbit-girl asking for your autograph
-							- Fortune -> shows rabbit-girl admiring all of the money you have
-							- Peace -> shows you and rabbit-girl relaxing in a villa
-							- Sex -> shows her on her table having sex with you
-								- She gets a bit flustered and tells you to think of something else -> thinking of sex again leads into her wanting sex
-			[] Kissing
-				[] Cow (ara ara main attraction), sheep (shy handling money), and goat (dominant in charge) girls
-					[] Can convince to give blowjob/cunnilingus, give breastfeeding, or receive cunnilingus
-			[] Games
-				[] Darts
-				[] Strength test
-				[] Arcane challenges
-		[] Make market icon change if open or not
 		[x] Backup
 		[-] Make Elis borders a little smaller?
 		[x] Don't show travel disabled black border if scene travel disabled
@@ -369,6 +353,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	--- END NYAN MARRIAGE ---
 	
+	add a randomisation to NPCs' virility stat when spawning them, with a small chance (perhaps able to be disabled via a toggle) for them to have 0 virility.
 	
 	[] Fix slime queen quest not being triggered by bat caverns slimes
 	
@@ -378,15 +363,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Jaguar subspecies
 		Black big cats should be panthers
-	
-	Lyssieth content that doesn't involve her desk
-		Sex without desk
-		Demon TF without penis (cunnilingus and scissoring)
-	
-	Inno still hasn't given me alternate scenes for the foot stuff with Amber or Cunningham, nor the anal with Vicky and Natalya, nor made the rough/resist pace different from rape so the slime queen isn't such a turn off.
-	
-	Helena sex without her becoming a total slut
-	Make a non-sloot Helena ending
 	
 	[] Make karada have stomach/hips/torso/over-torso/groin slots
 	[] Make wrist restraints 'leather restraints' and allow ankle equip
@@ -718,9 +694,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	sex actions to have area icons
 	
 	Add outfit saving/loading (use for setting slave outfits per job)
-	
-	Add demon TF without taking cock.
-		And non-desk positions.
 	
 	when wearing rental mommy/daddy t-shirts, give chance of encounter
 		Randomly spawned NPC approaches and asks to hire you
@@ -1118,23 +1091,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Make it clearer that Arthur was freed
 	getting Arthur to analyse the globe and make it into a spell
 	
-	Why is there no dialogue variation for Arthur/Lyssieth scenes when you already know teleport?
-	Why can't we pick/plant roses in Lilaya's garden?
-	Why we don't have a gardener job for slaves?
-	Why do we have a kitchen but no dining hall?
-	Does Lilaya even have a bathroom?
-	Why can't I give guest jobs so they don't have to go out and find one?
-	Why isn't there a penalty for decreasing corruption as a demon or a bonus for being more lewd?
-		Corruption affect base lust damage?
-		nerf lust vs low corruption
-	Why isn't there an alternative to the foot scenes for Amber or Ms Cunningham if you have feet disabled?
-	Why isn't there an alternative to the Vicky scene if you have anal disabled?
-	Why doesn't the PC get a thicc demon tail like Lilaya when you're TF'd by Lyssieth or even have a thicc modifier for tails in the first place?
-	Tail thiccness TF when?
-	Why does the artwork for Arthur make him look like he's 70 but the prologue says he's around our age?
-	Why does the game call them cow morphs instead of bovines and males cow boys when they should be bulls?
-	Why do some scenes still sometimes refer to crotch boobs even though I have them disabled?
-
 	Add fetish spawn chance settings
 	
 	A pair of gothic boots, that reach only below the knee, can fully conceal a pair of stockings that reach past mid-thigh.

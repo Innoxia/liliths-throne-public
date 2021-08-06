@@ -859,11 +859,11 @@ public class Subspecies {
 			"innoxia_race_cow_bubble_cream",
 			"statusEffects/race/raceCowMorph",
 			"statusEffects/race/raceBackground",
-			"cow-morph",
-			"cow-morphs",
-			"cow-boy",
+			"cattle-morph",
+			"cattle-morphs",
+			"bull-boy",
 			"cow-girl",
-			"cow-boys",
+			"bull-boys",
 			"cow-girls",
 			new FeralAttributes(
 					"cattle",
@@ -901,7 +901,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 0)),
 			PresetColour.RACE_COW_MORPH,
-			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cow-morph' when bipedal, and a 'cowtaur' when the lower body is that of a feral cow.",
+			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cattle-morph' when bipedal, and a 'cattletaur' when the lower body is that of a feral cow or bull.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
@@ -4285,6 +4285,12 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
 		@Override
+		public void applySpeciesChanges(Body body) {
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
+				body.getHair().setNeckFluff(null, Math.random()<0.1f);
+			}
+		}
+		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {
 					"jackalope",
@@ -4307,7 +4313,6 @@ public class Subspecies {
 			
 			return names;
 		}
-
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.RABBIT_MORPH) {
@@ -4377,6 +4382,9 @@ public class Subspecies {
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
 				body.getEar().setType(null, EarType.RABBIT_MORPH_FLOPPY);
+			}
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
+				body.getHair().setNeckFluff(null, Math.random()<0.1f);
 			}
 		}
 		@Override

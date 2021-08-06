@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('FieldsBandit', 'attacker')]
+			[#attacker.setLocation(pc, true)]
+			[#flags.setFlag(FLAG_innoxia_fields_bandit_talked, false)]
+		]]></preParsingEffects>
+		<title><![CDATA[Bandit Attack]]></title>
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/encounters/fields/bandit">START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Fight: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to pay the bandit and prepare to defend yourself!]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_fields_bandit_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_fields_bandit_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true"/>
+					<enemies>
+						<enemy leader="true"><![CDATA[attacker]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[Refusing to hand over your money, you tell the bandit that [attacker.sheIs] making a mistake as you prepare to defend yourself.]]></combatant>
+						<combatant id="attacker"><![CDATA[Flashing you a wicked smirk, the bandit sneers, [attacker.speech(I'll make you pay, one way or another!)]]]></combatant>
+					</openingDescriptions>
+				</combatVariables>
+			</response>
+			<!-- Pay: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Pay up (#IF(pc.getMoney()>=attacker.getPaymentDemand())[style.moneyFormat([#attacker.getPaymentDemand()], span)]#ELSE[style.moneyFormatUncoloured([#attacker.getPaymentDemand()], span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=attacker.getPaymentDemand()) Hand over the [style.intToString([#attacker.getPaymentDemand()])] flames which the bandit is asking for. #ELSE You can't afford to pay off the bandit... #ENDIF]]></responseTooltip>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=attacker.getPaymentDemand())innoxia_encounters_fields_bandit_payment#ELSEnull#ENDIF]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString([#attacker.getPaymentDemand()])]', true)]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-attacker.getPaymentDemand()))]
+				]]></effects>
+			</response>
+			<!-- Submit: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Offer body]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you. You'll either have to hand over your money, or prepare for a fight!]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Offer body]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell the bandit that you can't afford to pay, and instead offer them the use of your body...
+				]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[attacker]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_bandit_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/bandit">SUBMIT_SEX_START</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Payment given: -->
+	
+	<scene id="payment">
+		<content folderPath="txt/encounters/fields/bandit">PAYMENT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Satisfied with the payment you've given [attacker.herHim], the bandit takes [attacker.her] leave, allowing you to continue on your way...
+					<br/>[style.italicsBad(The bandit will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.banishNPC(attacker)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- After submitting for sex: -->
+	
+	<scene id="after_sex_sub">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The bandit has had [attacker.her] fun with you, and with a satisfied sigh [attacker.she] [attacker.steps] back and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/encounters/fields/bandit">AFTER_SEX_SUB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					As the bandit has left, there's nothing else for you to do except continue on your way...
+					<br/>[style.italicsBad(The bandit will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.banishNPC(attacker)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Won combat: -->
+	
+	<scene id="combat_won">
+		<content folderPath="txt/encounters/fields/bandit">COMBAT_WON</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Continue: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Decide against doing anything further with the bandit and continue on your way...
+					<br/>[style.italicsBad(The bandit will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/bandit', 'COMBAT_WON_END'))]
+					[#game.banishNPC(attacker)]
+				]]></effects>
+			</response>
+			
+			<!-- Sex, no pace: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[
+					#IF(attacker.isAttractedTo(pc))
+						Sex
+					#ELSE
+						Rape
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(attacker.isAttractedTo(pc))
+						Take advantage of your victory to have dominant sex with the bandit.
+					#ELSE
+						Take advantage of your victory to rape the bandit.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[[#attacker.isAttractedTo(pc)]]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[attacker]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_bandit_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/bandit">COMBAT_WON_SEX</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- Sex, gentle: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Sex (gentle)]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[
+					#IF(attacker.isAttractedTo(pc))
+						Sex (gentle)
+					#ELSE
+						Rape [attacker.herHim] (gentle)
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(attacker.isAttractedTo(pc))
+						Take advantage of your victory to have gentle, dominant sex with the bandit. (Starts the sex scene in the 'gentle' pace.)
+					#ELSE
+						Take advantage of your victory to rape the bandit. (Starts the sex scene in the 'gentle' pace.)
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[[#attacker.isAttractedTo(pc)]]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[attacker]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_bandit_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/bandit">COMBAT_WON_SEX_GENTLE</sexStartContent>
+					<tags>
+						<tag>START_PACE_PLAYER_DOM_GENTLE</tag>
+					</tags>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- Sex, rough: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex (rough)]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[
+					#IF(attacker.isAttractedTo(pc))
+						Sex (rough)
+					#ELSE
+						Rape [attacker.herHim] (rough)
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(attacker.isAttractedTo(pc))
+						Take advantage of your victory to have rough, dominant sex with the bandit. (Starts the sex scene in the 'rough' pace.)
+					#ELSE
+						Take advantage of your victory to roughly rape the bandit. (Starts the sex scene in the 'rough' pace.)
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[[#attacker.isAttractedTo(pc)]]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[attacker]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_bandit_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/bandit">COMBAT_WON_SEX_ROUGH</sexStartContent>
+					<tags>
+						<tag>START_PACE_PLAYER_DOM_ROUGH</tag>
+					</tags>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			
+			<!-- Submit: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[Feeling bad for beating the bandit, you decide to submit to [attacker.herHim] and offer [attacker.herHim] the use of your body...]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[attacker]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_bandit_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/bandit">COMBAT_WON_SEX_SUBMIT_START</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			
+			<!-- Open inventory: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Inventory]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've defeated the bandit, there's nothing stopping you from helping yourself to [attacker.her] clothing and items...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.openInventoryDialogue(attacker, INVENTORY_INTERACTION_FULL_MANAGEMENT)]
+				]]></effects>
+			</response>
+			
+			<!-- Talk: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Question]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_fields_bandit_talked))
+						You've already tried to question the bandit, and [attacker.sheHas] proven to be completely uncooperative...
+					#ELSE
+						Ask the bandit where [attacker.she] came from and why [attacker.sheIs] attacking innocent travellers.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_fields_bandit_talked))
+						null
+					#ELSE
+						innoxia_encounters_fields_bandit_combat_won_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_fields_bandit_talked, true)]
+				]]></effects>
+			</response>
+			
+		</responses>
+	</scene>
+	
+	<scene id="after_sex_dom">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've had enough fun with the bandit...]]></tooltip>
+		<content folderPath="txt/encounters/fields/bandit">AFTER_SEX_DOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Now that you've had your fun, you decide to leave the bandit and continue on your way...
+					<br/>[style.italicsBad(The bandit will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.banishNPC(attacker)]
+				]]></effects>
+			</response>
+			
+			<!-- Open inventory: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Inventory]]></responseTitle>
+				<responseTooltip><![CDATA[As you've defeated the bandit, there's nothing stopping you from helping yourself to [attacker.her] clothing and items...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.openInventoryDialogue(attacker, INVENTORY_INTERACTION_FULL_MANAGEMENT)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="combat_won_talk">
+		<content folderPath="txt/encounters/fields/bandit">COMBAT_WON_TALK</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_encounters_fields_bandit_combat_won"/>
+	</scene>
+	
+	<!-- Lost combat: -->
+	
+	<scene id="combat_lost">
+		<content folderPath="txt/encounters/fields/bandit">COMBAT_LOST</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Non-con fucked: -->
+			<response>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) && attacker.isWillingToRape()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[You're unable to stop the bandit from dominantly fucking you...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[false]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[attacker]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_bandit_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/bandit">COMBAT_LOST_FUCKED</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			
+			<!-- Non-con disabled, so give player chance to leave: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!attacker.isWillingToRape()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(attacker.isAttractedTo(pc))
+						Refuse to submit to the bandit and wait for [attacker.herHim] to leave before continuing on your way...
+					#ELSE
+						Wait for [attacker.name] to leave before continuing on your way...
+					#ENDIF
+					<br/>[style.italicsBad(The bandit will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/bandit', 'COMBAT_LOST_CONTINUE'))]
+					[#game.banishNPC(attacker)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) && !attacker.isWillingToRape()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Do as the bandit says and submit to [attacker.herHim], allowing [attacker.herHim] to dominantly fuck you...
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[attacker]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_bandit_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/bandit">COMBAT_LOST_FUCKED_WILLING</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

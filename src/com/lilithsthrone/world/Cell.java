@@ -193,6 +193,15 @@ public class Cell implements XMLSaving {
 				:getType().isFurniturePresent();
 	}
 	
+	public String getDeskName() {
+		if(Main.game.isInSex() && Main.sex.getInitialSexManager().getDeskName()!=null && !Main.sex.getInitialSexManager().getDeskName().isEmpty()) {
+			return Main.sex.getInitialSexManager().getDeskName();
+		}
+		return getPlace().getPlaceType().isDeskNameOverride()
+				?getPlace().getPlaceType().getDeskName()
+				:getType().getDeskName();
+	}
+	
 	public boolean isWallsPresent() {
 		return getPlace().getPlaceType().isWallsPresentOverride()
 				?getPlace().getPlaceType().isWallsPresent()
@@ -200,6 +209,9 @@ public class Cell implements XMLSaving {
 	}
 	
 	public String getWallName() {
+		if(Main.game.isInSex() && Main.sex.getInitialSexManager().getWallName()!=null && !Main.sex.getInitialSexManager().getWallName().isEmpty()) {
+			return Main.sex.getInitialSexManager().getWallName();
+		}
 		return getPlace().getPlaceType().isWallNameOverride()
 				?getPlace().getPlaceType().getWallName()
 				:getType().getWallName();

@@ -1,0 +1,3684 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_market_centre -->
+	<scene id="centre">
+		<content folderPath="txt/places/fields/elis/market">CENTRE</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<!-- Livestock market:
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getDayOfWeek()==DOW_SATURDAY || game.getDayOfWeek()==DOW_WEDNESDAY]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Spectate]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Spend some time watching the comings and goings of the livestock market...
+					#ELSE
+						As the livestock market is currently closed, you'll have to come back another day...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_centre_livestock_spectate]]></nextDialogue>
+			</response>
+			 -->
+			<!-- No livestock market: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getDayOfWeek()!=DOW_SATURDAY && game.getDayOfWeek()!=DOW_WEDNESDAY]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Darts]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Head over to the darts stall and see what the game's all about.
+					#ELSE
+						As all of the stalls are currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						innoxia_places_fields_elis_market_centre_game_darts
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS'))]
+					[#nizhoni.setPlayerKnowsName(true)]
+					[#nizhoni.setCharacterReactedToPregnancy(pc, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getDayOfWeek()!=DOW_SATURDAY && game.getDayOfWeek()!=DOW_WEDNESDAY]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Strength test]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						Head over to the strength tester and see what it's all about.
+					#ELSE
+						As all of the stalls are currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						innoxia_places_fields_elis_market_centre_game_strength
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH'))]
+					[#moreno.setPlayerKnowsName(true)]
+					[#pc.setCharacterReactedToPregnancy(moreno, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="centre_livestock_spectate">
+		<content folderPath="txt/places/fields/elis/market">CENTRE_SPECTATE</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Spectate]]></responseTitle>
+				<responseTooltip><![CDATA[You've already spent some time spectating the livestock market...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!--Darts:-->
+	<scene id="centre_game_darts">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Play (#IF(pc.getMoney()>=25)[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<25)
+						You cannot afford to play darts...
+					#ELSE
+						Hand over twenty five flames and have a go at hitting the bullseye.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25)
+						innoxia_places_fields_elis_market_centre_game_darts_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+					[#flags.setSavedLong('market_game_flames_spent', 25)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Nizhoni and take your leave.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_centre]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_LEAVE'))]
+				]]></effects>
+			</response>
+			<!-- Prizes: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Chocolates (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Trade in one of your Faire tickets for a box of chocolates.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ELSE
+						You need at least one Faire ticket to be able to get a prize from Nizhoni...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						innoxia_places_fields_elis_market_centre_game_darts
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_PRIZE_CHOCOLATES'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_GIFT_CHOCOLATES)))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Perfume (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Trade in one of your Faire tickets for a bottle of perfume.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ELSE
+						You need at least one Faire ticket to be able to get a prize from Nizhoni...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						innoxia_places_fields_elis_market_centre_game_darts
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_PRIZE_PERFUME'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_GIFT_PERFUME)))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Teddy bear (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Trade in one of your Faire tickets for a stuffed teddy bear toy.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ELSE
+						You need at least one Faire ticket to be able to get a prize from Nizhoni...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						innoxia_places_fields_elis_market_centre_game_darts
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_PRIZE_TEDDY'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_GIFT_TEDDY_BEAR)))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="centre_game_darts_play">
+		<preParsingEffects><![CDATA[
+			#IF(RND.nextInt(100) < Math.max(1, 20 + pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)))
+				[#flags.setFlag(FLAG_innoxia_elis_market_darts_won, true)]
+			#ELSE
+				[#flags.setFlag(FLAG_innoxia_elis_market_darts_won, false)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">GAME_DARTS_PLAY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Won: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Try again ([style.moneyFormatUncoloured(25, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You've already won!]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Take ticket]]></responseTitle>
+				<responseTooltip><![CDATA[Take the Faire ticket which Nizhoni is giving to you.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_centre_game_darts]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_WON'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_quest_faire_ticket), false, true))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Walk with Nizhoni]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_nizhoni_sex))
+						Nizhoni doesn't have time to go on another walk with you today...
+					#ELSE
+						Ask Nizhoni if you can go for a walk with her as a prize instead of receiving a Faire ticket.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_nizhoni_sex))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_nizhoni_walk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_market_nizhoni_sex, true)]
+				]]></effects>
+			</response>
+			<!-- Lost: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Try again (#IF(pc.getMoney()>=25)[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<25)
+						You cannot afford to play darts...
+					#ELSE
+						Hand over twenty five flames and have another go at hitting the bullseye.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25)
+						innoxia_places_fields_elis_market_centre_game_darts_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+					[#flags.incrementSavedLong('market_game_flames_spent', 25)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_darts_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Nizhoni that you don't want to play again.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_centre_game_darts]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_DARTS_LOST'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="nizhoni_walk">
+		<preParsingEffects><![CDATA[
+			[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_elis_market_path_bins, true, 1)]
+			[#nizhoni.setLocation(pc)]
+			[#game.appendToTextEndStringBuilder(nizhoni.incrementAffection(pc, 5))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">NIZHONI_WALK</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Join her]]></responseTitle>
+				<responseTooltip><![CDATA[Join Nizhoni in rummaging through the bins to see if you can find anything of value.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_nizhoni_bins]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_market_nizhoni_walked, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Nizhoni that you don't really want to go rummaging through some bins and say goodbye to her.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_path"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'NIZHONI_WALK_LEAVE'))]
+					[#nizhoni.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
+					[#game.appendToTextEndStringBuilder(nizhoni.incrementAffection(pc, -5))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_nizhoni_walked, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="nizhoni_bins">
+		<preParsingEffects><![CDATA[
+			[#nizhoni.displaceClothingForAccess(CA_VAGINA, null)]
+			[#game.appendToTextEndStringBuilder(nizhoni.incrementAffection(pc, 5))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">NIZHONI_BINS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Ignore]]></responseTitle>
+				<responseTooltip><![CDATA[Ignore Nizhoni's musky pussy and keep rummaging through the bins.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_path"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'NIZHONI_BINS_IGNORE'))]
+					[#nizhoni.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
+					[#game.appendToTextEndStringBuilder(nizhoni.incrementAffection(pc, -5))]
+				]]></effects>
+			</response>
+			<!-- Oral: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Eat her out]]></responseTitle>
+				<responseTooltip><![CDATA[As you're unable to access your mouth, you cannot perform oral on Nizhoni's musky pussy.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Eat her out]]></responseTitle>
+				<responseTooltip><![CDATA[Drop down behind Nizhoni and start performing oral on her musky pussy.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_nizhoni_oral]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>nizhoni</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_nizhoni_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">NIZHONI_BINS_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[nizhoni]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Vaginal: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						As you don't have a penis, you cannot fuck Nizhoni's musky cunt.
+					#ELSE
+						As you're unable to access your mouth, you cannot fuck Nizhoni's musky cunt.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] up behind Nizhoni and fuck her musky cunt.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_nizhoni_vaginal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>nizhoni</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_nizhoni_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">NIZHONI_BINS_FUCK_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[nizhoni]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Anal: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Fuck her ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						As you don't have a penis, you cannot fuck Nizhoni's ass.
+					#ELSE
+						As you're unable to access your mouth, you cannot fuck Nizhoni's ass.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Fuck her ass]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] up behind Nizhoni and fuck her ass.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_nizhoni_anal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>nizhoni</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_nizhoni_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">NIZHONI_BINS_FUCK_ASS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[nizhoni]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="nizhoni_after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had your fun with Nizhoni, it's time to bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/market">NIZHONI_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Nizhoni and watch her run off.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_market_path"/>
+				<effects><![CDATA[
+					[#nizhoni.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!--Strength:-->
+	<scene id="centre_game_strength">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Play (#IF(pc.getMoney()>=25)[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<25)
+						You cannot afford to have a go at beating the strength tester...
+					#ELSE
+						Hand over twenty five flames and have a go at beating the strength tester.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25)
+						innoxia_places_fields_elis_market_centre_game_strength_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+					[#flags.setSavedLong('market_game_flames_spent', 25)] 
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Moreno that you're not interested in playing his game and take your leave.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_LEAVE'))]
+				]]></effects>
+			</response>
+			<!-- Prizes: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Meat hamper (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Trade in one of your Faire tickets for a meat hamper.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ELSE
+						You need at least one Faire ticket to be able to get a prize from Moreno...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_MEAT'))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_panther_panthers_delight)))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_wolf_meat_and_marrow)))]
+					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_horse_equine_cider)))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Wooden bat (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Trade in one of your Faire tickets for a wooden bat.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ELSE
+						You need at least one Faire ticket to be able to get a prize from Moreno...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_BAT_WOODEN'))]
+					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_wooden, DAMAGE_TYPE_PHYSICAL)))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Metal bat (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Trade in one of your Faire tickets for a metal bat.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ELSE
+						You need at least one Faire ticket to be able to get a prize from Moreno...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_BAT_METAL'))]
+					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_metal, DAMAGE_TYPE_PHYSICAL)))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="centre_game_strength_play">
+		<preParsingEffects><![CDATA[
+			#IF(RND.nextInt(100) < Math.max(1, 1 + pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)))
+				[#flags.setFlag(FLAG_innoxia_elis_market_strength_won, true)]
+				[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_quest_faire_ticket), false, true))]
+			#ELSE
+				[#flags.setFlag(FLAG_innoxia_elis_market_strength_won, false)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">GAME_STRENGTH_PLAY</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Won: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Try again ([style.moneyFormatUncoloured(25, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You've already won!]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Thank Moreno for the Faire ticket and wonder what to do next.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_centre_game_strength]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_WON'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_moreno_sex))
+						Moreno doesn't have time for any more flirting today...
+					#ELSEIF(pc.isFeminine())
+						Respond to Moreno's comments by flirting back with him.
+					#ELSE
+						Moreno doesn't seem to be attracted to you at all, so trying to flirt with him is not a good idea...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!pc.isFeminine() || flags.hasFlag(FLAG_innoxia_elis_market_moreno_sex))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_moreno_flirt
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_market_moreno_sex, true)]
+				]]></effects>
+			</response>
+			<!-- Lost: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Try again (#IF(pc.getMoney()>=25)[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<25)
+						You cannot afford to have a go at beating the strength tester...
+					#ELSE
+						Hand over twenty five flames and have another go at beating the strength tester.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=25)
+						innoxia_places_fields_elis_market_centre_game_strength_play
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-25))]
+					[#flags.incrementSavedLong('market_game_flames_spent', 25)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_strength_won)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Moreno that you don't want to try again.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_centre_game_strength]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_LOST'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="moreno_flirt">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(moreno.incrementAffection(pc, 10))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">MORENO_FLIRT</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Keep secret]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Moreno that you're going to keep your secrets to yourself, bringing an end to the flirting.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_centre_game_strength]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'MORENO_FLIRT_STOP'))]
+					[#game.appendToTextEndStringBuilder(moreno.incrementAffection(pc, -5))]
+				]]></effects>
+			</response>
+			<!-- Oral: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Extra protein]]></responseTitle>
+				<responseTooltip><![CDATA[As you're unable to access your mouth, you cannot give Moreno a blowjob...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Extra protein]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Moreno that the secret to your secret is regular ingestion of 'extra protein', typically directly from the tap...
+					<br/>[style.italicsSex(This will lead into giving Moreno a blowjob.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_moreno_oral]]></id>
+					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[AGAINST_WALL_PERFORMING_ORAL_WALL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>moreno</id>
+							<slot><![CDATA[AGAINST_WALL_BACK_TO_WALL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_moreno_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">MORENO_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[moreno]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Vaginal: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Assisted workout]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina())
+						As you don't have a vagina, you cannot get Moreno to fuck you...
+					#ELSE
+						As you're unable to access your vagina, you cannot get Moreno to fuck you...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Assisted workout]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Moreno that the secret to your secret is partaking in 'assisted workouts' with a partner or two...
+					<br/>[style.italicsSex(This will lead into being fucked by Moreno.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_moreno_vaginal]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_COWGIRL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>moreno</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_moreno_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">MORENO_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_USING_PENIS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[moreno]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Anal: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && !pc.isAbleToAccessCoverableArea(CA_ANUS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Assisted workout (anal)]]></responseTitle>
+				<responseTooltip><![CDATA[As you're unable to access your asshole, you cannot get anally fucked by Moreno.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Assisted workout (anal)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Moreno that the secret to your secret is partaking in 'assisted workouts' with a partner or two who're into anal...
+					<br/>[style.italicsSex(This will lead into being anally fucked by Moreno.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_moreno_anal]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_COWGIRL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>moreno</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_moreno_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">MORENO_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_USING_PENIS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[moreno]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="moreno_after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had your fun with Moreno, it's time to bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/market">MORENO_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Moreno and head back out into the Farmer's Market.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'MORENO_AFTER_SEX_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_market_clothing -->
+	<scene id="clothing">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'CLOTHING'))]
+			[#fae.setCharacterReactedToPregnancy(pc, true)]
+			[#silvia.setCharacterReactedToPregnancy(pc, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[
+			[#!fae.isPlayerKnowsName() && game.isHourBetween(8, 18)]
+		]]></travelDisabled>
+		<responses>
+			<!-- Closed: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[As the stall is currently closed, you'll have to come back at another time...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- Open and introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && fae.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at what the foxtauresses have for sale...]]></responseTooltip>
+				<nextDialogue/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[fae]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<!-- Open and not introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && !fae.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the foxtauresses who you are.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_clothing_intro]]></nextDialogue>
+				<effects><![CDATA[
+					[#fae.setPlayerKnowsName(true)]
+					[#silvia.setPlayerKnowsName(true)]
+				]]></effects>
+			</response>
+			<!-- Roll dice: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && fae.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Roll dice (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Give Fae one of your Faire tickets in exchange for a roll of her dice and a chance to get a random reward.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ELSE
+						You need at least one Faire ticket to be able to get Fae to roll her dice...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						innoxia_places_fields_elis_market_clothing_dice
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<!--
+					Prizes:
+						<= 50 Nothing
+						<= 70 50 flames
+						<= 90 250 flames
+						>90 500 flames or kiss
+				-->
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#flags.setSavedLong('fae_dice_roll', RND.nextInt(6)+1)]
+					#IF(flags.getSavedLong('fae_dice_roll')==4)
+						[#game.appendToTextEndStringBuilder(pc.addClothing(itemGen.generateClothing('innoxia_sock_socks', COLOUR_CLOTHING_GREEN_LIME, false), 1, false, true))]
+					#ELSEIF(flags.getSavedLong('fae_dice_roll')==5)
+						[#game.appendToTextEndStringBuilder(pc.addClothing(itemGen.generateClothing('innoxia_head_cap', COLOUR_CLOTHING_GREEN_LIME, false), 1, false, true))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="clothing_intro">
+		<content folderPath="txt/places/fields/elis/market">CLOTHING_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_clothing"/>
+	</scene>
+	
+	<scene id="clothing_dice">
+		<content folderPath="txt/places/fields/elis/market">CLOTHING_DICE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- No special win: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('fae_dice_roll')!=6]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having had your roll of the dice, you wonder what to do next...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_clothing_dice_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'CLOTHING_DICE_END'))]
+				]]></effects>
+			</response>
+			<!-- Special win: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('fae_dice_roll')==6]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Ring reward]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Fae and Silvia that you'd prefer to have the ring as a reward.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_clothing_dice_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'CLOTHING_DICE_END_RING'))]
+					[#game.appendToTextStartStringBuilder(pc.addClothing(itemGen.generateClothing('innoxia_finger_ring', COLOUR_CLOTHING_SILVER, false), 1, false, true))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('fae_dice_roll')==6]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Kiss reward]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						Tell Fae and Silvia that you want a kiss from each of them as your prize.
+					#ELSE
+						As you're unable to access your mouth, you cannot kiss Fae and Silvia!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						innoxia_places_fields_elis_market_clothing_dice_kiss
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="clothing_dice_end">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_clothing"/>
+	</scene>
+	
+	<scene id="clothing_dice_kiss">
+		<content folderPath="txt/places/fields/elis/market">CLOTHING_KISS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having had your fun with the foxtauresses, you [pc.step] back and wonder what to do next...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_clothing_dice_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'CLOTHING_KISS_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Passionate kiss]]></responseTitle>
+				<responseTooltip><![CDATA[Not yet having had your fun, you pull both Fae and Silvia into you and give each of them a deep, passionate kiss...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_clothing_dice_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'CLOTHING_KISS_END_PASSION'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_fae_passionate, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_places_fields_elis_market_drinks_alcohol -->
+	<scene id="drinks_alcohol">
+		<content folderPath="txt/places/fields/elis/market">DRINKS_ALCOHOL</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Beer (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a bottle of beer. #ELSE You can't afford a bottle of beer... #ENDIF]]></responseTooltip>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_market_drinks_alcohol_order#ELSEnull#ENDIF]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(40)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_ALCOHOL_BEER'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-40))]
+					[#game.appendToTextEndStringBuilder(itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cider (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a bottle of cider. #ELSE You can't afford a bottle of cider... #ENDIF]]></responseTooltip>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_market_drinks_alcohol_order#ELSEnull#ENDIF]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(40)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_ALCOHOL_CIDER'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-40))]
+					[#game.appendToTextEndStringBuilder(itemGen.generateItem('innoxia_race_horse_equine_cider').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Perry (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a bottle of pear cider, which is commonly known as perry. #ELSE You can't afford a bottle of pear cider... #ENDIF]]></responseTooltip>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_market_drinks_alcohol_order#ELSEnull#ENDIF]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(40)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_ALCOHOL_PERRY'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-40))]
+					[#game.appendToTextEndStringBuilder(itemGen.generateItem('innoxia_race_badger_black_stripes_perry').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="drinks_alcohol_order">
+		<content folderPath="txt/places/fields/elis/market">DRINKS_ALCOHOL_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_drinks_alcohol"/>
+	</scene>
+	
+	<!-- Place type id: innoxia_places_fields_elis_market_drinks_soft -->
+	<scene id="drinks_soft">
+		<content folderPath="txt/places/fields/elis/market">DRINKS_SOFT</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Water (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a bottle of water. #ELSE You can't afford a bottle of water... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_market_drinks_soft#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(20)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_WATER'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_human_vanilla_water').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Orange juice (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a can of carbonated orange juice. #ELSE You can't afford a can of carbonated orange juice... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_market_drinks_soft#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(20)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_ORANGE_JUICE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_ferret_orange_juice').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Berry soda (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a bottle of berry-flavoured soda. #ELSE You can't afford a bottle of berry-flavoured soda... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_market_drinks_soft#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(20)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_BERRY_SODA'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_otter_berry_soda').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Cola (#IF(pc.getMoney()>=25)[style.moneyFormat(25, span)]#ELSE[style.moneyFormatUncoloured(25, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=25) Order a bottle of carbonated cola. #ELSE You can't afford a bottle of carbonated cola... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=25)innoxia_places_fields_elis_market_drinks_soft#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(25)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_COLA'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-25))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_pig_porcine_pop').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Carrot juice (#IF(pc.getMoney()>=35)[style.moneyFormat(35, span)]#ELSE[style.moneyFormatUncoloured(35, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=35) Order a bottle of carrot juice. #ELSE You can't afford a bottle of carrot juice... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=35)innoxia_places_fields_elis_market_drinks_soft#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(35)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_CARROT_JUICE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'DRINKS_SOFT_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-35))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_rabbit_bunny_juice').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_market_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/fields/elis/market">EXIT</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the Farmer's Market and head back out into the rest of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_market"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_market)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_places_fields_elis_market_food_meals -->
+	<scene id="food_meals">
+		<content folderPath="txt/places/fields/elis/market">FOOD_MEALS</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fish & chips (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a serving of fish and chips. #ELSE You can't afford a serving of fish and chips... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_market_food_meals#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(150)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_FISH_CHIPS'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-150))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_otter_fish_and_chips').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sausages (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a serving of high-quality sausages. #ELSE You can't afford a serving of high-quality sausages... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_market_food_meals#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(150)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_SAUSAGES'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-150))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_ferret_sausages').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Chicken pie (#IF(pc.getMoney()>=180)[style.moneyFormat(180, span)]#ELSE[style.moneyFormatUncoloured(180, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=180) Order a chicken pie. #ELSE You can't afford a chicken pie... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=180)innoxia_places_fields_elis_market_food_meals#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(180)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_CHICKEN_PIE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-180))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_fox_chicken_pot_pie').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Burger & fries (#IF(pc.getMoney()>=200)[style.moneyFormat(200, span)]#ELSE[style.moneyFormatUncoloured(200, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=200) Order a burger and curly fries. #ELSE You can't afford a burger and curly fries... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=200)innoxia_places_fields_elis_market_food_meals#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(200)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_BURGER'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-200))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_rat_brown_rats_burger').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Steak sandwich (#IF(pc.getMoney()>=250)[style.moneyFormat(250, span)]#ELSE[style.moneyFormatUncoloured(250, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=250) Order a steak sandwich. #ELSE You can't afford a steak sandwich... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=250)innoxia_places_fields_elis_market_food_meals#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(250)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_STEAK'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_MEALS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_wolf_meat_and_marrow').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_places_fields_elis_market_food_snacks -->
+	<scene id="food_snacks">
+		<content folderPath="txt/places/fields/elis/market">FOOD_SNACKS</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Candy floss (#IF(pc.getMoney()>=15)[style.moneyFormat(15, span)]#ELSE[style.moneyFormatUncoloured(15, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=15) Order a serving of candy floss. #ELSE You can't afford a serving of candy floss... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=15)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(15)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_CANDY_FLOSS'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-15))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_sheep_woolly_goodness').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Popcorn (#IF(pc.getMoney()>=20)[style.moneyFormat(20, span)]#ELSE[style.moneyFormatUncoloured(20, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=20) Order a bag of popcorn. #ELSE You can't afford a bag of popcorn... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=20)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(20)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_POPCORN'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-20))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_raccoon_popcorn').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Canine Crunch (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a canine crunch, which is an iced cookie in the shape of a bone. #ELSE You can't afford a canine crunch... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(40)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_CANINE_CRUNCH'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-40))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_dog_canine_crunch').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Bread rolls (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a small basket of freshly-baked bread rolls. #ELSE You can't afford a small basket of freshly-baked bread rolls... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(50)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_BREAD'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_human_bread_roll').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Mixed nuts (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a serving of mixed nuts. #ELSE You can't afford a serving of mixed nuts... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(50)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_NUTS'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_squirrel_round_nuts').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Carrot cake (#IF(pc.getMoney()>=50)[style.moneyFormat(50, span)]#ELSE[style.moneyFormatUncoloured(50, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50) Order a slice of carrot cake. #ELSE You can't afford a slice of carrot cake... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=50)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(50)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_CARROT_CAKE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-50))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_rabbit_bunny_carrot_cake').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Eggs (#IF(pc.getMoney()>=75)[style.moneyFormat(75, span)]#ELSE[style.moneyFormatUncoloured(75, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=75) Order a carton of hard-boiled eggs. #ELSE You can't afford a carton of hard-boiled eggs... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=75)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(75)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_EGGS'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-75))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('NoStepOnSnek_race_snake_eggs').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Honey bread (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a serving of honey bread. #ELSE You can't afford a serving of honey bread... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(80)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_HONEY_BREAD'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_bear_honey_bread').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Berry trifle (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a serving of berry trifle. #ELSE You can't afford a serving of berry trifle... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(80)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_BERRY_TRIFLE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_badger_berry_trifle').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Brownie (#IF(pc.getMoney()>=80)[style.moneyFormat(80, span)]#ELSE[style.moneyFormatUncoloured(80, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=80) Order a chocolate brownie. #ELSE You can't afford a chocolate brownie... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=80)innoxia_places_fields_elis_market_food_snacks#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('[style.intToString(80)]', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_BROWNIE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FOOD_SNACKS_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-80))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('NoStepOnSnek_race_capybara_brownie').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_market_fortunes -->
+	<scene id="fortunes">
+		<content folderPath="txt/places/fields/elis/market">FORTUNES</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<travelDisabled><![CDATA[
+			[#!heather.isPlayerKnowsName() && game.isHourBetween(8, 18)]
+		]]></travelDisabled>
+		<responses>
+			<!-- Closed: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[As the stall is currently closed, you'll have to come back at another time...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- Open and not introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && !heather.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the [heather.race] who you are.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_fortunes_intro]]></nextDialogue>
+				<effects><![CDATA[
+					[#heather.setPlayerKnowsName(true)]
+				]]></effects>
+			</response>
+			<!-- Open and introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && heather.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at what Heather has for sale...]]></responseTooltip>
+				<nextDialogue/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[heather]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && heather.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Fortune telling (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
+						You need at least one Faire ticket to be able to get your fortune read by Heather...
+					#ELSE
+						Give Heather one of your Faire tickets in exchange for getting your fortune read.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_fortunes_crystal_ball
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && heather.isPlayerKnowsName() && heather.isAttractedTo(pc) && heather.getSexCount(pc).getTotalTimesHadSex()>0]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[Knowing that Heather is a submissive slut, you can now simply order [heather.herHim] to submit to you...]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_DOMINANT]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[ONE_VANILLA]]></corruptionLevel>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_heather_standard]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>heather</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_fortunes_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">FORTUNES_DEMAND_SEX</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="fortunes_intro">
+		<content folderPath="txt/places/fields/elis/market">FORTUNES_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_fortunes"/>
+	</scene>
+	
+	<scene id="fortunes_crystal_ball">
+		<content folderPath="txt/places/fields/elis/market">FORTUNES_CRYSTAL_BALL</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Power]]></responseTitle>
+				<responseTooltip><![CDATA[Think about obtaining ultimate power and taking Lilith's place to rule the world.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_fortunes_crystal_ball_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FORTUNES_CRYSTAL_BALL_POWER'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_heather_fortune_read, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Fame]]></responseTitle>
+				<responseTooltip><![CDATA[Think about becoming the most famous and admired person in the entire world.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_fortunes_crystal_ball_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FORTUNES_CRYSTAL_BALL_FAME'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_heather_fortune_read, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fortune]]></responseTitle>
+				<responseTooltip><![CDATA[Think about obtaining so much money that you could buy absolutely anything and anyone you desired.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_fortunes_crystal_ball_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FORTUNES_CRYSTAL_BALL_FORTUNE'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_heather_fortune_read, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[Think about having the best sex every day for the rest of your life.]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(heather.isAttractedTo(pc))
+						innoxia_places_fields_elis_market_fortunes_crystal_ball_sex
+					#ELSE
+						innoxia_places_fields_elis_market_fortunes_crystal_ball_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					#IF(!heather.isAttractedTo(pc))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FORTUNES_CRYSTAL_BALL_SEX_NO_ATTRACTION'))]
+					#ENDIF
+					[#flags.setFlag(FLAG_innoxia_elis_market_heather_fortune_read, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="fortunes_crystal_ball_end">
+		<content folderPath="txt/places/fields/elis/market">FORTUNES_CRYSTAL_BALL_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Respond]]></responseTitle>
+				<responseTooltip><![CDATA[Thank Heather for the fortune reading and wonder what to do next...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_fortunes]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FORTUNES_CRYSTAL_BALL_END_CONTINUE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="fortunes_crystal_ball_sex">
+		<content folderPath="txt/places/fields/elis/market">FORTUNES_CRYSTAL_BALL_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_fortunes_crystal_ball">
+			<!-- Oral: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Receive oral]]></responseTitle>
+				<responseTooltip><![CDATA[You need to have either a vagina or penis, and be able to access it in order to get Heather to perform oral on you...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Receive oral]]></responseTitle>
+				<responseTooltip><![CDATA[Concentrate as hard as you can on imagining Heather dropping down onto [heather.her] knees before you and offering to perform oral.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_heather_oral]]></id>
+					<startingPosition><![CDATA[
+						#IF(pc.isTaur())
+							STANDING
+						#ELSE
+							SITTING
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									STANDING_STANDING_DOMINANT
+								#ELSE
+									SITTING_SITTING
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>heather</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+										STANDING_PERFORMING_ORAL
+									#ELSE
+										STANDING_PERFORMING_ORAL_BEHIND
+									#ENDIF
+								#ELSE
+									SITTING_PERFORMING_ORAL
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_fortunes_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">FORTUNES_CRYSTAL_BALL_SEX_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[heather]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[heather]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Anal: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && (!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fuck her ass]]></responseTitle>
+				<responseTooltip><![CDATA[You need to have a penis, and be able to access it, in order to fuck Heather's ass...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fuck her ass]]></responseTitle>
+				<responseTooltip><![CDATA[Concentrate as hard as you can on imagining Heather bending over the table and hiking up [heather.her] skirt so that you can fuck [heather.her] ass.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_heather_anal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>heather</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_fortunes_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">FORTUNES_CRYSTAL_BALL_SEX_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[heather]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="fortunes_after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Heather is satisfied and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/market">FORTUNES_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] back and allow Heather to sit back down.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_fortunes]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'FORTUNES_AFTER_SEX_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_market_kissing -->
+	<scene id="kissing">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING'))]
+			[#ziva.setCharacterReactedToPregnancy(pc, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<travelDisabled><![CDATA[
+			[#!flags.hasFlag(FLAG_innoxia_elis_market_ziva_met) && game.isHourBetween(8, 18)]
+		]]></travelDisabled>
+		<responses>
+			<!-- Closed: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Kiss (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[As the stall is currently closed, you'll have to come back at another time...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- Open and not introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && !flags.hasFlag(FLAG_innoxia_elis_market_ziva_met)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the [ziva.race] who you are.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_intro]]></nextDialogue>
+				<effects><![CDATA[
+					[#ziva.setGenericName('Ms. Levine')]
+					[#flags.setFlag(FLAG_innoxia_elis_market_ziva_met, true)]
+				]]></effects>
+			</response>
+			<!-- Open and introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && flags.hasFlag(FLAG_innoxia_elis_market_ziva_met)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Kiss (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
+						You need at least one Faire ticket to be able to get a kiss from one of [ziva.namePos] slaves...
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						You need to be able to access your mouth in order to be able to get a kiss from one of [ziva.namePos] slaves...
+					#ELSE
+						Give Ms. Levine one of your Faire tickets in exchange for getting a kiss from one of her slaves.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket') || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_kissing_kiss_choice
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="kissing_intro">
+		<content folderPath="txt/places/fields/elis/market">KISSING_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_kissing"/>
+	</scene>
+	
+	<scene id="kissing_kiss_choice">
+		<content folderPath="txt/places/fields/elis/market">KISSING_KISS_CHOICE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<responses>
+			<!-- Cow-girls kisses: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Red cow-girl]]></responseTitle>
+				<responseTooltip><![CDATA[Choose to kiss the smiling cow-girl who's wearing a heavy layer of red lipstick.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_CHOICE_RED'))]
+					[#game.appendToTextEndStringBuilder(pc.addLipstickMarking(null, IS_MOUTH, COLOUR_COVERING_RED))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Pink cow-girl]]></responseTitle>
+				<responseTooltip><![CDATA[Choose to kiss the eager cow-girl who's wearing a heavy layer of light pink lipstick.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_CHOICE_PINK'))]
+					[#game.appendToTextEndStringBuilder(pc.addLipstickMarking(null, IS_MOUTH, COLOUR_COVERING_PINK_LIGHT))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Purple cow-girl]]></responseTitle>
+				<responseTooltip><![CDATA[Choose to kiss the reluctant cow-girl who's wearing a heavy layer of purple lipstick.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_CHOICE_PURPLE'))]
+					[#game.appendToTextEndStringBuilder(pc.addLipstickMarking(null, IS_MOUTH, COLOUR_COVERING_PURPLE))]
+				]]></effects>
+			</response>
+			<!-- Ziva kiss: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_ziva_kiss_offered)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[[ziva.Name]]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [ziva.name] that you want to kiss her.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_choice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_CHOICE_ZIVA_OFFER'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_ziva_kiss_offered, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_ziva_kiss_offered)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[[ziva.Name] (#IF(pc.getMoney()>=1000)[style.moneyFormat(1000, span)]#ELSE[style.moneyFormatUncoloured(1000, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<1000)
+						You don't have enough money to pay for a kiss from [ziva.name]...
+					#ELSE
+						Give [ziva.name] a thousand flames in return for a kiss from her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()<1000)
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_kissing_kiss_ziva
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-1000))]
+					[#ziva.incrementMoney(1000)]
+					[#flags.setFlag(FLAG_innoxia_elis_market_ziva_kissed, true)]
+				]]></effects>
+			</response>
+			<!-- None: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[None]]></responseTitle>
+				<responseTooltip><![CDATA[Change your mind and decide not to kiss any of the cow-girls...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_CHOICE_NONE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="kissing_kiss_end">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_kissing"/>
+	</scene>
+	
+	<scene id="kissing_kiss_ziva">
+		<content folderPath="txt/places/fields/elis/market">KISSING_KISS_ZIVA</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having had your fun, you [pc.step] back and wonder what to do next...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_ZIVA_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_elis_market_ziva_strip_offered)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Kiss breasts]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [ziva.name] that you want to kiss her breasts.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_ziva]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_ZIVA_MORE'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_ziva_strip_offered, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_elis_market_ziva_strip_offered)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Kiss breasts (#IF(pc.getMoney()>=5000)[style.moneyFormat(5000, span)]#ELSE[style.moneyFormatUncoloured(5000, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<5000)
+						You don't have enough money to kiss [ziva.namePos] breasts...
+					#ELSE
+						Give [ziva.name] five thousand flames in return for being allowed to kiss her breasts.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()<5000)
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_kissing_kiss_ziva_breasts
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-5000))]
+					[#ziva.incrementMoney(5000)]
+					[#ziva.displaceClothingForAccess(CA_NIPPLES, null)]
+					[#ziva.unequipClothingIntoVoid(ziva.getClothingInSlot(IS_GROIN), true, ziva)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="kissing_kiss_ziva_breasts">
+		<content folderPath="txt/places/fields/elis/market">KISSING_KISS_ZIVA_BREASTS</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[You've already got what you wanted, and so refuse [ziva.namePos] offer of sex...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_kissing_kiss_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'KISSING_KISS_ZIVA_BREASTS_END'))]
+					[#ziva.equipClothing()]
+				]]></effects>
+			</response>
+			<!-- Cunnilingus: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<10000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Cunnilingus ([style.moneyFormatUncoloured(10000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to perform cunnilingus on [ziva.name]...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=10000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cunnilingus ([style.moneyFormat(10000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[Give [ziva.name] ten thousand flames in return for being allowed to perform cunnilingus on her.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_ziva_cunnilingus]]></id>
+					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
+					<dominants>
+						<character>
+							<id>ziva</id>
+							<slot><![CDATA[AGAINST_WALL_BACK_TO_WALL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[AGAINST_WALL_PERFORMING_ORAL_WALL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">ZIVA_CUNNILINGUS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[ziva]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-10000))]
+					[#ziva.incrementMoney(10000)]
+				]]></effects>
+			</response>
+			<!-- Anilingus: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && pc.getMoney()<10000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Anilingus ([style.moneyFormatUncoloured(10000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to perform anilingus on [ziva.name]...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && pc.getMoney()>=10000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Anilingus ([style.moneyFormat(10000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[Give [ziva.name] ten thousand flames in return for being allowed to perform anilingus on her.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_ziva_anilingus]]></id>
+					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
+					<dominants>
+						<character>
+							<id>ziva</id>
+							<slot><![CDATA[AGAINST_WALL_FACE_TO_WALL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[AGAINST_WALL_PERFORMING_ORAL_WALL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">ZIVA_ANILINGUS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[ziva]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-10000))]
+					[#ziva.incrementMoney(10000)]
+				]]></effects>
+			</response>
+			<!-- Vaginal: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<50000 || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[
+					#IF(game.isAnalContentEnabled())
+						4
+					#ELSE
+						3
+					#ENDIF
+				]]></index>
+				<responseTitle><![CDATA[Fuck her ([style.moneyFormatUncoloured(50000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						You need to have a penis, and be able to access it, in order to fuck [ziva.name]...
+					#ELSE
+						You don't have enough money to fuck [ziva.name]...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=10000 && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[
+					#IF(game.isAnalContentEnabled())
+						4
+					#ELSE
+						3
+					#ENDIF
+				]]></index>
+				<responseTitle><![CDATA[Fuck her ([style.moneyFormat(50000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give [ziva.name] fifty thousand flames in return for being allowed to fuck
+					#IF(game.isAnalContentEnabled())
+						 both her pussy and ass.
+					#ELSE
+						 her pussy.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_ziva_vaginal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>ziva</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">ZIVA_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[ziva]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-50000))]
+					[#ziva.incrementMoney(50000)]
+				]]></effects>
+			</response>
+			<!-- Anal: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && (pc.getMoney()<50000 || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fuck her ass ([style.moneyFormatUncoloured(50000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						You need to have a penis, and be able to access it, in order to fuck [ziva.namePos] ass...
+					#ELSE
+						You don't have enough money to fuck [ziva.namePos] ass...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isAnalContentEnabled() && (pc.getMoney()>=10000 && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fuck her ass ([style.moneyFormat(50000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give [ziva.name] fifty thousand flames in return for being allowed to fuck both her ass and pussy.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_ziva_anal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>ziva</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">ZIVA_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[ziva]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-50000))]
+					[#ziva.incrementMoney(50000)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="kissing_after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[ziva.Name] is satisfied and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/market">KISSING_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the storage area and return to the other side of [ziva.namePos] stall.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_kissing_after_sex_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="kissing_after_sex_end">
+		<content folderPath="txt/places/fields/elis/market">KISSING_AFTER_SEX_END</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_kissing"/>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_market_path -->
+	<scene id="path">
+		<content folderPath="txt/places/fields/elis/market">PATH</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.isHourBetween(8, 18)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[As the Farmer's Market has closed, there's nothing to do here apart from head back out into the rest of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_market)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_market_toys -->
+	<scene id="toys">
+		<content folderPath="txt/places/fields/elis/market">TOYS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<travelDisabled><![CDATA[
+			[#!yui.isPlayerKnowsName() && game.isHourBetween(8, 18)]
+		]]></travelDisabled>
+		<responses>
+			<!-- Closed: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[As the stall is currently closed, you'll have to come back at another time...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- Open and introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at what Yui has for sale...]]></responseTooltip>
+				<nextDialogue/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[yui]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<!-- Open and not introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && !yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the [yui.race] who you are.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_toys_intro]]></nextDialogue>
+				<effects><![CDATA[
+					[#yui.setPlayerKnowsName(true)]
+				]]></effects>
+			</response>
+			<!-- Submit: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<responseTitle><![CDATA[Get dominated]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_domination_complete))
+						Yui has already dominated you today, and so she's unwilling to do so again today. You'll have to come back tomorrow if you want to do this again.
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						As you're unable to gain access to your mouth, you're unable to get dominated by Yui...
+					#ELSE
+						Tell Yui that you'll let her dominate you in exchange for her giving you one Faire ticket.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_domination_complete) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_toys_domination
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_market_yui_domination_complete, true)]
+				]]></effects>
+			</response>
+			<!-- Demonstrations: -->
+			<!-- Ball gag: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+					<fetish><![CDATA[FETISH_BONDAGE_VICTIM]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<responseTitle><![CDATA[Ball gag demo (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
+						You need at least one Faire ticket to be able to get a demonstration from Yui...
+					#ELSEIF(!pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_BDSM_BALLGAG), true, yui))
+						As you cannot equip a ball gag, you cannot receive Yui's demonstration...
+					#ELSE
+						Give Yui one of your Faire tickets in exchange for a ball gag demonstration, which will involve [style.colourSex(being gagged and whipped)].
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+						#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete))
+							<br/>[style.italicsMinorBad(Yui will not give you another demonstration today...)]
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete) || !pc.hasItemType('innoxia_quest_faire_ticket') || !pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_BDSM_BALLGAG), true, yui))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_toys_demonstration_ballgag
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_market_yui_demonstration_complete, true)]
+				]]></effects>
+			</response>
+			<!-- Caged: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+					<fetish><![CDATA[FETISH_BONDAGE_VICTIM]]></fetish>
+					<fetish><![CDATA[FETISH_DENIAL_SELF]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<responseTitle><![CDATA[Chastity cage demo (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
+						You need at least one Faire ticket to be able to get a demonstration from Yui...
+					#ELSEIF(!pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_innoxia_bdsm_chastity_cage), true, yui))
+						As you cannot equip a chastity cage, you cannot receive Yui's demonstration...
+					#ELSE
+						Give Yui one of your Faire tickets in exchange for a chastity cage demonstration, which will involve [style.colourSex(having your cock locked up and teased)].
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+						#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete))
+							<br/>[style.italicsMinorBad(Yui will not give you another demonstration today...)]
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete) || !pc.hasItemType('innoxia_quest_faire_ticket') || !pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_innoxia_bdsm_chastity_cage), true, yui))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_toys_demonstration_chastity_cage
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_market_yui_demonstration_complete, true)]
+				]]></effects>
+			</response>
+			<!-- Vaginal fucked: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+					<fetish><![CDATA[FETISH_BONDAGE_VICTIM]]></fetish>
+					<fetish><![CDATA[FETISH_VAGINAL_RECEIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<responseTitle><![CDATA[Dildo demo (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
+						You need at least one Faire ticket to be able to get a demonstration from Yui...
+					#ELSEIF(!pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_norin_dildos_realistic_dildo), IS_VAGINA, true, yui))
+						As you cannot equip a dildo in your pussy, you cannot receive Yui's demonstration...
+					#ELSE
+						Give Yui one of your Faire tickets in exchange for a dildo demonstration, which will involve [style.colourSex(having a vibrating dildo inserted into your pussy)].
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+						#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete))
+							<br/>[style.italicsMinorBad(Yui will not give you another demonstration today...)]
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete) || !pc.hasItemType('innoxia_quest_faire_ticket') || !pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_norin_dildos_realistic_dildo), IS_VAGINA, true, yui))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_toys_demonstration_dildo
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_market_yui_demonstration_complete, true)]
+				]]></effects>
+			</response>
+			<!-- Anal beads: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+					<fetish><![CDATA[FETISH_BONDAGE_VICTIM]]></fetish>
+					<fetish><![CDATA[FETISH_ANAL_RECEIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<responseTitle><![CDATA[Anal beads demo (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
+						You need at least one Faire ticket to be able to get a demonstration from Yui...
+					#ELSEIF(!pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_norin_anal_beads_anal_beads), true, yui))
+						As you cannot equip anal beads, you cannot receive Yui's demonstration...
+					#ELSE
+						Give Yui one of your Faire tickets in exchange for an anal beads demonstration, which will involve [style.colourSex(having anal beads inserted into your asshole)].
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+						#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete))
+							<br/>[style.italicsMinorBad(Yui will not give you another demonstration today...)]
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete) || !pc.hasItemType('innoxia_quest_faire_ticket') || !pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_norin_anal_beads_anal_beads), true, yui))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_toys_demonstration_anal_beads
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_market_yui_demonstration_complete, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_intro">
+		<content folderPath="txt/places/fields/elis/market">TOYS_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_toys"/>
+	</scene>
+	
+	<scene id="toys_domination">
+		<content folderPath="txt/places/fields/elis/market">TOYS_DOMINATION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<!-- Face-sitting: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<responseTitle><![CDATA[Face sitting]]></responseTitle>
+				<responseTooltip><![CDATA[Let Yui sit on your face for an hour.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_toys_domination_face_sitting]]></nextDialogue>
+			</response>
+			<!-- Foot worship -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_FOOT_RECEIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<responseTitle><![CDATA[Foot worship]]></responseTitle>
+				<responseTooltip><![CDATA[Spend the next hour massaging Yui's feet, which will undoubtedly lead into performing oral on them...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_toys_domination_foot_worship]]></nextDialogue>
+			</response>
+			<!-- Armpits -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isArmpitContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[
+					#IF(!game.isFootContentEnabled())
+						2
+					#ELSE
+						3
+					#ENDIF
+				]]></index>
+				<responseTitle><![CDATA[Armpit adoration]]></responseTitle>
+				<responseTooltip><![CDATA[Spend the next hour worshipping Yui's armpits, which will undoubtedly lead into performing oral on them...]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_yui_armpits]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>yui</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_toys_after_domination]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">TOYS_DOMINATION_ARMPIT_WORSHIP</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueArmpits_RECEIVING_ARMPIT_LICKING_START]]></id>
+							<performer><![CDATA[yui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[SelfFingerVagina_SELF_FINGER_VAGINA_PENETRATION]]></id>
+							<performer><![CDATA[yui]]></performer>
+							<target><![CDATA[yui]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_domination_face_sitting">
+		<content folderPath="txt/places/fields/elis/market">TOYS_DOMINATION_FACE_SITTING</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<!-- Cunnilingus -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Yui that you want to eat her out.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_yui_face_sitting]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>yui</id>
+							<slot><![CDATA[LYING_DOWN_FACE_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_toys_after_domination]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">TOYS_DOMINATION_FACE_SITTING_PUSSY</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[yui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Anilingus -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Anilingus]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Yui that you want to eat her ass.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_yui_face_sitting_anal]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>yui</id>
+							<slot><![CDATA[LYING_DOWN_FACE_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_toys_after_domination]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">TOYS_DOMINATION_FACE_SITTING_ASSHOLE</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueAnus_RECEIVING_ANILINGUS_START]]></id>
+							<performer><![CDATA[yui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_domination_foot_worship">
+		<content folderPath="txt/places/fields/elis/market">TOYS_DOMINATION_FOOT_WORSHIP</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Lick feet]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Yui that you're desperate to lick her sweaty feet...]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_yui_foot_worship]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>yui</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_toys_after_domination]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">TOYS_DOMINATION_FOOT_WORSHIP_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FootMouth_FOOT_ORAL_RECEIVING_START]]></id>
+							<performer><![CDATA[yui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[SelfFingerVagina_SELF_FINGER_VAGINA_PENETRATION]]></id>
+							<performer><![CDATA[yui]]></performer>
+							<target><![CDATA[yui]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_after_domination">
+		<author><![CDATA[Innoxia]]></author>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_quest_faire_ticket), false, true))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Yui has had enough of dominating you for one day, and brings an end to the proceedings...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/market">TOYS_AFTER_DOMINATION</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] around to the other side of the stall.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_AFTER_DOMINATION_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_demonstration_ballgag">
+		<preParsingEffects><![CDATA[
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_BDSM_BALLGAG, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.getClothingInSlot(IS_MOUTH).setName("Yui's demo ball gag")]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">TOYS_DEMONSTRATION_BALLGAG</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Raise ass]]></responseTitle>
+				<responseTooltip><![CDATA[Be a good [pc.girl] for Mistress Yui and raise your ass so that she can use her riding crop to whip you.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_BALLGAG_OBEY'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_BALLGAG_END'))]
+					#IF(yui.getAffection(pc)<40)
+						[#game.appendToTextStartStringBuilder(yui.incrementAffection(pc, 5))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to do as Mistress Yui asks and try to break free of her webbing.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_BALLGAG_RESIST'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_BALLGAG_END'))]
+					#IF(yui.getAffection(pc)>-40)
+						[#game.appendToTextStartStringBuilder(yui.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_demonstration_chastity_cage">
+		<preParsingEffects><![CDATA[
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_chastity_cage, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#yui.unequipClothingIntoVoid(yui.getClothingInSlot(IS_GROIN), true, yui)]
+			[#pc.getClothingInSlot(IS_PENIS).setName("Yui's demo chastity cage")]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">TOYS_DEMONSTRATION_CHASTITY</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Stay still]]></responseTitle>
+				<responseTooltip><![CDATA[Be a good [pc.girl] for Mistress Yui and stay still so that she can easily lock your cock into chastity.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_chastity_cage_locked_up]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_SUBMIT'))]
+					#IF(yui.getAffection(pc)<40)
+						[#game.appendToTextEndStringBuilder(yui.incrementAffection(pc, 5))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Resist]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to do as Mistress Yui asks and try to resist having your cock locked into chastity.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_chastity_cage_locked_up]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_RESIST'))]
+					#IF(yui.getAffection(pc)>-40)
+						[#game.appendToTextEndStringBuilder(yui.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_demonstration_chastity_cage_locked_up">
+		<content folderPath="txt/places/fields/elis/market">TOYS_DEMONSTRATION_CHASTITY_LOCKED_UP</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Stay calm]]></responseTitle>
+				<responseTooltip><![CDATA[Stay clam and do your best to endure Mistress Yui's teasing.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_LOCKED_UP_ENDURE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Hump]]></responseTitle>
+				<responseTooltip><![CDATA[Give in to your lust and try to hump Mistress Yui's wet pussy.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_LOCKED_UP_HUMP'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_demonstration_dildo">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_DILDO'))]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_norin_dildos_realistic_dildo, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.getClothingInSlot(IS_VAGINA).setSealed(true)]
+			[#pc.getClothingInSlot(IS_VAGINA).setName("Yui's demo dildo")]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Push back]]></responseTitle>
+				<responseTooltip><![CDATA[Be a good [pc.girl] for Mistress Yui and push back against the dildo to fully hilt it in your pussy.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_DILDO_PUSH_BACK'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_DILDO_END'))]
+					#IF(yui.getAffection(pc)<40)
+						[#game.appendToTextStartStringBuilder(yui.incrementAffection(pc, 5))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Pull away]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to do as Mistress Yui asks and try to pull your pussy away from the dildo.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_DILDO_PULL_AWAY'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_DILDO_END'))]
+					#IF(yui.getAffection(pc)>-40)
+						[#game.appendToTextStartStringBuilder(yui.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_demonstration_anal_beads">
+		<preParsingEffects><![CDATA[
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_norin_anal_beads_anal_beads, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.getClothingInSlot(IS_ANUS).setSealed(true)]
+			[#pc.getClothingInSlot(IS_ANUS).setName("Yui's demo anal beads")]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">TOYS_DEMONSTRATION_ANAL_BEADS</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Relax]]></responseTitle>
+				<responseTooltip><![CDATA[Be a good [pc.girl] for Mistress Yui and relax your asshole to allow her to push all of the beads into your ass.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_ANAL_BEADS_RELAX'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_ANAL_BEADS_END'))]
+					#IF(yui.getAffection(pc)<40)
+						[#game.appendToTextStartStringBuilder(yui.incrementAffection(pc, 5))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Clench]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to do as Mistress Yui asks and clench your asshole to try and stop her from pushing all of the beads into your ass.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_ANAL_BEADS_CLENCH'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_ANAL_BEADS_END'))]
+					#IF(yui.getAffection(pc)>-40)
+						[#game.appendToTextStartStringBuilder(yui.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_demonstration_end">
+		<author><![CDATA[Innoxia]]></author>
+		<preParsingEffects><![CDATA[
+			[#pc.addStatusEffect(SE_FRUSTRATED_NO_ORGASM, 14400)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] around to the other side of the stall.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_AFTER_DEMONSTRATION'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Place type id: innoxia_fields_elis_market_trinkets -->
+	<scene id="trinkets">
+		<preParsingEffects><![CDATA[
+			[#itemGen.generateItem('CIGARETTE').applyEffect(kazik, kazik)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">TRINKETS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<travelDisabled><![CDATA[
+			[#!kazik.isPlayerKnowsName() && game.isHourBetween(8, 18)]
+		]]></travelDisabled>
+		<responses>
+			<!-- Closed: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isHourBetween(8, 18)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[As the stall is currently closed, you'll have to come back at another time...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- Open and introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && kazik.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at what Kazik has for sale...]]></responseTooltip>
+				<nextDialogue/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[kazik]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<!-- Open and not introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && !kazik.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the ferret-boy who you are.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_intro]]></nextDialogue>
+				<effects><![CDATA[
+					[#kazik.setPlayerKnowsName(true)]
+				]]></effects>
+			</response>
+			<!-- Spells: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && kazik.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Spell show (1 ticket)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						Give Kazik one of your Faire tickets in exchange for a demonstration of an arcane spell.
+						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+						#IF(flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane_cast))
+							<br/>[style.italicsMinorBad(Kazik will not demonstrate 'Arcane Arousal' to you again today...)]
+						#ENDIF
+					#ELSE
+						You need at least one Faire ticket to be able to get Kazik to demonstrate a spell...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+						innoxia_places_fields_elis_market_trinkets_spells
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trinkets_intro">
+		<content folderPath="txt/places/fields/elis/market">TRINKETS_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_trinkets"/>
+	</scene>
+	
+	<scene id="trinkets_spells">
+		<content folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fireball]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Kazik to demonstrate the spell 'Fireball' to you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_spells_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_FIREBALL'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Flash]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Kazik to demonstrate the spell 'Flash' to you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_spells_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_FLASH'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Ice shard]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Kazik to demonstrate the spell 'Ice Shard' to you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_spells_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_ICE_SHARD'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Rain cloud]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Kazik to demonstrate the spell 'Rain Cloud' to you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_spells_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_RAIN_CLOUD'))]
+				]]></effects>
+			</response>
+			<!-- Arcane: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Arcane spell]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Kazik why he can't demonstrate the spell he knows from the school of the arcane.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_trinkets_spells]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_ARCANE_REVEAL'))]
+					[#flags.setFlag(FLAG_innoxia_elis_market_kazik_arcane, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<colour><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane_cast))
+						GENERIC_ARCANE
+					#ENDIF
+				]]></colour>
+				<responseTitle><![CDATA[Arcane arousal]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane_cast))
+						Kazik has already demonstrated the spell 'Arcane Arousal' to you today, and will not do so again until tomorrow.
+					#ELSE
+						Ask Kazik to demonstrate the spell 'Arcane Arousal' to you.
+						<br/>[style.colourArcane(He will have to cast this on you in order to demonstrate it...)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane_cast))
+						innoxia_places_fields_elis_market_trinkets_spells_arcane
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_market_kazik_arcane_cast, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_ARCANE_CAST'))]
+					[#game.appendToTextStartStringBuilder('<p>'+SPELL_ARCANE_AROUSAL.applyEffect(kazik, pc, null, null, true, true)+'</p>')]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_ARCANE_CAST_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trinkets_spells_finished">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[3]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Impressed]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Kazik that you found his demonstration to be impressive.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_trinkets]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_FINISHED_IMPRESSED'))]
+					#IF(kazik.getAffection(pc)<40)
+						[#game.appendToTextStartStringBuilder(kazik.incrementAffection(pc, 5))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Boring]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Kazik that you found his demonstration to be quite boring.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_trinkets]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_FINISHED_BORING'))]
+					#IF(kazik.getAffection(pc)>-40)
+						[#game.appendToTextStartStringBuilder(kazik.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trinkets_spells_arcane">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.isFeminine()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Kazik doesn't seem interested in helping you deal with your arousal...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_trinkets]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_ARCANE_CONTINUE'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isFeminine()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Calm down]]></responseTitle>
+				<responseTooltip><![CDATA[Ignore Kazik's offer and spend a moment focusing on overcoming your arousal.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_trinkets]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_ARCANE_REFUSE'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && pc.isFeminine()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Oral tease]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						Tease Kazik by opening your mouth and telling him that you want to perform oral.
+					#ELSE
+						You're unable to gain access to your mouth, so cannot offer oral to Kazik...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						innoxia_places_fields_elis_market_trinkets_sex_oral
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isFeminine()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Flash pussy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina())
+						You don't have a pussy, so cannot flash it to Kazik...
+					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						Tease Kazik by flashing him your pussy and telling him that you want him to fuck it.
+					#ELSE
+						You're unable to gain access to your pussy, so cannot flash it to Kazik...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+						innoxia_places_fields_elis_market_trinkets_sex_vaginal
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && pc.isFeminine()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Flash asshole]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+						Tease Kazik by flashing him your asshole and telling him that you want him to fuck it.
+					#ELSE
+						You're unable to gain access to your asshole, so cannot flash it to Kazik...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+						innoxia_places_fields_elis_market_trinkets_sex_anal
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trinkets_sex_oral">
+		<content folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS_ARCANE_ORAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Give blowjob]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] around the back of Kazik's stall with him and suck his cock.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_kazik_oral]]></id>
+					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
+					<dominants>
+						<character>
+							<id>kazik</id>
+							<slot><![CDATA[AGAINST_WALL_BACK_TO_WALL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[AGAINST_WALL_PERFORMING_ORAL_WALL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS_ARCANE_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[kazik]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trinkets_sex_vaginal">
+		<content folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS_ARCANE_VAGINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Get fucked]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] around the back of Kazik's stall with him and let him fuck your pussy.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_kazik_vaginal]]></id>
+					<startingPosition><![CDATA[
+						#IF(pc.isTaur())
+							ALL_FOURS
+						#ELSE
+							AGAINST_WALL
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>kazik</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_BEHIND
+								#ELSE
+									AGAINST_WALL_STANDING_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									AGAINST_WALL_FACE_TO_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS_ARCANE_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[kazik]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trinkets_sex_anal">
+		<content folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS_ARCANE_ANAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Get fucked]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] around the back of Kazik's stall with him and let him fuck your ass.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_kazik_anal]]></id>
+					<startingPosition><![CDATA[
+						#IF(pc.isTaur())
+							ALL_FOURS
+						#ELSE
+							AGAINST_WALL
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>kazik</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_BEHIND
+								#ELSE
+									AGAINST_WALL_STANDING_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									AGAINST_WALL_FACE_TO_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS_ARCANE_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[kazik]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trinkets_after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Kazik is satisfied and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/market">TRINKETS_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] around to the other side of the stall.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_trinkets]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_AFTER_SEX_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

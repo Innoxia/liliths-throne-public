@@ -570,7 +570,7 @@ public class ItemType {
 	
 	// Crafting outputs:
 	
-	public static AbstractItemType POTION = new AbstractItemType(750,
+	public static AbstractItemType POTION = new AbstractItemType(500,
 			"",
 			false,
 			"potion",
@@ -584,6 +584,14 @@ public class ItemType {
 			Rarity.RARE,
 			null,
 			null) {
+		@Override
+		public int getValue(List<ItemEffect> effects) {
+			int val = super.getValue(effects);
+			
+			val += (effects.size() * 25);
+			
+			return val;
+		}
 		@Override
 		public boolean isTransformative() {
 			return false;
@@ -604,7 +612,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType ELIXIR = new AbstractItemType(1500,
+	public static AbstractItemType ELIXIR = new AbstractItemType(750,
 			"",
 			false,
 			"elixir",
@@ -618,6 +626,14 @@ public class ItemType {
 			Rarity.EPIC,
 			null,
 			null) {
+		@Override
+		public int getValue(List<ItemEffect> effects) {
+			int val = super.getValue(effects);
+			
+			val += (effects.size() * 50);
+			
+			return val;
+		}
 		@Override
 		public boolean isTransformative() {
 			return true;
@@ -2784,6 +2800,8 @@ public class ItemType {
 				case DARK_SIREN_SIRENS_CALL:
 				case LIGHTNING_SPHERE_DISCHARGE:
 				case LIGHTNING_SPHERE_OVERCHARGE:
+				case ARCANE_CHAIN_LIGHTNING:
+				case ARCANE_LIGHTNING_SUPERBOLT:
 					break;
 			}
 			
@@ -3123,11 +3141,10 @@ public class ItemType {
 						null,
 						Rarity.EPIC,
 						Util.newArrayListOfValues(new ItemEffect(effectType)),
-						Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-						// TODO revisit this and potentially make demon/angel essence contraband when adding more essence effects
-//						((mainSubspecies.getSubspeciesOverridePriority()>=5) // Half-Demon+ (and Angels) are contraband
-//								?Util.newArrayListOfValues(ItemTag.ESSENCE,ItemTag.CONTRABAND_HEAVY)
-//								:Util.newArrayListOfValues(ItemTag.ESSENCE)))
+						(((mainSubspecies.getRace()==Race.DEMON && mainSubspecies.getSubspeciesOverridePriority()>5) || mainSubspecies.getRace()==Race.ANGEL) // Demon+ (and Angels) are contraband
+								?Util.newArrayListOfValues(ItemTag.ESSENCE, ItemTag.CONTRABAND_HEAVY)
+								:Util.newArrayListOfValues(ItemTag.ESSENCE))) {
+						
 					@Override
 					public String getUseName() {
 						return "absorb";

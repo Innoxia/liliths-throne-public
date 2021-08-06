@@ -33,6 +33,7 @@
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
 			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(5)] to 'potion effects']]></line>
+			<line><![CDATA[If muscles are less than [style.colourMuscleThree('muscular')], increases muscles by 1]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
@@ -42,6 +43,9 @@
 				[npc.Name] [npc.verb(start)] to feel a lot stronger...
 			</p>
 			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 5)]
+			#IF(npc.getMuscleValue()<60)
+				[#npc.incrementMuscle(1)]
+			#ENDIF
 		]]></applyEffects>
 		
 		<itemTags>
