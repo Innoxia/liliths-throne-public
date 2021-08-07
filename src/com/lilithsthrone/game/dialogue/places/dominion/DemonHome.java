@@ -282,7 +282,7 @@ public class DemonHome {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
-					return new Response("Arthur's Room", "Head up to Arthur's room.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM){
+					return new Response("Arthur's room", "Head up to Arthur's room.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM){
 						@Override
 						public void effects() {
 							if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
@@ -292,7 +292,7 @@ public class DemonHome {
 					};
 					
 				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
-					return new Response("Arthur's Room", "Arthur is no longer living here...", null);
+					return new Response("Arthur's room", "Arthur is no longer living here...", null);
 				}
 				
 			} else if (index == 2 && Main.game.isDebugMode()) {
