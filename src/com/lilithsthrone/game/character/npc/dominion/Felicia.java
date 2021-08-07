@@ -6,7 +6,6 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -154,9 +153,6 @@ public class Felicia extends NPC {
     @Override
     public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
         loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-        if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.19")) {
-            //TODO: set her quest progress based on where the player is at on the MQ
-        }
     }
     
     @Override

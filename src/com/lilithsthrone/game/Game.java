@@ -1610,6 +1610,10 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Lyssieth.class).getSexCountMap().remove(Main.game.getNpc(DarkSiren.class).getId());
 				}
 				
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5") && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
+					Main.game.getNpc(Felicia.class).setPlayerKnowsName(true); // If progressed past meeting Felicia, set her name as known
+		        }
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				

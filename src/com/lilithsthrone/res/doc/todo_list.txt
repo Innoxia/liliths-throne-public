@@ -67,8 +67,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Make post
 		[x] KT80 poll
 	[x] Ace's mod
-	
-	[] Felicia
+	[x] Felicia
 		Sawlty towers:
 			[x] Add Arthur's room as action 1 greyed-out after quest complete
 			[x] Felicia's room at 17:14 locks travel with no actions
@@ -84,23 +83,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[-] Limit each topic to once per day
 			[x] Make it clear that pushing too far will lock her content out
 		[x] Tile placeholders
-		[] Add debug requirement to trigger
-		[] Go through all writing and edit to make style consistent
+		[x] Add debug requirement to trigger
+		[x] Go through all writing and edit to make style consistent
 			[x] Main quest scene
 			[x] External apartment scenes
-			[] All interior scenes
-		[] Add initial description of her age
-		[] full test
-		[] git push & ask about:
-			Content expansion:
-				- Ask out on date (affection requirement first I guess)
-				- Repeat date until 3 dates completed
-				- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
-				- Says she feels lewd towards player, can sex
-				- Option to give her TF potion to give her vagina (although she prefers giving oral)
-				- Repeat dates & sex is end content
-	
-	
+			[x] All interior scenes
+		[x] If main quest is past meeting Felicia, set knows name to true
+		[x] Add initial description of her age
+		[x] full test
+		[x] git push & ask about:
 	
 	[] Bugs
 		[] Are the field bandits supposed to be the same level as city bandits? That seems like a bug or oversight of some kind?
@@ -109,7 +100,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] from another user, the harpy boss transformatives still work when used as a demon
 		[] Scarlett does not end sex scene, and player cannot end it either, when inviting her out to lunch after trading back to Helena.
 		[] Takahashi has AddedToContacts set to false
-		[] Bug reports channel
+		[] issue of if you ever equip a chastity item the status effect never goes away
+		[] do the enforcers still attack you if they see you with Enforcer Gear after doing Wesley's quest/having the contractor license or that was fixed?
+		[] Elementals seem to have a couple problems with the current version
+			- All perks can be picked up at level 1 (the counter simply goes negative but does not prevent you from picking them all up) and cannot be reset
+			- Their damage scales incorrectly with difficulty, doing -more- instead of less damage on higher difficulties
+			- Another issue, elementals will try to regenerate their inventories as if they were random demons, deleting any items carried and generating lilith's gifts
+		[] Characters without legs can still use 'Thich squeeze' orgasm action
+		[] Jhortax and Fyrsia are both missing their weapons when first encountering Meraxis (didn't even take from them during their first fights, bypassed them entirely)
+		[] A random pegasus girl is staying on feloli fields, I ran from her and I have the athlete background. She won't show up again in that spot but the game is acting like she's there
+			- Not being removed when escaping combat?
+			- Add cleanup check
+		
+		
 	
 	[] Maxis github permission
 	
@@ -143,6 +146,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Medical centre
 			[] Incubus & succubus doctors
 	
+	Felicia content expansion:
+		- Ask out on date (affection requirement first I guess)
+		- Repeat date until 3 dates completed
+		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+		- Says she feels lewd towards player, can sex
+		- Option to give her TF potion to give her vagina (although she prefers giving oral)
+		- Repeat dates & sex is end content
 	
 	Ashley
 	
