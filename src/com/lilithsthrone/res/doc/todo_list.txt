@@ -19,6 +19,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest. (by Rick and DSG)
+		Added samoyed-morph subspecies to the dog-morph race. (by DSG)
+	
 	Engine/Modding:
 		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
 	
@@ -65,6 +69,38 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Ace's mod
 	
 	[] Felicia
+		Sawlty towers:
+			[x] Add Arthur's room as action 1 greyed-out after quest complete
+			[x] Felicia's room at 17:14 locks travel with no actions
+		[-] check Sawlty towers to see if it's retroactively created
+			[-] creation check from new
+		[x] Check main quest first meeting
+		[x] Move arthur dialogue to external text file
+		[x] Sawlty towers tile to append brief description that it's in the area
+		[x] Talk options
+			[x] Show lewd and pet but greyed-out
+				[x] Introduce name in inital intro
+				[x] Change name topic to talk about her long surname
+			[-] Limit each topic to once per day
+			[x] Make it clear that pushing too far will lock her content out
+		[x] Tile placeholders
+		[] Add debug requirement to trigger
+		[] Go through all writing and edit to make style consistent
+			[x] Main quest scene
+			[x] External apartment scenes
+			[] All interior scenes
+		[] Add initial description of her age
+		[] full test
+		[] git push & ask about:
+			Content expansion:
+				- Ask out on date (affection requirement first I guess)
+				- Repeat date until 3 dates completed
+				- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+				- Says she feels lewd towards player, can sex
+				- Option to give her TF potion to give her vagina (although she prefers giving oral)
+				- Repeat dates & sex is end content
+	
+	
 	
 	[] Bugs
 		[] Are the field bandits supposed to be the same level as city bandits? That seems like a bug or oversight of some kind?
