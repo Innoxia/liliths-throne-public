@@ -633,158 +633,159 @@ public class WesQuest {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(!Main.game.getNonCompanionCharactersPresent().contains(Main.game.getNpc(Elle.class))) {
-				return null;
+			// Commented out in 0.4.1.5
+			// No idea why this was here, seeing as every time REQUISITIONS_INTERACTION is accessed, travel is disabled, so there always needs to be an escape response...
+//			if(!Main.game.getNonCompanionCharactersPresent().contains(Main.game.getNpc(Elle.class))) {
+//				return null;
+//			}
+			
+			if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)) {
+				if(index==0) {
+					return new Response("Leave", "Tell Elle that you've got to be going now and head back out into the corridor.", PlaceType.ENFORCER_HQ_CELLS_CORRIDOR.getDialogue(false)) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_INTERACTION_LEAVE"));
+							Main.game.getPlayer().setNearestLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_CORRIDOR, false);
+						}
+					};
+					
+				} else if(index==1) {
+					return new ResponseTrade("Trade", "Buy some gear from Elle.", Main.game.getNpc(Elle.class));
+					
+				} else if(index==2) {
+					if(Main.game.getCurrentDialogueNode()==REQUISITIONS_BACKGROUND) {
+						return new Response("Background", "You're already asking Elle about herself!", null);
+					}
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalked)) {
+						return new Response("Background", "You've already spent some time asking Elle about herself...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
+					}
+					return new Response("Background", "Ask Elle about herself.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_BACKGROUND) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalked, true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Elle.class).incrementAffection(Main.game.getPlayer(), 10));
+						}
+					};
+					
+				} else if(index==3) {
+					if(Main.game.getCurrentDialogueNode()==REQUISITIONS_WORK) {
+						return new Response("Work", "You're already asking Elle about how her work is going!", null);
+					}
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalkedAlt)) {
+						return new Response("Work", "You've already spent some time asking Elle about how her work is going...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
+					}
+					return new Response("Work", "Ask Elle about how her work is going.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_WORK) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalkedAlt, true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Elle.class).incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
+					
+				} else if(index==4) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestFlirted)) {
+						return new Response("Flirt", "You've already spent some time flirting with Elle today...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
+					}
+					return new Response("Flirt", "Flirt with Elle.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_FLIRT_ELLE) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestFlirted, true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Elle.class).incrementAffection(Main.game.getPlayer(), 10));
+						}
+					};
+				}
 				
 			} else {
-				if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)) {
-					if(index==0) {
-						return new Response("Leave", "Tell Elle that you've got to be going now and head back out into the corridor.", PlaceType.ENFORCER_HQ_CELLS_CORRIDOR.getDialogue(false)) {
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_INTERACTION_LEAVE"));
-								Main.game.getPlayer().setNearestLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_CORRIDOR, false);
+				if(index==0) {
+					return new Response("Leave", "Tell Wes that you've got to be going now and head back out into the corridor.", PlaceType.ENFORCER_HQ_CELLS_CORRIDOR.getDialogue(false)) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_INTERACTION_LEAVE"));
+							Main.game.getPlayer().setNearestLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_CORRIDOR, false);
+							if(Main.game.getPlayer().isVisiblyPregnant()) {
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
 							}
-						};
-						
-					} else if(index==1) {
-						return new ResponseTrade("Trade", "Buy some gear from Elle.", Main.game.getNpc(Elle.class));
-						
-					} else if(index==2) {
-						if(Main.game.getCurrentDialogueNode()==REQUISITIONS_BACKGROUND) {
-							return new Response("Background", "You're already asking Elle about herself!", null);
 						}
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalked)) {
-							return new Response("Background", "You've already spent some time asking Elle about herself...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
-						}
-						return new Response("Background", "Ask Elle about herself.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_BACKGROUND) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalked, true);
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Elle.class).incrementAffection(Main.game.getPlayer(), 10));
-							}
-						};
-						
-					} else if(index==3) {
-						if(Main.game.getCurrentDialogueNode()==REQUISITIONS_WORK) {
-							return new Response("Work", "You're already asking Elle about how her work is going!", null);
-						}
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalkedAlt)) {
-							return new Response("Work", "You've already spent some time asking Elle about how her work is going...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
-						}
-						return new Response("Work", "Ask Elle about how her work is going.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_WORK) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalkedAlt, true);
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Elle.class).incrementAffection(Main.game.getPlayer(), 5));
-							}
-						};
-						
-					} else if(index==4) {
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestFlirted)) {
-							return new Response("Flirt", "You've already spent some time flirting with Elle today...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
-						}
-						return new Response("Flirt", "Flirt with Elle.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_FLIRT_ELLE) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestFlirted, true);
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Elle.class).incrementAffection(Main.game.getPlayer(), 10));
-							}
-						};
-					}
+					};
 					
-				} else {
-					if(index==0) {
-						return new Response("Leave", "Tell Wes that you've got to be going now and head back out into the corridor.", PlaceType.ENFORCER_HQ_CELLS_CORRIDOR.getDialogue(false)) {
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_INTERACTION_LEAVE"));
-								Main.game.getPlayer().setNearestLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_CORRIDOR, false);
-								if(Main.game.getPlayer().isVisiblyPregnant()) {
-									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
-								}
-							}
-						};
-						
-					} else if(index==1) {
-						return new ResponseTrade("Trade", "Buy some gear from Wes.", Main.game.getNpc(Wes.class));
-						
-					} else if(index==2) {
-						if(Main.game.getCurrentDialogueNode()==REQUISITIONS_BACKGROUND) {
-							return new Response("Background", "You're already asking Wes about himself!", null);
-						}
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalked)) {
-							return new Response("Background", "You've already spent some time asking Wes about himself...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
-						}
-						return new Response("Background", "Ask Wes about himself.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_BACKGROUND) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalked, true);
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 10));
-								if(Main.game.getPlayer().isVisiblyPregnant()) {
-									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
-								}
-							}
-						};
-						
-					} else if(index==3) {
-						if(Main.game.getCurrentDialogueNode()==REQUISITIONS_WORK) {
-							return new Response("Work", "You're already asking Wes about how his work is going!", null);
-						}
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalkedAlt)) {
-							return new Response("Work", "You've already spent some time asking Wes about how his work is going...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
-						}
-						return new Response("Work", "Ask Wes about how his work is going.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_WORK) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalkedAlt, true);
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
-								if(Main.game.getPlayer().isVisiblyPregnant()) {
-									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
-								}
-							}
-						};
-						
-					} else if(index==4) {
-						if(!Main.game.getNpc(Wes.class).isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Flirt", "As Wes is not attracted to you, you can tell that trying to flirt with him wouldn't end well...", null);
-						}
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestFlirted)) {
-							return new Response("Flirt", "You've already spent some time flirting with Wes today...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
-						}
-						return new Response("Flirt", "Flirt with Wes.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_FLIRT_WES) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestFlirted, true);
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
-								if(Main.game.getPlayer().isVisiblyPregnant()) {
-									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
-								}
-							}
-						};
-						
-					} else if(index==5) {
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestSex)) {
-							return new Response("Elle", "You've already spent some time with Elle today...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
-						}
-						return new Response("Elle", "Ask Wes if you can spend some time with Elle.<br/>[style.italicsMinorGood(You can do this once per day.)]", WES_ELLE_OFFICE) {
-							@Override
-							public boolean isSexHighlight() {
-								return true;
-							}
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestSex, true);
-								Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER);
-								Main.game.getNpc(Elle.class).setLocation(Main.game.getPlayer(), false);
-								if(Main.game.getPlayer().isVisiblyPregnant()) {
-									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
-								}
-							}
-						};
-					}
+				} else if(index==1) {
+					return new ResponseTrade("Trade", "Buy some gear from Wes.", Main.game.getNpc(Wes.class));
 					
+				} else if(index==2) {
+					if(Main.game.getCurrentDialogueNode()==REQUISITIONS_BACKGROUND) {
+						return new Response("Background", "You're already asking Wes about himself!", null);
+					}
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalked)) {
+						return new Response("Background", "You've already spent some time asking Wes about himself...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
+					}
+					return new Response("Background", "Ask Wes about himself.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_BACKGROUND) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalked, true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 10));
+							if(Main.game.getPlayer().isVisiblyPregnant()) {
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+							}
+						}
+					};
+					
+				} else if(index==3) {
+					if(Main.game.getCurrentDialogueNode()==REQUISITIONS_WORK) {
+						return new Response("Work", "You're already asking Wes about how his work is going!", null);
+					}
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalkedAlt)) {
+						return new Response("Work", "You've already spent some time asking Wes about how his work is going...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
+					}
+					return new Response("Work", "Ask Wes about how his work is going.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_WORK) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalkedAlt, true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
+							if(Main.game.getPlayer().isVisiblyPregnant()) {
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+							}
+						}
+					};
+					
+				} else if(index==4) {
+					if(!Main.game.getNpc(Wes.class).isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Flirt", "As Wes is not attracted to you, you can tell that trying to flirt with him wouldn't end well...", null);
+					}
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestFlirted)) {
+						return new Response("Flirt", "You've already spent some time flirting with Wes today...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
+					}
+					return new Response("Flirt", "Flirt with Wes.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_FLIRT_WES) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestFlirted, true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
+							if(Main.game.getPlayer().isVisiblyPregnant()) {
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+							}
+						}
+					};
+					
+				} else if(index==5) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestSex)) {
+						return new Response("Elle", "You've already spent some time with Elle today...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
+					}
+					return new Response("Elle", "Ask Wes if you can spend some time with Elle.<br/>[style.italicsMinorGood(You can do this once per day.)]", WES_ELLE_OFFICE) {
+						@Override
+						public boolean isSexHighlight() {
+							return true;
+						}
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestSex, true);
+							Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER);
+							Main.game.getNpc(Elle.class).setLocation(Main.game.getPlayer(), false);
+							if(Main.game.getPlayer().isVisiblyPregnant()) {
+								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+							}
+						}
+					};
 				}
+				
 			}
 			return null;
 		}

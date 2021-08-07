@@ -4,13 +4,14 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.2
+ * @version 0.4.2
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface {
@@ -18,12 +19,17 @@ public class Hair implements BodyPartInterface {
 	protected AbstractHairType type;
 	protected int length;
 	protected HairStyle style;
+	protected boolean neckFluff;
 
-	public Hair(AbstractHairType type, int length, HairStyle style) {
+	public Hair(AbstractHairType type, int length, HairStyle style, RaceStage ownerRaceStage) {
 		this.type = type;
 		this.length = length;
 		this.style = style;
 		
+		neckFluff = false;
+		if((!type.isNeckFluffRequiresGreater() || ownerRaceStage!=RaceStage.GREATER) && Math.random()<type.getNeckFluffChance()) {
+			neckFluff = true;
+		}
 	}
 
 	@Override
@@ -238,6 +244,37 @@ public class Hair implements BodyPartInterface {
 			}
 		sb.append("</p>");
 		return UtilText.parse(owner, sb.toString());
+	}
+
+	public boolean isNeckFluff() {
+		return neckFluff;
+	}
+
+	public String setNeckFluff(GameCharacter owner, boolean neckFluff) {
+		if(owner!=null && this.neckFluff == neckFluff) {
+			if(this.neckFluff) {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] neck [npc.hair(true)], so nothing happens...)]</p>");
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] neck [npc.hair(true)], so nothing happens...)]</p>");
+			}
+		}
+		this.neckFluff = neckFluff;
+		if(owner==null) {
+			return "";
+		}
+		
+		if (neckFluff) {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] a significant amount of [npc.hair(true)] [style.boldGrow(growing out around [npc.her] neck and upper chest)]!"
+					+ "</p>");
+			
+		} else {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] [npc.her] neck [npc.hair(true)] [style.boldShrink(shrink away and disappear)]."
+					+ "</p>");
+		}
 	}
 
 	@Override
