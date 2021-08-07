@@ -157,7 +157,7 @@ public class FeliciaApartment {
 		}
 	};
 	
-	public static final DialogueNode FELICIA_GREETINGS_APPROACH = new DialogueNode("", "", false) {
+	public static final DialogueNode FELICIA_GREETINGS_APPROACH = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 1*60;

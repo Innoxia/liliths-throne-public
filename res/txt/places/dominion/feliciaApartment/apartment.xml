@@ -121,7 +121,7 @@
 	
 	<htmlContent tag="FELICIA_GREETINGS_APPROACH"><![CDATA[
 	<p>
-		The white, fluffy form of Felicia is sitting on the dark green sofa in front of you. A book sits in her hand, stealing most her focus, but as she glances up, she notices that you've approached her and asks, [felicia.speech(Oh, still here, [pc.name]? Well, if you want to talk some more then let me know what's on your mind!)]
+		The white, fluffy form of Felicia is sitting on the dark green sofa in front of you. A book sits in her hand, stealing most of her focus, but as she glances up, she notices that you've approached her and asks, [felicia.speech(Oh, still here, [pc.name]? Well, if you want to talk some more then let me know what's on your mind!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -188,7 +188,7 @@
 		As you tell Felicia that you've managed to find Arthur, her body visibly lights up with excitement, and her tail starts wagging with an incredible strength and speed. Without warning, dog-girl suddenly pounces on you, and after wrapping her furry arms around your body, she hugs you to near death. With how soft her fur rubbing over your body, she exclaims, [felicia.speech(I can't thank you enough! You're the best person ever!)]
 	</p>
 	<p>
-		There’s a few more seconds of hugging before she finally releases you, allowing you to breathe again. Calming herself down, she returns to sitting besides you and asks, [felicia.speech(Is he okay? Where is he? Will he be moving back in soon?)]
+		There's a few more seconds of hugging before she finally releases you, allowing you to breathe again. Calming herself down, she returns to sitting besides you and asks, [felicia.speech(Is he okay? Where is he? Will he be moving back in soon?)]
 	</p>
 	<p>
 		Reassuring Felicia by telling her that Arthur is doing well, you explain that he's going to be staying in Lilaya's mansion for the foreseeable future. Seeing the worried look in her eyes, you quickly tell the dog-girl that Rose will be sure to let her in to visit Arthur at any time, and you happily give her Lilaya's address.
@@ -204,7 +204,7 @@
 	
 	<htmlContent tag="TALK_MENU"><![CDATA[
 	<p>
-		The comfy sofa almost sucks you in as you sit on it. The samoyed girl takes her book from the coffee table and slots it back into the bookshelf. Before you could ask her about it, she begins to speak. [felicia.speech(So, what do you want to talk about?)]
+		The comfy sofa, and almost sucks you in as you lean back and wonder what to ask Felicia about next. Sensing that you're wanting to change the topic of conversation, the dog-girl tilts her head to one side and asks, [felicia.speech(Is there something else you wanted to talk about?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -214,7 +214,7 @@
 	
 	<htmlContent tag="TALK_MENU_ARTHUR"><![CDATA[
 	<p>
-		[pc.speech(Can I ask you about Arthur?)] you ask The white fluff ball, who perks up slightly. [felicia.speech(Ah, what do you want to know??)]
+		Wanting to find out what Felicia knows about Arthur, you ask the white fluff ball if she's willing to talk about her ex-neighbour for a moment. Perking up slightly as she hears you mention Arthur by name, the white ball of fluff excitedly asks, [felicia.speech(Ah, what do you want to know?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -224,37 +224,40 @@
 	
 	<htmlContent tag="TALK_MENU_ABOUT_HER"><![CDATA[
 	<p>
-		[pc.speech(So, mind if I get to know you?)]
+		Wanting to get to know her a little better, you ask Felicia if you can ask her some personal questions. The white fluff ball's ear pops up as she hears this, and her tail starts slowly swishing to thud into the cushions behind her. 
 	</p>
 	<p>
-		The white fluff ball's ear pops up; her tail swishes slowly. [felicia.speech(M-me?)] she looks a bit flustered, the faintest of red on her face. [felicia.speech(There's not much to know, but if you want to know.)]
+		[felicia.speech(Y-You want to talk about me?)] she asks, looking a bit flustered. Shuffling around a little in trepidation, she continues, [felicia.speech(There's not much to know, but if you want to ask, then go ahead.)]
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_ARTHUR_PERSONALITY -->
 	
 	<htmlContent tag="TALK_ARTHUR_PERSONALITY"><![CDATA[
 	<p>
-		[pc.speech(What’s Arthur’s personality like?)]
+		You decide to ask Felicia about her perception of Arthur's personality, and so phrase your question to that effect.
 	</p>
 	<p>
-		Felicia takes a few seconds to think, ears all perky. [felicia.speech(The first time you meet him you’d think he was a timid man. Ask him anything about what he’s working on and you see just how full of life he is; if you can stay awake during it. Oh, and he gets so red when I ask what he wants for dinner. I wouldn’t ask so much if he could actually cook.)] 
+		With her ears perking up, Felicia takes a few seconds to think, before answering, [felicia.speech(The first time you meet him you'd think he was a timid man, but ask him anything about what he's working on and you see just how full of life he is. Well, if you can stay awake during it, that is... Oh, and he gets so red when I ask what he wants for dinner. I wouldn't ask so much if he could actually cook.)]
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_ARTHUR_HOBBIES -->
 	
 	<htmlContent tag="TALK_ARTHUR_HOBBIES"><![CDATA[
 	<p>
-		You wonder what a man of science would do during his pastime: Read? Cool sparkly science shit? Watch anime? [pc.speech(You ever see him do anything besides science?)]
+		You wonder what a man of science would do during his pastime: Read? Cool sparkly science stuff? People watching from out of his window? With these questions in mind, you ask Felicia if she's ever seen him do anything besides work on his experiments.
 	</p>
 	<p>
-		[felicia.speech(Yeah, I’ve seen him read a few times.  Mostly science papers; mainly science papers.  I don’t think I've seen him read anything else actually.)]
+		[felicia.speech(Yeah, I've seen him read a few times,)] she answers, [felicia.speech(Often science papers... Actually, always science papers. I don't think I've seen him read anything else.)]
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_ABOUT_HER_NAME -->
 	
@@ -271,122 +274,133 @@
 	]]>
 	</htmlContent>
 	
+	
 	<!-- TALK_ABOUT_HER_PLACE -->
 	
 	<htmlContent tag="TALK_ABOUT_HER_PLACE"><![CDATA[
 	<p>
-		[pc.speech(The place is pretty empty, why don’t you have any decorations?)]
+		Wanting to find out why Felicia's apartment is so empty, you ask her in the most tactful manner you can manage why she hasn't put up any decorations or got any furniture.
 	</p>
 	<p>
-		[felicia.Name] looks oblivious, looking confused by your question. [felicia.speech(I’ve got all I need, why should I get anything more?)]
+		The ball of white fluff looks oblivious for a moment, before narrowing her eyes in confusion and returning your question with one of her own, [felicia.speech(I've got all I need, why should I get anything more?)]
 	</p>
 	<p>
-		[pc.speech(To give the place it’s own personality, you never considered it?)]
+		Responding by suggesting that decorations would give the place it's own personality, you ask Felicia if she's ever considered redecorating.
 	</p>
 	<p>
-		[felicia.speech(No, not really  I’m not interested in all that I guess.)]
+		[felicia.speech(No, not really... I'm not interested in all that I guess,)] she bluntly responds.
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_ABOUT_HER_FUR -->
 	
 	<htmlContent tag="TALK_ABOUT_HER_FUR"><![CDATA[
 	<p>
-		[pc.speech(Your fur is so silky and fluffy, it’s basically perfect. How’d you do it?)]
+		Gazing in wonder at how silky and fluffy her luxuriant fur is, you ask Felicia how she manages to get it into such a perfect state.
 	</p>
 	<p>
-		[felicia.NamePos] tail swishes some from the question, liking the compliment. [felicia.speech(Lots. Of. Conditioner.)]
+		The dog-girl's tail swishes from side to side as you ask this question, and with a smile on her face revealing that she's taken your question as a compliment, she responds, [felicia.speech(Lots. Of. Conditioner.)]
 	</p>
 	<p>
-		Something tells you that’s not the whole truth.
+		Something tells you that's not the whole truth, but Felicia doesn't seem to want to reveal her secrets to you.
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_ABOUT_HER_FAVORITE_STORE -->
 	
 	<htmlContent tag="TALK_ABOUT_HER_FAVORITE_STORE"><![CDATA[
 	<p>
-		[pc.speech(There are some interesting shops around, what place do you like the most?)]
+		Wanting to ask her about the sorts of things which she gets up to in the day, you ask Felicia if there are any interesting stores nearby which she frequents.
 	</p>
 	<p>
-		[felicia.Name] takes a moment to think before saying anything. [felicia.speech(Probably Nyan’s Clothing Emporium. I don’t care much about the clothes, I just think cats are cute.)]
+		The ball of white fluff takes a moment to think before stating, [felicia.speech(There aren't any here in Demon Home which I'm fond of, but over in the Shopping Arcade there's a place called Nyan's Clothing Emporium. I don't care much about the clothes, I just think cats are cute, and the owner is the sweetest person you'll ever meet.)]
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_PET -->
 	
 	<htmlContent tag="TALK_PET"><![CDATA[
 	<p>
-		The fluffiness of her hair, how it sways in the wind, you can’t help but ask to touch it. Sitting next to her, you move your hand close to her head and ask, [pc.speech(May I?)]
+		The fluffiness of her hair, how it sways in the wind, you can't help but ask to touch it. Shuffling closer towards her, you move your [pc.hand] close to Felicia's head and ask if you can pet her.
 	</p>
 	<p>
-		Felicia’s ears perk up as she looks up at your hand.  Realising what you want, she blushes slightly and responds, [felicia.speech(S-Sure...)]
+		Felicia's ears perk up as she looks up at your [pc.hand]. Realising that you're serious about your request, she blushes slightly and responds, [felicia.speech(S-Sure...)]
 	</p>
 	<p>
-		With her permission, your hand plops on her head. Her hair feels even fluffier than it looks. As you rub her head, the faint sound of a tail swooshing on a couch can be heard. The fluffiness is so powerful you almost lose yourself in the head pats, Felicia blushing even more. It seems petting is her weakness.
+		With her permission, your [pc.hand] plops on to her head. Her soft fur feels even fluffier than it looks. As you rub her luxurious coat, the sound of her tail thudding into the sofa's cushions can be heard. The fluffiness is so powerful you almost lose yourself in the head pats, all the while Felicia blushing and becoming even more embarrassed about what's happening. It seems petting is her weakness.
 	</p>
 	<p>
-		A wicked smile forming, you decide to give her a little scratch behind the ears. Felicia’s ears perk up to what was thought impossible, her tail moving fast enough to become a blur. Within a minute, she’s putty in your ear scratching hand, clearly trying to hold her composure.  
+		A wicked smile forming, you decide to give her a little scratch behind the ears. Felicia's ears perk up to what was thought impossible, her tail moving fast enough to become a blur. Within a minute, she's putty in your ear scratching [pc.hand], clearly trying to hold her composure. Finally, her strength breaks and she lets out the slightest, [felicia.speech(Awoo...)]
 	</p>
 	<p>
-		Finally, her strength breaks and she lets out the slightest [felicia.speech(Awoo)]; her face completely red. You, your hand starting to cramp, decide that’s enough for now. Felicia, still blushing, gives a small whimper before taking a deep breath to regain herself. Meekly, she asks [felicia.speech(W-Want more tea?)]
+		Immediately after letting out this small awoo, Felicia looks down and covers her mouth with her paw-like hands in embarrassment. With your [pc.hand] starting to cramp, and the dog-girl at the point of breaking, you decide that you've petted her enough for now. Felicia, still blushing, gives a small whimper as you take your [pc.hand] away, before taking a deep breath to regain herself. Meekly, she asks, [felicia.speech(W-What did you want to talk about now?)]
 	</p>
 	<p>
-		<b>You've reached the end of Felicia's content (for now)</b>
+		<b>You've reached the end of Felicia's content (for now)...</b>
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_LEWD -->
 	
 	<htmlContent tag="TALK_LEWD"><![CDATA[
 	<p>
-		[pc.speech(So, do you have a crush on Arthur?)] The way she acts about him, anyone would be curious. The girl looks you down, her puppy eyes gone.  
+		The way she acts about Arthur, anyone would be curious as to what their real relationship is. With this thought in mind, you ask Felicia if she has a crush on him.
 	</p>
 	<p>
-		[felicia.speech(No,)] she says flatly, [felicia.speech(He was a friend when I didn’t have any.  Nothing more.)]
+		[felicia.speech(No,)] she says flatly, the cute, innocent look in her puppy eyes immediately vanishing. With a steely tone in her voice, she flatly continues, [felicia.speech(He was a friend when I didn't have any. Nothing more.)]
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_LEWD_CONTINUE -->
 	
 	<htmlContent tag="TALK_LEWD_CONTINUE"><![CDATA[
 	<p>
-		[pc.speech(Do you have a crush on anyone else?)] Surely this dog girl can’t have any. [felicia.speech(No.)]
+		Wanting to find out more about this dog-girl's sex life, you ask her if she has a crush on anyone else.
+	</p>
+	<p>
+		Narrowing her eyes, Felicia shoots you a furious gaze for a moment, before taking a calming breath and simply replying, [felicia.speech(No.)]
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_LEWD_PUSH -->
 	
 	<htmlContent tag="TALK_LEWD_PUSH"><![CDATA[
 	<p>
-		She must be pent up, so innocent. To not even have a crush. You press on with your line of questioning and ask her what she'd think if someone had a crush on her, hoping to get some reaction. 
+		You can't believe how innocent she is, and to not even have a crush, she must be so pent up. You press on with your line of questioning and ask her what she'd think if someone had a crush on her, hoping to get some reaction. 
 	</p>
 	<p>
 		[felicia.speech(I'm fine, please stop,)] she snaps.
 	</p>
 	<p>
-		From her sharp tone and the angry glare in her eyes, you feel like it would probably be best to stop pushing her, or else [style.italicsBad(something bad will likely happen)]...
+		From her sharp tone and the furious glare in her eyes, you feel like it would probably be best to stop pushing her, or else [style.italicsBad(something bad will likely happen)]...
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- TALK_LEWD_DIG_DEEP -->
 	
 	<htmlContent tag="TALK_LEWD_DIG_DEEP"><![CDATA[
 	<p>
-		You move closer to her, the horny clearly in your eyes. Felicia can smell it, and now has a scowl on her face. [felicia.speech(Leave. Now,)] she speaks sternly. Looks like you struck a nerve.
+		Unable to get your horniness under control, you move closer to Felicia and start to make a move on her. An angry scowl suddenly breaks out across her face, and she sternly demands, [felicia.speech(Leave. Now!)]
 	</p>
 	<p>
-		[pc.speech(You sur-)]  [felicia.speech(Yes,)] she cuts you off, [felicia.speech(Leave before I force you out.)] 
+		Realising that you must have struck a nerve, you start to backtrack, but it's too late. Cutting you off as you start to speak, Felicia barks, [felicia.speech(Leave, before I force you out!)] 
 	</p>
 	<p>
-		Taken aback, and embarrassed for letting the horny get to you, you quickly leave her place before any further confrontation.
+		Taken aback, and embarrassed for letting the horny get to you, you stand up and head over to the door. Stomping along after you, the dog-girl slams the door shut after you the moment you [pc.step] out into the corridor. Not wanting to anger her any more, you quickly leave the apartment building...
 	</p>
 	]]>
 	</htmlContent>
