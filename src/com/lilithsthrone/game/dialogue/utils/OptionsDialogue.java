@@ -2238,6 +2238,15 @@ public class OptionsDialogue {
 									+ " When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
 									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
 							Main.getProperties().hasValue(PropertyValue.bipedalCloaca)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
+							"VESTIGIAL_MULTI_BREAST",
+							PresetColour.BASE_PURPLE_LIGHT,
+							"Vestigial Multi-breasts",
+							"When enabled, characters who have multiple rows of breasts will have the rows beneath their top one described as being vestigial in size."
+									+ " When disabled, breast rows will be described as being one cup size smaller than the one above them.",
+							Main.getProperties().hasValue(PropertyValue.vestigialMultiBreasts)));
+			
 			
 			if(contentOptionsPage==ContentOptionsPage.BODIES) {
 				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose how you want the game to display multi-breasts."));

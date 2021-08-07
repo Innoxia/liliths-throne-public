@@ -4,15 +4,15 @@
 	<coreAttributes>
 		<value>2500</value>
 		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA[gemstone ring]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[gemstone rings]]></namePlural>
-		<description><![CDATA[A band of metal, housing a cut and polished gemstone, which slides down onto a person's finger. Its slender, delicate shape makes it suitable only for feminine characters to wear.]]></description>
+		<name><![CDATA[heavy gemstone ring]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[heavy gemstone rings]]></namePlural>
+		<description><![CDATA[A heavy band of metal, housing a cut and polished gemstone, which slides down onto a person's finger. Its sturdy, thick shape is suitable for both masculine and feminine characters to wear.]]></description>
 		<physicalResistance>0</physicalResistance>
-		<femininity>FEMININE</femininity>
+		<femininity>ANDROGYNOUS</femininity>
 		<slot>FINGER</slot>
 		<rarity>COMMON</rarity>
 		<clothingSet/>
-		<imageName>gemstone_ring.svg</imageName>
+		<imageName>gemstone_ring_unisex.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>

@@ -20,214 +20,129 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Fixed issue where altering vaginal urethra plasticity was affecting penis urethra plasticity instead. (by Maxis)
-		Fixed bug where clothing replacements after sex would sometimes break if the clothing being replaced was of a type that was previously equipped to multiple slots. (by Maxis and deboucher)
+		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest. (by Rick and DSG)
+		Added samoyed-morph subspecies to the dog-morph race. (by DSG)
 	
 	Engine/Modding:
-		Added 'deskName' as a definable attribute within external 'worldType', 'placeType', and 'sexManager' files, which functions in the same way as 'wallName', allowing you to define the name of the 'desk' used in sex scenes.
-		Fixed issue where modded world types had '_worldType' appended to the end of their ids.
-		Added 'canRemoveClothingSeals' as an attribute in externally-defined sex managers to prevent characters from being able to unseal clothing during that scene.
+		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
 	
-	Artwork:
-		Added FriendlyAlienFriend's artwork of Takahashi to the game.
+	Body:
+		Added 'neck hair/fur' as a purely cosmetic transformation tied to a character's hair, which can be applied via potion or clothing TFs.
+		Chances to spawn with neck fur are: 25% for greater fox and wolf morphs, 100% for male lion morphs, 10% for greater female rabbit-morphs.
 	
-	Gameplay:
-		Added generic bandit encounters in the Foloi Fields. (They are a little basic at the moment and will be expanded upon at some point in the future.)
-		Filled in placeholder content for Yui.
-		Added content for the raccoon-girl (Nizhoni) in the centre of Elis's Farmer's Market.
-		Added content for the horse-boy (Moreno) in the centre of Elis's Farmer's Market.
-		Added new character 'Heather' (human) who runs the fortune telling stall in Elis's Farmer's Market.
-		Added new character 'Ms. Levine' (goat-girl) who runs the kissing booth in Elis's Farmer's Market.
-	
-	Sex:
-		During sex scenes in which the sub has less control than the dom, dominant AI sex partners will no longer end sex early (i.e. before the subs are satisfied).
-		Loosened requirements a little for the sex actions 'Object to rough' and 'Request rough sex'.
+	Clothing:
+		Added 'heavy gemstone ring' (finger slot, unisex, sold by Nyan). Also limited the default colours that these rings can spawn in with.
 	
 	Other:
-		Entering the Farmer's Market now places you at one of the four entry points instead of in the centre.
-		Clothing types can now be enchanted to have the 'vibration' and 'orgasm prevention' effects if it can be equipped into the groin, vagina, penis, anus, nipple, chest, nipple-piercing, cock-piercing, or vagina-piercing  slots.
-		Added a tufted tail type for panther-morphs, which is now assigned to newly-spawned lion-morphs.
-		Added ability to perform the 'Quick sex' action in all of Astrai's and Vronti's sex scenes.
-		Added ability to resist post-defeat sex with random centauress encounters in the fields (only if noncon is turned on).
-		The price of potions and elixirs is now influenced by how many effects they have.
+		Added a 'Vestigial Multi-breast' content setting to the 'Body' category (on by default), which affects whether multiple rows of breasts are described as being 'vestigial' or 'one cup size smaller than the one above' in size.
 	
 	Bugs:
-		Fixed visibility of armpit fetishes in the phone's fetish menu being locked behind foot content instead of armpit content.
-		Characters without legs can no longer use the 'spread legs' sex action.
-		Ralph no longer has randomised personality traits.
-		The 'desperate for sex' status effect now correctly only displays during combat.
-		Fixed issue where the SLime Queen wasn't correctly spawning wearing her tiara.
-		Fixed parsing issues in Lilaya's kimono gift scenes.
-		Fixed modding issue where setting an NPC to use a parser tag which had been previously assigned to an NPC wouldn't update the reference, causing the parser tag to always point to the first NPC who was given the parser tag.
-		Fixed post-submissive sex with centaur marauder/raider displaying a blank dialogue screen.
-		Reformatted potion item effects tooltip to fix an issue where having lots of effects on a potion would overflow the tooltip.
-		Pregnant/non-pregnant versions of character artwork are now automatically updated to be used when applicable, instead of requiring a save+load to be shown.
-		Fixed issue with several elements in externally-defined sex managers not using their correct default values.
+		Fixed bug where characters without hair could still be targeted for the 'Twintail pull' sex action.
+		Fixed bug in the 'Rogue Enforcer' quest, where completing the quest would sometimes lock you in a travel-disabled dialogue screen with no responses to choose from.
+		Fixed bug where the 'Morning cunnilingus'/'Morning blowjob' sex scenes with Scarlett during Helena's romance quest would never come to an end.
 	
 	
-	[x] Toys
-		[x] writing
-		[x] Make toys for demonstration stay on player
-			[x] writing change
-		[x] Name toys 'Yui's demo X'
+	
+	[x] Full Fields main quest written out from plan
+	[x] twintail pull available when they have no hair
+	[x] neck fluff
+		[x] Add TF
+			[x] test clothing
+			[x] test potion
+		[x] Body description
+		[x] Add to lions, wolves, foxes, female rabbits
+			[x] Apply to spawn method
+		[x] Save/load
+		[x] Self-TF menu
+		[x] test all
+	[x] add an option to make multitit vestigial
+		[x] property setting
 		[x] test
-		
-	[x] Make entry based on direction came from
+	[x] unisex gemstone ring
+		[x] limit gemstone colours
+	[x] trouble when you go to Enforcer HQ to talk to Wes to finish that side quest for me I get locked in place and can’t advance dialogue or change my location is anyone else having this problem or did I mess up when setting up the new update
+		 (I honestly default to blaming myself but I would like to know if anyone else has had this problem and if they were able to fix it)
+			https://github.com/Innoxia/liliths-throne-public/issues/1527
+	[x] Anyone else getting stuck in infinite morning cunnilingus loops with scarlet during the harpy business quests?
+	[x] Make post
+		[x] KT80 poll
+	[x] Ace's mod
 	
-	[x] Check zakik oral positioning
+	[] Felicia
+		Sawlty towers:
+			[x] Add Arthur's room as action 1 greyed-out after quest complete
+			[x] Felicia's room at 17:14 locks travel with no actions
+		[-] check Sawlty towers to see if it's retroactively created
+			[-] creation check from new
+		[x] Check main quest first meeting
+		[x] Move arthur dialogue to external text file
+		[x] Sawlty towers tile to append brief description that it's in the area
+		[x] Talk options
+			[x] Show lewd and pet but greyed-out
+				[x] Introduce name in inital intro
+				[x] Change name topic to talk about her long surname
+			[-] Limit each topic to once per day
+			[x] Make it clear that pushing too far will lock her content out
+		[x] Tile placeholders
+		[] Add debug requirement to trigger
+		[] Go through all writing and edit to make style consistent
+			[x] Main quest scene
+			[x] External apartment scenes
+			[] All interior scenes
+		[] Add initial description of her age
+		[] full test
+		[] git push & ask about:
+			Content expansion:
+				- Ask out on date (affection requirement first I guess)
+				- Repeat date until 3 dates completed
+				- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+				- Says she feels lewd towards player, can sex
+				- Option to give her TF potion to give her vagina (although she prefers giving oral)
+				- Repeat dates & sex is end content
 	
-	[x] Raccoon-girl Nizhoni
-		[x] Get 1 raffle ticket for winning
-		[x] Trade raffle tickets for:
-			[x] 1 Prize
-			[x] 1 go for walk
-				[x] she shows you around the backs of some of the stalls
-					[x] she asks you to join her in dumpster diving
-					[x] as she leans over a bin, you see that she's not wearing underwear
-					[x] can have sex there
-						[x] oral
-						[x] fuck her
-					[x] Add desk name parsing
-		[x] test flow
-			[x] She doesn't go back to stall if leave at bins
-			[x] sex positions incorrectly defined
-			[x] In sex cannot stop
-		[x] writing
-			[x] Need repeat walk variations
-		
-	[x] Remove daily limit
-		
-	[x] Horse-boy Moreno
-		[x] Get 1 raffle ticket for winning
-			[x] after winning can flirt, he gets turned on
-				[x] Go behind stall to:
-					[x] blowjob (extra protein)
-					[x] fucked (workout)
-		[x] Trade raffle tickets for prizes
-		[x] test flow
-			[x] cannot play again after winning
-		[x] Change shirt colour and give shorts
-		[x] writing
-		[x] full test
-			[x] cannot stop sex...
 	
-	[x] Make the 'Play again' button grey-out when won, with continue options on 3/4
-	[x] Need a "Total spent trying to win:" counter 
 	
-	[x] Affection increases for both Moreno and Nizhoni
+	[] Bugs
+		[] Are the field bandits supposed to be the same level as city bandits? That seems like a bug or oversight of some kind?
+		[] One of my slaves seems to be stuck on being a maid and their job won't change depending on what button I hit
+		[] some sex scenes never end, i have to press the quicksex button to end it, and in some cases i can't even do that, like the handjob scene with Scarlett at the slaver's den
+		[] from another user, the harpy boss transformatives still work when used as a demon
+		[] Scarlett does not end sex scene, and player cannot end it either, when inviting her out to lunch after trading back to Helena.
+		[] Takahashi has AddedToContacts set to false
+		[] Bug reports channel
 	
-	[x] Ralph needs personality traits (randomised atm?)
+	[] Maxis github permission
 	
-	[x] add vibrations for the nipple slot
-	[x] when you overhauled the species the lion morph is stuck with the panther tail for greater lion. When they should have a tufted tail.
-	[-] when beating as enforcer patrol and opening their inventory, the bug is back where you'd need to click twice and whatever is in the groin slot is duplicated in your inventory.
-		 Only happens for one of the two enforcers, the second one opens first time without any duplication
-	[x] SS messages
-	[x] Dom AIs ending sex too early?
-
-	[x] 'Continue' after submit sex with centaur raider is blank dialogue
-	[x] Astrapi no quick sex?
-	[x] Cannot resist in post-defeat centaur sex?
-		[x] Need resist action going into sex
-		[x] test
-	[x] Add writing for all basic tiles in market
-		[x] Remove MARKET_ENTER placeholder warning
-		[x] exit tile
+	[] I found that quick move to a location will not trigger the encounter? You have to move there by normal means?
 	
-	[x] Fortunes
-		[x] Named NPC - rabbit-girl trap (caged) - androphilic
-			[x] Body
-			[x] TF potions
-			[x] TF clothing (all with seals)
-			[x] Crystal ball reading (1 raffle ticket) is an enchanted item based on telekinesis (so it always involves both of you)
-				[x] Results vary if player thinks of:
-					- Power -> shows you sitting on a throne with the rabbit-girl serving you
-					- Fame -> shows rabbit-girl asking for your autograph
-					- Fortune -> shows rabbit-girl admiring all of the money you have
-					- Sex -> (only if androphilic) shows her naked, chastity cage on cock, asking how you'd like to fuck her
-						- She gets a bit flustered and tells you to think of something else
-							- thinking of sex again leads into her wanting sex, depending on what you think:
-								[x] Fucking her ass (fuck over desk)
-								[x] Receiving oral
-		[x] framework
-			[x] test flow
-				[x] allow repositioning
-				[x] clothing limits not set...
-				[x] Heather's chastity status effect should be max?
-		[x] Fix item TF descriptions running off screen
-		[x] Need to combine same consecutive effects in tooltip
-		[x] Fix TF potion prices
-		[x] writing
-			[x] place type wall/desk names
-			[x] heather should always be eager
-			[x] Add boolean in managers for unsealing clothing
-				[x] deny for Heather's scenes
-				[x] test
-			[x] generic sex should be manager
+	[] PRs
 	
-	[x] Add Takahashi artwork
-	
-	[x] can't "object to rough" even hating masochism. The option isn't even there, it's absent, not greyed out - like it's never been there to begin with
-		(?) req's for Object too rough are way to restrictive, compared to Request rough
-		
-	[x] Kissing
-		[x] Mean Greater Goat-girl (dominant handling money)
-		[x] 1 ticket for kiss (slaves)
-			[x] add to place population
-			[x] Cow-girl
-		[x] Say you want kiss from goat girl
-			She gets annoyed & refuses, dismissively says she'll kiss you for a thousand flames
-			Can offer 1000 flames for it
-				She reluctantly agrees to kiss
-				Ask how much to see her naked
-				She is angry, says five thousand
-				Pay up and go behind stall, she flashes breasts and pussy
-				She knows what you want, says ten thousand to eat her out, fifty thousand to fuck her
-		[x] framework
-			[x] test
-				[x] displace blouse
-				[x] remove underwear at start of sex
-				[x] she doesn't end sex...
-				[x] needs daily clean
-				[x] grey-highlighted fur
-				[x] post-sex finish needs to strip content
-		[x] writing
-			[x] Need lipstick text after kiss cow-girls
-			[x] Ziva to call player hun?
-			[x] Pregnancy reaction
-		[x] Prevent player position switching
-		
-	[x] Need Faire ticket boards at entrances
-		
-	[x] Sex.java:905
-		Extend check if(clothing.getClothingType().equals(c.getClothingType())) to if(clothing.getClothingType().equals(c.getClothingType()) && clothing.getSlotEquippedTo().equals(c.getSlotEquippedTo()))
-		This is to account for the same item type being equip to multiple slots with different displacement types
-		
-	[x] Bandits
-		[x] framework
-		[x] test
-			[x] manager errors
-			[x] slavery
-			[x] Repeat encounters sex scenes spawns the same (enslaved) character...
-			[x] clothing
-		[x] writing
-			[x] test win-submit-post sex
-		[x] reset 90 to 4
-	
-	[x] Cunningham has blonde pubes???
-	
-	[] Dialogue parsed before time passed...
+	[] Add Minotallys meeting
+		Overview:
+			She is refusing to believe that there's a problem (she says Lilith would intervene if there was a real issue)
+			Assistant knows it's serious, but cannot convince her
+			Manage to convince her to send contact to Themiscyra to confirm if Lunette's centaurs have attacked there yet
+		[] Meraxis meeting start
+		[] Town Hall access
+		[] Meet assistant
+			[] Portraits of Minotallys on the walls, he explains that she likes to change her appearance (and flavours) based on the day of the week
+		[] Minotallys meeting
+			[] She offers milk, Meraxis happily drinks it
+			[] Minotallys gets visibly turned on as she watches you drink (what it quite obviously) her milk
+		[] Business of Lunette
+		[] She agrees to have you and Meraxis visit Themiscyra to confirm if Lunette's centaurs have attacked there yet
+			[] Add to map
+			
+	[] Dialogue parsed before time passed
+		[] Add option to change this in dialogue, keep as it is for default as changing would probably break things
 	
 	[] Shopping precinct
 		[] Add 4 main NPCs
 	
-	[] Add Minotallys meeting
-	
-	PRs
-	
 	[] Need a place to deliver pregnancy in Elis
+		[] Medical centre
+			[] Incubus & succubus doctors
 	
-	Felicia
 	
 	Ashley
 	
