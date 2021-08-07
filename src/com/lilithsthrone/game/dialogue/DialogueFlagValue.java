@@ -446,6 +446,7 @@ public class DialogueFlagValue {
 	//Felicia
 	public static AbstractDialogueFlagValue feliciaAskedArthurPersonality = new AbstractDialogueFlagValue(false);
 	public static AbstractDialogueFlagValue feliciaAskedArthurHobbies = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerSurname = new AbstractDialogueFlagValue(false);
 	public static AbstractDialogueFlagValue feliciaAskedAboutHerPlace = new AbstractDialogueFlagValue(false);
 	public static AbstractDialogueFlagValue feliciaAskedAboutHerFur = new AbstractDialogueFlagValue(false);
 	public static AbstractDialogueFlagValue feliciaAskedAboutHerFavoriteStore = new AbstractDialogueFlagValue(false);
