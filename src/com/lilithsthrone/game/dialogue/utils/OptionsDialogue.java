@@ -1183,6 +1183,11 @@ public class OptionsDialogue {
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
+
+		@Override
+		public boolean isContentParsed() {
+			return false;
+		}
 	};
 	
 	public static final DialogueNode DISCLAIMER = new DialogueNode("", "", true) {

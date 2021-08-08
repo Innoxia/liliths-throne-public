@@ -2827,22 +2827,6 @@ public class Game implements XMLSaving {
 						if (getMapDisplay() == DialogueNodeType.NORMAL) {
 							initialPositionAnchor = positionAnchor;
 						}
-						
-						String dialogueParsed = UtilText.parse(
-											corruptionGains 
-											+ textStartStringBuilder.toString()
-											+ content
-											+ textEndStringBuilder.toString());
-						if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
-							dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
-						}
-						pastDialogueSB.append(dialogueParsed);
-						if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
-							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-							StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
-							clipboard.setContents(data, data);
-						}
-						
 					} else {
 						dialogueTitle = UtilText.parse(node.getLabel());
 						
@@ -2853,23 +2837,20 @@ public class Game implements XMLSaving {
 							positionAnchor = 0;
 						
 						pastDialogueSB.setLength(0);
-						
-						String dialogueParsed = UtilText.parse(
-										corruptionGains
-										+ textStartStringBuilder.toString()
-										+ content
-										+ textEndStringBuilder.toString());
-						if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
-							dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
-						}
-						pastDialogueSB.append(dialogueParsed);
-						if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
-							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-							StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
-							clipboard.setContents(data, data);
-						}
 					}
-					
+					String dialogueParsed = UtilText.parse(corruptionGains + textStartStringBuilder.toString())
+						+ (node.isContentParsed() ? UtilText.parse(content) : content)
+						+ UtilText.parse(textEndStringBuilder.toString());
+					if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
+						dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
+					}
+					pastDialogueSB.append(dialogueParsed);
+					if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+						Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+						StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+						clipboard.setContents(data, data);
+					}
+
 				} else {
 					dialogueTitle = UtilText.parse(node.getLabel());
 				}
@@ -3064,6 +3045,7 @@ public class Game implements XMLSaving {
 			}
 		}
 		
+		String dialogueParsed;
 		if (currentDialogueNode != null) {
 			if (node.isContinuesDialogue() || response.isForceContinue()) {
 				if(Main.game.isInSex()) {
@@ -3078,20 +3060,10 @@ public class Game implements XMLSaving {
 					pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>"));
 				}
 				
-				String dialogueParsed = UtilText.parse(
-						textStartStringBuilder.toString()
-						+ content
-						 + textEndStringBuilder.toString());
-				if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
-					dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
-				}
-				pastDialogueSB.append(dialogueParsed);
-				if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
-					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-					StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
-					clipboard.setContents(data, data);
-				}
-					
+				dialogueParsed = UtilText.parse(
+					textStartStringBuilder.toString())
+					+ (node.isContentParsed() ? UtilText.parse(content) : content)
+					+ UtilText.parse(textEndStringBuilder.toString());
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
 				if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
@@ -3100,39 +3072,29 @@ public class Game implements XMLSaving {
 				
 				pastDialogueSB.setLength(0);
 				
-				String dialogueParsed = UtilText.parse(
-						"<b id='position" + positionAnchor + "'></b>"
-						+ textStartStringBuilder.toString()
-						+ content
-						 + textEndStringBuilder.toString());
-				if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
-					dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
-				}
-				pastDialogueSB.append(dialogueParsed);
-				if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
-					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-					StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
-					clipboard.setContents(data, data);
-				}
+				dialogueParsed = UtilText.parse(
+					"<b id='position" + positionAnchor + "'></b>"
+					+ textStartStringBuilder.toString())
+					+ (node.isContentParsed() ? UtilText.parse(content) : content)
+					+ UtilText.parse(textEndStringBuilder.toString());
 			}
-			
 		} else {
 			dialogueTitle = UtilText.parse(node.getLabel());
 			pastDialogueSB.setLength(0);
 			
-			String dialogueParsed = UtilText.parse(
-					textStartStringBuilder.toString()
-					+ content
-					 + textEndStringBuilder.toString());
-			if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
-				dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
-			}
-			pastDialogueSB.append(dialogueParsed);
-			if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
-				clipboard.setContents(data, data);
-			}
+			dialogueParsed = UtilText.parse(textStartStringBuilder.toString())
+				+ (node.isContentParsed() ? UtilText.parse(content) : content)
+				+ UtilText.parse(textEndStringBuilder.toString());
+		}
+
+		if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
+			dialogueParsed = UtilText.convertToAmericanEnglish(dialogueParsed);
+		}
+		pastDialogueSB.append(dialogueParsed);
+		if(isAutomaticDialogueCopy() && Main.game.isStarted()) {
+			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+			StringSelection data = new StringSelection(formatContentForAutomaticClipboard(dialogueParsed));
+			clipboard.setContents(data, data);
 		}
 		
 		if(node != currentDialogueNode) {
