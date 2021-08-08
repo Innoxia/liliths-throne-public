@@ -134,8 +134,8 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.3.4.5
- * @author Innoxia, tukaima
+ * @version 0.4.2
+ * @author Innoxia, tukaima, Maxis
  */
 public class CharacterUtils {
 	

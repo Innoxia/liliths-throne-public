@@ -2,11 +2,8 @@ package com.lilithsthrone.game.character.race;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -15,6 +12,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -25,8 +23,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.9.1
- * @version 0.4.0
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, Maxis
  */
 public abstract class AbstractRace {
 

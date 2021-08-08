@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -58,8 +59,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, Maxis
  */
 public class OptionsDialogue {
 	
@@ -1392,7 +1393,7 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"
-							+ "These options will determine the likely hood of random NPCs having these fetishes & preferences."
+							+ "These options will determine the likelihood of random NPCs having these fetishes & preferences."
 							+ " Some races are more likely to get specific fetishes, but your preferences will be taken into account wherever possible.<br/>"
 							+ " Content settings will enable/disable related fetishes."
 							+ "</div>"
@@ -1462,13 +1463,23 @@ public class OptionsDialogue {
 		
 		return sb.toString();
 	}
+
+	public static String getInformationDiv(String id, TooltipInformationEventListener information) {
+		Game.informationTooltips.put(id, information);
+		return "<div class='title-button no-select' id='"+id+"' style='position:relative; float:left; background:transparent; padding:0; margin:0;'>"
+					+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()
+				+"</div>";
+	}
 	
 	private static String getFetishPreferencesPanel(Fetish fetish) {
 		StringBuilder sb = new StringBuilder();
 		
+		Colour highlightColour = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getColour();
+		
 		sb.append("<div style='display:inline-block; margin:4px auto;width:100%;'>"
 				+ "<div style='display:inline-block; margin:0 auto;'>"
-				+ "<div style='width:170px; float:left;'><b>"+Util.capitaliseSentence(fetish.getName(null))+"</b></div>");
+				+ getInformationDiv(fetish.toString()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
+				+ "<div style='width:150px; float:left;'><b style='color:"+highlightColour.toWebHexString()+";'>"+Util.capitaliseSentence(fetish.getName(null))+"</b></div>");
 		
 		for(FetishPreference preference : FetishPreference.values()) {
 			String disabledMsg=null;
@@ -1500,7 +1511,7 @@ public class OptionsDialogue {
 				break;
 			} else {
 				sb.append("<div id='"+preference+"_"+fetish+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
-						+Util.capitaliseSentence(preference.getName())
+							+Util.capitaliseSentence(preference.getName())
 						+"</div>");
 			}
 		}

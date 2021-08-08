@@ -233,8 +233,8 @@ import javafx.stage.FileChooser;
  * This method was causing MainController to lag out Eclipse, so I moved it to a separate file.
  *
  * @since 0.2.5
- * @version 0.3.7
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, Maxis
  */
 public class MainControllerInitMethod {
 
@@ -572,9 +572,9 @@ public class MainControllerInitMethod {
 		
 		
 		// -------------------- Inventory listeners -------------------- //
-		
-		if(Main.game.isStarted()) {
-			
+
+
+		if(Main.game.isStarted() || Main.game.getCurrentDialogueNode().equals(OptionsDialogue.FETISH_PREFERENCE)) {
 			for(Entry<String, TooltipInformationEventListener> entry : Game.informationTooltips.entrySet()) {
 				id = entry.getKey();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -583,8 +583,9 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseenter", entry.getValue(), false);
 				}
 			}
-			
-			
+		}
+		
+		if(Main.game.isStarted()) {
 			id = "";
 			
 			// Gifts:
