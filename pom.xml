@@ -59,28 +59,88 @@
 
 			<!-- See this section of the OpenJFX doc -->
 			<!-- https://openjfx.io/openjfx-docs/modular#Non-Mod -->
-			<!-- It creates a JAR with the JavaFX libraries built-in, inflating it from about 23 MB to 120 MB. -->
-			<!-- Mostly thanks to having to bundle 3 separate copies of libjfxwebkit for Windows/Mac/Linux.-->
+			<!-- It creates 3 JARs (one per OS) with the JavaFX libraries built-in, inflating it from about 23 MB to 60 MB per JAR. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.0</version>
+				<dependencies>
+
+				</dependencies>
 				<executions>
 					<execution>
+						<id>shade-javafx-win</id>
 						<phase>package</phase>
 						<goals>
 							<goal>shade</goal>
 						</goals>
+						
 						<configuration>
 							<shadedArtifactAttached>true</shadedArtifactAttached>
-							<shadedClassifierName>project-classifier</shadedClassifierName>
-							<outputFile>target\${project.artifactId}-with-javafx.jar</outputFile>
+							<shadedClassifierName>with-javafx-win</shadedClassifierName>
 							<transformers>
 								<transformer implementation=
 													 "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.lilithsthrone.main.Launcher</mainClass>
 								</transformer>
 							</transformers>
+
+							<artifactSet>
+								<excludes>
+									<exclude>org.openjfx:javafx-*:mac</exclude>
+									<exclude>org.openjfx:javafx-*:linux</exclude>
+								</excludes>
+							</artifactSet>
+						</configuration>
+					</execution>
+					<execution>
+						<id>shade-javafx-mac</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+
+						<configuration>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>with-javafx-mac</shadedClassifierName>
+							<transformers>
+								<transformer implementation=
+													 "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.lilithsthrone.main.Launcher</mainClass>
+								</transformer>
+							</transformers>
+
+							<artifactSet>
+								<excludes>
+									<exclude>org.openjfx:javafx-*:win</exclude>
+									<exclude>org.openjfx:javafx-*:linux</exclude>
+								</excludes>
+							</artifactSet>
+						</configuration>
+					</execution>
+					<execution>
+						<id>shade-javafx-linux</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+
+						<configuration>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>with-javafx-linux</shadedClassifierName>
+							<transformers>
+								<transformer implementation=
+													 "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.lilithsthrone.main.Launcher</mainClass>
+								</transformer>
+							</transformers>
+
+							<artifactSet>
+								<excludes>
+									<exclude>org.openjfx:javafx-*:win</exclude>
+									<exclude>org.openjfx:javafx-*:mac</exclude>
+								</excludes>
+							</artifactSet>
 						</configuration>
 					</execution>
 				</executions>
