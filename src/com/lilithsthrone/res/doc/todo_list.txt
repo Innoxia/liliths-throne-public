@@ -22,6 +22,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Contributors:
 		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest. (by Rick and DSG)
 		Added samoyed-morph subspecies to the dog-morph race. (by DSG)
+		Added a new fetish preference menu to the options menu, which allows you to set values for influencing the fetishes and desires random NPCs will be generated with. (PR#1553 by Maxis)
 	
 	Engine/Modding:
 		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
@@ -53,6 +54,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The 'Thigh squeeze' orgasm action can no longer be used by characters who don't have legs.
 		Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.
 	
+	[] PRs
+		[x] 1553
+			[x] Test save/load
+			[x] Add hyena definitions as example
+				[x] Test
+			[x] Add colours and 'i' icons for tooltips for the fetish menu
+	
+	
+	[] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
 	
 	[x] Full Fields main quest written out from plan
 	[x] twintail pull available when they have no hair
@@ -127,8 +137,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] Characters without legs can still use 'Thigh squeeze' orgasm action
 		[x] Jhortax and Fyrsia are both missing their weapons when first encountering Meraxis (didn't even take from them during their first fights, bypassed them entirely)
 		
-	[] PRs
-	
 	
 	
 	[] Add Minotallys meeting
