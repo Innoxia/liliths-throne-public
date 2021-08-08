@@ -64,8 +64,8 @@ public class FieldsBandit extends NPC {
 				generationFlags);
 
 		if(!isImported) {
-			// Set random level from 5 to 10:
-			setLevel(Util.random.nextInt(6) + 5);
+			// Set random level from 10 to 20:
+			setLevel(10 + Util.random.nextInt(11));
 			
 			// RACE & NAME:
 			
@@ -204,7 +204,7 @@ public class FieldsBandit extends NPC {
 
 	@Override
 	public void applyEscapeCombatEffects() {
-		this.returnToHome();
+		Main.game.banishNPC(this);
 	}
 	
 	@Override

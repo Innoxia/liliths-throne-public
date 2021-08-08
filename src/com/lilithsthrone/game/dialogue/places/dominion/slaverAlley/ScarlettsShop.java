@@ -314,6 +314,10 @@ public class ScarlettsShop {
 				return character.getMainSexPreference(targetedCharacter);
 			}
 			@Override
+			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+				return Main.sex.isSatisfiedFromOrgasms(partner, true);
+			}
+			@Override
 			public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
 				if(!character.isPlayer()) {
 					return OrgasmBehaviour.CREAMPIE;

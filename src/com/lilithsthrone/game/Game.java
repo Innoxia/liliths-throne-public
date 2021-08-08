@@ -153,7 +153,7 @@ import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
 import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
 import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
-import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -1041,6 +1041,9 @@ public class Game implements XMLSaving {
 										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
 									}
 								}
+								if(Main.isVersionOlderThan(loadingVersion, "0.4.1.5")) {
+									className = className.replace("SubmissionCitadelArcanist", "Takahashi");
+								}
 								if(Main.isVersionOlderThan(loadingVersion, "0.4")) {
 									className = className.replace("BatMorphCavernAttacker", "BatCavernLurkerAttacker");
 									className = className.replace("SlimeCavernAttacker", "BatCavernSlimeAttacker");
@@ -1265,7 +1268,7 @@ public class Game implements XMLSaving {
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
-						Main.game.getNpc(SubmissionCitadelArcanist.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+						Main.game.getNpc(Takahashi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 					}
 					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 						Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL);
@@ -1613,6 +1616,14 @@ public class Game implements XMLSaving {
 				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5") && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					Main.game.getNpc(Felicia.class).setPlayerKnowsName(true); // If progressed past meeting Felicia, set her name as known
 		        }
+
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc instanceof FieldsBandit && !npc.isSlave() && !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) { 
+							Main.game.banishNPC(npc); // Catch for fields bandits who were stuck in the fields (happened if player escaped from combat with them)
+						}
+					}
+		        }
 				
 				Main.game.pendingSlaveInStocksReset = false;
 				
@@ -1781,7 +1792,7 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Arthur.class))) { addNPC(new Arthur(), false); addedNpcs.add(Arthur.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lyssieth.class))) { addNPC(new Lyssieth(), false); addedNpcs.add(Lyssieth.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Elizabeth.class))) { addNPC(new Elizabeth(), false); addedNpcs.add(Elizabeth.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SubmissionCitadelArcanist.class))) { addNPC(new SubmissionCitadelArcanist(), false); addedNpcs.add(SubmissionCitadelArcanist.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Takahashi.class))) { addNPC(new Takahashi(), false); addedNpcs.add(Takahashi.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(DarkSiren.class))) { addNPC(new DarkSiren(), false); addedNpcs.add(DarkSiren.class); }
 			
 			if(addedNpcs.contains(Lilaya.class)) {
@@ -2467,6 +2478,7 @@ public class Game implements XMLSaving {
 				// Non-unique NPCs get a new inventory every day:
 				// Do this before npc.dailyUpdate(), as the daily update method might need to set items (as is the case for reindeer overseers).
 				if(!npc.isSlave()
+						&& !npc.isElemental()
 						&& !npc.isUnique()
 						&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
 						&& !Main.game.isInCombat()

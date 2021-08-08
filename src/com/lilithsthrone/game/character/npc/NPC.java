@@ -1177,6 +1177,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		this.lastTimeEncountered = minutesPassed;
 	}
 
+	@Override
+	public void setPlayerKnowsName(boolean playerKnowsName) {
+		super.setPlayerKnowsName(playerKnowsName);
+		if(isAddedToContacts() && Main.game.getPlayer()!=null) {
+			Main.game.getPlayer().addCharacterEncountered(this);
+		}
+	}
+	
 	public boolean isAddedToContacts() {
 		return addedToContacts;
 	}

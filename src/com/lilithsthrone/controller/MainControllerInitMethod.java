@@ -5929,7 +5929,8 @@ public class MainControllerInitMethod {
 											}
 											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 											
-										} else if((javaSucks.getPerkPoints()>=1 || javaSucks.getAdditionalPerkCategoryPoints(e.getCategory())>javaSucks.getPerksInCategory(e.getCategory())-PerkManager.getInitialPerkCount(javaSucks, e.getCategory()))
+										} else if((javaSucks.getPerkPoints()>=1
+													|| javaSucks.getAdditionalPerkCategoryPoints(e.getCategory()) > Math.max(0, javaSucks.getPerksInCategory(e.getCategory())-PerkManager.getInitialPerkCount(javaSucks, e.getCategory())))
 												&& PerkManager.MANAGER.isPerkAvailable(javaSucks, e)) {
 											if(javaSucks.addPerk(e.getRow(), e.getEntry())) {
 												if(e.getEntry().isEquippableTrait() && javaSucks.getTraits().size()<GameCharacter.MAX_TRAITS) {

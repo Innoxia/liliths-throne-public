@@ -118,6 +118,7 @@ import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -9743,6 +9744,9 @@ public class UtilText {
 		}
 		for(AbstractPerk p : Perk.getAllPerks()) {
 			engine.put("PERK_"+Perk.getIdFromPerk(p), p);
+		}
+		for(PerkCategory pk : PerkCategory.values()) {
+			engine.put("PERK_CATEGORY_"+pk.toString(), pk);
 		}
 		for(AbstractStatusEffect sa : StatusEffect.getAllStatusEffects()) {
 			engine.put("SE_"+StatusEffect.getIdFromStatusEffect(sa), sa);
