@@ -113,6 +113,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.effects.TreeEntry;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
@@ -230,7 +231,7 @@ import javafx.stage.FileChooser;
 
 /**
  * This method was causing MainController to lag out Eclipse, so I moved it to a separate file.
- * 
+ *
  * @since 0.2.5
  * @version 0.3.7
  * @author Innoxia
@@ -307,7 +308,7 @@ public class MainControllerInitMethod {
 				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
 				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
 				|| Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)) {
-			GameCharacter character = 
+			GameCharacter character =
 					Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
 						? Main.game.getPlayer()
 						: (Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)
@@ -875,7 +876,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), null, null);
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);	
+						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
 				id = "FLOOR_MONEY_TRANSFER_SMALL";
@@ -1412,7 +1413,7 @@ public class MainControllerInitMethod {
 
 						boolean unsuitableName = false;
 						if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
-							 
+							
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
 								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
@@ -1428,7 +1429,7 @@ public class MainControllerInitMethod {
 								});
 							}
 						}
-							
+						
 					}, false);
 				}
 			}
@@ -1499,7 +1500,7 @@ public class MainControllerInitMethod {
 							}
 							
 						}
-							
+						
 					}, false);
 				}
 
@@ -1543,7 +1544,7 @@ public class MainControllerInitMethod {
 								});
 							}
 						}
-							
+						
 					}, false);
 				}
 
@@ -1583,7 +1584,7 @@ public class MainControllerInitMethod {
 							}
 							
 						}
-							
+						
 					}, false);
 				}
 			}
@@ -1618,7 +1619,7 @@ public class MainControllerInitMethod {
 							}
 							
 						}
-							
+						
 					}, false);
 				}
 				
@@ -2286,7 +2287,7 @@ public class MainControllerInitMethod {
 							}
 							
 						}
-							
+						
 					}, false);
 				}
 			}
@@ -5903,7 +5904,7 @@ public class MainControllerInitMethod {
 				} else if(Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_PERKS) {
 					character = Main.game.getPlayer().getElemental();
 				}
-						
+				
 				for(int i = 0; i<PerkManager.ROWS; i++) {
 					for(Entry<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>> entry : PerkManager.MANAGER.getPerkTree(character).get(i).entrySet()) {
 						for(TreeEntry<PerkCategory, AbstractPerk> e : entry.getValue()) {
@@ -6131,6 +6132,46 @@ public class MainControllerInitMethod {
 							Main.saveProperties();
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
+					}
+				}
+			}
+		}
+		
+		// NPC Fetish spawn preferences:
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FETISH_PREFERENCE) {
+			for (Fetish f : Fetish.values()) {
+				if(!Main.game.isPenetrationLimitationsEnabled() && f == Fetish.FETISH_SIZE_QUEEN) {
+					continue;
+				}
+				if(!Main.game.isNonConEnabled() && (f == Fetish.FETISH_NON_CON_DOM || f == Fetish.FETISH_NON_CON_SUB)) {
+					continue;
+				}
+				if(!Main.game.isIncestEnabled() && f == Fetish.FETISH_INCEST) {
+					continue;
+				}
+				if(!Main.game.isLactationContentEnabled() && (f == Fetish.FETISH_LACTATION_OTHERS || f == Fetish.FETISH_LACTATION_SELF)) {
+					continue;
+				}
+				if(!Main.game.isAnalContentEnabled() && (f == Fetish.FETISH_ANAL_GIVING || f == Fetish.FETISH_ANAL_RECEIVING)) {
+					continue;
+				}
+				if(!Main.game.isFootContentEnabled() && (f == Fetish.FETISH_FOOT_GIVING || f == Fetish.FETISH_FOOT_RECEIVING)) {
+					continue;
+				}
+				for(FetishPreference preference : FetishPreference.values()) {
+					id=preference+"_"+f;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.getProperties().fetishPreferencesMap.put(f, preference.getValue());
+							Main.saveProperties();
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
+							Util.capitaliseSentence(preference.getName()),
+							preference.getTooltip());
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 				}
 			}
@@ -7319,7 +7360,7 @@ public class MainControllerInitMethod {
 							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Import Failed!");
 						}
 						
-							
+						
 					}, false);
 				}
 			}

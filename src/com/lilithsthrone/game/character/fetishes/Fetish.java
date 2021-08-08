@@ -2078,4 +2078,8 @@ public enum Fetish {
 	public static int getExperienceGainFromTakingOtherVirginity(GameCharacter owner) {
 		return owner.getLevel();
 	}
+	
+	public FetishPreference getFetishPreferenceDefault() {
+		return FetishPreference.THREE_NEUTRAL;
+	}
 }
