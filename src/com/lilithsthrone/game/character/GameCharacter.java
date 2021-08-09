@@ -7256,14 +7256,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return uniqueCount.keySet().size();
 	}
 	
-	public boolean hasSexCountWith(GameCharacter partner) {
-		String key = "unknown";
-		if(partner!=null) {
-			key = partner.getId();
-		}
-		return sexCount.containsKey(key);
-	}
-
 	public Map<String, SexCount> getSexCountMap() {
 		return sexCount;
 	}

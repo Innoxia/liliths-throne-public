@@ -23,7 +23,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest. (by Rick and DSG)
 		Added samoyed-morph subspecies to the dog-morph race. (by DSG)
 		Added a new fetish preference menu to the options menu, which allows you to set values for influencing the fetishes and desires random NPCs will be generated with. (PR#1553 by Maxis)
-		Prevented aptch notes from being run through the parsing engine, which was occasionally causing null pointer exceptions. (PR#1567 by Stadler76)
+		Prevented patch notes from being run through the parsing engine, which was occasionally causing null pointer exceptions. (PR#1567 by Stadler76)
+		Removed the hasSexCountWith() method and replaced all of its uses with the getTotalTimesHadSex() method to fix issues with inconsistencies in dialogues. (PR#1568 by AceXP)
 	
 	Engine/Modding:
 		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
@@ -56,13 +57,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.
 	
 	[] PRs
-		[x] 1553
-			[x] Test save/load
-			[x] Add hyena definitions as example
-				[x] Test
-			[x] Add colours and 'i' icons for tooltips for the fetish menu
-		[] 1567
-			[] Test
 	
 	[] Allow Felicia contact without debug
 	

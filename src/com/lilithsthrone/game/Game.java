@@ -508,7 +508,7 @@ public class Game implements XMLSaving {
 					if(((Element)((Element)((Element)characterElement.getElementsByTagName("character").item(0)).getElementsByTagName("core").item(0)).getElementsByTagName("id").item(0)).getAttribute("value").equals("PlayerCharacter")) {
 						importedLodger.setBirthday(importedLodger.getBirthday().plusYears(18)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
 					}
-				} catch(Exception ex) {	
+				} catch(Exception ex) {
 				}
 				Main.game.addNPC(importedLodger, false);
 				importedLodger.applyNewlyImportedLodgerVariables();
@@ -3064,6 +3064,7 @@ public class Game implements XMLSaving {
 					textStartStringBuilder.toString())
 					+ (node.isContentParsed() ? UtilText.parse(content) : content)
 					+ UtilText.parse(textEndStringBuilder.toString());
+				
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
 				if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
@@ -4361,7 +4362,7 @@ public class Game implements XMLSaving {
 	/**
 	 * Generates and instantly adds a new NPC of the type 'npcGenerationId'.
 	 * The game does not wait until the NPC Update Loop has finished, and will immediately add this NPC.
-	 * 
+	 *
 	 * @param npcGenerationId The ID of the NPC class to spawn.
 	 * @param parserTarget The parser id to assign to this NPC, which can then be used in the parsing engine. Pass in an empty String or a null to not assign a parserTarget to this NPC.
 	 * @return The ID of the NPC which is spawned as a result of calling this method.
@@ -4474,7 +4475,7 @@ public class Game implements XMLSaving {
 		}
 		
 		// TODO This needs more thorough testing...
-//				Main.game.getPlayer().hasSexCountWith(npc)
+//				Main.game.getPlayer().getTotalTimesHadSex(npc) > 0
 //				|| npc.getLastLitterBirthed()!=null
 //				|| npc.getMother()!=null
 //				|| npc.getFather()!=null
