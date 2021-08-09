@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
-import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -125,7 +125,7 @@ public class ImpCitadelDialogue {
 		for(GameCharacter character : getBossGroup(false)) {
 			character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		}
-		Main.game.getNpc(SubmissionCitadelArcanist.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		Main.game.getNpc(Takahashi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		
 		// Sort out boss:
 		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
@@ -299,8 +299,8 @@ public class ImpCitadelDialogue {
 		return Main.game.getNpc(DarkSiren.class);
 	}
 	
-	public static SubmissionCitadelArcanist getArcanist() {
-		return (SubmissionCitadelArcanist) Main.game.getNpc(SubmissionCitadelArcanist.class);
+	public static Takahashi getArcanist() {
+		return (Takahashi) Main.game.getNpc(Takahashi.class);
 	}
 
 	public static GameCharacter getMainCompanion() {

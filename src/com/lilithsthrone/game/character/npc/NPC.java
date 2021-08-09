@@ -464,7 +464,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		// Sex:
-		if(this.hasSexCountWith(Main.game.getPlayer())) {
+		if(this.getTotalTimesHadSex(Main.game.getPlayer()) > 0) {
 			
 			if(this.getSexAsDomCount(Main.game.getPlayer())>0) {
 				tileSB.append("<br/>");
@@ -1240,6 +1240,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		this.lastTimeEncountered = minutesPassed;
 	}
 
+	@Override
+	public void setPlayerKnowsName(boolean playerKnowsName) {
+		super.setPlayerKnowsName(playerKnowsName);
+		if(isAddedToContacts() && Main.game.getPlayer()!=null) {
+			Main.game.getPlayer().addCharacterEncountered(this);
+		}
+	}
+	
 	public boolean isAddedToContacts() {
 		return addedToContacts;
 	}

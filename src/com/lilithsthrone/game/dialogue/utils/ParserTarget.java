@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
+import com.lilithsthrone.game.character.npc.dominion.Felicia;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
@@ -91,7 +92,7 @@ import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
 import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
 import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
-import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -640,6 +641,17 @@ public class ParserTarget {
 		}
 	};
 	
+	public static AbstractParserTarget FELICIA = new AbstractParserTarget(Util.newArrayListOfValues("felicia"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Felicia.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Felicia.class);
+		}
+	};
+	
 	public static AbstractParserTarget ARTHUR = new AbstractParserTarget(Util.newArrayListOfValues("arthur"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(Arthur.class).getDescription();
@@ -946,12 +958,12 @@ public class ParserTarget {
 	
 	public static AbstractParserTarget CITADEL_ARCANIST = new AbstractParserTarget(Util.newArrayListOfValues("citadelArcanist", "youkoGuide", "hitomi", "takahashi"), "") {
 		public String getDescription() {
-			return Main.game.getNpc(SubmissionCitadelArcanist.class).getDescription();
+			return Main.game.getNpc(Takahashi.class).getDescription();
 		}
 
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
-			return Main.game.getNpc(SubmissionCitadelArcanist.class);
+			return Main.game.getNpc(Takahashi.class);
 		}
 	};
 	

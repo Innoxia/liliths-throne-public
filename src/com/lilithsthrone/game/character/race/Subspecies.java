@@ -4285,6 +4285,12 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
 		@Override
+		public void applySpeciesChanges(Body body) {
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
+				body.getHair().setNeckFluff(null, Math.random()<0.1f);
+			}
+		}
+		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {
 					"jackalope",
@@ -4307,7 +4313,6 @@ public class Subspecies {
 			
 			return names;
 		}
-
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.RABBIT_MORPH) {
@@ -4377,6 +4382,9 @@ public class Subspecies {
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
 				body.getEar().setType(null, EarType.RABBIT_MORPH_FLOPPY);
+			}
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
+				body.getHair().setNeckFluff(null, Math.random()<0.1f);
 			}
 		}
 		@Override

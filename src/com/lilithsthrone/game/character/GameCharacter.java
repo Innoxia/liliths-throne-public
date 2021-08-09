@@ -7267,14 +7267,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return uniqueCount.keySet().size();
 	}
 	
-	public boolean hasSexCountWith(GameCharacter partner) {
-		String key = "unknown";
-		if(partner!=null) {
-			key = partner.getId();
-		}
-		return sexCount.containsKey(key);
-	}
-
 	public Map<String, SexCount> getSexCountMap() {
 		return sexCount;
 	}
@@ -20818,6 +20810,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(this.isPlayer()
 					|| !Main.getProperties().difficultyLevel.isNPCLevelScaling()
 					|| (this.isSlave() && this.getOwner().isPlayer())
+					|| (this.isElemental() && ((Elemental)this).getSummoner()!=null && ((Elemental)this).getSummoner().isPlayer())
 					|| Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
 					|| (this.getPartyLeader()!=null && this.getPartyLeader().isPlayer())) {
 				return level;
@@ -22522,6 +22515,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+		
+		// Remove chastity effects (the other CHASTITY_REMOVED effects remove their associated chastity effect, so only CHASTITY_1 needs to be manually removed here):
+		if(!this.isWearingChastity()) {
+			this.removeStatusEffect(StatusEffect.CHASTITY_1);
+		}
+		
 		updateInventoryListeners();
 	}
 
@@ -27513,6 +27512,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setHairStyle(HairStyle hairStyle) {
 		return body.getHair().setStyle(this, hairStyle);
+	}
+	// Neck fluff:
+	public boolean isNeckFluff() {
+		return body.getHair().isNeckFluff();
+	}
+	public String setNeckFluff(boolean neckFluff) {
+		return body.getHair().setNeckFluff(this, neckFluff);
 	}
 	// Covering:
 	public String setHairCovering(Covering covering, boolean updateBodyHair) {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>2500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[heavy gemstone ring]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[heavy gemstone rings]]></namePlural>
+		<description><![CDATA[A heavy band of metal, housing a cut and polished gemstone, which slides down onto a person's finger. Its sturdy, thick shape is suitable for both masculine and feminine characters to wear.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>FINGER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>gemstone_ring_unisex.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_GOLD</colour>
+			<colour>CLOTHING_SILVER</colour>
+			<colour>CLOTHING_BRONZE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_ORANGE_DARK</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_GREEN</colour>
+			<colour>CLOTHING_GREEN_DARK</colour>
+			<colour>CLOTHING_TURQUOISE</colour>
+			<colour>CLOTHING_BLUE_LIGHT</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring onto [npc.her] [npc.finger].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring onto [npc2.namePos] [npc.finger].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the gemstone ring onto [npc2.namePos] [npc.finger].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring off [npc.her] [npc.finger].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring off [npc2.namePos] [npc.finger].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] the gemstone ring off [npc2.namePos] [npc.finger].]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

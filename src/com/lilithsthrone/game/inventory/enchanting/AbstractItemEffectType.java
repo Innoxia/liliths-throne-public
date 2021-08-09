@@ -290,7 +290,8 @@ public abstract class AbstractItemEffectType {
 						);
 			case TF_HAIR:
 				return Util.newArrayListOfValues(
-						TFModifier.TF_MOD_SIZE// hair length
+						TFModifier.TF_MOD_SIZE,// hair length
+						TFModifier.TF_MOD_SIZE_SECONDARY// neck floof
 						);
 			case TF_PENIS:
 				List<TFModifier> penisMods = Util.newArrayListOfValues(
@@ -738,6 +739,30 @@ public abstract class AbstractItemEffectType {
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "hair length", Units.size(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
+						break;
+					case TF_MOD_SIZE_SECONDARY:
+						switch(potency) {
+							case MINOR_BOOST:
+								descriptions.add("In a week, grows neck fluff.");
+								break;
+							case BOOST:
+								descriptions.add("In a day, grows neck fluff.");
+								break;
+							case MAJOR_BOOST:
+								descriptions.add("In an hour, grows neck fluff.");
+								break;
+							case MINOR_DRAIN:
+								descriptions.add("In a week, removes neck fluff.");
+								break;
+							case DRAIN:
+								descriptions.add("In a day, removes neck fluff.");
+								break;
+							case MAJOR_DRAIN:
+								descriptions.add("In an hour, removes neck fluff.");
+								break;
+							default:
+								break;
+						}
 						break;
 					default:
 						break;
@@ -1561,6 +1586,17 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setHairLength(limit));
 							}
 							break;
+						case TF_MOD_SIZE_SECONDARY:
+							if(potency.isNegative()) {
+								if(target.isNeckFluff()) {
+									sb.append(target.setNeckFluff(false));
+								}
+							} else {
+								if(!target.isNeckFluff()) {
+									sb.append(target.setNeckFluff(true));
+								}
+							}
+							break;
 						default:
 							break;
 					}
@@ -2341,6 +2377,7 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				break;
 				
 			case TF_HORNS:
@@ -3751,6 +3788,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourGood(++)] Hair length (+" + Units.size(mediumChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementHairLength(mediumChangeBoost); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("[style.colourExcellent(++)] Hair length (+" + Units.size(mediumChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementHairLength(mediumChangeMajorBoost); } };
+						}
+
+					case TF_MOD_SIZE_SECONDARY:
+						if(potency.isNegative()) {
+							return new RacialEffectUtil("Removes neck fluff.") { @Override public String applyEffect() { return target.setNeckFluff(false); } };
+						} else {
+							return new RacialEffectUtil("Adds neck fluff.") { @Override public String applyEffect() { return target.setNeckFluff(true); } };
 						}
 						
 					default:

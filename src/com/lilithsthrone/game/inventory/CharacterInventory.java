@@ -617,7 +617,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getUniqueItemCount() {
-		return getAllItemsInInventory().size();
+		return itemSubInventory.getUniqueItemCount();
 	}
 	
 	public int getUniqueQuestItemCount() {
@@ -743,7 +743,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getUniqueWeaponCount() {
-		return getAllWeaponsInInventory().size();
+		return weaponSubInventory.getUniqueItemCount();
 	}
 	
 	public int getUniqueQuestWeaponCount() {
@@ -903,7 +903,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getUniqueClothingCount() {
-		return getAllClothingInInventory().size();
+		return clothingSubInventory.getUniqueItemCount();
 	}
 
 	public int getUniqueQuestClothingCount() {

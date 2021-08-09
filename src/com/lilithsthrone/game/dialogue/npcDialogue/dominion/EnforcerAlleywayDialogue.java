@@ -116,7 +116,13 @@ public class EnforcerAlleywayDialogue {
 	private static SexType playerSexType;
 	private static boolean enforcerWantsPlayerSex;
 
-	private static boolean playerContraband(ItemTag tag) {
+	private static boolean playerContraband(ItemTag tag, boolean checkForPass) {
+		if(checkForPass
+				&& tag==ItemTag.CONTRABAND_MEDIUM
+				&& (Main.game.getPlayer().hasItemType("innoxia_quest_special_pass") || Main.game.getPlayer().hasItemType("innoxia_quest_special_pass_elle"))) {
+			return false;
+		}
+		
 		return Main.game.getPlayer().getAllItemsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(tag))
 				|| Main.game.getPlayer().getAllWeaponsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(tag))
 				|| Main.game.getPlayer().getAllClothingInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(tag));
@@ -754,18 +760,18 @@ public class EnforcerAlleywayDialogue {
 				} else if(index==2) {
 					return new Response(UtilText.parse(getEnforcerLeader(), "Searched (<span style='color:"+getEnforcerLeader().getFemininity().getColour().toWebHexString()+";'>[npc.surname]</span>)"),
 							UtilText.parse(getEnforcerLeader(), "Do as [npc.name] says and surrender your disguise...")
-							+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+							+(playerContraband(ItemTag.CONTRABAND_HEAVY, true)
 								?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
-								:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+								:(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)
 									?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
 									:"")),
 							ENFORCER_ALLEYWAY_SEARCHED) {
 							@Override
 							public Colour getHighlightColour() {
-								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY, true)) {
 									return PresetColour.GENERIC_TERRIBLE;
 								}
-								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)) {
 									return PresetColour.GENERIC_BAD;
 								}
 								return super.getHighlightColour();
@@ -779,18 +785,18 @@ public class EnforcerAlleywayDialogue {
 				} else if(index==3) {
 					return new Response(UtilText.parse(getEnforcerSubordinate(), "Searched (<span style='color:"+getEnforcerSubordinate().getFemininity().getColour().toWebHexString()+";'>[npc.surname]</span>)"),
 							UtilText.parse(getEnforcerSubordinate(),"Surrender your disguise but ask that [npc.name] to be the one to search you...")
-								+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+								+(playerContraband(ItemTag.CONTRABAND_HEAVY, true)
 									?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
-									:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+									:(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)
 										?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
 										:"")),
 							ENFORCER_ALLEYWAY_SEARCHED) {
 							@Override
 							public Colour getHighlightColour() {
-								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY, true)) {
 									return PresetColour.GENERIC_TERRIBLE;
 								}
-								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)) {
 									return PresetColour.GENERIC_BAD;
 								}
 								return super.getHighlightColour();
@@ -856,18 +862,18 @@ public class EnforcerAlleywayDialogue {
 									((Main.game.getPlayer().getRace()==Race.HUMAN || !Main.game.isDayTime()) && !isDemonRevealed())
 										?"Do as [npc.name] says and submit to a pat-down search so that they can confirm that you're not up to no good..."
 										:"Tell [npc.name] that you think that [npc.she] should do [npc.her] job and give you a pat-down search to make sure that you're not up to no good...")
-								+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+								+(playerContraband(ItemTag.CONTRABAND_HEAVY, true)
 									?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
-									:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+									:(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)
 										?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
 										:"")),
 								ENFORCER_ALLEYWAY_SEARCHED) {
 							@Override
 							public Colour getHighlightColour() {
-								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY, true)) {
 									return PresetColour.GENERIC_TERRIBLE;
 								}
-								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)) {
 									return PresetColour.GENERIC_BAD;
 								}
 								return super.getHighlightColour();
@@ -907,18 +913,18 @@ public class EnforcerAlleywayDialogue {
 										((Main.game.getPlayer().getRace()==Race.HUMAN || !Main.game.isDayTime()) && !isDemonRevealed())
 											?"Submit to a pat-down search and ask for [npc.name] to be the one to search you..."
 											:"Tell [npc.name] that you think that [npc.she] should do [npc.her] job and give you a pat-down search to make sure that you're not up to no good...")
-									+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+									+(playerContraband(ItemTag.CONTRABAND_HEAVY, true)
 										?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
-										:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+										:(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)
 											?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
 											:"")),
 								ENFORCER_ALLEYWAY_SEARCHED) {
 							@Override
 							public Colour getHighlightColour() {
-								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY, true)) {
 									return PresetColour.GENERIC_TERRIBLE;
 								}
-								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM, true)) {
 									return PresetColour.GENERIC_BAD;
 								}
 								return super.getHighlightColour();
