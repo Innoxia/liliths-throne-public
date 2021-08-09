@@ -32,6 +32,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.npc.misc.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -124,17 +125,6 @@ import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Yui;
 import com.lilithsthrone.game.character.npc.fields.Ziva;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.npc.misc.GenericTrader;
-import com.lilithsthrone.game.character.npc.misc.LodgerImport;
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
-import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
-import com.lilithsthrone.game.character.npc.misc.PrologueMale;
-import com.lilithsthrone.game.character.npc.misc.SlaveImport;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
@@ -1068,102 +1058,6 @@ public class Game implements XMLSaving {
 
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
-				Map<String, Class<? extends NPC>> npcClasses = new ConcurrentHashMap<>();
-				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new ConcurrentHashMap<>();
-				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new ConcurrentHashMap<>();
-				int totalNpcCount = npcs.getLength();
-				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
-						.forEach(e ->{
-							String id = ((Element)e.getElementsByTagName("id").item(0)).getAttribute("value");
-							if(!Main.game.NPCMap.containsKey(id)) {
-								String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
-								if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
-									int lastIndex = className.lastIndexOf('.');
-									if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
-										className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
-									}
-								}
-								if(Main.isVersionOlderThan(loadingVersion, "0.4.1.5")) {
-									className = className.replace("SubmissionCitadelArcanist", "Takahashi");
-								}
-								if(Main.isVersionOlderThan(loadingVersion, "0.4")) {
-									className = className.replace("BatMorphCavernAttacker", "BatCavernLurkerAttacker");
-									className = className.replace("SlimeCavernAttacker", "BatCavernSlimeAttacker");
-								}
-								if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
-									className = className.replace("FortressDemonLeader", "DarkSiren");
-								}
-								
-								if(!Main.isVersionOlderThan(loadingVersion, "0.3.5.9") || !id.contains("Helena")) {
-									if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
-										className = className.replace("Alexa", "Helena");
-									}
-									NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-									//TODO This needs more thorough testing...
-									// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
-									// This was causing save file bloat, so now they are fully deleted.
-									if(npc!=null
-											&& Main.isVersionOlderThan(loadingVersion, "0.4.1")
-											&& (!npc.isUnique()
-													&& !(npc instanceof Elemental)
-													&& !(npc instanceof ReindeerOverseer)
-													&& !(npc instanceof GenericFemaleNPC)
-													&& !(npc instanceof GenericMaleNPC)
-													&& !(npc instanceof GenericAndrogynousNPC)
-													&& !(npc instanceof PrologueFemale)
-													&& !(npc instanceof PrologueMale)
-													&& !(npc instanceof NPCOffspring))
-											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
-										System.out.println("Deleted NPC: "+npc.getId());
-										
-									} else if(npc!=null)  {
-										if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
-												|| (npc.getClass()!=DarkSiren.class
-												&& npc.getClass()!=FortressAlphaLeader.class
-												&& npc.getClass()!=FortressMalesLeader.class
-												&& npc.getClass()!=FortressFemalesLeader.class)) {
-											Main.game.safeAddNPC(npc, true);
-										}
-	
-										// To fix issues with older versions hair length:
-										if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
-											npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
-										}
-										// Generate desires in non-unique NPCs:
-										if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
-											Main.game.getCharacterUtils().generateDesires(npc);
-										}
-	
-										if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
-											npc.clearFetishDesires();
-											Main.game.getCharacterUtils().generateDesires(npc);
-										}
-										if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4") && npc.getWorldLocation()==WorldType.GAMBLING_DEN) {
-											if(npc instanceof Roxy) {
-												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
-												
-											} else if(npc instanceof Axel) {
-												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
-												
-											} else if(npc instanceof Epona) {
-												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
-												
-											} else {
-												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_GAMBLING, true);
-											}
-										}
-	
-									} else {
-										System.err.println("LOADNPC returned null: "+id);
-										System.err.println("CLASS: " + className);
-									}
-								}
-							} else {
-								if(!id.contains("Helena")) {
-									System.err.println("duplicate character attempted to be imported");
-								}
-							}
-						});
 				Map<String, Class<? extends NPC>> npcClasses=new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods=new ConcurrentHashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors=new ConcurrentHashMap<>();
@@ -1179,6 +1073,9 @@ public class Game implements XMLSaving {
 										if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
 											className=className.substring(0, lastIndex)+".misc"+className.substring(lastIndex, className.length());
 										}
+									}
+									if(Main.isVersionOlderThan(loadingVersion, "0.4.1.5")) {
+										className = className.replace("SubmissionCitadelArcanist", "Takahashi");
 									}
 									if(Main.isVersionOlderThan(loadingVersion, "0.4")) {
 										className=className.replace("BatMorphCavernAttacker", "BatCavernLurkerAttacker");
@@ -1263,6 +1160,18 @@ public class Game implements XMLSaving {
 						String id=((Element) character.getElementsByTagName("id").item(0)).getAttribute("value");
 						if(!Main.game.NPCMap.containsKey(id)) {
 							String className=((Element) character.getElementsByTagName("pathName").item(0)).getAttribute("value");
+
+							if(Main.isVersionOlderThan(loadingVersion, "0.4.1.5")) {
+								className = className.replace("SubmissionCitadelArcanist", "Takahashi");
+							}
+							if(Main.isVersionOlderThan(loadingVersion, "0.4")) {
+								className=className.replace("BatMorphCavernAttacker", "BatCavernLurkerAttacker");
+								className=className.replace("SlimeCavernAttacker", "BatCavernSlimeAttacker");
+							}
+							if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
+								className=className.replace("FortressDemonLeader", "DarkSiren");
+							}
+
 							NPC npc=loadNPC(npcDoc, character, className, npcClasses, loadFromXMLMethods, constructors);
 							if(npc!=null) {
 								Main.game.safeAddNPC(npc, true);
