@@ -27,6 +27,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Removed the hasSexCountWith() method and replaced all of its uses with the getTotalTimesHadSex() method to fix issues with inconsistencies in dialogues. (PR#1568 by AceXP)
 		Added a new setting for outfit files which makes it possible to apply an outfit to an entire region (i.e. collection of world types). (PR#1569 by AceXP)
 		Created a new character class for slaves which can be bought in Slaver Alley, thereby fixing an issue where slaves generated while the player was not in Dominion/Submission would be of unexpected race types. (PR#1570 by AceXP)
+		Removed unnecessary copy when accessing the unique item count of an inventory, greatly reducing inventory lag and load on the garbage collector. (PR#1573 by AtelierAmber)
 	
 	Engine/Modding:
 		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
@@ -58,11 +59,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The 'Thigh squeeze' orgasm action can no longer be used by characters who don't have legs.
 		Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.
 	
+	
 	[] PRs
 	
 	[] Allow Felicia contact without debug
 	
 	[] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
+		Started after changing the knows name stuff for Takahashi. Investigate and fix this
+	
 	
 	[x] Full Fields main quest written out from plan
 	[x] twintail pull available when they have no hair
