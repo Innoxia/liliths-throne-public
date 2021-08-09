@@ -4021,9 +4021,9 @@ public abstract class GameCharacter implements XMLSaving {
 		sb.append("<p style='text-align:center; margin-top:4px;'><i>");
 		sb.append("[npc.name] can be told to call you different names based on the femininity of your character. ");
 		sb.append("To do so, fill the upper box with the desired pet name when your character is feminine, ");
-		sb.append("and the lower box with the desired pet name when masculine. If you would prefer to be called the ");
-		sb.append("same name regardless of femininity, simply use the same name for both. ");
-		sb.append("Simply leave one or both boxes blank to unset any pet names for that femininity.");
+		sb.append("and the lower box with the desired pet name when masculine. If you would prefer to ");
+		sb.append("be called the same name regardless of femininity, use the same name for both. ");
+		sb.append("Simply leave a box blank to unset the pet name for that femininity.");
 		sb.append("</i></p>");
 		return sb.toString();
 	}
