@@ -30,6 +30,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Removed unnecessary copy when accessing the unique item count of an inventory, greatly reducing inventory lag and load on the garbage collector. (PR#1573 by AtelierAmber)
 		NPCs will no longer perform orgasm reactions or denials in response to the player orgasming when the player is hidden. (PR#1578 by AceXP)
 		If a corruptive action is bypassed by fetish, the pink '!' icon will now be recoloured to grey to signify that no corruption will be gained. (PR#1583 by CognitiveMist)
+		When the player does not have enough flames to use 'Buy (All)', but has enough to buy at least one item, the game will now offer 'Buy (Max NN)' in the 'Buy (All)' slot, where NN is the amount that will be purchased. (PR#1584 by CognitiveMist)
 	
 	Engine/Modding:
 		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
@@ -60,14 +61,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where you could give your elemental infinite perks, and fixed a related issue where your elemental's perk screen was showing that they had 2 perk points available for the physical and arcane categories.
 		The 'Thigh squeeze' orgasm action can no longer be used by characters who don't have legs.
 		Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.
-	
-	
-	[] PRs
-	
-	[] Allow Felicia contact without debug
-	
-	[] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
-		Started after changing the knows name stuff for Takahashi. Investigate and fix this
 	
 	
 	[x] Full Fields main quest written out from plan
@@ -143,6 +136,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] Characters without legs can still use 'Thigh squeeze' orgasm action
 		[x] Jhortax and Fyrsia are both missing their weapons when first encountering Meraxis (didn't even take from them during their first fights, bypassed them entirely)
 		
+	[] PRs
+	
+	[] Allow Felicia contact without debug
+	
+	[] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
+		Started after changing the knows name stuff for Takahashi. Investigate and fix this
+	
+	[] Push as 0.4.1.3
 	
 	
 	[] Add Minotallys meeting
