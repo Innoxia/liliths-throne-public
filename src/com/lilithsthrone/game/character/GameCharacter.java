@@ -4023,14 +4023,16 @@ public abstract class GameCharacter implements XMLSaving {
 		sb.append("To do so, fill the upper box with the desired pet name when your character is feminine, ");
 		sb.append("and the lower box with the desired pet name when masculine. If you would prefer to be called the ");
 		sb.append("same name regardless of femininity, simply use the same name for both. ");
-		sb.append("To erase the pet name, and return to default behaviour, leave both boxes blank.");
+		sb.append("Simply leave one or both boxes blank to unset any pet names for that femininity.");
 		sb.append("</i></p>");
 		return sb.toString();
 	}
 
 	/**
 	 * Returns null if no pet name has been set for the given target.
-	 * Usually, you want to use @getPetName(target) instead.
+	 * The returned NameTriplet may have the empty string for some values,
+	 * which should also be treated as unset. In most cases, you want to use
+	 * {@link #getPetName(GameCharacter) getPetName} instead.
 	 */
 	public NameTriplet getPetNameTriplet(GameCharacter target) {
 		return getPetNameMap().get(target.getId());
@@ -4039,8 +4041,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getPetName(GameCharacter target) {
 		NameTriplet petName = getPetNameMap().get(target.getId());
 		
+		// If the petName triplet is null, or the name value is blank, fall through to non-pet-name behaviour.
 		if(petName != null) {
-			return target.isFeminine() ? petName.getFeminine() : petName.getMasculine();
+			if(target.isFeminine() && !petName.getFeminine().isBlank()) {
+				return petName.getFeminine();
+			} else if(!target.isFeminine() && !petName.getMasculine().isBlank()) {
+				return petName.getMasculine();
+			}
 		}
 		
 		if(this.isRelatedTo(target) //TODO Issue with this catching Lyssieth<->PC relation, as I think it's because the player is set to be related to Lilaya, but getRelationshipsTo is empty.

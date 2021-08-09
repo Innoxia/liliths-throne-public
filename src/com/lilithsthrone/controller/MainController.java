@@ -717,9 +717,9 @@ public class MainController implements Initializable {
 										if(petNameFeminine.isBlank() && petNameMasculine.isBlank()) {
 											petName = null;
 										} else if(petNameFeminine.isBlank()) {
-											petName = new NameTriplet(petNameMasculine);
+											petName = new NameTriplet(petNameMasculine, "", "");
 										} else if(petNameMasculine.isBlank()) {
-											petName = new NameTriplet(petNameFeminine);
+											petName = new NameTriplet("", "", petNameFeminine);
 										} else {
 											petName = new NameTriplet(petNameMasculine, "", petNameFeminine);
 										}
@@ -856,9 +856,9 @@ public class MainController implements Initializable {
 									if(petNameFeminine.isBlank() && petNameMasculine.isBlank()) {
 										petName = null;
 									} else if(petNameFeminine.isBlank()) {
-										petName = new NameTriplet(petNameMasculine);
+										petName = new NameTriplet(petNameMasculine, "", "");
 									} else if(petNameMasculine.isBlank()) {
-										petName = new NameTriplet(petNameFeminine);
+										petName = new NameTriplet("", "", petNameFeminine);
 									} else {
 										petName = new NameTriplet(petNameMasculine, "", petNameFeminine);
 									}
