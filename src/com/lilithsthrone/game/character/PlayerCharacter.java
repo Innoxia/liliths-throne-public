@@ -1142,18 +1142,18 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public void addCharacterEncountered(String character) {
 		if (!charactersEncountered.contains(character)) {
 			charactersEncountered.add(character);
-		}
-		if(Main.game.isStarted()) {
-			sortCharactersEncountered();
+			if(Main.game.isStarted()) {
+				sortCharactersEncountered();
+			}
 		}
 	}
-	
+
 	public void addCharacterEncountered(GameCharacter character) {
 		if (!charactersEncountered.contains(character.getId())) {
 			charactersEncountered.add(character.getId());
-		}
-		if(Main.game.isStarted()) {
-			sortCharactersEncountered();
+			if(Main.game.isStarted()) {
+				sortCharactersEncountered();
+			}
 		}
 	}
 	
