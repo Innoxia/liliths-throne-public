@@ -323,7 +323,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected boolean playerOnFirstNameTerms;
 	protected boolean raceConcealed;
 	protected boolean captive;
-	protected Map<String, String> petNameMap;
+	protected Map<String, NameTriplet> petNameMap;
 	protected String description;
 	protected int level;
 	protected LocalDateTime birthday;
@@ -813,12 +813,14 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element petnamesElement = doc.createElement("petNames");
 		characterCoreInfo.appendChild(petnamesElement);
-		for(Entry<String, String> entry: getPetNameMap().entrySet()){
+		for(Entry<String, NameTriplet> entry: getPetNameMap().entrySet()){
 			Element element = doc.createElement("petNameEntry");
 			petnamesElement.appendChild(element);
 			
-			XMLUtil.addAttribute(doc, element, "id", entry.getKey().toString());
-			XMLUtil.addAttribute(doc, element, "petName", entry.getValue().toString());
+			XMLUtil.addAttribute(doc, element, "id", entry.getKey());
+			XMLUtil.addAttribute(doc, element, "petNameFeminine", entry.getValue().getFeminine());
+			XMLUtil.addAttribute(doc, element, "petNameAndrogynous", entry.getValue().getAndrogynous());
+			XMLUtil.addAttribute(doc, element, "petNameMasculine", entry.getValue().getMasculine());
 		}
 		
 		Element personalityElement = doc.createElement("personality");
@@ -1536,8 +1538,17 @@ public abstract class GameCharacter implements XMLSaving {
 				for(int i=0; i<petNameEntries.getLength(); i++){
 					Element e = ((Element)petNameEntries.item(i));
 					try {
-						character.setPetName(e.getAttribute("id"), e.getAttribute("petName"));
-						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added pet name: "+e.getAttribute("id")+" "+e.getAttribute("petName"));
+						String id = e.getAttribute("id");
+						NameTriplet petName = null;
+						if(e.hasAttribute("petName")) {
+							// Compat with saves 0.4.1.1 and older
+							petName = new NameTriplet(e.getAttribute("petName"));
+						} else {
+							petName = new NameTriplet(e.getAttribute("petNameMasculine"), "", e.getAttribute("petNameFeminine"));
+						}
+						character.setPetName(id, petName);
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added feminine pet name: " + id + " " + petName.getFeminine());
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added masculine pet name: " + id + " " + petName.getMasculine());
 					}catch(IllegalArgumentException ex){
 					}
 				}
@@ -1547,7 +1558,7 @@ public abstract class GameCharacter implements XMLSaving {
 			String petName = ((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value");
 			try {
 				if(!petName.isEmpty()) {
-					character.setPetName(Main.game.getPlayer().getId(), petName);
+					character.setPetName(Main.game.getPlayer().getId(), new NameTriplet(petName, "", petName));
 					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set playerPetName: "+petName);
 				}
 			} catch(Exception ex) {
@@ -4001,59 +4012,35 @@ public abstract class GameCharacter implements XMLSaving {
 		this.genericName = genericName;
 	}
 
-	public Map<String, String> getPetNameMap() {
+	public Map<String, NameTriplet> getPetNameMap() {
 		return petNameMap;
 	}
 	
-	/* androgynous name is unused for the pet name system */
-	public static List<NameTriplet> adaptivePetNames = List.of(
-			new NameTriplet("dad", "", "mom"),
-			new NameTriplet("daddy", "", "mommy"),
-			new NameTriplet("son", "", "daughter"),
-			new NameTriplet("brother", "", "sister"),
-			new NameTriplet("bro", "", "sis"),
-			new NameTriplet("uncle", "", "auntie"),
-			new NameTriplet("nephew", "", "niece"),
-			new NameTriplet("Master", "", "Mistress"),
-			new NameTriplet("Mister", "", "Miss"),
-			new NameTriplet("Sir", "", "Ma'am"),
-			new NameTriplet("Boy", "", "Girl"),
-			new NameTriplet("Boyfriend", "", "Girlfriend"),
-			new NameTriplet("Lad", "", "Lass"),
-			new NameTriplet("Laddie", "", "Lassie")
-	);
-	
-	public static String getAdaptivePetNameMessage() {
+	public static String getPetNameInstructions() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<p style='text-align:center; margin-top:4px;'><i>");
-		sb.append("If [npc.name] is told to call you a gendered name, such as 'Mistress' or 'Master', then [npc.she] ");
-		sb.append("will automatically switch to the appropriate paired name depending on the femininity of your ");
-		sb.append("character. The full list of supported names are:");
-		sb.append("</i></p><p style='text-align:center; margin-top:4px;'><i>");
-		for(NameTriplet name : adaptivePetNames) {
-			sb.append("" + name.getFeminine() + " / " + name.getMasculine() + "<br/>");
-		}
+		sb.append("[npc.name] can be told to call you different names based on the femininity of your character. ");
+		sb.append("To do so, fill the upper box with the desired pet name when your character is feminine, ");
+		sb.append("and the lower box with the desired pet name when masculine. If you would prefer to be called the ");
+		sb.append("same name regardless of femininity, simply use the same name for both. ");
+		sb.append("To erase the pet name, and return to default behaviour, leave both boxes blank.");
 		sb.append("</i></p>");
 		return sb.toString();
 	}
 
 	/**
-	 * @return If the given pet name is in the list of adaptive pet names, return the variant that matches the desired femininity. Otherwise, return the given pet name as-is.
+	 * Returns null if no pet name has been set for the given target.
+	 * Usually, you want to use @getPetName(target) instead.
 	 */
-	public static String getAdaptivePetName(String petName, boolean isFeminine) {
-		for(NameTriplet name : adaptivePetNames) {
-			if(name.getFeminine().equalsIgnoreCase(petName) || name.getMasculine().equalsIgnoreCase(petName)) {
-				return isFeminine ? name.getFeminine() : name.getMasculine();
-			}
-		}
-		return petName;
+	public NameTriplet getPetNameTriplet(GameCharacter target) {
+		return getPetNameMap().get(target.getId());
 	}
 	
 	public String getPetName(GameCharacter target) {
-		String petName = getAdaptivePetName(getPetNameMap().get(target.getId()), target.isFeminine());
-
+		NameTriplet petName = getPetNameMap().get(target.getId());
+		
 		if(petName != null) {
-			return petName;
+			return target.isFeminine() ? petName.getFeminine() : petName.getMasculine();
 		}
 		
 		if(this.isRelatedTo(target) //TODO Issue with this catching Lyssieth<->PC relation, as I think it's because the player is set to be related to Lilaya, but getRelationshipsTo is empty.
@@ -4082,12 +4069,19 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return target.getName(true);
 	}
-	
-	public void setPetName(String targetId, String petName) {
-		petNameMap.put(targetId, petName);
+
+	/**
+	 * Pass in null for the pet name to remove the pet name entry, if it exists.
+	 */
+	public void setPetName(String targetId, NameTriplet petName) {
+		if(petName != null) {
+			petNameMap.put(targetId, petName);
+		} else {
+			petNameMap.remove(targetId);
+		}
 	}
 	
-	public void setPetName(GameCharacter target, String petName) {
+	public void setPetName(GameCharacter target, NameTriplet petName) {
 		setPetName(target.getId(), petName);
 	}
 

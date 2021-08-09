@@ -2953,7 +2953,7 @@ public class ScarlettsShop {
 							+ "&#127922;"
 						+ "</div>"
 						
-						+ "<form style='float:left; width:24%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(getSlaveForCustomisation().getPetName(Main.game.getPlayer()))
+						+ "<form style='float:left; width:24%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"+ UtilText.parseForHTMLDisplay(getSlaveForCustomisation().getPetName(Main.game.getPlayer()))
 							+ "' style='width:100%; margin:0; padding:0;'></form>"
 						+ "<div class='normal-button' id='"+getSlaveForCustomisation().getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 							+ "&#10003;"

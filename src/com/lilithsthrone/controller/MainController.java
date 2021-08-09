@@ -678,35 +678,57 @@ public class MainController implements Initializable {
 							}
 						}
 						if(Main.game.getCurrentDialogueNode() == CompanionManagement.OCCUPANT_CHOOSE_NAME
+								|| Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_CHOOSE_NAME
 								|| Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY
 								|| Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
 							
 							GameCharacter slave = Main.game.getDialogueFlags().getManagementCompanion();
-							if(Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY) {
+							if(Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_CHOOSE_NAME) {
+								slave = Main.game.getPlayer().getElemental();
+							} else if(Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY) {
 								slave = BodyChanging.getTarget();
 							} else if(Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
 								slave = Main.game.getNpc(Kay.class);
 							}
 							GameCharacter slaveFinal = slave;
 							
-							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInputFeminine') === document.activeElement") ||
+							   (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInputMasculine') === document.activeElement")) {
 								allowInput = false;
 								if(event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
 									boolean unsuitableName = false;
-								 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
-									 
-										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
+									String petNameFeminine = "", petNameMasculine = "";
+									NameTriplet petName;
+									
+									if((boolean) Main.mainController.getWebEngine().executeScript("(document.getElementById('slaveToPlayerNameInputFeminine') !== null) && (document.getElementById('slaveToPlayerNameInputMasculine') !== null)")) {
+										
+										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInputFeminine').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
+											petNameFeminine = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+										}
+										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInputMasculine').value;");
+										if(Main.mainController.getWebEngine().getDocument()!=null) {
+											petNameMasculine = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+										}
+										
+										unsuitableName = petNameFeminine.length() > 32 || petNameMasculine.length() > 32;
+										
+										if(petNameFeminine.isBlank() && petNameMasculine.isBlank()) {
+											petName = null;
+										} else if(petNameFeminine.isBlank()) {
+											petName = new NameTriplet(petNameMasculine);
+										} else if(petNameMasculine.isBlank()) {
+											petName = new NameTriplet(petNameFeminine);
+										} else {
+											petName = new NameTriplet(petNameMasculine, "", petNameFeminine);
 										}
 										
 										if(!unsuitableName) {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													slaveFinal.setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													slaveFinal.setPetName(Main.game.getPlayer(), petName);
 												}
 											});
 										} else {
@@ -809,28 +831,43 @@ public class MainController implements Initializable {
 						}
 						
 						
-						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
+						if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInputFeminine') === document.activeElement") ||
+						   (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInputMasculine') === document.activeElement")) {
 							allowInput = false;
 							if (event.getCode() == KeyCode.ENTER) {
 								enterConsumed = true;
 								boolean unsuitableName = false;
-							 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput')")!=null) {
-								 
-									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInput').value;");
+								String petNameFeminine = "", petNameMasculine = "";
+								NameTriplet petName;
+								
+								if((boolean) Main.mainController.getWebEngine().executeScript("(document.getElementById('offspringPetNameInputFeminine') !== null) && (document.getElementById('offspringPetNameInputMasculine') !== null)")) {
+								
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInputFeminine').value;");
 									if(Main.mainController.getWebEngine().getDocument()!=null) {
-										if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-											unsuitableName = true;
-										else {
-											unsuitableName = false;
-										}
+										petNameFeminine = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+									}
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInputMasculine').value;");
+									if(Main.mainController.getWebEngine().getDocument()!=null) {
+										petNameMasculine = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent();
+									}
+
+									unsuitableName = petNameFeminine.length() > 32 || petNameMasculine.length() > 32;
+
+									if(petNameFeminine.isBlank() && petNameMasculine.isBlank()) {
+										petName = null;
+									} else if(petNameFeminine.isBlank()) {
+										petName = new NameTriplet(petNameMasculine);
+									} else if(petNameMasculine.isBlank()) {
+										petName = new NameTriplet(petNameFeminine);
+									} else {
+										petName = new NameTriplet(petNameMasculine, "", petNameFeminine);
 									}
 									
 									if (!unsuitableName) {
 										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 											@Override
 											public void effects() {
-												Main.game.getActiveNPC().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+												Main.game.getActiveNPC().setPetName(Main.game.getPlayer(), petName);
 											}
 										});
 									} else {
