@@ -1,5 +1,13 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -10,7 +18,9 @@ import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.race.*;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -20,13 +30,6 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import java.time.Month;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @since 0.4.0
@@ -34,6 +37,15 @@ import java.util.Map;
  * @author AceXp
  */
 public class SlaveForSale extends NPC {
+
+	public SlaveForSale() {
+		this(false);
+	}
+
+	public SlaveForSale(boolean isImported) {
+		this(Gender.F_V_B_FEMALE, isImported);
+	}
+	
 	public SlaveForSale(Gender gender, boolean isImported) {
 		super(isImported,
 				new NameTriplet("Slave"), "",
