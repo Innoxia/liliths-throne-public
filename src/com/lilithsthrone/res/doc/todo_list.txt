@@ -135,15 +135,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] Elemental has category specific perk points incorrectly displayed...
 		[x] Characters without legs can still use 'Thigh squeeze' orgasm action
 		[x] Jhortax and Fyrsia are both missing their weapons when first encountering Meraxis (didn't even take from them during their first fights, bypassed them entirely)
-		
-	[] PRs
-	
-	[] Allow Felicia contact without debug
-	
-	[] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
+	[x] PRs
+	[x] Allow Felicia contact without debug
+	[x] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
 		Started after changing the knows name stuff for Takahashi. Investigate and fix this
-	
-	[] Push as 0.4.1.3
+	[x] Push as 0.4.1.3
 	
 	
 	[] Add Minotallys meeting

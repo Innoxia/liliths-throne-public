@@ -295,7 +295,7 @@ public class DemonHome {
 					return new Response("Arthur's room", "Arthur is no longer living here...", null);
 				}
 				
-			} else if (index == 2 && Main.game.isDebugMode()) {
+			} else if (index == 2) {
 				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					return new Response("[felicia.Name]'s room", "Head up to [felicia.namePos] room.", DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM);
 				}
