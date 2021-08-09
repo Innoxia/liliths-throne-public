@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -2255,16 +2256,20 @@ public class KaysWarehouse {
 						+ "&#127922;"
 					+ "</div>"
 					
-					+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"+ UtilText.parseForHTMLDisplay(kay.getPetName(Main.game.getPlayer()))
-						+ "' style='width:100%; margin:0; padding:0;'></form>"
+					+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"
+						+ UtilText.parseForHTMLDisplay(Optional.ofNullable(kay.getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getFeminine())
+						+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.FEMININE.toWebHexString() + ";'><input type='text' id='slaveToPlayerNameInputMasculine' value='"
+						+ UtilText.parseForHTMLDisplay(Optional.ofNullable(kay.getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getMasculine())
+						+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.MASCULINE.toWebHexString() + ";'></form>"
 					+ "<div class='normal-button' id='"+kay.getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 						+ "&#10003;"
 					+ "</div>"
 					+ " <div class='normal-button disabled' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 						+ "All Slaves"
-					+ "</div>");
+					+ "</div>"
+				+ "</div>");
 			
-			UtilText.nodeContentSB.append(UtilText.parse(kay, GameCharacter.getPetNameInstructions() + "</div>"));
+			UtilText.nodeContentSB.append(UtilText.parse(kay, GameCharacter.getPetNameInstructions()));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			

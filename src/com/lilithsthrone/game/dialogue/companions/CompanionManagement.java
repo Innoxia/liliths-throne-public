@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
@@ -21,6 +22,7 @@ import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -1732,14 +1734,18 @@ public class CompanionManagement {
 							+ "&#127922;"
 						+ "</div>"
 						
-						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getPetName(Main.game.getPlayer()))
-							+ "' style='width:100%; margin:0; padding:0;'></form>"
+						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(characterSelected().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getFeminine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.FEMININE.toWebHexString() + ";'><input type='text' id='slaveToPlayerNameInputMasculine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(characterSelected().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getMasculine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.MASCULINE.toWebHexString() + ";'></form>"
 						+ "<div class='normal-button' id='"+characterSelected().getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 							+ "&#10003;"
 						+ "</div>"
 						+ " <div class='normal-button' id='GLOBAL_CALLS_PLAYER' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 							+ "All Slaves"
-						+ "</div>");
+						+ "</div>"
+					+ "</div>");
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
@@ -1779,17 +1785,21 @@ public class CompanionManagement {
 							+ "&#127922;"
 						+ "</div>"
 						
-						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"+ UtilText.parseForHTMLDisplay(characterSelected().getPetName(Main.game.getPlayer()))
-							+ "' style='width:100%; margin:0; padding:0;'></form>"
+						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(characterSelected().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getFeminine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.FEMININE.toWebHexString() + ";'><input type='text' id='slaveToPlayerNameInputMasculine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(characterSelected().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getMasculine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.MASCULINE.toWebHexString() + ";'></form>"
 						+ "<div class='normal-button' id='"+characterSelected().getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 							+ "&#10003;"
 						+ "</div>"
 						+ " <div class='normal-button disabled' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 							+ "All Slaves"
-						+ "</div>");
+						+ "</div>"
+					+ "</div>");
 			}
 			
-			UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), GameCharacter.getPetNameInstructions() + "</div>"));
+			UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), GameCharacter.getPetNameInstructions()));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			

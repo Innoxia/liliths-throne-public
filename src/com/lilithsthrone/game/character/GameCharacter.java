@@ -818,9 +818,12 @@ public abstract class GameCharacter implements XMLSaving {
 			petnamesElement.appendChild(element);
 			
 			XMLUtil.addAttribute(doc, element, "id", entry.getKey());
-			XMLUtil.addAttribute(doc, element, "petNameFeminine", entry.getValue().getFeminine());
-			XMLUtil.addAttribute(doc, element, "petNameAndrogynous", entry.getValue().getAndrogynous());
-			XMLUtil.addAttribute(doc, element, "petNameMasculine", entry.getValue().getMasculine());
+			if(!entry.getValue().getFeminine().isBlank()) {
+				XMLUtil.addAttribute(doc, element, "nameFeminine", entry.getValue().getFeminine());
+			}
+			if(!entry.getValue().getMasculine().isBlank()) {
+				XMLUtil.addAttribute(doc, element, "nameMasculine", entry.getValue().getMasculine());
+			}
 		}
 		
 		Element personalityElement = doc.createElement("personality");
@@ -1542,9 +1545,22 @@ public abstract class GameCharacter implements XMLSaving {
 						NameTriplet petName = null;
 						if(e.hasAttribute("petName")) {
 							// Compat with saves 0.4.1.1 and older
-							petName = new NameTriplet(e.getAttribute("petName"));
+							String value = e.getAttribute("petName");
+							if(value.equalsIgnoreCase("Mom") || value.equalsIgnoreCase("Dad")) {
+								petName = new NameTriplet("Dad", "", "Mom");
+							} else if (value.equalsIgnoreCase("Mommy") || value.equalsIgnoreCase("Daddy")) {
+								petName = new NameTriplet("Daddy", "", "Mommy");
+							} else if (value.equalsIgnoreCase("Mistress") || value.equalsIgnoreCase("Master")) {
+								petName = new NameTriplet("Master", "", "Mistress");
+							} else if (value.equalsIgnoreCase("Ma'am") || value.equalsIgnoreCase("Sir")) {
+								petName = new NameTriplet("Sir", "", "Ma'am");
+							} else {
+								petName = new NameTriplet(value);
+							}
 						} else {
-							petName = new NameTriplet(e.getAttribute("petNameMasculine"), "", e.getAttribute("petNameFeminine"));
+							petName = new NameTriplet(e.hasAttribute("nameMasculine") ? e.getAttribute("nameMasculine") : "",
+													  "",
+													  e.hasAttribute("nameFeminine") ? e.getAttribute("nameFeminine") : "");
 						}
 						character.setPetName(id, petName);
 						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added feminine pet name: " + id + " " + petName.getFeminine());
