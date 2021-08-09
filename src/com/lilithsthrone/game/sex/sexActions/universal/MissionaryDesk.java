@@ -48,7 +48,8 @@ public class MissionaryDesk {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.OVER_DESK_BACK))
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.OVER_DESK_BETWEEN_LEGS))
-					&& !Main.sex.isMasturbation();
+					&& !Main.sex.isMasturbation()
+					&& Main.sex.getCharacterPerformingAction().hasLegs();
 		}
 
 		@Override

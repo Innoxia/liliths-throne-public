@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- DEMON_HOME_ARTHURS_APARTMENT -->
+
+	<htmlContent tag="DEMON_HOME_ARTHURS_APARTMENT"><![CDATA[
+	#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_B_DEMON_HOME)
+		<p>
+			Following Lilaya's instructions, you soon find yourself standing outside the building which houses Arthur's apartment. Carved into the stone edifice just above the entrance are the words 'Sawlty Towers' which you assume must be the name of this building Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance, you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily.
+		</p>
+		<p>
+			The front door is unlocked, and as you step into the foyer, you see that this place looks more like a five-star hotel than an apartment building. The luxurious carpeting, fine paintings and crystal chandeliers all contribute to giving the impression that the apartments here are very exclusive, and very expensive. Although there's a front desk, the place seems to be deserted, but fortunately there's a sign on a nearby wall that lists the building's occupants  and their respective room numbers. You see that Arthur lives on the first floor, in room five.
+		</p>
+	#ELSE
+		<p>
+			You soon find yourself standing outside Sawlty Towers, the building which houses Arthur and Felicia's respective apartments. Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance, you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily.
+		</p>
+		<p>
+			The front door is unlocked, and as you step into the foyer, you once again take note that this place looks more like a five-star hotel than an apartment building. The luxurious carpeting, fine paintings and crystal chandeliers all contribute to giving the impression that the apartments here are very exclusive, and very expensive. The front desk is unmanned yet again, and you wonder what to do now that you're here.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM -->
+	
+	<htmlContent tag="DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM"><![CDATA[
+	<p>
+		You head over to the staircase and make your way up to the first floor. Turning down a long, straight corridor, you walk along until you find room number five. As you approach, you see that a note has been stuck to the door, and, coming to a halt in front of it, you read:
+	</p>
+	<h6 style='text-align:center;'>Dominion Enforcer Department</h6>
+	<h5 style='text-align:center;'>NOTICE OF ARREST</h5>
+	<p style='text-align:center;'>
+		The occupant of this residence, namely the person of <i>Arthur Fairbanks</i>, has been issued with an arrest warrant.
+		<br/>These premises are therefore under investigation by Dominion's Enforcer Department, and any unauthorised entry beyond this point is in violation of the law.
+		<br/><br/>
+		Officer in charge of issuing warrant: <i>[brax.fullName]</i>
+		<br/><br/>
+		Any complaints or inquiries should be made in person at Dominion's Enforcer HQ. Thank you for your understanding.
+	</p>
+	<p>
+		Discovering that Arthur has been arrested by this reality's version of the police, you can't help but let out a defeated sigh.
+	</p>
+	<p>
+		As you focus on reading the notice for a second time, you suddenly feel a light tapping on your [pc.arm]. Spinning around on the spot, you find yourself confronted by a white ball of fluff, which is standing at [felicia.heightValue] and clothed in a smart, dark red blazer and black trousers. It takes a moment to process what it is you're looking at, but thanks to the distinctive shape of her ears, the black nose on the end of her snout, and the pair of big, [felicia.eyeColour] eyes gazing at you with curiosity, you realise that this mass of white fluff is none other than an anthropomorphic samoyed, who appears to be in her very early thirties.
+	</p>
+	<p>
+		[felicia.speech(Are you looking for Arthur?)] she asks, and as she does so, she tilts her head to the left and points her right ear up towards the ceiling.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM_END -->
+	
+	<htmlContent tag="DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM_END"><![CDATA[
+	<p>
+		Eager to get any information you can about Arthur's arrest, you respond to the dog-girl in the positive, before asking her if she knows what happened. As she hears that you're interested in what she has to say, this dog-girl's [felicia.eyes] slightly light up, and her fluffy tail swishes behind her for a second before she straightens herself up and reveals, [felicia.speech(All I know is some Enforcers came and took him away last night. I heard them from my place. Something about plotting against Lilith...)]
+	</p>
+	<p>
+		Her right ear suddenly droops and a small expression of sadness shows on the dog-girl's face. Shuffling around on the spot a little, she declares, [felicia.speech(I've known Arthur since he moved in. He wouldn't have been able to keep a secret like that from me. It's not something he'd do..)]
+	</p>
+	<p>
+		Both of her ears somehow fall down even lower than they already were, making it clear that the dog-girl is feeling pretty down about the whole situation. Feeling slightly awkward, you decide to cheer her up by telling her that you're planning on finding Arthur and getting him back. At that, the dog-girl almost explodes with excitement. Both ears shoot up into their fully erect state, and as her tail starts to wag at full speed she hurriedly asks, [felicia.speech(You really mean it? You'll save Arthur?)]
+	</p>
+	<p>
+		After you've nodded and confirmed that you'll deal with the situation, the dog-girl excitedly jumps up and down and exclaims, [felicia.speech(Yes! Please get him back safe! He's the best friend I've had in a while, and I'm so worried about him!)]
+	</p>
+	<p>
+		Suddenly realising how energetic she'd just become, the dog-girl takes a few deep breaths and calms down. Waiting for her to get her emotions under control, you take this opportunity to give the dog-girl your name, before asking for hers in return. Throwing a friendly smile your way, she reveals, [felicia.speech(I'm Felicia. Felicia Delilah-Hope Renmorre.)]
+	</p>
+	<p>
+		As you remarking upon the length of her name, Felicia gets a little flustered, and with her tail slightly swishing, she mutters, [felicia.speech(Yeah, it's a family tradition. We take our middle names from both grandmothers...)]
+	</p>
+	<p>
+		Sensing that Felicia is wanting to head back to her apartment, you tell her that you'll do everything you can to find Arthur, before saying goodbye to her. Flashing you a smile, she steps back towards the door to her apartment, which is just on the opposite side of the corridor to Arthur's. With her tail wagging slightly, she says, [felicia.speech(This is my place here... Hey, you know, you could come over later if you wanted to know anything about Arthur...)] 
+	</p>
+	<p>
+		After you've thanked her for the invitation, Felicia steps back into her apartment and closes the door. Looking back over at the arrest warrant, you once again take note of the fact that any inquiries need to be made in person at the 'Enforcers' HQ', so you'll need to find that and make it your next stop...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM -->
+	
+	<htmlContent tag="DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM"><![CDATA[
+	#IF(flags.hasFlag(FLAG_feliciaRejectedPlayer))
+		<p>
+			Deciding to visit Arthur's neighbour, Felicia, you head up the stairs to the first floor and proceed down to corridor to where her apartment is located. Swiftly arriving at your destination, you reach up and give the wooden door a quick trio of knocks, before [pc.stepping] back and hoping to yourself that the dog-girl has moved on from the incident.
+		</p>
+		<p>
+			Thankfully, it only takes a moment before footsteps can be heard getting closer on the other side of the door, and then just a second later, you hear the bolt being slid back before the door partially creaks open. Spotting you through the crack, Felicia immediately slams the door closed, before calling out from the other side in an upset tone, [felicia.speech(Not right now, [pc.name].)]
+		</p>
+		<p>
+			You start to voice a complaint, but the dog-girl cuts you off by sharply calling out, [felicia.speech(No.)]
+		</p>
+		<p>
+			You stand there for a second, trying to think of something to say. Sadly, nothing comes up, and so you decide to turn around and leave...
+		</p>
+	#ELSE
+		<p>
+			Deciding to visit Arthur's neighbour, Felicia, you head up the stairs to the first floor and proceed down to corridor to where her apartment is located. Swiftly arriving at your destination, you reach up and give the wooden door a quick trio of knocks, before [pc.stepping] back and waiting for her to answer.
+		</p>
+		<p>
+			#IF(game.isHourBetween(6, 9))
+				Thankfully, it only takes a moment before footsteps can be heard getting closer on the other side of the door, and then just a second later, you hear the bolt being slid back before the door swings open to reveal the white furball who lives here. Although normally soft and fluffy, Felicia's fur is currently dripping wet, and she's clutching a pink towel around her [felicia.cupSize]-cup breasts. The freshly-showered dog-girl looks at you with her puppy-dog eyes and exclaims, [felicia.speech(Oh, [pc.name]! I didn't expect you'd come over so early. Please, come in!)]
+			#ELSEIF(game.isHourBetween(9, 15))
+				Thankfully, it only takes a moment before footsteps can be heard getting closer on the other side of the door, and then just a second later, you hear the bolt being slid back before the door swings open to reveal the white furball who lives here. Wearing an oversized brown sweater which obscures both her [felicia.cupSize]-cup breasts and bare, furry thighs, the excitable dog-girl looks at you with her puppy-dog eyes and exclaims, [felicia.speech(Hi, [pc.name]! Come on in; I just finished lunch.)]
+			#ELSE
+				Unfortunately, the dog-girl doesn't come to the door, and so after a few moments of silence, you decide to knock again. Just like the first time, nobody comes to answer, and you realise that Felicia must not be home at the moment. Letting out a disappointed sigh, you give up and decide to come back another time...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

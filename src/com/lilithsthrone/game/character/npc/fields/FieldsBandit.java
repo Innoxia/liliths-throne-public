@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -25,7 +26,6 @@ import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Weather;
@@ -64,8 +64,8 @@ public class FieldsBandit extends NPC {
 				generationFlags);
 
 		if(!isImported) {
-			// Set random level from 5 to 10:
-			setLevel(Util.random.nextInt(6) + 5);
+			// Set random level from 10 to 20:
+			setLevel(10 + Util.random.nextInt(11));
 			
 			// RACE & NAME:
 			
@@ -155,7 +155,11 @@ public class FieldsBandit extends NPC {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 2.5f));
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this);
-		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+		String outfitId = "innoxia_genericMugger_dominion_masculine";
+		if(this.isFeminine()) {
+			outfitId = "innoxia_genericMugger_dominion_feminine";
+		}
+		Main.game.getCharacterUtils().equipClothingFromOutfitId(this, outfitId, settings);
 	}
 	
 	@Override
@@ -200,7 +204,7 @@ public class FieldsBandit extends NPC {
 
 	@Override
 	public void applyEscapeCombatEffects() {
-		this.returnToHome();
+		Main.game.banishNPC(this);
 	}
 	
 	@Override
@@ -208,7 +212,68 @@ public class FieldsBandit extends NPC {
 		return null; // Post-combat responses are handled in the dialogue itself
 	}
 
+	
+	// Misc.:
+	
 	public int getPaymentDemand() {
 		return (Math.max(2500, Math.min(Main.game.getPlayer().getMoney()/10, 10000))/500) * 500; // Round to nearest 500
+	}
+
+	public boolean isWantsToFight() {
+		return this.getAffectionLevel(Main.game.getPlayer()).isLessThan(AffectionLevel.POSITIVE_ONE_FRIENDLY);
+	}
+	
+	public String getStatusDescription() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<p style='text-align:center;'><i>");
+		AffectionLevel al = this.getAffectionLevel(Main.game.getPlayer());
+		switch(al) {
+			case NEGATIVE_FIVE_LOATHE:
+			case NEGATIVE_FOUR_HATE:
+			case NEGATIVE_THREE_STRONG_DISLIKE:
+			case NEGATIVE_TWO_DISLIKE:
+			case NEGATIVE_ONE_ANNOYED:
+			case ZERO_NEUTRAL:
+				break;
+			case POSITIVE_ONE_FRIENDLY:
+				if(this.isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly, flirtatious</i> manner towards you.");
+				} else {
+					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly</i> manner towards you.");
+				}
+				break;
+			case POSITIVE_TWO_LIKE:
+				if(this.isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as more than just a friend.");
+				} else {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as a close friend.");
+				}
+				break;
+			case POSITIVE_THREE_CARING:
+				if(this.isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and is deeply attracted towards you.");
+				} else {
+					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and considers you to be [npc.her] best friend.");
+				}
+				break;
+			case POSITIVE_FOUR_LOVE:
+				if(this.isAttractedTo(Main.game.getPlayer())) {
+					sb.append("You can tell from the way that [npc.she] looks at you that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i>.");
+				} else {
+					sb.append("You can tell that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i> in a purely platonic manner.");
+				}
+				break;
+			case POSITIVE_FIVE_WORSHIP:
+				if(this.isAttractedTo(Main.game.getPlayer())) {
+					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
+				} else {
+					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
+				}
+				break;
+		}
+		sb.append("</i></p>");
+		
+		return UtilText.parse(this, sb.toString());
 	}
 }

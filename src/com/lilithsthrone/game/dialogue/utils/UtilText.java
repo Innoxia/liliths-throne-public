@@ -118,6 +118,7 @@ import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -1327,11 +1328,24 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the name of what kind of wall is in the character's area."){
+				"Returns the name of what kind of wall is in the character's area (for having sex against)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				Cell cell = character.getCell();
 				return cell.getWallName();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("desk"),
+				true,
+				true,
+				"",
+				"Returns the name of what kind of desk is in the character's area (for having sex over)."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				Cell cell = character.getCell();
+				return cell.getDeskName();
 			}
 		});
 		
@@ -2253,6 +2267,24 @@ public class UtilText {
 					return "ma'am";
 				} else {
 					return "sir";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"lord",
+						"lady"),
+				true,
+				true,
+				"",
+				"Returns either 'lord' or 'lady' based on the character's femininity."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.isFeminine()) {
+					return "lady";
+				} else {
+					return "lord";
 				}
 			}
 		});
@@ -9574,6 +9606,9 @@ public class UtilText {
 		for(GenitalArrangement genArrangement : GenitalArrangement.values()) {
 			engine.put("GENITALS_"+genArrangement.toString(), genArrangement);
 		}
+		for(PenisLength penisLength : PenisLength.values()) {
+			engine.put("PENIS_LENGTH_"+penisLength.toString(), penisLength);
+		}
 		for(BodyMaterial material : BodyMaterial.values()) {
 			engine.put("BODY_MATERIAL_"+material.toString(), material);
 		}
@@ -9709,6 +9744,9 @@ public class UtilText {
 		}
 		for(AbstractPerk p : Perk.getAllPerks()) {
 			engine.put("PERK_"+Perk.getIdFromPerk(p), p);
+		}
+		for(PerkCategory pk : PerkCategory.values()) {
+			engine.put("PERK_CATEGORY_"+pk.toString(), pk);
 		}
 		for(AbstractStatusEffect sa : StatusEffect.getAllStatusEffects()) {
 			engine.put("SE_"+StatusEffect.getIdFromStatusEffect(sa), sa);

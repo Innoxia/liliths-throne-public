@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
+import com.lilithsthrone.game.character.npc.dominion.Felicia;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
@@ -57,6 +58,7 @@ import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Kazik;
 import com.lilithsthrone.game.character.npc.fields.Kheiron;
@@ -66,6 +68,7 @@ import com.lilithsthrone.game.character.npc.fields.Nizhoni;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Yui;
+import com.lilithsthrone.game.character.npc.fields.Ziva;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
@@ -89,7 +92,7 @@ import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
 import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
 import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
-import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -638,6 +641,17 @@ public class ParserTarget {
 		}
 	};
 	
+	public static AbstractParserTarget FELICIA = new AbstractParserTarget(Util.newArrayListOfValues("felicia"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Felicia.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Felicia.class);
+		}
+	};
+	
 	public static AbstractParserTarget ARTHUR = new AbstractParserTarget(Util.newArrayListOfValues("arthur"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(Arthur.class).getDescription();
@@ -944,12 +958,12 @@ public class ParserTarget {
 	
 	public static AbstractParserTarget CITADEL_ARCANIST = new AbstractParserTarget(Util.newArrayListOfValues("citadelArcanist", "youkoGuide", "hitomi", "takahashi"), "") {
 		public String getDescription() {
-			return Main.game.getNpc(SubmissionCitadelArcanist.class).getDescription();
+			return Main.game.getNpc(Takahashi.class).getDescription();
 		}
 
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
-			return Main.game.getNpc(SubmissionCitadelArcanist.class);
+			return Main.game.getNpc(Takahashi.class);
 		}
 	};
 	
@@ -1203,6 +1217,27 @@ public class ParserTarget {
 		}
 	};
 	
+	public static AbstractParserTarget HEATHER = new AbstractParserTarget(Util.newArrayListOfValues("heather"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Heather.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Heather.class);
+		}
+	};
+	
+	public static AbstractParserTarget ZIVA = new AbstractParserTarget(Util.newArrayListOfValues("ziva"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Ziva.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Ziva.class);
+		}
+	};
+	
+	
 	
 	
 	/** A list of the hard-coded parser targets above. */
@@ -1227,7 +1262,6 @@ public class ParserTarget {
 
 	/**
 	 * Adds an associated between the tag and the target for parsing.
-	 * @return The NPC which was previously assigned to this tag, or null if no NPC was previously assigned.
 	 */
 	public static void addAdditionalParserTarget(String tag, NPC target) {
 		AbstractParserTarget newParserTarget = new AbstractParserTarget(Util.newArrayListOfValues(tag), "") {
@@ -1241,6 +1275,7 @@ public class ParserTarget {
 		};
 		if(idToParserTargetMap.containsKey(tag)) {
 			System.err.println("Warning: Parser target of '"+tag+"' has been replaced!");
+			removeAdditionalParserTarget((NPC) idToParserTargetMap.get(tag).getCharacter(null, null));
 		}
 		
 		parserTargetToIdMap.put(newParserTarget, tag);

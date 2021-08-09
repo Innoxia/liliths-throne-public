@@ -1586,7 +1586,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>This is only used for subspecies identification.</i>"),
 				"HAIR_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 
 	public static String getSelfTransformHairLengthDiv() {
@@ -1611,6 +1611,36 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] [npc.hair(true)]."
 						+ "<br/><i>Hair of a sufficient length (marked by an asterisk) can be pulled in some sex actions.</i>"),
 				"HAIR_LENGTH",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getNeckFluffDiv() {
+		contentSB.setLength(0);
+		
+		if(BodyChanging.getTarget().isNeckFluff()) {
+			contentSB.append(
+					"<div id='NECK_FLUFF_OFF' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.TRANSFORMATION_SHRINK.getShades()[0]+";'>No neck fluff</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button active'>"
+						+ "<span style='color:"+PresetColour.TRANSFORMATION_GROW.toWebHexString()+";'>Neck fluff</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+PresetColour.TRANSFORMATION_SHRINK.toWebHexString()+";'>No neck fluff</span>"
+					+ "</div>"
+					+"<div id='NECK_FLUFF_ON' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.TRANSFORMATION_GROW.getShades()[0]+";'>Neck fluff</span>"
+					+ "</div>");
+		}
+		
+
+		return applyWrapper("Neck Fluff",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.name] [npc.has] a lot of additional fluff around [npc.her] neck and upper chest."
+						+ "<br/><i>This is a purely cosmetic transformation.</i>"),
+				"NECK_FLUFF",
 				contentSB.toString(),
 				true);
 	}

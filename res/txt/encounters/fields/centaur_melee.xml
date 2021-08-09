@@ -357,6 +357,13 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="COMBAT_LOST_FUCKED_RESIST"><![CDATA[
+	<p>
+		Realising that the [attacker.race] is seriously about to rape you, you try to ward her off by shouting and pleading for her to leave you alone. Letting out an evil cackle as she sees that you're not submitting to her, she steps forwards and delivers a swift smack to the back of your head. Grinning in delight as she makes you flinch, the sadistic [attacker.race] gives you no time in which to make a move before grabbing your face and squeezing your cheeks. Licking her lips, she fixes her wild, crazed gaze upon you and snarls, [attacker.speech(You worthless cunt! You can squirm and scream all you like; it's not going to stop me from showing you your true place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="COMBAT_LOST_CONTINUE"><![CDATA[
 	<p>
 		Although you've been defeated, you're not willing to submit to this sadistic [attacker.race]. As you tell her that you refuse to have sex with her, the marauder lets out an angry shout, before kicking you down and snarling, [attacker.speech(You dumb [pc.insult]! You're lucky that you're not worth my time!)]
