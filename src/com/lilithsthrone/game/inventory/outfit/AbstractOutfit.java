@@ -40,8 +40,8 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.1
- * @version 0.3.7.4
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, AceXP
  */
 public abstract class AbstractOutfit {
 
@@ -134,7 +134,7 @@ public abstract class AbstractOutfit {
             return false;
         }
 
-        switch(this.getFemininity()) {
+		switch(this.getFemininity()) {
 			case FEMININE:
 			case FEMININE_STRONG:
 				if(!character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
@@ -151,28 +151,28 @@ public abstract class AbstractOutfit {
 				break;
 		}
 
-        boolean hasWorldRegions = this.getWorldRegions()!=null && !this.getWorldRegions().isEmpty();
-        boolean hasWorldTypes = this.getWorldTypes()!=null && !this.getWorldTypes().isEmpty();
+		boolean hasWorldRegions = this.getWorldRegions()!=null && !this.getWorldRegions().isEmpty();
+		boolean hasWorldTypes = this.getWorldTypes()!=null && !this.getWorldTypes().isEmpty();
 
 		// If world region and world type present, must be in either one
-        if(hasWorldRegions &&
-           hasWorldTypes &&
-           !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion()) &&
-           !this.getWorldTypes().contains(character.getWorldLocation())) {
-            return false;
-        }
+		if(hasWorldRegions
+				&& hasWorldTypes
+				&& !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())
+				&& !this.getWorldTypes().contains(character.getWorldLocation())) {
+			return false;
+		}
 
 		// If only world region present, must be in that world region
-		if(hasWorldRegions &&
-          !hasWorldTypes &&
-           !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())) {
+		if(hasWorldRegions
+				&& !hasWorldTypes
+				&& !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())) {
 			return false;
 		}
 
 		// If only world type present, must be in that world type
-		if (hasWorldTypes &&
-           !hasWorldRegions &&
-            !this.getWorldTypes().contains(character.getWorldLocation())) {
+		if (hasWorldTypes
+				&& !hasWorldRegions
+				&& !this.getWorldTypes().contains(character.getWorldLocation())) {
 			return false;
 		}
 
