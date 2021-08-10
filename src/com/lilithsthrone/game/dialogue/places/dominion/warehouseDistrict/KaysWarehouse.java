@@ -1258,7 +1258,7 @@ public class KaysWarehouse {
 					};
 					
 				} else if(index==4) {
-					String surname = (Main.game.getPlayer().getSurname()!=null && !Main.game.getPlayer().getSurname().isEmpty()?"[pc.Surname]":"[pc.Name]");
+					String surname = (Main.game.getPlayer().getSurname()!=null && !Main.game.getPlayer().getSurname().isEmpty()?"[pc.Surname]":"[pc.Name(true)]");
 					return new Response("[pc.Miss] "+surname,"Get [kay.name] to call you '[pc.Miss] "+surname+"'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {

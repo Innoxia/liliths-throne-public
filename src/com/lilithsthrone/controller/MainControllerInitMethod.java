@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.npc.dominion.Kay;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.KaysWarehouse;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
 
@@ -1464,12 +1466,15 @@ public class MainControllerInitMethod {
 			
 			if(Main.game.getDialogueFlags().getManagementCompanion()!=null
 					|| ScarlettsShop.isSlaveCustomisationMenu()
-					|| Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_CHOOSE_NAME) {
+					|| Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_CHOOSE_NAME
+					|| Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
 				GameCharacter javaFfs = Main.game.getDialogueFlags().getManagementCompanion();
 				if(ScarlettsShop.isSlaveCustomisationMenu()) {
 					javaFfs = BodyChanging.getTarget();
 				} else if(Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_CHOOSE_NAME) {
 					javaFfs = Main.game.getPlayer().getElemental();
+				} else if(Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
+					javaFfs = Main.game.getNpc(Kay.class);
 				}
 				GameCharacter slave = javaFfs;
 				
