@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -29,6 +30,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+
+import java.util.Optional;
 
 /**
  * @since 0.1.8?
@@ -729,26 +732,55 @@ public class GenericOffspringDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "You decide to ask [npc.name] to call you by a different name."
-						+ " At the moment, [npc.sheIs] calling you '[npc.pcName]'."
+						+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
+						+ " As [npc.sheIs] not your slave, you can't get [npc.herHim] to change [npc.her] name."
 					+ "</p>"
 					
-					// TODO align this properly
-					
-					+ "<div class='container-full-width' style='text-align:center;'>"
-						+ "<div style='position:relative; display: inline-block; padding:0 auto; margin:0 auto;vertical-align:middle;width:100%;'>"
-							+ "<p style='float:left; padding:0; margin:0; height:32px; line-height:32px;'>[npc.Name] will call you: </p>"
-							+ "<form style='float:left; padding:auto 0 auto 0;'><input type='text' id='offspringPetNameInputFeminine' value='"+ UtilText.parseForHTMLDisplay(offspring().getPetName(Main.game.getPlayer()))+ "'></form>"
-							+ " <div class='SM-button' id='"+offspring().getId()+"_PET_NAME' style='float:left; width:auto; height:28px;'>"
-								+ "Rename"
-							+ "</div>"
+					+ "<div class='container-full-width' style='padding:8px 16px;'>"
+						+ "<div style='width:18%; float:left; font-weight:bold; margin:0 13% 0 0; padding:0; text-align:center;'>"
+							+ "Name"
 						+ "</div>"
-						+ "<p>"
-						+ "<i>The names 'Mom'/'Dad' and 'Mommy'/'Daddy' are special, and will automatically switch to the appropriate femininity of your character.</i>"
-						+ "</p>"
-					+ "</div>"
+						+ "<div style='width:18%; float:left; font-weight:bold; margin:0 13% 0 0; padding:0; text-align:center;'>"
+							+ "Surname"
+						+ "</div>"
+						+ "<div style='width:20%; float:left; font-weight:bold; margin:0 18% 0 0; padding:0; text-align:center;'>"
+							+ UtilText.parse(offspring(), "What [npc.she] calls you")
+						+ "</div>"
+
+						+ "<form style='float:left; width:18%; margin:0; padding:0;'><input type='text' id='slaveNameInput'"
+							+ " value='"+ UtilText.parseForHTMLDisplay(offspring().getName(false))+ "' style='width:100%; margin:0; padding:0;' disabled></form>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
+						+ "</div>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 2% 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#127922;"
+						+ "</div>"
+
+						+ "<form style='float:left; width:18%; margin:0; padding:0;'><input type='text' id='slaveSurnameInput'"
+							+ " value='"+ UtilText.parseForHTMLDisplay(offspring().getSurname())+ "' style='width:100%; margin:0; padding:0;' disabled></form>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
+						+ "</div>"
+						+ "<div class='normal-button disabled' style='float:left; width:5%; height:28px; line-height:28px; margin:0 2% 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#127922;"
+						+ "</div>"
+
+						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='offspringPetNameInputFeminine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(offspring().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getFeminine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.FEMININE.toWebHexString() + ";'><input type='text' id='offspringPetNameInputMasculine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(offspring().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getMasculine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.MASCULINE.toWebHexString() + ";'></form>"
+						+ "<div class='normal-button' id='"+offspring().getId()+"_PET_NAME' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "&#10003;"
+						+ "</div>"
+						+ " <div class='normal-button disabled' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
+							+ "All Slaves"
+						+ "</div>"
+					+ "</div>");
 					
-					+ "<p id='hiddenFieldName' style='display:none;'></p>");
+			UtilText.nodeContentSB.append(UtilText.parse(offspring(), GameCharacter.getPetNameInstructions()));
+
+			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			
 			UtilText.nodeContentSB.append(getStatus());
 			
@@ -757,7 +789,7 @@ public class GenericOffspringDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 5 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
+			if (index == 6 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
 				return new Response("Pet name", "You're already asking [npc.name] to call you by a different name.", null);
 				
 			} else {

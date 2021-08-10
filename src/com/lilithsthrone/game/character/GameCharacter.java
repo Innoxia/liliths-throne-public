@@ -1558,9 +1558,8 @@ public abstract class GameCharacter implements XMLSaving {
 								petName = new NameTriplet(value);
 							}
 						} else {
-							petName = new NameTriplet(e.hasAttribute("nameMasculine") ? e.getAttribute("nameMasculine") : "",
-													  "",
-													  e.hasAttribute("nameFeminine") ? e.getAttribute("nameFeminine") : "");
+							petName = new NameTriplet(e.hasAttribute("nameMasculine") ? e.getAttribute("nameMasculine") : "", "",
+							                          e.hasAttribute("nameFeminine") ? e.getAttribute("nameFeminine") : "");
 						}
 						character.setPetName(id, petName);
 						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added feminine pet name: " + id + " " + petName.getFeminine());
@@ -1574,7 +1573,7 @@ public abstract class GameCharacter implements XMLSaving {
 			String petName = ((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value");
 			try {
 				if(!petName.isEmpty()) {
-					character.setPetName(Main.game.getPlayer().getId(), new NameTriplet(petName, "", petName));
+					character.setPetName(Main.game.getPlayer().getId(), new NameTriplet(petName));
 					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set playerPetName: "+petName);
 				}
 			} catch(Exception ex) {
@@ -4035,11 +4034,11 @@ public abstract class GameCharacter implements XMLSaving {
 	public static String getPetNameInstructions() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<p style='text-align:center; margin-top:4px;'><i>");
-		sb.append("[npc.name] can be told to call you different names based on the femininity of your character. ");
-		sb.append("To do so, fill the upper box with the desired pet name when your character is feminine, ");
-		sb.append("and the lower box with the desired pet name when masculine. If you would prefer to ");
-		sb.append("be called the same name regardless of femininity, use the same name for both. ");
-		sb.append("Simply leave a box blank to unset the pet name for that femininity.");
+		sb.append("[npc.name] can be instructed to call you different names based on the femininity of your ");
+		sb.append("character. To do so, fill the upper box with the desired pet name when your character is ");
+		sb.append("feminine, and the lower box with the desired pet name when masculine. If you would prefer ");
+		sb.append("to be called the same name regardless of femininity, use the same name for both. Simply ");
+		sb.append("leave a box blank to unset the pet name for that femininity.");
 		sb.append("</i></p>");
 		return sb.toString();
 	}
