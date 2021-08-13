@@ -480,7 +480,8 @@ public class DialogueFlagValue {
 	 */
 	public static AbstractDialogueFlagValue getDialogueFlagValueFromId(String id) {
 		// Removed flags:
-		if(id.equals("ratWarrensRaid")) {
+		if(id.equals("ratWarrensRaid")
+				|| id.equals("suppliersTriedConvincing")) {
 			return null;
 		}
 		

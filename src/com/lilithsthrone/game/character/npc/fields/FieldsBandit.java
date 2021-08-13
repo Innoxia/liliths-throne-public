@@ -41,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class FieldsBandit extends NPC {
 
 	public FieldsBandit() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public FieldsBandit(Gender gender) {
@@ -49,7 +49,7 @@ public class FieldsBandit extends NPC {
 	}
 	
 	public FieldsBandit(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
+		this(Gender.getGenderFromUserPreferences(false, false), isImported);
 	}
 	
 	/**

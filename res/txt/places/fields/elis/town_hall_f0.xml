@@ -6,7 +6,7 @@
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
 		You find yourself [pc.walking] down the corridor which links all of the offices on the ground floor of Elis's town hall.
-		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+		#IF(!game.isHourBetween(7, 21))
 			 Although it's wide enough to accommodate several people walking abreast, the town hall is currently closed to members of the public, and as such there's nobody here apart from you.
 		#ELSE
 			 Although it's wide enough to accommodate several people walking abreast, there aren't many other people to be seen in this corridor, and as such neither you nor anyone else ever has to adjust course in order to avoid a collision.
@@ -21,7 +21,7 @@
 	<htmlContent tag="EXIT"><![CDATA[
 	<p>
 		The public entrance to the town hall takes the form of a pair of large, heavy wooden doors.
-		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+		#IF(!game.isHourBetween(7, 21))
 			 As the town hall is currently closed, these doors are securely shut and locked. Thankfully, it appears as though it's just a simple matter of operating the door's latch in order to open them, and so you could freely exit the building if you wanted to...
 		#ELSE
 			 These doors are currently propped wide open, allowing both you and other members of the public to come and go as you please.
@@ -33,7 +33,7 @@
 	<htmlContent tag="EXIT_LEAVE"><![CDATA[
 	<p>
 		Having concluded your business within the town hall, you
-		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+		#IF(!game.isHourBetween(7, 21))
 			 operate the latch and open the door, before [pc.stepping]
 		#ELSE
 			 [pc.walk] through the open doors and head
@@ -46,7 +46,7 @@
 	<htmlContent tag="INFO"><![CDATA[
 	<p>
 		Situated immediately in front of the town hall's entrance, the long desk before you carries a sign which identifies it as the reception and information desk.
-		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+		#IF(!game.isHourBetween(7, 21))
 			 Due to the fact that the town hall is currently closed, there's nobody sitting behind the desk, leaving you with nothing to do in this area...
 		#ELSE
 			 Several receptionists are sitting behind this desk, waiting for a member of the public to ask them about the town hall's services...
@@ -95,7 +95,7 @@
 	
 	<htmlContent tag="STAIRS"><![CDATA[
 	<p>
-		Before you stands a wide, twisting staircase, which is signposted as providing access to all four of the upper stories of the town hall's tower, which includes Minotallys's office. A demon Enforcer is standing guard beside this staircase, and as they see you approach, they pointedly tap a sign next to them which reads: 'No Public Access'
+		Before you stands a wide, twisting staircase, which is signposted as providing access to all four of the upper stories of the town hall's tower, which includes Minotallys's office. A demon Enforcer is standing guard beside this staircase, and as they see you approach, they glance at their watch and make a comment about how the town hall is meant to be closed at this hour.
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
@@ -131,7 +131,7 @@
 	<htmlContent tag="WAITING_ROOM"><![CDATA[
 	<p>
 		With one of its walls completely open to the corridor, you're able to easily see that this room contains numerous seats and low coffee tables, and is signposted as being a waiting area for the general public.
-		#IF((game.getHourOfDay()<7 || game.getHourOfDay()>21))
+		#IF(!game.isHourBetween(7, 21))
 			 As the town hall is currently closed, the room's lights have been turned off, but even in the dark you can see that there's nobody in here.
 		#ELSE
 			 Looking around, you see that there are several members of the public sitting in this area, and from the bored expressions on each of their faces, they look like they've had enough of having their patience put to the test.

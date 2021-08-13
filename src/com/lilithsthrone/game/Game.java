@@ -1615,6 +1615,7 @@ public class Game implements XMLSaving {
 				
 				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5") && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					Main.game.getNpc(Felicia.class).setPlayerKnowsName(true); // If progressed past meeting Felicia, set her name as known
+					Main.game.getPlayer().addCharacterEncountered(Main.game.getNpc(Felicia.class));
 		        }
 
 				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5")) {

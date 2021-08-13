@@ -20,7 +20,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest. (by Rick and DSG)
+		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest. (by Rick Docket and DSG)
 		Added samoyed-morph subspecies to the dog-morph race. (by DSG)
 		Added a new fetish preference menu to the options menu, which allows you to set values for influencing the fetishes and desires random NPCs will be generated with. (PR#1553 by Maxis)
 		Prevented patch notes from being run through the parsing engine, which was occasionally causing null pointer exceptions. (PR#1567 by Stadler76)
@@ -31,6 +31,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		NPCs will no longer perform orgasm reactions or denials in response to the player orgasming when the player is hidden. (PR#1578 by AceXP)
 		If a corruptive action is bypassed by fetish, the pink '!' icon will now be recoloured to grey to signify that no corruption will be gained. (PR#1583 by CognitiveMist)
 		When the player does not have enough flames to use 'Buy (All)', but has enough to buy at least one item, the game will now offer 'Buy (Max NN)' in the 'Buy (All)' slot, where NN is the amount that will be purchased. (PR#1584 by CognitiveMist)
+		Fixed issue where characters that the player had never met were getting added to the contact list when loading a game. (by AceXP)
+	
+	Artwork:
+		Added artwork for Catherine (the Slime Queen), drawn by Jam (https://twitter.com/JamDrawers).
 	
 	Engine/Modding:
 		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
@@ -48,6 +52,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added ability to reset your elemental's perks. (Action appears when viewing their perk screen.)
 	
 	Bugs:
+		Parsing fixes.
 		Fixed bug where characters without hair could still be targeted for the 'Twintail pull' sex action.
 		Fixed bug in the 'Rogue Enforcer' quest, where completing the quest would sometimes lock you in a travel-disabled dialogue screen with no responses to choose from.
 		Fixed bug where some sex scenes with Scarlett, such as those encountered during Helena's romance quest, would never come to an end.
@@ -61,7 +66,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where you could give your elemental infinite perks, and fixed a related issue where your elemental's perk screen was showing that they had 2 perk points available for the physical and arcane categories.
 		The 'Thigh squeeze' orgasm action can no longer be used by characters who don't have legs.
 		Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.
-	
+		Fixed issue where bandits in the fields were always being generated as females.
+		Dragon Draft consumables now restore the percentage of total health and aura which their tooltips say they will.
+		
 	
 	[x] Full Fields main quest written out from plan
 	[x] twintail pull available when they have no hair
@@ -140,24 +147,65 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
 		Started after changing the knows name stuff for Takahashi. Investigate and fix this
 	[x] Push as 0.4.1.3
-	
-	
-	[] Add Minotallys meeting
+	[x] Messages
+	[x] Elizabeth info to KT80
+	[x] All bandits in the fields are always generated as females, there's no random element involved at all. FieldsBandit() is used, which defaults to Gender.F_V_B_FEMALE
+	[x] Orange Dragon Draft doesn't restore 20%health and 40%aura as written in the description but instead 17 aura of 513 and about the same amount of HP for me
+	[x] Add Minotallys meeting
+		[x] Quests
+		[x] Add new dialogue folder 'story/main/minotallys_meeting.txt'
 		Overview:
 			She is refusing to believe that there's a problem (she says Lilith would intervene if there was a real issue)
 			Assistant knows it's serious, but cannot convince her
 			Manage to convince her to send contact to Themiscyra to confirm if Lunette's centaurs have attacked there yet
-		[] Meraxis meeting start
-		[] Town Hall access
-		[] Meet assistant
-			[] Portraits of Minotallys on the walls, he explains that she likes to change her appearance (and flavours) based on the day of the week
-		[] Minotallys meeting
-			[] She offers milk, Meraxis happily drinks it
-			[] Minotallys gets visibly turned on as she watches you drink (what it quite obviously) her milk
-		[] Business of Lunette
-		[] She agrees to have you and Meraxis visit Themiscyra to confirm if Lunette's centaurs have attacked there yet
-			[] Add to map
-			
+		[x] Meraxis meeting start
+			[x] Go to town hall with Meraxis, information desk confrontation, she produces her special pass
+			[x] Staircase enforcer, having dealt with Meraxis before, rolls eyes and lets you pass
+		[x] Meet assistant at top of stairs
+			[x] Portraits of Minotallys on the walls upstairs, he explains that she likes to change her appearance (and flavours) based on the day of the week
+		[x] Minotallys meeting
+			[x] She offers milk, Meraxis happily drinks it
+			[x] Minotallys gets visibly turned on as she watches you drink (what is quite obviously) her milk
+		[x] Business of Lunette
+		[x] She agrees to have you and Meraxis visit Themiscyra to confirm if Lunette's centaurs have attacked there yet
+		[x] Meraxis knows the way, tells you to let her know when you're ready to go
+		[x] Writing
+	[x] Make sure town hall map is visible
+	[x] Update town hall tower first floor descriptions
+		[x] Paintings
+		[x] Go through all dialogue for edits
+	
+	[] Minotallys content
+		[x] Unlock access after main quest progressed
+		[x] Make pass item
+		[x] After dark access for pass holding
+			[x] change tile description
+			[-] Add Enforcers present in tile
+			[x] check after closing time dialogues
+				[x] Enforcer at stairs comments
+		[x] Disable loiter 1F
+		[x] Movement at night bugged
+		[x] Daytime meeting
+			[x] She offers milk
+			[x] Talk options
+				[x] Work
+				[x] Lilith
+				[x] Milk
+		[x] Night time Arion sex
+		[] Test
+		[x] Writing
+	
+	[x] Slime queen artwork
+	
+	[] PR1590
+	
+	[] Bug reports
+	
+	
+	
+	---- Release
+	
+	
 	[] Dialogue parsed before time passed
 		[] Add option to change this in dialogue, keep as it is for default as changing would probably break things
 	
@@ -168,6 +216,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Medical centre
 			[] Incubus & succubus doctors
 	
+	[] Finger urethra insertion
+	
+	[] PR Maxis list
+	
+	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
+			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
+				
 	Felicia content expansion:
 		- Ask out on date (affection requirement first I guess)
 		- Repeat date until 3 dates completed
