@@ -1504,52 +1504,59 @@ public class ItemEffectType {
 			if(target.getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
 				sb.append("<br/>" + target.setHipSize(HipSize.FOUR_WOMANLY.getValue()));
 			}
-			if(target.getHairType()!=HairType.HARPY) {
-				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
-			}
-			if(target.getTorsoType()!=TorsoType.HARPY) {
-				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
-			}
 			
-			// Harpy TFs:
-			if(target.getFaceType()!=FaceType.HUMAN)
-				sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
-			if(target.getEarType()!=EarType.HARPY)
-				sb.append("<br/>" + target.setEarType(EarType.HARPY));
-			if(target.getEyeType()!=EyeType.HARPY)
-				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
-			if(target.getHairType()!=HairType.HARPY)
-				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getTorsoType()!=TorsoType.HUMAN)
-				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
-
-			if(target.getWingType()!=WingType.NONE)
-				sb.append("<br/>" + target.setWingType(WingType.NONE));
-			if(target.getHornType()!=HornType.NONE)
-				sb.append("<br/>" + target.setHornType(HornType.NONE));
-
-			if(target.getArmType()!=ArmType.HARPY)
-				sb.append("<br/>" + target.setArmType(ArmType.HARPY));
-			if(target.getLegType()!=LegType.HARPY)
-				sb.append("<br/>" + target.setLegType(LegType.HARPY));
-			if(target.getTailType()!=TailType.HARPY)
-				sb.append("<br/>" + target.setTailType(TailType.HARPY));
-
-			if(target.getBreastType()!=BreastType.HARPY)
-				sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
-			if(target.getAssType()!=AssType.HARPY)
-				sb.append("<br/>" + target.setAssType(AssType.HARPY));
-
-			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
-
-				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
-					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
-					target.fillCumToMaxStorage();
+			if(!target.isAbleToHaveRaceTransformed()) {
+				sb.append("<br/>");
+				sb.append(UtilText.parse(target, "As [npc.nameIsFull] immune to racial transformations, the lollipop has no further effect!"));
+				
+			} else {
+				if(target.getHairType()!=HairType.HARPY) {
+					sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
 				}
-			}
-			if(target.hasVagina()) {
-				sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
+				if(target.getTorsoType()!=TorsoType.HARPY) {
+					sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
+				}
+				
+				// Harpy TFs:
+				if(target.getFaceType()!=FaceType.HUMAN)
+					sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
+				if(target.getEarType()!=EarType.HARPY)
+					sb.append("<br/>" + target.setEarType(EarType.HARPY));
+				if(target.getEyeType()!=EyeType.HARPY)
+					sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
+				if(target.getHairType()!=HairType.HARPY)
+					sb.append("<br/>" + target.setHairType(HairType.HARPY));
+				if(target.getTorsoType()!=TorsoType.HUMAN)
+					sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
+	
+				if(target.getWingType()!=WingType.NONE)
+					sb.append("<br/>" + target.setWingType(WingType.NONE));
+				if(target.getHornType()!=HornType.NONE)
+					sb.append("<br/>" + target.setHornType(HornType.NONE));
+	
+				if(target.getArmType()!=ArmType.HARPY)
+					sb.append("<br/>" + target.setArmType(ArmType.HARPY));
+				if(target.getLegType()!=LegType.HARPY)
+					sb.append("<br/>" + target.setLegType(LegType.HARPY));
+				if(target.getTailType()!=TailType.HARPY)
+					sb.append("<br/>" + target.setTailType(TailType.HARPY));
+	
+				if(target.getBreastType()!=BreastType.HARPY)
+					sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
+				if(target.getAssType()!=AssType.HARPY)
+					sb.append("<br/>" + target.setAssType(AssType.HARPY));
+	
+				if(target.hasPenisIgnoreDildo()) {
+					sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
+	
+					if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
+						sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+						target.fillCumToMaxStorage();
+					}
+				}
+				if(target.hasVagina()) {
+					sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
+				}
 			}
 			
 			return sb.toString();
@@ -1601,58 +1608,65 @@ public class ItemEffectType {
 			if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
 				sb.append("<br/>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
 			}
-			if(target.getHairType()!=HairType.HARPY) {
-				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
-			}
-			if(target.getTorsoType()!=TorsoType.HARPY) {
-				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
-			}
-			
-			// Harpy TFs:
-			if(target.getFaceType()!=FaceType.HUMAN)
-				sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
-			if(target.getEarType()!=EarType.HARPY)
-				sb.append("<br/>" + target.setEarType(EarType.HARPY));
-			if(target.getEyeType()!=EyeType.HARPY)
-				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
-			if(target.getHairType()!=HairType.HARPY)
-				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getTorsoType()!=TorsoType.HUMAN)
-				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
-			if(target.getWingType()!=WingType.NONE)
-				sb.append("<br/>" + target.setWingType(WingType.NONE));
-			if(target.getHornType()!=HornType.NONE)
-				sb.append("<br/>" + target.setHornType(HornType.NONE));
-
-			if(target.getArmType()!=ArmType.HARPY)
-				sb.append("<br/>" + target.setArmType(ArmType.HARPY));
-			if(target.getLegType()!=LegType.HARPY)
-				sb.append("<br/>" + target.setLegType(LegType.HARPY));
-			if(target.getTailType()!=TailType.HARPY)
-				sb.append("<br/>" + target.setTailType(TailType.HARPY));
-
-			if(target.getBreastType()!=BreastType.HARPY)
-				sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
-			if(target.getAssType()!=AssType.HARPY)
-				sb.append("<br/>" + target.setAssType(AssType.HARPY));
-			if(target.getAssWetness().getValue()<Wetness.TWO_MOIST.getValue())
-				sb.append("<br/>" + target.setAssWetness(Wetness.TWO_MOIST.getValue()));
+			if(!target.isAbleToHaveRaceTransformed()) {
+				sb.append("<br/>");
+				sb.append(UtilText.parse(target, "As [npc.nameIsFull] immune to racial transformations, the lollipop has no further effect!"));
 				
-
-			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
-
-				if(target.getPenisRawCumStorageValue()<CumProduction.THREE_AVERAGE.getMedianValue()) {
-					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue()));
-					target.fillCumToMaxStorage();
+			} else {
+				if(target.getHairType()!=HairType.HARPY) {
+					sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
 				}
-			}
-			if(target.hasVagina()) {
-				sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
-
-				if(target.getVaginaWetness().getValue()<Wetness.FOUR_SLIMY.getValue())
-					sb.append("<br/>" + target.setVaginaWetness(Wetness.FOUR_SLIMY.getValue()));
+				if(target.getTorsoType()!=TorsoType.HARPY) {
+					sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
+				}
+				
+				// Harpy TFs:
+				if(target.getFaceType()!=FaceType.HUMAN)
+					sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
+				if(target.getEarType()!=EarType.HARPY)
+					sb.append("<br/>" + target.setEarType(EarType.HARPY));
+				if(target.getEyeType()!=EyeType.HARPY)
+					sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
+				if(target.getHairType()!=HairType.HARPY)
+					sb.append("<br/>" + target.setHairType(HairType.HARPY));
+				if(target.getTorsoType()!=TorsoType.HUMAN)
+					sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
+	
+				if(target.getWingType()!=WingType.NONE)
+					sb.append("<br/>" + target.setWingType(WingType.NONE));
+				if(target.getHornType()!=HornType.NONE)
+					sb.append("<br/>" + target.setHornType(HornType.NONE));
+	
+				if(target.getArmType()!=ArmType.HARPY)
+					sb.append("<br/>" + target.setArmType(ArmType.HARPY));
+				if(target.getLegType()!=LegType.HARPY)
+					sb.append("<br/>" + target.setLegType(LegType.HARPY));
+				if(target.getTailType()!=TailType.HARPY)
+					sb.append("<br/>" + target.setTailType(TailType.HARPY));
+	
+				if(target.getBreastType()!=BreastType.HARPY)
+					sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
+				if(target.getAssType()!=AssType.HARPY)
+					sb.append("<br/>" + target.setAssType(AssType.HARPY));
+				if(target.getAssWetness().getValue()<Wetness.TWO_MOIST.getValue())
+					sb.append("<br/>" + target.setAssWetness(Wetness.TWO_MOIST.getValue()));
+					
+	
+				if(target.hasPenisIgnoreDildo()) {
+					sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
+	
+					if(target.getPenisRawCumStorageValue()<CumProduction.THREE_AVERAGE.getMedianValue()) {
+						sb.append("<br/>" + target.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue()));
+						target.fillCumToMaxStorage();
+					}
+				}
+				if(target.hasVagina()) {
+					sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
+	
+					if(target.getVaginaWetness().getValue()<Wetness.FOUR_SLIMY.getValue())
+						sb.append("<br/>" + target.setVaginaWetness(Wetness.FOUR_SLIMY.getValue()));
+				}
 			}
 			
 			return sb.toString();
@@ -1701,53 +1715,60 @@ public class ItemEffectType {
 			if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
 				sb.append("<br/>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
 			}
-			if(target.getHairType()!=HairType.HARPY) {
-				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_BLACK, false), true));
-			}
-			if(target.getTorsoType()!=TorsoType.HARPY) {
-				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_RED, false, PresetColour.COVERING_RED, false), true));
-			}
-			
-			// Harpy TFs:
-			if(target.getFaceType()!=FaceType.HUMAN)
-				sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
-			if(target.getEarType()!=EarType.HARPY)
-				sb.append("<br/>" + target.setEarType(EarType.HARPY));
-			if(target.getEyeType()!=EyeType.HARPY)
-				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
-			if(target.getHairType()!=HairType.HARPY)
-				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getTorsoType()!=TorsoType.HUMAN)
-				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
-			if(target.getWingType()!=WingType.NONE)
-				sb.append("<br/>" + target.setWingType(WingType.NONE));
-			if(target.getHornType()!=HornType.NONE)
-				sb.append("<br/>" + target.setHornType(HornType.NONE));
-
-			if(target.getArmType()!=ArmType.HARPY)
-				sb.append("<br/>" + target.setArmType(ArmType.HARPY));
-			if(target.getLegType()!=LegType.HARPY)
-				sb.append("<br/>" + target.setLegType(LegType.HARPY));
-			if(target.getTailType()!=TailType.HARPY)
-				sb.append("<br/>" + target.setTailType(TailType.HARPY));
-
-			if(target.getBreastType()!=BreastType.HARPY)
-				sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
-			if(target.getAssType()!=AssType.HARPY)
-				sb.append("<br/>" + target.setAssType(AssType.HARPY));
+			if(!target.isAbleToHaveRaceTransformed()) {
+				sb.append("<br/>");
+				sb.append(UtilText.parse(target, "As [npc.nameIsFull] immune to racial transformations, the perfume has no further effect!"));
 				
-
-			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
-
-				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
-					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
-					target.fillCumToMaxStorage();
+			} else {
+				if(target.getHairType()!=HairType.HARPY) {
+					sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_BLACK, false), true));
 				}
-			}
-			if(target.hasVagina()) {
-				sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
+				if(target.getTorsoType()!=TorsoType.HARPY) {
+					sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_RED, false, PresetColour.COVERING_RED, false), true));
+				}
+				
+				// Harpy TFs:
+				if(target.getFaceType()!=FaceType.HUMAN)
+					sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
+				if(target.getEarType()!=EarType.HARPY)
+					sb.append("<br/>" + target.setEarType(EarType.HARPY));
+				if(target.getEyeType()!=EyeType.HARPY)
+					sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
+				if(target.getHairType()!=HairType.HARPY)
+					sb.append("<br/>" + target.setHairType(HairType.HARPY));
+				if(target.getTorsoType()!=TorsoType.HUMAN)
+					sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
+	
+				if(target.getWingType()!=WingType.NONE)
+					sb.append("<br/>" + target.setWingType(WingType.NONE));
+				if(target.getHornType()!=HornType.NONE)
+					sb.append("<br/>" + target.setHornType(HornType.NONE));
+	
+				if(target.getArmType()!=ArmType.HARPY)
+					sb.append("<br/>" + target.setArmType(ArmType.HARPY));
+				if(target.getLegType()!=LegType.HARPY)
+					sb.append("<br/>" + target.setLegType(LegType.HARPY));
+				if(target.getTailType()!=TailType.HARPY)
+					sb.append("<br/>" + target.setTailType(TailType.HARPY));
+	
+				if(target.getBreastType()!=BreastType.HARPY)
+					sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
+				if(target.getAssType()!=AssType.HARPY)
+					sb.append("<br/>" + target.setAssType(AssType.HARPY));
+					
+	
+				if(target.hasPenisIgnoreDildo()) {
+					sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
+	
+					if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
+						sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+						target.fillCumToMaxStorage();
+					}
+				}
+				if(target.hasVagina()) {
+					sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
+				}
 			}
 			
 			return sb.toString();

@@ -691,7 +691,7 @@ public enum PerkManager {
 			treeSB.append(character.getPerkPoints());
 			StringBuilder extraPerkPoints = new StringBuilder();
 			for(PerkCategory category : PerkCategory.values()) {
-				int points = character.getAdditionalPerkCategoryPoints(category)-(character.getPerksInCategory(category)-PerkManager.getInitialPerkCount(character, category));
+				int points = character.getAdditionalPerkCategoryPoints(category)-Math.max(0, character.getPerksInCategory(category)-PerkManager.getInitialPerkCount(character, category));
 				if(points>0) {
 					extraPerkPoints.append(" <span style='color:"+category.getColour().toWebHexString()+";'>"+points+"</span>");
 				}

@@ -143,8 +143,25 @@ public class SlaveDialogue {
 	}
 
 	private static List<GameCharacter> getSubmissiveSpectators() {
-		List<NPC> characters = Main.game.getCharactersPresent();
-		characters.removeAll(Main.game.getPlayer().getCompanions());
+		// Removed in 0.4.1.5, as this was allowing sex with random characters who were on the tile that shouldn't have been involved in sex
+//		List<NPC> characters = Main.game.getCharactersPresent();
+//		characters.removeAll(Main.game.getPlayer().getCompanions());
+//		return new ArrayList<>(characters);
+		
+//		List<NPC> characters = Main.game.getCharactersPresent();
+//		characters.removeAll(Main.game.getPlayer().getCompanions());
+//		characters.removeIf(c ->
+//			(!c.isSlave() || !c.getOwner().isPlayer()) // Character is not a slave or is a slave that doesn't belong to the player
+//			&& (!Main.game.getPlayer().getFriendlyOccupants().contains(c.getId()) || !c.isAttractedTo(Main.game.getPlayer()))); // AND is not a friend or is not attracted to the player
+		
+		List<NPC> characters = new ArrayList<>();
+		for(NPC character : Main.game.getCharactersPresent()) {
+			if((character.isSlave() && character.getOwner().isPlayer()) // Add if character is player's slave
+					|| (Main.game.getPlayer().getFriendlyOccupants().contains(character.getId()) && character.isAttractedTo(Main.game.getPlayer()))) { // OR character is friend who is attracted to player
+				characters.add(character);
+				
+			}
+		}
 		return new ArrayList<>(characters);
 	}
 	

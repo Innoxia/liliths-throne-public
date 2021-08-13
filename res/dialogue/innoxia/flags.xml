@@ -97,7 +97,21 @@
 		<flag dailyReset="false">elis_market_ziva_kissed</flag>
 		<flag dailyReset="false">elis_market_ziva_strip_offered</flag>
 		
+		<!-- Minotallys -->
+		<flag dailyReset="false">minotallys_arion_talk_introduced</flag>
+		<flag dailyReset="false">minotallys_arion_talk_duties</flag>
+		<flag dailyReset="false">minotallys_arion_talk_paintings</flag>
+		<flag dailyReset="false">minotallys_arion_talk_rooms</flag>
 		
+		<flag dailyReset="true">minotallys_talk_history</flag>
+		<flag dailyReset="true">minotallys_talk_arion</flag>
+		<flag dailyReset="true">minotallys_talk_work</flag>
+		<flag dailyReset="true">minotallys_talk_lilith</flag>
+		<flag dailyReset="true">minotallys_talk_milk</flag>
+	
+	
+	
+	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
 	meraxis_duel_player_wins (Meraxis duel player wins)

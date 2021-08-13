@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -19,6 +20,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -57,8 +59,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, Maxis
  */
 public class OptionsDialogue {
 	
@@ -763,6 +765,8 @@ public class OptionsDialogue {
 						}
 					}
 				};
+			} else if (index == 13) {
+				return new Response("Fetish preferences", "Set your preferred fetish encounter rates.", FETISH_PREFERENCE);
 
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
@@ -1179,6 +1183,11 @@ public class OptionsDialogue {
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
+
+		@Override
+		public boolean isContentParsed() {
+			return false;
+		}
 	};
 	
 	public static final DialogueNode DISCLAIMER = new DialogueNode("", "", true) {
@@ -1380,6 +1389,63 @@ public class OptionsDialogue {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
+	
+	public static final DialogueNode FETISH_PREFERENCE = new DialogueNode("Fetish preferences", "", true) {
+		
+		@Override
+		public String getHeaderContent(){
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+							+ "These options will determine the likelihood of random NPCs having these fetishes & preferences."
+							+ " Some races are more likely to get specific fetishes, but your preferences will be taken into account wherever possible.<br/>"
+							+ " Content settings will enable/disable related fetishes."
+							+ "</div>"
+							
+							+ "<div class='container-full-width' style='text-align:center;'>");
+			for(Fetish fetish : Fetish.values()) {
+				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
+					UtilText.nodeContentSB.append(getFetishPreferencesPanel(fetish));
+				}
+			}
+			
+			UtilText.nodeContentSB.append("</div>");
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				
+			} else if(index == 1) {
+				return new Response("Defaults", "Reset all fetish preferences to their default settings.", FETISH_PREFERENCE) {
+					@Override
+					public void effects() {
+						for(Fetish fetish : Fetish.values()) {
+							if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
+								Main.getProperties().fetishPreferencesMap.put(fetish, FetishPreference.THREE_NEUTRAL.getValue());
+							}
+						}
+						Main.saveProperties();
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
+		}
+	};
 
 	private static String getOrientationPreferencesPanel(SexualOrientation orient) {
 		Colour colour = orient.getColour();
@@ -1396,6 +1462,65 @@ public class OptionsDialogue {
 						+"</div>");
 		}
 						
+		sb.append("</div>"
+				+ "</div>"
+				+ "<hr></hr>");
+		
+		return sb.toString();
+	}
+
+	public static String getInformationDiv(String id, TooltipInformationEventListener information) {
+		Game.informationTooltips.put(id, information);
+		return "<div class='title-button no-select' id='"+id+"' style='position:relative; float:left; background:transparent; padding:0; margin:0;'>"
+					+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()
+				+"</div>";
+	}
+	
+	private static String getFetishPreferencesPanel(Fetish fetish) {
+		StringBuilder sb = new StringBuilder();
+		
+		Colour highlightColour = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getColour();
+		
+		sb.append("<div style='display:inline-block; margin:4px auto;width:100%;'>"
+				+ "<div style='display:inline-block; margin:0 auto;'>"
+				+ getInformationDiv(fetish.toString()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
+				+ "<div style='width:150px; float:left;'><b style='color:"+highlightColour.toWebHexString()+";'>"+Util.capitaliseSentence(fetish.getName(null))+"</b></div>");
+		
+		for(FetishPreference preference : FetishPreference.values()) {
+			String disabledMsg=null;
+			if(!Main.game.isPenetrationLimitationsEnabled() && fetish == Fetish.FETISH_SIZE_QUEEN) {
+				disabledMsg="Penetrative size-difference";
+			}
+			if(!Main.game.isNonConEnabled() && (fetish == Fetish.FETISH_NON_CON_DOM || fetish == Fetish.FETISH_NON_CON_SUB)) {
+				disabledMsg="Non-consent";
+			}
+			if(!Main.game.isIncestEnabled() && fetish == Fetish.FETISH_INCEST) {
+				disabledMsg="Incest";
+			}
+			if(!Main.game.isLactationContentEnabled() && (fetish == Fetish.FETISH_LACTATION_OTHERS || fetish == Fetish.FETISH_LACTATION_SELF)) {
+				disabledMsg="Lactation";
+			}
+			if(!Main.game.isAnalContentEnabled() && (fetish == Fetish.FETISH_ANAL_GIVING || fetish == Fetish.FETISH_ANAL_RECEIVING)) {
+				disabledMsg="Anal Content";
+			}
+			if(!Main.game.isFootContentEnabled() && (fetish == Fetish.FETISH_FOOT_GIVING || fetish == Fetish.FETISH_FOOT_RECEIVING)) {
+				disabledMsg="Foot Content";
+			}
+			if(!Main.game.isArmpitContentEnabled() && (fetish == Fetish.FETISH_ARMPIT_GIVING || fetish == Fetish.FETISH_ARMPIT_RECEIVING)) {
+				disabledMsg="Armpit Content";
+			}
+			if(disabledMsg!=null) {
+				// Disabled fetishes to default, the fetish won't be a valid option for the generator anyway
+				Main.getProperties().fetishPreferencesMap.put(fetish, fetish.getFetishPreferenceDefault().getValue());
+				sb.append("<div style='display:inline-block;'><span class='option-disabled'>Fetish forcibly disabled due to "+disabledMsg+" setting!</span></div>");
+				break;
+			} else {
+				sb.append("<div id='"+preference+"_"+fetish+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
+							+Util.capitaliseSentence(preference.getName())
+						+"</div>");
+			}
+		}
+		
 		sb.append("</div>"
 				+ "</div>"
 				+ "<hr></hr>");

@@ -1142,18 +1142,18 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public void addCharacterEncountered(String character) {
 		if (!charactersEncountered.contains(character)) {
 			charactersEncountered.add(character);
-		}
-		if(Main.game.isStarted()) {
-			sortCharactersEncountered();
+			if(Main.game.isStarted()) {
+				sortCharactersEncountered();
+			}
 		}
 	}
-	
+
 	public void addCharacterEncountered(GameCharacter character) {
 		if (!charactersEncountered.contains(character.getId())) {
 			charactersEncountered.add(character.getId());
-		}
-		if(Main.game.isStarted()) {
-			sortCharactersEncountered();
+			if(Main.game.isStarted()) {
+				sortCharactersEncountered();
+			}
 		}
 	}
 	
@@ -1163,6 +1163,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	 */
 	public List<GameCharacter> getCharactersEncounteredAsGameCharacters(boolean expansiveSearch) {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
+		charactersEncountered.removeIf(id -> !Main.game.isCharacterExisting(id));
 		for(String characterId : charactersEncountered) {
 			try {
 				GameCharacter npc = Main.game.getNPCById(characterId);
@@ -1187,6 +1188,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public void sortCharactersEncountered() {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
+		charactersEncountered.removeIf(id -> !Main.game.isCharacterExisting(id));
 		for(String characterId : charactersEncountered) {
 			try {
 				GameCharacter npc = Main.game.getNPCById(characterId);

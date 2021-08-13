@@ -70,8 +70,10 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_CALL_TO_ARMS);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCRYA);
 		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
+		node2.addChild(node1);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 
