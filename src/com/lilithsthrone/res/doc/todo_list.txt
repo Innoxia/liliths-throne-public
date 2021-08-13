@@ -33,7 +33,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		When the player does not have enough flames to use 'Buy (All)', but has enough to buy at least one item, the game will now offer 'Buy (Max NN)' in the 'Buy (All)' slot, where NN is the amount that will be purchased. (PR#1584 by CognitiveMist)
 		Fixed issue where characters that the player had never met were getting added to the contact list when loading a game. (by AceXP)
 		Fixed soft lock with the fields bandit encounter where if the bandit was willing to rape but not attracted to the player, no dialogue options would be given to continue the scene. (by AceXP)
-	
+		Fixed an rare stack overflow error when loading a saved game in which the player had slaves or followers. (PR#1590 by Jtecx and CognitiveMist)
+		
 	Artwork:
 		Added artwork for Catherine (the Slime Queen), drawn by Jam (https://twitter.com/JamDrawers).
 	
@@ -198,8 +199,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Slime queen artwork
 	[x] Bug reports
 		[x]  NPC description is not updated after the slave is freed. It still reflects that she is a slave.
-		
-	[] PR1590
+	[x] PR1590
 	
 	
 	
