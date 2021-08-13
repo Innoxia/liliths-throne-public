@@ -20,7 +20,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest. (by Rick Docket and DSG)
+		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest (more content for her will be added later). (by Rick Docket and DSG)
 		Added samoyed-morph subspecies to the dog-morph race. (by DSG)
 		Added a new fetish preference menu to the options menu, which allows you to set values for influencing the fetishes and desires random NPCs will be generated with. (PR#1553 by Maxis)
 		Prevented patch notes from being run through the parsing engine, which was occasionally causing null pointer exceptions. (PR#1567 by Stadler76)
@@ -35,11 +35,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed soft lock with the fields bandit encounter where if the bandit was willing to rape but not attracted to the player, no dialogue options would be given to continue the scene. (by AceXP)
 		Fixed an rare stack overflow error when loading a saved game in which the player had slaves or followers. (PR#1590 by Jtecx and CognitiveMist)
 		
+	Engine/Modding:
+		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
+	
 	Artwork:
 		Added artwork for Catherine (the Slime Queen), drawn by Jam (https://twitter.com/JamDrawers).
 	
-	Engine/Modding:
-		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
+	Gameplay:
+		Added the next stage of the main quest, where you meet Minotallys.
 	
 	Body:
 		Added 'neck hair/fur' as a purely cosmetic transformation tied to a character's hair, which can be applied via potion or clothing TFs.
@@ -71,6 +74,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where bandits in the fields were always being generated as females.
 		Dragon Draft consumables now restore the percentage of total health and aura which their tooltips say they will.
 		Fixed issue with NPCs' descriptions not being updated after freeing them from slavery.
+		Fixed issue where if you had companions enabled and started sex with one while there were NPCs present in the tile, the NPCs would be added as submissive spectators who could then be brought into the sex scene.
 	
 	
 	[x] Full Fields main quest written out from plan
@@ -201,10 +205,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x]  NPC description is not updated after the slave is freed. It still reflects that she is a slave.
 	[x] PR1590
 	
-	
-	
-	
 	---- Release
+	
 	
 	
 	[] Dialogue parsed before time passed
