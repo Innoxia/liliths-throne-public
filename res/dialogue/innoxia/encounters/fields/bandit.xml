@@ -469,7 +469,7 @@
 			
 			<!-- Non-con disabled, so give player chance to leave: -->
 			<response>
-				<availabilityConditional><![CDATA[[#!attacker.isWillingToRape()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!attacker.isWillingToRape() || (attacker.isWillingToRape() && !attacker.isAttractedTo(pc))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>

@@ -32,6 +32,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		If a corruptive action is bypassed by fetish, the pink '!' icon will now be recoloured to grey to signify that no corruption will be gained. (PR#1583 by CognitiveMist)
 		When the player does not have enough flames to use 'Buy (All)', but has enough to buy at least one item, the game will now offer 'Buy (Max NN)' in the 'Buy (All)' slot, where NN is the amount that will be purchased. (PR#1584 by CognitiveMist)
 		Fixed issue where characters that the player had never met were getting added to the contact list when loading a game. (by AceXP)
+		Fixed soft lock with the fields bandit encounter where if the bandit was willing to rape but not attracted to the player, no dialogue options would be given to continue the scene. (by AceXP)
 	
 	Artwork:
 		Added artwork for Catherine (the Slime Queen), drawn by Jam (https://twitter.com/JamDrawers).
@@ -68,7 +69,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.
 		Fixed issue where bandits in the fields were always being generated as females.
 		Dragon Draft consumables now restore the percentage of total health and aura which their tooltips say they will.
-		
+		Fixed issue with NPCs' descriptions not being updated after freeing them from slavery.
+	
 	
 	[x] Full Fields main quest written out from plan
 	[x] twintail pull available when they have no hair
@@ -174,8 +176,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Update town hall tower first floor descriptions
 		[x] Paintings
 		[x] Go through all dialogue for edits
-	
-	[] Minotallys content
+	[x] Minotallys content
 		[x] Unlock access after main quest progressed
 		[x] Make pass item
 		[x] After dark access for pass holding
@@ -192,14 +193,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] Lilith
 				[x] Milk
 		[x] Night time Arion sex
-		[] Test
+		[x] Test
 		[x] Writing
-	
 	[x] Slime queen artwork
-	
+	[x] Bug reports
+		[x]  NPC description is not updated after the slave is freed. It still reflects that she is a slave.
+		
 	[] PR1590
 	
-	[] Bug reports
 	
 	
 	
