@@ -785,7 +785,14 @@ public abstract class DialogueNode {
 	public DialogueNodeType getDialogueNodeType() {
 		return DialogueNodeType.NORMAL;
 	}
-	
+
+	/**
+	 * @return Whether the content of the dialogue should run through the parser. Will almost always be {@code true}.
+	 */
+	public boolean isContentParsed() {
+		return true;
+	}
+
 	/**
 	 * @return The author of the scene.
 	 */

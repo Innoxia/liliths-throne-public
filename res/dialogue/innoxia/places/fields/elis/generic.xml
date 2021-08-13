@@ -616,12 +616,14 @@
 				<responseTooltip><![CDATA[
 					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<21)
 						Use the door marked as the 'public entrance' to head inside Elis's town hall.
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
+						Show the Enforcer your pass and enter the town hall.
 					#ELSE
 						As the town hall is closed at this hour, you're unable to head inside...
 					#ENDIF
 					]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<21)
+					#IF((game.getHourOfDay()>=7 && game.getHourOfDay()<21) || flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
 						innoxia_places_fields_elis_town_hall_f0_exit
 					#ELSE
 						null

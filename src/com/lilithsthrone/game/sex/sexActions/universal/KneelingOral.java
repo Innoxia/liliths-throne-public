@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.8
- * @version 0.3.1
+ * @version 0.4.2
  * @author Innoxia
  */
 public class KneelingOral {
@@ -32,7 +32,7 @@ public class KneelingOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL);
+			return Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL) && Main.sex.getCharacterPerformingAction().hasLegs();
 		}
 		
 		@Override

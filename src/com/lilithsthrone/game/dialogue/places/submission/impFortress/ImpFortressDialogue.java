@@ -215,7 +215,7 @@ public class ImpFortressDialogue {
 		
 		clearBossGuards(fortress);
 		
-		((NPC) getBoss(fortress)).equipClothing();
+		((NPC) getBoss(fortress)).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 		
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
 			getBoss(fortress).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);

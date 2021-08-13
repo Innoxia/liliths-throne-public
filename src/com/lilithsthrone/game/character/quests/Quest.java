@@ -332,7 +332,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Meeting Minotallys";
@@ -340,20 +340,39 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
-					+ "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis.";
+			return "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis."
+					+ " Tell Meraxis that you're ready for the meeting at any time between [units.time(9)]-[units.time(18)].";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "-";
+			return "You and Meraxis travelled to Elis's town hall to meet Minotallys, where you also met with her personal assistant, Arion."
+					+ " Minotallys is in a state of denial about the current state of affairs in the Foloi Fields, and stated that she would only consider taking action if the town of Themiscyra was somehow being threatened.";
 		}
 	},
 	
-	MAIN_3_D_CALL_TO_ARMS(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_D_TO_THEMISCRYA(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Call To Arms";
+			return "To Themiscyra";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
+					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";//TODO
+		}
+	},
+	
+	MAIN_3_E_TODO(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "TODO";
 		}
 
 		@Override

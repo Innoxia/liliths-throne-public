@@ -55,7 +55,7 @@ public class LilayaBirthing {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_PREGNANCY_START"));
 			
 			// Player has had sex with Lilaya before:
-			if(player.hasSexCountWith(lilaya)) {
+			if(player.getTotalTimesHadSex(lilaya) > 0) {
 				if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() == lilaya)) {
 					if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() != lilaya)) {
 						// Lilaya might be the 'father':
