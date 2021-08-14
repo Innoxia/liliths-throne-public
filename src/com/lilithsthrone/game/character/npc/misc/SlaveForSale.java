@@ -129,6 +129,11 @@ public class SlaveForSale extends NPC {
 			this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 		}
 	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 	
 	@Override
 	public boolean isUnique() {
