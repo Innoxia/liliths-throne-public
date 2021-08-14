@@ -13,15 +13,17 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
+import com.lilithsthrone.game.character.*;
+import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
+import com.lilithsthrone.game.character.npc.misc.*;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -142,8 +144,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			NPCGenerationFlag... generationFlags) {
 		super(nameTriplet, surname, description, level,
 				age<MINIMUM_AGE
-					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0)
-					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, birthDay, 12, 0),
+					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0)
+					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
 		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);
@@ -1031,6 +1033,67 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isAbleToBeEgged() {
 		return !this.isUnique() || (this.isSlave() && this.getOwner().isPlayer());
+	}
+
+	public boolean isReadyToBeDeleted() {
+		if (this.isUnique()
+		 	|| this instanceof Elemental
+			|| this instanceof ReindeerOverseer
+			|| this instanceof GenericFemaleNPC
+			|| this instanceof GenericMaleNPC
+			|| this instanceof GenericAndrogynousNPC
+			|| this instanceof PrologueFemale
+			|| this instanceof PrologueMale
+			|| this	instanceof NPCOffspring) {
+			return false;
+		}
+
+		for(Litter litter : this.getIncubatingLitters().values()) {
+			if((litter.getMother()!=null && litter.getMother().isPlayer()) || (litter.getFather()!=null && litter.getFather().isPlayer())) {
+				return false;
+			}
+		}
+
+		for(Litter litter : Main.game.getPlayer().getIncubatingLitters().values()) {
+			if((litter.getMother()!=null && litter.getMother().equals(this)) || (litter.getFather()!=null && litter.getFather().equals(this))) {
+				return false;
+			}
+		}
+
+		if((this.getPregnantLitter()!=null && this.getPregnantLitter().getFather()!=null && this.getPregnantLitter().getFather().isPlayer()) // NPC needs to birth litter where player is father
+			|| (Main.game.getPlayer().getPregnantLitter()!=null && Main.game.getPlayer().getPregnantLitter().getFather()!=null && Main.game.getPlayer().getPregnantLitter().getFather().equals(this))) { // player needs to birth litter where NPC is father
+			return false;
+		}
+
+		for (PregnancyPossibility possibility : this.getPotentialPartnersAsMother()) {
+			if(possibility.getMother()!=null && possibility.getMother().isPlayer()
+				|| possibility.getFather()!=null && possibility.getFather().isPlayer()) {
+				return false;
+			}
+		}
+
+		for (PregnancyPossibility possibility : this.getPotentialPartnersAsFather()) {
+			if(possibility.getMother()!=null && possibility.getMother().isPlayer()
+				|| possibility.getFather()!=null && possibility.getFather().isPlayer()) {
+				return false;
+			}
+		}
+
+		for (PregnancyPossibility possibility : Main.game.getPlayer().getPotentialPartnersAsMother()) {
+			if(possibility.getMother()!=null && possibility.getMother().equals(this)
+				|| possibility.getFather()!=null && possibility.getFather().equals(this)) {
+				return false;
+			}
+		}
+
+		for (PregnancyPossibility possibility : Main.game.getPlayer().getPotentialPartnersAsFather()) {
+			if(possibility.getMother()!=null && possibility.getMother().equals(this)
+				|| possibility.getFather()!=null && possibility.getFather().equals(this)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public boolean hasFlag(NPCFlagValue flag) {

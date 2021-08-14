@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -189,9 +191,8 @@ public abstract class AbstractEncounter {
 		}
 	}
 	
-	protected static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
-		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-		Main.game.getOffspringSpawned().add(offspring);
+	protected static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
+		NPC offspring = new NPCOffspring(offspringAvailable.get(Util.random.nextInt(offspringAvailable.size())));
 
 		offspring.setLocation(Main.game.getPlayer(), true);
 		

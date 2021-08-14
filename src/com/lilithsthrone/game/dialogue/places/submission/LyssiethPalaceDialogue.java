@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -13,6 +11,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.race.Race;
@@ -27,23 +26,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
-import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.sex.managers.submission.SMLilayaDemonTF;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethSex;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
-import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.*;
 import com.lilithsthrone.game.sex.sexActions.submission.SALyssiethSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -52,6 +42,8 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+
+import java.util.List;
 
 /**
  * @since 0.3
@@ -401,8 +393,8 @@ public class LyssiethPalaceDialogue {
 							public void effects() {
 								// Reset offspring to full demons:
 								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
-									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
-										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
+									for(OffspringSeed offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringSeed()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
 									}
 									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 								}
@@ -1960,8 +1952,8 @@ public class LyssiethPalaceDialogue {
 							public void effects() {
 								// Reset offspring to full demons:
 								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
-									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
-										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
+									for(OffspringSeed offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringSeed()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
 									}
 									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 								}
@@ -1982,8 +1974,8 @@ public class LyssiethPalaceDialogue {
 							public void effects() {
 								// Reset offspring to full demons:
 								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
-									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
-										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
+									for(OffspringSeed offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringSeed()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
 									}
 									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 								}
@@ -1999,16 +1991,16 @@ public class LyssiethPalaceDialogue {
 							public void effects() {
 								// Reset offspring to full demons:
 								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
-									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
-										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
+									for(OffspringSeed offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringSeed()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
 									}
 									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 								}
 	
 								// Reset offspring to full demons:
 								if(Main.game.getNpc(Lilaya.class).isPregnant()) {
-									for(GameCharacter offspring : Main.game.getNpc(Lilaya.class).getPregnantLitter().getOffspringCharacters()) {
-										offspring.setBody(offspring.getGender(), Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getPregnantLitter().getFather(), false);
+									for(OffspringSeed offspring : Main.game.getNpc(Lilaya.class).getPregnantLitter().getOffspringSeed()) {
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getPregnantLitter().getFather());
 									}
 									Main.game.getNpc(Lilaya.class).getPregnantLitter().generateBirthedDescription();
 								}

@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.BatCavernLurkerAttacker;
 import com.lilithsthrone.game.character.npc.submission.BatCavernSlimeAttacker;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
@@ -358,14 +359,14 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS)
-										|| npc.getSubspecies()==Subspecies.ANGEL
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+						os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS))
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS)
+										|| os.getSubspecies()==Subspecies.ANGEL
+										|| os.getSubspecies()==Subspecies.FOX_ASCENDANT
+										|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
+										|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)));
 					
 					if(!offspringAvailable.isEmpty()) {
 //						for(NPC npc : offspringAvailable) {
@@ -510,16 +511,16 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
-										|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
-										|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
-										|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
-										|| npc.getSubspecies()==Subspecies.SLIME
-										|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-										|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
+										|| os.getHalfDemonSubspecies()==Subspecies.SLIME
+										|| os.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
+										|| os.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
+										|| os.getSubspecies()==Subspecies.SLIME
+										|| os.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+										|| os.getSubspecies()==Subspecies.RAT_MORPH)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -630,10 +631,10 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
-								:(npc.getSubspecies().getRace()==Race.HARPY)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(os.getSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -690,10 +691,10 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
-								:(npc.getSubspecies().getRace()==Race.HARPY)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(os.getSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -939,10 +940,10 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) {
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);

@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -30,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class LilayaBirthing {
 
-	public static String getOffspringDescriptor(GameCharacter offspring) {
+	public static String getOffspringDescriptor(OffspringSeed offspring) {
 		List<String> descriptors = new ArrayList<>();
 		descriptors.add(offspring.getBodyShape().getName(false));
 		descriptors.add(offspring.getHeight().getDescriptor());
@@ -282,14 +283,14 @@ public class LilayaBirthing {
 			
 			String offspringId = Util.randomItemFrom(Main.game.getPlayer().getLastLitterBirthed().getOffspring());
 			try {
-				GameCharacter offspring = Main.game.getNPCById(offspringId);
+				OffspringSeed offspring = Main.game.getOffspringSeedById(offspringId);
 				if(offspring.isFeminine()) {
 					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-								+offspring.getSubspecies().getSingularFemaleName(offspring)
+								+offspring.getSubspecies().getName(null)
 								+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
 				} else {
 					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-								+offspring.getSubspecies().getSingularMaleName(offspring)
+								+offspring.getSubspecies().getName(null)
 								+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 				
@@ -454,13 +455,13 @@ public class LilayaBirthing {
 			
 			String offspringId = Util.randomItemFrom(Main.game.getPlayer().getLastLitterBirthed().getOffspring());
 			try {
-				GameCharacter offspring = Main.game.getNPCById(offspringId);
+				OffspringSeed offspring = Main.game.getOffspringSeedById(offspringId);
 				if(offspring.isFeminine()) {
-					UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularFemaleName(offspring), true);
+					UtilText.addSpecialParsingString(offspring.getSubspecies().getName(null), true);
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_FEMININE_HATCHING"));
 					
 				} else {
-					UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularMaleName(offspring), true);
+					UtilText.addSpecialParsingString(offspring.getSubspecies().getName(null), true);
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_MASCULINE_HATCHING"));
 				}
 			} catch(Exception ex) {
@@ -509,12 +510,12 @@ public class LilayaBirthing {
 			
 			for(String id : Main.game.getPlayer().getLastLitterBirthed().getOffspring()) {
 				try {
-					GameCharacter offspring = Main.game.getNPCById(id);
+					OffspringSeed offspring = Main.game.getOffspringSeedById(id);
 					String descriptor = getOffspringDescriptor(offspring);
 					UtilText.nodeContentSB.append("<br/>"
 							+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
-							+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGender().getName()+"</i>"
-							+ " <i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"+UtilText.parse(offspring,"[npc.race]")+"</i>");
+							+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getSubspecies().getName(null)+"</i>"
+							+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGenderName()+"</i>");
 				} catch(Exception ex) {
 				}
 			}
