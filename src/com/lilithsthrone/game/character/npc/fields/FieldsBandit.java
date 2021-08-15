@@ -41,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class FieldsBandit extends NPC {
 
 	public FieldsBandit() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public FieldsBandit(Gender gender) {
@@ -49,7 +49,7 @@ public class FieldsBandit extends NPC {
 	}
 	
 	public FieldsBandit(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
+		this(Gender.getGenderFromUserPreferences(false, false), isImported);
 	}
 	
 	/**
@@ -99,8 +99,6 @@ public class FieldsBandit extends NPC {
 			
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"[npc.Name] is a bandit who roams the Foloi Fields looking for travellers to prey upon."));
 			
 			// PERSONALITY & BACKGROUND:
 			
@@ -176,8 +174,12 @@ public class FieldsBandit extends NPC {
 		if(this.isSlave()) {
 			return UtilText.parse(this,
 					"[npc.NamePos] days of roaming the Foloi Fields and preying upon innocent travellers are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
+			
+		} else if(Main.game.getPlayer()!=null && Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
+			return UtilText.parse(this, "When you first met [npc.name], [npc.she] was a bandit who roamed the Foloi Fields looking for travellers to prey upon. After a period of being your slave, [npc.sheIs] now your trusted friend.");
+			
 		} else {
-			return UtilText.parse(this, description);
+			return UtilText.parse(this, "[npc.Name] is a bandit who roams the Foloi Fields looking for travellers to prey upon.");
 		}
 	}
 

@@ -160,7 +160,12 @@ public class SlaveForSale extends NPC {
 	
 	@Override
 	public String getDescription() {
-		return UtilText.parse(this, "For one reason or another, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
+		if(this.isSlave()) {
+			return UtilText.parse(this, "For one reason or another, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
+			
+		} else {
+			return UtilText.parse(this, "After a period of being your slave, [npc.nameIsFull] now your trusted friend.");
+		}
 	}
 	
 }
