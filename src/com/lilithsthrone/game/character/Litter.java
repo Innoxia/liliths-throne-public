@@ -359,7 +359,6 @@ public class Litter implements XMLSaving {
 	 * This is currently unused, as usually offspring may be both GameCharacter and OffspringSeed classes.
 	 * To access all offspring, use getOffspring which returns the Id of the offspring as a string, and then check which one it is.
 	 */
-	@SuppressWarnings("unused")
 	public Set<GameCharacter> getOffspringCharacters() {
 		HashSet<GameCharacter> result = new HashSet<>();
 		offspring.stream().map(x -> {
@@ -470,7 +469,6 @@ public class Litter implements XMLSaving {
 	}
 	
 	//TODO Add this to the generateBirthedDescription() method above.
-	@SuppressWarnings("unused")
 //	private String getRelationshipInformation() {
 //		StringBuilder descriptionSB = new StringBuilder();
 //
