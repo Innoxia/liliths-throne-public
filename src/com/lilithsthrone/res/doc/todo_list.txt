@@ -20,17 +20,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Bugs:
+		Parsing fixes
 		Fixed issue where purchased slaves could not be impregnated.
 	
 	
 	
-	[] PR1563
 	
 	[] SlaveForSale
 		it used to be that they would have their fetishes per store that would show up always, but then they would also have a set of likes/dislikes generated in addition to that.
 		Now what is happening is they exclusively only have the store related ones and no other likes/dislikes.
-	
-	[] github organisation
 	
 	[] several things are very wrong with the 'request rough sex' description.
 	 In the red text it names the fetishes on the opposite end ('dominant' and 'sadist,' instead of 'submissive' and 'masochist'), and masochist isn't listed as an associated fetish. 
@@ -38,7 +36,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] you're your
 	
-	[] Going from Zaranix directly to Felicia results in getting stuck after her qeustion "So, have you found Arthur yet?"
+	[] when importing slaves, clothing colours are randomised for some characters but not others
+	
+	[] slaves with silent permission speak  when interacting with you and other npcs totally normally
+	
+	[] Going from Zaranix directly to Felicia results in getting stuck after her question "So, have you found Arthur yet?"
 	
 	[] Dialogue parsed before time passed
 		[] Add option to change this in dialogue, keep as it is for default as changing would probably break things
@@ -147,8 +149,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
 	
-	---
-	
 	[] deer
 		glade springs - sparkling mineral water
 		tree shoots salad
@@ -156,30 +156,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] mouse
 	
 	[] Elis
-		[] Minotallys intro
-			[] Describe northern part as being home to a lot of refugees from Fields
-		[] Arcane storm SE tooltip text and icon for when not in Dominion
+		[] Describe northern part as being home to a lot of refugees from Fields
 		[] Allow quick sex in masturbation
 		[] Add 'All masculine clothing is unisex' option
-		[] Fully framework demonic centaur encounters
-		[] Write Demonic centaurs
-		[x] Backup
-		[-] Make Elis borders a little smaller?
-		[x] Don't show travel disabled black border if scene travel disabled
 		[] Weather based on season
 			[] Add rain status effect
 				[] Add immunity from clothing (and umbrella)
-	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated, says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
-	[x] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
-	[] Elis
-		[] Map
-			[] Town Hall
-				[] Mayor's room
-			[] Tavern
-				[] Rent rooms
-			[] Market
-				[] Buy food/drink/clothing
-			[] Enforcer post
+	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated,
+		 says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
 	[] Extra encounters
 		[] Grassland
 			[] Snakes
