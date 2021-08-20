@@ -142,7 +142,7 @@ public enum PersonalityTrait {
 			"[style.italicsBad(All of [npc.namePos] in-game speech will be removed!)]", PresetColour.BASE_CRIMSON) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
-			return Util.newArrayListOfValues(LISP, STUTTER, SLOVENLY);
+			return Util.newArrayListOfValues(LISP, STUTTER, SLOVENLY, UWU);
 		}
 	},
 
@@ -155,7 +155,19 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(MUTE);
 		}
-	},;
+	},
+	
+	UWU(false,
+			PersonalityCategory.SPEECH,
+			"uwu",
+			"[npc.Name] [npc.verb(speak)] with an uwu speech quirk, [npc.her] speech can often be very hard to understand.",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this!)]", PresetColour.BASE_PINK_DEEP) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(MUTE);
+		}
+	},
+	;
 	
 	private boolean specialRequirements;
 	private PersonalityCategory personalityCategory;

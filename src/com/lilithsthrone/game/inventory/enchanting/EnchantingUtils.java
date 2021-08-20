@@ -322,11 +322,12 @@ public class EnchantingUtils {
 				
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAndrophilic();
-
-			} else if(effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
-					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
-					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
-				if(effects.get(0).getPotency().isNegative()) {
+				
+			} else if (effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY
+					|| effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_UWU) {
+				if (effects.get(0).getPotency().isNegative()) {
 					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechRemove();
 				} else {
 					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechAdd();
@@ -384,10 +385,11 @@ public class EnchantingUtils {
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAndrophilic();
 				
-			} else if(effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
-					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
-					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
-				if(effects.get(0).getPotency().isNegative()) {
+			} else if (effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY
+					|| effects.get(0).getPrimaryModifier() == TFModifier.PERSONALITY_TRAIT_SPEECH_UWU) {
+				if (effects.get(0).getPotency().isNegative()) {
 					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechRemove();
 				} else {
 					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechAdd();
