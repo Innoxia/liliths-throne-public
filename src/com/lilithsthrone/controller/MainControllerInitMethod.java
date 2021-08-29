@@ -6141,22 +6141,7 @@ public class MainControllerInitMethod {
 		// NPC Fetish spawn preferences:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FETISH_PREFERENCE) {
 			for (Fetish f : Fetish.values()) {
-				if(!Main.game.isPenetrationLimitationsEnabled() && f == Fetish.FETISH_SIZE_QUEEN) {
-					continue;
-				}
-				if(!Main.game.isNonConEnabled() && (f == Fetish.FETISH_NON_CON_DOM || f == Fetish.FETISH_NON_CON_SUB)) {
-					continue;
-				}
-				if(!Main.game.isIncestEnabled() && f == Fetish.FETISH_INCEST) {
-					continue;
-				}
-				if(!Main.game.isLactationContentEnabled() && (f == Fetish.FETISH_LACTATION_OTHERS || f == Fetish.FETISH_LACTATION_SELF)) {
-					continue;
-				}
-				if(!Main.game.isAnalContentEnabled() && (f == Fetish.FETISH_ANAL_GIVING || f == Fetish.FETISH_ANAL_RECEIVING)) {
-					continue;
-				}
-				if(!Main.game.isFootContentEnabled() && (f == Fetish.FETISH_FOOT_GIVING || f == Fetish.FETISH_FOOT_RECEIVING)) {
+				if(!f.isContentEnabled()) {
 					continue;
 				}
 				for(FetishPreference preference : FetishPreference.values()) {

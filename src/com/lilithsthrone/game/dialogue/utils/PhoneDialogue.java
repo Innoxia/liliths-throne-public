@@ -3632,10 +3632,14 @@ public class PhoneDialogue {
 	
 	
 	private static String getFetishEntry(Fetish othersFetish, Fetish selfFetish) {
-		return "<div class='container-full-width' style='background:transparent; margin:2px 0; width:100%;'>"
-					+ getIndividualFetishEntry(othersFetish)
-					+ (selfFetish==null?"":getIndividualFetishEntry(selfFetish))
-				+ "</div>";
+		if(othersFetish.isContentEnabled()) {
+			return "<div class='container-full-width' style='background:transparent; margin:2px 0; width:100%;'>"
+					+getIndividualFetishEntry(othersFetish)
+					+(selfFetish == null?"":getIndividualFetishEntry(selfFetish))
+					+"</div>";
+		} else {
+			return "";
+		}
 	}
 	
 	private static String getIndividualFetishEntry(Fetish fetish) {

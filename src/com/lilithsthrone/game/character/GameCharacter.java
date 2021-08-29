@@ -6480,19 +6480,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasFetish(Fetish fetish) {
-		// If content settings are disabled, always treat fetish as not being owned:
-		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
-			return false;
-		} else if(!Main.game.isLactationContentEnabled() && (fetish==Fetish.FETISH_LACTATION_OTHERS || fetish==Fetish.FETISH_LACTATION_SELF)) {
-			return false;
-		} else if(!Main.game.isFootContentEnabled() && (fetish==Fetish.FETISH_FOOT_GIVING || fetish==Fetish.FETISH_FOOT_RECEIVING)) {
-			return false;
-		} else if(!Main.game.isAnalContentEnabled() && (fetish==Fetish.FETISH_ANAL_GIVING || fetish==Fetish.FETISH_ANAL_RECEIVING)) {
-			return false;
-		} else if(!Main.game.isArmpitContentEnabled() && (fetish==Fetish.FETISH_ARMPIT_GIVING || fetish==Fetish.FETISH_ARMPIT_RECEIVING)) {
-			return false;
-		}
-		return fetishes.contains(fetish) || fetishesFromClothing.contains(fetish);
+		return fetish.isContentEnabled() && (fetishes.contains(fetish) || fetishesFromClothing.contains(fetish));
 	}
 	
 	/**
@@ -6518,6 +6506,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String addFetish(Fetish fetish, boolean shortDescription) {
+		if(fetish.isContentEnabled()) {
+			return "";
+		}
 		if (fetishes.contains(fetish)) {
 			if(!Main.game.isStarted() || this.getBody()==null) {
 				return "";
@@ -6640,7 +6631,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setFetishDesire(Fetish fetish, FetishDesire desire, boolean shortDescription) {
 		if(fetishDesireMap.get(fetish)!=desire) {
 			fetishDesireMap.put(fetish, desire);
-			if(!Main.game.isStarted() || this.getBody()==null) {
+			if(!Main.game.isStarted() || this.getBody()==null || !fetish.isContentEnabled()) {
 				return "";
 			}
 			if(this.hasFetish(fetish)) {
@@ -6669,19 +6660,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public FetishDesire getBaseFetishDesire(Fetish fetish) {
-		// If content settings are disabled, revert base desire to neutral so that it is not shown anywhere:
-		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
-			return FetishDesire.TWO_NEUTRAL;
-		} else if(!Main.game.isLactationContentEnabled() && (fetish==Fetish.FETISH_LACTATION_OTHERS || fetish==Fetish.FETISH_LACTATION_SELF)) {
-			return FetishDesire.TWO_NEUTRAL;
-		} else if(!Main.game.isFootContentEnabled() && (fetish==Fetish.FETISH_FOOT_GIVING || fetish==Fetish.FETISH_FOOT_RECEIVING)) {
-			return FetishDesire.TWO_NEUTRAL;
-		} else if(!Main.game.isAnalContentEnabled() && (fetish==Fetish.FETISH_ANAL_GIVING || fetish==Fetish.FETISH_ANAL_RECEIVING)) {
-			return FetishDesire.TWO_NEUTRAL;
-		} else if(!Main.game.isArmpitContentEnabled() && (fetish==Fetish.FETISH_ARMPIT_GIVING || fetish==Fetish.FETISH_ARMPIT_RECEIVING)) {
-			return FetishDesire.TWO_NEUTRAL;
-		}
-		if(!fetishDesireMap.containsKey(fetish)) {
+		if(!fetishDesireMap.containsKey(fetish) || !fetish.isContentEnabled()) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
 		return fetishDesireMap.get(fetish);
@@ -7574,7 +7553,9 @@ public abstract class GameCharacter implements XMLSaving {
 		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
 		
 		for(Fetish fetish : fetishes) {
-			if(this.hasFetish(fetish)) {
+			if(!fetish.isContentEnabled()) {
+				weight=-100000;
+			} else if(this.hasFetish(fetish)) {
 				weight+=7;
 			} else {
 				switch(this.getFetishDesire(fetish)) {

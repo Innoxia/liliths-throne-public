@@ -2434,41 +2434,8 @@ public class CharacterUtils {
 					if(character.hasBreasts())
 						allowedFetishes.add(f);
 					break;
-				case FETISH_NON_CON_DOM:
-				case FETISH_NON_CON_SUB:
-					if(Main.game.isNonConEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_INCEST:
-					if(Main.game.isIncestEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_LACTATION_OTHERS:
-				case FETISH_LACTATION_SELF:
-					if(Main.game.isLactationContentEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_ANAL_GIVING:
-				case FETISH_ANAL_RECEIVING:
-					if(Main.game.isAnalContentEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_FOOT_GIVING:
-				case FETISH_FOOT_RECEIVING:
-					if(Main.game.isFootContentEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_SIZE_QUEEN:
-					if(Main.game.isPenetrationLimitationsEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_ARMPIT_GIVING:
-				case FETISH_ARMPIT_RECEIVING:
-					if(Main.game.isArmpitContentEnabled())
-						allowedFetishes.add(f);
-					break;
 				default:
-					if (f.getFetishesForAutomaticUnlock().isEmpty())
+					if (f.getFetishesForAutomaticUnlock().isEmpty() && f.isContentEnabled())
 						allowedFetishes.add(f);
 					break;
 			}
