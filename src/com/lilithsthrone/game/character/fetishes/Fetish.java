@@ -30,10 +30,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum Fetish {
 	
-	// FETISHES:
-
-	// Sex types:
-	
 	FETISH_ANAL_GIVING(60,
 			"anal",
 			"performing anal",
@@ -68,6 +64,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isAnalContentEnabled(); }
 	},
 	
 	FETISH_ANAL_RECEIVING(60,
@@ -104,6 +103,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
 		}
+
+		@Override
+		public boolean isContentEnabled() { return Main.game.isAnalContentEnabled(); }
 	},
 	
 	FETISH_VAGINAL_GIVING(60,
@@ -355,6 +357,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isLactationContentEnabled(); }
 	},
 	
 	FETISH_LACTATION_SELF(60,
@@ -391,6 +396,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isLactationContentEnabled(); }
 	},
 	
 	FETISH_LEG_LOVER(60,
@@ -500,6 +508,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isFootContentEnabled(); }
 	},
 	
 	FETISH_FOOT_RECEIVING(60,
@@ -536,6 +547,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isFootContentEnabled(); }
 	},
 
 	FETISH_ARMPIT_GIVING(60,
@@ -569,6 +583,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isArmpitContentEnabled(); }
 	},
 	
 	FETISH_ARMPIT_RECEIVING(60,
@@ -602,6 +619,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isArmpitContentEnabled(); }
 	},
 	
 	FETISH_PENIS_RECEIVING(60,
@@ -1276,6 +1296,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.FIVE_CORRUPT;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isIncestEnabled(); }
 	},
 	
 	FETISH_MASOCHIST(60,
@@ -1390,6 +1413,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.FIVE_CORRUPT;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isNonConEnabled(); }
 	},
 	
 	FETISH_NON_CON_SUB(60,
@@ -1425,6 +1451,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.FOUR_LUSTFUL;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isNonConEnabled(); }
 	},
 	
 	FETISH_BONDAGE_VICTIM(60,
@@ -1704,6 +1733,9 @@ public enum Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
 		}
+		
+		@Override
+		public boolean isContentEnabled() { return Main.game.isPenetrationLimitationsEnabled(); }
 	},
 	
 	// Derived fetishes:
@@ -1904,7 +1936,7 @@ public enum Fetish {
 		}
 	}
 
-	private Fetish(
+	Fetish(
 			int renderingPriority,
 			String name,
 			String shortDescriptor,
@@ -2082,4 +2114,6 @@ public enum Fetish {
 	public FetishPreference getFetishPreferenceDefault() {
 		return FetishPreference.THREE_NEUTRAL;
 	}
+	
+	public boolean isContentEnabled() { return true; }
 }
