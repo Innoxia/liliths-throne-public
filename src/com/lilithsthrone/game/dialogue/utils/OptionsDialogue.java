@@ -1488,26 +1488,38 @@ public class OptionsDialogue {
 		
 		for(FetishPreference preference : FetishPreference.values()) {
 			String disabledMsg=null;
-			if(!Main.game.isPenetrationLimitationsEnabled() && fetish == Fetish.FETISH_SIZE_QUEEN) {
-				disabledMsg="Penetrative size-difference";
-			}
-			if(!Main.game.isNonConEnabled() && (fetish == Fetish.FETISH_NON_CON_DOM || fetish == Fetish.FETISH_NON_CON_SUB)) {
-				disabledMsg="Non-consent";
-			}
-			if(!Main.game.isIncestEnabled() && fetish == Fetish.FETISH_INCEST) {
-				disabledMsg="Incest";
-			}
-			if(!Main.game.isLactationContentEnabled() && (fetish == Fetish.FETISH_LACTATION_OTHERS || fetish == Fetish.FETISH_LACTATION_SELF)) {
-				disabledMsg="Lactation";
-			}
-			if(!Main.game.isAnalContentEnabled() && (fetish == Fetish.FETISH_ANAL_GIVING || fetish == Fetish.FETISH_ANAL_RECEIVING)) {
-				disabledMsg="Anal Content";
-			}
-			if(!Main.game.isFootContentEnabled() && (fetish == Fetish.FETISH_FOOT_GIVING || fetish == Fetish.FETISH_FOOT_RECEIVING)) {
-				disabledMsg="Foot Content";
-			}
-			if(!Main.game.isArmpitContentEnabled() && (fetish == Fetish.FETISH_ARMPIT_GIVING || fetish == Fetish.FETISH_ARMPIT_RECEIVING)) {
-				disabledMsg="Armpit Content";
+			if(!fetish.isContentEnabled()) {
+				switch (fetish) {
+					case FETISH_SIZE_QUEEN:
+						disabledMsg = "Penetrative size-difference";
+						break;
+					case FETISH_NON_CON_DOM:
+					case FETISH_NON_CON_SUB:
+						disabledMsg = "Non-consent";
+						break;
+					case FETISH_INCEST:
+						disabledMsg="Incest";
+						break;
+					case FETISH_LACTATION_SELF:
+					case FETISH_LACTATION_OTHERS:
+						disabledMsg="Lactation";
+						break;
+					case FETISH_ANAL_RECEIVING:
+					case FETISH_ANAL_GIVING:
+						disabledMsg="Anal Content";
+						break;
+					case FETISH_FOOT_RECEIVING:
+					case FETISH_FOOT_GIVING:
+						disabledMsg="Foot Content";
+						break;
+					case FETISH_ARMPIT_RECEIVING:
+					case FETISH_ARMPIT_GIVING:
+						disabledMsg="Armpit Content";
+						break;
+					default:
+						disabledMsg="Unspecified Content";
+						break;
+				}
 			}
 			if(disabledMsg!=null) {
 				// Disabled fetishes to default, the fetish won't be a valid option for the generator anyway
