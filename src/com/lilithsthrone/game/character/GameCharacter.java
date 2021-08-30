@@ -4004,7 +4004,21 @@ public abstract class GameCharacter implements XMLSaving {
 	public Map<String, String> getPetNameMap() {
 		return petNameMap;
 	}
-	
+
+	private static boolean containsAny(Set<Relationship> haystack, Set<Relationship> needles) {
+		// This is equivalent to asking "is the set intersection non-empty?", so we reverse
+		// the sets if haystack is smaller than needles.
+		if (needles.size() > haystack.size()) {
+			return containsAny(needles, haystack);
+		}
+		for (Relationship needle : needles) {
+			if (haystack.contains(needle)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public String getPetName(GameCharacter target) {
 		String petName = getPetNameMap().get(target.getId());
 		
@@ -4023,31 +4037,18 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			return petName;
 		}
-		
-		if(this.isRelatedTo(target) //TODO Issue with this catching Lyssieth<->PC relation, as I think it's because the player is set to be related to Lilaya, but getRelationshipsTo is empty.
-				&& !target.getRelationshipsTo(this).isEmpty()) { // Added an isEmpty() catch for now (v0.3.1.1), but better come back and fix this properly (may need an NPC to act as PC's mother)
-			switch(target.getRelationshipsTo(this).iterator().next()) {
-				case Child:
-				case IncubatorChild:
-				case Cousin:
-				case GrandChild:
-				case GrandGrandChild:
-				case Nibling:
-				case HalfSibling:
-				case Sibling:
-					break;
-				case GrandGrandParent:
-				case GrandParent:
-					return target.isFeminine()?"grandma":"grandad";
-				case Parent:
-				case IncubatorParent:
-					return target.isFeminine()?"mom":"dad";
-				case GrandPibling:
-				case Pibling:
-					return target.isFeminine()?"auntie":"uncle";
-			}
+
+		Set<Relationship> relationships = target.getRelationshipsTo(this);
+		if (containsAny(relationships, Relationship.parentRelationships)) {
+			return target.isFeminine()?"mom":"dad";
 		}
-		
+		if (containsAny(relationships, Relationship.grandparentRelationships)) {
+			return target.isFeminine()?"grandma":"grandad";
+		}
+		if (containsAny(relationships, Relationship.piblingRelationships)) {
+			return target.isFeminine()?"auntie":"uncle";
+		}
+
 		return target.getName(true);
 	}
 	
@@ -5433,6 +5434,14 @@ public abstract class GameCharacter implements XMLSaving {
 		return result;
 	}
 
+	private static Set<GameCharacter> getAllDirectParentsOf(Set<GameCharacter> people) {
+	  HashSet<GameCharacter> result = new HashSet<>();
+          for(GameCharacter c : people) {
+	    result.addAll(c.getParents());
+          }
+          return result;
+        }
+
 	private Set<GameCharacter> getChildren(int level, Set<GameCharacter> exclude) {
 	    assert level >= 0;
 
@@ -5465,8 +5474,15 @@ public abstract class GameCharacter implements XMLSaving {
         return result;
 	}
 
+	private Map<GameCharacter, LinkedHashSet<Relationship>> relationshipCache = new HashMap<>();
+
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
-		Set<Relationship> result = new LinkedHashSet<>();//EnumSet.noneOf(Relationship.class);
+		LinkedHashSet<Relationship> result = new LinkedHashSet<>();//EnumSet.noneOf(Relationship.class);
+		if (relationshipCache.containsKey(character)) {
+			result.addAll(relationshipCache.get(character));
+			result.removeAll(Arrays.asList(excludedRelationships));
+			return result;
+		}
 
         if(character.getIncubator()!=null && character.getIncubator().equals(this)) {
             result.add(Relationship.IncubatorParent);
@@ -5474,33 +5490,24 @@ public abstract class GameCharacter implements XMLSaving {
         if(this.getIncubator()!=null && this.getIncubator().equals(character)) {
             result.add(Relationship.IncubatorChild);
         }
-        
-        if(character.getParents(0, null).contains(this)) {
-            result.add(Relationship.Parent);
-        }
-        if(character.getParents(1, null).contains(this)) {
-            result.add(Relationship.GrandParent);
-        }
-        if(character.getParents(2, null).contains(this)) {
-            result.add(Relationship.GrandGrandParent);
+
+        Set<GameCharacter> parent_search = new HashSet<>();
+        parent_search.add(character);
+        for (int i = 0; i < 8; ++i) {
+	  parent_search = getAllDirectParentsOf(parent_search);
+          if (parent_search.contains(this)) {
+            result.add(Relationship.GetGrandN(true, i));
+	  }
         }
         // Changed all relationship checks to use getParents(), as getChildren() would, on old (bugged) saves, sometimes be missing some Litters.
-        if(this.getParents(0, null).contains(character)) {
-            result.add(Relationship.Child);
+        parent_search.clear();
+        parent_search.add(this);
+        for (int i = 0; i < 8; ++i) {
+	  parent_search = getAllDirectParentsOf(parent_search);
+          if (parent_search.contains(character)) {
+            result.add(Relationship.GetGrandN(false, i));
+	  }
         }
-        if(this.getParents(1, null).contains(character)) {
-            result.add(Relationship.GrandChild);
-        }
-        if(this.getParents(2, null).contains(character)) {
-            result.add(Relationship.GrandGrandChild);
-        }
-//        if(character.getChildren(0, null).contains(this))
-//            result.add(Relationship.Child);
-//        if(character.getChildren(1, null).contains(this))
-//            result.add(Relationship.GrandChild);
-//        if(character.getChildren(2, null).contains(this))
-//            result.add(Relationship.GrandGrandChild);
-
 		Set<String> commonParents = new HashSet<>();
 		if(this.getFatherId()!=null && !this.getFatherId().isEmpty() && this.getFatherId().equals(character.getFatherId())) {
 			commonParents.add(this.getFatherId());
@@ -5524,9 +5531,9 @@ public abstract class GameCharacter implements XMLSaving {
 		if(character.getNonCommonNodes(0,1).contains(this))
 			result.add(Relationship.Nibling);
 
-		result.removeAll(Arrays.asList(excludedRelationships));
-		
-		return result;
+		result.remove(null);
+		relationshipCache.put(character, result);
+		return this.getRelationshipsTo(character, excludedRelationships);
 	}
 
     public String getRelationshipStrTo(GameCharacter character, Relationship... excludedRelationships) {
