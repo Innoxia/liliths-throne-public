@@ -3538,38 +3538,32 @@ public class PhoneDialogue {
 			// Normal fetishes:
 
 			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold;'><h6>Fetishes</h6></div>");
-			journalSB.append(getFetishEntry(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE));
-			journalSB.append(getFetishEntry(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF));
-			journalSB.append(getFetishEntry(Fetish.FETISH_LACTATION_OTHERS, Fetish.FETISH_LACTATION_SELF));
-			journalSB.append(getFetishEntry(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER));
-			journalSB.append(getFetishEntry(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT));
-			journalSB.append(getFetishEntry(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN));
-			journalSB.append(getFetishEntry(Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY));
-			journalSB.append(getFetishEntry(Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST));
-			journalSB.append(getFetishEntry(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB));
-			journalSB.append(getFetishEntry(Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM));
-			journalSB.append(getFetishEntry(Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF));
-			journalSB.append(getFetishEntry(Fetish.FETISH_VOYEURIST, Fetish.FETISH_EXHIBITIONIST));
-			journalSB.append(getFetishEntry(Fetish.FETISH_BIMBO, Fetish.FETISH_CROSS_DRESSER));
-			if(Main.game.isIncestEnabled()) {
-				journalSB.append(getFetishEntry(Fetish.FETISH_MASTURBATION, Fetish.FETISH_INCEST));
-				if(Main.game.isPenetrationLimitationsEnabled()) {
-					journalSB.append(getFetishEntry(Fetish.FETISH_SIZE_QUEEN, null));
+			ArrayList<Fetish> derivedFetishList = new ArrayList<>();
+			ArrayList<Fetish> pairedFetishList = new ArrayList<>();
+			ArrayList<Fetish> soloFetishList = new ArrayList<>();
+			for(Fetish fetish : Fetish.values()) {
+				if(fetish.isContentEnabled()) {
+					if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
+						derivedFetishList.add(fetish);
+					} else if(fetish.getOpposite()!=null) {
+						pairedFetishList.add(fetish);
+					} else {
+						soloFetishList.add(fetish);
+					}
 				}
-			} else {
-				if(Main.game.isPenetrationLimitationsEnabled()) {
-					journalSB.append(getFetishEntry(Fetish.FETISH_MASTURBATION, Fetish.FETISH_SIZE_QUEEN));
-				} else {
-					journalSB.append(getFetishEntry(Fetish.FETISH_MASTURBATION, null));
+			}
+			while (pairedFetishList.size() > 0) {
+				Fetish fetish = pairedFetishList.remove(0);
+				pairedFetishList.remove(fetish.getOpposite());
+				journalSB.append(getFetishEntry(fetish, fetish.getOpposite()));
+			}
+			while (soloFetishList.size() > 0) {
+				Fetish fetish = soloFetishList.remove(0);
+				Fetish fetish2 = null;
+				if(soloFetishList.size() > 0) {
+					fetish2 = soloFetishList.remove(0);
 				}
+				journalSB.append(getFetishEntry(fetish, fetish2));
 			}
 			
 			// Derived fetishes:
@@ -3577,22 +3571,20 @@ public class PhoneDialogue {
 			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold; margin-top:16px;'><h6>Derived Fetishes</h6></div>");
 			journalSB.append("<div class='fetish-container'>");
 			
-			for(Fetish fetish : Fetish.values()) {
-				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
-					journalSB.append(
-							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
-							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
-							: (fetish.isAvailable(Main.game.getPlayer())
-									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
-									: " locked' style='border:2px solid " + PresetColour.TEXT_GREY.toWebHexString() + ";'>"))
-							+ "<div class='fetish-icon-content'>"+fetish.getSVGString(Main.game.getPlayer())+"</div>"
-							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
-									? ""
-									: (fetish.isAvailable(Main.game.getPlayer())
-											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
-							+ "</div>");
-				}
+			for(Fetish fetish : derivedFetishList) {
+				journalSB.append(
+						"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+						? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
+						: (fetish.isAvailable(Main.game.getPlayer())
+								? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
+								: " locked' style='border:2px solid " + PresetColour.TEXT_GREY.toWebHexString() + ";'>"))
+						+ "<div class='fetish-icon-content'>"+fetish.getSVGString(Main.game.getPlayer())+"</div>"
+						+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
+								? ""
+								: (fetish.isAvailable(Main.game.getPlayer())
+										? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
+										: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
+						+ "</div>");
 			}
 			
 			// Free Fetishes:
@@ -3621,14 +3613,10 @@ public class PhoneDialogue {
 	
 	
 	private static String getFetishEntry(Fetish othersFetish, Fetish selfFetish) {
-		if(othersFetish.isContentEnabled()) {
-			return "<div class='container-full-width' style='background:transparent; margin:2px 0; width:100%;'>"
-					+getIndividualFetishEntry(othersFetish)
-					+(selfFetish == null?"":getIndividualFetishEntry(selfFetish))
-					+"</div>";
-		} else {
-			return "";
-		}
+		return "<div class='container-full-width' style='background:transparent; margin:2px 0; width:100%;'>"
+				+getIndividualFetishEntry(othersFetish)
+				+(selfFetish == null?"":getIndividualFetishEntry(selfFetish))
+				+"</div>";
 	}
 	
 	private static String getIndividualFetishEntry(Fetish fetish) {

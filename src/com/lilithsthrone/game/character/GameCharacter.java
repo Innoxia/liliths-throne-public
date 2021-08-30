@@ -6506,7 +6506,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String addFetish(Fetish fetish, boolean shortDescription) {
-		if(fetish.isContentEnabled()) {
+		if(!fetish.isContentEnabled()) {
 			return "";
 		}
 		if (fetishes.contains(fetish)) {
