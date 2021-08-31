@@ -4005,20 +4005,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return petNameMap;
 	}
 
-	private static boolean containsAny(Set<Relationship> haystack, Set<Relationship> needles) {
-		// This is equivalent to asking "is the set intersection non-empty?", so we reverse
-		// the sets if haystack is smaller than needles.
-		if (needles.size() > haystack.size()) {
-			return containsAny(needles, haystack);
-		}
-		for (Relationship needle : needles) {
-			if (haystack.contains(needle)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public String getPetName(GameCharacter target) {
 		String petName = getPetNameMap().get(target.getId());
 		
@@ -4039,13 +4025,13 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		Set<Relationship> relationships = target.getRelationshipsTo(this);
-		if (containsAny(relationships, Relationship.parentRelationships)) {
+		if (!Collections.disjoint(relationships, Relationship.parentRelationships)) {
 			return target.isFeminine()?"mom":"dad";
 		}
-		if (containsAny(relationships, Relationship.grandparentRelationships)) {
+		if (!Collections.disjoint(relationships, Relationship.grandparentRelationships)) {
 			return target.isFeminine()?"grandma":"grandad";
 		}
-		if (containsAny(relationships, Relationship.piblingRelationships)) {
+		if (!Collections.disjoint(relationships, Relationship.piblingRelationships)) {
 			return target.isFeminine()?"auntie":"uncle";
 		}
 
@@ -5578,11 +5564,12 @@ public abstract class GameCharacter implements XMLSaving {
 		return motherId;
 	}
 	
-	public void setMother(String motherId) {
+	private void setMother(String motherId) {
 		this.motherId = motherId;
 	}
 
 	public void setMother(GameCharacter mother) {
+		relationshipCache.clear();  // Invalidate our cache if our parent changes.
 		motherId = mother.getId();
 		motherName = mother.getNameIgnoresPlayerKnowledge();
 		motherFemininity = mother.getFemininity();
@@ -5617,11 +5604,12 @@ public abstract class GameCharacter implements XMLSaving {
 		return fatherId;
 	}
 	
-	public void setFather(String fatherId) {
+	private void setFather(String fatherId) {
 		this.fatherId = fatherId;
 	}
 	
 	public void setFather(GameCharacter father) {
+		relationshipCache.clear();  // Invalidate our cache if our parent changes.
 		fatherId = father.getId();
 		fatherName = father.getNameIgnoresPlayerKnowledge();
 		fatherFemininity = father.getFemininity();
