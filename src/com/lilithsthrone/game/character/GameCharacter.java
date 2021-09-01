@@ -19304,6 +19304,13 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return true if any of the wearer's clothing effects has the TFModifier 'CLOTHING_ORGASM_PREVENTION'.
 	 */
 	public boolean isAbleToOrgasm() {
+        // Allow an antidote to orgasm preventing items
+	    for(AbstractStatusEffect se : this.getStatusEffects()) {
+            if(se.getTags().contains(ItemTag.ALLOW_ORGASM)) {
+                return true;
+            }
+        }
+
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			for(ItemEffect effect : c.getEffects()) {
 				if(effect.getSecondaryModifier()==TFModifier.CLOTHING_ORGASM_PREVENTION) {
@@ -19311,6 +19318,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+
+		for(AbstractStatusEffect se : this.getStatusEffects()) {
+		    if(se.getTags().contains(ItemTag.PREVENTS_ORGASM)) {
+		        return false;
+            }
+        }
 		return true;
 	}
 	
