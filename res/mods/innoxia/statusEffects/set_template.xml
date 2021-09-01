@@ -43,6 +43,7 @@
 		HINDERS_LEG_MOVEMENT
 		PREVENTS_ERECTION_PHYSICAL
 		PREVENTS_ERECTION_OTHER
+		PREVENTS_ORGASM
 	It is unlikely that additional tags will be supported in the future, but if any are added, this section will be updated. -->
 	<tags>
 		<tag>NIGHT_VISION_SELF</tag>
