@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<renderingPriority>80</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>DEFAULT</category>
+	<beneficial>BENEFICIAL</beneficial>
+	<combatEffect>false</combatEffect>
+	<sexEffect>true</sexEffect>
+	<tags>
+		<tag>ALLOW_ORGASM</tag>
+	</tags>
+	<name><![CDATA[Seal of Release]]></name>
+	<description><![CDATA[
+    You're allowed to cum. You know it's only for a little while so you'd better hurry!
+  ]]></description>
+	<imageName>denied_doll_seal.svg</imageName>
+	<colourPrimary>BASE_RED_LIGHT</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="20.0">LUST</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+  <extraEffects/>
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[false]]></applicationCondition>
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

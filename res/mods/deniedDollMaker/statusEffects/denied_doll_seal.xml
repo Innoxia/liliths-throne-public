@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<renderingPriority>80</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>DEFAULT</category>
+	<beneficial>DETRIMENTAL</beneficial>
+	<combatEffect>false</combatEffect>
+	<sexEffect>true</sexEffect>
+	<tags>
+		<tag>PREVENTS_ORGASM</tag>
+	</tags>
+	<name><![CDATA[Seal of Denial]]></name>
+	<description><![CDATA[
+		You can't cum. No matter how hard you try. No matter what form or how powerful the stimulation orgasm is beyond your reach. You only hope that the effect will eventually wear off.
+	]]></description>
+	<imageName>denied_doll_seal.svg</imageName>
+	<colourPrimary>BASE_BLUE_LIGHT</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="50.0">RESTING_LUST</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+  <extraEffects/>
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[false]]></applicationCondition>
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect> <!-- You can't be released from something that isn't present -->
+		[##npc.removeStatusEffect(SE_deniedDollMaker_denied_doll_release)]
+	</applyPostRemovalEffect>
+	
+</statusEffect>
