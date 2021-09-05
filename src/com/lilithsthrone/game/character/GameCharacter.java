@@ -8974,15 +8974,19 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(includesOrgasm) {
 			if(Main.game.isInSex()) {
-				Main.sex.incrementNumberOfOrgasms(this, 1);
-				if(partnerPresent) {
+                if (this.isAbleToOrgasm()) {
+                    Main.sex.incrementNumberOfOrgasms(this, 1);
+                }
+				if(partnerPresent && partner.isAbleToOrgasm()) {
 					Main.sex.incrementNumberOfOrgasms(partner, 1);
 				}
 			} else {
-				this.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
-				this.incrementDaysOrgasmCount(1);
-				this.incrementTotalOrgasmCount(1);
-				if(partner!=null) {
+                if (this.isAbleToOrgasm()) {
+                    this.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
+                    this.incrementDaysOrgasmCount(1);
+                    this.incrementTotalOrgasmCount(1);
+                }
+				if(partner!=null && partner.isAbleToOrgasm()) {
 					partner.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 					partner.incrementDaysOrgasmCount(1);
 					partner.incrementTotalOrgasmCount(1);
@@ -8999,19 +9003,29 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			if(!Main.game.isBadEnd()) { // Do not drain levels during a bad end
 //			if(isDom) {
-				if(this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && this.isLevelDrainAvailableToUse() && !partner.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
+				if(this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true)
+                        && this.isLevelDrainAvailableToUse()
+                        && !partner.isImmuneToLevelDrain()
+                        && partner.isAbleToOrgasm()
+                        && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
 					levelDrainDescription = applyLevelDrain(partner);
 				}
 				
 //			} else {
-				if(partnerPresent && partner.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && partner.isLevelDrainAvailableToUse() && !this.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
+				if(partnerPresent
+                        && partner.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true)
+                        && partner.isLevelDrainAvailableToUse()
+                        && !this.isImmuneToLevelDrain()
+                        && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
 					levelDrainDescription = partner.applyLevelDrain(this);
 				}
 //			}
 			}
 			// This is reset to 25 to factor in post-orgasm satisfaction:
-			this.setArousal(25);
-			if(partnerPresent) {
+            if (this.isAbleToOrgasm()) {
+                this.setArousal(25);
+            }
+			if(partnerPresent && partner.isAbleToOrgasm()) {
 				partner.setArousal(25);
 			}
 		}
