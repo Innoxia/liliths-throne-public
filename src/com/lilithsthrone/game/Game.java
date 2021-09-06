@@ -32,6 +32,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -40,13 +41,6 @@ import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
-import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PlayerCharacter;
-import com.lilithsthrone.game.character.SexCount;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -340,6 +334,8 @@ public class Game implements XMLSaving {
 	
 	// Slavery:
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
+
+	private final NPCLoader npcLoader = new NPCLoader(Main.getDocBuilder());
 
 	public Game() {
 		worlds = new HashMap<>();
@@ -1054,9 +1050,6 @@ public class Game implements XMLSaving {
 
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
-				Map<String, Class<? extends NPC>> npcClasses = new ConcurrentHashMap<>();
-				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new ConcurrentHashMap<>();
-				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new ConcurrentHashMap<>();
 				int totalNpcCount = npcs.getLength();
 				IntStream.range(0,totalNpcCount).parallel().mapToObj(i -> ((Element) npcs.item(i)))
 						.forEach(e ->{
@@ -1084,7 +1077,7 @@ public class Game implements XMLSaving {
 									if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
 										className = className.replace("Alexa", "Helena");
 									}
-									NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
+									NPC npc = Main.game.loadNPC(doc, e, className);
 									//TODO This needs more thorough testing...
 									// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
 									// This was causing save file bloat, so now they are fully deleted.
@@ -1759,51 +1752,10 @@ public class Game implements XMLSaving {
 		Main.game.getPlayer().calculateStatusEffects(0);
 	}
 
-	@SuppressWarnings("unchecked")
-	private static NPC loadNPC(Document doc,
-			Element e,
-			String className, 
-			Map<String, Class<? extends NPC>> classMap,
-			Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
-			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap){
-		
-		try {
-			Class<? extends NPC> npcClass = classMap.get(className);
-			if (npcClass == null) {
-				npcClass = (Class<? extends NPC>) Class.forName(className);
-				synchronized (npcClass) {
-					if(classMap.containsKey(className)){
-						npcClass = classMap.get(className);
-					} else {
-						classMap.putIfAbsent(className, npcClass);
-						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-						loadFromXMLMethodMap.put(npcClass, m);
-
-						Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
-						constructorMap.put(npcClass, declaredConstructor);
-					}
-				}
-			}
-			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
-			if (declaredConstructor == null) {
-				synchronized (npcClass) {
-					declaredConstructor = constructorMap.get(npcClass);
-				}
-			}
-			NPC npc = declaredConstructor.newInstance(true);
-			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
-			return npc;
-		} catch(NoSuchMethodException nsme) {
-			System.err.println("Couldn't find required method(loadFromXML or constructor(boolean)) for class: " + className);
-			nsme.printStackTrace();
-			return null;
-		} catch(Exception ex) {
-			System.err.println("Failed to load NPC class: "+className);
-			ex.printStackTrace();
-			return null;
-		}
+	public NPC loadNPC(Document doc, Element e, String className) {
+		return npcLoader.loadNPC(doc, e, className);
 	}
-	
+
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element element = doc.createElement("game");
 		
@@ -2188,7 +2140,9 @@ public class Game implements XMLSaving {
 
 			// Headless horseman:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HeadlessHorseman.class))) { addNPC(new HeadlessHorseman(), false); addedNpcs.add(HeadlessHorseman.class); }
-
+			
+			// Load characters from Mods
+			npcLoader.loadModNPC(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -4374,10 +4328,18 @@ public class Game implements XMLSaving {
 		}
 	}
 
-	/**
-	 * @return a list of all offspring that have been encountered in the game.
-	 */
-	public List<NPC> getOffspring() {
+	public NPC getNpc(String npcName) {
+		try {
+			return (NPC) this.getNPCById(getUniqueNPCId(npcName));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("getNpc("+npcName+") returning null!");
+			return null;
+		}
+	}
+
+ 
+	public List<NPC> getOffspring(boolean includeNotBorn) {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
@@ -4463,10 +4425,14 @@ public class Game implements XMLSaving {
 	}
 	
 	public String getUniqueNPCId(Class<? extends NPC> c) {
-		if(c.equals(DarkSiren.class)) {
+		return getUniqueNPCId(c.getSimpleName());
+	}
+
+	public String getUniqueNPCId(final String c) {
+		if(c.equals("DarkSiren")) {
 			return "-1,FortressDemonLeader";
 		}
-		return "-1,"+c.getSimpleName();
+		return "-1,"+c;
 	}
 
 	public String getNPCId(Class<? extends NPC> c) {

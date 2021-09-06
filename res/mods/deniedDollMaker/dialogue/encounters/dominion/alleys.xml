@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+  <scene id="pop_up_shop_start">
+    <author>ddmaker1234</author>
+    <title>Mysterious Shop</title>
+    <tooltip>A mysterious shop appears!</tooltip>
+    <preParsingEffects><![CDATA[
+      [#game.getNpc("deniedDollMaker_TheDollMaker").setLocation(pc)]
+      ]]></preParsingEffects>
+    <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">START</content>
+    <secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+  </scene>
+
+</dialogueNodes>
