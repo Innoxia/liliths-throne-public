@@ -327,7 +327,7 @@
 		#IF(!npc.isTaur() && !pc.isTaur())
 			Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
 		#ELSEIF(npc.isTaur())
-			Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+			Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc2.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 		#ELSE
 			Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
 		#ENDIF

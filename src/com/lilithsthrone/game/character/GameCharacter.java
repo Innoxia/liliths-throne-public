@@ -20467,6 +20467,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return getCell().getPlace();
 	}
 	
+	public AbstractPlaceType getLocationPlaceType() {
+		return getCell().getPlace().getPlaceType();
+	}
+	
 	public GenericPlace getHomeLocationPlace() {
 		return Main.game.getWorlds().get(getHomeWorldLocation()).getCell(getHomeLocation()).getPlace();
 	}
@@ -20658,6 +20662,33 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public boolean isSelfImmuneToDarkness() {
 		return getDescriptionSelfImmuneToDarkness()!=null;
+	}
+
+	public boolean hasNightVision() {
+		for(BodyPartInterface bpi : this.getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.NIGHT_VISION)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasEchoLocation() {
+		for(BodyPartInterface bpi : this.getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.ECHO_LOCATION)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasThermalVision() {
+		for(BodyPartInterface bpi : this.getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.THERMAL_VISION)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -21060,6 +21091,20 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
+	public boolean isSightHindered() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.isHindersSight(c.getSlotEquippedTo())) {
+				return true;
+			}
+		}
+		for(AbstractStatusEffect se : this.getStatusEffects()) {
+			if(se.getTags().contains(ItemTag.BLOCKS_SIGHT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isArmMovementHindered() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isHindersArmMovement(c.getSlotEquippedTo())) {
@@ -21247,6 +21292,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public void clearNonEquippedInventory(boolean clearMoney) {
 		inventory.clearNonEquippedInventory(clearMoney);
 	}
+	
+	public int getInventoryNonEquippedValue() {
+		return inventory.getNonEquippedValue();
+	}
 
 	public boolean isInventoryFull() {
 		return inventory.isInventoryFull();
@@ -21256,9 +21305,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getMaximumInventorySpace();
 	}
 
-	public void setMaximumInventorySpace(int maxInventorySpace) {
-		inventory.setMaximumInventorySpace(maxInventorySpace);
-	}
+//	public void setMaximumInventorySpace(int maxInventorySpace) {
+//		inventory.setMaximumInventorySpace(maxInventorySpace);
+//	}
 
 	public int getInventorySlotsTaken() {
 		return inventory.getInventorySlotsTaken();
@@ -22303,6 +22352,38 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean removeFromUnlockKeyMap(String id, InventorySlot slot) {
 		return inventory.removeFromUnlockKeyMap(id, slot);
+	}
+	
+	public String getFormattedUnlockKeys() {
+		StringBuilder sb = new StringBuilder();
+		boolean foundAny = false;
+
+		sb.append("<hr/>");
+		for(Entry<String, List<InventorySlot>> entry : this.getUnlockKeyMap().entrySet()) {
+			try {
+				GameCharacter target = Main.game.getNPCById(entry.getKey());
+				boolean found = false;
+				for(InventorySlot slot : entry.getValue()) {
+					if(target.getClothingInSlot(slot)!=null) {
+						foundAny = true;
+						if(!found) {
+							found= true;
+							sb.append(UtilText.parse(target, "Clothing worn by <b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b>:"));
+						}
+						sb.append("<br/>- "+target.getClothingInSlot(slot).getDisplayName(true));
+					}
+				}
+				sb.append("<hr/>");
+			} catch(Exception ex) {
+				// NPC didn't exist, so just skip over it
+			}
+		}
+		
+		if(!foundAny) {
+			sb.append("[style.italicsDisabled(You don't own any clothing keys...)]");
+		}
+		
+		return sb.toString();
 	}
 	
 	private void applyEquipClothingEffects(AbstractClothing newClothing, InventorySlot slot, GameCharacter characterClothingEquipper, boolean appendTextToEventLog) {
@@ -27664,7 +27745,12 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String setLegConfiguration(AbstractLegType legType, LegConfiguration legConfiguration, boolean applyFullEffects) {
 		if(legType.isLegConfigurationAvailable(legConfiguration)) {
-			return legType.applyLegConfigurationTransformation(this, legConfiguration, true, applyFullEffects);
+			StringBuilder sb = new StringBuilder();
+			if(this.getLegType()!=legType) {
+				sb.append(this.setLegType(legType));
+			}
+			sb.append(legType.applyLegConfigurationTransformation(this, legConfiguration, true, applyFullEffects));
+			return sb.toString();
 		}
 		return "";
 	}

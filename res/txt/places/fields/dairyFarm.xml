@@ -1,0 +1,2060 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Exterior: -->
+	
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		Unlike most of the Foloi Fields, the area which you find yourself travelling through seems to have been completely spared by Lunette's roaming bands of marauders. The surrounding fields are all in good condition, and the occasional stone barns and field shelters which you pass have managed to escape the destructive forces of the demonic centaur herds.
+	</p>
+	<p>
+		Upon a small hill sitting right in the middle of this area of untouched farmland, you see what might be the reason for this area being shielded from Lunette's daughters; four huge, modern-looking industrial barns are linked to one another by a long, single-story concrete office building. A thin strip around this modern farm has been concreted over, and tall arcane floodlights have been evenly positioned on the hard surface,
+		#IF(game.isDayTime())
+			 ready to bathe the premises in artificial, fluorescent light as soon as the sun sets.
+		#ELSE
+			 which are bathing the premises in artificial, fluorescent light, allowing it to be seen from many miles away.
+		#ENDIF
+	</p>
+	<p>
+		As you approach this industrial blot on an otherwise-rural landscape, you see a series of large, free-standing letters sitting atop the concrete office building, which spell out the words 'Evelyx's Dairy'. Although the barns are windowless, preventing any passersby from seeing inside to confirm for themselves, this name is enough to let anyone know that this farm specialises in milk production.
+	</p>
+	<p>
+		The path you're on leads you right up close to Evelyx's Dairy, but although there are many large, glass windows set into the sides of the concrete office building, they've been treated with a reflective finish, preventing you from taking a look inside. A sign positioned beside the entrance informs you that the farm is [style.italicsGood(open 24/7)], and any member of the public is welcome to head inside and enquire about either breeding their cows or working as one.
+	</p>
+	<p>
+		Looking up the gravel path which leads to the farm's entrance, you wonder if you should head inside, or instead continue on your way... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXTERIOR_ENTER"><![CDATA[
+	<p>
+		Deciding that you'd like to head inside Evelyx's Dairy, you [pc.walk] up the gravel path and approach the concrete office building. The main entrance consists of a pair of huge, mirrored-glass doors, and as you approach them, some kind of hidden arcane sensor detects your presence and sets them into motion. Sliding along rails recessed into the floor, the glass doors swiftly part, allowing you to [pc.step] forwards into the building.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Exterior: -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You find yourself standing in the cavernous, modern-looking entrance hall to Evelyx's Dairy. Beneath your [pc.feet], clean, white tiles cover the floor, while up above your head, fluorescent lamps embedded in the high ceiling cast a bright, unnatural light over your surroundings. Several uninspiring pieces of abstract art hang on the plain white walls, and beneath them, numerous low-backed, black sofas have been arranged around stylish coffee tables. 
+	</p>
+	<p>
+		There are a couple of people making use of these sofas, and as you enter the area, they give you a quick glance before looking back down to their magazines as they see that you're not the person who they were waiting for.
+		#IF(dale.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_dairyFarm_reception)
+			 Other than these members of the public, the only other person you can see
+			#IF(dale.isPlayerKnowsName())
+				 is the donkey-boy receptionist, Dale, who's busily filling out some paperwork behind his desk.
+			#ELSE
+				 is a donkey-boy receptionist, who's busily filling out some paperwork behind the desk over on the far side of the room.
+			#ENDIF
+		#ELSE
+			 Other than these members of the public, there's nobody else in sight, as the reception desk over on the far side of the room is currently unstaffed.
+		#ENDIF
+	</p>
+	<p>
+		From here, you could either exit the farm and head back out into the Foloi Fields, or [pc.walk] on over to the reception desk...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Deciding that you've had enough of Evelyx's Dairy for now, you [pc.walk] over to the large glass doors, and after they've slid aside, you head out into the Foloi Fields once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Corridor: -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Just like the entrance hall, the corridor which runs down the centre of the farm's office building is floored in clean, white tiles, and illuminated by the bright, unnatural light of fluorescent lamps embedded in the high ceiling above your head. Instead of abstract artworks, however, the walls are home to numerous inspirational pictures and posters, which bear all manner of trite slogans encouraging the farm's cows to work hard.  
+	</p>
+	<p>
+		At one end of the corridor, there's a large sign bearing the word 'Dormitories', while at the other end, a securely locked door prevents you from going any further. Three doors are set into one side of the corridor, with each one signposted as leading into a different barn, while on the other side you can find the farm's offices and milk storage area.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Locked door in corridor: -->
+	
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		The door at this end of the corridor is securely locked and there are no windows or other means of seeing what's on the other side. A menacing sign fixed to one side of this door warns you that if you're caught trying to gain entry to the area beyond, you'll not only be instantly terminated from working here, but you'll also be subjected to prosecution.
+	</p>
+	<p>
+		Even if you did want to see find out what's on the other side, there's really no way to bypass the door's locking mechanism, and so all that you can do is turn around and head back the way you came...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOCKED_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		Unable to get past the locked door, you [pc.step] back into the corridor and wonder where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Reception: -->
+	
+	<htmlContent tag="RECEPTION"><![CDATA[
+	#IF(game.getCharactersPresent().contains(dale))
+		<p>
+			Positioned on the opposite side of the entrance hall to the pair of large, glass doors, there sits a long reception desk. It's of a very modern, stylish design, and has tall, smooth white sides and a frosted glass top. Another pair of mirrored glass doors, which no doubt lead into the rest of the farm, are positioned behind this desk, while to their side a large analogue clock hangs from the wall. Sitting behind the desk
+			#IF(dale.isPlayerKnowsName())
+				 is the donkey-boy receptionist, Dale, and as you approach he looks up from his paperwork and flashes you a kind smile.
+			#ELSE
+				 is a greater donkey-boy receptionist, and as you approach he looks up from his paperwork and flashes you a kind smile. Looking down at the small name plate sitting on the desk in front of him, you see that this donkey-boy is called 'Mr. [dale.surname]'.
+			#ENDIF
+		</p>
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_started))
+			<p>
+				[dale.speech(Hi, [pc.name]!)] he happily calls out, before sitting to attention and quickly straightening his black tie. Brushing down his navy blue shirt, 
+				#IF(dale.getTotalTimesHadSex(pc)>0)
+					 he winks at you and teases, [dale.speech(How's work going? You haven't been getting lonely in there without me, have you?)]
+				#ELSE
+					 he asks, [dale.speech(How's work going? If you've got any complaints or suggestions, please let me know!)]
+				#ENDIF
+			</p>
+			<p>
+				As you tell the donkey-boy that everything is going fine, and that you don't have anything to complain about, he quickly finishes the last drop of coffee in his mug, before looking at you with weary eyes and saying in his usual upbeat tone of voice,
+				#IF(flags.hasFlag(FLAG_innoxia_evelyx_reception_sex))
+					 [dale.speech(Well, if there's anything you want, then let me know. Oh, and I've got my eye on you; don't try getting under my desk again...)]
+				#ELSE
+					 [dale.speech(Well, if there's anything you want, then just say the word.)]
+				#ENDIF
+			</p>
+			<p>
+				With that, Dale starts to reorganise the stacks of paperwork in front of him, leaving you wondering whether to simply continue on your way past him or to stop and ask him about something... 
+			</p>
+		#ELSEIF(dale.isPlayerKnowsName())
+			<p>
+				[dale.speech(Hi, [pc.name]!)] he happily calls out, before sitting to attention and quickly straightening his black tie. Brushing down his navy blue shirt, he asks, [dale.speech(Would you like to inquire about our cow sex services? Or are you here to ask about becoming a cow yourself?)] 
+			</p>
+			<p>
+				Stifling a yawn, the donkey-boy quickly finishes the last drop of coffee in his mug, before looking at you with weary eyes and waiting to hear what it is you want...
+			</p>
+		#ELSE
+			<p>
+				[dale.speech(Oh, you can call me Dale, don't worry about that,)] he happily says after noticing where you're looking. Sitting to attention and quickly straightening his black tie, he brushes down his navy blue shirt and continues, [dale.speech(I haven't seen you here before, so welcome to Evelyx's Dairy! If you're here to make inquiries about bulk milk orders, then I'm afraid to say that we don't have any contracts available right now. If, on the other hand, you're here for more personal business, then we offer a service whereby you can pay to have sex with one of our cows. No, those aren't <i>actual</i> cows, before you ask; that's just what we call our employees whose work involves being milked in the barns.)] 
+			</p>
+			<p>
+				Despite his friendly mannerisms, you notice that there's a weary look in Dale's [dale.eyeColour] eyes, and after finishing his introduction, he stifles a yawn and sinks down in his chair a little. Suddenly remembering something, he quickly bends down to retrieve an item from under his desk. Seeing this as a good moment to introduce yourself to him, you tell Dale your name, and as he straightens back up and places a few sheets of paper on the desk before him, he flashes you another kind smile and says, [dale.speech(Pleased to meet you, [pc.name].)]
+			</p>
+			<p>
+				Moving some empty coffee cups aside, Dale slides the papers he's just retrieved towards you and continues, [dale.speech(We're always looking for new cows, so if you were interested in that sort of work, then all you need to do is read over this contract, sign up, and we can get you started straight away. Sorry if that's not what you're here for, but I have to offer this to every new visitor, regardless of who they are...)]
+			</p>
+			<p>
+				Shrugging off his slight embarrassment at having to offer you the opportunity to become a 'cow', the donkey-boy smiles and says, [dale.speech(Just let me know if you're interested in either of these things, and I can give you more details.)]
+			</p>
+			<p>
+				As Dale takes a moment to reorganise the stacks of paperwork in front of him, you wonder what to say next... 
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Positioned on the opposite side of the entrance hall to the pair of large, glass doors, there sits a long reception desk. It's of a very modern, stylish design, and has tall, smooth white sides and a frosted glass top. Another pair of mirrored glass doors, which no doubt lead into the rest of the farm, are positioned behind this desk, while to their side a large analogue clock hangs from the wall.
+			#IF(dale.isPlayerKnowsName())
+				 Despite the exterior sign promising that the farm is 'open 24/7', the donkey-boy receptionist, Dale, is currently absent from his post, and a sign left on the desk's top reveals:
+			#ELSE
+				 Despite the exterior sign promising that the farm is 'open 24/7', the farm's receptionist is currently absent from their post, and a sign left on the desk's top reveals:
+			#ENDIF
+		</p>
+		<p style='text-align:center;'>
+			<b>Reception Desk Closed</b>
+			<br/>Normal service will resume at [style.time(5)].
+			<br/>Please feel free to take a seat in the waiting area.
+		</p>
+		<p>
+			Looking over to the clock hanging on the wall behind this reception desk, you see that the current time is [style.currentTime]. If you wanted to, you could return to the waiting area and loiter about until
+			#IF(dale.isPlayerKnowsName())
+				#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_started))
+					 Dale returns. Then again, as you're an employee, you could always head over to the dormitory and see if you cna find Dale in there...
+				#ELSE
+					 Dale returns...
+				#ENDIF
+			#ELSE
+				 the receptionist returns...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_STEP_BACK"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(dale))
+			You thank Dale for his time and say that you've got to leave, before [pc.stepping] back into the waiting area. Flashing you one last smile, the donkey-boy gives you a wave, and after stifling a weary sigh, he says, [dale.speech(Thanks for stopping by. We're open at all hours every day of the week, so come back at any time!)]
+		#ELSE
+			#IF(dale.isPlayerKnowsName())
+				As Dale isn't currently on duty, there's very little else for you to do except [pc.stepp] back into the waiting area. Taking a quick look around, you wonder whether to loiter about and wait for him to return, or exit Evelyx's Dairy and head elsewhere...
+			#ELSE
+				As the receptionist isn't currently on duty, there's very little else for you to do except [pc.stepp] back into the waiting area. Taking a quick look around, you wonder whether to loiter about and wait for them to return, or exit Evelyx's Dairy and head elsewhere...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_BLOWJOB_START"><![CDATA[
+	<p>
+		Wanting to have some fun with Dale, you [pc.step] around to his side, and before he can say anything or stop you, you drop down and shuffle forwards beneath his desk.
+	</p>
+	#IF(pc.isFaceVirgin())
+		<p>
+			Dale urgently asks what you think you're doing. Reaching forwards to start undoing his belt, you tell him that you've never sucked cock before, and that you were hoping he could be your first.
+		</p>
+	#ELSE
+		<p>
+			Dale urgently asks what you think you're doing. Reaching forwards to start undoing his belt, you tell him that you wanted to do something nice for him, and so you're going to give him a blowjob while he works.
+		</p>
+	#ENDIF
+	<p>
+		Before he can reply, the donkey-boy's attention is caught by one of the members of the public who are sitting in the waiting area. You hear them call out some kind of question, and Dale responds by telling them that Evelyx will see them as soon as she's free.
+	</p>
+	<p>
+		Having to pretend that nothing's happening, Dale hisses out of the corner of his mouth that he appreciates your affections, but this isn't the time or place. Despite his words, Dale's huge donkey-cock eagerly springs free from his boxers and stands fully erect before you. Delivering a long, wet lick to the underside of his hot shaft, you tell the donkey-boy to carry on with work; you'll take good care of him.
+	</p>
+	<p>
+		Opening wide, you take the flared head of Dale's cock into your mouth, and within moments a stream of precum and saliva is drooling over your [pc.lips+] as you take Dale's dark shaft down your throat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_AFTER_SEX"><![CDATA[
+	<p>
+		Planting one last kiss on Dale's delicious donkey-dick, you shuffle back out from under his desk. Letting out a relieved sigh, the receptionist says that he appreciates your affection, but please not to do that again.
+	</p>
+	<p>
+		You tease him by telling him that even if he pretends to not want it, the reaction from his cock is all you need to know that he loves it. You tell him that you might treat him to it again some time, before returning to the other side of the desk and wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Talking: -->
+	
+	<htmlContent tag="RECEPTION_TALK"><![CDATA[
+	<p>
+		You ask Dale if he's got a moment in which to talk. He casts a weary eye over the stack of paperwork in front of him, and you think that's he's going to decline, but after letting out a deep sigh he gives you a genuinely warm smile and says, [dale.speech(Of course, [pc.name]. What it is that you'd like to talk about?)] 
+	</p>
+	<p>
+		Happy to hear that the donkey-boy is willing to make time for you, you wonder what to talk to him about first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_HIMSELF"><![CDATA[
+	<p>
+		Wanting to know a little more about Dale, you ask him about what led to him working here at Evelyx's Dairy, and for how long has he been doing it.
+	</p>
+	<p>
+		[dale.speech(You know, you're the first person to ever ask me about that,)] he replies with a small laugh. Leaning back in his chair, he brushes down his tall, donkey-like ears with one hand as he thinks for a moment, before replying, [dale.speech(It must be going on three years since I started working here now. I used to work at an office over in Dominion, but after a relationship with one of my colleagues went bad, she made working there unbearable. I don't want to bore you with all of the petty details, but basically things ended with me deciding to leave the city just to get away from her.)]
+	</p>
+	<p>
+		After interrupting to offer the donkey-boy your sympathy, you listen as he continues, [dale.speech(So I decided to travel to Elis and try and make a living there. On my way through the Fields, I saw a sign offering a receptionist job at a farm, and after following the directions, I arrived here. Evelyx was almost as desperate to have this vacancy filled as I was to be getting a job, and so before I'd even arrived at Elis, I found myself working here.)]
+	</p>
+	<p>
+		Wanting to know more, you ask Dale if he ended up getting a new place to live in Elis, or found somewhere a little closer to work. Letting out a small laugh, he reveals, [dale.speech(Well, technically my permanent residence is a small apartment in Elis, but with how much work Evelyx keeps on piling on me, I haven't been home in weeks. I don't really mind, though; my apartment's in the rough part of town, and the beds in the dormitories here are comfortable enough.)]
+	</p>
+	<p>
+		With that, Dale seems to be at the limit of how much he wants to reveal about himself, and so pointedly asks, [dale.speech(Is there anything else you'd like to talk about?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_WORK"><![CDATA[
+	<p>
+		Curious about what kind of duties Dale is expected to perform as the farm's receptionist, you ask him about what kind of paperwork he's currently dealing with.
+	</p>
+	<p>
+		[dale.speech(Well, these are the cows' daily performance reports which need to be assessed and signed off,)] he replies, gesturing to the stack of papers in front of him. Rubbing his weary eyes, he lets out a small sigh and reveals, [dale.speech(This should be the responsibility of the office workers, but the number of cows we have working here has more than quadrupled over the past two years, and Evelyx hasn't hired any additional employees to keep up. So the short of it is that this extra paperwork keeps on getting offloaded onto me.)]
+	</p>
+	<p>
+		Noting the significant amount of papers before him, you ask Dale if he's able to keep up with his receptionist duties on top of all this. Puffing up his cheat a little in pride, he smiles and boasts, [dale.speech(Of course! It's a lot of work, but someone needs to do it. I've also had to take on responsibility for attending to any new cows we employ, and even with that, I'm still able to get all of my work completed each day.)]
+	</p>
+	<p>
+		Although he displays an admirable work ethic, you can't help but feel like this workload must be taking its toll on Dale's health. As you express this to him, the donkey-boy simply dismisses your concerns with a wave of his hand and states, [dale.speech(Us donkey-morphs are used to hard work, so this is nothing. I mostly get enough sleep, and always have three healthy meals a day. There's no need to be worried about me.)]
+	</p>
+	<p>
+		Running his hand back over his tall, donkey-like ears, he smiles and brings the topic to a close by asking, [dale.speech(Is there something else which you wanted to discuss?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_EVELYX"><![CDATA[
+	<p>
+		Wanting to hear Dale's opinion of his boss, you ask him what Evelyx is like.
+	</p>
+	<p>
+		[dale.speech(Well, she's a direct daughter of the elder lilin, Lisophia,)] the donkey-boy says, as though that should explain everything. Seeing that you'd like some more information than that, however, he quickly continues, [dale.speech(Lisophia's well known for her greed, and her daughter's inherited that trait by having a complete obsession with money. I don't mind the workload, but some of my colleagues over in the office are almost at their breaking point with how hard Evelyx is working them. She refuses to hire more people, as that would, in her own words, 'eat up all of the profits'.)]
+	</p>
+	<p>
+		Asking what else Dale can tell you about this greedy succubus, you listen as Dale smiles and states, [dale.speech(Well, there's not really too much that I know about her. I met her for my initial interview, and I see her every few months for a quarterly performance report, but other than that I can count on one hand how many times I've interacted with her. She hates to be interrupted, and only meets with people who have important business to discuss with her.)]
+	</p>
+	<p>
+		Leaning back in his chair, Dale thinks for a moment, before stating, [dale.speech(She's not a bad person. Sure, she works her employees hard, but she also gives the cows pretty decent working conditions. You'd be hard pressed to find a modern dairy farm that gives their cows the same level of comfort or flexible hours that this one does.)]
+	</p>
+	<p>
+		Having said all there is on the matter, the donkey-boy smiles at you and states, [dale.speech(Anyway, enough about Evelyx. Is there anything else you wanted to ask?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_FARM"><![CDATA[
+	<p>
+		Interested to hear about this farm's history, you ask Dale what he knows about how it got started.
+	</p>
+	<p>
+		[dale.speech(I can't really help you much there,)] he sighs, [dale.speech(I only started working here a few years ago, and by that time everything was already pretty much as it is now.)]
+	</p>
+	<p>
+		At that moment, the donkey-boy suddenly seems to remember something, and after asking you to wait for one moment, he bends down and starts rummaging around in the drawers behind his desk. After a couple of minutes of searching, the donkey-boy finds what he was looking for, and pulls out a framed, aerial photograph of a traditional-looking farmhouse. Placing it on the desk for you to look at, he explains, [dale.speech(Apparently, that's what this farm used to look like. Of course, that old house was demolished a long time ago, and I guess that the surrounding barns were similarly torn down after they fell into disrepair.)]
+	</p>
+	<p>
+		Having discovered all that Dale knows about this farm's history, you move on to ask him about how it currently functions. As this is a topic which he's much more familiar with, the donkey-boy enthusiastically replies, [dale.speech(Well, we operate in the same way that most other modern dairy farms do. We employ a large number of 'cows', who lie in their stalls for up to sixteen hours a day, having their milk drained by machines. This milk is treated and stored in large vats, and then a carriage arrives twice a day to transport the milk to the processing and bottling plant on the outskirts of Dominion.)]
+	</p>
+	<p>
+		With all of your questions about the farm now answered, you wonder what to ask about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_LUNETTE"><![CDATA[
+	<p>
+		Wanting to know why this farm has been spared from the destruction wrought by Lunette's marauders, you ask Dale what he knows about the elder lilin or her daughters.
+	</p>
+	<p>
+		[dale.speech(Well, I don't really know anything special about Lunette herself, other than what anyone else could tell you about her,)] he replies, before glancing around and lowering his voice to reveal, [dale.speech(As for why this farm isn't attacked like most of the others in the Fields... Well, I probably shouldn't be telling you this, but I heard from one of the other workers that Evelyx has some kind of deal with Lunette...)]
+	</p>
+	<p>
+		Wanting to know more, you ask the donkey-boy what kind of deal that would be. Nervously glancing back over his shoulder to make sure that nobody's eavesdropping, he speculates, [dale.speech(I don't know what goes on in there, but it's definitely got something to do with the fourth barn we have here. I regularly attend to some of the cows in all three of the other barns, but as far as I know, nobody who works here has ever been inside the fourth one. We've know that some of Lunette's daughters are given regular access to it, but what goes on inside, nobody knows...)]
+	</p>
+	<p>
+		After taking a moment to think about whether or not to say any more, the donkey-boy runs his hand over his tall ears, before leaning in close to you and practically whispering, [dale.speech(Of course, there's the matter of what happened to the receptionist whose job I took... One of the other workers told me that in the days before she disappeared, this receptionist was asking a lot of questions about that fourth barn. Although everyone calls him crazy, this worker swears that he saw Evelyx leading the receptionist towards the fourth barn on the night that she disappeared...)]
+	</p>
+	<p>
+		Clearly thinking that he's already said too much, Dale sits back up and clears his throat, before saying, [dale.speech(Anyway, it's best not to ask too many questions about Lunette. She's bad news, and the less I or anyone else has to do with her, the better.)]
+	</p>
+	<p>
+		Thanking Dale for the information, you wonder what to ask about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_END"><![CDATA[
+	<p>
+		Having asked Dale everything which you wanted to know, you thank him for his time and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Sex: -->
+	
+	<htmlContent tag="RECEPTION_MILKER_SEX"><![CDATA[
+	<p>
+		Wanting to know more about having sex with one of the Dairy's cows, you ask Dale for the full details. 
+	</p>
+	<p>
+		[dale.speech(Of course, hold on one moment, please,)] he replies with a smile. Quickly bending down and opening one of the drawers beneath his desk, the donkey-boy retrieves a sheet of laminated paper and places it in front of you. Looking down at the paper, you see that the page is split into three parts, and as you scan over the text, Dale begins to deliver a confident, well-practised sales pitch.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_started))
+			[dale.speech(As you should already know, you cows are split into three barns based on your promotion level; 'Trainee', 'Heifer', and 'Cow', and you can choose any one of these to have sex with,)]
+		#ELSE
+			[dale.speech(Our cows are split into three barns based on their promotion level; 'Trainee', 'Heifer', and 'Cow', and you can choose any one of these to have sex with,)]
+		#ENDIF
+		 he begins, before pointing to the top of the page and explaining, [dale.speech(The requirement for trainees to get promoted is for them to be publicly fucked, so if you decide to choose a trainee to have sex with, then you'll be their first. I can tell you from experience that quite a few of them are still virgins, and if not, then their pussies will still be nice and tight. The trainee will have been the one to request a member of the public to come and fuck her, so you don't get to choose your partner if you choose a trainee. Oh, and you should also know that the trainees can be of any race, not just cow-girls.)]
+	</p>
+	<p>
+		Moving down the page, you see that the next option is to fuck a 'Heifer', and Dale continues, [dale.speech(Heifers have been publicly fucked at least once; that's how they earned their promotion from trainee. As such, they're not going to be virgins, and some of them have been used quite a lot, meaning that they might not have the tightest pussies. Heifers get promoted once they've been impregnated, so none of them will be pregnant. Just like trainees, heifers request to have sex, and so you're not going to be able to choose your partner. Heifers get access to cow-girl transformatives, so you're more likely than not to end up being partnered with a cow-girl, but there's still a chance that they'll be of a different race.)]
+	</p>
+	<p>
+		Moving down the end of the paper, you see the final option is to fuck a 'Cow'. Flashing you a smile, Dale finishes his narration by explaining, [dale.speech(Cows have been fucked a lot and bred at least once, often multiple times. Their pussies are well-used and pretty loose, and as such they aren't as popular as trainees or heifers. They don't get to choose when they get fucked, though, so you can look around and choose whichever cow you like the look of the most. Every cow in this barn is a cow-girl, so if that's not your thing you'd be better off going with a trainee. Take a moment to look at the prices, and let me know if you want one. Oh, and we offer partial refunds if your cow isn't to your liking. You'll get back what you paid minus five hundred flames to cover admin fees.)]
+	</p>
+	<p>
+		Thanking the donkey-boy for the information, you look down at the bottom of the page where the prices and key points for each promotion level are displayed, and read:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+			<b>Trainee [style.moneyFormat(10000, b)]</b>
+			<br/>Will you get a virgin to break in? If not, at least their pussies will be nice and tight!
+			<br/>Our most popular offering, trainees are guaranteed to be a good fuck!
+			<br/>
+			<br/><b>Heifer [style.moneyFormat(5000, b)]</b>
+			<br/>Graduated from trainee, these heifers are desperate to get knocked up!
+			<br/>Give them a creampie and help them to get promoted!
+			<br/>
+			<br/><b>Cow [style.moneyFormat(2500, b)]</b>
+			<br/>Experienced and always happy to be getting your attention!
+			<br/>Choose whichever cow takes your fancy and make her feel wanted!
+		</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_SEX_BACK"><![CDATA[
+	<p>
+		After hearing Dale's sales pitch and reading over the prices, you find yourself feeling less than impressed by what's on offer. Telling the donkey-boy that you're not interested in having sex with a cow after all, you hand the laminated sheet of paper back to him.
+	</p>
+	<p>
+		[dale.speech(No worries,)] he replies with a warm smile on his face, [dale.speech(Just let me know if there's anything else I can do for you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_SEX_TRAINEE"><![CDATA[
+	<p>
+		Liking the idea of giving a trainee her first public fuck, you place [#SPECIAL_PARSE_0] flames on the desk and tell Dale that you've made your choice. Quickly counting out the money and securely storing it in a safe anchored to the floor beside his hoofs, Dale presses a button beneath his desk, before smiling and saying, [dale.speech(Thank you for your business. I've signalled to the trainees that someone's here to fuck them. It typically doesn't take more than a few minutes before one of them requests it, so if you'd like to take a seat while you wait, I'll call for you when she's ready.)]
+	</p>
+	<p>
+		Doing as you're asked, you [pc.step] over to the nearest sofa and sink down onto it. True to Dale's prediction, you only have to wait for two minutes before he calls over to you to let you know that a trainee has requested a fuck. Leaving a 'Be back soon' sign for anyone who shows up while he's away, the donkey-boy leads you past his desk and into the corridor beyond. Swiftly moving across the white tiled floor, the two of you approach a nearby door signposted as 'Trainee Barn'. Producing a set of keys, Dale unlocks the door and heads inside, before beckoning you to follow him.
+	</p>
+	<p>
+		[pc.Stepping] forwards, you find yourself entering a huge barn, with corrugated metal walls and ceiling. Although its walls lack windows, skylights and arcane lamps fill the cavernous interior with a bright, artificial light. What must be at least a hundred milking stalls are lined up along both sides of this barn, and as you follow Dale down the middle of them, you find yourself being presented with the naked rear ends of the cows who are making use of them. The steady hum of countless milking machines fills the barn, and now and again, one of the trainees releases a particularly loud moan.
+	</p>
+	<p>
+		[dale.speech(Here we are,)] Dale suddenly says. Stopping beside a milking stall which has a pink, arcane light glowing high up above it, you watch as the donkey-boy steps up behind the trainee, who turns out to be [cow.a_fullRace(true)], and asks, [dale.speech(Are you ready for this?)]
+	</p>
+	<p>
+		#IF(cow.isVaginaVirgin())
+			[cow.speech(Yes,)] [cow.name] replies, before nervously blurting out, [cow.speech(I'm still a virgin though!)]
+		#ELSE
+			[cow.speech(Yes,)] [cow.name] replies, before letting out a sultry moan and revealing, [cow.speech(This isn't my first time, but I've never done it in a place like this before...)]
+		#ENDIF
+	</p>
+	<p>
+		Stepping around to one side of the trainee, Dale reaches down and takes hold of her exposed ass, before pulling her cheeks apart and using his thumbs to spread her [cow.labiaSize] [cow.labia]. As he presents [cow.namePos] [cow.pussyCapacity] cunt to you, the donkey-boy
+		#IF(cow.isVaginaVirgin())
+			 flashes you a grin and sighs, [cow.speech(I wish I were you right now... There's nothing better than getting to take a trainee's virginity like this. So, you're up for it, right?)]
+		#ELSE
+			 smiles and asks, [dale.speech(So, is she to your liking?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_SEX_HEIFER"><![CDATA[
+	<p>
+		Wanting to have sex with one of the heifers, you place [#SPECIAL_PARSE_0] flames on the desk and tell Dale that you've made your choice. Quickly counting out the money and securely storing it in a safe anchored to the floor beside his hoofs, Dale presses a button beneath his desk, before smiling and saying, [dale.speech(Thank you for your business. I've signalled to the heifers that someone's here to fuck them. It typically doesn't take more than a few minutes before one of them requests it, so if you'd like to take a seat while you wait, I'll call for you when she's ready.)]
+	</p>
+	<p>
+		Doing as you're asked, you [pc.step] over to the nearest sofa and sink down onto it. True to Dale's prediction, you only have to wait for two minutes before he calls over to you to let you know that a heifer has requested a fuck. Leaving a 'Be back soon' sign for anyone who shows up while he's away, the donkey-boy leads you past his desk and into the corridor beyond. Swiftly moving across the white tiled floor, the two of you head half-way down the corridor and arrive at a door signposted as 'Heifer Barn'. Producing a set of keys, Dale unlocks the door and heads inside, before beckoning you to follow him.
+	</p>
+	<p>
+		[pc.Stepping] forwards, you find yourself entering a huge barn, with corrugated metal walls and ceiling. Although its walls lack windows, skylights and arcane lamps fill the cavernous interior with a bright, artificial light. What must be at least a hundred milking stalls are lined up along both sides of this barn, and as you follow Dale down the middle of them, you find yourself being presented with the naked rear ends of the cows who are making use of them. The steady hum of countless milking machines fills the barn, and now and again, one of the heifers releases a particularly loud moan.
+	</p>
+	<p>
+		[dale.speech(Here we are,)] Dale suddenly says. Stopping beside a milking stall which has a pink, arcane light glowing high up above it, you watch as the donkey-boy steps up behind the heifer, who turns out to be [cow.a_fullRace(true)], and asks, [dale.speech(Are you ready for this?)]
+	</p>
+	<p>
+		[cow.speech(Oh yeah,)] [cow.name] eagerly replies, before letting out an excited squeal and revealing, [cow.speech(I love getting fucking like this... Come on, give it to me!)]
+	</p>
+	<p>
+		Stepping around to one side of the eager heifer, Dale reaches down and takes hold of her exposed ass, before pulling her cheeks apart and using his thumbs to spread her [cow.labiaSize] [cow.labia]. As he presents [cow.namePos] [cow.pussyCapacity] cunt to you, the donkey-boy grins and asks, [dale.speech(So, is she to your liking?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKER_SEX_COW_SEARCH"><![CDATA[
+	<p>
+		Wanting to have sex with one of the cows, you place [#SPECIAL_PARSE_0] flames on the desk and tell Dale that you've made your choice. Quickly counting out the money and securely storing it in a safe anchored to the floor beside his hoofs, Dale leaves a 'Be back soon' sign for anyone who shows up while he's away, before leading you past his desk and into the corridor beyond. Swiftly moving across the white tiled floor, the two of you head down to the far end of the corridor and arrive at a door signposted as 'Cow Barn'. Producing a set of keys, Dale unlocks the door and heads inside, before beckoning you to follow him.
+	</p>
+	<p>
+		[pc.Stepping] forwards, you find yourself entering a huge barn, with corrugated metal walls and ceiling. Although its walls lack windows, skylights and arcane lamps fill the cavernous interior with a bright, artificial light. What must be at least a hundred milking stalls are lined up along both sides of this barn, and as you follow Dale down the middle of them, you find yourself being presented with the naked rear ends of the cows who are making use of them. The steady hum of countless milking machines fills the barn, and now and again, one of the cows releases a particularly loud moan.
+	</p>
+	<p>
+		[dale.speech(So, unlike the other two barns, you can take your pick,)] Dale says, before playfully slapping the ass of the cow next to him and causing her to let out an extremely lewd moan. Smiling at her reaction, he says, [dale.speech(They're all pretty desperate for it. Just let me know which one you like the look of the most.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKER_SEX_COW_SEARCH_FOUND"><![CDATA[
+	<p>
+		[pc.Walking] down the aisle between the rows of moaning cows, you soon find one which takes your fancy, who takes the form of
+		#IF(cow.isVisiblyPregnant())
+			 a heavily pregnant
+		#ENDIF
+		 [cow.fullRace(true)].
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_cow_search_high_mileage))
+			 Her holes are loose and wet, and as you stop to gaze at her exposed cunt, she playfully sways her [cow.hips+] at you and begs,
+			#IF(pc.hasPenis())
+				 [cow.speech(Come on, you know you want to choose me! Stick your cock in my pussy, babe, and I'll milk your balls dry!)]
+			#ELSE
+				 [cow.speech(Come on, you know you want to choose me!)]
+			#ENDIF
+		#ELSE
+			 Her holes are in relatively good condition, especially considering how many times she must have been fucked. As you stop to gaze at her exposed cunt, she playfully sways her [cow.hips+] at you and begs,
+			#IF(pc.hasPenis())
+				 [cow.speech(Come on, you know you want to choose me! I'm tighter than most of the other cows; my pussy's gonna feel really good squeezing down around your cock!)]
+			#ELSE
+				 [cow.speech(Come on, you know you want to choose me! I'm tighter than most of the other cows!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Seeing that you've made your choice, Dale steps forwards and takes hold of [cow.namePos] exposed ass, before pulling her cheeks apart and using his thumbs to spread her [cow.labiaSize] [cow.labia]. As he presents [cow.namePos] [cow.pussyCapacity] cunt to you, the donkey-boy grins and asks, [dale.speech(So, is she to your liking?)]
+	</p>
+	<p>
+		Letting out a long, deep moan as she feels Dale's fingers touching her [cow.pussy+], the cow turns her head back and moans, [cow.speech(~Mmm!~ Yes, come on... Don't back out now, babe... Fuck my pussy and make me yours!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_SEX_START"><![CDATA[
+	<p>
+		Liking the look of this cow, you tell Dale that you're happy with what's on offer. Letting go of her ass, the donkey-boy steps away from [cow.name] and explains, [dale.speech(Most people like to use a cow's pussy, but you're free to use any of her holes. The only rules are that you're not to remove her breast pumps or fiddle with the milking machine. Have fun, and I'll be back when you've finished.)]
+	</p>
+	<p>
+		With that, the donkey-boy rushes off to quickly get back to his desk. Left alone with [npc.name], you move up close behind her, and as you run your [pc.fingers+] over her exposed pussy, she 
+		#IF(pc.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_dairyFarm_barn1)
+			#IF(cow.isVaginaVirgin())
+				 lets out a little moan, before shyly panting, [cow.speech(I'm a virgin... But I want to be promoted... Just, please be gentle, ok?)]
+			#ELSE
+				 lets out a little moan and pants, [cow.speech(It's not like I'm a virgin, but it's still my first time being fucked like this... Just, go easy on me, ok?)]
+			#ENDIF
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_dairyFarm_barn2)
+			 moans and pants, [cow.speech(Please, I want to be promoted, so could you try and get me knocked up? I'll be a good little cow for you, I promise... Just give me a nice big creampie...)]
+		#ELSE
+			 moans and eagerly pants, [cow.speech(That's it, I'm your good little cow! Use me for as long as you'd like, and in whatever way you desire...)]
+		#ENDIF
+	</p>
+	<p>
+		Taking your [pc.fingers+] away from [npc.namePos] [cow.pussy+], you wonder how best to use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_SEX_START_BACK"><![CDATA[
+	<p>
+		Not too thrilled at the prospect of having sex with [cow.name], you shake your head and tell Dale that you've changed your mind.
+		#IF(cow.isVaginaVirgin())
+			 The donkey-boy shakes his head in disbelief, before letting out a good-natured laugh and exclaiming, [dale.speech(You really don't want to take her virginity?! Well, I guess not everybody is into that sort of thing... Come on then, let's head back to my desk and I'll get you your refund.)]
+		#ELSE
+			 The donkey-boy nods his head in understanding, before saying, [dale.speech(Come on then, let's head back to my desk and I'll get you your refund.)]
+		#ENDIF
+	</p>
+	<p>
+		Leaving the disappointed cow behind, you and Dale head back to the reception area. Retrieving your money from the safe, minus the five hundred flames to cover admin fees, the donkey-boy gives you your refund and asks, [dale.speech(So, is there anything else I can do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun with [cow.name], and feeling well and truly satisfied, you take a [pc.step] back and tell her that you've finished.
+		#IF(pc.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_dairyFarm_barn1)
+			#IF(cow.isSatisfiedFromLastSex())
+				 Panting and moaning, [cow.name] sighs, [cow.speech(You didn't exactly satisfy me, you know... Whatever, at least I've qualified for a promotion now...)]
+			#ELSE
+				 Panting and moaning, [cow.name] sighs, [cow.speech(That was so good... Fuck... I've qualified for a promotion now as well...)]
+			#ENDIF
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_dairyFarm_barn2)
+			#IF(cow.isHasAnyPregnancyEffects())
+				 Letting out a happy moan, [cow.name] sighs, [cow.speech(Oh yeah, that's what I wanted... I hope I'll get pregnant from this so I can get promoted!)]
+			#ELSE
+				#IF(cow.isSatisfiedFromLastSex())
+					 Panting and moaning, [cow.name] sighs, [cow.speech(That was great... But you didn't even try and knock me up... I'll never get promoted at this rate...)]
+				#ELSE
+					 Panting and moaning, [cow.name] lets out an annoyed tut and sighs, [cow.speech(You didn't exactly satisfy me, you know... And you didn't even try and knock me up... I'll never get promoted at this rate...)]
+				#ENDIF
+			#ENDIF
+		#ELSE
+			#IF(cow.isSatisfiedFromLastSex())
+				 Panting and moaning, [cow.name] sighs, [cow.speech(That was great... I love getting fucked like this...)]
+			#ELSE
+				 Panting and moaning, [cow.name] sighs, [cow.speech(That was fun and all... But you didn't exactly satisfy me, you know...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		As you get your things back in order, the [cow.race] presses a button on a small arcane device in front of her, signalling to reception that she's finished. A minute later, and Dale is happily stepping up to your side.
+		#IF(cow.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+			 Looking down at the cum leaking from [cow.namePos] well-fuck cunt, the donkey-boy smiles and comments,
+		#ELSEIF(cow.getTotalFluidInArea(ORIFICE_ANUS)>0)
+			 Looking down at the cum leaking from [cow.namePos] well-fuck asshole, the donkey-boy smiles and comments,
+		#ELSE
+			 Looking down at the panting [cow.name], the donkey-boy smiles and comments,
+		#ENDIF
+		 [dale.speech(You sure gave her a good time, huh? Come on, let's get out of here and give her some space.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_AFTER_SEX_END"><![CDATA[
+	<p>
+		Leaving [cow.name] behind, you [pc.walk] along beside Dale as he leads you back to the reception area. Sitting down at his desk with a weary sigh, he rubs his eyes and puts on another smile as he asks, [dale.speech(So, can I do anything else for you today, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Work: -->
+	
+	<htmlContent tag="RECEPTION_MILKER_WORK"><![CDATA[
+	<p>
+		Curious to find out more about working here as a cow, you tell Dale that you're interested in the job offer and would like to know what it would entail.
+	</p>
+	<p>
+		[dale.speech(You're interested in becoming a cow? That's great! I'm sure you'd love working here!)] the donkey-boy exclaims, before starting to explain what your duties would be, [dale.speech(All you have to do is simply lie down in one of our milking stalls and have a machine suck on your breasts. Happy cows produce more milk, so the milking stalls and machines are some of the best and most comfortable on the market.)]
+	</p>
+	<p>
+		Wondering how much money you could make by doing this, you ask Dale what the salary is. Leaning forwards in his chair, he says, [dale.speech(That depends on what promotion level you're at. We start all new cows as 'trainees', and then after producing enough milk and meeting some other requirements, you get promoted to 'heifer', and then 'cow'. Trainees make one hundred flames per hour, heifers make one hundred and fifty, and cows made two hundred. We don't have any strict requirements for your body, but you'll need a vagina and to be lactating, and we do encourage heifers and cows to transform into cow-morphs, but that isn't mandatory.)]
+	</p>
+	<p>
+		As you think about what Dale's just said, he add, [dale.speech(Oh, and you earn a bonus of five hundred flames every time you're fucked in the stalls. Trainees and heifers have full control over when they have sex, but if you make it to being a cow, you can be fucked at any time while you're working. You also get access to our dormitory and wash facilities, and you get a selection of rewards after each four-hour milking session.)]
+	</p>
+	<p>
+		Wondering what sort of behaviour is prohibited for cows, you ask Dale what rules you're expected to follow. Giving you a friendly smile, he reveals, [dale.speech(The only rules are that you can't access the barns which aren't of your promotional level, and physically interacting with the other cows is grounds for immediate termination. We had a few incidents in the past where an orgy got really out of control, and so we now have to insist on cows not being allowed to fuck one another. That is, unless you do it via the normal way of paying to gain access to them.)]
+	</p>
+	<p>
+		Reaching down beneath his desk, Dale produces a small, black ear tag, of the sort you'd typically see on feral cattle. Holding it up so that you can see it, the donkey-boy says, [dale.speech(You'll get one of these to serve as your identification, and it will grant you access to your allocated barn. You don't have to wear it, but 
+		#IF(!pc.isPiercedEar())
+			 it is encouraged, and I can pierce your ears for you if you think you'd like to wear it.
+		#ELSE
+			 it is encouraged.
+		#ENDIF
+		 So, just let me know if you like the sound of all that, and I can get you signed up straight away.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_WORK_ACCEPT"><![CDATA[
+	<p>
+		Thinking that this sounds like too good an opportunity to pass up on, you tell Dale that you'll accept the work conditions and sign the contract. Happily smiling at you, the donkey-boy slides the papers over his desk and hands you a pen, saying, [dale.speech(That's great, [pc.name]! I'm responsible for attending to any new cows, so I guess I'll be seeing you over in the barn later.)]
+	</p>
+	<p>
+		Quickly reading over the contract to make sure that there aren't any hidden clauses, you sign on the dotted line and give Dale his pen back. You receive the black ear tag in return, and after taking a closer look at it, you note that it's got a single bronze pip on it. Seeing what it is you're looking at, Dale explains, [dale.speech(We upgrade that to two silver pips when you get promoted to heifer, and then to three golden ones when you become a cow. Once you've earned a promotion, come and see me and I'll upgrade it for you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_WORK_ACCEPT_PIERCED"><![CDATA[
+	<p>
+		Telling the donkey-boy that you'd like to take him up on his offer of piercing your ears, you lean forwards as he produces an arcane piercing gun and tells you to come closer. Reaching forwards, he very carefully and accurately slides the piercing gun into place your ear, and with a painless click, it's pierced. Repeating the process for your other ear, the donkey-boy puts the device away and says, [dale.speech(There you go, [pc.name]. You can wear that tag at any time now.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_WORK_ACCEPT_END"><![CDATA[
+	<p>
+		Turning his chair to one side, the donkey-boy gestures towards the doors behind him and continues, [dale.speech(You've got full access to the building now, although remember that you can only enter the barn which corresponds to your promotional level. So for you, that'll be the trainee barn. Oh, and a word of advice; don't disturb the boss. Evelyx hates being interrupted, and you really don't want to get on her bad side. You can try talking to the other members of staff, but I doubt that they'll have much time for you.)]
+	</p>
+	<p>
+		Thanking Dale for all of the information, you ask him how to get started. Once again gesturing to the pair of mirrored glass doors, he explains, [dale.speech(Just head through there and find the nearby door signposted as 'Trainee Barn'. Your ear tag will unlock the door, and once you're inside, find an empty stall and lie down in it. Each stall has a state-of-the-art arcane device attached to it, so just follow the instructions it gives you and you'll be good to go. Good luck on your first day, and I guess I'll be seeing you soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_WORK_DECLINE"><![CDATA[
+	<p>
+		You really don't like the sound of this job, and so tell the donkey-boy that you're going to have to pass on it. Nodding his head in an understanding manner, Dale replies, [dale.speech(Yeah, it's not a job for everyone. If you change your mind, just let me know. Now, is there anything else you wanted today?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Work promotions: -->
+	
+	<htmlContent tag="WORK_PROMOTION"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion1))
+		<p>
+			Handing your ear tag to Dale, you tell him that you've earned a promotion, and would like to be upgraded to a 'heifer'. Flashing you a happy smile, the donkey-boy takes your tag and exclaims, [dale.speech(Congratulations, [pc.name]! I knew you'd make it to heifer. Now hold on a moment while I get your tag upgraded...)]
+		</p>
+		<p>
+			With that, Dale places your tag down beneath his desk, and after operating some kind of whirring arcane machine that's out of your sight, he straightens up and hands you your tag back. Instead of the single bronze pip, it now has two silver ones, and as you take a closer look at it, the donkey-boy explains, [dale.speech(You won't be able to access the trainee barn any more, but that tag will grant you access to the heifer barn. Congratulations again, [pc.name], and good luck on your journey towards earning that cow promotion!)]
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion2))
+		<p>
+			Tell receptionist that you've earned a promotion. She upgrades your ear tag and hands it back to you.
+		</p>
+		<p>
+			They say congratulations, and from now on you'll only be able to access the 'cow' barn.
+		</p>
+	#ELSE
+		<p>
+			Tell receptionist that you've earned a special promotion. She tells you that this final promotion has to be approved by Evelyx herself
+		</p>
+		<p>
+			She tells you to let her know when you're ready to meet Evelyx.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_MILKER_WORK_PROMOTION_END"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion1))
+			Thanking Dale for his kind words, you wonder whether or not to head on over to the heifer barn straight away, or to instead ask the donkey-boy for something else first...
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion2))
+			Thanking Dale for his kind words, you wonder whether or not to head on over to the cow barn straight away, or to instead ask the donkey-boy for something else first...
+		#ELSE
+			Thanking Dale for his words of warning, you wonder whether or not to arrange a meeting with Evelyx straight away, or to instead leave your special promotion for another time...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_didnt_sign))
+			You tell the receptionist that you've changed your mind and would like to accept Evelyx's promotion.
+		#ELSE
+			You tell the receptionist that you'd like to be promoted by Evelyx now.
+		#ENDIF
+	</p>
+	<p>
+		She takes you to the office, you have to wait for 30 minutes. Finally, allowed to enter.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_ENTER"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_didnt_sign))
+		<p>
+			Enter Evelyx's office. Repeat interaction, again describe light blue skin, orange eyes, smart black business suit.
+		</p>
+		<p>
+			She dismissively tells you to wait while she reads over your performance report again. Flashes you a disgusted sneer and tells you to start playing with yourself so that you're wet and ready for her cock.
+		</p>
+	#ELSE
+		<p>
+			Enter Evelyx's office. If met on Monica's quest, repeat interaction. Otherwise, describe light blue skin, orange eyes, smart black business suit.
+		</p>
+		<p>
+			She dismissively tells you to wait while she reads over your performance report. Flashes you a disgusted sneer and tells you to start playing with yourself so that you're wet and ready for what's to come.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_ENTER_OBEY"><![CDATA[
+	<p>
+		You obey and start touching yourself as Evelyx takes her time reading over your performance report.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_ENTER_REFUSE"><![CDATA[
+	<p>
+		You say that you'd rather not, to which Evelyx angrily snarls and makes a black mark on your report. She takes her time reading over your performance report.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_CONTRACT"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_didnt_sign))
+		<p>
+			Evelyx stamps your paperwork and says that you've qualified for the promotion. She tells you once again that it's a contract to become her cock-sleeve, and that in return for having your wages cut in half, she'll allow you visit her once a day to rut your horny little cunt.
+		</p>
+		<p>
+			Before you can react, she stands up and pulls up her skirt, revealing that she's transformed to give herself a huge, flared, knotted demonic cock. As she strokes her four heavy balls, she says that cows like you are the only ones who get to be fucked by her cock. Says that she knows you won't be able to resist this time, so just sign the contract quickly so she can move on to getting balls-deep in your pussy already.
+		</p>
+		<p>
+			Slaps her cock down onto the desk beside the contract and smirks at you.
+		</p>
+	#ELSE
+		<p>
+			Evelyx stamps your paperwork and says that you've qualified for the promotion.
+			#IF(game.isBadEndsEnabled())
+				 She flatly states that it's a contract to willing become her lifelong slave, and that you'll live out the rest of your days here in the slave barn.
+			#ELSE
+				 She flatly states that it's a contract to become her cock-sleeve, and that in return for having your wages cut in half, she'll allow you visit her once a day to rut your horny little cunt.
+			#ENDIF
+		</p>
+		<p>
+			Before you can react, she stands up and pulls up her skirt, revealing that she's transformed to give herself a huge, flared, knotted demonic cock. As she strokes her four heavy balls, she says that cows like you are the only ones who get to be fucked by her cock. Says that she knows you won't be able to resist, so just sign the contract quickly so she can move on to getting balls-deep in your pussy already.
+		</p>
+		<p>
+			Slaps her cock down onto the desk beside the contract and smirks at you.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_CONTRACT_DONT_SIGN"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_didnt_sign))
+		<p>
+			You refuse to sign again. Evelyx angrily throws you out of her office, saying that you're lucky that you're such a good cow, as she'll forgive your insolence.
+		</p>
+		<p>
+			Tells you to come back tomorrow to sign the contract, before slamming the door on you...
+		</p>
+	#ELSE
+		<p>
+			You refuse to sign. Evelyx angrily throws you out of her office, saying that you're lucky that you're such a good cow, as she'll forgive your insolence.
+		</p>
+		<p>
+			Tells you to come back tomorrow to sign the contract, before slamming the door on you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_CONTRACT_SIGNED"><![CDATA[
+	<p>
+		You sign the contract.
+		#IF(!flags.hasFlag(FLAG_innoxia_evelyx_finished_no_bad_end))
+			 Evelyx says it's time to strip you - your belongings are now hers, after all.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_CONTRACT_SIGNED_END"><![CDATA[
+	<p>
+		Evelyx makes you kiss her cock, before pushing you down onto all fours and dropping down behind you. 
+	</p>
+	<p>
+		Teases her massive cock up and down over your ass, before pushing the flared head against your pussy and telling you to call her your Mistress.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_CONTRACT_SIGNED_FUCK_START"><![CDATA[
+	<p>
+		You call Evelyx Mistress and she rams her huge cock into your pussy. Starts roughly fucking you and degrading you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORK_PROMOTION_EVELYX_AFTER_SEX"><![CDATA[
+	<p>
+		Mistress finishes with you, then sits down and forces your head into her groin to lick her clean while she sorts your paperwork out.
+	</p>
+	<p>
+		You clean her cock.
+		#IF(!flags.hasFlag(FLAG_innoxia_evelyx_finished_no_bad_end))
+			 She finishes and leads you out of her office...
+		#ELSE
+			 She finishes and tells you that this session counted as your daily fuck. Come back tomorrow if you want her cock, before telling you to get out of her office.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Dormitory: -->
+	
+	<htmlContent tag="DORMITORY"><![CDATA[
+	<p>
+		The farm's dormitory is split into two very unequal parts. The one for the cows is large and spacious, and while the bunkbeds aren't of the best quality, they're more than comfortable enough.
+	</p>
+	<p>
+		The other room is signed as being for 'Non-cow employees only', and after taking a brief glance through the door's round glass window, you see that their sleeping quarters are far smaller and cramped, and there are only a handful of shabby-looking beds in there.
+		#IF(game.getCharactersPresent().contains(dale))
+			 You think that you can see dale sleeping in one of the beds.
+			#IF(dale.getTotalTimesHadSex(pc)>0)
+				#IF(flags.hasFlag(FLAG_innoxia_evelyx_dorm_sex))
+					 You've already worn him out enough for one night, so should leave him to get some sleep...
+				#ELSE
+					 You could always sneak inside and have some fun with him if you were feeling daring...
+				#ENDIF
+			#ENDIF
+		#ELSE
+			 It's empty at this time of day.
+		#ENDIF
+	</p>
+	<p>
+		Your dormitory has an adjoining wetroom providing shower and toilet facilities. In one corner there's an arcane-powered vending machine, which sits at the end of a row of sturdy metal lockers. The vending machine appears to offer a limited selection of transformative potions, and as you take a closer look, you see a sign has been fixed to the wall beside it, reading:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+			Cows are free to make use of the vending machine and the secure lockers.
+			<br/>Good cows should be naked at all times, so please strip and leave your clothing in your locker.
+			<br/>[style.colourGood(Very good cows will spend their money on the vending machine!)]
+		</i>
+	</p>
+	<p>
+		If you were planning on working today, then it might be a good idea to make use of the secure lockers and safely leave your clothing in this area. You could also choose to buy one of the potions from the vending machine...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_REST"><![CDATA[
+	<p>
+		You use one of the bunkbeds to take a rest... [style.currentTime]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_SHOWER_QUICK"><![CDATA[
+	<p>
+		You [pc.step] into the adjoining wetroom and make use of the communal shower facilities to quickly wash yourself...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_SHOWER"><![CDATA[
+	<p>
+		You [pc.step] into the adjoining wetroom and make use of the communal shower facilities to thoroughly wash yourself...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Vending machine: -->
+	
+	<htmlContent tag="DORMITORY_VENDING_MACHINE"><![CDATA[
+	<p>
+		You [pc.step] up to the vending machine. There are several cheesy slogans saying to work your best on it.
+	</p>
+	<p>
+		The selection is rather limited, and very expensive. Lettering across the vending machine says that 'Good cows support Evely's Dairy by making as many purchases as they can every day!'
+	</p>
+	<p>
+		You can buy:
+		<br/>'Pretty Cow' Potion: Increases femininity.
+		<br/>'Busty Cow' Potion: Increases breast size.
+		<br/>'Milky Cow' Potion: Increases milk storage and regeneration.
+		<br/>'Wet Cow' Potion: Increases pussy wetness.
+		<br/>'Happy Cow' Potion: Makes the drinker a ditzy bimbo.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_VENDING_MACHINE_PURCHASE_DRINK"><![CDATA[
+	<p>
+		Feeling thirsty, you insert [#SPECIAL_PARSE_0] flames into the vending machine, and press the option corresponding to [#SPECIAL_PARSE_1]. A whirring sound comes from within the machine, and then moments later a plastic bottle falls down into the tray at the base.
+	</p>
+	<p>
+		You retrieve this drink and wonder whether to buy anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_VENDING_MACHINE_PURCHASE_FOOD"><![CDATA[
+	<p>
+		Feeling hungry, you insert [#SPECIAL_PARSE_0] flames into the vending machine, and press the option corresponding to [#SPECIAL_PARSE_1]. A whirring sound comes from within the machine, and then moments later your selected item of food falls down into the tray at the base.
+	</p>
+	<p>
+		You retrieve your purchase and wonder whether to buy anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_VENDING_MACHINE_PURCHASE_POTION"><![CDATA[
+	<p>
+		You insert [#SPECIAL_PARSE_0] flames into the vending machine, and press the option marked as '[#SPECIAL_PARSE_1]'. A whirring sound comes from within the machine, and then moments later a glass bottle chinks down into the tray at the base.
+	</p>
+	<p>
+		You retrieve this potion and wonder whether to buy anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_VENDING_MACHINE_BACK"><![CDATA[
+	<p>
+		Having had enough of the vending machine, you [pc.step] away, allowing another cow who was waiting behind you to move forwards and start inserting coins into it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Dale: -->
+	
+	<htmlContent tag="DORMITORY_DALE"><![CDATA[
+	<p>
+		You sneak into the non-cow workers dormitory. Stealthily approaching the only occupied bed, you look down on Dale's sleeping face. His sheets are half-pulled back, allowing you to see his muscular pecs rise and fall in time with his slow breaths.
+	</p>
+	<p>
+		Allowing your gaze to travel down the length of his body, you see the bulge of his huge, sheathed cock rising up beneath the sheets. You could make a move on him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_BACK"><![CDATA[
+	<p>
+		You decide to let Dale sleep and stealthily exit the sleeping quarters, before heading back to the cows' dormitory and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_SEX_START"><![CDATA[
+	<p>
+		You slip in under the sheets and nuzzle up against Dale. He remains deeply asleep, so you tease your [pc.hand] down to his groin and start stroking his cock.
+	</p>
+	<p>
+		He slowly wakes up, and upon seeing you in bed with him, his cock quickly starts to rise to attention. You tell him that you're here for a fuck, and he is happy to give it to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_SEX_START_ORAL"><![CDATA[
+	<p>
+		You slip in under the sheets and move your head down to the sleeping donkey-boy's groin. He wakes up as you pull down his boxers, and after throwing back the sheets he asks what you're doing.
+		#IF(pc.isFaceVirgin())
+			 You tell him that you've never sucked cock before, and that you were hoping he could be your first.
+		#ELSE
+			 You tell him that you wanted to do something nice for him, and so you're going to give him a blowjob.
+		#ENDIF
+	</p>
+	<p>
+		Dale's huge donkey-cock eagerly rises to attention as he hears this. Delivering a long, wet lick to the underside of his hot shaft, you tell him to relax; you'll take good care of him.
+	</p>
+	<p>
+		Opening wide, you take the flared head of Dale's cock into your mouth, and within moments a stream of precum and saliva is drooling over your [pc.lips+] as you take Dale's dark shaft down your throat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_SEX_START_PUSSY"><![CDATA[
+	<p>
+		You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed pussy towards his sheathed cock, he asks what you're doing.
+	</p>
+	#IF(pc.isVaginaVirgin())
+		<p>
+			You tell Dale that you're still a virgin, and that you want him to take it from you.
+		</p>
+		<p>
+			Striking at his weakness, you can't help but grin as the donkey-boy's cock rises to attention. A moment later, and his huge, flared head is prodding at your exposed cunt. He tells you that he'll be as gentle as can be, before taking hold of your hips and supporting you as you drop down and slide his dark donkey-cock into your virgin pussy...
+		</p>
+	#ELSE
+		<p>
+			Having got him right where you want him, you tell Dale that you want him to fuck your pussy.
+		</p>
+		<p>
+			The donkey-boy is unable to resist your offer, and you can't help but grin as the donkey-boy's cock rises to attention. A moment later, and his huge, flared head is prodding at your exposed cunt. He tells you that he'll be gentle, before taking hold of your hips and supporting you as you drop down and slide his dark donkey-cock into your pussy.
+		</p>
+		<p>
+			You squeal in delight as his thick shaft enters you, and within moments you're panting and moaning as your [pc.labia+] spread lewdly around his dark shaft...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_SEX_START_ANAL"><![CDATA[
+	<p>
+		You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed asshole towards his sheathed cock, he asks what you're doing.
+	</p>
+	#IF(pc.isAssVirgin())
+		<p>
+			You tell Dale that you're still an anal virgin, and that you want him to take it from you.
+		</p>
+		<p>
+			Striking at his weakness, you can't help but grin as the donkey-boy's cock rises to attention. A moment later, and his huge, flared head is prodding at your exposed butt. He tells you that he'll be as gentle as can be, before taking hold of your hips and supporting you as you drop down and slide his dark donkey-cock into your virgin asshole...
+		</p>
+	#ELSE
+		<p>
+			Having got him right where you want him, you tell Dale that you want him to fuck your ass.
+		</p>
+		<p>
+			The donkey-boy is unable to resist your offer, and you can't help but grin as the donkey-boy's cock rises to attention. A moment later, and his huge, flared head is prodding at your exposed butt. He tells you that he'll be as gentle as can be, before taking hold of your hips and supporting you as you drop down and slide his dark donkey-cock into your asshole.
+		</p>
+		<p>
+			You squeal in delight as his thick shaft enters you, and within moments you're panting and moaning as your asshole spreads lewdly around his dark shaft...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_AFTER_SEX"><![CDATA[
+	<p>
+		Dale sinks down onto his bed with an exhausted sigh. You ask him if he enjoyed his little midnight romp, but he's already fast asleep...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Pulling the covers over the donkey-boy, you stealthily exit the sleeping quarters, before heading back to the cows' dormitory and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Storage: -->
+	
+	<htmlContent tag="STORAGE"><![CDATA[
+	<p>
+		Large glass windows allow you to look inside the office building's storage area. Metal vats for milk storage, but also desks behind which several office workers are filling out paperwork.
+	</p>
+	<p>
+		The large doors to this storage area have been propped open, allowing you to enter and talk to one of the workers if you wanted to...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORAGE_TALK"><![CDATA[
+	<p>
+		You approach one of the office workers and say hello. They look up with a weary expression on their face, before curtly stating that they don't have time to talk to cows.
+	</p>
+	<p>
+		These workers seem to be very busy and not interested in talking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Evelyx's office: -->
+	
+	<htmlContent tag="EVELYX_OFFICE"><![CDATA[
+	<p>
+		Mirrored glass prevents you from seeing into this office, but from the plaque on the door which reads 'Evelyx's Office', you know that the farm's owner must be in here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_ENTER"><![CDATA[
+	<p>
+		You knock on the door to Evelyx's office, and hear a sharp, [evelyx.speech(Enter!)]
+	</p>
+	<p>
+		Not wanting to annoy your Mistress, you quickly enter her office and say that you're here for your daily fuck.
+	</p>
+	<p>
+		Before you can react, she stands up and pulls up her skirt, revealing that she's transformed to give herself a huge, flared, knotted demonic cock. As she strokes her four heavy balls, she says that cows like you are the only ones who get to be fucked by her cock. Orders you to drop down and present yourself to her so she can move on to getting balls-deep in your pussy already.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_ENTER_SEX_START"><![CDATA[
+	<p>
+		You so as you're told and your Mistress drops down behind you to prod her cock against your cunt. Makes you call her Mistress before roughly ramming her huge cock into your pussy. Starts roughly fucking you and degrading you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_AFTER_SEX"><![CDATA[
+	<p>
+		Mistress finishes with you, then sits down and forces your head into her groin to lick her clean while she sorts some paperwork out.
+	</p>
+	<p>
+		You clean her cock. Satisfied, she tells you to get out of her office, and you move to obey...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		You leave Evelyx's office and shut the door behind you. [pc.Stepping] back out into the corridor, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Training barn: -->
+	
+	<htmlContent tag="BARN_TRAINING"><![CDATA[
+	<p>
+		Stalls lining the sides of this huge barn. Dozens of milkers happily having their breast milk pumped out.
+	</p>
+	<p>
+		Continuing to [pc.walk] down the length of the barn, you see that there's an identical sign hanging on each of the empty stalls. Stopping to see what they say, you read:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REQUIREMENTS"><![CDATA[
+	<p style='text-align:center;'>
+		<i>
+		<b>Before Entering A Milking Stall:</b>
+		<br/><b>1.</b>
+		#IF(pc.isCoverableAreaExposed(CA_NIPPLES))
+			 [style.colourMinorGood(You must have your breasts and nipples exposed.)]
+		#ELSE
+			 [style.colourMinorBad(You must have your breasts and nipples exposed.)]
+		#ENDIF
+		<br/><b>2.</b>
+		#IF(!pc.hasVagina() || pc.isCoverableAreaExposed(CA_VAGINA))
+			 [style.colourMinorGood(If you have a vagina, it too must be exposed.)]
+		#ELSE
+			 [style.colourMinorBad(If you have a vagina, it too must be exposed.)]
+		#ENDIF
+		<br/><b>3.</b>
+		#IF(!pc.hasBreastsCrotch() || pc.isCoverableAreaExposed(CA_NIPPLES_CROTCH))
+			 [style.colourMinorGood(If you have crotch-breasts or udders, they too must be exposed.)]
+		#ELSE
+			 [style.colourMinorBad(If you have crotch-breasts or udders, they too must be exposed.)]
+		#ENDIF
+		<br/>Reminder: Cows may use the lockers in the dormitory to store their clothing.
+		</i>
+	</p>
+	<p>
+		#IF(!pc.isCoverableAreaExposed(CA_NIPPLES) || (pc.hasVagina() && !pc.isCoverableAreaExposed(CA_VAGINA)) || (pc.hasBreastsCrotch() && !pc.isCoverableAreaExposed(CA_NIPPLES_CROTCH)))
+			As [style.colourMinorBad(you do not currently meet all of the requirements)], you cannot start work at the moment. You'll have to expose yourself in the manner described on the sign before making use of one of the empty milking stalls...
+		#ELSEIF(pc.hasStatusEffect(SE_FATIGUED))
+			Although you currently meet all of the requirements, [style.colourMinorBad(you're far too tired to work right now)]. You'll have to go and take a rest in the dormitories before being able to come back and make use of one of the empty milking stalls...
+		#ELSE
+			As [style.colourMinorGood(you currently meet all of the requirements)], you could start work right now if you wanted to. As you've exposed yourself in the manner described on the sign, you could make use of one of the empty milking stalls and get started...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_TRAINING_DOOR"><![CDATA[
+	<p>
+		Locked door prevents you from seeing what's inside this 'Trainee Barn'.
+	</p>
+	<p>
+		#IF(flags.getSavedLong('evelyx_work_level')==0)
+			#IF(pc.hasClothingType(CT_innoxia_quest_dairy_ear_tag, true))
+				As you're a trainee, you can use your ear tag to unlock the door and continue inside...
+			#ELSE
+				Although you're a trainee, you're no longer in possession of your ear tag, and so you need to recover it before being able to unlock the door and continue inside...
+			#ENDIF
+		#ELSE
+			As you've been promoted, you can no longer access this barn...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_TRAINING_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		Unable to get past the locked door, you [pc.step] back into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Heifer barn: -->
+	
+	<htmlContent tag="BARN_HEIFER"><![CDATA[
+	<p>
+		Stalls lining the sides of this huge barn. Dozens of milkers happily having their breast milk pumped out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_HEIFER_DOOR"><![CDATA[
+	<p>
+		Locked door prevents you from seeing what's inside this 'Heifer Barn'.
+	</p>
+	<p>
+		#IF(flags.getSavedLong('evelyx_work_level')==1)
+			#IF(pc.hasClothingType(CT_innoxia_quest_dairy_ear_tag, true))
+				As you're a heifer, you can use your ear tag to unlock the door and continue inside...
+			#ELSE
+				Although you're a heifer, you're no longer in possession of your ear tag, and so you need to recover it before being able to unlock the door and continue inside...
+			#ENDIF
+		#ELSEIF(flags.getSavedLong('evelyx_work_level')>1)
+			As you've been promoted, you can no longer access this barn...
+		#ELSE
+			As you haven't yet been promoted, you can not access this barn...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_HEIFER_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		Unable to get past the locked door, you [pc.step] back into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Cow barn: -->
+	
+	<htmlContent tag="BARN_COW"><![CDATA[
+	<p>
+		Stalls lining the sides of this huge barn. Dozens of cow-girl milkers happily having their breast milk pumped out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_COW_DOOR"><![CDATA[
+	<p>
+		Locked door prevents you from seeing what's inside this 'Cow Barn'.
+	</p>
+	<p>
+		#IF(flags.getSavedLong('evelyx_work_level')==1)
+			#IF(pc.hasClothingType(CT_innoxia_quest_dairy_ear_tag, true))
+				As you're a cow, you can use your ear tag to unlock the door and continue inside...
+			#ELSE
+				Although you're a cow, you're no longer in possession of your ear tag, and so you need to recover it before being able to unlock the door and continue inside...
+			#ENDIF
+		#ELSE
+			As you haven't yet been promoted, you can not access this barn...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_COW_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		Unable to get past the locked door, you [pc.step] back into the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Barn work: -->
+	
+	<htmlContent tag="BARN_WORK_NO_MILK"><![CDATA[
+	<p>
+		You decide to do a four-hour work shift, and so lie down in one of the available milking stalls. A small arcane machine in front of you has a dozen well-worn buttons, and as it detects that something is wrong, it impatiently starts flashing a red warning, reading:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+		[style.boldBad(No Lactation Detected)]
+		<br/><b>Instructions for cow:</b>
+		<br/><b>1.</b> Insert lactation-booster feeding tube into mouth.
+		<br/><b>2.</b> Drink every drop of the lactation-booster.
+		<br/><b>3.</b> Enjoy your milking.
+		<br/>Failure to follow these instructions will result in automatic shut-down of this machine.
+		</i>
+	</p>
+	<p>
+		As you finish reading this warning, a long, plastic tube drops down from the ceiling, and you see that it's full of a creamy-yellow liquid. You wonder whether to drink this fluid in order to start lactating, or refuse and decide against working here after all...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_NO_MILK_NO_DRINK"><![CDATA[
+	<p>
+		You decide against drinking the strange fluid and exit the milking stall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_NO_MILK_DRINK"><![CDATA[
+	<p>
+		You take the tube into your mouth and suck out the creamy liquid. It tastes like milk, and after swallowing all of it, you feel your nipples start to tingle...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_NO_MILK_DRINK_END"><![CDATA[
+	<p>
+		The machine projects yet more arcane lettering into the air, reading:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+		[style.boldGood(Cow Ready For Milking)]
+		<br/>Press any button to call for assistance.
+		</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SESSION_END_EFFECTS_INITIAL"><![CDATA[
+	<p>
+		Before you know it, four hours have passed, and while the powerful milking machine completely drained your breasts of all of your milk several hours ago, it's still been happy to drain as much of your milk as you've been able to regenerate. To let you know that your session has come to an end, the arcane machine one again projects a message into mid-air, reading:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SESSION_END_EFFECTS_REPEAT"><![CDATA[
+	<p>
+		You decide to spend another four hours working, and thanks to the comfort of the milking stall's padded bench, it passes quickly enough. To let you know that your session has come to an end, the arcane machine one again projects a message into mid-air, reading:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SESSION_END_EFFECTS_AFTER_INTERRUPT"><![CDATA[
+	<p>
+		You aren't interrupted again during your session, and thanks to the comfort of the milking stall's padded bench, the next four hours pass quickly enough. To let you know that your session has come to an end, the arcane machine one again projects a message into mid-air, reading:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SESSION_END_EFFECTS_CORE"><![CDATA[
+	<p style='text-align:center;'>
+		<i>
+		[style.boldMinorGood(Milking Session Complete)]
+		<br/>
+		#IF(flags.getSavedLong('evelyx_work_level')==0)
+			You have earned [style.moneyFormat(400, span)]!
+		#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+			You have earned [style.moneyFormat(600, span)]!
+		#ELSE
+			You have earned [style.moneyFormat(800, span)]!
+		#ENDIF
+		<br/>In this session, you were milked of [style.colourMinorGood([style.fluid([#SPECIAL_PARSE_0])])]!
+		<br/>Throughout your career with us, you have been milked of [style.colourGood([style.fluid([#SPECIAL_PARSE_1])])]!
+		<br/>You have worked for
+		#IF(flags.getSavedLong('evelyx_work_hours')<=4)
+			 [style.colourGood([#flags.getSavedLong('evelyx_work_hours')]/16)]
+		#ELSEIF(flags.getSavedLong('evelyx_work_hours')<=8)
+			 [style.colourMinorGood([#flags.getSavedLong('evelyx_work_hours')]/16)]
+		#ELSEIF(flags.getSavedLong('evelyx_work_hours')<=12)
+			 [style.colourMinorBad([#flags.getSavedLong('evelyx_work_hours')]/16)]
+		#ELSE
+			 [style.colourBad([#flags.getSavedLong('evelyx_work_hours')]/16)]
+		#ENDIF
+		 hours in this session.
+		#IF(flags.getSavedLong('evelyx_work_hours')<16)
+			<br/>[style.colourMinorGood(A good cow would choose to continue working and earn more money!)]
+		#ELSE
+			<br/>[style.colourMinorBad(You cannot legally work any more until you've taken a break!)]
+		#ENDIF
+		<br/>
+		#IF(flags.getSavedLong('evelyx_work_level')==0)
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion1))
+				<br/>[style.boldExcellent(Promotion Available!)]
+				<br/>Congratulations, Trainee! Please report to reception at the earliest possible convenience to receive your promotion to 'Heifer'!
+			#ELSE
+				<br/>[style.boldBlueLight(Promotion Requirements:)]
+			#ENDIF
+			<br/>
+			#IF(flags.getSavedLong("evelyx_total_milked")>100000)
+				[style.colourGood(Total Milked:)]
+			#ELSE
+				[style.colourBad(Total Milked:)]
+			#ENDIF
+			 [style.fluid([#SPECIAL_PARSE_1])]/[style.fluid(100000)]
+			<br/>
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_fucked))
+				[style.colourGood(Been mated at least once)]
+			#ELSE
+				[style.colourBad(Been mated at least once)]
+			#ENDIF
+			<br/>
+			#IF(pc.hasVagina())
+				[style.colourGood(Has a vagina)]
+			#ELSE
+				[style.colourBad(Has a vagina)]
+			#ENDIF
+			<br/>
+			#IF(pc.isFeminine())
+				[style.colourGood(Is feminine)]
+			#ELSE
+				[style.colourBad(Is feminine)]
+			#ENDIF
+		#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion2))
+				<br/>[style.boldExcellent(Promotion Available!)]
+				<br/>Congratulations, Heifer! Please report to reception at the earliest possible convenience to receive your promotion to 'Cow'!
+			#ELSE
+				<br/>[style.boldBlueLight(Promotion Requirements:)]
+			#ENDIF
+			<br/>
+			#IF(flags.getSavedLong("evelyx_total_milked")>1000000)
+				[style.colourGood(Total Milked:)]
+			#ELSE
+				[style.colourBad(Total Milked:)]
+			#ENDIF
+			 [style.fluid([#SPECIAL_PARSE_1])]/[style.fluid(1000000)]
+			<br/>
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_impregnated))
+				[style.colourGood(Impregnated while being milked)]
+			#ELSE
+				[style.colourBad(Impregnated while being milked)]
+			#ENDIF
+			<br/>
+			#IF(pc.hasVagina())
+				[style.colourGood(Has a vagina)]
+			#ELSE
+				[style.colourBad(Has a vagina)]
+			#ENDIF
+			<br/>
+			#IF(pc.isFeminine())
+				[style.colourGood(Is feminine)]
+			#ELSE
+				[style.colourBad(Is feminine)]
+			#ENDIF
+		#ELSEIF(flags.getSavedLong('evelyx_work_level')==2 && !flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting))
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion3))
+				<br/>[style.boldExcellent(Promotion Available!)]
+				<br/>Congratulations, Cow! Please report to reception at the earliest possible convenience to receive your special promotion offer!
+			#ELSE
+				<br/>[style.boldBlueLight(Promotion Requirements:)]
+			#ENDIF
+			<br/>
+			#IF(flags.getSavedLong("evelyx_total_milked")>10000000)
+				[style.colourGood(Total Milked:)]
+			#ELSE
+				[style.colourBad(Total Milked:)]
+			#ENDIF
+			 [style.fluid([#SPECIAL_PARSE_1])]/[style.fluid(10000000)]
+			<br/>
+			#IF(pc.hasVagina())
+				[style.colourGood(Has a vagina)]
+			#ELSE
+				[style.colourBad(Has a vagina)]
+			#ENDIF
+			<br/>
+			#IF(pc.isFeminine())
+				[style.colourGood(Is feminine)]
+			#ELSE
+				[style.colourBad(Is feminine)]
+			#ENDIF
+			<br/>
+			#IF(pc.getRace()==RACE_COW_MORPH || !pc.isAbleToHaveRaceTransformed())
+				[style.colourGood(Is a cow-girl, or cannot have race transformed)]
+			#ELSE
+				[style.colourBad(Is a cow-girl, or cannot have race transformed)]
+			#ENDIF
+			<br/>
+			#IF(pc.getLegConfiguration()==LEG_CONFIGURATION_QUADRUPEDAL)
+				[style.colourGood(Has a quadrupedal lower body)]
+			#ELSE
+				[style.colourBad(Has a quadrupedal lower body)]
+			#ENDIF
+		#ENDIF
+		</i>
+	</p>
+	<p>
+		#IF(flags.getSavedLong('evelyx_work_hours')<16)
+			As you're wondering whether to work another four-hour shift, the text in front of you flickers and changes, and you read:
+		#ELSE
+			As you're about to unhook yourself from the milking machine, the text in front of you flickers and changes, and you read:
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		<i>
+		[style.boldExcellent(Reward Menu)]
+		<br/>
+		#IF(evelyx.isAnyCowTransformationAvailable(pc))
+			[style.colourGood(Better Body:)] Be a good cow and trust us to make your body better with this potion.
+		#ELSE
+			[style.colourDisabled(Better Body:)] Your body does not currently require any improvements.
+		#ENDIF
+		<br/>
+		#IF(evelyx.isAnyCowFetishAvailable(pc))
+			[style.colourGood(Improved Mind:)] You'll enjoy being a cow much more after this.
+		#ELSE
+			[style.colourDisabled(Improved Mind:)] Your mind does not currently require any improvements.
+		#ENDIF
+		<br/>
+		#IF(flags.getSavedLong('evelyx_work_level')==0)
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_accessories_trainee))
+				[style.colourDisabled(Trainee Accessories:)] You have previously received this one-time reward!
+			#ELSEIF(evelyx.isCowAbleToEquipGear(pc))
+				[style.colourGood(Trainee Accessories:)] A bronze cow-bell collar and matching nose ring will suit you nicely!
+			#ELSE
+				[style.colourMinorBad(Trainee Accessories:)] You are unable to equip a nose ring and collar, so cannot receive this reward!
+			#ENDIF
+		#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_accessories_heifer))
+				[style.colourDisabled(Heifer Accessories:)] You have previously received this one-time reward!
+			#ELSEIF(evelyx.isCowAbleToEquipGear(pc))
+				[style.colourGood(Heifer Accessories:)] A silver cow-bell collar and matching nose ring will suit you nicely!
+			#ELSE
+				[style.colourMinorBad(Heifer Accessories:)] You are unable to equip a nose ring and collar, so cannot receive this reward!
+			#ENDIF
+		#ELSE
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_accessories_cow))
+				[style.colourDisabled(Cow Accessories:)] You have previously received this one-time reward!
+			#ELSEIF(evelyx.isCowAbleToEquipGear(pc))
+				[style.colourGood(Cow Accessories:)] A gold cow-bell collar and matching nose ring will suit you nicely!
+			#ELSE
+				[style.colourMinorBad(Cow Accessories:)] You are unable to equip a nose ring and collar, so cannot receive this reward!
+			#ENDIF
+		#ENDIF
+		#IF(flags.getSavedLong('evelyx_work_level')!=2)
+			<br/>
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				[style.colourSex(Mated:)] Get mated by a member of the public and receive a bonus of [style.moneyFormat(500, span)]!
+			#ELSE
+				[style.colourMinorBad(Mated:)] You require a vagina and to be able to access it before you can be mated.
+			#ENDIF
+		#ENDIF
+		#IF(flags.getSavedLong('evelyx_work_level')>0)
+			<br/>
+			#IF(pc.getRace()==RACE_COW_MORPH && pc.getRaceStage()!=RACE_STAGE_GREATER)
+				[style.colourDisabled(Lesser cow-girl transformation:)] You are already a lesser cow-girl.
+			#ELSEIF(!pc.isAbleToHaveRaceTransformed())
+				[style.colourMinorBad(Lesser cow-girl transformation:)] You cannot have your race transformed, so cannot become a lesser cow-girl.
+			#ELSE
+				[style.colourTfPartial(Lesser cow-girl transformation:)] Be a good cow and assume your true form!
+			#ENDIF
+			<br/>
+			#IF(pc.getRace()==RACE_COW_MORPH && pc.getRaceStage()==RACE_STAGE_GREATER)
+				[style.colourDisabled(Greater cow-girl transformation:)] You are already a greater cow-girl.
+			#ELSEIF(!pc.isAbleToHaveRaceTransformed())
+				[style.colourMinorBad(Greater cow-girl transformation:)] You cannot have your race transformed, so cannot become a greater cow-girl.
+			#ELSE
+				[style.colourTfGreater(Greater cow-girl transformation:)] Be a good cow and assume your true form!
+			#ENDIF
+			#IF(flags.getSavedLong('evelyx_work_level')>1)
+				<br/>
+				#IF(pc.getLegRace()==RACE_COW_MORPH && pc.getLegConfiguration()==LEG_CONFIGURATION_QUADRUPEDAL)
+					[style.colourDisabled(Cowtaur:)] You are already a cowtaur.
+				#ELSEIF(!pc.isAbleToHaveRaceTransformed())
+					[style.colourMinorBad(Cowtaur:)] You cannot have your race transformed, so cannot become a cowtaur.
+				#ELSE
+					[style.colourTfGreater(Cowtaur:)] Be a good cow and have your lower body transformed into that of a feral cow!
+				#ENDIF
+				<br/>
+				#IF(pc.getTattooInSlot(IS_ANUS)!=null)
+					[style.colourDisabled(Tattoo:)] You already have a tattoo on your ass.
+				#ELSE
+					[style.colourGood(Tattoo:)] Good cows have an identification tattoo on their ass, and it's time to receive yours!
+				#ENDIF
+			#ENDIF
+		#ENDIF
+		</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Sex interrupt for when player is working as a cow: -->
+	
+	<htmlContent tag="BARN_WORK_SEX_INTERRUPT"><![CDATA[
+	<p>
+		Just as you're settling into the flow of being milked, the barn door opens and a dobermann receptionist leads [partner.a_fullRace(true)] inside. The receptionist presses a button on the wall beside the entrance, and the arcane machine in front of you flashes the text: 
+	</p>
+	<p style='text-align:center;'>
+		<i>
+			[style.colourSex(Mating opportunity:)] If you are chosen, you will receive a bonus of [style.moneyFormat(500, span)]!
+		</i>
+	</p>
+	<p>
+		As they walk down the aisle between the milking stalls, the two of them start to get closer to where you're working. The dobermann receptionist stops beside the cow to your side to show them off to the [partner.race], but [partner.she] lets out a tut and says that they don't like the look of that cow.
+	</p>
+	<p>
+		With that, the two of them move on to you, and the receptionist slaps your ass and roughly fingers your pussy, causing you to let out a moan. She then pulls out and shows off your pussy to the stranger.
+	</p>
+	<p>
+		You wonder whether you should stay quiet and hope that you aren't chosen, or perhaps you should show off and beg for the [partner.race] to fuck your pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX_INTERRUPT_QUIET"><![CDATA[
+	<p>
+		You stay quiet in the hopes that [partner.name] loses interest and chooses another cow to fuck.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX_INTERRUPT_SHOW_OFF"><![CDATA[
+	<p>
+		Feeling turned on at the prospect of being fucked by this stranger, you sway your [pc.hips+] from side to side and spread your legs a little.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX_INTERRUPT_BEG"><![CDATA[
+	<p>
+		Feeling incredibly turned on at the prospect of being fucked by this stranger, you lift your [pc.hips+] and spread your legs, before turning your head back and desperately begging for [partner.herHim] to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX_INTERRUPT_FUCKED"><![CDATA[
+	<p>
+		Obviously liking the look of you, [partner.name] tells the receptionist that [partner.she]'d like to fuck you. The receptionist gives your ass a slap and spreads your labia and shows you off to the stranger. Smiling down at your [pc.pussy+], [partner.name] lets out an excited [partner.moan] and declares,
+		#IF(!pc.isVisiblyPregnant() && !partner.hasFetish(FETISH_ANAL_GIVING))
+			 [partner.speech(Yes, [pc.she]'ll do! I'll try and get [pc.her] knocked up for you...)]
+		#ELSE
+			 [partner.speech(I like my cows pregnant, so [pc.she]'ll do nicely...)]
+		#ENDIF
+	</p>
+	<p>
+		Giving your ass a quick slap, the dobermann departs, leaving you alone with [partner.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX_INTERRUPT_FUCKED_START"><![CDATA[
+	#IF(pc.isAbleToAccessCoverableArea(CA_ANUS, true) && partner.hasFetish(FETISH_ANAL_GIVING))
+		<p>
+			Quickly taking out [partner.her] [partner.cock+], [partner.she] rubs the [partner.cockHead+] up and down over your [pc.asshole+], causing you to let out a lewd [pc.moan]. Taking hold of your [pc.hips+], [partner.she] wastes no further time and thrusts forwards, sinking [partner.her] [partner.cock+] into your [pc.asshole+]. With the milking machine continuing to pump away at your [pc.breasts+], [partner.name] starts energetically fucking your ass in front of the
+			#IF(flags.getSavedLong('evelyx_work_level')==0)
+				 trainees to either side of you...
+			#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+				 heifers to either side of you...
+			#ELSE
+				 cows to either side of you...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Quickly taking out [partner.her] [partner.cock+], [partner.she] rubs the [partner.cockHead+] up and down over your [pc.pussy+], causing you to let out a lewd [pc.moan]. Taking hold of your [pc.hips+], [partner.she] wastes no further time and thrusts forwards, sinking [partner.her] [partner.cock+] into your [pc.pussy+]. With the milking machine continuing to pump away at your [pc.breasts+], [partner.name] starts energetically fucking you in front of the
+			#IF(flags.getSavedLong('evelyx_work_level')==0)
+				 trainees to either side of you...
+			#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+				 heifers to either side of you...
+			#ELSE
+				 cows to either side of you...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX_INTERRUPT_IGNORED"><![CDATA[
+	<p>
+		The [partner.race] looks at you for a moment, before letting out a disapproving tut and [partner.stepping] over to the next cow in line. Having not been chosen, you're left to listen to the sounds of the [partner.race] fucking one of the other cows while you continue to be milked...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Standard work dialogues: -->
+	
+	<htmlContent tag="BARN_WORK_INITIAL_START"><![CDATA[
+	<p>
+		You decide to do a four-hour work shift, and so lie down in one of the available milking stalls. A small arcane machine in front of you has a dozen well-worn buttons, and as it senses your weight, arcane lettering projects into the air in front of you, reading:
+	</p>
+	<p style='text-align:center;'>
+		<i>
+		[style.boldGood(Cow Ready For Milking)]
+		<br/>Press any button to call for assistance.
+		</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_INITIAL"><![CDATA[
+	<p>
+		Realising that you need someone to start the milking machine, you do as the machine says and press one of the buttons. A ringing bell can be heard off in the distance, and an orange arcane light starts flashing above your milking stall. A few moments later, and a worker is by your side. The flick the 'on' button on the milking machine, and then without even asking for your permission, they take hold of your breasts and attach the milking machine's suction pumps over your nipples.
+	</p>
+	<p>
+		#IF(pc.hasBreastsCrotch())
+			Kneeling down, the worker quickly attaches more pumps to your [pc.udders+], before standing up and taking a step back.
+		#ENDIF
+		 He asks if you're comfortable.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_INITIAL_END"><![CDATA[
+	<p>
+		You tell Dale that you're comfortable, and he heads back to his desk, leaving you to be milked by the machine...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Dale sex: -->
+	
+	<htmlContent tag="BARN_WORK_DALE_TEASE"><![CDATA[
+	<p>
+		You tell Dale that you're not comfortable yet, and ask him to try adjusting the stall's supports. As he does this, you playfully comment on how sexy it feels to be exposed and ready to be fucked at any time.
+	</p>
+	<p>
+		Continuing to provocatively talk about how turned on you are, you ask Dale to make sure that the arcane machine is working correctly. As he steps around in front of you, you see he's got an erection. As you comment on the size of his bulge, the donkey-boy finally catches on with what you're doing, and says that he's got work to get back to, but appreciates your attention.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_DALE_TEASE_SEX_PUSSY"><![CDATA[
+	<p>
+		Letting out a disappointed whine, you say that you were hoping for Dale to make a move on you. Ask him to at least give your pussy a kiss before he leaves.
+	</p>
+	#IF(!pc.isVaginaVirgin() && pc.hasHymen())
+		<p>
+			Dale lets out a laugh and comments on how desperate you are. Agreeing to do as you ask, he steps around behind you and kneels down to plant a big, wet kiss on your cunt. Having got him right where you want him, you tell Dale that even though you're not a virgin, breaking your hymen will feel every bit as good as if you were the real thing.
+		</p>
+		<p>
+			Striking at his weakness, you can't help but grin as the donkey-boy stands up and starts undoing his trousers. A moment later, and his huge, flared head is prodding at your exposed cunt. He tells you that he'll be as gentle as can be, before slowly pushing forwards and sliding his hot donkey-cock into your pussy.
+		</p>
+		<p>
+			You squeal in pain as his thick shaft tears your hymen, but thanks to the fact that he's taking it slow, you quickly recover and are panting and moaning as your [pc.labia+] spread lewdly around his dark shaft...
+		</p>
+	#ELSEIF(pc.isVaginaVirgin())
+		<p>
+			Dale lets out a laugh and comments on how desperate you are. Agreeing to do as you ask, he steps around behind you and kneels down to plant a big, wet kiss on your cunt. Having got him right where you want him, you tell Dale that you're still a virgin, and that you want him to take it from you.
+		</p>
+		<p>
+			Striking at his weakness, you can't help but grin as the donkey-boy stands up and starts undoing his trousers. A moment later, and his huge, flared head is prodding at your exposed cunt. He tells you that he'll be as gentle as can be, before slowly pushing forwards and starting to slide his dark donkey-cock into your virgin pussy...
+		</p>
+	#ELSE
+		<p>
+			Dale lets out a laugh and comments on how desperate you are. Agreeing to do as you ask, he steps around behind you and kneels down to plant a big, wet kiss on your cunt. Having got him right where you want him, you tell Dale that you want him to fuck your pussy.
+		</p>
+		<p>
+			The donkey-boy is unable to resist your offer, you can't help but grin as he stands up and starts undoing his trousers. A moment later, and his huge, flared head is prodding at your exposed cunt. He tells you that he knows his huge cock can be too much for some girls, and so he'll be gentle, before slowly pushing forwards and sliding his hot donkey-cock into your pussy.
+		</p>
+		<p>
+			You squeal in delight as his thick shaft enters you, and within moments you're panting and moaning as your [pc.labia+] spread lewdly around his dark shaft...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_DALE_TEASE_SEX_ORAL"><![CDATA[
+	<p>
+		Letting out a disappointed whine, you say that you were hoping for Dale to make a move on you. Ask him to at least give you a kiss before he leaves.
+	</p>
+	#IF(pc.isFaceVirgin())
+		<p>
+			Dale lets out a laugh and comments on how desperate you are. Agreeing to do as you ask, he steps around in front of you and plants a big, wet kiss on your [pc.lips+]. Having got him right where you want him, you lewdly whisper into his ear Dale that you've never sucked cock before, and that you were hoping he could be your first.
+		</p>
+		<p>
+			Striking at his weakness, you can't help but grin as the donkey-boy starts undoing his trousers. A moment later, and his huge, flared head is prodding at your mouth. He tells you that he'll be as gentle as can be, before slowly pushing forwards and starting to slide his dark donkey-cock into your virgin throat...
+		</p>
+	#ELSE
+		<p>
+			Dale lets out a laugh and comments on how desperate you are. Agreeing to do as you ask, he steps around in front of you and plants a big, wet kiss on your [pc.lips+]. Having got him right where you want him, you lewdly whisper into his ear Dale that you were hoping to taste more than just his mouth.
+		</p>
+		<p>
+			The donkey-boy is unable to resist your offer, you can't help but grin as he starts undoing his trousers. A moment later, and his huge, flared head is prodding at your mouth. He tells you that he knows his huge cock can be too much for some girls, and so he'll be gentle, before slowly pushing forwards and sliding his hot donkey-cock into your throat.
+		</p>
+		<p>
+			You squeal in delight as his thick shaft enters you, and within moments a steam of precum and saliva is drooling from your stretched jaw as Dale's dark shaft slides forwards and back past your [pc.lips+]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_DALE_TEASE_SEX_ANAL"><![CDATA[
+	<p>
+		Letting out a disappointed whine, you say that you were hoping for Dale to make a move on you. Ask him to at least give your ass a kiss before he leaves.
+	</p>
+	#IF(pc.isAssVirgin())
+		<p>
+			Dale lets out a laugh and comments on how desperate you are. Although he says he's not really into anal stuff, he'll make an exception for you, and steps around behind you and kneels down to plant a big, wet kiss on each of your ass cheeks. Having got him right where you want him, you tell Dale that you're still an anal virgin, and that you want him to take it from you.
+		</p>
+		<p>
+			Striking at his weakness, you can't help but grin as the donkey-boy stands up and starts undoing his trousers. A moment later, and his huge, flared head is prodding at your exposed butt. He tells you that he'll be as gentle as can be, before slowly pushing forwards and starting to slide his dark donkey-cock into your virgin asshole...
+		</p>
+	#ELSE
+		<p>
+			Dale lets out a laugh and comments on how desperate you are. Although he says he's not really into anal stuff, he'll make an exception for you, and steps around behind you and kneels down to plant a big, wet kiss on each of your ass cheeks. Having got him right where you want him, you tell Dale that you want him to fuck your ass.
+		</p>
+		<p>
+			The donkey-boy is unable to resist your offer, you can't help but grin as he stands up and starts undoing his trousers. A moment later, and his huge, flared head is prodding at your exposed butt. He tells you that he knows his huge cock can be too much for some girls, and so he'll be gentle, before slowly pushing forwards and sliding his hot donkey-cock into your asshole.
+		</p>
+		<p>
+			You squeal in delight as his thick shaft enters you, and within moments you're panting and moaning as Dale's dark shaft slides in and out of your ass...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_DALE_TEASE_AFTER_SEX"><![CDATA[
+	<p>
+		Stepping back, Dale says that he really needs to get back to work now. Tells you to enjoy your day, he smiles and thanks you for the good time.
+	</p>
+	<p>
+		You grin and say goodbye, and he rushes off back to his desk, leaving you to start work...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- End work: -->
+	
+	<htmlContent tag="BARN_WORK_FINISHED"><![CDATA[
+	<p>
+		Having had enough of working in the barn for one day, you detach your milking pumps and turn off the machine. Standing up and stretching, you feel a wave of fatigue wash over you, and wonder whether to head over to the dormitories and get some rest...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_BODY"><![CDATA[
+	<p>
+		You press the button which corresponds to the 'Better Body' reward, and a tube drops down from the ceiling. Putting it in your mouth, you drink down the sickly-sweet potion that flows down the tube and into your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_BODY_END"><![CDATA[
+	<p>
+		Letting out a quiet moan, you take a moment to get used to the feel of your new body, before wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_MIND"><![CDATA[
+	<p>
+		You press the button which corresponds to the 'Improved Mind' reward, and a tube drops down from the ceiling. Putting it in your mouth, you drink down the sickly-sweet potion that flows down the tube and into your mouth. After just the first gulp, you start to feel light-headed, and by the time you've finished the whole potion your head is spinning...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_MIND_END"><![CDATA[
+	<p>
+		Letting out a horny moan, you find yourself feeling very happy with your decision to work here at Evelyx's Dairy. Licking your lips, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_CLOTHING"><![CDATA[
+	<p>
+		You choose to receive the 
+		#IF(flags.getSavedLong('evelyx_work_level')==0)
+			 'Trainee Accessories'
+		#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+			 'Heifer Accessories'
+		#ELSE
+			 'Cow Accessories'
+		#ENDIF
+		 reward, and after pressing the corresponding button, you hear a little bell ring somewhere in the distance, before a pink light starts to flash above your stall. Moments later, one of the farm's workers enters the barn, and after walking up to you, they
+		#IF(pc.getClothingInSlot(IS_NECK)!=null)
+			 unequip your [pc.slotClothing(NECK, false)]
+			#IF(pc.getClothingInSlot(IS_PIERCING_NOSE)!=null)
+				 and [pc.slotClothing(PIERCING_NOSE, false)]
+			#ENDIF
+		#ELSEIF(pc.getClothingInSlot(IS_PIERCING_NOSE)!=null)
+			 unequip your [pc.slotClothing(PIERCING_NOSE, false)]
+		#ELSE
+			 give your ass a quick slap
+		#ENDIF
+		 before telling you that they've got your new clothing.
+		#IF(!pc.isPiercedNose())
+			 Seeing that your nose isn't pierced, the worker produces an arcane piercing tool, before quickly clipping it against your nose and painlessly piercing it in the process.
+		#ENDIF
+		 Moving forwards, they equip your new accessories...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_CLOTHING_END"><![CDATA[
+	<p>
+		Tutting about how much work they've got, and that it's unfair they don't get to take some time off to fuck you, the worker swiftly exists, leaving you wearing your new [pc.slotClothing(NECK, true)] and [pc.slotClothing(PIERCING_NOSE, true)]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX"><![CDATA[
+	<p>
+		Deciding that you'd like to take this opportunity to get some relief from the sexual tension built up by the machine sucking away at your nipples, you press the button corresponding to the 'Request mate' reward. As you press this button, you hear a little bell ringing somewhere in the distance, but despite this sign that the button has worked, nothing happens. You have to wait for a further twenty minutes before finally you get your reward.
+	</p>
+	<p>
+		The door to the barn opens, and you turn your head to see one of the dobermann receptionists leading [partner.a_fullRace(true)] towards you. The receptionist quickly gains access to your pussy,
+		#IF(flags.getSavedLong('evelyx_work_level')==0)
+			 before giving it a gentle stroke and asking her companion if [partner.sheIs] satisfied by the look of it.
+			#IF(pc.hasHymen())
+				 Seeing that your hymen is still intact, [partner.name] lets out an excited [partner.moan] and declares, [partner.speech(This is why I pay extra to fuck the trainees! Getting to take their virginity like this is the best...)]
+			#ELSE
+				 Smiling down at your [pc.pussy+], [partner.name] lets out an excited [partner.moan] and declares, [partner.speech(Yes, [pc.she]'ll do!)]
+			#ENDIF
+		#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+			 before giving it a few strokes and asking her companion if [partner.sheIs] satisfied by the look of it. Smiling down at your [pc.pussy+], [partner.name] lets out an excited [partner.moan] and declares,
+			#IF(!pc.isVisiblyPregnant() && !partner.hasFetish(FETISH_ANAL_GIVING))
+				 [partner.speech(Yes, [pc.she]'ll do! I'll try and get [pc.her] knocked up for you...)]
+			#ELSE
+				 [partner.speech(I like my cows pregnant, so [pc.she]'ll do nicely...)]
+			#ENDIF
+		#ELSE
+			 before dominantly spreading your labia and asking her companion if [partner.sheIs] satisfied by the look of it. Smiling down at your [pc.pussy+], [partner.name] lets out an excited [partner.moan] and declares,
+			#IF(!pc.isVisiblyPregnant() && !partner.hasFetish(FETISH_ANAL_GIVING))
+				 [partner.speech(Yes, [pc.she]'ll do! I'll try and get [pc.her] knocked up for you...)]
+			#ELSE
+				 [partner.speech(I like my cows pregnant, so [pc.she]'ll do nicely...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Giving your ass a quick slap, the dobermann departs, leaving you alone with [partner.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_SEX_START"><![CDATA[
+	#IF(pc.isAbleToAccessCoverableArea(CA_ANUS, true) && partner.hasFetish(FETISH_ANAL_GIVING))
+		<p>
+			Quickly taking out [partner.her] [partner.cock+], [partner.she] rubs the [partner.cockHead+] up and down over your [pc.asshole+], causing you to let out a lewd [pc.moan]. Taking hold of your [pc.hips+], [partner.she] wastes no further time and thrusts forwards, sinking [partner.her] [partner.cock+] into your [pc.asshole+]. With the milking machine continuing to pump away at your [pc.breasts+], [partner.name] starts energetically fucking your ass in front of the
+			#IF(flags.getSavedLong('evelyx_work_level')==0)
+				 trainees to either side of you...
+			#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+				 heifers to either side of you...
+			#ELSE
+				 cows to either side of you...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Quickly taking out [partner.her] [partner.cock+], [partner.she] rubs the [partner.cockHead+] up and down over your [pc.pussy+], causing you to let out a lewd [pc.moan]. Taking hold of your [pc.hips+], [partner.she] wastes no further time and thrusts forwards, sinking [partner.her] [partner.cock+] into your [pc.pussy+]. With the milking machine continuing to pump away at your [pc.breasts+], [partner.name] starts energetically fucking you in front of the
+			#IF(flags.getSavedLong('evelyx_work_level')==0)
+				 trainees to either side of you...
+			#ELSEIF(flags.getSavedLong('evelyx_work_level')==1)
+				 heifers to either side of you...
+			#ELSE
+				 cows to either side of you...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_COW_GIRL_PARTIAL"><![CDATA[
+	<p>
+		You press the button which corresponds to the 'Lesser cow-girl transformation' reward, and a tube drops down from the ceiling. Putting it in your mouth, you drink down the sickly-sweet potion that flows down the tube and into your mouth. As you quickly gulp down all of the transformative fluid, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn you into a lesser cow-girl.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_COW_GIRL_PARTIAL_END"><![CDATA[
+	<p>
+		A few minutes later, and your whizzing head starts to settle down. Regaining full control of your body, you both see and feel that most of your body has transformed to be human, but that you now have cow-like ears, eyes, and hair, along with a cow-like tail and a pair of horns. Letting out a deep sigh that comes out sounding a little like a 'moo', you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_COW_GIRL_GREATER"><![CDATA[
+	<p>
+		You press the button which corresponds to the 'Greater cow-girl transformation' reward, and a tube drops down from the ceiling. Putting it in your mouth, you drink down the sickly-sweet potion that flows down the tube and into your mouth. As you quickly gulp down all of the transformative fluid, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn you into a greater cow-girl.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_COW_GIRL_GREATER_END"><![CDATA[
+	<p>
+		A few minutes later, and your whizzing head starts to settle down. Regaining full control of your body, you both see and feel that all of your body has transformed to be cow-like in nature, and you now also have a cow-like tail and a pair of horns. Letting out a deep sigh that comes out sounding a little like a 'moo', you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_COWTAURESS"><![CDATA[
+	<p>
+		You press the button which corresponds to the 'Cowtauress' reward, and a tube drops down from the ceiling. Putting it in your mouth, you drink down the sickly-sweet potion that flows down the tube and into your mouth. As you quickly gulp down all of the transformative fluid, your mind starts to spin, but you're able to retain conciousness as you undergo some radical transformations to turn your lower body into that of a feral cow...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_COWTAURESS_END"><![CDATA[
+	<p>
+		With the transformation coming to an end, you take a few minutes to test out the movement capabilities of your new body. Your lower half, from the waist down, is identical in form to that of a feral cow's body, and as you reposition yourself to get comfortable in your miking stall, you can't help but let out a deep sigh which comes out sounding a little like a 'moo'. Biting your lip, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_REWARD_TATTOO"><![CDATA[
+	<p>
+		You choose to receive the 'Tattoo' reward, and after pressing the corresponding button, you hear a little bell ring somewhere in the distance, before a blue light starts to flash above your stall. Moments later, one of the farm's workers enters the barn, and after walking up to you, they give your ass a quick slap and tell you that you're going to be numbered as [#~~flags.getSavedLong('evelyx_player_number')].
+	</p>
+	<p>
+		Using an arcane tattoo gun, they quickly write 'Evelyx's Dairy Milker #[#~~flags.getSavedLong('evelyx_player_number')]' in black ink on your ass, before giving your [pc.pussy+] a grope and teasing you by saying you're practically their property now. Cursing under their breath about not having time to play with you any further, they hurry back to their office, leaving you freshly tattooed and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_AFTER_SEX"><![CDATA[
+	<p>
+		Having had enough, [partner.name] pulls back, before slapping [partner.her] [partner.cock+] against your [pc.pussy+], teasing, [partner.speech(You were a good fuck, cow...)]
+	</p>
+	<p>
+		At that moment, the dobermann receptionist reappears, before informing [partner.name] that [partner.her] time is up. After quickly cleaning [partner.her] cock off by wiping it over your ass, [partner.name] falls in beside the receptionist and exits the barn, leaving you panting and moaning
+		#IF(pc.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+			 as you feel cum drooling out of your well-fucked pussy...
+		#ELSE
+			 as you feel your well-fucked pussy continuing to quiver and contract...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_WORK_AFTER_SEX_END"><![CDATA[
+	<p>
+		With [partner.name] and the dobermann receptionist having left the barn, you take a few minutes to calm down, before wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Slave barn: -->
+	
+	<htmlContent tag="BARN_SLAVE"><![CDATA[
+	<p>
+		Stalls lining the sides of this huge barn. Dozens of cow-tauress slaves happily having their breast and udder milk pumped out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARN_SLAVE_DOOR"><![CDATA[
+	<p>
+		Locked door prevents you from escaping the Slave Barn...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Auction: -->
+	
+	<htmlContent tag="AUCTION"><![CDATA[
+	<p>
+		Luxurious seating surrounds a central stage, upon which willing slaves are auctioned off to teh highest bidder...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

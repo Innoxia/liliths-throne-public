@@ -24,6 +24,9 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- Monica's 'The Fashionable Moo' clothing store: -->
+	
 	<htmlContent tag="CLOTHING"><![CDATA[
 	<p>
 		The store in front of you bears what is undoubtedly the most colourful sign in all of Wall's End. Adorned with painted flowers of every type and colour imaginable, the words 'The Fashionable Moo' are displayed in a light pink script, with an additional subtext reading:
@@ -52,6 +55,16 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_ENTER"><![CDATA[
+	<p>
+		
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
 	
 	<htmlContent tag="CONVENIENCE"><![CDATA[
 	<p>

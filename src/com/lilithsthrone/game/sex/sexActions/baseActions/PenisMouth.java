@@ -492,7 +492,7 @@ public class PenisMouth {
 				for(PenetrationModifier pm : Main.sex.getCharacterTargetedForSexAction(this).getPenisModifiers()) {
 					switch(pm) {
 						case FLARED:
-							descriptions.add("Lifting [npc3.namePos] head up so that [npc2.namePos] [npc.cock+] slides fully out of [npc3.her] mouth, [npc.name] quickly [npc.verb(move)] to take [npc3.her] place."
+							descriptions.add("Lifting [npc3.namePos] head up so that [npc2.namePos] [npc2.cock+] slides fully out of [npc3.her] mouth, [npc.name] quickly [npc.verb(move)] to take [npc3.her] place."
 									+ " Immediately pressing [npc.her] [npc.lips+] down against the wide, flared head, [npc.she] then [npc.verb(start)] to passionately kiss and lick the top of [npc2.namePos] [npc2.cock+].");
 							break;
 						default:

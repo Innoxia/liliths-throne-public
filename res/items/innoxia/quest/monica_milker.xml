@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>50</value> 
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[Monica's Moo Milker]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Monica's Moo Milkers]]></namePlural>
+		<description><![CDATA[A manual cow-themed breast pump, complete with plastic beaker, which used to belong to Monica.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>monica_milker.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_YELLOW</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Has sentimental value to Monica]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			This Moo Milker has a limited-edition custom colour scheme, and has also had its suction cup enlarged. The writing 'Monica's Milker' on the side makes it clear who its owner is.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the Moo Milker...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off the Moo Milker to [npc2.name], who pretends to be impressed by its custom colour scheme...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -200,7 +200,9 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-		return character.isPlayer() && isPositionChangingAllowed(character);
+		return character.isPlayer()
+				&& isPositionChangingAllowed(character)
+				&& Main.sex.getInitialSexManager().isSlotAvailable(target, Main.sex.getSexPositionSlot(character));
 	}
 	
 	/**

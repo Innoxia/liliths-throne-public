@@ -121,7 +121,7 @@ public class Cell implements XMLSaving {
 			System.err.println("Cell import error 1");
 		}
 		
-		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
+//		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
 
 		return cell;
 	}

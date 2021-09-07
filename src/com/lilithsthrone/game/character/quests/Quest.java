@@ -1958,6 +1958,53 @@ public enum Quest {
 			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
 		}
 	},
+
+	ROMANCE_MONICA_1_TO_THE_FARM(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "To The Farm";
+		}
+		@Override
+		public String getDescription() {
+			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located an hour's travel to the North-East of Elis."
+					+ " You'll have to go to this farm and ask for Monica's breast pump...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Having found the farm which is Monica's old workplace, you now need to meet with the owner and ask for the cow-girl's personalised breast pump...";
+		}
+	},
+
+	ROMANCE_MONICA_2_UNREASONABLE_DEMAND(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "An Unreasonable Demand";
+		}
+		@Override
+		public String getDescription() {
+			return "You managed to get a meeting with the farm's owner, who takes the form of an arrogant, rude succubus."
+					+ " Although admitting that the breast pump was worthless, she's demanding a huge sum of flames in exchange for it...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to obtain Monica's personalised breast pump from the farm's arrogant, rude succubus owner.";
+		}
+	},
+
+	ROMANCE_MONICA_3_THE_JOURNEY_HOME(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Journey Home";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that Monica's personalised breast pump is in your possession, all that's left to do is to return it to its rightful owner.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You returned Monica's personalised breast pump to her, much to her surprise and delight.";
+		}
+	},
 	;
 
 	private int level, experienceReward;

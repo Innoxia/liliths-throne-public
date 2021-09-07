@@ -377,6 +377,24 @@ public abstract class AbstractEncounter {
 		return getBaseRandomEncounter(forceEncounter);
 	}
 
+	public boolean isAnyBaseTriggerChanceOverOneHundred() {
+		if(this.isFromExternalFile()) {
+			for(ExternalEncounterData data : possibleEncounters) {
+				if(data.getTriggerChance()>100) {
+					return true;
+				}
+			}
+			
+		} else {
+			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) {
+				if(e.getValue()>100) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 		float opportunisticMultiplier = 1;
 		if(Main.game.isOpportunisticAttackersEnabled()) {
@@ -425,14 +443,15 @@ public abstract class AbstractEncounter {
 			float opportunisticIncrease = 0;
 			Map<ExternalEncounterData, Float> finalMap = new HashMap<>();
 			for(ExternalEncounterData data : possibleEncounters) {
-//				new NullPointerException().printStackTrace();
 				float weighting = data.getTriggerChance();
-				if(data.isOpportunistic()) {
-					weighting *= opportunisticMultiplier;
-					opportunisticIncrease+=opportunisticMultiplier;
+				if(!this.isAnyBaseTriggerChanceOverOneHundred() || data.getTriggerChance()>100) { // If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+					if(data.isOpportunistic()) {
+						weighting *= opportunisticMultiplier;
+						opportunisticIncrease+=opportunisticMultiplier;
+					}
+					total+=weighting;
+					finalMap.put(data, weighting);
 				}
-				total+=weighting;
-				finalMap.put(data, weighting);
 			}
 			if(total==0) {
 				return null;
@@ -451,12 +470,14 @@ public abstract class AbstractEncounter {
 			Map<EncounterType, Float> finalMap = new HashMap<>();
 			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) { // Iterate through the base encounter map, apply opportunisticMultiplier if applicable, and create a new 'finalMap' of these weighted chances.
 				float weighting = e.getValue();
-				if(e.getKey().isOpportunistic()) {
-					weighting *= opportunisticMultiplier;
-					opportunisticIncrease+=opportunisticMultiplier;
+				if(!this.isAnyBaseTriggerChanceOverOneHundred() || weighting>100) { // If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+					if(e.getKey().isOpportunistic()) {
+						weighting *= opportunisticMultiplier;
+						opportunisticIncrease+=opportunisticMultiplier;
+					}
+					total+=weighting;
+					finalMap.put(e.getKey(), weighting);
 				}
-				total+=weighting;
-				finalMap.put(e.getKey(), weighting);
 			}
 			if(total==0) {
 				return null;

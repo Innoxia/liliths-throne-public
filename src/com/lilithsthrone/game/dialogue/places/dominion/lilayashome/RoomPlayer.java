@@ -236,7 +236,7 @@ public class RoomPlayer {
 						List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 						slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, true, null, 240+30);
+							npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 120+30);
 						}
 
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center'><i>You leave your clothes outside of your bathroom so that they can be cleaned while you wash yourself...</i></p>");

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="DISCOVERED"><![CDATA[
+	<p style='text-align:center;'>
+		[style.BoldGood(New Location Discovered:)] [style.boldYellowLight(Evelyx's Dairy)]
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISCOVERED_END"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You make a note on your map of your current location, allowing you to return here at any time.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

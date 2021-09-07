@@ -901,7 +901,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 0)),
 			PresetColour.RACE_COW_MORPH,
-			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cattle-morph' when bipedal, and a 'cattletaur' when the lower body is that of a feral cow or bull.",
+			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cattle-morph' when bipedal, and a 'cowtaur'/'bulltaur' when the lower body is that of a feral cow or bull.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
@@ -920,7 +920,15 @@ public class Subspecies {
 					"minotaurs",
 					"minotaurs"};
 		}
-
+		@Override
+		protected String applyNonBipedNameChange(GameCharacter character, String baseName, boolean applyFeminineForm, boolean plural) {
+			if(character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
+				return applyFeminineForm
+						?("cowtaur"+(plural?"es":""))
+						:("bulltaur"+(plural?"s":""));
+			}
+			return super.applyNonBipedNameChange(character, baseName, applyFeminineForm, plural);
+		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.COW_MORPH) {
@@ -3673,7 +3681,7 @@ public class Subspecies {
 			return 0;
 		}
 	};
-
+	
 	public static AbstractSubspecies HORSE_MORPH_ZEBRA = new AbstractSubspecies(false,
 			18000,
 			"innoxia_race_horse_equine_cider",
@@ -3754,21 +3762,21 @@ public class Subspecies {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {
-					"nightmare",
-					"nightmares",
-					"nightmare",
-					"nightmare",
-					"nightmares",
-					"nightmares"};
+					"zebra-nightmare",
+					"zebra-nightmares",
+					"zebra-nightmare",
+					"zebra-nightmare",
+					"zebra-nightmares",
+					"zebra-nightmares"};
 			
 			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "nightmare", false, false),
-					applyNonBipedNameChange(character, "nightmare", false, true),
-					applyNonBipedNameChange(character, "nightmare", false, false),
-					applyNonBipedNameChange(character, "nightmare", true, false),
-					applyNonBipedNameChange(character, "nightmare", false, true),
-					applyNonBipedNameChange(character, "nightmare", true, true)
+					applyNonBipedNameChange(character, "zebra-nightmare", false, false),
+					applyNonBipedNameChange(character, "zebra-nightmare", false, true),
+					applyNonBipedNameChange(character, "zebra-nightmare", false, false),
+					applyNonBipedNameChange(character, "zebra-nightmare", true, false),
+					applyNonBipedNameChange(character, "zebra-nightmare", false, true),
+					applyNonBipedNameChange(character, "zebra-nightmare", true, true)
 				};
 			}
 			
@@ -3790,6 +3798,118 @@ public class Subspecies {
 		}
 	};
 
+	public static AbstractSubspecies HORSE_MORPH_DONKEY = new AbstractSubspecies(false,
+			12000,
+			"innoxia_race_horse_equine_cider",
+			"innoxia_race_horse_sugar_carrot_cube",
+			"statusEffects/race/raceHorseMorph",
+			"statusEffects/race/raceBackground",
+			"donkey-morph",
+			"donkey-morphs",
+			"donkey-boy",
+			"donkey-girl",
+			"donkey-boys",
+			"donkey-girls",
+			new FeralAttributes(
+					"donkey",
+					"donkeys",
+					"donkey-stallion",
+					"donkey-mare",
+					"donkey-stallions",
+					"donkey-mares",
+					LegConfiguration.QUADRUPEDAL,
+					120,
+					0,
+					1,
+					1,
+					1,
+					true),
+			"While [npc.namePos] body possesses an impressive level of both strength and endurance, [npc.sheIs] not the sharpest tool in the shed, and [npc.verb(struggle)] more than most when it comes to harnessing the arcane.",
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, -10f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 20f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f)),
+			null,
+			"Equine Encyclopedia",
+			"Equine Encyclopedias",
+			"HORSE_MORPH_BASIC",
+			"HORSE_MORPH_ADVANCED",
+			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 15),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			PresetColour.CLOTHING_DESATURATED_BROWN,
+			SubspeciesPreference.ONE_LOW,
+			"An anthropomorphic donkey, known as a 'donkey-morph' when bipedal, and a 'donkeytaur' when the lower body is that of a feral donkey."
+					+" To be identified as a donkey-morph, a character must be a horse-morph that has tall, upright ears.",
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+			null, null) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getHorn().setType(null, HornType.NONE);
+			body.getWing().setType(null, WingType.NONE);
+			if(Math.random()<0.75f) { // 75% of donkey morphs are the classic brown with white markings:
+				body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
+				body.getCoverings().put(BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
+				body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_DARK, false, PresetColour.SKIN_DARK, false));
+			}
+			body.updateCoverings(true, true, true, true);
+			
+			if(body.getEar().getType()==EarType.HORSE_MORPH) {
+				body.getEar().setType(null, EarType.HORSE_MORPH_UPRIGHT);
+			}
+			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
+				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+			}
+		}
+		@Override
+		public String[] getHalfDemonName(GameCharacter character) {
+			String[] names = new String[] {
+					"donkey-nightmare",
+					"donkey-nightmares",
+					"donkey-nightmare",
+					"donkey-nightmare",
+					"donkey-nightmares",
+					"donkey-nightmares"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "donkey-nightmare", false, false),
+					applyNonBipedNameChange(character, "donkey-nightmare", false, true),
+					applyNonBipedNameChange(character, "donkey-nightmare", false, false),
+					applyNonBipedNameChange(character, "donkey-nightmare", true, false),
+					applyNonBipedNameChange(character, "donkey-nightmare", false, true),
+					applyNonBipedNameChange(character, "donkey-nightmare", true, true)
+				};
+			}
+			
+			return names;
+		}
+		@Override
+		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+			if(race==Race.HORSE_MORPH) {
+				if(body.getEar().getType()==EarType.HORSE_MORPH_UPRIGHT) {
+					return 110; // Less than zebra
+				}
+			}
+			return 0;
+		}
+	};
+	
 	public static AbstractSubspecies REINDEER_MORPH = new AbstractSubspecies(true,
 			18000,
 			"innoxia_race_reindeer_rudolphs_egg_nog",

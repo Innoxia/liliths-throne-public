@@ -5923,8 +5923,7 @@ public class Sex {
 			return false;
 		}
 		
-		return Main.sex.getSexControl(target).getValue()>=Main.sex.getSexControl(character).getValue()
-				|| character.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive();
+		return Main.sex.getSexControl(target).getValue()>=Main.sex.getSexControl(character).getValue() || character.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive();
 	}
 	
 	/**

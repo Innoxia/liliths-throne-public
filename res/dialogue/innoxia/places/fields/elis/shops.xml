@@ -37,14 +37,251 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
+					#IF(game.isHourBetween(9, 17))
 						Enter the clothing shop.
-						<br/>[style.italicsMinorBad(This will be added soon!)]
 					#ELSE
 						As the shop is currently closed, you'll have to come back at another time...
 					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(9, 17))
+						innoxia_places_fields_elis_shops_clothing_enter
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="clothing_enter">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_ENTER'))]
+			[#monica.setCharacterReactedToPregnancy(pc, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<responses>
+			<!-- Not introduced: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!monica.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the cow-girl who you are.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#monica.setPlayerKnowsName(true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_INTRO'))]
+				]]></effects>
+			</response>
+			<!-- Introduced: -->
+			<!-- Trade: -->
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at what Monica has for sale...]]></responseTooltip>
+				<nextDialogue/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[monica]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<!-- Talking: -->
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Small talk]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_small))
+						You've already spent time asking Monica about how her day is going today...
+						<br/>[style.italics(You should come back tomorrow if you wanted to talk to her about this again.)]
+					#ELSE
+						Ask Monica how her day is going.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_small))
+						null
+					#ELSE
+						innoxia_places_fields_elis_shops_clothing_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_SMALL'))]
+					[#flags.setFlag(FLAG_innoxia_monica_talk_small, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Business]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_business))
+						You've already spent time asking Monica about how business has been today...
+						<br/>[style.italics(You should come back tomorrow if you wanted to talk to her about this again.)]
+					#ELSE
+						Ask Monica about how business has been today.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_business))
+						null
+					#ELSE
+						innoxia_places_fields_elis_shops_clothing_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_BUSINESS'))]
+					[#flags.setFlag(FLAG_innoxia_monica_talk_business, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[History]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_history))
+						You've already spent time asking Monica about how she came to own this shop today...
+						<br/>[style.italics(You should come back tomorrow if you wanted to talk to her about this again.)]
+					#ELSE
+						Ask Monica about how she came to own this shop.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_history))
+						null
+					#ELSE
+						innoxia_places_fields_elis_shops_clothing_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_HISTORY'))]
+					[#flags.setFlag(FLAG_innoxia_monica_talk_history, true)]
+				]]></effects>
+			</response>
+			<!-- Milker side quest: -->
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName() && flags.hasFlag(FLAG_innoxia_monica_talk_history) && !flags.hasFlag(FLAG_innoxia_monica_talk_milker_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Milking issues]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Monica what issues she's having with her daily milking.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_MILKING'))]
+					[#flags.setFlag(FLAG_innoxia_monica_talk_milker_unlocked, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName() && flags.hasFlag(FLAG_innoxia_monica_talk_milker_unlocked) && !pc.hasQuest(QUEST_LINE_ROMANCE_MONICA)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<colour><![CDATA[QUEST_RELATIONSHIP]]></colour>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Offer help]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Monica that you'd be willing to travel to her old farm and retrieve her personalised breast pump.
+					<br/>[style.italicsQuestRomance(This will start Monica's romance quest!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_MILKING_HELP'))]
+					[#game.appendToTextStartStringBuilder(pc.startQuest(QUEST_LINE_ROMANCE_MONICA))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasQuest(QUEST_LINE_ROMANCE_MONICA) && !pc.isQuestCompleted(QUEST_LINE_ROMANCE_MONICA)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Give milker]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getQuest(QUEST_LINE_ROMANCE_MONICA)==QUEST_ROMANCE_MONICA_3_THE_JOURNEY_HOME)
+						Give Monica her personalised Moo Milker.
+					#ELSE
+						You need to retrieve Monica's personalised Moo Milker before being able to give it her!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getQuest(QUEST_LINE_ROMANCE_MONICA)==QUEST_ROMANCE_MONICA_3_THE_JOURNEY_HOME)
+						innoxia_places_fields_elis_shops_clothing_talk
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_MILKING_COMPLETE'))]
+					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_ROMANCE_MONICA, QUEST_SIDE_UTIL_COMPLETE))]
+					[#pc.removeItemByType(ITEM_innoxia_quest_monica_milker, 1, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_ROMANCE_MONICA)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Milk her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_milked))
+						You've already milked Monica today...
+						<br/>[style.italics(You should come back tomorrow if you wanted to milk her again.)]
+					#ELSE
+						Ask Monica if she'd like some help being milked...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_monica_milked))
+						null
+					#ELSE
+						innoxia_places_fields_elis_shops_clothing_milking
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Monica and head out of her store...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_clothing"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="clothing_talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_clothing"/>
+	</scene>
+	
+	<scene id="clothing_milking">
+		<content folderPath="txt/places/fields/elis/shops">CLOTHING_MILKING</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#monica.isPlayerKnowsName()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Monica and head out of her store...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_clothing"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_LEAVE'))]
+				]]></effects>
 			</response>
 		</responses>
 	</scene>

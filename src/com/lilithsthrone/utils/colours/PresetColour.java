@@ -267,7 +267,7 @@ public class PresetColour {
 	public static Colour AFFECTION_POSITIVE_FOUR = new Colour(false, Util.newColour(0xffd42a), Util.newColour(0xf2aadf), "gold") {};
 	public static Colour AFFECTION_POSITIVE_FIVE = new Colour(false, Util.newColour(0xffcc00), Util.newColour(0xfbbcf4), "gold") {};
 
-	public static Colour MASCULINE_PLUS = new Colour(false, Util.newColour(0x4D9DFF), Util.newColour(0x4D9DFF), "dark blue", Util.newArrayListOfValues("masculineStrong", "masStr", "masculinePlus")) {};
+	public static Colour MASCULINE_PLUS = new Colour(false, Util.newColour(0x649fe7), Util.newColour(0x649fe7), "dark blue", Util.newArrayListOfValues("masculineStrong", "masStr", "masculinePlus")) {};
 	public static Colour MASCULINE = new Colour(false, Util.newColour(0x8ABEFF), Util.newColour(0x8ABEFF), "blue", Util.newArrayListOfValues("masculine", "mas")) {};
 	public static Colour ANDROGYNOUS = new Colour(false, Util.newColour(0xB39EFF), Util.newColour(0xB39EFF), "purple", Util.newArrayListOfValues("androgynous", "andro")) {};
 	public static Colour FEMININE = new Colour(false, Util.newColour(0xFFBDFF), Util.newColour(0xFFFBDFF), "pink", Util.newArrayListOfValues("feminine", "fem")) {};
@@ -335,12 +335,18 @@ public class PresetColour {
 	public static Colour TRANSFORMATION_GREATER = new Colour(false, Util.newColour(0xd411d4), Util.newColour(0xd411d4), "purple-pink", Util.newArrayListOfValues("tfGreater")) {};
 
 	// Speech colours:
-	public static Colour MASCULINE_PLUS_NPC = new Colour(false, BaseColour.BLUE, "blue") {};
-	public static Colour MASCULINE_NPC = new Colour(false, BaseColour.BLUE_LIGHT, "blue") {};
-	public static Colour ANDROGYNOUS_NPC = new Colour(false, BaseColour.LILAC_LIGHT, "purple") {};
-	public static Colour FEMININE_NPC = new Colour(false, BaseColour.ROSE, "pink") {};
-	public static Colour FEMININE_PLUS_NPC = new Colour(false, BaseColour.PINK, "pink") {};
-
+//	public static Colour MASCULINE_PLUS_NPC = new Colour(false, BaseColour.BLUE, "blue") {};
+//	public static Colour MASCULINE_NPC = new Colour(false, BaseColour.BLUE_LIGHT, "blue") {};
+//	public static Colour ANDROGYNOUS_NPC = new Colour(false, BaseColour.LILAC_LIGHT, "purple") {};
+//	public static Colour FEMININE_NPC = new Colour(false, BaseColour.ROSE, "pink") {};
+//	public static Colour FEMININE_PLUS_NPC = new Colour(false, BaseColour.PINK, "pink") {};
+	
+	public static Colour MASCULINE_PLUS_NPC = new Colour(false, Util.newColour(0x5c9ff2), Util.newColour(0x649fe7), "dark blue") {};
+	public static Colour MASCULINE_NPC = new Colour(false, Util.newColour(0x8ABEFF), Util.newColour(0x8ABEFF), "blue") {};
+	public static Colour ANDROGYNOUS_NPC = new Colour(false, Util.newColour(0xB39EFF), Util.newColour(0xB39EFF), "purple") {};
+	public static Colour FEMININE_NPC = new Colour(false, Util.newColour(0xFFBDFF), Util.newColour(0xFFFBDFF), "pink") {};
+	public static Colour FEMININE_PLUS_NPC = new Colour(false, Util.newColour(0xFF85FF), Util.newColour(0xFF85FF), "pink") {};
+	
 	// Combat colours:
 	public static Colour DAMAGE_TYPE_UNARMED = new Colour(false, Util.newColour(0xedd6ba), Util.newColour(0xDC8D2E), "tan", Util.newArrayListOfValues("unarmed")) {};
 	public static Colour DAMAGE_TYPE_MELEE = new Colour(false, Util.newColour(0xea98a1), Util.newColour(0xDD1D40), "light red", Util.newArrayListOfValues("melee")) {};

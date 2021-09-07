@@ -41,7 +41,7 @@
 	<htmlContent tag="GAME_DARTS"><![CDATA[
 	#IF(!nizhoni.isPlayerKnowsName())
 		<p>
-			After taking a moment to look around, you decide to approach the stall that's offering a game of darts. Leaning against one of the posts beneath its orange canvas awning, the operator of this stall takes the form of a grey-and-white furred greater raccoon-girl, who stands at about [nizhoni.heightValue] and looks to be slightly chubby in both body and face. Her gigantic [nizhoni.cupSize]-cup breasts are covered up by an orange, sleeveless turtleneck sweater, while her huge ass and wide hips are contained by a black skirt.
+			After taking a moment to look around, you decide to approach the stall that's offering a game of darts. Leaning against one of the posts beneath its orange canvas awning, the operator of this stall takes the form of a grey-and-white furred greater raccoon-girl, who stands at about [nizhoni.heightValue] and looks to be slightly chubby in both body and face. Her huge, [nizhoni.cupSize]-cup breasts are covered up by an orange, sleeveless turtleneck sweater, while her huge ass and wide hips are contained by a black skirt.
 		</p>
 		<p>
 			Noticing your approach, this raccoon-girl turns to face you, and as her hazel eyes gaze out at you from behind a pair of black, thick-rimmed glasses, you notice that she's sporting a significant amount of bronze jewellery, including hoop earrings, nose ring, bangle, anklet, gemstone ring, necklace, and even a pair of dragonfly-style bobby pins. Reaching up to brush an orange-dyed strand of her otherwise-black hair out of her face, she flashes you a big grin and calls out, [nizhoni.speech(Heya! I haven't seen you around here before. I'm Nizhoni. Are you here to play a game of darts?)]
@@ -54,7 +54,7 @@
 		</p>
 	#ELSE
 		<p>
-			After taking a moment to look around, you decide to approach the stall that's offering a game of darts. Leaning against one of the posts beneath its orange canvas awning, the operator of this stall takes the form of a grey-and-white furred greater raccoon-girl, who stands at about [nizhoni.heightValue] and looks to be slightly chubby in both body and face. Her gigantic [nizhoni.cupSize]-cup breasts are covered up by an orange, sleeveless turtleneck sweater, while her huge ass and wide hips are contained by a black skirt.
+			After taking a moment to look around, you decide to approach the stall that's offering a game of darts. Leaning against one of the posts beneath its orange canvas awning, the operator of this stall takes the form of a grey-and-white furred greater raccoon-girl, who stands at about [nizhoni.heightValue] and looks to be slightly chubby in both body and face. Her huge, [nizhoni.cupSize]-cup breasts are covered up by an orange, sleeveless turtleneck sweater, while her huge ass and wide hips are contained by a black skirt.
 		</p>
 		#IF(nizhoni.isVisiblyPregnant())
 			#IF(!nizhoni.isCharacterReactedToPregnancy(pc))

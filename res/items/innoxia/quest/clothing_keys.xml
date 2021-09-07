@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>0</value> 
+		<determiner><![CDATA[a collection of]]></determiner>
+		<name><![CDATA[clothing keys]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[clothing keys]]></namePlural>
+		<description><![CDATA[A collection of small keys, each of which unlocks an item of clothing...]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>clothing_keys.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_STEEL</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Tracks what clothing keys you currently own]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			These are the keys that you currently own which allow you to unlock sealed items of clothing without having to pay the essence cost of removal:
+			<br/>
+			[#pc.getFormattedUnlockKeys()]
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at [npc.her] keys...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] keys to [npc2.name]...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

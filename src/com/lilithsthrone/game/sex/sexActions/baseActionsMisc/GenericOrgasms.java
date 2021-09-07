@@ -2169,7 +2169,7 @@ public class GenericOrgasms {
 							+(condomBreaks?", breaking [npc.namePos] condom in the process,":"")+" and is safely laid deep within [npc2.her] fuckable breast.");
 					if(eggCount>1) {
 						sb.append(" Still with "+(Util.intToString(eggCount-1))+" egg"+(eggCount>2?"s":"")+" left to lay, [npc.name] [npc.verb(pull)] out and then immediately [npc.verb(penetrate)] [npc2.namePos] other [npc2.nipple(true)]."
-								+ " Continuing to let out a series of deeply satisfied [npc.moans], [npc.she] quickly [npc.verb(turn)] [npc2.namePos] [npc.breasts] into egg-incubation chambers.");
+								+ " Continuing to let out a series of deeply satisfied [npc.moans], [npc.she] quickly [npc.verb(turn)] [npc2.namePos] [npc2.breasts] into egg-incubation chambers.");
 					}
 					sb.append("</br>");
 					switch(Main.sex.getSexPace(characterOrgasming)) {
@@ -2210,7 +2210,7 @@ public class GenericOrgasms {
 							+(condomBreaks?", breaking [npc.namePos] condom in the process,":"")+" and is safely laid deep within [npc2.her] fuckable [npc2.crotchBoobs].");
 					if(eggCount>1) {
 						sb.append(" Still with "+(Util.intToString(eggCount-1))+" egg"+(eggCount>2?"s":"")+" left to lay, [npc.name] [npc.verb(pull)] out and then immediately [npc.verb(penetrate)] [npc2.namePos] other [npc2.nippleCrotch(true)]."
-								+ " Continuing to let out a series of deeply satisfied [npc.moans], [npc.she] quickly [npc.verb(turn)] [npc2.namePos] [npc.crotchBoobs] into egg-incubation chambers.");
+								+ " Continuing to let out a series of deeply satisfied [npc.moans], [npc.she] quickly [npc.verb(turn)] [npc2.namePos] [npc2.crotchBoobs] into egg-incubation chambers.");
 					}
 					sb.append("</br>");
 					switch(Main.sex.getSexPace(characterOrgasming)) {
@@ -3739,10 +3739,10 @@ public class GenericOrgasms {
 					returnString += " Use this opportunity to cum deep down [npc2.namePos] throat and lay your eggs in [npc2.her] stomach.";
 					break;
 				case NIPPLE:
-					returnString += " Use this opportunity to cum in [npc2.namePos] [npc.nipple+] and lay your eggs in [npc2.her] [npc.breasts].";
+					returnString += " Use this opportunity to cum in [npc2.namePos] [npc2.nipple+] and lay your eggs in [npc2.her] [npc2.breasts].";
 					break;
 				case NIPPLE_CROTCH:
-					returnString += " Use this opportunity to cum in [npc2.namePos] [npc.crotchNipple+] and lay your eggs in [npc2.her] [npc.crotchBoobs].";
+					returnString += " Use this opportunity to cum in [npc2.namePos] [npc2.crotchNipple+] and lay your eggs in [npc2.her] [npc2.crotchBoobs].";
 					break;
 				case VAGINA:
 					returnString += " Use this opportunity to cum deep in [npc2.namePos] [npc2.pussy] and lay your eggs in [npc2.her] womb.";
@@ -4131,10 +4131,10 @@ public class GenericOrgasms {
 					returnString += " Use this opportunity to push your [npc.clit] deep down [npc2.namePos] throat and lay your eggs in [npc2.her] stomach.";
 					break;
 				case NIPPLE:
-					returnString += " Use this opportunity to push your [npc.clit] deep into [npc2.namePos] [npc.nipple+] and lay your eggs in [npc2.her] [npc.breasts].";
+					returnString += " Use this opportunity to push your [npc.clit] deep into [npc2.namePos] [npc2.nipple+] and lay your eggs in [npc2.her] [npc2.breasts].";
 					break;
 				case NIPPLE_CROTCH:
-					returnString += " Use this opportunity to push your [npc.clit] deep into [npc2.namePos] [npc.crotchNipple+] and lay your eggs in [npc2.her] [npc.crotchBoobs].";
+					returnString += " Use this opportunity to push your [npc.clit] deep into [npc2.namePos] [npc2.crotchNipple+] and lay your eggs in [npc2.her] [npc2.crotchBoobs].";
 					break;
 				case VAGINA:
 					returnString += " Use this opportunity to push your [npc.clit] deep into [npc2.namePos] [npc2.pussy] and lay your eggs in [npc2.her] womb.";

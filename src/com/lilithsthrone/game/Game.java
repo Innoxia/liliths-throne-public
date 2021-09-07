@@ -108,6 +108,10 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Dale;
+import com.lilithsthrone.game.character.npc.fields.Evelyx;
+import com.lilithsthrone.game.character.npc.fields.EvelyxMilker;
+import com.lilithsthrone.game.character.npc.fields.EvelyxSexualPartner;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
 import com.lilithsthrone.game.character.npc.fields.Flash;
@@ -118,6 +122,7 @@ import com.lilithsthrone.game.character.npc.fields.Kheiron;
 import com.lilithsthrone.game.character.npc.fields.LunetteMelee;
 import com.lilithsthrone.game.character.npc.fields.LunetteRanged;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
+import com.lilithsthrone.game.character.npc.fields.Monica;
 import com.lilithsthrone.game.character.npc.fields.Moreno;
 import com.lilithsthrone.game.character.npc.fields.Nizhoni;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
@@ -1937,17 +1942,16 @@ public class Game implements XMLSaving {
 			if(addedNpcs.contains(Daddy.class)) {
 				getNpc(Rose.class).setAffection(getNpc(Daddy.class), -50);
 			}
-                        
-                        // Sawlty Towers (Arthur/Felicia's apartment building):
-                        if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Felicia.class))) { 
-                            addNPC(new Felicia(), false); 
-                            addedNpcs.add(Felicia.class); 
-                        }
-                        
-                        if(addedNpcs.contains(Felicia.class)) {
-                                getNpc(Felicia.class).setAffection(getNpc(Arthur.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-                        }
-                        
+			
+            // Sawlty Towers (Arthur/Felicia's apartment building):
+            if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Felicia.class))) { 
+                addNPC(new Felicia(), false); 
+                addedNpcs.add(Felicia.class); 
+            }
+            if(addedNpcs.contains(Felicia.class)) {
+            	getNpc(Felicia.class).setAffection(getNpc(Arthur.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+            }
+            
 			// Zaranix's home:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Zaranix.class))) { addNPC(new Zaranix(), false); addedNpcs.add(Zaranix.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Amber.class))) { addNPC(new Amber(), false); addedNpcs.add(Amber.class); }
@@ -2086,7 +2090,17 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Moreno.class))) { addNPC(new Moreno(), false); addedNpcs.add(Moreno.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Heather.class))) { addNPC(new Heather(), false); addedNpcs.add(Heather.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ziva.class))) { addNPC(new Ziva(), false); addedNpcs.add(Ziva.class); }
-			
+
+			// Wall's End:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Monica.class))) { addNPC(new Monica(), false); addedNpcs.add(Monica.class); }
+
+			// Evelyx's Dairy:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Evelyx.class))) { addNPC(new Evelyx(), false); addedNpcs.add(Evelyx.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Dale.class))) { addNPC(new Dale(), false); addedNpcs.add(Dale.class); }
+			if(addedNpcs.contains(Evelyx.class) || addedNpcs.contains(Dale.class)) {
+				Main.game.getNpc(Evelyx.class).setAffection(Main.game.getNpc(Dale.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+				Main.game.getNpc(Dale.class).setAffection(Main.game.getNpc(Evelyx.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -4377,12 +4391,18 @@ public class Game implements XMLSaving {
 		boolean forceImmediateAddition = true; // TODO this may need testing, but I'm 99% sure that immediate addition will be fine, and it should prevent potential issues with NPC removal when resting/loitering for multiple hours at a time
 		
 		NPC npc = null;
-		if(npcGenerationId.equalsIgnoreCase("LunetteMelee")) {
+		if(npcGenerationId.equalsIgnoreCase("GenericSexualPartner")) {
+			npc = new GenericSexualPartner();
+		} else if(npcGenerationId.equalsIgnoreCase("EvelyxSexualPartner")) {
+			npc = new EvelyxSexualPartner();
+		} else if(npcGenerationId.equalsIgnoreCase("LunetteMelee")) {
 			npc = new LunetteMelee();
 		} else if(npcGenerationId.equalsIgnoreCase("LunetteRanged")) {
 			npc = new LunetteRanged();
 		} else if(npcGenerationId.equalsIgnoreCase("FieldsBandit")) {
 			npc = new FieldsBandit();
+		} else if(npcGenerationId.equalsIgnoreCase("EvelyxMilker")) {
+			npc = new EvelyxMilker();
 		}
 		if(npc!=null) {
 			String idGenerated = addNPC(npc, false, forceImmediateAddition);
@@ -4965,6 +4985,15 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.badEndContent);
 	}
 	
+	public void setBadEnd(String badEndTitle) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.badEnd, true);
+		Main.getProperties().badEndTitle = badEndTitle;
+	}
+	
+	public boolean isBadEnd() {
+		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd);
+	}
+	
 	public boolean isCompanionContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.companionContent);
 	}
@@ -4975,6 +5004,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isMuskContentEnabled() {
 		return true; //TODO
+	}
+	
+	public boolean isFeralContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.feralContent);
 	}
 	
 	public boolean isPlotDiscovered() {

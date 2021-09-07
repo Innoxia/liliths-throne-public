@@ -561,7 +561,7 @@ public class UtilText {
 		if (stutter) {
 			modifiedSentence = Util.addStutter(modifiedSentence, 4);
 		}
-		return "<span class='speech' style='color:" + femininity.getColour().toWebHexString() + ";'>" + modifiedSentence + "</span>";
+		return "<span class='speech' style='color:" + femininity.getSpeechColour().toWebHexString() + ";'>" + modifiedSentence + "</span>";
 	}
 	
 	public static String getDisabledResponse(String label) {
