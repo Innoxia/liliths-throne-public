@@ -3788,7 +3788,7 @@ public abstract class GameCharacter implements XMLSaving {
 		body = newBody;
 
 		if(additionalSetups) {
-			additionalBodySetup(body.getGender(), RacialBody.valueOfRace(body.getRace()));
+			additionalBodySetup(body.getGender(), RacialBody.valueOfRace(body.getRace()), body.getSubspecies());
 		}
 		
 		postTransformationCalculation();
@@ -3798,7 +3798,7 @@ public abstract class GameCharacter implements XMLSaving {
 		body = Main.game.getCharacterUtils().generateBody(this, startingGender, mother, father);
 
 		if(additionalSetups) {
-			additionalBodySetup(startingGender, RacialBody.valueOfRace(body.getRace()));
+			additionalBodySetup(startingGender, RacialBody.valueOfRace(body.getRace()), body.getSubspecies());
 		}
 		
 		postTransformationCalculation();
@@ -3808,7 +3808,7 @@ public abstract class GameCharacter implements XMLSaving {
 		body = Main.game.getCharacterUtils().generateBody(this, startingGender, startingBodyType, stage);
 
 		if(additionalSetups) {
-			additionalBodySetup(startingGender, startingBodyType);
+			additionalBodySetup(startingGender, startingBodyType, body.getSubspecies());
 		}
 		
 		postTransformationCalculation();
@@ -3818,13 +3818,13 @@ public abstract class GameCharacter implements XMLSaving {
 		body = Main.game.getCharacterUtils().generateBody(this, startingGender, startingSpeciesType, stage);
 		
 		if(additionalSetups) {
-			additionalBodySetup(startingGender, RacialBody.valueOfRace(startingSpeciesType.getRace()));
+			additionalBodySetup(startingGender, RacialBody.valueOfRace(startingSpeciesType.getRace()), startingSpeciesType);
 		}
 		
 		postTransformationCalculation();
 	}
 	
-	protected void additionalBodySetup(Gender gender, AbstractRacialBody startingRace) {
+	protected void additionalBodySetup(Gender gender, AbstractRacialBody startingRace, AbstractSubspecies startingSpeciesType) {
 		if(this.surname==null || this.surname.isEmpty()) {
 			this.surname = Name.getSurname(this);
 		}
@@ -3841,6 +3841,14 @@ public abstract class GameCharacter implements XMLSaving {
 				this.addPersonalityTrait(entry.getKey());
 			}
 		}
+
+		for(Entry<PersonalityTrait, Float> entry : startingSpeciesType.getPersonalityTraitChances().entrySet()) {
+			double rnd = Math.random();
+			if(rnd<=entry.getValue()) {
+				this.addPersonalityTrait(entry.getKey());
+			}
+		}
+		
 		if(this.hasPersonalityTrait(PersonalityTrait.MUTE)) { // If mute, remove all other speech traits
 			this.removePersonalityTraits(PersonalityCategory.SPEECH);
 			this.addPersonalityTrait(PersonalityTrait.MUTE);
@@ -5897,6 +5905,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
+
+		if(Main.game.isStarted() && att==Attribute.MAJOR_CORRUPTION && this.getHistory()==Occupation.ARISTOCRAT) {
+			value *= 2;
+		}
 		
 		if(att == Attribute.ACTION_POINTS) {
 			value += DEFAULT_COMBAT_AP;
@@ -5989,9 +6001,6 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String incrementAttribute(AbstractAttribute att, float increment, boolean appendAttributeChangeText) {
-		if(Main.game.isStarted() && att==Attribute.MAJOR_CORRUPTION && this.getHistory()==Occupation.ARISTOCRAT) {
-			increment *= 2;
-		}
 		float value = attributes.get(att) + increment;
 
 		// For handling health, mana and stamina changes as a result of an attribute being changed:
@@ -28684,6 +28693,10 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "</p>"
 							+ postTransformationCalculation();
 				} else {
+					if(!Main.game.isStarted()) {
+						postTransformationCalculation();
+						return "";
+					}
 					return UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name] feels the " + coveringType.getName(this) + " on [npc.her] " + Util.stringsToStringList(affectedParts, false) + " suddenly start to itch, and [npc.she] lets out a startled cry as "

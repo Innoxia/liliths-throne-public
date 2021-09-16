@@ -696,7 +696,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lip size", LipSize.getLipSizeFromInt(limit).getName()));
 						break;
 					case TF_MOD_SIZE_SECONDARY:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "tongue length", TongueLength.getTongueLengthFromInt(limit).getDescriptor()));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "tongue length", Units.size(limit)));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "lips puffy", "puffy lips"));

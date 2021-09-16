@@ -86,6 +86,7 @@
 			#IF(game.getCharactersPresent().contains(dale))
 				[#dale.setPlayerKnowsName(true)]
 			#ENDIF
+			[#pc.setCharacterReactedToPregnancy(dale, true)]
 		]]></preParsingEffects>
 		<content/>
 		<secondsPassed minutes="true"><![CDATA[
@@ -193,9 +194,43 @@
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Monica's Milker]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Ask Dale if he knows where Monica's personalised Moo Milker is, and whether you can have it.
+					#IF(flags.hasFlag(FLAG_innoxia_evelyx_monica_meeting))
+						Ask Dale if you can have anotehr meeting with Evelyx regarding Monica's breast pump.
+					#ELSE
+						Ask Dale if he knows where Monica's personalised breast pump is, and whether you can have it.
+					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue>null</nextDialogue>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_evelyx_monica_meeting))
+						innoxia_places_fields_dairyFarm_monica_quest_meeting_repeat
+					#ELSE
+						innoxia_places_fields_dairyFarm_monica_quest_start
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(dale) && flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Evelyx]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck))
+						You've already had a special meeting with Evelyx today...
+					#ELSE
+						Tell Dale that you'd like to have a special meeting with Evelyx...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck))
+						null
+					#ELSE
+						innoxia_places_fields_dairyFarm_evelyx_sex_meeting
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_manager)]
+				]]></effects>
 			</response>
 			<!-- Under desk blowjob: -->
 			<response>
@@ -943,9 +978,10 @@
 				<availabilityConditional><![CDATA[[#!game.isBadEndsEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
 				<responseTitle><![CDATA[Sign]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Sign the contract to become Evelyx's cum-dump, agreeing to cut your wages in half in exchange for being able to get fucked by her once per day...
+					Sign the contract, allowing you to get fucked by a demonic centauress in exchange for a thousand flames once per day...
 				]]></responseTooltip>
 				<nextDialogue>innoxia_places_fields_dairyFarm_work_promotion_evelyx_contract_signed</nextDialogue>
 				<effects><![CDATA[
@@ -987,7 +1023,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Submit]]></responseTitle>
-				<responseTooltip><![CDATA[Submit to your new Mistress and beg for her to hilt her massive cock deep into your pussy...]]></responseTooltip>
+				<responseTooltip><![CDATA[Submit to Evelyx and beg for her to hilt her massive cock deep into your pussy...]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_fields_dairyFarm_evelyx_office_doggy]]></id>
@@ -1050,7 +1086,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
-				<responseTooltip><![CDATA[Do as your Mistress says and leave her office.]]></responseTooltip>
+				<responseTooltip><![CDATA[Do as Evelyx says and leave her office.]]></responseTooltip>
 				<nextDialogue defaultPlaceType="innoxia_fields_dairyFarm_corridor"/>
 				<effects><![CDATA[
 					[#evelyx.transformCock(false)]
@@ -1060,6 +1096,581 @@
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<!-- Monica quest scenes: -->
+	<scene id="monica_quest_start">
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_START</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Meeting]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Dale as he leads you to Evelyx's office for your meeting with her.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting</nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_manager)]
+					[#evelyx.setDairyRevealed(-1)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting">
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[Introduce yourself to Evelyx...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_intro</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_ROMANCE_MONICA, QUEST_ROMANCE_MONICA_2_UNREASONABLE_DEMAND))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_repeat">
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_REPEAT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_dairyFarm_monica_quest_meeting_intro"/>
+	</scene>
+	
+	<scene id="monica_quest_meeting_intro">
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Pay (#IF(pc.getMoney()>=50000)[style.moneyFormat(50000, span)]#ELSE[style.moneyFormatUncoloured(50000, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=50000) Give Evelyx the fifty thousand flames which she's demanding in return for Monica's breast pump. #ELSE You can't afford to pay fifty thousand flames for Monica's breast pump... #ENDIF]]></responseTooltip>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=50000)innoxia_places_fields_dairyFarm_monica_quest_meeting_paid#ELSEnull#ENDIF]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-50000))]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem('innoxia_quest_monica_milker')))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_ROMANCE_MONICA, QUEST_ROMANCE_MONICA_3_THE_JOURNEY_HOME))]
+					[#dale.setLocation(pc)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wear ring]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isAbleToEquip(evelyx.getOralRing(), true, pc))
+						As you're unable to equip Evelyx's special ring, you're unable to wear it in exchange for receiving Monica's breast pump...
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						As you're unable gain access to your mouth, you're unable to wear Evelyx's special ring in exchange for receiving Monica's breast pump...
+					#ELSE
+						Equip Evelyx's special ring and answer her questions in exchange for receiving Monica's breast pump...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToEquip(evelyx.getOralRing(), true, evelyx) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						innoxia_places_fields_dairyFarm_monica_quest_meeting_ring
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.equipClothingFromNowhere(evelyx.getOralRing(), true, evelyx)]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem('innoxia_quest_monica_milker')))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_ROMANCE_MONICA, QUEST_ROMANCE_MONICA_3_THE_JOURNEY_HOME))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<requiredPerks>
+					<perk><![CDATA[FEMALE_ATTRACTION]]></perk>
+					<perk><![CDATA[CHUUNI]]></perk>
+				</requiredPerks>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<responseTitle><![CDATA[Seduce her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						As you're unable gain access to your mouth, you're unable to seduce Evelyx...
+					#ELSE
+						Tell Evelyx that you can offer her something far more valuable than flames...
+						<br/>[style.italicsSex(This will lead into performing cunnilingus on Evelyx.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						null
+					#ELSE
+						innoxia_places_fields_dairyFarm_monica_quest_meeting_seduce
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem('innoxia_quest_monica_milker')))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_ROMANCE_MONICA, QUEST_ROMANCE_MONICA_3_THE_JOURNEY_HOME))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Evelyx that you're not interested in either of her deals and leave her office...]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_fields_dairyFarm_monica_quest_meeting_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'MONICA_QUEST_MEETING_INTRO_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_paid">
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_PAID</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Dale takes you back to the reception...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_end</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_ring">
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_RING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Agree]]></responseTitle>
+				<responseTooltip><![CDATA[Agree with Evelyx and say that you couldn't imagine anything better than performing cunnilingus on her...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_ring_next</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'MONICA_QUEST_MEETING_RING_AGREE'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementLust(10, false))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Disagree]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Evelyx that you could think of better things to be doing than eating her out...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_ring_next</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'MONICA_QUEST_MEETING_RING_DISAGREE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_ring_next">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Flatter]]></responseTitle>
+				<responseTooltip><![CDATA[Flatter Evelyx by telling her that her pussy is the prettiest you've ever seen...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_ring_final</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'MONICA_QUEST_MEETING_RING_NEXT_FLATTER'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementLust(15, false))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Unimpressed]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Evelyx that you've seen better pussies before...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_ring_final</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'MONICA_QUEST_MEETING_RING_NEXT_UNIMPRESSED'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_ring_final">
+		<preParsingEffects><![CDATA[
+			[#evelyx.displaceClothingForAccess(CA_VAGINA, null)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_RING_FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[Obey Evelyx and kneel down before her so that you can eat her out...]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_evelyx_office_oral]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>evelyx</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_monica_quest_meeting_ring_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_RING_OBEY_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[evelyx]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse Evelyx's offer and have Dale take you back to the reception...]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_fields_dairyFarm_monica_quest_meeting_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'MONICA_QUEST_MEETING_RING_REFUSE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_ring_after_sex">
+		<preParsingEffects><![CDATA[
+			#IF(pc.getClothingInSlot(IS_FINGER)!=null)
+				[#pc.getClothingInSlot(IS_FINGER).setSealed(false)]
+			#ENDIF
+			[#dale.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_evelyx_daily_fuck_unlocked, true)]
+			[#flags.setFlag(FLAG_innoxia_evelyx_daily_fuck, true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Evelyx is satisfied. For now...]]></tooltip>
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_RING_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Dale takes you back to the reception...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_end</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_seduce">
+		<preParsingEffects><![CDATA[
+			[#evelyx.displaceClothingForAccess(CA_VAGINA, null)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_SEDUCE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[Kneel down before Evelyx and eat her out...]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_evelyx_office_oral]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>evelyx</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_monica_quest_meeting_seduce_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_SEDUCE_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[evelyx]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects/>
+			</response>
+			<!-- Fuck her: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You can't fuck Evelyx's pussy if you don't have a penis...
+					#ELSE
+						You can't fuck Evelyx if you are unable to access your cock...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[Convince Evelyx to let you fuck her pussy...]]></responseTooltip>
+				<requiredPerks>
+					<perk><![CDATA[CONVINCING_REQUESTS]]></perk>
+				</requiredPerks>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_evelyx_office_vaginal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>evelyx</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_monica_quest_meeting_seduce_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_SEDUCE_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[evelyx]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_seduce_after_sex">
+		<preParsingEffects><![CDATA[
+			[#dale.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_evelyx_daily_fuck_unlocked, true)]
+			[#flags.setFlag(FLAG_innoxia_evelyx_daily_fuck, true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Evelyx is satisfied and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_SEDUCE_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Dale takes you back to the reception...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_monica_quest_meeting_end</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="monica_quest_meeting_end">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_reception)]
+			[#dale.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_evelyx_monica_meeting, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/dairyFarm">MONICA_QUEST_MEETING_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled><![CDATA[
+			[#!flags.hasFlag(FLAG_innoxia_evelyx_work_started)]
+		]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_dairyFarm_reception"/>
+	</scene>
+	
+	<scene id="evelyx_sex_meeting">
+		<content folderPath="txt/places/fields/dairyFarm">EVELYX_SEX_MEETING</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[Kneel down before Evelyx and eat her out...]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_evelyx_office_oral]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>evelyx</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_evelyx_sex_meeting_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">EVELYX_SEX_MEETING_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[evelyx]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects/>
+			</response>
+			<!-- Fuck her: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You can't fuck Evelyx's pussy if you don't have a penis...
+					#ELSE
+						You can't fuck Evelyx if you are unable to access your cock...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[Convince Evelyx to let you fuck her pussy...]]></responseTooltip>
+				<requiredPerks>
+					<perk><![CDATA[CONVINCING_REQUESTS]]></perk>
+				</requiredPerks>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_evelyx_office_vaginal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>evelyx</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_evelyx_sex_meeting_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">EVELYX_SEX_MEETING_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[evelyx]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="evelyx_sex_meeting_after_sex">
+		<preParsingEffects><![CDATA[
+			[#dale.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_evelyx_daily_fuck, true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Evelyx is satisfied and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/dairyFarm">EVELYX_SEX_MEETING_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Dale takes you back to the reception...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_evelyx_sex_meeting_end</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="evelyx_sex_meeting_end">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_reception)]
+			[#dale.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/dairyFarm">EVELYX_SEX_MEETING_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled><![CDATA[
+			[#!flags.hasFlag(FLAG_innoxia_evelyx_work_started)]
+		]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_dairyFarm_reception"/>
 	</scene>
 	
 	
@@ -1498,10 +2109,13 @@
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_dormitory_dale_after_sex]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/dairyFarm">DORMITORY_DALE_SEX_START</sexStartContent>
+					<sexStartContent/>
 					<ongoingActionsAtStart/>
 				</sexVariablesWithManager>
-				<effects/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START'))]
+					[#pc.setCharacterReactedToPregnancy(dale, true)]
+				]]></effects>
 			</response>
 			<!-- Oral: -->
 			<response>
@@ -1536,7 +2150,7 @@
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_dormitory_dale_after_sex]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/dairyFarm">DORMITORY_DALE_SEX_START_ORAL</sexStartContent>
+					<sexStartContent/>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
@@ -1547,7 +2161,10 @@
 						</action>
 					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
-				<effects/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START_ORAL'))]
+					[#pc.setCharacterReactedToPregnancy(dale, true)]
+				]]></effects>
 			</response>
 			<!-- Sex: -->
 			<response>
@@ -1600,7 +2217,7 @@
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_dormitory_dale_after_sex]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/dairyFarm">DORMITORY_DALE_SEX_START_PUSSY</sexStartContent>
+					<sexStartContent/>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
@@ -1611,7 +2228,10 @@
 						</action>
 					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
-				<effects/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START_PUSSY'))]
+					[#pc.setCharacterReactedToPregnancy(dale, true)]
+				]]></effects>
 			</response>
 			<!-- Anal: -->
 			<response>
@@ -1658,7 +2278,7 @@
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_dormitory_dale_after_sex]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/dairyFarm">DORMITORY_DALE_SEX_START_ANAL</sexStartContent>
+					<sexStartContent/>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
@@ -1669,7 +2289,10 @@
 						</action>
 					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
-				<effects/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START_ANAL'))]
+					[#pc.setCharacterReactedToPregnancy(dale, true)]
+				]]></effects>
 			</response>
 		</responses>
 	</scene>
@@ -1748,19 +2371,23 @@
 				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_evelyx_finished_no_bad_end)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Daily fuck]]></responseTitle>
+				<responseTitle><![CDATA[Centaur fuck (+[style.moneyFormat(1000, span)])]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(!flags.hasFlag(FLAG_innoxia_evelyx_no_bad_end_daily_fuck))
-						Knock on the door to Evelyx's office and tell her that you're here for your daily fuck...
+					#IF(!pc.isTaur())
+						You need to have a tauric lower body in order to receive your daily centaur fuck...
+					#ELSEIF(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						You require a vagina and to be able to access it in order to receive your daily centaur fuck...
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_no_bad_end_daily_fuck))
+						You've already received your daily centaur fuck today. You'll have to come back tomorrow if you want more...
 					#ELSE
-						You've already received your daily fuck from Evelyx today. You'll have to come back tomorrow if you want more...
+						Knock on the door to Evelyx's office and tell her that you're here for your daily centaur fuck...
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(!flags.hasFlag(FLAG_innoxia_evelyx_no_bad_end_daily_fuck))
-						innoxia_places_fields_dairyFarm_manager_enter
-					#ELSE
+					#IF(!pc.isTaur() || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true) || flags.hasFlag(FLAG_innoxia_evelyx_no_bad_end_daily_fuck))
 						null
+					#ELSE
+						innoxia_places_fields_dairyFarm_manager_enter
 					#ENDIF
 				]]></nextDialogue>
 				<effects/>
@@ -1770,8 +2397,7 @@
 	
 	<scene id="manager_enter">
 		<preParsingEffects><![CDATA[
-			[#evelyx.transformCock(true)]
-			[#evelyx.displaceClothingForAccess(CA_PENIS, null)]
+			[#flags.setFlag(FLAG_innoxia_evelyx_no_bad_end_daily_fuck, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/dairyFarm">EVELYX_OFFICE_ENTER</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -1781,8 +2407,22 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Submit]]></responseTitle>
-				<responseTooltip><![CDATA[Submit to your Mistress and beg for her to hilt her massive cock deep into your pussy...]]></responseTooltip>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Evelyx to the auction room.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_dairyFarm_manager_enter_auction]]></nextDialogue>
+				<effects><![CDATA[
+					[#evelyx.transformCock(false)]
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_auction)]
+					[#evelyx.setLocation(pc)]
+					[#pc.setCharacterReactedToPregnancy(evelyx, true)]
+					[#evelyx.setCharacterReactedToPregnancy(pc, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Warm up]]></responseTitle>
+				<responseTooltip><![CDATA[Beg for Evelyx to hilt her massive cock deep into your pussy and get you warmed up for what's to come...]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_fields_dairyFarm_evelyx_office_doggy]]></id>
@@ -1811,12 +2451,20 @@
 						</action>
 					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
+				<effects><![CDATA[
+					[#evelyx.transformCock(true)]
+					[#pc.setCharacterReactedToPregnancy(evelyx, true)]
+					[#evelyx.setCharacterReactedToPregnancy(pc, true)]
+				]]></effects>
 			</response>
 		</responses>
 	</scene>
 	
 	<scene id="manager_enter_after_sex">
-		<author><![CDATA[Innoxia]]></author>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(pc.applyWash(true, true, null, 0))]
+			[#game.appendToTextStartStringBuilder(evelyx.applyWash(true, true, null, 0))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Having had her fun, Evelyx brings an end to the sex...]]></tooltip>
 		<content folderPath="txt/places/fields/dairyFarm">EVELYX_OFFICE_AFTER_SEX</content>
@@ -1827,18 +2475,115 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Leave]]></responseTitle>
-				<responseTooltip><![CDATA[Do as your Mistress says and leave her office.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_dairyFarm_corridor"/>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Evelyx to the auction room.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_dairyFarm_manager_enter_auction]]></nextDialogue>
 				<effects><![CDATA[
 					[#evelyx.transformCock(false)]
-					[#evelyx.equipClothing()]
-					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_dairyFarm_corridor)]
-					[#flags.setFlag(FLAG_innoxia_evelyx_no_bad_end_daily_fuck, true)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'EVELYX_OFFICE_AFTER_SEX_LEAVE'))]
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_auction)]
+					[#evelyx.setLocation(pc)]
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<scene id="manager_enter_auction">
+		<content folderPath="txt/places/fields/dairyFarm">EVELYX_OFFICE_AUCTION</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Bidding]]></responseTitle>
+				<responseTooltip><![CDATA[The demonic centauresses start bidding against one another as they try to be the one to purchase you...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_dairyFarm_manager_enter_auction_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.addNPC('LunetteMelee', 'owner')]
+					[#owner.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="manager_enter_auction_end">
+		<content folderPath="txt/places/fields/dairyFarm">EVELYX_OFFICE_AUCTION_END</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Mounted]]></responseTitle>
+				<responseTooltip><![CDATA[[owner.Name] celebrates her winning bid by mounting you and rutting your pussy right in front of her sisters...]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_centauress_mounted]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>owner</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_manager_enter_auction_sex_end]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">EVELYX_OFFICE_AUCTION_END_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition/>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[owner]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="manager_enter_auction_sex_end">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had her fun, the centauress brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/dairyFarm">EVELYX_OFFICE_AUCTION_SEX_END</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Finished]]></responseTitle>
+				<responseTooltip><![CDATA[Evelyx leads you back to the reception area...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_dairyFarm_manager_enter_auction_sex_end_leave]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.banishNPC(owner)]
+					[#evelyx.returnToHome()]
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_reception)]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(1000))]
+					[#dale.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="manager_enter_auction_sex_end_leave">
+		<content folderPath="txt/places/fields/dairyFarm">EVELYX_OFFICE_AUCTION_SEX_END_LEAVE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[
+			[#!flags.hasFlag(FLAG_innoxia_evelyx_work_started)]
+		]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_dairyFarm_reception"/>
 	</scene>
 	
 	
@@ -2230,6 +2975,7 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'BARN_WORK_INITIAL_END'))]
 					[#dale.returnToHome()]
+					[#pc.setCharacterReactedToPregnancy(dale, true)]
 				]]></effects>
 			</response>
 			<response>
@@ -2254,6 +3000,7 @@
 					#IF(dale.getAffection(pc)<60)
 						[#game.appendToTextStartStringBuilder(dale.incrementAffection(pc, 10))]
 					#ENDIF
+					[#pc.setCharacterReactedToPregnancy(dale, true)]
 				]]></effects>
 			</response>
 		</responses>

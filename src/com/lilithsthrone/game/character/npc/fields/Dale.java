@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -286,7 +287,7 @@ public class Dale extends NPC {
 
 	@Override
 	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
-		if(!receivingCharacter.isPlayer() || penetrating != SexAreaPenetration.PENIS || penetrated != SexAreaOrifice.VAGINA) {
+		if(!receivingCharacter.isPlayer() || penetrating != SexAreaPenetration.PENIS || (penetrated != SexAreaOrifice.VAGINA && penetrated != SexAreaOrifice.ANUS)) {
 			return null;
 		}
 		
@@ -346,9 +347,35 @@ public class Dale extends NPC {
 						+ "Sure enough, after [npc.nameHas] pulled [npc.her] cock back out of your pussy, the pain starts to fade away,"
 							+ " and you find yourself letting out a lewd moan as you concentrate on the feeling of [npc.her] flat, flared head pushing its way into your broken-in pussy as [npc.she] gently thrusts forwards once again..."
 					+ "</p>");
+			
+		} else if(penetrated == SexAreaOrifice.ANUS) {
+			sb.append("<p>");
+				sb.append("As [npc.name] slowly pushes [npc.her] [npc.cock+] into your [pc.asshole+] to claim your virginity, you can't help but let out a desperate, shuddering wail."
+						+ " The uncomfortable sensation of having [npc.namePos] [npc.cockGirth] donkey-dick slowly forcing its way inside of you causes you to squirm about in discomfort..");
+			sb.append("</p>");
+			
+			sb.append("<p>"
+						+ "Upon hearing your distressed cry, [npc.name] instantly stops thrusting forwards, and in a worried tone [npc.she] asks,"
+						+ " [npc.speechNoExtraEffects(Are you ok, [pc.name]? We can stop if this is too much for you...)]"
+					+ "</p>");
+			
+			sb.append("<p>");
+				sb.append("Although you can't help but wince as a pang of pain shoots up from your cock-filled ass, you're comforted by the fact that [npc.name] seems to be genuinely concerned about you.");
+				sb.append(" After taking a moment to catch your breath, you realise that there's no going back from this, and so you pant, [pc.speechNoExtraEffects(I'm fine... You can keep going...)]");
+			sb.append("</p>");
+			
+			sb.append("<p>"
+						+ "[npc.speechNoExtraEffects(Ok, I'll take it real slow,)] [npc.name] responds, and you try to suppress your whimpers as [npc.she] resumes where [npc.she] left off and slowly pushes [npc.her] huge donkey-cock into your back door."
+						+ " As [npc.she] fills your ass with [npc.her] throbbing shaft, [npc.name] reassures you with a soft grunt,"
+						+ " [npc.speechNoExtraEffects(You're doing really well for your first time... You'll get into the swing of it in a moment...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Sure enough, after [npc.nameHas] pulled [npc.her] cock back out of your asshole, the pain starts to fade away,"
+							+ " and you find yourself letting out a lewd moan as you concentrate on the feeling of [npc.her] flat, flared head pushing its way into your broken-in butt as [npc.she] gently thrusts forwards once again..."
+					+ "</p>");
 		}
 		
-		return sb.toString();
+		return UtilText.parse(this,  sb.toString());
 	}
 	
 	@Override

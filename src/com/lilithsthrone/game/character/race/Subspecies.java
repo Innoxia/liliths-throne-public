@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -3791,7 +3792,8 @@ public class Subspecies {
 				if((((zebraPrimary==PresetColour.COVERING_BLACK || zebraPrimary==PresetColour.COVERING_JET_BLACK) && zebraSecondary==PresetColour.COVERING_WHITE)
 						|| (zebraPrimary==PresetColour.COVERING_WHITE && (zebraSecondary==PresetColour.COVERING_BLACK || zebraSecondary==PresetColour.COVERING_JET_BLACK)))
 					&& body.getTail().getType()==TailType.HORSE_MORPH_ZEBRA) {
-						return 125;
+//						return 125;
+						return 1500;// Zebra-morphs should override centaur types
 					}
 			}
 			return 0;
@@ -3824,7 +3826,8 @@ public class Subspecies {
 					1,
 					1,
 					true),
-			"While [npc.namePos] body possesses an impressive level of both strength and endurance, [npc.sheIs] not the sharpest tool in the shed, and [npc.verb(struggle)] more than most when it comes to harnessing the arcane.",
+			"While [npc.namePos] body possesses an impressive level of both strength and endurance, [npc.she] [npc.verb(struggle)] more than most when it comes to harnessing the arcane."
+					+ " [npc.She] also [npc.has] an innate knowledge of how best to fight against canines.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 25f),
 					new Value<>(Attribute.MAJOR_ARCANE, -5f),
@@ -3832,7 +3835,10 @@ public class Subspecies {
 					new Value<>(Attribute.SPELL_COST_MODIFIER, -10f),
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<>(Attribute.CRITICAL_DAMAGE, 20f),
-					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f)),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.DOG_MORPH), 25f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.WOLF_MORPH), 25f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.FOX_MORPH), 25f)),
 			null,
 			"Equine Encyclopedia",
 			"Equine Encyclopedias",
@@ -3903,10 +3909,17 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HORSE_MORPH) {
 				if(body.getEar().getType()==EarType.HORSE_MORPH_UPRIGHT) {
-					return 110; // Less than zebra
+//					return 110; // Less than zebra
+					return 1400;// Donkey-morphs should override centaur types
 				}
 			}
 			return 0;
+		}
+		@Override
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
+			map.put(PersonalityTrait.BRAVE, 0.5f);// Donkeys do not act like typical prey animals
+			return map;
 		}
 	};
 	

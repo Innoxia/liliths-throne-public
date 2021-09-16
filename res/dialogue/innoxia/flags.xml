@@ -67,6 +67,9 @@
 		<flag dailyReset="false">evelyx_work_promotion_meeting_didnt_sign</flag>
 		<flag dailyReset="false">evelyx_finished_no_bad_end</flag>
 		<flag dailyReset="true">evelyx_no_bad_end_daily_fuck</flag>
+		<flag dailyReset="false">evelyx_monica_meeting</flag>
+		<flag dailyReset="false">evelyx_daily_fuck_unlocked</flag>
+		<flag dailyReset="true">evelyx_daily_fuck</flag>
 		<!-- Bad end: -->
 		<flag dailyReset="true">evelyx_bad_end_pussy</flag>
 		<flag dailyReset="true">evelyx_bad_end_oral</flag>
@@ -151,9 +154,11 @@
 	
 		<!-- Shops -->
 		<flag dailyReset="true">monica_talk_small</flag>
-		<flag dailyReset="true">monica_talk_history</flag>
 		<flag dailyReset="true">monica_talk_business</flag>
+		<flag dailyReset="true">monica_talk_elis</flag>
+		<flag dailyReset="true">monica_talk_history</flag>
 		<flag dailyReset="false">monica_talk_milker_unlocked</flag>
+		<flag dailyReset="true">monica_talk_boobies</flag>
 		<flag dailyReset="true">monica_milked</flag>
 	
 	

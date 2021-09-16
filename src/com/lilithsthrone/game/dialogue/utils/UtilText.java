@@ -549,6 +549,10 @@ public class UtilText {
 		return "<i>"+parseSpeech(text, target, true, false, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
 	}
 
+	public static String parseNPCThought(String text, Femininity femininity) {
+		return "<i>"+parseNPCSpeech(text, femininity, false, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
+	}
+	
 	public static String parseNPCSpeech(String text, Femininity femininity) {
 		return parseNPCSpeech(text, femininity, false, false);
 	}
@@ -3415,6 +3419,104 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"thoughtMasculine",
+						"masculineThought"),
+				false,
+				false,
+				"(thought content)",
+				"Parses the containing dialogue as though a generic, masculine character is saying it."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					return parseNPCThought(arguments, Femininity.MASCULINE);
+				} else {
+					return parseNPCThought("...", Femininity.MASCULINE);
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"thoughtMasculineStrong",
+						"thoughtMasculineHeavy",
+						"thoughtMasculinePlus",
+						"masculineStrongThought",
+						"masculineHeavyThought",
+						"masculinePlusThought"),
+				false,
+				false,
+				"(thought content)",
+				"Parses the containing dialogue as though a generic, very masculine character is saying it."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					return parseNPCThought(arguments, Femininity.MASCULINE_STRONG);
+				} else {
+					return parseNPCThought("...", Femininity.MASCULINE_STRONG);
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"thoughtAndrogynous",
+						"androgynousThought"),
+				false,
+				false,
+				"(thought content)",
+				"Parses the containing dialogue as though a generic, androgynous character is saying it."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					return parseNPCThought(arguments, Femininity.ANDROGYNOUS);
+				} else {
+					return parseNPCThought("...", Femininity.ANDROGYNOUS);
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"thoughtFeminine",
+						"feminineThought"),
+				false,
+				false,
+				"(thought content)",
+				"Parses the containing dialogue as though a generic, feminine character is saying it."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					return parseNPCThought(arguments, Femininity.FEMININE);
+				} else {
+					return parseNPCThought("...", Femininity.FEMININE);
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"thoughtFeminineStrong",
+						"thoughtFeminineHeavy",
+						"thoughtFemininePlus",
+						"feminineStrongThought",
+						"feminineHeavyThought",
+						"femininePlusThought"),
+				false,
+				false,
+				"(thought content)",
+				"Parses the containing dialogue as though a generic, very feminine character is saying it."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					return parseNPCThought(arguments, Femininity.FEMININE_STRONG);
+				} else {
+					return parseNPCThought("...", Femininity.FEMININE_STRONG);
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"moan",
 						"groan",
 						"sob",
@@ -5413,8 +5515,14 @@ public class UtilText {
 				if(character.isFeminine()) {
 					descriptors.add("feminine");
 					descriptors.add("sexy");
+					descriptors.add("hot");
 				} else {
 					descriptors.add("masculine");
+				}
+				if(character.getMuscleValue()>=Muscle.THREE_MUSCULAR.getMinimumValue()) {
+					descriptors.add("muscular");
+				} else if(character.getMuscleValue()<Muscle.ONE_LIGHTLY_MUSCLED.getMinimumValue() && character.getBodySizeValue()>=BodySize.THREE_LARGE.getMinimumValue()){
+					descriptors.add("chubby");
 				}
 				return applyDescriptor(
 						Util.randomItemFrom(descriptors),

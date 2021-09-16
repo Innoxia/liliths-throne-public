@@ -1966,12 +1966,12 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located an hour's travel to the North-East of Elis."
+			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located an hour's travel to the North-East of Elis named 'Evelyx's Dairy'."
 					+ " You'll have to go to this farm and ask for Monica's breast pump...";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "Having found the farm which is Monica's old workplace, you now need to meet with the owner and ask for the cow-girl's personalised breast pump...";
+			return "Having found the farm which is Monica's old workplace, you asked for the cow-girl's personalised breast pump, and were granted a meeting with the farm's owner...";
 		}
 	},
 
@@ -1982,12 +1982,12 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "You managed to get a meeting with the farm's owner, who takes the form of an arrogant, rude succubus."
-					+ " Although admitting that the breast pump was worthless, she's demanding a huge sum of flames in exchange for it...";
+			return "You managed to get a meeting with the farm's owner, Evelyx, who takes the form of an arrogant, greedy succubus."
+					+ " Although admitting that the breast pump was worthless, she's demanding that you either give her a huge sum of flames, or sign a suspicious contract, in exchange for it...";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You managed to obtain Monica's personalised breast pump from the farm's arrogant, rude succubus owner.";
+			return "You managed to obtain Monica's personalised breast pump from Evelyx.";
 		}
 	},
 

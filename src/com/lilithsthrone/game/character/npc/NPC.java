@@ -2860,6 +2860,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		return null;
 	}
+
+	/**
+	 * Generic version of getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest)
+	 */
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter) {
+		return getSexBehaviourDeniesRequests(requestingCharacter, null);
+	}
 	
 	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		if(requestingCharacter.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
@@ -2872,7 +2879,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return true;
 		}
 		
-		int weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		int weight = 0;
+		if(sexTypeRequest!=null) {
+			weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		}
 		
 		return weight<0 || this.hasFetish(Fetish.FETISH_SADIST);
 	}

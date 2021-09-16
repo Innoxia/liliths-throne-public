@@ -299,6 +299,10 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			}
 		}
 		
+		if(!Main.game.isStarted()) {
+			return name;
+		}
+		
 		if(name.endsWith("-")) {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
 				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
@@ -335,6 +339,10 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			} else {
 				name = Util.randomItemFrom(namesPluralMasculine);
 			}
+		}
+		
+		if(!Main.game.isStarted()) {
+			return name;
 		}
 		
 		if(name.endsWith("-")) {

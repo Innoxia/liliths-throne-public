@@ -122,14 +122,42 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Mounted]]></responseTitle>
 				<responseTooltip><![CDATA[Your new owner celebrates her winning bid by mounting you and roughly rutting your pussy right in front of her sisters...]]></responseTooltip>
-				<nextDialogue>innoxia_badEnds_evelyx_mounted</nextDialogue>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_centauress_mounted]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>owner</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_badEnds_evelyx_mounted_end]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">MOUNTED</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition/>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[partner]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
 				<effects/>
 			</response>
 		</responses>
 	</scene>
 	
-	<scene id="mounted">
-		<content folderPath="txt/badEnds/evelyx">MOUNTED</content>
+	<scene id="mounted_end">
+		<content folderPath="txt/badEnds/evelyx">MOUNTED_END</content>
 		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>

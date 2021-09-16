@@ -1348,6 +1348,9 @@ public class CharacterUtils {
 		return body;
 	}
 	
+	/**
+	 * If you are wanting to change a newly-spawned NPC's body, then <b>you should consider using GameCharacter.setBody() instead</b>, as that method can also apply personality changes.
+	 */
 	public Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, AbstractSubspecies species, RaceStage stage, boolean removeDemonOverride) {
 		
 		if(removeDemonOverride) {

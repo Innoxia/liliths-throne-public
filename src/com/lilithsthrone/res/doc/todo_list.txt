@@ -19,12 +19,23 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Fixed bug where the Aristocrat background would allow you to boost your corruption to 100 during character creation. (by Maxis)
+		Fixed bug where coatls, the feathered dragons, would fail the subspecies match if they got feathered dragon tails. (by DSG)
+	
 	Engine/Modding:
 		Added behaviour to externally defined encounters, where if you use a value of >100 for the encounter chance, then all other encounters with chances of <=100 will be discarded and only encounters with chances of >100 will be used.
 		Added clothing tag 'BLOCKS_SIGHT' for use with blindfolds or other sight-limiting clothing. When worn, clothing with this tag will put the 'blinded' status effect on the character (or 'Blinded (Echo location)' if the character has a body part which grants echo location).
 		Added item tag 'UNIQUE_NO_NPC_EQUIP' to prevent unique clothing or weapons from being equipped onto NPCs.
+		Added 'personalityChances' element support to subspecies files, which is defined in the same manner as the 'personalityChances' in 'RacialBody.xml'. Personality chances in subspecies files are rolled after RacialBody chances.
+		The 'effects' element for responses now works for trading and combat responses.
+	
+	Artwork:
+		Added 5 images for Leotie, drawn by Jam (https://twitter.com/JamDrawers).
 	
 	Gameplay:
+		Added 'Evelyx's Dairy' location and internal map. It is automatically discovered when entering its world map tile, which can be found by starting at Elis, then going 5 tiles East, 2 tiles North. (Warning: There is a lot of placeholder content in this area in this version!)
+		Added new unique NPC 'Monica', who runs the clothing shop in ELis's shopping precinct. (Warning: Almost all of her content is placeholders in this version!)
 		Added an extra row of inventory slots to each page of character's inventories, effectively increasing inventory size by 30.
 		Added 'donkey-morph' as a subspecies of horse-morph. To be identified as a donkey-morph, a character needs to be identified as being the 'horse-morph' race, and needs to have the new 'upright horse' ear type. 
 		Added a content toggle for 'feral' content. (To turn it on or off, go to the main menu, then go to 'Content Options', then under the 'Bodies' option, set 'Feral' to on/off.)
@@ -34,13 +45,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'wrap ring' clothing item (androgynous, finger slot, sold by Nyan).
 		Added unique item 'Clothing Keys', which are added to your inventory at the start of the game (and retroactively added to your inventory when loading into this version). Examining these keys gives you a list of all the sealed clothing to which you have an unlock key.
 		Added 'blindfold' (androgynous, eye slot, BDSM set, blinds wearer, sold by Finch).
+		Added 'lips ring' clothing item (androgynous, finger slot, sold by Nyan).
+	
+	Sex:
+		NPCs who like or love the dominant fetish will no longer always accept a request to be rough (although NPCs who like/love the sadist fetish still will).
+		Added a 'Request facial' as a new sex action for when a character has the option to prepare for their partner's orgasm. (Requires penis-face interaction availability, for the orgasming character to have a real penis, and to be not wearing a condom. NPCs will be more/less likely to use based on their 'cum addict' fetish desire.)
 	
 	Other:
 		Reduced Nizhoni's breast size from JJ-cup to G-cup.
 		Taking a 'Quick shower' in your room now applies the 'Recently showered' status effect for half the time that 'Thorough shower' does.
 		Quadrupedal cattle-morphs are now called 'cowtaur'/'bulltaur' instead of 'cattletaur'.
 		Altered default speech colours to reduce saturation and therefore (hopefully) make them easier to read on the dark background.
-		NPCs who like or love the dominant fetish will no longer always accept a request to be rough (although NPCs who like/love the sadist fetish still will).
+		Zebra (and the new donkey) subspecies now have a higher detection priority than centaur subspecies, allowing you to become a zebrataur (and donkeytaur).
+		Slightly improved the description of Lilith's statue in the centre of Dominion, and there is a 20% chance of having a small dialogue variation displayed every time the tile's description is displayed.
 	
 	Bugs:
 		Parsing and typo fixes.
@@ -48,7 +65,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Slaves being sold in slaver alley will now correctly have randomly-generated personality traits and fetishes.
 		Fixed issue where interacting with Felicia directly after completing Zaranix's section of the main quest would result in getting stuck with no available dialogue actions to choose from.
 		Fixed issue in sex scenes where you could swap position with characters who shouldn't have been able to get into the position you were in.
-		
+		The 'Spawn attacker' option in the debug menu will now correctly assign the spawned NPC's personality traits, name, and perks corresponding to their subspecies.
+		Fixed some harmless(?) parsing error message spam in the error log when loading an old save.
+		Fixed issue where you could return to the Rat Warrens and enter it after Vengar had been dealt with (but before handing the quest in to Axel to complete it), which would cause several bugs within the area.
+		The tongue length TF limit on enchanted clothing will now show toe exact value instead of a vague descriptor.
+		Slimes which you've befriended from the bat caverns will no longer consume glowing mushrooms every hour.
+		Candi now correctly has the 'lewd' personality trait.
+	
 	
 	
 	[x] SlaveForSale
@@ -64,6 +87,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Expand unique item inventory slots
 	[x] Add keys item to see what clothing unlock keys you have
 		[x] prevent giving to others
+	
+	[] Amber and Rose accept rejection to rough sex
 	
 	[] Dairy Farm
 		[x] Add as encounter, 5 East, 2 North
@@ -225,7 +250,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] remove clothing
 				[x] tattoo
 				[x] add blindfold for BDSM
-		[] Make receptionist donkey-boy
+		[x] Make receptionist donkey-boy
 			[x] add donkey subspecies
 			[x] horse-cock -> donkey-cock for donkey subspecies
 			[x] Dale
@@ -236,14 +261,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] Evelyx
 				[x] Farm
 				[x] Lunette
-			[] Full test from start
+			[x] Full test from start
 				[x] Remove pussy pump
 					[x] squirter text
 				[x] Cow sex
 					[x] Heifers need to want creampie
 					[x] Make sure heifers are not pregnant
 					[x] Move Dale to barn
-				[] Work
+				[x] Work
 					[x] starting/promotions
 					[x] Add item tag to prevent equipping on others
 						[x] Add to ear tag
@@ -260,10 +285,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[x] special virginity loss description
 						[x] Can give him blowjob or quick fuck after these
 							[x] fuck needs to count impregnation for promotion
-					[] pregnancy reaction
-						[] stalls
-						[] reception
-						[] dorms
+					[x] pregnancy reaction
+						[x] stalls - BARN_WORK_INITIAL
+						[x] reception - RECEPTION
+						[x] dorms - DORMITORY_DALE_SEX_START, DORMITORY_DALE_SEX_START_ORAL, DORMITORY_DALE_SEX_START_PUSSY, DORMITORY_DALE_SEX_START_ANAL
 					[x] After fucked once
 						[x] make comments in reception scene
 						[x] blowjob under desk
@@ -276,7 +301,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 							[x] ride him
 							[x] ride him (anal)
 		[x] Auction area revealed by walking on locked door tile?
-		[] Test Dale content
+		[x] Test Dale content
 			[x] Sex in stall
 				[x] Error in parsing: StartIndex:6 (null, null) - #IF(!pc.hasVagina())
 				[x] Public sex descriptions wrong
@@ -289,37 +314,37 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] after sex travel
 			[x] Asking for rough Dale accepts when hates sadist?
 			[x] dorms
-			[] Need Dale anal virginity loss text
+			[x] Need Dale anal virginity loss text
+			[x] Full test
+				[x] pregnancy reactions broken in dorm sex
+				[x] 'sexy' armpit triggering too much
 		[] Writing
+			[x] dobermann references need replacing
+			[x] Test new non-bad-end promotion
+				[x] flag set incorrectly
+				[x] tooltip responses
+				[x] centauress sex needs manager
+				[x] Add sex manager for bad end mounted scene as well
+				[x] 'Sign' should have sex colouration
+				[x] post sex needs strip content
+			[x] Dale Evelyx mentions he only meets her one or twice???
 			[] Add placeholder warning
-			[] Limit Monica for now
 	
-	Add Monica quest
-	Add shopkeepers placeholders
-	
-	In GameCharacter
-Take the aristocrat check out of incrementAttribute
-Put it into getAttributeValue
-Functionally no change to how aristocrat currently works (yes I know the description says it boosts gains, but incrementAttribute doesn't check if the increment is positive or negative so it doubles any changes)
-	
-	Bug reports
-	
-	[] Donkey confident and damage vs doggos
-	
-	[] Elizabeth artwork
-	
-	[] zebra taur gets detected as centaur???
-	
-	[] Kay female TF
-	
-	[] add an option to request a facial when someone you're blowing is about to cum
-	
-	[] hand holding sex action
-	
-	[] improve Lilith's statue description
+	[x] Donkey confident and damage vs doggos
+	[x] Leotie artwork
+	[x] zebra taur gets detected as centaur???
+	[x] add an option to request a facial when someone you're blowing is about to cum
+	[x] request facial is limiting player?
+	[x] improve Lilith's statue description
+	[x] Messages
+	[x] donkey damage vs canines
+	[x] clothing tongue length increase needs value shown
+	[x] centaur carriage depot should have green background
+	[x] bat cavern slimes consume mushrooms even after becoming friends
+	[x] Candi needs lewd personality
 	
 	[] Wall's End
-		[] The Fashionable Moo
+		[x] The Fashionable Moo
 				Monica
 				She's really bubbly and friendly and has big breasts (she still has a considerable amount of milk production from her time working on a farm, but kind of likes the feeling of being milked so hasn't used TF potions to change it)
 				Clothing & wholesale fabric
@@ -327,30 +352,97 @@ Functionally no change to how aristocrat currently works (yes I know the descrip
 				[x] Partial cow-girl with similar shortstack proportions to Claire.
 				[x] Milk capacity 4 litres, refills in 12 hours
 			[x] Trade
-			[] Talk
-				[] History
-					[] She used to work on a dairy farm, but management changed and she left
-					[] Says that she likes the feeling of being milked so hasn't used TF potions to reduce her huge milk production
-					[] Finished by hinting at milking not being like it used to
-				[] Unlocks Milking talk
-					[] She says that she's gone through hundreds of Moo Milker breast pumps, but none are as comfortable as the one she had back on her farm
-					[] She's heard bad things about the new management (they've somehow managed to not be destroyed by Lunette's centaurs), and so doesn't want to go back and ask for it
-				[] an option to ask about her breasts and it opens like a 5 paragraph long "Oh these? My massive boobies? My massive fucking titties?" equivalent
-			[] Side Quest - Monica's Moo Milker
+				[x] tradingvariables response needs to execute effects
+					[#monica.dailyUpdate()]
+					[#monica.switchToFemaleClothing()]
+				[x] save/load testing
+			[x] Talk
+				[x] Affection increases
+				[x] 1: Smalltalk
+				[x] 2: Business - going well, although there are clothing stalls in the daily market, they don't have the same selection she does
+				[x] 3: Elis - she says she's lived either here or in the nearby fields for her entire life. It used to be more friendly, but since the troubles out in the fields, the town has had to accommodate a lot of refugees and tensions flare up now and again
+				[x] 4: History
+					She used to work on a dairy farm, but management changed and she left
+					Says that she likes the feeling of being milked so hasn't used TF potions to reduce her huge milk production
+					Finishes by hinting at milking not being like it used to
+				[x] 5: Unlocks Milking talk
+					She says that she's gone through hundreds of Moo Milker breast pumps, but none are as comfortable as the one she had back on her farm
+					She's heard bad things about the new management, who took over when she left about five years ago (they've somehow managed to not be destroyed by Lunette's centaurs), and so doesn't want to go back and ask for it
+				[x] 6: Silly mode: an option to ask about her breasts and it opens like a 5 paragraph long "Oh these? My massive boobies? My massive fucking titties?" equivalent
+			[x] Side Quest - Monica's Moo Milker
 				- Suggest to her that you could find her 'Moo Milker'
 				- She marks the dairy farm on your map, says to be careful
 				- At farm, meet manager
-					[] They say that Monica's milker is company property. They replaced manual pumps long ago, tells receptionist to search for pump with Monica's name on it and bring it in
-						She laughs about how it's worthless, but as you want it, she'll:
-						[] Sell it (10,000 flames)
-						[] Give it (have to suck her cock)
+					[x] They say that Monica's milker is company property. They replaced manual pumps long ago, tells receptionist to search for pump with Monica's name on it and bring it in
+						She laughs about how it's worthless, but as you want it (or are her employee), she'll:
+						[x] Sell it (50,000 flames)
+						[x] Give it (she says that she has a contract she'd like you to sign)
+							Sign to be her pussy-licking pet for as long as you wear her special ring - there's no catch, you can take the ring off at any time if you don't want to continue
+							[x] Have to wear ring, which turns out to be sealed (evelyx laughs at this and says there was nothing in the contract to prevent this)
+								[x] Create ring
+									Seal/subservient
+									Oral performer
+									Submissive
+									Vaginal loving
+								[x] Make ring common, with Evelyx's ring as a special
+							[x] She says that she'll remove your ring if you eat her out
+							[x] After sex she unseals your ring
+						[x] Seduce her (requires ladykiller perk)
+							[x] Perform oral
+							[x] Fuck pussy (over desk on back) (requires irresistible appeals or dominant fetish)
+					[x] Repeat meeting after refused
+					[x] After resolved, if had sex, Evelyx says you can come back and worship her cunt tomorrow
+						[x] Perform oral
+						[x] Fuck pussy (over desk on back) (requires irresistible appeals or dominant fetish)
+						[x] Conflicts with no-bad-end ending sex...
+							[x] Change no-bad-end:
+								[x] Can see Evelyx once per day for a special milking session
+								[x] Auctioned off to demonic centaurs
+								[x] Fucked, and then returned to barn
+								[x] Need to lock behind taur body
+					[x] Pregnancy reactions
 				- Return with milker, she is really happy and kisses you
 				- She blushes and says that if you were interested, she could show you how she uses it...
 				- Quest complete, can now milk Monica once per day
-							
+			[x] 5: Milking (her apartment above the shop)
+				[x] Milking
+					[x] Use pump
+					[x] Massage
+					[x] Mouth
+				[x] Sex
+			[x] mouth availability lock
+			[x] lactation quest lock
+			[x] Pregnancy reactions
+			[x] Full quest test
+				[x] test action colouration when lactation content disabled
+				[x] need history talk repeat detection
+				[x] dairy reveal says player has been there before
+				[x] dairy
+					[x] meeting needs to reveal map
+					[x] Make leave action 4
+					[x] ring equip parsing error
+					[x] FLAG_innoxia_FLAG_innoxia_evelyx_monica_meeting
+					[x] Need <p> wrap for equip text
+					[x] "You feel the ring's power giving you submissive..." is repeated
+					[x] 'Submit' should lead directly into the sex scene
+					[x] Check mouth access for ring
+					[x] Dale does not move back to reception with player after sex (and in other scenes?)
+					[x] "...little else for you to do except command_unknown back into the waiting area.​"
+					[x] ring equip should be omitted
+					[x] check all routes
+						[x] pay
+						[x] ring
+						[x] seduce
+					[x] Test repeat sex
+				[x] Dialogue for 'CLOTHING_MILKING_FINISHED' not found
+				[x] Dialogue for 'CLOTHING_MILKING_FINISHED_SEX_START' not found
+				[x] Add sex manager to fix:
+					[x] Monica needs to start sex with dress and bra unequipped
+					[x] sex is counted as public
+					
 		[] Woolly Heaven
 				Border-collie-girl (described as being extremely attractive) gave up modelling in Dominion to open this shop.
-					Pix's sister
+					Pix's sister(?)
 				Employees are twin greater sheep-girls
 					They have an annoying habit of starting and finishing one another's sentences
 			[] Sheep-girl twins
@@ -371,6 +463,7 @@ Functionally no change to how aristocrat currently works (yes I know the descrip
 				- Convince to teach ninth strike technique to Hale & Imsu
 				- Youko moves to Elis shop
 				- Can get baphomets TF'd to female
+			[] Armpit worship (they lick player's armpits before fucking them)
 		[] The Barn
 				Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
 			[] Owl-girl
@@ -378,9 +471,48 @@ Functionally no change to how aristocrat currently works (yes I know the descrip
 			[] Talk
 			[] Work
 	
-	[] It would appear that the bad end route in Rat Warrens got bricked at some point.
-		In the "Training" scene (it's on 3rd day give or take) one of the milker slaves is referred to, but the reference is wrong and instead shows a bunch of "Error: parserTarget.getCharacter() not found! (npc4)" errors and buttons are unresponsive.
-		Edit: Actually just the whole Training scene, regardless of the "Bad End" setting.
+	[] Bug reports
+		[x] Despite already being a full demon, the main character (and Lilaya herself) refers to Lilaya as a half-demon.
+		[x] randomly generated slaves for sale only have the desires dictated by the store. 
+			For example, all slaves in Viva Voce only have a fetish for giving and receiving oral sex, and no other likes or dislikes. Previously, they would have normally generated desires, then have the store's required desires added to those.
+		[x] Can enter Rat Warrens after completing the quest
+			[-] Can not leave Rat Warrens after completing the quest about Vengar and coming back 
+				Take the Rat Warrens sidequest, enter rat warrens and fight Vengar's bodyguards to complete the sidequest.
+				Now the intended progression is (I think?) to return to the Gambling Den and hand in the completed sidequest. However you can return to the Rat Warrens.
+				Not only does this respawn every combat encounter (which I dont think is intended as I chose to scare them off) but also entering Vengar's room the only option is to have sex with him.
+				This, however doesnt count as dealing with him and you are unable to leave the Rat Warrens. Obviously teleporting or any other way of quick-travel doesnt work.
+			[-]  If you get yourself enslaved in the rat warrens, then escape, you can get yourself reslaved over and over despite the hideout being raided
+		[-] It would appear that the bad end route in Rat Warrens got bricked at some point.
+			In the "Training" scene (it's on 3rd day give or take) one of the milker slaves is referred to, but the reference is wrong and instead shows a bunch of "Error: parserTarget.getCharacter() not found! (npc4)" errors and buttons are unresponsive.
+			Edit: Actually just the whole Training scene, regardless of the "Bad End" setting.
+		
+		[] NPCs get their age advanced by the time jump... (Ziva goes to 51/52)
+		[] fix that issue and make sure breast feeding is available in the lap sitting position
+			[] i can kiss her lips when we're both standing up but i cant kiss her breasts
+		[] Once you reach level 12, you encounter the "Mysterious Enforcer" at a very high encounter rate making travel almost impossible except during nighttime in-game. Please fix this!
+		[]  It seems every time you "Look for Trouble" in the Harpy Nests after you complete the side quest, you never encounter a dual-sexed harpy.
+			I had the dual-sexed for all masculinity/femininity settings to "Abundant". I tried about 10 times and not one of them was dual-sexed.
+		[] Meraxis's handjob 'Push her' sex action has "No suitable description found for this action!" error
+		[] Arcane firebombs are not consumed after use in the 2nd and 3rd weapon slots(sorry to anyone who might have abused this
+		[] Normal encounters on the World Map do not respect Gender(all encounters have been strictly female), Orientation(we have chosen "Off" for Androphilic orientation, but Androphilic people spawn) and Furry preferences, probably Age too(but we didn't check that).
+		[] I found way to lock yourself in stocks. You need to:
+			1. Approach any slave locked in stocks.
+			2. Move into position "all fours" from stocks position menu.
+			3. By some magic, now you have option to swap your position with slave in stocks.
+			4. You pressing the button and now you the one being locked.
+		[] Pegasus-morph description talks about avoiding incoming damage, but all of their bonuses are offensive
+		[] Clothing on the calves slot cannot be unequipped during sex scenes - it says they're blocked by themselves
+		[] When in combat and you tail constrict an opponent for the 3rd time, the text says YOU will be defeated if they are constricted one more time.
+			"... constricted again, you will be instantly..."
+		
+	[] hand holding sex action
+	
+	[] after being used by someone (as sub), add another option to continue sex, but this time you take the dom role
+	[] or add another option to beg for more as sub
+	
+	[] Elizabeth artwork
+	
+	[] dye earth skill to take 1 essence
 	
 	[] Test fetish preferences in watering hole
 	
@@ -394,6 +526,8 @@ Functionally no change to how aristocrat currently works (yes I know the descrip
 		[] Fisting
 	
 	[] PR Maxis list
+	
+	[] Kay female TF
 	
 	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
 			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture

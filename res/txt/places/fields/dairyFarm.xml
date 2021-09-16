@@ -114,25 +114,40 @@
 			#ENDIF
 		</p>
 		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_started))
-			<p>
-				[dale.speech(Hi, [pc.name]!)] he happily calls out, before sitting to attention and quickly straightening his black tie. Brushing down his navy blue shirt, 
-				#IF(dale.getTotalTimesHadSex(pc)>0)
-					 he winks at you and teases, [dale.speech(How's work going? You haven't been getting lonely in there without me, have you?)]
+			#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+				#IF(!pc.isCharacterReactedToPregnancy(dale))
+					<p>
+						[pc.Stepping] forwards, you present your swollen belly to the donkey-boy, and upon seeing that you're pregnant, he very quickly realises that he must be the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I really got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
+					</p>
 				#ELSE
-					 he asks, [dale.speech(How's work going? If you've got any complaints or suggestions, please let me know!)]
+					<p>
+						[pc.Stepping] forwards, you present your swollen belly to the donkey-boy, letting him know that you're still pregnant with his children. Tentatively reaching out to gently rub his strong hands over your distended stomach, he smiles and repeats his previous offer, [dale.speech(Just let me know if there's anything I can do to help. I'll try to make time for you if you need it.)]
+					</p>
 				#ENDIF
-			</p>
-			<p>
-				As you tell the donkey-boy that everything is going fine, and that you don't have anything to complain about, he quickly finishes the last drop of coffee in his mug, before looking at you with weary eyes and saying in his usual upbeat tone of voice,
-				#IF(flags.hasFlag(FLAG_innoxia_evelyx_reception_sex))
-					 [dale.speech(Well, if there's anything you want, then let me know. Oh, and I've got my eye on you; don't try getting under my desk again...)]
-				#ELSE
-					 [dale.speech(Well, if there's anything you want, then just say the word.)]
-				#ENDIF
-			</p>
-			<p>
-				With that, Dale starts to reorganise the stacks of paperwork in front of him, leaving you wondering whether to simply continue on your way past him or to stop and ask him about something... 
-			</p>
+				<p>
+					Thanking Dale for his kind offer, you tell him that you're able to handle things yourself, to which he replies, [dale.speech(Well, if you change your mind then just let me know. Is there anything else I can help you with today?)]
+				</p>
+			#ELSE
+				<p>
+					[dale.speech(Hi, [pc.name]!)] he happily calls out, before sitting to attention and quickly straightening his black tie. Brushing down his navy blue shirt, 
+					#IF(dale.getTotalTimesHadSex(pc)>0)
+						 he winks at you and teases, [dale.speech(How's work going? You haven't been getting lonely in there without me, have you?)]
+					#ELSE
+						 he asks, [dale.speech(How's work going? If you've got any complaints or suggestions, please let me know!)]
+					#ENDIF
+				</p>
+				<p>
+					As you tell the donkey-boy that everything is going fine, and that you don't have anything to complain about, he quickly finishes the last drop of coffee in his mug, before looking at you with weary eyes and saying in his usual upbeat tone of voice,
+					#IF(flags.hasFlag(FLAG_innoxia_evelyx_reception_sex))
+						 [dale.speech(Well, if there's anything you want, then let me know. Oh, and I've got my eye on you; don't try getting under my desk again...)]
+					#ELSE
+						 [dale.speech(Well, if there's anything you want, then just say the word.)]
+					#ENDIF
+				</p>
+				<p>
+					With that, Dale starts to reorganise the stacks of paperwork in front of him, leaving you wondering whether to simply continue on your way past him or to stop and ask him about something... 
+				</p>
+			#ENDIF
 		#ELSEIF(dale.isPlayerKnowsName())
 			<p>
 				[dale.speech(Hi, [pc.name]!)] he happily calls out, before sitting to attention and quickly straightening his black tie. Brushing down his navy blue shirt, he asks, [dale.speech(Would you like to inquire about our cow sex services? Or are you here to ask about becoming a cow yourself?)] 
@@ -193,9 +208,9 @@
 			You thank Dale for his time and say that you've got to leave, before [pc.stepping] back into the waiting area. Flashing you one last smile, the donkey-boy gives you a wave, and after stifling a weary sigh, he says, [dale.speech(Thanks for stopping by. We're open at all hours every day of the week, so come back at any time!)]
 		#ELSE
 			#IF(dale.isPlayerKnowsName())
-				As Dale isn't currently on duty, there's very little else for you to do except [pc.stepp] back into the waiting area. Taking a quick look around, you wonder whether to loiter about and wait for him to return, or exit Evelyx's Dairy and head elsewhere...
+				As Dale isn't currently on duty, there's very little else for you to do except [pc.step] back into the waiting area. Taking a quick look around, you wonder whether to loiter about and wait for him to return, or exit Evelyx's Dairy and head elsewhere...
 			#ELSE
-				As the receptionist isn't currently on duty, there's very little else for you to do except [pc.stepp] back into the waiting area. Taking a quick look around, you wonder whether to loiter about and wait for them to return, or exit Evelyx's Dairy and head elsewhere...
+				As the receptionist isn't currently on duty, there's very little else for you to do except [pc.step] back into the waiting area. Taking a quick look around, you wonder whether to loiter about and wait for them to return, or exit Evelyx's Dairy and head elsewhere...
 			#ENDIF
 		#ENDIF
 	</p>
@@ -293,10 +308,10 @@
 		Wanting to hear Dale's opinion of his boss, you ask him what Evelyx is like.
 	</p>
 	<p>
-		[dale.speech(Well, she's a direct daughter of the elder lilin, Lisophia,)] the donkey-boy says, as though that should explain everything. Seeing that you'd like some more information than that, however, he quickly continues, [dale.speech(Lisophia's well known for her greed, and her daughter's inherited that trait by having a complete obsession with money. I don't mind the workload, but some of my colleagues over in the office are almost at their breaking point with how hard Evelyx is working them. She refuses to hire more people, as that would, in her own words, 'eat up all of the profits'.)]
+		[dale.speech(Well, she's a direct daughter of the elder lilin, Lisophia,)] the donkey-boy says, as though that should explain everything. Seeing that you'd like some more information than that, however, he quickly continues, [dale.speech(Lisophia's well known for her greed, and her daughter's inherited that trait by having a complete obsession with money. I don't mind the workload, but some of my colleagues over in the office are almost at their breaking point with how hard Evelyx is working them. She refuses to hire more people as that would, in her own words, 'eat up all of the profits'.)]
 	</p>
 	<p>
-		Asking what else Dale can tell you about this greedy succubus, you listen as Dale smiles and states, [dale.speech(Well, there's not really too much that I know about her. I met her for my initial interview, and I see her every few months for a quarterly performance report, but other than that I can count on one hand how many times I've interacted with her. She hates to be interrupted, and only meets with people who have important business to discuss with her.)]
+		Asking what else Dale can tell you about this greedy succubus, you listen as Dale smiles and states, [dale.speech(Well, there's not really too much that I know about her. I met her for my initial interview, and I see her every few months for a quarterly performance report, but other than that I only very briefly interact with her when taking visitors to and from her office. She hates to be interrupted, and only meets with people who have important business to discuss with her.)]
 	</p>
 	<p>
 		Leaning back in his chair, Dale thinks for a moment, before stating, [dale.speech(She's not a bad person. Sure, she works her employees hard, but she also gives the cows pretty decent working conditions. You'd be hard pressed to find a modern dairy farm that gives their cows the same level of comfort or flexible hours that this one does.)]
@@ -670,17 +685,17 @@
 		</p>
 	#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion2))
 		<p>
-			Tell receptionist that you've earned a promotion. She upgrades your ear tag and hands it back to you.
+			Tell Dale that you've earned a promotion. He upgrades your ear tag and hands it back to you.
 		</p>
 		<p>
-			They say congratulations, and from now on you'll only be able to access the 'cow' barn.
+			The donkey-boy offers you his congratulations, and from now on you'll only be able to access the 'cow' barn.
 		</p>
 	#ELSE
 		<p>
-			Tell receptionist that you've earned a special promotion. She tells you that this final promotion has to be approved by Evelyx herself
+			Tell Dale that you've earned a special promotion. He tells you that this final promotion has to be approved by Evelyx herself
 		</p>
 		<p>
-			She tells you to let her know when you're ready to meet Evelyx.
+			The donkey-boy tells you to let him know when you're ready to meet Evelyx.
 		</p>
 	#ENDIF
 	]]>
@@ -702,13 +717,13 @@
 	<htmlContent tag="WORK_PROMOTION_EVELYX"><![CDATA[
 	<p>
 		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_didnt_sign))
-			You tell the receptionist that you've changed your mind and would like to accept Evelyx's promotion.
+			You tell Dale that you've changed your mind and would like to accept Evelyx's promotion.
 		#ELSE
-			You tell the receptionist that you'd like to be promoted by Evelyx now.
+			You tell Dale that you'd like to be promoted by Evelyx now.
 		#ENDIF
 	</p>
 	<p>
-		She takes you to the office, you have to wait for 30 minutes. Finally, allowed to enter.
+		He takes you to the office, you have to wait for 30 minutes. Finally, allowed to enter.
 	</p>
 	]]>
 	</htmlContent>
@@ -718,13 +733,44 @@
 		<p>
 			Enter Evelyx's office. Repeat interaction, again describe light blue skin, orange eyes, smart black business suit.
 		</p>
+	#ELSE
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_monica_meeting))
+			<p>
+				Enter Evelyx's office. She asks what it is you're here for this time.
+			</p>
+		#ELSE
+			<p>
+				Enter Evelyx's office. Describe light blue skin, orange eyes, smart black business suit.
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(evelyx))
+		#IF(!pc.isCharacterReactedToPregnancy(evelyx))
+			<p>
+				Glancing down at your swollen belly, Evelyx realises that she's the one who got you pregnant, but with a wave of her hand she dismissively states, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)] 
+			</p>
+		#ELSE
+			<p>
+				Glancing down at your swollen belly, Evelyx sees that you're still pregnant with her children, but with a wave of her hand she dismissively repeats her previous statement, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)]
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().getFather().equals(pc))
+		#IF(!evelyx.isCharacterReactedToPregnancy(pc))
+			<p>
+				As you approach her desk, you see that Evelyx has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, you got me pregnant. It's incredibly inconvenient, so don't ever do it again...)]
+			</p>
+		#ELSE
+			<p>
+				As you approach her desk, you see that Evelyx still has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, I'm still pregnant, thanks to you. It's incredibly inconvenient, so don't ever do it again...)]
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_didnt_sign))
 		<p>
 			She dismissively tells you to wait while she reads over your performance report again. Flashes you a disgusted sneer and tells you to start playing with yourself so that you're wet and ready for her cock.
 		</p>
 	#ELSE
-		<p>
-			Enter Evelyx's office. If met on Monica's quest, repeat interaction. Otherwise, describe light blue skin, orange eyes, smart black business suit.
-		</p>
 		<p>
 			She dismissively tells you to wait while she reads over your performance report. Flashes you a disgusted sneer and tells you to start playing with yourself so that you're wet and ready for what's to come.
 		</p>
@@ -763,7 +809,7 @@
 			#IF(game.isBadEndsEnabled())
 				 She flatly states that it's a contract to willing become her lifelong slave, and that you'll live out the rest of your days here in the slave barn.
 			#ELSE
-				 She flatly states that it's a contract to become her cock-sleeve, and that in return for having your wages cut in half, she'll allow you visit her once a day to rut your horny little cunt.
+				 She flatly states that it's a contract to allow her to whore you out to Lunette's centaurs once per day. Cows like you are what keeps this farm from being destroyed, and as such you'll be generously rewarded with a thousand flames each times you're fucked.
 			#ENDIF
 		</p>
 		<p>
@@ -831,8 +877,327 @@
 		#IF(!flags.hasFlag(FLAG_innoxia_evelyx_finished_no_bad_end))
 			 She finishes and leads you out of her office...
 		#ELSE
-			 She finishes and tells you that this session counted as your daily fuck. Come back tomorrow if you want her cock, before telling you to get out of her office.
+			 She finishes and tells you that you'll be able to get started with your first centauress tomorrow. She tells you to come back then, before telling you to get out of her office.
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Monica quest content: -->
+	
+	<htmlContent tag="MONICA_QUEST_START"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_monica_meeting))
+	
+	#ELSE
+		<p>
+			You ask Dale if he knows where Monica's old breast pup might be, and if you could have it. He says that he'd have to run this by Evelyx, as she has to sign off on any equipment being bought or sold. 
+		</p>
+		<p>
+			He asks you to wait and uses an arcane intercom on the desk to ask Evelyx if she could meet with you regarding Monica's breast pump.
+		</p>
+		<p>
+			Evelyx's voice comes back angry, and she says not to waste her time, then suddenly changes her tone and says that perhaps she could strike a deal. Send you through in 15 minutes.
+		</p>
+		<p>
+			You wait on the sofas for 15 minutes, then Dale asks if you're ready to go to Evelyx's office.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING"><![CDATA[
+	<p>
+		You're shown to Evelyx's office and then Dale rushes back to his reception desk. It's extravagantly furnished, and Evelyx is sitting behind a huge, masterfully-carved wooden desk.
+	</p>
+	<p>
+		Describe Evelyx: Blue skin, orange eyes and horns. Wearing orange nail polish and orange lipstick, and a smart black feminine suit.
+	</p>
+	<p>
+		She introduces herself as a daughter of the elder lilin, Lisophia. Toys with Monica's breat pump which she has on the desk before her, and asks who you are to be demanding such a ridiculous thing of her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_INTRO"><![CDATA[
+	<p>
+		You introduce yourself.
+	</p>
+	<p>
+		Evelyx says that ordinarily she wouldn't bother humouring your request, but she thinks that she's got quite a bit to gain. Says that you can pay her fifty thousand flames for the breast pump. Smirking at the outrageous price she's demanded, she offers you an alternative; put on this ring she's made and let her ask you a series of questions.
+	</p>
+	<p>
+		You can tell that this ring has some serious enchantments on it, and as Evelyx playfully pushes it around on the desk, she says that it'll make you like performing oral, and that she won't stop you from removing it at any time.
+	</p>
+	<p>
+		There's obviously more to this ring than Evelyx is letting on. Then again, it might be preferable to paying such a ridiculous sum for the breast pump.
+	</p>
+	<p>
+		As you consider your options, you realise that Evelyx has revealed her desire for oral, and so you wonder if you could use this knowledge to seduce her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_INTRO_LEAVE"><![CDATA[
+	<p>
+		You don't like the sound of these options, and so tell Evelyx that you'll think about it and come back at another time. She is annoyed at your decision, but says that she'll be ready to hear your decision whenever you're ready.
+	</p>
+	<p>
+		Dale arrives and escorts you back to reception...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_REPEAT"><![CDATA[
+	<p>
+		You're shown to Evelyx's office and then Dale rushes back to his reception desk. It's extravagantly furnished, and Evelyx is sitting behind a huge, masterfully-carved wooden desk.
+	</p>
+	<p>
+		Describe Evelyx: Blue skin, orange eyes and horns. Wearing orange nail polish and orange lipstick, and a smart black feminine suit.
+	</p>
+	<p>
+		Evelyx is annoyed that you didn't take her up on one of her offers last time. She says that you can pay her fifty thousand flames for the breast pump. Smirking at the outrageous price she's demanded, she offers you an alternative; put on this ring she's made and let her ask you a series of questions.
+	</p>
+	<p>
+		You can tell that this ring has some serious enchantments on it, and as Evelyx playfully pushes it around on the desk, she says that it'll make you like performing oral, and that she won't stop you from removing it at any time.
+	</p>
+	<p>
+		There's obviously more to this ring than Evelyx is letting on. Then again, it might be preferable to paying such a ridiculous sum for the breast pump.
+	</p>
+	<p>
+		As you consider your options, you realise that Evelyx has revealed her desire for oral, and so you wonder if you could use this knowledge to seduce her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_PAID"><![CDATA[
+	<p>
+		You decide to pay Evelyx, and hand over the fifty thousand flames she's demanded.
+	</p>
+	<p>
+		She puts her ring away in a drawer with a disappointed sigh, and says that she'll put it on one of her slaves back home instead. Evelyx uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING"><![CDATA[
+	<p>
+		You agree to wear Evelyx's ring. She will give you Monica's breast pump but says that you have to stay and answer her questions before leaving.
+	</p>
+	<p>
+		You agree to these terms, and put on the ring. Instantly, images of dripping-wet pussies flash across your mind, and you picture yourself on your knees with your tongue buried deep in a delicious, hot cunt.
+	</p>
+	<p>
+		You're snapped back to reality by Evelyx's amused laughter, and she says that from the look on your face she can tell that her ring is having a greater effect than she thought.
+	</p>
+	<p>
+		She asks you the first question; you couldn't imagine anything better than being allowed to eat her out right now, could you?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_AGREE"><![CDATA[
+	<p>
+		You agree with Evelyx and tell her that you wish you were eating her out right now.
+	</p>
+	<p>
+		She lets out an amused laugh. Pushing her chair back, she pulls up her skirt and takes off her lacy thong, presenting you with her pussy. Both her cunt and asshole are orange, and she teases her light blue fingers over her exotic-looking labia as she asks you what you think of what you're being allowed to see.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_DISAGREE"><![CDATA[
+	<p>
+		You resist the ring's effects and tell Evelyx that you don't wish that you were eating her out right now.
+	</p>
+	<p>
+		She lets out an annoyed tut. Pushing her chair back, she pulls up her skirt and takes off her lacy thong, presenting you with her pussy. Both her cunt and asshole are orange, and she teases her light blue fingers over her exotic-looking labia as she asks you what you think of what you're being allowed to see.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_NEXT_FLATTER"><![CDATA[
+	<p>
+		You can't help but flatter Evelyx and tell her that her cunt is the prettiest you've ever seen.
+	</p>
+	<p>
+		She lets out a deep, approving moan, and after sliding her fingers into her pussy, she withdraws them and shows you that they're coated in a slick layer of girlcum. She says that question time is over. Now it's time for you to obey.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_NEXT_UNIMPRESSED"><![CDATA[
+	<p>
+		You tell Evelyx that you've seen prettier pussies, and that you're not that impressed.
+	</p>
+	<p>
+		She lets out a flustered, angry sigh, and after sliding her fingers into her pussy, she withdraws them and shows you that they're coated in a slick layer of girlcum. She says that question time is over. Now it's time for you to obey.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_FINAL"><![CDATA[
+	<p>
+		You feel the ring's power giving you submissive thoughts, and can't help but let out a desperate whine as the succubus forcefully commands you to kneel down and submit to her pussy. Holding out her hand, she says you can start by licking her fingers clean, then move on to her cunt.
+	</p>
+	<p>
+		She says that you must have realised by now, but that ring carries an extremely powerful sealing enchantment. She'll remove it for you, but only if you satisfy her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_REFUSE"><![CDATA[
+	<p>
+		You somehow manage to summon the resistance to refuse, and Evelyx angrily snaps that she was ripped off and that ring is useless. Tells you that she's not going to remove it for you, and that you can throw it in the rubbish when, or if, you ever manage to remove it.
+	</p>
+	<p>
+		She uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_OBEY_ORAL_START"><![CDATA[
+	<p>
+		You obey Evelyx and drop down on the floor before her. She gets you to lick her fingers clean, before spreading her legs and telling you that you'd better do a good job.
+	</p>
+	<p>
+		You kiss and lick her pussy, before starting to enthusiastically eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_AFTER_SEX"><![CDATA[
+	<p>
+		Evelyx is satisfied. She removes the seal on your ring, and says that you can do what you like with it; she's going to make some adjustments for the one she was planning on forcing her slaves to wear, so doesn't need that one any more.
+	</p>
+	<p>
+		She says that you proved to be a decent test subject, and then uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE"><![CDATA[
+	<p>
+		Recognising that Evelyx has a fetish for oral sex, you tell her that if she wants you to give her pussy some oral attention, all she has to do is ask. She laughs and says that she'd ordinarily punish such rudeness, but you're lucky; her slaves are away being trained and transformed this week, and so she hasn't had her daily cunnilingus from them.
+	</p>
+	<p>
+		Pushig her chair away from her desk, she hikes up her skirt and takes off her lacy panties. Both her cunt and asshole are orange, and she teases her light blue fingers over her exotic-looking labia. Throws the breast pump to you and says that in exchange, you're to kneel down and get start on licking her cunt already. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE_ORAL_START"><![CDATA[
+	<p>
+		You do as Evelyx says, and drop down before her to plant a kiss on her cunt.
+	</p>
+	<p>
+		You kiss and lick her pussy, before starting to enthusiastically eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE_VAGINAL_START"><![CDATA[
+	<p>
+		You expose your cock to Evelyx, who lets out a flustered tut as she sees that you're not obeying her. You tell her that her pussy is too hot to simply be content with oral, and that what it really wants is to be fucked.
+	</p>
+	<p>
+		Horny from her recent lack of sex, the succubus relents and says that you can fuck her, she just wants to orgasm already. You push her back over her desk and spread her legs, before lining your cock up to her orange labia and thrusting forwards.
+	</p>
+	<p>
+		Evelyx passionately moans and wraps her legs around you as you start thrusting in and out of her horny pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE_AFTER_SEX"><![CDATA[
+	<p>
+		Evelyx is exhausted, and says that that's what she really needed.
+	</p>
+	<p>
+		As you get your things back in order, she uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_END"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck_unlocked))
+			Evelyx says that you were as good as her slaves for satisfying her. You can pay her a visit again if you feel like servicing her cunt. Just let Dale know and she'll be waiting for you.
+		#ELSE
+			Evelyx says that she doesn't want to be bothered by you again.
+		#ENDIF
+	</p>
+	<p>
+		Dale takes you back to reception.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING"><![CDATA[
+	<p>
+		You tell Dale that you'd like a special meeting with Evelyx. He uses the arcane intercom to let her know, and she says to show you through.
+	</p>
+	<p>
+		You're taken to Evelyx's office, and Dale quickly leaves.
+	</p>
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(evelyx))
+		#IF(!pc.isCharacterReactedToPregnancy(evelyx))
+			<p>
+				Glancing down at your swollen belly, Evelyx realises that she's the one who got you pregnant, but with a wave of her hand she dismissively states, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)] 
+			</p>
+		#ELSE
+			<p>
+				Glancing down at your swollen belly, Evelyx sees that you're still pregnant with her children, but with a wave of her hand she dismissively repeats her previous statement, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)]
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().getFather().equals(pc))
+		#IF(!evelyx.isCharacterReactedToPregnancy(pc))
+			<p>
+				As you approach her desk, you see that Evelyx has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, you got me pregnant. It's incredibly inconvenient, so don't ever do it again...)]
+			</p>
+		#ELSE
+			<p>
+				As you approach her desk, you see that Evelyx still has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, I'm still pregnant, thanks to you. It's incredibly inconvenient, so don't ever do it again...)]
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		The succubus then orders you to kneel down and eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING_ORAL_START"><![CDATA[
+	<p>
+		You do as Evelyx says and kneel down before her. She pulls up her skirt and shifts aside her panties, and you start eagerly eating her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING_VAGINAL_START"><![CDATA[
+	<p>
+		You tell Evelyx that she's going to get a real fuck instead. She smirks at your boldness, and lets you take the lead.
+	</p>
+	<p>
+		You take out your cock and push her back over her desk. She pulls up her skirt and shifts aside her panties, and you eagerly sink your hard shaft into her hot pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING_AFTER_SEX"><![CDATA[
+	<p>
+		Evelyx is satisfied. Calls for Dale, who arrives in less than thirty seconds.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING_END"><![CDATA[
+	<p>
+		As you leave, Evelyx says not to come back until tomorrow; she's had enough of you for one day.
+	</p>
+	<p>
+		Dale accompanies you back to reception.
 	</p>
 	]]>
 	</htmlContent>
@@ -976,21 +1341,56 @@
 	<p>
 		You slip in under the sheets and nuzzle up against Dale. He remains deeply asleep, so you tease your [pc.hand] down to his groin and start stroking his cock.
 	</p>
-	<p>
-		He slowly wakes up, and upon seeing you in bed with him, his cock quickly starts to rise to attention. You tell him that you're here for a fuck, and he is happy to give it to you...
-	</p>
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+		#IF(!pc.isCharacterReactedToPregnancy(dale))
+			<p>
+				He slowly wakes up, and after the initial shock of finding you in his bed, he quickly notices your swollen belly and realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
+			</p>
+		#ELSE
+			<p>
+				He slowly wakes up, and after the initial shock of finding you in his bed, he quickly notices that you're still pregnant with his children. Tentatively reaching out to gently rub his strong hands over your distended stomach, he repeats his previous offer, [dale.speech(Just let me know if there's anything I can do to help. I'll try to make time for you if you need it.)]
+			</p>
+		#ENDIF
+		<p>
+			Thanking Dale for his kind offer, you tell him that you're not here to ask for his support. You're here for a fuck, and he is happy to give it to you...
+		</p>
+	#ELSE
+		<p>
+			He slowly wakes up, and upon seeing you in bed with him, his cock quickly starts to rise to attention. You tell him that you're here for a fuck, and he is happy to give it to you...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DORMITORY_DALE_SEX_START_ORAL"><![CDATA[
-	<p>
-		You slip in under the sheets and move your head down to the sleeping donkey-boy's groin. He wakes up as you pull down his boxers, and after throwing back the sheets he asks what you're doing.
-		#IF(pc.isFaceVirgin())
-			 You tell him that you've never sucked cock before, and that you were hoping he could be your first.
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+		#IF(!pc.isCharacterReactedToPregnancy(dale))
+			<p>
+				You slip in under the sheets and move your head down to the sleeping donkey-boy's groin. He wakes up as you pull down his boxers, and after throwing back the sheets, he quickly notices your swollen belly and realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
+			</p>
 		#ELSE
-			 You tell him that you wanted to do something nice for him, and so you're going to give him a blowjob.
+			<p>
+				You slip in under the sheets and move your head down to the sleeping donkey-boy's groin. He wakes up as you pull down his boxers, and after throwing back the sheets, he quickly notices that you're still pregnant with his children. Tentatively reaching out to gently rub his strong hands over your distended stomach, he repeats his previous offer, [dale.speech(Just let me know if there's anything I can do to help. I'll try to make time for you if you need it.)]
+			</p>
 		#ENDIF
-	</p>
+		<p>
+			Thanking Dale for his kind offer, you tell him that you're not here to ask for his support.
+			#IF(pc.isFaceVirgin())
+				 You tell him that you've never sucked cock before, and that you were hoping he could be your first.
+			#ELSE
+				 You tell him that you wanted to do something nice for him, and so you're going to give him a blowjob.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			You slip in under the sheets and move your head down to the sleeping donkey-boy's groin. He wakes up as you pull down his boxers, and after throwing back the sheets he asks what you're doing.
+			#IF(pc.isFaceVirgin())
+				 You tell him that you've never sucked cock before, and that you were hoping he could be your first.
+			#ELSE
+				 You tell him that you wanted to do something nice for him, and so you're going to give him a blowjob.
+			#ENDIF
+		</p>
+	#ENDIF
 	<p>
 		Dale's huge donkey-cock eagerly rises to attention as he hears this. Delivering a long, wet lick to the underside of his hot shaft, you tell him to relax; you'll take good care of him.
 	</p>
@@ -1001,9 +1401,24 @@
 	</htmlContent>
 	
 	<htmlContent tag="DORMITORY_DALE_SEX_START_PUSSY"><![CDATA[
-	<p>
-		You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed pussy towards his sheathed cock, he asks what you're doing.
-	</p>
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+		#IF(!pc.isCharacterReactedToPregnancy(dale))
+			<p>
+				You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers,and as you lower your exposed pussy towards his sheathed cock, he quickly notices your swollen belly and realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
+			</p>
+		#ELSE
+			<p>
+				You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed pussy towards his sheathed cock, he quickly notices that you're still pregnant with his children. Tentatively reaching out to gently rub his strong hands over your distended stomach, he repeats his previous offer, [dale.speech(Just let me know if there's anything I can do to help. I'll try to make time for you if you need it.)]
+			</p>
+		#ENDIF
+		<p>
+			Thanking Dale for his kind offer, you tell him that you're not here to ask for his support.
+		</p>
+	#ELSE
+		<p>
+			You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed pussy towards his sheathed cock, he asks what you're doing.
+		</p>
+	#ENDIF
 	#IF(pc.isVaginaVirgin())
 		<p>
 			You tell Dale that you're still a virgin, and that you want him to take it from you.
@@ -1026,9 +1441,24 @@
 	</htmlContent>
 	
 	<htmlContent tag="DORMITORY_DALE_SEX_START_ANAL"><![CDATA[
-	<p>
-		You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed asshole towards his sheathed cock, he asks what you're doing.
-	</p>
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+		#IF(!pc.isCharacterReactedToPregnancy(dale))
+			<p>
+				You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers,and as you lower your exposed asshole towards his sheathed cock, he quickly notices your swollen belly and realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
+			</p>
+		#ELSE
+			<p>
+				You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed asshole towards his sheathed cock, he quickly notices that you're still pregnant with his children. Tentatively reaching out to gently rub his strong hands over your distended stomach, he repeats his previous offer, [dale.speech(Just let me know if there's anything I can do to help. I'll try to make time for you if you need it.)]
+			</p>
+		#ENDIF
+		<p>
+			Thanking Dale for his kind offer, you tell him that you're not here to ask for his support.
+		</p>
+	#ELSE
+		<p>
+			You gently pull the sheets back and straddle the sleeping donkey-boy. He wakes up as you pull down his boxers, and as you lower your exposed asshole towards his sheathed cock, he asks what you're doing.
+		</p>
+	#ENDIF
 	#IF(pc.isAssVirgin())
 		<p>
 			You tell Dale that you're still an anal virgin, and that you want him to take it from you.
@@ -1102,15 +1532,47 @@
 		You knock on the door to Evelyx's office, and hear a sharp, [evelyx.speech(Enter!)]
 	</p>
 	<p>
-		Not wanting to annoy your Mistress, you quickly enter her office and say that you're here for your daily fuck.
+		Not wanting to annoy your Mistress, you quickly enter her office and say that you're here for your daily centaur fuck.
 	</p>
-	<p>
-		Before you can react, she stands up and pulls up her skirt, revealing that she's transformed to give herself a huge, flared, knotted demonic cock. As she strokes her four heavy balls, she says that cows like you are the only ones who get to be fucked by her cock. Orders you to drop down and present yourself to her so she can move on to getting balls-deep in your pussy already.
-	</p>
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(evelyx))
+		#IF(!pc.isCharacterReactedToPregnancy(evelyx))
+			<p>
+				Glancing down at your swollen belly, Evelyx realises that she's the one who got you pregnant, but with a wave of her hand she dismissively states, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)] 
+			</p>
+		#ELSE
+			<p>
+				Glancing down at your swollen belly, Evelyx sees that you're still pregnant with her children, but with a wave of her hand she dismissively repeats her previous statement, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)]
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().getFather().equals(pc))
+		#IF(!evelyx.isCharacterReactedToPregnancy(pc))
+			<p>
+				As she stands up from behind her desk, you see that Evelyx has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, you got me pregnant. It's incredibly inconvenient, so don't ever do it again...)]
+			</p>
+		#ELSE
+			<p>
+				As she stands up from behind her desk, you see that Evelyx still has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, I'm still pregnant, thanks to you. It's incredibly inconvenient, so don't ever do it again...)]
+			</p>
+		#ENDIF
+		<p>
+			With that, she steps past you and snaps, [evelyx.speech(Now follow me. There are already several centaurs waiting outside, and the sooner we get you auctioned off, the sooner one of them can rut your pussy and then leave. Oh, and don't ask me to pay you upfront. You'll be getting your thousand flames after you've performed.)]
+		</p>
+	#ELSE
+		<p>
+			Standing up from behind her desk, she swiftly steps past you and snaps, [evelyx.speech(Now follow me. There are already several centaurs waiting outside, and the sooner we get you auctioned off, the sooner one of them can rut your pussy and then leave. Oh, and don't ask me to pay you upfront. You'll be getting your thousand flames after you've performed.)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="EVELYX_OFFICE_ENTER_SEX_START"><![CDATA[
+	<p>
+		You beg for Evelyx to warm you up by giving your pussy a good, hard fuck. You flash your cunt at her in desperation, and she agrees.
+	</p>
+	<p>
+		Before you can react, she stands up and pulls up her skirt, revealing that she's transformed to give herself a huge, flared, knotted demonic cock. As she strokes her four heavy balls, she says that cows like you are the only ones who get to be fucked by her cock. Orders you to drop down and present yourself to her so she can move on to getting balls-deep in your pussy already.
+	</p>
 	<p>
 		You so as you're told and your Mistress drops down behind you to prod her cock against your cunt. Makes you call her Mistress before roughly ramming her huge cock into your pussy. Starts roughly fucking you and degrading you.
 	</p>
@@ -1119,17 +1581,60 @@
 	
 	<htmlContent tag="EVELYX_OFFICE_AFTER_SEX"><![CDATA[
 	<p>
-		Mistress finishes with you, then sits down and forces your head into her groin to lick her clean while she sorts some paperwork out.
+		Mistress finishes with you, then calls in one of the workers from the office down the corridor. Orders them to clean her cum out of your cum while she forces your head into her groin to lick her clean.
 	</p>
 	<p>
-		You clean her cock. Satisfied, she tells you to get out of her office, and you move to obey...
+		You clean her cock while the worker washes you down. Once they're done, Evelyx ungratefully dismisses them, before telling you to follow her to the auction room.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="EVELYX_OFFICE_AFTER_SEX_LEAVE"><![CDATA[
+	<htmlContent tag="EVELYX_OFFICE_AUCTION"><![CDATA[
 	<p>
-		You leave Evelyx's office and shut the door behind you. [pc.Stepping] back out into the corridor, you wonder what to do next...
+		You follow Evelyx through the corridor's locked door and into the auction room. Inside, rich red carpet, sofas surrounding a central platform. Evelyx leads you up onto this platform and tells you to stay still and silent.
+	</p>
+	<p>
+		A few minutes later, and through a door on the other side of the room, a dozen huge, demonic centaurs enter. Evelyx bows to them and thanks them for sparing her farm.
+	</p>
+	<p>
+		The centauresses surround you and start talking about how much your pussy is worth. Evelyx announces that the bidding can begin, and whoever wins will get to rut you right here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_AUCTION_END"><![CDATA[
+	<p>
+		The centauresses bid against one another. They comment on how most of this money has come from pillaging the surrounding farmland and that they have more to spend than they know what to do with.
+	</p>
+	<p>
+		[owner.Name] wins, and after paying Evelyx far more than the one thousand flames which is to be your share, she steps up and gives your cunt a good grope.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_AUCTION_END_SEX_START"><![CDATA[
+	<p>
+		[owner.Name] mounts you and thrusts her huge cock into your cunt, before starting to roughly fuck you on the auction room stage...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_AUCTION_SEX_END"><![CDATA[
+	<p>
+		[owner.Name] is finished and gives your ass a sharp slap.
+	</p>
+	<p>
+		Evelyx thanks her for the business, before telling you to accompany her back to reception, where you'll be paid.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_OFFICE_AUCTION_SEX_END_LEAVE"><![CDATA[
+	<p>
+		You accompany Evelyx back to reception, where she tells Dale to give you your one thousand flames. Tells you to come back tomorrow to do the same and then leaves.
+	</p>
+	<p>
+		Dale gives you a thousand flames from a safe below his desk, before asking if there's anything he can do for you.
 	</p>
 	]]>
 	</htmlContent>
@@ -1587,7 +2092,7 @@
 	
 	<htmlContent tag="BARN_WORK_SEX_INTERRUPT"><![CDATA[
 	<p>
-		Just as you're settling into the flow of being milked, the barn door opens and a dobermann receptionist leads [partner.a_fullRace(true)] inside. The receptionist presses a button on the wall beside the entrance, and the arcane machine in front of you flashes the text: 
+		Just as you're settling into the flow of being milked, the barn door opens and Dale leads [partner.a_fullRace(true)] inside. The donkey-boy presses a button on the wall beside the entrance, and the arcane machine in front of you flashes the text: 
 	</p>
 	<p style='text-align:center;'>
 		<i>
@@ -1595,10 +2100,10 @@
 		</i>
 	</p>
 	<p>
-		As they walk down the aisle between the milking stalls, the two of them start to get closer to where you're working. The dobermann receptionist stops beside the cow to your side to show them off to the [partner.race], but [partner.she] lets out a tut and says that they don't like the look of that cow.
+		As they walk down the aisle between the milking stalls, the two of them start to get closer to where you're working. Dale stops beside the cow to your side to show them off to the [partner.race], but [partner.she] lets out a tut and says that they don't like the look of that cow.
 	</p>
 	<p>
-		With that, the two of them move on to you, and the receptionist slaps your ass and roughly fingers your pussy, causing you to let out a moan. She then pulls out and shows off your pussy to the stranger.
+		With that, the two of them move on to you, and Dale spreads your labia and shows off your pussy to the stranger.
 	</p>
 	<p>
 		You wonder whether you should stay quiet and hope that you aren't chosen, or perhaps you should show off and beg for the [partner.race] to fuck your pussy...
@@ -1629,7 +2134,7 @@
 	
 	<htmlContent tag="BARN_WORK_SEX_INTERRUPT_FUCKED"><![CDATA[
 	<p>
-		Obviously liking the look of you, [partner.name] tells the receptionist that [partner.she]'d like to fuck you. The receptionist gives your ass a slap and spreads your labia and shows you off to the stranger. Smiling down at your [pc.pussy+], [partner.name] lets out an excited [partner.moan] and declares,
+		Obviously liking the look of you, [partner.name] tells Dale that [partner.she]'d like to fuck you. Smiling down at your [pc.pussy+], [partner.name] lets out an excited [partner.moan] and declares,
 		#IF(!pc.isVisiblyPregnant() && !partner.hasFetish(FETISH_ANAL_GIVING))
 			 [partner.speech(Yes, [pc.she]'ll do! I'll try and get [pc.her] knocked up for you...)]
 		#ELSE
@@ -1637,7 +2142,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Giving your ass a quick slap, the dobermann departs, leaving you alone with [partner.name]...
+		Dale departs, leaving you alone with [partner.name]...
 	</p>
 	]]>
 	</htmlContent>
@@ -1693,13 +2198,30 @@
 	
 	<htmlContent tag="BARN_WORK_INITIAL"><![CDATA[
 	<p>
-		Realising that you need someone to start the milking machine, you do as the machine says and press one of the buttons. A ringing bell can be heard off in the distance, and an orange arcane light starts flashing above your milking stall. A few moments later, and a worker is by your side. The flick the 'on' button on the milking machine, and then without even asking for your permission, they take hold of your breasts and attach the milking machine's suction pumps over your nipples.
+		Realising that you need someone to start the milking machine, you do as the machine says and press one of the buttons. A ringing bell can be heard off in the distance, and an orange arcane light starts flashing above your milking stall. A few moments later, and Dale is by your side.
+	</p>
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+		#IF(!pc.isCharacterReactedToPregnancy(dale))
+			<p>
+				The donkey-boy's eyes widen as he notices your swollen belly, and as you give him a knowing glance, he realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I really got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
+			</p>
+		#ELSE
+			<p>
+				The donkey-boy gives you a big, warm smile as he sees that you're still pregnant with his children. Tentatively reaching out to gently rub his strong hands over your distended stomach, he repeats his previous offer, [dale.speech(Just let me know if there's anything I can do to help. I'll try to make time for you if you need it.)]
+			</p>
+		#ENDIF
+		<p>
+			Thanking Dale for his kind offer, you tell him that you're able to handle things yourself, to which he replies, [dale.speech(Well, if you change your mind then just let me know. Now let's get you hooked up to the machine...)]
+		</p>
+	#ENDIF
+	<p>
+		He flicks the 'on' button on the milking machine, and then gently takes hold of your breasts and attaches the milking machine's suction pumps over your nipples.
+		#IF(pc.hasBreastsCrotch())
+			 Kneeling down, he quickly attaches more pumps to your [pc.udders+], before standing up and taking a step back.
+		#ENDIF
 	</p>
 	<p>
-		#IF(pc.hasBreastsCrotch())
-			Kneeling down, the worker quickly attaches more pumps to your [pc.udders+], before standing up and taking a step back.
-		#ENDIF
-		 He asks if you're comfortable.
+		After taking a moment to make sure that everything's working correctly, he asks if you're comfortable.
 	</p>
 	]]>
 	</htmlContent>
@@ -1897,7 +2419,7 @@
 		Deciding that you'd like to take this opportunity to get some relief from the sexual tension built up by the machine sucking away at your nipples, you press the button corresponding to the 'Request mate' reward. As you press this button, you hear a little bell ringing somewhere in the distance, but despite this sign that the button has worked, nothing happens. You have to wait for a further twenty minutes before finally you get your reward.
 	</p>
 	<p>
-		The door to the barn opens, and you turn your head to see one of the dobermann receptionists leading [partner.a_fullRace(true)] towards you. The receptionist quickly gains access to your pussy,
+		The door to the barn opens, and you turn your head to see Dale leading [partner.a_fullRace(true)] towards you. The donkey-boy quickly gains access to your pussy,
 		#IF(flags.getSavedLong('evelyx_work_level')==0)
 			 before giving it a gentle stroke and asking her companion if [partner.sheIs] satisfied by the look of it.
 			#IF(pc.hasHymen())
@@ -1922,7 +2444,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Giving your ass a quick slap, the dobermann departs, leaving you alone with [partner.name]...
+		Dale departs, leaving you alone with [partner.name]...
 	</p>
 	]]>
 	</htmlContent>
@@ -2011,7 +2533,7 @@
 		Having had enough, [partner.name] pulls back, before slapping [partner.her] [partner.cock+] against your [pc.pussy+], teasing, [partner.speech(You were a good fuck, cow...)]
 	</p>
 	<p>
-		At that moment, the dobermann receptionist reappears, before informing [partner.name] that [partner.her] time is up. After quickly cleaning [partner.her] cock off by wiping it over your ass, [partner.name] falls in beside the receptionist and exits the barn, leaving you panting and moaning
+		At that moment, Dale reappears, before informing [partner.name] that [partner.her] time is up. After quickly cleaning [partner.her] cock off by wiping it over your ass, [partner.name] falls in beside the donkey-boy and exits the barn, leaving you panting and moaning
 		#IF(pc.getTotalFluidInArea(ORIFICE_VAGINA)>0)
 			 as you feel cum drooling out of your well-fucked pussy...
 		#ELSE
@@ -2023,7 +2545,7 @@
 	
 	<htmlContent tag="BARN_WORK_AFTER_SEX_END"><![CDATA[
 	<p>
-		With [partner.name] and the dobermann receptionist having left the barn, you take a few minutes to calm down, before wondering what to do next...
+		With [partner.name] and Dale having left the barn, you take a few minutes to calm down, before wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -2051,7 +2573,7 @@
 	
 	<htmlContent tag="AUCTION"><![CDATA[
 	<p>
-		Luxurious seating surrounds a central stage, upon which willing slaves are auctioned off to teh highest bidder...
+		Luxurious seating surrounds a central stage, upon which willing slaves are auctioned off to the highest bidder...
 	</p>
 	]]>
 	</htmlContent>

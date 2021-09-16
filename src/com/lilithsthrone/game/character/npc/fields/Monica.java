@@ -2,11 +2,17 @@ package com.lilithsthrone.game.character.npc.fields;
 
 import java.time.DayOfWeek;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -22,6 +28,7 @@ import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -49,7 +56,10 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -64,6 +74,16 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class Monica extends NPC {
+
+	private List<AbstractClothing> commonFemaleClothing;
+	private List<AbstractClothing> commonFemaleUnderwear;
+	private List<AbstractClothing> commonFemaleAccessories;
+	private List<AbstractClothing> commonMaleClothing;
+	private List<AbstractClothing> commonMaleLingerie;
+	private List<AbstractClothing> commonMaleAccessories;
+	private List<AbstractClothing> commonAndrogynousClothing;
+	private List<AbstractClothing> commonAndrogynousLingerie;
+	private List<AbstractClothing> commonAndrogynousAccessories;
 
 	public Monica() {
 		this(false);
@@ -80,16 +100,123 @@ public class Monica extends NPC {
 				true);
 
 		this.setGenericName("busty cow-girl");
+
+		commonFemaleClothing = new ArrayList<>();
+		commonFemaleUnderwear = new ArrayList<>();
+		commonFemaleAccessories = new ArrayList<>();
+		commonMaleClothing = new ArrayList<>();
+		commonMaleLingerie = new ArrayList<>();
+		commonMaleAccessories = new ArrayList<>();
+		commonAndrogynousClothing = new ArrayList<>();
+		commonAndrogynousLingerie = new ArrayList<>();
+		commonAndrogynousAccessories = new ArrayList<>();
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
+			dailyUpdate();
 		}
 	}
 	
+	private Map<String, List<AbstractClothing>> getAllClothingListsMap() {
+		return Util.newHashMapOfValues(
+				new Value<>("commonFemaleClothing", commonFemaleClothing),
+				new Value<>("commonFemaleUnderwear", commonFemaleUnderwear),
+				new Value<>("commonFemaleAccessories", commonFemaleAccessories),
+				new Value<>("commonMaleClothing", commonMaleClothing),
+				new Value<>("commonMaleLingerie", commonMaleLingerie),
+				new Value<>("commonMaleAccessories", commonMaleAccessories),
+				new Value<>("commonAndrogynousClothing", commonAndrogynousClothing),
+				new Value<>("commonAndrogynousLingerie", commonAndrogynousLingerie),
+				new Value<>("commonAndrogynousAccessories", commonAndrogynousAccessories));
+	}
+	
+	public void switchToFemaleClothing() {
+		switchClothingInventory(commonFemaleClothing);
+	}
+
+	public void switchToFemaleUnderwear() {
+		switchClothingInventory(commonFemaleUnderwear);
+	}
+
+	public void switchToFemaleAccessories() {
+		switchClothingInventory(commonFemaleAccessories);
+	}
+
+	public void switchToMaleClothing() {
+		switchClothingInventory(commonMaleClothing);
+	}
+
+	public void switchToAndrogynousClothing() {
+		switchClothingInventory(commonAndrogynousClothing);
+	}
+
+	public void switchToMaleLingerie() {
+		switchClothingInventory(commonMaleLingerie);
+	}
+
+	public void switchToMaleAccessories() {
+		switchClothingInventory(commonMaleAccessories);
+	}
+
+	public void switchToAndrogynousLingerie() {
+		switchClothingInventory(commonAndrogynousLingerie);
+	}
+
+	public void switchToAndrogynousAccessories() {
+		switchClothingInventory(commonAndrogynousAccessories);
+	}
+	
+	private void switchClothingInventory(List<AbstractClothing> clothingToSwitchTo) {
+		Collections.shuffle(clothingToSwitchTo);
+		this.clearNonEquippedInventory(false);
+		
+		for (AbstractClothing c : clothingToSwitchTo) {
+			if(this.isInventoryFull()) {
+				break;
+			}
+			this.addClothing(c, false);
+		}
+	}
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element properties = super.saveAsXML(parentElement, doc);
+		
+		for(Entry<String, List<AbstractClothing>> entry : getAllClothingListsMap().entrySet()) {
+			Element clothingElement = doc.createElement(entry.getKey());
+			properties.appendChild(clothingElement);
+			for(AbstractClothing c : entry.getValue()) {
+				try {
+					c.saveAsXML(clothingElement, doc);
+				} catch(Exception ex) {
+				}
+			}
+		}
+		return properties;
+	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		for(Entry<String, List<AbstractClothing>> entry : this.getAllClothingListsMap().entrySet()) {
+			Element npcSpecificElement = (Element) parentElement.getElementsByTagName(entry.getKey()).item(0);
+			if(npcSpecificElement!=null) {
+				entry.getValue().clear();
+				
+				NodeList nodeList = npcSpecificElement.getElementsByTagName("clothing");
+				for(int i=0; i < nodeList.getLength(); i++){
+					Element e = (Element) nodeList.item(i);
+					try {
+						entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+					} catch(Exception ex) {
+					}
+				}
+			}
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.9")) {
+			this.setStartingBody(true);
+			this.equipClothing();
+		}
 	}
 
 	@Override
@@ -132,7 +259,7 @@ public class Monica extends NPC {
 		// Body:
 		
 		// Core:
-		this.setHeight(152);
+		this.setHeight(158);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.ZERO_SOFT.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -144,12 +271,12 @@ public class Monica extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_BLACK, false), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, PresetColour.COVERING_BROWN_LIGHT), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, CoveringPattern.HIGHLIGHTS, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.WAVY);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BROWN), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, PresetColour.COVERING_BROWN), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -214,7 +341,7 @@ public class Monica extends NPC {
 
 		this.setMoney(5000);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband_bow", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GREY_DARK, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_YELLOW, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_SILVER, null, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_ORANGE, false), true, this);
@@ -245,6 +372,74 @@ public class Monica extends NPC {
 	@Override
 	public String getSpeechColour() {
 		return "#ffb8a3";
+	}
+
+	@Override
+	public void dailyUpdate() {
+		clearNonEquippedInventory(false);
+		
+		commonFemaleClothing.clear();
+		commonFemaleUnderwear.clear();
+		commonFemaleAccessories.clear();
+		
+		commonMaleClothing.clear();
+		commonMaleLingerie.clear();
+		commonMaleAccessories.clear();
+		
+		commonAndrogynousClothing.clear();
+		commonAndrogynousLingerie.clear();
+		commonAndrogynousAccessories.clear();
+		
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			try {
+				if(clothing!=null
+						&& clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+						&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+					AbstractClothing generatedClothing = Main.game.getItemGen().generateClothing(clothing, false);
+
+					for(int i=0; i<2+Util.random.nextInt(5); i++) {
+						if(clothing.getRarity() == Rarity.COMMON) {
+							if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
+								if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
+									commonFemaleClothing.add(generatedClothing);
+									
+								} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
+									commonFemaleUnderwear.add(generatedClothing);
+									
+								} else {
+									commonFemaleAccessories.add(generatedClothing);
+								}
+								
+							} else if(clothing.getFemininityRestriction()==Femininity.MASCULINE) {
+								if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
+									commonMaleClothing.add(generatedClothing);
+									
+								} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
+									commonMaleLingerie.add(generatedClothing);
+									
+								} else {
+									commonMaleAccessories.add(generatedClothing);
+								}
+								
+							} else {
+								if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
+									commonAndrogynousClothing.add(generatedClothing);
+									
+								} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
+									commonAndrogynousLingerie.add(generatedClothing);
+									
+								} else {
+									commonAndrogynousAccessories.add(generatedClothing);
+								}
+							}
+						}
+					}
+				} 
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 	
 	@Override

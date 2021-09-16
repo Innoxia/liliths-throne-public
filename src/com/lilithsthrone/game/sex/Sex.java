@@ -242,7 +242,8 @@ public class Sex {
 	private Map<GameCharacter, List<AbstractSexPosition>> positioningRequestsBlocked;
 	private PositioningData positionRequest;
 	private Set<GameCharacter> charactersRequestingCreampie;
-	private Set<GameCharacter> charactersRequestingPullout;
+	/**Maps: Characters who are requesting a pull out -> The area which they want the orgasming character to cum on (null if no area requested). */
+	private Map<GameCharacter, OrgasmCumTarget> charactersRequestingPullout;
 	/**Maps: Immobilisation types -> Map of characters responsible for inflicting the immobilisation mapped to the targets who are immobilised. */
 	private Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> charactersImmobilised;
 	private Set<GameCharacter> charactersBannedFromPositioning;
@@ -440,7 +441,7 @@ public class Sex {
 		positionRequest = null;
 		
 		charactersRequestingCreampie = new HashSet<>();
-		charactersRequestingPullout = new HashSet<>();
+		charactersRequestingPullout = new HashMap<>();
 		
 		charactersImmobilised = new HashMap<>(sexManager.getStartingCharactersImmobilised());
 		charactersBannedFromPositioning = new HashSet<>();
@@ -2788,7 +2789,7 @@ public class Sex {
 			// Reset appropriate flags:
 			removeCharacterBannedFromPositioning(getCharacterPerformingAction());
 			charactersRequestingCreampie = new HashSet<>();
-			charactersRequestingPullout = new HashSet<>();
+			charactersRequestingPullout = new HashMap<>();
 			SexFlags.playerPreparedForCharactersOrgasm.remove(getCharacterPerformingAction());
 		}
 
@@ -5906,7 +5907,7 @@ public class Sex {
 		return charactersRequestingCreampie;
 	}
 
-	public Set<GameCharacter> getCharactersRequestingPullout() {
+	public Map<GameCharacter, OrgasmCumTarget> getCharactersRequestingPullout() {
 		return charactersRequestingPullout;
 	}
 	
@@ -5933,7 +5934,7 @@ public class Sex {
 	public int getRequestedPulloutWeighting(GameCharacter character) {
 		int weighting = 0;
 		
-		for(GameCharacter pulloutRequester : Main.sex.getCharactersRequestingPullout()) {
+		for(GameCharacter pulloutRequester : Main.sex.getCharactersRequestingPullout().keySet()) {
 			if(isCharacterObeyingTarget(character, pulloutRequester)) {
 				if(pulloutRequester.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
 					weighting+=50;

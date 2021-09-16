@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 
@@ -27,6 +28,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -63,6 +65,8 @@ public abstract class AbstractSubspecies {
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
 	private boolean aquatic;
+
+	private Map<PersonalityTrait, Float> personalityChanceOverrides;
 	
 	private String applySubspeciesChanges;
 	private String subspeciesWeighting;
@@ -281,6 +285,8 @@ public abstract class AbstractSubspecies {
 		
 		this.attributeItemId = attributeItemId;
 		this.transformativeItemId = transformativeItemId;
+
+		this.personalityChanceOverrides = new HashMap<>();
 		
 		this.anthroNames = new HashMap<>();
 		this.anthroNames.put(null, new String[] {
@@ -406,6 +412,17 @@ public abstract class AbstractSubspecies {
 				this.shortStature = Boolean.valueOf(coreElement.getMandatoryFirstOf("shortStature").getTextContent());
 				this.bipedalSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("bipedalSubspecies").getTextContent());
 				this.aquatic = Boolean.valueOf(coreElement.getMandatoryFirstOf("aquatic").getTextContent());
+				
+				personalityChanceOverrides = new HashMap<>();
+				if(coreElement.getOptionalFirstOf("personalityChances").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("personalityChances").getAllOf("entry")) {
+						try {
+							personalityChanceOverrides.put(PersonalityTrait.valueOf(e.getTextContent()), Float.valueOf(e.getAttribute("chance")));
+						} catch(Exception ex) {
+							System.err.println("AbstractSubspecies error: PersonalityTrait '"+e.getTextContent()+"' failed to load!");
+						}
+					}
+				}
 				
 				this.applySubspeciesChanges = coreElement.getMandatoryFirstOf("applySubspeciesChanges").getTextContent();
 				this.subspeciesWeighting = coreElement.getMandatoryFirstOf("subspeciesWeighting").getTextContent();
@@ -719,6 +736,21 @@ public abstract class AbstractSubspecies {
 	public String toString() {
 		new AccessException("WARNING: AbstractSubspecies is calling toString()!").printStackTrace(System.err);
 		return Subspecies.getIdFromSubspecies(this);
+	}
+
+	/**
+	 * @return A map of personality traits and the percentage chance that a member of this race will spawn with them.
+	 */
+	public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+		Map<PersonalityTrait, Float> map = new HashMap<>();
+		
+		if(this.fromExternalFile && personalityChanceOverrides!=null) {
+			for(Entry<PersonalityTrait, Float> entry : personalityChanceOverrides.entrySet()) {
+				map.put(entry.getKey(), entry.getValue());
+			}
+		}
+		
+		return map;
 	}
 	
 	/**
