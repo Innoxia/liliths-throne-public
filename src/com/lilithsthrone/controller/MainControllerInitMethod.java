@@ -7478,9 +7478,6 @@ public class MainControllerInitMethod {
 							AbstractCoreItem abstractItem = lEnch.getSuitableItem();
 							EnchantmentDialogue.initModifiers(abstractItem);
 							EnchantmentDialogue.getEffects().clear();
-							for(ItemEffect ie : abstractItem.getEffects()) {
-								EnchantmentDialogue.addEffect(ie);
-							}
 							for(ItemEffect ie : lEnch.getEffects()) {
 								EnchantmentDialogue.addEffect(ie);
 							}
