@@ -835,16 +835,7 @@ public class Main extends Application {
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {
-		if (name.length()==0) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
-			return;
-		}
-		if (name.length() > 64) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
-			return;
-		}
-		if (name.contains("\"")) {//!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
+		if(checkFileName(name)) {
 			return;
 		}
 		
@@ -869,6 +860,24 @@ public class Main extends Application {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	public static boolean checkFileName(String name) {
+		if (name.length()==0) {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
+			return true;
+		}
+		if (name.length() > 64) {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
+			return true;
+		}
+		for(String c : "<>:\"/\\|?*".split("")) {
+			if(name.contains(c)) {
+				Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static boolean isLoadGameAvailable(String name) {
