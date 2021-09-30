@@ -835,7 +835,8 @@ public class Main extends Application {
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {
-		if(checkFileName(name)) {
+		name = Main.checkFileName(name);
+		if(name.isEmpty()) {
 			return;
 		}
 		
@@ -862,22 +863,17 @@ public class Main extends Application {
 		}
 	}
 
-	public static boolean checkFileName(String name) {
+	public static String checkFileName(String name) {
+		name = name.replace(" ", "_").replaceAll("[^\\w]+", "");
 		if (name.length()==0) {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
-			return true;
+			return "";
 		}
 		if (name.length() > 64) {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
-			return true;
+			return "";
 		}
-		for(String c : "<>:\"/\\|?*".split("")) {
-			if(name.contains(c)) {
-				Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
-				return true;
-			}
-		}
-		return false;
+		return name;
 	}
 
 	public static boolean isLoadGameAvailable(String name) {

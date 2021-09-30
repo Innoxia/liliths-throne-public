@@ -927,7 +927,8 @@ public class EnchantmentDialogue {
 	}
 
 	public static void saveEnchant(String name, boolean allowOverwrite) {
-		if(Main.checkFileName(name)) {
+		name = Main.checkFileName(name);
+		if(name.isEmpty()) {
 			return;
 		}
 		
