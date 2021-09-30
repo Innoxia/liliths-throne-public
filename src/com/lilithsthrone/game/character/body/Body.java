@@ -5077,7 +5077,7 @@ public class Body implements XMLSaving {
 						descriptionSB.append(" [npc.She] [npc.has] a series of internal muscles lining the inside of [npc.her] [npc.vagina], allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
 						break;
 					case PUFFY:
-						descriptionSB.append(" [npc.Her] labia have swollen up into big, extra-puffy pussy lips.");
+						descriptionSB.append(" [npc.Her] labia has swollen up into big, extra-puffy pussy lips.");
 						break;
 					case RIBBED:
 						descriptionSB.append(" The inside of [npc.her] [npc.vagina] is lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");
