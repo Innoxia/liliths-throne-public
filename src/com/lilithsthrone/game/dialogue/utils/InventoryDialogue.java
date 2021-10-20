@@ -6633,14 +6633,14 @@ public class InventoryDialogue {
 					+ "Pattern:<br/>");
 	 
 			for (Pattern pattern : Pattern.getAllPatterns()) {
-				if (dyePreviewPattern.equals(pattern.getName())) {
+				if (dyePreviewPattern.equals(pattern.getId())) {
 					inventorySB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
 							+ "</div>");
 				} else {
 					inventorySB.append(
-							"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+							"<div id='ITEM_PATTERN_"+pattern.getId()+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
 							+ "</div>");
 				}

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -352,7 +353,7 @@ public class Monica extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_flats", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		AbstractClothing dress = Main.game.getItemGen().generateClothing("phlarx_dresses_vintage_dress", PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_SILVER, false);
-		dress.setPattern("irbynx_cow_patterned");
+		dress.setPattern(Pattern.getPatternIdByName("irbynx_cow_patterned"));
 		dress.setPatternColours(Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_WHITE));
 		this.equipClothingFromNowhere(dress, true, this);
 

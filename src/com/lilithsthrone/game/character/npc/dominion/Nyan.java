@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -500,7 +501,7 @@ public class Nyan extends NPC {
 					PresetColour.CLOTHING_PURPLE_VERY_DARK,
 					PresetColour.CLOTHING_YELLOW));
 			dress = Main.game.getItemGen().generateClothing("phlarx_dresses_vintage_dress", dressColour, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_STEEL, false);
-			dress.setPattern("polka_dots_small");
+			dress.setPattern(Pattern.getPatternIdByName("polka_dots_small"));
 			dress.setPatternColour(0, PresetColour.CLOTHING_BLACK);
 			dress.setPatternColour(1, PresetColour.CLOTHING_WHITE);
 			
