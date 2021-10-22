@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -70,6 +71,11 @@ public class DialogueManager {
 		allDialogues.add(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
 		dialogueToIdMap.put(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START, id);
 		idToDialogueMap.put(id, LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		
+		id = "ROOM_SET_ALARM";
+		allDialogues.add(RoomPlayer.ROOM_SET_ALARM);
+		dialogueToIdMap.put(RoomPlayer.ROOM_SET_ALARM, id);
+		idToDialogueMap.put(id, RoomPlayer.ROOM_SET_ALARM);
 		
 		// Modded dialogue types:
 		

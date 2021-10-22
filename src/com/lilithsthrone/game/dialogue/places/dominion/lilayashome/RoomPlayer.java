@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -195,11 +197,39 @@ public class RoomPlayer {
 				} else {
 					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 				}
+				
+			} else if (index == 9) {
+				return new Response("Set Alarm", "Set the alarm on your phone, so that you can wake at a specific time.", RoomPlayer.ROOM_SET_ALARM) {
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+					}
+				};
+
+			} else if (index == 10) {
+				long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
+				if(alarmTime >= 0) {
+					String alarmTimeStr = Main.game.getDisplayTime(LocalTime.ofSecondOfDay(alarmTime*60));
+					int timeUntilAlarm = Main.game.getMinutesUntilTimeInMinutes((int)alarmTime-1)+1; // -1+1 is so we get 1440 instead of 0
+					return new Response("Rest until Alarm (" + alarmTimeStr + ")",
+							"Rest for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours " : " ")
+									+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes" : "")
+									+ ", until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
+							AUNT_HOME_PLAYERS_ROOM_SLEEP) {
+						@Override
+						public void effects() {
+							sleepTimeInMinutes = timeUntilAlarm;
+							RoomPlayer.applySleep(sleepTimeInMinutes);
+						}
+					};
+				} else {
+					return new Response("Rest until Alarm (unset)", "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Your alarm is unset!</span>", null);
+				}
 			}
 			
 			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 			
-			int indexPresentStart = 9;
+			int indexPresentStart = 11;
 			if(index-indexPresentStart<charactersPresent.size() && index-indexPresentStart>=0) {
 				NPC character = charactersPresent.get(index-indexPresentStart);
 				return new Response(
@@ -1223,6 +1253,65 @@ public class RoomPlayer {
 		}
 		return charactersPresent;
 	}
+	
+	public static final DialogueNode ROOM_SET_ALARM = new DialogueNode("Set Alarm", "", false) {
+
+		@Override
+		public void applyPreParsingEffects() {
+			super.applyPreParsingEffects();
+			if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") < 0) {
+				// If unset, default to 8:00 AM
+				Main.game.getDialogueFlags().setSavedLong("player_phone_alarm", 8*60);
+			}
+		}
+
+		@Override
+		public String getContent() {
+			long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
+			String alarmTimeStr = Units.time(LocalTime.ofSecondOfDay(alarmTime*60));
+			return "<div><p>You open the alarm app on your phone.</p></div>"
+					+ "<div class='cosmetics-inner-container' style='margin:1% 20%; width:58%; padding:1%; box-sizing:border-box; position:relative;'>"
+						+ "<p style='margin:0; padding:0;'>"
+							+ "<b>Set Alarm</b>"
+						+"</p>"
+						+ "<div class='container-full-width' style='width:35%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='PLAYER_ALARM_DECREASE_LARGE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldBad(-1 hour)]"
+							+ "</div>"
+							+ "<div id='PLAYER_ALARM_DECREASE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldBadMinor(-5 minutes)]"
+							+ "</div>"
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:28%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
+							+ alarmTimeStr
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:35%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='PLAYER_ALARM_INCREASE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldGoodMinor(+5 minutes)]"
+							+ "</div>"
+							+ "<div id='PLAYER_ALARM_INCREASE_LARGE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldGood(+1 hour)]"
+							+ "</div>"
+						+ "</div>"
+					+ "</div>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Set Alarm", "Change your alarm to the new time.", Main.game.getSavedDialogueNode());
+			} else if(index == 2) {
+				return new Response("Unset Alarm", "Delete your alarm, leaving it unset.", Main.game.getSavedDialogueNode()) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().removeSavedLong("player_phone_alarm");
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+	};
 	
 //	private static int getHourPlusSleep() {
 //		return (Main.game.getHourOfDay() + (sleepTimeInMinutes/60))%24;
