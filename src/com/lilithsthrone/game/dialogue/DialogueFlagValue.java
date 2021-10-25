@@ -485,12 +485,8 @@ public class DialogueFlagValue {
 			return null;
 		}
 		
-		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet());
-		
-		if(Util.getLastStringMatchDistance()>3) {
-			return null;
-		}
-		
+		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet(), 3);
+				
 		return idToDialogueFlagValueMap.get(id);
 	}
 	
