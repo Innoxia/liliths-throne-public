@@ -1977,7 +1977,7 @@ public class OptionsDialogue {
 				
 			sb.append("</div>");
 
-			sb.append("<div class='title-button no-select' id='SUBSPECIES_PREFERNCE_INFO_"+subspeciesId+"' style='position:absolute; margin:0; padding:0; left:1%; right:auto; top:auto; bottom:auto;'>"
+			sb.append("<div class='title-button no-select' id='SUBSPECIES_PREFERENCE_INFO_"+subspeciesId+"' style='position:absolute; margin:0; padding:0; left:1%; right:auto; top:auto; bottom:auto;'>"
 							+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()
 						+"</div>");
 		sb.append("</div>");
