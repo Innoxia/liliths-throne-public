@@ -707,7 +707,7 @@ public class TailType {
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_FEATHER,
 					BodyPartTag.TAIL_TAPERING_NONE,
-					BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION), false) {
+					BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION), false) {
 	};
 	
 	public static final AbstractTailType HORSE_MORPH = new AbstractTailType(
@@ -863,7 +863,7 @@ public class TailType {
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_TYPE_FUR,
 					BodyPartTag.TAIL_TAPERING_NONE,
-					BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION), false) {
+					BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION), false) {
 	};
 	
 	public static final AbstractTailType REINDEER_MORPH = new AbstractTailType(

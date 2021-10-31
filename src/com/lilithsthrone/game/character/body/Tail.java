@@ -406,7 +406,7 @@ public class Tail implements BodyPartInterface {
 	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
 	 */
 	public boolean isSuitableForPenetration() {
-		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION)) {
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION)) {
 			return false;
 		}
 		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)) {

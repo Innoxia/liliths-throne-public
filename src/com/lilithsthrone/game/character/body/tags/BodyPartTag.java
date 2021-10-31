@@ -89,7 +89,7 @@ public enum BodyPartTag {
 	TAIL_PREHENSILE,
 	
 	/** This tail is never suitable for penetration, even if the player has furry tail penetration turned on (e.g. rabbit or harpy tails) */
-	TAIL_NEVER_SUTABLE_FOR_PENETRATION,
+	TAIL_NEVER_SUITABLE_FOR_PENETRATION,
 	
 	/** Whether this tail is suitable for penetrating orifices (e.g demon tails). Note that furry tails should not be marked with this, as that relies on the player's furry penetration settings and is determined from whether the tail is prehensile. */
 	TAIL_SUTABLE_FOR_PENETRATION,
