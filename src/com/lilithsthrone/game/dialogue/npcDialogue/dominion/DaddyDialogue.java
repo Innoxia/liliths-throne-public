@@ -1110,7 +1110,7 @@ public class DaddyDialogue {
 						},
 						null,
 						null,
-						AFTER_APARTMET_SEX,
+						AFTER_APARTMENT_SEX,
 						UtilText.parseFromXMLFile("characters/dominion/daddy", getDialoguePrefix()+"AFTER_DINNER_DOMINATE")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
@@ -1140,7 +1140,7 @@ public class DaddyDialogue {
 		}
 	};
 
-	public static final DialogueNode AFTER_APARTMET_SEX = new DialogueNode("Finished", "The evening of lust-filled sex comes to an end...", true, true) {
+	public static final DialogueNode AFTER_APARTMENT_SEX = new DialogueNode("Finished", "The evening of lust-filled sex comes to an end...", true, true) {
 
 		@Override
 		public int getSecondsPassed() {
