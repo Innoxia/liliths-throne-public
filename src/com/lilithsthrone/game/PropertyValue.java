@@ -42,20 +42,20 @@ public enum PropertyValue {
 	badEndContent(true),
 	ageContent(true),
 	furryTailPenetrationContent(false),
-	sadisticSexContent(false),
+	sadisticSexContent(true),
 	inflationContent(true),
 
 	lipstickMarkingContent(true),
 	facialHairContent(true),
 	pubicHairContent(true),
-	bodyHairContent(false),
+	bodyHairContent(true),
 	assHairContent(false),
 	feminineBeardsContent(false),
-	furryHairContent(false),
+	furryHairContent(true),
 	scalyHairContent(false),
 	
-	nonConContent(false, true),
-	incestContent(false, true),
+	nonConContent(true, true),
+	incestContent(true, true),
 	lactationContent(true, true),
 	urethralContent(false, true),
 	analContent(true, true),
@@ -63,10 +63,11 @@ public enum PropertyValue {
 	armpitContent(true, true),
 	nipplePenContent(true, true),
 	gapeContent(true, true),
+	feralContent(true, true),
 	
 	cumRegenerationContent(true),
 	penetrationLimitations(true),
-	elasticityAffectDepth(false), // Added in PR#1413
+	elasticityAffectDepth(true), // Added in PR#1413
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),
@@ -78,8 +79,9 @@ public enum PropertyValue {
 	involuntaryNTR(false),
 
 	spittingEnabled(true),
-	opportunisticAttackers(false),
-
+	opportunisticAttackers(true),
+	
+	// Game properties:
 	levelUpHightlight(false),
 	sharedEncyclopedia(false),
 	newWeaponDiscovered(false),

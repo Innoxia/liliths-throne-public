@@ -1651,6 +1651,61 @@ public class StatusEffect {
 		}
 	};
 
+	public static AbstractStatusEffect BLINDED = new AbstractStatusEffect(90,
+			"Blinded",
+			"blinded",
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_RED,
+			PresetColour.BASE_GREY_LIGHT,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_UNARMED, -50f),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, -50f),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, -50f),
+					new Value<>(Attribute.DAMAGE_SPELLS, -50f),
+					new Value<>(Attribute.ACTION_POINTS, -1f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"[npc.NameHasFull] been effectively blinded, and as such [npc.she] [npc.is] struggling effectively navigate through [npc.her] surroundings, and will be extremely ineffective in combat!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isSightHindered() && !target.hasEchoLocation();
+		}
+	};
+
+	public static AbstractStatusEffect BLINDED_NEGATED = new AbstractStatusEffect(90,
+			"Blinded (Echo location)",
+			"blinded_negated",
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_GREEN,
+			PresetColour.BASE_GREY_LIGHT,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_UNARMED, -5f),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, -5f),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, -5f),
+					new Value<>(Attribute.DAMAGE_SPELLS, -5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"Although [npc.name] should be effectively blinded, [npc.she] [npc.is] able to effectively navigate through [npc.her] surroundings using [npc.her] echo location ability!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isSightHindered() && target.hasEchoLocation();
+		}
+	};
+
 	public static AbstractStatusEffect DARKNESS = new AbstractStatusEffect(90,
 			"Darkness",
 			"darkness",
@@ -2762,6 +2817,25 @@ public class StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				return UtilText.parse(target, "Having recently worked out, [npc.nameIsFull] feeling very fatigued, and will be unable to do any more gym work until [npc.sheHas] recovered.");
+			} else {
+				return "";
+			}
+		}
+	};
+	
+	public static AbstractStatusEffect FATIGUED = new AbstractStatusEffect(80,
+			"fatigued",
+			"fatigued",
+			PresetColour.ATTRIBUTE_HEALTH,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, -15f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "After a period of hard work, [npc.nameIsFull] feeling very fatigued, and will need to take some time to recover...");
 			} else {
 				return "";
 			}

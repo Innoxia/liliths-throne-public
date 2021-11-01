@@ -1537,7 +1537,8 @@ public class Properties {
 	public float getRandomRacePercentage() {
 		return randomRacePercentage;
 	}
-
+	
+	/** 0=off, 1=taur-only, 2=on*/
 	public int getUddersLevel() {
 		return udders;
 	}

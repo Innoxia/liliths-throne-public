@@ -348,6 +348,24 @@ public class EarType {
 			"[npc.She] [npc.has] a pair of upright,#IF(npc.isPiercedEar()) pierced,#ENDIF horse-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
 	};
 
+	public static AbstractEarType HORSE_MORPH_UPRIGHT = new AbstractEarType(BodyCoveringType.HORSE_HAIR,
+			Race.HORSE_MORPH,
+			"tall horse",
+			"ear",
+			"ears",
+			Util.newArrayListOfValues("furry", "tall", "upright", "horse-like"),
+			Util.newArrayListOfValues("feminine", "tall", "furry", "upright", "horse-like"),
+			"They quickly grow into tall, upright points, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
+				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
+				+ " A layer of [npc.earFullDescriptionColour] quickly grows to cover them,"
+				+ "#ELSE"
+				+ " Just like the rest of [npc.her] body, they're made out of [npc.earFullDescription],"
+				+ "#ENDIF"
+				+ " and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new horse-like ears back and forth.<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldHorse(tall, horse-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].",
+			"[npc.She] [npc.has] a pair of tall, upright,#IF(npc.isPiercedEar()) pierced,#ENDIF horse-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
+	};
+	
 	public static AbstractEarType REINDEER_MORPH = new AbstractEarType(BodyCoveringType.REINDEER_FUR,
 			Race.REINDEER_MORPH,
 			"reindeer",

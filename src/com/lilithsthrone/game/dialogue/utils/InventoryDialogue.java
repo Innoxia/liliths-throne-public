@@ -2986,7 +2986,7 @@ public class InventoryDialogue {
 //								}
 
 								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] main weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3013,7 +3013,7 @@ public class InventoryDialogue {
 											null);
 								}
 								InventorySlot slot = InventorySlot.offhandWeaponSlots[inventoryNPC.getOffhandWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] offhand weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3512,7 +3512,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] main weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3536,7 +3536,7 @@ public class InventoryDialogue {
 								}
 								
 								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] offhand weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
