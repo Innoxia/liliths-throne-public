@@ -55,6 +55,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -213,7 +214,7 @@ public class Monica extends NPC {
 				}
 			}
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2")) {
 			this.setStartingBody(true);
 			this.equipClothing();
 		}
@@ -270,6 +271,8 @@ public class Monica extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_COW_MORPH, PresetColour.EYE_HAZEL));
 		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_BLACK, false), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_TANNED), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_TANNED), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, CoveringPattern.HIGHLIGHTS, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
@@ -324,7 +327,7 @@ public class Monica extends NPC {
 		// Vagina:
 		this.setVaginaVirgin(false);
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
-		this.setVaginaLabiaSize(LabiaSize.TWO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.THREE_LARGE);
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
 		this.setVaginaWetness(Wetness.THREE_WET);
@@ -465,11 +468,16 @@ public class Monica extends NPC {
 
 	@Override
 	public void endSex() {
-		this.replaceAllClothing();
+		this.equipClothing();
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+	
+	@Override
+	public String getTraderDescription() {
+		return UtilText.parseFromXMLFile("places/fields/elis/shops", "CLOTHING_TRANSACTION_START");
 	}
 }

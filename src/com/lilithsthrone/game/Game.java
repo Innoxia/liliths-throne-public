@@ -115,6 +115,7 @@ import com.lilithsthrone.game.character.npc.fields.EvelyxSexualPartner;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
 import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Kazik;
@@ -2101,6 +2102,9 @@ public class Game implements XMLSaving {
 				Main.game.getNpc(Evelyx.class).setAffection(Main.game.getNpc(Dale.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 				Main.game.getNpc(Dale.class).setAffection(Main.game.getNpc(Evelyx.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 			}
+			
+			// Headless horseman:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HeadlessHorseman.class))) { addNPC(new HeadlessHorseman(), false); addedNpcs.add(HeadlessHorseman.class); }
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -4237,6 +4241,10 @@ public class Game implements XMLSaving {
 
 	public DayOfWeek getDayOfWeek() {
 		return getDateNow().getDayOfWeek();
+	}
+
+	public Month getMonth() {
+		return getDateNow().getMonth();
 	}
 
 	public boolean isInCombat() {

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>1000</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Jack-o'-Lantern]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Jack-o'-Lanterns]]></namePlural>
+		<description><![CDATA[A pumpkin that's not only had a frightening face carved into it, but which has also been enchanted so as to glow with an inner light. A hole has been cut out of the bottom of it, allowing someone to wear it like a helmet.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HEAD</slot>
+		<rarity>LEGENDARY</rarity>
+		<clothingSet/>
+		<imageName>jack_o_lantern.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<stickers>
+			<category id="face_appearance" priority="1">
+				<sticker id="creepy" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Creepy]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Creepy]]></namePrefix>
+					<descriptionModification/>
+					<imageName zLayer="1" slot="HEAD">jack_o_lantern_creepy.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="grin" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Grin]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Grin]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>jack_o_lantern_grin.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_ORANGE_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREEN_DRAB</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_YELLOW</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags/>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(place)] the Jack-o'-Lantern onto [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(place)] the Jack-o'-Lantern onto [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the Jack-o'-Lantern onto [npc2.namePos] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] Jack-o'-Lantern.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] Jack-o'-Lantern.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] Jack-o'-Lantern.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

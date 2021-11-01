@@ -297,10 +297,10 @@ public class GenericTalk {
 		}
 		
 		private boolean isAcceptingRequest() {
-			return Main.sex.isCharacterObeyingTarget(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction())
-					|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()
-					|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SADIST).isNegative()
-					|| Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
+			return !Main.sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_SADIST)
+					&& (Main.sex.isCharacterObeyingTarget(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction())
+						|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()
+						|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SADIST).isNegative());
 		}
 		
 		@Override

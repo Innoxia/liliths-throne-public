@@ -609,6 +609,7 @@
 	]]>
 	</htmlContent>
 	
+	
 	<!-- Work: -->
 	
 	<htmlContent tag="RECEPTION_MILKER_WORK"><![CDATA[
@@ -704,11 +705,11 @@
 	<htmlContent tag="RECEPTION_MILKER_WORK_PROMOTION_END"><![CDATA[
 	<p>
 		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion1))
-			Thanking Dale for his kind words, you wonder whether or not to head on over to the heifer barn straight away, or to instead ask the donkey-boy for something else first...
+			Thanking Dale for his kind words, you wonder whether to head on over to the heifer barn straight away, or to instead ask the donkey-boy for something else first...
 		#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion2))
-			Thanking Dale for his kind words, you wonder whether or not to head on over to the cow barn straight away, or to instead ask the donkey-boy for something else first...
+			Thanking Dale for his kind words, you wonder whether to head on over to the cow barn straight away, or to instead ask the donkey-boy for something else first...
 		#ELSE
-			Thanking Dale for his words of warning, you wonder whether or not to arrange a meeting with Evelyx straight away, or to instead leave your special promotion for another time...
+			Thanking Dale for his words of warning, you wonder whether to arrange a meeting with Evelyx straight away, or to instead leave your special promotion for another time...
 		#ENDIF
 	</p>
 	]]>
@@ -888,19 +889,57 @@
 	
 	<htmlContent tag="MONICA_QUEST_START"><![CDATA[
 	#IF(flags.hasFlag(FLAG_innoxia_evelyx_monica_meeting))
-	
+		<p>
+			Wanting to discuss the matter of obtaining Monica's breast pump with Evelyx again, you ask Dale if it would be possible to have another meeting with the succubus. Although he flashes you a worried look, Dale nevertheless reaches forwards and presses a button the arcane intercom that's sitting on his desk. After emitting a short, loud buzzing noise, a posh, feminine voice speaks through it and impatiently snaps, [evelyx.speech(What is it this time, Dale?)]
+		</p>
+		<p>
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_happened) || flags.hasFlag(FLAG_innoxia_evelyx_work_started))
+				[dale.speech(I have your employee, [pc.name], here in reception again, Ma'am,)]
+			#ELSE
+				[dale.speech(I have that [pc.race], [pc.name], here in reception again, Ma'am,)]
+			#ENDIF
+			 Dale replies,[dale.speech([pc.SheIs] asking about that custom breast pump, and would like to see you again regarding it.)]
+		</p>
+		<p>
+			[evelyx.speech(That insolent little thing has come crawling back, has [pc.she]?)] Evelyx's voice icily crackles out from the intercom, and after letting out a frustrated sigh, she says, [evelyx.speech(Fine, I'll see [pc.herHim] again, but make [pc.herHim] wait another fifteen minutes first.)]
+		</p>
+		<p>
+			As the intercom clicks off, Dale motions towards the sofas on the other side of the reception and says, [dale.speech(If you'll first wait for fifteen minutes, I'll show you to Evelyx's office.)] 
+		</p>
+		<p>
+			Deciding that it would be best to do as the donkey-boy suggests, you head on over to the sofas and sit down. Wondering what you're going to say to the succubus this time, you prepare to wait for fifteen minutes...
+		</p>
 	#ELSE
 		<p>
-			You ask Dale if he knows where Monica's old breast pup might be, and if you could have it. He says that he'd have to run this by Evelyx, as she has to sign off on any equipment being bought or sold. 
+			Wanting to find out if Evelyx's Dairy is still in possession of Monica's custom breast pump, you ask Dale if any of the old equipment from the previous farm is still being kept here. Raising his eyebrows, he replies, [dale.speech(We've still got a lot of that old stuff in storage, yeah. Why do you want to know?)]
 		</p>
 		<p>
-			He asks you to wait and uses an arcane intercom on the desk to ask Evelyx if she could meet with you regarding Monica's breast pump.
+			Telling Dale what it is that you're after, you wait as the donkey-boy thinks for a moment, before revealing, [dale.speech(A custom breast pump like that wouldn't have been thrown away, so it's probably still in storage somewhere. If you're after it, then I'll have to run your request by Evelyx, as she's the one who signs off on all equipment which we buy or sell here. Hold on a moment...)]
 		</p>
 		<p>
-			Evelyx's voice comes back angry, and she says not to waste her time, then suddenly changes her tone and says that perhaps she could strike a deal. Send you through in 15 minutes.
+			With that, Dale reaches forwards and presses a button the arcane intercom that's sitting on his desk. After emitting a short, loud buzzing noise, a posh, feminine voice speaks through it and impatiently snaps, [evelyx.speech(What is it, Dale?)]
 		</p>
 		<p>
-			You wait on the sofas for 15 minutes, then Dale asks if you're ready to go to Evelyx's office.
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_happened))
+				[dale.speech(I have your employee, [pc.name], here in reception again, Ma'am,)]
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_work_started))
+				[dale.speech(I have one of your employees, [pc.name], here in reception, Ma'am,)]
+			#ELSE
+				[dale.speech(I have [pc.a_race], [pc.name], here in reception, Ma'am,)]
+			#ENDIF
+			 Dale replies,[dale.speech([pc.SheIs] asking about acquiring an item which we might have in storage; a custom breast pump from the old farm.)]
+		</p>
+		<p>
+			[evelyx.speech(What?! You really thought that it was a good idea to waste my time with this?!)] Evelyx's voice angrily crackles out from the intercom, but in just a moment she completely reverses her attitude and asks in a curious tone, [evelyx.speech(Hold on, is [pc.she] willing to pay for this? If so, then maybe we can strike a deal...)]
+		</p>
+		<p>
+			Not wanting to miss what might be your only opportunity to obtain Monica's breast pump, you nod your head to Dale, who conveys to his boss that you are indeed willing to pay to get your [pc.hands] on that item. A smug-sounding laugh comes through over the intercom, followed by the short order, [evelyx.speech(Send [pc.her] in after fifteen minutes. I'll have that breast pump ready and waiting for [pc.herHim].)]
+		</p>
+		<p>
+			As the intercom clicks off, Dale motions towards the sofas on the other side of the reception and says, [dale.speech(If you'll first wait for fifteen minutes, I'll show you to Evelyx's office.)] 
+		</p>
+		<p>
+			Deciding that it would be best to do as the donkey-boy suggests, you head on over to the sofas and sit down. Wondering what Evelyx is going to demand in return for Monica's breast pump, you prepare to wait for fifteen minutes...
 		</p>
 	#ENDIF
 	]]>
@@ -908,237 +947,362 @@
 	
 	<htmlContent tag="MONICA_QUEST_MEETING"><![CDATA[
 	<p>
-		You're shown to Evelyx's office and then Dale rushes back to his reception desk. It's extravagantly furnished, and Evelyx is sitting behind a huge, masterfully-carved wooden desk.
+		After making you wait for almost twenty minutes, you hear the voice of Evelyx suddenly call out over Dale's intercom, [evelyx.speech(Show them through now, Dale. I don't have all day, so be quick about it!)]
 	</p>
 	<p>
-		Describe Evelyx: Blue skin, orange eyes and horns. Wearing orange nail polish and orange lipstick, and a smart black feminine suit.
+		[dale.speech(Yes, Ma'am!)] Dale replies, before urgently beckoning you forwards. Rising from the sofa, you follow the donkey-boy as he leads you through the doors behind his desk, down a corridor, and to a wooden door bearing the words 'Evelyx's Office'. After raising his fist to deliver a quick knock, Dale opens the door for you and announces your arrival by saying into the room beyond, [dale.speech([pc.Name] is here to see you, Ma'am.)]
 	</p>
 	<p>
-		She introduces herself as a daughter of the elder lilin, Lisophia. Toys with Monica's breat pump which she has on the desk before her, and asks who you are to be demanding such a ridiculous thing of her.
+		[pc.Stepping] forwards into the spacious office, you look around to see that Evelyx's lair is extravagantly furnished. Mahogany shelves are filled with expensive-looking tomes and golden decorations, while large portraits of demons and landscape paintings hang from the walls. A rich, burgundy rug has been placed in the centre of the floor, and over on the far side, you see Evelyx herself sitting in a huge leather chair behind a masterfully-carved wooden desk.
+	</p>
+	<p>
+		[evelyx.speech(Come,)] Evelyx commands, curling one of her slender fingers in a come-hither motion. As you approach her desk, you take a good look at the owner of this farm. The flawless skin covering her body is a light shade of blue, and while her face has a youthful appearance, the cynical, penetrating gaze from her orange eyes suggests that she's far older than she looks. Her orange nail polish and lipstick matches not only the same shade as her eyes, but also the orange hue that tips the ends of her small horns. Her long, black hair is tied up into a ponytail by means of an orange scrunchie, and a pair of large, [evelyx.cupSize]-cup breasts swell out beneath the succubus's smart, black feminine suit. A gap at the base of her desk allows you to see that instead of humanoid feet, Evelyx has a pair of hard hoofs.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_happened))
+		<p>
+			[evelyx.speech(So then, [pc.name], you thought that it was appropriate for you, nothing more than one of my cows, to bother me, a direct daughter of the elder lilin Lisophia?)] she asks in a posh, naturally-condescending accent. Before you can give her an answer, the succubus pointedly places Monica's breast pump down on her desk, before asking the direct question, [evelyx.speech(Why do you desire this, cow?)]
+		</p>
+	#ELSE
+		<p>
+			[evelyx.speech(So then, '[pc.name]', you thought that it was wise to bother me, a direct daughter of the elder lilin Lisophia?)] she asks in a posh, naturally-condescending accent. Before you can give her an answer, the succubus pointedly places Monica's breast pump down on her desk, before asking the direct question, [evelyx.speech(Why do you desire this?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_REPEAT"><![CDATA[
+	<p>
+		After making you wait for almost twenty minutes, you hear the voice of Evelyx suddenly call out over Dale's intercom, [evelyx.speech(Show them through now, Dale. I don't have all day, so be quick about it!)]
+	</p>
+	<p>
+		[dale.speech(Yes, Ma'am!)] Dale replies, before urgently beckoning you forwards. Rising from the sofa, you follow the donkey-boy as he leads you through the doors behind his desk, down a corridor, and to a wooden door bearing the words 'Evelyx's Office'. After raising his fist to deliver a quick knock, Dale opens the door for you and announces your arrival by saying into the room beyond, [dale.speech([pc.Name] is here to see you, Ma'am.)]
+	</p>
+	<p>
+		[pc.Stepping] forwards into the spacious office, you look around to see that Evelyx's lair is extravagantly furnished. Mahogany shelves are filled with expensive-looking tomes and golden decorations, while large portraits of demons and landscape paintings hang from the walls. A rich, burgundy rug has been placed in the centre of the floor, and over on the far side, you see Evelyx herself sitting in a huge leather chair behind a masterfully-carved wooden desk.
+	</p>
+	<p>
+		[evelyx.speech(Come,)] Evelyx commands, curling one of her slender fingers in a come-hither motion. As you approach her desk, you take a good look at the owner of this farm. The flawless skin covering her body is a light shade of blue, and while her face has a youthful appearance, the cynical, penetrating gaze from her orange eyes suggests that she's far older than she looks. Her orange nail polish and lipstick matches not only the same shade as her eyes, but also the orange hue that tips the ends of her small horns. Her long, black hair is tied up into a ponytail by means of an orange scrunchie, and a pair of large, [evelyx.cupSize]-cup breasts swell out beneath the succubus's smart, black feminine suit. A gap at the base of her desk allows you to see that instead of humanoid feet, Evelyx has a pair of hard hoofs.
+	</p>
+	<p>
+		[evelyx.speech(So then, [pc.name], you've come crawling back, just as I knew you would,)] she mocks. Before you can respond, the succubus pointedly places Monica's breast pump down on her desk, before stating, [evelyx.speech(Fifty thousand flames, and this worthless thing is all yours!)]
+	</p>
+	<p>
+		Smirking at the outrageous figure she's just given to you, Evelyx hold up a finger for you to wait and listen before responding, and after a moment, she pulls open one of her desk's drawers and produces the enchanted ring which she showed to you before. [evelyx.speech(Of course, I suppose that I could offer you an alternative... All you'd have to do is put on this ring and answer a few questions for me...)]
+	</p>
+	<p>
+		With that, Evelyx holds up the ring to give you a better look, and you see that it consists of a thin band of black metal with a stylised pair of orange lips attached to one side of it. From the way Evelyx takes great care to to let it slip down onto any of her slender, feminine fingers, you can tell that there must be some kind of serious enchantment on it. Sensing your cautious appraisal of this item, Evelyx laughs and reveals, [evelyx.speech(Oh, don't worry, I'm not trying to trick you. Put this ring on, and you're going to want nothing more than to eat out every girl you meet. Your mind's going be filled with all sorts of dirty thoughts about sticking your tongue into every kind of cunt imaginable, including mine. Oh, and the best part part is that you won't be able to take it off! So, it's either pay up or wear this ring. The choice is yours.)]
+	</p>
+	<p>
+		As you consider your options, you notice that once again a horny gleam has entered Evelyx's eyes after talking about you performing cunnilingus, clearly revealing that she has a kink for that sort of thing, and so you wonder if you could use this knowledge to seduce her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_INTRO"><![CDATA[
 	<p>
-		You introduce yourself.
+		Seeing no reason not to give Evelyx the truth, you tell her that the breast pump she's holding is special to Monica, and that you'd like to get it back for her. Letting out an amused, mocking laugh as she hears you say this, the blue-skinned succubus smirks at you and explains, [evelyx.speech(I assumed that your motivation was something utterly pathetic like that. Ordinarily, I'd never agree to even letting you into my office under these circumstances, but it so happens that I've got a deal to offer you. This breast pump must have cost, what, no more than a thousand flames to have made? My time is extremely precious, however, and you've already taken up so much of it... I couldn't see myself handing this over to you for anything less than fifty thousand flames.)] 
 	</p>
 	<p>
-		Evelyx says that ordinarily she wouldn't bother humouring your request, but she thinks that she's got quite a bit to gain. Says that you can pay her fifty thousand flames for the breast pump. Smirking at the outrageous price she's demanded, she offers you an alternative; put on this ring she's made and let her ask you a series of questions.
+		Smirking at the outrageous figure she's just given to you, Evelyx hold up a finger for you to wait and listen before responding, and after a moment, she pulls open one of her desk's drawers and produces what looks to be some kind of ring, before drawling, [evelyx.speech(Of course, I suppose that I could offer you an alternative... All you'd have to do is put on this ring and answer a few questions for me...)]
 	</p>
 	<p>
-		You can tell that this ring has some serious enchantments on it, and as Evelyx playfully pushes it around on the desk, she says that it'll make you like performing oral, and that she won't stop you from removing it at any time.
+		With that, Evelyx holds up the ring to give you a better look, and you see that it consists of a thin band of black metal with a stylised pair of orange lips attached to one side of it. From the way Evelyx takes great care to to let it slip down onto any of her slender, feminine fingers, you can tell that there must be some kind of serious enchantment on it. Sensing your cautious appraisal of this item, Evelyx laughs and reveals in her posh, condescending tone, [evelyx.speech(Oh, don't worry, I'm not trying to trick you. Put this ring on, and you're going to want nothing more than to eat out every girl you meet. Your mind's going be filled with all sorts of dirty thoughts about sticking your tongue into every kind of cunt imaginable, including mine. Oh, and the best part part is that you won't be able to take it off! So, it's either pay up or wear this ring. The choice is yours.)]
 	</p>
 	<p>
-		There's obviously more to this ring than Evelyx is letting on. Then again, it might be preferable to paying such a ridiculous sum for the breast pump.
-	</p>
-	<p>
-		As you consider your options, you realise that Evelyx has revealed her desire for oral, and so you wonder if you could use this knowledge to seduce her...
+		As you consider your options, you notice that a horny gleam has entered Evelyx's eyes after talking about you performing cunnilingus, clearly revealing that she has a kink for that sort of thing, and so you wonder if you could use this knowledge to seduce her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_INTRO_LEAVE"><![CDATA[
 	<p>
-		You don't like the sound of these options, and so tell Evelyx that you'll think about it and come back at another time. She is annoyed at your decision, but says that she'll be ready to hear your decision whenever you're ready.
+		You really don't like the sound of these options, and so tell Evelyx that you'll have to think about her deal and come back at another time. Although she wasn't exactly giving you a friendly look before, a positively disgusted look flashes over the succubus's face as she hears your response, and after tutting under her breath, she sneers, [evelyx.speech(Then get out of my sight. Don't come back again unless you're ready to accept my generous offer.)]
 	</p>
 	<p>
-		Dale arrives and escorts you back to reception...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="MONICA_QUEST_MEETING_REPEAT"><![CDATA[
-	<p>
-		You're shown to Evelyx's office and then Dale rushes back to his reception desk. It's extravagantly furnished, and Evelyx is sitting behind a huge, masterfully-carved wooden desk.
+		As you turn to leave, Evelyx presses the button on the intercom that's sitting on her desk, before snapping, [evelyx.speech(Get in here, Dale.)]
 	</p>
 	<p>
-		Describe Evelyx: Blue skin, orange eyes and horns. Wearing orange nail polish and orange lipstick, and a smart black feminine suit.
-	</p>
-	<p>
-		Evelyx is annoyed that you didn't take her up on one of her offers last time. She says that you can pay her fifty thousand flames for the breast pump. Smirking at the outrageous price she's demanded, she offers you an alternative; put on this ring she's made and let her ask you a series of questions.
-	</p>
-	<p>
-		You can tell that this ring has some serious enchantments on it, and as Evelyx playfully pushes it around on the desk, she says that it'll make you like performing oral, and that she won't stop you from removing it at any time.
-	</p>
-	<p>
-		There's obviously more to this ring than Evelyx is letting on. Then again, it might be preferable to paying such a ridiculous sum for the breast pump.
-	</p>
-	<p>
-		As you consider your options, you realise that Evelyx has revealed her desire for oral, and so you wonder if you could use this knowledge to seduce her...
+		The donkey-boy receptionist arrives running just as you get to the door, and after correctly assessing the situation, he asks you to accompany him back to the reception area. Doing so, you soon find yourself once again standing before Dale's desk, wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_PAID"><![CDATA[
 	<p>
-		You decide to pay Evelyx, and hand over the fifty thousand flames she's demanded.
-	</p>
-	<p>
-		She puts her ring away in a drawer with a disappointed sigh, and says that she'll put it on one of her slaves back home instead. Evelyx uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+		Wanting to avoid wearing that ring at all costs, you tell Evelyx that you're willing to pay her for the breast pump, before placing the fifty thousand flames she's demanded on the desk in front of her. The succubus's eyes light up as she sees the money, and after carelessly tossing Monica's breast pump to you, she greedily seizes the cash and starts counting it. With a big grin on her face, she waves you away and declares, [evelyx.speech(It's a shame that I didn't get to experiment on you with my ring, but this more than makes up for it. You've got what you wanted, now get out of my sight.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING"><![CDATA[
 	<p>
-		You agree to wear Evelyx's ring. She will give you Monica's breast pump but says that you have to stay and answer her questions before leaving.
+		Not willing to pay the outrageous sum of fifty thousand flames in exchange for Monica's breast pump, you tell Evelyx that you're willing to put on her ring. A wicked grin flashes across the succubus's face as she hears this, and as she slides the ring across the desk towards you, she states, [evelyx.speech(You have to answer my questions as part of the deal, understand?)]
 	</p>
 	<p>
-		You agree to these terms, and put on the ring. Instantly, images of dripping-wet pussies flash across your mind, and you picture yourself on your knees with your tongue buried deep in a delicious, hot cunt.
+		Agreeing to her terms, and pick up Evelyx's ring and slide the metal band down around one of your [pc.fingers+]. Instantly, images of dripping-wet pussies flash across your mind, and you can't help but picture yourself down on the floor of Evelyx's office with your head  between her legs. You find yourself starting to drool as you imagine your tongue buried deep in her delicious, hot cunt, but before your daydreaming gets out of hand, you're suddenly snapped back to reality by the succubus's amused laughter. A triumphant, mocking smirk is plastered across her face, and she teases, [evelyx.speech(I can tell what naughty thoughts you're having from that lewd expression on your face. It looks like my little creation is a success. You want to eat pussy, don't you, [pc.name]?)]
 	</p>
 	<p>
-		You're snapped back to reality by Evelyx's amused laughter, and she says that from the look on your face she can tell that her ring is having a greater effect than she thought.
-	</p>
-	<p>
-		She asks you the first question; you couldn't imagine anything better than being allowed to eat her out right now, could you?
+		With the ring's effects still fresh and strong in your mind, you find yourself quickly answering in the positive, which causes Evelyx to let out another amused chuckle. Interlacing her fingers, she places her elbows down on her desk and leans forwards, before stating, [evelyx.speech(Let's get down to business with my first question... You couldn't imagine anything better than being allowed to eat me out right now, could you?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_AGREE"><![CDATA[
 	<p>
-		You agree with Evelyx and tell her that you wish you were eating her out right now.
+		With the fantasy of eating her out still running wild in the back of your mind, you answer Evelyx truthfully and tell her that all you want right now is to be servicing her pussy with your mouth and tongue.
 	</p>
 	<p>
-		She lets out an amused laugh. Pushing her chair back, she pulls up her skirt and takes off her lacy thong, presenting you with her pussy. Both her cunt and asshole are orange, and she teases her light blue fingers over her exotic-looking labia as she asks you what you think of what you're being allowed to see.
+		[evelyx.speech(Good, good,)] she replies in a delighted tone. Pushing her chair back so that you can look down over the top of her desk to see her groin, Evelyx pulls up her pencil skirt and slides her lacy orange thong all the way down her legs, before kicking it off to one side. Leaning back in her chair, she spreads her legs and presents herself to you, allowing you to see that both her cunt and asshole are the same orange hue as her eyes and horns. Teasing her light blue fingers down over her tiny, exotic-looking labia, she uses them to part her folds and show you how vice-tight her already-wet twat is.
+	</p>
+	<p>
+		[evelyx.speech(All of this talk is getting me turned on,)] she teases, and you find yourself unable to look away as you hungrily stare at the succubus's delicious-looking pussy. Seeing the look on your face, Evelyx smirks and asks her second question, [evelyx.speech(So what do you think of what you're being allowed to see? Is this not the prettiest little cunt you've ever seen?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_DISAGREE"><![CDATA[
 	<p>
-		You resist the ring's effects and tell Evelyx that you don't wish that you were eating her out right now.
+		Although the fantasy of eating her out is still running wild in the back of your mind, you somehow manage to resist the ring's effects and tell Evelyx that all you aren't particularly bothered about being allowed to eat her out right now.
 	</p>
 	<p>
-		She lets out an annoyed tut. Pushing her chair back, she pulls up her skirt and takes off her lacy thong, presenting you with her pussy. Both her cunt and asshole are orange, and she teases her light blue fingers over her exotic-looking labia as she asks you what you think of what you're being allowed to see.
+		[evelyx.speech(Oh, is that so? Well, let's see if you change your tune after this,)] she replies in an annoyed tone. Pushing her chair back so that you can look down over the top of her desk to see her groin, Evelyx pulls up her pencil skirt and slides her lacy orange thong all the way down her legs, before kicking it off to one side. Leaning back in her chair, she spreads her legs and presents herself to you, allowing you to see that both her cunt and asshole are the same orange hue as her eyes and horns. Teasing her light blue fingers down over her tiny, exotic-looking labia, she uses them to part her folds and show you how vice-tight her already-wet twat is.
+	</p>
+	<p>
+		[evelyx.speech(Despite your insolence, I'm getting quite turned on,)] she teases, and you find yourself unable to look away as you hungrily stare at the succubus's delicious-looking pussy. Seeing the look on your face, Evelyx smirks and asks her second question, [evelyx.speech(So what do you think of what you're being allowed to see? Is this not the prettiest little cunt you've ever seen?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_NEXT_FLATTER"><![CDATA[
 	<p>
-		You can't help but flatter Evelyx and tell her that her cunt is the prettiest you've ever seen.
+		Even without the influence of the ring, you'd definitely consider Evelyx's tight, brightly-coloured cunt to be alluring, but with the enchanted item's influence strong in your mind, you find yourself utterly enraptured by the sight of this succubus's pussy. Letting out a hungry whine, you find yourself flattering Evelyx by telling her in multiple different ways how her cunt is by far the prettiest you've ever seen.
 	</p>
 	<p>
-		She lets out a deep, approving moan, and after sliding her fingers into her pussy, she withdraws them and shows you that they're coated in a slick layer of girlcum. She says that question time is over. Now it's time for you to obey.
+		[evelyx.speech(~Mmm!~ Yes, that's it, keep going,)] she softly moans in an approving voice. As you continue to tell the succubus what she wants to hear, she starts to slide her fingers into her pussy, and after spending a moment listening to you, she withdraws her slender digits and holds them up to show you that they're coated in a slick layer of slimy girlcum. Presenting her fingers to you, she smirks and states, [evelyx.speech(Question time's over. Now it's time for you to obey. Lick my fingers clean, then get your head down between my legs. Satisfy me, and I'll remove the seal on your ring.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_NEXT_UNIMPRESSED"><![CDATA[
 	<p>
-		You tell Evelyx that you've seen prettier pussies, and that you're not that impressed.
+		Even without the influence of the ring, you'd definitely consider Evelyx's tight, brightly-coloured cunt to be alluring, but with the enchanted item's influence strong in your mind, you find yourself utterly enraptured by the sight of this succubus's pussy. Despite this, however, you're able to summon some resistance to its effects, and although you don't really mean it, you tell Evelyx that her cunt isn't all that impressive, and that you've seen plenty of prettier pussies than hers before.
 	</p>
 	<p>
-		She lets out a flustered, angry sigh, and after sliding her fingers into her pussy, she withdraws them and shows you that they're coated in a slick layer of girlcum. She says that question time is over. Now it's time for you to obey.
+		[evelyx.speech(I knew I should have put a submission enchantment on that ring as well,)] she tuts under her breath as she hears your response. Seeing that you're still staring hungrily at her twat, despite your words, Evelyx starts to slide her fingers into her pussy, and after spending a moment fingering herself, she withdraws her slender digits and holds them up to show you that they're coated in a slick layer of slimy girlcum. Presenting her fingers to you, she smirks and states, [evelyx.speech(Resist this if you can. Come here and lick my fingers clean, then get your head down between my legs. Satisfy me, and I'll remove the seal on your ring.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_FINAL"><![CDATA[
 	<p>
-		You feel the ring's power giving you submissive thoughts, and can't help but let out a desperate whine as the succubus forcefully commands you to kneel down and submit to her pussy. Holding out her hand, she says you can start by licking her fingers clean, then move on to her cunt.
-	</p>
-	<p>
-		She says that you must have realised by now, but that ring carries an extremely powerful sealing enchantment. She'll remove it for you, but only if you satisfy her...
+		Unable to tear your eyes away from her inviting pussy, you find yourself [pc.stepping] forwards to obey, before suddenly getting one last moment of clarity, allowing you to stop and say no if you really wanted to miss out on this...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_REFUSE"><![CDATA[
 	<p>
-		You somehow manage to summon the resistance to refuse, and Evelyx angrily snaps that she was ripped off and that ring is useless. Tells you that she's not going to remove it for you, and that you can throw it in the rubbish when, or if, you ever manage to remove it.
+		Despite every fibre of your being screaming for you to obey and get a taste of Evelyx's sweet pussy, you somehow manage to summon the strength to refuse Evelyx's offer, and so tell the succubus that you're not interested in performing cunnilingus on her. Rolling her eyes and letting out an annoyed tut, she huffs, [evelyx.speech(I really should have added that submission enchantment... Well, whatever, I'll just get one of the cows to get in here and finish me off. As for that ring, you can forget it if you think I'll take the sealing enchantment off after letting me down like this. If ever you do manage to remove it, then don't come back here trying to pawn it off to me; I'm not interested in that defective junk. Now take your damn breast pump and get out of my sight.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_FINAL_PUSSY_TF"><![CDATA[
+	<p>
+		Both unable and unwilling to disobey Evelyx's order, you [pc.step] around to her side of the desk, before dropping down onto the floor before her. Holding out her fingers, she smirks as you lean forwards and eagerly lick the slimy glirlcum from them. Letting out a triumphant laugh, she spreads her legs and presents you with her wet cunt, and as she slides her now-saliva-coated fingers over her folds, she teases, [evelyx.speech(You want a taste of this, do you? Then beg for it.)]
 	</p>
 	<p>
-		She uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+		Hungrily gazing at Evelyx's orange-lipped pussy, you do as you're told and desperately beg to be allowed to eat her out.
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_monica_ring_questions_failed))
+			 Satisfied with your display of submission, the succubus reveals, [evelyx.speech(If you'd been more truthful with your answers to my questions, I would have considered loosening myself up a little for you, but as you decided to lie about how much you wanted to service my tight little pussy, you're going to have to work hard at getting your tongue into it. Now get started.)]
+		#ELSE
+			 Satisfied with your display of submission, the succubus makes an offer, [evelyx.speech(As you were truthful with your answers to my questions, I suppose I could loosen myself up a little for you if you'd like. Otherwise, you're going to have to work hard at getting your tongue into my tight little cunt. So, what'll it be? Want me to stay nice and tight for you, or should I loosen up a little?)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_OBEY_ORAL_START"><![CDATA[
 	<p>
-		You obey Evelyx and drop down on the floor before her. She gets you to lick her fingers clean, before spreading her legs and telling you that you'd better do a good job.
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_monica_ring_questions_failed))
+			As you lean forwards to do as you're told and get started on eating Evelyx out, the impatient succubus grabs your head and roughly pulls you forwards between her legs. Before you know what's happening, her tight, wet cunt is grinding up against your [pc.lips+], and after planting a passionate kiss on her orange labia, you eagerly dart out your [pc.tongue+] and start to greedily lick Evelyx's soft folds.
+		#ELSE
+			Not wanting her to change anything, you tell Evelyx that her tight, wet pussy is perfect as it is, before leaning forwards to get started on eating her out. As you make your move, the impatient succubus grabs your head and roughly pulls you forwards between her legs, and before you know what's happening, her tight, wet cunt is grinding up against your [pc.lips+]. Delighted with the situation you find yourself in, you plant a series of passionate kisses on Evelyx's orange labia, before eagerly darting out your [pc.tongue+] and starting to greedily lick her soft folds.
+		#ENDIF
 	</p>
 	<p>
-		You kiss and lick her pussy, before starting to enthusiastically eat her out...
+		[evelyx.speech(~Mmm!~ That's it,)] the succubus moans as she grinds your face into her cunt. Letting out a high-pitched squeal in response to your enthusiastic licking, she pants, [evelyx.speech(~Ooh!~ Like that! Yes! ~Mmm!~ Don't you dare stop! I'll be squirting all over your face soon enough!)]
+	</p>
+	<p>
+		Desperately hungry to give her an orgasm and experience that, you bury your face between Evelyx's thighs and continue to greedily eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_OBEY_ORAL_START_LOOSEN"><![CDATA[
+	<p>
+		Although her pussy is perfect as it is, you tell Evelyx that it might be easier for you to pleasure her if she were to loosen it up a little before getting started. Smirking down at you, the succubus lets out a little moan, and you gaze longingly at her wet pussy as you watch her use her demonic self-transformative powers to spread her labia and visibly loosen her cunt. As you start to compliment her on the appearance of her freshly-transformed pussy, the impatient succubus grabs your head and roughly pulls you forwards between her legs. Before you know what's happening, her slightly-loose, wet cunt is grinding up against your [pc.lips+], and after planting a passionate kiss on her orange labia, you eagerly dart out your [pc.tongue+] and start to greedily lick Evelyx's soft folds.
+	</p>
+	<p>
+		[evelyx.speech(~Mmm!~ That's it,)] the succubus moans as she grinds your face into her cunt. Letting out a high-pitched squeal in response to your enthusiastic licking, she pants, [evelyx.speech(~Ooh!~ Like that! Yes! ~Mmm!~ Don't you dare stop! I'll be squirting all over your face soon enough!)]
+	</p>
+	<p>
+		Desperately hungry to give her an orgasm and experience that, you bury your face between Evelyx's thighs and continue to greedily eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MONICA_QUEST_MEETING_RING_OBEY_ORAL_START_GAPING_MESS"><![CDATA[
+	<p>
+		Deciding to push your luck a little, you tell Evelyx that you'd like it if she were to go all the way and transform her tight, cute pussy into a gaping, sloppy mess for you to service. A look of amused surprise flashes across the succubus's face as she hears your audacious request, but instead of doing the expected and refusing you, she teases in her posh, condescending tone, [evelyx.speech(My, my, what a dirty, kinky little thing you are. Do you know what most people would give to be granted the opportunity to service a pussy as perfect as mine? And you'd rather I transform to give you the sort of cunt you'd find on some worn-out, worthless whore?)]
+	</p>
+	<p>
+		Feeling as though it's too late to back out now, and still wanting her to do as you ask, you respond to Evlyx's question in the affirmative. Letting out an amused laugh, she declares, [evelyx.speech(You're a bold one, to be asking this of me. Luckily for you, I do enjoy sometimes transforming myself in new and exciting ways... Fine, I'll do as you ask, but you'd better show me how grateful you are once you've got your head between my legs.)]
+	</p>
+	<p>
+		With that, the succubus starts to focus her demonic self-transformative powers into her pussy, and you watch in delighted awe as her tight, cute cunt starts to take on a new form. To begin with, the succubus's tiny labia start to spread apart, before rapidly increasing in size and turning into huge, meaty flaps. Her entire cunt then quickly darkens into a more desaturated, brownish shade of orange, and after reaching down to part her now-dangling labia, Evelyx presents you with her cunt's passage as it continues to loosen up into a gaping hole. With an excited squeal, she finishes things off by increasing the rate of her girlcum production, turning her now-gaping twat into a slimy, drooling pit. Going all the way in turning her cute pussy into the sort of ruined mess that you requested, the succubus makes one final change, and as she shuffles into a more comfortable, slouched down position in her chair, you're suddenly hit by a waft of strong, feminine musk.
+	</p>
+	<p>
+		[evelyx.speech(Is this what you had in mind, you filthy little thing?)] Evelyx teases as she lets go of her meaty labia to let them hang loosely down to either side of her musky, sloppy hole. Nodding your head in approval, you can't help but lean forwards towards her inviting, ruined cunt. As you start to compliment her on the appearance of her freshly-transformed twat, the impatient succubus grabs your head and roughly pulls you forwards between her legs. Before you know what's happening, her drooling, musky pussy is grinding up against your [pc.lips+], and after planting a passionate kiss on her darkened, sagging labia, you eagerly dart out your [pc.tongue+] and start to greedily lick the inner sides of Evelyx's gaping hole.
+	</p>
+	<p>
+		[evelyx.speech(~Mmm!~ I've never tried it like this before,)] the succubus moans as she grinds your face into her ruined pussy. Letting out a high-pitched squeal in response to your enthusiastic licking, she pants, [evelyx.speech(~Ooh!~ That feels better than I expected! Yes! ~Mmm!~ Don't you dare stop! My sloppy, messy cunt's going to be squirting all over your face soon enough!)]
+	</p>
+	<p>
+		Desperately hungry to give her an orgasm and experience that, you bury your face between Evelyx's thighs as you continue to greedily lick and kiss her gaping, musky mess of a cunt...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_RING_AFTER_SEX"><![CDATA[
 	<p>
-		Evelyx is satisfied. She removes the seal on your ring, and says that you can do what you like with it; she's going to make some adjustments for the one she was planning on forcing her slaves to wear, so doesn't need that one any more.
+		After letting out one last deep, horny moan, Evelyx pushes you away from her, before declaring, [evelyx.speech(That was a good performance, but I've had enough for now. Show me your ring.)] 
 	</p>
 	<p>
-		She says that you proved to be a decent test subject, and then uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+		Doing as you're told, you show Evelyx the ring she got you to wear, and after a wave of her hand, you feel the enchanted seal disappearing from it. Standing up and retrieving her lacy thong from where she kicked it to earlier, the succubus slides her underwear up her legs as she says, [evelyx.speech(You can do whatever you like with that ring. Thanks to your performance as a test subject, I've decided to make some modifications to the ones I was planning to have made for my slaves. Now take that breast pump and get out of my sight. We're done here.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE"><![CDATA[
 	<p>
-		Recognising that Evelyx has a fetish for oral sex, you tell her that if she wants you to give her pussy some oral attention, all she has to do is ask. She laughs and says that she'd ordinarily punish such rudeness, but you're lucky; her slaves are away being trained and transformed this week, and so she hasn't had her daily cunnilingus from them.
+		Recognising that Evelyx has a fetish for oral sex, you tell her that if she wants you to give her pussy some oral attention, all she has to do is ask. The succubus's eyes widen as she hears what it is you're saying, and after letting out a surprised laugh, she says, [evelyx.speech(You're a bold one, aren't you? Ordinarily, I'd punish such rudeness by having you thrown out of here, but today's your lucky day; my sex slave is away being trained and transformed this week, and so I've been missing out on my daily oral sessions. Seeing as you're so eager, you can stand in for them.)]
 	</p>
 	<p>
-		Pushig her chair away from her desk, she hikes up her skirt and takes off her lacy panties. Both her cunt and asshole are orange, and she teases her light blue fingers over her exotic-looking labia. Throws the breast pump to you and says that in exchange, you're to kneel down and get start on licking her cunt already. 
+		Pushing her chair back so that you can look down over the top of her desk to see her groin, Evelyx pulls up her pencil skirt and slides her lacy orange thong all the way down her legs, before kicking it off to one side. Leaning back in her chair, she spreads her legs and presents herself to you, allowing you to see that both her cunt and asshole are the same orange hue as her eyes and horns. Teasing her light blue fingers down over her tiny, exotic-looking labia, she uses them to part her folds and show you how vice-tight her already-wet twat is.
+	</p>
+	<p>
+		[evelyx.speech(That worthless breast pump will be all yours,)] she states. Continuing to play with her pussy, she bites her lip and states, [evelyx.speech(All you need to do is eat me out. So what are you waiting for? Get over here and get started.)] 
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE_ORAL_START"><![CDATA[
 	<p>
-		You do as Evelyx says, and drop down before her to plant a kiss on her cunt.
+		More than happy to do as you're told, you [pc.step] around to Evelyx's side of the desk, before dropping down before her and shuffling up between her legs. As you lean forwards to get started on eating Evelyx out, the impatient succubus grabs your head and roughly pulls you forwards into her groin. Before you know what's happening, her tight, wet cunt is grinding up against your [pc.lips+], and after planting a passionate kiss on her orange labia, you eagerly dart out your [pc.tongue+] and start to greedily lick Evelyx's soft folds.
 	</p>
 	<p>
-		You kiss and lick her pussy, before starting to enthusiastically eat her out...
+		[evelyx.speech(~Mmm!~ That's it,)] the succubus moans as she grinds your face into her cunt. Letting out a high-pitched squeal in response to your enthusiastic licking, she pants, [evelyx.speech(~Ooh!~ Like that! Yes! ~Mmm!~ Don't you dare stop! I'll be squirting all over your face soon enough!)]
+	</p>
+	<p>
+		Desperately hungry to give her an orgasm and experience that, you bury your face between Evelyx's thighs and continue to greedily eat her out...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE_VAGINAL_START"><![CDATA[
 	<p>
-		You expose your cock to Evelyx, who lets out a flustered tut as she sees that you're not obeying her. You tell her that her pussy is too hot to simply be content with oral, and that what it really wants is to be fucked.
+		Not particularly keen on the idea of eating Evelyx out, you [pc.step] around to her side of the desk, but rather than kneeling down before her as she's demanded, you instead expose your cock to the horny succubus. Letting out a flustered tut as she sees that you're not obeying her, Evelyx snaps, [evelyx.speech(What do you think you're doing? Get down and eat me out already!)]
 	</p>
 	<p>
-		Horny from her recent lack of sex, the succubus relents and says that you can fuck her, she just wants to orgasm already. You push her back over her desk and spread her legs, before lining your cock up to her orange labia and thrusting forwards.
+		Refusing to do as she says, you move your [pc.cock+] closer to Evelyx's face, before telling her that her pussy is too hot to simply be content with oral, and that what it really wants is to be fucked. Turned on and desperately horny from her lack of recent sex, the succubus rolls her eyes and lets out a long sigh of annoyance. After then glaring at you for a moment, she relents and sighs, [evelyx.speech(Fine... You can fuck me, but I want you to know that this is only because I haven't had any sex this week! You'd better make this damn good, and don't for a second think that this means you're the one in charge here!)]
 	</p>
 	<p>
-		Evelyx passionately moans and wraps her legs around you as you start thrusting in and out of her horny pussy...
+		Standing up, the blue-skinned succubus takes a long stride forwards, before hiking her skirt up around her waist and bending face-first over her desk. Spreading her legs, she lifts her ass and presents you with her tight, wet cunt, before looking back over her shoulder and snapping, [evelyx.speech(Stick it in already! And remember, you're here for my pleasure, not yours!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you
+		#IF(pc.isTaur())
+			 [pc.step] forwards and rear up on your hind legs, before dropping your front [pc.feet] down onto the desk and effectively mounting the horny succubus. Lining your cock up to her orange labia, you start bucking your hips and rubbing your [pc.cockHead+] up and down over her wet cunt.
+		#ELSE
+			 [pc.step] forwards between the succubus's legs, before lining your cock up to her orange labia and starting to rub your [pc.cockHead+] up and down over her wet cunt.
+		#ENDIF
+		 Letting out a deeply erotic, yet frustrated moan, Evelyx pushes back and angrily demands, [evelyx.speech(~Aah!~ Stop it! Just fucking put it in already!)]
+	</p>
+	<p>
+		Smirking at her impatience, you give the blue-skinned succubus what she wants, and after pushing the [pc.cockHead+] of your [pc.cock+] into her tight, wet twat, you thrust forwards and sink your hard shaft into her hot pussy. After then pulling back, you thrust forwards once again, and with Evelyx beginning to let out a stream of erotic moans and squeals, you start to fuck her over her desk...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_SEDUCE_AFTER_SEX"><![CDATA[
 	<p>
-		Evelyx is exhausted, and says that that's what she really needed.
+		With her pussy reduced to a quivering, sloppy mess, Evelyx lets out a deep, satisfied sigh and pushes you back, declaring, [evelyx.speech(Fuck, that's just what I needed today... I've finished with you now, [pc.name], so take your worthless breast pump and get out of my sight. We're done here.)]
 	</p>
 	<p>
-		As you get your things back in order, she uses the arcane intercom to call for Dale, and within thirty seconds he's opening the door.
+		As you hurry to get your things back in order, the blue-skinned succubus stands up and retrieves her lacy thong from where she kicked it to earlier. After sliding her underwear up her legs, Evelyx glares at you in a decidedly unfriendly fashion, before snapping, [evelyx.speech(Hurry up and get out of here! I have important matters to attend to!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MONICA_QUEST_MEETING_END"><![CDATA[
 	<p>
-		#IF(flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck_unlocked))
-			Evelyx says that you were as good as her slaves for satisfying her. You can pay her a visit again if you feel like servicing her cunt. Just let Dale know and she'll be waiting for you.
-		#ELSE
-			Evelyx says that she doesn't want to be bothered by you again.
-		#ENDIF
+		As you turn to leave, Evelyx presses the button on the intercom that's sitting on her desk, before snapping, [evelyx.speech(Get in here, Dale.)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck_unlocked))
+		<p>
+			The donkey-boy receptionist arrives running just as you get to the door, and after correctly assessing the situation, he asks you to accompany him back to the reception area. As the two of you begin to set off down the corridor, Evelyx calls out from her office behind you, [evelyx.speech(Oh, Dale?! If [pc.name] would like to come back and offer me the same experience again tomorrow, then show [pc.herHim] to my office!)]
+		</p>
+		<p>
+			[dale.speech(Yes, Ma'am!)] Dale calls out, before leading you back to the reception area. Moments later, you find yourself once again standing before the donkey-boy's desk, wondering what to do next...
+		</p>
+	#ELSE
+		<p>
+			The donkey-boy receptionist arrives running just as you get to the door, and after correctly assessing the situation, he asks you to accompany him back to the reception area. Doing so, you soon find yourself once again standing before Dale's desk, wondering what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Evelyx repeat sex meeting content: -->
+	
+	<htmlContent tag="EVELYX_SEX_MEETING"><![CDATA[
+	<p>
+		Remembering Evelyx's offer to go and see her again in her office, you tell Dale that you'd like a special meeting with his succubus boss. Nodding in acknowledgement of your request, Dale reaches forwards and presses a button the arcane intercom that's sitting on his desk. After emitting a short, loud buzzing noise, a feminine voice speaks through it and impatiently snaps, [evelyx.speech(What is it this time, Dale?)]
 	</p>
 	<p>
-		Dale takes you back to reception.
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_promotion_meeting_happened) || flags.hasFlag(FLAG_innoxia_evelyx_work_started))
+			[dale.speech(I have your employee, [pc.name], here in reception again, Ma'am,)]
+		#ELSE
+			[dale.speech(I have that [pc.race], [pc.name], here in reception again, Ma'am,)]
+		#ENDIF
+		 Dale replies,[dale.speech([pc.SheIs] asking about having another meeting with you.)]
+	</p>
+	<p>
+		[evelyx.speech(Oh, [pc.sheIs] back for more, is [pc.she]?)] Evelyx's voice asks over the intercom, and after letting out an amused hum, she says, [evelyx.speech(I'll allow [pc.herHim] to see me again, but make [pc.herHim] wait for fifteen minutes first.)]
+	</p>
+	<p>
+		As the intercom clicks off, Dale motions towards the sofas on the other side of the reception and says, [dale.speech(If you'll first wait for fifteen minutes, I'll show you to Evelyx's office.)] 
+	</p>
+	<p>
+		Deciding that it would be best to do as the donkey-boy suggests, you head on over to the sofas and sit down. Wondering what you're going to do with the succubus this time, you prepare to wait for fifteen minutes...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="EVELYX_SEX_MEETING"><![CDATA[
+	<htmlContent tag="EVELYX_SEX_MEETING_OFFICE"><![CDATA[
 	<p>
-		You tell Dale that you'd like a special meeting with Evelyx. He uses the arcane intercom to let her know, and she says to show you through.
+		After making you wait for almost twenty minutes, you hear the voice of Evelyx suddenly call out over Dale's intercom, [evelyx.speech(Show them through now, Dale. I don't have all day, so be quick about it!)]
 	</p>
 	<p>
-		You're taken to Evelyx's office, and Dale quickly leaves.
+		[dale.speech(Yes, Ma'am!)] Dale replies, before urgently beckoning you forwards. Rising from the sofa, you follow the donkey-boy as he leads you through the doors behind his desk, down a corridor, and to a wooden door bearing the words 'Evelyx's Office'. After raising his fist to deliver a quick knock, Dale opens the door for you and announces your arrival by saying into the room beyond, [dale.speech([pc.Name] is here to see you, Ma'am.)]
+	</p>
+	<p>
+		[pc.Stepping] forwards into the spacious office, you look around to once again see that Evelyx's lair is extravagantly furnished. Mahogany shelves are filled with expensive-looking tomes and golden decorations, while large portraits of demons and landscape paintings hang from the walls. A rich, burgundy rug has been placed in the centre of the floor, and over on the far side, you see Evelyx herself sitting in a huge leather chair behind a masterfully-carved wooden desk.
+	</p>
+	<p>
+		[evelyx.speech(Hurry up and get over here. My cunt's not going to lick itself,)] Evelyx impatiently snaps. As you approach her desk, you take a good look at the owner of this farm. The flawless skin covering her body is a light shade of blue, and while her face has a youthful appearance, the cynical, penetrating gaze from her orange eyes suggests that she's far older than she looks. Her orange nail polish and lipstick matches not only the same shade as her eyes, but also the orange hue that tips the ends of her small horns. Her long, black hair is tied up into a ponytail by means of an orange scrunchie, and a pair of large, [evelyx.cupSize]-cup breasts swell out beneath the succubus's smart, black feminine suit. A gap at the base of her desk allows you to see that instead of humanoid feet, Evelyx has a pair of hard hoofs.
 	</p>
 	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(evelyx))
 		#IF(!pc.isCharacterReactedToPregnancy(evelyx))
@@ -1151,53 +1315,160 @@
 			</p>
 		#ENDIF
 	#ENDIF
+	<p>
+		Pushing her chair back so that you can look down over the top of her desk to see her groin, Evelyx pulls up her pencil skirt and slides her lacy orange thong all the way down her legs, before kicking it off to one side. Leaning back in her chair, she spreads her legs and presents herself to you, allowing you to see that both her cunt and asshole are the same orange hue as her eyes and horns. Teasing her light blue fingers down over her tiny, exotic-looking labia, she uses them to part her folds and show you how vice-tight her already-wet twat is.
+	</p>
 	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().getFather().equals(pc))
 		#IF(!evelyx.isCharacterReactedToPregnancy(pc))
 			<p>
-				As you approach her desk, you see that Evelyx has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, you got me pregnant. It's incredibly inconvenient, so don't ever do it again...)]
+				From this angle, you're also able to see that Evelyx has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, you got me pregnant. It's incredibly inconvenient, so don't ever do it again...)]
 			</p>
 		#ELSE
 			<p>
-				As you approach her desk, you see that Evelyx still has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, I'm still pregnant, thanks to you. It's incredibly inconvenient, so don't ever do it again...)]
+				From this angle, you're also able to see that Evelyx still has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, I'm still pregnant, thanks to you. It's incredibly inconvenient, so don't ever do it again...)]
 			</p>
 		#ENDIF
 	#ENDIF
 	<p>
-		The succubus then orders you to kneel down and eat her out...
+		As the blue-skinned succubus continues to play with her pussy, she flashes you a smirk and says, [evelyx.speech(You're a good [pc.girl], obediently coming back to service my cunt like this. Even though I had my sex slave transformed and trained to be a perfect little cunt-licker, that useless whore doesn't satisfy me like you did.
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck_gaped))
+			 As a special reward for being so good, I'll transform my pussy into the sort of gaping mess that you like if you want me to. I know what a dirty, kinky little thing you are...
+		#ELSE
+			 As a special reward for being so good, I'll loosen up my pussy for you if you'd like. It can be a little too tight for some people...
+		#ENDIF
+		)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING_TF_NONE"><![CDATA[
+	<p>
+		Not wanting Evelyx to loosen her pussy, you tell her that she's perfect just the way she is. Smugly smirking as she hears this, the succubus spreads her legs a little wider and demands, [evelyx.speech(So what are you waiting for? Get down here and eat me out already!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING_TF_LOOSEN"><![CDATA[
+	<p>
+		Although her pussy is perfect as it is, you tell Evelyx that it might be easier for you to pleasure her if she were to loosen it up a little before getting started. Flashing you a smirk, the succubus lets out a little moan, and you gaze longingly at her wet pussy as you watch her use her demonic self-transformative powers to spread her labia and visibly loosen her cunt. As you start to compliment her on the appearance of her freshly-transformed pussy, the impatient succubus interrupts you by snapping, [evelyx.speech(Yes, yes, I know that my pussy is perfect. Just get down here and eat me out already!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EVELYX_SEX_MEETING_TF_GAPING"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_evelyx_daily_fuck_gaped))
+		<p>
+			Deciding to take Evelyx up on her offer, you tell her that you'd like it if she were to again go all the way and transform her tight, cute pussy into a gaping, sloppy mess for you to service. A look of amusement flashes across the succubus's face as she hears your audacious request, and she teases in her posh, condescending tone, [evelyx.speech(You really are such a dirty, kinky little thing, aren't you? Do you know what most people would give to be granted the opportunity to service a pussy as perfect as mine? And you'd rather I transform to give you the sort of cunt you'd find on some worn-out, worthless whore?)]
+		</p>
+		<p>
+			Knowing that she'll give you want you want, you eagerly respond to Evlyx's question in the affirmative. Letting out another amused laugh, she declares, [evelyx.speech(Luckily for you, I did very much enjoy it the last time we did this... I'll once again do as you ask, but you'd better show me how grateful you are once you've got your head between my legs.)]
+		</p>
+	#ELSE
+		<p>
+			Deciding to push your luck a little, you tell Evelyx that you'd like it if she were to go all the way and transform her tight, cute pussy into a gaping, sloppy mess for you to service. A look of amused surprise flashes across the succubus's face as she hears your audacious request, but instead of doing the expected and refusing you, she teases in her posh, condescending tone, [evelyx.speech(My, my, what a dirty, kinky little thing you are. Do you know what most people would give to be granted the opportunity to service a pussy as perfect as mine? And you'd rather I transform to give you the sort of cunt you'd find on some worn-out, worthless whore?)]
+		</p>
+		<p>
+			Feeling as though it's too late to back out now, and still wanting her to do as you ask, you respond to Evlyx's question in the affirmative. Letting out an amused laugh, she declares, [evelyx.speech(You're a bold one, to be asking this of me. Luckily for you, I do enjoy sometimes transforming myself in new and exciting ways... Fine, I'll do as you ask, but you'd better show me how grateful you are once you've got your head between my legs.)]
+		</p>
+	#ENDIF
+	<p>
+		With that, the succubus starts to focus her demonic self-transformative powers into her pussy, and you watch in delighted awe as her tight, cute cunt starts to take on a new form. To begin with, the succubus's tiny labia start to spread apart, before rapidly increasing in size and turning into huge, meaty flaps. Her entire cunt then quickly darkens into a more desaturated, brownish shade of orange, and after reaching down to part her now-dangling labia, Evelyx presents you with her cunt's passage as it continues to loosen up into a gaping hole. With an excited squeal, she finishes things off by increasing the rate of her girlcum production, turning her now-gaping twat into a slimy, drooling pit. Going all the way in turning her cute pussy into the sort of ruined mess that you requested, the succubus makes one final change, and as she shuffles into a more comfortable, slouched down position in her chair, you're suddenly hit by a waft of strong, feminine musk.
+	</p>
+	<p>
+		[evelyx.speech(You really like me like this, you filthy little thing?)] Evelyx asks in amusement. As you respond in the positive, she laughs and spreads her legs, and with her slender fingers still pulling her dangling labia back to show off her ruined cunt, she demands, [evelyx.speech(Get down here and show me how much you love it then. I want your tongue deep in my sloppy, gaping pussy.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="EVELYX_SEX_MEETING_ORAL_START"><![CDATA[
-	<p>
-		You do as Evelyx says and kneel down before her. She pulls up her skirt and shifts aside her panties, and you start eagerly eating her out...
-	</p>
+	#IF(evelyx.getVaginaCapacity()==CAPACITY_SEVEN_GAPING)
+		<p>
+			More than happy to do as she asks, you quickly move forwards and drop down in front of Evelyx, who lets go of her meaty labia to let them hang loosely down to either side of her musky, sloppy hole. Licking your lips in anticipation of what's to come, you eagerly lean forwards towards her inviting, ruined cunt. As you start to compliment her on the appearance of her freshly-transformed twat, the impatient succubus grabs your head and roughly pulls you forwards between her legs. Before you know what's happening, her drooling, musky pussy is grinding up against your [pc.lips+], and after planting a passionate kiss on her darkened, sagging labia, you eagerly dart out your [pc.tongue+] and start to greedily lick the inner sides of Evelyx's gaping hole.
+		</p>
+		<p>
+			[evelyx.speech(~Mmm!~ It feels so different, being eaten out like this,)] the succubus moans as she grinds your face into her ruined pussy. Letting out a high-pitched squeal in response to your enthusiastic licking, she pants, [evelyx.speech(~Ooh!~ It's so good! Yes! ~Mmm!~ Don't you dare stop! My sloppy, messy cunt's going to be squirting all over your face soon enough!)]
+		</p>
+		<p>
+			Desperately hungry to give her an orgasm and experience that, you bury your face between Evelyx's thighs as you continue to greedily lick and kiss her gaping, musky mess of a cunt...
+		</p>
+	#ELSE
+		<p>
+			More than happy to do as she asks, you quickly move forwards and drop down in front of Evelyx. Although you quickly lean forwards to get started, you're not fast enough for the impatient succubus, who grabs your head and roughly pulls you forwards between her legs. Before you know what's happening, her [evelyx.pussyCapacity], wet cunt is grinding up against your [pc.lips+], and after planting a passionate kiss on her orange labia, you eagerly dart out your [pc.tongue+] and start to greedily lick Evelyx's soft folds.
+		</p>
+		<p>
+			[evelyx.speech(~Mmm!~ That's it,)] the succubus moans as she grinds your face into her cunt. Letting out a high-pitched squeal in response to your enthusiastic licking, she pants, [evelyx.speech(~Ooh!~ Like that! Yes! ~Mmm!~ Don't you dare stop! I'll be squirting all over your face soon enough!)]
+		</p>
+		<p>
+			Desperately hungry to give her an orgasm and experience that, you bury your face between Evelyx's thighs and continue to greedily eat her out...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="EVELYX_SEX_MEETING_VAGINAL_START"><![CDATA[
 	<p>
-		You tell Evelyx that she's going to get a real fuck instead. She smirks at your boldness, and lets you take the lead.
+		Not particularly keen on the idea of eating Evelyx out, you [pc.step] around to her side of the desk, but rather than kneeling down before her as she's demanded, you instead expose your cock to the horny succubus. Letting out a flustered tut as she sees that you're not obeying her, Evelyx snaps, [evelyx.speech(What do you think you're doing? Get down and eat me out already!)]
 	</p>
 	<p>
-		You take out your cock and push her back over her desk. She pulls up her skirt and shifts aside her panties, and you eagerly sink your hard shaft into her hot pussy...
+		Refusing to do as she says, you move your [pc.cock+] closer to Evelyx's face, before telling her that her pussy is too hot to simply be content with oral, and that what it really wants is to be fucked. Although the succubus rolls her eyes and lets out a long sigh of annoyance, she's too turned on to continue trying to get her own way, and so after glaring at you for a moment, she relents and sighs, [evelyx.speech(Fine... You can fuck me, but I want you to know that this is only because my sex slave is such a useless whore, and she hasn't given me any real satisfaction lately! You'd better make this damn good, and don't for a second think that this means you're the one in charge here!)]
+	</p>
+	<p>
+		Standing up, the blue-skinned succubus takes a long stride forwards, before hiking her skirt up around her waist and bending face-first over her desk. Spreading her legs, she lifts her ass and presents you with her
+		#IF(evelyx.getVaginaCapacity()==CAPACITY_SEVEN_GAPING)
+			 sloppy, gaping mess of a cunt,
+		#ELSE
+			 [evelyx.pussyCapacity], wet cunt,
+		#ENDIF
+		 before looking back over her shoulder and snapping, [evelyx.speech(Stick it in already! And remember, you're here for my pleasure, not yours!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you
+		#IF(pc.isTaur())
+			 [pc.step] forwards and rear up on your hind legs, before dropping your front [pc.feet] down onto the desk and effectively mounting the horny succubus.
+			#IF(evelyx.getVaginaCapacity()==CAPACITY_SEVEN_GAPING)
+				 Lining your cock up to her darkened, dangling labia, you start bucking your hips and rubbing your [pc.cockHead+] up and down over her ruined, musky hole.
+			#ELSE
+				 Lining your cock up to her orange labia, you start bucking your hips and rubbing your [pc.cockHead+] up and down over her wet cunt.
+			#ENDIF
+		#ELSE
+			 [pc.step] forwards between the succubus's legs, before lining your cock up to her
+			#IF(evelyx.getVaginaCapacity()==CAPACITY_SEVEN_GAPING)
+				 darkened, dangling labia labia and starting to rub your [pc.cockHead+] up and down over her ruined, musky hole.
+			#ELSE
+				 orange labia and starting to rub your [pc.cockHead+] up and down over her wet cunt.
+			#ENDIF
+		#ENDIF
+		 Letting out a deeply erotic, yet frustrated moan, Evelyx pushes back and angrily demands, [evelyx.speech(~Aah!~ Stop it! Just fucking put it in already!)]
+	</p>
+	<p>
+		#IF(evelyx.getVaginaCapacity()==CAPACITY_SEVEN_GAPING)
+			Smirking at her impatience, you give the blue-skinned succubus what she wants, and after easily sliding the [pc.cockHead+] of your [pc.cock+] past her dangling labia into her slimy, musky hole, you thrust forwards and push your hard shaft deep into her ruined pussy. After then pulling back, you thrust forwards once again, and with Evelyx beginning to let out a stream of erotic moans and squeals, you start to fuck her over her desk...
+		#ELSE
+			Smirking at her impatience, you give the blue-skinned succubus what she wants, and after pushing the [pc.cockHead+] of your [pc.cock+] into her tight, wet twat, you thrust forwards and sink your hard shaft into her hot pussy. After then pulling back, you thrust forwards once again, and with Evelyx beginning to let out a stream of erotic moans and squeals, you start to fuck her over her desk...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="EVELYX_SEX_MEETING_AFTER_SEX"><![CDATA[
 	<p>
-		Evelyx is satisfied. Calls for Dale, who arrives in less than thirty seconds.
+		With her pussy reduced to a quivering, sloppy mess, Evelyx lets out a deep, satisfied sigh and pushes you back, declaring, [evelyx.speech(Fuck, that's just what I needed today... I've finished with you now, [pc.name], so get out of my sight. We're done here.)]
+	</p>
+	<p>
+		As you hurry to get your things back in order, the blue-skinned succubus stands up and retrieves her lacy thong from where she kicked it to earlier. After sliding her underwear up her legs, Evelyx glares at you in a decidedly unfriendly fashion, before snapping, [evelyx.speech(Hurry up and get out of here! I have important matters to attend to!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="EVELYX_SEX_MEETING_END"><![CDATA[
 	<p>
-		As you leave, Evelyx says not to come back until tomorrow; she's had enough of you for one day.
+		As you turn to leave, Evelyx presses the button on the intercom that's sitting on her desk, before snapping, [evelyx.speech(Get in here, Dale.)]
 	</p>
 	<p>
-		Dale accompanies you back to reception.
+		The donkey-boy receptionist arrives running just as you get to the door, and after correctly assessing the situation, he asks you to accompany him back to the reception area. As the two of you begin to set off down the corridor, Evelyx calls out from her office behind you, [evelyx.speech(Oh, Dale?! If [pc.name] would like to come back and offer me the same experience again tomorrow, then show [pc.herHim] to my office!)]
+	</p>
+	<p>
+		[dale.speech(Yes, Ma'am!)] Dale calls out, before leading you back to the reception area. Moments later, you find yourself once again standing before the donkey-boy's desk, wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -1268,7 +1539,7 @@
 		You [pc.step] up to the vending machine. There are several cheesy slogans saying to work your best on it.
 	</p>
 	<p>
-		The selection is rather limited, and very expensive. Lettering across the vending machine says that 'Good cows support Evely's Dairy by making as many purchases as they can every day!'
+		The selection is rather limited, and very expensive. Lettering across the vending machine says that 'Good cows support Evelyx's Dairy by making as many purchases as they can every day!'
 	</p>
 	<p>
 		You can buy:
@@ -1392,10 +1663,7 @@
 		</p>
 	#ENDIF
 	<p>
-		Dale's huge donkey-cock eagerly rises to attention as he hears this. Delivering a long, wet lick to the underside of his hot shaft, you tell him to relax; you'll take good care of him.
-	</p>
-	<p>
-		Opening wide, you take the flared head of Dale's cock into your mouth, and within moments a stream of precum and saliva is drooling over your [pc.lips+] as you take Dale's dark shaft down your throat...
+		Dale's huge donkey-cock eagerly rises to attention as he hears this. Delivering a long, wet lick to the underside of his hot shaft, you tell him to relax; you'll take good care of him. Opening wide, you take the flared head of Dale's cock into your mouth, and within moments a stream of precum and saliva is drooling over your [pc.lips+] as you take Dale's dark shaft down your throat...
 	</p>
 	]]>
 	</htmlContent>

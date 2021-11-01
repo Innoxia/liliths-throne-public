@@ -265,6 +265,14 @@ public class Kay extends NPC {
 	}
 
 	@Override
+	public String getArtworkFolderName() {
+		if(this.isFeminine()) {
+			return "KayFeminine";
+		}
+		return "Kay";
+	}
+	
+	@Override
 	public boolean isFeminine() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kayFeminised);
 	}
