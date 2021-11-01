@@ -534,6 +534,11 @@ public class AbstractPlaceType {
 			return null;
 		}
 		
+		// If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+		if(possibleEncounters.stream().anyMatch(en->en.isAnyBaseTriggerChanceOverOneHundred())) {
+			possibleEncounters.removeIf(en->!en.isAnyBaseTriggerChanceOverOneHundred());
+		}
+		
 		// Need to always return the same encounter in case it gets triggered multiple times in logic somewhere
 		Util.random.setSeed(Main.game.getSecondsPassed());
 		AbstractEncounter ae = Util.randomItemFrom(possibleEncounters);

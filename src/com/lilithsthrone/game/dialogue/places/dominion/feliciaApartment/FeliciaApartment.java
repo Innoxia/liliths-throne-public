@@ -198,18 +198,20 @@ public class FeliciaApartment {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1 && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
-				return new Response("No", "Tell her you haven't found him yet.", ARTHUR_WHEREABOUTS_NO);
-				
-			} else if(index == 1 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
-				return new Response("Yes", "Tell her the good news.", FeliciaApartment.ARTHUR_WHEREABOUTS_YES) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 30));
-					}
-				};
-				
+			if(index==1) {
+				if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+					return new Response("No", "Tell her you haven't found him yet.", ARTHUR_WHEREABOUTS_NO);
+					
+				} else {
+					return new Response("Yes", "Tell her the good news.", FeliciaApartment.ARTHUR_WHEREABOUTS_YES) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(getFelicia().incrementAffection(Main.game.getPlayer(), 30));
+						}
+					};
+				}
 			}
+			
 			return null;
 		}
 	};

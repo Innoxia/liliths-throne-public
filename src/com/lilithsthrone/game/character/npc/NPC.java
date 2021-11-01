@@ -888,11 +888,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Handles the behaviour when the player escapes from this enemy in combat.
 	 */
 	public void applyEscapeCombatEffects() {
-	};
+	}
 	
 	public Response endCombat(boolean applyEffects, boolean playerVictory) {
 		return null;
-	};
+	}
 
 	/**
 	 * If this character has special scenes which interrupt combat at a certain point, then use this method to add them.
@@ -900,7 +900,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public Response interruptCombatSpecialCase() {
 		return null;
-	};
+	}
 	
 	/**
 	 * @return The chance of enemies managing to escape from this NPC. Defined as an int from 0-100, representing percentage.
@@ -2923,6 +2923,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		return null;
 	}
+
+	/**
+	 * Generic version of getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest)
+	 */
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter) {
+		return getSexBehaviourDeniesRequests(requestingCharacter, null);
+	}
 	
 	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		if(requestingCharacter.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
@@ -2935,7 +2942,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return true;
 		}
 		
-		int weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		int weight = 0;
+		if(sexTypeRequest!=null) {
+			weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		}
 		
 		return weight<0 || this.hasFetish(Fetish.FETISH_SADIST);
 	}

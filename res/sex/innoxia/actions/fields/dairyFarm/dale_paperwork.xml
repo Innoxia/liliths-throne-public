@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer()]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>TWO_LOW</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Continue working]]></title>
+	<tooltip><![CDATA[
+		Think, Dale, think! This work needs to be completed! You have no time to enjoy yourself!
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				Dale does his best to stay clam and focus on completing his paperwork, but every now and then he lets out a subdued grunt and mutters,
+				[dale.speechNoEffects([style.random(
+					Keep going... ~Mmm!~ That's good...
+					|
+					~Ahh!~ You're good at this, [pc.name]...
+					|
+					Don't stop now...
+					|
+					That's it... ~Mmm!~ Keep going...
+				)])]
+			]]></text>
+			<text><![CDATA[
+				Although he tries to do his best to focus on completing his paperwork, Dale can't help but buck his hips a little and groan under his breath,
+				[dale.speechNoEffects([style.random(
+					Keep going... ~Mmm!~ That's good...
+					|
+					~Ahh!~ You're good at this, [pc.name]...
+					|
+					Don't stop now...
+					|
+					That's it... ~Mmm!~ Keep going...
+				)])]
+			]]></text>
+			<text><![CDATA[
+				Doing his absolute best to focus on his work, Dale continues filling out the paperwork before him, and the only hint he gives that you're sucking his [dale.cock+] beneath his desk is the occasional quiet grunt or groan.
+			]]></text>
+			<text><![CDATA[
+				Despite gently bucking his hips or letting out the odd, quiet grunt, Dale manages to retain his composure and focus on completing his paperwork as you continue sucking his [dale.cock+].
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -1280,13 +1280,15 @@ public class DebugDialogue {
 								stage = RaceStage.GREATER;
 							}
 							
-							Main.game.getCharacterUtils().reassignBody(
-									attacker,
-									attacker.getBody(),
-									attacker.getGender(),
-									subspecies,
-									stage,
-									false);
+							attacker.setBody(attacker.getGender(), subspecies, stage, true);
+							
+//							Main.game.getCharacterUtils().reassignBody(
+//									attacker,
+//									attacker.getBody(),
+//									attacker.getGender(),
+//									subspecies,
+//									stage,
+//									false);
 						}
 
 						attacker.resetInventory(true);

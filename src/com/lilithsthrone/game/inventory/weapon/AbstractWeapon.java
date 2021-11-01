@@ -700,6 +700,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
 		Set<ItemTag> tags = this.getItemTags();
 		
+
+		if(this.getWeaponType().getItemTags().contains(ItemTag.UNIQUE_NO_NPC_EQUIP) && !clothingOwner.isPlayer()) {
+			return new Value<>(false, UtilText.parse("[style.colourBad(Only you can equip this weapon!)]"));
+		}
+		
 		if(block!=null && Collections.disjoint(block.getRequiredTags(), tags)) {
 			return new Value<>(false, UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]"));
 		}

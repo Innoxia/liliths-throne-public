@@ -1943,6 +1943,8 @@ public class CharacterCreation {
 		Main.game.setWeatherInSeconds(Weather.MAGIC_STORM, 5*60*60);
 		
 		Main.game.getPlayerCell().resetInventory();
+
+		Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_clothing_keys"), false);
 	}
 
 	private static void applySkipPrologueStart(boolean imported) {

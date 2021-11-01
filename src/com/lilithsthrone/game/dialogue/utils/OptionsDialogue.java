@@ -2176,6 +2176,13 @@ public class OptionsDialogue {
 							"This unlocks 'sadistic' sex actions, such as choking, slapping, and spitting on partners in sex.",
 							Main.getProperties().hasValue(PropertyValue.sadisticSexContent)));
 
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
+							"FERAL",
+							PresetColour.BASE_TAN,
+							"Feral",
+							"This enables feral content, which contains sexual and non-sexual interactions with sapient characters who have fully-animal bodies.",
+							Main.getProperties().hasValue(PropertyValue.feralContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"LIPSTICK_MARKING",
 							PresetColour.BASE_RED_DARK,
@@ -2319,11 +2326,11 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.footContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-					"ARMPIT",
-					PresetColour.BASE_PINK_LIGHT,
-					"Armpit Content",
-					"When disabled, removes all armpit-related actions from being available during sex.",
-					Main.getProperties().hasValue(PropertyValue.armpitContent)));
+							"ARMPIT",
+							PresetColour.BASE_PINK_LIGHT,
+							"Armpit Content",
+							"When disabled, removes all armpit-related actions from being available during sex.",
+							Main.getProperties().hasValue(PropertyValue.armpitContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FURRY_TAIL_PENETRATION",

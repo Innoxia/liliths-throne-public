@@ -64,6 +64,8 @@ public enum ItemTag {
 	 *  This only really affects common-rarity clothing, as all clothing of a rarity higher than common are typically only able to be added to characters directly. */
 	NO_RANDOM_SPAWN,
 	
+	UNIQUE_NO_NPC_EQUIP, // Prevents the clothing/weapon from being equipped onto an NPC. Only works on items with a 'UNIQUE' rarity level
+	
 	NIGHT_VISION_SELF(  // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
 			Util.newArrayListOfValues(
 					"[style.colourGood(Negates 'Darkness' effect)]"),
@@ -112,6 +114,11 @@ public enum ItemTag {
 					"[style.colourBad(Muffles speech)]"),
 			false),
 
+	BLOCKS_SIGHT( // Causes the wearer to suffer from 'blinded' status effect
+			Util.newArrayListOfValues(
+					"[style.colourBad(Blocks sight)]"),
+			false),
+	
 	HINDERS_ARM_MOVEMENT( // Hinders the ability of the wearer to use their arms. E.g. Hand cuffs
 			Util.newArrayListOfValues(
 					"[style.colourBad(Hinders arm movement)]",

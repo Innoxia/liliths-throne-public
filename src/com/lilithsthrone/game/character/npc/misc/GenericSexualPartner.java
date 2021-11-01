@@ -261,7 +261,7 @@ public class GenericSexualPartner extends NPC {
 					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to tear your hymen and claim your virginity, you can't help but let out a lewd, masochistic scream."
 							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you can't help but squeal and moan in a delightful haze of overwhelming ecstasy.");
 				} else {
-					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperate, shuddering wail."
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to claim your virginity, you can't help but let out a desperate, shuddering wail."
 							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you squirm about on the table as you try to endure this terrible experience.");
 				}
 			sb.append("</p>");

@@ -250,10 +250,10 @@ public class PenisType {
 	public static AbstractPenisType EQUINE = new AbstractPenisType(BodyCoveringType.PENIS,
 			Race.HORSE_MORPH,
 			TesticleType.EQUINE,
-			Util.newArrayListOfValues("mare-", "horse-", "equine-"),
-			Util.newArrayListOfValues("mare-", "horse-", "equine-"),
-			Util.newArrayListOfValues("stallion-", "horse-", "equine-"),
-			Util.newArrayListOfValues("stallion-", "horse-", "equine-"),
+			Util.newArrayListOfValues("mare-", "#IF(npc.getRace()==npc.getPenisRace())[npc.raceFeral]#ELSE[npc.cockRaceFeral]#ENDIF-", "equine-"),
+			Util.newArrayListOfValues("mare-", "#IF(npc.getRace()==npc.getPenisRace())[npc.raceFeral]#ELSE[npc.cockRaceFeral]#ENDIF-", "equine-"),
+			Util.newArrayListOfValues("stallion-", "#IF(npc.getRace()==npc.getPenisRace())[npc.raceFeral]#ELSE[npc.cockRaceFeral]#ENDIF-", "equine-"),
+			Util.newArrayListOfValues("stallion-", "#IF(npc.getRace()==npc.getPenisRace())[npc.raceFeral]#ELSE[npc.cockRaceFeral]#ENDIF-", "equine-"),
 			Util.newArrayListOfValues(""),
 			"Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as [npc.her] shaft grows wider and the head flattens down.<br/>"
 				+ "[npc.She] now [npc.has] an [style.boldHorseMorph(equine penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].<br/>"
