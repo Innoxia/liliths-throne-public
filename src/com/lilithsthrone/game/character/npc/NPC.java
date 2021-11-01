@@ -886,11 +886,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Handles the behaviour when the player escapes from this enemy in combat.
 	 */
 	public void applyEscapeCombatEffects() {
-	};
+	}
 	
 	public Response endCombat(boolean applyEffects, boolean playerVictory) {
 		return null;
-	};
+	}
 
 	/**
 	 * If this character has special scenes which interrupt combat at a certain point, then use this method to add them.
@@ -898,7 +898,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public Response interruptCombatSpecialCase() {
 		return null;
-	};
+	}
 	
 	/**
 	 * @return The chance of enemies managing to escape from this NPC. Defined as an int from 0-100, representing percentage.

@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -131,7 +132,7 @@ public class Evelyx extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2")) {
 			this.setStartingBody(true);
 			this.equipClothing();
 		}
@@ -173,6 +174,7 @@ public class Evelyx extends NPC {
 			this.setFetishDesire(Fetish.FETISH_KINK_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_FOOT_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ONE_DISLIKE);
 			
@@ -199,8 +201,8 @@ public class Evelyx extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.COVERING_BLUE_LIGHT), true);
 		
 		this.setSkinCovering(new Covering(BodyCoveringType.HORN, CoveringPattern.OMBRE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_ORANGE, false), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
@@ -212,7 +214,7 @@ public class Evelyx extends NPC {
 		this.setPubicHair(BodyHair.ZERO_NONE);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 		
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_ORANGE));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_ORANGE));
 		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_ORANGE));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_PINK_LIGHT));
 		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_ORANGE));
@@ -248,13 +250,7 @@ public class Evelyx extends NPC {
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
-		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
-		this.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
-		this.setVaginaSquirter(true);
-		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
-		this.setVaginaWetness(Wetness.FOUR_SLIMY);
-		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		this.resetPussy();
 		
 		// Feet:
 		// Foot shape
@@ -274,7 +270,7 @@ public class Evelyx extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_feminine_blazer", PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_trousers_women", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_ORANGE, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, null, false), true, this);
@@ -303,11 +299,36 @@ public class Evelyx extends NPC {
 	public void endSex() {
 		this.cleanAllDirtySlots(true);
 		this.equipClothing();
+		this.resetPussy();
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+
+	public void loosenPussy() {
+		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+	}
+	
+	public void gapingMessPussy() {
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_ORANGE_DARK, false, PresetColour.COVERING_ORANGE_DARK, false), false);
+		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+		this.setVaginaCapacity(Capacity.SEVEN_GAPING, true);
+		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
+		this.addGirlcumModifier(FluidModifier.MUSKY);
+	}
+	
+	public void resetPussy() {
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), false);
+		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
+		this.setVaginaSquirter(true);
+		this.setVaginaCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		this.removeGirlcumModifier(FluidModifier.MUSKY);
 	}
 	
 	// Public methods for use within Evelyx's Dairy:
@@ -731,7 +752,7 @@ public class Evelyx extends NPC {
 	// Clothing:
 	
 	public AbstractClothing getOralRing() {
-		AbstractClothing oralRing = Main.game.getItemGen().generateClothing("innoxia_finger_lips_ring", false);
+		AbstractClothing oralRing = Main.game.getItemGen().generateClothing("innoxia_finger_lips_ring", PresetColour.CLOTHING_ORANGE_DARK, PresetColour.CLOTHING_BLACK_STEEL, null, false);
 		
 		oralRing.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
 		oralRing.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SERVITUDE, TFPotency.MINOR_BOOST, 0));

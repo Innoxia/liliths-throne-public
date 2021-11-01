@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,7 +111,10 @@ import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
@@ -701,6 +705,10 @@ public class UtilText {
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
+		return formatAsMoney(money, tag, null);
+	}
+
+	public static String formatAsMoneyUncoloured(String money, String tag) {
 		return formatAsMoney(money, tag, null);
 	}
 	
@@ -1393,7 +1401,7 @@ public class UtilText {
 				"Formats the supplied number as money, using the tag as the html tag."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return UtilText.formatAsMoneyUncoloured(Integer.valueOf(arguments.split(", ")[0]), arguments.split(", ")[1]);
+				return UtilText.formatAsMoneyUncoloured(arguments.split(", ")[0], arguments.split(", ")[1]);
 			}
 		});
 		
@@ -9687,6 +9695,9 @@ public class UtilText {
 		engine.put("dialogueManager", Main.game.getDialogueManager());
 		
 		// Java classes:
+		for(Month month : Month.values()) {
+			engine.put("MONTH_"+month, month);
+		}
 		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
 			engine.put("DOW_"+dayOfWeek, dayOfWeek);
 		}
@@ -9789,6 +9800,18 @@ public class UtilText {
 		}
 		for(BodyShape bodyShape : BodyShape.values()) {
 			engine.put("BODY_SHAPE_"+bodyShape.toString(), bodyShape);
+		}
+		for(Capacity capacity : Capacity.values()) {
+			engine.put("CAPACITY_"+capacity.toString(), capacity);
+		}
+		for(OrificeDepth depth : OrificeDepth.values()) {
+			engine.put("DEPTH_"+depth.toString(), depth);
+		}
+		for(OrificeElasticity elasticity : OrificeElasticity.values()) {
+			engine.put("ELASTICITY_"+elasticity.toString(), elasticity);
+		}
+		for(OrificePlasticity plasticity : OrificePlasticity.values()) {
+			engine.put("PLASTICITY_"+plasticity.toString(), plasticity);
 		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {

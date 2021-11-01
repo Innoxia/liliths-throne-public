@@ -60,6 +60,7 @@ import com.lilithsthrone.game.character.npc.fields.Dale;
 import com.lilithsthrone.game.character.npc.fields.Evelyx;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
 import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Kazik;
@@ -1267,6 +1268,16 @@ public class ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Dale.class);
+		}
+	};
+
+	public static AbstractParserTarget HEADLESS_HORSEMAN = new AbstractParserTarget(Util.newArrayListOfValues("headlessHorseman", "headHorse"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(HeadlessHorseman.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(HeadlessHorseman.class);
 		}
 	};
 	
