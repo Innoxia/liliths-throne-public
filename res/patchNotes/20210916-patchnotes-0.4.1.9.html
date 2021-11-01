@@ -1,0 +1,70 @@
+<h2>v0.4.1.9</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed bug where the Aristocrat background would allow you to boost your corruption to 100 during character creation. (by Maxis)</li>
+	<li>Fixed bug where coatls, the feathered dragons, would fail the subspecies match if they got feathered dragon tails. (by DSG)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added behaviour to externally defined encounters, where if you use a value of >100 for the encounter chance, then all other encounters with chances of <=100 will be discarded and only encounters with chances of >100 will be used.</li>
+	<li>Added clothing tag 'BLOCKS_SIGHT' for use with blindfolds or other sight-limiting clothing. When worn, clothing with this tag will put the 'blinded' status effect on the character (or 'Blinded (Echo location)' if the character has a body part which grants echo location).</li>
+	<li>Added item tag 'UNIQUE_NO_NPC_EQUIP' to prevent unique clothing or weapons from being equipped onto NPCs.</li>
+	<li>Added 'personalityChances' element support to subspecies files, which is defined in the same manner as the 'personalityChances' in 'RacialBody.xml'. Personality chances in subspecies files are rolled after RacialBody chances.</li>
+	<li>The 'effects' element for responses now works for trading and combat responses.</li>
+</ul>
+
+<h3>Artwork:</h3>
+<ul>
+	<li>Added 5 images for Leotie, drawn by Jam (https://twitter.com/JamDrawers).</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added 'Evelyx's Dairy' location and internal map. It is automatically discovered when entering its world map tile, which can be found by starting at Elis, then going 5 tiles East, 2 tiles North. (Warning: There is a lot of placeholder content in this area in this version!)</li>
+	<li>Added new unique NPC 'Monica', who runs the clothing shop in ELis's shopping precinct. (Warning: Almost all of her content is placeholders in this version!)</li>
+	<li>Added an extra row of inventory slots to each page of character's inventories, effectively increasing inventory size by 30.</li>
+	<li>Added 'donkey-morph' as a subspecies of horse-morph. To be identified as a donkey-morph, a character needs to be identified as being the 'horse-morph' race, and needs to have the new 'upright horse' ear type. </li>
+	<li>Added a content toggle for 'feral' content. (To turn it on or off, go to the main menu, then go to 'Content Options', then under the 'Bodies' option, set 'Feral' to on/off.)</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Added 'thin bangles' clothing item (androgynous, wrist slot, sold by Nyan).</li>
+	<li>Added 'wrap ring' clothing item (androgynous, finger slot, sold by Nyan).</li>
+	<li>Added unique item 'Clothing Keys', which are added to your inventory at the start of the game (and retroactively added to your inventory when loading into this version). Examining these keys gives you a list of all the sealed clothing to which you have an unlock key.</li>
+	<li>Added 'blindfold' (androgynous, eye slot, BDSM set, blinds wearer, sold by Finch).</li>
+	<li>Added 'lips ring' clothing item (androgynous, finger slot, sold by Nyan).</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>NPCs who like or love the dominant fetish will no longer always accept a request to be rough (although NPCs who like/love the sadist fetish still will).</li>
+	<li>Added a 'Request facial' as a new sex action for when a character has the option to prepare for their partner's orgasm. (Requires penis-face interaction availability, for the orgasming character to have a real penis, and to be not wearing a condom. NPCs will be more/less likely to use based on their 'cum addict' fetish desire.)</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Reduced Nizhoni's breast size from JJ-cup to G-cup.</li>
+	<li>Taking a 'Quick shower' in your room now applies the 'Recently showered' status effect for half the time that 'Thorough shower' does.</li>
+	<li>Quadrupedal cattle-morphs are now called 'cowtaur'/'bulltaur' instead of 'cattletaur'.</li>
+	<li>Altered default speech colours to reduce saturation and therefore (hopefully) make them easier to read on the dark background.</li>
+	<li>Zebra (and the new donkey) subspecies now have a higher detection priority than centaur subspecies, allowing you to become a zebrataur (and donkeytaur).</li>
+	<li>Slightly improved the description of Lilith's statue in the centre of Dominion, and there is a 20% chance of having a small dialogue variation displayed every time the tile's description is displayed.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing and typo fixes.</li>
+	<li>Fixed issue where purchased slaves could not be impregnated.</li>
+	<li>Slaves being sold in slaver alley will now correctly have randomly-generated personality traits and fetishes.</li>
+	<li>Fixed issue where interacting with Felicia directly after completing Zaranix's section of the main quest would result in getting stuck with no available dialogue actions to choose from.</li>
+	<li>Fixed issue in sex scenes where you could swap position with characters who shouldn't have been able to get into the position you were in.</li>
+	<li>The 'Spawn attacker' option in the debug menu will now correctly assign the spawned NPC's personality traits, name, and perks corresponding to their subspecies.</li>
+	<li>Fixed some harmless(?) parsing error message spam in the error log when loading an old save.</li>
+	<li>Fixed issue where you could return to the Rat Warrens and enter it after Vengar had been dealt with (but before handing the quest in to Axel to complete it), which would cause several bugs within the area.</li>
+	<li>The tongue length TF limit on enchanted clothing will now show toe exact value instead of a vague descriptor.</li>
+	<li>Slimes which you've befriended from the bat caverns will no longer consume glowing mushrooms every hour.</li>
+	<li>Candi now correctly has the 'lewd' personality trait.</li>
+</ul>

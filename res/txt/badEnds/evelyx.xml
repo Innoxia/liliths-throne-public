@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Pre-bad end stripping: -->
+	
+	
+	<htmlContent tag="STRIP_FLAMES_TOP"><![CDATA[
+	<p>
+		Evelyx beings by taking all [#SPECIAL_PARSE_0] of your flames, and goes wide-eyed as she sees how rich you are. She is extremely happy to be getting all of your money, and gloats about how wealthy she now is.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_FLAMES_RICH"><![CDATA[
+	<p>
+		Evelyx beings by taking all [#SPECIAL_PARSE_0] of your flames, and is extremely pleased to see how rich you are. She is extremely happy to be getting all of your money, and gloats about how wealthy she now is.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_FLAMES_LOTS"><![CDATA[
+	<p>
+		Evelyx beings by taking all [#SPECIAL_PARSE_0] of your flames, and is pleased to see how rich you are. She is very happy to be getting all of your money, and gloats about how wealthy she now is.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_FLAMES_AVERAGE"><![CDATA[
+	<p>
+		Evelyx beings by taking all [#SPECIAL_PARSE_0] of your flames, and is a little disappointed to see that you aren't very rich. She is still happy to be getting all of your money, and gloats about how your wealth is now hers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_FLAMES_POOR"><![CDATA[
+	<p>
+		Evelyx beings by taking all [#SPECIAL_PARSE_0] of your flames, and is a very disappointed to see how poor you are. She is still happy to be getting all of your money, and gloats about how your wealth is now hers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_CLOTHING_START_SEALS"><![CDATA[
+	<p>
+		She then moves on to take all of your clothing, weapons, and items. The seals on your clothing do nothing to prevent her from removing them, as she simply channels some of her essences into each item and roughly strips them from your body.
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_CLOTHING_START"><![CDATA[
+	<p>
+		She then moves on to take all of your clothing, weapons, and items.
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_CLOTHING_TOP"><![CDATA[
+		 Laying your possessions out over the office floor, she lets out an excited giggle as she declares that your items will make her a very rich woman indeed once she's pawned them off in Dominion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_CLOTHING_RICH"><![CDATA[
+		 Laying your possessions out over the office floor, she lets out a happy giggle as she declares that your items will make her a rich woman once she's pawned them off in Dominion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_CLOTHING_LOTS"><![CDATA[
+		 Laying your possessions out over the office floor, she lets out a happy giggle as she declares that your items will fetch a high price when she goes to pawn them off in Dominion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_CLOTHING_AVERAGE"><![CDATA[
+		 Laying your possessions out over the office floor, she lets out a disappointed tut as she declares that your items won't fetch much when she goes to pawn them off in Dominion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STRIP_CLOTHING_POOR"><![CDATA[
+		 Laying your possessions out over the office floor, she lets out a disgusted tut as she declares that your items aren't even worth being pawned off in Dominion, and proceeds to throw them in the trash.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Bad end content: -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		Evelyx unlocks the door and tells you to continue following her as she takes you to your new home.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_BARN"><![CDATA[
+	<p>
+		Evelyx leads you into a barn much like the others you've worked in, and shows you to a milking stall. She locks you into it by means of a chain clasped around your legs.
+	</p>
+	<p>
+		Attaches the pumps and leaves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_BARN_END"><![CDATA[
+	<p>
+		Slaves gossip about who's going to adopt you. You can't ask them what they mean, however, as Evelyx returns to clean you down ready for 'the auction'.
+	</p>
+	#IF(pc.isPregnant())
+		<p>
+			Evelyx mutters about your pregnancy being an issue, and so makes you drink several bottles of Mother's Milk, before focusing her arcane energy into your body and making you give birth. You pass out from the intensity, and when you wake up, your children are gone. The succubus says that your kids have been sent to work at her bottling factory near Dominion, and that they'll be safe (teases you about how your kids will be unknowingly bottling their mother's milk).
+		</p>
+	#ENDIF
+	<p>
+		Brushing your lower [pc.legRace]'s body down, she can't resist taking a moment to eat you out, and then quickly sticks her cock in your pussy and finishes inside. Cursing at her lack of willpower, she cleans her cum out of your cunt, before muttering about how the 'ladies' will be arriving at any moment. She unchains you and orders you to follow her to 'your auction'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUCTION"><![CDATA[
+	<p>
+		Follow Evelyx out of the barn and into the room on the opposite side of the corridor. Inside, rich red carpet, sofas surrounding a central platform. Evelyx leads you up onto this platform and tells you to stay still and silent.
+	</p>
+	<p>
+		A few minutes later, and through a door on the other side of the room, a dozen huge, demonic centaurs enter. Evelyx bows to them and thanks them for sparing her farm.
+	</p>
+	<p>
+		The centauresses surround you and start talking about your breasts, pussy, and how much you'll be worth. Evelyx announces that the bidding can begin, and whoever wins will own you and receive 100% of the profits from your milk production.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUCTION_END"><![CDATA[
+	<p>
+		The centauresses bid against one another. One in particular seems very keen to own you, and she ends up winning.
+	</p>
+	<p>
+		She says that you'll make a fine companion to her other slave. Says that she plans on transforming you. Evelyx says that's not in the contract, but she stamps her hoof and asks if Evelyx wants her farm burnt down or not.
+	</p>
+	<p>
+		Evelyx relents and agrees. Your new owner walk up to you and says that she's on the verge of being recognised by Lunette, and so she's practically a princess. Tells you to always refer to her as 'Princess'.
+	</p>
+	<p>
+		You obey, and she moves around to claim your cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOUNTED"><![CDATA[
+	<p>
+		Princess mounts you and immediately slams her massive horse-like cock deep into your cunt, before starting to roughly rut you in front of Evelyx and her sisters.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MOUNTED_END"><![CDATA[
+	<p>
+		Princess slides her huge cock out of your well-fucked pussy. As she steps back, musky cum practically gushes out of your despoiled cunt to form a stick pool on the floor.
+	</p>
+	<p>
+		Evelyx thanks the centauresses for sparing her farm, and asks Princess if she's ready to see where your new home is. Princess says she's been through all this before, then happily trots on ahead, cum still dripping from her softening cock to leave a trail that you and Evelyx follow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BACK_HOME"><![CDATA[
+	<p>
+		Evelyx leads you back to your stall, which turns out to be next to the one which Princess's other slave is being kept in. As you arrive, Princess mounts her other slave and has quickly blown half a dozen loads into her cunt.
+	</p>
+	<p>
+		While she's fucking her other slave, Evelyx leaves and returns with an arcane tattoo gun. Asks Princess what she'd like tattooed on your ass above your milker number. Princess says that she doesn't care about naming her cows, so you'll simply be called 'Cow' from now on.
+		#IF(pc.getTattooInSlot(IS_ANUS)!=null)
+			 Evelyx erases the tattoo that's already on your ass, and replaces it with the text 'Cow #[#~~flags.getSavedLong('evelyx_player_number')]' in black ink.
+		#ELSE
+			 Evelyx tattoos the text 'Cow #[#~~flags.getSavedLong('evelyx_player_number')]' in black ink on your ass.
+		#ENDIF
+	</p>
+	<p>
+		Noisily orgasming and dumping a huge amount of cum in her other slave, Princess slides her cock out from her well-fucked cunt. Her insatiable lust isn't satisfied yet, however, and now that she's reduced her other slave to a quivering, moaning mess, she mounts you again and starts slamming her huge cock deep into your cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_1"><![CDATA[
+	<p>
+		Much time passes in this manner, with Princess arriving at least once, and often twice or three times every day to rut you and the slave beside you. Your bellies are soon swollen with Princess's children, and after leaving the two of you with heavily pregnant bellies for weeks, she allows Evelyx to help the two of you give birth.
+	</p>
+	<p>
+		You eventually lose track of time as the sex-filled days blur together. One day, however, Princess enters the barn with Evelyx, having purchased a new slave. She says that she's going to have some fun transforming the three of you.
+	</p>
+	#IF(game.isNipplePenEnabled())
+		<p>
+			Starts with the slave who was here before you, and you watch as she spends an hour growing her breasts into huge mounds of flesh, before transforming her nipples into lipples and fucking them hard and rough. With a final squeal, Princess eventually pulls out of her slave's well-fucked breast and moves on to you.
+		</p>
+	#ELSE
+		<p>
+			Princess says that she's going to start with you, and spends a moment wondering out loud whether she should turn your pussy into the perfect cock-sleeve, or to make you into her oral pet.
+			#IF(game.isAnalContentEnabled())
+				 Grabbing your ass cheeks, she spreads them and says that it might be fun to turn you into her anal bitch.
+			#ENDIF
+			 Rubbing her fingers over your body, she lets out a playful giggle as she makes her decision...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_1_PUSSY"><![CDATA[
+	<p>
+		Princess transforms your cunt into her vision of a perfect cock-sleeve. In between ramming her cock deep into your twat, she transforms it to be tentacled, ribbed, and to have extra internal muscles. After ruining it with her huge cock and transforming it into a sloppy, girlcum-drooling mess, she says that she wants you to always look inexperienced, and so transforms your pussy to be tight, cute, and puffy.
+	</p>
+	<p>
+		She then spends the next hour despoiling your cunt over and over again, and each time it quickly recovers to both look and feel tight and pretty. She is very pleased with your new cunt, and then moves on to her newest slave, transforming her into her desperate oral pet...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_1_MOUTH"><![CDATA[
+	<p>
+		Princess transforms you into her oral pet, beginning with giving you massive, puffy lips and a constantly-drooling throat. In-between slamming her huge horse-cock deep down your gullet, she transforms your throat to be ribbed, tentacled, and to have extra muscles. Finally, she makes your tongue extremely long and makes you eat her out, before giving you an extremely rough face-fucking session.
+	</p>
+	<p>
+		She then spends the next hour emptying her balls over and over again down your throat. She is very pleased with your new mouth, and then moves on to her newest slave, transforming her into her desperate pussy slut...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_1_ANUS"><![CDATA[
+	<p>
+		Princess transforms your asshole into her vision of a perfect cock-sleeve. In between ramming her cock deep into your back-door, she transforms it to be tentacled, ribbed, and to have extra internal muscles. After ruining it with her huge cock and transforming it so that you constantly produce natural anal lubricant, she says that she wants you to always look inexperienced, and so transforms your asshole to be tight, cute, and puffy.
+	</p>
+	<p>
+		She then spends the next hour despoiling your butt over and over again, and each time it quickly recovers to both look and feel tight and pretty. She is very pleased with your new asshole, and then moves on to her newest slave, transforming her into her desperate oral pet...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_2"><![CDATA[
+	<p>
+		Princess continues her regular visits for the next few months, making sure to thoroughly fuck your newly-transformed
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_anal))
+			 asshole every time.
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_oral))
+			 mouth every time.
+		#ELSE
+			 pussy every time.
+		#ENDIF
+	</p>
+	<p>
+		One day she arrives in a particularly bad mood, and after spending a couple of hours hate-fucking you and her other two slaves, she says that the three of you need to start making more money for her. She then reveals how she's planning on transforming you to make her a very wealthy woman...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_2_FLAVOUR"><![CDATA[
+	<p>
+		Princess transforms each of you to have different flavoured milk and girlcum. After she's finished, she's in a much better mood, and spends the rest of her time happily pounding each of your pussies.
+	</p>
+	<p>
+		She finishes by giving
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_anal))
+			 your asshole
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_oral))
+			 your mouth
+		#ELSE
+			 your pussy
+		#ENDIF
+		 a good, hard fuck, and then leaves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_2_HYPER"><![CDATA[
+	<p>
+		Princess transforms each of you to have absolutely gigantic 
+		#IF(pc.hasBreastsCrotch())
+			 breasts and udders.
+		#ELSE
+			 breasts.
+		#ENDIF
+		 Just as you think that they can't get any larger, Princess says that you're ready to start, and she continues feeding the three of you breast-growth potions until your tits are as large as your entire body. Only when you're completely unable to move form the sheer weight and size of your tits does Princess declare that you're all finished.
+	</p>
+	<p>
+		Having completed her work, Princess is in a much better mood, and spends the rest of her time happily pounding each of your pussies while teasing you about becoming her immobile milk sluts.
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_anal))
+			 She gives your asshole
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_oral))
+			 She gives your throat
+		#ELSE
+			 She gives your pussy
+		#ENDIF
+		 an especially good fucking, and then leaves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_2_MULTI"><![CDATA[
+	<p>
+		Princess transforms each of you to have three pairs of
+		#IF(pc.hasBreastsCrotch())
+			 breasts and udders.
+		#ELSE
+			 breasts.
+		#ENDIF
+		 Just as you think that it's over, Princess says that she's half-way done, and she continues feeding the three of you potions until you've each got
+		#IF(pc.hasBreastsCrotch())
+			 twelve tits and udders,  each with four puffy nipples on them.
+		#ELSE
+			 twelve tits, each with four puffy nipples on them.
+		#ENDIF
+		 Only when you've been hooked up to a tangled mess of dozens of breast pumps does Princess declare that you're all finished.
+	</p>
+	<p>
+		Having completed her work, Princess is in a much better mood, and spends the rest of her time happily pounding each of your pussies while teasing you about becoming her multi-tittied milk sluts.
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_anal))
+			 She gives your asshole
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_oral))
+			 She gives your throat
+		#ELSE
+			 She gives your pussy
+		#ENDIF
+		 an especially good fucking, and then leaves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_3"><![CDATA[
+	<p>
+		Over the course of the next few months, the improvements Princess made to you and her other two slaves ends up making her very rich. Although you've long since lost track of how long you've been here, you estimate that it must be nearing a year.
+	</p>
+	<p>
+		One day, after Princess has finished
+		#IF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_anal))
+			 stuffing your asshole full of her thick, musky cum,
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_evelyx_bad_end_oral))
+			 stuffing your stomach full of her thick, musky cum,
+		#ELSE
+			 stuffing your womb full of her thick, musky cum,
+		#ENDIF
+		 you ask her how long you've been here for. Although she's tolerated questions in the past, her newfound wealth, as well as the fact that she's become a recognised daughter of Lunette, has made her even more arrogant and ruthless than before.
+	</p>
+	<p>
+		Striking you for your insolence, she angrily pounds your pussy until you're a quiver, cum-stuffed wreck. Not content to simply fuck you into silence, she says that she's got a solution for your insolence...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_3_BONDAGE"><![CDATA[
+	<p>
+		She leaves and returns a short time later with one of her slaves carrying latex bondage gear. She forces you into your new skin-tight, shiny uniform, which covers every inch of your body except for your holes. Fitting a blindfold over your eyes, she fastens a ballgag into your mouth and says that you'll only have it removed to eat, drink, and to take her cock down your throat.
+	</p>
+	<p>
+		Having finished encasing you in latex, Princess mounts you and fucks your pussy over and over again, sighing in delight as she hears your desperate cries being muffled by your ballgag.
+	</p>
+	<p>
+		In this manner, you spend the rest of your life encased in latex, being milked in the barn. You're fucked over and over again by Princess, who never once loses her insatiable desire to sink her fat cock into your holes and stuff you full of her cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_3_BIMBO"><![CDATA[
+	<p>
+		She produces a vial of luminescent pink liquid, and after putting on a pair of latex gloves for her own safety, she forces you to drink this 'Bimbo-Xtreme' potion. Your mind instantly starts spinning, and as a happy smile settles on your face, you feel your capacity for intelligent thought melting away. Soon enough, all you can think about is Princess's cock and how hungry your holes are.
+	</p>
+	<p>
+		Having finished turning you into a brain-dead bimbo, Princess mounts you and fucks your pussy over and over again, sighing in delight as she hears your lewd moans being interspersed with airy, bubbly giggles.
+	</p>
+	<p>
+		In this manner, you spend the rest of your life as an air-headed bimbo, being milked in the barn. You're fucked over and over again by Princess, who never once loses her insatiable desire to sink her fat cock into your holes and stuff you full of her cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NEW_LIFE_3_FERAL"><![CDATA[
+	<p>
+		She leaves and returns a short time later with a human slave carrying a wooden box with a big iron padlock on it. She orders her slave to open the box, and out of the corner of your eye you see that it contains a smooth stone, with glowing, light brown swirls and etchings carved into its surface. Following Princess's instructions, the slave picks up this stone and advances up you. You see the slave's hand transforming into a cow-morph's hand as she hurries to obey her owner, and then you feel her hand pushing inside of you as she forces this stone deep into your cunt.
+	</p>
+	<p>
+		The slave pulls back and withdraws her now-empty hand from your pussy, but the stone's effects have already run their course, and although she was a human moments ago, Princess's slave is now a greater cow-girl. As for you, you feel a deep, powrful wave of energy spreading out from your pussy, and you feel your upper body shrinking down and being enveloped into your lower cows' body. Within just a minute, your upper body has completely transformed away, and as your face shifts and transforms, you're turned into a completely feral cow!
+	</p>
+	<p>
+		You try to say something, but you can only moo. Princess laughs and says that with the stone's power being absorbed into your body, you'll never be able to transform back. She teases her fingers over your pussy and laments that she'll miss out on the income from your breasts, but that she finds ferals to be extremely hot so it's worth it.
+	</p>
+	<p>
+		Having finished turning you into a feral cow, Princess mounts you and fucks your pussy over and over again, sighing in delight as she hears your lewd moans coming out as incomprehensible moos.
+	</p>
+	<p>
+		In this manner, you spend the rest of your life as a feral cow, being milked in the barn. You're fucked over and over again by Princess, who never once loses her insatiable desire to sink her fat cock into your holes and stuff you full of her cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

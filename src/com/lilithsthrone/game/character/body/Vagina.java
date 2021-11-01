@@ -122,6 +122,10 @@ public class Vagina implements BodyPartInterface {
 		
 		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 
+		descriptorList.removeIf(d->d.isEmpty());
+		if(descriptorList.isEmpty()) {
+			return "";
+		}
 		return Util.randomItemFrom(descriptorList);
 	}
 	
@@ -201,10 +205,10 @@ public class Vagina implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(blush)] as [npc.she] [npc.verb(feel)] a strange heat spreading through [npc.her] groin, and can't help but let out a low [npc.moan] as the [npc.skin] "
 						+ (!owner.hasPenisIgnoreDildo()
-							? "in the middle of [npc.her] groin,"
+							? "in the middle of [npc.her] groin"
 							: (!owner.isTaur()
-									?"beneath [npc.her] cock,"
-									:"above and behind [npc.her] cock,"))
+									?"beneath [npc.her] cock"
+									:"above and behind [npc.her] cock"))
 						+ " starts to cave inwards and form a shallow furrow."
 						+ " Showing no sign of stopping, this strange new indentation continues to deepen, sending another burst of heat shooting up into [npc.namePos] lower abdomen."
 						+ " As this second wave of heat fades away, a sharp, penetrating sensation shoots up into [npc.her] groin, and while it isn't painful,"

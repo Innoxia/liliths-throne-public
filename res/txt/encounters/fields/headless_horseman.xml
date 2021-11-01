@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Warning: -->
+	
+	<htmlContent tag="WARNING"><![CDATA[
+	<p>
+		As you continue to travel through the Foloi Fields, you suddenly spot a squat, wooden signpost sitting by the side of the road up ahead. Approaching this curiosity, you see that the board bears a warning, and you stop to read:
+	</p>
+	<p style='text-align:center;'>
+	<i>
+		[style.boldOrange(Beware the Headless Horseman!)]
+		<br/>A most foul criminal has once again been reported to be on the prowl! The 'headless horseman' is known to attack innocent citizens and demand that they give him head! Finding him an amusement, Lunette has granted him legal immunity, so all that you can do is try to avoid him!
+		<br/>What is known about this horseman:
+		<br/>- He only attacks at night
+		<br/>- He is only active during the month of October
+		<br/>- He is not interested in money
+		<br/>- He only attacks people whose mouths he can access
+		<br/>Stay safe and don't become his next victim!
+	</i>
+	</p>
+	<p>
+		Taking this warning seriously, you quickly glance around to make sure that this 'headless horseman' isn't lurking somewhere nearby. Thankfully, there's no sign of this menace, and so after again scanning over the facts about the criminal's modus operandi, you prepare to set off and continue on your way...
+	</p>	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HORSEMAN_NO_ENCOUNTER_HINT"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You won't encounter the headless horseman again tonight!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Actual encounter: -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		Although it's mostly wide-open fields which flank either side of the road you find yourself travelling down, now and again you pass by small thickets of densely-packed trees and bushes. At this time of night these tangled copses are absolutely pitch-black, but as you pass by a particularly overgrown patch of foliage, you suddenly spot a floating, yellow light deep within its depths. Just as you catch sight of it, this strange light starts to rapidly move towards you, and you quickly prepare yourself for the worst as it bursts out of the undergrowth and blocks the road ahead.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_fields_headless_horseman_encountered))
+		<p>
+			Finally getting a chance to see what exactly this strange light is, you find yourself once again being confronted by some kind of arcane illumination that's glowing out through a creepy face which has been carved into one side of a large pumpkin. Although it looked like it was floating when in the dark copse, you're now able to see that this Jack-o'-Lantern is being worn as a frightening headpiece by a tall figure whose body is otherwise completely concealed by a long, black cloak. Through the eye-slits which have been carved into the pumpkin, you see a pair of red, glowing eyes staring out at you, and before you're able to make a move, this familiar figure calls out in a deep, booming voice, [headHorse.speech(I have chosen you as my victim before! That's right, I am the headless horseman, and once again I demand that you give me head!)]
+		</p>
+	#ELSE
+		<p>
+			Finally getting a chance to see what exactly this strange light is, you find your eyes opening wide as you see that it's some kind of arcane illumination that's glowing out through a creepy face which has been carved into one side of a large pumpkin. Although it looked like it was floating when in the dark copse, you're now able to see that this Jack-o'-Lantern is being worn as a frightening headpiece by a tall figure whose body is otherwise completely concealed by a long, black cloak. Through the eye-slits which have been carved into the pumpkin, you see a pair of red, glowing eyes staring out at you, and before you're able to make a move, this figure calls out in a deep, booming voice, [headHorse.speech(This night, you are to become my next victim! That's right, I am the headless horseman, and you shall give me head!)]
+		</p>
+	#ENDIF
+	<p>
+		With that, the headless horseman throws open his cloak, revealing to you the fact that he's not wearing any other item of clothing. As he exposes his naked body, you're able to see that this horseman is a greater horse-boy, and the horse-like hair covering his muscular body is completely pitch-black. Looking down, you see that even though it's currently sheathed, he's got a [headHorse.cockGirth], [headHorse.cockLengthValue] horse-cock and a [headHorse.ballsSize] pair of heavy balls between his legs, both of which are covered in ebony skin. In his hands, this horseman is holding a huge [headHorse.mainWeapon], and as he flashes his huge genitals at you, the horseman points this two-handed sword in your direction and hungrily growls, [headHorse.speech(I haven't had any head tonight, and so you're going to give me some! Surrender to me and let me fuck your face, or else I'll have to use force to get my way!)]
+	</p>
+	<p>
+		Remembering the warning sign you saw regarding this headless horseman, you know that he's not going to be interested in taking your money. As such, it seems like your only options are to do as he says and give him some head, or prepare to defend yourself...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GIVE_HEAD"><![CDATA[
+	<p>
+		#IF(pc.getAddiction(FLUID_TYPE_CUM_HORSE_MORPH)!=null)
+			Hopelessly addicted to horse-cum, you find yourself getting madly turned on and desperate to get a taste of the horseman's seed, and so without needing to be told again, you submissively drop down before him.
+		#ELSE
+			Not wanting to fight such a fearsome figure, you decide to do as the horseman demands, and so without needing to be told again, you submissively drop down before him.
+		#ENDIF
+		 Letting out a deep, approving grunt as he sees that you're willing to give him what he wants, the muscular horse-boy sticks the blade of his [headHorse.mainWeapon] into the ground, before stepping forwards and placing his large, strong hands on the top of your head. Before you can react or say anything in response to this dominant move, the horseman suddenly pulls you forwards and thrusts his groin into your face. Grinding his still-sheathed shaft all over your mouth, he forces you to breathe in the musky, masculine scent of his animalistic genitals as he grunts, [headHorse.speech(Get me hard with your tongue. And put some effort into it!)]
+	</p>
+	<p>
+		Once again doing as you're told, you dart out your [pc.tongue+] and start to eagerly lick the horse-boy's thick, ebony cock-sheath. Each time you slide your tongue over his salty genitals, the horseman's fat cock pushes out of its sheath a little more and starts to grow harder and larger. In just a moment, you find yourself happily kissing and licking the horseman's huge, erect horse-cock, and after letting out another of his deep, masculine grunts, he orders, [headHorse.speech(Get a taste of my precum, then open wide.)]
+	</p>
+	<p>
+		Once more doing as you're told, you work your way up the length of the horseman's hot, veiny shaft, before pressing your [pc.lips+] against the flared head of his horse-like cock and eagerly lapping up the salty, slimy precum that's starting to ooze out from his urethra. After planting one last a passionate kiss on his animalistic dick, you open wide, and without waiting a single moment, the impatient horseman roughly thrusts forwards and forces the massive, flared head of his shaft into your mouth. Gripping your head tightly in both hands, the oral-obsessed horse-boy slams his hips forwards, forcing his huge cock as deep as possible down your throat. Only concerned with his own pleasure, he ignores your choking, gargling splutters, and after pulling back, he thrusts forwards once again and starts to relentlessly fuck your face, causing a stream of cummy saliva to begin to drool from the corners of your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_SUB"><![CDATA[
+	<p>
+		Ramming his cock deep down your throat one last time, the horseman, having got the head he was seeking, pulls all the way back and slides his softening shaft out of your mouth. Grabbing his semi-flaccid cock with one hand, he slaps its cummy, saliva-coated length against your [pc.lips+], grunting in amused satisfaction, [headHorse.speech(You're addicted to horse cum now. So show me how much you need it. Lick me clean.)]
+	</p>
+	<p>
+		The desperate urge in your mind to get another taste of the horseman's seed lets you know that what he's saying is the truth, and before you can think twice about it, you're eagerly running your [pc.tongue+] all over the horseman's ebony shaft, swallowing down every last drop of slimy cum that you can find. Despite your oral attention, the horseman seems to have had enough for one night, and within a few moments, his huge shaft has once again softened and withdrawn into its sheath. Desperately sliding your tongue into the thick folds of skin which protect the horseman's cock, you find yourself letting out a series of pathetic, whining moans.
+	</p>
+	<p>
+		[headHorse.speech(That's enough for tonight,)] the horse-boy booms, before pushing you away from his groin and taking a step back. Looking down at you through the eye slots of the Jack-o'-Lantern he's still wearing, the horseman grunts, [headHorse.speech(If I see you again, I'll be sure to offer you another load of my cum.)]
+	</p>
+	<p>
+		Without so much as a farewell, the horseman turns about on the spot, and after retrieving his [headHorse.mainWeapon] from where he left it earlier, he runs off into the night, leaving you with little else to do except gather your thoughts and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON"><![CDATA[
+	<p>
+		Although his physical appearance would suggest that he'd be a strong opponent, the headless horseman was no match for you, and after half-heartedly swinging his [headHorse.mainWeapon] at you one last time, he sinks down onto one knee and pants, [headHorse.speech(Wait... No more... I am defeated...)]
+	</p>
+	<p>
+		#IF(headHorse.getClothingInSlot(IS_HEAD).getClothingType()==CT_innoxia_head_jack_o_lantern)
+			With the glowing Jack-o'-Lantern still securely in place on his head, your foe makes for a curious and frightening sight.
+		#ELSE
+			Although you've taken the glowing Jack-o'-Lantern off his head, your foe's glowing red eyes and pitch-black fur still gives him a fearsome look.
+		#ENDIF
+		  Despite his alarming appearance, however, he remains defeated and repeats his declaration of surrender, leaving you wondering what to do with him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_END"><![CDATA[
+	<p>
+		Deciding that you're finished with the headless horseman, you [pc.step] past him and leave him panting for breath as you continue on your way through the Foloi Fields...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[
+	<p>
+		Liking the look of the horseman's muscular, masculine body, as well as his huge, sheathed cock and heavy balls, you decide that you'd like to have some fun with him. [pc.Stepping] up to where he's still collapsed down on one knee, you tell the horseman that tonight's his lucky night, as you've decided to use him to satisfy your lust.
+	</p>
+	<p>
+		[headHorse.speech(If that's the case, then use that mouth of yours to suck my cock,)] he audaciously grunts. Telling him that he's in no position to be making such demands, you order the horseman to stand. Doing as he's told, your defeated foe rises to his [headHorse.feet], enabling you to slide your [pc.fingers] over the thick sheath between his legs. Much to your delight, his cock quickly responds to your touch, and within a moment, his hot, thick horse-shaft is fully erect and standing to attention.
+	</p>
+	<p>
+		[headHorse.speech(Just let me pump a load inside of you,)] he eagerly grunts in his deep, gruff voice. Deciding to make him wait and see what it is you're planning to do with him, you ignore the horseman's comment as you [pc.step] forwards and prepare to have your way with him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_GENTLE"><![CDATA[
+	<p>
+		Liking the look of the horseman's muscular, masculine body, as well as his huge, sheathed cock and heavy balls, you decide that you'd like to have some fun with him. [pc.Stepping] up to where he's still collapsed down on one knee, you tell the horseman that tonight's his lucky night, as you've decided to use him to satisfy your lust.
+	</p>
+	<p>
+		[headHorse.speech(If that's the case, then use that mouth of yours to suck my cock,)] he audaciously grunts. Gently informing him that he's in no position to be making such demands, you ask the horseman to stand. Doing as he's told, your defeated foe rises to his [headHorse.feet], enabling you to softly tease your [pc.fingers] over the thick sheath between his legs. Much to your delight, his cock quickly responds to your touch, and within a moment, his hot, thick horse-shaft is fully erect and standing to attention.
+	</p>
+	<p>
+		[headHorse.speech(Just let me pump a load inside of you,)] he eagerly grunts in his deep, gruff voice. Deciding to make him wait and see what it is you're planning to do with him, you ignore the horseman's comment as you [pc.step] forwards and prepare to have your way with him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_SEX_ROUGH"><![CDATA[
+	<p>
+		Liking the look of the horseman's muscular, masculine body, as well as his huge, sheathed cock and heavy balls, you decide that you'd like to have some fun with him. [pc.Stepping] up to where he's still collapsed down on one knee, you tell the horseman that tonight's his lucky night, as you've decided to use him to satisfy your lust.
+	</p>
+	<p>
+		[headHorse.speech(If that's the case, then use that mouth of yours to suck my cock,)] he audaciously grunts. Roughly snapping back that he's in no position to be making such demands, you order the horseman to stand. Doing as he's told, your defeated foe rises to his [headHorse.feet], enabling you to forcefully rub your [pc.fingers] over the thick sheath between his legs. Much to your delight, his cock quickly responds to your touch, and within a moment, his hot, thick horse-shaft is fully erect and standing to attention.
+	</p>
+	<p>
+		[headHorse.speech(Just let me pump a load inside of you,)] he eagerly grunts in his deep, gruff voice. Deciding to make him wait and see what it is you're planning to do with him, you tell the horseman to shut up as you [pc.step] forwards and prepare to have your way with him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_GIVE_HEAD"><![CDATA[
+	<p>
+		#IF(pc.getAddiction(FLUID_TYPE_CUM_HORSE_MORPH)!=null)
+			Hopelessly addicted to horse-cum, you find yourself getting madly turned on and desperate to get a taste of the horseman's seed,
+		#ELSE
+			Feeling sorry for the horseman, you decide that it would be best to give him what he wants,
+		#ENDIF
+		 and so instead of using your victory to your advantage, you submissively drop down before him and tell him to do whatever he likes with you. Letting out a deep, surprised grunt as he sees that you're willing to give him what he wants, the muscular horse-boy rises to his [headHorse.feet], before stepping forwards and placing his large, strong hands on the top of your head. Seeing that you're serious about submitting to him, the horseman lets out another deep grunt, before pulling you forwards and thrusting his groin into your face. Grinding his still-sheathed shaft all over your mouth, he forces you to breathe in the musky, masculine scent of his animalistic genitals as he grunts, [headHorse.speech(Get me hard with your tongue. And put some effort into it!)]
+	</p>
+	<p>
+		Doing as you're told, you dart out your [pc.tongue+] and start to eagerly lick the horse-boy's thick, ebony cock-sheath. Each time you slide your tongue over his salty genitals, the horseman's fat cock pushes out of its sheath a little more and starts to grow harder and larger. In just a moment, you find yourself happily kissing and licking the horseman's huge, erect horse-cock, and after letting out another of his deep, masculine grunts, he orders, [headHorse.speech(Get a taste of my precum, then open wide.)]
+	</p>
+	<p>
+		Once more doing as you're told, you work your way up the length of the horseman's hot, veiny shaft, before pressing your [pc.lips+] against the flared head of his horse-like cock and eagerly lapping up the salty, slimy precum that's starting to ooze out from his urethra. After planting one last a passionate kiss on his animalistic dick, you open wide, and without waiting a single moment, the impatient horseman roughly thrusts forwards and forces the massive, flared head of his shaft into your mouth. Gripping your head tightly in both hands, the oral-obsessed horse-boy slams his hips forwards, forcing his huge cock as deep as possible down your throat. Only concerned with his own pleasure, he ignores your choking, gargling splutters, and after pulling back, he thrusts forwards once again and starts to relentlessly fuck your face, causing a stream of cummy saliva to begin to drool from the corners of your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[
+	<p>
+		Having had your fun with the [headHorse.name], you push him away from you, and with one last deep, masculine grunt, the horse-boy collapses to the floor in complete exhaustion. As he continues to heavily pant for breath, you quickly get your things back in order, before wondering whether to help yourself to any of his possessions, or to instead simply continue on your way and leave him behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_DOM_END"><![CDATA[
+	<p>
+		Deciding that you're finished with the headless horseman, you [pc.step] past him and leave him panting for breath as you continue on your way through the Foloi Fields...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_WON_TALK"><![CDATA[
+	<p>
+		Wanting to get some answers, you ask the headless horseman why he's attacking innocent travellers and demanding head from them. Although he lets out a deep grunt in annoyance at your decision to question him, the horse-boy nevertheless answers you in his booming voice, [headHorse.speech(Wel, my cock's not going to suck itself is it? I got bored of all the whores and easy sluts in the city, so I thought I'd look to get my cock sucked out here. It's a lot more fun doing it this way...)]
+	</p>
+	<p>
+		Not content with the simplicity of his answer, you tell the horseman that he'd better tell you the truth, or else his nights of hunting for head will be well and truly over. Letting out a laugh, he asks, [headHorse.speech(What, is that not a good enough reason for you? I like fucking people's faces, that's all there is to it. Oh, and I've got Lunette's protection, so don't try to threaten me with the Enforcers or slavery or any of that shit. Now I've answered your questions, you'd better thank me. Get down and open that pretty little mouth of yours so that I can empty my fat balls deep down your throat.)]
+	</p>
+	<p>
+		Discovering that this horseman's motives are extremely one-dimensional, you realise that there's no point in asking him any further questions. Looking down at your defeated foe, you wonder what to do with him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST"><![CDATA[
+	<p>
+		The headless horseman proves to be too formidable a foe for you to defeat, and after taking a [pc.step] backwards and collapsing down to the ground, you indicate to him that you surrender. Letting out a deep, booming laugh in response, he declares, [headHorse.speech(You were foolish to try and resist your fate!)]
+	</p>
+	<p>
+		Having secured his victory over you, the muscular horse-boy sticks the blade of his [headHorse.mainWeapon] into the ground, before stepping forwards and placing his large, strong hands on the top of your head. Before you can react or say anything in response to this dominant move, the horseman suddenly pulls you forwards and thrusts his groin into your face. Grinding his still-sheathed shaft all over your mouth, he forces you to breathe in the musky, masculine scent of his animalistic genitals as he grunts, [headHorse.speech(Get me hard with your tongue. And put some effort into it!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_GIVE_HEAD"><![CDATA[
+	<p>
+		With the strong, muscular horse-boy overpowering you and grinding his musky genitals all over your face, you see no way out of your predicament except to do as you're told and lick the horse-boy's thick, ebony cock-sheath. Each time you slide your [pc.tongue+] over his salty genitals, the horseman's fat cock pushes out of its sheath a little more and starts to grow harder and larger. In just a moment, you find yourself kissing and licking the horseman's huge, erect horse-cock, and after letting out another of his deep, masculine grunts, he orders, [headHorse.speech(Get a taste of my precum, then open wide.)]
+	</p>
+	<p>
+		Seeing no other option but to do as you're told, you work your tongue up the length of the horseman's hot, veiny shaft, before pressing your [pc.lips+] against the flared head of his horse-like cock and eagerly lapping up the salty, slimy precum that's starting to ooze out from his urethra. After planting one last a passionate kiss on his animalistic dick, you open wide, and without waiting a single moment, the impatient horseman roughly thrusts forwards and forces the massive, flared head of his shaft into your mouth. Gripping your head tightly in both hands, the oral-obsessed horse-boy slams his hips forwards, forcing his huge cock as deep as possible down your throat. Only concerned with his own pleasure, he ignores your choking, gargling splutters, and after pulling back, he thrusts forwards once again and starts to relentlessly fuck your face, causing a stream of cummy saliva to begin to drool from the corners of your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_GIVE_HEAD_RESIST"><![CDATA[
+	<p>
+		Although the strong, muscular horse-boy is overpowering you and grinding his musky genitals all over your face, you refuse to do as he says and try to pull your face away from his thick, ebony cock-sheath. Despite your refusal to follow his orders, the stimulation from rubbing his sheathed cock against your mouth starts to get the horseman hard, and you watch in growing horror as his fat cock pushes out of its sheath and begins to get harder and larger. In just a moment, his huge, erect horse-cock is sliding up and down over your face, and after letting out another of his deep, masculine grunts, he impatiently booms, [headHorse.speech(Stop trying to resist! My cock's going down your throat one way or another!)]
+	</p>
+	<p>
+		Ignoring the horseman's words, you continue to struggle against him, which succeeds in only annoying him further. Not willing to put up with your attitude, the muscular horse-boy grabs hold of you by the [pc.arm], and you find yourself unable to fight back as he half-leads, half-drags you over to a nearby fallen tree. Roughly throwing you down face-first over it, he quickly vaults the sturdy log and once again grabs hold of your face. With your new position severely limiting your ability to pull away, you're unable to prevent the horseman from pushing his huge, flared head up against your face. Musky precum oozes out of his urethra, quickly coating your [pc.lips+] and causing you to let out a protesting cry. Deeply grunting, the horseman booms, [headHorse.speech(Take it, bitch.)]
+	</p>
+	<p>
+		Despite your best efforts to resist, the horseman eventually manages to force the head of his his hot, musky cock past your [pc.lips+], and before you can try to pull away, he's violently thrusting forwards and slamming his thick, ebony shaft deep down your throat. Having finally got his way, the horse-boy keeps his massive shaft hilted as deep as physically possible down your throat, and ignoring your choking, gargling splutters, he gloats in his deep, rough voice, [headHorse.speech(You like that? ~Mmm!~ Keep resisting, bitch; your cries only make your throat tighter. ~Aah!~ I'll be emptying my balls in no time if you carry on like this!)]
+	</p>
+	<p>
+		Still gripping your head tightly in both hands, the oral-obsessed horse-boy pulls his hips back, and you feel the wide, flared head of his cock sliding up your throat as he starts to withdraw his cock from your mouth. Just as you think that he's going to completely withdraw his throbbing shaft and put an end to this, the horseman violently thrusts forwards once again, grunting in delight as he fills your throat and causes you to let out another choking splutter. Having got the head which he was so desperately craving, the horseman keeps you bent over the fallen tree as he starts to relentlessly fuck your face, causing a stream of cummy saliva to begin to drool from the corners of your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COMBAT_LOST_CONTINUE"><![CDATA[
+	<p>
+		Not at all willing to give this horseman the head which he's after, you pull away from his musky sheath is disgust and tell him that you'll never do as he asks. Letting out a deep, angry grunt, the horse-boy declares, [headHorse.speech(You're lucky that I've got no interest in forcing you to do it.)]
+	</p>
+	<p>
+		Pushing you away from his groin, the horse-boy takes a step back before heading over to retrieve his [headHorse.mainWeapon]. Turning to look back at you through the eye slots of the Jack-o'-Lantern he's still wearing, the horseman grunts, [headHorse.speech(You'll have changed you mind for the next time, I'm sure of it. If I see you again, I'll be sure to offer you another load of my cum.)]
+	</p>
+	<p>
+		Without so much as a farewell, the horseman turns about on the spot and runs off into the night, leaving you with little else to do except gather your thoughts and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Fully submit: -->
+	
+	<htmlContent tag="FULLY_SUBMIT"><![CDATA[
+	<p>
+		Your addiction to horse-cum starts to weigh heavily on your mind, and before you know what you're doing, you catch yourself staring in desperate longing at the headless horseman's heavy balls and sheathed cock. Letting out a hungry whine, you decide that you're going to have to do whatever it takes to get your next fix of hot, musky horse-jizz, and so drop down before the horse-boy and declare your complete and utter submission to him and his fat, delicious cock. Although you can't see his face through the Jack-o'-Lantern he's wearing, you're sure that he must be smirking in satisfaction as he grunts, [headHorse.speech(That's what I like to hear.)]
+	</p>
+	<p>
+		Stepping over to a nearby fallen tree, the horseman sits down on it and spreads his legs so as to present himself to you. Not needing to be told what to do, you quickly shuffle forwards and drop your head down to his groin, before starting to greedily lick and kiss his musky sheath. Letting out a series of deep, masculine grunts, the horseman orders in his booming voice, [headHorse.speech(Worship my balls, you slut.)]
+	</p>
+	<p>
+		Doing as you're told, you drop your mouth down to the horseman's huge, heavy balls, before starting to passionately kiss and lick them. Thanks to your passionate oral attention, the horseman's fat, ebony cock quickly pushes out of its sheath and rises to full erection. As you continue to service his dangling, cum-stuffed balls, the horse-boy grunts, [headHorse.speech(That's enough! ~Mmm!~ Now choke yourself on my cock, slut!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FULLY_SUBMIT_DEEPTHROAT"><![CDATA[
+	<p>
+		More than happy to do as you're told, you work your [pc.lips+] and tongue up the length of the horseman's hot, thick shaft, before greedily licking up the stream of salty, musky precum that's started to ooze out of his urethra. Once that's done, you open up wide and force the huge, flared head of his horse-like cock into your mouth. After sucking on the end of his delicious, musky dick for a brief moment, you drop your head down into the horse-boy's lap, forcing his fat, throbbing shaft deep down your throat. Grunting in satisfaction, the horseman places his hands on the back of your head and forces you down a little further, grunting, [headHorse.speech(That's it! ~Mmm!~ Take it deep, you slut!)]
+	</p>
+	<p>
+		Using his grip on the back of your head to hold you in place, the horseman continues to grunt in satisfaction as you start to let out a series of choking, spluttering cries. Just as you start to feel like you can't take it any more, the horse-boy finally lifts your head up, allowing his massive, fat cock to almost completely slide out of your mouth, before pulling you down and slamming it deep down your throat again at the last moment. Eager to please the horseman and earn your delicious reward of thick, salty horse-jizz, you happily let him use your throat as his personal cock-sleeve. Within moments, you find yourself letting out a stream of gargled, erotic moans as you focus on doing your best to deepthroat him, while a stream of cummy saliva begins to drool from the corners of your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FULLY_SUBMIT_STANDING_FACE_FUCK"><![CDATA[
+	<p>
+		Deciding to push your luck a little, you ask the horseman if he could instead stand up and give you a good, hard face-fuck. Snorting in amusement at your submissive request, he grunts, [headHorse.speech(Fine. I'll give you what you want.)]
+	</p>
+	<p>
+		Rising to his [headHorse.feet], the horseman grabs the back of your head and pulls your face into the underside of his thick, musky cock. Not needing to be told what to do, you greedily work your [pc.lips+] and tongue up the length of the horseman's hot, thick shaft, before hungrily licking up the stream of salty, musky precum that's started to ooze out of his urethra. Once that's done, you open up wide and force the huge, flared head of his horse-like cock into your mouth. Grunting in satisfaction, the horseman places his hands on the back of your head, grunting, [headHorse.speech(That's what I like to see, slut! ~Mmm!~ Now take it deep!)]
+	</p>
+	<p>
+		Using his grip on the back of your head, the horseman pulls you forwards while simultaneously thrusting his hips into your face. As a result of this, his massive, throbbing cock is violently slammed as deep as physically possible down your throat, causing you to let out a series of choking, spluttering cries. After holding you in place for a moment and keeping his thick shaft hilted deep down your throat, the horseman pulls back, allowing his hot horse-cock to almost completely slide out of your mouth. As his wide, flared head slides all the way up into your mouth, the horse-boy again suddenly slams forwards, ramming his shaft deep down your throat. Eager to please the horseman and earn your delicious reward of thick, salty horse-jizz, you happily let him use your throat as his personal cock-sleeve. Within moments, you find yourself letting out a stream of gargled, erotic moans as he roughly fucks your face, while a stream of cummy saliva begins to drool from the corners of your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FULLY_SUBMIT_ANILINGUS"><![CDATA[
+	<p>
+		Deciding to push your luck and ask the horseman to try something different,
+		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+			 you show off your filly choker to him, before quickly explaining that you have experience with using your mouth to submissively service horse ass.
+		#ELSE
+			 you tell him that you'd like to use your mouth to submissively service his horse ass.
+		#ENDIF
+		 Suggesting that you could give him a rimjob while jerking him off, you enthusiastically tell him how good it will feel to have you submit to him in such an absolute manner, and that you'll make sure he enjoys the feeling of your tongue working away at his asshole. Although he doesn't seem too enthusiastic about your suggestion at first, when you mention the submissive aspect of it, the horseman lets out an approving grunt. Holding his hand up to silence you, he agrees to your suggestion by declaring, [headHorse.speech(Completely dominating you by making you service my ass sounds good... Afterwards I'm still going to fuck your throat though.)]
+	</p>
+	<p>
+		Happy with his response, you ask the horseman to present his ass to you, and after standing up and turning around, he does so. Just as his anthropomorphic body would suggest, his asshole is horse-like in appearance, and is formed into a puffy, ebony ring. Eagerly shuffling forwards, you plant a big, wet kiss on the horse-boy's back door, before starting to greedily lick and nuzzle into it. Not forgetting the other half of your offer, you reach around and take hold of the horseman's fat, throbbing shaft, before starting to eagerly jerk him off.
+	</p>
+	<p>
+		[headHorse.speech(~Mmm!~ That's it, slut! Submit to me and service my ass!)] the horseman grunts. More than happy to do as he says, you play the perfect submissive and continue to passionately lick and kiss his puffy asshole. Continuing to slide your [pc.fingers+] up and down around his throbbing horse-cock, you start to let out a series of erotic, submissive whines as you wonder how long it will take you to make him cum from this... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FULLY_SUBMIT_AFTER_SEX"><![CDATA[
+	<p>
+		Ramming his cock deep down your throat one last time, the horseman, having got the head he was seeking, pulls all the way back and slides his softening shaft out of your mouth. Grabbing his semi-flaccid cock with one hand, he slaps its cummy, saliva-coated length against your [pc.lips+], grunting in amused satisfaction, [headHorse.speech(Go on, you dirty little horse-cum addict. Show me how much you need this. Lick me clean.)]
+	</p>
+	<p>
+		The desperate urge in your mind to get another taste of the horseman's seed drives you to eagerly run your [pc.tongue+] all over the horseman's ebony shaft, swallowing down every last drop of slimy cum that you can find. Despite your oral attention, the horseman seems to have had enough for one night, and within a few moments, his huge shaft has once again softened and withdrawn into its sheath. Desperately sliding your tongue into the thick folds of skin which protect the horseman's cock, you find yourself letting out a series of pathetic, whining moans.
+	</p>
+	<p>
+		[headHorse.speech(That's enough for tonight,)] the horse-boy booms, before pushing you away from his groin and taking a step back. Looking down at you through the eye slots of the Jack-o'-Lantern he's still wearing, the horseman grunts, [headHorse.speech(If I see you again, I'll be sure to offer you another load of my cum.)]
+	</p>
+	<p>
+		Without so much as a farewell, the horseman turns about on the spot, and after retrieving his [headHorse.mainWeapon] from where he left it earlier, he runs off into the night, leaving you with little else to do except gather your thoughts and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FULLY_SUBMIT_AFTER_SEX_ANILINGUS"><![CDATA[
+	<p>
+		Having orgasmed from the feeling of your tongue working away at his puffy asshole, the horseman lets out a deep grunt. After letting you kiss his ass one last time, he steps forwards and brings an end to the rimjob you were so enthusiastically giving him. Turning to face you, he declares in his deep, booming voice, [headHorse.speech(You're good at that, you dirty little slut.)]
+	</p>
+	<p>
+		Happy with his praise, you flash the horseman a sly look and blow him a little kiss. Grunting in amusement at your reaction, he states, [headHorse.speech(We're not finished yet. Open wide, slut. It's time to give you a good, hard face-fuck.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FULLY_SUBMIT_AFTER_SEX_ANILINGUS_FACE_FUCK"><![CDATA[
+	<p>
+		More than happy to have your throat fucked and stomach filled with delicious, musky horse-jizz, you shuffle forwards, allowing the horseman to grab the back of your head and pull your face into the underside of his thick, hard cock. Not needing to be told what to do, you greedily work your [pc.lips+] and tongue up the length of the horseman's hot, throbbing shaft, before hungrily licking up the stream of salty, musky cum that's still slowly oozing out of his urethra. Once that's done, you open up wide and force the huge, flared head of his horse-like cock into your mouth. Grunting in satisfaction, the horseman places his hands on the back of your head, grunting, [headHorse.speech(That's what I like to see, slut! ~Mmm!~ Now take it deep!)]
+	</p>
+	<p>
+		Using his grip on the back of your head, the horseman pulls you forwards while simultaneously thrusting his hips into your face. As a result of this, his massive, throbbing cock is violently slammed as deep as physically possible down your throat, causing you to let out a series of choking, spluttering cries. After holding you in place for a moment and keeping his thick shaft hilted deep down your throat, the horseman pulls back, allowing his hot horse-cock to almost completely slide out of your mouth. As his wide, flared head slides all the way up into your mouth, the horse-boy again suddenly slams forwards, ramming his shaft deep down your throat. Eager to please the horseman and earn your delicious reward of thick, salty horse-jizz, you happily let him use your throat as his personal cock-sleeve. Within moments, you find yourself letting out a stream of gargled, erotic moans as he roughly fucks your face, while a stream of cummy saliva begins to drool from the corners of your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

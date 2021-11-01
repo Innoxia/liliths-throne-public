@@ -174,9 +174,8 @@
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/woods', 'BERRIES_IGNORE'))]
 				]]></effects>
 				
-				<!-- The player will require just one of the defined fetishes in order to unlock this response.
+				<!-- The player will require just one of the defined fetishes in order to unlock this response. (Although if there are any 'requiredPerks' defined, they will also need one of the defined perks.)
 				This can be omitted.
-				Note: The player can enable 'fetish bypass' for responses, which means that they will be able to use this response even if they don't have the fetish (although they will gain corruption by doing so).
 				If you use a conditional statement, either return a fetish name or nothing.
 				This action does not have any associated fetishes, but if you wanted to add one or more, just use this format:
 					<requiredFetishes>
@@ -195,7 +194,7 @@
 				-->
 				<corruptionLevel/>
 				
-				<!-- Very similar to the 'requiredFetishes' element above, the player will require just one of the defined perks in order to unlock this response (if the perk is an equippable trait, that trait must be equipped).
+				<!-- Very similar to the 'requiredFetishes' element above, the player will require just one of the defined perks in order to unlock this response (if the perk is an equippable trait, that trait must be equipped). (Also, if there are any 'requiredFetishes' defined, they will also need one of the defined fetishes.)
 				This can be omitted.
 				If you use a conditional statement, either return a perk name (as they appear in the Perk.java class) or nothing.
 				This action does not have any associated perks, but if you wanted to add one or more, just use this format:
@@ -238,7 +237,7 @@
 				<!-- Opening a trade window with an NPC (who is defined as a trader) is initiated via a response, and as such you can define the small amount of required information here to make a response lead into a trading scene.
 				If your response doesn't lead into a trading scene, you need to either delete this section or set the 'enabled' attribute to false (as I've done - I've added that attribute so that I can show you a full example without it actually affecting the response).
 				Note: Trade scenes do not take into account any of the requirements above, nor the 'nextDialogue' element.
-					Only the 'index', 'title', and 'tooltip' elements are used from those defined above.
+					Only the 'index', 'title', 'tooltip', and 'effects' elements are used from those defined above.
 				Additional note: The parser targets 'npc', 'npc2', etc. correspond to characters who are present in the player's tile, which are sorted by level and then by name.
 				Do not pass in the player character here ('pc' or 'player'), otherwise you'll get a NPE and the game will freeze and/or crash. -->
 				<tradingVariables enabled="false">
@@ -251,7 +250,7 @@
 				<!-- Combat is initiated via a response, and as such you can define the required information here to make a response lead into a combat scene.
 				If your response doesn't lead into a combat scene, you need to either delete this section or set the 'enabled' attribute to false (as I've done - I've added that attribute so that I can show you a full example without it actually affecting the response).
 				Note: Combat scenes do not take into account any of the requirements above, nor the 'nextDialogue' element (as the next dialogue to be shown is the combat engine's dialogue).
-					Only the 'index', 'title', and 'tooltip' elements are used from those defined above. -->
+					Only the 'index', 'title', 'tooltip', and 'effects' elements are used from those defined above. -->
 				<combatVariables enabled="false">
 					<!-- The dialogue node which the game will progress to if the player wins combat.
 					This element does not support the special 'default' values like the 'nextDialogue' element above, as you should be leading into a specific scene after combat, even if it's just a simple paragraph or two. -->

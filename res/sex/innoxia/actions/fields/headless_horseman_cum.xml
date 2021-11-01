@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer() && sex.isDom(npc) && sex.getNumberOfOrgasms(npc)==0]
+	]]></actionConditional>
+	
+	<type>ORGASM</type>
+	
+	<pace/>
+	
+	<endsSex><![CDATA[false]]></endsSex>
+	
+	<participantType>NORMAL</participantType>
+	
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	
+	<areasCummedIn>
+		<orifice>ORIFICE_MOUTH</orifice>
+	</areasCummedIn>
+	
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		#IF(pc.getAddiction(FLUID_TYPE_CUM_HORSE_MORPH)==null)
+			Get [pc.herHim] addicted
+		#ELSE
+			Satisfy [pc.her] addiction
+		#ENDIF
+	]]></title>
+	
+	<tooltip><![CDATA[
+		Cum deep down [pc.namePos] throat and get [pc.herHim] addicted to your musky horse-cum.
+	]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#pc.getAddiction(FLUID_TYPE_CUM_HORSE_MORPH)==null]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				The horseman's grunts start to get louder and more frantic, and after slamming his fat cock as deep as possible down your throat, he booms, [headHorse.speechNoEffects(~Aah!~ Take it all!)]
+				
+				<br/><br/>You feel the horse-boy's wide, flared head throbbing and twitching deep down your throat, and you let out a choking, gurgling splutter as you realise what's about to happen. As he reaches his climax, the horseman's huge, ebony balls start to empty their load, and a powerful, hot stream of musky, salty horse-jizz shoots out of his animalistic shaft directly into your stomach. Grunting and panting, the horseman keeps his thick dick pushed as deep as possible down your gullet as his cock continues to pump spurt after spurt of slimy cum deep inside of you.
+				
+				<br/><br/>[headHorse.speechNoEffects(You feeling it yet?)] the horse-boy grunts. Busy trying to deal with the sensation of having his jerking cock fill your stomach with his cum, you don't know what he means by this unexpected question. As you're filled with more and more horse-jizz, however, you do start to feel something strange. All of a sudden, you find yourself desperately craving horse-cum, and as the horse-boy gives it to you, you can't help but let out a spluttered, grateful moan.
+				
+				<br/><br/>[headHorse.speechNoEffects(That's right. ~Mmm!~ You're addicted to horse cum now, slut!)] the horseman gloats. As his orgasm comes to an end, leaving your stomach slightly distended from the sheer quantity of horse-jizz that's been pumped inside of it, you realise that the horse-boy is telling the truth. After his cock has been slowly slid up your throat and out of your mouth, you find yourself desperately licking the horseman's shaft and swallowing every last drop of his salty, musky cum that you can find.
+				
+				<br/><br/>[headHorse.speechNoEffects(You dirty little cum slut,)] the horseman grunts in amusement, before pushing his cock against your [pc.lips+] and teasing, [headHorse.speechNoEffects(~Mmm!~ Lick it up and beg for more!)]
+				
+				<br/><br/>With the effects of his addictive cum fresh in your mind, you eagerly move to obey, and in between kissing and licking the horseman's hot, ebony shaft, you desperately beg for more of his cum. Seemingly happy to give it to you, the horseman grabs your head in both hands and thrusts forwards, slamming his fat, musky shaft deep down your throat before starting to once again fuck your face...
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#pc.getAddiction(FLUID_TYPE_CUM_HORSE_MORPH)!=null]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				The horseman's grunts start to get louder and more frantic, and after slamming his fat cock as deep as possible down your throat, he booms, [headHorse.speechNoEffects(~Aah!~ Take it all!)]
+				
+				<br/><br/>You feel the horse-boy's wide, flared head throbbing and twitching deep down your throat, and you let out a delighted, gurgling splutter as you realise what's about to happen. As he reaches his climax, the horseman's huge, ebony balls start to empty their load, and a powerful, hot stream of musky, salty horse-jizz shoots out of his animalistic shaft directly into your stomach. Grunting and panting, the horseman keeps his thick dick pushed as deep as possible down your gullet as his cock continues to pump spurt after spurt of delicious, slimy cum deep inside of you.
+				
+				<br/><br/>[headHorse.speechNoEffects(That satisfy your craving?)] the horse-boy grunts. With his jerking cock continuing to fill your stomach with his hot horse-cum, you let out a muffled, gargling moan in the affirmative. As you're filled with more and more of his salty seed, you feel your addiction to horse-jizz being well and truly satisfied. With your desperate craving for horse-cum fading away as the horse-boy gives you what you need, you can't help but let out yet another spluttered, grateful moan.
+				
+				<br/><br/>[headHorse.speechNoEffects(That's right. ~Mmm!~ You <i>need</i> my horse cum, slut!)] the horseman gloats. As his orgasm comes to an end, leaving your stomach slightly distended from the sheer quantity of horse-jizz that's been pumped inside of it, you realise that the horse-boy is telling the truth. After his cock has been slowly slid up your throat and out of your mouth, you find yourself desperately licking the horseman's shaft and swallowing every last drop of his salty, musky cum that you can find.
+				
+				<br/><br/>[headHorse.speechNoEffects(You dirty little cum slut,)] the horseman grunts in amusement, before pushing his cock against your [pc.lips+] and teasing, [headHorse.speechNoEffects(~Mmm!~ Lick it up and beg for more!)]
+				
+				<br/><br/>Although your cravings have been satisfied, you're still well and truly addicted to horse-cum, and so you find yourself eagerly moving to obey. In between kissing and licking the horseman's hot, ebony shaft, you desperately beg for more of his cum and tell him what a slut you are for musky, salty horse-spunk. Happy to give you what you want, the horseman grabs your head in both hands and thrusts forwards, slamming his fat, throbbing shaft deep down your throat before starting to once again fuck your face...
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

@@ -111,6 +111,10 @@ public enum QuestLine {
 	ROMANCE_NATALYA("Filly Training", "Having completed Mistress Natalya's training, you are now a qualified filly and are expected to sexually service Dominion Express's centaur slaves.",
 			QuestType.RELATIONSHIP,
 			QuestTree.natalyaTree),
+
+	ROMANCE_MONICA("Monica's Milker", "You successfully retrieved Monica's personalised Moo Milker, and as a result she is very grateful to you.",
+			QuestType.RELATIONSHIP,
+			QuestTree.monicaTree),
 	;
 
 	private String name, completedDescription;

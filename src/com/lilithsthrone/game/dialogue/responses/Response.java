@@ -66,7 +66,7 @@ public class Response {
 	
 	// For use when loaded from external files
 	
-	private boolean fromExternalFile = false;
+	protected boolean fromExternalFile = false;
 	
 	private String conditional;
 	

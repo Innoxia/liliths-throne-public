@@ -2329,6 +2329,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public boolean isMufflesSpeech(InventorySlot slotEquippedTo) {
 		return getItemTags(slotEquippedTo).contains(ItemTag.MUFFLES_SPEECH);
 	}
+
+	public boolean isHindersSight(InventorySlot slotEquippedTo) {
+		return getItemTags(slotEquippedTo).contains(ItemTag.BLOCKS_SIGHT);
+	}
 	
 	public boolean isHindersLegMovement(InventorySlot slotEquippedTo) {
 		return getItemTags(slotEquippedTo).contains(ItemTag.HINDERS_LEG_MOVEMENT);
@@ -2347,6 +2351,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		Set<ItemTag> tags = this.getItemTags(slot);
 		
 		boolean plural = this.getClothingType().isPlural();
+		
+		if(this.getClothingType().getItemTags(slot).contains(ItemTag.UNIQUE_NO_NPC_EQUIP) && !clothingOwner.isPlayer()) {
+			return new Value<>(false, UtilText.parse("[style.colourBad(Only you can equip this item of clothing!)]"));
+		}
 		
 		if(!this.getClothingType().getEquipSlots().contains(slot)) {
 			return new Value<>(false, UtilText.parse("[style.colourBad(The "+this.getName()+" cannot be equipped into this slot!)]"));

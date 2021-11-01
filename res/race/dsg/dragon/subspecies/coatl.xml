@@ -72,8 +72,8 @@
 		#IF(targetedBody.getHornType()!=HORN_TYPE_NONE)
 			[#targetedBody.setHornType(HORN_TYPE_NONE)]
 		#ENDIF
-		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tail && !targetedBody.isFeral() && targetedBody.getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG)
-			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tail)]
+		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tailFeathered && !targetedBody.isFeral() && targetedBody.getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG)
+			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tailFeathered)]
 		#ELSEIF(targetedBody.getTailType()!=TAIL_TYPE_NONE && (targetedBody.isFeral() || targetedBody.getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG))
 			[#targetedBody.setTailType(TAIL_TYPE_NONE)]
 		#ENDIF
@@ -89,7 +89,7 @@
 		targetedBody.hasTongueModifier(TONGUE_MODIFIER_BIFURCATED) &&
 		targetedBody.getHairType()==HAIR_TYPE_dsg_dragon_hairFeathers &&
 		targetedBody.getHornType()==HORN_TYPE_NONE &&
-		((targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tail && !targetedBody.isFeral() && targetedBody.getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG) ||
+		(((targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tail || targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tailFeathered) && !targetedBody.isFeral() && targetedBody.getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG) ||
 		(targetedBody.getTailType()==TAIL_TYPE_NONE && (targetedBody.isFeral() || targetedBody.getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG))) &&
 		targetedBody.getWingType()==WING_TYPE_dsg_dragon_wingFeathered)
 			200

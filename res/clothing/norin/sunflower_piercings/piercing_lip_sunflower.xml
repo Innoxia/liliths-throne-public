@@ -64,7 +64,7 @@
       <![CDATA[[npc.Name] [npc.verb(clip)] a flowered lip piercing into [npc2.namePos] [npc2.lips+].]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(force)] a flowered lip piercing into [npc2.namePos] [npc.lips+].]]>
+      <![CDATA[[npc.Name] [npc.verb(force)] a flowered lip piercing into [npc2.namePos] [npc2.lips+].]]>
     </otherRough>
   </replacementText>
 
