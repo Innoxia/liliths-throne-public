@@ -25,6 +25,13 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
+import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -9682,8 +9689,17 @@ public class UtilText {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			engine.put("ITEM_"+ItemType.getIdFromItemType(itemType), itemType);
 		}
+		for(AbstractTattooType tattooType : TattooType.getAllTattooTypes()) {
+			engine.put("TATTOO_"+TattooType.getIdFromTattooType(tattooType), tattooType);
+		}
 		for(AbstractSetBonus setBonus : SetBonus.getAllSetBonuses()) {
 			engine.put("SET_BONUS_"+SetBonus.getIdFromSetBonus(setBonus), setBonus);
+		}
+		for(AbstractOutfit outfit : OutfitType.getAllOutfits()) {
+			engine.put("OUTFIT_"+OutfitType.getIdFromOutfitType(outfit), outfit);
+		}
+		for(OutfitType outfitType : OutfitType.values()) {
+			engine.put("OUTFIT_TYPE_"+outfitType.toString(), outfitType);
 		}
 		for(ItemTag it : ItemTag.values()) {
 			engine.put("ITEM_TAG_"+it.toString(), it);
@@ -9693,6 +9709,9 @@ public class UtilText {
 		}
 		for(InventorySlot is : InventorySlot.values()) {
 			engine.put("IS_"+is.toString(), is);
+		}
+		for(EquipClothingSetting ecs : EquipClothingSetting.values()) {
+			engine.put("ECS_"+ecs.toString(), ecs);
 		}
 		
 		// Misc.:
@@ -9936,6 +9955,12 @@ public class UtilText {
 		}
 		for(NPCFlagValue flag : NPCFlagValue.values()) {
 			engine.put("NPC_FLAG_"+flag.toString(), flag);
+		}
+		for(NPCGenerationFlag flag : NPCGenerationFlag.values()) {
+			engine.put("NPC_GEN_FLAG_"+flag.toString(), flag);
+		}
+		for(SlavePermission permission : SlavePermission.values()) {
+			engine.put("SLAVE_PERMISSION_"+permission.toString(), permission);
 		}
 		for(SlavePermissionSetting permission : SlavePermissionSetting.values()) {
 			engine.put("SLAVE_PERMISSION_SETTING_"+permission.toString(), permission);
