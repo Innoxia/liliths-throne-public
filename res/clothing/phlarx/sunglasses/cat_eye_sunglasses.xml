@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[A logo subtly printed along the inside of the temples informs you that it was designed by 'Phlarx'.]]></clothingAuthorTag>
+		<value>1050</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[cat-eye sunglasses]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[cat-eye sunglasses]]></namePlural>
+		<description><![CDATA[A pair of very feminine cat-eye sunglasses. Coordinate with classic makeup and a flirty outfit to complete the look.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>EYES</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>cat_eye_sunglasses.svg</imageName> 
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>EYES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours values="ALL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="SHADES_OF_GREY"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="ALL_METAL"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<defaultPatterns patternChance="0.2" colourNameDerivedFromPattern="false">
+			<pattern>polka_dots_small</pattern>
+			<pattern>polka_dots_big</pattern>
+			<pattern>cow_patterned</pattern>
+			<pattern>horizontally_tiger_striped</pattern>
+			<pattern>tiger_striped</pattern>
+		</defaultPatterns>
+		<patternPrimaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+		</patternPrimaryColours>
+		<patternPrimaryColoursDye values="ALL"/>
+		<patternSecondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+		</patternSecondaryColours>
+		<patternSecondaryColoursDye values="ALL"/>
+		<patternTertiaryColours/>
+		<patternTertiaryColoursDye/>
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+		</itemTags>
+	</coreAttributes>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(remove)] [npc.her] sunglasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(remove)] [npc2.namePos] sunglasses.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] aggressively [npc.verb(remove)] [npc2.namePos] sunglasses.]]>
+		</otherRough>
+	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on [npc.her] sunglasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] on [npc2.namePos] sunglasses.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] aggressively [npc.verb(put)] on [npc2.namePos] sunglasses.]]>
+		</otherRough>
+	</replacementText>
+</clothing>
