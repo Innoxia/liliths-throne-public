@@ -440,7 +440,72 @@ public class Util {
 		return mergedMap;
 	}
 	
+	public static <T> boolean checkWeightedMap(Map<T, Integer> map, boolean printWarning) {
+		if(map.isEmpty()) {
+			return true;
+		}
+		for(Integer weight : map.values()) {
+			if(weight > 0) {
+				return true;
+			} else if(weight < 0) {
+				if(printWarning) {
+					System.err.println("Warning: negative values within weighted map!\nFirst 10 elements: "
+							+ map.entrySet().stream().limit(10)
+							.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+							.collect(Collectors.joining(", ")));
+					if(Main.DEBUG) {
+						new IllegalArgumentException().printStackTrace();
+					}
+				}
+				return false;
+			}
+		}
+		if(printWarning) {
+			System.err.println("Warning: all weights are zero in weighted map!\nFirst 10 elements: "
+					+ map.entrySet().stream().limit(10)
+					.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+					.collect(Collectors.joining(", ")));
+			if(Main.DEBUG) {
+				new IllegalArgumentException().printStackTrace();
+			}
+		}
+		return true;
+	}
+
+	public static <T> boolean checkWeightedFloatMap(Map<T, Float> map, boolean printWarning) {
+		if(map.isEmpty()) {
+			return true;
+		}
+		for(Float weight : map.values()) {
+			if(weight > 0f) {
+				return true;
+			} else if(weight < 0f) {
+				if(printWarning) {
+					System.err.println("Warning: negative values within weighted map!\nFirst 10 elements: "
+							+ map.entrySet().stream().limit(10)
+							.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+							.collect(Collectors.joining(", ")));
+					if(Main.DEBUG) {
+						new IllegalArgumentException().printStackTrace();
+					}
+				}
+				return false;
+			}
+		}
+		if(printWarning) {
+			System.err.println("Warning: all weights are zero in weighted map!\nFirst 10 elements: "
+					+ map.entrySet().stream().limit(10)
+					.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+					.collect(Collectors.joining(", ")));
+			if(Main.DEBUG) {
+				new IllegalArgumentException().printStackTrace();
+			}
+		}
+		return true;
+	}
+
 	public static <T> T getHighestProbabilityEntryFromWeightedMap(Map<T, Integer> map) {
+		checkWeightedMap(map, true);
 		T top = null;
 		int high = 0;
 		for(Entry<T, Integer> entry : map.entrySet()) {
@@ -457,6 +522,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map, Random rnd) {
+		checkWeightedMap(map, true);
 		int total = 0;
 		for(int i : map.values()) {
 			total+=i;
@@ -480,6 +546,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
+		checkWeightedFloatMap(map, true);
 		float total = 0;
 		for(float f : map.values()) {
 			total+=f;
