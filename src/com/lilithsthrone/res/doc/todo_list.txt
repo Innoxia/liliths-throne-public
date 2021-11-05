@@ -15,50 +15,48 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Add hospital as alternative to Lilaya
 		
 	
-	
-	
 	Patch notes:
 	
+	Contributors:
+		Fixed bug where clothing stickers weren't transferring when enchanting clothing. (by Cognitive Mist)
+		Fixed issue where the error log would generate the entry 'Warning: Parser target of X has been replaced!' when randomly-generated NPCs were getting removed. (by AceXP)
+	
 	Engine/Modding:
-		Added parser hooks for orifice capacity, depth, elasticity, and plasticity, under the respective prefixes: 'CAPACITY_'; 'DEPTH_'; 'ELASTICITY_'; 'PLASTICITY_'.
-		Added 'MONTH_' parser hook for Java's Month enum, and a getMonth() method in the Game class for obtaining the current month.
-		The 'orgasmBehaviour' element in sex manager files now accepts logic and is parsed on every check.
+		Slightly improved performance of encounter generation.
+		Added support for 'one-shot' weapons (intended primarily for thrown weapons), which causes the weapon to be removed from the player after being used. You can define chances to recover the weapon at the end of the turn and at the end of combat. See the 'res/weapons/innoxia/dagger/dagger.xml' for comments on how to define a one-shot weapon.
+		Added a 'attackDescriptionPrefix' element to weapon xml files, allowing you to define a more suitable attack description to fit the sentence 'X your enemy for N damage!'. See the same dagger file mentioned above for a commented example. If the element is not found, then the 'attackDescriptor' element is used instead (so there's no real need to refactor any mods).
 	
-	Artwork:
-		Added 7 images for Kay (4 as default, 3 for when he's been feminised), drawn by Jam (https://twitter.com/JamDrawers).
-		Added 2 images for Elizabeth, drawn by KT80 (https://twitter.com/KT80AT).
+	Items:
+		Added 'tennis ball' and 'ball of yarn' as ranged, one-shot, silly mode weapons, both sold by Ralph. (They will appear in his inventory after he restocks at midnight, and will only appear if you have silly mode turned on.)
+		Converted the 'arcane firebomb' item to use the new one-shot weapon mechanic, and made it one-handed.
 	
-	Gameplay:
-		Filled in all placeholders for Monica's quest (who is the shopkeeper for the clothing store in Elis's shopping precinct, 'The Fashionable Moo').
-		Added a 'headless horseman' encounter to the Foloi Fields (only triggers during the in-game month of October).
+	Sex:
+		Added breasts-to-mouth actions for the interaction between the 'sitting' and 'sitting in lap' sex slots.
+		Added 'Stop rape-play' and 'Allow rape-play' actions for when you're a dominant in sex and your partner is resisting due to having the 'unwilling fuck-toy' fetish, which prevents/permits them from optionally using the resisting pace (they can still resist if not enjoying sex or if they're a friendly NPC who's been betrayed by you).
+		The choice of which ongoing action to reference in dirty talk lines is no longer completely random, and is now instead based on the character's fetish desire towards each ongoing action (with liked actions having more weight to be referenced).
 	
 	Other:
-		Added 'dark orange' as a covering colour for body parts.
+		Changed some perks to traits and vice versa based on the concept that the only perks which should be classified as traits are the ones which you might want to disable, so:
+		Perks -> Traits: Beserk, Object of desire; Irresitable appeals; Aura shielding.
+		Traits -> Perks: Martial artist; Ferocious warrior; Pure thoughts; Lustpyre; Arcane precision; Arcane combatant.
+		The Enforcers in the Dominion alleyway Enforcer encounters now end the 'strip' sex scenes once they're satisfied, instead of keeping on going until the player is satisfied too.
+		Automatically-generated clothing name postfixes now prioritise 'of sealing' over generic positive enchantment effects.
+		While they will still always spawn in as feminine or androgynous, the gender of harpies which spawn in the Harpy Nests now takes into account your gender preferences (thereby allowing futa/herm harpies to spawn up there now).
 	
 	Bugs:
-		Parsing fixes.
-		Fixed issue with missing 'WON_SEX_NOTHING' dialogue in one of Mreaxis's duel scenes.
-		The lilin book lore text is no longer shown at the end of the 'World' dialogue when talking to Lyssieth in her initial meeting scenes.
-		Fixed issue where after turning down Evelyx's promotion, you couldn't repeat it the next day.
-		Characters who have the sadist fetish will no longer agree to be gentle in sex (which was mainly affecting Amber's and Rose's sex scenes).
-		Fixed background error being thrown when generic sex effects were being calculated where a null partner was being treated as being exposed to addictive fluids.
-		Fixed parsing error being thrown if you encountered bandits in the Foloi Fields and didn't have enough money to offer them to skip the encounter.
-		
+		Formatting fixes.
+		Fixed issue where the artwork would not update for Kay after feminising him.
+		Fixed background error sometimes being thrown when teleporting out of Submission.
+		If a tile has multiple possible encounters assigned to it, the encounter chosen is now correctly weighted based on each encounter's total chance to be selected, instead of completely randomly (which was causing issues with encounters not triggering as expected).
+		The 'Impish Fiends' and 'Centaurs & More' books will now corretly unlock in Lilaya's library after having read them.
+		Fixed issue where NPCs were being affected by the 3-year time skip at the start of new games, making them 3 years older than intended. This fix has been retroactively applied to all unique NPCs, so when loading into this version unique NPCs will all be 3 years younger.
+		The player character now suffers from menopause at age 55 instead of NPCs' usual 52, to take into account the 3-year timeskip.
+		Fixed issue where the 'Push her' sex action during Meraxis's handjob scene would show a 'No suitable description found for this action!' error.
+		Fixed background errors being thrown when accessing Kate's 'Makeup' and 'Other' actions.
+		If you have multiple arm rows, the action name for main and offhand strikes will no longer omit some of the attacks which are to be performed.
 	
 	
-	[x] The Fashionable Moo
-		[x] Writing
-		[x] Check clothing removal in milking scene
-		
 	[] Dairy farm writing
-		[x] Monica quest
-			[x] Full Monica test
-				[x] evelyx pussy/ass is blue
-				[x] Repeat meeting flow broken
-				[x] Capacity parsing errors
-				[x] Post-sex/milking should move player to tile outside Monica's shop
-					[x] Exiting the shop should do the same
-		[x] Evelyx to have posh accent, more condescending
 		[] Milking job content
 			[] Dormitory
 			[] Barns
@@ -69,112 +67,141 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Bad end
 			[] Non-bad end
 		
-	[x] 'Headless' horseman
-		[x] Horse-boy wanting oral (he needs head)
-			[x] Pitch-black fur with glowing red eyes
-			[x] Massive cock
-		[x] Equipment:
-			[x] Jack o' Lantern pumpkin head (enchanted so that the eyes/mouth glows when worn)
-				[x] Add patterns as stickers
-			[x] Black cloak
-		 	[x] Zweihander
-			[x] Addiction cure in inventory
-		[x] First encounter is a warning poster revealing these conditions (50% chance of encountering in fields in October)
-			[x] Lunette has declared him as being under her protection, meaning that Enforcers cannot help/enslave him
-		[x] Attacks in October, at night, in the fields
-			[x] Fight
-				[x] Lose: Get face-fucked and addicted to his cum
-				[x] Win: Sex, loot, or let go
-			[x] Give head
-				[x] Get face-fucked and addicted to his cum
-		[x] After encounter, reset inventory (and body?)
-		[x] Make sure he exposes his cloak on encounter
-		[x] speech colour
-		[x] Need to set headless_horseman_attack_minutes
-		[x] Writing
-		[x] Need special orgasm action
-		[x] speech colour to red
-		[x] Escape return to home tile
-		[x] If have time:
-			[x] Fully submit action (only if addicted to cum)
-				[x] While submissively licking his shaft, can choose to:
-					[x] Get face-fucked
-					[x] Give anilingus + handjob (if filly, dialogue variation)
-			[x] writing
-		[x] Add saliva/cum drool references
-		[x] Add a 'You won't encounter...' text to the end of all parting scenes
-		[] Test all routes
-			[x] Fight
-				[x] Inventory
-				[x] Question
-				[x] Continue
-					[x] No encounter text, no removal...
-				[x] Dom sex
-					[x] [true] error
-				[x] Sub sex
-			[x] Submit
-			[x] Repeat
-				[x] 'Get player addicted' action description error none found
-			[x] Full submission
-				[x] anilingus actions missing
-				[x] anilingus position incorrect
-			[x] Sex
-				[x] Special orgasm action title to change
-				[x] Test special action with hug-lock
-		[x] change chance to 20
-		
-	[x] bug in formatting when can't afford to pay off bandits in fields
-		 
-	[x] Add Elizabeth and Kay artwork
+	[x] Kay artwork not updating when feminised, needs game restart to update
+		[x] Add loadImages(true);
+	[x] Some kind of bug in encounter probabilities
+		[x] Explore not triggering horseman?
+	[x] Investigate encounter performance
+	[x] Also maybe it is just me but Object of Desire and Berserk seem like they would be better as traits then perks since they give a bonus but with a cost.
+		[x] Traits should be things that the player might want to disable, so:
+			[x] Perks -> traits:
+				x- Beserk
+				x- Object of desire
+				x- Irresitable appeals
+				x- Aura shielding
+			[x] Traits -> perks:
+				x- Martial artist
+				x- Ferocious warrior
+				x- Pure thoughts
+				x- Lustpyre
+				x- Arcane precision
+				x- Arcane combatant
+		[x] Check all for trait checks
+	[x] Also I have the Impish Fiends book but it won't unlock in the library.
+		[x] Centaurs & more
+		[x] [#pc.isAdvancedRaceKnowledgeDiscovered(SUBSPECIES_CENTAUR)] and IMP are both true, as is [#properties.isAdv...
+			[x] IMP_ALPHA is not for some reason
+	[x] NPCs get their age advanced by the time jump... (Ziva goes to 51/52)
+	[x] make sure breast feeding is available in the lap sitting position
+		[-] i can kiss her lips when we're both standing up but i cant kiss her breasts
+	[-] Once you reach level 12, you encounter the "Mysterious Enforcer" at a very high encounter rate making travel almost impossible except during nighttime in-game. Please fix this!
+	[x] Add a 'Stop rape-play' sex action for if dom and sub is resisting
+	[x] Enforcer strip sex should end once they're satisfied
+	[x] player menopause -3 years?
+	[x] auto-generated clothing enchantment endings go to bad even if enchantment is positive...
+	[x] dirty talk should prioritise more arousing actions (talking about kissing while anal is ongoing?)
+	[x]  It seems every time you "Look for Trouble" in the Harpy Nests after you complete the side quest, you never encounter a dual-sexed harpy.
+		I had the dual-sexed for all masculinity/femininity settings to "Abundant". I tried about 10 times and not one of them was dual-sexed.
+	[x] Meraxis's handjob 'Push her' sex action has "No suitable description found for this action!" error
+	[x] null error in parsing Kate's other tab
+	[x] improve anal dirty talk
+	[x] Bug if encounter new enforcers before any other encounter since starting game, then load game, then move into/encounter alleyway and get Enforcer encoutner again
+		- Does not trigger if do not immediately encounter enforcers as the first action before loading game
+		- Does not trigger if do not immediately re-encounter enforcers after game load
+		= Condition: load game, instantly encounter enforcers, load game, instantly encounter enforcers again
+			- Must be something that's not getting set when first dialogue is an encounter???
+			- From seed save change???
+		Exception in thread "JavaFX Application Thread" java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+			at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+			at java.util.ArrayList.get(ArrayList.java:433)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.getEnforcerLeader(EnforcerAlleywayDialogue.java:366)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.initVariables(EnforcerAlleywayDialogue.java:143)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.access$0(EnforcerAlleywayDialogue.java:132)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue$1.applyPreParsingEffects(EnforcerAlleywayDialogue.java:721)
+		[x] map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 92.5f);//TODO revert
+	[x] Arcane firebombs are not consumed after use in the 2nd and 3rd weapon slots(sorry to anyone who might have abused this
+		[] thrown weapon boolean
+			[x] remove 1 when selecting attack (return if clear attacks)
+			[x] Attack calculation is using all as 'Strike' when finishing with a 'strike' and description says 'Strike' when the attack was the last throw weapon
+				[x] Update methods to take in turnIndex
+				[x] Test:
+					tooltip move.getDescription(!Main.game.isInCombat()?0:owner.getSelectedMoves().size(), owner)
+			[x] offhand
+			[x] dual strike
+				[x] formatting issues
+				[x] attack descriptions using post-attack weapons
+				[x] lots of empty space after description
+			[x] do not force one-shot to be ranged
+			[x] UI
+				[x] show count in bottom-left inventory screen's weapon slot
+				[x] grey-out when 0 instead of removing
+				[x] only show count if weapon is thrown
+					[x] Test (+X) instead of xX
+					[x] grey out if +0
+				[x] add 'one-shot' as descriptor
+					[x] tooltip
+					[x] description
+				[x] offhand
+				[x] test all arm rows
+		[x] % chance to recover after turn (default 0)
+			[x] tooltip
+			[x] mechanic
+			[x] post-turn description: use defined element
+		[x] % chance to recover after combat (default 0)
+			[x] tooltip
+			[x] mechanic
+			[x] post-combat description: show a generic "Thrown weapons recovered: X, Y, Z" description at the end of combat
+		[x] test
+			[x] multiple arm rows
+			[x] recovery after combat is equipping incorrectly
+				[x] restore recovery to 75%
+				[x] need method to put weapon into defined arm row slot
+			[x] throwing main+offhand in alternate
+			[x] offhand attack with two-handed main?
+				[x] Attack name is throw/throw but did strike/throw/throw
+			[x] add yarn
+			[x] formatting in inventory view needs:
+				[x] capitalise weapon name
+				[x] add one-shot indication
+				[x] add extra effects
+			[x] test all with 2 different thrown types
+				[x] also with a non-thrown
+		[x] remove custom handling from pbomb xml file
+	[x] Improve attack tooltip (Tennis ball is "Throw the man...")
+		[x] Add another field for this description (i.e. to define "Throw at")
+	[x] Cognitive Mist: Stickers don't transfer when enchanting clothing.
+		Fix: add this line to EnchantingUtils::craftClothing:
+		craftedClothing.setStickers(((AbstractClothing)ingredient).getStickers());
+	[x] AceXP parser target warning fix
 	
-	[] Kay artwork not updating when feminised, needs game restart to update
+	[] add an attribute to make special effects AoE for weapons (stun grenades)
 	
-	[] Some kind of bug in encounter probabilities
-		[] Explore not triggering horseman?
-		 
-	[] Also maybe it is just me but Object of Desire and Berserk seem like they would be better as traits then perks since they give a bonus but with a cost.
+	[] 'You lost your virginity to someone you can't remember.​' needs to be improved so that it doesn't revert to this when virginity-taker is removed from the game
 	
-	[] Also I have the Impish Fiends book but it won't unlock in the library.
+	[] Normal encounters on the World Map do not respect Gender(all encounters have been strictly female), Orientation(we have chosen "Off" for Androphilic orientation, but Androphilic people spawn) and Furry preferences, probably Age too(but we didn't check that).
+	
+	[] I found way to lock yourself in stocks. You need to:
+		1. Approach any slave locked in stocks.
+		2. Move into position "all fours" from stocks position menu.
+		3. By some magic, now you have option to swap your position with slave in stocks.
+		4. You pressing the button and now you the one being locked.
+	
+	[] Pegasus-morph description talks about avoiding incoming damage, but all of their bonuses are offensive
+	
+	[] Clothing on the calves slot cannot be unequipped during sex scenes - it says they're blocked by themselves
+	
+	[] When in combat and you tail constrict an opponent for the 3rd time, the text says YOU will be defeated if they are constricted one more time.
+		"... constricted again, you will be instantly..."
+	
+	[] In the Furry Preferences screen, the formatting messes up
+	
+	[] Bug reports from "two sets of bread rolls"
+	
+	[] Natalya encounter without needing Helena quest
 	
 	[] boxing gloves mod
+	[] latex leggings
 	
-	[] Bug reports
-		[x] Despite already being a full demon, the main character (and Lilaya herself) refers to Lilaya as a half-demon.
-		[x] randomly generated slaves for sale only have the desires dictated by the store. 
-			For example, all slaves in Viva Voce only have a fetish for giving and receiving oral sex, and no other likes or dislikes. Previously, they would have normally generated desires, then have the store's required desires added to those.
-		[x] Can enter Rat Warrens after completing the quest
-			[-] Can not leave Rat Warrens after completing the quest about Vengar and coming back 
-				Take the Rat Warrens sidequest, enter rat warrens and fight Vengar's bodyguards to complete the sidequest.
-				Now the intended progression is (I think?) to return to the Gambling Den and hand in the completed sidequest. However you can return to the Rat Warrens.
-				Not only does this respawn every combat encounter (which I dont think is intended as I chose to scare them off) but also entering Vengar's room the only option is to have sex with him.
-				This, however doesnt count as dealing with him and you are unable to leave the Rat Warrens. Obviously teleporting or any other way of quick-travel doesnt work.
-			[-]  If you get yourself enslaved in the rat warrens, then escape, you can get yourself reslaved over and over despite the hideout being raided
-		[-] It would appear that the bad end route in Rat Warrens got bricked at some point.
-			In the "Training" scene (it's on 3rd day give or take) one of the milker slaves is referred to, but the reference is wrong and instead shows a bunch of "Error: parserTarget.getCharacter() not found! (npc4)" errors and buttons are unresponsive.
-			Edit: Actually just the whole Training scene, regardless of the "Bad End" setting.
-		
-		[] NPCs get their age advanced by the time jump... (Ziva goes to 51/52)
-		[] fix that issue and make sure breast feeding is available in the lap sitting position
-			[] i can kiss her lips when we're both standing up but i cant kiss her breasts
-		[] Once you reach level 12, you encounter the "Mysterious Enforcer" at a very high encounter rate making travel almost impossible except during nighttime in-game. Please fix this!
-		[]  It seems every time you "Look for Trouble" in the Harpy Nests after you complete the side quest, you never encounter a dual-sexed harpy.
-			I had the dual-sexed for all masculinity/femininity settings to "Abundant". I tried about 10 times and not one of them was dual-sexed.
-		[] Meraxis's handjob 'Push her' sex action has "No suitable description found for this action!" error
-		[] Arcane firebombs are not consumed after use in the 2nd and 3rd weapon slots(sorry to anyone who might have abused this
-		[] Normal encounters on the World Map do not respect Gender(all encounters have been strictly female), Orientation(we have chosen "Off" for Androphilic orientation, but Androphilic people spawn) and Furry preferences, probably Age too(but we didn't check that).
-		[] I found way to lock yourself in stocks. You need to:
-			1. Approach any slave locked in stocks.
-			2. Move into position "all fours" from stocks position menu.
-			3. By some magic, now you have option to swap your position with slave in stocks.
-			4. You pressing the button and now you the one being locked.
-		[] Pegasus-morph description talks about avoiding incoming damage, but all of their bonuses are offensive
-		[] Clothing on the calves slot cannot be unequipped during sex scenes - it says they're blocked by themselves
-		[] When in combat and you tail constrict an opponent for the 3rd time, the text says YOU will be defeated if they are constricted one more time.
-			"... constricted again, you will be instantly..."
-		[] IN the Furry Preferences screen, the formatting messes up
-		
-	Bug reports from "two sets of bread rolls"
-		
 	[] Wall's End
 		[] Woolly Heaven
 				Border-collie-girl (described as being extremely attractive) gave up modelling in Dominion to open this shop.
@@ -207,13 +234,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Talk
 			[] Work
 	
+	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
 	
 	[] hand holding sex action
-	
-	[] after being used by someone (as sub), add another option to continue sex, but this time you take the dom role
-	[] or add another option to beg for more as sub
-	
-	[] Elizabeth artwork
 	
 	[] dye earth skill to take 1 essence
 	
@@ -744,10 +767,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Make flat values a separate thing
 		Make them gems which can be inserted into weapons
 		
-	Throwable weapon
-		% chance to recover after thrown
-		% chance to recover after combat
-	
 	add a repeat-descriptor exclusion variable
 	
 	Being fucked while self milking would be great especially if @Innoxia ever makes it an actual scene instead of a "you liked x from yourself," text box

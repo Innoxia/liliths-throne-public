@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>25</value>
+		<melee>false</melee>
+		<twoHanded>false</twoHanded>
+		
+		<oneShotWeapon>true</oneShotWeapon>
+		<oneShotWeaponChanceToRecoverAfterTurn>75</oneShotWeaponChanceToRecoverAfterTurn>
+		<oneShotWeaponChanceToRecoverAfterCombat>100</oneShotWeaponChanceToRecoverAfterCombat>
+		
+		<determiner><![CDATA[a]]></determiner>
+		<name appendDamageName="false"><![CDATA[ball of yarn]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[balls of yarn]]></namePlural>
+		<description><![CDATA[A long, continuous length of interlocked woollen fibres, which has been wrapped up into a tight ball.]]></description>
+		<attackDescriptor>throw</attackDescriptor>
+		<attackDescriptionPrefix>throw ball of yarn at</attackDescriptionPrefix>
+		<attackTooltipDescription>Throw the ball of yarn at [npc2.name].</attackTooltipDescription>
+		<rarity>COMMON</rarity>
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] ball of yarn and [npc.verb(prepare)] to throw it.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] ball of yarn away.]]></unequipText>
+		
+		<imageName>yarn.svg</imageName> 
+		<imageEquippedName/>
+		
+		<damage>1</damage> 
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/>
+		<extraEffects>
+			<effect><![CDATA[[style.colourExcellent(Subdues)] [style.colourTfGreater(greater)] [style.colourCat(cat-morphs)]]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+		#IF(npc2.getRace()==RACE_CAT_MORPH && npc2.getRaceStage()==RACE_STAGE_GREATER)
+			[##npc2.setHealth(0)]
+			<i>[npc2.Name] immediately [npc2.verb(fix)] [npc2.her] gaze on the ball of yarn as it rolls across the floor. After lowering [npc2.herself] down into a stalking posture, [npc2.she] suddenly [npc2.verb(pounce)] on the yarn, and after letting out a happy meow, [npc2.she] [npc2.verb(start)] pawing and playing with it, leaving [npc2.herHim] completely vulnerable and [style.italicsExcellent(utterly defeated)]!</i>
+		#ENDIF
+		]]></onHitEffect>
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_GREEN</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_BLUE</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_RALPH</tag>
+			<tag>SILLY_MODE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Hurling [npc.her] ball of yarn at [npc2.name], [npc.name] [npc.verb(manage)] to hit [npc2.herHim] square in the chest!
+		]]></hitText>
+		<hitText><![CDATA[
+		Throwing [npc.her] ball of yarn at [npc2.name], [npc.name] [npc.verb(manage)] to strike [npc2.herHim] on the [npc.arm(true)]!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(launch)] [npc.her] ball of yarn at [npc2.name] and [npc.verb(succeed)] in hitting [npc2.herHim]!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Hurling [npc.her] ball of yarn at [npc2.name], [npc.name] [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Throwing [npc.her] ball of yarn at [npc2.name], [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(launch)] [npc.her] ball of yarn at [npc2.name], but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+	<oneShotEndTurnRecoveryDescriptions>
+		<recoveryText><![CDATA[
+			The ball of yarn bounces back towards [npc.name], allowing [npc.herHim] to pick it up and reuse it!
+		]]></recoveryText>
+	</oneShotEndTurnRecoveryDescriptions>
+	
+</weapon>

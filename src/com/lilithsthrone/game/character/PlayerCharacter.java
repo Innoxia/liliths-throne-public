@@ -828,7 +828,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			}
 			
-		} else if(this.getWorldLocation()==WorldType.SUBMISSION) {
+		} else if(worldLocation==WorldType.SUBMISSION) {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();

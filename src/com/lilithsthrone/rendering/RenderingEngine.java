@@ -49,6 +49,7 @@ import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -129,7 +130,6 @@ public enum RenderingEngine {
 	}
 	
 	private String getInventoryEquippedPanel(GameCharacter charactersInventoryToRender) {
-		
 		equippedPanelSB.setLength(0);
 		
 		if(charactersInventoryToRender == null) {
@@ -211,32 +211,68 @@ public enum RenderingEngine {
 		// Main weapon:
 		AbstractWeapon weaponInSlot = charactersInventoryToRender.getMainWeapon(0);
 		if (weaponInSlot != null) {
+			String weaponCount = getThrownWeaponCountDiv(weaponInSlot.getWeaponType(), charactersInventoryToRender.getWeaponCount(weaponInSlot));
 			equippedPanelSB.append(
 					"<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
 						+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
-						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'></div>"
+						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'>"+weaponCount+"</div>"
 					+ "</div>");
+			
+		} else if(Main.game.isInCombat() && Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_MAIN_1)!=null) {
+			AbstractWeaponType depletedWeapon = Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_MAIN_1);
+			String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
+			equippedPanelSB.append(
+					"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
+						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'>"+weaponCount+"</div>"
+					+ "</div>");
+			
 		} else {
 			equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, false, InventorySlot.WEAPON_MAIN_1, weaponStyle));
 		}
+		
 		// Multiple arms:
 		if(charactersInventoryToRender.getArmRows()>1) {
+			// Weapon in second slot:
 			weaponInSlot = charactersInventoryToRender.getMainWeapon(1);
 			if (weaponInSlot != null) {
+				String weaponCount = getThrownWeaponCountDiv(weaponInSlot.getWeaponType(), charactersInventoryToRender.getWeaponCount(weaponInSlot));
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
 							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
-							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'></div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
+				
+			} else if(Main.game.isInCombat() && Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_MAIN_2)!=null) {
+				AbstractWeaponType depletedWeapon = Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_MAIN_2);
+				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
+				equippedPanelSB.append(
+						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'>"+weaponCount+"</div>"
+						+ "</div>");
+				
 			} else {
 				equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, false, InventorySlot.WEAPON_MAIN_2, weaponStyle));
 			}
+
+			// Weapon in third slot:
 			weaponInSlot = charactersInventoryToRender.getMainWeapon(2);
 			if (weaponInSlot != null) {
+				String weaponCount = getThrownWeaponCountDiv(weaponInSlot.getWeaponType(), charactersInventoryToRender.getWeaponCount(weaponInSlot));
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
 							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
-							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'></div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'>"+weaponCount+"</div>"
+						+ "</div>");
+				
+			} else if(Main.game.isInCombat() && Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_MAIN_3)!=null) {
+				AbstractWeaponType depletedWeapon = Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_MAIN_3);
+				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
+				equippedPanelSB.append(
+						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
 			} else if (charactersInventoryToRender.getArmRows()==2) {
@@ -250,36 +286,73 @@ public enum RenderingEngine {
 		// Offhand weapon:
 		weaponInSlot = charactersInventoryToRender.getOffhandWeapon(0);
 		if (weaponInSlot != null) {
+			String weaponCount = getThrownWeaponCountDiv(weaponInSlot.getWeaponType(), charactersInventoryToRender.getWeaponCount(weaponInSlot));
 			equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
 						+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
-						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'></div>"
+						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'>"+weaponCount+"</div>"
 					+ "</div>");
+			
+		} else if(Main.game.isInCombat() && Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_OFFHAND_1)!=null) {
+			AbstractWeaponType depletedWeapon = Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_OFFHAND_1);
+			String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
+			equippedPanelSB.append(
+					"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
+						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'>"+weaponCount+"</div>"
+					+ "</div>");
+			
 		} else if (charactersInventoryToRender.getMainWeapon(0) != null && charactersInventoryToRender.getMainWeapon(0).getWeaponType().isTwoHanded()) {
 			equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, true, InventorySlot.WEAPON_OFFHAND_1, weaponStyle));
 			
 		} else {
 			equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, false, InventorySlot.WEAPON_OFFHAND_1, weaponStyle));
 		}
+		
 		// Multiple arms:
 		if(charactersInventoryToRender.getArmRows()>1) {
+			// Weapon in second slot:
 			weaponInSlot = charactersInventoryToRender.getOffhandWeapon(1);
 			if (weaponInSlot != null) {
+				String weaponCount = getThrownWeaponCountDiv(weaponInSlot.getWeaponType(), charactersInventoryToRender.getWeaponCount(weaponInSlot));
 				equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
 							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
-							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'></div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
+				
+			} else if(Main.game.isInCombat() && Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_OFFHAND_2)!=null) {
+				AbstractWeaponType depletedWeapon = Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_OFFHAND_2);
+				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
+				equippedPanelSB.append(
+						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'>"+weaponCount+"</div>"
+						+ "</div>");
+				
 			} else if (charactersInventoryToRender.getMainWeapon(1) != null && charactersInventoryToRender.getMainWeapon(1).getWeaponType().isTwoHanded()) {
 				equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, true, InventorySlot.WEAPON_OFFHAND_2, weaponStyle));
 				
 			} else {
 				equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, false, InventorySlot.WEAPON_OFFHAND_2, weaponStyle));
 			}
+			
+			// Weapon in third slot:
 			weaponInSlot = charactersInventoryToRender.getOffhandWeapon(2);
 			if (weaponInSlot != null) {
+				String weaponCount = getThrownWeaponCountDiv(weaponInSlot.getWeaponType(), charactersInventoryToRender.getWeaponCount(weaponInSlot));
 				equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
 							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
-							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'></div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
+				
+			} else if(Main.game.isInCombat() && Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_OFFHAND_3)!=null) {
+				AbstractWeaponType depletedWeapon = Main.combat.getThrownWeaponsDepleted(charactersInventoryToRender, InventorySlot.WEAPON_OFFHAND_3);
+				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
+				equippedPanelSB.append(
+						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'>"+weaponCount+"</div>"
+						+ "</div>");
+				
 			} else if (charactersInventoryToRender.getArmRows()==2 || (charactersInventoryToRender.getMainWeapon(2) != null && charactersInventoryToRender.getMainWeapon(2).getWeaponType().isTwoHanded())) {
 				equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, true, InventorySlot.WEAPON_OFFHAND_3, weaponStyle));
 				
@@ -287,6 +360,7 @@ public enum RenderingEngine {
 				equippedPanelSB.append(getEmptyWeaponDiv(charactersInventoryToRender, false, InventorySlot.WEAPON_OFFHAND_3, weaponStyle));
 			}
 		}
+		
 		
 		//piercingSlots
 		for (InventorySlot invSlot : piercingSlots) {
@@ -1059,6 +1133,13 @@ public enum RenderingEngine {
 			return "<div class='item-count'>x" + amount + "</div>";
 		}
 		return "";
+	}
+
+	private static String getThrownWeaponCountDiv(AbstractWeaponType weaponType, int amount) {
+		if(!weaponType.isOneShot()) {
+			return "";
+		}
+		return "<div class='item-count' "+(amount==0?"style='opacity:0.5;'":"")+">+" + amount + "</div>";
 	}
 	
 	private static String getItemPriceDiv(int price) {

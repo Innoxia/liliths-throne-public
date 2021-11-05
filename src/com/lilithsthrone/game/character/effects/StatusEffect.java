@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
@@ -3676,7 +3677,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return (Main.getProperties().hasValue(PropertyValue.ageContent) || target.isUnique())
 					&& target.hasVagina()
-					&& target.getAgeValue()>=52
+					&& (target.isPlayer()
+							?target.getAgeValue()>=52+Game.TIME_SKIP_YEARS
+							:target.getAgeValue()>=52)
 					&& (target.getSubspecies()==Subspecies.ANGEL || target.getSubspeciesOverride()==null) // Angels and demons are immune
 					&& !(target.isElemental());
 		}

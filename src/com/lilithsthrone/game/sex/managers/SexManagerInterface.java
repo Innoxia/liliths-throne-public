@@ -272,9 +272,8 @@ public interface SexManagerInterface {
 		if(Main.sex.isDom(partner)
 				&& (!Main.sex.isConsensual()
 						|| subsResisting
-//						|| !Main.sex.isSubHasEqualControl() // 0.4.1.1 change
 						|| (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
-			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()+1) {
 				return true;
 			}
 			return domsSatisfied;

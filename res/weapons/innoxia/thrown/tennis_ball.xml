@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>25</value>
+		<melee>false</melee>
+		<twoHanded>false</twoHanded>
+		
+		<oneShotWeapon>true</oneShotWeapon>
+		<oneShotWeaponChanceToRecoverAfterTurn>75</oneShotWeaponChanceToRecoverAfterTurn>
+		<oneShotWeaponChanceToRecoverAfterCombat>100</oneShotWeaponChanceToRecoverAfterCombat>
+		
+		<determiner><![CDATA[a]]></determiner>
+		<name appendDamageName="false"><![CDATA[tennis ball]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[tennis balls]]></namePlural>
+		<description><![CDATA[An air-filled ball made out of tough rubber that's designed for use in the sport of tennis. It's covered in a fibrous felt, and has a white band running around it in an oval, curvilinear fashion.]]></description>
+		<attackDescriptor>throw</attackDescriptor>
+		<attackDescriptionPrefix>throw tennis ball at</attackDescriptionPrefix>
+		<attackTooltipDescription>Throw the tennis ball at [npc2.name].</attackTooltipDescription>
+		<rarity>COMMON</rarity>
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] tennis ball and [npc.verb(prepare)] to throw it.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] tennis ball away.]]></unequipText>
+		
+		<imageName>tennis_ball.svg</imageName> 
+		<imageEquippedName/>
+		
+		<damage>1</damage> 
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/>
+		<extraEffects>
+			<effect><![CDATA[[style.colourExcellent(Subdues)] [style.colourTfGreater(greater)] [style.colourDog(dog-morphs)]]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+		#IF(npc2.getRace()==RACE_DOG_MORPH && npc2.getRaceStage()==RACE_STAGE_GREATER)
+			[##npc2.setHealth(0)]
+			<i>[npc2.Name] [npc2.verb(let)] out an excited bark and [npc2.verb(chase)] after the tennis ball. Quickly grabbing hold of it, [npc2.she] [npc2.verb(roll)] onto [npc2.her] back and [npc2.verb(start)] playing with it, leaving [npc2.herHim] completely vulnerable and [style.italicsExcellent(utterly defeated)]!</i>
+		#ENDIF
+		]]></onHitEffect>
+		
+		<primaryColours> 
+			<colour>CLOTHING_GREEN_LIME</colour>
+			<colour>CLOTHING_GREEN_LIME</colour>
+			<colour>CLOTHING_GREEN_LIME</colour>
+			<colour>CLOTHING_GREEN_LIME</colour>
+			<colour>CLOTHING_GREEN_LIME</colour>
+			<colour>CLOTHING_GREEN_LIME</colour>
+			
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_GREEN</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_BLUE</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_RALPH</tag>
+			<tag>SILLY_MODE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Hurling [npc.her] tennis ball at [npc2.name], [npc.name] [npc.verb(manage)] to hit [npc2.herHim] square in the chest!
+		]]></hitText>
+		<hitText><![CDATA[
+		Throwing [npc.her] tennis ball at [npc2.name], [npc.name] [npc.verb(manage)] to strike [npc2.herHim] on the [npc.arm(true)]!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(launch)] [npc.her] tennis ball at [npc2.name] and [npc.verb(succeed)] in hitting [npc2.herHim]!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Hurling [npc.her] tennis ball at [npc2.name], [npc.name] [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Throwing [npc.her] tennis ball at [npc2.name], [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(launch)] [npc.her] tennis ball at [npc2.name], but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+	<oneShotEndTurnRecoveryDescriptions>
+		<recoveryText><![CDATA[
+			The tennis ball bounces back towards [npc.name], allowing [npc.herHim] to pick it up and reuse it!
+		]]></recoveryText>
+	</oneShotEndTurnRecoveryDescriptions>
+	
+</weapon>

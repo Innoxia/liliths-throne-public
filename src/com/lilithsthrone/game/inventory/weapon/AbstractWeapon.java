@@ -393,6 +393,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		int essenceCost = this.getWeaponType().getArcaneCost();
 		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>";
+		
 		descriptionSB.append("<p><b>");
 			descriptionSB.append("<span style='color:" + this.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(this.getRarity().getName())+"</span>"
 								+" | "
@@ -402,7 +403,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 										?"[style.colourMelee(Melee)]"
 										:"[style.colourRanged(Ranged)]"))
 								+"<br/>");
-			descriptionSB.append((this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"<br/>");
+			descriptionSB.append((this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed"));
+			if(this.getWeaponType().isOneShot()) {
+				descriptionSB.append(" - [style.colourYellow(One-shot)]");
+			}
+			descriptionSB.append("<br/>");
 			if(essenceCost>0) {
 				descriptionSB.append("Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
 			}
@@ -421,7 +426,20 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!<br/>");
 				targetNumber++;
 			}
+			if(this.getWeaponType().isOneShot()) {
+				int chanceToRecoverTurn = (int)this.getWeaponType().getOneShotChanceToRecoverAfterTurn();
+				int chanceToRecoverCombat = (int)this.getWeaponType().getOneShotChanceToRecoverAfterCombat();
+
+				descriptionSB.append("<span style='color:"
+						+(chanceToRecoverTurn<=25?PresetColour.GENERIC_BAD:(chanceToRecoverTurn<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverTurn<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+"'>"+chanceToRecoverTurn+"%</span> chance to recover [style.colourBlueLight(after use)]<br/>");
+				
+				descriptionSB.append("<span style='color:"
+						+(chanceToRecoverCombat<=25?PresetColour.GENERIC_BAD:(chanceToRecoverCombat<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverCombat<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+";'>"+chanceToRecoverCombat+"%</span> chance to recover [style.colourCombat(after combat)]<br/>");
+			}
 		descriptionSB.append("</b></p>");
+
 		descriptionSB.append("<p>");
 			descriptionSB.append(weaponType.getDescription());
 			descriptionSB.append("<br/>"+(getWeaponType().isPlural()?"They have":"It has")+" a value of: "+UtilText.formatAsMoney(getValue()));
@@ -437,8 +455,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 								+ " <b>" + getWeaponType().getPhysicalResistance() + "</b> [style.colourResPhysical(" + Attribute.RESISTANCE_PHYSICAL.getName() + ")]."
 							+ "</p>");
 		}
-
-		if(!this.getEffects().isEmpty()) {
+		
+		
+		if(!this.getEffects().isEmpty() || !this.getWeaponType().getExtraEffects().isEmpty()) {
 			descriptionSB.append("<p>Effects:");
 			for (ItemEffect e : this.getEffects()) {
 				if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE
@@ -447,6 +466,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 						descriptionSB.append("<br/>"+ s);
 					}
 				}
+			}
+			for (String s : this.getWeaponType().getExtraEffects()) {
+				descriptionSB.append("<br/>"+ s);
 			}
 			for(Entry<AbstractAttribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
 				descriptionSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
@@ -625,7 +647,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 	
 	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit, boolean isCritical) {
-		return this.getWeaponType().applyExtraEffects(user, target, isHit, isCritical);
+		return this.getWeaponType().applyExtraEffects(user, target, isHit, isCritical).trim();
 	}
 	
 

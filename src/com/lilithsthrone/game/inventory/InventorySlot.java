@@ -556,10 +556,12 @@ public enum InventorySlot {
 	
 	public static InventorySlot[] mainWeaponSlots;
 	public static InventorySlot[] offhandWeaponSlots;
+	public static InventorySlot[] allWeaponSlots;
 
 	static {
 		mainWeaponSlots = new InventorySlot[] {InventorySlot.WEAPON_MAIN_1, InventorySlot.WEAPON_MAIN_2, InventorySlot.WEAPON_MAIN_3};
 		offhandWeaponSlots = new InventorySlot[] {InventorySlot.WEAPON_OFFHAND_1, InventorySlot.WEAPON_OFFHAND_2, InventorySlot.WEAPON_OFFHAND_3};
+		allWeaponSlots = new InventorySlot[] {InventorySlot.WEAPON_MAIN_1, InventorySlot.WEAPON_MAIN_2, InventorySlot.WEAPON_MAIN_3, InventorySlot.WEAPON_OFFHAND_1, InventorySlot.WEAPON_OFFHAND_2, InventorySlot.WEAPON_OFFHAND_3};
 		
 		humanoidSlots = new ArrayList<>();
 		clothingSlots = new ArrayList<>();
