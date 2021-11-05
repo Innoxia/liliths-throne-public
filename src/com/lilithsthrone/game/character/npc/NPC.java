@@ -2932,7 +2932,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
-		if(requestingCharacter.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+		if(requestingCharacter.hasTraitActivated(Perk.CONVINCING_REQUESTS)) {
 			return false;
 		}
 		

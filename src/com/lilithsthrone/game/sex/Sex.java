@@ -94,7 +94,7 @@ import com.lilithsthrone.world.Cell;
  * Lasciate ogni speranza, voi ch'entrate.
  *
  * @since 0.1.0
- * @version 0.3.9.1
+ * @version 0.4.2.1
  * @author Innoxia
  */
 public class Sex {
@@ -251,6 +251,7 @@ public class Sex {
 	private Set<GameCharacter> charactersSelfActionsBlocked;
 	private Set<GameCharacter> charactersDeniedOrgasm;
 	private Map<GameCharacter, SexControl> forcedSexControlMap;
+	private Set<GameCharacter> charactersBannedFromRapePlay;
 
 	private Set<GameCharacter> charactersGrewCock;
 	private Set<GameCharacter> heavyLipstickUsedCharacter; // For tracking which characters have their 'heavy' lipstick removed at the end of sex.
@@ -372,6 +373,8 @@ public class Sex {
 		sexCountMap = new HashMap<>();
 		cummedInsideMap = new HashMap<>();
 		creampieLockedBy = null;
+		
+		charactersBannedFromRapePlay = new HashSet<>();
 
 		initialSexManager = sexManager;
 		setSexManager(sexManager);
@@ -5298,6 +5301,10 @@ public class Sex {
 		forceSexPaceMap.put(character, sexPace);
 	}
 	
+	public boolean isSexPaceForced(GameCharacter character) {
+		return forceSexPaceMap.containsKey(character);
+	}
+	
 	public SexPace getSexPace(GameCharacter character) {
 		if(character==null) {
 			return null;
@@ -5635,6 +5642,24 @@ public class Sex {
 		}
 	}
 
+	public boolean isCharacterBannedFromRapePlay(GameCharacter character) {
+		if(!Main.game.isInSex()) {
+			return false;
+		}
+		return charactersBannedFromRapePlay.contains(character);
+	}
+
+	public void setCharacterBannedFromRapePlay(GameCharacter character, boolean bannedFromRapePlay) {
+		if(!Main.game.isInSex()) {
+			return;
+		}
+		if(bannedFromRapePlay) {
+			charactersBannedFromRapePlay.add(character);
+		} else {
+			charactersBannedFromRapePlay.remove(character);
+		}
+	}
+	
 	public boolean isCanRemoveSelfClothing(GameCharacter character) {
 		if(charactersBannedFromRemovingSelfClothing.contains(character)) {
 			return false;
@@ -5916,7 +5941,7 @@ public class Sex {
 			return false;
 		}
 		
-		if(target.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) { // If the target is convincing, then they always obey.
+		if(target.hasTraitActivated(Perk.CONVINCING_REQUESTS)) { // If the target is convincing, then they always obey.
 			return true;
 		}
 		
@@ -5936,7 +5961,7 @@ public class Sex {
 		
 		for(GameCharacter pulloutRequester : Main.sex.getCharactersRequestingPullout().keySet()) {
 			if(isCharacterObeyingTarget(character, pulloutRequester)) {
-				if(pulloutRequester.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+				if(pulloutRequester.hasTraitActivated(Perk.CONVINCING_REQUESTS)) {
 					weighting+=50;
 				} else {
 					weighting+=5;
@@ -5945,7 +5970,7 @@ public class Sex {
 		}
 		for(GameCharacter creampieRequester : Main.sex.getCharactersRequestingCreampie()) {
 			if(isCharacterObeyingTarget(character, creampieRequester)) {
-				if(creampieRequester.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+				if(creampieRequester.hasTraitActivated(Perk.CONVINCING_REQUESTS)) {
 					weighting-=50;
 				} else {
 					weighting-=5;

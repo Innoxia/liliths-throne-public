@@ -2618,7 +2618,6 @@ public class ItemEffectType {
 		}
 		
 		for(Entry<AbstractRace, AbstractItemEffectType> entry : racialEffectTypes.entrySet()) {
-
 			allEffectTypes.add(entry.getValue());
 			
 			String id = "RACE_"+Race.getIdFromRace(entry.getKey());

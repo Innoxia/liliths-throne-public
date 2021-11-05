@@ -695,7 +695,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STANDING);
 		}
 		
@@ -763,7 +763,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.AGAINST_WALL);
 		}
 		
@@ -839,7 +839,7 @@ public class PositioningMenu {
 					&& taurs<=4 // Cannot have more than 4 taurs
 					&& Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.SITTING);
 		}
 		
@@ -925,7 +925,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.OVER_DESK);
 		}
 		
@@ -993,7 +993,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.ALL_FOURS);
 		}
 		
@@ -1061,7 +1061,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.LYING_DOWN);
 		}
 		
@@ -1129,7 +1129,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STOCKS);
 		}
 		
@@ -1197,7 +1197,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.MILKING_STALL);
 		}
 		

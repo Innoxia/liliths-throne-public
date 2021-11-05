@@ -884,7 +884,7 @@ public class Library {
 	
 	private static Response bookResponse(DialogueNode nodeToReturnTo, AbstractSubspecies subspecies) {
 		AbstractItemType book = ItemType.getLoreBook(subspecies);
-		
+
 		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
 			return new Response(book.getName(false), book.getDescription(), nodeToReturnTo) {
 				@Override
@@ -892,6 +892,7 @@ public class Library {
 					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
 				}
 			};
+			
 		} else {
 			return new Response(book.getName(false), "You haven't discovered this book yet!", null);
 		}

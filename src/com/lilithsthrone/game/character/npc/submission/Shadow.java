@@ -102,9 +102,11 @@ public class Shadow extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")
-				&& !this.hasItemType(ItemType.RESONANCE_STONE)) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6") && !this.hasItemType(ItemType.RESONANCE_STONE)) {
 			this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) {
+			this.setupPerks(true);
 		}
 	}
 
@@ -115,7 +117,9 @@ public class Shadow extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
 		
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.BESERK),
+				Util.newArrayListOfValues(
+						Perk.BESERK,
+						Perk.UNARMED_TRAINING),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 0),

@@ -287,7 +287,11 @@ public class Game implements XMLSaving {
 	private int weatherTimeRemainingInSeconds;
 	
 	private Encounter currentEncounter;
-	
+	// Need to always return the same encounter at the same time in case it gets triggered multiple times in logic somewhere, so once it's been calculated at a certain time, reuse that result.
+	// These two variables are responsible for holding that information (and are located here as they need to be reset upon new game or loading a game).
+	public Value<Long, DialogueNode> forcedEncounterAtSeconds = new Value<>(-1l, null);
+	public Value<Long, DialogueNode> encounterAtSeconds = new Value<>(-1l, null);
+
 	private boolean started;
 	
 	private static Map<String, CharacterInventory> savedInventories; // Map of ID to inventory
@@ -1742,6 +1746,14 @@ public class Game implements XMLSaving {
 					}
 		        }
 
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) { // NPCs generated before this version were affected by the game's 3-year time skip at the start, so were older than intended
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc.isUnique()) {
+							npc.setBirthday(npc.getBirthday().plusYears(TIME_SKIP_YEARS));
+						}
+					}
+				}
+
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -2939,6 +2951,9 @@ public class Game implements XMLSaving {
 							+ "</p>";
 					ex.printStackTrace();
 				}
+				if(content==null) {
+					content = "";
+				}
 
 				if (currentDialogueNode != null) {
 					if (node.isContinuesDialogue() || response.isForceContinue()) {
@@ -3150,6 +3165,9 @@ public class Game implements XMLSaving {
 						+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+node.getLabel()+"')]"
 					+ "</p>";
 			ex.printStackTrace();
+		}
+		if(content==null) {
+			content = "";
 		}
 		boolean resetPointer = false;
 		
@@ -4207,6 +4225,9 @@ public class Game implements XMLSaving {
 	
 	public void applyStartingDateChange() {
 		startingDate = startingDate.plusYears(TIME_SKIP_YEARS);
+		for(NPC npc : Main.game.getAllNPCs()) {
+			npc.setBirthday(npc.getBirthday().plusYears(TIME_SKIP_YEARS)); // Have to do this to keep NPC starting ages as planned
+		}
 	}
 	
 	/**
@@ -4625,6 +4646,7 @@ public class Game implements XMLSaving {
 			removeNPC(npc);
 			return true;
 		} else {
+			ParserTarget.removeAdditionalParserTarget(npc);
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
 		}
