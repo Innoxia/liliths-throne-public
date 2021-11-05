@@ -241,7 +241,7 @@ public abstract class DialogueNode {
 								// Trading:
 								if(response.getOptionalFirstOf("tradingVariables").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("tradingVariables").getAttribute("enabled"))) {
 									String tradeTarget = node.getMandatoryFirstOf("tradingVariables").getMandatoryFirstOf("tradePartner").getTextContent();
-									ResponseTrade tradeResponse = new ResponseTrade(responseTitle, responseTooltip, tradeTarget);
+									ResponseTrade tradeResponse = new ResponseTrade(responseTitle, responseTooltip, tradeTarget, effectsResponse);
 									tradeResponse.setConditional(availabilityConditional);
 									
 									loadedResponses.putIfAbsent(responseTabIndex, new HashMap<>());
@@ -287,7 +287,7 @@ public abstract class DialogueNode {
 										}
 									}
 									
-									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, companionsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions);
+									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, companionsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse);
 									combatResponse.setNextDialoguePlayerVictoryId(nextDialoguePlayerVictory);
 									combatResponse.setNextDialoguePlayerDefeatId(nextDialoguePlayerDefeat);
 									combatResponse.setConditional(availabilityConditional);
@@ -785,7 +785,14 @@ public abstract class DialogueNode {
 	public DialogueNodeType getDialogueNodeType() {
 		return DialogueNodeType.NORMAL;
 	}
-	
+
+	/**
+	 * @return Whether the content of the dialogue should run through the parser. Will almost always be {@code true}.
+	 */
+	public boolean isContentParsed() {
+		return true;
+	}
+
 	/**
 	 * @return The author of the scene.
 	 */

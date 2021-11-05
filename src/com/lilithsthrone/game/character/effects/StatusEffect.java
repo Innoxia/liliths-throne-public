@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
@@ -1651,6 +1652,61 @@ public class StatusEffect {
 		}
 	};
 
+	public static AbstractStatusEffect BLINDED = new AbstractStatusEffect(90,
+			"Blinded",
+			"blinded",
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_RED,
+			PresetColour.BASE_GREY_LIGHT,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_UNARMED, -50f),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, -50f),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, -50f),
+					new Value<>(Attribute.DAMAGE_SPELLS, -50f),
+					new Value<>(Attribute.ACTION_POINTS, -1f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"[npc.NameHasFull] been effectively blinded, and as such [npc.she] [npc.is] struggling effectively navigate through [npc.her] surroundings, and will be extremely ineffective in combat!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isSightHindered() && !target.hasEchoLocation();
+		}
+	};
+
+	public static AbstractStatusEffect BLINDED_NEGATED = new AbstractStatusEffect(90,
+			"Blinded (Echo location)",
+			"blinded_negated",
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_GREEN,
+			PresetColour.BASE_GREY_LIGHT,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_UNARMED, -5f),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, -5f),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, -5f),
+					new Value<>(Attribute.DAMAGE_SPELLS, -5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"Although [npc.name] should be effectively blinded, [npc.she] [npc.is] able to effectively navigate through [npc.her] surroundings using [npc.her] echo location ability!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isSightHindered() && target.hasEchoLocation();
+		}
+	};
+
 	public static AbstractStatusEffect DARKNESS = new AbstractStatusEffect(90,
 			"Darkness",
 			"darkness",
@@ -2768,6 +2824,25 @@ public class StatusEffect {
 		}
 	};
 	
+	public static AbstractStatusEffect FATIGUED = new AbstractStatusEffect(80,
+			"fatigued",
+			"fatigued",
+			PresetColour.ATTRIBUTE_HEALTH,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, -15f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "After a period of hard work, [npc.nameIsFull] feeling very fatigued, and will need to take some time to recover...");
+			} else {
+				return "";
+			}
+		}
+	};
+	
 	// Utility status effect to display text of companions leaving:
 	public static AbstractStatusEffect COMPANIONS_LEAVING = new AbstractStatusEffect(80,
 			"Companions Leaving",
@@ -3602,7 +3677,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return (Main.getProperties().hasValue(PropertyValue.ageContent) || target.isUnique())
 					&& target.hasVagina()
-					&& target.getAgeValue()>=52
+					&& (target.isPlayer()
+							?target.getAgeValue()>=52+Game.TIME_SKIP_YEARS
+							:target.getAgeValue()>=52)
 					&& (target.getSubspecies()==Subspecies.ANGEL || target.getSubspeciesOverride()==null) // Angels and demons are immune
 					&& !(target.isElemental());
 		}
@@ -3628,11 +3705,11 @@ public class StatusEffect {
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			
 			StringBuilder sb = new StringBuilder();
 			
 			if (target.isPregnant()) {
 				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
+				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
@@ -8315,6 +8392,10 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getLust()>=100 && !target.isVulnerableToLustLoss();
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
 		}
 	};
 

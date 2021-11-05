@@ -94,7 +94,7 @@ import com.lilithsthrone.world.Cell;
  * Lasciate ogni speranza, voi ch'entrate.
  *
  * @since 0.1.0
- * @version 0.3.9.1
+ * @version 0.4.2.1
  * @author Innoxia
  */
 public class Sex {
@@ -242,7 +242,8 @@ public class Sex {
 	private Map<GameCharacter, List<AbstractSexPosition>> positioningRequestsBlocked;
 	private PositioningData positionRequest;
 	private Set<GameCharacter> charactersRequestingCreampie;
-	private Set<GameCharacter> charactersRequestingPullout;
+	/**Maps: Characters who are requesting a pull out -> The area which they want the orgasming character to cum on (null if no area requested). */
+	private Map<GameCharacter, OrgasmCumTarget> charactersRequestingPullout;
 	/**Maps: Immobilisation types -> Map of characters responsible for inflicting the immobilisation mapped to the targets who are immobilised. */
 	private Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> charactersImmobilised;
 	private Set<GameCharacter> charactersBannedFromPositioning;
@@ -250,6 +251,7 @@ public class Sex {
 	private Set<GameCharacter> charactersSelfActionsBlocked;
 	private Set<GameCharacter> charactersDeniedOrgasm;
 	private Map<GameCharacter, SexControl> forcedSexControlMap;
+	private Set<GameCharacter> charactersBannedFromRapePlay;
 
 	private Set<GameCharacter> charactersGrewCock;
 	private Set<GameCharacter> heavyLipstickUsedCharacter; // For tracking which characters have their 'heavy' lipstick removed at the end of sex.
@@ -371,6 +373,8 @@ public class Sex {
 		sexCountMap = new HashMap<>();
 		cummedInsideMap = new HashMap<>();
 		creampieLockedBy = null;
+		
+		charactersBannedFromRapePlay = new HashSet<>();
 
 		initialSexManager = sexManager;
 		setSexManager(sexManager);
@@ -440,7 +444,7 @@ public class Sex {
 		positionRequest = null;
 		
 		charactersRequestingCreampie = new HashSet<>();
-		charactersRequestingPullout = new HashSet<>();
+		charactersRequestingPullout = new HashMap<>();
 		
 		charactersImmobilised = new HashMap<>(sexManager.getStartingCharactersImmobilised());
 		charactersBannedFromPositioning = new HashSet<>();
@@ -902,7 +906,7 @@ public class Sex {
 						clothingEquipped = character.getClothingInSlot(entry2.getKey()); // check if now equipped
 						if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
 							for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
-								if(clothing.getClothingType().equals(c.getClothingType())) {
+								if(clothing.getClothingType().equals(c.getClothingType()) && clothing.getSlotEquippedTo().equals(c.getSlotEquippedTo())) {
 									clothing.getDisplacedList().clear();
 									if(entry2.getValue().get(c)!=null) {
 										for(DisplacementType displacement : entry2.getValue().get(c)) {
@@ -2788,7 +2792,7 @@ public class Sex {
 			// Reset appropriate flags:
 			removeCharacterBannedFromPositioning(getCharacterPerformingAction());
 			charactersRequestingCreampie = new HashSet<>();
-			charactersRequestingPullout = new HashSet<>();
+			charactersRequestingPullout = new HashMap<>();
 			SexFlags.playerPreparedForCharactersOrgasm.remove(getCharacterPerformingAction());
 		}
 
@@ -5297,6 +5301,10 @@ public class Sex {
 		forceSexPaceMap.put(character, sexPace);
 	}
 	
+	public boolean isSexPaceForced(GameCharacter character) {
+		return forceSexPaceMap.containsKey(character);
+	}
+	
 	public SexPace getSexPace(GameCharacter character) {
 		if(character==null) {
 			return null;
@@ -5634,6 +5642,24 @@ public class Sex {
 		}
 	}
 
+	public boolean isCharacterBannedFromRapePlay(GameCharacter character) {
+		if(!Main.game.isInSex()) {
+			return false;
+		}
+		return charactersBannedFromRapePlay.contains(character);
+	}
+
+	public void setCharacterBannedFromRapePlay(GameCharacter character, boolean bannedFromRapePlay) {
+		if(!Main.game.isInSex()) {
+			return;
+		}
+		if(bannedFromRapePlay) {
+			charactersBannedFromRapePlay.add(character);
+		} else {
+			charactersBannedFromRapePlay.remove(character);
+		}
+	}
+	
 	public boolean isCanRemoveSelfClothing(GameCharacter character) {
 		if(charactersBannedFromRemovingSelfClothing.contains(character)) {
 			return false;
@@ -5906,7 +5932,7 @@ public class Sex {
 		return charactersRequestingCreampie;
 	}
 
-	public Set<GameCharacter> getCharactersRequestingPullout() {
+	public Map<GameCharacter, OrgasmCumTarget> getCharactersRequestingPullout() {
 		return charactersRequestingPullout;
 	}
 	
@@ -5915,7 +5941,7 @@ public class Sex {
 			return false;
 		}
 		
-		if(target.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) { // If the target is convincing, then they always obey.
+		if(target.hasTraitActivated(Perk.CONVINCING_REQUESTS)) { // If the target is convincing, then they always obey.
 			return true;
 		}
 		
@@ -5923,8 +5949,7 @@ public class Sex {
 			return false;
 		}
 		
-		return Main.sex.getSexControl(target).getValue()>=Main.sex.getSexControl(character).getValue()
-				|| character.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive();
+		return Main.sex.getSexControl(target).getValue()>=Main.sex.getSexControl(character).getValue() || character.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive();
 	}
 	
 	/**
@@ -5934,9 +5959,9 @@ public class Sex {
 	public int getRequestedPulloutWeighting(GameCharacter character) {
 		int weighting = 0;
 		
-		for(GameCharacter pulloutRequester : Main.sex.getCharactersRequestingPullout()) {
+		for(GameCharacter pulloutRequester : Main.sex.getCharactersRequestingPullout().keySet()) {
 			if(isCharacterObeyingTarget(character, pulloutRequester)) {
-				if(pulloutRequester.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+				if(pulloutRequester.hasTraitActivated(Perk.CONVINCING_REQUESTS)) {
 					weighting+=50;
 				} else {
 					weighting+=5;
@@ -5945,7 +5970,7 @@ public class Sex {
 		}
 		for(GameCharacter creampieRequester : Main.sex.getCharactersRequestingCreampie()) {
 			if(isCharacterObeyingTarget(character, creampieRequester)) {
-				if(creampieRequester.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+				if(creampieRequester.hasTraitActivated(Perk.CONVINCING_REQUESTS)) {
 					weighting-=50;
 				} else {
 					weighting-=5;

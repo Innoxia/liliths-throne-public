@@ -2449,7 +2449,18 @@ public class InventoryDialogue {
 									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
 								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									int affordableCount = Main.game.getPlayer().getMoney() / sellPrice;
+									if(affordableCount > 0) {
+										return new Response("Buy (Max " + affordableCount + ") (" + UtilText.formatAsMoney(sellPrice * affordableCount, "span") + ")",
+												"Buy the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice * affordableCount) + ".", INVENTORY_MENU) {
+											@Override
+											public void effects() {
+												sellItems(inventoryNPC, Main.game.getPlayer(), item, affordableCount, sellPrice);
+											}
+										};
+									} else {
+										return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									}
 								}
 								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
 										"Buy the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
@@ -2530,7 +2541,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGString(),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					+ sb.toString()
 					+ (owner!=null && owner.isPlayer()
@@ -2975,7 +2986,7 @@ public class InventoryDialogue {
 //								}
 
 								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] main weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3002,7 +3013,7 @@ public class InventoryDialogue {
 											null);
 								}
 								InventorySlot slot = InventorySlot.offhandWeaponSlots[inventoryNPC.getOffhandWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] offhand weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3501,7 +3512,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] main weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3525,7 +3536,7 @@ public class InventoryDialogue {
 								}
 								
 								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] offhand weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3622,7 +3633,18 @@ public class InventoryDialogue {
 									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
 								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									int affordableCount = Main.game.getPlayer().getMoney() / sellPrice;
+									if(affordableCount > 0) {
+										return new Response("Buy (Max " + affordableCount + ") (" + UtilText.formatAsMoney(sellPrice * affordableCount, "span") + ")",
+												"Buy the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice * affordableCount) + ".", INVENTORY_MENU) {
+											@Override
+											public void effects() {
+												sellWeapons(inventoryNPC, Main.game.getPlayer(), weapon, affordableCount, sellPrice);
+											}
+										};
+									} else {
+										return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									}
 								}
 								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
 										"Buy the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
@@ -5180,7 +5202,18 @@ public class InventoryDialogue {
 									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
 								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									int affordableCount = Main.game.getPlayer().getMoney() / sellPrice;
+									if(affordableCount > 0) {
+										return new Response("Buy (Max " + affordableCount + ") (" + UtilText.formatAsMoney(sellPrice * affordableCount, "span") + ")",
+												"Buy the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice * affordableCount) + ".", INVENTORY_MENU) {
+											@Override
+											public void effects() {
+												sellClothing(inventoryNPC, Main.game.getPlayer(), clothing, affordableCount, sellPrice);
+											}
+										};
+									} else {
+										return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									}
 								}
 								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
 										"Buy the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
@@ -5261,7 +5294,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					 	+sb.toString());
 		}
@@ -8425,6 +8458,13 @@ public class InventoryDialogue {
 					"You can't unseal clothing in combat!",
 					null);
 		}
+
+		if(interactionType==InventoryInteraction.SEX && !Main.sex.getInitialSexManager().isAbleToRemoveClothingSeals(Main.game.getPlayer())) {
+			return new Response("Unseal"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
+					"You can't unseal clothing in this sex scene!",
+					null);
+		}
+		
 		
 		if(!ownsKey) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {

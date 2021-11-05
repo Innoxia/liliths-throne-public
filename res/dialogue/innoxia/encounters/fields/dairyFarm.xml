@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="discovered">
+		<preParsingEffects><![CDATA[
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_dairyFarm)]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'EXTERIOR'))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/encounters/fields/dairyFarm', 'DISCOVERED_END'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/fields/dairyFarm">DISCOVERED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_dairyFarm_exterior">
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Continue on your way and perhaps come back at another time to visit the farm...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

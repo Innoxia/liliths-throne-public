@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>1000</value> 
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[Elis Town Hall Pass]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Elis Town Hall Passes]]></namePlural>
+		<description><![CDATA[A plastic card which grants the holder access to the tower of Elis's town hall.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>minotallys_pass.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_GOLD</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.colourGood(Grants access)] to Elis's town hall's tower]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			Signed by Minotally's personal assistant, Arion, this pass carries a 'gold' level clearance, which, due to the fact that it grants you unrestricted access to Minotallys herself, you assume to be the highest level of clearance there is.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the pass...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] pass to [npc2.name], who is duly impressed by [npc.her] possession of it...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

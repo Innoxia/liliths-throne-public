@@ -25,8 +25,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.?
- * @version 0.3.6.6
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, Maxis
  */
 public enum Fetish {
 	
@@ -2077,5 +2077,9 @@ public enum Fetish {
 	
 	public static int getExperienceGainFromTakingOtherVirginity(GameCharacter owner) {
 		return owner.getLevel();
+	}
+	
+	public FetishPreference getFetishPreferenceDefault() {
+		return FetishPreference.THREE_NEUTRAL;
 	}
 }

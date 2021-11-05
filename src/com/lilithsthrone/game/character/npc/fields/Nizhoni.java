@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -21,6 +22,7 @@ import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -30,8 +32,6 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -90,6 +90,9 @@ public class Nizhoni extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.8")) {
+			this.setStartingBody(true);
+		}
 	}
 
 	@Override
@@ -110,16 +113,21 @@ public class Nizhoni extends NPC {
 
 		if(setPersona) {
 			this.setPersonalityTraits(
-					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.BRAVE,
-					PersonalityTrait.LEWD);
+					PersonalityTrait.KIND,
+					PersonalityTrait.LEWD,
+					PersonalityTrait.SLOVENLY);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_STORE_OWNER);
+			
+			this.clearFetishDesires();
+			this.clearFetishes();
 
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
 
+			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 		}
@@ -129,13 +137,13 @@ public class Nizhoni extends NPC {
 		// Core:
 		this.setHeight(165);
 		this.setFemininity(70);
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
+		this.setMuscle(Muscle.ZERO_SOFT.getMedianValue());
+		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("dsg_raccoon_eye"), CoveringPattern.EYE_IRISES, PresetColour.EYE_HAZEL, false, PresetColour.EYE_HAZEL, false));
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("dsg_raccoon_fur"), CoveringPattern.MARKED, CoveringModifier.SMOOTH, PresetColour.COVERING_GREY, false, PresetColour.COVERING_WHITE, false), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("dsg_raccoon_fur"), CoveringPattern.MARKED, CoveringModifier.SMOOTH, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
 
 		this.setHairCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("dsg_raccoon_hair"), CoveringPattern.HIGHLIGHTS, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_ORANGE, false), false);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
@@ -147,12 +155,12 @@ public class Nizhoni extends NPC {
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_BLUE_DARK));
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_BLUE_DARK));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_ORANGE));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_ORANGE));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
 //		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_CLEAR));
 		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
-		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_BLUE_LIGHT));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_BLUE_LIGHT));
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -164,17 +172,17 @@ public class Nizhoni extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.AA.getMeasurement());
+		this.setBreastSize(CupSize.G.getMeasurement());
 		this.setBreastShape(BreastShape.POINTY);
-		this.setNippleSize(NippleSize.TWO_BIG);
-		this.setAreolaeSize(AreolaeSize.TWO_BIG);
+		this.setNippleSize(NippleSize.FOUR_MASSIVE);
+		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE);
 		// Nipple settings and modifiers
 		
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.THREE_NORMAL);
-		this.setHipSize(HipSize.THREE_GIRLY);
+		this.setAssSize(AssSize.FIVE_HUGE);
+		this.setHipSize(HipSize.FIVE_VERY_WIDE);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
 		this.setAssElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
@@ -182,14 +190,6 @@ public class Nizhoni extends NPC {
 		// Anus modifiers
 		
 		// Penis:
-		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
-		this.setPenisSize(18);
-		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-		this.setPenisCumStorage(150);
-		this.setPenisCumExpulsion(75);
-		this.fillCumToMaxStorage();
-		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -200,6 +200,7 @@ public class Nizhoni extends NPC {
 		this.setVaginaWetness(Wetness.THREE_WET);
 		this.setVaginaElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
+		this.addGirlcumModifier(FluidModifier.MUSKY);
 		
 		// Feet:
 		// Foot shape
@@ -268,6 +269,7 @@ public class Nizhoni extends NPC {
 
 	@Override
 	public void endSex() {
+		this.replaceAllClothing();
 	}
 	
 	@Override

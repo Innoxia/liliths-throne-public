@@ -121,7 +121,7 @@ public class Cell implements XMLSaving {
 			System.err.println("Cell import error 1");
 		}
 		
-		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
+//		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
 
 		return cell;
 	}
@@ -191,6 +191,15 @@ public class Cell implements XMLSaving {
 		return getPlace().getPlaceType().isFurniturePresentOverride()
 				?getPlace().getPlaceType().isFurniturePresent()
 				:getType().isFurniturePresent();
+	}
+	
+	public String getDeskName() {
+		if(Main.game.isInSex() && Main.sex.getInitialSexManager().getDeskName()!=null && !Main.sex.getInitialSexManager().getDeskName().isEmpty()) {
+			return Main.sex.getInitialSexManager().getDeskName();
+		}
+		return getPlace().getPlaceType().isDeskNameOverride()
+				?getPlace().getPlaceType().getDeskName()
+				:getType().getDeskName();
 	}
 	
 	public boolean isWallsPresent() {

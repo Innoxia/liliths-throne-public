@@ -122,6 +122,13 @@ public interface SexManagerInterface {
 	}
 
 	/**
+	 * @return The name of the desk over which sex will be taking place during this manager's sex scene. Leave as null or an empty String if not used.
+	 */
+	public default String getDeskName() {
+		return null;
+	}
+	
+	/**
 	 * @return The name of the wall against which sex will be taking place during this manager's sex scene. Leave as null or an empty String if not used.
 	 */
 	public default String getWallName() {
@@ -193,7 +200,9 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-		return character.isPlayer() && isPositionChangingAllowed(character);
+		return character.isPlayer()
+				&& isPositionChangingAllowed(character)
+				&& Main.sex.getInitialSexManager().isSlotAvailable(target, Main.sex.getSexPositionSlot(character));
 	}
 	
 	/**
@@ -260,8 +269,11 @@ public interface SexManagerInterface {
 			}
 		}
 		
-		if(Main.sex.isDom(partner) && (!Main.sex.isConsensual() || subsResisting || !Main.sex.isSubHasEqualControl() || (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
-			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+		if(Main.sex.isDom(partner)
+				&& (!Main.sex.isConsensual()
+						|| subsResisting
+						|| (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
+			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()+1) {
 				return true;
 			}
 			return domsSatisfied;
@@ -336,6 +348,10 @@ public interface SexManagerInterface {
 	 */
 	public default boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
 		// The only thing that should limit this is overridden special conditions:
+		return true;
+	}
+
+	public default boolean isAbleToRemoveClothingSeals(GameCharacter character){
 		return true;
 	}
 	
@@ -417,9 +433,22 @@ public interface SexManagerInterface {
 	
 	/**
 	 * @return The OrgasmCumTarget for when this character is orgasming in an interaction with the target.
-	 *  Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 * <br/>Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 * <br/><b>Note:</b> This also limits the player's orgasm actions.
 	 */
 	public default OrgasmCumTarget getCharacterPullOutOrgasmCumTarget(GameCharacter character, GameCharacter target) {
+		if(character.isPlayer()) {
+			return null;
+		}
+		List<OrgasmCumTarget> orgasmTargets = new ArrayList<>();
+		for(Entry<GameCharacter, OrgasmCumTarget> entry : Main.sex.getCharactersRequestingPullout().entrySet()) {
+			if(entry.getValue()!=null && (character.isPlayer() || !((NPC)character).getSexBehaviourDeniesRequests(entry.getKey()))) {
+				orgasmTargets.add(entry.getValue());
+			}
+		}
+		if(!orgasmTargets.isEmpty()) {
+			return Util.randomItemFrom(orgasmTargets);
+		}
 		return null;
 	}
 	

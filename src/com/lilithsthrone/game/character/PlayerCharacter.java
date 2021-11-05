@@ -718,6 +718,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
 			}
 		}
+		
+		if(Main.isVersionOlderThan(version, "0.4.1.8")) {
+			if(!character.hasItemType("innoxia_quest_clothing_keys")) {
+				character.addItem(Main.game.getItemGen().generateItem("innoxia_quest_clothing_keys"), false);
+			}
+		}
 
 		if(debug) {
 			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
@@ -822,7 +828,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			}
 			
-		} else if(this.getWorldLocation()==WorldType.SUBMISSION) {
+		} else if(worldLocation==WorldType.SUBMISSION) {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
@@ -1142,18 +1148,18 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public void addCharacterEncountered(String character) {
 		if (!charactersEncountered.contains(character)) {
 			charactersEncountered.add(character);
-		}
-		if(Main.game.isStarted()) {
-			sortCharactersEncountered();
+			if(Main.game.isStarted()) {
+				sortCharactersEncountered();
+			}
 		}
 	}
-	
+
 	public void addCharacterEncountered(GameCharacter character) {
 		if (!charactersEncountered.contains(character.getId())) {
 			charactersEncountered.add(character.getId());
-		}
-		if(Main.game.isStarted()) {
-			sortCharactersEncountered();
+			if(Main.game.isStarted()) {
+				sortCharactersEncountered();
+			}
 		}
 	}
 	
@@ -1163,6 +1169,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	 */
 	public List<GameCharacter> getCharactersEncounteredAsGameCharacters(boolean expansiveSearch) {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
+		charactersEncountered.removeIf(id -> !Main.game.isCharacterExisting(id));
 		for(String characterId : charactersEncountered) {
 			try {
 				GameCharacter npc = Main.game.getNPCById(characterId);
@@ -1187,6 +1194,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public void sortCharactersEncountered() {
 		List<GameCharacter> npcsEncountered = new ArrayList<>();
+		charactersEncountered.removeIf(id -> !Main.game.isCharacterExisting(id));
 		for(String characterId : charactersEncountered) {
 			try {
 				GameCharacter npc = Main.game.getNPCById(characterId);

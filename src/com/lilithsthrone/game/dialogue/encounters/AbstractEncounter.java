@@ -176,6 +176,7 @@ public abstract class AbstractEncounter {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		} else {
 			List<String> enforcerIds = Util.randomItemFrom(savedEnforcerIds);
 			for(String id : enforcerIds) {
@@ -377,7 +378,63 @@ public abstract class AbstractEncounter {
 		return getBaseRandomEncounter(forceEncounter);
 	}
 
+	public boolean isAnyBaseTriggerChanceOverOneHundred() {
+		if(this.isFromExternalFile()) {
+			for(ExternalEncounterData data : possibleEncounters) {
+				if(data.getTriggerChance()>100) {
+					return true;
+				}
+			}
+			
+		} else {
+			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) {
+				if(e.getValue()>100) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * @return The sum of all possible encounter chances which this AbstractEncounter contains. Will typically be a value under 100.
+	 */
+	public float getTotalChanceValue() {
+		float total = 0;
+		if(this.isFromExternalFile()) {
+			for(ExternalEncounterData data : possibleEncounters) {
+				float weighting = data.getTriggerChance();
+				total += weighting;
+			}
+		} else {
+			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) {
+				float weighting = e.getValue();
+				total += weighting;
+			}
+		}
+		return total;
+	}
+
+	private void setEncounterDialogue(DialogueNode dialogueNode, boolean forced) {
+		if(forced) {
+			Main.game.forcedEncounterAtSeconds = new Value<>(Main.game.getSecondsPassed(), dialogueNode);
+		} else {
+			Main.game.encounterAtSeconds = new Value<>(Main.game.getSecondsPassed(), dialogueNode);
+		}
+	}
+	
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
+		if(forceEncounter) {
+			if(Main.game.forcedEncounterAtSeconds.getKey()==Main.game.getSecondsPassed()) {
+				return Main.game.forcedEncounterAtSeconds.getValue();
+			}
+			
+		} else {
+			if(Main.game.encounterAtSeconds.getKey()==Main.game.getSecondsPassed()) {
+				return Main.game.encounterAtSeconds.getValue();
+			}
+		}
+		
 		float opportunisticMultiplier = 1;
 		if(Main.game.isOpportunisticAttackersEnabled()) {
 			// lust: linear boost; 25% max
@@ -421,29 +478,38 @@ public abstract class AbstractEncounter {
 		}
 		
 		if(this.isFromExternalFile()) {
+//			System.out.println("--- Encounter Generation Start ---");
 			float total = 0;
 			float opportunisticIncrease = 0;
 			Map<ExternalEncounterData, Float> finalMap = new HashMap<>();
 			for(ExternalEncounterData data : possibleEncounters) {
-//				new NullPointerException().printStackTrace();
 				float weighting = data.getTriggerChance();
-				if(data.isOpportunistic()) {
-					weighting *= opportunisticMultiplier;
-					opportunisticIncrease+=opportunisticMultiplier;
+				if(!this.isAnyBaseTriggerChanceOverOneHundred() || data.getTriggerChance()>100) { // If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+					if(data.isOpportunistic()) {
+						weighting *= opportunisticMultiplier;
+						opportunisticIncrease+=opportunisticMultiplier;
+					}
+					total+=weighting;
+					finalMap.put(data, weighting);
+//					System.out.println("Weighting add: "+weighting+" ("+data.getName()+")");
 				}
-				total+=weighting;
-				finalMap.put(data, weighting);
 			}
 			if(total==0) {
+				setEncounterDialogue(null, forceEncounter);
 				return null;
 			}
-
+//			System.out.println("Final total: "+total);
+//			System.out.println("Final opportunisticIncrease: "+opportunisticIncrease);
+			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
 				ExternalEncounterData encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
 				DialogueNode dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
 //				System.out.println("Returning: "+dn.getId());
+//				System.out.println("--- END ---");
+				setEncounterDialogue(dn, forceEncounter);
 				return dn;
 			}
+//			System.out.println("--- END ---");
 			
 		} else {
 			float total = 0;
@@ -451,26 +517,32 @@ public abstract class AbstractEncounter {
 			Map<EncounterType, Float> finalMap = new HashMap<>();
 			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) { // Iterate through the base encounter map, apply opportunisticMultiplier if applicable, and create a new 'finalMap' of these weighted chances.
 				float weighting = e.getValue();
-				if(e.getKey().isOpportunistic()) {
-					weighting *= opportunisticMultiplier;
-					opportunisticIncrease+=opportunisticMultiplier;
+				if(!this.isAnyBaseTriggerChanceOverOneHundred() || weighting>100) { // If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+					if(e.getKey().isOpportunistic()) {
+						weighting *= opportunisticMultiplier;
+						opportunisticIncrease+=opportunisticMultiplier;
+					}
+					total+=weighting;
+					finalMap.put(e.getKey(), weighting);
 				}
-				total+=weighting;
-				finalMap.put(e.getKey(), weighting);
 			}
 			if(total==0) {
+				setEncounterDialogue(null, forceEncounter);
 				return null;
 			}
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
 				EncounterType encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
-				return initialiseEncounter(encounter);
+				DialogueNode dn = initialiseEncounter(encounter);
+				setEncounterDialogue(dn, forceEncounter);
+				return dn;
 			}
 		}
-		
+
+		setEncounterDialogue(null, forceEncounter);
 		return null;
 	}
-
+	
 	public static AbstractCoreItem getRandomItem() {
 		return randomItem;
 	}

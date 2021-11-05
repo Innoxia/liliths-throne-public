@@ -639,6 +639,7 @@ public class Body implements XMLSaving {
 			XMLUtil.addAttribute(doc, bodyHair, "type", HairType.getIdFromHairType(this.hair.type));
 			XMLUtil.addAttribute(doc, bodyHair, "length", String.valueOf(this.hair.length));
 			XMLUtil.addAttribute(doc, bodyHair, "hairStyle", this.hair.style.toString());
+			XMLUtil.addAttribute(doc, bodyHair, "neckFluff", String.valueOf(this.hair.neckFluff));
 		
 		// Horn:
 		Element bodyHorn = doc.createElement("horn");
@@ -1184,7 +1185,12 @@ public class Body implements XMLSaving {
 			hairTypeFromSave = hairTypeConverterMap.get(hairTypeFromSave);
 		}
 		
-		Hair importedHair = new Hair(HairType.getHairTypeFromId(hairTypeFromSave), Integer.valueOf(hair.getAttribute("length")), HairStyle.valueOf(hair.getAttribute("hairStyle")));
+		Hair importedHair = new Hair(HairType.getHairTypeFromId(hairTypeFromSave),
+				Integer.valueOf(hair.getAttribute("length")),
+				HairStyle.valueOf(hair.getAttribute("hairStyle")),
+				null);
+		
+		importedHair.neckFluff = Boolean.valueOf(hair.getAttribute("neckFluff"));
 		
 		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Hair: "
 				+ "<br/>type: "+importedHair.getType()
@@ -2174,7 +2180,6 @@ public class Body implements XMLSaving {
 		}
 		
 		// Hair:
-
 		if (hair.getRawLengthValue() == 0) {
 			if(face.isBaldnessNatural() || owner.isFeral()) {
 				sb.append(" [npc.Her] head is [npc.materialDescriptor] [npc.faceFullDescription(true)].");
@@ -2271,6 +2276,9 @@ public class Body implements XMLSaving {
 					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been tied up into a chignon.");
 					break;
 			}
+		}
+		if (hair.isNeckFluff()) {
+			sb.append(" A large amount of [npc.hair(true)] "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" grown around [npc.her] neck and upper chest.");
 		}
 		
 		// Horns:
@@ -2626,7 +2634,12 @@ public class Body implements XMLSaving {
 				sb.append(" <i style='color:"+PresetColour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive milk you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" breasts to be distorted!</i>");
 			}
 			if(viewedBreast.getRawSizeValue()>0){
-				sb.append(" [npc.SheHasFull] " + Util.intToString(owner.getBreastRows()) + " pair" + (owner.getBreastRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [npc.breasts]");
+				sb.append(" [npc.SheHasFull] " + Util.intToString(owner.getBreastRows()) + " pair" + (owner.getBreastRows() == 1 ? "" : "s") + " of ");
+				if(Main.game.isVestigialMultiBreastsEnabled() && owner.getBreastRows()>1) {
+					sb.append("[npc.breasts]");
+				} else {
+					sb.append(viewedBreast.getSize().getDescriptor()+" [npc.breasts]");
+				}
 				
 				if(owner.getBreastRows()==1) {
 					if (viewedBreast.getSize().isTrainingBraSize()) {
@@ -2637,18 +2650,30 @@ public class Body implements XMLSaving {
 					
 				} else if(owner.getBreastRows()==2) {
 					if (viewedBreast.getSize().isTrainingBraSize()) {
-						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
+						sb.append(", with [npc.her] top pair fitting comfortably into a training bra,"
+								+(Main.game.isVestigialMultiBreastsEnabled()
+									?" and the pair below being vestigial in size."
+									:" and the pair below being slightly smaller."));
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "
-								+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
+								+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra,"
+										+(Main.game.isVestigialMultiBreastsEnabled()
+												?" and the pair below being vestigial in size."
+												:" and the pair below being slightly smaller."));
 					}
 					
 				} else if(owner.getBreastRows()>2) {
 					if (viewedBreast.getSize().isTrainingBraSize()) {
-						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
+						sb.append(", with [npc.her] top pair fitting comfortably into a training bra,"
+								+(Main.game.isVestigialMultiBreastsEnabled()
+										?" and the pairs below being vestigial in size."
+										:" and the pairs below each being slightly smaller than the ones above."));
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "
-									+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pairs below each being slightly smaller than the ones above.");
+									+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra,"
+											+(Main.game.isVestigialMultiBreastsEnabled()
+													?" and the pairs below being vestigial in size."
+													:" and the pairs below each being slightly smaller than the ones above."));
 					}
 				}
 				

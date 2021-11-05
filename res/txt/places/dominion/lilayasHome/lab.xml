@@ -102,9 +102,10 @@
 	</p>
 	<p>
 		Although most of her anger seems directed at your now-shared mother, Lilaya is definitely more than a little upset with you. As you're wondering whether to agree with her demands and convince Lyssieth to transform her into a full demon, she continues,
-		#IF lilaya.getTotalTimesHadSex(pc)>0
-		#THEN [lilaya.speech(And don't think for <i>one second</i> that I'm going to let you fuck me again until you agree to do as I say!)]
-		#ELSE [lilaya.speech(And don't think for <i>one second</i> that I'm going to offer you any special tests until you agree to do as I say!)]
+		#IF(lilaya.getTotalTimesHadSex(pc)>0)
+			 [lilaya.speech(And don't think for <i>one second</i> that I'm going to let you fuck me again until you agree to do as I say!)]
+		#ELSE
+			 [lilaya.speech(And don't think for <i>one second</i> that I'm going to offer you any special tests until you agree to do as I say!)]
 		#ENDIF
 	</p>
 	<p>
@@ -523,7 +524,7 @@
 		[pc.speech(Go on, it'll be fun,)] you reply. [pc.speech(I got it from one of the reindeer-morphs who're working to keep the streets clear of snow. The contents are a surprise, so I guess we'll find out what's in there together!)]
 	</p>
 	<p>
-		Lilaya sets the present down on the table behind her, before pulling off the ribbon and tearing off the wrapping paper. Opening the top of the box, she gasps as she sees what's inside, and then just a moment later you see it too, as she reaches in and lifts out a beautiful pink [#CT_KIMONO_HAIR_KANZASHI.getName()].
+		Lilaya sets the present down on the table behind her, before pulling off the ribbon and tearing off the wrapping paper. Opening the top of the box, she gasps as she sees what's inside, and then just a moment later you see it too, as she reaches in and lifts out a beautiful pink [#CT_innoxia_japanese_kanzashi.getName()].
 	</p>
 	<p>
 		Lilaya turns towards you, a huge smile on her face as she exclaims, [lilaya.speech(Oh, [pc.name]! It's beautiful! Thank you so much!)]
@@ -532,14 +533,14 @@
 		Before you can react, your demonic [lilaya.relation(pc)] leaps forwards and pulls you into a loving hug; a gesture that you instantly reciprocate. You feel the warmth of her body as she presses herself tightly against you, squashing her [lilaya.breastSize] breasts into your chest as she sighs, [lilaya.speech(Really, thank you so much.)]
 	</p>
 	<p>
-		After a few moments, Lilaya pulls back, placing the [#CT_KIMONO_HAIR_KANZASHI.getName()] to one side and waiting to see what you'd like to discuss next.
+		After a few moments, Lilaya pulls back, placing the [#CT_innoxia_japanese_kanzashi.getName()] to one side and waiting to see what you'd like to discuss next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILAYA_PRESENT_2"><![CDATA[
 	<p>
-		[pc.speech(After I saw how happy you were to receive that [#CT_KIMONO_HAIR_KANZASHI.getName()], I decided to get you another Yuletide gift,)] you say, holding out another wrapped gift towards Lilaya, [pc.speech(so here you go. Happy Yuletide again, Lilaya!)]
+		[pc.speech(After I saw how happy you were to receive that [#CT_innoxia_japanese_kanzashi.getName()], I decided to get you another Yuletide gift,)] you say, holding out another wrapped gift towards Lilaya, [pc.speech(so here you go. Happy Yuletide again, Lilaya!)]
 	</p>
 	<p>
 		Your [lilaya.relation(pc)]'s cheeks flush bright red as you give her another gift. [lilaya.speech([pc.name]! Y-You didn't have to! O-One gift was more than enough!)]
@@ -548,7 +549,7 @@
 		[pc.speech(I know I didn't have to, but I wanted to,)] you smile, handing the gift over to Lilaya, [pc.speech(so go on, open it and let's find out what it is this time!)]
 	</p>
 	<p>
-		Doing as you suggest, Lilaya places the gift down on the table beside her, before pulling off the ribbon and wrapping paper. Taking off the lid, she reaches inside and produces a pair of [#CT_KIMONO_GETA.getNamePlural()], before turning and smiling lovingly at you, [lilaya.speech(Thank you, [pc.name]! These will go perfectly with the [#CT_KIMONO_HAIR_KANZASHI.getName()] you got me before!)]
+		Doing as you suggest, Lilaya places the gift down on the table beside her, before pulling off the ribbon and wrapping paper. Taking off the lid, she reaches inside and produces a pair of [#CT_innoxia_japanese_geta.getNamePlural()], before turning and smiling lovingly at you, [lilaya.speech(Thank you, [pc.name]! These will go perfectly with the [#CT_innoxia_japanese_kanzashi.getName()] you got me before!)]
 	</p>
 	<p>
 		[pc.speech(Now all you need is the kimono itself,)] you reply, [pc.speech(and then you've got the full set!)]
@@ -557,7 +558,7 @@
 		[lilaya.speech(P-Please,)] Lilaya stutters a little, [lilaya.speech(don't feel obliged to get me any more gifts! This is already far more than I ever would have dreamed of!)]
 	</p>
 	<p>
-		Almost as if to hide her sudden embarrassment, your demonic [lilaya.relation(pc)] steps forwards and pulls you into another tight hug; her [lilaya.breastSize] breasts pressing up against you as she holds you close. After a moment, she then pulls back, and, placing the [#CT_KIMONO_GETA.getNamePlural()] to one side, she waits to see what you'd like to discuss next.
+		Almost as if to hide her sudden embarrassment, your demonic [lilaya.relation(pc)] steps forwards and pulls you into another tight hug; her [lilaya.breastSize] breasts pressing up against you as she holds you close. After a moment, she then pulls back, and, placing the [#CT_innoxia_japanese_geta.getNamePlural()] to one side, she waits to see what you'd like to discuss next.
 	</p>
 	]]>
 	</htmlContent>
@@ -573,10 +574,10 @@
 		[pc.speech(I know, I know,)] you laugh, pressing the gift into Lilaya's hands, [pc.speech(but I really wanted to get you the whole set!)]
 	</p>
 	<p>
-		[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)] Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper. Lifting off the lid, your easily-embarrassed [lilaya.relation(pc)] fails to contain an excited little cry as she sees what's inside. Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink [#CT_KIMONO_DRESS.getName()], before turning and beaming at you in delight. [lilaya.speech(Thank you so, so much, [pc.name]! This is the best Yuletide ever!)]
+		[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)] Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper. Lifting off the lid, your easily-embarrassed [lilaya.relation(pc)] fails to contain an excited little cry as she sees what's inside. Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink [#CT_innoxia_japanese_kimono.getName()], before turning and beaming at you in delight. [lilaya.speech(Thank you so, so much, [pc.name]! This is the best Yuletide ever!)]
 	</p>
 	<p>
-		Before you can say anything, your demonic [lilaya.relation(pc)] leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close. After a moment, she then pulls back, and, placing the [#CT_KIMONO_DRESS.getName()] to one side, she waits to see what you'd like to discuss next.
+		Before you can say anything, your demonic [lilaya.relation(pc)] leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close. After a moment, she then pulls back, and, placing the [#CT_innoxia_japanese_kimono.getName()] to one side, she waits to see what you'd like to discuss next.
 	</p>
 	]]>
 	</htmlContent>
@@ -1452,7 +1453,7 @@
 		Seeing your reaction, Lilaya lets out a sigh of her own, before offering you a sliver of hope, [lilaya.speech(Well... I suppose there is <i>one</i> way we could find out more... but it means I'd have to talk to <i>him</i> again. There's no way I'm going over there to ask for his help though!)]
 	</p>
 	<p>
-		You look up to see Lilaya's face turned up into a scowl as she continues, [lilaya.speech(If you ever want to find a way to go back home, you're going to have to get the help of Arthur... <i>that bastard!</i>)] she spits, before realising how angry she's become. Lilaya closes her eyes for a moment and takes a deep breath, calming herself down before continuing, [lilaya.speech(He and I used to work together, and with the exception of the Lilin themselves, he probably understands more about the arcane than anyone currently living. His apartment's over in Demon Home, but despite the name, people of all races live there. He's actually just a human, which makes his knowledge of the arcane all the more impressive. Here's his address... So if you want his help, you're going to have to convince him to stop being such a <i>selfish bastard!</i> He'll need access to my research, and the only way he's going to get it is if he comes crawling to my front door, begging for my forgiveness.)]
+		You look up to see Lilaya's face turned up into a scowl as she continues, [lilaya.speech(If you ever want to find a way to go back home, you're going to have to get the help of Arthur... <i>that bastard!</i>)] she spits, before realising how angry she's become. Lilaya closes her eyes for a moment and takes a deep breath, calming herself down before continuing, [lilaya.speech(He and I used to work together, and with the exception of the Lilin themselves, he probably understands more about the arcane than anyone currently living. His apartment's over in Demon Home, but despite the name, people of all races live there. He's actually just a human, which makes his knowledge of the arcane all the more impressive. Here's his address...look for a building called 'Sawlty Towers'. So if you want his help, you're going to have to convince him to stop being such a <i>selfish bastard!</i> He'll need access to my research, and the only way he's going to get it is if he comes crawling to my front door, begging for my forgiveness.)]
 	</p>
 	<p>
 		You're quite taken aback at Lilaya's apparent hatred for Arthur. You assume, seeing as he shares the same name, that he's this world's version of your [lilaya.relation(pc)] Lily's colleague from the museum. Back there, they were close friends, and you wonder what's happened in this reality to cause Lilaya to dislike him so much. Seeing how angry she's gotten just at the thought of him, you decide that it would be wise not to press the matter further, and instead you just agree to convince Arthur to apologise.
@@ -1538,11 +1539,16 @@
 		#IF(pc.hasFetish(FETISH_INCEST))
 			 As you've got a serious kink for incestuous sex, you can't help but find this fact immensely arousing, and buck your groin even harder into your demonic [lilaya.relation(pc)]'s hand.
 		#ELSE
-			 Then again, she <i>is</i> a half-demon in this reality, so there's no real relation between the two of you... right?
+			 Then again, she <i>is</i> [lilaya.a_race] in this reality, so there's no real relation between the two of you... right?
 		#ENDIF
 	</p>
 	<p>
-		At that moment, Lilaya leans in to whisper one last thing in your ear, [lilaya.speech(You know, I'm all-demon where it counts... You want to see what a demon's pussy looks like, don't you?)]
+		At that moment, Lilaya leans in to whisper one last thing in your ear,
+		#IF(lilaya.getSubspecies()==SUBSPECIES_DEMON)
+			 [lilaya.speech(You want to see what my hot little demon pussy looks like, don't you?)]
+		#ELSE
+			 [lilaya.speech(You know, I'm all-demon where it counts... You want to see what a demon's pussy looks like, don't you?)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

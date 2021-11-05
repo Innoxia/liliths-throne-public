@@ -83,7 +83,7 @@ public class CombatMove {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
+        public String getDescription(int turnIndex, GameCharacter source) {
             return "Use an item from your inventory.";
         }
 
@@ -264,7 +264,7 @@ public class CombatMove {
 	            }
 	
 	            @Override
-	            public String getDescription(GameCharacter source) {
+	            public String getDescription(int turnIndex, GameCharacter source) {
 	                return getAssociatedSpell().getDescription(source);
 	            }
 	
@@ -294,8 +294,8 @@ public class CombatMove {
 	            }
 	
 	            @Override
-	            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-	                String reason = super.isUsable(source, target, enemies, allies);
+	            public String isUsable(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	                String reason = super.isUsable(turnIndex, source, target, enemies, allies);
 	                if(reason == null) {
 	                    if((getAssociatedSpell().getSpellSchool()!=SpellSchool.FIRE || !source.hasStatusEffect(StatusEffect.FIRE_MANA_BURN)) && source.getMana()<getAssociatedSpell().getModifiedCost(source)) {
 	                        reason = "Not enough aura to cast this spell!";

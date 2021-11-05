@@ -75,21 +75,23 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.12
- * @version 0.3.4
+ * @version 0.4.2
  * @author Innoxia
  */
-public class SubmissionCitadelArcanist extends NPC {
+public class Takahashi extends NPC {
 
-	public SubmissionCitadelArcanist() {
+	public Takahashi() {
 		this(false);
 	}
 	
-	public SubmissionCitadelArcanist(boolean isImported) {
+	public Takahashi(boolean isImported) {
 		super(isImported, new NameTriplet("Hitomi", "Hitomi", "Hitomi"), "Takahashi",
 				"",
 				23, Month.NOVEMBER, 27,
 				20, Gender.F_V_B_FEMALE, Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_LAB, false);
+				new CharacterInventory(10),
+				WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_LAB,
+				true);
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
@@ -127,9 +129,6 @@ public class SubmissionCitadelArcanist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20") && !Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_ELIS)) {
-			this.setPlayerKnowsName(true);
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4")) {
 			this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
 		}
@@ -141,7 +140,10 @@ public class SubmissionCitadelArcanist extends NPC {
 				this.applyLabGear();
 			}
 		}
-		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5") && !Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_ELIS)) {
+			this.setPlayerKnowsName(true);
+			Main.game.getPlayer().addCharacterEncountered(this);
+		}
 	}
 
 	@Override
@@ -289,6 +291,14 @@ public class SubmissionCitadelArcanist extends NPC {
 		return UtilText.parse(this,
 				"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."
 						+ " Placed in charge of the Dark Siren's laboratory, she oversees the production of transformative potions.");
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "TakahashiPregnant";
+		}
+		return "Takahashi";
 	}
 	
 	@Override

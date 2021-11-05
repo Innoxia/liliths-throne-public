@@ -215,7 +215,7 @@ public class ImpFortressDialogue {
 		
 		clearBossGuards(fortress);
 		
-		((NPC) getBoss(fortress)).equipClothing();
+		((NPC) getBoss(fortress)).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
 		
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
 			getBoss(fortress).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
@@ -2170,7 +2170,7 @@ public class ImpFortressDialogue {
 
 				if (index == 1) {
 					if(isAlphaFortress()) {
-						if(Main.game.getPlayer().hasTraitActivated(Perk.UNARMED_TRAINING)) {
+						if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)) {
 							return new Response(Util.capitaliseSentence(Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())),
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to provoke [npc.name] into trying to punch you,"
@@ -2200,7 +2200,7 @@ public class ImpFortressDialogue {
 							return new Response(Util.capitaliseSentence(Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())),
 									UtilText.parse(getBoss(),
 											"You're not competent enough at fighting to try and humiliate [npc.name] in front of [npc.her] gang...</br>"
-													+ "(Requires '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait.)"),
+													+ "(Requires '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' perk.)"),
 									null);
 						}
 						

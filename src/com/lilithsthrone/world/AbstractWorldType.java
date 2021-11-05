@@ -42,6 +42,7 @@ public abstract class AbstractWorldType {
 	private boolean discoveredOnStart;
 	private boolean revealedOnStart;
 	private boolean furniturePresent;
+	private String deskName;
 	private boolean wallsPresent;
 	private String wallName;
 
@@ -80,6 +81,7 @@ public abstract class AbstractWorldType {
 		this.discoveredOnStart = false;
 		this.revealedOnStart = false;
 		this.furniturePresent = false;
+		this.deskName = "desk";
 		this.wallsPresent = true; // Default to true for hard coded values, as these are all Dominion/Submission (which obviously have walls)
 		this.wallName = "wall";
 		
@@ -126,8 +128,12 @@ public abstract class AbstractWorldType {
 				this.usesFile = true;
 				
 				this.furniturePresent = false;
+				this.deskName = "desk";
 				if(coreElement.getOptionalFirstOf("furniturePresent").isPresent()) {
 					this.furniturePresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("furniturePresent").getTextContent().trim());
+					if(!coreElement.getMandatoryFirstOf("furniturePresent").getAttribute("deskName").isEmpty()) {
+						this.deskName = coreElement.getMandatoryFirstOf("furniturePresent").getAttribute("deskName");
+					}
 				}
 
 				this.wallsPresent = false;
@@ -288,6 +294,13 @@ public abstract class AbstractWorldType {
 	 */
 	public boolean isFurniturePresent() {
 		return furniturePresent;
+	}
+	
+	/**
+	 * @return The name which should be used in the over desk sex position, in the X place in: 'Over X'
+	 */
+	public String getDeskName() {
+		return deskName;
 	}
 
 	/**

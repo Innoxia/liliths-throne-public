@@ -15,316 +15,264 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Add hospital as alternative to Lilaya
 		
 	
-	
-	
 	Patch notes:
 	
 	Contributors:
-		Fixed issues with the parsing engine sometimes forgetting set variables and other parsing targets. (by AceXP)
-		Fixed numerous typos and parsing errors in the 'Meraxis's duel', 'Zaranix', 'Wes', and 'Daddy' scenes. (by AceXP)
+		Fixed bug where clothing stickers weren't transferring when enchanting clothing. (by Cognitive Mist)
+		Fixed issue where the error log would generate the entry 'Warning: Parser target of X has been replaced!' when randomly-generated NPCs were getting removed. (by AceXP)
 	
 	Engine/Modding:
-		The elements 'continuesDialogue', 'travelDisabled', 'inventoryDisabled', and 'regenerationDisabled' in dialogue node modding now all support parsing instead of simply true/false values.
-		Added additional 'startingImmobilisation' element to sex manager definitions, allowing you to define characters as starting a sex scene in an immobilised state.
-		Externally defined Dialogue Nodes now support parsing for the 'index' element of their responses.
+		Slightly improved performance of encounter generation.
+		Added support for 'one-shot' weapons (intended primarily for thrown weapons), which causes the weapon to be removed from the player after being used. You can define chances to recover the weapon at the end of the turn and at the end of combat. See the 'res/weapons/innoxia/dagger/dagger.xml' for comments on how to define a one-shot weapon.
+		Added a 'attackDescriptionPrefix' element to weapon xml files, allowing you to define a more suitable attack description to fit the sentence 'X your enemy for N damage!'. See the same dagger file mentioned above for a commented example. If the element is not found, then the 'attackDescriptor' element is used instead (so there's no real need to refactor any mods).
 	
-	Gameplay:
-		Added internal map for 'The Centaur's Sword' tavern in Elis, including the centaur owner 'Kheiron'.
-		Added actions to the food and drink stalls in the middle of the Farmer's Market.
-		Added 'Fae' and 'Silvia' as two new characters (futa foxtauress sisters) in the Farmer's Market who sell clothing.
-		Added 'Kazik' as a character (male ferret-boy) who runs a jewellery stall in the Farmer's Market.
-		Added 'Yui' as a new character (female jorogumo) who runs a sex toy stall in the Farmer's Market.
-		
 	Items:
-		Added attribute boosts to the following consumables to bring them in line with others: Fizzy Orange Juice; Cotton Candy Soda; Berry Soda; Chamomile Tea; Popcorn; Sausages; Pâté and Crackers; Honey Bread.
-		The food items 'Meat and Marrow' and 'Panther's Delight' now give the consumer +1 muscle if their muscles were less than 'muscular' (value of 60).
-		Reduced equine cider alcohol content from 15% to 8%.
+		Added 'tennis ball' and 'ball of yarn' as ranged, one-shot, silly mode weapons, both sold by Ralph. (They will appear in his inventory after he restocks at midnight, and will only appear if you have silly mode turned on.)
+		Converted the 'arcane firebomb' item to use the new one-shot weapon mechanic, and made it one-handed.
 	
 	Sex:
-		Added 'armpit slut' and 'armpit lover' fetishes, along with related fetish tease attacks.
-		Added in variations for armpit sex for the 'ask for creampie/pullout' and 'encourage creampie/pullout' orgasm actions.
-		Added 'bondage bitch' and 'bondage applier' fetishes, which are now associated with the tail, tentacle, webbing, and Witch's Seal restricting sex actions.
-		
+		Added breasts-to-mouth actions for the interaction between the 'sitting' and 'sitting in lap' sex slots.
+		Added 'Stop rape-play' and 'Allow rape-play' actions for when you're a dominant in sex and your partner is resisting due to having the 'unwilling fuck-toy' fetish, which prevents/permits them from optionally using the resisting pace (they can still resist if not enjoying sex or if they're a friendly NPC who's been betrayed by you).
+		The choice of which ongoing action to reference in dirty talk lines is no longer completely random, and is now instead based on the character's fetish desire towards each ongoing action (with liked actions having more weight to be referenced).
+	
 	Other:
-		Added 'Dominion', 'Submission', and 'Elis' tabs to the 'map' menu in the phone to make map navigation a little tidier.
-		Demon, lilin, elder lilin, and angel essence is now tagged as heavy contraband, so Vicky no longer sells it.
+		Changed some perks to traits and vice versa based on the concept that the only perks which should be classified as traits are the ones which you might want to disable, so:
+		Perks -> Traits: Beserk, Object of desire; Irresitable appeals; Aura shielding.
+		Traits -> Perks: Martial artist; Ferocious warrior; Pure thoughts; Lustpyre; Arcane precision; Arcane combatant.
+		The Enforcers in the Dominion alleyway Enforcer encounters now end the 'strip' sex scenes once they're satisfied, instead of keeping on going until the player is satisfied too.
+		Automatically-generated clothing name postfixes now prioritise 'of sealing' over generic positive enchantment effects.
+		While they will still always spawn in as feminine or androgynous, the gender of harpies which spawn in the Harpy Nests now takes into account your gender preferences (thereby allowing futa/herm harpies to spawn up there now).
 	
 	Bugs:
-		Parsing fixes.
-		Fixed Meraxis always referring to you as her sibling after impregnating her.
-		Fixed bug where spinneret depth wasn't being loaded properly, causing it to reload to the default depth every time you loaded a saved game.
-		Fixed bug where the game's dialogue would randomly fail to parse in some scenes, resulting in '(Error in conditional parsing!)' messages being displayed.
-		NPCs are now only fully deleted after any pregnancies and incubations related to the player have been resolved, which should fix some issues with offspring birth dates and missing information in the pregnancy stats screen.
-		Fixed issue where deleted NPCs would cause pregnancy stats, offspring map names, pregnancy tester dialogue, and the debug offspring menu to either throw errors or display as 'Unknown' or '???'.
-		Fixed extremely rare bug where it was still possible to impregnate a character who had 0 chance to be impregnated.
-		Takahashi now correctly wears a lab coat while in her lab in the citadel.
-		Fixed issue where trader responses defined in external dialogue nodes wouldn't work.
-		Fixed issue with the 'NPC.applyItemTransactionEffects()' method being called even if the transaction failed to process (such as in the case where the buying character's inventory was full).
-		Fixed issue where selecting a disabled action (i.e. a greyed-out button) would still apply whatever effects that action had to the game.
-		Externally defined sex managers now correctly handle all missing elements which are tagged as being 'optional'.
-		Fixed another issue in externally defined sex managers where the 'slotsAvailable' element's 'slot' elements were not parsing code.
-		Externally-defined dialogue nodes will now parse the 'colour' element within 'response' elements, allowing you to use conditional statements and such in them.
-		Fixed issue where characters would not get the 'frustrated' status effect after finishing sex without orgasming if they'd orgasmed within the last 24 hours.
-		Fixed issue where error log would sometimes display parsing errors when loading a game.
-		Added missing quick sex descriptions for tongue-armpits focus.
-		Fixed raccoon hair covering being associated with raccoon fur (i.e. the covering for their other body parts).
-		Fixed bug with random attackers always spawning as feminine.
+		Formatting fixes.
+		Fixed issue where the artwork would not update for Kay after feminising him.
+		Fixed background error sometimes being thrown when teleporting out of Submission.
+		If a tile has multiple possible encounters assigned to it, the encounter chosen is now correctly weighted based on each encounter's total chance to be selected, instead of completely randomly (which was causing issues with encounters not triggering as expected).
+		The 'Impish Fiends' and 'Centaurs & More' books will now corretly unlock in Lilaya's library after having read them.
+		Fixed issue where NPCs were being affected by the 3-year time skip at the start of new games, making them 3 years older than intended. This fix has been retroactively applied to all unique NPCs, so when loading into this version unique NPCs will all be 3 years younger.
+		The player character now suffers from menopause at age 55 instead of NPCs' usual 52, to take into account the 3-year timeskip.
+		Fixed issue where the 'Push her' sex action during Meraxis's handjob scene would show a 'No suitable description found for this action!' error.
+		Fixed background errors being thrown when accessing Kate's 'Makeup' and 'Other' actions.
+		If you have multiple arm rows, the action name for main and offhand strikes will no longer omit some of the attacks which are to be performed.
+	
+	
+	[] Dairy farm writing
+		[] Milking job content
+			[] Dormitory
+			[] Barns
+				[] Trainee
+				[] Heifer
+				[] Cow
+		[] Final promotion
+			[] Bad end
+			[] Non-bad end
 		
+	[x] Kay artwork not updating when feminised, needs game restart to update
+		[x] Add loadImages(true);
+	[x] Some kind of bug in encounter probabilities
+		[x] Explore not triggering horseman?
+	[x] Investigate encounter performance
+	[x] Also maybe it is just me but Object of Desire and Berserk seem like they would be better as traits then perks since they give a bonus but with a cost.
+		[x] Traits should be things that the player might want to disable, so:
+			[x] Perks -> traits:
+				x- Beserk
+				x- Object of desire
+				x- Irresitable appeals
+				x- Aura shielding
+			[x] Traits -> perks:
+				x- Martial artist
+				x- Ferocious warrior
+				x- Pure thoughts
+				x- Lustpyre
+				x- Arcane precision
+				x- Arcane combatant
+		[x] Check all for trait checks
+	[x] Also I have the Impish Fiends book but it won't unlock in the library.
+		[x] Centaurs & more
+		[x] [#pc.isAdvancedRaceKnowledgeDiscovered(SUBSPECIES_CENTAUR)] and IMP are both true, as is [#properties.isAdv...
+			[x] IMP_ALPHA is not for some reason
+	[x] NPCs get their age advanced by the time jump... (Ziva goes to 51/52)
+	[x] make sure breast feeding is available in the lap sitting position
+		[-] i can kiss her lips when we're both standing up but i cant kiss her breasts
+	[-] Once you reach level 12, you encounter the "Mysterious Enforcer" at a very high encounter rate making travel almost impossible except during nighttime in-game. Please fix this!
+	[x] Add a 'Stop rape-play' sex action for if dom and sub is resisting
+	[x] Enforcer strip sex should end once they're satisfied
+	[x] player menopause -3 years?
+	[x] auto-generated clothing enchantment endings go to bad even if enchantment is positive...
+	[x] dirty talk should prioritise more arousing actions (talking about kissing while anal is ongoing?)
+	[x]  It seems every time you "Look for Trouble" in the Harpy Nests after you complete the side quest, you never encounter a dual-sexed harpy.
+		I had the dual-sexed for all masculinity/femininity settings to "Abundant". I tried about 10 times and not one of them was dual-sexed.
+	[x] Meraxis's handjob 'Push her' sex action has "No suitable description found for this action!" error
+	[x] null error in parsing Kate's other tab
+	[x] improve anal dirty talk
+	[x] Bug if encounter new enforcers before any other encounter since starting game, then load game, then move into/encounter alleyway and get Enforcer encoutner again
+		- Does not trigger if do not immediately encounter enforcers as the first action before loading game
+		- Does not trigger if do not immediately re-encounter enforcers after game load
+		= Condition: load game, instantly encounter enforcers, load game, instantly encounter enforcers again
+			- Must be something that's not getting set when first dialogue is an encounter???
+			- From seed save change???
+		Exception in thread "JavaFX Application Thread" java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+			at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+			at java.util.ArrayList.get(ArrayList.java:433)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.getEnforcerLeader(EnforcerAlleywayDialogue.java:366)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.initVariables(EnforcerAlleywayDialogue.java:143)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.access$0(EnforcerAlleywayDialogue.java:132)
+			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue$1.applyPreParsingEffects(EnforcerAlleywayDialogue.java:721)
+		[x] map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 92.5f);//TODO revert
+	[x] Arcane firebombs are not consumed after use in the 2nd and 3rd weapon slots(sorry to anyone who might have abused this
+		[] thrown weapon boolean
+			[x] remove 1 when selecting attack (return if clear attacks)
+			[x] Attack calculation is using all as 'Strike' when finishing with a 'strike' and description says 'Strike' when the attack was the last throw weapon
+				[x] Update methods to take in turnIndex
+				[x] Test:
+					tooltip move.getDescription(!Main.game.isInCombat()?0:owner.getSelectedMoves().size(), owner)
+			[x] offhand
+			[x] dual strike
+				[x] formatting issues
+				[x] attack descriptions using post-attack weapons
+				[x] lots of empty space after description
+			[x] do not force one-shot to be ranged
+			[x] UI
+				[x] show count in bottom-left inventory screen's weapon slot
+				[x] grey-out when 0 instead of removing
+				[x] only show count if weapon is thrown
+					[x] Test (+X) instead of xX
+					[x] grey out if +0
+				[x] add 'one-shot' as descriptor
+					[x] tooltip
+					[x] description
+				[x] offhand
+				[x] test all arm rows
+		[x] % chance to recover after turn (default 0)
+			[x] tooltip
+			[x] mechanic
+			[x] post-turn description: use defined element
+		[x] % chance to recover after combat (default 0)
+			[x] tooltip
+			[x] mechanic
+			[x] post-combat description: show a generic "Thrown weapons recovered: X, Y, Z" description at the end of combat
+		[x] test
+			[x] multiple arm rows
+			[x] recovery after combat is equipping incorrectly
+				[x] restore recovery to 75%
+				[x] need method to put weapon into defined arm row slot
+			[x] throwing main+offhand in alternate
+			[x] offhand attack with two-handed main?
+				[x] Attack name is throw/throw but did strike/throw/throw
+			[x] add yarn
+			[x] formatting in inventory view needs:
+				[x] capitalise weapon name
+				[x] add one-shot indication
+				[x] add extra effects
+			[x] test all with 2 different thrown types
+				[x] also with a non-thrown
+		[x] remove custom handling from pbomb xml file
+	[x] Improve attack tooltip (Tennis ball is "Throw the man...")
+		[x] Add another field for this description (i.e. to define "Throw at")
+	[x] Cognitive Mist: Stickers don't transfer when enchanting clothing.
+		Fix: add this line to EnchantingUtils::craftClothing:
+		craftedClothing.setStickers(((AbstractClothing)ingredient).getStickers());
+	[x] AceXP parser target warning fix
 	
-	[x] Need a generic trader
-		[x] Parsing
-		[x] Add to game
-		[x] hide clothing
-		
-	[] Farmer's market
-		[x] Make NPCs persist until 19:00 (packing up)
-		[x] Actions:
-			[x] Drink
-				[x] Alcohol
-				[x] Soft drinks
-			[x] Food
-				[x] Meals
-				[x] Snacks
-			[x] Test all
-			[x] Add +1 of something to all drinks
-			[x] Add +1 of something to all food
-			[x] panther delight and wolf steak to give +1 muscle
-			[x] cider far more alcoholic than beer/perry?
-			[x] add:
-				[x] innoxia_race_sheep_woolly_goodness - 15
-				[x] dsg_race_raccoon_popcorn - 20
-				[x] innoxia_race_dog_canine_crunch - 40
-				[x] innoxia_race_rabbit_bunny_carrot_cake - 50
-				[x] NoStepOnSnek_race_snake_eggs - 75
-				[x] innoxia_race_rabbit_bunny_juice - 40
-			[x] Write all
-				[x] Add variation to all for if stall closing after eating/drinking
-				[x] Alcohol
-				[x] Soft drinks
-					[x] Add customers for all 4 tiles
-				[x] Meals
-					[x] Add oinkers fries
-				[x] Snacks
-			[x] Final test all
-		[] NPC traders:
-			[x] Clothes
-				Add:
-					[x] Greater fox-girl taur twins
-						[x] Fae confident
-						[x] Silvia shy
-					[x] Centaur sword map
-						[x] town dialogue to corner desc.
-						[x] dialogue
-						[x] txt
-					[x] NPC owner at bar - centaur (Astrapi & Vronti's father)
-						[x] clothing
-				[x] Get raffle ticket every time you buy something > 500 flames in value
-				[x] Spin raffle for prizes
-					- 50% nothing
-					- 20% 50 flames
-					- 20% 250 flames
-					- 10% 500 flames or kiss
-						Kiss options for they tell you to find them in the centaur's sword between 19:00-22:00 if you're looking for more
-							Passionately kiss
-				[x] Change wheel to dice
-				[x] Change flame rewards to socks/cap/ring
-				[x] Kiss mouth access
-				[x] Tongue piercing in kiss
-				[x] At tavern
-					[x] Talk
-					[x] Drink
-					[x] Tails
-					[x] Flirt
-					[x] Kiss
-					[x] Take them back to your room
-						[x] Sex
-							[x] Dom
-							[x] Sub
-							[x] Surrender - Eat out/blowjob Silvia while Fae mounts you
-					[x] Post-sex
-						[x] Say goodbye
-						[x] Sleep until morning
-							[x] Morning oral
-				[x] Test all
-					[x] Effects apply even if null???
-					[x] Teleporting every turn
-					[x] cannot change positions in standard scenes
-					[x] Need Silvia blowjob in doggy (positioning allowed, add slot)
-					[x] Need ticket count in tooltip for rolling
-					[x] Test cap and socks
-				[x] Pregnancy & impregnation reactions
-					[x] Prevent them from getting pregnant from anyone but player
-					[x] Stall
-						[x] writing
-						[x] Set pregnancy reaction
-					[x] Tavern
-						[x] writing
-						[x] Set pregnancy reaction
-				[x] Writing
-			[x] Exit market doesn't give actions
-			[x] Opening map screen should set tab based on area player is in
-			[x] Information sign fix at end
-			[x] Trinkets
-				[x] Ferret-boy who can use the arcane
-					[x] Get ticket every time you buy enchanted item
-					[x] Trade in a ticket for spell demonstration
-						[x] Fireball
-						[x] Flash
-						[x] Ice shard
-						[x] Rain cloud
-						[x] Ask about arcane spells, he says he only knows arcane arousal, and it has to be used on a person, which he doesn't advise
-							[x] Convince him to use Arcane arousal on you
-								[x] Player gets horny and he takes advantage (if player feminine)
-									[x] Can have quick sex behind his stall
-										[x] Vaginal
-										[x] Oral
-										[x] Anal
-				[x] Dialogue
-				[x] Test
-					[x] Need parsing of 'slotsAvailable' element's 'slot' elements in init
-					[x] Control allowing pen changes
-					[x] Make sure sex manager positionsAvailable are parsed at every start of sex
-					[x] Limit arcane arousal to once a day
-					[x] start smoking when enter stall
-					[x] Prevent cumming on Kazik
-				[x] writing
-				[x] Final test all
-					[x] feminine
-					[x] masculine
-					[x] getTraderDescription() not working
-			[x] Silvia Fae reaction to impregnating player
-			
-			[] Toys
-				[x] Six-armed sadistic demonic(?) spider-girl
-					[x] Leather clothing
-					[x] Need bondage and armpit fetishes
-						[x] armpit
-							[x] icons
-							[x] effects
-							[x] content disable
-							[x] sex use check
-							[x] special tease attacks
-							[x] orgasm request creampie & pullout
-							[x] Astrapi
-						[x] Test Astrapi armpit licking fetish requirements
-						[x] bondage
-							[x] icons
-							[x] effects
-							[x] applications
-							[x] associate with snek, spider, and spell bondage
-							[x] finch, amber, murk
-							[x] test
-				[x] Get ticket if you let her dominate you (only once per day)
-					[x] offer to be her chair for half an hour
-						[x] cunnilingus
-						[x] anilingus
-					[x] foot worship
-					[x] armpit licking
-				[x] 1 tickets for a demonstration, can choose:
-					[x] She ties you up in silk for all
-						[x] ball gags you, riding crop whipping
-						[x] chastity cage, rubs pussy over cock and teases you
-						[x] Dildo play
-						[x] Anal bead play
-					[x] Frustrated effect
-						[x] FRUSTRATED SE removes if orgasmed within 24 hours???	
-							[x] remove when orgasm incremented
-							[x] check orgasm increment to generic sex effects
-				[x] Need sex manager variable for starting restrained
-					[x] getStartingCharactersImmobilised
-					[x] test
-				[x] test
-					[x] submitting
-						[x] armpits
-						[x] No description found for ARMPITS targeting MOUTH!
-					[x] demos
-						[x] remove seal
-				[x] Add weapons
-				[x] foot sex (yui masturbates while foot in player face)
-					[x] test self preferences
-				[x] armpit sex (yui masturbates while armpits in player face)
-				[x] make all three sex public
-				[] writing
-				
-			[x] Error on load: RND.nextInt(100)<50 && targetedBody.getRaceStage()==RACE_STAGE_GREATER
-			
-			[] Make entry based on direction came from
-				
-			[] Centre
-				[] Raccoon-girl Nizhoni
-					[] Get 1 raffle ticket for winning
-					[] Trade raffle tickets for:
-						[] 1 Prize
-						[] 1 go for walk
-							[] she shows you around the backs of some of the stalls
-								[] she asks you to watch out while she goes dumpster diving
-								[] as she leans over a bin, you see that she's not wearing underwear
-								[] can have sex there
-									[] oral
-									[] fuck her
-				[] Horse-boy Alfonso
-					[] Get 1 raffle ticket for winning
-					[] Trade raffle tickets for:
-						[] 1 Prize
-						[] 1 go for walk
-							[] tells you he's at an underground gym every evening, up in the north part of town
-							[] can go there to workout with him, have sex
-							
-			[] Make market icon change if open or not
-			[] Remove MARKET_ENTER placeholder warning
-			[] Ralph needs personality traits
-			
-			[] Add TODO for:
-				[] Fortunes
-					[] Named NPC - hippy rabbit-girl trap (caged) - androphilic
-						[] Card reading (50 flames, boring outcomes)
-						[] Rabbit TF (500 flames)
-						[] Big cock TF (500 flames)
-						[] Crystal ball reading (5 raffle tickets) is an enchanted item based on telekinesis (so it always involves both of you)
-							[] Results vary if player thinks of:
-								- Power -> shows you sitting on a throne with the rabbit-girl serving you
-								- Fame -> shows rabbit-girl asking for your autograph
-								- Fortune -> shows rabbit-girl admiring all of the money you have
-								- Peace -> shows you and rabbit-girl relaxing in a villa
-								- Sex -> (only if androphilic) shows her on her table having sex with you, chastity cage on cock
-									- She gets a bit flustered and tells you to think of something else (if NTR she mentions her boyfriend)
-										- thinking of sex again leads into her wanting sex, depending on what you think:
-											[] Fucking her ass (fuck over desk)
-											[] Receiving oral
-							[] If boyfriend flag set, having sex three times triggers boyfriend fight
-								[] win: trap him
-								[] lose: fucks trap, cums over player
-				[] Kissing
-					[] Cow (slutty bimbo main attraction) and goat (dominant handling money) girls
-						[] 1 ticket for kiss
-							Passionate kiss -> convince to give blowjob/cunnilingus or receive cunnilingus
-						[] Say you want kiss from goat girl
-							She gets angry & refuses, dismissively says she'll kiss you for a thousand flames
-							Can offer 1000 flames for it
-								She reluctantly agrees to kiss
-								Offer 5000 to fuck her
-								Fuck her behind stall
-								Costs 1000 to cum inside
-				
-	[] Cannot resist in post-defeat centaur sex???
-	[] Astrapi no quick sex?
+	[] add an attribute to make special effects AoE for weapons (stun grenades)
 	
-	[] Add random attackers
+	[] 'You lost your virginity to someone you can't remember.​' needs to be improved so that it doesn't revert to this when virginity-taker is removed from the game
 	
-	[] Dialogue parsed before time passed...
+	[] Normal encounters on the World Map do not respect Gender(all encounters have been strictly female), Orientation(we have chosen "Off" for Androphilic orientation, but Androphilic people spawn) and Furry preferences, probably Age too(but we didn't check that).
 	
-	[] Shopping precinct
-		[] Add 4 main NPCs
+	[] I found way to lock yourself in stocks. You need to:
+		1. Approach any slave locked in stocks.
+		2. Move into position "all fours" from stocks position menu.
+		3. By some magic, now you have option to swap your position with slave in stocks.
+		4. You pressing the button and now you the one being locked.
 	
-	[] Add Minotallys meeting
+	[] Pegasus-morph description talks about avoiding incoming damage, but all of their bonuses are offensive
 	
-	PRs
+	[] Clothing on the calves slot cannot be unequipped during sex scenes - it says they're blocked by themselves
+	
+	[] When in combat and you tail constrict an opponent for the 3rd time, the text says YOU will be defeated if they are constricted one more time.
+		"... constricted again, you will be instantly..."
+	
+	[] In the Furry Preferences screen, the formatting messes up
+	
+	[] Bug reports from "two sets of bread rolls"
+	
+	[] Natalya encounter without needing Helena quest
+	
+	[] boxing gloves mod
+	[] latex leggings
+	
+	[] Wall's End
+		[] Woolly Heaven
+				Border-collie-girl (described as being extremely attractive) gave up modelling in Dominion to open this shop.
+					Pix's sister(?)
+				Employees are twin greater sheep-girls
+					They have an annoying habit of starting and finishing one another's sentences
+			[] Sheep-girl twins
+			[] Covering change (kate services)
+			[] Talk
+			[] Spa day
+		[] The Ninth Strike
+				2 greater furry male baphomets who hold a serious grudge against Lunette. (Not related to one another)
+					They were competing blacksmiths in two villages, who were extremely well-renowned and always in high demand
+					Their villages were the first to be destroyed by Lunette, and they lost everything
+					Managed to escape and forged a pact to get their revenge on Lunette
+				They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
+			[] Imsu & Hale
+			[] Trade
+			[] Talk
+			[] Side Quest - The Youko's Secret
+				- Find Youko smith
+				- Convince to teach ninth strike technique to Hale & Imsu
+				- Youko moves to Elis shop
+				- Can get baphomets TF'd to female
+			[] Armpit worship (they lick player's armpits before fucking them)
+		[] The Barn
+				Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
+			[] Owl-girl
+			[] Trade
+			[] Talk
+			[] Work
+	
+	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
+	
+	[] hand holding sex action
+	
+	[] dye earth skill to take 1 essence
+	
+	[] Test fetish preferences in watering hole
 	
 	[] Need a place to deliver pregnancy in Elis
+		[] Medical centre
+			[] Incubus & succubus doctors
 	
-	Felicia
+	[] Sex additions:
+		[] Finger urethra insertion
+		[] Lick fluids off partner actions
+		[] Fisting
+	
+	[] PR Maxis list
+	
+	[] Kay female TF
+	
+	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
+			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
+	
+	[] add some modding parameters for self-TF races to support definition of races that can be transformed into (or unlimited race self-TF)
+	
+	Felicia content expansion:
+		- Ask out on date (affection requirement first I guess)
+		- Repeat date until 3 dates completed
+		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+		- Says she feels lewd towards player, can sex
+		- Option to give her TF potion to give her vagina (although she prefers giving oral)
+		- Repeat dates & sex is end content
 	
 	Ashley
+	
+	[] 4 person guest rooms
+	
+	[] Investigate possibility of adding support for slave/guest functions to map modding, so that player homes could be added
 	
 	[] Centaur encounter spell effect expansion:
 		[] Spawn & start 2 slavers
@@ -381,6 +329,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Why do some scenes still sometimes refer to crotch boobs even though I have them disabled?
 	Being able to put dildos in penetrable nipples when?
 	
+	Finger urethra insertion
+	
 	[] Lilaya snug
 	
 	[] pspsps Nyanmum
@@ -400,8 +350,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
 	
-	---
-	
 	[] deer
 		glade springs - sparkling mineral water
 		tree shoots salad
@@ -409,30 +357,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] mouse
 	
 	[] Elis
-		[] Minotallys intro
-			[] Describe northern part as being home to a lot of refugees from Fields
-		[] Arcane storm SE tooltip text and icon for when not in Dominion
+		[] Describe northern part as being home to a lot of refugees from Fields
 		[] Allow quick sex in masturbation
 		[] Add 'All masculine clothing is unisex' option
-		[] Fully framework demonic centaur encounters
-		[] Write Demonic centaurs
-		[x] Backup
-		[-] Make Elis borders a little smaller?
-		[x] Don't show travel disabled black border if scene travel disabled
 		[] Weather based on season
 			[] Add rain status effect
 				[] Add immunity from clothing (and umbrella)
-	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated, says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
-	[x] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
-	[] Elis
-		[] Map
-			[] Town Hall
-				[] Mayor's room
-			[] Tavern
-				[] Rent rooms
-			[] Market
-				[] Buy food/drink/clothing
-			[] Enforcer post
+	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated,
+		 says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
 	[] Extra encounters
 		[] Grassland
 			[] Snakes
@@ -835,10 +767,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Make flat values a separate thing
 		Make them gems which can be inserted into weapons
 		
-	Throwable weapon
-		% chance to recover after thrown
-		% chance to recover after combat
-	
 	add a repeat-descriptor exclusion variable
 	
 	Being fucked while self milking would be great especially if @Innoxia ever makes it an actual scene instead of a "you liked x from yourself," text box
@@ -2212,6 +2140,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Add leg-lock and swallow as forced sub orgasms (overrides whatever dom chose)
 	
 	Add slave silence permission dialogue
+		[] slaves with silent permission speak when interacting with you and other npcs totally normally
 	
 	buttslut oral fetishists who are in the dominant position will not let my sub char change the position to dom sittting on subs face
 	

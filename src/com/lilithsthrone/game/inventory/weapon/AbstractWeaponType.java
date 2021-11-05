@@ -47,7 +47,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
- * @version 0.3.8.7
+ * @version 0.4.2.1
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType {
@@ -58,12 +58,17 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private boolean melee;
 	private boolean twoHanded;
 	
+	private boolean oneShot;
+	private float oneShotChanceToRecoverAfterTurn;
+	private float oneShotChanceToRecoverAfterCombat;
+	
 	private boolean appendDamageName;
 	private String determiner;
 	boolean plural;
 	private String name;
 	private String namePlural;
 	private String attackDescriptor;
+	private String attackDescriptionPrefix;
 	private String attackTooltipDescription;
 	private String description;
 
@@ -76,6 +81,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private List<String> hitDescriptions;
 	private List<String> hitCriticalDescriptions;
 	private List<String> missDescriptions;
+	private List<String> oneShotEndTurnRecoveryDescriptions;
 	protected String hitEffect;
 	protected String criticalHitEffect;
 	
@@ -104,6 +110,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	private Map<String, String> SVGStringMap;
 	private Map<String, String> SVGStringEquippedMap;
+	
+	private String SVGStringDesaturated;
+	private String SVGStringEquippedDesaturated;
 
 	private List<ColourReplacement> colourReplacements;
 	/** Key is the colour index which should copy another colour upon weapon generation. Value is the colour index which should be copied. */
@@ -138,12 +147,33 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				this.melee = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("melee").getTextContent());
 				this.twoHanded = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("twoHanded").getTextContent());
 				
+				if(coreAttributes.getOptionalFirstOf("oneShotWeapon").isPresent()) {
+					this.oneShot = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("oneShotWeapon").getTextContent());
+				} else {
+					this.oneShot = false;
+				}
+				if(coreAttributes.getOptionalFirstOf("oneShotWeaponChanceToRecoverAfterTurn").isPresent()) {
+					this.oneShotChanceToRecoverAfterTurn = Float.valueOf(coreAttributes.getMandatoryFirstOf("oneShotWeaponChanceToRecoverAfterTurn").getTextContent());
+				} else {
+					this.oneShotChanceToRecoverAfterTurn = 0;
+				}
+				if(coreAttributes.getOptionalFirstOf("oneShotWeaponChanceToRecoverAfterCombat").isPresent()) {
+					this.oneShotChanceToRecoverAfterCombat = Float.valueOf(coreAttributes.getMandatoryFirstOf("oneShotWeaponChanceToRecoverAfterCombat").getTextContent());
+				} else {
+					this.oneShotChanceToRecoverAfterCombat = 0;
+				}
+				
 				this.determiner = coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
 				this.plural = Boolean.valueOf(((Element)coreAttributes.getMandatoryFirstOf("namePlural")).getAttribute("pluralByDefault"));
 				this.name = coreAttributes.getMandatoryFirstOf("name").getTextContent();
 				this.namePlural = coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
 				this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
 				this.attackDescriptor = coreAttributes.getMandatoryFirstOf("attackDescriptor").getTextContent();
+				if(coreAttributes.getOptionalFirstOf("attackDescriptionPrefix").isPresent()) {
+					this.attackDescriptionPrefix = coreAttributes.getMandatoryFirstOf("attackDescriptionPrefix").getTextContent();
+				} else {
+					this.attackDescriptionPrefix = this.attackDescriptor;
+				}
 				this.attackTooltipDescription = coreAttributes.getMandatoryFirstOf("attackTooltipDescription").getTextContent();
 				
 				if(!coreAttributes.getMandatoryFirstOf("name").getAttribute("appendDamageName").isEmpty()) {
@@ -296,7 +326,17 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 							.map(o -> o.getTextContent())
 							.collect(Collectors.toList());
 				} else {
-					this.missDescriptions = new ArrayList<>();
+					this.missDescriptions = Util.newArrayListOfValues("[npc.Name] [npc.verb(recover)] [npc.her] "+this.name+"!");
+				}
+				
+				if(weaponElement.getOptionalFirstOf("oneShotEndTurnRecoveryDescriptions").isPresent()) {
+					this.oneShotEndTurnRecoveryDescriptions = weaponElement
+							.getMandatoryFirstOf("oneShotEndTurnRecoveryDescriptions")
+							.getAllOf("recoveryText").stream()
+							.map(o -> o.getTextContent())
+							.collect(Collectors.toList());
+				} else {
+					this.oneShotEndTurnRecoveryDescriptions = new ArrayList<>();
 				}
 				
 
@@ -453,6 +493,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		result = 31 * result + getDamageVariance().hashCode();
 		result = 31 * result + (melee ? 1 : 0);
 		result = 31 * result + (twoHanded ? 1 : 0);
+		result = 31 * result + (oneShot ? 1 : 0);
 		result = 31 * result + getRarity().hashCode();
 		result = 31 * result + getAvailableDamageTypes().hashCode();
 		result = 31 * result + getSpells().hashCode();
@@ -538,6 +579,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return UtilText.parse(Util.newArrayListOfValues(character, target), weapon, Util.randomItemFrom(missDescriptions));
 	}
 
+	public String getOneShotEndTurnRecoveryDescription(GameCharacter character) {
+		return UtilText.parse(character, Util.randomItemFrom(oneShotEndTurnRecoveryDescriptions));
+	}
+	
 	protected static String getDescriptions(GameCharacter character, GameCharacter target, boolean isHit,
 			String playerStrikingNPC,
 			String NPCStrikingPlayer,
@@ -650,6 +695,18 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return twoHanded;
 	}
 
+	public boolean isOneShot() {
+		return oneShot;
+	}
+
+	public float getOneShotChanceToRecoverAfterTurn() {
+		return oneShotChanceToRecoverAfterTurn;
+	}
+
+	public float getOneShotChanceToRecoverAfterCombat() {
+		return oneShotChanceToRecoverAfterCombat;
+	}
+	
 	public boolean isAppendDamageName() {
 		return appendDamageName;
 	}
@@ -677,6 +734,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return attackDescriptor;
 	}
 
+	public String getAttackDescriptionPrefix(GameCharacter user, GameCharacter target) {
+		return attackDescriptionPrefix;
+	}
+	
 	public String getAttackDescription(GameCharacter user, GameCharacter target) {
 		return UtilText.parse(user, target, attackTooltipDescription);
 	}
@@ -836,27 +897,46 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		
 		try {
-//			InputStream is;
 			String s;
-//			if(mod) {
-				List<String> lines = Files.readAllLines(Paths.get(pathName));
-				StringBuilder sb = new StringBuilder();
-				for(String line : lines) {
-					sb.append(line);
-				}
-				s = sb.toString();
+			List<String> lines = Files.readAllLines(Paths.get(pathName));
+			StringBuilder sb = new StringBuilder();
+			for(String line : lines) {
+				sb.append(line);
+			}
+			s = sb.toString();
 				
-//			} else {
-//				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathName + ".svg");
-//				s = Util.inputStreamToString(is);
-//				is.close();
-//			}
-			
 			List<Colour> coloursPlusDT = Util.newArrayListOfValues(dt.getColour());
 			coloursPlusDT.addAll(colours);
 			s = SvgUtil.colourReplacement(this.getId(), coloursPlusDT, this.getColourReplacements(true), s);
 			
 			addSVGStringMapping(dt, colours, s);
+			
+			return s;
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+		return "";
+	}
+
+	public String getSVGImageDesaturated() {
+		if(SVGStringDesaturated!=null) {
+			return SVGStringDesaturated;
+		}
+		
+		try {
+			String s;
+			List<String> lines = Files.readAllLines(Paths.get(pathName));
+			StringBuilder sb = new StringBuilder();
+			for(String line : lines) {
+				sb.append(line);
+			}
+			s = sb.toString();
+			
+			s = SvgUtil.colourReplacement(this.getId()+"DS", Util.newArrayListOfValues(PresetColour.BASE_GREY, PresetColour.BASE_GREY, PresetColour.BASE_GREY), this.getColourReplacements(true), s);
+			
+			SVGStringDesaturated = s;
 			
 			return s;
 			
@@ -906,27 +986,47 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		
 		try {
-//			InputStream is;
 			String s;
-//			if(mod) {
-				List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped));
-				StringBuilder sb = new StringBuilder();
-				for(String line : lines) {
-					sb.append(line);
-				}
-				s = sb.toString();
-				
-//			} else {
-//				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathNameEquipped + ".svg");
-//				s = Util.inputStreamToString(is);
-//				is.close();
-//			}
+			List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped));
+			StringBuilder sb = new StringBuilder();
+			for(String line : lines) {
+				sb.append(line);
+			}
+			s = sb.toString();
 			
 			List<Colour> coloursPlusDT = Util.newArrayListOfValues(dt.getColour());
 			coloursPlusDT.addAll(colours);
 			s = SvgUtil.colourReplacement(this.getId()+"Equipped", coloursPlusDT, this.getColourReplacements(true), s);
 			
 			addSVGStringEquippedMapping(dt, colours, s);
+			
+			return s;
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+		return "";
+	}
+	
+
+	public String getSVGEquippedImageDesaturated() {
+		if(SVGStringEquippedDesaturated!=null) {
+			return SVGStringEquippedDesaturated;
+		}
+		
+		try {
+			String s;
+			List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped));
+			StringBuilder sb = new StringBuilder();
+			for(String line : lines) {
+				sb.append(line);
+			}
+			s = sb.toString();
+			
+			s = SvgUtil.colourReplacement(this.getId()+"EquippedDS", Util.newArrayListOfValues(PresetColour.BASE_GREY, PresetColour.BASE_GREY, PresetColour.BASE_GREY), this.getColourReplacements(true), s);
+			
+			SVGStringEquippedDesaturated = s;
 			
 			return s;
 			

@@ -7,201 +7,560 @@
 	
 	<htmlContent tag="CENTRE"><![CDATA[
 	#IF(game.getDayOfWeek()==DOW_SATURDAY || game.getDayOfWeek()==DOW_WEDNESDAY)
-		<p>
-			As you continue on your way through the market, you see that a large area in the very middle of the square has been cordoned off with wooden fences. Notice boards attached to this fencing reveal that today is a livestock market day, which is stating the obvious due to the fact that you're able to see for yourself the countless animals being bought, sold, and auctioned off within this fenced-off area.
-		</p>
+		#IF(game.getHourOfDay()>=18)
+			<p>
+				As it's past closing time, the wooden fencing which had been erected to keep the livestock separated is being disassembled and packed away. Not wanting to trouble any of the farmers who's finished their business for the day, you decide to leave them to it and continue on your way through the market...
+			</p>
+		#ELSE
+			<p>
+				As you approach the very centre of the Farmer's Market, you see that a large, square area has been cordoned off and partitioned into small pens by means of wooden fencing. Notice boards attached to this fencing reveal that today is a livestock market day, which is stating the obvious due to the fact that you're able to see for yourself the countless animals being bought, sold, and auctioned off within this area.
+			</p>
+			<p>
+				As you're not a farmer, and therefore have no use for livestock, there's really very little for you to do here. Perhaps if you were to come back on a day other than a Wednesday or Saturday, then you'd be able to see what this area is used for when not acting as a livestock market...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			Several games stalls have been set up here. Out of the dozen or so stalls, there are only two which really catch your interest; one offering a game of darts, and one that offers a strength test.
-		</p>
+		#IF(game.getHourOfDay()>=18)
+			<p>
+				As it's past closing time, the stalls which line the market's central square are all being disassembled and packed away. Not wanting to trouble any of the stall operators, you decide to leave them to it and continue on your way through the Farmer's Market...
+			</p>
+		#ELSE
+			<p>
+				The closer you get to the centre of the Farmer's Market, the more jovial and festive the surrounding shoppers seem to become. The cause of their enjoyment is soon made apparent, for as you arrive at this central square, you see that it resembles more of a festival than a normal market. Numerous colourful stalls have been set up along all four sides of this space, with each one offering a different kind of carnival game. Cheap plastic hats, balloons, and stickers are being handed out by a couple of officials, while the source of the market's background music can be seen here in the form of a four-man band.
+			</p>
+			<p>
+				[pc.Walking] around the area to survey the dozen or so games that are on offer, you come to the conclusion that there are only two which are of any real interest. One of these is staffed by [nizhoni.name], who's running a game of darts, while the other is a traditional form of strength tester that's being operated by [moreno.name]. If you wanted to have a go at playing either of these games, you could [pc.step] up and say hello...
+			</p>
+		#ENDIF
 	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="CENTRE_SPECTATE"><![CDATA[
-	<p>
-		Spend some time watching livestock being bought and sold.
-	</p>
 	]]>
 	</htmlContent>
 	
 	<!-- Darts: -->
 	
 	<htmlContent tag="GAME_DARTS"><![CDATA[
-	<p>
-		Raccoon-girl tells you that you get three darts and have to hit the bullseye to win a prize. Costs 15 flames to have a go.
-	</p>
+	#IF(!nizhoni.isPlayerKnowsName())
+		<p>
+			After taking a moment to look around, you decide to approach the stall that's offering a game of darts. Leaning against one of the posts beneath its orange canvas awning, the operator of this stall takes the form of a grey-and-white furred greater raccoon-girl, who stands at about [nizhoni.heightValue] and looks to be slightly chubby in both body and face. Her huge, [nizhoni.cupSize]-cup breasts are covered up by an orange, sleeveless turtleneck sweater, while her huge ass and wide hips are contained by a black skirt.
+		</p>
+		<p>
+			Noticing your approach, this raccoon-girl turns to face you, and as her hazel eyes gaze out at you from behind a pair of black, thick-rimmed glasses, you notice that she's sporting a significant amount of bronze jewellery, including hoop earrings, nose ring, bangle, anklet, gemstone ring, necklace, and even a pair of dragonfly-style bobby pins. Reaching up to brush an orange-dyed strand of her otherwise-black hair out of her face, she flashes you a big grin and calls out, [nizhoni.speech(Heya! I haven't seen you around here before. I'm Nizhoni. Are you here to play a game of darts?)]
+		</p>
+		<p>
+			Seeing no harm in giving this slovenly-spoken raccoon-girl your name, you introduce yourself to her and ask what a game of darts entails. Holding up three of the small missiles, Nizhoni grins and explains, [nizhoni.speech(It costs twenty-five flames to have a go, and you get these three darts to throw at the board behind me. If you hit the bullseye, you win a Faire ticket, and you can trade in any Faire tickets you've got for a prize. These prizes are subsidised by Elis's tourism board, so don't feel guilty if you want to claim a lot of them! So, you up for a go?)] 
+		</p>
+		<p>
+			With Nizhoni holding out the darts in an encouraging manner, you wonder whether it's worth spending twenty-five flames on this game of darts...
+		</p>
+	#ELSE
+		<p>
+			After taking a moment to look around, you decide to approach the stall that's offering a game of darts. Leaning against one of the posts beneath its orange canvas awning, the operator of this stall takes the form of a grey-and-white furred greater raccoon-girl, who stands at about [nizhoni.heightValue] and looks to be slightly chubby in both body and face. Her huge, [nizhoni.cupSize]-cup breasts are covered up by an orange, sleeveless turtleneck sweater, while her huge ass and wide hips are contained by a black skirt.
+		</p>
+		#IF(nizhoni.isVisiblyPregnant())
+			#IF(!nizhoni.isCharacterReactedToPregnancy(pc))
+				<p>
+					Noticing your approach, Nizhoni turns to face you, and you see her hazel eyes light up as she recognises you. Pointedly rubbing her hands down over her visibly-swollen belly, she calls out, [nizhoni.speech(Heya, [pc.name]! Look! Stuffing my pussy has consequences, you know!)]
+				</p>
+				<p>
+					Looking down at the raccoon-girl's pregnant belly, you ask her if she's sure that it was you who got her pregnant. Letting out a good-natured laugh, she replies, [nizhoni.speech(It's not like I've got people queuing up to fuck me, you know? You're the only one I've had sex with recently.)]
+				</p>
+				<p>
+					Feeling responsible, you ask Nizhoni if there's anything you can do to help her through her pregnancy, but with a wave of her hand she dismissively replies, [nizhoni.speech(Nah, I don't need anything. Now, what can I do for you today?)]
+				</p>
+			#ELSE
+				<p>
+					Noticing your approach, Nizhoni turns to face you, and you see her hazel eyes light up as she recognises you. Pointedly rubbing her hands down over her visibly-swollen belly, she calls out, [nizhoni.speech(Heya, [pc.name]! Look; I'm still carrying our kids around!)]
+				</p>
+				<p>
+					Looking down at the raccoon-girl's pregnant belly, you ask her if there's anything you can do to help her through her pregnancy. Letting out a good-natured laugh, she waves her hand and dismissively replies, [nizhoni.speech(Nah, I don't need anything. Now, what can I do for you today?)]
+				</p>
+			#ENDIF
+		#ELSE
+			<p>
+				Noticing your approach, Nizhoni turns to face you, and you see her hazel eyes light up as she recognises you. Reaching up to brush an orange-dyed strand of her otherwise-black hair our of her face, she flashes you a big grin and calls out, [nizhoni.speech(Heya, [pc.name]! What can I do for you?)]
+			</p>
+			<p>
+				Returning the raccoon-girl's greeting, you ask her if her day is going well. Holding up three darts, Nizhoni grins and teases, [nizhoni.speech(Yeah, it's going fine, thanks, but it'd be even better if you'd hand over twenty-five flames to play a game! Remember, if you hit the bullseye, you win a Faire ticket, and you can trade in any Faire tickets you've got for a prize. These prizes are subsidised by Elis's tourism board, so don't feel guilty if you want to claim a lot of them! So, you up for a go?)] 
+			</p>
+			<p>
+				With Nizhoni holding out the darts in an encouraging manner, you wonder whether it's worth spending twenty-five flames on this game of darts...
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GAME_DARTS_LEAVE"><![CDATA[
 	<p>
-		You decide against having a go at darts and turn around and leave. You wonder what to do next...
+		Not having anything else to do here, you say goodbye to Nizhoni and [pc.step] away from her stall. Moving off into the centre of the Farmer's Market once again, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GAME_DARTS_PLAY"><![CDATA[
+	<p>
+		Deciding to play a game of darts, you hand over the twenty five flames which Nizhoni has asked for, and in return you're given the three missiles. Stepping aside, the raccoon-girl reminds you of the rules, [nizhoni.speech(Ok, you get to throw these three darts, and you only need to hit the bullseye once to win. Good luck!)]
+	</p>
 	#IF(flags.hasFlag(FLAG_innoxia_elis_market_darts_won))
 		<p>
 			#IF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=66)
-				You hit the bullseye on your first throw, then to show off you hit it again with the second and third darts.
+				Thanks to your exceptional skill at using ranged weaponry, you proceed to hit the bullseye on your first throw. Gasping in impressed awe, Nizhoni watches as you show off by proceeding to hit the bullseye again with both the second and third darts. Happily clapping her hands, she exclaims, [nizhoni.speech(Wow! You made that look so easy! You're really good at this, [pc.name]. Let me get you your Faire ticket...)]
 			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=33)
-				You hit the bullseye on your second throw, then to show off you hit it again with the third dart.
+				Although you miss with your first throw, thanks to your skill at using ranged weaponry you're able to hit the bullseye on your second attempt. Gasping in impressed awe, Nizhoni watches as you show off by proceeding to hit the bullseye again with your third dart. Happily clapping her hands, she exclaims, [nizhoni.speech(Wow! That was great! You're good at this, [pc.name]. Let me get you your Faire ticket...)]
 			#ELSE
-				You manage to hit the bullseye on your third throw.
+				Although you miss with both your first and second throws, you're thankfully able to hit the bullseye on your final attempt. Happily clapping her hands, Nizhoni exclaims, [nizhoni.speech(Hooray! Good throw, [pc.name]! Let me get you your Faire ticket...)]
 			#ENDIF
 		</p>
 		<p>
-			The raccoon-girl happily congratulates you and asks what prize you'd like.
+			As the raccoon-girl bends down to fetch a ticket from under the counter, you wonder whether to accept that as your prize, or instead ask Nizhoni if she'll go on a walk with you instead...
 		</p>
 	#ELSE
 		<p>
 			#IF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=66)
-				You find yourself distracted by people around you, and so despite your considerable skill at using ranged weapons, you somehow manage to just miss the bullseye with all three darts.
+				Although you have exceptional skill at using ranged weaponry, you find yourself being distracted by a particularly loud crowd of shoppers standing right behind you, and so despite your abilities, you somehow manage to just barely miss the bullseye with all three of your darts.
 			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_DAMAGE_RANGED_WEAPON)>=33)
-				You find yourself distracted by people around you, and so despite your skill at using ranged weapons, you miss the bullseye with all three darts.
+				Although you have some skill at using ranged weaponry, you find yourself being distracted by a particularly loud crowd of shoppers standing right behind you, and so despite your abilities, you end up missing the bullseye with all three of your darts.
 			#ELSE
-				You miss the bullseye with all three darts.
+				This game turns out to be far harder than it looks, and not only miss the bullseye with all three of your darts, but even completely miss the board with your final throw.
 			#ENDIF
+			 Letting out a sad sigh, Nizhoni whines, [nizhoni.speech(Aww, bad luck, [pc.name]. If you've got another twenty five flames, you could try again...)]
 		</p>
-		<p>
-			The raccoon-girl says better luck next time and asks if you want to have another try.
+		<p style='text-align:center;'>
+			<i>You've spent [style.italicsBad([#flags.getSavedLong('market_game_flames_spent')] flames)] so far on trying to win...</i>
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_DARTS_WON_CHOCOLATES"><![CDATA[
+	<htmlContent tag="GAME_DARTS_PRIZE_CHOCOLATES"><![CDATA[
 	<p>
-		You ask for the chocolates. The raccoon-girl hands them over and says you can only win once a day, so if you want to play again, come back tomorrow.
+		Wanting to trade in your Faire ticket for a prize, you hand the small slip of paper to Nizhoni and ask for a box of chocolates. Flashing you a happy smile, the chubby raccoon-girl turns to fetch your chosen prize from the shelves behind her, and as she hands it to you, she happily exclaims, [nizhoni.speech(Here you go, [pc.name]! Enjoy!)]
+	</p>
+	<p>
+		Thanking her for the prize, you safely put your chocolates away and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_DARTS_WON_PERFUME"><![CDATA[
+	<htmlContent tag="GAME_DARTS_PRIZE_PERFUME"><![CDATA[
 	<p>
-		You ask for the perfume. The raccoon-girl hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+		Wanting to trade in your Faire ticket for a prize, you hand the small slip of paper to Nizhoni and ask for a bottle of perfume. Flashing you a happy smile, the chubby raccoon-girl turns to fetch your chosen prize from the shelves behind her, and as she hands it to you, she happily exclaims, [nizhoni.speech(Here you go, [pc.name]! Enjoy!)]
+	</p>
+	<p>
+		Thanking her for the prize, you safely put your perfume away and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_DARTS_WON_TEDDY"><![CDATA[
+	<htmlContent tag="GAME_DARTS_PRIZE_TEDDY"><![CDATA[
 	<p>
-		You ask for the teddy bear. The raccoon-girl hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+		Wanting to trade in your Faire ticket for a prize, you hand the small slip of paper to Nizhoni and ask for a stuffed teddy bear toy. Flashing you a happy smile, the chubby raccoon-girl turns to fetch your chosen prize from the shelves behind her, and as she hands it to you, she happily exclaims, [nizhoni.speech(Here you go, [pc.name]! Enjoy!)]
+	</p>
+	<p>
+		Thanking her for the prize, you safely put your stuffed toy away and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_DARTS_WON_HER"><![CDATA[
+	<htmlContent tag="GAME_DARTS_WON"><![CDATA[
 	<p>
-		You say that you want to get to know the raccoon-girl a little better as your prize, and suggest taking her for a coffee or snack. She agrees and closes the stall for 30 minutes.
+		Taking the Faire ticket from Nizhoni, you thank her and safely put it away. Flashing you a smile, the chubby raccoon-girl asks, [nizhoni.speech(Now, did you want to trade in your ticket for a prize, or are you going to hold on to it to spend at a different stall?)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GAME_DARTS_WON_NO_PRIZE"><![CDATA[
 	<p>
-		You say that you don't want a prize. The raccoon-girl says that she has a rule that winners can't play again in the same day, but seeing as you aren't taking a prize, you can come back and play again later if you'd like.
+		With the smiling raccoon-girl waiting to hear what it is you'll do with the ticket, you wonder whether to trade it in for a prize right here, or hold on to it for use elsewhere...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GAME_DARTS_LOST"><![CDATA[
 	<p>
-		You [pc.step] away from the stall and let the next person in line play, who also misses all of their shots. You wonder what to do next...
+		Not wanting to waste any more time and money on trying to win, you tell Nizhoni that you've had enough. After letting out a disappointed whine, the raccoon-girl winks at you and says, [nizhoni.speech(If you change your mind, just let me know. Oh, and remember, if you've got a Faire ticket from somewhere else, you can trade it in for a prize...)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	<!-- Strength: -->
-	
-	<htmlContent tag="GAME_STRENGTH"><![CDATA[
 	<p>
-		Horse-boy tells you that you get one hit to try and get the puck to hit the bell to win a prize. Costs 15 flames to have a go.
+		Taking a quick look over the prizes that are stacked up on the shelves behind Nizhoni, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_STRENGTH_LEAVE"><![CDATA[
+	<htmlContent tag="NIZHONI_WALK"><![CDATA[
 	<p>
-		You decide against having a go at the strength tester and turn around and leave. You wonder what to do next...
+		Before Nizhoni can retrieve your Faire ticket, you stop her by asking if you're able to get a different type of prize. Straightening up, the chubby raccoon-girl gives you a questioning look and asks, [nizhoni.speech(Oh? What sort of thing did you have in mind?)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GAME_STRENGTH_PLAY"><![CDATA[
-	#IF(flags.hasFlag(FLAG_innoxia_elis_market_strength_won))
+	#IF(flags.hasFlag(FLAG_innoxia_elis_market_nizhoni_walked))
 		<p>
-			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
-				You hit the strength tester so hard that the puck flies up and smashes the bell into pieces.
-			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
-				You hit the strength tester and cause the puck to fly up and whack into the bell with some force.
-			#ELSE
-				You hit the strength tester and just about manage to cause the puck to fly up and tap into the bell.
-			#ENDIF
+			Giving her your most charming smile, you tell Nizhoni that you'd like to spend some time with her and get to know her a little better. Encouraged by the happy grin that quickly settles on her face, you proceed to ask her if she'd like to go for a walk with you around the market again. Letting out a little laugh, the raccoon-girl places her hands on her hips and replies, [nizhoni.speech(You really want to spend more time with me? Well, sure I guess!)]
 		</p>
 		<p>
-			The horse-boy happily congratulates you and asks what prize you'd like.
+			Asking a neighbouring stall owner to watch her stall while she's gone, Nizhoni locks the coin box that's securely fastened beneath her counter, before stepping around and walking up beside you. Happily taking hold of your [pc.hand], she excitedly declares, [nizhoni.speech(Let's go to the same spot as last time! Come on, let's go!)]
+		</p>
+		<p>
+			Thinking to yourself that your plan has turned out perfectly, you keep hold of the raccoon-girl's hand as she walks along beside you past the many colourful stalls of the Farmer's Market. As you engage her in small talk, you once again start to detect a familiar, musky odour, and after a few minutes spent in her company, you again realise that this smell is coming from Nizhoni. Although this pungent, slightly-sweet aroma seems to be getting stronger and more noticeable by the minute, you don't find it to be an unpleasant one, and so you happily continue to [pc.walk] close beside Nizhoni as she leads you to your destination. 
+		</p>
+		<p>
+			[nizhoni.speech(Here we are!)] the raccoon-girl suddenly declares, before stopping beside a rather plain and uninteresting market stall. By now knowing what to expect, you look over towards the opposite side of the path, where a couple of tall, bamboo screens are shielding most of what looks to be the market's rubbish dump. As Nizhoni leads you right up to the entrance between these screens, you see that there are at least two dozen large, metal wheelie bins, about half of which are absolutely full to the brim with cardboard packaging, empty cans, and all other sorts of waste. Turning to look at you with a clear flash of excitement in her hazel eyes, Nizhoni declares, [nizhoni.speech(You can find all sorts of cool stuff here! Come on, let's see if we can find something good together! Sometimes some of the stalls even throw out food that they weren't able to sell, so we could even get a bite to eat!)]
+		</p>
+		<p>
+			Knowing that she's absolutely dead serious about inviting you to go dumpster diving with her, you only have a moment in which to decide whether to go along with Nizhoni or tell her that you'd rather not be doing this. As you wonder what to say, the musky smell emanating from the raccoon-girl starts to get even stronger, and you realise that joining her in the tight spaces between the bins will undoubtedly expose you to an even higher concentration of her natural odour...
 		</p>
 	#ELSE
 		<p>
-			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
-				You find yourself distracted by people around you, and so despite your considerable strength, you end up slightly missing the strength tester's strike pad.
-			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
-				You find yourself distracted by people around you, and so despite your strength, you end up slightly missing the strength tester's strike pad.
-			#ELSE
-				You hit the strike pad but the puck only flies half way up, leaving the bell unrung.
-			#ENDIF
+			Giving her your most charming smile, you tell Nizhoni that you'd like to spend some time with her and get to know her a little better. Encouraged by the happy grin that quickly settles on her face, you proceed to ask her if she'd like to go for a walk with you around the market, and perhaps get a drink or something to eat together. Letting out a little laugh, the raccoon-girl places her hands on her hips and replies, [nizhoni.speech(You really want to spend time with me? Well, sure I guess!)]
 		</p>
 		<p>
-			The horse-boy says better luck next time and asks if you want to have another go.
+			Asking a neighbouring stall owner to watch her stall while she's gone, Nizhoni locks the coin box that's securely fastened beneath her counter, before stepping around and walking up beside you. Happily taking hold of your [pc.hand], she excitedly declares, [nizhoni.speech(I know a great spot over on the south side of the market. Come on, let's go!)]
+		</p>
+		<p>
+			Thinking to yourself that your plan has turned out perfectly, you keep hold of the raccoon-girl's hand as she walks along beside you past the many colourful stalls of the Farmer's Market. As you engage her in small talk, you start to notice a strange, musky odour, and after a few minutes spent in her company, you eventually realise that this smell is coming from Nizhoni. Although this pungent, slightly-sweet aroma seems to be getting stronger and more noticeable by the minute, you don't find it to be an unpleasant one, and so you happily continue to [pc.walk] close beside Nizhoni as she leads you to your destination. 
+		</p>
+		<p>
+			[nizhoni.speech(Here we are!)] the raccoon-girl suddenly declares, before stopping beside a rather plain and uninteresting market stall. Seeing what it is you're looking at, Nizhoni laughs and pulls you away from this stall, saying, [nizhoni.speech(No, not there; over on this side!)]
+		</p>
+		<p>
+			Looking over to where Nizhoni is headed, you see that there are a couple of tall, bamboo screens shielding most of what looks to be the market's rubbish dump. As she leads you right up to the entrance between these screens, you see that there are at least two dozen large, metal wheelie bins, about half of which are absolutely full to the brim with cardboard packaging, empty cans, and all other sorts of waste. Turning to look at you with a clear flash of excitement in her hazel eyes, Nizhoni reveals, [nizhoni.speech(You can find all sorts of cool stuff here! Come on, let's see if we can find something good together! Sometimes some of the stalls even throw out food that they weren't able to sell, so we could even get a bite to eat!)]
+		</p>
+		<p>
+			Realising that she's absolutely dead serious about inviting you to go dumpster diving with her, you only have a moment in which to decide whether to go along with Nizhoni or tell her that you'd rather not be doing this. As you wonder what to say, the musky smell emanating from the raccoon-girl starts to get even stronger, and you realise that joining her in the tight spaces between the bins will undoubtedly expose you to an even higher concentration of her natural odour...
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_STRENGTH_WON_MEAT"><![CDATA[
+	<htmlContent tag="NIZHONI_WALK_LEAVE"><![CDATA[
 	<p>
-		You ask for the meat hamper. The horse-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+		Although you really don't like the idea of rummaging through bins with Nizhoni, you also don't want to upset her by telling her exactly what you think of this kind of activity. Gently releasing her hand, you make up an excuse for having to suddenly leave, before wishing her luck with her exploration of the market's waste. Pouting at you for a moment, Nizhoni whines, [nizhoni.speech(Aww, it's not as fun when I do it alone... I guess I'll come back some other time... Bye, [pc.name]!)]
 	</p>
 	<p>
-		You open the hamper to find some meat and a bottle of cider.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GAME_STRENGTH_WON_BAT_WOODEN"><![CDATA[
-	<p>
-		You ask for the wooden bat. The horse-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+		Not giving you any chance to change your mind, the raccoon-girl runs off in the direction of her stall, leaving you standing alone wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_STRENGTH_WON_BAT_METAL"><![CDATA[
+	<htmlContent tag="NIZHONI_BINS"><![CDATA[
 	<p>
-		You ask for the metal bat. The horse-boy hands it over and says you can only win once a day, so if you want to play again, come back tomorrow.
+		Deciding to go with it, you tell Nizhoni to lead the way, and follow her into the screened-off area which contains the bins. Practically skipping with excitement, the slightly-chubby raccoon-girl heads straight over to the far side of the area, and with a confidence cleared gained from having done this countless times before, she bends down into one of the large metal bins and starts rummaging around in it. Straightening up for a moment, she turns back to look at you and say, [nizhoni.speech(Come on, [pc.name]! There's bound to be something good in here!)]
+	</p>
+	<p>
+		Doing as she says, you [pc.step] up beside Nizhoni and join her in rummaging through the bin. As is to be expected in an area like this, you notice that there's a background smell of slightly rotten waste, which gets noticeably stronger as you stick your head down into the metal bin and join Nizhoni in rummaging through layers of cardboard, metal, and canvas waste. This odour is almost completely overpowered, however, by the raccoon-girl's natural, musky scent. As she moves around to your side, you find yourself being hit by wave after wave of her pungent, slightly-sweet smell, which far from being nauseating or unpleasant, seems to awaken some sort of primal desire within you, and you find yourself happily breathing in her natural musk.
+	</p>
+	<p>
+		[nizhoni.speech(Hey! Someone threw out most of their burger!)] the raccoon-girl suddenly cries out, and you look over to see her take a big bite out of the burger she's just retrieved. After chewing for a moment and then swallowing, she laughs and says, [nizhoni.speech(Oh, yeah, now I see why they threw it away... I bet there's something better tasting in here somewhere...)]
+	</p>
+	<p>
+		Unfortunately for Nizhoni, neither of you find anything worth taking or eating in the rest of this bin. With her enthusiasm undeterred by this initial failure, the raccoon-girl leads you over to the next bin, and then the next, and before you know it you've spent a good fifteen minutes rummaging around through these bins. The whole time you've been searching, Nizhoni's natural, musky scent has been getting stronger and stronger, and as she bends down over the next bin, her skirt starts to ride up and you're hit by an intense wave of her heady odour.
+	</p>
+	<p>
+		[nizhoni.speech(You can take a break if you want,)] she calls back over her shoulder. Deciding to do just that, you stop and [pc.step] back, before looking over at the raccoon-girl's large ass. Although you thought that it'd naturally ridden up as she leant in over the edge of the bin, you suddenly see Nizhoni reach back to pull her skirt up even more, and you realise that she's deliberately putting on a show for you. Looking down between her legs, you see that Nizhoni isn't wearing any underwear, and her dark-lipped pussy and similarly-dark-rimmed asshole are now fully exposed.
+	</p>
+	<p>
+		[nizhoni.speech(Hey, [pc.name]... You can... You can do whatever you'd like, you know...)] Nizhoni hesitantly calls out, before spreading her legs a little wider and fully presenting you with her hot, wet pussy and asshole. Her musky odour is definitely coming from down here, for as she finished fully exposing herself, you find your senses being completely overpowered by her strong, heady scent. Clearly wanting you to make a move on her, Nizhoni lifts her ass up and lets out a little moan, and although she pretends to continue rummaging through the bin, you can tell that she's far more interested in what you'll decide to do about her lewd presentation...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_STRENGTH_WON_HIM"><![CDATA[
+	<htmlContent tag="NIZHONI_BINS_IGNORE"><![CDATA[
 	<p>
-		You say that you want to get to know the horse-boy a little better as your prize, and suggest taking him for a coffee or snack. He agrees and closes the stall for 30 minutes.
+		Not wanting to do anything lewd with Nizhoni, you ignore the raccoon-girl's display and wait for her to finish searching through the bin. A few minutes later, and she's done just that, and after standing back upright, she briefly pouts at you and pulls her skirt back down, before saying, [nizhoni.speech(I suppose I'd better be getting back to work now... This was fun, [pc.name], but we could have done so much more together...)]
+	</p>
+	<p>
+		With that, she skips alongside you as the two of you exit the bins area, before turning and waving goodbye. Telling her that you'll see her again soon, you watch the raccoon-girl rush off in the direction of her stall, before setting off through the Farmer's Market and continuing on your way...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GAME_STRENGTH_WON_NO_PRIZE"><![CDATA[
+	<htmlContent tag="NIZHONI_BINS_ORAL_START"><![CDATA[
 	<p>
-		You say that you don't want a prize. The horse-boy says that he has a rule that winners can't play again in the same day, but seeing as you aren't taking a prize, you can come back and play again later if you'd like.
+		Unable to resist Nizhoni's musky, dark-lipped pussy, you [pc.step] forwards and drop down behind her, before leaning in and giving her hot cunt a big, wet kiss. Squealing in delight, the chubby raccoon-girl pushes her hips back into your face, completely drowning you in her heady, feminine musk as she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Please, keep going...)]
+	</p>
+	<p>
+		Doing as she asks, you reach up and take hold of Nizhoni's thighs, before pushing her legs apart and burying your face in her smelly, hot cunt. Planting kiss after kiss on her [nizhoni.labia+], you dart out your [pc.tongue+] and start greedily eating her out. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really like the taste of my pussy? ~Mmm!~ Please, don't stop!)]
+	</p>
+	<p>
+		Despite the fact that her cunt tastes just as musky and sour as it smells, you find yourself unable to pull away from it, and with the raccoon-girl continuing to moan and squeal into the bin, you passionately eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NIZHONI_BINS_FUCK_START"><![CDATA[
+	<p>
+		Unable to resist Nizhoni's musky, dark-lipped pussy, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her hot cunt and pressing your [pc.cockHead+] against her [nizhoni.labia+]. Squealing in delight, the chubby raccoon-girl looks back over her shoulder, and as you start to drown in her heady, feminine musk, she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
+	</p>
+	<p>
+		Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her smelly, hot cunt and causing her wet lips to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my pussy? ~Mmm!~ Please, don't stop! Give it to me!)]
+	</p>
+	<p>
+		Despite the fact that her smelly cunt is filling the air around you with the overpowering odour of her feminine musk, you find yourself unable to pull away, and with the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NIZHONI_BINS_FUCK_ASS_START"><![CDATA[
+	<p>
+		Unable to resist Nizhoni's dark-rimmed asshole, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her rear entrance and pressing your [pc.cockHead+] against it. Squealing in delight, the chubby raccoon-girl looks back over her shoulder, and as you start to drown in her heady, feminine musk, she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
+	</p>
+	<p>
+		Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her back door and causing her asshole to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my ass? ~Mmm!~ Please, don't stop! Give it to me!)]
+	</p>
+	<p>
+		Despite the fact that her smelly cunt is filling the air around you with the overpowering odour of her feminine musk, you find yourself unable to pull away, and with the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NIZHONI_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun, you give Nizhoni's big ass a playful squeeze, before [pc.stepping] back and telling her that you've finished.
+		#IF(nizhoni.isSatisfiedFromLastSex())
+			 Letting out a deeply-satisfied sigh in response, the raccoon-girl backs out of the bin and turns to face you, before pulling her skirt down to cover her dripping pussy and teasing, [nizhoni.speech(I don't normally have this much fun when I go dumpster diving...)]
+		#ELSE
+			 Letting out a frustrated sigh in response, the raccoon-girl backs out of the bin and turns to face you, before pulling her skirt down to cover her dripping pussy and complaining, [nizhoni.speech(That was fun and all, but I'm really not satisfied, you know...)]
+		#ENDIF
+	</p>
+	<p>
+		Getting your things back in order, the two of you agree to leave the rest of the bins untouched, before heading over to the exit together. Telling her that you'll see her again soon, you say goodbye to Nizhoni and watch as the raccoon-girl skips off in the direction of her stall. Letting out a contented sigh, you take a moment to think about the sex you've just had, before setting off through the Farmer's Market and continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Strength: -->
+	
+	<htmlContent tag="GAME_STRENGTH"><![CDATA[
+	<p>
+		Although there are many stalls to be found here in the centre of the Farmer's Market, there's one which visually dominates the area. Its red canvas awning stands significantly higher than those beside it, which allows it to fully cover an old-fashioned strength tester. Consisting primarily of a tall, metal runner with a bell fixed to its top, this machine operates by having its base plate struck with a wooden hammer, which causes a small puck to be sent flying up the runner to hit the bell.
+	</p>
+	#IF(!moreno.isPlayerKnowsName())
+		<p>
+			Standing beside this machine is the stall's operator, who takes the form of a masculine, greater horse-boy. Wearing a tank top and a pair of sporty shorts, this black-haired horse-boy stands at a towering [moreno.heightValue], and you can't help but notice how his massive muscles bulge out with each of his movements. As you approach this huge horse-boy, his [moreno.eyeColour] eyes flick over towards you, and after flashing you a smile, he greets you in a deep, booming voice, [moreno.speech(Hello there, stranger! My name is Moreno! Do you think you have what it takes to beat my supreme strength tester and ring its bell?)]
+		</p>
+		<p>
+			Greeting Moreno and giving him your name in return, you [pc.step] up to the plate and ask the horse-boy what the rules are. Crossing his arms over his huge pectoral muscles, and flexing his gigantic biceps in the process, Moreno booms, [moreno.speech(The rules are simple! It costs twenty five flames to have a go at striking the base plate, and if you manage to get the puck to ring the bell, you win a Faire ticket. You can trade in these tickets right here for a prize, or spend them at one of the many other stalls found throughout the Farmer's Market. So, how about it? Do you think you have what it takes to win?)]
+		</p>
+	#ELSE
+		<p>
+			Standing beside this machine is the stall's masculine operator, Moreno. Wearing a tank top and a pair of sporty shorts, this black-haired horse-boy stands at a towering [moreno.heightValue], and you can't help but notice how his massive muscles bulge out with each of his movements. As you approach him, Moreno's [moreno.eyeColour] eyes flick over towards you, and after flashing you a smile, he greets you in a deep, booming voice, [moreno.speech(Hello again, [pc.name]! Are you here to try and beat my supreme strength tester?)]
+		</p>
+		#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(moreno))
+			#IF(!pc.isCharacterReactedToPregnancy(moreno))
+				<p>
+					As you rub your [pc.hands] over your swollen belly and [pc.step] up to Moreno, he suddenly notices the fact that you're pregnant, and, realising that he must be the father, he exclaims, [moreno.speech(I got you pregnant?! Hey, is there anything I can do to help? I'm not one for shirking responsibility; just tell me if there's anything I can do.)]
+				</p>
+				<p>
+					Thanking Moreno for his offer, you tell him that you can handle things yourself, to which he replies, [moreno.speech(Well, ok. So, did you want to play, or are you here for a prize?)]
+				</p>
+			#ELSE
+				<p>
+					As you rub your [pc.hands] over your swollen belly and [pc.step] up to Moreno, he suddenly notices the fact that you're still pregnant, and asks, [moreno.speech(Are you sure that there's nothing I can do to help? Just tell me if there's anything I can do.)]
+				</p>
+				<p>
+					Thanking Moreno for his offer, you tell him that you can handle things yourself, to which he replies, [moreno.speech(Well, ok. So, did you want to play, or are you here for a prize?)]
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_LEAVE"><![CDATA[
+	<p>
+		Deciding that you don't want to have a go at Moreno's strength tester, you say goodbye to the towering horse-boy, before turning around and taking your leave. As you [pc.step] away from his stall, you wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_PRIZE_MEAT"><![CDATA[
+	<p>
+		Wanting to trade in one of your Faire tickets for a prize, you hand over the small slip of paper and ask Moreno for a 'meat hamper'. Taking the ticket and tearing it in half, the horse-boy turns towards the shelves behind him, before picking up a small basket and handing it over to you. With a handsome smile on his face, he says in a booming voice, [moreno.speech(Congratulations on your prize, [pc.name]. These are subsidised by Elis's tourism board, so please feel free to trade in as many tickets here as you'd like! Oh, and enjoy!)]
+	</p>
+	<p>
+		Opening up the meat hamper, you find a couple of pieces of quality meat, along with a bottle of equine cider. Thanking the muscular horse-boy for the food and drink, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_PRIZE_BAT_WOODEN"><![CDATA[
+	<p>
+		Wanting to trade in one of your Faire tickets for a prize, you hand over the small slip of paper and ask Moreno for one of the wooden bats he's got on display. Taking the ticket and tearing it in half, the horse-boy turns towards the shelves behind him, before picking up one of the bats and handing it over to you. With a handsome smile on his face, he says in a booming voice, [moreno.speech(Congratulations on your prize, [pc.name]. These are subsidised by Elis's tourism board, so please feel free to trade in as many tickets here as you'd like! Oh, and enjoy!)]
+	</p>
+	<p>
+		Hefting the wooden bat in your [pc.hands], you take a couple of swings into mid-air, before safely putting the weapon away. Thanking the muscular horse-boy for the prize, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_PRIZE_BAT_METAL"><![CDATA[
+	<p>
+		Wanting to trade in one of your Faire tickets for a prize, you hand over the small slip of paper and ask Moreno for one of the metal bats he's got on display. Taking the ticket and tearing it in half, the horse-boy turns towards the shelves behind him, before picking up one of the bats and handing it over to you. With a handsome smile on his face, he says in a booming voice, [moreno.speech(Congratulations on your prize, [pc.name]. These are subsidised by Elis's tourism board, so please feel free to trade in as many tickets here as you'd like! Oh, and enjoy!)]
+	</p>
+	<p>
+		Hefting the metal bat in your [pc.hands], you take a couple of swings into mid-air, before safely putting the weapon away. Thanking the muscular horse-boy for the prize, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_PLAY"><![CDATA[
+	<p>
+		Handing over twenty five flames to Moreno, you tell him that you'd like to have a go at beating his strength tester. Putting the money safely away, the huge horse-boy picks up a large, wooden hammer from behind the machine, and as he presents it to you, he explains, [moreno.speech(Strike the plate right here, and if you hit it hard enough, the puck will go all the way up to ring the bell. If it rings, then you win a Faire ticket. Oh, and you only get one go at this, so make it count!)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_elis_market_strength_won))
+		<p>
+			Taking the hammer from Moreno, you [pc.step] up to the strength tester and take your stance, before swinging down and striking the plate with as much force as you can possibly muster.
+			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
+				 Thanks to your incredible strength, the puck flies all of the way up its rail, and not only hits the bell at the top, but strikes it with such force that it's knocked completely off and crashes to the ground with a loud, metallic ring. Letting out a booming laugh, Moreno picks up the bell and declares, [moreno.speech(It's not often that that happens! Well done, [pc.name]; you've decisively won!)]
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
+				 Thanks to your strength, the puck flies all of the way up its rail and collides with the bell with some force, causing a loud, metallic ring to sound out. Letting out a booming laugh, Moreno declares, [moreno.speech(Well done, [pc.name]; you've won!)]
+			#ELSE
+				 Although you're not the strongest, you manage to make the puck fly all of the way up its rail and collide with the bell, causing a metallic ring to sound out. Letting out a booming laugh, Moreno declares, [moreno.speech(Well done, [pc.name]; you've won!)]
+			#ENDIF
+		</p>
+		<p>
+			#IF(flags.hasFlag(FLAG_innoxia_elis_market_moreno_sex))
+				Reaching into the pocket of his sport shorts, Moreno produces a Faire ticket and holds it out to you as he teases, [moreno.speech(I wish I had more time in which to have some fun with you today, [pc.name]... Come back and win tomorrow, and perhaps we can do some intimate 'training' together...)]
+			#ELSEIF(pc.isFeminine())
+				Reaching into the pocket of his sport shorts, Moreno fumbles about a little, making you to look down to see what's causing the trouble. As your gaze flicks down to his groin, you see that there's the unmistakable shape of a huge, flaccid horse cock pressing out beneath the fabric of his shorts. Seeing that you've noticed what he's packing, Moreno finally produces the Faire ticket from out of his pocket, and as he hands it to you, he grins and flirts, [moreno.speech(There's nothing sexier than watching a hot, strong [pc.race] showing off her strength... Say, how about you have another go at this game? I could watch you flexing your muscles all day...)]
+			#ELSE
+				Reaching into the pocket of his sport shorts, Moreno produces a Faire ticket and holds it out to you as he exclaims, [moreno.speech(Good job!)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Taking the hammer from Moreno, you [pc.step] up to the strength tester and take your stance, before swinging down and striking the plate with as much force as you can possibly muster.
+			#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=66)
+				 Despite the fact that you possess incredible strength, you find yourself being distracted by some particularly noisy people loitering around just behind you, and so you end up slightly missing the strength tester's plate. Despite this slip-up, you still manage to hit the machine with such force that the puck flies half way up its rail, but, much to your disappointment and frustration, it fails to hit the bell.
+			#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=33)
+				 Despite the fact that you possess considerable strength, you find yourself being distracted by some particularly noisy people loitering around just behind you, and so you end up hitting the plate at an odd angle and only transferring a fraction of your strike's power into it. Despite this slip-up, you still manage to make the puck fly a half way up its rail, but, much to your disappointment and frustration, it fails to hit the bell.
+			#ELSE
+				 Despite the fact that you put all of your effort into it, your strike doesn't hit with nearly as much force as you'd like, and you watch in dismay as the puck flies only half way up its rail, before falling back down without even coming close to ringing the bell.
+			#ENDIF
+		</p>
+		<p>
+			[moreno.speech(That's a shame,)] Moreno laments, before taking the wooden hammer from you and saying in his deep, booming voice, [moreno.speech(I'm sure you've got what it takes to win. Would you like to pay another twenty five flames for another go?)]
+		</p>
+		<p style='text-align:center;'>
+			<i>You've spent [style.italicsBad([#flags.getSavedLong('market_game_flames_spent')] flames)] so far on trying to win...</i>
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAME_STRENGTH_WON"><![CDATA[
+	<p>
+		#IF(pc.isFeminine() && !flags.hasFlag(FLAG_innoxia_elis_market_moreno_sex))
+			Ignoring Moreno's flirtatious remarks, you safely put your ticket away and take a [pc.step] away from the horny horse-boy. Seeing that you're not interested in flirting with him, Moreno lets out a disappointed grunt and reminds you, [moreno.speech(You can trade that ticket in for a prize here, or at any of the other stalls in the market which offer rewards. Or do you want to play again?)]
+		#ELSE
+			Safely putting your ticket away, you take a [pc.step] away from the huge horse-boy and wonder what to do next. Flashing you a friendly smile, Moreno reminds you, [moreno.speech(You can trade that ticket in for a prize here, or at any of the other stalls in the market which offer rewards. Or do you want to play again?)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GAME_STRENGTH_LOST"><![CDATA[
 	<p>
-		You [pc.step] away from the stall and let the next person in line play, who also fails to hit the bell. You wonder what to do next...
+		Not wanting to waste any more money on trying to win, you take a [pc.step] back and wonder what to do next. Seeing that you don't want to play any more, Moreno flashes you a friendly smile and reminds you, [moreno.speech(If you've already got any tickets, you can trade them in for a prize here..)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MORENO_FLIRT"><![CDATA[
+	<p>
+		Liking the look of what's in Moreno's pants, you flit back and tease him by saying that you were showing your strength off in order to get him excited. Looking down at the expanding bulge in his shorts, you tell him that you're pleased to see his cock appears to be nicely proportioned to his huge muscles and towering height.
+	</p>
+	<p>
+		Your words cause Moreno to let out a horny grunt, and in a attempt to regain control of the conversation, he motions down to his groin and states, [moreno.speech(Well, I've shown you something of mine, so you should give me something in return. Tell me, [pc.name], what's your secret? How did you get to be so strong?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MORENO_FLIRT_STOP"><![CDATA[
+	<p>
+		Feeling like things have gone too far, you playfully wink at Moreno and tell him that some things are best left as secrets, before moving away from him and making it clear that your flirting has coe to an end.
+	</p>
+	<p>
+		[moreno.speech(You shouldn't tease people like that,)] Moreno grunts in frustration, but after letting out a deep sigh, he quickly calms down and asks, [moreno.speech(Anyway, do you want to trade your ticket in for a prize? Or amybe you'd like to play again?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MORENO_ORAL_START"><![CDATA[
+	<p>
+		[pc.Stepping] right up in front of Moreno, you run your [pc.hand] down over his muscular abs, before stroking his rapidly-hardening cock and teasing, [pc.speech(My secret? Well, if you really want to know... I make sure to consume lots of extra protein on a regular basis. Oh, and I do so straight from the tap...)]
+	</p>
+	<p>
+		Giving Moreno's huge horse-cock a playful squeeze through his sport shorts, and making him let out a deep, horny grunt in response, you bite your lip and continue, [pc.speech(Speaking of which, I could really do with getting a big, hot load of protein right about now. Could you help me with that?)]
+	</p>
+	<p>
+		Not needing to be asked twice, the horse-boy calls out for the neighbouring stall owner to watch over his business while he's gone, before pulling you along after him as he hurries around behind the back of his stall. Pulling down his shorts and underwear, he presents you with his massive, [moreno.cockLengthValue] horse-cock and [moreno.ballSize] balls. Leaning back against a stack of crates, he motions down towards his exposed genitalia and grunts, [moreno.speech(Come on then, you can get your protein right from the tap, just as you like it...)]
+	</p>
+	<p>
+		Happily dropping down in front of the muscular horse-boy, you lick your [pc.lips] as you gaze over his throbbing, [moreno.cockColour] cock and heavy, dangling pair of cum-filled balls. Leaning forwards, you give his flared head a quick kiss, before moving down and breathing in the musky, masculine scent of his slightly-sweaty balls. Letting out [pc.a_moan+], you dart out your [pc.tongue+] and give the underside of Moreno's heavy, thick shaft a long, loving lick, before opening wide and taking his cock into your mouth.
+	</p>
+	<p>
+		[moreno.speech(~Mmm!~ You're good at this...)] Moreno moans, which encourages you push forwards and start taking his hot, throbbing shaft down your throat. A mixture of saliva and salty precum starts to drool from the corners of your mouth, and you begin eagerly bobbing your head up and down in time with the muscular horse-boy's grunts and groans...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MORENO_VAGINAL_START"><![CDATA[
+	<p>
+		[pc.Stepping] right up in front of Moreno, you run your [pc.hand] down over his muscular abs, before stroking his rapidly-hardening cock and teasing, [pc.speech(My secret? Well, if you really want to know... I make sure to do a thorough, intimate workout with a partner or two every day.)]
+	</p>
+	<p>
+		Giving Moreno's huge horse-cock a playful squeeze through his sport shorts, and making him let out a deep, horny grunt in response, you bite your lip and continue, [pc.speech(You know, I haven't done my exercise yet today... Do you think that you could help me with that?)]
+	</p>
+	<p>
+		Not needing to be asked twice, the horse-boy calls out for the neighbouring stall owner to watch over his business while he's gone, before pulling you along after him as he hurries around behind the back of his stall. Pulling down his shorts and underwear, he presents you with his massive, [moreno.cockLengthValue] horse-cock and [moreno.ballSize] balls. Letting out a happy [pc.moan] as you see what it is you've got to work with, you tell Moreno to lie down on his back so that you can use him for your exercise. Grabbing a heavy sheet of canvas from out of a nearby crate, the horse-boy lays it down on the ground, before lying back on it and grunting, [moreno.speech(Come on then, show me how you ride cock...)]
+	</p>
+	<p>
+		Exposing your [pc.pussy+], you [pc.step] forwards and straddle Moreno, before lowering yourself down and teasing your [pc.labia+] back and forth over the flared head of his huge horse-cock. Sliding back, you look down at the precum that's started to ooze from the horse-boy's throbbing, [moreno.cockColour] cock, and after commenting on the size of his heavy pair of cum-filled balls, you reposition yourself such that your [pc.pussy+] is pressing lightly down against the tip of his hard shaft. Unable to hold back and longer, you let out [pc.a_moan+] and slowly drop down, causing your [pc.labia+] to spread out around Moreno's thick, hard cock as you take it deep inside of your [pc.pussy+].
+	</p>
+	<p>
+		[moreno.speech(~Mmm!~ Yes, that's it!)] Moreno moans, which encourages you drop fully down and take his hot, throbbing shaft as deep into your hungry cunt as possible. After spending a moment to enjoy the feeling of the huge, hard shaft inside of you, you begin lifting yourself up and down in time with the muscular horse-boy's grunts and groans, forcing his hot dick in and out of your [pc.pussy+] as you show him how you ride cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MORENO_ANAL_START"><![CDATA[
+	<p>
+		[pc.Stepping] right up in front of Moreno, you run your [pc.hand] down over his muscular abs, before stroking his rapidly-hardening cock and teasing, [pc.speech(My secret? Well, if you really want to know... I make sure to do a thorough, intimate workout with a partner or two every day.)]
+	</p>
+	<p>
+		Giving Moreno's huge horse-cock a playful squeeze through his sport shorts, and making him let out a deep, horny grunt in response, you bite your lip and continue, [pc.speech(You know, I haven't done my anal exercises yet today... Do you think that you could help me with that?)]
+	</p>
+	<p>
+		Not needing to be asked twice, the horse-boy calls out for the neighbouring stall owner to watch over his business while he's gone, before pulling you along after him as he hurries around behind the back of his stall. Pulling down his shorts and underwear, he presents you with his massive, [moreno.cockLengthValue] horse-cock and [moreno.ballSize] balls. Letting out a happy [pc.moan] as you see what it is you've got to work with, you tell Moreno to lie down on his back so that you can use him for your exercise. Grabbing a heavy sheet of canvas from out of a nearby crate, the horse-boy lays it down on the ground, before lying back on it and grunting, [moreno.speech(Come on then, show me how you ride cock...)]
+	</p>
+	<p>
+		Exposing your [pc.asshole+], you [pc.step] forwards and straddle Moreno, before lowering yourself down and teasing your ass back and forth over the flared head of his huge horse-cock. Sliding back, you look down at the precum that's started to ooze from the horse-boy's throbbing, [moreno.cockColour] cock, and after commenting on the size of his heavy pair of cum-filled balls, you reposition yourself such that your [pc.asshole+] is pressing lightly down against the tip of his hard shaft. Unable to hold back and longer, you let out [pc.a_moan+] and slowly drop down, causing your [pc.asshole+] to spread out around Moreno's thick, hard cock as you take it deep inside of your ass.
+	</p>
+	<p>
+		[moreno.speech(~Mmm!~ Yes, that's it!)] Moreno moans, which encourages you drop fully down and take his hot, throbbing shaft as deep into your hungry butt as possible. After spending a moment to enjoy the feeling of the huge, hard shaft inside of you, you begin lifting yourself up and down in time with the muscular horse-boy's grunts and groans, forcing his hot dick in and out of your [pc.asshole+] as you show him how you ride cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MORENO_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun, you give Moreno a playful kiss, before [pc.stepping] back and telling him that you've finished.
+		#IF(moreno.isSatisfiedFromLastSex())
+			 Letting out a deeply-satisfied groan in response, the horse-boy pulls his shorts up and grunts, [moreno.speech(That was great... Thanks for the fun, [pc.name].)]
+		#ELSE
+			 Letting out a frustrated groan in response, the horse-boy pulls his shorts up and grunts, [moreno.speech(That really wasn't enough to satisfy me... Damn it...)]
+		#ENDIF
+	</p>
+	<p>
+		Getting your things back in order, the two of you prepare to head back out from behind the rear of Moreno's stall and return to the public centre of the Farmer's Market...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MORENO_AFTER_SEX_END"><![CDATA[
+	<p>
+		Leading the way, Moreno steps back out from behind the canvas that was shielding the two of you from the market's shoppers. Following in the muscular horse-boy's footsteps, you find yourself once again standing in front of his strength tester.
+	</p>
+	<p>
+		[moreno.speech(I'll see you around, [pc.name],)] Moreno booms, before flashing you a grin and saying, [moreno.speech(I won't have time for more of that today, but come back tomorrow and win again, and we could have some more fun...)]
+	</p>
+	<p>
+		Telling Moreno that you might just do that, you say goodbye and [pc.step] away from his stall, wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -662,14 +1021,23 @@
 	
 	<htmlContent tag="EXIT"><![CDATA[
 	<p>
-		Along each of the four sides of the market, the road leads off into the rest of Elis.
+		You find yourself standing at one of the four entrances to the Farmer's Market. A large, touristy-looking sign positioned near to this entrance reveals that many stalls throughout the Farmer's Market have signed up to be part of a promotional activity designed and run by Elis's Tourism Board. Apparently, you can either earn or spend 'Faire tickets' at the stalls which are taking part, which will allow you to receive special rewards or engage in unique activities.
+	</p>
+	<p>
+		#IF(game.getHourOfDay()>=19)
+			ATurning your attention away from this sign, you see that the market has closed for the day, and as such all of the stalls have been packed up and taken away, leaving the square before you all but completely deserted. As all of the stalls are gone, there's really very little for you to do here except head back out into the rest of Elis...
+		#ELSEIF(game.getHourOfDay()>=18)
+			Turning your attention away from this sign, you see that the market has closed for the day, and as such all of the stalls are in the process of being packed up and taken away. As all of the stalls are soon to be gone, there's really very little for you to do here except head back out into the rest of Elis...
+		#ELSE
+			Turning your attention away from this sign and towards the market itself, you see that rows of colourful canvas stalls are arrayed before you, while shoppers of all races wander between them to either browse or purchase the many goods on offer. If you wanted to, you could proceed into the market and take a look around, or instead head back out into the rest of Elis...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="EXIT_LEAVE"><![CDATA[
 	<p>
-		You exit the Farmer's Market and head back out into Elis...
+		Having concluded your business, you exit the Farmer's Market and head back out into Elis...
 	</p>
 	]]>
 	</htmlContent>
@@ -864,19 +1232,686 @@
 	</htmlContent>
 	
 	
+	<!-- heather's 'The Third Eye' stall: -->
+	
 	<htmlContent tag="FORTUNES"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		#IF(heather.isPlayerKnowsName())
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see that Heather is busily packing [heather.her] tent away. Not wanting to trouble [heather.herHim], you decide to leave [heather.herHim] to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					Although they differ in length and height, all of the businesses in the Farmer's Market operate out of a stall of the same design, consisting of a counter-top covered by a colourful canvas awning. That is, all except the one before you. Instead of an open-sided stall, the space in front of you is occupied by a small yurt, the sides and roof of which are made out of canvas that's been dyed a deep shade of blue and painted with stars and moons. The opening to this yurt has been left wide open, and a sign placed to the side of this entrance declares this business to be called 'The Third Eye'.
+				</p>
+				<p>
+					Wanting to pay Heather another visit, you approach the entrance to this yurt and look inside the dimly-lit interior. A few bookcases have been positioned around the edges of this interior space, and upon their shelves you see numerous potion bottles and odd-looking mystical instruments. What draws your attention the most, however, is Heather, who's sitting behind the centrally-positioned table, and as you look over towards [heather.herHim], [heather.she] calls out in a soft voice, [heather.speech(Your return was foretold, [pc.name]... Please, enter...)]
+				</p>
+				<p>
+					Seeing no reason not to take [heather.herHim] up on this invitation, you [pc.step] into the yurt and take a good look at Heather once again. Wearing a grey witch's hat, dress, and thigh-high boots, [heather.her] outfit fits in perfectly with the mystical theme created by the atmosphere within [heather.her] star-strewn yurt. As [heather.she] looks up at you with [heather.her] [heather.eyeColour] eyes, [heather.she] brushes a loose strand of brown hair from out of [heather.her] face. As [heather.she] flashes you a smile, you find your gaze being drawn down to the light pink choker that's securely fastened around [heather.her] neck, the colour of which perfectly matches [heather.her] fingernails, lipstick, and eyeshadow to give [heather.her] otherwise-androgynous features a touch of the feminine.
+				</p>
+				<p>
+					#IF(heather.isAttractedTo(pc))
+						#IF(heather.getSexCount(pc).getTotalTimesHadSex()>0)
+							Unable to contain [heather.her] arousal, [heather.she] lets out a little moan as [heather.she] looks you up and down and asks, [heather.speech(What can I do for you this day, [pc.name]? Would you care to purchase something? Or, if you've got a Faire ticket, I could read your fortune... Or... You could put me in my place again and give me a good, hard fuck...)]
+						#ELSE
+							Clearly liking the look of you, [heather.she] lets out a little moan as [heather.she] looks you up and down and asks, [heather.speech(What can I do for you this day, [pc.name]? Would you care to purchase something? Or, if you've got a Faire ticket, I could read your fortune...)]
+						#ENDIF
+					#ELSE
+						After quickly looking you up and down, [heather.she] asks, [heather.speech(What can I do for you this day, [pc.name]? Would you care to purchase something? Or, if you've got a Faire ticket, I could read your fortune...)]
+					#ENDIF
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see a [heather.race] busily packing her stall away in this area. Not wanting to trouble [heather.herHim], you decide to leave [heather.herHim] to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					Although they differ in length and height, all of the businesses in the Farmer's Market operate out of a stall of the same design, consisting of a counter-top covered by a colourful canvas awning. That is, all except the one before you. Instead of an open-sided stall, the space in front of you is occupied by a small yurt, the sides and roof of which are made out of canvas that's been dyed a deep shade of blue and painted with stars and moons. The opening to this yurt has been left wide open, and a sign placed to the side of this entrance declares this business to be called 'The Third Eye'.
+				</p>
+				<p>
+					Curious to discover what lies within, you approach the entrance to this yurt and look inside the dimly-lit interior. A few bookcases have been positioned around the edges of this interior space, and upon their shelves you see numerous potion bottles and odd-looking mystical instruments. What draws your attention the most, however, is the androgynous character who's sitting behind the centrally-positioned table, and as you look over towards [heather.herHim], [heather.she] calls out in a soft voice, [heather.speech(Your coming was foretold... Enter, and discover your destiny...)]
+				</p>
+				<p>
+					Seeing no reason not to take [heather.herHim] up on this invitation, you [pc.step] into the yurt and take a good look at this mysterious individual. Wearing a grey witch's hat, dress, and thigh-high boots, [heather.her] outfit fits in perfectly with the mystical theme created by the atmosphere within [heather.her] star-strewn yurt. As [heather.she] looks up at you with [heather.her] [heather.eyeColour] eyes, you realise that this androgynous individual looks to be fully human. As [heather.she] brushes a loose strand of brown hair from out of [heather.her] face, your gaze is drawn down to the light pink choker that's securely fastened around [heather.her] neck, the colour of which perfectly matches [heather.her] fingernails, lipstick, and eyeshadow to give [heather.her] otherwise-androgynous features a touch of the feminine.
+				</p>
+				<p>
+					[heather.speech(Those who wish for me to glance into the mists of their future name me as Heather,)] [heather.she] reveals in a quiet voice.
+					#IF(heather.isAttractedTo(pc))
+						 Clearly liking the look of you, [heather.she] flashes you a sly smile and asks, [heather.speech(Who do I have the please of entertaining today?)]
+					#ELSE
+						 As you move forwards, [heather.she] flashes you a quick smile and asks, [heather.speech(May I ask for your name?)]
+					#ENDIF
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_TRANSACTION_START"><![CDATA[
 	<p>
-		Behind the curtains of this stall, a rabbit-girl offers to tell people their fortune in exchange for a huge amount of flames.
+		As you move to take a closer look at what Heather has for sale, [heather.she] reminds you, [heather.speech(If you buy one of my items of clothing, I'll give you a Faire ticket...)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="KISSING"><![CDATA[
+	<htmlContent tag="FORTUNES_TRANSACTION_NO_TICKET"><![CDATA[
 	<p>
-		A beautiful, busty cow-girl is offering kisses for a reasonable price from out of this stall.
+		Taking your flames in exchange for the [#SPECIAL_PARSE_0], Heather says, [heather.speech(Thank you for the business... I wish I could give you a Faire ticket, but those are reserved for when people buy clothing from me...)]
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_TRANSACTION_TICKET"><![CDATA[
+	<p>
+		Taking your flames in exchange for the [#SPECIAL_PARSE_0], Heather hands you a Faire ticket and excitedly exclaims, [heather.speech(Thanks for the business, [pc.name]! Here's one of the tickets I've been given to hand out. You can trade it in with me if you want a fortune reading...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_DEMAND_SEX"><![CDATA[
+	<p>
+		Wanting to have sex with Heather again, you dominantly demand that [heather.she] submit to you so that you can give [heather.herHim] a good fuck. Letting out a submissive whine, [heather.she] stands up and skips over to close the curtain of [heather.her] yurt, before falling into your [pc.arms] and moaning, [heather.speech(~Mmm!~ Yes, dominate me, [pc.name]! Put me in my place and fuck me good and hard!)]
+	</p>
+	<p>
+		As Heather grinds her hot body up against you, she continues letting out a series of horny moans, and you find yourself quickly getting turned on and desperate to give [heather.herHim] what [heather.she] wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_INTRO"><![CDATA[
+	<p>
+		Seeing no reason not to give Heather you name, you introduce yourself to [heather.herHim], before asking what it is that [heather.her] business offers. Gesturing to the shelves which line the interior of [heather.her] yurt, Heather explains, [heather.speech(I offer potions and a few items of specially-enchanted clothing. If you buy an item of my special clothing, then you earn a Faire ticket.)]
+	</p>
+	<p>
+		Reaching down beneath [heather.her] table, Heather lifts up a crystal ball, and after showing it off for a moment, she continues, [heather.speech(You may trade in a Faire ticket in return for having your fortune read. I have no real skill with the arcane, but I do have an extremely strong affinity for harnessing the power of this artefact. I can show you any future you desire...)]
+	</p>
+	<p>
+		Putting the crystal ball away beneath [heather.her] table, Heather leans forwards and asks, [heather.speech(So, what can I do for you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_elis_market_heather_fortune_read))
+		<p>
+			Wanting to experience Heather's fortune reading again, you hand over one of your Faire tickets and tell [heather.herHim] that you'd like to see another vision of your future. Taking your ticket and tearing it in half, she stands up and skips over to close the curtain of [heather.her] yurt, before returning to [heather.her] seat and motioning for you to sit down opposite [heather.herHim]. As you move to do so, [heather.she] reaches down under [heather.her] table and once again produces [heather.her] crystal ball.
+		</p>
+	#ELSE
+		<p>
+			Wanting to experience Heather's fortune reading, you hand over one of your Faire tickets and tell [heather.herHim] that you'd like to see a vision of your future. Taking your ticket and tearing it in half, she stands up and skips over to close the curtain of [heather.her] yurt, before returning to [heather.her] seat and motioning for you to sit down opposite [heather.herHim]. As you move to do so, [heather.she] reaches down under [heather.her] table and produces the crystal ball which [heather.she]'s previously showed to you.
+		</p>
+	#ENDIF
+	<p>
+		[heather.speech(There are only a couple of people in a thousand who are able to harness the power of this artefact,)] Heather proudly declares as [heather.she] places the glass orb down on the table between the two of you. Swirling [heather.her] hands over it in a rhythmic figure of eight, she lowers [heather.her] voice and starts to utter a series of incomprehensible words and phrases. As [heather.she] does this, a series of twinkling lights start to glitter within the crystal ball, and upon seeing that it's coming to life, Heather breaks off from [heather.her] incantations to instruct, [heather.speech(Place your [pc.hands] on the globe, and imagine what you want to see the most in your future, and the globe will reveal it to you...)] 
+	</p>
+	<p>
+		Doing as you're instructed, you take hold of the crystal ball and wonder what to think of...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_POWER"><![CDATA[
+	<p>
+		Concentrating on the idea of possessing ultimate power, you watch as the lights within the crystal ball start to swirl around and take on a deep red hue. Unable to look away from the mesmerising display within this glass globe, you watch in awe as a fully 3D scene starts to play out within it...
+	</p>
+	<p><i>
+		You see yourself sitting on a grand, golden throne, with the beautiful form of Lilith herself chained up and kneeling down at your side. Countless lilin, demons, and all other powerful representatives from throughout your realm are queueing up to kneel down and pay homage to you. The one who's leading them forwards and instructing them to take their turn before you is none other than Heather, and you watch with amusement as [heather.she] prostrates [heather.herself] before you...
+	</i></p>
+	<p>
+		After spending a good five minutes watching this scene unfold within the crystal ball, the red lights start to fade away, and then as quickly as it started, it's all over. As the orb returns to an inert lump of glass, Heather flashes you a cheeky grin and asks, [heather.speech(Was that to your satisfaction, <i>my [pc.Lord]?</i>)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_FAME"><![CDATA[
+	<p>
+		Concentrating on the idea of being incredibly famous and respected, you watch as the lights within the crystal ball start to swirl around and take on a silver tone. Unable to look away from the mesmerising display within this glass globe, you watch in awe as a fully 3D scene starts to play out within it...
+	</p>
+	<p><i>
+		You see yourself walking down one of the main boulevards which run through Dominion. Huge crowds line either side of the red-carpeted road, and as you pass, they cry out for you to give them your autograph, with some of the more desperate women bearing their naked breasts for you to sign. You occasionally stop to humour your adoring fans, and whenever you do so, Heather is right there by your side to advise you on the appropriate level of contact with the public. As you progress down the boulevard, you see the beautiful form of Lilith herself pushing people out of her way as she tries to get your attention...
+	</i></p>
+	<p>
+		After spending a good five minutes watching this scene unfold within the crystal ball, the silver lights start to fade away, and then as quickly as it started, it's all over. As the orb returns to an inert lump of glass, Heather flashes you a cheeky grin and asks, [heather.speech(Was that to your satisfaction, <i>[pc.Sir]?</i>)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_FORTUNE"><![CDATA[
+	<p>
+		Concentrating on the idea of being incredibly wealthy, you watch as the lights within the crystal ball start to swirl around and take on a golden hue. Unable to look away from the mesmerising display within this glass globe, you watch in awe as a fully 3D scene starts to play out within it...
+	</p>
+	<p><i>
+		You see yourself relaxing in a jacuzzi within the grounds of an absolutely enormous palace. Surrounded by the absolute cream of high society, you find yourself being the centre of attention as everyone asks you how you managed to obtain more wealth than anyone who's ever lived. At that moment, Heather appears to inform you that your purchase of Lilith's tower has been finalised, before gesturing towards the dishevelled figure of Lilith herself as she waits for you to notice her. Taking pity on the queen of all demons, you toss her a solid gold coin, before suggesting to her that she come and work for you in some part of your global business empire...
+	</i></p>
+	<p>
+		After spending a good five minutes watching this scene unfold within the crystal ball, the golden lights start to fade away, and then as quickly as it started, it's all over. As the orb returns to an inert lump of glass, Heather flashes you a cheeky grin and asks, [heather.speech(Was that to your satisfaction, <i>boss</i>?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_SEX_NO_ATTRACTION"><![CDATA[
+	<p>
+		Concentrating on the idea of having non-stop sex with the fittest and most attractive partners in all of Lilith's Realm, you watch as the lights within the crystal ball start to swirl around and take on a pink hue. Unable to look away from the mesmerising display within this glass globe, you watch in awe as a fully 3D scene starts to play out within it...
+	</p>
+	<p><i>
+		You see yourself surrounded by the hottest sexual partners imaginable, each one of which is either presenting themselves to you or begging for you to fuck them. Happy to give them what they want, you move between each one, indulging yourself in your most carnal desires as you turn each one of these individuals into a quivering, satisfied wreck. When all of your partners have been well and truly exhausted, Heather shows in the next group of willing participants, and the orgy starts all over again...
+	</i></p>
+	<p>
+		After spending a good five minutes watching this scene unfold within the crystal ball, the pink lights start to fade away, and then as quickly as it started, it's all over. As the orb returns to an inert lump of glass, Heather flashes you a cheeky grin and asks, [heather.speech(Was that to your satisfaction?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_END"><![CDATA[
+	<p>
+		Duly impressed by the vision you've just witnessed, you give Heather your honest reply in the affirmative. With a look of satisfaction on [heather.her] face, [heather.she] puts the crystal ball back safely beneath [heather.her] table, before skipping over to open the entrance flap to [heather.her] yurt. Returning to [heather.her] seat as you stand up, [heather.she] asks, [heather.speech(Is there anything else I can do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_END_CONTINUE"><![CDATA[
+	<p>
+		Duly impressed by the vision you've just witnessed, you give Heather your honest reply in the affirmative. With a look of satisfaction on [heather.her] face, [heather.she] puts the crystal ball back safely beneath [heather.her] table, before skipping over to open the entrance flap to [heather.her] yurt. Returning to [heather.her] seat as you stand up, [heather.she] asks, [heather.speech(Is there anything else I can do for you?)]
+	</p>
+	<p>
+		Taking a quick look around the interior of Heather's yurt, you wonder whether to buy anything from [heather.herHim] or take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_SEX"><![CDATA[
+	<p>
+		Concentrating on the idea of having non-stop sex with the fittest and most attractive partners in all of Lilith's Realm, you watch as the lights within the crystal ball start to swirl around and take on a pink hue. Unable to look away from the mesmerising display within this glass globe, you watch in awe as a fully 3D scene starts to play out within it...
+	</p>
+	<p><i>
+		Instead of the sort of orgy you were expecting, you see yourself within a girly, pink-themed bedroom, watching Heather as [heather.she] slowly strips out of [heather.her] clothes. Shrugging off [heather.her] dress and quickly removing [heather.her] bra, [heather.she] reveals [heather.her] tiny, almost-completely flat breasts, upon each of which stands a big, puffy nipple. Looking down between [heather.her] legs, you see that [heather.sheHas] got [heather.her] small cock locked up in a silver chastity cage, and
+		#IF(game.isAnalContentEnabled())
+			 after turning around and bending over, [heather.she] pulls out [heather.her] silver buttplug and moans for you to start fucking [heather.her] ass...
+		#ELSE
+			 after stepping forwards and dropping down before you, [heather.she] moans for you to let [heather.herHim] perform oral on you...
+		#ENDIF
+	</i></p>
+	<p>
+		Your vision is suddenly interrupted as the real-life Heather lets out
+		#IF(heather.getSexCount(pc).getTotalTimesHadSex()>0)
+			 a deeply horny whine and asks, [heather.speech(You want to fuck me again, huh? J-Just keep imagining that, and I won't be able to say no...)]
+		#ELSE
+			 an embarrassed gasp. [heather.Her] cheeks flush bright red, and from the desperate look in [heather.her] eyes, you can tell that [heather.sheIs] getting madly turned on as [heather.she] stutters, [heather.speech(H-Hey! T-Think of something else! I get a bit of feedback from these visions, and you're making me... I won't be able to hold back...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_SEX_ORAL_START"><![CDATA[
+	<p>
+		Liking where this is going, you concentrate as hard as you can on intensifying the vision within the crystal ball, and you watch in delight as the lewd scene becomes both clearer and more explicit in nature...
+	</p>
+	#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+		<p><i>
+			You see yourself still within the same girly, pink-themed bedroom, although this time you've already exposed your [pc.cock+] and are presenting it to a desperate-looking Heather. Dropping down before you, [heather.she] wastes no time in parting [heather.her] [heather.lips+] and planting a big, wet kiss on the [pc.cockHead+] of your throbbing shaft. Completely submitting to you, [heather.she] then quickly drops [heather.her] head down, taking your [pc.cock+] down [heather.her] throat as [heather.she] starts to give you an enthusiastic, sloppy blowjob...
+		</i></p>
+		<p>
+			[heather.speech(Oh, fuck...)] the real-life Heather moans, interrupting your vision once again. With your imagination clearly having had a deeply arousing impact on [heather.herHim], [heather.she] doesn't even stop to ask for your consent in [heather.her] rush to skip around to your side of the table and kneel down before you. With a look of overwhelming lust in [heather.her] [heather.eyeColour] eyes, [heather.she] frantically begs, [heather.speech(Come on... ~Mmm!~ Give me your cock! I'll take it deep down my throat... Fuck my face and make me your bitch! ~Aah!~ Come on, give it to me!)]
+		</p>
+		<p>
+			Turned on by the vision you've just witnessed, and now by Heather's enthusiasm to replicate what you've seen now in real life, you decide to do as [heather.she] asks,
+			#IF(pc.isTaur())
+				 and after standing up, you take out your [pc.cock+] and present it to [heather.herHim].
+			#ELSE
+				 and after turning your chair to face [heather.herHim], you take out your [pc.cock+] and present it to [heather.herHim].
+			#ENDIF
+			 Letting out a hungry moan, Heather immediately pounces, and before you have time to react, [heather.her] tongue is sliding up and down the length of your erect shaft. Taking inspiration from the crystal ball's vision, [heather.she] parts [heather.her] [heather.lips+] and plants a big, wet kiss on the [pc.cockHead+] of your cock. Letting out a desperate, horny squeal, [heather.she] then proceeds to open [heather.her] mouth wide, and by dropping [heather.her] head down, [heather.she] takes your [pc.cock+] deep down [heather.her] throat.
+		</p>
+		<p>
+			As Heather starts to give you a desperate, loving blowjob, you can't help but let out a deeply satisfied [pc.moan] of your own and reflect for a moment on how well this has all turned out...
+		</p>
+	#ELSE
+		<p><i>
+			You see yourself still within the same girly, pink-themed bedroom, although this time you've already exposed your [pc.pussy+] and are presenting it to a desperate-looking Heather. Dropping down before you, [heather.she] wastes no time in parting [heather.her] [heather.lips+] and planting a big, wet kiss on your [pc.labia+]. Completely submitting to you, [heather.she] quickly moves [heather.her] head up to suck on and kiss your sensitive clit, before burying [heather.her] face in your groin and starting to enthusiastically eat you out...
+		</i></p>
+		<p>
+			[heather.speech(Oh, fuck...)] the real-life Heather moans, interrupting your vision once again. With your imagination clearly having had a deeply arousing impact on [heather.herHim], [heather.she] doesn't even stop to ask for your consent in [heather.her] rush to skip around to your side of the table and kneel down before you. With a look of overwhelming lust in [heather.her] [heather.eyeColour] eyes, [heather.she] frantically begs, [heather.speech(Come on... ~Mmm!~ Give me your pussy! I'll get my tongue deep in your hot cunt... Make me your bitch and have me eat you out! ~Aah!~ Come on, give it to me!)]
+		</p>
+		<p>
+			Turned on by the vision you've just witnessed, and now by Heather's enthusiasm to replicate what you've seen now in real life, you decide to do as [heather.she] asks,
+			#IF(pc.isTaur())
+				 and after standing up, you expose your [pc.pussy+] and present it to [heather.herHim].
+			#ELSE
+				 and after turning your chair to face [heather.herHim], you expose your [pc.pussy+] and present it to [heather.herHim].
+			#ENDIF
+			 Letting out a hungry moan, Heather immediately pounces, and before you have time to react, [heather.her] tongue is sliding up and down the length of your [pc.labia+]. Taking inspiration from the crystal ball's vision, [heather.she] parts [heather.her] [heather.lips+] and plants a big, wet kiss on your sensitive clit, before starting to greedily suck on it. Letting out a desperate, horny squeal, [heather.she] then proceeds to open [heather.her] mouth wide, and by dropping [heather.her] head down a little, [heather.she] slides [heather.her] tongue into your hot cunt and starts to frantically eat you out.
+		</p>
+		<p>
+			As Heather starts to perform cunnilingus, you can't help but let out a deeply satisfied [pc.moan] of your own and reflect for a moment on how well this has all turned out...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_CRYSTAL_BALL_SEX_ANAL_START"><![CDATA[
+	<p>
+		Liking where this is going, you concentrate as hard as you can on intensifying the vision within the crystal ball, and you watch in delight as the lewd scene becomes both clearer and more explicit in nature...
+	</p>
+	<p><i>
+		You see yourself still within the same girly, pink-themed bedroom, although this time you've already exposed your [pc.cock+] and are presenting it to a desperate-looking Heather. Bending over the edge of [heather.her] bed, [heather.she] wastes no time in reaching back and pulling [heather.her] ass cheeks apart in order to present you with [heather.her] asshole. Moving forwards, you rub the [pc.cockHead+] of your throbbing shaft up against [heather.her] back door, and as [heather.she] declares [heather.her] complete submission, you thrust forwards and push your [pc.cock+] into [heather.her] ass...
+	</i></p>
+	<p>
+		[heather.speech(Oh, fuck...)] the real-life Heather moans, interrupting your vision once again. With your imagination clearly having had a deeply arousing impact on [heather.herHim], [heather.she] doesn't even stop to ask for your consent in [heather.her] rush to skip around to the side of the table and pull up the skirt of [heather.her] dress. With a look of overwhelming lust in [heather.her] [heather.eyeColour] eyes, [heather.she] reveals that [heather.sheIs] wearing the exact same toys as in the vision scene, and after showing off her tiny, caged cock, [heather.she] turns around and pulls out [heather.her] silver butt plug, before bending over the table and frantically begging, [heather.speech(Come on... ~Mmm!~ Give me your cock! I'll take it deep in my ass... Fuck my butt and make me your bitch! ~Aah!~ Come on, give it to me!)]
+	</p>
+	<p>
+		Turned on by the vision you've just witnessed, and now by Heather's enthusiasm to replicate what you've seen now in real life, you decide to do as [heather.she] asks, and after standing up, you take out your [pc.cock+] and [pc.step] forwards to rub it up and down over [heather.her] ass. Letting out a hungry moan, Heather reaches back and pulls [heather.her] cheeks apart, before raising [heather.her] [heather.hips+] and preparing [heather.herself] for what's to come.
+	</p>
+	<p>
+		Seeing no reason to wait, you thrust forwards and push your [pc.cock+] into Heather's [heather.asshole+], causing [heather.herHim] to let out [heather.a_moan+]. Encouraged by [heather.her] lewd cries, you start bucking your hips and thrusting your [pc.cock+] in and out of [heather.her] [heather.ass+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(heather.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, Heather steps away from you and collapses down into [heather.her] chair. With a big smile on [heather.her] face, [heather.she] pants, [heather.speech(That was... Wow... You're good, [pc.name]... Real good...)]
+		#ELSE
+			Letting out a frustrated whine, Heather steps away from you and collapses down into [heather.her] chair. Pouting at you in annoyance, [heather.she] complains, [heather.speech(You didn't even satisfy me, [pc.name]... You need to do better next time...)]
+		#ENDIF
+	</p>
+	<p>
+		Smiling in response to Heather's words, you start to get your things back in order...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FORTUNES_AFTER_SEX_END"><![CDATA[
+	<p>
+		Having had your fun, you move away from Heather, allowing [heather.herHim] to stand up and skip over to open the entrance flap to [heather.her] yurt. Quickly returning to [heather.her] seat, [heather.she] asks, [heather.speech(So, [pc.name], is there anything else I can do for you?)]
+	</p>
+	<p>
+		Taking a quick look around the interior of Heather's yurt, you wonder whether to buy anything from [heather.herHim] or take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Kissing booth: -->
+	
+	<htmlContent tag="KISSING"><![CDATA[
+	#IF(game.getHourOfDay()>=19)
+		<p>
+			As it's well past closing time, all of the stalls in the Farmer's Market have been packed up and taken away. As a result, there's nothing for you to do here except head back into Elis...
+		</p>
+	#ELSE
+		#IF(flags.hasFlag(FLAG_innoxia_elis_market_ziva_met))
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see that [ziva.namePos] slaves are busily packing their stall away. Not wanting to trouble them, you decide to leave them to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					Positioned on the corner of two intersecting paths through the Farmer's market, the stall before you is remarkably different from all of the others which surround it. Instead of offering goods or services for sale, an informative sign labels this business as the market's 'Kissing Booth', and briefly states that one Faire ticket can be handed in here in exchange for a kiss.
+				</p>
+				<p>
+					The ones who are to deliver this promised kiss take the form of a trio of beautiful cow-girls, each one of which looks to be in their late teens or early twenties, and who are lined up and patiently waiting behind the stall's counter. As you take a closer looks at these cow-girls, you see that each of them is wearing a heavy metal slave collar, which is matched to the colour of their red, light-pink, and purple lipstick. Their skimpy bikinis are barely able to contain their massive breasts, and as they catch you looking at them, the one with the red lipstick winks at you and blows you a kiss.
+				</p>
+				#IF(ziva.isVisiblyPregnant())
+					<p>
+						[ziva.speech(You really do like getting my girls excited, don't you, [pc.name]?)] [ziva.name] calls out from off to one side of these cow-girls, and you look across to see the black-furred, greater goat-girl, who looks to be in her late forties, peering at you through her half-rim glasses. Her dark red plunge blouse strains to contain her huge, [ziva.cupSize]-cup breasts as she laboriously rises from her chair, and as she rubs her hands over her visibly-swollen belly, she teases, 
+						#IF(!ziva.isCharacterReactedToPregnancy(pc))
+							 [ziva.speech(I was first made a mother many years ago, but you've gone and given me that experience all over again... Yes, you were the one who got me pregnant, hun, and no, I don't need anything from you... Well, other than more of your flames, that is. You like mature goat-girls, so surely you like pregnant, mature goat-girls too, right?)]
+						#ELSE
+							 [ziva.speech(Yes, thanks to you I'm still pregnant, hun, and no, I don't need anything from you... Well, other than more of your flames, that is. You like mature goat-girls, so surely you like pregnant, mature goat-girls too, right?)]
+						#ENDIF
+					</p>
+					<p>
+						Nodding in agreement, you tell [ziva.name] that you're still attracted to her, which causes her to let out an amused chuckle and say, [ziva.speech(So come on then, prove it. If you've got any tickets left, hand them over and then pay up, and if you can afford it, you can soon find yourself balls-deep in my mature goat-pussy...)]
+					</p>
+				#ELSE
+					<p>
+						[ziva.speech(You really do like getting my girls excited, don't you, [pc.name]?)] [ziva.name] calls out from off to one side of these cow-girls, and you look across to see the black-furred, greater goat-girl, who looks to be in her late forties, peering at you through her half-rim glasses. Her dark red plunge blouse strains to contain her huge, [ziva.cupSize]-cup breasts as she leans forwards in her chair, and as her yellow, goat-like eyes look you up and down, she
+						#IF(flags.hasFlag(FLAG_innoxia_elis_market_ziva_kissed))
+							 teases, [ziva.speech(But we both know that you're not interested in my sexy, young slaves. No, you prefer mature goat-girls, don't you, hun? Now hand over one of your Faire tickets and get ready to pay up so that you can kiss me again...)]
+						#ELSE
+							 asks, [ziva.speech(So then, hun, have you got a Faire ticket to trade in for a kiss from one of my girls?)]
+						#ENDIF
+					</p>
+				#ENDIF
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()>=18)
+				<p>
+					As it's past closing time, you see a trio of cow-girls busily packing their stall away in this area. Not wanting to trouble them, you decide to leave them to it and head back into the Farmer's Market...
+				</p>
+			#ELSE
+				<p>
+					Positioned on the corner of two intersecting paths through the Farmer's market, the stall before you is remarkably different from all of the others which surround it. Instead of offering goods or services for sale, an informative sign labels this business as the market's 'Kissing Booth', and briefly states that one Faire ticket can be handed in here in exchange for a kiss.
+				</p>
+				<p>
+					The ones who are to deliver this promised kiss take the form of a trio of beautiful cow-girls, each one of which looks to be in their late teens or early twenties, and who are lined up and patiently waiting behind the stall's counter. As you take a closer looks at these cow-girls, you see that each of them is wearing a heavy metal slave collar, which is matched to the colour of their red, light-pink, and purple lipstick. Their skimpy bikinis are barely able to contain their massive breasts, and as they catch you looking at them, the one with the red lipstick winks at you and blows you a kiss.
+				</p>
+				<p>
+					[ziva.speech(You've got my girls excited,)] a voice calls out from off to one side of these cow-girls, and you look across to see a black-furred, greater goat-girl, who looks to be in her late forties, peering at you through her half-rim glasses. Her dark red plunge blouse strains to contain her huge, [ziva.cupSize]-cup breasts as she leans forwards in her chair, and as her yellow, goat-like eyes look you up and down, she asks, [ziva.speech(Do you have any Faire tickets? If you do, you can trade them in for a kiss from one of my girls. Oh, and you may address me as Ms. [ziva.surname]. What shall I call you, hun?)]
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_INTRO"><![CDATA[
+	<p>
+		Seeing no reason not to do so, you greet [ziva.name] and give her your name. Leaning back in her chair, she grins at you and repeats, [ziva.speech(If you've got a Faire ticket, you can trade it in here and get a kiss from one of my girls in return. I can assure you that they're very passionate about their duties, and your tickets won't be better spent anywhere else.)]
+	</p>
+	<p>
+		Looking over at the three cow-girls, you see them expectedly glancing your way, and as [ziva.name] notices this interaction, she laughs and says, [ziva.speech(See, hun, they're eager to get a taste of your lips! Now come on, hand over your tickets already. I've got a deal with the tourism board where they pay me in cash for every ticket I collect, so I need as many as I can get my hands on...)] 
+	</p>
+	<p>
+		With [ziva.namePos] motivation for running this stall now revealed, you wonder whether it's worth giving her a Faire ticket in return for a kiss from one of her cow-girls...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_CHOICE"><![CDATA[
+	<p>
+		Deciding that it's worth giving up one of your Faire tickets to be able to get a kiss, you hand the slip of lime green paper over to [ziva.name]. The mature goat-girl grins in delight as she pockets the ticket, before gesturing to her cow-gir slaves and
+		#IF(flags.hasFlag(FLAG_innoxia_elis_market_ziva_kiss_offered))
+			#IF(flags.hasFlag(FLAG_innoxia_elis_market_ziva_kissed))
+				 teasing, [ziva.speech(You can choose any of them to kiss, I really don't care which it is... But let's be honest with one another; you're not interested in those hot, young sluts, are you, hun? No, you've got a thing for mature goat-girls. Now hand over a thousand flames, and I'll let you kiss me again...)]
+			#ELSE
+				 saying, [ziva.speech(You can choose any of them to kiss, hun, I really don't care which it is. Oh, and if you're still really interested in wanting a kiss from me, then it'll be a thousand flames...)]
+			#ENDIF
+		#ELSE
+			 saying, [ziva.speech(You can choose any of them to kiss, hun, I really don't care which it is. Just make sure to have fun and come back again for more later on, I could always do with more tickets!)]
+		#ENDIF
+	</p>
+	<p>
+		Looking across at the three cow-girls, you see that while each of them is roughly the same height, age, and cup-size, they differ from one another by their attitude. The one wearing red lipstick looks to be the most normal, and is happily smiling at you as she tries to get your attention. The one wearing light-pink lipstick seems to be absolutely desperate for you to choose her, for as you look over at her, she bats her eyelids at you and blows you a big kiss, before biting her lip and impatiently squirming about on the spot. Finally, the one wearing purple lipstick doesn't seem to be all that happy with her lot in life, for as you glance her way she scowls at you a little, before pouting and turning away.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_market_ziva_kiss_offered))
+			Although these three cow-girls are undeniably beautiful, you find yourself looking back towards [ziva.name], and you wonder if it's worth paying a thousand flames to get a kiss from her...
+		#ELSE
+			Although these three cow-girls are undeniably beautiful, you find yourself briefly looking back towards [ziva.name], and you wonder if it's worth asking whether it'd be possible to get a kiss from her...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_CHOICE_RED"><![CDATA[
+	<p>
+		Making up your mind, you [pc.step] over to where the cow-girl wearing the red collar and lipstick is standing. Happily smiling at you, she excitedly asks, [style.speechFeminineStrong(You're picking me?! Ooh, yay! Come on then, get a taste of my lips...)]
+	</p>
+	<p>
+		Bending down over the counter, the cow-girl purses her lips, and you lean forwards to plant a kiss on her mouth. Letting out a happy sigh, your partner lifts her hands up and gently takes hold of you, before tilting her head to one side and sliding her tongue into your mouth. Continuing to let out a series of muffled moans, the cow-girl desperately presses her mouth against yours, smearing her red lipstick all over your lips in the process.
+	</p>
+	<p>
+		A few minutes, and a lot of passionate kissing later, and you hear [ziva.name] call out, [ziva.speech(That's enough, slave!)]
+	</p>
+	<p>
+		Letting out a disappointed whine, the cow-girl pulls back and brings and end to your makeout session. Looking across to [ziva.name], you see her flash you a devious grin before stating, [ziva.speech(If you want more, hun, then hand over another ticket...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_CHOICE_PINK"><![CDATA[
+	<p>
+		Making up your mind, you [pc.step] over to where the cow-girl wearing the light pink collar and lipstick is standing. With a huge grin on her pretty face, she excitedly asks, [style.speechFeminineStrong(You want to kiss me?! Yes! Oh, please, I <i>love</i> getting to kiss people! Come on, get a taste of my lips!)]
+	</p>
+	<p>
+		Desperately bending down over the counter, the cow-girl purses her lips, and you lean forwards to plant a kiss on her mouth. Letting out an ecstatic squeal, your partner lifts her hands up and firmly takes hold of you, before tilting her head to one side and greedily pushing her tongue into your mouth. Continuing to let out a series of muffled moans, the cow-girl desperately presses her mouth against yours, smearing her light pink lipstick all over your lips in the process.
+	</p>
+	<p>
+		A few minutes, and a lot of frantic, passionate kissing later, and you hear [ziva.name] call out, [ziva.speech(That's enough, slave!)]
+	</p>
+	<p>
+		Letting out an extremely disappointed whine, the cow-girl reluctantly pulls back and brings and end to your makeout session. Looking across to [ziva.name], you see her flash you a devious grin before stating, [ziva.speech(If you want more, hun, then hand over another ticket...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_CHOICE_PURPLE"><![CDATA[
+	<p>
+		Making up your mind, you [pc.step] over to where the cow-girl wearing the purple collar and lipstick is standing. Rolling her eyes, she asks in a dead-pan voice, [style.speechFeminineStrong(You choose me, right? Fine... Come on then, let's get this over with...)]
+	</p>
+	<p>
+		Bending down over the counter, the cow-girl purses her lips, and you lean forwards to plant a kiss on her mouth. Letting out a defeated sigh, your partner lifts her hands up and takes hold of you, before tilting her head to one side and slowly pushing her tongue into your mouth. Continuing to let out a series of deep moans, the cow-girl dutifully presses her mouth against yours, smearing her purple lipstick all over your lips in the process.
+	</p>
+	<p>
+		A few minutes, and a lot of reluctant kissing later, and you hear [ziva.name] call out, [ziva.speech(That's enough, slave!)]
+	</p>
+	<p>
+		Letting out a relieved sigh, the cow-girl quickly pulls back and brings and end to your makeout session. Looking across to [ziva.name], you see her flash you a devious grin before stating, [ziva.speech(If you want more, hun, then hand over another ticket...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_CHOICE_ZIVA_OFFER"><![CDATA[
+	<p>
+		Although the three cow-girls are tempting targets, you can't help but feel more attracted to [ziva.name], and so after returning your gaze to her, you ask the mature goat-girl if you could kiss her instead of one of her slaves. For a moment, the goat-girl's face twists into a look of confused annoyance, but as she starts to reply in the negative, she catches herself and pauses to think for a moment. As an idea forms in her head, [ziva.namePos] annoyed scowl shifts into a devious grin, and she asks, [ziva.speech(You'd rather kiss a mature goat-girl than one of her sexy, young slaves?)]
+	</p>
+	<p>
+		Responding in the affirmative, you tell [ziva.name] that you find her to be more attractive than the three cow-girls, and repeat your request to kiss her. Seeing that you're serious, the goat-girl grins at you and offers, [ziva.speech(Sure thing, hun, if you're that desperate to get a taste of my lips, then I'll let you. However, as I'm far more experienced than my slaves, my kisses are worth a lot more than theirs. I couldn't simply kiss you for free, you understand... How about... A thousand flames, and I'll let you kiss me.)]
+	</p>
+	<p>
+		As [ziva.name] leans back in her chair and continues to flash you a sly grin, you wonder whether it would be worth paying a thousand flames in return for a kiss from her. Then again, you could simply [pc.step] over to one of the cow-girls and get a kiss at no additional cost...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_CHOICE_NONE"><![CDATA[
+	<p>
+		Deciding that you don't want a kiss after all, you tell [ziva.name] that you've changed your mind, to which she tuts and quickly states, [ziva.speech(Sorry, hun, but you're not getting your ticket back, if that's what you're after. Check the bottom of the information board; the small print explicitly states that there are no refunds...)]
+	</p>
+	<p>
+		Looking over to the information board which [ziva.name] is gesturing towards, you see that there is indeed a small section at the bottom which states, among several other things, that tickets cannot be refunded. With a triumphant grin on her face, the goat-girl leans back in her chair and states, [ziva.speech(That's just business, hun; no hard feelings. Now, if you think that you've missed out, all you need to do is hand over another of your tickets and you can have your kiss...)]
+	</p>
+	<p>
+		With [ziva.name] continuing to flash you a sly grin, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_ZIVA"><![CDATA[
+	<p>
+		Thinking that it's worth it to pay a thousand flames to be able to get to kiss [ziva.name], you give her the money and repeat your claim that you prefer her to her three cow-girl slaves. Greedily stashing the flames away in a nearby strongbox, the goat-girl beckons for you to come around to her side of the counter, and as you eagerly do so, she laughs, [ziva.speech(You really prefer older women? I can't believe you actually paid for this... You must be really desperate, huh?)]
+	</p>
+	<p>
+		The mature goat-girl's womanly hips sway from side to side as she saunters forwards, and as she comes to a halt in front of you, you can't help but once again notice how her plunge blouse is straining to contain her huge breasts. Seeing your quick glance at her chest, [ziva.name] tuts and reprimands you, [ziva.speech(Don't get carried away, hun; you're only getting what you paid for.)]
+	</p>
+	<p>
+		Before you can respond, the goat-girl steps forwards and dominantly grabs your head, before pulling you into a fiercely-passionate kiss. Parting her lips, [ziva.name] forces her tongue into your mouth, and as you let out a muffled [pc.moan], she continues moving forwards and starts grinding her up body up against yours. As she crushes her massive, pillowy tits into your chest, she starts exploring the inside of your mouth with her tongue, letting out a series of approving moans and sighs as she does so.
+	</p>
+	<p>
+		After a couple of minutes of dominantly making out with you in this manner, [ziva.name] pulls back, breaking off your kiss with a deep sigh and asking, [ziva.speech(How was that? Feel like you got your money's worth?)]
+	</p>
+	<p>
+		Feeling incredibly aroused from the intensity of [ziva.namePos] kiss, you quickly respond in the positive, before leaning forwards to give her one last kiss. Letting out an amused chuckle, the mature goat-girl pushes you away, before wagging her finger in front of your face and scolding you, [ziva.speech(Oh no you don't! You've got what you paid for already. You still want more, hun? Then give me another ticket and another thousand flames.)]
+	</p>
+	<p>
+		As the mature goat-girl lets out another laugh, you find your gaze once again drawn down to her exposed cleavage. Despite her apparent reluctance to give you another kiss for free, you see a clear sign that she enjoyed your intimate interaction just as much as you did; her massive, thick nipples are quite visibly erect and pushing out against the silky fabric of her plunge blouse.
+		#IF(flags.hasFlag(FLAG_innoxia_elis_market_ziva_strip_offered))
+			 Seeing what it is you're looking at, [ziva.name] smirks and offers in a husky, seductive voice, [ziva.speech(You want to suck on my tits again, hun? Five thousand flames, and they're all yours...)]
+		#ELSE
+			 Feeling incredibly turned-on from the passionate kiss, your horny mind immediately jumps to the question of whether or not to ask her if you can suck on her tits...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_ZIVA_END"><![CDATA[
+	<p>
+		Having got what you wanted, you [pc.step] back and thank [ziva.name] for the kiss. After flashing you a smug smirk, she gestures for you to move back around to the other side of her counter, saying, [ziva.speech(We can do this again any time, hun, so long as you've got the cash. Now shoo, I've got a business to run.)]
+	</p>
+	<p>
+		[pc.Stepping] back around to the public side of the stall, you look back at [ziva.name] as she says, [ziva.speech(There's no time limit, by the way. Just give me the ticket and the flames, and I'll stick my tongue down your throat again right now.)]
+	</p>
+	<p>
+		As the mature goat-girl sits back down and continues to gaze your way, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_ZIVA_MORE"><![CDATA[
+	<p>
+		Unable to look away from the sight of [ziva.namePos] massive, thick nipples pressing out beneath the thin fabric of her plunge blouse, you give in to your horny thoughts and and ask the mature goat-girl if you can kiss them. Letting out a shocked sigh, [ziva.name] starts to admonish you for your outrageous request, but once again quickly stops herself. Narrowing her gaze a little, she peers at you through her glasses and slowly says, [ziva.speech(Let me get this straight, hun. You're telling me that you want me to take my tits out, so you can kiss my nipples? That's seriously what you're asking me right now?)]
+	</p>
+	<p>
+		Responding in the positive, you confirm to [ziva.name] that that's what you want. Letting out a laugh in disbelief at what she's hearing, the mature goat-girl gestures towards her young, voluptuous cow-girl slaves and asks, [ziva.speech(You're asking to kiss <i>my</i> tits, when you could have asked me about fucking one of my slaves instead? You've really got a thing for older goat-girls, huh? And here I was thinking that you'd be happy with just a kiss from me...)]
+	</p>
+	<p>
+		Reiterating your desire to kiss [ziva.namePos] naked breasts, you tell her that you find her to be far more attractive than her young slaves. Flashing you a devious smirk as she realises that you're not simply teasing her, the goat-girl states, [ziva.speech(Alright then, hun, I'll let you suck on my tits for a while, but it's going to cost you. My time's not cheap, so I'm going to have to demand five thousand flames. Pay up, and I'll let you suck on my tits for half an hour...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_ZIVA_BREASTS"><![CDATA[
+	<p>
+		More than happy to pay up for the opportunity to suck on [ziva.namePos] tits, you hurriedly produce the five thousand flames which she's asked for. Briefly laughing in disbelief at how desperate you are, the mature goat-girl takes your money and secures it away in her lockbox, before turning her back on you and ordering, [ziva.speech(Follow me, hun. We can get some privacy around the back of my stall.)]
+	</p>
+	<p>
+		Following in [ziva.namePos] footsteps, you quickly find yourself in a relatively spacious square behind her stall, with stacks of crates forming three sides and the canvas of the stall's backing constituting the fourth. Turning to face you, the goat-girl flashes you a sly smile, before pulling on the knot of her plunge blouse and allowing her huge, round tits to finally escape from their fabric confines. Just like the rest of her body, her breasts are covered in black fur that's highlighted here and there with streaks of grey. Hefting her breasts in both hands, [ziva.name] teases her fingers up to playfully squeeze and pinch her huge, ebony nipples. Letting out an amused moan, she pushes her chest out towards you and asks, [ziva.speech(What are you waiting for, hun? Come and get your money's worth...)]
+	</p>
+	<p>
+		Not needing to be told twice, you rush forwards and drop your head down to [ziva.namePos] naked breasts. Planting kiss after kiss on her huge, black-furred breasts, you make your way down towards her massive, thick nipples, and after giving one of them an experimental lick, you take it into your mouth and start to greedily suck on it. Much to your surprise and delight, your actions cause the mature goat-girl to let out a deeply erotic moan, and she affectionately strokes the top of your head as she teases, [ziva.speech(~Mmm!~ You really prefer my tits to those of my young slaves? ~Aah!~ Oh, you're making me feel young again, hun... Don't stop...)]
+	</p>
+	<p>
+		With no intention of stopping, you continue lewdly sucking and kissing [ziva.namePos] huge, ebony nipples, moving back and forth between them as she pants and moans in excitement. You get so caught up in the fun of playing with the goat-girl's tits that the time seems to fly by, and before you know it your half an hour is up. After letting you plant one big kiss on each of her thoroughly-sucked teats, [ziva.name] steps back and pants, [ziva.speech(That felt far better than I thought it would... Say, hun, you really like my tits, but do you like mature goat-pussy, too?)]
+	</p>
+	<p>
+		Clearly turned on from your oral attention, [ziva.name] reaches up beneath her pencil skirt and quickly slides her dark red thong all the way down her legs. Kicking it off to one side, she pulls up her skirt and presents you with her pussy, teasing, [ziva.speech(It's got some mileage, but I know you're horny for it. Looking's not going to cost you anything, but if you want a taste, that'll be ten thousand flames.)]
+	</p>
+	<p>
+		Looking down between [ziva.namePos] legs, you see that her massive, dangling labia are of a similar ebony shade to her nipples. Letting out a soft moan, the goat-girl teases her fingers down to spread her pussy lips apart, revealing the fact that her slightly-loose cunt is already slimy and glistening with girlcum. Although it certainly does look like it's 'got some mileage' on it, you can't help but feel extremely turned on as you get a good look at [ziva.namePos] mature cunt. Smirking as she sees that you're unable to take your eyes away from it, the goat-girl teases,
+		#IF(game.isAnalContentEnabled())
+			 [ziva.speech(Come on, hun, we both know that you're desperate for a taste of mature goat-pussy. Ten thousand flames, and you can stick your tongue in my cunt or ass 'til you make me cum.)]
+		#ELSE
+			 [ziva.speech(Come on, hun, we both know that you're desperate for a taste of mature goat-pussy. Ten thousand flames, and you can stick your tongue in my cunt 'til you make me cum.)]
+		#ENDIF
+	</p>
+	<p>
+		You can't help but let out a quiet [pc.moan] as you imagine burying your face between the goat-girl's legs and getting a good taste of her sloppy cunt.
+		#IF(pc.hasPenis())
+			 Seeing the hungry look in your eyes, [ziva.name] bites her lip and offers you another deal,
+			#IF(game.isAnalContentEnabled())
+				 [ziva.speech(Bump it up to fifty thousand, and I'll let you stick your cock in both my pussy and my ass... I'll even let you finish inside if you want... How about that, hun? You want to try and knock me up? Or pump my ass full of cum? Come on, you know you want it...)]
+			#ELSE
+				 [ziva.speech(Bump it up to fifty thousand, and I'll let you stick your cock in my pussy... I'll even let you finish inside if you want... How about that, hun? You want to try and knock me up? Come on, you know you want it...)]
+			#ENDIF
+		#ELSE
+			 Then again, you can't help but wonder if it's really worth spending ten thousand flames to do so...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_KISS_ZIVA_BREASTS_END"><![CDATA[
+	<p>
+		Tearing your gaze away from [ziva.namePos] slimy, mature pussy, you tell her that you can't afford to pay her right now. Tutting in annoyance, she grabs her thong from off the floor and pulls it back up her legs, before flattening her skirt and tying her plunge blouse back into position. Pouting at you for a moment, she mutters, [ziva.speech(I thought you'd like mature goat-pussy... Anyway, I guess the show's over then, hun. Now shoo, I've got a business to run.)]
+	</p>
+	<p>
+		Doing as [ziva.name] says, you [pc.step] out from the secretive storage area and return to the public side of the stall. Stepping over to her chair, [ziva.name] smirks at you and says, [ziva.speech(If you want a repeat performance, just say so. Give me another ticket and the flames, and I'll stick my tongue down your throat again right now.)]
+	</p>
+	<p>
+		As the mature goat-girl sits back down and continues to gaze your way, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ZIVA_CUNNILINGUS_START"><![CDATA[
+	<p>
+		Mesmerised by the sight of [ziva.namePos] sloppy goat-pussy, you hurry to hand over the ten thousand flames she's asking for. Letting out an amused laugh as she takes your cash, the goat-girl puts it to one side and beckons towards her cunt, teasing, [ziva.speech(Come on then, hun, tell me how much you love mature goat-pussy, and I'll let you get started!)]
+	</p>
+	<p>
+		Dropping down in front of her, you look up at the goat-girl and [pc.moan], [pc.speech(I love your pussy, [ziva.name]! Please, let me get a taste of it!)]
+	</p>
+	<p>
+		With a triumphant smirk on her face, [ziva.name] leans back against a nearby stack of crates, before reaching down to once again spread her dangling, ebony labia. Presenting her slimy cunt to you, she moans, [ziva.speech(Get started then, hun. I want to feel your tongue <i>deep</i> in my cunt... Oh, and you're not to stop until I say so. Understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, [ziva.name],)] you reply as you shuffle forwards and drop your head down between the mature goat-girl's thighs. Breathing in her feminine musk, you dart out your tongue and give her massive labia a quick lick, before planting a big, wet kiss on her clit. Your actions draw out a long, deep moan from [ziva.name], which encourages you to bury your face in between her legs and start to greedily eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ZIVA_ANILINGUS_START"><![CDATA[
+	<p>
+		Although you're captivated by the sight of [ziva.namePos] sloppy goat-pussy, it's her ass that you're really desperate for, and so as you hurry to hand over the ten thousand flames she's asking for, you tell the goat-girl that you want to perform anilingus on her. Letting out an amused laugh as she takes your cash, the goat-girl puts it to one side and turns around, showing off her [ziva.assSize] ass as she teases, [ziva.speech(Come on then, hun, tell me how much you love mature goat-ass, and I'll let you get started!)]
+	</p>
+	<p>
+		Dropping down behind her, you look up at the goat-girl and [pc.moan], [pc.speech(I love your ass, [ziva.name]! Please, let me get a taste of it!)]
+	</p>
+	<p>
+		With a triumphant smirk on her face, [ziva.name] leans forwards against a nearby stack of crates, before reaching back to spread her ass cheeks. Presenting her [ziva.asshole+] to you, she moans, [ziva.speech(Get started then, hun. I want to feel your tongue <i>deep</i> in my ass... Oh, and you're not to stop until I say so. Understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, [ziva.name],)] you reply as you shuffle forwards and drop your head down towards the mature goat-girl's butt. Breathing in her feminine musk, you dart out your tongue and give her exposed asshole a quick lick, before planting a series of big, wet kisses on it. Your actions draw out a long, deep moan from [ziva.name], which encourages you to bury your face in between her cheeks and start to greedily give her a rimjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ZIVA_VAGINAL_START"><![CDATA[
+	<p>
+		Mesmerised by the sight of [ziva.namePos] sloppy goat-pussy, you hurry to hand over the fifty thousand flames she's asking for. Letting out an amused laugh as she takes your cash, the goat-girl steps over to a nearby crate, and after lying back on it, she spreads her legs and presents you with her cunt, teasing, [ziva.speech(Come on then, hun, tell me how much you love mature goat-pussy, and I'll let you stick your dick in it!)]
+	</p>
+	<p>
+		Exposing your cock and [pc.stepping] up to her, you eagerly [pc.moan], [pc.speech(I love your pussy, [ziva.name]! Please, let me fuck it!)]
+	</p>
+	<p>
+		With a triumphant smirk on her face, [ziva.name] leans back, before reaching down to once again spread her dangling, ebony labia. Presenting her slimy cunt to you, she moans, [ziva.speech(Get started then, hun. I want to feel your cock <i>deep</i> in my cunt... Oh, and you're not to stop until I say so. Understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, [ziva.name],)] you reply as you move forwards and press the [pc.cockHead+] of your rapidly-hardening cock against the mature goat-girl's pussy. Breathing in her feminine musk, you slide your throbbig shaft up and down over her massive labia a few times, before pushing forwards and starting to sink your [pc.cockGirth] cock into her slimy twat. As she feels you entering her, [ziva.name] lets out long, deep moan, which encourages you to push forwards and sink your cock deep into her slimy pussy, before quickly pulling back and thrusting forwards once again. Within moments, the goat-girl is panting and moaning beneath you as you repeatedly thrust your [pc.cock+] in and out of her mature cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ZIVA_ANAL_START"><![CDATA[
+	<p>
+		Although you're captivated by the sight of [ziva.namePos] sloppy goat-pussy, it's her ass that you're really desperate for, and so as you hurry to hand over the fifty thousand flames she's asking for, you tell the goat-girl that you want to fuck her butt. Letting out an amused laugh as she takes your cash, the goat-girl steps over to a nearby crate, and after leaning down over it, she spreads her legs and presents you with her [ziva.ass+], teasing, [ziva.speech(Come on then, hun, tell me how much you love mature goat-ass, and I'll let you stick your dick in it!)]
+	</p>
+	<p>
+		Exposing your cock and [pc.stepping] up to her, you eagerly [pc.moan], [pc.speech(I love your ass, [ziva.name]! Please, let me fuck it!)]
+	</p>
+	<p>
+		With a triumphant smirk on her face, [ziva.name] reaches back to spread her ass cheeks, presenting you with her ebony-rimmed asshole. Presenting her back door to you, she moans, [ziva.speech(Get started then, hun. I want to feel your cock <i>deep</i> in my butt... Oh, and you're not to stop until I say so. Understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, [ziva.name],)] you reply as you move forwards and press the [pc.cockHead+] of your rapidly-hardening cock against the mature goat-girl's ass. Breathing in her feminine musk, you slide your throbbig shaft up and down over her rear entrance a few times, before pushing forwards and starting to sink your [pc.cockGirth] cock into her ass. As she feels you entering her, [ziva.name] lets out long, deep moan, which encourages you to push forwards and sink your cock deep into her asshole, before quickly pulling back and thrusting forwards once again. Within moments, the goat-girl is panting and moaning beneath you as you repeatedly thrust your [pc.cock+] in and out of her ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_AFTER_SEX"><![CDATA[
+	<p>
+		Letting out a deeply-satisfied sigh, [ziva.name] pushes you away and declares, [ziva.speech(I think you've got your money's worth by now...)]
+	</p>
+	<p>
+		Still wanting a little more, you move towards the mature goat-girl's pussy, but she playfully pushes you away once again and tuts, [ziva.speech(I don't think so! This goat-pussy is expensive; I don't give out freebies. If you want more, you'll have to come back later and pay me again. )]
+	</p>
+	<p>
+		Reluctantly [pc.stepping] away, you watch as [ziva.name] pulls her clothing back into position, concealing her slimy, mature pussy in the process.After flattening her skirt and tying her plunge blouse back into place, she waits for you to get your things back in order and declares, [ziva.speech(The show's over, hun. Now shoo, I've got a business to run.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KISSING_AFTER_SEX_END"><![CDATA[
+	<p>
+		Doing as [ziva.name] says, you [pc.step] out from the secretive storage area and return to the public side of the stall. Stepping over to her chair, [ziva.name] smirks at you and says, [ziva.speech(If you want a repeat performance, just say so. Give me another ticket and the flames, and I'll stick my tongue down your throat again right now.)]
+	</p>
+	<p>
+		As the mature goat-girl sits back down and starts to playfully count the money you've given her, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	
 	<htmlContent tag="PATH"><![CDATA[
 	#IF(game.getHourOfDay()>=18)
@@ -968,7 +2003,6 @@
 			#ENDIF
 		#ENDIF
 	#ENDIF
-	
 	]]>
 	</htmlContent>
 	
@@ -1218,7 +2252,7 @@
 		Wanting Yui to demonstrate how to use a ballgag, you give her one of your Faire tickets and make your request. Narrowing her eight, glowing-crimson eyes, a sadistic smirk settles on the demonic spider-girl's face, and with a swift crack of her riding crop, she orders, [yui.speech(Come around to my side of the counter, toy.)]
 	</p>
 	<p>
-		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you into the air so that your [pc.ass+] is pointing towards teh open side of the stall.
+		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you into the air so that your [pc.ass+] is pointing towards the open side of the stall.
 	</p>
 	<p>
 		[yui.speech(That's a good toy,)] she sneers as she steps around in front of you. Holding up a hot-pink ball gag, she places four of her arms down on her hips and explains in a mock-patronising voice, [yui.speech(Ball gags are very useful for keeping toys quiet. Open wide, so that I can demonstrate this to you.)]
@@ -1231,33 +2265,33 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_OBEY"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Happy to do as you're told, you muster what little amount of control you're left with within Yui's cocoon and obediently raise your ass towards the passing shoppers behind you. Stepping around beside you, the sadistic spider-girl uses her riding crop to deliver another sharp, stinging slap to your exposed butt, and as she hears your cry being muffled by the ball gag that's in your mouth, she teases, [yui.speech(Go on, toy, scream and squirm all you want... ~Mmm!~ I'm going to enjoy humiliating you...)]
 	</p>
 	<p>
-		You obey, Yui uses her riding crop to smack your ass. Public stop to laugh.
+		With that, Yui starts using her riding crop to relentlessly swat your ass, and as her painful blows alternate between your cheeks, you can't help but [pc.moan] and cry out into your ball gag. Your public display of complete submission soon starts to draw a crowd, and you hear several shoppers loudly laughing and commenting on your predicament. This public attention suits Yui's business well, as her demonstration leads to several shoppers asking to buy the same style of ball gag that you're currently wearing.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_RESIST"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Unwilling to do as you're told, you muster what little amount of control you're left with within Yui's cocoon and try to move your ass away from the passing shoppers behind you. Stepping around beside you, the sadistic spider-girl uses her riding crop to deliver another sharp, stinging slap to your exposed butt, and as she hears your cry being muffled by the ball gag that's in your mouth, she teases, [yui.speech(Did you really think that you'd avoid your fate, toy? Go on, scream and squirm all you want... ~Mmm!~ I'm going to enjoy humiliating you...)]
 	</p>
 	<p>
-		You refuse, Yui uses her webbing to force you to comply, then uses her riding crop to smack your ass. Public stop to laugh.
+		With that, Yui tugs on a couple of threads, and you feel your ass being lifted up against your will. Letting out an amused giggle, the demonic spider-girl starts using her riding crop to relentlessly swat your ass, and as her painful blows alternate between your cheeks, you can't help but [pc.moan] and cry out into your ball gag. Your public display of complete submission soon starts to draw a crowd, and you hear several shoppers loudly laughing and commenting on your predicament. This public attention suits Yui's business well, as her demonstration leads to several shoppers asking to buy the same style of ball gag that you're currently wearing.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_END"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		After a good fifteen minutes of being publicly whipped, with your only respite being the brief pauses as Yui deals with interested customers, the [yui.race] lets out a satisfied sigh and declares, [yui.speech(I've had my fun, toy. Play time's over.)]
 	</p>
 	<p>
-		Yui unequips your ball gag and with a flick of her fingers severs the threads holding you in place.
+		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor, but with the ballgag still locked in place, you're only able to let out a muffled yelp.
 	</p>
 	<p>
-		Tells you to get back to the other side of her stall.
+		[yui.speech(Your little performance helped me sell lots of ballgags. As a reward, I'll let you keep the one that you're wearing,)] Yui says, before swiping her riding crop down to deliver one final strike to your still-exposed ass. As you stand up on trembling [pc.legs], the sadistic spider-girl flashes you a wicked grin and snaps, [yui.speech(Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1265,43 +2299,86 @@
 	<!-- Chastity: -->
 	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Wanting Yui to demonstrate the proper use of a chastity cage, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the spider-girl's face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
 	</p>
 	<p>
-		Yui ties you up in webbing. Forces you to wear a chastity cage. Takes off her underwear and teases you by rubbing her drooling pussy over your caged cock. Tells you to remain still like a good caged bitch.
+		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you up off the ground.
+	</p>
+	<p>
+		[yui.speech(That's a good toy,)] she sneers as she steps around to the side of you. Holding up a hot-pink chastity cage, her eyes light up in sadistic delight as she uses her riding crop to give you a quick smack, before using her threads to pull you towards her and tease, [yui.speech(Now let's see what I've got to work with...)]
+	</p>
+	<p>
+		Dropping her hands down to your groin, the demonic spider-girl quickly gains access to your cock, and
+		#IF(pc.getPenisRawSizeValue() < PENIS_LENGTH_TWO_AVERAGE.getMedianValue())
+			 as she sees how small it is, she lets out a cruel, mocking laugh. Flicking your cock and looking down at it with a look of disgusted amusement on her face, she sneers, [yui.speech(How utterly pathetic... You'd never be able to satisfy anyone with this little thing... Now hold still so I can lock it up. I can't wait to see how you'll squirm and beg for release...)]
+		#ELSEIF(pc.getPenisRawSizeValue() < PENIS_LENGTH_FOUR_HUGE.getMedianValue())
+			 as she sees its above-average size, she lets out a disapproving tut. Flicking your cock and looking down at it with a look of disgusted amusement on her face, she sneers, [yui.speech(I bet you actually think your cock's big, don't you? Trust me, this thing's not worth being proud of... Now hold still so I can lock it up. I can't wait to see how you'll squirm and beg for release...)]
+		#ELSE
+			 as she sees how big it is, she lets out an approving hum. Flicking your cock and looking down at it with a look of disgusted amusement on her face, she sneers, [yui.speech(You're quite big, I'll admit... That doesn't make it any less pathetic, though... Now hold still so I can lock it up. I can't wait to see how you'll squirm and beg for release...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_SUBMIT"><![CDATA[
+	<p>
+		Happy to do as she says, you hold still while Yui clips the bright pink chastity cage into place over your cock. Letting out an amused laugh, the demonic spider-girl uses her riding crop to deliver a quick smack to your side, before teasing, [yui.speech(Now to demonstrate to you the real purpose of a chastity cage...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_RESIST"><![CDATA[
 	<p>
-		TODO Placeholder content!
-	</p>
-	<p>
-		You obey, Yui continues to tease you for a while.
+		Unwilling to do as she says, you squirm about and try to prevent Yui from locking you into chastity. Letting out an angry huff, the demonic spider-girl pulls on a couple of threads and tightens the cocoon that's binding you in place. Completely and utterly immobilised, you're unable to do anything more to prevent Yui from clipping the bright pink chastity cage into place over your cock. With a mocking sneer on her face, the demonic spider-girl uses her riding crop to deliver a series of quick, sharp smacks to your side, before teasing, [yui.speech(You really thought you could stop me from using you in any way I desire? Silly toy... Now I shall demonstrate to you the real purpose of a chastity cage...)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_HUMP"><![CDATA[
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_LOCKED_UP"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Reaching down to her groin, Yui unzips her latex panties and slowly slides them down her legs before completely taking them off. As she exposes her tight pussy, you see that a copious amount of slimy girlcum is literally dripping from it, and as she sees you staring, she laughs and teases, [yui.speech(What's the matter, toy? You want to get a closer look at my hot little cunt?)]
 	</p>
 	<p>
-		You refuse and try to hump her, Yui slaps you and continues to tease you for a while.
+		Before you can reply, the spider-girl manipulates her threads and suddenly tilts you back and drops you down towards the ground, stopping your fall just before you hit the floor. Stepping forwards and straddling your face, Yui presents you with her sopping-wet pussy. As you look up at her tight, wet cunt, the spider-girl reaches down to tease her fingers over her labia, which causes a significant amount of slimy girlcum to drool out and drip down all over your face. Almost immediately, you feel your cock straining against your chastity cage as it tries to get an erection, which causes you to let out a frustrated [pc.moan].
+	</p>
+	<p>
+		[yui.speech(Oh, you're trying to get hard already? I haven't even started yet! How pathetic...)] Yui sadistically teases, [yui.speech(Seeing as you're so desperate already, I suppose I should move on to the main performance...)]
+	</p>
+	<p>
+		With that, the spider-girl moves away from your face, and down towards your groin. Dropping down over your caged cock, she once again starts teasing her fingers over her pussy, which causes yet more girlcum to leak out and drip down directly onto your caged cock. As you feel the hot, slimy liquid drooling down over your groin, you let out an incredibly frustrated whine, which causes Yui to laugh, [yui.speech(See, toy? This is what a cage is for; I can tease you as much as I want, and there's never any threat of having your disgusting cock being shoved inside of me!)]
+	</p>
+	<p>
+		Dropping her hips down, Yui presses her hot, wet cunt down against your chastity cage, before starting to grind up and down over it. As her hot juices continue to leak down all over your groin, she glares down at you with her eight, glowing-crimson eyes and sadistically teases, [yui.speech(Just imagine... If you weren't caged, your cock would be thrusting inside of my hot, wet pussy right now... ~Mmm!~ Can you imagine it, toy? Imagine how it would feel to have my tight cunt gripping down around your hard cock... ~Mmm!~ But as you're caged, all you can do is imagine it... You're never going to be allowed to fuck my pussy, even though it's practically kissing your cock and begging for you to be inside of it...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_LOCKED_UP_ENDURE"><![CDATA[
+	<p>
+		Not wanting to displease Mistress Yui, you do your very best to endure her teasing and manage to prevent yourself from instinctively bucking your hips up and trying to hump her. After letting out a mocking laugh as she sees how hard you're trying not to give in to your desires, the demonic spider-girl decides to take advantage of your predicament to drum up some business, and after quickly turning around so as to move into a reverse cow-girl position, she calls out to the passing shoppers, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with chastity cages!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_LOCKED_UP_HUMP"><![CDATA[
+	<p>
+		Unable to hold back any longer, you give in to Mistress Yui's teasing and start to instinctively buck your hips up in order to try and hump her. After letting out a mocking laugh as she sees that you've given in to your desires, the demonic spider-girl decides to take advantage of your predicament to drum up some business, and after quickly turning around so as to move into a reverse cow-girl position, she calls out to the passing shoppers, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with chastity cages!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_END"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		As the sadistic spider-girl continues to grind her dripping cunt over your caged cock, you hear the animated chatter of numerous members of the public getting louder. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of chastity cage that you're currently wearing.
 	</p>
 	<p>
-		Yui unequips your cage and with a flick of her fingers severs the threads holding you in place.
+		After a good fifteen minutes of being publicly humiliated in this fashion, and with your only respite from the teasing being the brief pauses as Yui deals with interested customers, the [yui.race] lets out a satisfied sigh and declares, [yui.speech(I've had my fun, toy. Play time's over.)]
 	</p>
 	<p>
-		Tells you to get back to the other side of her stall.
+		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor.
+	</p>
+	<p>
+		[yui.speech(Your little performance helped me sell lots of cages. As a reward, I'll let you keep the one that you're wearing,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], the sadistic spider-girl flashes you a wicked grin and snaps, [yui.speech(Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1309,43 +2386,72 @@
 	<!-- Dildo: -->
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Wanting Yui to demonstrate the proper use of a dildo, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the spider-girl's face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
 	</p>
 	<p>
-		Yui ties you up in webbing. Shoves a pink dildo half-way into your pussy (variation if player has hymen). Tells you to push back and take it all.
+		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you up off the ground.
+	</p>
+	<p>
+		[yui.speech(That's a good toy,)] she sneers as she steps around to the side of you. Holding up a hot-pink dildo, her eyes light up in sadistic delight as she uses her riding crop to give you a quick smack, before using her threads to pull you towards her and tease, [yui.speech(Now let's see what I've got to work with...)]
+	</p>
+	<p>
+		Manipulating her threads, the demonic spider-girl twists you
+		#IF(pc.hasLegs())
+			 around and pulls your legs apart,
+		#ELSE
+			 around,
+		#ENDIF
+		 exposing your pussy not only to her, but also to any member of the public who so happens to be walking past her stall. Letting out a little laugh, Yui reaches up and spreads your [pc.labia+], before commenting,
+		#IF(pc.hasHymen())
+			 [yui.speech(Ooh, what's this? You've still got your hymen? What a dirty little virgin, wanting your first penetration to be in public like this...)]
+		#ELSE
+			 [yui.speech(Hmm, not bad, toy... I can't wait to stuff this dildo deep into your dirty little cunt...)]
+		#ENDIF
+	</p>
+	<p>
+		With two of her six hands still being used to keep your labia spread wide, Yui lifts the pink dildo up to your pussy and starts to tease its head over your [pc.pussy+]. Moaning in anticipation, you can't help but lift your hips a little as the demonic spider-girl continues to tease you with the promise of penetration. Giving your exposed ass a quick smack, Yui starts to push the dildo into your [pc.pussy+],
+		#IF(pc.hasHymen())
+			 laughing in sadistic delight as she tears through your hymen and causes you to let out a pained wail.
+		#ELSE
+			 laughing in delight as she causes you to let out [pc.a_moan+].
+		#ENDIF
+		 Stopping with the dildo only half-inserted into your [pc.pussy+], she demands, [yui.speech(Now push back, toy. Take it deep into your slutty pussy!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_PUSH_BACK"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Driven to please Mistress Yui by the incredible feeling of the hot pink dildo being pushed half-way into your hot pussy, you desperately push back and force the rest of the toy into your hungry cunt. As you squeal and moan in pleasure, the spider-girl teases, [yui.speech(That's a good toy! Take it deep!)]
 	</p>
 	<p>
-		You obey, Yui continues to fuck you with the dildo for a while.
+		With that, she starts to pull the dildo back out of your pussy, before suddenly and roughly shoving it back in as deep as it will go. Letting out a wild [pc.moan], you buck your hips in time with Yui's movements as she starts to repeatedly pump the dildo in and out of your quivering cunt. Sneering in sadistic delight, she delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with dildos!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_PULL_AWAY"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Not wanting to take it any deeper, you try to pull away from the dildo that's been pushed half-way into your hot pussy. Letting out an annoyed tut as she sees that you're refusing to obey her commands, Mistress Yui pushes forwards and roughly forces the rest of the toy into your hungry cunt. As you squeal in surprise, the spider-girl sneers, [yui.speech(Bad toy! You really think you get to choose what happens?! Your dirty pussy's going to take this dildo as deep as it can, and there's nothing you can do to stop it!)]
 	</p>
 	<p>
-		You refuse and try to pull away, Yui laughs and sadistically fucks you with the dildo for a while.
+		With that, she starts to pull the dildo back out of your pussy, before suddenly and roughly shoving it back in as deep as it will go. Letting out a wild [pc.moan], you desperately try, and fail, to pull away from Yui as she starts to repeatedly pump the dildo in and out of your quivering cunt. Sneering in sadistic delight, she delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with dildos!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_END"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		As the sadistic spider-girl continues to pump the pink dildo in and out of your [pc.pussy+], you hear the animated chatter of numerous members of the public coming from somewhere behind you. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of dildo that's being shoved deep into your exposed cunt.
 	</p>
 	<p>
-		Yui slides the dildo out of your pussy, and with a flick of her fingers severs the threads holding you in place.
+		After a good fifteen minutes of being publicly humiliated in this fashion, and with your only respite from the teasing being the brief pauses as Yui deals with interested customers, the [yui.race] lets out a satisfied sigh and declares, [yui.speech(I've had my fun, toy. Play time's over.)]
 	</p>
 	<p>
-		Tells you to get back to the other side of her stall.
+		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor, and with a gasp you realise that the hot pink dildo is still completely inserted into your pussy.
+	</p>
+	<p>
+		[yui.speech(Your little performance helped me sell lots of dildos. As a reward, I'll let you keep the one that you've been enjoying,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], you realise that the dildo that's still inserted into your pussy is carrying a sealing enchantment, for as you reach down and take hold of it, you find that you're unable to pull it out of your abused cunt. Letting out an amused laugh as she watches you try to remove the dildo, the sadistic spider-girl sneers, [yui.speech(You won't be getting rid of it in a hurry! Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1353,53 +2459,71 @@
 	<!-- Anal beads: -->
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Wanting Yui to demonstrate the proper use of anal beads, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the spider-girl's face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
 	</p>
 	<p>
-		Yui ties you up in webbing. Starts forcing anal beads into your asshole (variation if player is anal virgin). Tells you to relax so she can push them all in.
+		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you up off the ground.
+	</p>
+	<p>
+		[yui.speech(That's a good toy,)] she sneers as she steps around to the side of you. Holding up a chain of hot-pink anal beads, her eyes light up in sadistic delight as she uses her riding crop to give you a quick smack, before using her threads to pull you towards her and tease, [yui.speech(Now let's see what I've got to work with...)]
+	</p>
+	<p>
+		Manipulating her threads, the demonic spider-girl twists you 
+		#IF(pc.hasLegs())
+			 around and pulls your legs apart,
+		#ELSE
+			 around,
+		#ENDIF
+		 exposing your ass not only to her, but also to any member of the public who so happens to be walking past her stall. Letting out a little laugh, Yui reaches up and spreads your cheeks, before commenting, [yui.speech(Hmm, not bad, toy... I can't wait to stuff these beads deep into your hot ass...)]
+	</p>
+	<p>
+		With two of her six hands still being used to keep your ass cheeks spread wide, Yui lifts the pink beads up to your rear end and starts to tease the first of them over your [pc.asshole+]. [pc.Moaning] in anticipation, you can't help but lift your hips a little as the demonic spider-girl continues to tease you with the promise of penetration. Giving your exposed ass a quick smack, Yui starts to push the first bead into your [pc.asshole+], laughing in delight as she causes you to let out [pc.a_moan+]. Stopping with only the first bead inserted into your [pc.ass+], she demands, [yui.speech(Relax, toy. Stop clenching your ass so that I can shove all of them inside!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_RELAX"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Driven to please Mistress Yui by the incredible feeling of the first bead being pushed into your ass, you do as you're told and relax your asshole. As you do this, the spider-girl starts to push the next bead into your [pc.asshole+], teasing, [yui.speech(That's a good toy! Take them all!)]
 	</p>
 	<p>
-		You obey, Yui forces all beads into your asshole, before pulling them out and starting again.
+		With that, she continues pushing bead after bead into your ass, causing you to let out a series of [pc.moans+]. Sneering in sadistic delight after inserting the last of the beads, Yui delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with anal beads!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_CLENCH"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Not wanting to take any more of the beads, you try to pull away from Yui and firmly clench your asshole shut. Letting out an annoyed tut as she sees that you're refusing to obey her commands, Mistress Yui pushes forwards and roughly forces the next bead into your reluctant asshole. As you squeal in surprise, the spider-girl sneers, [yui.speech(Bad toy! You really think you get to choose what happens?! Your ass is going to take all of these beads, and there's nothing you can do to stop it!)]
 	</p>
 	<p>
-		You refuse and clench your asshole, Yui sadistically forces all beads into your asshole, before pulling them out and starting again.
+		With that, she starts to force bead after bead into your ass, causing you to let out a series of [pc.moans+]. Sneering in sadistic delight after forcefully inserting the last of the beads, Yui delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with anal beads!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_END"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		As the sadistic spider-girl starts to slowly pull the beads out of your [pc.asshole+], you hear the animated chatter of numerous members of the public coming from somewhere behind you. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch the spider-girl start to push the beads back inside of your ass, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of beads that are being shoved deep into your exposed asshole.
 	</p>
 	<p>
-		Yui takes the beads out of your asshole, and with a flick of her fingers severs the threads holding you in place.
+		After a good fifteen minutes of being publicly humiliated in this fashion, and with your only respite from the teasing being the brief pauses as Yui deals with interested customers, the [yui.race] lets out a satisfied sigh and declares, [yui.speech(I've had my fun, toy. Play time's over.)]
 	</p>
 	<p>
-		Tells you to get back to the other side of her stall.
+		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor, and with a gasp you realise that the hot pink anal beads are still completely inserted into your ass.
+	</p>
+	<p>
+		[yui.speech(Your little performance helped me sell lots of beads. As a reward, I'll let you keep the ones that you've been enjoying,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], you realise that the beads that are still inserted into your ass are carrying a sealing enchantment, for as you reach down and take hold of the exposed end of them, you find that you're unable to pull them out of your abused asshole. Letting out an amused laugh as she watches you try to remove the beads, the sadistic spider-girl sneers, [yui.speech(You won't be getting rid of those in a hurry! Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_AFTER_DEMONSTRATION"><![CDATA[
 	<p>
-		TODO Placeholder content!
+		Doing as you're told, and with the demonstration toy still in your possession, you [pc.step] back around to the other side of Yui's counter. Playfully weaving a strand of her web between all six of her hands, the sadistic spider-girl flashes you a devious grin and asks, [yui.speech(So, what do you want now? I only do one of those demonstrations per day, so if you want some more fun, you'll have to come back tomorrow...)]
 	</p>
 	<p>
-		You [pc.step] back around to the other side of the counter.
+		Looking over the display of sex toys that are arrayed across the stall's counter, you wonder whether to buy anything from the demonic spider-girl or turn around and take your leave...
 	</p>
 	]]>
 	</htmlContent>
