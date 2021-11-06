@@ -26,6 +26,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
@@ -9767,6 +9769,12 @@ public class UtilText {
 		}
 		for(CumProduction cumProduction : CumProduction.values()) {
 			engine.put("CUM_PRODUCTION_"+cumProduction.toString(), cumProduction);
+		}
+		for(FluidModifier fluidModifier : FluidModifier.values()) {
+			engine.put("FLUID_MODIFIER_"+fluidModifier.toString(), fluidModifier);
+		}
+		for(FluidFlavour fluidFlavour : FluidFlavour.values()) {
+			engine.put("FLUID_FLAVOUR_"+fluidFlavour.toString(), fluidFlavour);
 		}
 		for(BodyPartTag bpt : BodyPartTag.values()) {
 			engine.put("BODY_PART_TAG_"+bpt.toString(), bpt);
