@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -42,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class HarpyNestsAttacker extends NPC {
 
 	public HarpyNestsAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(Femininity.FEMININE), false);
 	}
 	
 	public HarpyNestsAttacker(Gender gender) {

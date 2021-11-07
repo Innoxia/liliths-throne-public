@@ -59,7 +59,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
     public static final int RECRUITMENT_YEAR = 1990;
     
     public RebelBaseInsaneSurvivor() {
-        this(Gender.M_P_MALE, false);
+        this(Gender.getGenderFromUserPreferences(false, false), false);
     }
     
     public RebelBaseInsaneSurvivor(Gender gender) {

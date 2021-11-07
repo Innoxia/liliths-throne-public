@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -39,11 +40,11 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SlaveForSale extends NPC {
 
 	public SlaveForSale() {
-		this(false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 
 	public SlaveForSale(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
+		this(Gender.getGenderFromUserPreferences(false, false), isImported);
 	}
 	
 	public SlaveForSale(Gender gender, boolean isImported) {

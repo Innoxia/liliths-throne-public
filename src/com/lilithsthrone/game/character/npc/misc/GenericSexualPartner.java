@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -52,7 +53,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class GenericSexualPartner extends NPC {
 
 	public GenericSexualPartner() {
-		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), false);
+		this(Gender.getGenderFromUserPreferences(false, false), WorldType.EMPTY, new Vector2i(0, 0), false);
 	}
 	
 	public GenericSexualPartner(boolean isImported) {

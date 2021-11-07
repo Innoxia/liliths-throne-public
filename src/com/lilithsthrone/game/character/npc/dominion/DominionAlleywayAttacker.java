@@ -52,7 +52,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class DominionAlleywayAttacker extends NPC {
 
 	public DominionAlleywayAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public DominionAlleywayAttacker(Gender gender) {
