@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.ModNPC;
+import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.utils.Util;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -149,6 +150,7 @@ public class NPCLoader {
                 if (npc != null && !npcMap.containsKey(npc.getId())) {
                     try {
                         game.addNPC(npc, true);
+                        ParserTarget.addAdditionalParserTarget(idPrefix, npc);
                     } catch (Exception e) {
                         System.err.println("Unable to Add NPC: " + npcFile.getCanonicalPath());
                         e.printStackTrace();

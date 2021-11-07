@@ -12,11 +12,14 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.time.Month;
 
 public class ModNPC extends NPC {
     private String modIdOverride = "";
+    private boolean trader = false;
 
     public ModNPC() {
         this(false);
@@ -39,6 +42,11 @@ public class ModNPC extends NPC {
     }
 
     @Override
+    public boolean isTrader() {
+        return trader;
+    }
+
+    @Override
     public void setStartingBody(boolean setPersona) {
     }
 
@@ -51,6 +59,12 @@ public class ModNPC extends NPC {
         if ("NOT_SET".equals(id) || id == null) {
             setId("-1,"+ modIdOverride);
         }
+
+        // Handle trading setup.
+        final Node traderSetup = parentElement.getElementsByTagName("trader").item(0);
+        if (traderSetup != null ) {
+            trader = true;
+        }
     }
 
     @Override
@@ -61,4 +75,5 @@ public class ModNPC extends NPC {
     public DialogueNode getEncounterDialogue() {
         return null;
     }
+
 }

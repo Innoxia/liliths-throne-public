@@ -36,13 +36,15 @@
     <mana value="1000.0"/>
     <areasKnownByCharacters/>
   </core>
-  <!-- <locationInformation>
-    <worldLocation value="DOMINION"/>
-    <homeWorldLocation value="MUSEUM"/>
-    <location x="8" y="8"/>
-    <homeLocation x="2" y="0"/>
-    <globalLocation x="20" y="17"/>
-  </locationInformation> -->
+  <npcSpecific>
+    <lastTimeEncountered value="0" />
+    <buyModifier value="0.5" />
+    <sellModifier value="50" />
+    <addedToContacts value="false" />
+    <NPCValues />
+  </npcSpecific>
+  <trader>
+  </trader>  
   <body>
     <bodyCore bodyMaterial="FLESH" bodySize="0" femininity="69" feral="false" genitalArrangement="NORMAL" height="170" muscle="100" piercedStomach="true" pubicHair="THREE_TRIMMED" takesAfterMother="true">
       <bodyCovering c1="COVERING_BLACK" c2="COVERING_BLACK" modifier="FLUFFY" pattern="NONE" type="innoxia_panther_body_hair"/>
@@ -71,7 +73,7 @@
     <antennae antennaePerRow="2" length="22" rows="1" type="NONE"/>
     <arm rows="1" type="HUMAN" underarmHair="ZERO_NONE"/>
     <ass assSize="4" hipSize="4" type="HUMAN"/>
-    <anus assHair="TWO_MANICURED" bleached="false" capacity="1.75" depth="3" elasticity="3" plasticity="3" stretchedCapacity="9.773253" virgin="false" wetness="0">
+    <anus assHair="TWO_MANICURED" bleached="false" capacity="1.75" depth="3" elasticity="3" plasticity="3" stretchedCapacity="9.773253" virgin="true" wetness="0">
       <anusModifiers/>
     </anus>
     <breasts milkRegeneration="500" milkStorage="960" nippleCountPerBreast="1" rows="1" shape="ROUND" size="10" storedMilk="960.0" type="HUMAN"/>
@@ -114,7 +116,7 @@
     <torso type="HUMAN"/>
     <tail count="1" girth="3" length="0.0" type="NONE"/>
     <tentacle count="1" girth="3" length="0.0" type="NONE"/>
-    <vagina capacity="3.75" clitGirth="3" clitSize="0" depth="2" eggLayer="false" elasticity="4" hymen="true" labiaSize="2" pierced="true" plasticity="3" squirter="false" stretchedCapacity="3.75" type="innoxia_panther_vagina" urethraCapacity="0.0" urethraDepth="2" urethraElasticity="0" urethraPlasticity="3" urethraStretchedCapacity="0.0" urethraVirgin="true" virgin="false" wetness="2">
+    <vagina capacity="3.75" clitGirth="3" clitSize="0" depth="2" eggLayer="false" elasticity="4" hymen="true" labiaSize="2" pierced="true" plasticity="3" squirter="false" stretchedCapacity="3.75" type="innoxia_panther_vagina" urethraCapacity="0.0" urethraDepth="2" urethraElasticity="0" urethraPlasticity="3" urethraStretchedCapacity="0.0" urethraVirgin="true" virgin="true" wetness="2">
       <clitModifiers/>
       <vaginaModifiers PUFFY="true"/>
       <urethraModifiers/>
@@ -449,7 +451,6 @@
     <statusEffect lta="2744308" sp="0" sr="-1" type="STRETCHING_ORIFICE"/>
     <statusEffect lta="2744308" sp="0" sr="-1" type="RECOVERING_ORIFICE"/>
     <statusEffect lta="2744308" sp="0" sr="-1" type="FETISH_EXHIBITIONIST_PLUS_BREASTS"/>
-    <statusEffect lta="2744308" sp="0" sr="-1" type="FETISH_PURE_VIRGIN_ONLY_HYMEN"/>
     <statusEffect lta="2744308" sp="0" sr="-1" type="ELEMENTAL_FIRE_WILDFIRE"/>
     <statusEffect lta="2744308" sp="0" sr="-1" type="ELEMENTAL_FIRE_BINDING_OF_FIRE"/>
     <statusEffect lta="2744308" sp="0" sr="-1" type="PHYSIQUE_PERK_2"/>
