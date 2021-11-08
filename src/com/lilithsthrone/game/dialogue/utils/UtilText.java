@@ -25,19 +25,11 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
-import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.markings.AbstractTattooType;
-import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
-import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
-import com.lilithsthrone.game.inventory.outfit.OutfitType;
-import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -113,6 +105,8 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
@@ -138,8 +132,11 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
@@ -164,6 +161,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.DamageVariance;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
@@ -181,8 +179,11 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
@@ -9707,12 +9708,15 @@ public class UtilText {
 			engine.put("ITEM_TAG_"+it.toString(), it);
 		}
 		for(CoverableArea ca : CoverableArea.values()) {
+			engine.put("COVERABLE_AREA_"+ca.toString(), ca);
 			engine.put("CA_"+ca.toString(), ca);
 		}
 		for(InventorySlot is : InventorySlot.values()) {
+			engine.put("INV_SLOT_"+is.toString(), is);
 			engine.put("IS_"+is.toString(), is);
 		}
 		for(EquipClothingSetting ecs : EquipClothingSetting.values()) {
+			engine.put("EQUIP_CLOTHING_SETTING_"+ecs.toString(), ecs);
 			engine.put("ECS_"+ecs.toString(), ecs);
 		}
 		
@@ -9907,6 +9911,7 @@ public class UtilText {
 			engine.put("PERK_CATEGORY_"+pk.toString(), pk);
 		}
 		for(AbstractStatusEffect sa : StatusEffect.getAllStatusEffects()) {
+			engine.put("STATUS_EFFECT_"+StatusEffect.getIdFromStatusEffect(sa), sa);
 			engine.put("SE_"+StatusEffect.getIdFromStatusEffect(sa), sa);
 		}
 		for(AbstractAttribute att : Attribute.getAllAttributes()) {
@@ -9920,6 +9925,9 @@ public class UtilText {
 		// Combat:
 		for(DamageType damageType : DamageType.values()) {
 			engine.put("DAMAGE_TYPE_"+damageType.toString(), damageType);
+		}
+		for(DamageVariance damageVariance : DamageVariance.values()) {
+			engine.put("DAMAGE_VARIANCE_"+damageVariance.toString(), damageVariance);
 		}
 		for(SpellSchool spellSchool : SpellSchool.values()) {
 			engine.put("SPELL_SCHOOL_"+spellSchool.toString(), spellSchool);
