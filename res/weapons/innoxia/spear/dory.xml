@@ -26,7 +26,6 @@
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		<spells/>
-		<enchantmentLimit>10</enchantmentLimit>
 		<effects/>
 		<primaryColours>
 			<colour>CLOTHING_DESATURATED_BROWN</colour>

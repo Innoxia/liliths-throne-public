@@ -14,7 +14,6 @@
 		<clothingSet>SCIENTIST</clothingSet>
 		<imageName>safety_goggles.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		
 		<effects>
             <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>

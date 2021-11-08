@@ -47,8 +47,6 @@
 		
 		<spells/>
 		
-		<enchantmentLimit>5</enchantmentLimit>
-		
 		<effects> 
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>

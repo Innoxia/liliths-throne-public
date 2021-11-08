@@ -32,8 +32,6 @@
 			<spell>WITCH_CHARM</spell>
 		</spells>
 		
-		<enchantmentLimit>5</enchantmentLimit>
-		
 		<effects> 
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
 		</effects>
