@@ -10681,6 +10681,9 @@ public class UtilText {
 		engine.put(tag, getInventoryForParsing());
 	}
 	
+	
+	// Memoization improvement attempts follow from here:
+	
 //	private static final Map<String, CompiledScript> memo = new HashMap<>();
 //	private static final int memo_limit = 500;
 	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason.
@@ -10712,8 +10715,10 @@ public class UtilText {
 //			script = memo.get(command);
 //		}
 //		return script.eval(((NashornScriptEngine)engine).getContext());
-////		return script.eval();
-
+//		//return script.eval();
+		
+		
+		// This is the old code which works but is slow:
 		CompiledScript script = ((NashornScriptEngine)engine).compile(command);
 		return script.eval();
 	}

@@ -2541,7 +2541,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGString(),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					+ sb.toString()
 					+ (owner!=null && owner.isPlayer()
@@ -5294,7 +5294,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					 	+sb.toString());
 		}

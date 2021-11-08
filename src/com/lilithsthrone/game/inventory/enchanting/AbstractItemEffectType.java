@@ -176,23 +176,31 @@ public abstract class AbstractItemEffectType {
 		return getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
 	}
 	
-	public static String getBookEffect(GameCharacter reader, AbstractSubspecies subspecies, boolean withDescription) {
-		Main.getProperties().addRaceDiscovered(subspecies);
-		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
-			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+	public static String getBookEffect(GameCharacter reader, AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies, boolean withDescription) {
+		List<AbstractSubspecies> subsPlusMain = new ArrayList<>();
+		subsPlusMain.add(mainSubspecies);
+		if(additionalUnlockSubspecies!=null) {
+			subsPlusMain.addAll(additionalUnlockSubspecies);
 		}
-
-		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(subspecies);
-		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(subspecies) || !reader.hasPerkAnywhereInTree(perk)) {
+		
+		for(AbstractSubspecies subspecies : subsPlusMain) {
+			Main.getProperties().addRaceDiscovered(subspecies);
+			if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
+				Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+			}
+		}
+		
+		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(mainSubspecies);
+		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(mainSubspecies) || !reader.hasPerkAnywhereInTree(perk)) {
 			return (withDescription
-						?subspecies.getBasicDescription(null)
-								+subspecies.getAdvancedDescription(null)
+						?mainSubspecies.getBasicDescription(null)
+								+mainSubspecies.getAdvancedDescription(null)
 						:"")
 					+reader.addSpecialPerk(perk);
 			
 		} else {
-			return subspecies.getBasicDescription(null)
-					+subspecies.getAdvancedDescription(null)
+			return mainSubspecies.getBasicDescription(null)
+					+mainSubspecies.getAdvancedDescription(null)
 					+"<p style='text-align:center; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";

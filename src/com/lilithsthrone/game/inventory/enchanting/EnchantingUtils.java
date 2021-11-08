@@ -70,6 +70,8 @@ public class EnchantingUtils {
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
 		craftedClothing.setEnchantmentKnown(null, true);
+		
+		craftedClothing.setStickers(((AbstractClothing)ingredient).getStickers());
 
 //		System.out.println("Has clothing: "+Main.game.getPlayer().hasClothing(craftedClothing));
 //		for(char c : EnchantmentDialogue.getOutputName().toCharArray()) {

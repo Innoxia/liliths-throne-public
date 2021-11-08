@@ -4,7 +4,12 @@
 		<authorTag><![CDATA["MFD by DSG Beverages GmbH" is engraved into the bottle]]></authorTag>
 		<value>30</value>
 		<melee>false</melee>
-		<twoHanded>true</twoHanded>
+		<twoHanded>false</twoHanded>
+		
+		<oneShotWeapon>true</oneShotWeapon>
+		<oneShotWeaponChanceToRecoverAfterTurn>0</oneShotWeaponChanceToRecoverAfterTurn>
+		<oneShotWeaponChanceToRecoverAfterCombat>0</oneShotWeaponChanceToRecoverAfterCombat>
+		
 		<determiner><![CDATA[an]]></determiner>
 		<name appendDamageName="true"><![CDATA[arcane firebomb]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[arcane firebombs]]></namePlural>
@@ -39,11 +44,6 @@
 		<onHitEffect><![CDATA[
 			#IF (!npc2.hasStatusEffect(SE_LINGERING_FLAMES))
 				[##npc2.addStatusEffect(SE_LINGERING_FLAMES, 6)] The burning oil pools around [npc2.name], [style.boldFire(causing the flames to lick at [npc2.her] [npc2.feet]!)]
-			#ENDIF 
-			#IF (npc.getMainWeapon(0) != null && npc.getMainWeapon(0).getWeaponType().equals(WEAPON_dsg_hlf_weap_pbomb))
-				[##npc.unequipMainWeaponIntoVoid(0, true)]
-			#ELSEIF (npc.getOffhandWeapon(0) != null && npc.getOffhandWeapon(0).getWeaponType().equals(WEAPON_dsg_hlf_weap_pbomb))
-				[##npc.unequipOffhandWeaponIntoVoid(0, true)]
 			#ENDIF
 		]]></onHitEffect>
 		
