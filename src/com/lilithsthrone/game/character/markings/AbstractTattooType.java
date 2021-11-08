@@ -39,9 +39,6 @@ public class AbstractTattooType extends AbstractCoreType {
 	private boolean isMod;
 	
 	private int value;
-
-	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	
 	private List<InventorySlot> slotAvailability;
 
@@ -69,7 +66,6 @@ public class AbstractTattooType extends AbstractCoreType {
 		this.isMod = false;
 		
 		value = 500;
-		enchantmentLimit = 5;
 		
 		this.pathName = pathName;
 		this.name = name;
@@ -147,12 +143,6 @@ public class AbstractTattooType extends AbstractCoreType {
 				try {
 					this.availabilityRequirements = coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getTextContent();
 				} catch(Exception ex) {
-				}
-				
-				try {
-					enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
-				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'enchantmentLimit' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				
 				List<Colour> importedPrimaryColours = new ArrayList<>();
