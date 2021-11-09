@@ -23,6 +23,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Prevented a null exception when a move had zero equip-weight. (PR#1596 by CognitiveMist)
 		Fixed several bugs and updated modding information for patterns. (PR#1605 by CognitiveMist)
 		Fixed rare bug when importing clothing which would sometimes result in modded clothing not showing up for sale. (PR#1607 by CognitiveMist)
+		Adjusted NPCs' reference to their working hours to respect the 12 or 24-hour preference in the player's settings. (PR#1609 by CognitiveMist)
 	
 	Engine/Modding:
 		Slightly improved performance of encounter generation.
@@ -143,6 +144,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Apparently naturally spawned slimes aren’t supposed to have makeup but I find a lot of them with makeup: an example
 	[-] The second floor of Lilya’s mansion lags like the end of the world.
 	
+	[] add enchantment capacity as an enchantment that's unobtainable in the enchanting menu
+	
 	[] Also had an 'Error: getContentmethod() is throwing an exception in the node "Inventory"' happen when I enchanted angel philter,
 	 I already had 1 stack of the enchanted stuff in my inventory at the time, and I used the save/load recipe function so the enchantment is identical
 	
@@ -205,11 +208,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Should already be fixed but check:
 		I figured it out, Natalya's stuff is broken. Like actually broken. For me, she went past her 4 orgasms and I had to use the quick sex to get out of it because it was like 10 orgasms.
 		 Same with thunder. I think just that part of the game is broken in general
-	
-	[] But when a resident at Lilith's house told me they had a job, they said it with 24 hours time, which should have been set to 12 hours time
-		"From now on, I'm going to be out at work from X"
-		Also their note they leave:
-		"I'm out at work at the moment, my hours are from X"
 	
 	[] typo: "out of the corer of"
 	
