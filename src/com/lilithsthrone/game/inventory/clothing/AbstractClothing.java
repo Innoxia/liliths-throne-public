@@ -70,7 +70,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	protected List<ItemEffect> effects;
 	
-	private String pattern; // name of the pattern. 
+	private String pattern; // id of the pattern.
 	private List<Colour> patternColours;
 
 	private Map<String, String> stickers; // Mapping StickerCategory id to Sticker id
@@ -221,7 +221,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		patternColours = new ArrayList<>();
 		
 		if(Math.random()<clothingType.getPatternChance()) {
-			pattern = Util.randomItemFrom(clothingType.getDefaultPatterns()).getName();
+			pattern = Util.randomItemFrom(clothingType.getDefaultPatterns()).getId();
 			
 		} else {
 			pattern = "none";
@@ -647,7 +647,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.8")) {
 			Element patternElement = (Element) parentElement.getElementsByTagName("pattern").item(0);
 			if(patternElement!=null) {
-				clothing.setPattern(patternElement.getAttribute("id"));
+				String patternId = patternElement.getAttribute("id");
+				if(Pattern.getPattern(patternId) == null) {
+					patternId = Pattern.getPatternIdByName(patternId);
+				}
+				clothing.setPattern(patternId);
 				NodeList nodes = patternElement.getElementsByTagName("colour");
 				for(int i=0; i<nodes.getLength(); i++) {
 					Element cElement = (Element) nodes.item(i);
@@ -661,8 +665,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		} else {
 			try {
 				if(!parentElement.getAttribute("pattern").isEmpty()) {
-					String pat = parentElement.getAttribute("pattern");
-					clothing.setPattern(pat);
+					String patternId = parentElement.getAttribute("pattern");
+					if(Pattern.getPattern(patternId) == null) {
+						patternId = Pattern.getPatternIdByName(patternId);
+					}
+					clothing.setPattern(patternId);
 				} else {
 					clothing.setPattern("none");
 				}
@@ -812,7 +819,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	/**
-	 * Returns the name of a pattern that the clothing has.
+	 * Returns the id of a pattern that the clothing has.
 	 * @return
 	 */
 	public String getPattern() {
