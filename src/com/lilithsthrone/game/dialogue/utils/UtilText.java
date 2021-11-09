@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -1933,6 +1934,36 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return String.valueOf(character.getHistory().getWorkHourEnd());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"jobTimeStart",
+						"jobStartTime"),
+				true,
+				true,
+				"",
+				"Returns the locale-adapted start time for this character's job. Does not work for slave jobs."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Units.time(LocalTime.of(character.getHistory().getWorkHourStart(), 0, 0));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"jobTimeEnd",
+						"jobEndTime",
+						"jobTimeFinish",
+						"jobFinishTime"),
+				true,
+				true,
+				"",
+				"Returns the locale-adapted end time for this character's job. Does not work for slave jobs."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Units.time(LocalTime.of(character.getHistory().getWorkHourEnd(), 0, 0));
 			}
 		});
 		
@@ -5514,7 +5545,7 @@ public class UtilText {
 				if(character.getCovering(character.getArmCovering()).getModifier().isFurryModifier()) {
 					descriptors.add("furry");
 				} else {
-					if(character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
+					if(Main.game.isBodyHairEnabled() && character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
 						descriptors.add("hairy");
 					} else {
 						descriptors.add("smooth");

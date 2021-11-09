@@ -5566,13 +5566,13 @@ public class MainControllerInitMethod {
 
 				// Clothing pattern selection:
 				for(Pattern pattern : Pattern.getAllPatterns()) {
-					id = "ITEM_PATTERN_"+pattern.getName();
+					id = "ITEM_PATTERN_"+pattern.getId();
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(InventoryDialogue.dyePreviewPattern != pattern.getName()){
-								InventoryDialogue.dyePreviewPattern = pattern.getName();
+							if(!InventoryDialogue.dyePreviewPattern.equals(pattern.getId())){
+								InventoryDialogue.dyePreviewPattern = pattern.getId();
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);

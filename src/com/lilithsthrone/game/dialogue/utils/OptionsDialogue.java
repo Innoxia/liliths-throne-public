@@ -1384,6 +1384,15 @@ public class OptionsDialogue {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
+			} else if (index == 1) {
+				return new Response("Defaults", "Restore all orientation preferences to their default values.", ORIENTATION_PREFERENCE) {
+					@Override
+					public void effects() {
+						Main.getProperties().resetOrientationPreferences();
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+				
 			} else {
 				return null;
 			}
@@ -1433,12 +1442,8 @@ public class OptionsDialogue {
 				return new Response("Defaults", "Reset all fetish preferences to their default settings.", FETISH_PREFERENCE) {
 					@Override
 					public void effects() {
-						for(Fetish fetish : Fetish.values()) {
-							if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
-								Main.getProperties().fetishPreferencesMap.put(fetish, FetishPreference.THREE_NEUTRAL.getValue());
-							}
-						}
-						Main.saveProperties();
+						Main.getProperties().resetFetishPreferences();
+						Main.getProperties().savePropertiesAsXML();
 					}
 				};
 			} else {
