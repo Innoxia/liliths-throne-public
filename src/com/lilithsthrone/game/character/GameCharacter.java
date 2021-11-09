@@ -21465,6 +21465,10 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Description of what happened.
 	 */
 	public String addItem(AbstractItem item, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if(item==null) {
+			System.err.println("Warning: item is returning null in GameCharacter.addItem()!");
+			return "";
+		}
 		if (removingFromFloor) {
 			if (inventory.addItem(item, count)) {
 				updateInventoryListeners();
@@ -21634,6 +21638,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String addWeapon(AbstractWeapon weapon, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if(weapon==null) {
+			System.err.println("Warning: weapon is returning null in GameCharacter.addWeapon()!");
+			return "";
+		}
 		if (inventory.addWeapon(weapon, count)) {
 			updateInventoryListeners();
 			if (removingFromFloor) {
@@ -22311,6 +22319,10 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	public String addClothing(AbstractClothing clothing, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if(clothing==null) {
+			System.err.println("Warning: clothing is returning null in GameCharacter.addClothing()!");
+			return "";
+		}
 		if (inventory.addClothing(clothing, count)) {
 			updateInventoryListeners();
 			if (removingFromFloor) {

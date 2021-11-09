@@ -209,7 +209,12 @@ public class Monica extends NPC {
 				for(int i=0; i < nodeList.getLength(); i++){
 					Element e = (Element) nodeList.item(i);
 					try {
-						entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+						AbstractClothing c = AbstractClothing.loadFromXML(e, doc);
+						if(c!=null) {
+							entry.getValue().add(c);
+						} else {
+							System.err.println("Warning: loaded clothing is null in Monica's loadFromXML() method!");
+						}
 					} catch(Exception ex) {
 					}
 				}
