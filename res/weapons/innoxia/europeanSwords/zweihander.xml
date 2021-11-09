@@ -10,7 +10,7 @@
 		<description><![CDATA[As its name of 'Zweih&auml;nder' (two-hander) suggests, this sword is so large that it requires two hands to wield correctly. The blade is made out of ethereal arcane energy, which instead of cutting someone, drains their energy as it passes through them.]]></description> 
 		<attackDescriptor>slash</attackDescriptor>
 		<attackTooltipDescription><![CDATA[Slash at [npc2.name] with your Zweih&auml;nder.]]></attackTooltipDescription>
-		<rarity>EPIC</rarity>
+		<rarity>COMMON</rarity>
 		<weaponSet/>
 		<equipText><![CDATA[[npc.Name] [npc.verb(position)] [npc.her] Zweih&auml;nder at [npc.her] hip, ready to draw it at a moment's notice.]]></equipText>
 		<unequipText><![CDATA[[npc.Name] [npc.verb(sheath)] [npc.her] Zweih&auml;nder, before putting it away.]]></unequipText>

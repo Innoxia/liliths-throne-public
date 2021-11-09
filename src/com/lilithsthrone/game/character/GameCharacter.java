@@ -92,6 +92,7 @@ import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -494,6 +495,7 @@ public abstract class GameCharacter implements XMLSaving {
 //	private Map<String, Map<SexType, Integer>> sexPartnerMap;
 	/** Entry Strings are: Character ID who took virginity, virginity loss description.*/
 	protected Map<SexType, Entry<String, String>> virginityLossMap;
+	protected Map<SexType, String> backupVirginityLossMap; // Saves a parsed String when the virginity-taking character is deleted from the game
 	
 	// Fluids:
 	private float alcoholLevel = 0f;
@@ -684,6 +686,7 @@ public abstract class GameCharacter implements XMLSaving {
 //		sexCountMap = new HashMap<>();
 //		cumCountMap = new HashMap<>();
 		virginityLossMap = new HashMap<>();
+		backupVirginityLossMap = new HashMap<>();
 		
 		// Addictions:
 		addictions = new ArrayList<>();
@@ -1371,6 +1374,14 @@ public abstract class GameCharacter implements XMLSaving {
 			e.setAttribute("takenBy", entry.getValue().getKey());
 			e.setAttribute("takenDescription", entry.getValue().getValue());
 			virginityLossesElement.appendChild(e);
+		}
+		
+		Element backupVirginityLossesElement = doc.createElement("virginityLossesBackup");
+		characterSexStats.appendChild(backupVirginityLossesElement);
+		for(Entry<SexType, String> entry : this.getBackupVirginityLossMap().entrySet()) {
+			Element e = entry.getKey().saveAsXML(parentElement, doc);
+			e.setAttribute("takenDescription", entry.getValue());
+			backupVirginityLossesElement.appendChild(e);
 		}
 		
 		
@@ -3074,6 +3085,18 @@ public abstract class GameCharacter implements XMLSaving {
 					character.setVirginityLoss(
 							SexType.loadFromXML(e, doc),
 							e.getAttribute("takenBy"),
+							e.getAttribute("takenDescription"));
+				}
+			}
+			
+
+			element = (Element) (sexStatsElement).getElementsByTagName("virginityLossesBackup").item(0);
+			if(element!=null) {
+				NodeList sexTypeElements = element.getElementsByTagName("sexType");
+				for(int i=0; i<sexTypeElements.getLength(); i++){
+					Element e = (Element) sexTypeElements.item(i);
+					character.setBackupVirginityLoss(
+							SexType.loadFromXML(e, doc),
 							e.getAttribute("takenDescription"));
 				}
 			}
@@ -9167,16 +9190,21 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE), target, request, mainSexTypes, 0.5f);
 		
 		// Self-breasts:
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
+		boolean selfBreastDesired = this.hasBreasts() || this.isFeminine() || this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isPositive();
+		if(selfBreastDesired) {
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
+		}
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS), target, request, foreplaySexTypes, 2);
 
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS), target, request, mainSexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
+		if(selfBreastDesired) {
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
+		}
 
 		// Crotch-boobs:
 		if(target.hasBreastsCrotch()) {
@@ -9554,6 +9582,24 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Virginity:
 	
+	
+	public Map<SexType, String> getBackupVirginityLossMap() {
+		return backupVirginityLossMap;
+	}
+	
+	/**
+	 * <b>Should only be called if it is certain that the virginity-taking character is still in the game!</b>
+	 * @param sexType
+	 */
+	public void setBackupVirginityLoss(SexType sexType) {
+		String description = getVirginityLossDescription(sexType);
+		getBackupVirginityLossMap().put(sexType, description);
+	}
+
+	public void setBackupVirginityLoss(SexType sexType, String description) {
+		getBackupVirginityLossMap().put(sexType, description);
+	}
+	
 	public void setVirginityLoss(SexType sexType, GameCharacter characterTakingVirginity, String description) {
 		virginityLossMap.put(sexType, new SimpleEntry<>(characterTakingVirginity.getId(), description));
 	}
@@ -9579,7 +9625,6 @@ public abstract class GameCharacter implements XMLSaving {
 	public Map<SexType, Entry<String, String>> getVirginityLossMap() {
 		return virginityLossMap;
 	}
-	
 	
 	public String getVirginityLossDescription(SexType sexType) {
 		if(this.getVirginityLoss(sexType)==null || this.getVirginityLoss(sexType).getKey()==null) {
@@ -9668,7 +9713,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				return UtilText.parse(Main.game.getNPCById(this.getVirginityLoss(sexType).getKey()), this,
 						virginityLossPrefix+virginityLossMap.get(sexType).getValue()+".");
+				
 			} catch(Exception e) {
+				// If the character who took the virginity has been deleted, then try to use a backup description:
+				if(getBackupVirginityLossMap().containsKey(sexType)) {
+					return getBackupVirginityLossMap().get(sexType);
+				}
 				Util.logGetNpcByIdError("getVirginityLossDescription()", this.getVirginityLoss(sexType).getKey());
 				return UtilText.parse(this, "[npc.Name] lost [npc.her] virginity to someone [npc.she] can't remember."); // Catch bugged virginity loss save.
 			}
@@ -24394,7 +24444,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return UtilText.parse(this, "As [npc.sheIsFull] [npc.a_race], [npc.name] cannot transform [npc.her] body at will!");
 		}
 		if(this.isFeral()) {
-			return UtilText.parse(this, "As [npc.sheIsFull] a feral [npc.race], [npc.name] cannot transform [npc.her] body at will!");
+			return UtilText.parse(this, "As [npc.sheIsFull] a feral [npc.race], [npc.name] cannot have [npc.her] body transformed!");
 		}
 		if(this.getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
 			return UtilText.parse(this, "Although [npc.nameIsFull] normally able to self-transform, [npc.she] cannot do so due to an enchantment on [npc.her] clothing prohibiting the use of [npc.her] self-transformative powers!");
@@ -27709,6 +27759,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasLegs() {
 		return getLegCount()>0;
 	}
+	/**
+	 * @return true if hasLegs() is true, if this character does not have FootStructure.NONE, and if they do not have FootType.NONE
+	 */
+	public boolean hasFeet() {
+		return hasLegs() && this.getFootStructure()!=FootStructure.NONE && this.getLegType().getFootType()!=FootType.NONE;
+	}
 	public boolean isThighSexAvailable() {
 		if(this.getLegConfiguration()==LegConfiguration.TAIL && this.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE)) { // When on land, grow 2 legs, so thigh sex is available.
 			return true;
@@ -27784,6 +27840,11 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return A description of all the changes.
 	 */
 	public String setLegConfiguration(AbstractLegType legType, LegConfiguration legConfiguration, boolean applyFullEffects) {
+		if(this.isFeral()) {
+			return "<p style='text-align:center;'>"
+						+ "[style.italicsDisabled(As [npc.sheIsFull] a feral [npc.race], [npc.name] cannot have [npc.her] leg configuration transformed!)]"
+					+ "</p>";
+		}
 		if(legType.isLegConfigurationAvailable(legConfiguration)) {
 			StringBuilder sb = new StringBuilder();
 			if(this.getLegType()!=legType) {

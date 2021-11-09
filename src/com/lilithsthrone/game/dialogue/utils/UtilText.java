@@ -5514,7 +5514,7 @@ public class UtilText {
 				if(character.getCovering(character.getArmCovering()).getModifier().isFurryModifier()) {
 					descriptors.add("furry");
 				} else {
-					if(character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
+					if(Main.game.isBodyHairEnabled() && character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
 						descriptors.add("hairy");
 					} else {
 						descriptors.add("smooth");

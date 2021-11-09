@@ -56,8 +56,11 @@
 		As this tooltip is only ever seen from the player's perspective, you can always write in the first-person narrative. (Still use npc2 for the target, though.)-->
 		<attackTooltipDescription><![CDATA[Strike out with your Demon's Dagger at [npc2.name].]]></attackTooltipDescription>
 		
-		<!-- The rarity of this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-		<rarity>EPIC</rarity> 
+		<!-- The rarity of this weapon.
+			You should likely leave this as COMMON, as the game automatically varies the rarity of COMMON items based on their enchantments and whether or not they're part of a set.
+			If you define a rarity other than COMMON, then your defined rarity will always be the same for this weapon no matter what enchantments it has.
+			Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		<rarity>COMMON</rarity>
 		
 		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
 		<weaponSet/> 

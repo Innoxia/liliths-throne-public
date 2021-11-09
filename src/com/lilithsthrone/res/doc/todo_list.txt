@@ -34,6 +34,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added breasts-to-mouth actions for the interaction between the 'sitting' and 'sitting in lap' sex slots.
 		Added 'Stop rape-play' and 'Allow rape-play' actions for when you're a dominant in sex and your partner is resisting due to having the 'unwilling fuck-toy' fetish, which prevents/permits them from optionally using the resisting pace (they can still resist if not enjoying sex or if they're a friendly NPC who's been betrayed by you).
 		The choice of which ongoing action to reference in dirty talk lines is no longer completely random, and is now instead based on the character's fetish desire towards each ongoing action (with liked actions having more weight to be referenced).
+		NPCs now have the option to reposition during sex in the 'sitting' position.
+		Slightly improved the starting description and added initial actions for Kruger's sex scene, and thanks to the change above, he should now correctly switch position so as to progress from oral to penetrative sex during the scene.
+		Foreplay should now last longer than 1 or 2 turns. Changes related to this: initial ongoing actions do not apply arousal gains before the first turn; arousal gains are halved while in foreplay; added this information to the arousal attribute tooltip.
+		NPCs will no longer choose 'self-breast-to-finger' or 'self-breast-to-tongue' preferences for sex if they are masculine with no breasts and no positive desire towards the self-breast fetish.
+		The 'Cum on feet' orgasm action is no longer available if the targeted character does not have feet (such a lamia).
+		If an NPC is dominant or has equal control in a sex scene then they will no longer allow you to equip sex toys on them.
 	
 	Other:
 		Changed some perks to traits and vice versa based on the concept that the only perks which should be classified as traits are the ones which you might want to disable, so:
@@ -42,6 +48,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The Enforcers in the Dominion alleyway Enforcer encounters now end the 'strip' sex scenes once they're satisfied, instead of keeping on going until the player is satisfied too.
 		Automatically-generated clothing name postfixes now prioritise 'of sealing' over generic positive enchantment effects.
 		While they will still always spawn in as feminine or androgynous, the gender of harpies which spawn in the Harpy Nests now takes into account your gender preferences (thereby allowing futa/herm harpies to spawn up there now).
+		Added a 'Defaults' button to the orientation preferences screen, allowing you to reset orientation ratios to tehir default values.
+		Buffed pegasus-morph racial bonus by increasing their critical damage from 10 to 30, and altered their racial bonus's description to reference this.
+		Battle axes, dories, and recurve bows now spawn with some basic enchantments.
+		Weapons defined as 'common' now automatically use the same rarity calculation as clothing, so a weapon which is part of a set is defined as 'epic', a weapon with more than one enchantment is 'rare', a weapon with one enchantment is 'uncommon', and unenchanted weapons as 'common'.
+		The weapons 'feather duster' and 'witch's broom' are now respectively part of the 'hard-working maid' and 'witch' sets.
+		Set several weapons to 'common' rarity so that they now use the automatic rarity assignment system described above.
 	
 	Bugs:
 		Formatting fixes.
@@ -54,6 +66,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the 'Push her' sex action during Meraxis's handjob scene would show a 'No suitable description found for this action!' error.
 		Fixed background errors being thrown when accessing Kate's 'Makeup' and 'Other' actions.
 		If you have multiple arm rows, the action name for main and offhand strikes will no longer omit some of the attacks which are to be performed.
+		Fixed bug where weapon equip requirements were not being taken into account when equipping weapons directly from the ground.
+		Fixed issue where ferals could have their leg configuration transformed. (Ferals are not in the game yet, but there will be content for them added 'soon'.)
+		The game now correctly saves the description of virginity losses even if the virginity-taking character is removed from the game, meaning that from now on you should no longer see the 'You lost your virginity to someone you can't remember' message. (This fix does not apply retroactively, so if you are already seeing that message, it is too late to be fixed.)
+		Fixed issue where NPCs' forced-TF potions would not completely take into account the 'Forced TF Racial Limits' content setting.
+		NPCs' forced-TF potions will no longer enter a state where they flip-flop between shortening and lengthening hair each time they're generated/used after combat.
+		Fixed issue where demonic spider-morphs would have incorrect names when possessing the 'arachnid' leg configuration.
+		Equipped clothing descriptions will now correctly be parsed according to who is wearing it.
+		Armpits will no longer be described as 'hairy' if the character has no underarm air or if body hair content is turned off.
+		Fixed issue with the panther-morph race, where applying smooth spotted fur to a panther-morph would throw an error and detect the character as a human.
+		Slimes will no longer spawn wearing makeup.
 	
 	
 	[] Dairy farm writing
@@ -67,140 +89,165 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Bad end
 			[] Non-bad end
 		
-	[x] Kay artwork not updating when feminised, needs game restart to update
-		[x] Add loadImages(true);
-	[x] Some kind of bug in encounter probabilities
-		[x] Explore not triggering horseman?
-	[x] Investigate encounter performance
-	[x] Also maybe it is just me but Object of Desire and Berserk seem like they would be better as traits then perks since they give a bonus but with a cost.
-		[x] Traits should be things that the player might want to disable, so:
-			[x] Perks -> traits:
-				x- Beserk
-				x- Object of desire
-				x- Irresitable appeals
-				x- Aura shielding
-			[x] Traits -> perks:
-				x- Martial artist
-				x- Ferocious warrior
-				x- Pure thoughts
-				x- Lustpyre
-				x- Arcane precision
-				x- Arcane combatant
-		[x] Check all for trait checks
-	[x] Also I have the Impish Fiends book but it won't unlock in the library.
-		[x] Centaurs & more
-		[x] [#pc.isAdvancedRaceKnowledgeDiscovered(SUBSPECIES_CENTAUR)] and IMP are both true, as is [#properties.isAdv...
-			[x] IMP_ALPHA is not for some reason
-	[x] NPCs get their age advanced by the time jump... (Ziva goes to 51/52)
-	[x] make sure breast feeding is available in the lap sitting position
-		[-] i can kiss her lips when we're both standing up but i cant kiss her breasts
-	[-] Once you reach level 12, you encounter the "Mysterious Enforcer" at a very high encounter rate making travel almost impossible except during nighttime in-game. Please fix this!
-	[x] Add a 'Stop rape-play' sex action for if dom and sub is resisting
-	[x] Enforcer strip sex should end once they're satisfied
-	[x] player menopause -3 years?
-	[x] auto-generated clothing enchantment endings go to bad even if enchantment is positive...
-	[x] dirty talk should prioritise more arousing actions (talking about kissing while anal is ongoing?)
-	[x]  It seems every time you "Look for Trouble" in the Harpy Nests after you complete the side quest, you never encounter a dual-sexed harpy.
-		I had the dual-sexed for all masculinity/femininity settings to "Abundant". I tried about 10 times and not one of them was dual-sexed.
-	[x] Meraxis's handjob 'Push her' sex action has "No suitable description found for this action!" error
-	[x] null error in parsing Kate's other tab
-	[x] improve anal dirty talk
-	[x] Bug if encounter new enforcers before any other encounter since starting game, then load game, then move into/encounter alleyway and get Enforcer encoutner again
-		- Does not trigger if do not immediately encounter enforcers as the first action before loading game
-		- Does not trigger if do not immediately re-encounter enforcers after game load
-		= Condition: load game, instantly encounter enforcers, load game, instantly encounter enforcers again
-			- Must be something that's not getting set when first dialogue is an encounter???
-			- From seed save change???
-		Exception in thread "JavaFX Application Thread" java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-			at java.util.ArrayList.rangeCheck(ArrayList.java:657)
-			at java.util.ArrayList.get(ArrayList.java:433)
-			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.getEnforcerLeader(EnforcerAlleywayDialogue.java:366)
-			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.initVariables(EnforcerAlleywayDialogue.java:143)
-			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue.access$0(EnforcerAlleywayDialogue.java:132)
-			at com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue$1.applyPreParsingEffects(EnforcerAlleywayDialogue.java:721)
-		[x] map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 92.5f);//TODO revert
-	[x] Arcane firebombs are not consumed after use in the 2nd and 3rd weapon slots(sorry to anyone who might have abused this
-		[] thrown weapon boolean
-			[x] remove 1 when selecting attack (return if clear attacks)
-			[x] Attack calculation is using all as 'Strike' when finishing with a 'strike' and description says 'Strike' when the attack was the last throw weapon
-				[x] Update methods to take in turnIndex
-				[x] Test:
-					tooltip move.getDescription(!Main.game.isInCombat()?0:owner.getSelectedMoves().size(), owner)
-			[x] offhand
-			[x] dual strike
-				[x] formatting issues
-				[x] attack descriptions using post-attack weapons
-				[x] lots of empty space after description
-			[x] do not force one-shot to be ranged
-			[x] UI
-				[x] show count in bottom-left inventory screen's weapon slot
-				[x] grey-out when 0 instead of removing
-				[x] only show count if weapon is thrown
-					[x] Test (+X) instead of xX
-					[x] grey out if +0
-				[x] add 'one-shot' as descriptor
-					[x] tooltip
-					[x] description
-				[x] offhand
-				[x] test all arm rows
-		[x] % chance to recover after turn (default 0)
-			[x] tooltip
-			[x] mechanic
-			[x] post-turn description: use defined element
-		[x] % chance to recover after combat (default 0)
-			[x] tooltip
-			[x] mechanic
-			[x] post-combat description: show a generic "Thrown weapons recovered: X, Y, Z" description at the end of combat
-		[x] test
-			[x] multiple arm rows
-			[x] recovery after combat is equipping incorrectly
-				[x] restore recovery to 75%
-				[x] need method to put weapon into defined arm row slot
-			[x] throwing main+offhand in alternate
-			[x] offhand attack with two-handed main?
-				[x] Attack name is throw/throw but did strike/throw/throw
-			[x] add yarn
-			[x] formatting in inventory view needs:
-				[x] capitalise weapon name
-				[x] add one-shot indication
-				[x] add extra effects
-			[x] test all with 2 different thrown types
-				[x] also with a non-thrown
-		[x] remove custom handling from pbomb xml file
-	[x] Improve attack tooltip (Tennis ball is "Throw the man...")
-		[x] Add another field for this description (i.e. to define "Throw at")
-	[x] Cognitive Mist: Stickers don't transfer when enchanting clothing.
-		Fix: add this line to EnchantingUtils::craftClothing:
-		craftedClothing.setStickers(((AbstractClothing)ingredient).getStickers());
-	[x] AceXP parser target warning fix
-	
-	[] add an attribute to make special effects AoE for weapons (stun grenades)
-	
-	[] 'You lost your virginity to someone you can't remember.​' needs to be improved so that it doesn't revert to this when virginity-taker is removed from the game
-	
-	[] Normal encounters on the World Map do not respect Gender(all encounters have been strictly female), Orientation(we have chosen "Off" for Androphilic orientation, but Androphilic people spawn) and Furry preferences, probably Age too(but we didn't check that).
-	
-	[] I found way to lock yourself in stocks. You need to:
+	[x] Kruger sex scene does not progress from blowjob to lap sitting sex - somehow he switched to standing
+		[x] Prevent sex action if cannot access mouth
+		[x] Start sex with blowjob
+		[x] Clothing displacement at start
+		[x] No sitting position switch action???
+	[x] Kalahari's sex is index 6 but Kruger's is 5
+	[x] foreplay passes too quickly in Kruger scene
+		[x] prevent initial actions from adding arousal
+		[x] halve arousal gains while in foreplay
+			[x] add to tooltip
+	[x] Ferals can use normal weapons.  not from inventory, but from ground equipping them works
+	[x] Can transform leg configuration as a feral
+	[x] 'You lost your virginity to someone you can't remember.​' needs to be improved so that it doesn't revert to this when virginity-taker is removed from the game
+		[x] Add a <SexType, String> map that's saved and populated when a virginity-taker is removed from the game
+	[-] Normal encounters on the World Map do not respect:
+		Gender(all encounters have been strictly female),
+	 	Orientation(we have chosen "Off" for Androphilic orientation, but Androphilic people spawn)
+	  	Furry preferences,
+	   	probably Age too(but we didn't check that).
+	[x] need a 'defaults' button in orientation settings
+	[x] I found way to lock yourself in stocks. You need to:
 		1. Approach any slave locked in stocks.
 		2. Move into position "all fours" from stocks position menu.
 		3. By some magic, now you have option to swap your position with slave in stocks.
 		4. You pressing the button and now you the one being locked.
-	
-	[] Pegasus-morph description talks about avoiding incoming damage, but all of their bonuses are offensive
-	
-	[] Clothing on the calves slot cannot be unequipped during sex scenes - it says they're blocked by themselves
-	
-	[] When in combat and you tail constrict an opponent for the 3rd time, the text says YOU will be defeated if they are constricted one more time.
+	[x] append money loss to end of Rental Mommy 50-flame hire
+	[x] Pegasus-morph description talks about avoiding incoming damage, but all of their bonuses are offensive
+	[-] Clothing on the calves slot cannot be unequipped during sex scenes - it says they're blocked by themselves
+	[x] test Lilaya chair sex
+	[-] When in combat and you tail constrict an opponent for the 3rd time, the text says YOU will be defeated if they are constricted one more time.
 		"... constricted again, you will be instantly..."
+	[-] In the Furry Preferences screen, the formatting messes up
+	[x] Remove NPC weighting for self-breast play preference if have no breasts and are not feminine
+	[x] forced-TF NPCs try to remove furry hair when face is not furry
+	[x] Found something funny while peeking at the xmls for spiders and tarantulas: they have a custom name defined for... fish-tailed demonic spiders
+	[x] armpit fucking an angel will reference the pits being "hairy" even if body hair is turned off; idk if it happens to other species though
+		even if you disable the "hairy descriptions" option, the armpit sexual actions still describe armpits as "hairy", this works with any species
+	[x] The partner deciding to cum on your feet while being a lamia describes as taking hold of your tail, makes sense so far, then describes them cumming on your 'clawed feet', which unless lamias have a pair of feet at the end of their tail makes no sense.
+	[x] Battle axes, recurve bows, and dorys show up in Vicky's shop unenchanted.
+		there isn't anything wrong with this per say but it causes some very noticable price differences compared to other comparable weapons like the arming sword and zweihander
+		[x] feather duster, witch broom sets?
+		[x] debug menu weapon rarities
+		[x] weapon rarity changes
+	[x] Could put sealed sex toy on partner in post-combat defeat sex???
+	[-] There's a glitch with unequipping a chemise. Basically, if I have an overcoat on, the chemise gets duplicated when I unequip it.
+	[-] Wes's pass doesn't seem to be working properly. This was try number 3. The previous one was a sex scene with two enforcers who attacked me afterwards.
+		- video at "Enforcer issue as of 4.1.9"
+	[x] Apparently getting Smooth Spotted fur as a greater panther morph loops you back around to human
+	[x] Apparently naturally spawned slimes aren’t supposed to have makeup but I find a lot of them with makeup: an example
+	[-] The second floor of Lilya’s mansion lags like the end of the world.
 	
-	[] In the Furry Preferences screen, the formatting messes up
+	[] Also had an 'Error: getContentmethod() is throwing an exception in the node "Inventory"' happen when I enchanted angel philter,
+	 I already had 1 stack of the enchanted stuff in my inventory at the time, and I used the save/load recipe function so the enchantment is identical
 	
-	[] Bug reports from "two sets of bread rolls"
+	[] One of my slaves won't speak despite not being set to silence
+	
+	[] Evelyx BE 'Mounted' action not working?
+	
+	[] When in the submissive position in a forced scene and you start to finger yourself there is no option to stop fingering yourself
+	
+	[] Don't know if it can be called a bug or an oversight, but the game allows you to use prohibited characters for your savegames.
+	 For example I used : in the name of my save and the game just accepted it, though the resulting file is unusable with Windows unable to find the file even though it's shown in file explorer.
+	
+	[]  v 4.1.9 - After purchasing scarlett from helena the first time.
+		If you move her into a room, then transform away her penis(turn her into a doll), the player will then lose the ability to interact with that room and scarlett.
+		The player can walk through the room, but the minimap will not update.
+		If you open and close the settings menu the UI will update and sometimes allow you to interact with scarlett again.
+		Restoring scarlett's penis, to any type, fixes the issue 
+	
+	[] Here's a fun one: I've been experiencing this thing with level-drain where I cannot drain everyone down to Level 1.  Not sure it there's a "per encounter limit" or "maximum loss" but...!  Relatedly:
+		[] Bree—Brax, girled—can seemingly be infinitely Level Drained.  When I've done this with other NPC's, it's 1-3 Levels Max, generally... something like that.  I haven't been keeping detailed notes.  But with Bree, not only have I drained numerous levels... Bree is gaining levels too while it happens.  She's not staying level with my character... maybe because as she gains levels I'm draining more and more exp each time so my char is outpacing her?
+			 ^Immediate Update: Bree just stopped being level-sucked, but still gained a level.  The next turn, no level-suck still, but she also didn't level up.
+			
+	[] Can't unseal the filly collar
+		Edit: Lilaya is unable to unseal the filly collar. Would prefer parser information on how to remove such things for the time being 
+	
+	[]  If you have a lot of slaves, Lilaya's house on the tiles that are not the stairs or a room, in other words, the hallway, lag so badly, it becomes unplayable. It can take up to 40 minutes for the game to load the next tile, only for nothing to happen.
+	
+	[]  All of the lesser racoon-girls are being spawned with ONLY BLACK SKIN, no one of them have light or at least tanned skin color. 
+	
+	[] The swollen belly tooltip text seems to only have a description for cum. So that's what it says even with milk.
+		"...filled with a considerable amount of cum,..."
+	
+	[] There seems to be some issue with taurs transforming you into taurs. The quadruped transformation may be looking at the NPC's stats rather than the PC?
+		"I'm sure you'll love getting some new legs!"
+			Nothing happens, as the pegataur's current lower body cannot be transformed into the 'quadrupedal' configuration…
+		I also can't transform my character to quadruped while they have human legs, so I think the issue is trying to transform to quad when the biped legs are human. 
+			So, either there needs to be a human-taur that can transition to centaur/horse-taur afterwards... or the NPC's should be trying to make the legs into animal-biped first before quad.
+	
+	[] Meraxis duel WON_SEX_NOTHING missing?
+	
+	[] the text here states that I'm losing my "oral virginity" to Dale but I've lost that already a while ago
+		"Tell Dale that you want him to take your oral virginity..."
+	
+	[] I am addressed by the NPC as their own name (e.x. Jack calls me Jack when my name is John)
+		In the Leg-lock sex action
+	
+	[] You have lost your vagina.​
+		You now give birth to live young!
+	
+	[] based on a transformation of the Core to human, so it was random, and it randomly grew horns?
+		 The horns are then listed as "no race".
+	
+	[] the milking room always provides a cap production of 4L per milking of the player. Is this a bug?
+	
+	[]  Androgynous characters are disabled in my game, yet an androgynous spider-boy managed to spawn in the bat caverns (the non-mushroom area, if it makes a difference)
+		Update, it may just be a problem with spiders in general as an androgynous spider-boy slime just spawned in submission
+	
+	[]  When stepping outside Dominion for the first time, The player encounters Meraxis again. When we duel and I defeat her (after I press the 'Victory' Button) it loops back to the moment she tries to sneak up on me (when the only option is the 'prepare'). When she defeats me or I decline the duel nothing bugs out. I just updated to 4.1.1, maybe I did it wrong? 
+
+	[] Should already be fixed but check:
+		I figured it out, Natalya's stuff is broken. Like actually broken. For me, she went past her 4 orgasms and I had to use the quick sex to get out of it because it was like 10 orgasms.
+		 Same with thunder. I think just that part of the game is broken in general
+	
+	[] But when a resident at Lilith's house told me they had a job, they said it with 24 hours time, which should have been set to 12 hours time
+		"From now on, I'm going to be out at work from X"
+		Also their note they leave:
+		"I'm out at work at the moment, my hours are from X"
+	
+	[] typo: "out of the corer of"
+	
+	[]  The TF rewards in Evelyx's farm won't TF the horns, thus keeping the player in the "lesser" form.
+	
+	[] (Modded) New version of the game, but still don't have access to the "Head" part of self tf menu, even in debug... both with and without mods, and in new games.
+	
+	[]  I hadn't asked yet, the button is still pressable the tooltip is just wrong
+		"You've already spent time asking Monica about Elis today..."
+	
+	[]  Not sure if reported, but 4.2 is slamming NPCs with "Give Me Facial" requests when doing any sort of facial available sex positions, even when they have cum-play set as "Love"
+	
+	[]  Also, an NPC during sex is slamming a "Her dragon-pussy and your cock" when her vagina is horse-morph, though my character is a dragon
+	
+	[] In the club females are spawning with virginity lost but hymen intact (check if all the time or very rare)
+	
+	[] If you attack an enforcer without letting them search you, when they arrest you when you are defeated they don't take your illegal items.
+	
+	[]  I got the 'M' map hotkey overriding text when I try to change my elementals name. It works if it's a capital M but not a lowercase m like 'Damien'.
+		 Happens to any hotkey while doing that
+		
+	[] Another bug that I've been getting is trying to fight harpies while being a slime-morph of any kind. You just get stuck on the 'Fight' option with no way to move forward aside from loading a save
+	
+	[] Psot-Zaranix sex is not parsing Zaranix
+		"..steps back and sinks down into a nearby chair, a happy smile..."
+	
+	[] <enchantmentLimit>1000</enchantmentLimit> This does not work.
+	
+	[] <blockAmount> has no effect in combat move mods.
+		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
+		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
+			
+	[] "Doing ask for all that gentle loving crap again!" should be "Don't ask for all that gentle loving crap again!"
+			
 	
 	[] Natalya encounter without needing Helena quest
 	
 	[] boxing gloves mod
 	[] latex leggings
+	
+	
 	
 	[] Wall's End
 		[] Woolly Heaven
@@ -259,6 +306,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
 	
 	[] add some modding parameters for self-TF races to support definition of races that can be transformed into (or unlimited race self-TF)
+	
+	[] add an attribute to make special effects AoE for weapons (stun grenades)
 	
 	Felicia content expansion:
 		- Ask out on date (affection requirement first I guess)

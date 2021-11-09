@@ -217,6 +217,7 @@ import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEvent;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -4550,6 +4551,21 @@ public class Game implements XMLSaving {
 				if((litter.getMother()!=null && litter.getMother().equals(npc)) || (litter.getFather()!=null && litter.getFather().equals(npc))) {
 					playerIncubatingLitter = true;
 					break;
+				}
+			}
+		}
+		
+		// Iterate through all characters, and if a character has had their virginity taken by this npc, then set the backup virginity loss text
+		// This will prevent the player from seeing the backup text: 'X lost their virginity to someone they can't remember.'
+		List<GameCharacter> allCharactersWithPlayer = new ArrayList<>();
+		allCharactersWithPlayer.add(Main.game.getPlayer());
+		allCharactersWithPlayer.addAll(Main.game.getAllNPCs());
+		for(GameCharacter character : allCharactersWithPlayer) {
+			for(Entry<SexType, Entry<String, String>> entry : character.getVirginityLossMap().entrySet()) {
+				if(entry.getValue()!=null) {
+					if(entry.getValue().getKey().equals(npc.getId())) {
+						character.setBackupVirginityLoss(entry.getKey());
+					}
 				}
 			}
 		}

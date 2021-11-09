@@ -63,7 +63,7 @@ public class GenericPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterPerformingAction().equals(Main.sex.getCharacterTargetedForSexAction(this))
-					&& Main.sex.getSexManager().isSwapPositionAllowed(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.getInitialSexManager().isSwapPositionAllowed(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterPerformingAction().getLegConfiguration()==Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
 					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getCharacterPerformingAction().isPlayer();

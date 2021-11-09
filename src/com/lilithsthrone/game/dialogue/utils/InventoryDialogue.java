@@ -3324,17 +3324,27 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant weapons on the ground!", null);
 								
 							} else if(index == 6) {
-								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
-											+ "</p>");
-										resetPostAction();
-									}
-								};
-									
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Main (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
+								
 							} else if(index == 7) {
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(!weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Offhand (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
+								
 								if(weapon.getWeaponType().isTwoHanded()) {
 									return new Response("Equip Offhand (Self)",
 											(weapon.getWeaponType().isPlural()
@@ -5714,10 +5724,11 @@ public class InventoryDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(clothing.getDescription());
 			sb.append("<p>");
-				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), null, true)) {
+				GameCharacter descriptionTarget = owner; //Main.game.isInSex()?owner:Main.game.getPlayer()
+				for(String s : clothing.getExtraDescriptions(descriptionTarget, null, true)) {
 					sb.append(s+"<br/>");
 				}
-				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), clothing.getSlotEquippedTo(), true)) {
+				for(String s : clothing.getExtraDescriptions(descriptionTarget, clothing.getSlotEquippedTo(), true)) {
 					sb.append(s+"<br/>");
 				}
 			sb.append("</p>");
