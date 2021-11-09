@@ -18554,7 +18554,9 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isStarted()) {
 				Map<AbstractCombatMove, Integer> availables = new HashMap<>();
 				for(AbstractCombatMove move : getAvailableMoves()) {
-					availables.put(move, move.getEquipWeighting());
+					if(move.getEquipWeighting() > 0) { // non-positive weights mean that the move is never equipped automatically
+						availables.put(move, move.getEquipWeighting());
+					}
 				}
 				while(this.getEquippedMoves().size()<GameCharacter.MAX_COMBAT_MOVES
 						&& !availables.isEmpty()) {

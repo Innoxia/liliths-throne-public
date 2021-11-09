@@ -18,8 +18,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Fixed bug where clothing stickers weren't transferring when enchanting clothing. (by Cognitive Mist)
+		Fixed bug where clothing stickers weren't transferring when enchanting clothing. (by CognitiveMist)
 		Fixed issue where the error log would generate the entry 'Warning: Parser target of X has been replaced!' when randomly-generated NPCs were getting removed. (by AceXP)
+		Prevented a null exception when a move had zero equip-weight. (PR#1596 by CognitiveMist)
 	
 	Engine/Modding:
 		Slightly improved performance of encounter generation.
