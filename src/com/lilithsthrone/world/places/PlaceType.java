@@ -759,7 +759,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_ALLEYS_CANAL_CROSSING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Canal Crossing",
-			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperados.",
+			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperadoes.",
 			"dominion/bridge",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionPlaces.BACK_ALLEYS_CANAL,
@@ -913,7 +913,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_STAIRS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Guarded Staircase",
-			"A staircase leaduing up to the next floor is guarded by a vigilant Enforcer.",
+			"A staircase leading up to the next floor is guarded by a vigilant Enforcer.",
 			"dominion/enforcerHQ/stairs",
 			PresetColour.BASE_GREEN,
 			EnforcerHQDialogue.STAIRCASE,
@@ -1101,7 +1101,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Requisions Desk",
+			"Requisitions Desk",
 			"Specialist or replacement Enforcer equipment is checked out of this area.",
 			"dominion/enforcerHQ/requisitions",
 			PresetColour.BASE_TAN,
@@ -1121,7 +1121,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_OFFICE_QUARTERMASTER = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Quartermaster's Office",
-			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisions Desk.",
+			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisitions Desk.",
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_ORANGE,
 			EnforcerHQDialogue.OFFICE_QUARTERMASTER,
@@ -1206,7 +1206,7 @@ public class PlaceType {
         public static final AbstractPlaceType FELICIA_APARTMENT_HALLWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Hallway",
-			"The hallway is totally void of decoration or funiture.",
+			"The hallway is totally void of decoration or furniture.",
 			null,
 			PresetColour.BASE_BLACK,
 			FeliciaApartment.HALLWAY,
@@ -3405,7 +3405,7 @@ public class PlaceType {
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_SEATING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Recessed seating",
-			"Around the edges of the taven's main floor, there are several recessed seating areas.",
+			"Around the edges of the tavern's main floor, there are several recessed seating areas.",
 			"dominion/slaverAlley/bountyHunterLodge/seatingArea",
 			PresetColour.BASE_BROWN,
 			BountyHunterLodge.SEATING,

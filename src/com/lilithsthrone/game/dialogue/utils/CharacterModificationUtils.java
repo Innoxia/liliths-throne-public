@@ -1049,13 +1049,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 				}
 			}

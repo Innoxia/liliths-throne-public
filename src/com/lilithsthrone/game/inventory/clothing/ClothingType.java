@@ -6318,7 +6318,7 @@ public class ClothingType {
 				} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
 					System.err.println("Loading modded clothing failed at 'ClothingType'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
-					System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
+					System.err.println(ex);
 				}
 			}
 		}
