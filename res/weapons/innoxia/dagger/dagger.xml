@@ -160,7 +160,7 @@
 				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
 				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
 				<!-- The secondary TFModifier 'ENCHANTMENT_LIMIT' is not available as an enchantment to the player in-game (for balance reasons), but can be defined as below to give enchantment capacity boosts to modded weapons: -->
-				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="ENCHANTMENT_LIMIT" timer="0"/>
+				<!-- <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="ENCHANTMENT_LIMIT" timer="0"/> -->
 		</effects>
 		
 		<!-- You can use this section to describe any extra features of this weapon.
