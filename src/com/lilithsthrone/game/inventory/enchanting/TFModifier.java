@@ -124,7 +124,14 @@ public enum TFModifier {
 			"Applies an effect related to the primary attribute 'Corruption'.",
 			"modifier_circle_corruption",
 			Rarity.LEGENDARY),
-	
+
+	/** This TFModifier is a special case, as it is not added to the available clothing TF lists.
+	 * It is simply defined so that modded clothing can add this as a secondary TFModifier (to the primary TFModifier 'CLOTHING_MAJOR_ATTRIBUTE') to increase enchantment capacity of the wearer. */
+	ENCHANTMENT_LIMIT(AttributeCategory.CORRUPTION,
+			Attribute.ENCHANTMENT_LIMIT,
+			"Applies an effect related to the secondary attribute 'Enchantment Capacity'.",
+			"modifier_circle_corruption",
+			Rarity.LEGENDARY),
 	
 	FERTILITY(AttributeCategory.CORRUPTION,
 			Attribute.FERTILITY,
