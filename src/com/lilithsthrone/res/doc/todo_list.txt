@@ -25,6 +25,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed rare bug when importing clothing which would sometimes result in modded clothing not showing up for sale. (PR#1607 by CognitiveMist)
 		Adjusted NPCs' reference to their working hours to respect the 12 or 24-hour preference in the player's settings. (PR#1609 by CognitiveMist)
 		In the self-transform menu, the comparators used for sorting horns and wings have had inconsistencies fixed. (PR#1610 by CognitiveMist)
+		Improved Encounter generation code, improving performance in Lilaya's Home and Dominion tiles. (by AceXP)
 	
 	Assorted Bugfixes Contributed by Maxis010 (PR#1603):
 		Fixed typos both in dialogue and code.
@@ -152,6 +153,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Apparently getting Smooth Spotted fur as a greater panther morph loops you back around to human
 	[x] Apparently naturally spawned slimes aren’t supposed to have makeup but I find a lot of them with makeup: an example
 	[-] The second floor of Lilya’s mansion lags like the end of the world.
+	[x]  So, in src/com/lilithsthrone/game/dialogue/encounters/Encounter.java line 81, don't check the getSlaveUsingOtherSlaveInLilayaCorridor(), but just add the chance for it.
+		And only calculate the effect (which may be 'no encounter') if the encounter triggers.
+		Same goes for all the getSlaveWantingToUseYouInDominion for line 175/258/324/496 in the same java file. 
 	
 	
 	[] add enchantment capacity as an enchantment that's unobtainable in the enchanting menu
@@ -159,12 +163,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Cannot repeat Evelyx meeting after refusing Monica choices
 		[] Also add a chuuni variation
 	
+	[] Evelyx BE 'Mounted' action not working?
+	
+	
+	
 	[] Also had an 'Error: getContentmethod() is throwing an exception in the node "Inventory"' happen when I enchanted angel philter,
 	 I already had 1 stack of the enchanted stuff in my inventory at the time, and I used the save/load recipe function so the enchantment is identical
 	
 	[] One of my slaves won't speak despite not being set to silence
-	
-	[] Evelyx BE 'Mounted' action not working?
 	
 	[] When in the submissive position in a forced scene and you start to finger yourself there is no option to stop fingering yourself
 	
