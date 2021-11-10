@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.tags;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,7 +144,7 @@ public enum BodyPartTag {
 	
 	
 	
-	public static List<BodyPartTag> allBodyPartTags;
+	public static List<BodyPartTag> allBodyPartTags = new ArrayList<>();
 	public static Map<BodyPartTag, String> bodypartTagToIdMap = new HashMap<>();
 	public static Map<String, BodyPartTag> idToBodypartTagMap = new HashMap<>();
 	
