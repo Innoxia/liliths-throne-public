@@ -4,6 +4,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -228,7 +229,7 @@ public class Fae extends NPC {
 		this.setMoney(5000);
 		
 		AbstractClothing scrunchie = Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_BLACK, false);
-		scrunchie.setPattern("polka_dots_big");
+		scrunchie.setPattern(Pattern.getPatternIdByName("polka_dots_big"));
 		scrunchie.setPatternColour(0, PresetColour.CLOTHING_RED_BURGUNDY);
 		scrunchie.setPatternColour(1, PresetColour.CLOTHING_BLACK);
 		this.equipClothingFromNowhere(scrunchie, true, this);

@@ -14,6 +14,19 @@
 		<!-- Use "true" if this weapon is two-handed, and thus cannot be simultaneously wielded with an offhand weapon, and "false" if it's one-handed. (Without quotation marks.) -->
 		<twoHanded>false</twoHanded>
 		
+		<!-- Use "true" if this weapon is considered to be a one-shot weapon, which is mainly used for thrown weapons, but could of course be used for any weapon type (melee or ranged) which gets used up after a single attack.
+			This defaults to "false" if this element is omitted.
+			One-shot weapons are lost after using them to attack, but if the attacker has more than one of them, then the attacker can continue to use this weapon type to attack until they have no more of them in their inventory. -->
+		<oneShotWeapon>false</oneShotWeapon>
+		
+		<!-- If the 'oneShotWeapon' element above is set to true, then this element is used to determine the chance for this weapon to be recovered after being used at the end of each combat turn.
+			Values are in the range of 0->100, representing 0% to 100% chance to recover.
+			Default is 0 if omitted. -->
+		<oneShotWeaponChanceToRecoverAfterTurn>0</oneShotWeaponChanceToRecoverAfterTurn>
+		
+		<!-- Exactly the same as 'oneShotWeaponChanceToRecoverAfterTurn' above, except this chance triggers once at the end of combat instead of at the end of each turn during combat. -->
+		<oneShotWeaponChanceToRecoverAfterCombat>0</oneShotWeaponChanceToRecoverAfterCombat>
+		
 		<!-- What's appended before the weapon's name in an instance of "Innoxia was holding X Demon's Dagger", where X is the determiner. This will usually be either "a" or "an", but for other weapons may be different.
 		An example might be: "Innoxia was holding X scissors", where X (the determiner) would now need to be "a pair of". -->
 		<determiner><![CDATA[a]]></determiner>
@@ -27,15 +40,27 @@
 		<!-- The description/lore of this weapon. -->
 		<description><![CDATA[A finely crafted dagger, with a blade made out of enchanted ethereal energy. Issued to agents of the Enforcers' elite ORICL branch, this dagger is primarily intended to be a symbol of status, but is nonetheless completely functional.]]></description> 
 		
-		<!-- How the weapon is used. This should be a single verb, and is used as the title of attacking actions in combat. -->
+		<!-- How the weapon is used.
+			This should be a single verb, as it is used for the title of attacking actions in combat. -->
 		<attackDescriptor>stab</attackDescriptor>
+		
+		<!-- A description of how the weapon is to be used in the sentence: "X your enemy for N damage!"
+			For this dagger, 'stab' fits well enough, but for example a javelin would need more than just 'throw', as otherwise you'd end up with "Throw your enemy for N damage!"
+			Continuing with the javelin example, you'd probably want to define this element as something like 'throw [npc.her] javelin at' to make "Throw your javelin at your enemy for N damage!"
+			You should use the parsing target of 'npc' for the character using this weapon, and if needed, you can also use 'npc2' for the targeted character.
+			If this element is omitted, then the value defined in the 'attackDescriptor' element above will be used.
+			This element is used to display the predicted attacks to the player in combat, and as such should be kept as brief as possible. -->
+		<attackDescriptionPrefix>stab</attackDescriptionPrefix>
 		
 		<!-- The description that's displayed when hovering over the attack action in combat. Follow the same guidelines as equipText (a couple of entries further down this page).
 		As this tooltip is only ever seen from the player's perspective, you can always write in the first-person narrative. (Still use npc2 for the target, though.)-->
 		<attackTooltipDescription><![CDATA[Strike out with your Demon's Dagger at [npc2.name].]]></attackTooltipDescription>
 		
-		<!-- The rarity of this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-		<rarity>EPIC</rarity> 
+		<!-- The rarity of this weapon.
+			You should likely leave this as COMMON, as the game automatically varies the rarity of COMMON items based on their enchantments and whether or not they're part of a set.
+			If you define a rarity other than COMMON, then your defined rarity will always be the same for this weapon no matter what enchantments it has.
+			Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		<rarity>COMMON</rarity>
 		
 		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
 		<weaponSet/> 
@@ -229,7 +254,10 @@
 		
 	</coreAttributes>
 
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<!-- Descriptions that are used when hitting an enemy.
+		One of the hitText values will be randomly selected each time the attacker hits their target.
+		Follow the same guidelines as equipText.
+		You can use 'npc' as the parsing target for the person who's attacking, and 'npc2' as the parsing target for the person being hit. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
 		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to stab [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
@@ -247,7 +275,10 @@
 		]]></criticalHitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<!-- Descriptions that are used when missing an enemy.
+		One of the missText values will be randomly selected each time the attacker misses their target.
+		Follow the same guidelines as equipText.
+		You can use 'npc' as the parsing target for the person who's attacking, and 'npc2' as the parsing target for the person being struck at. -->
 	<missDescriptions>
 		<missText><![CDATA[
 		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(attempt)] to stab [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!
@@ -259,5 +290,16 @@
 		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] Demon's Dagger, but [npc.she] [npc.verb(miss)] [npc.her] target!
 		]]></missText>
 	</missDescriptions>
+	
+	<!-- Descriptions that are used when recovering this weapon (after being used) at the end of each combat tun.
+		One of the 'recoveryText' elements will be randomly selected each time a weapon of this type is recovered.
+		Follow the same guidelines as equipText.
+		You can use 'npc' as the parsing target for the person who's retrieving their one-shot weapon.
+		Note that there is no element for end of combat turn recovery, as that simply shows a generic "One-shot weapons recovered: X, Y, Z" description at the end of combat. -->
+	<oneShotEndTurnRecoveryDescriptions>
+		<recoveryText><![CDATA[
+			The dagger flies back towards [npc.name], allowing [npc.herHim] to grab it and reuse it!
+		]]></recoveryText>
+	</oneShotEndTurnRecoveryDescriptions>
 	
 </weapon>

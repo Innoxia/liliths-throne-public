@@ -2541,7 +2541,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGString(),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					+ sb.toString()
 					+ (owner!=null && owner.isPlayer()
@@ -3324,17 +3324,27 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant weapons on the ground!", null);
 								
 							} else if(index == 6) {
-								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
-											+ "</p>");
-										resetPostAction();
-									}
-								};
-									
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Main (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
+								
 							} else if(index == 7) {
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(!weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Offhand (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
+								
 								if(weapon.getWeaponType().isTwoHanded()) {
 									return new Response("Equip Offhand (Self)",
 											(weapon.getWeaponType().isPlural()
@@ -5294,7 +5304,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					 	+sb.toString());
 		}
@@ -5714,10 +5724,11 @@ public class InventoryDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(clothing.getDescription());
 			sb.append("<p>");
-				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), null, true)) {
+				GameCharacter descriptionTarget = owner; //Main.game.isInSex()?owner:Main.game.getPlayer()
+				for(String s : clothing.getExtraDescriptions(descriptionTarget, null, true)) {
 					sb.append(s+"<br/>");
 				}
-				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), clothing.getSlotEquippedTo(), true)) {
+				for(String s : clothing.getExtraDescriptions(descriptionTarget, clothing.getSlotEquippedTo(), true)) {
 					sb.append(s+"<br/>");
 				}
 			sb.append("</p>");
@@ -6633,14 +6644,14 @@ public class InventoryDialogue {
 					+ "Pattern:<br/>");
 	 
 			for (Pattern pattern : Pattern.getAllPatterns()) {
-				if (dyePreviewPattern.equals(pattern.getName())) {
+				if (dyePreviewPattern.equals(pattern.getId())) {
 					inventorySB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
 							+ "</div>");
 				} else {
 					inventorySB.append(
-							"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+							"<div id='ITEM_PATTERN_"+pattern.getId()+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
 							+ "</div>");
 				}

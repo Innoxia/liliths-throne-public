@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>WORLD_MAP_FIELDS</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<!-- Warning: -->
+		<encounter>
+			<name><![CDATA[ominous warning]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(game.getMonth()!=MONTH_OCTOBER || game.getDialogueFlags().getSavedLong("headless_horseman_year_warning")==game.getYear())
+					0
+				#ELSE
+					50
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_headless_horseman_warning]]></dialogueReturned>
+		</encounter>
+		<!-- Actual encounter: -->
+		<encounter>
+			<name><![CDATA[headless horseman attack]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(game.getMonth()!=MONTH_OCTOBER || game.isDayTime() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true) || game.getDialogueFlags().getSavedLong("headless_horseman_year_warning")!=game.getYear() || game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("headless_horseman_attack_minutes")<60*12)
+					0
+				#ELSE
+					20
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_headless_horseman_start]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

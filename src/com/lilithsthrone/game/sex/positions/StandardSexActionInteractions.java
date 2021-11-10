@@ -905,6 +905,7 @@ public class StandardSexActionInteractions {
 									SexActionPresets.allAreasToAppendages,
 									SexActionPresets.kissing,
 									SexActionPresets.breastsToMouth,
+									SexActionPresets.mouthToBreasts,
 									SexActionPresets.vaginaToPenis,
 									SexActionPresets.assToGroin),
 							Util.newArrayListOfValues(

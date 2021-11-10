@@ -240,7 +240,6 @@ public class SexManagerExternal extends SexManagerDefault {
 		public Value<String, String> startingImmobilisation;
 
 		public String orgasmBehaviour;
-		public OrgasmBehaviour orgasmBehaviourParsed;
 		
 		
 		// Other values which need to be parsed on every check:
@@ -332,10 +331,6 @@ public class SexManagerExternal extends SexManagerDefault {
 			
 			if(control!=null && !control.isEmpty()) {
 				controlParsed = SexControl.valueOf(control);
-			}
-			
-			if(orgasmBehaviour!=null && !orgasmBehaviour.isEmpty()) {
-				orgasmBehaviourParsed = OrgasmBehaviour.valueOf(orgasmBehaviour);
 			}
 			
 			
@@ -599,10 +594,6 @@ public class SexManagerExternal extends SexManagerDefault {
 		public Value<String, String> getStartingImmobilisation() {
 			return startingImmobilisation;
 		}
-		
-		public OrgasmBehaviour getOrgasmBehaviour() {
-			return orgasmBehaviourParsed;
-		}
 
 		public List<SexSlot> getSlotsAvailable() {
 			return slotsAvailable;
@@ -652,6 +643,13 @@ public class SexManagerExternal extends SexManagerDefault {
 		
 		// Parse on check other values:
 
+		public OrgasmBehaviour getOrgasmBehaviour() {
+			if(Main.game.isInSex() && orgasmBehaviour!=null && !orgasmBehaviour.isEmpty()) {
+				return OrgasmBehaviour.valueOf(UtilText.parse(orgasmBehaviour).trim());
+			}
+			return null;
+		}
+		
 		public OrgasmCumTarget getOrgasmCumTarget(GameCharacter targetedCharacter) {
 			if(orgasmCumTargets.containsKey(targetedCharacter.getId())) {
 				return OrgasmCumTarget.valueOf(UtilText.parse(orgasmCumTargets.get(targetedCharacter.getId())).trim());

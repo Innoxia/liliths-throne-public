@@ -5,6 +5,7 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1288,8 +1289,15 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		List<AbstractWingType> sortedTypes = new ArrayList<>(WingType.getAllWingTypes());
-		sortedTypes.sort((w1, w2) -> w1.getTransformName().compareTo(w2.getTransformName()));
-		sortedTypes.sort((w1, w2) -> w1==WingType.NONE?-1:w1.getRace().getName(false).compareTo(w2.getRace().getName(false)));
+		/*
+		 * 'None' is first, then the rest of the 'no race' options.
+		 * Then, the races are sorted alphabetically.
+		 * Within a race (including 'no race'), options are sorted alphabetically.
+		 */
+		sortedTypes.sort(Comparator.comparingInt((AbstractWingType w) -> w == WingType.NONE ? 0 : 1)
+				.thenComparingInt(w -> w.getRace() == Race.NONE ? 0 : 1)
+				.thenComparing(w -> w.getRace().getName(false))
+				.thenComparing(AbstractWingType::getTransformName));
 		
 		for(AbstractWingType wing : sortedTypes) {
 			if((wing.getRace() !=null && availableRaces.contains(wing.getRace()))
@@ -1334,8 +1342,15 @@ public class CharacterModificationUtils {
 		
 		
 		List<AbstractHornType> sortedTypes = new ArrayList<>(types);
-		sortedTypes.sort((h1, h2) -> h1.getTransformName().compareTo(h2.getTransformName()));
-		sortedTypes.sort((h1, h2) -> h1==HornType.NONE?-1:h1.getRace().getName(false).compareTo(h2.getRace().getName(false)));
+		/*
+		 * 'None' is first, then the rest of the 'no race' options.
+		 * Then, the races are sorted alphabetically.
+		 * Within a race (including 'no race'), options are sorted alphabetically.
+		 */
+		sortedTypes.sort(Comparator.comparingInt((AbstractHornType h) -> h == HornType.NONE ? 0 : 1)
+				.thenComparingInt(h -> h.getRace() == Race.NONE ? 0 : 1)
+				.thenComparing(h -> h.getRace().getName(false))
+				.thenComparing(AbstractHornType::getTransformName));
 		
 		for(AbstractHornType horn : sortedTypes) {
 			if((horn.getRace()!=null && availableRaces.contains(horn.getRace()))

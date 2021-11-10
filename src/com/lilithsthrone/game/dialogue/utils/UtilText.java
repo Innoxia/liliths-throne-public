@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,7 +111,10 @@ import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
@@ -700,6 +705,10 @@ public class UtilText {
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
+		return formatAsMoney(money, tag, null);
+	}
+
+	public static String formatAsMoneyUncoloured(String money, String tag) {
 		return formatAsMoney(money, tag, null);
 	}
 	
@@ -1392,7 +1401,7 @@ public class UtilText {
 				"Formats the supplied number as money, using the tag as the html tag."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return UtilText.formatAsMoneyUncoloured(Integer.valueOf(arguments.split(", ")[0]), arguments.split(", ")[1]);
+				return UtilText.formatAsMoneyUncoloured(arguments.split(", ")[0], arguments.split(", ")[1]);
 			}
 		});
 		
@@ -1925,6 +1934,36 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return String.valueOf(character.getHistory().getWorkHourEnd());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"jobTimeStart",
+						"jobStartTime"),
+				true,
+				true,
+				"",
+				"Returns the locale-adapted start time for this character's job. Does not work for slave jobs."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Units.time(LocalTime.of(character.getHistory().getWorkHourStart(), 0, 0));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"jobTimeEnd",
+						"jobEndTime",
+						"jobTimeFinish",
+						"jobFinishTime"),
+				true,
+				true,
+				"",
+				"Returns the locale-adapted end time for this character's job. Does not work for slave jobs."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Units.time(LocalTime.of(character.getHistory().getWorkHourEnd(), 0, 0));
 			}
 		});
 		
@@ -5506,7 +5545,7 @@ public class UtilText {
 				if(character.getCovering(character.getArmCovering()).getModifier().isFurryModifier()) {
 					descriptors.add("furry");
 				} else {
-					if(character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
+					if(Main.game.isBodyHairEnabled() && character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
 						descriptors.add("hairy");
 					} else {
 						descriptors.add("smooth");
@@ -9656,6 +9695,9 @@ public class UtilText {
 		engine.put("dialogueManager", Main.game.getDialogueManager());
 		
 		// Java classes:
+		for(Month month : Month.values()) {
+			engine.put("MONTH_"+month, month);
+		}
 		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
 			engine.put("DOW_"+dayOfWeek, dayOfWeek);
 		}
@@ -9758,6 +9800,18 @@ public class UtilText {
 		}
 		for(BodyShape bodyShape : BodyShape.values()) {
 			engine.put("BODY_SHAPE_"+bodyShape.toString(), bodyShape);
+		}
+		for(Capacity capacity : Capacity.values()) {
+			engine.put("CAPACITY_"+capacity.toString(), capacity);
+		}
+		for(OrificeDepth depth : OrificeDepth.values()) {
+			engine.put("DEPTH_"+depth.toString(), depth);
+		}
+		for(OrificeElasticity elasticity : OrificeElasticity.values()) {
+			engine.put("ELASTICITY_"+elasticity.toString(), elasticity);
+		}
+		for(OrificePlasticity plasticity : OrificePlasticity.values()) {
+			engine.put("PLASTICITY_"+plasticity.toString(), plasticity);
 		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
@@ -10658,6 +10712,9 @@ public class UtilText {
 		engine.put(tag, getInventoryForParsing());
 	}
 	
+	
+	// Memoization improvement attempts follow from here:
+	
 //	private static final Map<String, CompiledScript> memo = new HashMap<>();
 //	private static final int memo_limit = 500;
 	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason.
@@ -10689,8 +10746,10 @@ public class UtilText {
 //			script = memo.get(command);
 //		}
 //		return script.eval(((NashornScriptEngine)engine).getContext());
-////		return script.eval();
-
+//		//return script.eval();
+		
+		
+		// This is the old code which works but is slow:
 		CompiledScript script = ((NashornScriptEngine)engine).compile(command);
 		return script.eval();
 	}

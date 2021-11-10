@@ -881,7 +881,6 @@
 				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_NOTHING'))]
-					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -1))]
 				]]></effects>
 			</response>
 		</responses>

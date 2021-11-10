@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -13,11 +14,12 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.4
+ * @version 0.4.2.2
  * @author Innoxia
  */
 public class SMKrugerChair extends SexManagerDefault {
@@ -42,6 +44,21 @@ public class SMKrugerChair extends SexManagerDefault {
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return !character.isPlayer();
+	}
+
+	@Override
+	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+		Map<GameCharacter, List<CoverableArea>> map = Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), Util.newArrayListOfValues(CoverableArea.PENIS)));
+		
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+			map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH));
+		} else if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA));
+		} else {
+			map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS));
+		}
+		
+		return map;
 	}
 	
 	@Override

@@ -1966,7 +1966,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located an hour's travel to the North-East of Elis named 'Evelyx's Dairy'."
+			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located to the North-East of Elis named 'Evelyx's Dairy'."
 					+ " You'll have to go to this farm and ask for Monica's breast pump...";
 		}
 		@Override

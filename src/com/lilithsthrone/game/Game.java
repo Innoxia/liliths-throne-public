@@ -115,6 +115,7 @@ import com.lilithsthrone.game.character.npc.fields.EvelyxSexualPartner;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
 import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Kazik;
@@ -216,6 +217,7 @@ import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEvent;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -292,7 +294,11 @@ public class Game implements XMLSaving {
 	private int weatherTimeRemainingInSeconds;
 	
 	private Encounter currentEncounter;
-	
+	// Need to always return the same encounter at the same time in case it gets triggered multiple times in logic somewhere, so once it's been calculated at a certain time, reuse that result.
+	// These two variables are responsible for holding that information (and are located here as they need to be reset upon new game or loading a game).
+	public Value<Long, DialogueNode> forcedEncounterAtSeconds = new Value<>(-1l, null);
+	public Value<Long, DialogueNode> encounterAtSeconds = new Value<>(-1l, null);
+
 	private boolean started;
 	
 	private static Map<String, CharacterInventory> savedInventories; // Map of ID to inventory
@@ -1630,11 +1636,20 @@ public class Game implements XMLSaving {
 						}
 					}
 		        }
-				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2")) {
+
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) {
 					Main.game.getNpc(Ashley.class).clearAffectionMap();
 					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
-				
+
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) { // NPCs generated before this version were affected by the game's 3-year time skip at the start, so were older than intended
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc.isUnique()) {
+							npc.setBirthday(npc.getBirthday().plusYears(TIME_SKIP_YEARS));
+						}
+					}
+				}
+
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -2106,6 +2121,9 @@ public class Game implements XMLSaving {
 				Main.game.getNpc(Dale.class).setAffection(Main.game.getNpc(Evelyx.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 			}
 			
+			// Headless horseman:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HeadlessHorseman.class))) { addNPC(new HeadlessHorseman(), false); addedNpcs.add(HeadlessHorseman.class); }
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2828,6 +2846,9 @@ public class Game implements XMLSaving {
 							+ "</p>";
 					ex.printStackTrace();
 				}
+				if(content==null) {
+					content = "";
+				}
 
 				if (currentDialogueNode != null) {
 					if (node.isContinuesDialogue() || response.isForceContinue()) {
@@ -3039,6 +3060,9 @@ public class Game implements XMLSaving {
 						+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+node.getLabel()+"')]"
 					+ "</p>";
 			ex.printStackTrace();
+		}
+		if(content==null) {
+			content = "";
 		}
 		boolean resetPointer = false;
 		
@@ -4096,6 +4120,9 @@ public class Game implements XMLSaving {
 	
 	public void applyStartingDateChange() {
 		startingDate = startingDate.plusYears(TIME_SKIP_YEARS);
+		for(NPC npc : Main.game.getAllNPCs()) {
+			npc.setBirthday(npc.getBirthday().plusYears(TIME_SKIP_YEARS)); // Have to do this to keep NPC starting ages as planned
+		}
 	}
 	
 	/**
@@ -4241,6 +4268,10 @@ public class Game implements XMLSaving {
 
 	public DayOfWeek getDayOfWeek() {
 		return getDateNow().getDayOfWeek();
+	}
+
+	public Month getMonth() {
+		return getDateNow().getMonth();
 	}
 
 	public boolean isInCombat() {
@@ -4529,11 +4560,27 @@ public class Game implements XMLSaving {
 			}
 		}
 		
+		// Iterate through all characters, and if a character has had their virginity taken by this npc, then set the backup virginity loss text
+		// This will prevent the player from seeing the backup text: 'X lost their virginity to someone they can't remember.'
+		List<GameCharacter> allCharactersWithPlayer = new ArrayList<>();
+		allCharactersWithPlayer.add(Main.game.getPlayer());
+		allCharactersWithPlayer.addAll(Main.game.getAllNPCs());
+		for(GameCharacter character : allCharactersWithPlayer) {
+			for(Entry<SexType, Entry<String, String>> entry : character.getVirginityLossMap().entrySet()) {
+				if(entry.getValue()!=null) {
+					if(entry.getValue().getKey().equals(npc.getId())) {
+						character.setBackupVirginityLoss(entry.getKey());
+					}
+				}
+			}
+		}
+
 		if((npc.getPregnantLitter()!=null && npc.getPregnantLitter().getFather()!=null && npc.getPregnantLitter().getFather().isPlayer()) // NPC needs to birth litter where player is father
 				|| (Main.game.getPlayer().getPregnantLitter()!=null && Main.game.getPlayer().getPregnantLitter().getFather()!=null && Main.game.getPlayer().getPregnantLitter().getFather().equals(npc)) // player needs to birth litter where NPC is father
 				|| incubatingPlayerLitter
 				|| playerIncubatingLitter
 				|| npc.isUnique()) {
+			ParserTarget.removeAdditionalParserTarget(npc);
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
 			

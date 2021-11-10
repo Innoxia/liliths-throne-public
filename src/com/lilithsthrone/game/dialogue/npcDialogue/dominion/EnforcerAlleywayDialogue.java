@@ -52,6 +52,7 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
@@ -476,6 +477,20 @@ public class EnforcerAlleywayDialogue {
 					return getForeplayPreference(character, targetedCharacter);
 				}
 				return character.getMainSexPreference(targetedCharacter);
+			}
+			@Override
+			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+				if(Main.sex.isDom(partner)) {
+					boolean domsSatisfied = true;
+					for(GameCharacter character : Main.sex.getDominantParticipants(false).keySet()) {
+						if(!Main.sex.isSatisfiedFromOrgasms(character, true) && Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
+							domsSatisfied = false;
+						}
+					}
+					return domsSatisfied;
+				}
+				
+				return super.isPartnerWantingToStopSex(partner);
 			}
 		};
 	}
