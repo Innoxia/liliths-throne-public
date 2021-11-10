@@ -2835,7 +2835,7 @@ public class Body implements XMLSaving {
 						break;
 					case TAIL_SLEEP_HUGGING:
 						break;
-					case TAIL_SUTABLE_FOR_PENETRATION:
+					case TAIL_SUITABLE_FOR_PENETRATION:
 						sb.append(" Each of them can be used as a penetrative object during sex, and when used to penetrate an orifice, a maximum of [npc.tentaclePenetrationLength(true)] can be inserted.");
 						break;
 					case TAIL_TAPERING_EXPONENTIAL:
@@ -5077,7 +5077,7 @@ public class Body implements XMLSaving {
 						descriptionSB.append(" [npc.She] [npc.has] a series of internal muscles lining the inside of [npc.her] [npc.vagina], allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
 						break;
 					case PUFFY:
-						descriptionSB.append(" [npc.Her] labia has swollen up into big, extra-puffy pussy lips.");
+						descriptionSB.append(" [npc.Her] labia have swollen up into big, extra-puffy pussy lips.");
 						break;
 					case RIBBED:
 						descriptionSB.append(" The inside of [npc.her] [npc.vagina] is lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");

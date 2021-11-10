@@ -110,7 +110,7 @@ public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 				this.torsoTags = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
-						torsoTags.add(BodyPartTag.valueOf(e.getTextContent()));
+						torsoTags.add(BodyPartTag.getBodyPartTagFromId(e.getTextContent()));
 					}
 				}
 				

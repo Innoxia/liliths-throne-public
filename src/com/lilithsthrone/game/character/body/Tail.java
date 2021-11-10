@@ -409,7 +409,7 @@ public class Tail implements BodyPartInterface {
 		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION)) {
 			return false;
 		}
-		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)) {
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)) {
 			return this.getType().isPrehensile() || this.getLengthAsPercentageOfHeight()>=0.5f;
 			
 		} else if(Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)) {

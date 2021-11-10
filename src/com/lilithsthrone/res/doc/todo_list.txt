@@ -24,6 +24,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed several bugs and updated modding information for patterns. (PR#1605 by CognitiveMist)
 		Fixed rare bug when importing clothing which would sometimes result in modded clothing not showing up for sale. (PR#1607 by CognitiveMist)
 		Adjusted NPCs' reference to their working hours to respect the 12 or 24-hour preference in the player's settings. (PR#1609 by CognitiveMist)
+		In the self-transform menu, the comparators used for sorting horns and wings have had inconsistencies fixed. (PR#1610 by CognitiveMist)
+	
+	Assorted Bugfixes Contributed by Maxis010 (PR#1603):
+		Fixed typos both in dialogue and code.
+		Fixed issue where artowrk could become invalid after a character was transformed.
+		Fixed bug where Ashley would be set to be friendly towards herself instead of towards Nyan.
+		Improved detection and removal of danger characters in save game file names.
+		Added missing check for body hair content setting.
+		Fixed issue with the saving/loading of enchantments sometimes loading incorrect enchantments.
 	
 	Engine/Modding:
 		Slightly improved performance of encounter generation.
@@ -64,7 +73,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the artwork would not update for Kay after feminising him.
 		Fixed background error sometimes being thrown when teleporting out of Submission.
 		If a tile has multiple possible encounters assigned to it, the encounter chosen is now correctly weighted based on each encounter's total chance to be selected, instead of completely randomly (which was causing issues with encounters not triggering as expected).
-		The 'Impish Fiends' and 'Centaurs & More' books will now corretly unlock in Lilaya's library after having read them.
+		The 'Impish Fiends' and 'Centaurs & More' books will now correctly unlock in Lilaya's library after having read them.
 		Fixed issue where NPCs were being affected by the 3-year time skip at the start of new games, making them 3 years older than intended. This fix has been retroactively applied to all unique NPCs, so when loading into this version unique NPCs will all be 3 years younger.
 		The player character now suffers from menopause at age 55 instead of NPCs' usual 52, to take into account the 3-year timeskip.
 		Fixed issue where the 'Push her' sex action during Meraxis's handjob scene would show a 'No suitable description found for this action!' error.
@@ -144,7 +153,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Apparently naturally spawned slimes aren’t supposed to have makeup but I find a lot of them with makeup: an example
 	[-] The second floor of Lilya’s mansion lags like the end of the world.
 	
+	
 	[] add enchantment capacity as an enchantment that's unobtainable in the enchanting menu
+	
+	[] Cannot repeat Evelyx meeting after refusing Monica choices
+		[] Also add a chuuni variation
 	
 	[] Also had an 'Error: getContentmethod() is throwing an exception in the node "Inventory"' happen when I enchanted angel philter,
 	 I already had 1 stack of the enchanted stuff in my inventory at the time, and I used the save/load recipe function so the enchantment is identical

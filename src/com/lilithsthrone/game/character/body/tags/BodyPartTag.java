@@ -1,5 +1,11 @@
 package com.lilithsthrone.game.character.body.tags;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.lilithsthrone.utils.Util;
+
 /**
  * @since 0.4
  * @version 0.4.0
@@ -92,7 +98,7 @@ public enum BodyPartTag {
 	TAIL_NEVER_SUITABLE_FOR_PENETRATION,
 	
 	/** Whether this tail is suitable for penetrating orifices (e.g demon tails). Note that furry tails should not be marked with this, as that relies on the player's furry penetration settings and is determined from whether the tail is prehensile. */
-	TAIL_SUTABLE_FOR_PENETRATION,
+	TAIL_SUITABLE_FOR_PENETRATION,
 	
 	/** Whether this tail can be curled up and hugged when falling asleep. */
 	TAIL_SLEEP_HUGGING,
@@ -133,5 +139,32 @@ public enum BodyPartTag {
 	TAIL_TAPERING_BULBOUS,
 	
 	/** The tail's diameter does not taper off from the base. Examples would be for cat, dog, rat tails. */
-	TAIL_TAPERING_NONE
+	TAIL_TAPERING_NONE;
+	
+	
+	
+	public static List<BodyPartTag> allBodyPartTags;
+	public static Map<BodyPartTag, String> bodypartTagToIdMap = new HashMap<>();
+	public static Map<String, BodyPartTag> idToBodypartTagMap = new HashMap<>();
+	
+	static {
+		for(BodyPartTag tag : BodyPartTag.values()) {
+			allBodyPartTags.add(tag);
+			bodypartTagToIdMap.put(tag, tag.toString());
+			idToBodypartTagMap.put(tag.toString(), tag);
+		}
+	}
+	
+	public static List<BodyPartTag> getAllBodyPartTags() {
+		return allBodyPartTags;
+	}
+
+	public static BodyPartTag getBodyPartTagFromId(String id) {
+		id = Util.getClosestStringMatch(id, idToBodypartTagMap.keySet());
+		return idToBodypartTagMap.get(id);
+	}
+	
+	public static String getIdFromBodyPartTag(BodyPartTag bpt) {
+		return bodypartTagToIdMap.get(bpt);
+	}
 }

@@ -1637,17 +1637,17 @@ public class Game implements XMLSaving {
 					}
 		        }
 
-				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) {
-					Main.game.getNpc(Ashley.class).clearAffectionMap();
-					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-				}
-
 				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) { // NPCs generated before this version were affected by the game's 3-year time skip at the start, so were older than intended
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(npc.isUnique()) {
 							npc.setBirthday(npc.getBirthday().plusYears(TIME_SKIP_YEARS));
 						}
 					}
+				}
+
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.2")) {
+					Main.game.getNpc(Ashley.class).clearAffectionMap();
+					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
 
 				Main.game.pendingSlaveInStocksReset = false;
