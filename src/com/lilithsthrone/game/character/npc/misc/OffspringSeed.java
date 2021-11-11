@@ -144,11 +144,14 @@ public class OffspringSeed implements XMLSaving {
 			
 		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
 			this.setSurname(father.getName(false)+"martuilani");
-			
+
+		} else if(mother.getMother()!=null && (mother.getMother().getTrueSubspecies()==Subspecies.LILIN || mother.getMother().getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
+			this.setSurname(mother.getMother().getName(false)+"martu");
+
 		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
 			this.setSurname(mother.getSurname());
 		}
-		
+
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);
 		
 		Body preGeneratedBody;
