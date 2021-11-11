@@ -121,7 +121,7 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 				this.tags = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
-						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+						tags.add(BodyPartTag.getBodyPartTagFromId(e.getTextContent()));
 					}
 				}
 				

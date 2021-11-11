@@ -24,11 +24,22 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed several bugs and updated modding information for patterns. (PR#1605 by CognitiveMist)
 		Fixed rare bug when importing clothing which would sometimes result in modded clothing not showing up for sale. (PR#1607 by CognitiveMist)
 		Adjusted NPCs' reference to their working hours to respect the 12 or 24-hour preference in the player's settings. (PR#1609 by CognitiveMist)
+		In the self-transform menu, the comparators used for sorting horns and wings have had inconsistencies fixed. (PR#1610 by CognitiveMist)
+		Improved Encounter generation code, improving performance in Lilaya's Home and Dominion tiles. (by AceXP)
+	
+	Assorted Bugfixes Contributed by Maxis010 (PR#1603):
+		Fixed typos both in dialogue and code.
+		Fixed issue where artowrk could become invalid after a character was transformed.
+		Fixed bug where Ashley would be set to be friendly towards herself instead of towards Nyan.
+		Improved detection and removal of danger characters in save game file names.
+		Added missing check for body hair content setting.
+		Fixed issue with the saving/loading of enchantments sometimes loading incorrect enchantments.
 	
 	Engine/Modding:
 		Slightly improved performance of encounter generation.
 		Added support for 'one-shot' weapons (intended primarily for thrown weapons), which causes the weapon to be removed from the player after being used. You can define chances to recover the weapon at the end of the turn and at the end of combat. See the 'res/weapons/innoxia/dagger/dagger.xml' for comments on how to define a one-shot weapon.
 		Added a 'attackDescriptionPrefix' element to weapon xml files, allowing you to define a more suitable attack description to fit the sentence 'X your enemy for N damage!'. See the same dagger file mentioned above for a commented example. If the element is not found, then the 'attackDescriptor' element is used instead (so there's no real need to refactor any mods).
+		Added a new TFModifier value 'ENCHANTMENT_LIMIT', which acts like any other attribute boosting TFModifier (to increase the wearer's enchantment capacity) when selected as the secondary TFModifier to a primary 'CLOTHING_MAJOR_ATTRIBUTE' TFModifier. This cannot be selected by the player in-game (for balance reasons), and so is only for if you want special modded clothing or weapons to add enchantment capacity.
 	
 	Items:
 		Added 'tennis ball' and 'ball of yarn' as ranged, one-shot, silly mode weapons, both sold by Ralph. (They will appear in his inventory after he restocks at midnight, and will only appear if you have silly mode turned on.)
@@ -64,7 +75,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the artwork would not update for Kay after feminising him.
 		Fixed background error sometimes being thrown when teleporting out of Submission.
 		If a tile has multiple possible encounters assigned to it, the encounter chosen is now correctly weighted based on each encounter's total chance to be selected, instead of completely randomly (which was causing issues with encounters not triggering as expected).
-		The 'Impish Fiends' and 'Centaurs & More' books will now corretly unlock in Lilaya's library after having read them.
+		The 'Impish Fiends' and 'Centaurs & More' books will now correctly unlock in Lilaya's library after having read them.
 		Fixed issue where NPCs were being affected by the 3-year time skip at the start of new games, making them 3 years older than intended. This fix has been retroactively applied to all unique NPCs, so when loading into this version unique NPCs will all be 3 years younger.
 		The player character now suffers from menopause at age 55 instead of NPCs' usual 52, to take into account the 3-year timeskip.
 		Fixed issue where the 'Push her' sex action during Meraxis's handjob scene would show a 'No suitable description found for this action!' error.
@@ -132,7 +143,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		even if you disable the "hairy descriptions" option, the armpit sexual actions still describe armpits as "hairy", this works with any species
 	[x] The partner deciding to cum on your feet while being a lamia describes as taking hold of your tail, makes sense so far, then describes them cumming on your 'clawed feet', which unless lamias have a pair of feet at the end of their tail makes no sense.
 	[x] Battle axes, recurve bows, and dorys show up in Vicky's shop unenchanted.
-		there isn't anything wrong with this per say but it causes some very noticable price differences compared to other comparable weapons like the arming sword and zweihander
+		there isn't anything wrong with this per say but it causes some very noticeable price differences compared to other comparable weapons like the arming sword and zweihander
 		[x] feather duster, witch broom sets?
 		[x] debug menu weapon rarities
 		[x] weapon rarity changes
@@ -143,15 +154,24 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Apparently getting Smooth Spotted fur as a greater panther morph loops you back around to human
 	[x] Apparently naturally spawned slimes aren’t supposed to have makeup but I find a lot of them with makeup: an example
 	[-] The second floor of Lilya’s mansion lags like the end of the world.
+	[x]  So, in src/com/lilithsthrone/game/dialogue/encounters/Encounter.java line 81, don't check the getSlaveUsingOtherSlaveInLilayaCorridor(), but just add the chance for it.
+		And only calculate the effect (which may be 'no encounter') if the encounter triggers.
+		Same goes for all the getSlaveWantingToUseYouInDominion for line 175/258/324/496 in the same java file. 
+	[x] add enchantment capacity as an enchantment that's unobtainable in the enchanting menu
+	[x] AbstractClothing uses attributeModifiers in several places instead of accessor method???
 	
-	[] add enchantment capacity as an enchantment that's unobtainable in the enchanting menu
+	
+	[] Cannot repeat Evelyx meeting after refusing Monica choices
+		[] Also add a chuuni variation
+	
+	[] Evelyx BE 'Mounted' action not working?
+	
+	
 	
 	[] Also had an 'Error: getContentmethod() is throwing an exception in the node "Inventory"' happen when I enchanted angel philter,
 	 I already had 1 stack of the enchanted stuff in my inventory at the time, and I used the save/load recipe function so the enchantment is identical
 	
 	[] One of my slaves won't speak despite not being set to silence
-	
-	[] Evelyx BE 'Mounted' action not working?
 	
 	[] When in the submissive position in a forced scene and you start to finger yourself there is no option to stop fingering yourself
 	
@@ -242,12 +262,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			
 	[] "Doing ask for all that gentle loving crap again!" should be "Don't ask for all that gentle loving crap again!"
 			
+			
 	
 	[] Natalya encounter without needing Helena quest
 	
 	[] boxing gloves mod
 	[] latex leggings
-	
 	
 	
 	[] Wall's End

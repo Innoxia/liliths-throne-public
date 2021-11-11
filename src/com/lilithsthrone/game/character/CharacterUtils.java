@@ -2924,7 +2924,7 @@ public class CharacterUtils {
 		if(!character.getBodyMaterial().isAbleToWearMakeup()) {
 			return;
 		}
-		
+
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
 					PresetColour.COVERING_NONE,

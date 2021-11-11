@@ -6199,7 +6199,7 @@ public class MainControllerInitMethod {
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FURRY_PREFERENCE) {
 			
 			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
-				id="SUBSPECIES_PREFERNCE_INFO_"+Subspecies.getIdFromSubspecies(s);
+				id="SUBSPECIES_PREFERENCE_INFO_"+Subspecies.getIdFromSubspecies(s);
 
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -7479,9 +7479,6 @@ public class MainControllerInitMethod {
 							AbstractCoreItem abstractItem = lEnch.getSuitableItem();
 							EnchantmentDialogue.initModifiers(abstractItem);
 							EnchantmentDialogue.getEffects().clear();
-							for(ItemEffect ie : abstractItem.getEffects()) {
-								EnchantmentDialogue.addEffect(ie);
-							}
 							for(ItemEffect ie : lEnch.getEffects()) {
 								EnchantmentDialogue.addEffect(ie);
 							}

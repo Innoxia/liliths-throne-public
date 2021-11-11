@@ -157,8 +157,10 @@
 		RESISTANCE_WEAPON applies the related resistance of this weapon's damage type, while DAMAGE_WEAPON applies the related damage type.
 		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+				<!-- The secondary TFModifier 'ENCHANTMENT_LIMIT' is not available as an enchantment to the player in-game (for balance reasons), but can be defined as below to give enchantment capacity boosts to modded weapons: -->
+				<!-- <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="ENCHANTMENT_LIMIT" timer="0"/> -->
 		</effects>
 		
 		<!-- You can use this section to describe any extra features of this weapon.

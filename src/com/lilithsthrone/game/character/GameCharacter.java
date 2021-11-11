@@ -25557,7 +25557,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return true if this character has an arm type which allows underarm hair.
 	 */
 	public boolean isUnderarmHairAvailable() {
-		return this.getArmType().isUnderarmHairAllowed();
+		return this.getArmType().isUnderarmHairAllowed() && Main.game.isBodyHairEnabled();
 	}
 	public BodyHair getUnderarmHair() {
 		if(!this.isUnderarmHairAvailable()) {

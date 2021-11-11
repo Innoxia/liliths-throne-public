@@ -1709,7 +1709,7 @@ public class Game implements XMLSaving {
 				}
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.15")) {
 					Main.game.getNpc(Nyan.class).setAffection(Main.game.getNpc(Ashley.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Ashley.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
 
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.17") && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
@@ -1754,6 +1754,12 @@ public class Game implements XMLSaving {
 						}
 					}
 				}
+
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.2")) {
+					Main.game.getNpc(Ashley.class).clearAffectionMap();
+					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+				}
+
 
 				Main.game.pendingSlaveInStocksReset = false;
 				
@@ -1993,7 +1999,7 @@ public class Game implements XMLSaving {
 				Main.game.getNpc(NyanMum.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 				
 				Main.game.getNpc(Nyan.class).setAffection(Main.game.getNpc(Ashley.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-				Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Ashley.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+				Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 			}
 			
 			if(addedNpcs.contains(SupplierLeader.class)) {

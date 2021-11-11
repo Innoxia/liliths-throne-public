@@ -79,7 +79,7 @@ public class Encounter {
 					(Main.game.getCharactersPresent().isEmpty()
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null),
-					(getSlaveUsingOtherSlaveInLilayaCorridor()!=null && Main.game.getCharactersPresent().isEmpty()
+					(Main.game.getCharactersPresent().isEmpty()
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USING_OTHER_SLAVE, 5f)
 						:null));
 		}
@@ -123,8 +123,8 @@ public class Encounter {
 				
 			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
 				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInLilayaCorridor();
-				if(slaves.getKey()==null || slaves.getValue()==null) {
-					return null;
+				if(slaves==null || slaves.getKey()==null || slaves.getValue()==null) {
+					return null; // Return a null Encounter here instead of checking in getDialogues() due to performance issues
 				}
 				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveLilayaCorridor(slaves);
 				
@@ -173,9 +173,7 @@ public class Encounter {
 					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f)
 						:null,
-					getSlaveWantingToUseYouInDominion()!=null
-						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
-						:null,
+					new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f),
 					wesQuestAvailable
 						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 50f)
 						:null,
@@ -256,9 +254,7 @@ public class Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-					getSlaveWantingToUseYouInDominion()!=null
-						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
-						:null);
+					new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f));
 		}
 		
 		@Override
@@ -322,10 +318,10 @@ public class Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					(getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null),
-					(getSlaveUsingOtherSlaveInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USING_OTHER_SLAVE, 5f)
 						:null));
 			
@@ -441,7 +437,7 @@ public class Encounter {
 				
 			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
 				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInDominion();
-				if(slaves.getKey()==null || slaves.getValue()==null) {
+				if(slaves==null || slaves.getKey()==null || slaves.getValue()==null) {
 					return null;
 				}
 				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveAlleyway(slaves);
@@ -454,13 +450,13 @@ public class Encounter {
 	public static AbstractEncounter DOMINION_DARK_ALLEY = new AbstractEncounter() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
-                    Map<EncounterType, Float> map = new HashMap<>();
+            Map<EncounterType, Float> map = new HashMap<>();
 
-                    map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
-                    
-                    return map;
-                }
-                @Override
+            map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
+            
+            return map;
+        }
+        @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 				
 			// Prioritise re-encountering the NPC on this tile:
@@ -494,7 +490,7 @@ public class Encounter {
 							&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f)
 						:null,
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
