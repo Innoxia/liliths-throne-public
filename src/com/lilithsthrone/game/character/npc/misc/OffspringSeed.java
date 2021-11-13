@@ -15,6 +15,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,6 +24,8 @@ import org.w3c.dom.NodeList;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Map;
+
+import static com.lilithsthrone.game.character.persona.Name.surnames;
 
 /**
  * @since 0.4.0
@@ -167,6 +170,11 @@ public class OffspringSeed implements XMLSaving {
 		}
 
 		this.subspecies = body.getSubspecies();
+
+		//For Imps, don't use any of the demon surnames but just a regular surname
+		if (this.surname.contains("martu") && (this.subspecies==Subspecies.IMP || this.subspecies==Subspecies.IMP_ALPHA)) {
+			this.setSurname(surnames[Util.random.nextInt(surnames.length)]);
+		}
 
 		setName(Name.getRandomTriplet(getRace()));
 		
