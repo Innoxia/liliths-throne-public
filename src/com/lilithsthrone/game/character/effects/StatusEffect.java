@@ -764,7 +764,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPinkLight(Foreplay)]",
+					"[style.colourMinorBad(-50%)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.ZERO_NONE.getName());
@@ -795,7 +797,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPinkLight(Foreplay)]",
+					"[style.colourMinorBad(-50%)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.ONE_TURNED_ON.getName());
@@ -826,7 +830,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.TWO_EXCITED.getName());
@@ -857,7 +863,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.THREE_HEATED.getName());
@@ -888,7 +896,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.FOUR_PASSIONATE.getName());
@@ -919,7 +929,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.FIVE_ORGASM_IMMINENT.getName());

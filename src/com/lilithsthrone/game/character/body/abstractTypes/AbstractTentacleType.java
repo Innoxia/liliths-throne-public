@@ -149,7 +149,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 				this.tags = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
-						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+						tags.add(BodyPartTag.getBodyPartTagFromId(e.getTextContent()));
 					}
 				}
 				if(tags.isEmpty()) {
@@ -490,7 +490,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	}
 	
 	public boolean isSuitableForPenetration() {
-		return this.isPrehensile() && tags.contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION);
+		return this.isPrehensile() && tags.contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION);
 	}
 	
 	public boolean isSuitableForSleepHugging() {

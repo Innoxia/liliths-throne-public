@@ -20,7 +20,7 @@
 		
 		<attackTooltipDescription><![CDATA[Slash at [npc2.name] with your arming sword.]]></attackTooltipDescription>
 		
-		<rarity>EPIC</rarity> 
+		<rarity>COMMON</rarity> 
 		
 		<weaponSet/> 
 		

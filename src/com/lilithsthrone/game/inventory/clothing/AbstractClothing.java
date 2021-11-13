@@ -70,7 +70,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	protected List<ItemEffect> effects;
 	
-	private String pattern; // name of the pattern. 
+	private String pattern; // id of the pattern.
 	private List<Colour> patternColours;
 
 	private Map<String, String> stickers; // Mapping StickerCategory id to Sticker id
@@ -221,7 +221,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		patternColours = new ArrayList<>();
 		
 		if(Math.random()<clothingType.getPatternChance()) {
-			pattern = Util.randomItemFrom(clothingType.getDefaultPatterns()).getName();
+			pattern = Util.randomItemFrom(clothingType.getDefaultPatterns()).getId();
 			
 		} else {
 			pattern = "none";
@@ -647,7 +647,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.8")) {
 			Element patternElement = (Element) parentElement.getElementsByTagName("pattern").item(0);
 			if(patternElement!=null) {
-				clothing.setPattern(patternElement.getAttribute("id"));
+				String patternId = patternElement.getAttribute("id");
+				if(Pattern.getPattern(patternId) == null) {
+					patternId = Pattern.getPatternIdByName(patternId);
+				}
+				clothing.setPattern(patternId);
 				NodeList nodes = patternElement.getElementsByTagName("colour");
 				for(int i=0; i<nodes.getLength(); i++) {
 					Element cElement = (Element) nodes.item(i);
@@ -661,8 +665,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		} else {
 			try {
 				if(!parentElement.getAttribute("pattern").isEmpty()) {
-					String pat = parentElement.getAttribute("pattern");
-					clothing.setPattern(pat);
+					String patternId = parentElement.getAttribute("pattern");
+					if(Pattern.getPattern(patternId) == null) {
+						patternId = Pattern.getPatternIdByName(patternId);
+					}
+					clothing.setPattern(patternId);
 				} else {
 					clothing.setPattern("none");
 				}
@@ -812,7 +819,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	/**
-	 * Returns the name of a pattern that the clothing has.
+	 * Returns the id of a pattern that the clothing has.
 	 * @return
 	 */
 	public String getPattern() {
@@ -1251,7 +1258,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment Revealed:</b><br/>"+getDisplayName(true));
 			}
 
-			for(Entry<AbstractAttribute, Integer> att : attributeModifiers.entrySet()) {
+			for(Entry<AbstractAttribute, Integer> att : getAttributeModifiers().entrySet()) {
 				sb.append("<br/>"+att.getKey().getFormattedValue(att.getValue()));
 			}
 			
@@ -2078,7 +2085,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			this.enchantmentKnown = enchantmentKnown;
 		}
 		
-		if(enchantmentKnown && !attributeModifiers.isEmpty()){
+		if(enchantmentKnown && !getAttributeModifiers().isEmpty()){
 			if(isBadEnchantment()) {
 				sb.append(
 						"<p style='text-align:center;'>"
@@ -2219,7 +2226,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
-			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+			if((ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE)
+					&& (Main.game.isEnchantmentCapacityEnabled() || ie.getSecondaryModifier() != TFModifier.ENCHANTMENT_LIMIT)) {
 				attributeModifiers.merge(ie.getSecondaryModifier().getAssociatedAttribute(), ie.getPotency().getClothingBonusValue(), Integer::sum);
 			}
 		}
@@ -2232,7 +2240,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 */
 	public int getEnchantmentCapacityCost() {
 		Map<AbstractAttribute, Integer> noCorruption = new HashMap<>();
-		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
+		getAttributeModifiers().entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	

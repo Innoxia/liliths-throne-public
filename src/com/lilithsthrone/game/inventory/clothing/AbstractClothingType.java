@@ -707,7 +707,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
 				try {
 					return patternsElement.getAllOf("pattern").stream()
-							.map(Element::getTextContent).map(Pattern::getPattern)
+							.map(Element::getTextContent).map(Pattern::getPatternByIdOrName)
 							.collect(Collectors.toList());
 				} catch (Exception e) {
 					printHelpfulErrorForEnumValueMismatches(e);

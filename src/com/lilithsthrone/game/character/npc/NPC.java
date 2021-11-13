@@ -416,7 +416,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return new Value<>(true, ""); 
 		}
 		if(this.isUnique()) {
-			return new Value<>(false, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to wear the "+clothing.getName()+"!");
+			return new Value<>(false, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to equip the "+clothing.getName()+"!");
+		}
+		if(Main.game.isInSex() && (Main.sex.isDom(this) || Main.sex.isSubHasEqualControl())) {
+			return new Value<>(false, "[npc.Name] is not interested in equipping the "+clothing.getName()+"!");
 		}
 		return new Value<>(true, "");
 	}
@@ -1286,7 +1289,30 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
 			
 		} else {
-			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
+			RaceStage targetedRaceStage = this.getRaceStagePreference();
+			// Make sure that the generated body preference is respecting the player's content settings.
+			// Otherwise, NPC's potion will attempt to apply changes as though the end body would be a greater stage than allowed.
+				// e.g. Removing hair thinking that the player will end up greater, while preferences were set to less than greater.
+			switch(Main.getProperties().getForcedTFPreference()) {
+				case HUMAN:
+					targetedRaceStage = RaceStage.HUMAN;
+					break;
+				case MINIMUM:
+					if(targetedRaceStage!=RaceStage.HUMAN) {
+						targetedRaceStage = RaceStage.PARTIAL_FULL;
+					}
+					break;
+				case REDUCED:
+					if(targetedRaceStage!=RaceStage.HUMAN && targetedRaceStage!=RaceStage.PARTIAL_FULL) {
+						targetedRaceStage = RaceStage.LESSER;
+					}
+					break;
+				case NORMAL:
+				case MAXIMUM:
+					break;
+			}
+			
+			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), targetedRaceStage);
 		}
 		Util.random = new Random();
 
@@ -1668,15 +1694,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Hair length:
 		// Same as with breast size, since target hair size might be 0cm (= no hair) and steps reduced to 5cm from 15cm.
+		boolean majorChange = Math.abs(target.getHairRawLengthValue() - body.getHair().getRawLengthValue()) > 15;
 		if(target.getHairRawLengthValue() + 6 < body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_BOOST:TFPotency.BOOST, 1),
 				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too short!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
 		} else if(target.getHairRawLengthValue() > body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_DRAIN:TFPotency.DRAIN, 1),
 				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too long!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}

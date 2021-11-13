@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.2.1";
+	public static final String VERSION_NUMBER = "0.4.2.2";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -835,16 +835,8 @@ public class Main extends Application {
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {
-		if (name.length()==0) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
-			return;
-		}
-		if (name.length() > 64) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
-			return;
-		}
-		if (name.contains("\"")) {//!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
+		name = Main.checkFileName(name);
+		if(name.isEmpty()) {
 			return;
 		}
 		
@@ -869,6 +861,19 @@ public class Main extends Application {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	public static String checkFileName(String name) {
+		name = name.replace(" ", "_").replaceAll("[^\\w]+", "");
+		if (name.length()==0) {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
+			return "";
+		}
+		if (name.length() > 64) {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
+			return "";
+		}
+		return name;
 	}
 
 	public static boolean isLoadGameAvailable(String name) {

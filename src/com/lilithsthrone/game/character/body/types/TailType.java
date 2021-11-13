@@ -98,7 +98,7 @@ public class TailType {
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_PREHENSILE,
-					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION,
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_SKIN,
 					BodyPartTag.TAIL_TAPERING_EXPONENTIAL), false) {
@@ -205,7 +205,7 @@ public class TailType {
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_PREHENSILE,
-					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION,
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_SKIN,
 					BodyPartTag.TAIL_TAPERING_LINEAR), false) {
@@ -297,7 +297,7 @@ public class TailType {
 					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] alligator tails, which [npc.she] can swipe from side to side with considerable force."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION,
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_SCALES,
 					BodyPartTag.TAIL_TAPERING_LINEAR,
@@ -707,7 +707,7 @@ public class TailType {
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_FEATHER,
 					BodyPartTag.TAIL_TAPERING_NONE,
-					BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION), false) {
+					BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION), false) {
 	};
 	
 	public static final AbstractTailType HORSE_MORPH = new AbstractTailType(
@@ -821,7 +821,7 @@ public class TailType {
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_PREHENSILE,
-					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION,
 					BodyPartTag.TAIL_SLEEP_HUGGING,
 					BodyPartTag.TAIL_TYPE_SKIN,
 					BodyPartTag.TAIL_TAPERING_LINEAR), false) {
@@ -863,7 +863,7 @@ public class TailType {
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_TYPE_FUR,
 					BodyPartTag.TAIL_TAPERING_NONE,
-					BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION), false) {
+					BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION), false) {
 	};
 	
 	public static final AbstractTailType REINDEER_MORPH = new AbstractTailType(
