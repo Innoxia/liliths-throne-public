@@ -2835,7 +2835,7 @@ public class Body implements XMLSaving {
 						break;
 					case TAIL_SLEEP_HUGGING:
 						break;
-					case TAIL_SUTABLE_FOR_PENETRATION:
+					case TAIL_SUITABLE_FOR_PENETRATION:
 						sb.append(" Each of them can be used as a penetrative object during sex, and when used to penetrate an orifice, a maximum of [npc.tentaclePenetrationLength(true)] can be inserted.");
 						break;
 					case TAIL_TAPERING_EXPONENTIAL:

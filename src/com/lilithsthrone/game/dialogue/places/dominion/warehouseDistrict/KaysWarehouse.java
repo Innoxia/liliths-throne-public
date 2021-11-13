@@ -2069,6 +2069,7 @@ public class KaysWarehouse {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kayFeminised, true);
 				Main.game.getNpc(Kay.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
+			Main.game.getNpc(Kay.class).loadImages(true); // reload images to use correct artwork
 		}
 		@Override
 		public int getSecondsPassed() {
