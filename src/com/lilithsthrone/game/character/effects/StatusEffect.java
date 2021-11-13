@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
@@ -763,7 +764,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPinkLight(Foreplay)]",
+					"[style.colourMinorBad(-50%)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.ZERO_NONE.getName());
@@ -794,7 +797,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPinkLight(Foreplay)]",
+					"[style.colourMinorBad(-50%)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.ONE_TURNED_ON.getName());
@@ -825,7 +830,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.TWO_EXCITED.getName());
@@ -856,7 +863,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.THREE_HEATED.getName());
@@ -887,7 +896,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.FOUR_PASSIONATE.getName());
@@ -918,7 +929,9 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					"[style.colourPink(Main Sex)]",
+					"[style.colourMinorGood(Full)] arousal gains")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(ArousalLevel.FIVE_ORGASM_IMMINENT.getName());
@@ -3676,7 +3689,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return (Main.getProperties().hasValue(PropertyValue.ageContent) || target.isUnique())
 					&& target.hasVagina()
-					&& target.getAgeValue()>=52
+					&& (target.isPlayer()
+							?target.getAgeValue()>=52+Game.TIME_SKIP_YEARS
+							:target.getAgeValue()>=52)
 					&& (target.getSubspecies()==Subspecies.ANGEL || target.getSubspeciesOverride()==null) // Angels and demons are immune
 					&& !(target.isElemental());
 		}

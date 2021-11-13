@@ -77,8 +77,10 @@
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
 			- Example: The first defined effect will give +3 to physical damage, while the second will give the wearer the masturbation fetish while worn. -->
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_MASTURBATION" timer="0"/>
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_MASTURBATION" timer="0"/>
+				<!-- The secondary TFModifier 'ENCHANTMENT_LIMIT' is not available as an enchantment to the player in-game (for balance reasons), but can be defined as below to give enchantment capacity boosts to modded clothing: -->
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="ENCHANTMENT_LIMIT" timer="0"/>
 		</effects>
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.

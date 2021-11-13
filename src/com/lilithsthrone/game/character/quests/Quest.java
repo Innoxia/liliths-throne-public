@@ -359,7 +359,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
 					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
 		}
 

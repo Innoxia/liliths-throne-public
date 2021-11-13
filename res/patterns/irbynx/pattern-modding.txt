@@ -4,7 +4,7 @@ They don't have the full functionality to make them perfectly work yet; for now 
 
 To add a pattern:
 * Make an SVG that would look good as a 'background pattern'. Have it's background color match the primary color (one of the red colors so the dye brush could change it in game)
-* Name the item using lower case and underscores (_) where the spaces should be. The name will be used in game, so name your things like "tiger_striped.svg" or "cow_patterned.svg"; it will replace underscores with spaces and capitalize as necessary.
+* Make an XML for your pattern. See `camo.xml` for a commented example.
 * That's it! Adding a pattern is actually kinda easy. Keep shapes as paths or rectangles and don't use orange/yellow replacement colors for now, however, as this feature isn't polished yet.
 
 To add support of patterns to an item (clothing only):

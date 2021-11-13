@@ -63,7 +63,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -73,8 +73,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -82,7 +82,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -171,7 +171,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -181,8 +181,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -190,7 +190,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -269,7 +269,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -279,8 +279,8 @@ public class CMFetishAttack {
         }
         
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base "
             				+ getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
@@ -289,7 +289,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -370,7 +370,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -384,8 +384,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target doesn't have a vagina or they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -393,7 +393,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -472,7 +472,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             if(target.isRelatedTo(source)) {
@@ -491,8 +491,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target is not related to you or they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -500,7 +500,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -621,7 +621,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -632,8 +632,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -641,7 +641,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -721,7 +721,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -736,8 +736,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target has no penis or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -745,7 +745,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -826,7 +826,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -841,8 +841,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target has no penis or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -850,7 +850,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -927,7 +927,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -938,8 +938,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -947,7 +947,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1023,7 +1023,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1034,8 +1034,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1043,7 +1043,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1120,7 +1120,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1131,8 +1131,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1140,7 +1140,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1216,7 +1216,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1227,8 +1227,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1236,7 +1236,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1314,7 +1314,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1325,8 +1325,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1334,7 +1334,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1414,7 +1414,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1425,8 +1425,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1434,7 +1434,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1513,7 +1513,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1524,8 +1524,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1533,7 +1533,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1622,7 +1622,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1637,8 +1637,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target has no breasts or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1646,7 +1646,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1739,7 +1739,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1750,8 +1750,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1759,7 +1759,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1849,7 +1849,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1864,8 +1864,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target is not lactating or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -1873,7 +1873,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -1978,7 +1978,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -1993,8 +1993,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish, or if [npc.nameIsFull] not lactating.)]");
@@ -2002,7 +2002,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -2108,7 +2108,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -2119,8 +2119,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -2128,7 +2128,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -2243,7 +2243,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -2254,8 +2254,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -2263,7 +2263,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -2370,7 +2370,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -2381,8 +2381,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -2390,7 +2390,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);
@@ -2479,7 +2479,7 @@ public class CMFetishAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
@@ -2490,8 +2490,8 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
@@ -2499,7 +2499,7 @@ public class CMFetishAttack {
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
             Value<String, Integer> dealtDamage = new Value<>("", 0);

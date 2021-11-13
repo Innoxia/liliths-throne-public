@@ -223,15 +223,9 @@ public class Properties {
 		
 		resetGenderPreferences();
 
-		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
-		for(SexualOrientation o : SexualOrientation.values()) {
-			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
-		}
+		resetOrientationPreferences();
 		
-		fetishPreferencesMap = new EnumMap<>(Fetish.class);
-		for(Fetish f : Fetish.values()) {
-			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
-		}
+		resetFetishPreferences();
 
 		resetAgePreferences();
 		
@@ -1497,6 +1491,20 @@ public class Properties {
 		genderPreferencesMap = new EnumMap<>(Gender.class);
 		for(Gender g : Gender.values()) {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
+		}
+	}
+
+	public void resetOrientationPreferences() {
+		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
+		for(SexualOrientation o : SexualOrientation.values()) {
+			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
+		}
+	}
+
+	public void resetFetishPreferences() {
+		fetishPreferencesMap = new EnumMap<>(Fetish.class);
+		for(Fetish f : Fetish.values()) {
+			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 		}
 	}
 	

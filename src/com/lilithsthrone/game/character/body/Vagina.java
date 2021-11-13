@@ -122,7 +122,7 @@ public class Vagina implements BodyPartInterface {
 		
 		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 
-		descriptorList.removeIf(d->d.isEmpty());
+		descriptorList.removeIf(d->d==null || d.isEmpty());
 		if(descriptorList.isEmpty()) {
 			return "";
 		}
