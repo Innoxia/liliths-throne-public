@@ -965,8 +965,11 @@ public class TooltipInventoryEventListener implements EventListener {
 								?"[style.colourUnarmed(Unarmed)]"
 								:(absWep.getWeaponType().isMelee()
 									?"[style.colourMelee(Melee)]"
-									:"[style.colourRanged(Ranged)]"))+"</br>"
-						+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
+									:"[style.colourRanged(Ranged)]"))
+						+"</br>"
+						+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")
+						+ (absWep.getWeaponType().isOneShot()?" - [style.colourYellow(One-shot)]":"")
+						+"</br>"
 						);
 			
 			float res = absWep.getWeaponType().getPhysicalResistance();
@@ -1027,6 +1030,21 @@ public class TooltipInventoryEventListener implements EventListener {
 							+ "<b>"+ Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, absWep, aoe.getValue()) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, absWep, aoe.getValue())+ "</b>"
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 				}
+			}
+			
+			if(absWep.getWeaponType().isOneShot()) {
+				listIncrease++;
+				listIncrease++;
+				int chanceToRecoverTurn = (int)absWep.getWeaponType().getOneShotChanceToRecoverAfterTurn();
+				int chanceToRecoverCombat = (int)absWep.getWeaponType().getOneShotChanceToRecoverAfterCombat();
+
+				tooltipSB.append("<br/><span style='color:"
+						+(chanceToRecoverTurn<=25?PresetColour.GENERIC_BAD:(chanceToRecoverTurn<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverTurn<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+"'>"+chanceToRecoverTurn+"%</span> recovery [style.colourBlueLight(after use)]<br/>");
+				
+				tooltipSB.append("<span style='color:"
+						+(chanceToRecoverCombat<=25?PresetColour.GENERIC_BAD:(chanceToRecoverCombat<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverCombat<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+";'>"+chanceToRecoverCombat+"%</span> recovery [style.colourCombat(after combat)]");
 			}
 			
 			for(String s : absWep.getWeaponType().getExtraEffects()) {

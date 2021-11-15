@@ -12,7 +12,6 @@
 	<dialogue>innoxia_places_fields_dairyFarm_auction</dialogue>
 	<populationPresent>
 		<population>
-			<conditional><![CDATA[[#game.isBadEnd()]]]></conditional>
 			<populationType plural="true" density="NUMEROUS">Lunette's Marauders</populationType>
 			<subspeciesPresent>
 				<subspecies>DEMON</subspecies>

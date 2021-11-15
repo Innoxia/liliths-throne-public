@@ -431,7 +431,7 @@ public class Natalya extends NPC {
 								+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
 										? "[npc.namePos] wet [npc.pussy] betraying [npc.her] arousal, and in a tone of absolute disgust, [npc2.she] snaps, "
 										: "[npc.namePos] [npc.pussy+], and in a tone of absolute disgust, [npc2.she] snaps, ")
-								+ "[npc2.speech(How disgusting! I <i>hate</i> seeing dirty little fuck-holes! I'll have that removed later...)]"));
+								+ "[npc2.speech(How repulsive! I <i>hate</i> seeing dirty little fuck-holes! I'll have that removed later...)]"));
 			sb.append("</p>");
 			
 			return sb.toString();

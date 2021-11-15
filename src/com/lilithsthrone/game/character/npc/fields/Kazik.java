@@ -4,6 +4,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -219,7 +220,7 @@ public class Kazik extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_ORANGE, null, false), true, this);
 
 		AbstractClothing boxers = Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false);
-		boxers.setPattern("camo");
+		boxers.setPattern(Pattern.getPatternIdByName("camo"));
 		boxers.setPatternColour(0, PresetColour.CLOTHING_DESATURATED_BROWN);
 		boxers.setPatternColour(1, PresetColour.CLOTHING_GREEN_DRAB);
 		this.equipClothingFromNowhere(boxers, true, this);
@@ -230,7 +231,7 @@ public class Kazik extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_PLATINUM, PresetColour.CLOTHING_GUNMETAL, PresetColour.CLOTHING_GUNMETAL, false), true, this);
 
 		AbstractClothing tshirt = Main.game.getItemGen().generateClothing("innoxia_torso_tshirt", PresetColour.CLOTHING_BLACK, false);
-		tshirt.setPattern("camo");
+		tshirt.setPattern(Pattern.getPatternIdByName("camo"));
 		tshirt.setPatternColour(0, PresetColour.CLOTHING_DESATURATED_BROWN);
 		tshirt.setPatternColour(1, PresetColour.CLOTHING_GREEN_DRAB);
 		this.equipClothingFromNowhere(tshirt, true, this);

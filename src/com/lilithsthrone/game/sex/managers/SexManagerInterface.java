@@ -231,6 +231,7 @@ public interface SexManagerInterface {
 		boolean domsSatisfied = true;
 		boolean subsResisting = true;
 		boolean subsDenied = true;
+		boolean subsStillInForeplay = true;
 		
 		if(!isCharacterAbleToStopSex(partner)) {
 			return false;
@@ -267,14 +268,19 @@ public interface SexManagerInterface {
 			if(Main.sex.getNumberOfDeniedOrgasms(character)==0) {
 				subsDenied = false;
 			}
+			if(!Main.sex.isInForeplay(character)) {
+				subsStillInForeplay = false;
+			}
 		}
+		
+		boolean gettingBored = Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()+1;
 		
 		if(Main.sex.isDom(partner)
 				&& (!Main.sex.isConsensual()
 						|| subsResisting
-//						|| !Main.sex.isSubHasEqualControl() // 0.4.1.1 change
+						|| (subsStillInForeplay && gettingBored)
 						|| (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
-			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+			if(gettingBored) {
 				return true;
 			}
 			return domsSatisfied;

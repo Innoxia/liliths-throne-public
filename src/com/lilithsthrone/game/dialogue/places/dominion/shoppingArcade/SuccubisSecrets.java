@@ -858,12 +858,11 @@ public class SuccubisSecrets {
 			}
 			
 			return UtilText.nodeContentSB.toString();
-			
 		}
 
 		@Override
 		public String getContent() {
-			return null;
+			return "";
 		}
 		
 		@Override
@@ -917,7 +916,7 @@ public class SuccubisSecrets {
 
 		@Override
 		public String getContent() {
-			return null;
+			return "";
 		}
 		
 		@Override
