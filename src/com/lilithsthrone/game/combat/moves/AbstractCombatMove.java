@@ -547,9 +547,9 @@ public abstract class AbstractCombatMove {
     	if(fromExternalFile) {
 	    	boolean crit = canCrit(turnIndex, source, target, enemies, allies);
 	    	parseText = parseText.replaceAll("isCritical", String.valueOf(crit));
-	    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(source, target, crit)));
+	    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(turnIndex, source, target, crit)));
 //	    	parseText = parseText.replaceAll("damageInflictedNoCrit", String.valueOf(getDamage(source, target, false)));
-	    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(source), getDamage(source, target, crit), target, false, isTargetAtMaximumLust(target)));
+	    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(turnIndex, source), getDamage(turnIndex, source, target, crit), target, false, isTargetAtMaximumLust(target)));
 //	    	parseText = parseText.replaceAll("formattedDamageInflictedNoCrit", getFormattedDamage(damageType, getDamage(source, target, false), target, false, isTargetAtMaximumLust(target)));
     	}
     	
@@ -571,9 +571,9 @@ public abstract class AbstractCombatMove {
 	    	boolean crit = canCrit(turnIndex, source, target, enemies, allies);
 	    	parseText = parseText.replaceAll("isCritical", String.valueOf(crit));
 	    	
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(source, target, crit));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, crit));
 	    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(damageValue.getValue()));
 	    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust));
 	    	parseText = parseText.replaceAll("formattedHealthDamage", damageValue.getKey());
@@ -652,12 +652,13 @@ public abstract class AbstractCombatMove {
 
     /**
      * Returns a string if action can't be used either due to special constraints or because of AP/cooldowns on a specified target; string specifies rejection reason. Returns null if action can be used without an issue.
+     * @param turnIndex The turn index in which this move is to be performed.
      * @param source Character that uses the action.
      * @param source Target for the action. Can be null.
      * @param enemies Enemies of the character
      * @param allies Allies of the character
      */
-    public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    public String isUsable(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         if(target != null) {
             if(!canTargetSelf && source == target) {
                 return "This action can't be used on yourself!";
@@ -734,7 +735,7 @@ public abstract class AbstractCombatMove {
         return type;
     }
 
-    public DamageType getDamageType(GameCharacter source) {
+    public DamageType getDamageType(int turnIndex, GameCharacter source) {
     	if(fromExternalFile) {
     		DamageType dt = DamageType.PHYSICAL;
     		try{
@@ -762,11 +763,11 @@ public abstract class AbstractCombatMove {
         return baseDamage;
     }
     
-    protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+    protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
     	if(getBaseDamage(source)==0) {
     		return 0;
     	}
-        DamageType damageType = getDamageType(source);
+        DamageType damageType = getDamageType(turnIndex, source);
         return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
     }
 
@@ -812,11 +813,11 @@ public abstract class AbstractCombatMove {
         return UtilText.parse(source, name);
     }
 
-    public String getDescription(GameCharacter source) {
+    public String getDescription(int turnIndex, GameCharacter source) {
     	String parseText = description;
     	
-    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(source, null, false)));
-    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false, false));
+    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(turnIndex, source, null, false)));
+    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(turnIndex, source), getBaseDamage(source), null, false, false));
     	
         return UtilText.parse(source, parseText);
     }
@@ -844,8 +845,8 @@ public abstract class AbstractCombatMove {
         	String parseText = criticalCondition;
         	
         	parseText = parseText.replaceAll("turnIndex", String.valueOf(turnIndex));
-        	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(source, target, false)));
-        	parseText = parseText.replaceAll("damageType", "DAMAGE_TYPE_"+this.getDamageType(source));
+        	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(turnIndex, source, target, false)));
+        	parseText = parseText.replaceAll("damageType", "DAMAGE_TYPE_"+this.getDamageType(turnIndex, source));
         	
             return Boolean.valueOf(UtilText.parse(source, target, parseText).trim());
     		
@@ -875,9 +876,9 @@ public abstract class AbstractCombatMove {
 		return this.getType().getColour();
     }
 
-	public Colour getColourByDamageType(GameCharacter source) {
+	public Colour getColourByDamageType(int turnIndex, GameCharacter source) {
 		if (Util.newArrayListOfValues(CombatMoveType.SPELL, CombatMoveType.POWER).contains(type)) {
-			return getDamageType(source).getColour();
+			return getDamageType(turnIndex, source).getColour();
 		}
 
 		return type.getColour();

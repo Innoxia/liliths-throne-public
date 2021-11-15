@@ -94,6 +94,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -132,7 +133,7 @@ public class Evelyx extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3")) {
 			this.setStartingBody(true);
 			this.equipClothing();
 		}
@@ -175,6 +176,7 @@ public class Evelyx extends NPC {
 			this.setFetishDesire(Fetish.FETISH_FOOT_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ONE_DISLIKE);
 			
@@ -337,6 +339,7 @@ public class Evelyx extends NPC {
 		if(addCock) {
 			this.setVaginaType(VaginaType.NONE);
 			this.setPenisType(PenisType.DEMON_COMMON);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), false);
 			this.setTesticleCount(4);
 			this.setInternalTesticles(false);
 			this.setPenisVirgin(false);
@@ -688,7 +691,7 @@ public class Evelyx extends NPC {
 		if(cow.getTailType().getRace()!=Race.COW_MORPH) {
 			sb.append(cow.setTailType(TailType.COW_MORPH));
 		}
-		if(!cow.hasHorns()) {
+		if(!cow.hasHorns() || cow.getHornType().getRace()!=HornType.STRAIGHT.getRace()) {
 			sb.append(cow.setHornType(HornType.STRAIGHT));
 			cow.setHornLength(HornLength.ONE_SMALL.getMedianValue());
 		}
@@ -711,7 +714,7 @@ public class Evelyx extends NPC {
 		if(cow.getTailType().getRace()!=Race.COW_MORPH) {
 			sb.append(cow.setTailType(TailType.COW_MORPH));
 		}
-		if(!cow.hasHorns()) {
+		if(!cow.hasHorns() || cow.getHornType().getRace()!=HornType.STRAIGHT.getRace()) {
 			sb.append(cow.setHornType(HornType.STRAIGHT));
 			cow.setHornLength(HornLength.ONE_SMALL.getMedianValue());
 		}
@@ -1095,6 +1098,7 @@ public class Evelyx extends NPC {
 		int clothingValue = Main.game.getPlayer().getInventoryNonEquippedValue();
 		int flames = Main.game.getPlayer().getMoney();
 		
+		// Clothing removal:
 		List<AbstractClothing> clothingToRemove = new ArrayList<>();
 		for(AbstractClothing clothing : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
 			if(clothing.getClothingType().getClothingSet()!=SetBonus.getSetBonusFromId("innoxia_cattle")
@@ -1111,8 +1115,21 @@ public class Evelyx extends NPC {
 			Main.game.getPlayer().forceUnequipClothingIntoVoid(this, clothing);
 		}
 		
+		
+		// Weapon removal:
+		for(AbstractWeapon weapon : Main.game.getPlayer().getMainWeaponArray()) {
+			clothingValue += weapon.getValue();
+		}
+		for(AbstractWeapon weapon : Main.game.getPlayer().getOffhandWeaponArray()) {
+			clothingValue += weapon.getValue();
+		}
+		Main.game.getPlayer().unequipAllWeaponsIntoVoid(true);
+		
+		
+		// Item removal:
 		Main.game.getPlayer().clearNonEquippedInventory(true);
 		
+		// Generating the content based on the value of inventory stripped:
 		UtilText.addSpecialParsingString(Util.intToString((flames/100) * 100), true);
 		if(flames > 10_000_000) {
 			sb.append(UtilText.parseFromXMLFile("badEnds/evelyx", "STRIP_FLAMES_TOP"));

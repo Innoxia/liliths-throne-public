@@ -18,11 +18,112 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.3
- * @version 0.3.4.5
+ * @version 0.4.2.1
  * @author Innoxia
  */
 public class GenericTalk {
 
+	public static final SexAction STOP_RAPE_PLAY = new SexAction(
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL,
+			null) {
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return (Main.sex.getCharacterPerformingAction().isPlayer()
+					|| (!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_NON_CON_DOM).isPositive()
+							&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)))
+					&& !Main.sex.getCharacterTargetedForSexAction(this).isPlayer()
+					&& Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING
+					&& !Main.sex.isSexPaceForced(Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.getCharacterTargetedForSexAction(this).getLustLevel().isResistingFromRapePlay(Main.sex.getCharacterTargetedForSexAction(this));
+		}
+		@Override
+		public String getActionTitle() {
+			return "Stop rape-play";
+		}
+		@Override
+		public String getActionDescription() {
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "As your mouth is blocked, you're not able to tell [npc2.name] to stop pretending to resist, but you can still make a disapproving noise to let [npc2.her] know that you want [npc2.herHim] to stop it.";
+			}
+			return "Tell [npc2.name] to stop pretending to resist.";
+		}
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				sb.append("Although [npc.namePos] mouth is blocked, [npc.sheIs] still able to make a disapproving noise to signal to [npc2.name] that [npc2.she] should stop pretending to resist.");
+				
+			} else {
+				sb.append("Not liking [npc2.namePos] behaviour, [npc.name] [npc.verb(tell)] [npc2.herHim] in no uncertain terms to stop pretending to resist.");
+			}
+
+			sb.append(" Although [npc2.she] [npc2.verb(let)] out a disappointed [npc2.moan], [npc2.name] [npc2.verb(decide)] to agree to [npc.namePos] request and [npc2.verb(stop)] pretending to resist.");
+			
+			return sb.toString();
+		}
+		@Override
+		public void applyEffects() {
+			Main.sex.setCharacterBannedFromRapePlay(Main.sex.getCharacterTargetedForSexAction(this), true);
+		}
+	};
+
+	public static final SexAction ALLOW_RAPE_PLAY = new SexAction(
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			SexParticipantType.NORMAL,
+			null) {
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return (Main.sex.getCharacterPerformingAction().isPlayer()
+						|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_NON_CON_DOM).isPositive()
+						|| Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))
+					&& !Main.sex.getCharacterTargetedForSexAction(this).isPlayer()
+					&& Main.game.isNonConEnabled()
+					&& Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING
+					&& !Main.sex.isSexPaceForced(Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.isCharacterBannedFromRapePlay(Main.sex.getCharacterTargetedForSexAction(this));
+		}
+		@Override
+		public String getActionTitle() {
+			return "Allow rape-play";
+		}
+		@Override
+		public String getActionDescription() {
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "Although your mouth is blocked, you can still make a suggestive noise to let [npc2.her] know that [npc2.she] can pretend to resist if [npc2.she] wants to.";
+			}
+			return "Tell [npc2.name] that [npc.she] can pretend to resist if [npc2.she] wants to.";
+		}
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				sb.append("Although [npc.namePos] mouth is blocked, [npc.sheIs] still able to make a suggestive noise to signal to [npc2.name] that [npc2.she] can pretend to resist if [npc2.she] [npc2.verb(want)] to.");
+				
+			} else {
+				sb.append("Wanting things to get a little kinkier, [npc.name] [npc.verb(tell)] [npc2.name] that [npc2.she] can pretend to resist if [npc2.she] [npc2.verb(want)] to.");
+			}
+
+			sb.append(" Letting out an excited [npc2.moan], [npc2.name] [npc2.verb(take)] a moment in which to decide whether or not to continue pretending to resist...");
+			
+			return sb.toString();
+		}
+		@Override
+		public void applyEffects() {
+			Main.sex.setCharacterBannedFromRapePlay(Main.sex.getCharacterTargetedForSexAction(this), false);
+		}
+	};
+	
 	public static final SexAction ROUGH_TALK = new SexAction(
 			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
@@ -184,7 +285,7 @@ public class GenericTalk {
 			return Main.sex.isCharacterObeyingTarget(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction())
 //					|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_DOMINANT).isPositive()
 					|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SADIST).isPositive()
-					|| Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
+					|| Main.sex.getCharacterPerformingAction().hasTraitActivated(Perk.CONVINCING_REQUESTS);
 		}
 		
 		@Override
@@ -198,7 +299,7 @@ public class GenericTalk {
 								:"[style.italicsBad(")
 						+"Requires [npc2.name] to like the '"+Fetish.FETISH_DOMINANT.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
 							+ " like the '"+Fetish.FETISH_SADIST.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
-							+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' perk.)]";
+							+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' trait activated.)]";
 			}
 			return "Ask [npc2.name] to treat you as though you're [npc2.her] worthless whore."
 						+ "<br/>"
@@ -207,7 +308,7 @@ public class GenericTalk {
 								:"[style.italicsBad(")
 						+"Requires [npc2.name] to like the '"+Fetish.FETISH_DOMINANT.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
 							+ " like the '"+Fetish.FETISH_SADIST.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
-							+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' perk.)]";
+							+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' trait activated.)]";
 		}
 
 		@Override
@@ -314,7 +415,7 @@ public class GenericTalk {
 								:"[style.italicsBad(")
 						+"Requires [npc.name] to like the '"+Fetish.FETISH_SUBMISSIVE.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
 							+ " dislike the '"+Fetish.FETISH_SADIST.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
-							+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' perk.)]";
+							+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' trait activated.)]";
 			}
 			return "Ask [npc2.name] to be more gentle with you."
 					+ "<br/>"
@@ -323,7 +424,7 @@ public class GenericTalk {
 							:"[style.italicsBad(")
 					+"Requires [npc.name] to like the '"+Fetish.FETISH_SUBMISSIVE.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
 						+ " dislike the '"+Fetish.FETISH_SADIST.getName(Main.sex.getCharacterTargetedForSexAction(this))+"' fetish,"
-						+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' perk.)]";
+						+ " or for you to have the '"+Perk.CONVINCING_REQUESTS.getName(Main.sex.getCharacterPerformingAction())+"' trait activated.)]";
 		}
 
 		@Override
@@ -382,7 +483,7 @@ public class GenericTalk {
 					sb.append(UtilText.returnStringAtRandom(
 							"[npc2.speech(Yeah, I'm not up for that soft crap. You're just going to have to learn to like this!)]",
 							"[npc2.speech(I'm not really into all that gentle loving shit. You're going to have to just deal with the way I like doing things.)]",
-							"[npc2.speech(Yeah, that's not happening. Doing ask for all that gentle loving crap again!)]"));
+							"[npc2.speech(Yeah, that's not happening. Don't ask for all that gentle loving crap again!)]"));
 				}
 			}
 			

@@ -40,11 +40,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -347,14 +345,15 @@ public class EvelyxMilker extends NPC {
 		this.equipClothingFromNowhere(((Evelyx)Main.game.getNpc(Evelyx.class)).getEvelyxCollar(level), true, this);
 		this.setPiercedNose(true);
 		this.equipClothingFromNowhere(((Evelyx)Main.game.getNpc(Evelyx.class)).getEvelyxNoseRing(level), true, this);
-		// Bdsm gear:
-		if(this.hasFetish(Fetish.FETISH_BONDAGE_VICTIM)) {
-			if(Math.random()<0.25f) { // 25% chance of ring gag
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, false), true, this);
-			}
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_SPREADER_BAR, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, null, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_wrist_bracelets"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, null, false), true, this);
-		}
+		// This seemed a bit jarring when encountered, so removed in 0.4.2.2:
+//		// Bdsm gear:
+//		if(this.hasFetish(Fetish.FETISH_BONDAGE_VICTIM)) {
+//			if(Math.random()<0.25f) { // 25% chance of ring gag
+//				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, false), true, this);
+//			}
+//			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_SPREADER_BAR, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, null, false), true, this);
+//			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_wrist_bracelets"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, null, false), true, this);
+//		}
 		
 		// Number tattoo on ass:
 		if(level==2) {

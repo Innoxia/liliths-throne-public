@@ -74,6 +74,7 @@
 			<flag dailyReset="false">evelyx_finished_no_bad_end</flag>
 			<flag dailyReset="true">evelyx_no_bad_end_daily_fuck</flag>
 			<flag dailyReset="false">evelyx_monica_meeting</flag>
+			<flag dailyReset="true">evelyx_monica_meeting_refused</flag>
 			<flag dailyReset="false">evelyx_monica_ring_questions_failed</flag>
 			<flag dailyReset="false">evelyx_daily_fuck_unlocked</flag>
 			<flag dailyReset="false">evelyx_daily_fuck_gaped</flag>
@@ -181,7 +182,7 @@
 	evelyx_work_level (The level of the player when working for Evelyx, from 0 to 2)
 	evelyx_work_hours (The number of hours that the player has worked in the current session during Evelyx milking)
 	evelyx_total_milked (The total millilitres milked from the player)
-	evelyx_player_number (The number which is given to the player when working as a cow for evelyx)
+	evelyx_player_number (The number which is given to the player when working as a cow for Evelyx)
 	
 	headless_horseman_year_warning (The year in which the headless horseman warning was encountered, used so that the warning is given each year)
 	headless_horseman_attack_minutes (The game.getMinutesPassed() at which the headless horseman was last encountered)

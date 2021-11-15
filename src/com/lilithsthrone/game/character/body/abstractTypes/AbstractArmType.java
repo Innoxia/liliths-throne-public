@@ -154,7 +154,7 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 				this.armTags = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
-						armTags.add(BodyPartTag.valueOf(e.getTextContent()));
+						armTags.add(BodyPartTag.getBodyPartTagFromId(e.getTextContent()));
 					}
 				}
 				if(armTags.isEmpty()) {
