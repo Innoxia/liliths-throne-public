@@ -297,7 +297,7 @@
 				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
 				<responseTitle><![CDATA[Elis]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_business))
+					#IF(flags.hasFlag(FLAG_innoxia_monica_talk_elis))
 						You've already spent time asking Monica about Elis today...
 						<br/>[style.italics(You should come back tomorrow if you wanted to talk to her about this again.)]
 					#ELSE

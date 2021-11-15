@@ -4146,7 +4146,8 @@ public class Sex {
 	}
 
 	public boolean isInForeplay(GameCharacter character) {
-		return character.getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Main.sex.getNumberOfOrgasms(character)==0 && Main.sex.getSexManager().isPartnerUsingForeplayActions();
+		return character.getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Main.sex.getNumberOfOrgasms(character)==0
+				&& Main.sex.getSexManager().isPartnerUsingForeplayActions(); //TODO remove this
 	}
 	
 	// Getters & Setters:

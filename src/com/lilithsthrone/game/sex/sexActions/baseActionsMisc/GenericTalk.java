@@ -483,7 +483,7 @@ public class GenericTalk {
 					sb.append(UtilText.returnStringAtRandom(
 							"[npc2.speech(Yeah, I'm not up for that soft crap. You're just going to have to learn to like this!)]",
 							"[npc2.speech(I'm not really into all that gentle loving shit. You're going to have to just deal with the way I like doing things.)]",
-							"[npc2.speech(Yeah, that's not happening. Doing ask for all that gentle loving crap again!)]"));
+							"[npc2.speech(Yeah, that's not happening. Don't ask for all that gentle loving crap again!)]"));
 				}
 			}
 			

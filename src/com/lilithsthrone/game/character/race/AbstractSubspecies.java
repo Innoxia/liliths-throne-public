@@ -1131,7 +1131,7 @@ public abstract class AbstractSubspecies {
 				return getAnthroNamesMap().get(conf)[0];
 			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), character.isFeminine(), false);
 			}
 		}
 		return getAnthroNamesMap().get(null)[0];
@@ -1151,7 +1151,7 @@ public abstract class AbstractSubspecies {
 				return getAnthroNamesMap().get(conf)[1];
 			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), character.isFeminine(), true);
 			}
 		}
 		return getAnthroNamesMap().get(null)[1];

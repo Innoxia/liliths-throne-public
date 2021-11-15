@@ -3514,6 +3514,14 @@ public abstract class AbstractItemEffectType {
 							public String applyEffect() {
 								TFModifier mod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 								
+								// If race does not have horns, tail, wings, or crotch-boobs, make sure that the TF is to remove:
+								if((mod==TFModifier.TF_HORNS && race.getRacialBody().getHornTypes(false).size()==1 && race.getRacialBody().getHornTypes(false).contains(HornType.NONE))
+										|| (mod==TFModifier.TF_TAIL && race.getRacialBody().getTailType().size()==1 && race.getRacialBody().getTailType().contains(TailType.NONE))
+										|| (mod==TFModifier.TF_WINGS && race.getRacialBody().getWingTypes().size()==1 && race.getRacialBody().getWingTypes().contains(WingType.NONE))
+										|| ((mod==TFModifier.TF_BREASTS_CROTCH && race.getRacialBody().getBreastCrotchType()==BreastType.NONE))) {
+									return getRacialEffect(race, mod, TFModifier.REMOVAL, potency, user, target).applyEffect();
+								}
+								
 								return getRacialEffect(race, mod, secondaryModifier, potency, user, target).applyEffect();
 							}
 						};

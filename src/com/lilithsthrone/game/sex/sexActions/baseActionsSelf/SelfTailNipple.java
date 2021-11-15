@@ -8,7 +8,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -239,11 +238,6 @@ public class SelfTailNipple {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
-		
 		@Override
 		public String getActionTitle() {
 			return "Stop nipple tail-fuck (self)";

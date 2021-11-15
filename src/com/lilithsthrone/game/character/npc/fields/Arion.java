@@ -47,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.4
- * @version 0.4
+ * @version 0.4.2.3
  * @author Innoxia
  */
 public class Arion extends NPC {
@@ -77,6 +77,9 @@ public class Arion extends NPC {
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.CYNICAL,
 					PersonalityTrait.PRUDE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.3")) {
+			this.setStartingBody(true);
 		}
 	}
 
@@ -182,7 +185,7 @@ public class Arion extends NPC {
 //		this.addAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
 		
 		// Penis:
-		this.setPenisVirgin(true);
+		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
