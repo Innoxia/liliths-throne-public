@@ -72,7 +72,7 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCRYA);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
 		node2.addChild(node1);

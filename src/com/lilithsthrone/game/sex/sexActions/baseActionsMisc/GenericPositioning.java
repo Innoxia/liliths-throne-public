@@ -2512,7 +2512,7 @@ public class GenericPositioning {
 		@Override
 		public String getDescription() {
 			return "Deciding that [npc.she] [npc.verb(want)] to switch into a different position, [npc.name] [npc.verb(get)] [npc2.name] to kneel down before a nearby raised surface."
-					+ " Sitting down in front of [npc.her] partner, [npc.name] [npc.moansVerb], "
+					+ " Sitting down in front of [npc2.herHim], [npc.name] [npc.moansVerb], "
 					+ "[npc.speech(Yes... This is more like it...)]";
 		}
 		@Override

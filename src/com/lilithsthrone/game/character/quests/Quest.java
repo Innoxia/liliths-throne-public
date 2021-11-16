@@ -352,7 +352,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_D_TO_THEMISCRYA(QuestType.MAIN, 1, 25) {
+	MAIN_3_D_TO_THEMISCYRA(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "To Themiscyra";
@@ -2192,6 +2192,9 @@ public enum Quest {
 	public static Quest getQuestFromId(String quest) {
 		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
 			return Quest.MAIN_3_ELIS;
+		}
+		if(quest.equalsIgnoreCase("MAIN_3_D_TO_THEMISCRYA")) {
+			return Quest.MAIN_3_D_TO_THEMISCYRA;
 		}
 		
 		return Quest.valueOf(quest);
