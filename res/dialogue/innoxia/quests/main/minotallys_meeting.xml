@@ -321,7 +321,7 @@
 				<responseTooltip><![CDATA[Agree to Arion's suggestion and say that you and Meraxis will travel to Themiscyra to see how they're faring against Lunette.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_minotallys_themiscyra_agree]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_D_TO_THEMISCRYA))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_D_TO_THEMISCYRA))]
 					[#flags.setFlag(FLAG_innoxia_elis_minotallys_introduced, true)]
 					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_quest_minotallys_pass), false, true))]
 				]]></effects>

@@ -112,7 +112,7 @@ public class DominionAlleywayAttacker extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM || canalSpecies || pt==PlaceType.DOMINION_BACK_ALLEYS) {
-				if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.getSubspecies()!=Subspecies.SLIME) { // Don;t convert slimes, as their getFleshSubspecies() can be of any non-Dominion subspecies
+				if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.getSubspecies()!=Subspecies.SLIME) { // Don't convert slimes, as their getFleshSubspecies() can be of any non-Dominion subspecies
 					this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
 				}
 			}
