@@ -1522,10 +1522,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"Your arms could do with a change!"));
 					}
 					// TODO: Add separate chunks for LegConfiguration and LegType if more races have multiple leg types
-					if(target.getLegType() != body.getLeg().getType() || target.getLegConfiguration() != body.getLeg().getLegConfiguration()) {
+					if(target.getLegType() != body.getLeg().getType()) {
+						possibleEffects.add(new PossibleItemEffect(
+							new ItemEffect(getItemEnchantmentEffect(itemType, body.getLeg()), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+							"Your legs need changing as well!"));
+					}
+					if(target.getLegConfiguration() != body.getLeg().getLegConfiguration()) {
 						possibleEffects.add(new PossibleItemEffect(
 							new ItemEffect(getItemEnchantmentEffect(itemType, body.getLeg()), TFModifier.TF_LEGS, body.getLeg().getLegConfiguration().getTFModifier(), TFPotency.MINOR_BOOST, 1),
-							"I'm sure you'll love getting some new legs!"));
+							"I want you with "+UtilText.generateSingularDeterminer(body.getLeg().getLegConfiguration().getName())+" "+body.getLeg().getLegConfiguration().getName()+" body!"));
 					}
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); } // Apply arms & legs at the same time
 				}

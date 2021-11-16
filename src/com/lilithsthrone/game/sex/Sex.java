@@ -2060,7 +2060,7 @@ public class Sex {
 			});
 		if(partnerOrgasming && Main.game.getPlayer().hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true)) {
 			boolean oppositeDom = Main.sex.isDom(Main.sex.getCharacterOrgasming())!=isDom(Main.game.getPlayer());
-			boolean characterImmune = Main.sex.getCharacterOrgasming().isImmuneToLevelDrain();
+			boolean characterImmune = Main.sex.getCharacterOrgasming().isImmuneToLevelDrain() || Main.game.isBadEnd(); // Do not allow level draining in bad ends
 			availableSexActionsPlayer.add(new SexAction(
 					SexActionType.MISC_NO_TURN_END,
 					ArousalIncrease.ZERO_NONE,
@@ -2094,7 +2094,9 @@ public class Sex {
 												?" [style.italicsMinorBad(You can only drain opposite partners (sub/dom)!)]"
 												:" You can only use this ability to drain opposite partners (sub/dom).")
 											+(characterImmune
-												?"<br/>[style.italicsTerrible([npc.Name] cannot have [npc.her] level drained!)]"
+												?(Main.sex.getCharacterOrgasming().isImmuneToLevelDrain()
+													?"<br/>[style.italicsTerrible([npc.Name] cannot have [npc.her] level drained!)]"
+													:"<br/>[style.italicsTerrible(You cannot level drain during a bad end!)]")
 												:""));
 						}
 						@Override
@@ -4146,7 +4148,8 @@ public class Sex {
 	}
 
 	public boolean isInForeplay(GameCharacter character) {
-		return character.getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Main.sex.getNumberOfOrgasms(character)==0 && Main.sex.getSexManager().isPartnerUsingForeplayActions();
+		return character.getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Main.sex.getNumberOfOrgasms(character)==0
+				&& Main.sex.getSexManager().isPartnerUsingForeplayActions(); //TODO remove this
 	}
 	
 	// Getters & Setters:

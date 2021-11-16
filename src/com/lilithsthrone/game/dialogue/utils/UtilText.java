@@ -9955,6 +9955,9 @@ public class UtilText {
 		for(GenericSexFlag flag : GenericSexFlag.values()) {
 			engine.put("SEX_FLAG_"+flag.toString(), flag);
 		}
+		for(SexPace pace : SexPace.values()) {
+			engine.put("SEX_PACE_"+pace.toString(), pace);
+		}
 		
 		// Other:
 		for(Season season : Season.values()) {

@@ -503,8 +503,15 @@ public abstract class AbstractEncounter {
 //			System.out.println("Final opportunisticIncrease: "+opportunisticIncrease);
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
-				ExternalEncounterData encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
-				DialogueNode dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
+				ExternalEncounterData encounter;
+				DialogueNode dn = null;
+				int tries = 0;
+				while(dn==null && tries<=3) { // As some Encounters rarely return null, try 3 times to get an Encounter. Yes this is not ideal, but it was either this or suffer performance issues in calculating Encounter availabilities.
+					tries++;
+					encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+					finalMap.remove(encounter);
+					dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
+				}
 //				System.out.println("Returning: "+dn.getId());
 //				System.out.println("--- END ---");
 				setEncounterDialogue(dn, forceEncounter);
@@ -533,8 +540,15 @@ public abstract class AbstractEncounter {
 			}
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
-				EncounterType encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
-				DialogueNode dn = initialiseEncounter(encounter);
+				EncounterType encounter;
+				DialogueNode dn = null;
+				int tries = 0;
+				while(dn==null && tries<=3) { // As some Encounters rarely return null, try 3 times to get an Encounter. Yes this is not ideal, but it was either this or suffer performance issues in calculating Encounter availabilities.
+					tries++;
+					encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+					finalMap.remove(encounter);
+					dn = initialiseEncounter(encounter);
+				}
 				setEncounterDialogue(dn, forceEncounter);
 				return dn;
 			}

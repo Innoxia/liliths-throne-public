@@ -45,25 +45,27 @@ public class CMBasicAttack {
     	
     	private AbstractWeapon getMainWeapon(int turnIndex, GameCharacter source, int armRow) {
     		AbstractWeapon weapon = source.getMainWeaponArray()[armRow];
-			Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.mainWeaponSlots[armRow]);
-			if(!weaponsThrown.isEmpty()) {
-    			int mainOrDualAttacksPerformed = 0;
-    			int turnCountProgress = 0;
-    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
-    				if(turnCountProgress < turnIndex) {
-	    				if(move.getValue()==BASIC_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
-	    					mainOrDualAttacksPerformed++;
-	    				}
-	    				turnCountProgress++;
-    				} else {
-	    				break;
+    		if(Main.game.isInCombat() && Main.combat.getAllCombatants(true).contains(source)) {
+				Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.mainWeaponSlots[armRow]);
+				if(!weaponsThrown.isEmpty()) {
+	    			int mainOrDualAttacksPerformed = 0;
+	    			int turnCountProgress = 0;
+	    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
+	    				if(turnCountProgress < turnIndex) {
+		    				if(move.getValue()==BASIC_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
+		    					mainOrDualAttacksPerformed++;
+		    				}
+		    				turnCountProgress++;
+	    				} else {
+		    				break;
+		    			}
 	    			}
-    			}
-				AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
-    			if(mainOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
-    				weapon = weaponsThrown.keySet().iterator().next();
-    			}
-			}
+					AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
+	    			if(mainOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
+	    				weapon = weaponsThrown.keySet().iterator().next();
+	    			}
+				}
+    		}
 			return weapon;
     	}
     	
@@ -403,25 +405,27 @@ public class CMBasicAttack {
 
     	private AbstractWeapon getOffhandWeapon(int turnIndex, GameCharacter source, int armRow) {
     		AbstractWeapon weapon = source.getOffhandWeaponArray()[armRow];
-			Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.offhandWeaponSlots[armRow]);
-			if(!weaponsThrown.isEmpty()) {
-    			int offhandOrDualAttacksPerformed = 0;
-    			int turnCountProgress = 0;
-    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
-    				if(turnCountProgress < turnIndex) {
-	    				if(move.getValue()==BASIC_OFFHAND_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
-	    					offhandOrDualAttacksPerformed++;
-	    				}
-	    				turnCountProgress++;
-    				} else {
-	    				break;
+    		if(Main.game.isInCombat() && Main.combat.getAllCombatants(true).contains(source)) {
+				Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.offhandWeaponSlots[armRow]);
+				if(!weaponsThrown.isEmpty()) {
+	    			int offhandOrDualAttacksPerformed = 0;
+	    			int turnCountProgress = 0;
+	    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
+	    				if(turnCountProgress < turnIndex) {
+		    				if(move.getValue()==BASIC_OFFHAND_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
+		    					offhandOrDualAttacksPerformed++;
+		    				}
+		    				turnCountProgress++;
+	    				} else {
+		    				break;
+		    			}
 	    			}
-    			}
-				AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
-    			if(offhandOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
-    				weapon = weaponsThrown.keySet().iterator().next();
-    			}
-			}
+					AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
+	    			if(offhandOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
+	    				weapon = weaponsThrown.keySet().iterator().next();
+	    			}
+				}
+    		}
 			return weapon;
     	}
     	
@@ -773,49 +777,53 @@ public class CMBasicAttack {
     	
     	private AbstractWeapon getMainWeapon(int turnIndex, GameCharacter source, int armRow) {
     		AbstractWeapon weapon = source.getMainWeaponArray()[armRow];
-			Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.mainWeaponSlots[armRow]);
-			if(!weaponsThrown.isEmpty()) {
-    			int mainOrDualAttacksPerformed = 0;
-    			int turnCountProgress = 0;
-    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
-    				if(turnCountProgress < turnIndex) {
-	    				if(move.getValue()==BASIC_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
-	    					mainOrDualAttacksPerformed++;
-	    				}
-	    				turnCountProgress++;
-    				} else {
-	    				break;
+    		if(Main.game.isInCombat() && Main.combat.getAllCombatants(true).contains(source)) {
+				Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.mainWeaponSlots[armRow]);
+				if(!weaponsThrown.isEmpty()) {
+	    			int mainOrDualAttacksPerformed = 0;
+	    			int turnCountProgress = 0;
+	    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
+	    				if(turnCountProgress < turnIndex) {
+		    				if(move.getValue()==BASIC_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
+		    					mainOrDualAttacksPerformed++;
+		    				}
+		    				turnCountProgress++;
+	    				} else {
+		    				break;
+		    			}
 	    			}
-    			}
-				AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
-    			if(mainOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
-    				weapon = weaponsThrown.keySet().iterator().next();
-    			}
-			}
+					AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
+	    			if(mainOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
+	    				weapon = weaponsThrown.keySet().iterator().next();
+	    			}
+				}
+    		}
 			return weapon;
     	}
 
     	private AbstractWeapon getOffhandWeapon(int turnIndex, GameCharacter source, int armRow) {
     		AbstractWeapon weapon = source.getOffhandWeaponArray()[armRow];
-			Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.offhandWeaponSlots[armRow]);
-			if(!weaponsThrown.isEmpty()) {
-    			int offhandOrDualAttacksPerformed = 0;
-    			int turnCountProgress = 0;
-    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
-    				if(turnCountProgress < turnIndex) {
-	    				if(move.getValue()==BASIC_OFFHAND_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
-	    					offhandOrDualAttacksPerformed++;
-	    				}
-	    				turnCountProgress++;
-    				} else {
-	    				break;
+    		if(Main.game.isInCombat() && Main.combat.getAllCombatants(true).contains(source)) {
+				Map<AbstractWeapon, Integer> weaponsThrown = Main.combat.getWeaponsThrownDuringTurn(source, InventorySlot.offhandWeaponSlots[armRow]);
+				if(!weaponsThrown.isEmpty()) {
+	    			int offhandOrDualAttacksPerformed = 0;
+	    			int turnCountProgress = 0;
+	    			for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
+	    				if(turnCountProgress < turnIndex) {
+		    				if(move.getValue()==BASIC_OFFHAND_STRIKE || move.getValue()==BASIC_TWIN_STRIKE) {
+		    					offhandOrDualAttacksPerformed++;
+		    				}
+		    				turnCountProgress++;
+	    				} else {
+		    				break;
+		    			}
 	    			}
-    			}
-				AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
-    			if(offhandOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
-    				weapon = weaponsThrown.keySet().iterator().next();
-    			}
-			}
+					AbstractWeapon thrownWeaponType = weaponsThrown.keySet().iterator().next();
+	    			if(offhandOrDualAttacksPerformed < weaponsThrown.get(thrownWeaponType)) {
+	    				weapon = weaponsThrown.keySet().iterator().next();
+	    			}
+				}
+    		}
 			return weapon;
     	}
 

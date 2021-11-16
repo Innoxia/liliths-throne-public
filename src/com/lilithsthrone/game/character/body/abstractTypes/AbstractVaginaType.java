@@ -258,16 +258,16 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		
 		if(name.endsWith("-")) {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			} else {
-				return Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 			}
 		}
 		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
+			return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 		}
 		
-		return name;
+		return UtilText.parse(gc, name);
 	}
 	
 	@Override
@@ -287,16 +287,16 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		
 		if(name.endsWith("-")) {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			} else {
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			}
 		}
 		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
+			return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 		}
-		
-		return name;
+
+		return UtilText.parse(gc, name);
 	}
 
 	@Override

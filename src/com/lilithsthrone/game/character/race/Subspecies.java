@@ -925,7 +925,7 @@ public class Subspecies {
 		protected String applyNonBipedNameChange(GameCharacter character, String baseName, boolean applyFeminineForm, boolean plural) {
 			if(character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 				return applyFeminineForm
-						?("cowtaur"+(plural?"es":""))
+						?("cowtaur"+(plural?"s":""))
 						:("bulltaur"+(plural?"s":""));
 			}
 			return super.applyNonBipedNameChange(character, baseName, applyFeminineForm, plural);

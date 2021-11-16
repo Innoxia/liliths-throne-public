@@ -119,7 +119,7 @@ public class FootMouth {
 								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.roughly] [npc2.verb(rub)] [npc2.her] hard hoofs up and down over [npc.namePos] [npc.face+],"
 										+ " not caring in the least about how uncomfortable it must be for [npc.herHim].",
 								" [npc2.Moaning] in delight, [npc2.name] [npc2.eagerly] [npc2.verb(push)] [npc2.her] hard hoofs against [npc.namePos] mouth,"
-										+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.has] [npc.her] [npc2.feet] worshipped."));
+										+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.has] [npc2.her] [npc2.feet] worshipped."));
 						
 					} else if(Main.sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.TALONS)) {
 						foundFootType = true;

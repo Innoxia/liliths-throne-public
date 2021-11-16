@@ -7615,14 +7615,15 @@ public class GenericOrgasms {
 				return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING && !Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative();
 			}
 		}
-		@Override
-		public SexActionPriority getPriority() {
-			if(Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()) {
-				return SexActionPriority.HIGH;
-			} else {
-				return SexActionPriority.LOW;
-			}
-		}
+		// Just let them use standard behaviour weighting for this one
+//		@Override
+//		public SexActionPriority getPriority() {
+//			if(Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()) {
+//				return SexActionPriority.HIGH;
+//			} else {
+//				return SexActionPriority.LOW;
+//			}
+//		}
 		@Override
 		public void applyEffects() {
 			applyBasePenisOrgasmRequestsReset();

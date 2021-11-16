@@ -506,6 +506,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Misc.:
 	private List<Dice> dice; // For gambling
+	private String speechColour;
 	
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> NPCAttributeChangeEventListeners = new ArrayList<>();
@@ -3733,6 +3734,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String getSpeechColour() {
+		if(speechColour!=null) {
+			return speechColour;
+		}
 		if(this.isPlayer()) {
 			switch(Femininity.valueOf(getFemininityValue())) {
 				case ANDROGYNOUS:
@@ -3761,6 +3765,10 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		return null;
+	}
+	
+	public void setSpeechColour(String speechColour) {
+		this.speechColour = speechColour;
 	}
 
 	public void updateAttributeListeners(boolean requiresStatusEffectUpdate) {
@@ -8990,6 +8998,7 @@ public abstract class GameCharacter implements XMLSaving {
 				this.applyOrgasmCumEffect();
 			}
 			
+			if(!Main.game.isBadEnd()) { // DO not drain levels during a bad end
 //			if(isDom) {
 				if(this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && this.isLevelDrainAvailableToUse() && !partner.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
 					levelDrainDescription = applyLevelDrain(partner);
@@ -9000,6 +9009,7 @@ public abstract class GameCharacter implements XMLSaving {
 					levelDrainDescription = partner.applyLevelDrain(this);
 				}
 //			}
+			}
 			// This is reset to 25 to factor in post-orgasm satisfaction:
 			this.setArousal(25);
 			if(partnerPresent) {
@@ -9825,6 +9835,9 @@ public abstract class GameCharacter implements XMLSaving {
 			return UtilText.parse(target, this,
 					"<p style='text-align:center'>"
 						+ "Although [npc2.nameHasFull] the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(this)+"' perk, [npc.nameIsFull] already at the minimum level, so [npc.her] experience cannot be drained..."
+						+ (target.getLevel()<=1
+							?""
+							:"<br/><i>Although [npc.her] level appears to be greater than 1, this is only due to your difficulty setting!</i>")
 					+ "</p>");
 		}
 	}
@@ -23394,6 +23407,23 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
+	/**
+	 * @return true if this character's anus is exposed, or if the only clothing blocking the anus is a plug.
+	 */
+	private boolean isAbleToAccessRearCloaca() {
+		List<AbstractClothing> anusBlockingClothing = getBlockingCoverableAreaClothingList(CoverableArea.ANUS, false);
+		boolean canAccessAnusArea = anusBlockingClothing.size()==0;
+		if(!canAccessAnusArea) {
+			canAccessAnusArea = true;
+			for(AbstractClothing c : anusBlockingClothing) {
+				if(!c.getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PLUGS_ANUS) && !c.getItemTags(c.getSlotEquippedTo()).contains(ItemTag.SEALS_ANUS)) {
+					canAccessAnusArea = false;
+				}
+			}
+		}
+		return canAccessAnusArea;
+	}
+	
 	public boolean isPenetrationTypeExposed(SexAreaPenetration pt) {
 		switch(pt) {
 			case FINGER:
@@ -23401,7 +23431,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case PENIS:
 				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					AbstractClothing penisClothing = this.getClothingInSlot(InventorySlot.PENIS);
-					return isCoverableAreaExposed(CoverableArea.ANUS) && (penisClothing==null || penisClothing.isTransparent(penisClothing.getSlotEquippedTo()));
+					return isAbleToAccessRearCloaca() && (penisClothing==null || penisClothing.isTransparent(penisClothing.getSlotEquippedTo()));
 				} else {
 					return isCoverableAreaExposed(CoverableArea.PENIS);
 				}
@@ -23449,7 +23479,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case URETHRA_VAGINA:
 				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					AbstractClothing vaginaClothing = this.getClothingInSlot(InventorySlot.VAGINA);
-					return isCoverableAreaExposed(CoverableArea.ANUS) && (vaginaClothing==null || vaginaClothing.isTransparent(vaginaClothing.getSlotEquippedTo()));
+					return isAbleToAccessRearCloaca() && (vaginaClothing==null || vaginaClothing.isTransparent(vaginaClothing.getSlotEquippedTo()));
 				} else {
 					return isCoverableAreaExposed(CoverableArea.VAGINA);
 				}
@@ -25523,6 +25553,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Nail polish:
 	public Covering getHandNailPolish() {
+		if(!this.hasArms()) {
+			return new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_NONE);
+		}
 		return getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS);
 	}
 	public String setHandNailPolish(Covering nailPolish) {
@@ -27985,6 +28018,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Nail polish:
 	public Covering getFootNailPolish() {
+		if(!this.hasFeet()) {
+			return new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_NONE);
+		}
 		return getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET);
 	}
 	public String setFootNailPolish(Covering nailPolish) {

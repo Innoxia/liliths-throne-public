@@ -559,11 +559,13 @@ public class AbstractPlaceType {
 	}
 	
 	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter, boolean forceEncounter) {
-		AbstractEncounter encounterType = getEncounterType();
-		if(encounterType!=null && withRandomEncounter) {
-			DialogueNode dn = encounterType.getRandomEncounter(forceEncounter);
-			if (dn != null) {
-				return dn;
+		if(withRandomEncounter) {
+			AbstractEncounter encounterType = getEncounterType();
+			if(encounterType!=null) {
+				DialogueNode dn = encounterType.getRandomEncounter(forceEncounter);
+				if (dn != null) {
+					return dn;
+				}
 			}
 		}
 		return getBaseDialogue(cell);
