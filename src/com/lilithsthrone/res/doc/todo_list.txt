@@ -27,6 +27,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		In the self-transform menu, the comparators used for sorting horns and wings have had inconsistencies fixed. (PR#1610 by CognitiveMist)
 		Improved Encounter generation code, improving performance in Lilaya's Home and Dominion tiles. (by AceXP)
 		Fixed incorrect descriptions related to incubation stats in the character information page. (by AceXP)
+		Fixed issue where the 'quick sex' action would perform blocked sex types. Also fixed parsing issues with paizuri tooltip and the naming of horse vaginas. (PR#1619 by Maxis010)
 	
 	Assorted Bugfixes Contributed by Maxis010 (PR#1603):
 		Fixed typos both in dialogue and code.
@@ -351,6 +352,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Ace content
 	
+	[] Add mice
 	[] boxing gloves mod
 	[] latex leggings
 	[] deer
