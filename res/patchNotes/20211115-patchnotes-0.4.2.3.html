@@ -1,0 +1,121 @@
+<h2>v0.4.2.3</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed bug where clothing stickers weren't transferring when enchanting clothing. (by CognitiveMist)</li>
+	<li>Fixed issue where the error log would generate the entry 'Warning: Parser target of X has been replaced!' when randomly-generated NPCs were getting removed. (by AceXP)</li>
+	<li>Prevented a null exception when a move had zero equip-weight. (PR#1596 by CognitiveMist)</li>
+	<li>Fixed several bugs and updated modding information for patterns. (PR#1605 by CognitiveMist)</li>
+	<li>Fixed rare bug when importing clothing which would sometimes result in modded clothing not showing up for sale. (PR#1607 by CognitiveMist)</li>
+	<li>Adjusted NPCs' reference to their working hours to respect the 12 or 24-hour preference in the player's settings. (PR#1609 by CognitiveMist)</li>
+	<li>In the self-transform menu, the comparators used for sorting horns and wings have had inconsistencies fixed. (PR#1610 by CognitiveMist)</li>
+	<li>Improved Encounter generation code, improving performance in Lilaya's Home and Dominion tiles. (by AceXP)</li>
+	<li>Fixed incorrect descriptions related to incubation stats in the character information page. (by AceXP)</li>
+</ul>
+
+<h3>Assorted Bugfixes Contributed by Maxis010 (PR#1603):</h3>
+<ul>
+	<li>Fixed typos both in dialogue and code.</li>
+	<li>Fixed issue where artwork could become invalid after a character was transformed (which was what was causing errors when removing Scarlett's penis).</li>
+	<li>Fixed bug where Ashley would be set to be friendly towards herself instead of towards Nyan.</li>
+	<li>Improved detection and removal of danger characters in save game file names.</li>
+	<li>Added missing check for body hair content setting.</li>
+	<li>Fixed issue with the saving/loading of enchantments sometimes loading incorrect enchantments.</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Slightly improved performance of encounter generation.</li>
+	<li>Added support for 'one-shot' weapons (intended primarily for thrown weapons), which causes the weapon to be removed from the player after being used. You can define chances to recover the weapon at the end of the turn and at the end of combat. See the 'res/weapons/innoxia/dagger/dagger.xml' for comments on how to define a one-shot weapon.</li>
+	<li>Added a 'attackDescriptionPrefix' element to weapon xml files, allowing you to define a more suitable attack description to fit the sentence 'X your enemy for N damage!'. See the same dagger file mentioned above for a commented example. If the element is not found, then the 'attackDescriptor' element is used instead (so there's no real need to refactor any mods).</li>
+	<li>Added a new TFModifier value 'ENCHANTMENT_LIMIT', which acts like any other attribute boosting TFModifier (to increase the wearer's enchantment capacity) when selected as the secondary TFModifier to a primary 'CLOTHING_MAJOR_ATTRIBUTE' TFModifier. This cannot be selected by the player in-game (for balance reasons), and so is only for if you want special modded clothing or weapons to add enchantment capacity.</li>
+	<li>Added 'SEX_PACE_' as a parser prefix hook to the SexPace enum values.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Filled in all placeholders for Evelyx's Dairy content, including the bad end there.</li>
+	<li>If you attack Enforcers and are then defeated by them, they will now search you in the post-combat scene and confiscate any illegal items you're carrying.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Added 'tennis ball' and 'ball of yarn' as ranged, one-shot, silly mode weapons, both sold by Ralph. (They will appear in his inventory after he restocks at midnight, and will only appear if you have silly mode turned on.)</li>
+	<li>Converted the 'arcane firebomb' item to use the new one-shot weapon mechanic, and made it one-handed.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Added breasts-to-mouth actions for the interaction between the 'sitting' and 'sitting in lap' sex slots.</li>
+	<li>Added 'Stop rape-play' and 'Allow rape-play' actions for when you're a dominant in sex and your partner is resisting due to having the 'unwilling fuck-toy' fetish, which prevents/permits them from optionally using the resisting pace (they can still resist if not enjoying sex or if they're a friendly NPC who's been betrayed by you).</li>
+	<li>The choice of which ongoing action to reference in dirty talk lines is no longer completely random, and is now instead based on the character's fetish desire towards each ongoing action (with liked actions having more weight to be referenced).</li>
+	<li>NPCs now have the option to reposition during sex in the 'sitting' position.</li>
+	<li>Slightly improved the starting description and added initial actions for Kruger's sex scene, and thanks to the change above, he should now correctly switch position so as to progress from oral to penetrative sex during the scene.</li>
+	<li>Foreplay should now last longer than 1 or 2 turns. Changes related to this: initial ongoing actions do not apply arousal gains before the first turn; arousal gains are halved while in foreplay; added this information to the arousal attribute tooltip.</li>
+	<li>NPCs will no longer choose 'self-breast-to-finger' or 'self-breast-to-tongue' preferences for sex if they are masculine with no breasts and no positive desire towards the self-breast fetish.</li>
+	<li>The 'Cum on feet' orgasm action is no longer available if the targeted character does not have feet (such a lamia).</li>
+	<li>If an NPC is dominant or has equal control in a sex scene then they will no longer allow you to equip sex toys on them.</li>
+	<li>Dominant NPCs who have orgasmed at least 2 times more than they need to be satisfied will now want to end sex if their submissive partner is still at 0 orgasms and is not aroused.</li>
+	<li>NPCs now have the same chance to request a facial as they do to request nothing, which should stop them from almost always requesting a facial when the position allowed it.</li>
+	<li>The 'Thrust into mouth' and 'Paizuri into mouth' sex actions will no longer be used by NPCs who have a negative desire towards receiving or giving oral, respectively.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Changed some perks to traits and vice versa based on the concept that the only perks which should be classified as traits are the ones which you might want to disable, so:</li>
+	<li>Perks -> Traits: Beserk, Object of desire; Irresistible appeals; Aura shielding.</li>
+	<li>Traits -> Perks: Martial artist; Ferocious warrior; Pure thoughts; Lustpyre; Arcane precision; Arcane combatant.</li>
+	<li>The Enforcers in the Dominion alleyway Enforcer encounters now end the 'strip' sex scenes once they're satisfied, instead of keeping on going until the player is satisfied too.</li>
+	<li>Automatically-generated clothing name postfixes now prioritise 'of sealing' over generic positive enchantment effects.</li>
+	<li>While they will still always spawn in as feminine or androgynous, the gender of harpies which spawn in the Harpy Nests now takes into account your gender preferences (thereby allowing futa/herm harpies to spawn up there now).</li>
+	<li>Added a 'Defaults' button to the orientation preferences screen, allowing you to reset orientation ratios to their default values.</li>
+	<li>Buffed pegasus-morph racial bonus by increasing their critical damage from 10 to 30, and altered their racial bonus's description to reference this.</li>
+	<li>Battle axes, dories, and recurve bows now spawn with some basic enchantments.</li>
+	<li>Weapons defined as 'common' now automatically use the same rarity calculation as clothing, so a weapon which is part of a set is defined as 'epic', a weapon with more than one enchantment is 'rare', a weapon with one enchantment is 'uncommon', and unenchanted weapons as 'common'.</li>
+	<li>The weapons 'feather duster' and 'witch's broom' are now respectively part of the 'hard-working maid' and 'witch' sets.</li>
+	<li>Set several weapons to 'common' rarity so that they now use the automatic rarity assignment system described above.</li>
+	<li>Randomly-generated, non-greater NPCs now have a random skin colour (so lesser morphs with set fur colours, such as raccoon-morphs, can now spawn with a variety of skin colours instead of the same one every time, which was being based on their fur colour).</li>
+	<li>Male spider-morphs now spawn as being masculine instead of androgynous.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Formatting, typo, and parsing fixes.</li>
+	<li>Fixed issue where the artwork would not update for Kay after feminising him.</li>
+	<li>Fixed background error sometimes being thrown when teleporting out of Submission.</li>
+	<li>If a tile has multiple possible encounters assigned to it, the encounter chosen is now correctly weighted based on each encounter's total chance to be selected, instead of completely randomly (which was causing issues with encounters not triggering as expected).</li>
+	<li>The 'Impish Fiends' and 'Centaurs & More' books will now correctly unlock in Lilaya's library after having read them.</li>
+	<li>Fixed issue where NPCs were being affected by the 3-year time skip at the start of new games, making them 3 years older than intended. This fix has been retroactively applied to all unique NPCs, so when loading into this version unique NPCs will all be 3 years younger.</li>
+	<li>The player character now suffers from menopause at age 55 instead of NPCs' usual 52, to take into account the 3-year timeskip.</li>
+	<li>Fixed issue where the 'Push her' sex action during Meraxis's handjob scene would show a 'No suitable description found for this action!' error.</li>
+	<li>Fixed background errors being thrown when accessing Kate's 'Makeup' and 'Other' actions.</li>
+	<li>If you have multiple arm rows, the action name for main and offhand strikes will no longer omit some of the attacks which are to be performed.</li>
+	<li>Fixed bug where weapon equip requirements were not being taken into account when equipping weapons directly from the ground.</li>
+	<li>Fixed issue where ferals could have their leg configuration transformed. (Ferals are not in the game yet, but there will be content for them added 'soon'.)</li>
+	<li>The game now correctly saves the description of virginity losses even if the virginity-taking character is removed from the game, meaning that from now on you should no longer see the 'You lost your virginity to someone you can't remember' message. (This fix does not apply retroactively, so if you are already seeing that message, it is too late to be fixed.)</li>
+	<li>Fixed issue where NPCs' forced-TF potions would not completely take into account the 'Forced TF Racial Limits' content setting.</li>
+	<li>NPCs' forced-TF potions will no longer enter a state where they flip-flop between shortening and lengthening hair each time they're generated/used after combat.</li>
+	<li>Fixed issue where demonic spider-morphs would have incorrect names when possessing the 'arachnid' leg configuration.</li>
+	<li>Equipped clothing descriptions will now correctly be parsed according to who is wearing it.</li>
+	<li>Armpits will no longer be described as 'hairy' if the character has no underarm air or if body hair content is turned off.</li>
+	<li>Fixed issue with the panther-morph race, where applying smooth spotted fur to a panther-morph would throw an error and detect the character as a human.</li>
+	<li>Slimes will no longer spawn wearing makeup.</li>
+	<li>Removing a character's vagina no longer displays text stating that the character 'now gives birth to live young'.</li>
+	<li>Fixed issues with Natalya's sex scenes and the centaur sex scenes related to Dominion Express never ending without the use of the 'Quick sex' action.</li>
+	<li>The tooltips for the 'swollen belly/breasts/spinneret' status effects now correctly list all of the fluid types which are causing the inflation, instead of always referring to them as 'cum'.</li>
+	<li>Fixed issue where when setting your elemental's name, the game would detect keys being pressed as activating their usual hotkey while trying to type in a new name.</li>
+	<li>Fixed issue where you could start but never stop self-fingering and self-tail-to-nipple-penetration ongoing sex actions.</li>
+	<li>The 'Explore' action in Dominion's alleyways, the Harpy Nests, and elsewhere, should no longer rarely do nothing upon use.</li>
+	<li>The 'Cow-girl (greater)' reward offered to you in Evelyx's Dairy will now correctly transform your character's horn type.</li>
+	<li>Evelyx's Bad End no longer gets bugged and stuck at the 'Mounted' action.</li>
+	<li>Fixed issue in Monica's quest where if you refused Evelyx's offers during her meeting, you the option to have another meeting with Evelyx wouldn't appear, preventing you from progressing the quest.</li>
+	<li>Random TF potions based on races which lack horns, tails, wings, or crotch-boobs will now correctly remove those body parts instead of growing generic ones.</li>
+	<li>Fixed issue where some types of taur (such as cattle-morph taurs) were always being referred to by their masculine name even if the character was feminine.</li>
+	<li>The 'Total offspring' count in the phone's 'Pregnancy Stats' screen now correctly includes offspring birthed from implanted eggs.</li>
+	<li>Characters who lack feet (such as lamia) or arms (such as feral snakes) will no longer be described as having toenail or fingernail polish.</li>
+	<li>Fixed a (harmless?) series of background errors sometimes being thrown when loading a game (which was being caused by trying to generate encounter types before the game had been fully initialised).</li>
+	<li>Half-demon attackers in Dominion's alleyways will no longer spawn wearing completely random outfits.</li>
+	<li>NPCs who forcibly transform you after defeating you in combat will now correctly transform your leg type to their preference before trying to transform your leg configuration.</li>
+	<li>Characters with a rear-facing cloaca will no longer have access to their vagina and penis blocked by wearing a buttplug.</li>
+	<li>Fixed issue where Enforcers with leg configurations of 'serpent-tailed' or 'arachnid' would spawn wearing random clothing instead of an Enforcer uniform.</li>
+</ul>

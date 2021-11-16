@@ -1115,7 +1115,8 @@
 				<effects><![CDATA[
 					[#evelyx.transformCock(false)]
 					[#evelyx.equipClothing()]
-					[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_locked_door)]
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_barn4_door)]
+					[#evelyx.setDairyRevealed(3)]
 					[#evelyx.setLocation(pc)]
 				]]></effects>
 			</response>

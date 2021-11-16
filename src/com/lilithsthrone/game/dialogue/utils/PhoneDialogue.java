@@ -1946,14 +1946,19 @@ public class PhoneDialogue {
 			int daughtersFathered=0;
 			int childrenMet = 0;
 			
+			// Birthed with player as the mother:
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
 				daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 			}
+			// Birthed with player as the father:
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()){
 				sonsFathered+=(litter.isSelfImpregnation()?0:litter.getSonsFromMother()+litter.getSonsFromFather());
 				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
+			// Egg-incubated offspring who have been birthed:
+			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
+			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer());
 			
 			UtilText.nodeContentSB.setLength(0);
 
@@ -1965,7 +1970,7 @@ public class PhoneDialogue {
 			for (NPC npc : Main.game.getOffspring(false)) {
 				childrenMet += ChildMet(npc) ? 1 : 0;
 			}
-			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
+			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered+offspringIncubated.size());
 			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
 
 			UtilText.nodeContentSB.append(
@@ -2042,8 +2047,6 @@ public class PhoneDialogue {
 						+ "</div>");
 			
 			rowCount = 0;
-			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
-			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer()); // Only egg incubated offspring
 			if(offspringIncubated.isEmpty()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"
 												+ "[style.italicsDisabled(No Incubated Offspring...)]"

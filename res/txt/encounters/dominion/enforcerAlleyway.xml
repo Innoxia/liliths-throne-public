@@ -1783,22 +1783,65 @@
 	
 	<!-- AFTER_COMBAT_DEFEAT -->
 	
-	<htmlContent tag="AFTER_COMBAT_DEFEAT"><![CDATA[
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEARCHED"><![CDATA[
+	<p>
+		Unable to continue fighting any longer, you feel your [pc.legs] giving out from under you, and with a defeated sigh, you collapse down onto the ground.
+	</p>
+	<p>
+		[npc.speech(That'll teach you to try and fight back against us Enforcers!)] [npc.name] boasts as [npc.she] holsters [npc.her] baton and pistol. Looking over at [npc.her] subordinate, [npc.she] commands, [npc.speech(Give [pc.herHim] a thorough search.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEARCHED_CONTRABAND"><![CDATA[
+	<p>
+		[npc2.speech(Let's find out what you're hiding,)] [npc2.name] sneers as [npc2.she] [npc2.steps] forwards to loom over you. With [npc.name] keeping watch to make sure that you don't try anything funny, [npc2.name] starts to pat you down.
+		#IF(npc2.isAttractedTo(pc))
+			#IF(pc.hasBreasts())
+				 Running [npc2.her] [npc2.hands] up and over your [pc2.breasts+], [npc2.she] lets out an amused grunt as [npc2.she] gives them a firm squeeze.
+			#ELSE
+				 Running [npc2.her] [npc2.hands] down over your ass, [npc2.she] lets out an amused grunt as [npc2.she] gives your cheeks a firm squeeze.
+			#ENDIF
+			 Before you're able to react to react to this sexual harassment, the [npc2.race] suddenly lets out a triumphant laugh as [npc2.she] suddenly finds some items that you aren't supposed to have.
+		#ELSE
+			 Running [npc2.her] [npc2.hands] all over your body, [npc2.she] lets out a triumphant laugh as [npc2.she] suddenly finds some items that you aren't supposed to have.
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speech(I'll be taking these,)] [npc2.she] grunts, before quickly confiscating your [style.colourBlueDark(illegal)] items and passing them to [npc.name] to securely stow in [npc.her] inventory.
+	</p>
+	<p style='text-align:center;'>
+		[style.boldTerrible(You have lost:)]<br/>
+		[#SPECIAL_PARSE_0]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEARCHED_NO_CONTRABAND"><![CDATA[
+	<p>
+		[npc2.speech(Let's find out what you're hiding,)] [npc2.name] sneers as [npc2.she] [npc2.steps] forwards to loom over you. With [npc.name] keeping watch to make sure that you don't try anything funny, [npc2.name] starts to pat you down.
+		#IF(npc2.isAttractedTo(pc))
+			#IF(pc.hasBreasts())
+				 Running [npc2.her] [npc2.hands] up and over your [pc2.breasts+], [npc2.she] lets out an amused grunt as [npc2.she] gives them a firm squeeze.
+			#ELSE
+				 Running [npc2.her] [npc2.hands] down over your ass, [npc2.she] lets out an amused grunt as [npc2.she] gives your cheeks a firm squeeze.
+			#ENDIF
+			 After subjecting you to this sexual harassment for a few more moments, the [npc2.race] lets out an annoyed sigh as [npc2.she] fails to find any illegal items in your possession.
+		#ELSE
+			 Running [npc2.her] [npc2.hands] all over your body, [npc2.she] lets out an annoyed sigh as [npc2.she] fails to find any illegal items in your possession.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_END"><![CDATA[
 	#VAR
 		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
 				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
 				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
 	#ENDVAR
 	
-	<p>
-		Unable to continue fighting any longer, you feel your [pc.legs] giving out from under you, and with a defeated sigh, you collapse down onto the ground.
-	</p>
-	<p>
-		[npc.speech(That'll teach you to try and fight back against us Enforcers!)] [npc.name] boasts as [npc.she] holsters [npc.her] baton and pistol.
-	</p>
-	<p>
-		[npc2.speech(You never stood a chance,)] [npc2.name] sneers as [npc2.she] [npc2.steps] forwards to loom over you.
-	</p>
 	#IF(npc.isAttractedTo(pc))
 		#IF(npc2.isAttractedTo(pc))
 			#IF(npc.isWillingToRape())
