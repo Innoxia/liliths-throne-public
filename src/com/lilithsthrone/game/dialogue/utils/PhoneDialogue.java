@@ -1979,6 +1979,7 @@ public class PhoneDialogue {
 			int daughtersBirthed=0;
 			int sonsFathered=0;
 			int daughtersFathered=0;
+			int offspringIncubatedCount=0;
 			
 			// Birthed with player as the mother:
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
@@ -1991,12 +1992,22 @@ public class PhoneDialogue {
 				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
 			// Egg-incubated offspring who have been birthed:
-			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
-			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer());
-
-			for (Litter litter : Main.game.getPlayer().getLittersImplanted()){
-				sonsFathered+=litter.getSonsFromMother()+litter.getSonsFromFather();
-				daughtersFathered+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+			for (Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+				for (String id : litter.getOffspring()) {
+					if (id.contains("NPCOffspring")) {
+						//NPCOffspring is always born
+						offspringIncubatedCount += 1;
+					} else {
+						try {
+							OffspringSeed o = Main.game.getOffspringSeedById(id);
+							//OffspringSeed may be born or unborn
+							if (o.isBorn()) {
+								offspringIncubatedCount += 1;
+							}
+						} catch (Exception ex) {
+						}
+					}
+				}
 			}
 
 			UtilText.nodeContentSB.setLength(0);
@@ -2007,7 +2018,7 @@ public class PhoneDialogue {
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersFathered);
 
 			int childrenMet = Main.game.getOffspring().size();
-			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
+			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered+offspringIncubatedCount);
 			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
 
 			UtilText.nodeContentSB.append(
