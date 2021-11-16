@@ -12202,23 +12202,23 @@ public class StatusEffect {
 								break;
 							case PENIS:
 								if(selfAction) {
-									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex("+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.herself]!"));
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex("+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.herself]!"));
 								} else {
-									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex("+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.name]!"));
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex("+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.name]!"));
 								}
 								break;
 							case TAIL:
 								if(selfAction) {
-									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(tail-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.herself]!"));
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(tail-"+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.herself]!"));
 								} else {
-									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex(tail-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.name]!"));
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex(tail-"+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.name]!"));
 								}
 								break;
 							case TENTACLE:
 								if(selfAction) {
-									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(tentacle-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.herself]!"));
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(tentacle-"+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.herself]!"));
 								} else {
-									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex(tentacle-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.name]!"));
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex(tentacle-"+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.name]!"));
 								}
 								break;
 							case TONGUE:
@@ -12230,9 +12230,9 @@ public class StatusEffect {
 								break;
 							case CLIT:
 								if(selfAction) {
-									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex("+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.her] own [npc.clit]!"));
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex("+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.her] own [npc.clit]!"));
 								} else {
-									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex("+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.namePos] [npc.clit]!"));
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex("+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.namePos] [npc.clit]!"));
 								}
 								break;
 							case FOOT:
@@ -12265,9 +12265,9 @@ public class StatusEffect {
 								break;
 							case URETHRA_PENIS:
 								if(selfAction) {
-									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex("+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.herself]!"));
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex("+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.herself]!"));
 								} else {
-									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex("+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+")] on [npc.name]!"));
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex("+(target.isBreastFuckablePaizuri()?"paizuri":"naizuri")+")] on [npc.name]!"));
 								}
 								break;
 							case URETHRA_VAGINA:
