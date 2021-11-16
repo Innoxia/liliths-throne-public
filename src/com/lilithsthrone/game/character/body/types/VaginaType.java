@@ -395,8 +395,8 @@ public class VaginaType {
 			FluidType.GIRL_CUM_HORSE_MORPH,
 			Race.HORSE_MORPH,
 			false,
-			Util.newArrayListOfValues("#IF(pc.getRace()==pc.getVaginaRace())[pc.raceFeral]#ELSE[pc.pussyRaceFeral]#ENDIF-", "mare-"),
-			Util.newArrayListOfValues("#IF(pc.getRace()==pc.getVaginaRace())[pc.raceFeral]#ELSE[pc.pussyRaceFeral]#ENDIF-", "mare-"),
+			Util.newArrayListOfValues("#IF(npc.getRace()==npc.getVaginaRace())[npc.raceFeral]#ELSE[npc.pussyRaceFeral]#ENDIF-", "mare-"),
+			Util.newArrayListOfValues("#IF(npc.getRace()==npc.getVaginaRace())[npc.raceFeral]#ELSE[npc.pussyRaceFeral]#ENDIF-", "mare-"),
 			Util.newArrayListOfValues("hot"),
 			"[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting."
 					+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt,"
