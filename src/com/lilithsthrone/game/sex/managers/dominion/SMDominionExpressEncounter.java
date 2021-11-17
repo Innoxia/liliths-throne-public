@@ -19,7 +19,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.7.7
- * @version 0.3.7.7
+ * @version 0.4.2.2
  * @author Innoxia
  */
 public class SMDominionExpressEncounter extends SexManagerDefault {
@@ -45,7 +45,10 @@ public class SMDominionExpressEncounter extends SexManagerDefault {
 	}
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		return SexControl.ONGOING_ONLY; // So the slave doesn't start anything else.
+		if(!Main.sex.isDom(character)) {
+			return SexControl.ONGOING_ONLY; // So the player can't start anything else.
+		}
+		return super.getSexControl(character);
 	}
 	@Override
 	public boolean isAbleToEquipSexClothing(GameCharacter character){

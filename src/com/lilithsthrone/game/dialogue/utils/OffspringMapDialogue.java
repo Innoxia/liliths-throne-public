@@ -63,59 +63,59 @@ public class OffspringMapDialogue {
 					+ "</p>"
 					+ "<p style='text-align:center;'>");
 			
-				if(Main.game.getOffspringNotSpawned(os->true).isEmpty()) {
-					UtilText.nodeContentSB.append("[style.colourDisabled(No offspring available)]");
-					
-				} else {
-					boolean foundAnyInArea = false;
-					List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->getOffspringList().contains(npc));
-					if(!offspringToShow.isEmpty()) {
-						foundAnyInArea = true;
-						UtilText.nodeContentSB.append("Offspring [style.colourMinorGood(possibly in this area)]:<br/>");
-					}
-					for(OffspringSeed os : offspringToShow) {
-						UtilText.nodeContentSB.append("<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(os.getName())+"</span>");
-						
-						String unknownMotherName = "Unknown";
-						if(os.getMother()==null && !os.getMotherName().equals("???")) {
-							unknownMotherName = os.getMotherName();
-						}
-						String unknownFatherName = "Unknown";
-						if(os.getFather()==null && !os.getFatherName().equals("???")) {
-							unknownFatherName = os.getFatherName();
-						}
-						
-						UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
-								+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
-								+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
-								+ "<br/>");
-					}
-					
-					offspringToShow = Main.game.getOffspringNotSpawned(npc->!getOffspringList().contains(npc));
-					if(!offspringToShow.isEmpty()) {
-						if(foundAnyInArea) {
-							UtilText.nodeContentSB.append("<br/>");
-						}
-						UtilText.nodeContentSB.append("Offspring [style.colourMinorBad(not in this area)]:<br/>");
-					}
-					for(OffspringSeed os : offspringToShow) {
-						UtilText.nodeContentSB.append("[style.colourDisabled("+Util.capitaliseSentence(os.getName())+")]");
-						
-						String unknownMotherName = "Unknown";
-						if(os.getMother()==null && !os.getMotherName().equals("???")) {
-							unknownMotherName = os.getMotherName();
-						}
-						String unknownFatherName = "Unknown";
-						if(os.getFather()==null && !os.getFatherName().equals("???")) {
-							unknownFatherName = os.getFatherName();
-						}
-						
-						UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
-								+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
-								+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
-								+ "<br/>");
-					}
+			if(Main.game.getOffspringNotSpawned(os->true).isEmpty()) {
+				UtilText.nodeContentSB.append("[style.colourDisabled(No offspring available)]");
+				
+			} else {
+				boolean foundAnyInArea = false;
+				List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->getOffspringList().contains(npc));
+				if(!offspringToShow.isEmpty()) {
+					foundAnyInArea = true;
+					UtilText.nodeContentSB.append("Offspring [style.colourMinorGood(possibly in this area)]:<br/>");
 				}
+				for(OffspringSeed os : offspringToShow) {
+					UtilText.nodeContentSB.append("<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(os.getName())+"</span>");
+					
+					String unknownMotherName = "Unknown";
+					if(os.getMother()==null && !os.getMotherName().equals("???")) {
+						unknownMotherName = os.getMotherName();
+					}
+					String unknownFatherName = "Unknown";
+					if(os.getFather()==null && !os.getFatherName().equals("???")) {
+						unknownFatherName = os.getFatherName();
+					}
+					
+					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
+							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
+							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
+							+ "<br/>");
+				}
+				
+				offspringToShow = Main.game.getOffspringNotSpawned(npc->!getOffspringList().contains(npc));
+				if(!offspringToShow.isEmpty()) {
+					if(foundAnyInArea) {
+						UtilText.nodeContentSB.append("<br/>");
+					}
+					UtilText.nodeContentSB.append("Offspring [style.colourMinorBad(not in this area)]:<br/>");
+				}
+				for(OffspringSeed os : offspringToShow) {
+					UtilText.nodeContentSB.append("[style.colourDisabled("+Util.capitaliseSentence(os.getName())+")]");
+					
+					String unknownMotherName = "Unknown";
+					if(os.getMother()==null && !os.getMotherName().equals("???")) {
+						unknownMotherName = os.getMotherName();
+					}
+					String unknownFatherName = "Unknown";
+					if(os.getFather()==null && !os.getFatherName().equals("???")) {
+						unknownFatherName = os.getFatherName();
+					}
+					
+					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
+							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
+							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
+							+ "<br/>");
+				}
+			}
 				
 			UtilText.nodeContentSB.append("</p>");
 			

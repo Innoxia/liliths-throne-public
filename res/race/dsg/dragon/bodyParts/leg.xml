@@ -95,7 +95,7 @@
 	
 	<!-- How these legs are described in a character's description page. -->
 	<bodyDescription><![CDATA[
-		[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and each of the stout toes on her feet are tipped with sharp claws.
+		[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and each of the stout toes on [npc.her] feet are tipped with sharp claws.
 	]]></bodyDescription>
 	
 </leg>

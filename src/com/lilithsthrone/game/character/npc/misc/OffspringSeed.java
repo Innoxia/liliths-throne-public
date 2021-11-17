@@ -15,6 +15,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,6 +24,8 @@ import org.w3c.dom.NodeList;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Map;
+
+import static com.lilithsthrone.game.character.persona.Name.surnames;
 
 /**
  * @since 0.4.0
@@ -118,7 +121,7 @@ public class OffspringSeed implements XMLSaving {
 			}
 
 			if(Main.game.isDebugMode()) {
-				System.out.println("Converted NPC "+npc.getId()+" to offspringSeed "+osId);
+//				System.out.println("Converted NPC "+npc.getId()+" to offspringSeed "+osId);
 			}
 			
 		} catch (Exception e) {
@@ -144,11 +147,17 @@ public class OffspringSeed implements XMLSaving {
 			
 		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
 			this.setSurname(father.getName(false)+"martuilani");
-			
+
+		} else if(mother.getMother()!=null && (mother.getMother().getTrueSubspecies()==Subspecies.LILIN || mother.getMother().getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
+			this.setSurname(mother.getMother().getName(false)+"martu");
+
 		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
 			this.setSurname(mother.getSurname());
+			
+		} else {
+			this.setSurname(""); // TO make sure that surname is not null for the following check: this.surname.contains("martu")
 		}
-		
+
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);
 		
 		Body preGeneratedBody;
@@ -164,6 +173,11 @@ public class OffspringSeed implements XMLSaving {
 		}
 
 		this.subspecies = body.getSubspecies();
+
+		//For Imps, don't use any of the demon surnames but just a regular surname
+		if (this.surname.contains("martu") && (this.subspecies==Subspecies.IMP || this.subspecies==Subspecies.IMP_ALPHA)) {
+			this.setSurname(surnames[Util.random.nextInt(surnames.length)]);
+		}
 
 		setName(Name.getRandomTriplet(getRace()));
 		

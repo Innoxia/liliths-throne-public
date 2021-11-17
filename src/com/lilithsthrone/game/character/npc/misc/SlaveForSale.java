@@ -83,8 +83,8 @@ public class SlaveForSale extends NPC {
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-				// Check for race's leg type as taur, otherwise NPCs which sapwn with human legs won't be affected by taur conversion rate:
+					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
@@ -99,15 +99,18 @@ public class SlaveForSale extends NPC {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 			
 			// PERSONALITY & BACKGROUND:
-			
+
+//			this.clearPersonalityTraits();
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			this.setHistory(Occupation.NPC_SLAVE);
 			
 			// ADDING FETISHES:
 		
 			this.clearFetishDesires();
 			this.clearFetishes();
-			this.clearPersonalityTraits();
-			this.clearTattoosAndScars();
+			Main.game.getCharacterUtils().addFetishes(this);
+			
+//			this.clearTattoosAndScars();
 			
 			this.setObedience(100);
 			

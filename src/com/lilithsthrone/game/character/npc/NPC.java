@@ -426,7 +426,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return new Value<>(true, ""); 
 		}
 		if(this.isUnique()) {
-			return new Value<>(false, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to wear the "+clothing.getName()+"!");
+			return new Value<>(false, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to equip the "+clothing.getName()+"!");
+		}
+		if(Main.game.isInSex() && (Main.sex.isDom(this) || Main.sex.isSubHasEqualControl())) {
+			return new Value<>(false, "[npc.Name] is not interested in equipping the "+clothing.getName()+"!");
 		}
 		return new Value<>(true, "");
 	}
@@ -896,11 +899,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Handles the behaviour when the player escapes from this enemy in combat.
 	 */
 	public void applyEscapeCombatEffects() {
-	};
+	}
 	
 	public Response endCombat(boolean applyEffects, boolean playerVictory) {
 		return null;
-	};
+	}
 
 	/**
 	 * If this character has special scenes which interrupt combat at a certain point, then use this method to add them.
@@ -908,7 +911,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public Response interruptCombatSpecialCase() {
 		return null;
-	};
+	}
 	
 	/**
 	 * @return The chance of enemies managing to escape from this NPC. Defined as an int from 0-100, representing percentage.
@@ -1357,7 +1360,30 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
 			
 		} else {
-			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
+			RaceStage targetedRaceStage = this.getRaceStagePreference();
+			// Make sure that the generated body preference is respecting the player's content settings.
+			// Otherwise, NPC's potion will attempt to apply changes as though the end body would be a greater stage than allowed.
+				// e.g. Removing hair thinking that the player will end up greater, while preferences were set to less than greater.
+			switch(Main.getProperties().getForcedTFPreference()) {
+				case HUMAN:
+					targetedRaceStage = RaceStage.HUMAN;
+					break;
+				case MINIMUM:
+					if(targetedRaceStage!=RaceStage.HUMAN) {
+						targetedRaceStage = RaceStage.PARTIAL_FULL;
+					}
+					break;
+				case REDUCED:
+					if(targetedRaceStage!=RaceStage.HUMAN && targetedRaceStage!=RaceStage.PARTIAL_FULL) {
+						targetedRaceStage = RaceStage.LESSER;
+					}
+					break;
+				case NORMAL:
+				case MAXIMUM:
+					break;
+			}
+			
+			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), targetedRaceStage);
 		}
 		Util.random = new Random();
 
@@ -1504,10 +1530,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"Your arms could do with a change!"));
 					}
 					// TODO: Add separate chunks for LegConfiguration and LegType if more races have multiple leg types
-					if(target.getLegType() != body.getLeg().getType() || target.getLegConfiguration() != body.getLeg().getLegConfiguration()) {
+					if(target.getLegType() != body.getLeg().getType()) {
+						possibleEffects.add(new PossibleItemEffect(
+							new ItemEffect(getItemEnchantmentEffect(itemType, body.getLeg()), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+							"Your legs need changing as well!"));
+					}
+					if(target.getLegConfiguration() != body.getLeg().getLegConfiguration()) {
 						possibleEffects.add(new PossibleItemEffect(
 							new ItemEffect(getItemEnchantmentEffect(itemType, body.getLeg()), TFModifier.TF_LEGS, body.getLeg().getLegConfiguration().getTFModifier(), TFPotency.MINOR_BOOST, 1),
-							"I'm sure you'll love getting some new legs!"));
+							"I want you with "+UtilText.generateSingularDeterminer(body.getLeg().getLegConfiguration().getName())+" "+body.getLeg().getLegConfiguration().getName()+" body!"));
 					}
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); } // Apply arms & legs at the same time
 				}
@@ -1739,15 +1770,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Hair length:
 		// Same as with breast size, since target hair size might be 0cm (= no hair) and steps reduced to 5cm from 15cm.
+		boolean majorChange = Math.abs(target.getHairRawLengthValue() - body.getHair().getRawLengthValue()) > 15;
 		if(target.getHairRawLengthValue() + 6 < body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_BOOST:TFPotency.BOOST, 1),
 				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too short!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
 		} else if(target.getHairRawLengthValue() > body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_DRAIN:TFPotency.DRAIN, 1),
 				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too long!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}
@@ -2931,9 +2963,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		return null;
 	}
+
+	/**
+	 * Generic version of getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest)
+	 */
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter) {
+		return getSexBehaviourDeniesRequests(requestingCharacter, null);
+	}
 	
 	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
-		if(requestingCharacter.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+		if(requestingCharacter.hasTraitActivated(Perk.CONVINCING_REQUESTS)) {
 			return false;
 		}
 		
@@ -2943,7 +2982,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return true;
 		}
 		
-		int weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		int weight = 0;
+		if(sexTypeRequest!=null) {
+			weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		}
 		
 		return weight<0 || this.hasFetish(Fetish.FETISH_SADIST);
 	}

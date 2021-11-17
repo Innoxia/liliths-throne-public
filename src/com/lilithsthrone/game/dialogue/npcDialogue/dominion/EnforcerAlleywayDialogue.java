@@ -52,6 +52,7 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
@@ -476,6 +477,20 @@ public class EnforcerAlleywayDialogue {
 					return getForeplayPreference(character, targetedCharacter);
 				}
 				return character.getMainSexPreference(targetedCharacter);
+			}
+			@Override
+			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+				if(Main.sex.isDom(partner)) {
+					boolean domsSatisfied = true;
+					for(GameCharacter character : Main.sex.getDominantParticipants(false).keySet()) {
+						if(!Main.sex.isSatisfiedFromOrgasms(character, true) && Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
+							domsSatisfied = false;
+						}
+					}
+					return domsSatisfied;
+				}
+				
+				return super.isPartnerWantingToStopSex(partner);
 			}
 		};
 	}
@@ -1777,10 +1792,108 @@ public class EnforcerAlleywayDialogue {
 
 	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("", "", true) {
 		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_DEFEAT", getEnforcers());
+		public void applyPreParsingEffects() {
+			searched = true;
+			isLeaderSearching = false;
+			playerSexType = getWantedSexType(isLeaderSearching?getEnforcerLeader():getEnforcerSubordinate(), Main.game.getPlayer());
+			enforcerWantsPlayerSex = (isLeaderSearching?getEnforcerLeader():getEnforcerSubordinate()).isAttractedTo(Main.game.getPlayer());
+			
+			// Equipped contraband:
+			for(AbstractClothing c : new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped())) {
+				if(contrabandCheck(c.getItemTags())) {
+					Main.game.getPlayer().forceUnequipClothingIntoVoid(getEnforcerLeader(), c);
+					getEnforcerLeader().addClothing(c, false);
+					clothingConfiscated.put(c, 1);
+				}
+			}
+			for(int i=0; i<3; i++) {
+				AbstractWeapon w = Main.game.getPlayer().getMainWeapon(i);
+				if(w!=null && contrabandCheck(w.getItemTags())) {
+					Main.game.getPlayer().unequipMainWeaponIntoVoid(i, false);
+					getEnforcerLeader().addWeapon(w, false);
+					weaponsConfiscated.putIfAbsent(w, 0);
+					weaponsConfiscated.put(w, weaponsConfiscated.get(w)+1);
+				}
+				w = Main.game.getPlayer().getOffhandWeapon(i);
+				if(w!=null && contrabandCheck(w.getItemTags())) {
+					Main.game.getPlayer().unequipOffhandWeaponIntoVoid(i, false);
+					getEnforcerLeader().addWeapon(w, false);
+					weaponsConfiscated.putIfAbsent(w, 0);
+					weaponsConfiscated.put(w, weaponsConfiscated.get(w)+1);
+				}
+			}
+			
+			// Contraband in inventory:
+			for(Entry<AbstractWeapon, Integer> entry : new HashMap<>(Main.game.getPlayer().getAllWeaponsInInventory()).entrySet()) {
+				AbstractWeapon weapon = entry.getKey();
+				int count = entry.getValue();
+				if(contrabandCheck(weapon.getItemTags())) {
+					Main.game.getPlayer().removeWeapon(weapon, count);
+					getEnforcerLeader().addWeapon(weapon, count, false, false);
+					weaponsConfiscated.putIfAbsent(weapon, 0);
+					weaponsConfiscated.put(weapon, weaponsConfiscated.get(weapon)+count);
+				}
+			}
+			for(Entry<AbstractClothing, Integer> entry : new HashMap<>(Main.game.getPlayer().getAllClothingInInventory()).entrySet()) {
+				AbstractClothing clothing = entry.getKey();
+				int count = entry.getValue();
+				if(contrabandCheck(clothing.getItemTags())) {
+					Main.game.getPlayer().removeClothing(clothing, count);
+					getEnforcerLeader().addClothing(clothing, count, false, false);
+					clothingConfiscated.putIfAbsent(clothing, 0);
+					clothingConfiscated.put(clothing, clothingConfiscated.get(clothing)+count);
+				}
+			}
+			for(Entry<AbstractItem, Integer> entry : new HashMap<>(Main.game.getPlayer().getAllItemsInInventory()).entrySet()) {
+				AbstractItem item = entry.getKey();
+				int count = entry.getValue();
+				if(contrabandCheck(item.getItemTags())) {
+					Main.game.getPlayer().removeItem(item, count);
+					getEnforcerLeader().addItem(item, count, false, false);
+					itemsConfiscated.putIfAbsent(item, 0);
+					itemsConfiscated.put(item, itemsConfiscated.get(item)+count);
+				}
+			}
+			
+			contrabandFound = !weaponsConfiscated.isEmpty() || !clothingConfiscated.isEmpty() || !itemsConfiscated.isEmpty();
 		}
+		@Override
+		public String getContent() {
+//			return UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_DEFEAT", getEnforcers());
+
+			StringBuilder sb = new StringBuilder();
+			
+			if(contrabandFound) {
+				List<String> confiscationList = new ArrayList<>();
+	
+				for(Entry<AbstractWeapon, Integer> entry : weaponsConfiscated.entrySet()) {
+					confiscationList.add("<b>"+entry.getValue()+"x "+entry.getKey().getDisplayName(true)+"</b>");
+				}
+				for(Entry<AbstractClothing, Integer> entry : clothingConfiscated.entrySet()) {
+					confiscationList.add("<b>"+entry.getValue()+"x "+entry.getKey().getDisplayName(true)+"</b>");
+				}
+				for(Entry<AbstractItem, Integer> entry : itemsConfiscated.entrySet()) {
+					confiscationList.add("<b>"+entry.getValue()+"x "+entry.getKey().getDisplayName(true)+"</b>");
+				}
+				
+				UtilText.addSpecialParsingString(Util.stringsToStringList(confiscationList, false), true);
+			}
+			
+			sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_DEFEAT_SEARCHED", getEnforcers()));
+			
+			if(heavyContrabandFound || contrabandFound) {
+				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_DEFEAT_SEARCHED_CONTRABAND", getEnforcers()));
+				
+			} else {
+				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_DEFEAT_SEARCHED_NO_CONTRABAND", getEnforcers()));
+			}
+			
+			sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_DEFEAT_END", getEnforcers()));
+			
+			return sb.toString();
 		
+			
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<GameCharacter> enforcersWantingSex = Util.newArrayListOfValues(

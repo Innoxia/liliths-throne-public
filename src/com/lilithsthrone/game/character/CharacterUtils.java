@@ -1348,6 +1348,9 @@ public class CharacterUtils {
 		return body;
 	}
 	
+	/**
+	 * If you are wanting to change a newly-spawned NPC's body, then <b>you should consider using GameCharacter.setBody() instead</b>, as that method can also apply personality changes.
+	 */
 	public Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, AbstractSubspecies species, RaceStage stage, boolean removeDemonOverride) {
 		
 		if(removeDemonOverride) {
@@ -1876,6 +1879,13 @@ public class CharacterUtils {
 			if (character.hasVagina() && (Math.random() <= 0.05f || character.hasFetish(Fetish.FETISH_MASOCHIST))) {
 				character.setPiercedVagina(true);
 			}
+		}
+		
+		// Body parts:
+		
+		// Randomise skin colour if not greater:
+		if(character.getRaceStage()!=RaceStage.GREATER && character.getRaceStage()!=RaceStage.FERAL) {
+			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
 		}
 		
 		// Ass:
@@ -2918,6 +2928,10 @@ public class CharacterUtils {
 	}
 	
 	public void applyMakeup(GameCharacter character, boolean overrideExistingMakeup) {
+		if(!character.getBodyMaterial().isAbleToWearMakeup()) {
+			return;
+		}
+
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
 					PresetColour.COVERING_NONE,

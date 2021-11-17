@@ -2835,7 +2835,7 @@ public class Body implements XMLSaving {
 						break;
 					case TAIL_SLEEP_HUGGING:
 						break;
-					case TAIL_SUTABLE_FOR_PENETRATION:
+					case TAIL_SUITABLE_FOR_PENETRATION:
 						sb.append(" Each of them can be used as a penetrative object during sex, and when used to penetrate an orifice, a maximum of [npc.tentaclePenetrationLength(true)] can be inserted.");
 						break;
 					case TAIL_TAPERING_EXPONENTIAL:
@@ -5732,20 +5732,21 @@ public class Body implements XMLSaving {
 			sectionAdded = true;
 				descriptionSB.append(
 						"<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
-							+ "[npc.Name] has incubated and laid eggs "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+"."
+							+ "[npc.Name] has incubated and laid eggs "+Util.intToString(owner.getLittersIncubated().size())+" "+(owner.getLittersIncubated().size()==1?"time":"times")+"."
 						+ "</span>");
-				
+
+				//Litter.getMother is the character who passed on the eggs to the incubator
 				for(Litter litter : owner.getLittersIncubated()) {
-					if(litter.getFather()==null) {
+					if(litter.getMother()==null) {
 						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 								+", [npc.she] was implanted with "+litter.getTotalLitterCount()+" eggs, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] laid and birthed ");
 						
-					} else if(litter.getFather().isPlayer()) {
+					} else if(litter.getMother().isPlayer()) {
 						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 								+", you implanted [npc.herHim] with "+litter.getTotalLitterCount()+" eggs, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] laid and birthed ");
 						
 					} else {
-						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)+", "+litter.getFather().getName(true)
+						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)+", "+litter.getMother().getName(true)
 								+" implanted [npc.herHim] with "+litter.getTotalLitterCount()+" eggs, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] laid and birthed ");
 					}
 					

@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Warning: -->
+	
+	<scene id="warning">
+		<content folderPath="txt/encounters/fields/headless_horseman">WARNING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Leaving this ominous warning about a 'headless horseman' behind, you continue on your way through the Foloi Fields...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setSavedLong('headless_horseman_year_warning', game.getYear())]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Actual encounter: -->
+
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_fields_bandit_talked, false)]
+			[#headHorse.equipClothing()]
+			[#headHorse.setStartingBody(true)]
+			[#headHorse.setLocation(pc, false)]
+			[#flags.setSavedLong('headless_horseman_attack_minutes', game.getMinutesPassed())]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'START'))]
+			[#flags.setFlag(FLAG_innoxia_fields_headless_horseman_encountered, true)]
+		]]></preParsingEffects>
+		<title><![CDATA[The Headless Horseman]]></title>
+		<author><![CDATA[Innoxia]]></author>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Fight: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to suck the horseman's cock and prepare to defend yourself!]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_fields_headless_horseman_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_fields_headless_horseman_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true"/>
+					<enemies>
+						<enemy leader="true"><![CDATA[headHorse]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[Refusing to submit to the headless horseman, you tell him that [headHorse.sheIs] not going to get any head from you!]]></combatant>
+						<combatant id="headHorse"><![CDATA[Gripping his [headHorse.mainWeapon], the horseman booms, [headHorse.speech(It's pointless to resist! You'll have my cock deep down your throat soon enough!)]]]></combatant>
+					</openingDescriptions>
+				</combatVariables>
+			</response>
+			<!-- Submit: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Give head]]></responseTitle>
+				<responseTooltip><![CDATA[Give the horseman what he wants by dropping down before him and sucking his cock.]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">GIVE_HEAD</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Addiction submit: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Fully submit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getAddiction(FLUID_TYPE_CUM_HORSE_MORPH)==null)
+						You can only fully submit to the horseman if you're addicted to horse cum...
+					#ELSE
+						Being addicted to the horseman's cum, you find yourself wanting to completely and utterly submit to him...
+					#ENDIF
+				]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<nextDialogue><![CDATA[
+					#IF(pc.getAddiction(FLUID_TYPE_CUM_HORSE_MORPH)==null)
+						null
+					#ELSE
+						innoxia_encounters_fields_headless_horseman_fully_submit
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- After submitting for sex: -->
+	
+	<scene id="after_sex_sub">
+		<preParsingEffects><![CDATA[
+			[#headHorse.returnToHome()]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'HORSEMAN_NO_ENCOUNTER_HINT'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having finally got some head, the horseman is finished with you...]]></tooltip>
+		<content folderPath="txt/encounters/fields/headless_horseman">AFTER_SEX_SUB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					As the horseman has left, there's nothing else for you to do except continue on your way...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Won combat: -->
+	
+	<scene id="combat_won">
+		<content folderPath="txt/encounters/fields/headless_horseman">COMBAT_WON</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Continue: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Decide against doing anything further with the [headHorse.name] and continue on your way...
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'COMBAT_WON_END'))]
+					[#headHorse.returnToHome()]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'HORSEMAN_NO_ENCOUNTER_HINT'))]
+				]]></effects>
+			</response>
+			
+			<!-- Sex, no pace: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[Take advantage of your victory to have dominant sex with the [headHorse.name].]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[headHorse]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">COMBAT_WON_SEX</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- Sex, gentle: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Sex (gentle)]]></responseTitle>
+				<responseTooltip><![CDATA[Take advantage of your victory to have gentle, dominant sex with the [headHorse.name]. (Starts the sex scene in the 'gentle' pace.)]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[headHorse]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">COMBAT_WON_SEX_GENTLE</sexStartContent>
+					<tags>
+						<tag>START_PACE_PLAYER_DOM_GENTLE</tag>
+					</tags>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- Sex, rough: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex (rough)]]></responseTitle>
+				<responseTooltip><![CDATA[Take advantage of your victory to have rough, dominant sex with the [headHorse.name]. (Starts the sex scene in the 'rough' pace.)]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[headHorse]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">COMBAT_WON_SEX_ROUGH</sexStartContent>
+					<tags>
+						<tag>START_PACE_PLAYER_DOM_ROUGH</tag>
+					</tags>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			
+			<!-- Submit: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Give head]]></responseTitle>
+				<responseTooltip><![CDATA[Feeling bad for the [headHorse.name], you decide to submit to [headHorse.herHim] and suck [headHorse.her] cock...]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">COMBAT_WON_GIVE_HEAD</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			
+			<!-- Open inventory: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Inventory]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've defeated the [headHorse.name], there's nothing stopping you from helping yourself to what little clothing and items he has...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.openInventoryDialogue(headHorse, INVENTORY_INTERACTION_FULL_MANAGEMENT)]
+				]]></effects>
+			</response>
+			
+			<!-- Talk: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Question]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_fields_bandit_talked))
+						You've already questioned the [headHorse.name], and there's nothing more to be gained from doing so again...
+					#ELSE
+						Ask the [headHorse.name] why [headHorse.sheIs] trying to force innocent travellers to suck [headHorse.her] cock.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_fields_bandit_talked))
+						null
+					#ELSE
+						innoxia_encounters_fields_headless_horseman_combat_won_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_fields_bandit_talked, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_sex_dom">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've had enough fun with the [headHorse.name]...]]></tooltip>
+		<content folderPath="txt/encounters/fields/headless_horseman">AFTER_SEX_DOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Now that you've had your fun, you decide to leave the [headHorse.name] behind and continue on your way...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'AFTER_SEX_DOM_END'))]
+					[#headHorse.returnToHome()]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'HORSEMAN_NO_ENCOUNTER_HINT'))]
+				]]></effects>
+			</response>
+			
+			<!-- Open inventory: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Inventory]]></responseTitle>
+				<responseTooltip><![CDATA[As you've defeated the [headHorse.name], there's nothing stopping you from helping yourself to what little clothing and items [headHorse.she] has...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.openInventoryDialogue(headHorse, INVENTORY_INTERACTION_FULL_MANAGEMENT)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="combat_won_talk">
+		<content folderPath="txt/encounters/fields/headless_horseman">COMBAT_WON_TALK</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_encounters_fields_headless_horseman_combat_won"/>
+	</scene>
+	
+	<!-- Lost combat: -->
+	
+	<scene id="combat_lost">
+		<content folderPath="txt/encounters/fields/headless_horseman">COMBAT_LOST</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Non-con fucked: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Do as the [headHorse.name] says and get him hard so that he can fuck your throat...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">COMBAT_LOST_GIVE_HEAD</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Resist]]></responseTitle>
+				<responseTooltip><![CDATA[Try to resist and stop the [headHorse.name] from dominantly fucking your throat...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral_resist]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[OVER_DESK_RECEIVING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">COMBAT_LOST_GIVE_HEAD_RESIST</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			
+			<!-- Non-con disabled, so give player chance to leave: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Refuse to submit to the headless horseman and wait for [headHorse.herHim] to leave before continuing on your way...
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'COMBAT_LOST_CONTINUE'))]
+					[#headHorse.returnToHome()]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'HORSEMAN_NO_ENCOUNTER_HINT'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Give head]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Do as the headless horseman says and submit to [headHorse.herHim], allowing [headHorse.herHim] to dominantly fuck your face...
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">COMBAT_LOST_GIVE_HEAD</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Fully submit: -->
+	
+	<scene id="fully_submit">
+		<content folderPath="txt/encounters/fields/headless_horseman">FULLY_SUBMIT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Sitting oral: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Deepthroat]]></responseTitle>
+				<responseTooltip><![CDATA[Do as the horseman suggests and choke yourself on his cock...]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_fully_submit_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">FULLY_SUBMIT_DEEPTHROAT</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Standing face fuck: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Standing face-fuck]]></responseTitle>
+				<responseTooltip><![CDATA[Suggest to the horseman that he stand up and fuck your face...]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_fully_submit_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">FULLY_SUBMIT_STANDING_FACE_FUCK</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Anilingus: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Anilingus handjob]]></responseTitle>
+				<responseTooltip><![CDATA[Suggest to the horseman that you could perform anilingus on him while giving him a handjob, then after his first orgasm he can finish by fucking your face...]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_ANAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_anilingus]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_fully_submit_after_sex_anilingus]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">FULLY_SUBMIT_ANILINGUS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[headHorse]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[headHorse]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- After submitting for sex: -->
+	
+	<scene id="fully_submit_after_sex">
+		<preParsingEffects><![CDATA[
+			[#headHorse.returnToHome()]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/encounters/fields/headless_horseman', 'HORSEMAN_NO_ENCOUNTER_HINT'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having finally got some head, the horseman is finished with you...]]></tooltip>
+		<content folderPath="txt/encounters/fields/headless_horseman">FULLY_SUBMIT_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					As the horseman has left, there's nothing else for you to do except continue on your way...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="fully_submit_after_sex_anilingus">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had enough of your tongue in his ass, the horseman moves on to what he likes best...]]></tooltip>
+		<content folderPath="txt/encounters/fields/headless_horseman">FULLY_SUBMIT_AFTER_SEX_ANILINGUS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Face-fucked]]></responseTitle>
+				<responseTooltip><![CDATA[Open wide and let the horseman fuck your face...]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_headless_horseman_oral]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>headHorse</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_headless_horseman_fully_submit_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/headless_horseman">FULLY_SUBMIT_AFTER_SEX_ANILINGUS_FACE_FUCK</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[headHorse]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

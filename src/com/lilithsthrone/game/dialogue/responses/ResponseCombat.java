@@ -128,8 +128,9 @@ public class ResponseCombat extends Response {
 	}
 	
 	
-	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, boolean addCompanionsToAllies, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds) {
+	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, boolean addCompanionsToAllies, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds, String effectsResponse) {
 		super(title, tooltipText, null);
+		this.fromExternalFile = true;
 		
 		this.alliesIds = alliesIds;
 		this.addCompanionsToAllies = addCompanionsToAllies;
@@ -139,6 +140,8 @@ public class ResponseCombat extends Response {
 		if(openingDescriptionsUsingIds!=null) {
 			this.openingDescriptionsUsingIds = openingDescriptionsUsingIds;
 		}
+		
+		this.effectsString = effectsResponse;
 	}
 	
 	@Override

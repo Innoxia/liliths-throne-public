@@ -393,6 +393,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		int essenceCost = this.getWeaponType().getArcaneCost();
 		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>";
+		
 		descriptionSB.append("<p><b>");
 			descriptionSB.append("<span style='color:" + this.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(this.getRarity().getName())+"</span>"
 								+" | "
@@ -402,7 +403,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 										?"[style.colourMelee(Melee)]"
 										:"[style.colourRanged(Ranged)]"))
 								+"<br/>");
-			descriptionSB.append((this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"<br/>");
+			descriptionSB.append((this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed"));
+			if(this.getWeaponType().isOneShot()) {
+				descriptionSB.append(" - [style.colourYellow(One-shot)]");
+			}
+			descriptionSB.append("<br/>");
 			if(essenceCost>0) {
 				descriptionSB.append("Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
 			}
@@ -421,7 +426,20 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!<br/>");
 				targetNumber++;
 			}
+			if(this.getWeaponType().isOneShot()) {
+				int chanceToRecoverTurn = (int)this.getWeaponType().getOneShotChanceToRecoverAfterTurn();
+				int chanceToRecoverCombat = (int)this.getWeaponType().getOneShotChanceToRecoverAfterCombat();
+
+				descriptionSB.append("<span style='color:"
+						+(chanceToRecoverTurn<=25?PresetColour.GENERIC_BAD:(chanceToRecoverTurn<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverTurn<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+"'>"+chanceToRecoverTurn+"%</span> chance to recover [style.colourBlueLight(after use)]<br/>");
+				
+				descriptionSB.append("<span style='color:"
+						+(chanceToRecoverCombat<=25?PresetColour.GENERIC_BAD:(chanceToRecoverCombat<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverCombat<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+";'>"+chanceToRecoverCombat+"%</span> chance to recover [style.colourCombat(after combat)]<br/>");
+			}
 		descriptionSB.append("</b></p>");
+
 		descriptionSB.append("<p>");
 			descriptionSB.append(weaponType.getDescription());
 			descriptionSB.append("<br/>"+(getWeaponType().isPlural()?"They have":"It has")+" a value of: "+UtilText.formatAsMoney(getValue()));
@@ -437,8 +455,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 								+ " <b>" + getWeaponType().getPhysicalResistance() + "</b> [style.colourResPhysical(" + Attribute.RESISTANCE_PHYSICAL.getName() + ")]."
 							+ "</p>");
 		}
-
-		if(!this.getEffects().isEmpty()) {
+		
+		
+		if(!this.getEffects().isEmpty() || !this.getWeaponType().getExtraEffects().isEmpty()) {
 			descriptionSB.append("<p>Effects:");
 			for (ItemEffect e : this.getEffects()) {
 				if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE
@@ -447,6 +466,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 						descriptionSB.append("<br/>"+ s);
 					}
 				}
+			}
+			for (String s : this.getWeaponType().getExtraEffects()) {
+				descriptionSB.append("<br/>"+ s);
 			}
 			for(Entry<AbstractAttribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
 				descriptionSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
@@ -491,6 +513,22 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return descriptionSB.toString();
 	}
 
+	@Override
+	public Rarity getRarity() {
+		if(rarity==Rarity.COMMON) {
+			if(this.getWeaponType().getClothingSet()!=null) {
+				return Rarity.EPIC;
+			}
+			if(this.getEffects().size()>1) {
+				return Rarity.RARE;
+			}
+			if(!this.getEffects().isEmpty()) {
+				return Rarity.UNCOMMON;
+			}
+		}
+		return rarity;
+	}
+	
 	@Override
 	public int getValue() {
 		float modifier = 1;
@@ -625,7 +663,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 	
 	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit, boolean isCritical) {
-		return this.getWeaponType().applyExtraEffects(user, target, isHit, isCritical);
+		return this.getWeaponType().applyExtraEffects(user, target, isHit, isCritical).trim();
 	}
 	
 
@@ -647,7 +685,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
-			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+			if((ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE)
+					&& (Main.game.isEnchantmentCapacityEnabled() || ie.getSecondaryModifier() != TFModifier.ENCHANTMENT_LIMIT)) {
 				if(attributeModifiers.containsKey(ie.getSecondaryModifier().getAssociatedAttribute())) {
 					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), attributeModifiers.get(ie.getSecondaryModifier().getAssociatedAttribute()) + ie.getPotency().getClothingBonusValue());
 				} else {
@@ -664,7 +703,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	 */
 	public int getEnchantmentCapacityCost() {
 		Map<AbstractAttribute, Integer> noCorruption = new HashMap<>();
-		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
+		getAttributeModifiers().entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	
@@ -699,6 +738,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public Value<Boolean, String> isAbleToBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
 		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
 		Set<ItemTag> tags = this.getItemTags();
+		
+		if(this.getWeaponType().getItemTags().contains(ItemTag.UNIQUE_NO_NPC_EQUIP) && !clothingOwner.isPlayer()) {
+			return new Value<>(false, UtilText.parse("[style.colourBad(Only you can equip this weapon!)]"));
+		}
 		
 		if(block!=null && Collections.disjoint(block.getRequiredTags(), tags)) {
 			return new Value<>(false, UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]"));

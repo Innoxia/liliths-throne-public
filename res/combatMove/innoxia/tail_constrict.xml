@@ -96,7 +96,7 @@
 				[##npc2.removeStatusEffectCombat(SE_TAIL_RESTRAIN_2)]
 				[##npc2.addStatusEffect(SE_TAIL_RESTRAIN_3, 10)]
 				<br/>[style.italicsTerrible([npc2.NameIsFull] almost totally constricted by [npc.namePos] tail, and as such [npc2.is] near to being completely defeated!)]
-				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] tail-constricted again, [npc.she] will be instantly defeated!)]
+				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] tail-constricted again, [npc2.she] will be instantly defeated!)]
 			#ELSEIF(npc2.hasStatusEffect(SE_TAIL_RESTRAIN_1))
 				[##npc2.removeStatusEffectCombat(SE_TAIL_RESTRAIN_1)]
 				[##npc2.addStatusEffect(SE_TAIL_RESTRAIN_2, 10)]

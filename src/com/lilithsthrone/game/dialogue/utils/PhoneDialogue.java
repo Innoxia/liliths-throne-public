@@ -77,7 +77,7 @@ public class PhoneDialogue {
 		String father;
 		String incubator;
 		List<String> relationships;
-		
+
 		offspringTableLineSubject(NPC npc) {
 			this.female = npc.isFeminine();
 			this.child_name = npc.getName(true);
@@ -89,38 +89,38 @@ public class PhoneDialogue {
 			if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
 				mother = npc.getMotherName();
 			}
-			
+
 			this.father = (npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true))));
 			if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
 				father = npc.getFatherName();
 			}
-			
+
 			this.incubator = (npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true))));
 			if(npc.getIncubator()==null && !npc.getIncubatorName().equals("???")) {
 				incubator = npc.getIncubatorName();
 			}
-			
+
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
 			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
 			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
 				this.relationships.add(0, "Incubator-mother");
-				
+
 				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
 					this.relationships.add(1, "father");
 				}
-				
+
 			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
 				this.relationships.add(0, "Mother");
-				
+
 				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
 					this.relationships.add(1, "father");
 				}
-				
+
 			} else {
 				this.relationships.add(0, "Father");
 			}
 		}
-		
+
 		offspringTableLineSubject(OffspringSeed os) {
 			this.female = os.isFeminine();
 			this.child_name = "Unknown";
@@ -132,12 +132,12 @@ public class PhoneDialogue {
 			if(os.getMother()==null && !os.getMotherName().equals("???")) {
 				mother = os.getMotherName();
 			}
-			
+
 			this.father = (os.getFather() == null ? "???" : (os.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getFather().getName(true))));
 			if(os.getFather()==null && !os.getFatherName().equals("???")) {
 				father = os.getFatherName();
 			}
-			
+
 			this.incubator = (os.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (os.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getIncubator().getName(true))));
 			if(os.getIncubator()==null && !os.getIncubatorName().equals("???")) {
 				incubator = os.getIncubatorName();
@@ -162,10 +162,10 @@ public class PhoneDialogue {
 			} else {
 				this.relationships.add(0, "Father");
 			}
-		
+
 		}
 	}
-	
+
 	private static List<GameCharacter> charactersEncountered;
 	private static StringBuilder journalSB;
 	private static SexAreaOrifice layingEggsArea;
@@ -1979,29 +1979,46 @@ public class PhoneDialogue {
 			int daughtersBirthed=0;
 			int sonsFathered=0;
 			int daughtersFathered=0;
+			int offspringIncubatedCount=0;
 			
+			// Birthed with player as the mother:
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
 				daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 			}
+			// Birthed with player as the father:
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()){
 				sonsFathered+=(litter.isSelfImpregnation()?0:litter.getSonsFromMother()+litter.getSonsFromFather());
 				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
-			for (Litter litter : Main.game.getPlayer().getLittersImplanted()){
-				sonsFathered+=litter.getSonsFromMother()+litter.getSonsFromFather();
-				daughtersFathered+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+			// Egg-incubated offspring who have been birthed:
+			for (Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+				for (String id : litter.getOffspring()) {
+					if (id.contains("NPCOffspring")) {
+						//NPCOffspring is always born
+						offspringIncubatedCount += 1;
+					} else {
+						try {
+							OffspringSeed o = Main.game.getOffspringSeedById(id);
+							//OffspringSeed may be born or unborn
+							if (o.isBorn()) {
+								offspringIncubatedCount += 1;
+							}
+						} catch (Exception ex) {
+						}
+					}
+				}
 			}
-			
+
 			UtilText.nodeContentSB.setLength(0);
 
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Mothered", "Sons", PresetColour.MASCULINE.toWebHexString(), sonsBirthed);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Mothered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersBirthed);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", PresetColour.MASCULINE.toWebHexString(), sonsFathered);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersFathered);
-			
+
 			int childrenMet = Main.game.getOffspring().size();
-			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
+			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered+offspringIncubatedCount);
 			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
 
 			UtilText.nodeContentSB.append(
@@ -2049,7 +2066,7 @@ public class PhoneDialogue {
 					offspringTableLine(UtilText.nodeContentSB, subject, rowCount % 2 == 0, false);
 					rowCount++;
 				}
-				
+
 				offspringUnknown.sort(Comparator.comparing(OffspringSeed::getConceptionDate));
 				for(OffspringSeed os : offspringUnknown) {
 					offspringTableLineSubject subject = new offspringTableLineSubject(os);

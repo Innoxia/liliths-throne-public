@@ -613,7 +613,7 @@
 		Having been well and truly beaten, Meraxis staggers back and breathlessly pants, [meraxis.speech(No more... Y-You are victorious this day...)]
 	</p>
 	<p>
-		[pc.Stepping] forwards, you remind Meraxis of your agreement, and ask her if she's ready to have sex. Letting out an indignant huff, the vanquished [meraxis.race] complains, [meraxis.speech(That's not fair... Y-You cheated... But fine, whatver, I'll let you choose a sexual favour... B-But I'm only agreeing to this because I want to do it too; don't think for one moment that you're getting to force me into anything!)]
+		[pc.Stepping] forwards, you remind Meraxis of your agreement, and ask her if she's ready to have sex. Letting out an indignant huff, the vanquished [meraxis.race] complains, [meraxis.speech(That's not fair... Y-You cheated... But fine, whatever, I'll let you choose a sexual favour... B-But I'm only agreeing to this because I want to do it too; don't think for one moment that you're getting to force me into anything!)]
 	</p>
 	#IF(flags.hasFlag(FLAG_innoxia_meraxis_any_sex_unlocked))
 		<p>
@@ -627,6 +627,16 @@
 			Although she's making a show of being flustered, you can't help but notice the lewd look in Meraxis's eye as she glances over at you. As you wonder what to ask of her, you think that you might be able to push her into doing something quite lewd...
 		</p>
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WON_SEX_NOTHING"><![CDATA[
+	<p>
+		Deciding that you don't want to do anything lewd with Meraxis after all, you tell her that you've changed your mind, and that she's free to go without having to offer you a sexual favour.
+	</p>
+	<p>
+		[meraxis.speech(So you lead me on like that and then say that you're not interested?)] she huffs, before suddenly spinning around on the spot and striking a heroic pose. Pointing at you, she takes on her usual chuuni personality as she declares, [meraxis.speech(Now, my nemesis, I have something important to say, so listen up!)]
+	</p>
 	]]>
 	</htmlContent>
 	

@@ -15,39 +15,95 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Add hospital as alternative to Lilaya
 		
 	
-	
-	
 	Patch notes:
 	
 	Bugs:
-		Fixed issue where purchased slaves could not be impregnated.
-	
+		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
 	
 	
 	[] PR1563
-		Removed unused imports
-		Changed "Autosave_" name generation to use player's first name instead of surname
+		Removed unused imports.
+		Changed 'AutoSave_X' and 'QuickSave_X' name generation to use player's first name and their surname (if it exists), instead of just their surname (which could be empty, which was creating saves named simply 'AutoSave_' and 'QuickSave_').
+		Added handling in the endPregnancy() method for offspring generated before the offspring seed PR.
+		Removed code to set virginity lost while giving birth in the endPregnancy(), as I wanted virginity loss to only reference when a character first took a sexual penetration.
 		
+	Lilaya picture displays nothing
+		In the picture you see:
 	
-	[] SlaveForSale
-		it used to be that they would have their fetishes per store that would show up always, but then they would also have a set of likes/dislikes generated in addition to that.
-		Now what is happening is they exclusively only have the store related ones and no other likes/dislikes.
 	
-	[] github organisation
+	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
 	
-	[] several things are very wrong with the 'request rough sex' description.
-	 In the red text it names the fetishes on the opposite end ('dominant' and 'sadist,' instead of 'submissive' and 'masochist'), and masochist isn't listed as an associated fetish. 
-	 Exhibitionist of course is there just because the scene was out in the open.
+	[] <blockAmount> has no effect in combat move mods.
+		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
+		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
 	
-	[] you're your
+	[]  Just have NPCs pick rough, neutral, or gentle based on their sadism preferences. 
+
+	[] Improve random racial TF potion to filter out TFs which will do nothing
 	
-	[] Going from Zaranix directly to Felicia results in getting stuck after her qeustion "So, have you found Arthur yet?"
+	[] Add more NPCs wanting to use condom on player
 	
-	[] Dialogue parsed before time passed
-		[] Add option to change this in dialogue, keep as it is for default as changing would probably break things
+	[] cannot egg spinnerets?
+		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
+		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
 	
-	[] Shopping precinct
-		[] Add 4 main NPCs
+	[] Natalya encounter without needing Helena quest
+	
+	[] Ace content
+	
+	[] Add mice
+	[] boxing gloves mod
+	[] latex leggings
+	[] deer
+	[] Add tailjobs (make sure tail lower body type works with it)
+	
+	[] elemental quest before leaving Dominion
+		[] can research in library
+		[] If not obtained, Lyssieth grants you the spell
+	
+	[] Add option when starting a new game to skip Dominion
+		[] requires player to have already finished main quest up to leaving Dominion
+		[] minimal completion
+	
+	[] Wall's End
+		[] Woolly Heaven
+				Border-collie-girl (described as being extremely attractive) gave up modelling in Dominion to open this shop.
+					Pix's sister(?)
+				Employees are twin greater sheep-girls
+					They have an annoying habit of starting and finishing one another's sentences
+			[] Sheep-girl twins
+			[] Covering change (kate services)
+			[] Talk
+			[] Spa day
+		[] The Ninth Strike
+				2 greater furry male baphomets who hold a serious grudge against Lunette. (Not related to one another)
+					They were competing blacksmiths in two villages, who were extremely well-renowned and always in high demand
+					Their villages were the first to be destroyed by Lunette, and they lost everything
+					Managed to escape and forged a pact to get their revenge on Lunette
+				They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
+			[] Imsu & Hale
+			[] Trade
+			[] Talk
+			[] Side Quest - The Youko's Secret
+				- Find Youko smith
+				- Convince to teach ninth strike technique to Hale & Imsu
+				- Youko moves to Elis shop
+				- Can get baphomets TF'd to female
+			[] Armpit worship (they lick player's armpits before fucking them)
+		[] The Barn
+				Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
+			[] Owl-girl
+			[] Trade
+			[] Talk
+			[] Work
+	
+	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
+	
+	[] hand holding sex action
+	
+	[] dye earth skill to take 1 essence
+	
+	[] Test fetish preferences in watering hole
 	
 	[] Need a place to deliver pregnancy in Elis
 		[] Medical centre
@@ -60,9 +116,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] PR Maxis list
 	
+	[] Kay female TF
+	
 	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
 			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
-				
+	
+	[] add some modding parameters for self-TF races to support definition of races that can be transformed into (or unlimited race self-TF)
+	
+	[] add an attribute to make special effects AoE for weapons (stun grenades)
+	
 	Felicia content expansion:
 		- Ask out on date (affection requirement first I guess)
 		- Repeat date until 3 dates completed
@@ -72,6 +134,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		- Repeat dates & sex is end content
 	
 	Ashley
+	
+	[] 4 person guest rooms
 	
 	[] Investigate possibility of adding support for slave/guest functions to map modding, so that player homes could be added
 	
@@ -151,8 +215,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
 	
-	---
-	
 	[] deer
 		glade springs - sparkling mineral water
 		tree shoots salad
@@ -160,30 +222,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] mouse
 	
 	[] Elis
-		[] Minotallys intro
-			[] Describe northern part as being home to a lot of refugees from Fields
-		[] Arcane storm SE tooltip text and icon for when not in Dominion
+		[] Describe northern part as being home to a lot of refugees from Fields
 		[] Allow quick sex in masturbation
 		[] Add 'All masculine clothing is unisex' option
-		[] Fully framework demonic centaur encounters
-		[] Write Demonic centaurs
-		[x] Backup
-		[-] Make Elis borders a little smaller?
-		[x] Don't show travel disabled black border if scene travel disabled
 		[] Weather based on season
 			[] Add rain status effect
 				[] Add immunity from clothing (and umbrella)
-	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated, says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
-	[x] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
-	[] Elis
-		[] Map
-			[] Town Hall
-				[] Mayor's room
-			[] Tavern
-				[] Rent rooms
-			[] Market
-				[] Buy food/drink/clothing
-			[] Enforcer post
+	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated,
+		 says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
 	[] Extra encounters
 		[] Grassland
 			[] Snakes
@@ -586,10 +632,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Make flat values a separate thing
 		Make them gems which can be inserted into weapons
 		
-	Throwable weapon
-		% chance to recover after thrown
-		% chance to recover after combat
-	
 	add a repeat-descriptor exclusion variable
 	
 	Being fucked while self milking would be great especially if @Innoxia ever makes it an actual scene instead of a "you liked x from yourself," text box
@@ -1963,6 +2005,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Add leg-lock and swallow as forced sub orgasms (overrides whatever dom chose)
 	
 	Add slave silence permission dialogue
+		[] slaves with silent permission speak when interacting with you and other npcs totally normally
 	
 	buttslut oral fetishists who are in the dominant position will not let my sub char change the position to dom sittting on subs face
 	

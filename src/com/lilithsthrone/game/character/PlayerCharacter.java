@@ -718,6 +718,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
 			}
 		}
+		
+		if(Main.isVersionOlderThan(version, "0.4.1.8")) {
+			if(!character.hasItemType("innoxia_quest_clothing_keys")) {
+				character.addItem(Main.game.getItemGen().generateItem("innoxia_quest_clothing_keys"), false);
+			}
+		}
 
 		if(debug) {
 			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
@@ -822,7 +828,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			}
 			
-		} else if(this.getWorldLocation()==WorldType.SUBMISSION) {
+		} else if(worldLocation==WorldType.SUBMISSION) {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();

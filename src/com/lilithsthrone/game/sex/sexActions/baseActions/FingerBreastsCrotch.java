@@ -179,18 +179,18 @@ public class FingerBreastsCrotch {
 						UtilText.nodeContentSB.append(" A trickle of [npc2.crotchMilk] runs out into [npc2.namePos] [npc2.lowClothing(NIPPLES_CROTCH)] as [npc.name] squeezes down on [npc2.her] [npc2.crotchNipples+].");
 						break;
 					case FOUR_LARGE_AMOUNT:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] [npc.verb(start)] to flow out into [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)],"
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] [npc.verb(start)] to flow out into [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)],"
 								+ " and [npc2.she] [npc2.moanVerb] as [npc2.she] [npc2.verb(feel)] it running down over [npc2.her] [npc2.crotchBoobs+].");
 						break;
 					case FIVE_VERY_LARGE_DROOLING:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] [npc.verb(start)] drooling out in a little stream into [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)] as [npc.name] [npc.verb(squeeze)]"
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] [npc.verb(start)] drooling out in a little stream into [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)] as [npc.name] [npc.verb(squeeze)]"
 								+ " down on [npc2.her] [npc2.crotchNipples+].");
 						break;
 					case SIX_EXTREME_AMOUNT_DRIPPING:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a constant stream, quickly soaking [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)].");
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a constant stream, quickly soaking [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)].");
 						break;
 					case SEVEN_MONSTROUS_AMOUNT_POURING:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a heavy flow, quickly soaking [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)].");
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a heavy flow, quickly soaking [npc2.her] [npc2.lowClothing(NIPPLES_CROTCH)].");
 						break;
 					default:
 						break;
@@ -323,17 +323,17 @@ public class FingerBreastsCrotch {
 						UtilText.nodeContentSB.append(" A trickle of [npc2.crotchMilk] runs out over [npc.namePos] fingertips as [npc.she] squeezes down on [npc2.namePos] [npc2.crotchNipples+].");
 						break;
 					case FOUR_LARGE_AMOUNT:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] starts to flow out over [npc.namePos] fingers,"
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] starts to flow out over [npc.namePos] fingers,"
 								+ " and [npc2.name] [npc2.moanVerb] as [npc2.she] [npc2.verb(feel)] it running down over [npc2.her] [npc2.crotchBoobs+].");
 						break;
 					case FIVE_VERY_LARGE_DROOLING:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] [npc.verb(start)] drooling out in a little stream over [npc.namePos] fingers as [npc.she] squeezes down on [npc2.her] [npc2.crotchNipples+].");
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] [npc.verb(start)] drooling out in a little stream over [npc.namePos] fingers as [npc.she] squeezes down on [npc2.her] [npc2.crotchNipples+].");
 						break;
 					case SIX_EXTREME_AMOUNT_DRIPPING:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a constant stream, quickly soaking [npc2.her] [npc2.crotchBoobs+] and dripping down onto the floor beneath [npc2.herHim].");
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a constant stream, quickly soaking [npc2.her] [npc2.crotchBoobs+] and dripping down onto the floor beneath [npc2.herHim].");
 						break;
 					case SEVEN_MONSTROUS_AMOUNT_POURING:
-						UtilText.nodeContentSB.append(" [npc2.namePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a heavy flow,"
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.crotchMilk] [npc.verb(start)] pouring out in a heavy flow,"
 								+ " quickly soaking [npc2.her] [npc2.crotchBoobs+] and dripping down to form a large pool on the floor beneath [npc2.herHim].");
 						break;
 					default:

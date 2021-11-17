@@ -114,7 +114,7 @@
 		</description>
 		<description>
 			<descriptionConditional><![CDATA[
-				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, PENETRATION_PENIS).contains(meraxis)]
+				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, PENETRATION_FINGER).contains(meraxis)]
 			]]></descriptionConditional>
 			<text><![CDATA[
 				Realising that she's about to reach her climax, and wanting to leave a lasting impression on her, you push your [pc.cock+] out against Meraxis's [meraxis.fingers+] as you tease, [pc.speech(You like this, Meraxis?)]
