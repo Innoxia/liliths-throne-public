@@ -119,9 +119,9 @@ public class OffspringSeed implements XMLSaving {
 			if(npc.getIncubator()!=null){
 				npc.getIncubator().swapLitters(npc.getId(), osId);
 			}
-
+			
 			if(Main.game.isDebugMode()) {
-//				System.out.println("Converted NPC "+npc.getId()+" to offspringSeed "+osId);
+				System.out.println("Converted NPC "+npc.getId()+" to offspringSeed "+osId);
 			}
 			
 		} catch (Exception e) {

@@ -2005,6 +2005,27 @@ public class PhoneDialogue {
 								offspringIncubatedCount += 1;
 							}
 						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				}
+			}
+			// Egg-implanted offspring who have been birthed:
+			for (Litter litter : Main.game.getPlayer().getLittersImplanted()) {
+				for (String id : litter.getOffspring()) {
+					if (id.contains("NPCOffspring")) {
+						//NPCOffspring is always born
+						offspringIncubatedCount += 1;
+					} else {
+						try {
+							OffspringSeed o = Main.game.getOffspringSeedById(id);
+							//OffspringSeed may be born or unborn
+							System.out.println(":3");
+							if (o.isBorn()) {
+								offspringIncubatedCount += 1;
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
 						}
 					}
 				}

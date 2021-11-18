@@ -19878,6 +19878,7 @@ public abstract class GameCharacter implements XMLSaving {
 					|| birthedLitter.getIncubator().isPlayer()) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
+						System.out.println("triggered");
 						OffspringSeed os = Main.game.getOffspringSeedById(id);
 						os.setConceptionDate(birthedLitter.getConceptionDate());
 						os.setBorn(true);

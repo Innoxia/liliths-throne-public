@@ -1239,7 +1239,9 @@ public class Game implements XMLSaving {
 							OSConverstions++;
 						}
 					}
-					System.out.println("OSConverstions count: " + OSConverstions);
+					if(debug) {
+						System.out.println("OSConverstions count: " + OSConverstions);
+					}
 				}
 
 				if(debug) {

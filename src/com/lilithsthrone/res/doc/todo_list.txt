@@ -18,7 +18,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Bugs:
+		Parsing fixes.
 		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
+		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
 	
 	
 	[] PR1563
@@ -27,9 +29,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added handling in the endPregnancy() method for offspring generated before the offspring seed PR.
 		Removed code to set virginity lost while giving birth in the endPregnancy(), as I wanted virginity loss to only reference when a character first took a sexual penetration.
 		
-	Lilaya picture displays nothing
-		In the picture you see:
 	
+	Incubation issues
+		Start from "triggered" and ":3"
+	
+	
+	[] Enforcer 'searched' sex doesn't allow for ongoing actions related to being fucked, but allows others?
+	
+	[] 'underside of your feral a spider's body'
+	
+	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
 	
 	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
 	
@@ -46,6 +55,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] cannot egg spinnerets?
 		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
 		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
+	
+	[] adding a milk lover variant to the yummy meal modifier
+		aura-regen rate might be a nifty benefit
 	
 	[] Natalya encounter without needing Helena quest
 	
