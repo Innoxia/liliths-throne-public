@@ -256,6 +256,10 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 			name = Util.randomItemFrom(names);
 		}
 		
+		if(!Main.game.isStarted()) {
+			return name;
+		}
+		
 		if(name.endsWith("-")) {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
 				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));

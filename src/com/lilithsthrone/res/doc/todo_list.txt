@@ -10,19 +10,24 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
 	
 	- Pregnancy mechanics update
-		Cycle, heat/rut
-			When in heat, encounter where player approached and hit on by NPC
-			Also if exposed pussy, encounter where NPC starts following player
-				Talking to them leads into reactions based on their personality
-				Can present self to get submissively fucked
+		Cycle, heat/rut(?)
 		Increase pregnancy time (add a toggle. Demons quicker pregnancies? Perks?)
 		Add hospital as alternative to Lilaya
 		
 	
 	Patch notes:
 	
+	Bugs:
+		Parsing fixes.
+		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
+		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
 	
 	
+	[] Enforcer 'searched' sex doesn't allow for ongoing actions related to being fucked, but allows others?
+	
+	[] 'underside of your feral a spider's body'
+	
+	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
 	
 	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
 	
@@ -40,6 +45,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
 		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
 	
+	[] adding a milk lover variant to the yummy meal modifier
+		aura-regen rate might be a nifty benefit
+	
 	[] Natalya encounter without needing Helena quest
 	
 	[] Ace content
@@ -47,7 +55,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Add mice
 	[] boxing gloves mod
 	[] latex leggings
-	[] vexion DM
 	[] deer
 	[] Add tailjobs (make sure tail lower body type works with it)
 	

@@ -2291,6 +2291,7 @@ public class Game implements XMLSaving {
 		if(loopDebug) {
 			System.out.println("NPC loop start");
 		}
+		
 		for(NPC npc : NPCMap.values()) {
 			boolean inGame = !npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE)
 					|| (npc instanceof Elemental && ((Elemental)npc).getSummoner()!=null && ((Elemental)npc).getSummoner().isElementalSummoned());

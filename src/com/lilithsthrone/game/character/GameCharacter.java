@@ -8987,7 +8987,7 @@ public abstract class GameCharacter implements XMLSaving {
 				this.applyOrgasmCumEffect();
 			}
 			
-			if(!Main.game.isBadEnd()) { // DO not drain levels during a bad end
+			if(!Main.game.isBadEnd()) { // Do not drain levels during a bad end
 //			if(isDom) {
 				if(this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && this.isLevelDrainAvailableToUse() && !partner.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
 					levelDrainDescription = applyLevelDrain(partner);
