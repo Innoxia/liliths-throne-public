@@ -478,6 +478,7 @@ public class OffspringSeed implements XMLSaving {
 		incubatorFemininity = incubator.getFemininity();
 		incubatorSubspecies = incubator.getTrueSubspecies();
 	}
+	
 	public GameCharacter getIncubator() {
 		if(getIncubatorId()==null || getIncubatorId().isEmpty() || getIncubatorId().equals("NOT_SET")) {
 			return null;

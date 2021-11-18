@@ -31,8 +31,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		
 	
 	Incubation issues
-		Start from "triggered" and ":3"
-	
+		Start from "offspring seed birthed from incubation" and ":3"
+		Somehow incubated NPCs are being deleted after birth after save/load
+			Might actually be that the born part isn't loaded?
+			It isn't saved for some reason
+			
 	
 	[] Enforcer 'searched' sex doesn't allow for ongoing actions related to being fucked, but allows others?
 	

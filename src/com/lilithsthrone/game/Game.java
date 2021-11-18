@@ -4738,7 +4738,7 @@ public class Game implements XMLSaving {
 		}
 		return OffspringSeedMap.get(id);
 	}
-
+	
 	public String addOffspringSeed(OffspringSeed os, boolean isImported) throws Exception {
 		if(isImported) {
 			int tallyCount;
