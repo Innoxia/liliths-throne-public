@@ -17,27 +17,23 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
+	
 	Bugs:
 		Parsing fixes.
 		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
 		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
+		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
 	
 	
-	[] Enforcer 'searched' sex doesn't allow for ongoing actions related to being fucked, but allows others?
+	[x] 'underside of your feral a spider's body'
+	[x] fix incubation total offspring count
+	[x] parsing issues in encourage creampie/pullout
 	
-	[] 'underside of your feral a spider's body'
-	
-	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
-	
-	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
-	
-	[] <blockAmount> has no effect in combat move mods.
-		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
-		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
-	
-	[]  Just have NPCs pick rough, neutral, or gentle based on their sadism preferences. 
-
 	[] Improve random racial TF potion to filter out TFs which will do nothing
+	
+	[] Just have NPCs pick rough, neutral, or gentle based on their sadism preferences.
 	
 	[] Add more NPCs wanting to use condom on player
 	
@@ -48,11 +44,27 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] adding a milk lover variant to the yummy meal modifier
 		aura-regen rate might be a nifty benefit
 	
+	
+	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
+	
+	[] <blockAmount> has no effect in combat move mods.
+		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
+		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
+	
+	[] The Barn
+			[] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
+			[] Add mice
+		[] Owl-girl
+		[] Trade
+		[] Talk
+		[] Work
+	
+	
+	
 	[] Natalya encounter without needing Helena quest
 	
 	[] Ace content
 	
-	[] Add mice
 	[] boxing gloves mod
 	[] latex leggings
 	[] deer
@@ -64,7 +76,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add option when starting a new game to skip Dominion
 		[] requires player to have already finished main quest up to leaving Dominion
-		[] minimal completion
+		[] apply minimal completion
 	
 	[] Wall's End
 		[] Woolly Heaven
@@ -75,7 +87,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Sheep-girl twins
 			[] Covering change (kate services)
 			[] Talk
-			[] Spa day
+			[] Spa treatment
 		[] The Ninth Strike
 				2 greater furry male baphomets who hold a serious grudge against Lunette. (Not related to one another)
 					They were competing blacksmiths in two villages, who were extremely well-renowned and always in high demand
@@ -91,12 +103,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				- Youko moves to Elis shop
 				- Can get baphomets TF'd to female
 			[] Armpit worship (they lick player's armpits before fucking them)
-		[] The Barn
-				Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
-			[] Owl-girl
-			[] Trade
-			[] Talk
-			[] Work
 	
 	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
 	

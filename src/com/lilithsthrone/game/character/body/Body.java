@@ -2076,11 +2076,11 @@ public class Body implements XMLSaving {
 			case ARACHNID:
 				if(owner.isFeral()) {
 					sb.append(" [style.colourFeral([npc.Her] entire body has transformed into that of a feral [npc.legRace]."
-							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.a_assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
+							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
 				} else {
 					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into that of a huge [npc.legRace]."
 							+ " [npc.Her] legs and genitals are completely feral in nature, and are extremely similar to that of [npc.a_assRace]'s."
-							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.a_assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
+							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
 				}
 				break;
 			case AVIAN:

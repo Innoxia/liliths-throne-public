@@ -2423,7 +2423,7 @@ public class CharacterUtils {
 		for(Fetish f : Fetish.values()) {
 			switch(f) {
 				case FETISH_PURE_VIRGIN:
-					if(character.hasVagina()||(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))
+					if(character.hasVagina()&&(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))
 						allowedFetishes.add(f);
 					break;
 				case FETISH_PREGNANCY:

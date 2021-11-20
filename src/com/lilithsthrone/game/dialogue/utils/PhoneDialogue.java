@@ -1958,7 +1958,7 @@ public class PhoneDialogue {
 			}
 			// Egg-incubated offspring who have been birthed:
 			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false));
-			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || !npc.getIncubator().isPlayer());
+			offspringIncubated.removeIf(npc -> npc.getIncubator()==null || (!npc.getIncubator().isPlayer() && (npc.getMother()==null || !npc.getMother().isPlayer())));
 			
 			UtilText.nodeContentSB.setLength(0);
 
