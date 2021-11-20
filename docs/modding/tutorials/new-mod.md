@@ -100,10 +100,10 @@ mod information ends.
     -->
     <!-- Optional: Any mods that this mod has problems with.
 
-    <requires>
+    <conflicts>
         <mod id="modID" version="" />
         ...
-    </requires>
+    </conflicts>
     -->
 <!-- Closing tag for the modInfo tag above. -->
 </modInfo>
