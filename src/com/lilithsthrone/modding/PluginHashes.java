@@ -7,14 +7,17 @@ import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 public class PluginHashes {
     private static final byte VERSION = 1;
 
-    HashMap<String, byte[]> hashes = new HashMap<>();
+    HashMap<String, byte[]> hashes = null;
     Path pluginHashesPath = Path.of("data", "pluginhashes.dat");
 
     public PluginHashes() {
@@ -22,7 +25,10 @@ public class PluginHashes {
     }
 
     public void load() {
+        hashes = new HashMap<>();
         File file = pluginHashesPath.toFile();
+        if(!file.isFile()) 
+            return;
         FileInputStream stream = null;
         try {
             stream = new FileInputStream(file);
@@ -96,4 +102,35 @@ public class PluginHashes {
         return buf;
     }
 
+    public boolean needsConfirmation(ModInfo mod) {
+        checkLoaded();
+        if(mod.pluginHash==null)
+            mod.pluginHash = this.checksumOfFile(mod.pluginJar);
+        if (hashes.containsKey(mod.id)) {
+            return mod.pluginHash != hashes.get(mod.pluginJar.toString());
+        }
+        return true;
+    }
+
+    private void checkLoaded() {
+        if(hashes == null)
+            load();
+    }
+
+    public void confirm(ModInfo mod) {
+        checkLoaded();
+        if (mod.pluginHash == null)
+            mod.pluginHash = this.checksumOfFile(mod.pluginJar);
+        hashes.put(mod.pluginJar.toString(), mod.pluginHash);
+    }
+
+    private byte[] checksumOfFile(File filename) {
+        try {
+            return MessageDigest.getInstance("SHA-512").digest(Files.readAllBytes(filename.toPath()));
+        } catch (NoSuchAlgorithmException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

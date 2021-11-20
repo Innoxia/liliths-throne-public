@@ -37,7 +37,7 @@ public class ModInfo {
     
     public File modDir = null;
     public File pluginJar = null;
-    public String pluginHash = null;
+    public byte[] pluginHash = null;
     
     public static ModInfo loadFromXML(Element parentElement, Document doc) {
         /*
