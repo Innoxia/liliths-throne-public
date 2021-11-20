@@ -5734,7 +5734,8 @@ public class Body implements XMLSaving {
 						"<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
 							+ "[npc.Name] has incubated and laid eggs "+Util.intToString(owner.getLittersIncubated().size())+" "+(owner.getLittersIncubated().size()==1?"time":"times")+"."
 						+ "</span>");
-				
+
+				//Litter.getMother is the character who passed on the eggs to the incubator
 				for(Litter litter : owner.getLittersIncubated()) {
 					if(litter.getMother()==null) {
 						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)

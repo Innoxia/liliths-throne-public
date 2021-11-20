@@ -27,6 +27,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
 	
 	
+	Test branch currently on!!!
+	
+	
 	[x] 'underside of your feral a spider's body'
 	[x] fix incubation total offspring count
 	[x] parsing issues in encourage creampie/pullout
@@ -44,6 +47,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] adding a milk lover variant to the yummy meal modifier
 		aura-regen rate might be a nifty benefit
 	
+	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
 	
 	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
 	
@@ -60,6 +64,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Work
 	
 	
+	
+	[] adding a milk lover variant to the yummy meal modifier
+		aura-regen rate might be a nifty benefit
 	
 	[] Natalya encounter without needing Helena quest
 	
