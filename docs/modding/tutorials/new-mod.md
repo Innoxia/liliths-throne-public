@@ -11,11 +11,11 @@ Every mod in Lilith's Throne requires two things:
  * A *directory* (also known as a folder) where all the mod's contents are stored
  * A `mod.xml` file that describes the mod
 
-So, here's how to create your first mod.
+This document will guide you through the process of creating these files.
 
 ## Creating the `mods` Directory
 
-Each mod needs to exist inside of a directory so that it doesn't interfere with other mods and so that it doesn't corrupt the game files. (This is called *compartmentalization*.)
+Each mod needs to exist inside of a directory so that it doesn't interfere with other mods, and so that it doesn't corrupt the game files. (This is called *compartmentalization*.)
 
 First, we need to be sure the `mods` directory exists.
 
@@ -45,17 +45,19 @@ From now on, we will refer to `mods/myMod` as the *mod directory*.
 
 ## Making `mod.xml`
 
-Lilith's Throne needs to know a few things about your mod so it can load properly.  To provide this information, we must create a file called `mod.xml` in the directory we just created.
+Lilith's Throne needs to know a few things about your mod so that it can load properly.  To provide this information, we must create a file called `mod.xml` in the directory we just created.
 
 1. In your file browser or shell, change directory to the mod directory.
 1. Create a new text file named `mod.xml`.
-    * **IMPORTANT:**  The file extension must be `.xml`.
-    * It's best to use a program such as [notepad++](https://notepad-plus-plus.org/), [vscode](https://code.visualstudio.com/),, kate, gedit, nano, vim, or similar for these files, as they give you more tools and are designed handling them.  
+    * **IMPORTANT:**  The file extension **must** be `.xml`.
+    * It's best to use a program such as [notepad++](https://notepad-plus-plus.org/), [vscode](https://code.visualstudio.com/), kate, gedit, nano, vim, or similar for these files, as they give you more tools and are designed to handle them.  
     * It is **NOT** recommended to use Windows Notepad, Word, or other word processors, as they can corrupt the file.
 1. Copy and paste the following XML into the file:
 
 ```xml
-<!-- This is an XML "comment".  They are placed above each part of this file to tell you how they work.  Comments can be removed or added without breaking anything, so if they are annoying to you, feel free to remove them. -->
+<!-- This is an XML "comment".  They are placed above each part of this file to tell you how they work.  
+Comments can be removed or added without breaking anything, so if they are annoying to you, feel 
+free to remove them. -->
 
 <!-- The <modInfo> "tag" tells the game where the mod information starts.
 
@@ -77,7 +79,9 @@ mod information ends.
     <!-- The displayed name of your mod.  
     You may change this at any point. -->
     <name>My Cool Mod</name>
-    <!-- Version of your mod.  This MUST follow the semantic version format. (see https://semver.org/) If you don't want to read the big, complicated document that is linked, just use the format MAJOR.MINOR.PATCH, like below. -->
+    <!-- Version of your mod.  This MUST follow the semantic version format. (see https://semver.org/) 
+    If you don't want to read the big, complicated document that is linked, just use the format 
+    MAJOR.MINOR.PATCH, like below. -->
     <version>0.0.1</version>
     <!-- This tag starts the list of contributors to your mod. These can be artists, coders, or whomever else you wish to credit. -->
     <contributors>
@@ -111,7 +115,7 @@ mod information ends.
 
 Once you are done editing the file, save it and close your editor.
 
-You directory structure should now look like:
+Your directory structure should now look like this:
 
 ```
 Liliths_Throne_#_#_#_#.jar
