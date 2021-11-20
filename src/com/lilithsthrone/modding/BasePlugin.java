@@ -18,6 +18,11 @@ import com.lilithsthrone.world.Cell;
  * TODO: Example mod
  */
 public abstract class BasePlugin {
+	public BasePlugin()
+	{
+		// Add on-init stuff here
+	}
+
 	/**
 	 * Called before the engine loads any res/ data from disk.
 	 */

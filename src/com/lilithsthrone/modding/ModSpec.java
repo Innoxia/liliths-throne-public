@@ -58,4 +58,15 @@ public class ModSpec {
 		this.version = new Semver(value.strip());
 		this.comparator = ComparisonType.EQUAL;
 	}
+
+	public String getSpecString() {
+		String str = "";
+		if(this.comparator != null) {
+			str += comparator.symbol;
+		}
+		if(this.version != null) {
+			str += version.toString();
+		}
+		return str;
+	}
 }

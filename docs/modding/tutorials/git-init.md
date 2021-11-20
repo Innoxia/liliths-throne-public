@@ -16,7 +16,7 @@ Git is a "Source Code Management" system designed to allow developers to track c
 
 Git also allows you to upload your project to sites like [GitHub](https://github.com), [GitLab](https://gitlab.com) and many others.  Doing so makes it much easier for other people to download and contribute to your mod.
 
-This tutorial assumes that you understand how to use your computer operating system's shell (cmd.exe, bash, zsh, and others).
+This tutorial assumes that you understand how to use your computer operating system's shell (`cmd.exe`, `bash`, `zsh`, and others).
 
 ## Installing Git
 
@@ -62,8 +62,9 @@ You should now see a hidden directory called `.git` inside of your mod directory
 You have a repository.  Now, you must add the initial state of your mod to it, called the *initial commit*.
 
 1. Run the command `git add .` to *stage* all the files in the current directory (including any subdirectories) for commit.  This means that changes to those files will be included in the commit.
-1. Remove files from the stage by running `git rm --cached path/to/file.ext`. More file paths can be added to the end of the command.
+1. You may remove files from the stage by running `git rm --cached path/to/file.ext`. More file paths can be added to the end of the command.
     * If you forget the `--cached`, they will be removed *completely*!  This cannot be undone.
+1. To see which files are staged and which are not, use the `git status` command.
 1. Once you are ready, run `git commit`.  An editor (usually $EDITOR on Linux) will open so you can write a message describing the changes you've made.
 1. Since this is the first changeset, it is traditional to write "Initial commit".
 1. Once done, save and close your editor.  `git` will make the commit for you.
