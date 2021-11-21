@@ -337,6 +337,7 @@ public class Game implements XMLSaving {
 	// Slavery:
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
 
+	
 	public Game() {
 		worlds = new HashMap<>();
 		for(AbstractWorldType type : WorldType.getAllWorldTypes()) {

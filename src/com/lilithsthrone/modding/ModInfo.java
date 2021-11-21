@@ -4,6 +4,9 @@
 package com.lilithsthrone.modding;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
@@ -13,8 +16,10 @@ import java.util.jar.JarFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.lilithsthrone.controller.ModController;
+import com.lilithsthrone.main.Main;
 import com.vdurmont.semver4j.Semver;
 
 /**
@@ -111,22 +116,67 @@ public class ModInfo {
      * Loads plugin from JAR.
      */
     public void loadPlugin(ModController mc) {
-        JarFile jarFile = new JarFile(this.pluginJar);
-        URL[] url = {new URL("jar:file:"+this.pluginJar.toString()+"!/")};
-        URLClassLoader cl = URLClassLoader.newInstance(url);
-        Enumeration<JarEntry> entries = jarFile.entries();
-        while(entries.hasMoreElements()){
-            JarEntry entry = entries.nextElement();
-            if(entry.isDirectory() || !entry.getName().endsWith(".class"))
-                continue;
-            String className = je.getName().substring(0, je.getName().length() - 6);
-            className = className.replace('/', '.');
-            Class cls = cl.loadClass(className);
-            if(BasePlugin.class.isAssignableFrom(cls)) {
-                // Could throw SecurityException, NoSuchMethodException
-                this.plugin = (BasePlugin) cls.getConstructor(null).newInstance(null);
-                break;
+        JarFile jarFile = null;
+        try {
+            jarFile = new JarFile(this.pluginJar);
+            URL[] url = {new URL("jar:file:"+this.pluginJar.toString()+"!/")};
+            
+            URLClassLoader cl = URLClassLoader.newInstance(url);
+            Enumeration<JarEntry> entries = jarFile.entries();
+            while(entries.hasMoreElements()){
+                JarEntry entry = entries.nextElement();
+                if(entry.isDirectory() || !entry.getName().endsWith(".class"))
+                    continue;
+                String className = entry.getName().substring(0, entry.getName().length() - 6);
+                className = className.replace('/', '.');
+                Class cls = cl.loadClass(className);
+                if(BasePlugin.class.isAssignableFrom(cls)) {
+                    // Could throw SecurityException, NoSuchMethodException
+                    this.plugin = (BasePlugin) cls.getConstructor(null).newInstance(null);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if(jarFile!=null) {
+                try {
+                    jarFile.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
+    }
+
+    public static ModInfo loadFromXML(File modXMLFile) throws SAXException, IOException {
+        Document doc = Main.getDocBuilder().parse(modXMLFile);
+
+        // Cast magic:
+        doc.getDocumentElement().normalize();
+        return ModInfo.loadFromXML(doc.getDocumentElement(), doc);
     }
 }

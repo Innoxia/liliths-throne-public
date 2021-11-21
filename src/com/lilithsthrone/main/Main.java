@@ -69,7 +69,7 @@ import javax.xml.transform.TransformerFactory;
  * @author Innoxia
  */
 public class Main extends Application {
-
+	public static ModController mods;
 	public static Game game;
 	public static Sex sex;
 	public static Combat combat;
@@ -477,6 +477,7 @@ public class Main extends Application {
 		mainController = loader.getController();
 		Main.primaryStage.setScene(mainScene);
 		Main.primaryStage.show();
+		Main.mods = new ModController();
 		Main.game = new Game();
 		Main.sex = new Sex();
 		Main.combat = new Combat();
@@ -502,6 +503,16 @@ public class Main extends Application {
 		
 		Main.game.setContent(new Response("", "", OptionsDialogue.MENU));
 		
+	}
+
+	public static void restartProcess() {
+		// TODO: We can't use a traditional restart because of all the JFX module declarations
+		//  we'd have to figure out for OpenJFX on Linux/MacOSX.
+		Alert a = new Alert(AlertType.INFORMATION, "Please restart the game after it closes.", ButtonType.OK);
+		System.out.println("Please restart the game after it closes.");
+		a.showAndWait().ifPresent(response -> {
+			System.exit(0);
+		});
 	}
 	
 	protected static void CheckForDataDirectory() {

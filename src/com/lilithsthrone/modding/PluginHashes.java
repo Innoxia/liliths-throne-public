@@ -20,12 +20,10 @@ public class PluginHashes {
     HashMap<String, byte[]> hashes = null;
     Path pluginHashesPath = Path.of("data", "pluginhashes.dat");
 
-    public PluginHashes() {
-
-    }
+    public PluginHashes() {}
 
     public void load() {
-        hashes = new HashMap<>();
+        this.hashes = new HashMap<>();
         File file = pluginHashesPath.toFile();
         if(!file.isFile()) 
             return;
@@ -102,14 +100,17 @@ public class PluginHashes {
         return buf;
     }
 
-    public boolean needsConfirmation(ModInfo mod) {
+    public EJarIntegrityResult check(ModInfo mod) {
         checkLoaded();
         if(mod.pluginHash==null)
             mod.pluginHash = this.checksumOfFile(mod.pluginJar);
         if (hashes.containsKey(mod.id)) {
-            return mod.pluginHash != hashes.get(mod.pluginJar.toString());
+            if (mod.pluginHash == hashes.get(mod.pluginJar.toString()) {
+                return EJarIntegrityResult.OK;
+            }
+            return EJarIntegrityResult.CHANGED;
         }
-        return true;
+        return EJarIntegrityResult.NEW;
     }
 
     private void checkLoaded() {
