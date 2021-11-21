@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -54,6 +55,7 @@ public class NPCOffspring extends NPC {
 				0, os.getBirthday().getMonth(), os.getBirthday().getDayOfMonth(),
 				1, os.body.getGender(), os.subspecies, os.body.getRaceStage(), new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
+		this.birthday = LocalDateTime.of(os.getBirthday().getYear(), this.getBirthday().getMonth(), this.getBirthday().getDayOfMonth(), this.getBirthday().getHour(), this.getBirthday().getMinute());
 		this.conceptionDate = os.conceptionDate;
 		this.motherName = os.getMotherName();
 		this.motherFemininity = os.getMotherFemininity();

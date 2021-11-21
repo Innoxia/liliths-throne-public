@@ -3438,14 +3438,14 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
 				append = true;
 				infoScreenSB.append(UtilText.parse(this, (incubated
-						?" After the incubation by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+" [npc.she] [npc.was] born"
+						?" After being incubated by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+", [npc.she] [npc.was] born"
 						:" You gave birth to [npc.herHim]")
 						+" on the "+this.getBirthdayString()+","));
 				
 			} else if(this.isPlayer() || (this.isPlayerKnowsName() && (this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue() || this.isSlave()))) {
 				append = true;
 				infoScreenSB.append(UtilText.parse(this, (incubated
-						?" After the incubation by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+" [npc.she]"
+						?" After being incubated by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+", [npc.she]"
 						:" [npc.She]")
                         +" [npc.was] born on the "+this.getBirthdayString()+","));
    
@@ -3460,7 +3460,7 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
 				infoScreenSB.append(UtilText.parse(this, (incubated
-						?" After the incubation by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+" [npc.she] [npc.was] born"
+						?" After being incubated by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+", [npc.she] [npc.was] born"
 						:" You gave birth to [npc.herHim]")
 						+" on the "+this.getBirthdayString()+"."));
 			}
@@ -19883,7 +19883,7 @@ public abstract class GameCharacter implements XMLSaving {
 						os.setBorn(true);
 						os.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
 						os.setIncubator(this);
-						System.out.println("offspring seed birthed from incubation");
+//						System.out.println("offspring seed birthed from incubation");
 					} catch(Exception e) {
 						Util.logGetNpcByIdError("endIncubationPregnancy()", id);
 					}

@@ -1170,7 +1170,10 @@ public class Game implements XMLSaving {
 						if(npc instanceof NPCOffspring &&
 						   npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL &&
 						   npc.getHomeLocationPlace().getPlaceType()==PlaceType.GENERIC_HOLDING_CELL) {
-							// remove this npc and replace with offspringSeed
+							// Remove this npc and replace with offspringSeed.
+							// new OffspringSeed(npc) calls the following methods to do this:
+								// Main.game.getOffspring().remove(npc);
+								// Main.game.removeNPC(npc);
 							new OffspringSeed(npc);
 							OSConverstions++;
 						}
@@ -4650,25 +4653,25 @@ public class Game implements XMLSaving {
 			}
 		}
 		
-		// Iterate through all characters, and if a character has had their virginity taken by this npc, then set the backup virginity loss text
-		// This will prevent the player from seeing the backup text: 'X lost their virginity to someone they can't remember.'
-		List<GameCharacter> allCharactersWithPlayer = new ArrayList<>();
-		allCharactersWithPlayer.add(Main.game.getPlayer());
-		allCharactersWithPlayer.addAll(Main.game.getAllNPCs());
-		for(GameCharacter character : allCharactersWithPlayer) {
-			for(Entry<SexType, Entry<String, String>> entry : character.getVirginityLossMap().entrySet()) {
-				if(entry.getValue()!=null) {
-					if(entry.getValue().getKey().equals(npc.getId())) {
-						character.setBackupVirginityLoss(entry.getKey());
-					}
-				}
-			}
-		}
-		
 		if(isInNPCUpdateLoop) {
 			npcsToRemove.add(npc);
 			
 		} else {
+			// Iterate through all characters, and if a character has had their virginity taken by this npc, then set the backup virginity loss text
+			// This will prevent the player from seeing the backup text: 'X lost their virginity to someone they can't remember.'
+			List<GameCharacter> allCharactersWithPlayer = new ArrayList<>();
+			allCharactersWithPlayer.add(Main.game.getPlayer());
+			allCharactersWithPlayer.addAll(Main.game.getAllNPCs());
+			for(GameCharacter character : allCharactersWithPlayer) {
+				for(Entry<SexType, Entry<String, String>> entry : character.getVirginityLossMap().entrySet()) {
+					if(entry.getValue()!=null) {
+						if(entry.getValue().getKey().equals(npc.getId())) {
+							character.setBackupVirginityLoss(entry.getKey());
+						}
+					}
+				}
+			}
+			
 			npc.getCell().removeCharacterPresentId(npc.getId());
 			npc.getHomeCell().removeCharacterHomeId(npc.getId());
 			ParserTarget.removeAdditionalParserTarget(npc);

@@ -156,7 +156,7 @@ public class OffspringSeed implements XMLSaving {
 			this.setSurname(mother.getSurname());
 			
 		} else {
-			this.setSurname(""); // TO make sure that surname is not null for the following check: this.surname.contains("martu")
+			this.setSurname(""); // To make sure that surname is not null for the following check: this.surname.contains("martu")
 		}
 
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);

@@ -2020,7 +2020,6 @@ public class PhoneDialogue {
 						try {
 							OffspringSeed o = Main.game.getOffspringSeedById(id);
 							//OffspringSeed may be born or unborn
-							System.out.println(":3");
 							if (o.isBorn()) {
 								offspringIncubatedCount += 1;
 							}
