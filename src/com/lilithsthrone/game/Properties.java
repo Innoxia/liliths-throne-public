@@ -223,15 +223,9 @@ public class Properties {
 		
 		resetGenderPreferences();
 
-		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
-		for(SexualOrientation o : SexualOrientation.values()) {
-			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
-		}
+		resetOrientationPreferences();
 		
-		fetishPreferencesMap = new EnumMap<>(Fetish.class);
-		for(Fetish f : Fetish.values()) {
-			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
-		}
+		resetFetishPreferences();
 
 		resetAgePreferences();
 		
@@ -1499,6 +1493,20 @@ public class Properties {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
 		}
 	}
+
+	public void resetOrientationPreferences() {
+		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
+		for(SexualOrientation o : SexualOrientation.values()) {
+			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
+		}
+	}
+
+	public void resetFetishPreferences() {
+		fetishPreferencesMap = new EnumMap<>(Fetish.class);
+		for(Fetish f : Fetish.values()) {
+			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
+		}
+	}
 	
 	public void resetAgePreferences() {
 		agePreferencesMap = new HashMap<>();
@@ -1537,7 +1545,8 @@ public class Properties {
 	public float getRandomRacePercentage() {
 		return randomRacePercentage;
 	}
-
+	
+	/** 0=off, 1=taur-only, 2=on*/
 	public int getUddersLevel() {
 		return udders;
 	}

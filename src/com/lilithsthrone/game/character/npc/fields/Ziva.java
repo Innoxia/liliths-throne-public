@@ -68,7 +68,7 @@ public class Ziva extends NPC {
 	
 	public Ziva(boolean isImported) {
 		super(isImported, new NameTriplet("Ziva"), "Levine",
-				"",
+				"Ms. Levine is the owner and operator of the 'Kissing Booth' in the Farmer's Market in Elis.",
 				49, Month.OCTOBER, 2,
 				15,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("innoxia_goat_subspecies_goat"), RaceStage.GREATER,

@@ -29,11 +29,11 @@
 	You should most likely only be using the 'tail' tags for your tentacle type (the game re-uses tail tags for tentacles as the two body parts are very similar to one another).
 	You should define NONE of the 'TAIL_TYPE_X' tags.
 	You should define ONE of the 'TAIL_TAPERING_X' tags.
-	The other tags are optional, but will most likely always include all three of 'TAIL_PREHENSILE', 'TAIL_SUTABLE_FOR_PENETRATION', and 'TAIL_SLEEP_HUGGING'.
+	The other tags are optional, but will most likely always include all three of 'TAIL_PREHENSILE', 'TAIL_SUITABLE_FOR_PENETRATION', and 'TAIL_SLEEP_HUGGING'.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
 	<tags>
 		<tag>TAIL_TAPERING_NONE</tag>
-		<tag>TAIL_SUTABLE_FOR_PENETRATION</tag>
+		<tag>TAIL_SUITABLE_FOR_PENETRATION</tag>
 		<tag>TAIL_PREHENSILE</tag>
 		<tag>TAIL_SLEEP_HUGGING</tag>
 	</tags>

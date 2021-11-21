@@ -1539,11 +1539,16 @@
 		#IF(pc.hasFetish(FETISH_INCEST))
 			 As you've got a serious kink for incestuous sex, you can't help but find this fact immensely arousing, and buck your groin even harder into your demonic [lilaya.relation(pc)]'s hand.
 		#ELSE
-			 Then again, she <i>is</i> a half-demon in this reality, so there's no real relation between the two of you... right?
+			 Then again, she <i>is</i> [lilaya.a_race] in this reality, so there's no real relation between the two of you... right?
 		#ENDIF
 	</p>
 	<p>
-		At that moment, Lilaya leans in to whisper one last thing in your ear, [lilaya.speech(You know, I'm all-demon where it counts... You want to see what a demon's pussy looks like, don't you?)]
+		At that moment, Lilaya leans in to whisper one last thing in your ear,
+		#IF(lilaya.getSubspecies()==SUBSPECIES_DEMON)
+			 [lilaya.speech(You want to see what my hot little demon pussy looks like, don't you?)]
+		#ELSE
+			 [lilaya.speech(You know, I'm all-demon where it counts... You want to see what a demon's pussy looks like, don't you?)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

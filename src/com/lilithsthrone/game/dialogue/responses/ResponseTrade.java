@@ -26,10 +26,13 @@ public class ResponseTrade extends Response {
 		this.traderString = null;
 	}
 
-	public ResponseTrade(String title, String tooltipText, String traderString) {
+	public ResponseTrade(String title, String tooltipText, String traderString, String effectsResponse) {
 		super(title, tooltipText, null);
-		
+		this.fromExternalFile = true;
+
 		this.traderString = traderString;
+		
+		this.effectsString = effectsResponse;
 	}
 	
 	public void openTrade() {

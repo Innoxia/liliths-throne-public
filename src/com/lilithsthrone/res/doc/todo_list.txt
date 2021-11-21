@@ -15,217 +15,144 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Add hospital as alternative to Lilaya
 		
 	
-	
-	
 	Patch notes:
 	
 	Contributors:
-		Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest (more content for her will be added later). (by Rick Docket and DSG)
-		Added samoyed-morph subspecies to the dog-morph race. (by DSG)
-		Added a new fetish preference menu to the options menu, which allows you to set values for influencing the fetishes and desires random NPCs will be generated with. (PR#1553 by Maxis)
-		Prevented patch notes from being run through the parsing engine, which was occasionally causing null pointer exceptions. (PR#1567 by Stadler76)
-		Removed the hasSexCountWith() method and replaced all of its uses with the getTotalTimesHadSex() method to fix issues with inconsistencies in dialogues. (PR#1568 by AceXP)
-		Added a new setting for outfit files which makes it possible to apply an outfit to an entire region (i.e. collection of world types). (PR#1569 by AceXP)
-		Created a new character class for slaves which can be bought in Slaver Alley, thereby fixing an issue where slaves generated while the player was not in Dominion/Submission would be of unexpected race types. (PR#1570 by AceXP)
-		Removed unnecessary copy when accessing the unique item count of an inventory, greatly reducing inventory lag and load on the garbage collector. (PR#1573 by AtelierAmber)
-		NPCs will no longer perform orgasm reactions or denials in response to the player orgasming when the player is hidden. (PR#1578 by AceXP)
-		If a corruptive action is bypassed by fetish, the pink '!' icon will now be recoloured to grey to signify that no corruption will be gained. (PR#1583 by CognitiveMist)
-		When the player does not have enough flames to use 'Buy (All)', but has enough to buy at least one item, the game will now offer 'Buy (Max NN)' in the 'Buy (All)' slot, where NN is the amount that will be purchased. (PR#1584 by CognitiveMist)
-		Fixed issue where characters that the player had never met were getting added to the contact list when loading a game. (by AceXP)
-		Fixed soft lock with the fields bandit encounter where if the bandit was willing to rape but not attracted to the player, no dialogue options would be given to continue the scene. (by AceXP)
-		Fixed an rare stack overflow error when loading a saved game in which the player had slaves or followers. (PR#1590 by Jtecx and CognitiveMist)
-		
-	Engine/Modding:
-		Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).
-	
-	Artwork:
-		Added artwork for Catherine (the Slime Queen), drawn by Jam (https://twitter.com/JamDrawers).
-	
-	Gameplay:
-		Added the next stage of the main quest, where you meet Minotallys.
-	
-	Body:
-		Added 'neck hair/fur' as a purely cosmetic transformation tied to a character's hair, which can be applied via potion or clothing TFs.
-		Chances to spawn with neck fur are: 25% for greater fox and wolf morphs, 100% for male lion morphs, 10% for greater female rabbit-morphs.
-	
-	Clothing:
-		Added 'heavy gemstone ring' (finger slot, unisex, sold by Nyan). Also limited the default colours that these rings can spawn in with.
-	
-	Other:
-		Added a 'Vestigial Multi-breast' content setting to the 'Body' category (on by default), which affects whether multiple rows of breasts are described as being 'vestigial' or 'one cup size smaller than the one above' in size.
-		Increased level of fields bandits from 5-10 to 10-20.
-		Added ability to reset your elemental's perks. (Action appears when viewing their perk screen.)
+		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
+		Implemented new way of handling offspring who haven't yet been met, significantly improving turn time performance and save file size in games in which you have a lot of unmet offspring. (PR#1622 by AceXP)
 	
 	Bugs:
 		Parsing fixes.
-		Fixed bug where characters without hair could still be targeted for the 'Twintail pull' sex action.
-		Fixed bug in the 'Rogue Enforcer' quest, where completing the quest would sometimes lock you in a travel-disabled dialogue screen with no responses to choose from.
-		Fixed bug where some sex scenes with Scarlett, such as those encountered during Helena's romance quest, would never come to an end.
-		Bandits in the Foloi Fields will no longer remain on their tile if you escape from combat against them. Any bandits which have persisted on these tiles will be removed from your game upon loading into this version.
-		The racial transformative effects of the items from the three harpy bosses (the lollipops and perfume) will no longer work on characters whose race is immune to racial transformations.
-		Takahashi is now added to your phone's contacts list after meeting her. (She ill be added to your contacts when loading into this version if you are past the 'Destination Elis' section of the main quest.)
-		Fixed bug where the first stage of the status effect for wearing chastity clothing ('Forced chastity (calm)') would not be removed when removing the chastity clothing.
-		When encountering an Enforcer patrol, the actions to be searched will no longer incorrectly be coloured red and reference having your items confiscated if you are in possession of Elle's or Wes's contractor pass.
-		Elementals will no longer reset their inventories at the turn of midnight every day.
-		The player character's elemental will no longer have their level scaled to a higher value based on the game's difficulty.
-		Fixed issue where you could give your elemental infinite perks, and fixed a related issue where your elemental's perk screen was showing that they had 2 perk points available for the physical and arcane categories.
-		The 'Thigh squeeze' orgasm action can no longer be used by characters who don't have legs.
-		Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.
-		Fixed issue where bandits in the fields were always being generated as females.
-		Dragon Draft consumables now restore the percentage of total health and aura which their tooltips say they will.
-		Fixed issue with NPCs' descriptions not being updated after freeing them from slavery.
-		Fixed issue where if you had companions enabled and started sex with one while there were NPCs present in the tile, the NPCs would be added as submissive spectators who could then be brought into the sex scene.
+		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
+		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
+		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
 	
 	
-	[x] Full Fields main quest written out from plan
-	[x] twintail pull available when they have no hair
-	[x] neck fluff
-		[x] Add TF
-			[x] test clothing
-			[x] test potion
-		[x] Body description
-		[x] Add to lions, wolves, foxes, female rabbits
-			[x] Apply to spawn method
-		[x] Save/load
-		[x] Self-TF menu
-		[x] test all
-	[x] add an option to make multitit vestigial
-		[x] property setting
-		[x] test
-	[x] unisex gemstone ring
-		[x] limit gemstone colours
-	[x] trouble when you go to Enforcer HQ to talk to Wes to finish that side quest for me I get locked in place and can’t advance dialogue or change my location is anyone else having this problem or did I mess up when setting up the new update
-		 (I honestly default to blaming myself but I would like to know if anyone else has had this problem and if they were able to fix it)
-			https://github.com/Innoxia/liliths-throne-public/issues/1527
-	[x] Anyone else getting stuck in infinite morning cunnilingus loops with scarlet during the harpy business quests?
-	[x] Make post
-		[x] KT80 poll
-	[x] Ace's mod
-	[x] Felicia
-		Sawlty towers:
-			[x] Add Arthur's room as action 1 greyed-out after quest complete
-			[x] Felicia's room at 17:14 locks travel with no actions
-		[-] check Sawlty towers to see if it's retroactively created
-			[-] creation check from new
-		[x] Check main quest first meeting
-		[x] Move arthur dialogue to external text file
-		[x] Sawlty towers tile to append brief description that it's in the area
-		[x] Talk options
-			[x] Show lewd and pet but greyed-out
-				[x] Introduce name in inital intro
-				[x] Change name topic to talk about her long surname
-			[-] Limit each topic to once per day
-			[x] Make it clear that pushing too far will lock her content out
-		[x] Tile placeholders
-		[x] Add debug requirement to trigger
-		[x] Go through all writing and edit to make style consistent
-			[x] Main quest scene
-			[x] External apartment scenes
-			[x] All interior scenes
-		[x] If main quest is past meeting Felicia, set knows name to true
-		[x] Add initial description of her age
-		[x] full test
-		[x] git push
-	[x] Bugs
-		[x] Are the field bandits supposed to be the same level as city bandits? That seems like a bug or oversight of some kind?
-		[x] A random pegasus girl is staying on feloli fields, I ran from her and I have the athlete background. She won't show up again in that spot but the game is acting like she's there
-			- Not being removed when escaping combat?
-			- Add cleanup check
-		[-] One of my slaves seems to be stuck on being a maid and their job won't change depending on what button I hit
-		[x] Scarlett sex scenes:
-			[x] some sex scenes never end, i have to press the quicksex button to end it, and in some cases i can't even do that, like the handjob scene with Scarlett at the slaver's den
-			[x] Scarlett does not end sex scene, and player cannot end it either, when inviting her out to lunch after trading back to Helena.
-		[x] from another user, the harpy boss transformatives still work when used as a demon
-		[x] Takahashi has AddedToContacts set to false
-			[x] If past her section of the main quest, add her
-		[x] issue of if you ever equip a chastity item the status effect never goes away
-		[x] do the enforcers still attack you if they see you with Enforcer Gear after doing Wesley's quest/having the contractor license or that was fixed?
-			"Some of your items will be confiscated if you do this!"
-		[x] Elementals seem to have a couple problems with the current version
-			[x] All perks can be picked up at level 1 - the counter simply goes negative but does not prevent you from picking them all up
-			[x] Perks cannot be reset
-			[x] Their damage scales incorrectly with difficulty, doing -more- instead of less damage on higher difficulties
-			[x] Another issue, elementals will try to regenerate their inventories as if they were random demons, deleting any items carried and generating lilith's gifts
-			[x] Elemental has category specific perk points incorrectly displayed...
-		[x] Characters without legs can still use 'Thigh squeeze' orgasm action
-		[x] Jhortax and Fyrsia are both missing their weapons when first encountering Meraxis (didn't even take from them during their first fights, bypassed them entirely)
-	[x] PRs
-	[x] Allow Felicia contact without debug
-	[x] Main.game.getNPCById(NOT_SET) returning null in method: getCharactersEncounteredAsGameCharacters()
-		Started after changing the knows name stuff for Takahashi. Investigate and fix this
-	[x] Push as 0.4.1.3
-	[x] Messages
-	[x] Elizabeth info to KT80
-	[x] All bandits in the fields are always generated as females, there's no random element involved at all. FieldsBandit() is used, which defaults to Gender.F_V_B_FEMALE
-	[x] Orange Dragon Draft doesn't restore 20%health and 40%aura as written in the description but instead 17 aura of 513 and about the same amount of HP for me
-	[x] Add Minotallys meeting
-		[x] Quests
-		[x] Add new dialogue folder 'story/main/minotallys_meeting.txt'
-		Overview:
-			She is refusing to believe that there's a problem (she says Lilith would intervene if there was a real issue)
-			Assistant knows it's serious, but cannot convince her
-			Manage to convince her to send contact to Themiscyra to confirm if Lunette's centaurs have attacked there yet
-		[x] Meraxis meeting start
-			[x] Go to town hall with Meraxis, information desk confrontation, she produces her special pass
-			[x] Staircase enforcer, having dealt with Meraxis before, rolls eyes and lets you pass
-		[x] Meet assistant at top of stairs
-			[x] Portraits of Minotallys on the walls upstairs, he explains that she likes to change her appearance (and flavours) based on the day of the week
-		[x] Minotallys meeting
-			[x] She offers milk, Meraxis happily drinks it
-			[x] Minotallys gets visibly turned on as she watches you drink (what is quite obviously) her milk
-		[x] Business of Lunette
-		[x] She agrees to have you and Meraxis visit Themiscyra to confirm if Lunette's centaurs have attacked there yet
-		[x] Meraxis knows the way, tells you to let her know when you're ready to go
-		[x] Writing
-	[x] Make sure town hall map is visible
-	[x] Update town hall tower first floor descriptions
-		[x] Paintings
-		[x] Go through all dialogue for edits
-	[x] Minotallys content
-		[x] Unlock access after main quest progressed
-		[x] Make pass item
-		[x] After dark access for pass holding
-			[x] change tile description
-			[-] Add Enforcers present in tile
-			[x] check after closing time dialogues
-				[x] Enforcer at stairs comments
-		[x] Disable loiter 1F
-		[x] Movement at night bugged
-		[x] Daytime meeting
-			[x] She offers milk
-			[x] Talk options
-				[x] Work
-				[x] Lilith
-				[x] Milk
-		[x] Night time Arion sex
-		[x] Test
-		[x] Writing
-	[x] Slime queen artwork
-	[x] Bug reports
-		[x]  NPC description is not updated after the slave is freed. It still reflects that she is a slave.
-	[x] PR1590
+	[x] Offspring seed PR testing
+		[x] Pre-PR pregnancy save conversion
+			[x] check load, save, load, birth
+		[x] Lilaya birthing
+		[x] Debug offspring screen
+		[x] Encounters
+		[x] Incubation
+			[x] Offspring map check
+		[x] Incubating
+			[x] Offspring map check
+		[x] Offspring starting at 19 instead of 18
+		[x] Slight formatting error at "Rest" when incubation birth
 	
-	---- Release
+	
+	[x] 'underside of your feral a spider's body'
+	[x] fix incubation total offspring count
+	[x] parsing issues in encourage creampie/pullout
+	
+	[] Improve random racial TF potion to filter out TFs which will do nothing
+	
+	[] Just have NPCs pick rough, neutral, or gentle based on their sadism preferences.
+	
+	[] Add more NPCs wanting to use condom on player
+	
+	[] cannot egg spinnerets?
+		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
+		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
+	
+	[] adding a milk lover variant to the yummy meal modifier
+		aura-regen rate might be a nifty benefit
+	
+	[] decouple pussy/cock to sub/dom for Lilaya sex
+	
+	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
+	
+	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
+	
+	[] <blockAmount> has no effect in combat move mods.
+		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
+		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
+	
+	[] The Barn
+			[] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
+			[] Add mice
+		[] Owl-girl
+		[] Trade
+		[] Talk
+		[] Work
 	
 	
 	
-	[] Dialogue parsed before time passed
-		[] Add option to change this in dialogue, keep as it is for default as changing would probably break things
+	[] adding a milk lover variant to the yummy meal modifier
+		aura-regen rate might be a nifty benefit
 	
-	[] Shopping precinct
-		[] Add 4 main NPCs
+	[] Natalya encounter without needing Helena quest
+	
+	[] Ace content
+	
+	[] boxing gloves mod
+	[] latex leggings
+	[] deer
+	[] Add tailjobs (make sure tail lower body type works with it)
+	
+	[] elemental quest before leaving Dominion
+		[] can research in library
+		[] If not obtained, Lyssieth grants you the spell
+	
+	[] Add option when starting a new game to skip Dominion
+		[] requires player to have already finished main quest up to leaving Dominion
+		[] apply minimal completion
+	
+	[] Wall's End
+		[] Woolly Heaven
+				Border-collie-girl (described as being extremely attractive) gave up modelling in Dominion to open this shop.
+					Pix's sister(?)
+				Employees are twin greater sheep-girls
+					They have an annoying habit of starting and finishing one another's sentences
+			[] Sheep-girl twins
+			[] Covering change (kate services)
+			[] Talk
+			[] Spa treatment
+		[] The Ninth Strike
+				2 greater furry male baphomets who hold a serious grudge against Lunette. (Not related to one another)
+					They were competing blacksmiths in two villages, who were extremely well-renowned and always in high demand
+					Their villages were the first to be destroyed by Lunette, and they lost everything
+					Managed to escape and forged a pact to get their revenge on Lunette
+				They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
+			[] Imsu & Hale
+			[] Trade
+			[] Talk
+			[] Side Quest - The Youko's Secret
+				- Find Youko smith
+				- Convince to teach ninth strike technique to Hale & Imsu
+				- Youko moves to Elis shop
+				- Can get baphomets TF'd to female
+			[] Armpit worship (they lick player's armpits before fucking them)
+	
+	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
+	
+	[] hand holding sex action
+	
+	[] dye earth skill to take 1 essence
+	
+	[] Test fetish preferences in watering hole
 	
 	[] Need a place to deliver pregnancy in Elis
 		[] Medical centre
 			[] Incubus & succubus doctors
 	
-	[] Finger urethra insertion
+	[] Sex additions:
+		[] Finger urethra insertion
+		[] Lick fluids off partner actions
+		[] Fisting
 	
 	[] PR Maxis list
 	
+	[] Kay female TF
+	
 	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
 			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
-				
+	
+	[] add some modding parameters for self-TF races to support definition of races that can be transformed into (or unlimited race self-TF)
+	
+	[] add an attribute to make special effects AoE for weapons (stun grenades)
+	
 	Felicia content expansion:
 		- Ask out on date (affection requirement first I guess)
 		- Repeat date until 3 dates completed
@@ -235,6 +162,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		- Repeat dates & sex is end content
 	
 	Ashley
+	
+	[] 4 person guest rooms
+	
+	[] Investigate possibility of adding support for slave/guest functions to map modding, so that player homes could be added
 	
 	[] Centaur encounter spell effect expansion:
 		[] Spawn & start 2 slavers
@@ -312,8 +243,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
 	
-	---
-	
 	[] deer
 		glade springs - sparkling mineral water
 		tree shoots salad
@@ -321,30 +250,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] mouse
 	
 	[] Elis
-		[] Minotallys intro
-			[] Describe northern part as being home to a lot of refugees from Fields
-		[] Arcane storm SE tooltip text and icon for when not in Dominion
+		[] Describe northern part as being home to a lot of refugees from Fields
 		[] Allow quick sex in masturbation
 		[] Add 'All masculine clothing is unisex' option
-		[] Fully framework demonic centaur encounters
-		[] Write Demonic centaurs
-		[x] Backup
-		[-] Make Elis borders a little smaller?
-		[x] Don't show travel disabled black border if scene travel disabled
 		[] Weather based on season
 			[] Add rain status effect
 				[] Add immunity from clothing (and umbrella)
-	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated, says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
-	[x] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
-	[] Elis
-		[] Map
-			[] Town Hall
-				[] Mayor's room
-			[] Tavern
-				[] Rent rooms
-			[] Market
-				[] Buy food/drink/clothing
-			[] Enforcer post
+	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated,
+		 says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
 	[] Extra encounters
 		[] Grassland
 			[] Snakes
@@ -747,10 +660,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Make flat values a separate thing
 		Make them gems which can be inserted into weapons
 		
-	Throwable weapon
-		% chance to recover after thrown
-		% chance to recover after combat
-	
 	add a repeat-descriptor exclusion variable
 	
 	Being fucked while self milking would be great especially if @Innoxia ever makes it an actual scene instead of a "you liked x from yourself," text box
@@ -2124,6 +2033,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Add leg-lock and swallow as forced sub orgasms (overrides whatever dom chose)
 	
 	Add slave silence permission dialogue
+		[] slaves with silent permission speak when interacting with you and other npcs totally normally
 	
 	buttslut oral fetishists who are in the dominant position will not let my sub char change the position to dom sittting on subs face
 	

@@ -3941,7 +3941,7 @@ public enum Spell {
 		
 		sb.append(this.applyEffect(source, target, enemies, allies, true, isCrit));
 		
-		if(isCrit && !this.isBeneficial() && source.hasTraitActivated(Perk.ARCANE_CRITICALS)) {
+		if(isCrit && !this.isBeneficial() && source.hasPerkAnywhereInTree(Perk.ARCANE_CRITICALS)) {
 			sb.append(UtilText.parse(source, "<br/>[npc.NamePos] [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to "+(target.isPlayer()?"you":UtilText.parse(target, "[npc.name]"))+"!"));
 			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
 			sb.append(

@@ -53,6 +53,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.utils.colours.PresetColour;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @since 0.1.84
@@ -438,6 +439,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					this.incompatibleSlotsMap = Util.newHashMapOfValues(new Value<>(this.getEquipSlots().get(0), incompatibleSlotsList));
 			}
 			
+			loadModTags(coreAttributes);
 
 			this.itemTags = new HashMap<>();
 			for(Element itemTagsElement : coreAttributes.getAllOf("itemTags")) {
@@ -716,7 +718,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
 				try {
 					return patternsElement.getAllOf("pattern").stream()
-							.map(Element::getTextContent).map(Pattern::getPattern)
+							.map(Element::getTextContent).map(Pattern::getPatternByIdOrName)
 							.collect(Collectors.toList());
 				} catch (Exception e) {
 					printHelpfulErrorForEnumValueMismatches(e);
@@ -2517,5 +2519,27 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			return new HashSet<>();
 		}
 		return orificeOtherModifiers;
+	}
+
+	/**
+	 * Returns true if the item has any of the passed in tags.
+	 *
+	 * @param modTags
+	 * @param itemTags
+	 *
+	 * @return
+	 */
+	@Override
+	public boolean hasAnyTags(final Set<String> modTags, final Set<ItemTag> itemTags) {
+		return !Collections.disjoint(this.getDefaultItemTags(), itemTags) || !Collections.disjoint(this.getModTags(), modTags);
+	}
+
+	/**
+	 * Mask this method.
+	 * @return
+	 */
+	@Override
+	public Set<ItemTag> getItemTags() {
+		throw new NotImplementedException();
 	}
 }
