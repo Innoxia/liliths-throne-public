@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <item>
-	<coreAttributes>
-		<value>20</value> 
-		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA[dose of denial]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[doses of denial]]></namePlural>
-		<description><![CDATA[A small, blue pill, individually packaged in a foil and plastic wrapper. While the text printed on the foil identifies this pill as an 'Orally-Administered Climax Inhibitor', it's colloquially known as either a 'bluer' or 'o-blocker', and temporarily removes the ability to orgasm when ingested. Normally, the effects of this pill last no more than a week.]]></description> 
-		
-		<useDescriptor>swallow</useDescriptor>
-		
-		<sexUse>true</sexUse>
-		<combatUseAllies>true</combatUseAllies>
-		<combatUseEnemies>false</combatUseEnemies>
-		<consumedOnUse>true</consumedOnUse>
-		
-		<rarity>COMMON</rarity> 
-		
-		<imageName>pill.svg</imageName> 
-		
-		<colourPrimary>CLOTHING_TURQUOISE</colourPrimary>
-		<colourSecondary/>
-		<colourTertiary/>
-		
-		<effectTooltipLines>
-			<line><![CDATA[[style.boldBad(Adds status effects:)]]]></line>
-			<line><![CDATA['<i>[#SE_deniedDollMaker_denied_doll_seal.getName(null)]</i>']]></line>
-		</effectTooltipLines>
-		
-    <applyEffects><![CDATA[
+    <coreAttributes>
+        <value>20</value>
+        <determiner><![CDATA[a]]></determiner>
+        <name><![CDATA[dose of denial]]></name>
+        <namePlural pluralByDefault="false"><![CDATA[doses of denial]]></namePlural>
+        <description>
+            <![CDATA[A small, blue pill, individually packaged in a foil and plastic wrapper. While the text printed on the foil identifies this pill as an 'Orally-Administered Climax Inhibitor', it's colloquially known as either a 'bluer' or 'o-blocker', and temporarily removes the ability to orgasm when ingested. Normally, the effects of this pill last no more than a week.]]></description>
+
+        <useDescriptor>swallow</useDescriptor>
+
+        <sexUse>true</sexUse>
+        <combatUseAllies>true</combatUseAllies>
+        <combatUseEnemies>false</combatUseEnemies>
+        <consumedOnUse>true</consumedOnUse>
+
+        <rarity>COMMON</rarity>
+
+        <imageName>pill.svg</imageName>
+
+        <colourPrimary>CLOTHING_TURQUOISE</colourPrimary>
+        <colourSecondary/>
+        <colourTertiary/>
+
+        <effectTooltipLines>
+            <line><![CDATA[[style.boldBad(Adds status effects:)]]]></line>
+            <line><![CDATA['<i>[#SE_deniedDollMaker_denied_doll_seal.getName(null)]</i>']]></line>
+        </effectTooltipLines>
+
+        <applyEffects><![CDATA[
       #IF(npc.hasStatusEffect(SE_deniedDollMaker_denied_doll_seal))
 			<p style='text-align:center; margin-top:0; padding-top:0;'>
 				[style.colourRed([npc.Name] [npc.is] already under the effects <i>'[#SE_deniedDollMaker_denied_doll_seal.getName(npc)]'</i> nothing happens!)]
@@ -43,24 +44,27 @@
       </p>
       #ENDIF
 		]]></applyEffects>
-		
-    <itemTags>
-      <tag>PREVENTS_ORGASM</tag>
-			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
-			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
-			<tag>BAT_CAVERNS_SPAWN</tag>
-			<tag>ATTRIBUTE_TF_ITEM</tag>
-      <tag>SOLD_BY_RALPH</tag>
-      <tag>SOLD_BY_FINCH</tag>
-		</itemTags>
-	</coreAttributes>
 
-	<useDescriptions>
-		<selfUse><![CDATA[
+        <itemTags>
+            <tag>PREVENTS_ORGASM</tag>
+            <tag>DOMINION_ALLEYWAY_SPAWN</tag>
+            <tag>SUBMISSION_TUNNEL_SPAWN</tag>
+            <tag>BAT_CAVERNS_SPAWN</tag>
+            <tag>ATTRIBUTE_TF_ITEM</tag>
+            <tag>SOLD_BY_RALPH</tag>
+            <tag>SOLD_BY_FINCH</tag>
+        </itemTags>
+        <modTags>
+            <tag>SOLD_BY_DOLL_MAKER</tag>
+        </modTags>
+    </coreAttributes>
+
+    <useDescriptions>
+        <selfUse><![CDATA[
 		[npc.Name] [npc.verb(pop)] a small turquoise pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
 		]]></selfUse>
-		<otherUse><![CDATA[
+        <otherUse><![CDATA[
 		[npc.Name] [npc.verb(pop)] a small turquoise pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
 		]]></otherUse>
-	</useDescriptions>
+    </useDescriptions>
 </item>

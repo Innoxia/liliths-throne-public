@@ -47,6 +47,12 @@
     <modTagsForSale>
       <tag>SOLD_BY_DOLL_MAKER</tag>
     </modTagsForSale>
+    <itemTagsForSale>
+      <tag>SOLD_BY_RALPH</tag>
+    </itemTagsForSale>
+
+    <!-- Number of each kind of item for sale -->
+    <forSaleCount items="10" clothing="10" weapons="10" />
   </trader>  
   <body>
     <bodyCore bodyMaterial="FLESH" bodySize="0" femininity="69" feral="false" genitalArrangement="NORMAL" height="170" muscle="100" piercedStomach="true" pubicHair="THREE_TRIMMED" takesAfterMother="true">
