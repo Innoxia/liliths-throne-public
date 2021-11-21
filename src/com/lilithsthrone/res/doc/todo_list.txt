@@ -19,12 +19,27 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
+		Implemented new way of handling offspring who haven't yet been met, significantly improving turn time performance and save file size in games in which you have a lot of unmet offspring. (PR#1622 by AceXP)
 	
 	Bugs:
 		Parsing fixes.
 		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
 		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
 		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
+	
+	
+	[x] Offspring seed PR testing
+		[x] Pre-PR pregnancy save conversion
+			[x] check load, save, load, birth
+		[x] Lilaya birthing
+		[x] Debug offspring screen
+		[x] Encounters
+		[x] Incubation
+			[x] Offspring map check
+		[x] Incubating
+			[x] Offspring map check
+		[x] Offspring starting at 19 instead of 18
+		[x] Slight formatting error at "Rest" when incubation birth
 	
 	
 	[x] 'underside of your feral a spider's body'
@@ -44,6 +59,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] adding a milk lover variant to the yummy meal modifier
 		aura-regen rate might be a nifty benefit
 	
+	[] decouple pussy/cock to sub/dom for Lilaya sex
+	
+	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
 	
 	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
 	
@@ -60,6 +78,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Work
 	
 	
+	
+	[] adding a milk lover variant to the yummy meal modifier
+		aura-regen rate might be a nifty benefit
 	
 	[] Natalya encounter without needing Helena quest
 	
