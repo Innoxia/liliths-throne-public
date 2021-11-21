@@ -53,6 +53,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.utils.colours.PresetColour;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @since 0.1.84
@@ -2518,5 +2519,27 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			return new HashSet<>();
 		}
 		return orificeOtherModifiers;
+	}
+
+	/**
+	 * Returns true if the item has any of the passed in tags.
+	 *
+	 * @param modTags
+	 * @param itemTags
+	 *
+	 * @return
+	 */
+	@Override
+	public boolean hasAnyTags(final Set<String> modTags, final Set<ItemTag> itemTags) {
+		return !Collections.disjoint(this.getDefaultItemTags(), itemTags) || !Collections.disjoint(this.getModTags(), modTags);
+	}
+
+	/**
+	 * Mask this method.
+	 * @return
+	 */
+	@Override
+	public Set<ItemTag> getItemTags() {
+		throw new NotImplementedException();
 	}
 }

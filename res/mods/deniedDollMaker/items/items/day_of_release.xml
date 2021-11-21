@@ -31,9 +31,9 @@
         <applyEffects><![CDATA[
 			[##npc.addStatusEffect(SE_deniedDollMaker_denied_doll_release, 60*60*24)]
 			<p style='margin-bottom:0; padding-bottom:0;'>
-        The small red pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a pulsing warmth taking root deep within [npc.her] loins.
-        An arcane glow surrounds [npc.her] crotch and then fades away. 
-      </p>
+                The small red pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a pulsing warmth taking root deep within [npc.her] loins.
+                An arcane glow surrounds [npc.her] crotch and then fades away.
+           </p>
 			<p style='text-align:center; margin-top:0; padding-top:0;'>
 				[style.colourSex([npc.Name] [npc.is] now experiencing <i>'[#SE_deniedDollMaker_denied_doll_release.getName(npc)]'</i> for the next day!)]
 			</p>

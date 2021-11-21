@@ -77,8 +77,6 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	protected AbstractRace associatedRace;
 	protected String enchantmentEffectId;
 	protected String enchantmentItemTypeId;
-	
-	protected Set<ItemTag> itemTags;
 
 	public AbstractItemType(
 			int value,
@@ -645,10 +643,6 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	
 	public boolean isFetishGiving() {
 		return false;
-	}
-
-	public Set<ItemTag> getItemTags() {
-		return itemTags;
 	}
 
 }

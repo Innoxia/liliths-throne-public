@@ -2,17 +2,16 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
-import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.modnpc.TraderForSale;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemGeneration;
-import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -20,26 +19,20 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import org.w3c.dom.Document;
 
 import java.time.Month;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class ModNPC extends NPC {
     private String modIdOverride = "";
     private boolean trader = false;
 
-    private final Set<String> modTagsForSale = new HashSet<>();
-    private final Set<ItemTag> itemTagsForSale = new HashSet<>();
-
-    private int itemCountForSale = 0;
-    private int clothingCountForSale = 0;
-    private int weaponCountForSale = 0;
+    private Optional<TraderForSale<AbstractItemType>> itemsForSale = Optional.empty();
+    private Optional<TraderForSale<AbstractClothingType>> clothingForSale = Optional.empty();
+    private Optional<TraderForSale<AbstractWeaponType>> weaponsForSale = Optional.empty();
 
     public ModNPC() {
         this(false);
@@ -98,39 +91,15 @@ public class ModNPC extends NPC {
     private void setupTraderInventory(final Element traderConfig) throws XMLLoadException {
 
         // Load ModTag values if there are any
-        traderConfig.getOptionalFirstOf("modTagsForSale")
-                .ifPresent(new Consumer<Element>() {
-                    @Override
-                    public void accept(Element element) {
-                        modTagsForSale.addAll(element.getAllOf("tag").stream()
-                                .map((tag) -> tag.getTextContent().trim())
-                                .collect(Collectors.toSet()));
-                    }
-                });
-
-        // Load ItemTag values if there are any
-        traderConfig.getOptionalFirstOf("itemTagsForSale")
-                .ifPresent(new Consumer<Element>() {
-                    @Override
-                    public void accept(Element element) {
-                        itemTagsForSale.addAll(element.getAllOf("tag").stream()
-                                .map((tag) -> ItemTag.valueOf(tag.getTextContent().trim()))
-                                .collect(Collectors.toSet()));
-                    }
-                });
-
-        try {
-            final Element forSaleCount = traderConfig.getMandatoryFirstOf("forSaleCount");
-
-            itemCountForSale = Integer.valueOf(forSaleCount.getAttribute("items"));
-            clothingCountForSale = Integer.valueOf(forSaleCount.getAttribute("clothing"));
-            weaponCountForSale = Integer.valueOf(forSaleCount.getAttribute("weapons"));
-
-        } catch (XMLMissingTagException e) {
-            System.err.println("Trader ModNPC missing forSaleCount");
-            e.printStackTrace();
-            throw new XMLLoadException(e);
-        }
+        itemsForSale = traderConfig.getOptionalFirstOf("itemsForSale").map(
+                TraderForSale::configureFromXml
+        );
+        clothingForSale = traderConfig.getOptionalFirstOf("clothingForSale").map(
+                TraderForSale::configureFromXml
+        );
+        weaponsForSale = traderConfig.getOptionalFirstOf("weaponsForSale").map(
+                TraderForSale::configureFromXml
+        );
 
         // TODO: Add explicit items later.
     }
@@ -143,35 +112,20 @@ public class ModNPC extends NPC {
 
         final ItemGeneration generation = Main.game.getItemGen();
 
-        // Add items
-        List<AbstractItemType> itemsToAdd = ItemType.getAllItems().stream()
-                .filter((type) -> !Collections.disjoint(type.getItemTags(), itemTagsForSale) || !Collections.disjoint(type.getModTags(), modTagsForSale))
-                .collect(Collectors.toList());
-        Collections.shuffle(itemsToAdd);
-
-        for (int i=0; i<itemCountForSale ; i++) {
-            addItem(generation.generateItem(Util.randomItemFrom(itemsToAdd)));
-        }
+        // Add Items forSale
+        itemsForSale.ifPresent((forSale) -> forSale.getItemForSale(ItemType.getAllItems()).forEach(
+                (itemType) -> addItem(generation.generateItem(itemType))
+        ));
 
         // Add clothing
-        List<AbstractClothingType> clothingToAdd = ClothingType.getAllClothing().stream()
-                .filter((type) -> !Collections.disjoint(type.getDefaultItemTags(), itemTagsForSale) || !Collections.disjoint(type.getModTags(), modTagsForSale))
-                .collect(Collectors.toList());
-        Collections.shuffle(clothingToAdd);
-
-        for (int i=0; i<clothingCountForSale; i++) {
-            addClothing(generation.generateClothing(Util.randomItemFrom(clothingToAdd)), false);
-        }
+        clothingForSale.ifPresent((forSale) -> forSale.getItemForSale(ClothingType.getAllClothing()).forEach(
+                (itemType) -> addClothing(generation.generateClothing(itemType), false)
+        ));
 
         // Add weapons
-        List<AbstractWeaponType> weaponsToAdd = WeaponType.getAllWeapons().stream()
-                .filter((type) -> !Collections.disjoint(type.getItemTags(), itemTagsForSale) || !Collections.disjoint(type.getModTags(), modTagsForSale))
-                .collect(Collectors.toList());
-        Collections.shuffle(weaponsToAdd);
-
-        for (int i=0; i<weaponCountForSale; i++) {
-            addWeapon(generation.generateWeapon(Util.randomItemFrom(weaponsToAdd)), false);
-        }
+        weaponsForSale.ifPresent((forSale) -> forSale.getItemForSale(WeaponType.getAllWeapons()).forEach(
+                (itemType) -> addWeapon(generation.generateWeapon(itemType), false)
+        ));
     }
 
     @Override

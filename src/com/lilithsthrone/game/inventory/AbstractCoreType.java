@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * @version 0.3.7.7
  * @author Innoxia
  */
-public class AbstractCoreType {
+public abstract class AbstractCoreType {
 	
 	@Override
 	public boolean equals(Object o) {
@@ -40,24 +40,22 @@ public class AbstractCoreType {
 	 */
 	private final Set<String> modTags = new HashSet<>();
 
-	/**
-	 * Add a String tag to this item.
-	 *
-	 * @param tag
-	 */
-	public void addModTag(final String tag) {
-		modTags.add(tag);
+	protected Set<ItemTag> itemTags = new HashSet<>();
+
+	public Set<ItemTag> getItemTags() {
+		return itemTags;
 	}
 
 	/**
-	 * Returns true if this item type has the given string tag.
+	 * Returns true if the item has any of the passed in tags.
 	 *
-	 * @param tag The tag to check for.
+	 * @param modTags
+	 * @param itemTags
 	 *
-	 * @return boolean
+	 * @return
 	 */
-	public boolean hasModTag(final String tag) {
-		return modTags.contains(tag);
+	public boolean hasAnyTags(final Set<String> modTags, final Set<ItemTag> itemTags) {
+		return !Collections.disjoint(this.getItemTags(), itemTags) || !Collections.disjoint(this.getModTags(), modTags);
 	}
 
 	/**
@@ -86,4 +84,5 @@ public class AbstractCoreType {
 			}
 		});
 	}
+
 }
