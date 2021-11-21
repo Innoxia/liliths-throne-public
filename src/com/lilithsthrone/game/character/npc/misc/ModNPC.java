@@ -19,11 +19,13 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import org.w3c.dom.Document;
 
 import java.time.Month;
+import java.util.List;
 import java.util.Optional;
 
 public class ModNPC extends NPC {
@@ -92,13 +94,13 @@ public class ModNPC extends NPC {
 
         // Load ModTag values if there are any
         itemsForSale = traderConfig.getOptionalFirstOf("itemsForSale").map(
-                TraderForSale::configureFromXml
+                TraderForSale::loadFromXml
         );
         clothingForSale = traderConfig.getOptionalFirstOf("clothingForSale").map(
-                TraderForSale::configureFromXml
+                TraderForSale::loadFromXml
         );
         weaponsForSale = traderConfig.getOptionalFirstOf("weaponsForSale").map(
-                TraderForSale::configureFromXml
+                TraderForSale::loadFromXml
         );
 
         // TODO: Add explicit items later.
@@ -114,17 +116,18 @@ public class ModNPC extends NPC {
 
         // Add Items forSale
         itemsForSale.ifPresent((forSale) -> forSale.getItemForSale(ItemType.getAllItems()).forEach(
-                (itemType) -> addItem(generation.generateItem(itemType))
+                (param) -> addItem(generation.generateItem(param.getThingType()))
         ));
 
         // Add clothing
         clothingForSale.ifPresent((forSale) -> forSale.getItemForSale(ClothingType.getAllClothing()).forEach(
-                (itemType) -> addClothing(generation.generateClothing(itemType), false)
+                (param) -> addClothing(generation.generateClothing(
+                        param.getThingType(), (List<Colour>) null, param.getItemEffects()), false)
         ));
 
         // Add weapons
         weaponsForSale.ifPresent((forSale) -> forSale.getItemForSale(WeaponType.getAllWeapons()).forEach(
-                (itemType) -> addWeapon(generation.generateWeapon(itemType), false)
+                (param) -> addWeapon(generation.generateWeapon(param.getThingType()), false)
         ));
     }
 

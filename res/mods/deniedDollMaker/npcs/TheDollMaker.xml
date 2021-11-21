@@ -49,6 +49,15 @@
         <tag>SOLD_BY_DOLL_MAKER</tag>
       </modTags>
     </itemsForSale>
+    <clothingForSale count="40">
+      <itemTags>
+        <tag>SOLD_BY_FINCH</tag>
+      </itemTags>
+      <effects>
+        <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" type="CLOTHING"/>
+        <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" type="CLOTHING"/>
+      </effects>
+    </clothingForSale>
   </trader>  
   <body>
     <bodyCore bodyMaterial="FLESH" bodySize="0" femininity="69" feral="false" genitalArrangement="NORMAL" height="170" muscle="100" piercedStomach="true" pubicHair="THREE_TRIMMED" takesAfterMother="true">
