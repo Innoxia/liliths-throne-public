@@ -14,7 +14,18 @@
 
         <responses>
             <response>
-                <availabilityConditional><![CDATA[true]]></availabilityConditional>
+                <availabilityConditional><![CDATA[[#pc.isAbleToOrgasm()]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <colour><![CDATA[TEXT]]></colour>
+                <responseTitle><![CDATA[Walk Away]]></responseTitle>
+                <responseTooltip><![CDATA[There's nothing for you here.]]></responseTooltip>
+                <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+            </response>
+
+            <response>
+                <availabilityConditional><![CDATA[[#!pc.isAbleToOrgasm()]]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
                 <index><![CDATA[0]]></index>
                 <responseTitle><![CDATA[Ignore]]></responseTitle>
@@ -28,13 +39,14 @@
                     [#game.getNpc("deniedDollMaker_TheDollMaker").setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
 				]]></effects>
             </response>
+
             <response>
-                <availabilityConditional><![CDATA[true]]></availabilityConditional>
+                <availabilityConditional><![CDATA[[#!pc.isAbleToOrgasm()]]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
                 <index><![CDATA[1]]></index>
                 <colour><![CDATA[TEXT]]></colour>
                 <responseTitle><![CDATA[Trade]]></responseTitle>
-                <responseTooltip><![CDATA[Take a look at what's sale...]]></responseTooltip>
+                <responseTooltip><![CDATA[Take a look at what's inside...]]></responseTooltip>
                 <nextDialogue/>
                 <tradingVariables enabled="true">
                     <tradePartner><![CDATA[deniedDollMaker_TheDollMaker]]></tradePartner>

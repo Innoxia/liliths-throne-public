@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
-  <htmlContent tag="START"><![CDATA[
-  <p>
-      A strange little shop appears in the walkway...
-  </p>
+    <htmlContent tag="START"><![CDATA[
+    <p>
+        A strange little shop appears in the walkway. It's little more than a ramshackle tent like structure made of
+        gauzy cloth. Flickering fire light from inside casts erotically writing shadows against the deceptively thin
+        cloth. You can't quit make out what's going on, but the subtle gasps and moans drifting in the air are enough
+        to tell you it has to be an intense experience.
+    </p>
+    <p>
+        There's a strange symbol, cast in gold, mounted above the door. It's not a symbol you recognize, and the more
+        you look at it the more your eyes seem to slide off it.
+
+        #IF(pc.isAbleToOrgasm())
+            You find yourself unable to move any closer to the shop and get the feeling that you would not be welcome
+            inside if you could. You can almost hear it telling you to return only when you seek that which is denied.
+        #ELSE
+            Somehow, the shape is strangely inviting, as though it wants you to come inside. It hints at a release to
+            your yearning, if you're willing to pay the price.
+        #ENDIF
+    </p>
     ]]></htmlContent>
 </dialogue>
