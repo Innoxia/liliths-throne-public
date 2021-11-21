@@ -290,7 +290,8 @@ public abstract class AbstractItemType extends AbstractCoreType {
 					effectTooltipLines.add(e.getTextContent());
 				}
 			}
-			
+
+			loadModTags(coreAttributes);
 			this.itemTags = new HashSet<>(Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class));
 			
 			if(debug) {

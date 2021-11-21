@@ -438,6 +438,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					this.incompatibleSlotsMap = Util.newHashMapOfValues(new Value<>(this.getEquipSlots().get(0), incompatibleSlotsList));
 			}
 			
+			loadModTags(coreAttributes);
 
 			this.itemTags = new HashMap<>();
 			for(Element itemTagsElement : coreAttributes.getAllOf("itemTags")) {

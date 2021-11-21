@@ -138,7 +138,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} catch (XMLMissingTagException ex) {
 					coreAttributes = weaponElement.getMandatoryFirstOf("coreAttributes");
 				}
-				
+
+				loadModTags(coreAttributes);
 				this.itemTags = Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class);
 				
 				this.mod = mod;

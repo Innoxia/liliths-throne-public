@@ -44,6 +44,9 @@
     <NPCValues />
   </npcSpecific>
   <trader>
+    <modTagsForSale>
+      <tag>SOLD_BY_DOLL_MAKER</tag>
+    </modTagsForSale>
   </trader>  
   <body>
     <bodyCore bodyMaterial="FLESH" bodySize="0" femininity="69" feral="false" genitalArrangement="NORMAL" height="170" muscle="100" piercedStomach="true" pubicHair="THREE_TRIMMED" takesAfterMother="true">
