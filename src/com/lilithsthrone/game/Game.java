@@ -4338,8 +4338,7 @@ public class Game implements XMLSaving {
 		}
 	}
 
- 
-	public List<NPC> getOffspring(boolean includeNotBorn) {
+	public List<NPC> getOffspring() {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
