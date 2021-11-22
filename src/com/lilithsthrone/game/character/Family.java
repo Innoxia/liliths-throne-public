@@ -19,23 +19,23 @@ public final class Family {
 	}
 
 	public static List<Litter> getLittersFathered(GameCharacter character) {
-		return litterMap.values().stream().filter(litter -> litter.getFather().equals(character)).collect(Collectors.toList());
+		return litterMap.values().stream().filter(litter -> character.equals(litter.getFather())).collect(Collectors.toList());
 	}
 	
 	public static List<Litter> getLittersMothered(GameCharacter character) {
-		return litterMap.values().stream().filter(litter -> litter.getMother().equals(character)).collect(Collectors.toList());
+		return litterMap.values().stream().filter(litter -> character.equals(litter.getMother())).collect(Collectors.toList());
 	}
 	
 	public static List<Litter> getLittersIncubated(GameCharacter character) {
-		return litterMap.values().stream().filter(litter -> litter.getIncubator().equals(character)).collect(Collectors.toList());
+		return litterMap.values().stream().filter(litter -> character.equals(litter.getIncubator())).collect(Collectors.toList());
 	}
 	
 	public static List<Litter> getLittersBirthed(GameCharacter character) {
-		return litterMap.values().stream().filter(litter -> litter.getMother().equals(character) && litter.getIncubatorId() == null).collect(Collectors.toList());
+		return litterMap.values().stream().filter(litter -> character.equals(litter.getMother()) && litter.getIncubatorId().isEmpty()).collect(Collectors.toList());
 	}
 	
 	public static List<Litter> getLittersImplanted(GameCharacter character) {
-		return litterMap.values().stream().filter(litter -> litter.getMother().equals(character) && litter.getIncubatorId() != null).collect(Collectors.toList());
+		return litterMap.values().stream().filter(litter -> character.equals(litter.getMother()) && !litter.getIncubatorId().isEmpty()).collect(Collectors.toList());
 	}
 	
 	public static Litter getLastLitterBirthed(GameCharacter character) {
