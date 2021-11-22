@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public final class Family {
 	public static final Map<Integer, Litter> litterMap = new TreeMap<>();
@@ -80,6 +81,10 @@ public final class Family {
 		return id;
 	}
 	
+	public static Litter addLitter(Litter litter, Integer id) {
+		return litterMap.put(id, litter);
+	}
+	
 	public static Litter getLitter(Integer id) {
 		if(id!=null) {
 			return litterMap.getOrDefault(id, null);
@@ -109,8 +114,12 @@ public final class Family {
 		return parentElement;
 	}
 	
-	public static Element loadAsXML(Element parentElement) {
-		//TODO Load all litters from save and set the atomic counter
-		return null;
+	public static Element loadFromXML(Element parentElement, Document doc) {
+		nextLitterId.set(Integer.parseInt(parentElement.getAttribute("atomicId")));
+		NodeList litters = parentElement.getElementsByTagName("litter");
+		for(int i = 0; i < litters.getLength(); i++) {
+			addLitter(Litter.loadFromXML((Element) litters.item(i), doc), Integer.valueOf(((Element) litters.item(i)).getAttribute("key")));
+		}
+		return parentElement;
 	}
 }
