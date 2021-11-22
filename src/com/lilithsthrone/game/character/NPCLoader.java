@@ -4,6 +4,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.ModNPC;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -146,15 +148,26 @@ public class NPCLoader {
                 final String idPrefix = modCharacterEntry.getKey();
                 final File npcFile = modCharacterEntry.getValue();
 
-                NPC npc = loadNPC(npcFile, idPrefix);
-                if (npc != null && !npcMap.containsKey(npc.getId())) {
+                ModNPC npc = (ModNPC)loadNPC(npcFile, idPrefix);
+                if (npc == null) {
+                    continue;
+                }
+
+                if (npcMap.containsKey(npc.getId())) {
+                    ModNPC npcSaved = (ModNPC)Main.game.getNpc(idPrefix);
+                    npcSaved.updateFromOrig(npc);
+                    npc = npcSaved;
+                } else {
                     try {
                         game.addNPC(npc, true);
-                        ParserTarget.addAdditionalParserTarget(idPrefix, npc);
                     } catch (Exception e) {
                         System.err.println("Unable to Add NPC: " + npcFile.getCanonicalPath());
                         e.printStackTrace();
                     }
+                }
+
+                if (ParserTarget.getParserTargetFromId(idPrefix, true) == null) {
+                    ParserTarget.addAdditionalParserTarget(idPrefix, npc);
                 }
             }
         }

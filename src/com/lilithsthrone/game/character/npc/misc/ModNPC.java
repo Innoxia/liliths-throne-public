@@ -90,6 +90,19 @@ public class ModNPC extends NPC {
         }
     }
 
+    /**
+     * Update some values that should not be saved as part of the game from the raw
+     * npc code.
+     *
+     * @param npc
+     */
+    public void updateFromOrig(ModNPC npc) {
+        trader = npc.trader;
+        itemsForSale = npc.itemsForSale;
+        clothingForSale = npc.clothingForSale;
+        weaponsForSale = npc.weaponsForSale;
+    }
+
     private void setupTraderInventory(final Element traderConfig) throws XMLLoadException {
 
         // Load ModTag values if there are any

@@ -3477,5 +3477,4 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return itemOwner.useItem(item, target, false);
 		}
 	}
-
 }

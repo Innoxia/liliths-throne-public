@@ -1293,9 +1293,15 @@ public class ParserTarget {
 	public static List<AbstractParserTarget> getAllParserTargets() {
 		return allParserTargets;
 	}
-	
+
 	public static AbstractParserTarget getParserTargetFromId(String id) {
-		id = Util.getClosestStringMatch(id, idToParserTargetMap.keySet());
+		return getParserTargetFromId(id, false);
+	}
+	
+	public static AbstractParserTarget getParserTargetFromId(String id, boolean exact) {
+		if (!exact) {
+			id = Util.getClosestStringMatch(id, idToParserTargetMap.keySet());
+		}
 		return idToParserTargetMap.get(id);
 	}
 
