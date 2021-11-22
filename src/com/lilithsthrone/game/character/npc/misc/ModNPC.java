@@ -101,6 +101,10 @@ public class ModNPC extends NPC {
         itemsForSale = npc.itemsForSale;
         clothingForSale = npc.clothingForSale;
         weaponsForSale = npc.weaponsForSale;
+
+        buyModifier = npc.buyModifier;
+        sellModifier = npc.sellModifier;
+        addedToContacts = npc.addedToContacts;
     }
 
     private void setupTraderInventory(final Element traderConfig) throws XMLLoadException {

@@ -39,7 +39,7 @@
   <npcSpecific>
     <lastTimeEncountered value="0" />
     <buyModifier value="0.5" />
-    <sellModifier value="50" />
+    <sellModifier value="2" />
     <addedToContacts value="false" />
     <NPCValues />
   </npcSpecific>

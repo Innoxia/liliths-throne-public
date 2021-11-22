@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <item>
     <coreAttributes>
-        <value>150000</value>
+        <value>1500000</value>
         <determiner><![CDATA[a]]></determiner>
         <name><![CDATA[master's antitdote]]></name>
         <namePlural pluralByDefault="false"><![CDATA[master's antidotes]]></namePlural>
