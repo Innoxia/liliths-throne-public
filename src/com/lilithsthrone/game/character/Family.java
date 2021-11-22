@@ -18,42 +18,22 @@ public final class Family {
 		return nextLitterId.get();
 	}
 
-	public static List<Litter> getLittersFathered(String character) {
-		return litterMap.values().stream().filter(litter -> litter.getFatherId().equals(character)).collect(Collectors.toList());
-	}
-
 	public static List<Litter> getLittersFathered(GameCharacter character) {
 		return litterMap.values().stream().filter(litter -> litter.getFather().equals(character)).collect(Collectors.toList());
 	}
 	
-	public static List<Litter> getLittersMothered(String character) {
-		return litterMap.values().stream().filter(litter -> litter.getMotherId().equals(character)).collect(Collectors.toList());
-	}
-
 	public static List<Litter> getLittersMothered(GameCharacter character) {
 		return litterMap.values().stream().filter(litter -> litter.getMother().equals(character)).collect(Collectors.toList());
 	}
 	
-	public static List<Litter> getLittersIncubated(String character) {
-		return litterMap.values().stream().filter(litter -> litter.getIncubatorId().equals(character)).collect(Collectors.toList());
-	}
-
 	public static List<Litter> getLittersIncubated(GameCharacter character) {
 		return litterMap.values().stream().filter(litter -> litter.getIncubator().equals(character)).collect(Collectors.toList());
 	}
 	
-	public static List<Litter> getLittersBirthed(String character) {
-		return litterMap.values().stream().filter(litter -> litter.getMotherId().equals(character) && litter.getIncubatorId() == null).collect(Collectors.toList());
-	}
-
 	public static List<Litter> getLittersBirthed(GameCharacter character) {
 		return litterMap.values().stream().filter(litter -> litter.getMother().equals(character) && litter.getIncubatorId() == null).collect(Collectors.toList());
 	}
 	
-	public static List<Litter> getLittersImplanted(String character) {
-		return litterMap.values().stream().filter(litter -> litter.getMotherId().equals(character) && litter.getIncubatorId() != null).collect(Collectors.toList());
-	}
-
 	public static List<Litter> getLittersImplanted(GameCharacter character) {
 		return litterMap.values().stream().filter(litter -> litter.getMother().equals(character) && litter.getIncubatorId() != null).collect(Collectors.toList());
 	}
