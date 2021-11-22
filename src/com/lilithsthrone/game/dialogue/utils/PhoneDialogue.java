@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -1982,17 +1983,17 @@ public class PhoneDialogue {
 			int offspringIncubatedCount=0;
 			
 			// Birthed with player as the mother:
-			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
+			for (Litter litter : Family.getLittersBirthed(Main.game.getPlayer())) {
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
 				daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 			}
 			// Birthed with player as the father:
-			for (Litter litter : Main.game.getPlayer().getLittersFathered()){
+			for (Litter litter : Family.getLittersFathered(Main.game.getPlayer())) {
 				sonsFathered+=(litter.isSelfImpregnation()?0:litter.getSonsFromMother()+litter.getSonsFromFather());
 				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
 			// Egg-incubated offspring who have been birthed:
-			for (Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+			for (Litter litter : Family.getLittersIncubated(Main.game.getPlayer())) {
 				for (String id : litter.getOffspring()) {
 					if (id.contains("NPCOffspring")) {
 						//NPCOffspring is always born
@@ -2011,7 +2012,7 @@ public class PhoneDialogue {
 				}
 			}
 			// Egg-implanted offspring who have been birthed:
-			for (Litter litter : Main.game.getPlayer().getLittersImplanted()) {
+			for (Litter litter : Family.getLittersImplanted(Main.game.getPlayer())) {
 				for (String id : litter.getOffspring()) {
 					if (id.contains("NPCOffspring")) {
 						//NPCOffspring is always born
@@ -2356,8 +2357,8 @@ public class PhoneDialogue {
 		
 		// Birthed:
 		
-		if(!Main.game.getPlayer().getLittersBirthed().isEmpty()) {
-			for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
+		if(!Family.getLittersBirthed(Main.game.getPlayer()).isEmpty()) {
+			for(Litter litter : Family.getLittersBirthed(Main.game.getPlayer())) {
 				String unknownName = "[style.colourDisabled(Unknown)]";
 				try {
 					String offspring0 = litter.getOffspring().iterator().next();
@@ -2389,8 +2390,8 @@ public class PhoneDialogue {
 			}
 			noPregnancies=false;
 		}
-		if(!Main.game.getPlayer().getLittersIncubated().isEmpty()) {
-			for(Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+		if(!Family.getLittersIncubated(Main.game.getPlayer()).isEmpty()) {
+			for(Litter litter : Family.getLittersIncubated(Main.game.getPlayer())) {
 				contentSB.append(pregnancyRow("[style.boldGood(Resolved)] [style.boldPurple(Incubation)]",
 						(litter.getMother()!=null
 							?(litter.getMother().isPlayer()
@@ -2410,7 +2411,7 @@ public class PhoneDialogue {
 		if(noPregnancies){
 			contentSB.append("<div class='subTitle'>"
 					+ "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() +
-					(Main.game.getPlayer().getLittersImplanted().isEmpty()
+					(Family.getLittersImplanted(Main.game.getPlayer()).isEmpty()
 					?";'>You have never been pregnant...</span>"
 					:";'>You have never given birth...</span>")
 					+ "</div>");
@@ -2469,7 +2470,7 @@ public class PhoneDialogue {
 			}
 			noPregnancies=false;
 		}
-		List<Litter> incubatorOngoingLitters = new ArrayList<>(Main.game.getPlayer().getLittersImplanted());
+		List<Litter> incubatorOngoingLitters = new ArrayList<>(Family.getLittersImplanted(Main.game.getPlayer()));
 		incubatorOngoingLitters.removeIf(npc -> npc.getIncubator()==null || npc.getIncubator().getIncubatingLitters().isEmpty());
 		Set<GameCharacter> incubatorCharacters = new HashSet<>();
 		for(Litter litter : incubatorOngoingLitters) {
@@ -2477,7 +2478,7 @@ public class PhoneDialogue {
 		}
 		for(GameCharacter incubator : incubatorCharacters) {
 			for(Entry<SexAreaOrifice, List<AbstractStatusEffect>> incubationEntry : incubationEffectMap.entrySet()) {
-				Litter litter = incubator.getIncubatingLitters().get(incubationEntry.getKey());
+				Litter litter = Family.getLitter(incubator.getIncubatingLitters().get(incubationEntry.getKey()));
 				if(litter!=null) {
 					if(incubator.hasStatusEffect(incubationEntry.getValue().get(0))
 							|| incubator.hasStatusEffect(incubationEntry.getValue().get(1))
@@ -2507,8 +2508,8 @@ public class PhoneDialogue {
 			}
 		}
 		
-		if(!Main.game.getPlayer().getLittersFathered().isEmpty()) {
-			for (Litter litter : Main.game.getPlayer().getLittersFathered()) {
+		if(!Family.getLittersFathered(Main.game.getPlayer()).isEmpty()) {
+			for (Litter litter : Family.getLittersFathered(Main.game.getPlayer())) {
 				String unknownName = "[style.colourDisabled(Unknown)]";
 				try {
 					String offspring0 = litter.getOffspring().iterator().next();
@@ -2541,8 +2542,8 @@ public class PhoneDialogue {
 			}
 			noPregnancies=false;
 		}
-		if(!Main.game.getPlayer().getLittersImplanted().isEmpty()) {
-			List<Litter> incubatorCompletedLitters = new ArrayList<>(Main.game.getPlayer().getLittersImplanted());
+		if(!Family.getLittersImplanted(Main.game.getPlayer()).isEmpty()) {
+			List<Litter> incubatorCompletedLitters = new ArrayList<>(Family.getLittersImplanted(Main.game.getPlayer()));
 			incubatorCompletedLitters.removeAll(incubatorOngoingLitters);
 			for (Litter litter : incubatorCompletedLitters) {
 				String unknownName = "[style.colourDisabled(Unknown)]";

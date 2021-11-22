@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -5547,7 +5548,7 @@ public class Body implements XMLSaving {
 			sectionAdded = true;
 		}
 		
-		if(!owner.getLittersBirthed().isEmpty()) {
+		if(!Family.getLittersBirthed(owner).isEmpty()) {
 			if(!sectionAdded) {
 				descriptionSB.append(getHeader("Pregnancy"));
 			} else {
@@ -5555,9 +5556,9 @@ public class Body implements XMLSaving {
 			}
 			descriptionSB.append(
 					"<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
-						+ "[npc.Name] has given birth "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+".</span>");
+						+ "[npc.Name] has given birth "+Util.intToString(Family.getLittersBirthed(owner).size())+" "+(Family.getLittersBirthed(owner).size()==1?"time":"times")+".</span>");
 			
-			for(Litter litter : owner.getLittersBirthed()) {
+			for(Litter litter : Family.getLittersBirthed(owner)) {
 				if(litter.getFather() == null) {
 					descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 							+", [npc.she] was impregnated, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] gave birth to ");
@@ -5598,10 +5599,10 @@ public class Body implements XMLSaving {
 			}
 		}
 		
-		if(!Main.game.getPlayer().getLittersBirthed().isEmpty()) {
+		if(!Family.getLittersBirthed(Main.game.getPlayer()).isEmpty()) {
 			int fatheredLitters = 0;
 			
-			for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
+			for(Litter litter : Family.getLittersBirthed(Main.game.getPlayer())) {
 				if(litter.getFather()!=null && litter.getFather().equals(owner)){
 					fatheredLitters++;
 				}
@@ -5616,7 +5617,7 @@ public class Body implements XMLSaving {
 				descriptionSB.append("<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
 							+ "[npc.Name] is the father of some of your children, and has, in total, impregnated you "+Util.intToString(fatheredLitters)+" "+(fatheredLitters==1?"time":"times")+".</span>");
 				
-				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
+				for(Litter litter : Family.getLittersBirthed(Main.game.getPlayer())) {
 					if(litter.getFather()!=null && litter.getFather().equals(owner)){
 						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 								+", [npc.she] impregnated you, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", you gave birth to "+litter.getBirthedDescription()+".");
@@ -5639,7 +5640,7 @@ public class Body implements XMLSaving {
 			sectionAdded = true;
 			descriptionSB.append(getHeader("Egg Incubation"));
 			int i=0;
-			for(Entry<SexAreaOrifice, Litter> entry : owner.getIncubatingLitters().entrySet()) {
+			for(Entry<SexAreaOrifice, Integer> entry : owner.getIncubatingLitters().entrySet()) {
 				if(i>0) {
 					descriptionSB.append("<br/>");
 				}
@@ -5707,7 +5708,7 @@ public class Body implements XMLSaving {
 					case URETHRA_VAGINA:
 						break;
 				}
-				GameCharacter mother = entry.getValue().getMother();
+				GameCharacter mother = Family.getLitter(entry.getValue()).getMother();
 				descriptionSB.append("<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>");
 					if(mother == null) {
 						descriptionSB.append("From one of [npc.her] sexual encounters, [npc.name] has has [npc.her] "+areaEgged+" filled with eggs.");
@@ -5723,7 +5724,7 @@ public class Body implements XMLSaving {
 			descriptionSB.append("</p>");
 		}
 		
-		if(!owner.getLittersIncubated().isEmpty()) {
+		if(!Family.getLittersIncubated(owner).isEmpty()) {
 			if(!sectionAdded) {
 				descriptionSB.append(getHeader("Egg Incubation"));
 			} else {
@@ -5732,11 +5733,11 @@ public class Body implements XMLSaving {
 			sectionAdded = true;
 				descriptionSB.append(
 						"<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
-							+ "[npc.Name] has incubated and laid eggs "+Util.intToString(owner.getLittersIncubated().size())+" "+(owner.getLittersIncubated().size()==1?"time":"times")+"."
+							+ "[npc.Name] has incubated and laid eggs "+Util.intToString(Family.getLittersIncubated(owner).size())+" "+(Family.getLittersIncubated(owner).size()==1?"time":"times")+"."
 						+ "</span>");
 
 				//Litter.getMother is the character who passed on the eggs to the incubator
-				for(Litter litter : owner.getLittersIncubated()) {
+				for(Litter litter : Family.getLittersIncubated(owner)) {
 					if(litter.getMother()==null) {
 						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 								+", [npc.she] was implanted with "+litter.getTotalLitterCount()+" eggs, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] laid and birthed ");
@@ -5761,8 +5762,9 @@ public class Body implements XMLSaving {
 		
 		if(!Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
 			List<String> areasEgged = new ArrayList<>();
-			for(Entry<SexAreaOrifice, Litter> entry : Main.game.getPlayer().getIncubatingLitters().entrySet()) {
-				if(entry.getValue().getMother()!=null && entry.getValue().getMother().equals(owner)) {
+			for(Entry<SexAreaOrifice, Integer> entry : Main.game.getPlayer().getIncubatingLitters().entrySet()) {
+				Litter litter = Family.getLitter(entry.getValue());
+				if(litter.getMother()!=null && litter.getMother().equals(owner)) {
 					String areaEgged = "";
 					switch(entry.getKey()) {
 						case ANUS:
@@ -5808,10 +5810,10 @@ public class Body implements XMLSaving {
 			}
 		}
 		
-		if(!Main.game.getPlayer().getLittersIncubated().isEmpty()) {
+		if(!Family.getLittersIncubated(Main.game.getPlayer()).isEmpty()) {
 			int incubatedLitters = 0;
 			
-			for(Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+			for(Litter litter : Family.getLittersIncubated(Main.game.getPlayer())) {
 				if(litter.getMother()!=null && litter.getMother().equals(owner)) {
 					incubatedLitters++;
 				}
@@ -5826,7 +5828,7 @@ public class Body implements XMLSaving {
 				descriptionSB.append("<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
 							+ "[npc.Name] is responsible for previously having laid [npc.her] eggs in you, and in total, [npc.sheHasFull] done so "+Util.intToString(incubatedLitters)+" "+(incubatedLitters==1?"time":"times")+".</span>");
 				
-				for(Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+				for(Litter litter : Family.getLittersIncubated(Main.game.getPlayer())) {
 					if(litter.getMother()!=null && litter.getMother().equals(owner)) {
 						descriptionSB.append("<br/>On "+Units.date(litter.getIncubationStartDate(), Units.DateType.LONG)
 								+", [npc.she] implanted a clutch of eggs in you, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", you laid and hatched "+litter.getBirthedDescription()+".");

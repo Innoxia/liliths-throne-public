@@ -21,6 +21,7 @@ import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -1059,13 +1060,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return false;
 		}
 
-		for(Litter litter : this.getIncubatingLitters().values()) {
+		for(Integer id : this.getIncubatingLitters().values()) {
+			Litter litter = Family.getLitter(id);
 			if((litter.getMother()!=null && litter.getMother().isPlayer()) || (litter.getFather()!=null && litter.getFather().isPlayer())) {
 				return false;
 			}
 		}
 
-		for(Litter litter : Main.game.getPlayer().getIncubatingLitters().values()) {
+		for(Integer id : Main.game.getPlayer().getIncubatingLitters().values()) {
+			Litter litter = Family.getLitter(id);
 			if((litter.getMother()!=null && litter.getMother().equals(this)) || (litter.getFather()!=null && litter.getFather().equals(this))) {
 				return false;
 			}

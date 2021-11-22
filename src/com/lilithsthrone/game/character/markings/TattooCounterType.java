@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.markings;
 import java.util.Objects;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -319,7 +320,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersBirthed()) {
+			for(Litter litter : Family.getLittersBirthed(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -330,7 +331,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersFathered()) {
+			for(Litter litter : Family.getLittersFathered(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -340,7 +341,7 @@ public enum TattooCounterType {
 	PREGNANCY("pregnancy", "Keeps a count of the bearer's completed pregnancies.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getLittersBirthed().size();
+			return Family.getLittersBirthed(bearer).size();
 		}
 	},
 	
@@ -354,7 +355,7 @@ public enum TattooCounterType {
 				}
 			}
 			
-			return potentials + bearer.getLittersFathered().size();
+			return potentials + Family.getLittersFathered(bearer).size();
 		}
 	},
 
@@ -362,7 +363,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersImplanted()) {
+			for(Litter litter : Family.getLittersImplanted(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -373,7 +374,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersIncubated()) {
+			for(Litter litter : Family.getLittersIncubated(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;

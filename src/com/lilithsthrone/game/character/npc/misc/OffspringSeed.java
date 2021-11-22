@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.body.Body;
@@ -100,8 +101,8 @@ public class OffspringSeed implements XMLSaving {
 			if(npc.getMother()!=null && npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 				carried = true;
 			} else if(npc.getIncubator()!=null) {
-				for (Map.Entry<SexAreaOrifice, Litter> entry : npc.getIncubator().getIncubatingLitters().entrySet()) {
-					Litter litter = entry.getValue();
+				for (Map.Entry<SexAreaOrifice, Integer> entry : npc.getIncubator().getIncubatingLitters().entrySet()) {
+					Litter litter = Family.getLitter(entry.getValue());
 					if (litter != null && litter.getOffspring().contains(npc.getId())) {
 						carried = true;
 						break;
@@ -109,16 +110,7 @@ public class OffspringSeed implements XMLSaving {
 				}
 			}
 			this.born = !carried;
-			
-			if(npc.getMother()!=null) {
-				npc.getMother().swapLitters(npc.getId(), osId);
-			}
-			if(npc.getFather()!=null){
-				npc.getFather().swapLitters(npc.getId(), osId);
-			}
-			if(npc.getIncubator()!=null){
-				npc.getIncubator().swapLitters(npc.getId(), osId);
-			}
+			Family.swapLitters(npc.getId(), osId);
 			
 			// Too slow to print
 //			if(Main.game.isDebugMode()) {
