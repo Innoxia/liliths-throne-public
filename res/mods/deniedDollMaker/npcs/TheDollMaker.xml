@@ -44,16 +44,25 @@
     <NPCValues />
   </npcSpecific>
   <trader>
-    <itemsForSale count="10">
+    <itemsForSale count="60">
       <modTags>
         <tag>SOLD_BY_DOLL_MAKER</tag>
       </modTags>
     </itemsForSale>
-    <clothingForSale count="40">
+    <clothingForSale count="30">
       <itemTags>
         <tag>SOLD_BY_FINCH</tag>
       </itemTags>
-      <effects>
+      <effects  allowDefaultRandom="true">
+        <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" type="CLOTHING"/>
+        <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" type="CLOTHING"/>
+      </effects>
+    </clothingForSale>
+    <clothingForSale count="30">
+      <itemTags>
+        <tag>SOLD_BY_FINCH</tag>
+      </itemTags>
+      <effects  maxRandom="5">
         <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" type="CLOTHING"/>
         <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" type="CLOTHING"/>
       </effects>

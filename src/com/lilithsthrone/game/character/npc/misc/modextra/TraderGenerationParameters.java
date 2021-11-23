@@ -9,12 +9,14 @@ import java.util.List;
  * Stores parameters that can be used by TraderForSale to output ItemType to generate.
  */
 public class TraderGenerationParameters<T extends AbstractCoreType> {
-    private T thingType;
-    private List<ItemEffect> itemEffects;
+    private final T thingType;
+    private final TraderForSale<T> sourceForSale;
+    private final int numberOfEffects;
 
-    public TraderGenerationParameters(T thingType, List<ItemEffect> itemEffects) {
+    public TraderGenerationParameters(final T thingType, final TraderForSale<T> sourceForSale, int numberOfEffects) {
         this.thingType = thingType;
-        this.itemEffects = itemEffects;
+        this.sourceForSale = sourceForSale;
+        this.numberOfEffects = numberOfEffects;
     }
 
     public T getThingType() {
@@ -22,6 +24,18 @@ public class TraderGenerationParameters<T extends AbstractCoreType> {
     }
 
     public List<ItemEffect> getItemEffects() {
-        return itemEffects;
+        return sourceForSale.getItemEffects();
+    }
+
+    public boolean isPositiveEffects() {
+        return sourceForSale.isPositiveEffects();
+    }
+
+    public boolean isAllowDefaultRandom() {
+        return sourceForSale.isAllowDefaultRandom();
+    }
+
+    public int getNumberOfEffects() {
+        return numberOfEffects;
     }
 }

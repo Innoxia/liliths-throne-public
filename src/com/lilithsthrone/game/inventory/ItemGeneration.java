@@ -299,6 +299,7 @@ public class ItemGeneration {
 		
 		TFModifier rndMod = attributeMods.get(Util.random.nextInt(attributeMods.size()));
 		attributeMods.remove(rndMod);
+
 		TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
 		
 		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.MAJOR_BOOST, 0));

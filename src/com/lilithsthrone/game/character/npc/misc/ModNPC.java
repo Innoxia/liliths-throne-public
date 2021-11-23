@@ -5,36 +5,22 @@ import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.modextra.TraderForSale;
+import com.lilithsthrone.game.character.npc.misc.modextra.TraderConfig;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.ItemGeneration;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import org.w3c.dom.Document;
 
 import java.time.Month;
-import java.util.List;
-import java.util.Optional;
 
 public class ModNPC extends NPC {
     private String modIdOverride = "";
-    private boolean trader = false;
 
-    private Optional<TraderForSale<AbstractItemType>> itemsForSale = Optional.empty();
-    private Optional<TraderForSale<AbstractClothingType>> clothingForSale = Optional.empty();
-    private Optional<TraderForSale<AbstractWeaponType>> weaponsForSale = Optional.empty();
+    private TraderConfig traderConfig;
 
     public ModNPC() {
         this(false);
@@ -58,7 +44,7 @@ public class ModNPC extends NPC {
 
     @Override
     public boolean isTrader() {
-        return trader;
+        return traderConfig != null;
     }
 
     @Override
@@ -78,12 +64,7 @@ public class ModNPC extends NPC {
         try {
             final Element xml = Element.getElement(parentElement, "", doc);
 
-            // Handle trading setup.
-            final Optional<Element> traderConfig = xml.getOptionalFirstOf("trader");
-            if (traderConfig.isPresent()) {
-                trader = true;
-                setupTraderInventory(traderConfig.get());
-            }
+            traderConfig = TraderConfig.loadFromXML(xml);
         } catch (XMLLoadException e) {
             System.err.println("Unable to load ModNPC: " + this.getName() + "[" + this.getId() + "]");
             e.printStackTrace();
@@ -97,55 +78,11 @@ public class ModNPC extends NPC {
      * @param npc
      */
     public void updateFromOrig(ModNPC npc) {
-        trader = npc.trader;
-        itemsForSale = npc.itemsForSale;
-        clothingForSale = npc.clothingForSale;
-        weaponsForSale = npc.weaponsForSale;
+        this.traderConfig = npc.traderConfig;
 
-        buyModifier = npc.buyModifier;
-        sellModifier = npc.sellModifier;
-        addedToContacts = npc.addedToContacts;
-    }
-
-    private void setupTraderInventory(final Element traderConfig) throws XMLLoadException {
-
-        // Load ModTag values if there are any
-        itemsForSale = traderConfig.getOptionalFirstOf("itemsForSale").map(
-                TraderForSale::loadFromXml
-        );
-        clothingForSale = traderConfig.getOptionalFirstOf("clothingForSale").map(
-                TraderForSale::loadFromXml
-        );
-        weaponsForSale = traderConfig.getOptionalFirstOf("weaponsForSale").map(
-                TraderForSale::loadFromXml
-        );
-
-        // TODO: Add explicit items later.
-    }
-
-    /**
-     * Updates the inventory of traders based on on rules in their config.
-     */
-    private void updateTraderInventory() {
-        clearNonEquippedInventory(false);
-
-        final ItemGeneration generation = Main.game.getItemGen();
-
-        // Add Items forSale
-        itemsForSale.ifPresent((forSale) -> forSale.getItemForSale(ItemType.getAllItems()).forEach(
-                (param) -> addItem(generation.generateItem(param.getThingType()))
-        ));
-
-        // Add clothing
-        clothingForSale.ifPresent((forSale) -> forSale.getItemForSale(ClothingType.getAllClothing()).forEach(
-                (param) -> addClothing(generation.generateClothing(
-                        param.getThingType(), (List<Colour>) null, param.getItemEffects()), false)
-        ));
-
-        // Add weapons
-        weaponsForSale.ifPresent((forSale) -> forSale.getItemForSale(WeaponType.getAllWeapons()).forEach(
-                (param) -> addWeapon(generation.generateWeapon(param.getThingType()), false)
-        ));
+        this.buyModifier = npc.buyModifier;
+        this.sellModifier = npc.sellModifier;
+        this.addedToContacts = npc.addedToContacts;
     }
 
     @Override
@@ -156,7 +93,7 @@ public class ModNPC extends NPC {
                 && inventory.getTotalItemCount() == 0
                 && inventory.getTotalClothingCount()  == 0
                 && inventory.getTotalItemCount() == 0) {
-            updateTraderInventory();
+            traderConfig.updateTraderInventory(this);
         }
         super.sortInventory();
     }
@@ -175,7 +112,7 @@ public class ModNPC extends NPC {
 
         // Only rewrite the inventory if the player is a trader
         if (isTrader()) {
-            updateTraderInventory();
+            traderConfig.updateTraderInventory(this);
         }
     }
 }
