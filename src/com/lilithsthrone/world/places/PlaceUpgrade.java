@@ -696,7 +696,7 @@ public class PlaceUpgrade {
 					+ " Although they're far more comfortable than regular milking machines, they appear to be designed more for show than practicality, and while your slaves are sure to be happy, milk output is a lot lower than normal.",
 			2500,
 			500,
-			2500,
+			500,
 			0,
 			1f,
 			0.5f,

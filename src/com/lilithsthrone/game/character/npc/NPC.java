@@ -1005,7 +1005,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
 			return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
 		} else {
-			return Math.round(job.getAffectionGain(hour, this)*100)/100f;
+			float overworkedPenalty = 1f;
+			if(this.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
+				overworkedPenalty = 0.5f;
+			} else if(this.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
+				overworkedPenalty = 0.2f;
+			} else if(this.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
+				overworkedPenalty = 0f;
+			}
+			float affectionGain = Math.round(job.getAffectionGain(hour, this)*100)/100f;
+			return Math.min(affectionGain, affectionGain*overworkedPenalty);
 		}
 	}
 	

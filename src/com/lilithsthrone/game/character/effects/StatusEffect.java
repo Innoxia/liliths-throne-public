@@ -2762,7 +2762,8 @@ public class StatusEffect {
 			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, -10f),
 					new Value<>(Attribute.MANA_MAXIMUM, -10f)),
 			Util.newArrayListOfValues("While working:",
-					"[style.boldBad(-0.05)] [style.colourAffection(Affection/hour)]",
+					"[style.boldBad(-50%)] [style.colourAffection(Affection Gain)]",
+					"[style.boldBad(-0.5)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-25%)] [style.colourExperience(experience)] gain chance")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2789,7 +2790,9 @@ public class StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, -25f),
 					new Value<>(Attribute.MANA_MAXIMUM, -25f)),
-			Util.newArrayListOfValues("[style.boldBad(-0.1)] [style.colourAffection(Affection/hour)]",
+			Util.newArrayListOfValues("While working:",
+					"[style.boldBad(-80%)] [style.colourAffection(Affection Gain)]",
+					"[style.boldBad(-1)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-50%)] [style.colourExperience(experience)] gain chance")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2816,7 +2819,9 @@ public class StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -50f),
 					new Value<>(Attribute.MANA_MAXIMUM, -50f)),
-			Util.newArrayListOfValues("[style.boldBad(-0.15)] [style.colourAffection(Affection/hour)]",
+			Util.newArrayListOfValues("While working:",
+					"[style.boldBad(Zero)] [style.colourAffection(Affection Gain)]",
+					"[style.boldBad(-2)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-75%)] [style.colourExperience(experience)] gain chance")) {
 		@Override
 		public String getDescription(GameCharacter target) {
