@@ -5,7 +5,7 @@ import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.modnpc.TraderForSale;
+import com.lilithsthrone.game.character.npc.misc.modextra.TraderForSale;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;

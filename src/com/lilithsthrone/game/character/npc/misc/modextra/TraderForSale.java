@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.character.npc.misc.modnpc;
+package com.lilithsthrone.game.character.npc.misc.modextra;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.inventory.AbstractCoreType;

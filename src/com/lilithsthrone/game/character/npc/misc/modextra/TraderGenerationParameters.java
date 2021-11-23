@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.character.npc.misc.modnpc;
+package com.lilithsthrone.game.character.npc.misc.modextra;
 
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
