@@ -53,7 +53,6 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.utils.colours.PresetColour;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @since 0.1.84
@@ -2540,6 +2539,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 */
 	@Override
 	public Set<ItemTag> getItemTags() {
-		throw new NotImplementedException();
+		throw new RuntimeException("Not Implemented.");
 	}
 }
