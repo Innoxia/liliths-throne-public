@@ -2301,7 +2301,7 @@ public abstract class GameCharacter implements XMLSaving {
 						if(!element.getAttribute("id").isEmpty()) {
 							character.setPregnantLitter(Integer.valueOf(element.getAttribute("id")));
 						} else {
-							character.setPregnantLitter(Family.addLitter(Litter.loadFromXML(element, doc)));
+							character.setPregnantLitter(Main.game.getFamily().addLitter(Litter.loadFromXML(element, doc)));
 						}
 						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Pregnant litter.");
 					}
@@ -2317,7 +2317,7 @@ public abstract class GameCharacter implements XMLSaving {
 							if(!e.getAttribute("id").isEmpty()) {
 								character.addIncubationLitter(SexAreaOrifice.valueOf(((Element)entryElements.item(i)).getAttribute("orifice")), Integer.valueOf(((Element)entryElements.item(i)).getAttribute("id")));
 							} else {
-								character.addIncubationLitter(SexAreaOrifice.valueOf(((Element)entryElements.item(i)).getAttribute("orifice")), Family.addLitter(Litter.loadFromXML(e, doc)));
+								character.addIncubationLitter(SexAreaOrifice.valueOf(((Element)entryElements.item(i)).getAttribute("orifice")), Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc)));
 							}
 						}
 					}
@@ -2332,7 +2332,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							Family.addLitter(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter birthed.");
 						}
 					}
@@ -2346,7 +2346,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							Family.addLitter(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter fathered.");
 						}
 					}
@@ -2360,7 +2360,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							Family.addLitter(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter incubated.");
 						}
 					}
@@ -2374,7 +2374,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							Family.addLitter(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter implanted.");
 						}
 					}
@@ -5255,7 +5255,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Set<GameCharacter> getChildren() {
 		HashSet<GameCharacter> result = new HashSet<>();
 
-		for(Litter litter : Family.getLittersBirthed(this)) {
+		for(Litter litter : Main.game.getFamily().getLittersBirthed(this)) {
 			for(String id : litter.getOffspring()) {
 				try {
 					result.add(Main.game.getNPCById(id));
@@ -5265,7 +5265,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 
-		for(Litter litter : Family.getLittersFathered(this)) {
+		for(Litter litter : Main.game.getFamily().getLittersFathered(this)) {
 			for(String id : litter.getOffspring()) {
 				try {
 					result.add(Main.game.getNPCById(id));
@@ -19382,7 +19382,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 				
-				pregnantLitter = Family.addLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, partner, offspring));
+				pregnantLitter = Main.game.getFamily().addLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, partner, offspring));
 				this.resetAllPregnancyReactions();
 			}
 		}
@@ -19469,8 +19469,8 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 				
-				pregnantLitter = Family.addLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, null, offspring));
-				Family.getLitter(pregnantLitter).setFatherRace(partnerSubspecies);
+				pregnantLitter = Main.game.getFamily().addLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, null, offspring));
+				Main.game.getFamily().getLitter(pregnantLitter).setFatherRace(partnerSubspecies);
 				this.resetAllPregnancyReactions();
 			}
 		}
@@ -19514,9 +19514,9 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!this.isPregnant()) {
 			return;
 		}
-
-		Family.getLitter(pregnantLitter).setBirthDate(Main.game.getDateNow());
-		Litter birthedLitter = Family.getLitter(pregnantLitter);
+		
+		Main.game.getFamily().getLitter(pregnantLitter).setBirthDate(Main.game.getDateNow());
+		Litter birthedLitter = Main.game.getFamily().getLitter(pregnantLitter);
 
 		if(withBirth) {
 			AbstractClothing c = getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
@@ -19754,7 +19754,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		potentialPartnersAsMother.clear();
 		
-		Litter implantedLitter = Family.getLitter(pregnantLitter);
+		Litter implantedLitter = Main.game.getFamily().getLitter(pregnantLitter);
 		
 		implantedLitter.setIncubatorId(target.getId());
 		implantedLitter.setIncubationStartDate(Main.game.getDateNow());
@@ -19815,7 +19815,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public Litter getPregnantLitter() {
-		return Family.getLitter(getPregnantLitterId());
+		return Main.game.getFamily().getLitter(getPregnantLitterId());
 	}
 	
 	public Integer getPregnantLitterId() {
@@ -19847,7 +19847,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public Map<SexAreaOrifice, Integer> getIncubatingLitters() {
 		HashMap litterMap = new HashMap();
 		for(Entry<SexAreaOrifice, Integer> entry : incubatingLitters.entrySet()) {
-			litterMap.put(entry.getKey(), Family.getLitter(entry.getValue()));
+			litterMap.put(entry.getKey(), Main.game.getFamily().getLitter(entry.getValue()));
 		}
 		return litterMap;
 	}
@@ -19864,7 +19864,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(orifice==SexAreaOrifice.MOUTH) {
 			orifice = SexAreaOrifice.ANUS;
 		}
-		return Family.getLitter(incubatingLitters.getOrDefault(orifice, null));
+		return Main.game.getFamily().getLitter(incubatingLitters.getOrDefault(orifice, null));
 	}
 	
 	public Integer getIncubationLitterId(SexAreaOrifice orifice) {

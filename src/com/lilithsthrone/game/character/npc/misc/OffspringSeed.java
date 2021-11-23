@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
-import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.body.Body;
@@ -102,7 +101,7 @@ public class OffspringSeed implements XMLSaving {
 				carried = true;
 			} else if(npc.getIncubator()!=null) {
 				for (Map.Entry<SexAreaOrifice, Integer> entry : npc.getIncubator().getIncubatingLitters().entrySet()) {
-					Litter litter = Family.getLitter(entry.getValue());
+					Litter litter = Main.game.getFamily().getLitter(entry.getValue());
 					if (litter != null && litter.getOffspring().contains(npc.getId())) {
 						carried = true;
 						break;
@@ -110,7 +109,7 @@ public class OffspringSeed implements XMLSaving {
 				}
 			}
 			this.born = !carried;
-			Family.swapLitters(npc.getId(), osId);
+			Main.game.getFamily().swapLitters(npc.getId(), osId);
 			
 			// Too slow to print
 //			if(Main.game.isDebugMode()) {

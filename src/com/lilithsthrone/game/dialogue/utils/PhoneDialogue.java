@@ -1,15 +1,34 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
-import com.lilithsthrone.game.character.attributes.*;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
+import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
+import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -23,7 +42,11 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
-import com.lilithsthrone.game.character.race.*;
+import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -57,10 +80,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
-
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 /**
  * @since 0.1.0
@@ -1983,17 +2002,17 @@ public class PhoneDialogue {
 			int offspringIncubatedCount=0;
 			
 			// Birthed with player as the mother:
-			for (Litter litter : Family.getLittersBirthed(Main.game.getPlayer())) {
+			for (Litter litter : Main.game.getFamily().getLittersBirthed(Main.game.getPlayer())) {
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
 				daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 			}
 			// Birthed with player as the father:
-			for (Litter litter : Family.getLittersFathered(Main.game.getPlayer())) {
+			for (Litter litter : Main.game.getFamily().getLittersFathered(Main.game.getPlayer())) {
 				sonsFathered+=(litter.isSelfImpregnation()?0:litter.getSonsFromMother()+litter.getSonsFromFather());
 				daughtersFathered+=(litter.isSelfImpregnation()?0:litter.getDaughtersFromMother()+litter.getDaughtersFromFather());
 			}
 			// Egg-incubated offspring who have been birthed:
-			for (Litter litter : Family.getLittersIncubated(Main.game.getPlayer())) {
+			for (Litter litter : Main.game.getFamily().getLittersIncubated(Main.game.getPlayer())) {
 				for (String id : litter.getOffspring()) {
 					if (id.contains("NPCOffspring")) {
 						//NPCOffspring is always born
@@ -2012,7 +2031,7 @@ public class PhoneDialogue {
 				}
 			}
 			// Egg-implanted offspring who have been birthed:
-			for (Litter litter : Family.getLittersImplanted(Main.game.getPlayer())) {
+			for (Litter litter : Main.game.getFamily().getLittersImplanted(Main.game.getPlayer())) {
 				for (String id : litter.getOffspring()) {
 					if (id.contains("NPCOffspring")) {
 						//NPCOffspring is always born
@@ -2357,8 +2376,8 @@ public class PhoneDialogue {
 		
 		// Birthed:
 		
-		if(!Family.getLittersBirthed(Main.game.getPlayer()).isEmpty()) {
-			for(Litter litter : Family.getLittersBirthed(Main.game.getPlayer())) {
+		if(!Main.game.getFamily().getLittersBirthed(Main.game.getPlayer()).isEmpty()) {
+			for(Litter litter : Main.game.getFamily().getLittersBirthed(Main.game.getPlayer())) {
 				String unknownName = "[style.colourDisabled(Unknown)]";
 				try {
 					String offspring0 = litter.getOffspring().iterator().next();
@@ -2390,8 +2409,8 @@ public class PhoneDialogue {
 			}
 			noPregnancies=false;
 		}
-		if(!Family.getLittersIncubated(Main.game.getPlayer()).isEmpty()) {
-			for(Litter litter : Family.getLittersIncubated(Main.game.getPlayer())) {
+		if(!Main.game.getFamily().getLittersIncubated(Main.game.getPlayer()).isEmpty()) {
+			for(Litter litter : Main.game.getFamily().getLittersIncubated(Main.game.getPlayer())) {
 				contentSB.append(pregnancyRow("[style.boldGood(Resolved)] [style.boldPurple(Incubation)]",
 						(litter.getMother()!=null
 							?(litter.getMother().isPlayer()
@@ -2411,7 +2430,7 @@ public class PhoneDialogue {
 		if(noPregnancies){
 			contentSB.append("<div class='subTitle'>"
 					+ "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() +
-					(Family.getLittersImplanted(Main.game.getPlayer()).isEmpty()
+					(Main.game.getFamily().getLittersImplanted(Main.game.getPlayer()).isEmpty()
 					?";'>You have never been pregnant...</span>"
 					:";'>You have never given birth...</span>")
 					+ "</div>");
@@ -2470,7 +2489,7 @@ public class PhoneDialogue {
 			}
 			noPregnancies=false;
 		}
-		List<Litter> incubatorOngoingLitters = new ArrayList<>(Family.getLittersImplanted(Main.game.getPlayer()));
+		List<Litter> incubatorOngoingLitters = new ArrayList<>(Main.game.getFamily().getLittersImplanted(Main.game.getPlayer()));
 		incubatorOngoingLitters.removeIf(npc -> npc.getIncubator()==null || npc.getIncubator().getIncubatingLitters().isEmpty());
 		Set<GameCharacter> incubatorCharacters = new HashSet<>();
 		for(Litter litter : incubatorOngoingLitters) {
@@ -2478,7 +2497,7 @@ public class PhoneDialogue {
 		}
 		for(GameCharacter incubator : incubatorCharacters) {
 			for(Entry<SexAreaOrifice, List<AbstractStatusEffect>> incubationEntry : incubationEffectMap.entrySet()) {
-				Litter litter = Family.getLitter(incubator.getIncubatingLitters().get(incubationEntry.getKey()));
+				Litter litter = Main.game.getFamily().getLitter(incubator.getIncubatingLitters().get(incubationEntry.getKey()));
 				if(litter!=null) {
 					if(incubator.hasStatusEffect(incubationEntry.getValue().get(0))
 							|| incubator.hasStatusEffect(incubationEntry.getValue().get(1))
@@ -2508,8 +2527,8 @@ public class PhoneDialogue {
 			}
 		}
 		
-		if(!Family.getLittersFathered(Main.game.getPlayer()).isEmpty()) {
-			for (Litter litter : Family.getLittersFathered(Main.game.getPlayer())) {
+		if(!Main.game.getFamily().getLittersFathered(Main.game.getPlayer()).isEmpty()) {
+			for (Litter litter : Main.game.getFamily().getLittersFathered(Main.game.getPlayer())) {
 				String unknownName = "[style.colourDisabled(Unknown)]";
 				try {
 					String offspring0 = litter.getOffspring().iterator().next();
@@ -2542,8 +2561,8 @@ public class PhoneDialogue {
 			}
 			noPregnancies=false;
 		}
-		if(!Family.getLittersImplanted(Main.game.getPlayer()).isEmpty()) {
-			List<Litter> incubatorCompletedLitters = new ArrayList<>(Family.getLittersImplanted(Main.game.getPlayer()));
+		if(!Main.game.getFamily().getLittersImplanted(Main.game.getPlayer()).isEmpty()) {
+			List<Litter> incubatorCompletedLitters = new ArrayList<>(Main.game.getFamily().getLittersImplanted(Main.game.getPlayer()));
 			incubatorCompletedLitters.removeAll(incubatorOngoingLitters);
 			for (Litter litter : incubatorCompletedLitters) {
 				String unknownName = "[style.colourDisabled(Unknown)]";

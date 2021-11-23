@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -116,7 +115,7 @@ public class NPCOffspring extends NPC {
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 		
 		String npcId = Main.game.safeAddNPC(this, false);
-		Family.swapLitters(os.getId(), npcId);
+		Main.game.getFamily().swapLitters(os.getId(), npcId);
 		Main.game.getOffspring().add(this);
 		Main.game.removeOffspringSeed(os);
 	}

@@ -3,7 +3,6 @@ package com.lilithsthrone.game.character.markings;
 import java.util.Objects;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -320,7 +319,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : Family.getLittersBirthed(bearer)) {
+			for(Litter litter : Main.game.getFamily().getLittersBirthed(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -331,7 +330,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : Family.getLittersFathered(bearer)) {
+			for(Litter litter : Main.game.getFamily().getLittersFathered(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -341,7 +340,7 @@ public enum TattooCounterType {
 	PREGNANCY("pregnancy", "Keeps a count of the bearer's completed pregnancies.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return Family.getLittersBirthed(bearer).size();
+			return Main.game.getFamily().getLittersBirthed(bearer).size();
 		}
 	},
 	
@@ -355,7 +354,7 @@ public enum TattooCounterType {
 				}
 			}
 			
-			return potentials + Family.getLittersFathered(bearer).size();
+			return potentials + Main.game.getFamily().getLittersFathered(bearer).size();
 		}
 	},
 
@@ -363,7 +362,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : Family.getLittersImplanted(bearer)) {
+			for(Litter litter : Main.game.getFamily().getLittersImplanted(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -374,7 +373,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : Family.getLittersIncubated(bearer)) {
+			for(Litter litter : Main.game.getFamily().getLittersIncubated(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;

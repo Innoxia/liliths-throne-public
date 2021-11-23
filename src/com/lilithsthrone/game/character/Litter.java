@@ -47,7 +47,7 @@ public class Litter implements XMLSaving {
 	private AbstractSubspecies fatherRace;
 
 	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<OffspringSeed> offspring) {
-		this.id = mother.getId()+Family.getId();
+		this.id = mother.getId()+Main.game.getFamily().getId();
 		
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);

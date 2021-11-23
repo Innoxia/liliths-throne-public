@@ -15,7 +15,6 @@ import java.util.Properties;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -147,7 +146,6 @@ public class OptionsDialogue {
 								Main.mainController.setButtonsLeftContent("");
 								Main.mainController.setButtonsRightContent("");
 								Main.game.setRenderMap(false);
-								Family.resetMap();
 								Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 								confirmNewGame = false;
 							}
