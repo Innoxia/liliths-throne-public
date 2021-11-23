@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public final class Family {
-	public static final Map<Integer, Litter> litterMap = new TreeMap<>();
+	private static final Map<Integer, Litter> litterMap = new TreeMap<>();
 	private static final AtomicInteger nextLitterId = new AtomicInteger();
 	
 	public static Integer getId() {
@@ -62,6 +62,9 @@ public final class Family {
 	}
 	
 	public static Litter addLitter(Litter litter, Integer id) {
+		if(id > nextLitterId.get()) {
+			nextLitterId.set(id);
+		}
 		return litterMap.put(id, litter);
 	}
 	
@@ -95,11 +98,21 @@ public final class Family {
 	}
 	
 	public static Element loadFromXML(Element parentElement, Document doc) {
-		nextLitterId.set(Integer.parseInt(parentElement.getAttribute("atomicId")));
+		resetMap();
+		if(!parentElement.getAttribute("atomicId").isEmpty()) {
+			nextLitterId.set(Integer.parseInt(parentElement.getAttribute("atomicId")));
+		}
 		NodeList litters = parentElement.getElementsByTagName("litter");
 		for(int i = 0; i < litters.getLength(); i++) {
-			addLitter(Litter.loadFromXML((Element) litters.item(i), doc), Integer.valueOf(((Element) litters.item(i)).getAttribute("key")));
+			if(!((Element) litters.item(i)).getAttribute("key").isEmpty()) {
+				addLitter(Litter.loadFromXML((Element) litters.item(i), doc), Integer.valueOf(((Element) litters.item(i)).getAttribute("key")));
+			}
 		}
 		return parentElement;
+	}
+	
+	public static void resetMap() {
+		litterMap.clear();
+		nextLitterId.set(0);
 	}
 }

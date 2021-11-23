@@ -1062,6 +1062,8 @@ public class Game implements XMLSaving {
 				if(debug) {
 					System.out.println("Player finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
+				
+				Family.loadFromXML(gameElement, doc);
 
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
