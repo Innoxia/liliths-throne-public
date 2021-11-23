@@ -16,6 +16,16 @@ import java.util.Map.Entry;
 
 public class PluginHashes {
     private static final byte VERSION = 1;
+    
+    // File format for hashlist:
+    // byte version;
+    // int32 hashes.length;
+    // hashes: {
+    //    int32 str.length;
+    //    byte[] utf8-encoded modID
+    //    int32 hash.length
+    //    byte[] hash
+    // }
 
     HashMap<String, byte[]> hashes = null;
     Path pluginHashesPath = Path.of("data", "pluginhashes.dat");
@@ -105,7 +115,7 @@ public class PluginHashes {
         if(mod.pluginHash==null)
             mod.pluginHash = this.checksumOfFile(mod.pluginJar);
         if (hashes.containsKey(mod.id)) {
-            if (mod.pluginHash == hashes.get(mod.pluginJar.toString()) {
+            if (mod.pluginHash == hashes.get(mod.id)) {
                 return EJarIntegrityResult.OK;
             }
             return EJarIntegrityResult.CHANGED;
@@ -122,7 +132,7 @@ public class PluginHashes {
         checkLoaded();
         if (mod.pluginHash == null)
             mod.pluginHash = this.checksumOfFile(mod.pluginJar);
-        hashes.put(mod.pluginJar.toString(), mod.pluginHash);
+        hashes.put(mod.id.toString(), mod.pluginHash);
     }
 
     private byte[] checksumOfFile(File filename) {

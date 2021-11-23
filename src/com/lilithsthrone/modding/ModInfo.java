@@ -5,29 +5,38 @@ package com.lilithsthrone.modding;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Stream;
+
+import com.lilithsthrone.controller.ModController;
+import com.lilithsthrone.main.Main;
+import com.vdurmont.semver4j.Semver;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.lilithsthrone.controller.ModController;
-import com.lilithsthrone.main.Main;
-import com.vdurmont.semver4j.Semver;
-
 /**
  * Mod metadata.
+ * Legacy mods use LegacyModInfo.
+ * 
  * @author Anonymous-BCFED
- *
+ * @since FIXME
  */
 public class ModInfo {
+    
+    private static final int MAX_FILE_SEARCH_DEPTH = 999; // TODO: Discuss and adjust
+
     public String id = "";
     public String name = "";
     public Semver version = new Semver("0.0.0");
@@ -43,6 +52,8 @@ public class ModInfo {
     public File modDir = null;
     public File pluginJar = null;
     public byte[] pluginHash = null;
+
+    public Map<String, GameResource> files = new HashMap<>();
     
     public static ModInfo loadFromXML(Element parentElement, Document doc) {
         /*
@@ -108,11 +119,6 @@ public class ModInfo {
     }
 
     /**
-     * TODO: Implement
-     */
-	public void loadModXML(ModController mc) {}
-
-    /**
      * Loads plugin from JAR.
      */
     public void loadPlugin(ModController mc) {
@@ -129,44 +135,21 @@ public class ModInfo {
                     continue;
                 String className = entry.getName().substring(0, entry.getName().length() - 6);
                 className = className.replace('/', '.');
-                Class cls = cl.loadClass(className);
+                Class<?> cls = cl.loadClass(className);
                 if(BasePlugin.class.isAssignableFrom(cls)) {
                     // Could throw SecurityException, NoSuchMethodException
-                    this.plugin = (BasePlugin) cls.getConstructor(null).newInstance(null);
+                    this.plugin = (BasePlugin) cls.getConstructor(new Class<?>[]{}).newInstance(new Object[]{});
                     break;
                 }
             }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
         } finally {
             if(jarFile!=null) {
                 try {
                     jarFile.close();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    e.printStackTrace(System.err);
                 }
             }
         }
@@ -177,6 +160,70 @@ public class ModInfo {
 
         // Cast magic:
         doc.getDocumentElement().normalize();
+
         return ModInfo.loadFromXML(doc.getDocumentElement(), doc);
+    }
+
+    /**
+     * Populate local file manifests.
+     * @param modController
+     */
+    public void populateFileManifest(ModController modController) {
+        // Streams are a lot more efficient and can handle massive numbers of files.
+        try(Stream<Path> files = Files.find(modDir.toPath(), MAX_FILE_SEARCH_DEPTH, (p, bfa) -> bfa.isRegularFile())) {
+            files.forEach((Path path) -> {
+                try {
+                    GameResource rsc = new GameResource();
+                    rsc.file = path.toFile();
+                    rsc.id = null;
+                    rsc.mod = this;
+                    for(EResourceType ert : EResourceType.values()) {
+                        if(ert.resourceMatches(rsc)) {
+                            rsc.type = ert;
+                            break;
+                        }
+                    }
+                    rsc.id = this.generateFileID(rsc);
+                    this.files.put(rsc.id, rsc);
+                } catch(Exception e) {
+                    System.err.println(String.format("Error when attempting to populate resource list for the mod \"%s\":", this.id));
+                    System.err.println(String.format("(File: %s)", path.toString()));
+                    e.printStackTrace(System.err);
+                }
+            });
+        } catch(Exception e) {
+            System.err.println(String.format("Error when attempting to populate resource list for the mod \"%s\":", this.id));
+            e.printStackTrace(System.err);
+        }
+    }
+
+    protected String generateFileID(GameResource rsc) {
+        // OLD METHOD: (idPrefix!=null?idPrefix:"")+innerChild.getName().split("\\.")[0]; + whatever is going on in Utils.populateFileMaps.
+        // OLD RESULT: {modID}_[{subpath_entry}_[{subpath_entry}_...]]{file basename} plus some additional stuff in each type class. 
+        // The newer method is a bit cleaner, more consistent, and overridable.
+        Path path = rsc.file.toPath();
+        Path relPath = rsc.getRelativePath();
+
+        String baseID = path.getFileName().toString().split("\\.")[0];
+
+        ArrayList<String> idChunks = new ArrayList<String>();
+
+        idChunks.add(this.getIdPrefix());
+
+        // Start at the base of searchDir.
+        int startPos = Path.of(rsc.type.getSearchDir()).getNameCount();
+        for(int i = startPos; i < relPath.getNameCount(); i++) {
+            // Add any subdirs we're in to the ID.
+            idChunks.add(relPath.getName(i).toString());
+        }
+        idChunks.add(baseID);
+        return String.join("_", idChunks);
+    }
+
+    /**
+     * Outputs the prefix to apply to a resource's ID.
+     */
+    protected String getIdPrefix() {
+        return this.id;
     }
 }

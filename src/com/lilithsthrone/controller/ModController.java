@@ -1,8 +1,11 @@
 package com.lilithsthrone.controller;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.main.Main;
@@ -12,6 +15,8 @@ import com.lilithsthrone.modding.ModInfo;
 import com.lilithsthrone.modding.ModSpec;
 import com.lilithsthrone.modding.PluginHashes;
 import com.lilithsthrone.modding.EJarIntegrityResult;
+import com.lilithsthrone.modding.EResourceType;
+import com.lilithsthrone.modding.GameResource;
 import com.vdurmont.semver4j.Semver;
 
 import org.xml.sax.SAXException;
@@ -48,9 +53,11 @@ public class ModController {
     public HashMap<String, ModInfo> modList;
     public PluginHashes pluginHashes = new PluginHashes();
     
-    public HashSet<String> jarHashesChanged = new HashSet<String>();
-    public HashSet<String> jarHashesNew = new HashSet<String>();
-    public HashSet<String> modsLoadable = new HashSet<String>();
+    private HashSet<String> jarHashesChanged = new HashSet<String>();
+    private HashSet<String> jarHashesNew = new HashSet<String>();
+    private HashSet<String> modsLoadable = new HashSet<String>();
+
+    private Map<String, File> flattenedModFiles = new HashMap<>();
     
     public ModController() {
         this.modList = new HashMap<String, ModInfo>();
@@ -58,6 +65,7 @@ public class ModController {
     }
     
     public void load() {
+        // Load metadata ONLY.
     	loadOldMods(); // TODO: Deprecate
         loadNewMods();
 
@@ -78,7 +86,8 @@ public class ModController {
             Alert a = new Alert(AlertType.WARNING, 
                 "Several mods with plugins have been changed and/or added to your game's mods/ directory.\n\n"
                 + "Plugins allow modders to add or remove features that need accompanying code, but this code can also be DANGEROUS.\n\n"
-                + "DO YOU TRUST THESE MODS?",
+                + changes
+                + "DO YOU TRUST THESE MODS?\n",
                 ButtonType.YES,
                 ButtonType.NO);
 			System.err.println("New or changed Jars.");
@@ -93,8 +102,21 @@ public class ModController {
             return;
         }
 
-        for(ModInfo mod : modList) {
-            mod.loadXML(this);
+        // Collect built-ins
+
+        // Now we load JARs so types are populated.
+        for(ModInfo mod : modList.values()) {
+            if(modsLoadable.contains(mod.id) && mod.hasPlugin()) {
+                System.out.println(String.format("Loading plugins for mod %s...", mod.id));
+                mod.loadPlugin(this);
+            }
+        }
+
+        for(ModInfo mod : modList.values()) {
+            if(modsLoadable.contains(mod.id)) {
+                System.out.println(String.format("Populating file manifest for mod %s...", mod.id));
+                mod.populateFileManifest(this);
+            }
         }
     }
 
@@ -134,7 +156,7 @@ public class ModController {
                 modInfo.modDir = modDir;
                 this.addMod(modInfo);
                 System.out.println(String.format(
-                    "WARNING: Mod {0} is of an older format. This may not be loadable",
+                    "WARNING: Mod %s is of an older format. This may not be loadable in the future. The mod author should consider upgrading.",
                     modInfo.id));
             }
         }
@@ -154,7 +176,7 @@ public class ModController {
             File modXMLFile = new File(modSubDir, "mod.xml");
             if(!modXMLFile.isFile()) {
                 System.out.println(String.format(
-                    "WARNING: Mod in folder {0} not loaded (mod.xml missing).",
+                    "WARNING: Mod in folder %s not loaded (mod.xml missing).",
                     modSubDir.toString()
                 ));
             }
@@ -190,4 +212,20 @@ public class ModController {
         }
     }
     
+    /**
+     * Get a list of all available GameResources by type.
+     * 
+     * @param type The type of resource to find.
+     * @return A List of found resources.
+     */
+    public List<GameResource> getAllResourcesOfType(EResourceType type) {
+        List<GameResource> resources = new ArrayList<GameResource>();
+        for(ModInfo mod : this.modList.values()) {
+            for(GameResource gr : mod.files.values()){
+                if(gr.type == type)
+                    resources.add(gr);
+            }
+        }
+        return resources;
+    }
 }

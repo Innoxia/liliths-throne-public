@@ -3,6 +3,9 @@ package com.lilithsthrone.modding;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.vdurmont.semver4j.Semver;
 
 public class ModSpec {
@@ -45,15 +48,22 @@ public class ModSpec {
 		return ms;
 	}
 	
+	private final Pattern PATTERN_VERSION = Pattern.compile("^([<>=]{1,2}) ?(\\d+\\..+)$")
+
 	public void setVersionSpec(String value) {
 		// 1.2.3
 		// >1.2.3
-		for(ComparisonType ct : ComparisonType.values()) {
-			if(value.startsWith(ct.symbol)) {
-				this.version = new Semver(value.substring(ct.symbol.length()).strip());
-				this.comparator = ct;
+		Matcher m = PATTERN_VERSION.matcher(value);
+		if(m != null && m.matches()) {
+			String comparatorStr = m.group(1);
+			String versionStr = m.group(2);
+			for(ComparisonType ct : ComparisonType.values()) {
+				if(comparatorStr.equals(ct.symbol)) {
+					this.version = new Semver(versionStr);
+					this.comparator = ct;
+					return;
+				}
 			}
-			return;
 		}
 		this.version = new Semver(value.strip());
 		this.comparator = ComparisonType.EQUAL;

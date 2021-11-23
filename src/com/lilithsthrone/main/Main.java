@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
+import com.lilithsthrone.controller.ModController;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
 import com.lilithsthrone.game.PropertyValue;
@@ -505,6 +506,9 @@ public class Main extends Application {
 		
 	}
 
+	/**
+	 * Tell user to restart, then close the game.
+	 */
 	public static void restartProcess() {
 		// TODO: We can't use a traditional restart because of all the JFX module declarations
 		//  we'd have to figure out for OpenJFX on Linux/MacOSX.
