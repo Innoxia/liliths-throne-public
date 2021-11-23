@@ -107,7 +107,7 @@ public enum EResourceType {
     public String getIdPrefix() {
         return idPrefix;
     }
-    public String getSearchDir() {
+    public Path getSearchDir() {
         return searchDir;
     }
     public String getXMLRootFilter() {
@@ -123,12 +123,31 @@ public enum EResourceType {
         
         assert this.searchDir != null;
 
-        Path rscPath = rsc.getAbsolutePath();
-        Path relPath = rsc.getRelativePath();
+        Path rscPath = rsc.getAbsolutePath(); // /home/user/liliths-throne-public/dist/mods/myMod/items/clothing/cooltshirt.xml
+        Path relPath = rsc.getRelativePath(); // /items/clothing/cooltshirt.xml
 
+        // Before, each type of mod XML was scanned for by Utils.populateMapFiles. 
+        // It scanned res/mods, then a directory inside res/mods (author), then a directory inside that (modID).
+        // The result was usually something like {author}_{fileSubpath.replace("/","_")}_{baseID}.
+        // Now each mod scans its own files and each mod is checked against a set of rules defined above.
+
+        // All known XMLs check for their XMLs inside of a certain subdirectory.
         if(!relPath.startsWith(this.searchDir+"/"))
             return false;
 
-        if(this.idPrefix != null && )
+        // Check for ID prefix, if needed.
+        if(this.idPrefix != null && !rsc.id.startsWith(this.idPrefix+"_"))
+            return false;
+
+        // If idMustMatch is set, check if the resource ID is equal to the search ID
+        if(this.idMustMatch != null && !rsc.id.equals(this.idMustMatch))
+            return false;
+
+        if(!this.xmlRootFilter!=null) {
+            if(Utils.getXmlRootElementName(rsc.file) != this.xmlRootFilter)
+                return false;
+        }
+
+        return true;
     }
 }
