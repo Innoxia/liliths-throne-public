@@ -45,6 +45,7 @@
             <tag>SUBMISSION_TUNNEL_SPAWN</tag>
             <tag>BAT_CAVERNS_SPAWN</tag>
             <tag>ATTRIBUTE_TF_ITEM</tag>
+            <tag>NOT_FOR_SALE</tag>
         </itemTags>
         <modTags>
             <tag>SOLD_BY_DOLL_MAKER</tag>
