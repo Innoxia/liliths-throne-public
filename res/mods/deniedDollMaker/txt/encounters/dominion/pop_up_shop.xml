@@ -20,4 +20,57 @@
         #ENDIF
     </p>
     ]]></htmlContent>
+
+    <htmlContent tag="BLOCKED"><![CDATA[
+        <p>
+            As you force your way closer to the shop, a female lion-morph bursts through the shop's door with purple
+            sparks of arcane power crackling around her body. [deniedDollMaker_TheDollMaker.speech(You would dare
+            cross this barrier?)] Her eyes scan the alley way and lock with your own.
+        </p>
+        <p>
+            [deniedDollMaker_TheDollMaker.speech(You!)] The word comes out a more of a roar than human speech.
+        </p>
+    ]]></htmlContent>
+
+    <htmlContent tag="DOLLMAKER_WON"><![CDATA[
+        <p>
+            [deniedDollMaker_TheDollMaker.speech(If I needed another slave, I'd collar you right now. It so happens I
+            don't. On the other hand, I can't leave your insolence unpunished either.)] She looks at your for a moment,
+            contemplating her options.
+        </p>
+        <p>
+            [deniedDollMaker_TheDollMaker.speech(Perhaps a taste of what you're missing.)] There's a little blue pill
+            in her hand that you realizes se is about to force you to swallow.
+        </p>
+    ]]></htmlContent>
+
+    <htmlContent tag="DOLLMAKER_WON_RESISTED"><![CDATA[
+        <p>[deniedDollMaker_TheDollMaker.speech(A pitty)] She growls and disappears, along with her shop, in a puff of
+        purple smoke.</p>
+    ]]></htmlContent>
+
+    <htmlContent tag="DOLLMAKER_WON_SWALLOWED"><![CDATA[
+        <p>
+            The little blue pill easily slides down your throat, and after only a few moments you [pc.verb(feel)] a
+            pulsing warmth taking root deep within your loins. An arcane glow surrounds you for a moment crotch and then
+            fades away. You have the feeling that you've lost something that was very important to you.</p>
+        <p>
+            [deniedDollMaker_TheDollMaker.speech(Now that that's over with, you're welcome to come inside and look
+            around!)]
+        </p>
+    ]]></htmlContent>
+
+    <!-- TODO: Expand on this -->
+    <htmlContent tag="DOLLMAKER_LOST"><![CDATA[
+        <p>
+            [deniedDollMaker_TheDollMaker.speech(You're a better fighter than I expected, but it doesn't matter.)]
+            She growls as The Doll Maker and her shop disappear in a puff of purple smoke.
+        </p>
+    ]]></htmlContent>
+
+    <!-- TODO: Need a real description of the interior -->
+    <htmlContent tag="INSIDE"><![CDATA[
+        <p></p>
+    ]]></htmlContent>
+
 </dialogue>

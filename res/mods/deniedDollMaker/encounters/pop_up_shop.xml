@@ -6,10 +6,10 @@
 
     <possibleEncounters>
         <encounter>
-            <name>pop up shop</name>
+            <name>Pop Up Shop</name>
 
             <!-- High for testing -->
-            <chanceToTrigger opportunisticEncounter="true">15</chanceToTrigger>
+            <chanceToTrigger opportunisticEncounter="true">100</chanceToTrigger>
             <dialogueReturned>deniedDollMaker_encounters_dominion_alleys_pop_up_shop_start</dialogueReturned>
         </encounter>
     </possibleEncounters>

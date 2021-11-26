@@ -71,20 +71,6 @@ public class ModNPC extends NPC {
         }
     }
 
-    /**
-     * Update some values that should not be saved as part of the game from the raw
-     * npc code.
-     *
-     * @param npc
-     */
-    public void updateFromOrig(ModNPC npc) {
-        this.traderConfig = npc.traderConfig;
-
-        this.buyModifier = npc.buyModifier;
-        this.sellModifier = npc.sellModifier;
-        this.addedToContacts = npc.addedToContacts;
-    }
-
     @Override
     public void sortInventory() {
         // Make sure that a trader's inventory is updated on first open.

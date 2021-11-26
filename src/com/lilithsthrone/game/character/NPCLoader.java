@@ -148,27 +148,30 @@ public class NPCLoader {
                 final String idPrefix = modCharacterEntry.getKey();
                 final File npcFile = modCharacterEntry.getValue();
 
-                ModNPC npc = (ModNPC)loadNPC(npcFile, idPrefix);
+                NPC npc = loadNPC(npcFile, idPrefix);
                 if (npc == null) {
                     continue;
                 }
 
+                // Remove the previous version of the NPC
                 if (npcMap.containsKey(npc.getId())) {
-                    ModNPC npcSaved = (ModNPC)Main.game.getNpc(idPrefix);
-                    npcSaved.updateFromOrig(npc);
-                    npc = npcSaved;
-                } else {
-                    try {
-                        game.addNPC(npc, true);
-                    } catch (Exception e) {
-                        System.err.println("Unable to Add NPC: " + npcFile.getCanonicalPath());
-                        e.printStackTrace();
-                    }
+                    NPC npcSaved = Main.game.getNpc(idPrefix);
+                    Main.game.removeNPC(npcSaved);
                 }
 
-                if (ParserTarget.getParserTargetFromId(idPrefix, true) == null) {
-                    ParserTarget.addAdditionalParserTarget(idPrefix, npc);
+                try {
+                    game.addNPC(npc, true);
+                } catch (Exception e) {
+                    System.err.println("Unable to Add NPC: " + npcFile.getCanonicalPath());
+                    e.printStackTrace();
                 }
+
+                // Can't add a target that already exists.
+                if (ParserTarget.getParserTargetFromId(idPrefix, true) != null) {
+                    ParserTarget.removeAdditionalParserTarget(npc);
+                }
+
+                ParserTarget.addAdditionalParserTarget(idPrefix, npc);
             }
         }
     }

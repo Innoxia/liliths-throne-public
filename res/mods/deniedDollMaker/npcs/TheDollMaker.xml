@@ -9,7 +9,7 @@
     <playerKnowsName value="true"/>
     <playerOnFirstNameTerms value="false"/>
     <raceConcealed value="false"/>
-    <level value="50"/>
+    <level value="100"/>
     <ageAppearanceDifference value="-3"/>
     <yearOfBirth value="2002"/>
     <monthOfBirth value="AUGUST"/>
@@ -155,84 +155,289 @@
     <essenceCount value="0"/>
     <dirtySlots/>
     <unlockKeyMap/>
+    <mainWeapon0>
+      <weapon coreEnchantment="RESISTANCE_POISON" damageType="POISON" id="innoxia_feather_legendary" name="pristine arcane feather">
+        <effects>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+        </effects>
+        <spells>
+          <spell value="VACUUM"/>
+        </spells>
+        <combatMoves/>
+      </weapon>
+    </mainWeapon0>
+    <offhandWeapon0>
+      <weapon coreEnchantment="DAMAGE_FIRE" damageType="FIRE" id="innoxia_crystal_legendary" name="clear demonstone">
+        <effects>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_FIRE" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_FIRE" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="MAJOR_BOOST" timer="615" type="WEAPON"/>
+        </effects>
+        <spells>
+          <spell value="FIREBALL"/>
+        </spells>
+        <combatMoves/>
+      </weapon>
+    </offhandWeapon0>
     <clothingEquipped>
-      <clothing enchantmentKnown="true" id="innoxia_eye_half_moon_glasses" isDirty="false" name="half-moon reading glasses" slotEquippedTo="EYES">
+      <clothing enchantmentKnown="true" id="innoxia_hair_rose" isDirty="false" name="rose" slotEquippedTo="HAIR">
         <colours>
-          <colour i="0">CLOTHING_STEEL</colour>
+          <colour i="0">CLOTHING_RED_DARK</colour>
+          <colour i="1">CLOTHING_GREEN_DARK</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="innoxia_leg_micro_skirt_pleated" isDirty="false" name="pleated microskirt" slotEquippedTo="LEG">
+        <colours>
+          <colour i="0">CLOTHING_RED_DARK</colour>
           <colour i="1">CLOTHING_BLACK</colour>
-          <colour i="2">CLOTHING_GREY</colour>
         </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
       </clothing>
-      <clothing enchantmentKnown="true" id="CHEST_OPEN_CUP_BRA" isDirty="false" name="open cup bra" slotEquippedTo="CHEST">
+      <clothing enchantmentKnown="true" id="innoxia_foot_heels" isDirty="false" name="heels" slotEquippedTo="FOOT">
         <colours>
-          <colour i="0">CLOTHING_TAN</colour>
+          <colour i="0">CLOTHING_RED_DARK</colour>
+          <colour i="1">CLOTHING_BLACK</colour>
+          <colour i="2">CLOTHING_TAN</colour>
         </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
       </clothing>
-      <clothing enchantmentKnown="true" id="WRIST_BANGLE" isDirty="false" name="bangle" slotEquippedTo="WRIST">
+      <clothing enchantmentKnown="true" id="norin_sunflower_piercings_piercing_nose_sunflower" isDirty="false" name="sunflower nose piercing" slotEquippedTo="PIERCING_NOSE">
         <colours>
-          <colour i="0">CLOTHING_GOLD</colour>
+          <colour i="0">CLOTHING_PLATINUM</colour>
+          <colour i="1">CLOTHING_ORANGE_BRIGHT</colour>
+          <colour i="2">CLOTHING_SILVER</colour>
+          <colour i="3">CLOTHING_BROWN_DARK</colour>
         </colours>
-      </clothing>
-      <clothing enchantmentKnown="true" id="GROIN_CROTCHLESS_THONG" isDirty="false" name="crotchless thong" slotEquippedTo="GROIN">
-        <colours>
-          <colour i="0">CLOTHING_RED_VERY_DARK</colour>
-        </colours>
-      </clothing>
-      <clothing enchantmentKnown="true" id="innoxia_foot_goth_boots_fem" isDirty="false" name="gothic boots" slotEquippedTo="FOOT">
-        <colours>
-          <colour i="0">CLOTHING_BLACK</colour>
-          <colour i="1">CLOTHING_STEEL</colour>
-          <colour i="2">CLOTHING_BLACK</colour>
-        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
       </clothing>
       <clothing enchantmentKnown="true" id="innoxia_piercing_basic_barbell" isDirty="false" name="basic barbell" slotEquippedTo="PIERCING_TONGUE">
         <colours>
           <colour i="0">CLOTHING_GOLD</colour>
         </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
       </clothing>
-      <clothing enchantmentKnown="true" id="norin_piercings_piercing_lip_flower" isDirty="false" name="flower lip piercing" slotEquippedTo="PIERCING_LIP">
+      <clothing enchantmentKnown="true" id="innoxia_piercing_lip_double_ring" isDirty="false" name="lip rings" slotEquippedTo="PIERCING_LIP">
         <colours>
-          <colour i="0">CLOTHING_BLACK_STEEL</colour>
-          <colour i="1">CLOTHING_TAN</colour>
+          <colour i="0">CLOTHING_GOLD</colour>
         </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
       </clothing>
       <clothing enchantmentKnown="true" id="innoxia_piercing_gemstone_barbell" isDirty="false" name="gemstone barbell" slotEquippedTo="PIERCING_STOMACH">
         <colours>
           <colour i="0">CLOTHING_ROSE_GOLD</colour>
           <colour i="1">CLOTHING_WHITE</colour>
         </colours>
-      </clothing>
-      <clothing enchantmentKnown="true" id="norin_piercings_piercing_vagina_sex" isDirty="false" name="&quot;SEX&quot; barbell" slotEquippedTo="PIERCING_VAGINA">
-        <colours>
-          <colour i="0">CLOTHING_STEEL</colour>
-          <colour i="1">CLOTHING_GREEN_DARK</colour>
-        </colours>
-      </clothing>
-      <clothing enchantmentKnown="true" id="innoxia_buttPlugs_butt_plug_jewel" isDirty="false" name="jewelled butt plug" slotEquippedTo="ANUS">
-        <colours>
-          <colour i="0">CLOTHING_STEEL</colour>
-          <colour i="1">CLOTHING_BLUE_NAVY</colour>
-        </colours>
         <effects>
-          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="47828" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
         </effects>
       </clothing>
-      <clothing enchantmentKnown="true" id="BDSM_KARADA" isDirty="false" name="Sealed Ropes of the Nudist" slotEquippedTo="STOMACH">
+      <clothing enchantmentKnown="true" id="innoxia_piercing_ringed_barbell" isDirty="false" name="ringed barbell" slotEquippedTo="PIERCING_VAGINA">
         <colours>
-          <colour i="0">CLOTHING_WHITE</colour>
+          <colour i="0">CLOTHING_ROSE_GOLD</colour>
         </colours>
         <effects>
-          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="575603" type="CLOTHING"/>
-          <effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_EXHIBITIONIST" potency="MAJOR_BOOST" timer="281498" type="CLOTHING"/>
-          <effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_DENIAL_SELF" potency="MAJOR_BOOST" timer="281498" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="innoxia_piercing_basic_barbell_pair" isDirty="false" name="basic barbells" slotEquippedTo="PIERCING_NIPPLE">
+        <colours>
+          <colour i="0">CLOTHING_ROSE_GOLD</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="innoxia_finger_gemstone_ring" isDirty="false" name="gemstone ring" slotEquippedTo="FINGER">
+        <colours>
+          <colour i="0">CLOTHING_SILVER</colour>
+          <colour i="1">CLOTHING_YELLOW</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="1282897" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_MELEE_WEAPON" potency="MAJOR_BOOST" timer="1282897" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="sage_latex_croptop" isDirty="false" name="latex crop top" slotEquippedTo="TORSO_UNDER">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+          <colour i="1">CLOTHING_STEEL</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="575002" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2389402" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="sage_latex_corset" isDirty="false" name="latex corset" slotEquippedTo="STOMACH">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+          <colour i="1">CLOTHING_STEEL</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="151252" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="1965652" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="sage_latex_elbow_gloves" isDirty="false" name="latex elbow-length gloves" slotEquippedTo="HAND">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="201622" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="1411222" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="innoxia_bdsm_wrist_bracelets" isDirty="false" name="leather bracelets" slotEquippedTo="ANKLE">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+          <colour i="1">CLOTHING_STEEL</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="1114308" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="236167" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="3864967" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="innoxia_bdsm_wrist_bracelets" isDirty="false" name="leather bracelets" slotEquippedTo="WRIST">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+          <colour i="1">CLOTHING_STEEL</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="DAMAGE_SPELLS" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="DAMAGE_SPELLS" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="DAMAGE_SPELLS" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="DAMAGE_SPELLS" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="DAMAGE_SPELLS" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="SPELL_COST_MODIFIER" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="SPELL_COST_MODIFIER" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="SPELL_COST_MODIFIER" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="SPELL_COST_MODIFIER" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="SPELL_COST_MODIFIER" potency="MAJOR_BOOST" timer="1518857" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="63177" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="3691977" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="sage_latex_panties" isDirty="false" name="latex panties" slotEquippedTo="GROIN">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+          <colour i="1">CLOTHING_STEEL</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="546062" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2360462" type="CLOTHING"/>
+        </effects>
+        <displacedList>
+          <displacementType value="UNZIPS"/>
+        </displacedList>
+      </clothing>
+      <clothing enchantmentKnown="true" id="sage_latex_stockings_open" isDirty="false" name="latex open thigh-high stockings" slotEquippedTo="SOCK">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="151252" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="1965652" type="CLOTHING"/>
         </effects>
       </clothing>
       <clothing enchantmentKnown="true" id="innoxia_bdsm_penis_strapon" isDirty="false" name="strap-on" slotEquippedTo="PENIS">
         <colours>
-          <colour i="0">CLOTHING_ORANGE</colour>
+          <colour i="0">CLOTHING_PURPLE_ROYAL</colour>
           <colour i="1">CLOTHING_BLACK</colour>
           <colour i="2">CLOTHING_STEEL</colour>
         </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="403372" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2217772" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="innoxia_elemental_piercing_ear_snowflakes" isDirty="false" name="snowflake earrings" slotEquippedTo="PIERCING_EAR">
+        <colours>
+          <colour i="0">CLOTHING_SILVER</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="BOOST" timer="1769732" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_ICE" potency="BOOST" timer="1769732" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="norin_anal_beads_anal_beads" isDirty="false" name="anal beads" slotEquippedTo="ANUS">
+        <colours>
+          <colour i="0">CLOTHING_RED_DARK</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="85385" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="85385" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_MELEE_WEAPON" potency="BOOST" timer="85487" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_SPELLS" potency="BOOST" timer="85487" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_ICE" potency="BOOST" timer="85487" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="norin_dildos_realistic_dildo" isDirty="false" name="realistic dildo" slotEquippedTo="VAGINA">
+        <colours>
+          <colour i="0">CLOTHING_RED_BRIGHT</colour>
+          <colour i="1">CLOTHING_BLACK</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="560888" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2375288" type="CLOTHING"/>
+        </effects>
+      </clothing>
+      <clothing enchantmentKnown="true" id="sage_latex_bra" isDirty="true" name="latex zip bra" slotEquippedTo="CHEST">
+        <colours>
+          <colour i="0">CLOTHING_RED</colour>
+          <colour i="1">CLOTHING_STEEL</colour>
+        </colours>
+        <effects>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_ORGASM_PREVENTION" potency="MINOR_BOOST" timer="574562" type="CLOTHING"/>
+          <effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="BOOST" timer="2388962" type="CLOTHING"/>
+        </effects>
       </clothing>
     </clothingEquipped>
     <itemsInInventory />

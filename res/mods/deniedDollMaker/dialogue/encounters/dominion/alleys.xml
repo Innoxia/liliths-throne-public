@@ -4,53 +4,239 @@
         <author>ddmaker1234</author>
         <title>Mysterious Shop</title>
         <tooltip>A mysterious shop appears!</tooltip>
-        <preParsingEffects><![CDATA[
+        <preParsingEffects>
             [#game.getNpc("deniedDollMaker_TheDollMaker").setLocation(pc)]
-        ]]></preParsingEffects>
+        </preParsingEffects>
         <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">START</content>
+        <secondsPassed minutes="false">5</secondsPassed>
+        <continuesDialogue>true</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+
+        <responses>
+            <response>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>0</index>
+                <responseTitle>Walk away</responseTitle>
+                <responseTooltip>There's something a little too mysterious about this shop. Perhaps you shouldn't go
+                    inside...
+                </responseTooltip>
+                <colour>TEXT</colour>
+                <nextDialogue stripContent="false">default</nextDialogue>
+                <secondsPassed minutes="true">5</secondsPassed>
+                <effects>[#game.getNpc("deniedDollMaker_TheDollMaker").setLocation(WORLD_TYPE_EMPTY,
+                    PLACE_TYPE_GENERIC_HOLDING_CELL)]
+                </effects>
+            </response>
+
+            <response>
+                <availabilityConditional>[#pc.isAbleToOrgasm()]</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <responseTitle>Go Inside</responseTitle>
+                <responseTooltip>Take a look inside...</responseTooltip>
+                <colour>GENERIC_BAD</colour>
+                <nextDialogue stripContent="false">deniedDollMaker_encounters_dominion_alleys_pop_up_shop_blocked
+                </nextDialogue>
+                <secondsPassed minutes="true">5</secondsPassed>
+            </response>
+
+            <response>
+                <availabilityConditional>[#!pc.isAbleToOrgasm()]</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <responseTitle>Go Inside</responseTitle>
+                <responseTooltip>Take a look inside...</responseTooltip>
+                <colour>TEXT</colour>
+                <nextDialogue stripContent="false">deniedDollMaker_encounters_dominion_alleys_pop_up_shop_inside
+                </nextDialogue>
+                <secondsPassed minutes="true">5</secondsPassed>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id="pop_up_shop_inside">
+        <author>ddmaker1234</author>
+        <title>Mysterious Shop</title>
+        <tooltip>Inside the shop.</tooltip>
+        <preParsingEffects></preParsingEffects>
+        <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">INSIDE</content>
         <secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
         <continuesDialogue>true</continuesDialogue>
         <travelDisabled>true</travelDisabled>
 
         <responses>
             <response>
-                <availabilityConditional><![CDATA[[#pc.isAbleToOrgasm()]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <colour><![CDATA[TEXT]]></colour>
-                <responseTitle><![CDATA[Walk Away]]></responseTitle>
-                <responseTooltip><![CDATA[There's nothing for you here.]]></responseTooltip>
-                <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>0</index>
+                <responseTitle>Leave</responseTitle>
+                <responseTooltip></responseTooltip>
+                <colour>TEXT</colour>
+                <nextDialogue stripContent="false">deniedDollMaker_encounters_dominion_alleys_pop_up_shop_start
+                </nextDialogue>
+                <secondsPassed minutes="true">5</secondsPassed>
             </response>
 
             <response>
-                <availabilityConditional><![CDATA[[#!pc.isAbleToOrgasm()]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Ignore]]></responseTitle>
-                <responseTooltip>There's something a little too mysterious about this shop. Perhaps you shouldn't go
-                    inside...
-                </responseTooltip>
-                <colour><![CDATA[TEXT]]></colour>
-                <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-                <effects><![CDATA[
-                    [#game.getNpc("deniedDollMaker_TheDollMaker").setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
-				]]></effects>
-            </response>
-
-            <response>
-                <availabilityConditional><![CDATA[[#!pc.isAbleToOrgasm()]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <colour><![CDATA[TEXT]]></colour>
-                <responseTitle><![CDATA[Trade]]></responseTitle>
-                <responseTooltip><![CDATA[Take a look at what's inside...]]></responseTooltip>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <colour>TEXT</colour>
+                <responseTitle>Trade</responseTitle>
+                <responseTooltip>Take a look at what's for sale...</responseTooltip>
                 <nextDialogue/>
                 <tradingVariables enabled="true">
-                    <tradePartner><![CDATA[deniedDollMaker_TheDollMaker]]></tradePartner>
+                    <tradePartner>deniedDollMaker_TheDollMaker</tradePartner>
                 </tradingVariables>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id="pop_up_shop_blocked">
+        <author>ddmaker1234</author>
+        <title>Fight the Doll Maker</title>
+        <tooltip>You shall not pass.</tooltip>
+        <preParsingEffects></preParsingEffects>
+        <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">BLOCKED</content>
+        <secondsPassed minutes="false">5</secondsPassed>
+        <continuesDialogue>true</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+
+        <responses>
+            <response>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <responseTitle>Fight</responseTitle>
+                <responseTooltip>There's no getting out of this!</responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true">1</secondsPassed>
+                <combatVariables enabled="true">
+                    <nextDialoguePlayerVictory>deniedDollMaker_encounters_dominion_alleys_pop_up_shop_disappear</nextDialoguePlayerVictory>
+                    <nextDialoguePlayerDefeat>deniedDollMaker_encounters_dominion_alleys_pop_up_shop_transform</nextDialoguePlayerDefeat>
+                    <allies companionsAreAllies="true"/>
+                    <enemies>
+                        <enemy leader="true">deniedDollMaker_TheDollMaker</enemy>
+                    </enemies>
+                    <openingDescriptions><![CDATA[
+                        <p>
+                            As you force your way closer to the shop, a female lion-morph bursts through the shop's door with purple
+                            sparks of arcane power crackling around her body. [deniedDollMaker_TheDollMaker.speech(You would dare
+                            cross this barrier?)]
+                        </p>
+                        <p>
+                            Her eyes scan the alley way and lock with yours.
+                            [deniedDollMaker_TheDollMaker.speech(You!)] The word comes out a more of a roar than human speech.
+                        </p>
+                    ]]></openingDescriptions>
+                </combatVariables>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id="pop_up_shop_disappear">
+        <author>ddmaker1234</author>
+        <title>Mysterious Shop</title>
+        <tooltip>You shall not pass.</tooltip>
+        <preParsingEffects>[#game.getNpc("deniedDollMaker_TheDollMaker").setLocation(WORLD_TYPE_EMPTY,
+            PLACE_TYPE_GENERIC_HOLDING_CELL)]</preParsingEffects>
+        <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">DOLLMAKER_LOST</content>
+        <secondsPassed minutes="false">5</secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <colour>TEXT</colour>
+                <responseTitle>Continue</responseTitle>
+                <responseTooltip></responseTooltip>
+                <nextDialogue>default</nextDialogue>
+            </response>
+        </responses>
+
+    </scene>
+
+    <scene id="pop_up_shop_transform">
+        <author>ddmaker1234</author>
+        <title>Mysterious Shop</title>
+        <tooltip>You are now a seeker.</tooltip>
+        <preParsingEffects></preParsingEffects>
+        <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">DOLLMAKER_WON</content>
+        <secondsPassed minutes="false">5</secondsPassed>
+        <continuesDialogue>true</continuesDialogue>
+        <travelDisabled>ture</travelDisabled>
+
+        <responses>
+            <response>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>2</index>
+                <responseTitle>Swallow</responseTitle>
+                <responseTooltip>What's the worst that could happen</responseTooltip>
+                <colour>TEXT</colour>
+                <nextDialogue stripContent="false">deniedDollMaker_encounters_dominion_alleys_pop_up_shop_swallowed</nextDialogue>
+                <secondsPassed minutes="true">5</secondsPassed>
+                <effects>
+                    [#pc.removeStatusEffect(SE_deniedDollMaker_denied_doll_release)]
+                    [#pc.addStatusEffect(SE_deniedDollMaker_denied_doll_seal, 60*60*24*3650)]
+                </effects>
+            </response>
+
+            <response>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <colour>TEXT</colour>
+                <responseTitle>Resist!</responseTitle>
+                <responseTooltip>You knock the pill from her hand!</responseTooltip>
+                <nextDialogue>deniedDollMaker_encounters_dominion_alleys_pop_up_shop_resisted</nextDialogue>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id="pop_up_shop_swallowed">
+        <author>ddmaker1234</author>
+        <title>Mysterious Shop</title>
+        <tooltip>You shall not pass.</tooltip>
+        <preParsingEffects></preParsingEffects>
+        <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">DOLLMAKER_WON_SWALLOWED</content>
+        <secondsPassed minutes="false">5</secondsPassed>
+        <continuesDialogue>true</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <colour>TEXT</colour>
+                <responseTitle>Continue</responseTitle>
+                <responseTooltip></responseTooltip>
+                <nextDialogue>deniedDollMaker_encounters_dominion_alleys_pop_up_shop_inside</nextDialogue>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id="pop_up_shop_resisted">
+        <author>ddmaker1234</author>
+        <title>Mysterious Shop</title>
+        <tooltip>You shall not pass.</tooltip>
+        <preParsingEffects>[#game.getNpc("deniedDollMaker_TheDollMaker").setLocation(WORLD_TYPE_EMPTY,
+            PLACE_TYPE_GENERIC_HOLDING_CELL)]</preParsingEffects>
+        <content folderPath="mods/deniedDollMaker/txt/encounters/dominion/pop_up_shop">DOLLMAKER_WON_RESISTED</content>
+        <secondsPassed minutes="false">5</secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional>true</availabilityConditional>
+                <responseTabIndex>0</responseTabIndex>
+                <index>1</index>
+                <colour>TEXT</colour>
+                <responseTitle>Continue</responseTitle>
+                <responseTooltip></responseTooltip>
+                <nextDialogue>default</nextDialogue>
             </response>
         </responses>
     </scene>
