@@ -70,7 +70,9 @@
 
     <!-- TODO: Need a real description of the interior -->
     <htmlContent tag="INSIDE"><![CDATA[
-        <p></p>
+        <p>
+            [deniedDollMaker_TheDollMaker.speech(Welcome to my humble little shop! Please do have a look around.)]
+        </p>
     ]]></htmlContent>
 
 </dialogue>
