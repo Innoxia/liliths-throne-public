@@ -9,8 +9,27 @@
 	<colour>BASE_TEAL</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_shops_convenience</dialogue>
-	<populationPresent copyPlaceType="innoxia_fields_elis_shops_street"/>
+	<dialogue>innoxia_places_fields_elis_shops_convenience_exterior</dialogue>
+	<populationPresent>
+		<!-- 07:00 - 21:00 -->
+		<population startMinutes="420" endMinutes="1259">
+			<populationType plural="true" density="NUMEROUS">SHOPPER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population startMinutes="420" endMinutes="1259">
+			<populationType plural="true" density="FEW">CASHIER</populationType>
+			<subspeciesPresent>
+				<subspecies>innoxia_mouse_subspecies_mouse</subspecies>
+			</subspeciesPresent>
+		</population>
+		<!-- 21:00 - 07:00 -->
+		<population startMinutes="1260" endMinutes="419">
+			<populationType plural="true" density="COUPLE">CASHIER</populationType>
+			<subspeciesPresent>
+				<subspecies>innoxia_mouse_subspecies_mouse</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
 	<furniturePresent>false</furniturePresent>
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>

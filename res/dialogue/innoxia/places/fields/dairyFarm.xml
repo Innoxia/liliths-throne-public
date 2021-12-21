@@ -217,7 +217,7 @@
 			</response>
 			<!-- Monica quest: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(dale) && pc.isQuestProgressLessThan(QUEST_LINE_ROMANCE_MONICA, QUEST_ROMANCE_MONICA_3_THE_JOURNEY_HOME)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(dale) && pc.hasQuest(QUEST_LINE_ROMANCE_MONICA) && pc.isQuestProgressLessThan(QUEST_LINE_ROMANCE_MONICA, QUEST_ROMANCE_MONICA_3_THE_JOURNEY_HOME)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Monica's Milker]]></responseTitle>

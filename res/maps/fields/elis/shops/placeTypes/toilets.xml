@@ -9,7 +9,7 @@
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_shops_toilets</dialogue>
+	<dialogue>innoxia_places_fields_elis_shops_generic_toilets</dialogue>
 	<populationPresent copyPlaceType="innoxia_fields_elis_shops_street"/>
 	<furniturePresent>false</furniturePresent>
 	<globalMapTile>false</globalMapTile>

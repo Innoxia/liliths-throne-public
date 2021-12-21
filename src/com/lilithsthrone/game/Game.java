@@ -108,6 +108,7 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Ceridwen;
 import com.lilithsthrone.game.character.npc.fields.Dale;
 import com.lilithsthrone.game.character.npc.fields.Evelyx;
 import com.lilithsthrone.game.character.npc.fields.EvelyxMilker;
@@ -115,8 +116,10 @@ import com.lilithsthrone.game.character.npc.fields.EvelyxSexualPartner;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Hale;
 import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
 import com.lilithsthrone.game.character.npc.fields.Heather;
+import com.lilithsthrone.game.character.npc.fields.Imsu;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Kazik;
 import com.lilithsthrone.game.character.npc.fields.Kheiron;
@@ -126,6 +129,7 @@ import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Monica;
 import com.lilithsthrone.game.character.npc.fields.Moreno;
 import com.lilithsthrone.game.character.npc.fields.Nizhoni;
+import com.lilithsthrone.game.character.npc.fields.Penelope;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Yui;
@@ -195,6 +199,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
@@ -1085,24 +1090,7 @@ public class Game implements XMLSaving {
 										className = className.replace("Alexa", "Helena");
 									}
 									NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-									//TODO This needs more thorough testing...
-									// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
-									// This was causing save file bloat, so now they are fully deleted.
-									if(npc!=null
-											&& Main.isVersionOlderThan(loadingVersion, "0.4.1")
-											&& (!npc.isUnique()
-													&& !(npc instanceof Elemental)
-													&& !(npc instanceof ReindeerOverseer)
-													&& !(npc instanceof GenericFemaleNPC)
-													&& !(npc instanceof GenericMaleNPC)
-													&& !(npc instanceof GenericAndrogynousNPC)
-													&& !(npc instanceof PrologueFemale)
-													&& !(npc instanceof PrologueMale)
-													&& !(npc instanceof NPCOffspring))
-											&& npc.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
-										System.out.println("Deleted NPC: "+npc.getId());
-
-									} else if(npc!=null)  {
+									if(npc!=null)  {
 										if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
 												|| (npc.getClass()!=DarkSiren.class
 												&& npc.getClass()!=FortressAlphaLeader.class
@@ -2177,7 +2165,19 @@ public class Game implements XMLSaving {
 
 			// Wall's End:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Monica.class))) { addNPC(new Monica(), false); addedNpcs.add(Monica.class); }
-
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ceridwen.class))) { addNPC(new Ceridwen(), false); addedNpcs.add(Ceridwen.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Imsu.class))) { addNPC(new Imsu(), false); addedNpcs.add(Imsu.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Hale.class))) { addNPC(new Hale(), false); addedNpcs.add(Hale.class); }
+			if(addedNpcs.contains(Imsu.class) || addedNpcs.contains(Hale.class)) {
+				Main.game.getNpc(Imsu.class).setAffection(Main.game.getNpc(Hale.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+				Main.game.getNpc(Hale.class).setAffection(Main.game.getNpc(Imsu.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+			}
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Penelope.class))) { addNPC(new Penelope(), false); addedNpcs.add(Penelope.class); }
+			if(addedNpcs.contains(Penelope.class) || addedNpcs.contains(Pix.class)) {
+				Main.game.getNpc(Penelope.class).setAffection(Main.game.getNpc(Pix.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(Pix.class).setAffection(Main.game.getNpc(Penelope.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
+			
 			// Evelyx's Dairy:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Evelyx.class))) { addNPC(new Evelyx(), false); addedNpcs.add(Evelyx.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Dale.class))) { addNPC(new Dale(), false); addedNpcs.add(Dale.class); }
@@ -2188,7 +2188,8 @@ public class Game implements XMLSaving {
 
 			// Headless horseman:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HeadlessHorseman.class))) { addNPC(new HeadlessHorseman(), false); addedNpcs.add(HeadlessHorseman.class); }
-
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5267,5 +5268,9 @@ public class Game implements XMLSaving {
 	public void addSavedInventory(GameCharacter character) {
 		savedInventories.put(character.getId(), new CharacterInventory(character.getInventory()));
 //		System.out.println("Saved: "+character.getName());
+	}
+	
+	public void initCosmeticsDialogue(NPC beautician, DialogueNode returnToNode) {
+		CosmeticsDialogue.initDialogue(beautician, returnToNode);
 	}
 }
