@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="TRANSACTION_START"><![CDATA[
+	<p>
+		After you've informed her that you're thinking of purchasing some jewellery, Penelope leads you a short way over to the display cabinet in which she keeps such items, before politely saying in her posh accent, [penelope.speech(Please let me know if you'd like to try anything on.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="BUY_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		Informing Penelope that you'd like to purchase the [#SPECIAL_PARSE_0], you hand over [#SPECIAL_PARSE_1] flames and wait for her to retrieve it from the display cabinet. Presenting you with your purchase, Penelope smiles and asks, [penelope.speech(Will that be all for today, [pc.sir], or do you have another transaction in mind?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		Asking Penelope if she'd like to buy your [#SPECIAL_PARSE_0], you wait as she thinks for a moment, before offering you [#SPECIAL_PARSE_1] flames for it. Agreeing to the sale, you hand over the [#SPECIAL_PARSE_0] in exchange for the agreed upon price, after which Penelope politely asks, [penelope.speech(Is there anything else I can do for you today, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/shops/spa.xml' dialogue nodes. -->
+	
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		Over in one of the far corners of the shopping precinct, a sign hanging from the upper floor of a timber-framed building shows a stylised pair of sheep-girls holding up the words 'Woolly Heaven'. Blinds have been half-closed over most of the windows on the ground floor, and the spots which aren't concealed in this manner are home to shelves stacked full of potted plants and cosmetics products, making it all but impossible to see into the building's interior. Thankfully for potential customers, the nature of this business is revealed from the writing that's etched into the glass of its front door. [pc.Stepping] forwards to take a closer look, you read: 'Woolly Heaven: Spa, Massage Parlour, & Beauticians'
+	</p>
+	<p>
+		Beneath this brief overview, you see that the business's opening hours are 
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17 && !game.isWeekend())
+			'[style.colourMinorGood([units.time(9)]-[units.time(17), weekdays only])]', meaning that it's currently [style.colourGood(open)]. If you wanted to make use of any of the three services which this business provides, there's nothing stopping you from heading inside... 
+		#ELSE
+			'[style.colourMinorBad([units.time(9)]-[units.time(17), weekdays only])]', meaning that it's currently [style.colourBad(closed)]. If you wanted to make use of any of the three services which this business provides, then you'll have to come back during its opening hours...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTER"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_elis_spa_visited))
+		<p>
+			Wanting to find out what's inside this 'Woolly Heaven' establishment, you push open the front door and [pc.step] inside. Within, you find yourself standing in a large, modern-looking reception area, with polished wooden floorboards underfoot and trendy oversized light bulbs hanging from the high ceiling. Standing behind a long, tall counter that's been roughly hewn from the trunk of a large tree and topped with frosted glass, a border-collie-girl is giving you a warm smile. As the door swings shut behind you, she calls out in a very posh accent, [penelope.speech(Good [style.afternoon], [pc.sir], and welcome to 'Woolly Heaven'. My name is Penelope Fear, and I'm the manager and owner of this establishment.)]
+		</p>
+		<p>
+			As she's been saying this, you've taken stock of the fact that Penelope is wearing a very suggestive, burgundy 'virgin-killer' sweater, and is sporting several pieces of gold jewellery. It's not her manner of dress that catches you attention, however, but rather the fact that she's absolutely beautiful. Her anthropomorphic, border-collie-like face is perfectly proportioned, and as she bats her large, [penelope.eyeColour] eyes at you, she leans forwards a little in order to flaunt her [penelope.cupSize]-cup breasts.
+		</p>
+		<p>
+			Her gorgeous features and effortless beauty remind you strongly of the sort of aura that the harpy matriarch, Helena, radiates, and just like that swan-harpy, Penelope also appears to have spent some time pursuing a career in modelling. Posters and pages from fashionable magazines have been framed and hung all over the walls of this reception area, with each one showing Penelope posing in a different outfit. There are even a couple from what look to be soft-core pornography magazines, in which the border-collie-girl is baring her naked breasts and making suggestive expressions at the viewer.
+		</p>
+		<p>
+			[penelope.speech(Unless I'm mistaken, I haven't had the pleasure of meeting you before. May I ask for your name?)] Penelope asks, before resting her chin on her interlaced hands and giving you a delightful smile.
+		</p>
+	#ELSE
+		<p>
+			Deciding to once again pay a visit to this 'Woolly Heaven' establishment, you push open the front door and [pc.step] inside. Within, you find yourself standing in a large, modern-looking reception area, with polished wooden floorboards underfoot and trendy oversized light bulbs hanging from the high ceiling. Standing behind a long, tall counter that's been roughly hewn from the trunk of a large tree and topped with frosted glass, the familiar, beautiful figure of Penelope is giving you a warm smile. As the door swings shut behind you, the border-collie-girl calls out in her posh accent, [penelope.speech(Good [style.afternoon], [pc.sir], and welcome once again to 'Woolly Heaven'.)]
+		</p>
+		<p>
+			As she's been saying this, you've taken stock of the fact that Penelope is wearing a very suggestive, burgundy 'virgin-killer' sweater, and is sporting several pieces of gold jewellery. It's not her manner of dress that catches you attention, however, but rather the fact that she's absolutely beautiful. Her anthropomorphic, border-collie-like face is perfectly proportioned, and as she bats her large, [penelope.eyeColour] eyes at you, she leans forwards a little in order to flaunt her [penelope.cupSize]-cup breasts.
+		</p>
+		<p>
+			Her gorgeous features and effortless beauty remind you strongly of the sort of aura that the harpy matriarch, Helena, radiates, and just like that swan-harpy, Penelope also appears to have spent some time pursuing a career in modelling. Posters and pages from fashionable magazines have been framed and hung all over the walls of this reception area, with each one showing Penelope posing in a different outfit. There are even a couple from what look to be soft-core pornography magazines, in which the border-collie-girl is baring her naked breasts and making suggestive expressions at the viewer.
+		</p>
+		<p>
+			As you approach her counter, Penelope states in her posh voice, [penelope.speech(Please let me know which of our services you require, [pc.sir]. Oh, and remember that my sheep-girls and I all have prostitution licenses, so paying for sex once you're in a massage room is all completely legal and above board.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COSMETICS_START"><![CDATA[
+	<p>
+		You tell Penelope that you'd like to make use of her services as an arcane beautician. Guiding you over to one side of the large reception area, she asks you to take a seat in front of a stylish mirror, before asking, [penelope.speech(So, what'll it be, [pc.sir]? Would you like to try a new hair style, or were you thinking of something a little more adventurous than that?)]
+	</p>
+	<p>
+		Gesturing over to a jewellery display cabinet situated a short distance from where you're sitting, the beautiful border-collie-girl reminds you, [penelope.speech(I also have several items of jewellery for sale, so please don't hestiate to ask if you'd like to try anything on.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK_POSTERS"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You ask about the posters. Penelope talks a little about her past of modelling in Dominion.
+	</p>
+	<p>
+		She goes on to say that she enjoyed modelling, but she decided to leave Dominion and set up her own store largely to get away from her sister, Pix, who kept on nagging her to come and work at her gym.
+	</p>
+	<p>
+		If you've met Pix, dialogue variation talking about her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK_SHEEP"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You ask why all of Penelope's employees are sheep-morphs. Penelope says that she finds it easy to manage them, and although she can't explain exactly why, she supposes that it's due to her instincts as a border-collie-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE"><![CDATA[
+	<p>
+		Saying goodbye to Penelope, you exit Woolly Heaven and find yourself [pc.stepping] back out into Wall's End...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTRODUCTION"><![CDATA[
+	<p>
+		[pc.Stepping] up to the counter, you give Penelope your name, to which she happily replies in her posh accent, [penelope.speech(It's a pleasure to meet you, [pc.name]. Would you like to hear what services we offer here at Woolly Heaven?)]
+	</p>
+	<p>
+		Replying in the positive, you listen as the border-collie reels off a sales pitch that she's no doubt repeated many dozens of times before, [penelope.speech(Our main attraction is our indoor spa; we have steam rooms, saunas, a pool, and both cold and heated baths. Entry to the spa costs one hundred and fifty flames. I'm also trained and fully qualified as an arcane beautician, so I can alter almost any aspect of your appearance, including applying, removing, and even enchanting tattoos. I also have several items of jewellery for sale at our cosmetics station, if you're interested in that.)]
+	</p>
+	<p>
+		Although she's not yet finished with her recitation of offered services, Penelope pauses for a moment to flash you a flirtatious grin. Slightly altering the tone of her voice so as to grant her posh accent an air of seduction, she continues, [penelope.speech(We also offer massages, which start at two hundred and fifty flames for a session with one of my sheep-girls. If you've got the cash, I'll personally give you your massage, but my services start at one thousand five hundred flames. Of course, once your massage has started, you'll be able to purchase some more... <i>exciting</i> services from your masseuse.)]
+	</p>
+	<p>
+		As you take a moment to think about what services, if any, you'd like to use, Penelope smirks and bluntly states in her posh voice, [penelope.speech(My sheep-girls and I all have prostitution licenses, so paying for sex once you're in a massage room is all completely legal and above board. So, what'll it be, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_COSMETICS"><![CDATA[
+	<p>
+		Having got everything you wanted from Penelope's arcane cosmetics service, you tell her that you're happy with how you look, and that you don't need anything more from her. Flashing you a warm smile, the border-collie-girl leads you back over to her desk, before asking, [penelope.speech(Is there anything else I can do for you today, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RELAX"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You pay Penelope and gain access to the spa. Stripping out of your clothes, you sink down into the pool and relax...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RELAX_END"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		After spending an hour relaxing in the pool, you get out of the water and retrieve your freshly-cleaned clothes, before returning to the reception area.
+	</p>
+	<p>
+		Penelope asks if you'd like anything else today.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

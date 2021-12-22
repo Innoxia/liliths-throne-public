@@ -76,7 +76,7 @@
 			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] glasses.]]>
 		</other>
 		<otherRough>
-			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] glasses and roughly [npc.verb(pull)] them off.]]>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] glasses and roughly [npc.verb(pull)] them off.]]>
 		</otherRough>
 	</displacementText>
 	
