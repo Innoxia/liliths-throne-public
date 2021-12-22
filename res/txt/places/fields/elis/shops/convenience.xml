@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="TRANSACTION_START"><![CDATA[
+	<p>
+		As you start to show an interest in buying something, Ceridwen breaks her silence to state, [ceridwen.speech(There's no need for you to queue up at the counter, [pc.name]. For you, I can handle all transactions personally.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="BUY_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		After taking your flames in exchange for the [#SPECIAL_PARSE_0], and not letting her gaze drop from your face the entire time, Ceridwen says in her friendly, Welsh accent, [ceridwen.speech(Thank you for your business, [pc.name]. Let me know if there's anything else that you'd like to buy.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		After agreeing to buy your [#SPECIAL_PARSE_0] in exchange for [#SPECIAL_PARSE_1] flames, Ceridwen says in her friendly, Welsh accent, [ceridwen.speech(Thank you for your business, [pc.name]. Let me know if there's anything else that you'd like to sell to me.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/shops/convenience.xml' dialogue nodes. -->
+	
+	<htmlContent tag="CONVENIENCE"><![CDATA[
+	<p>
+		A large convenience store is situated in one corner of the shopping precinct,
+		#IF(game.isHourBetween(7, 21))
+			 and from the near-constant stream of shoppers which you witness entering and leaving via its sliding glass doors, you can safely assume that this is the busiest shop in all of Wall's End. The sign above the store's entrance declares it to be called 'The Barn', although there's nothing about the building's glass frontage to give it the appearance of such.
+		#ELSE
+			 and even despite the current hour it still seems to be relatively busy, with at least one shopper entering or leaving via its sliding glass doors every few minutes or so. The back-lit sign above the store's entrance declares it to be called 'The Barn', although there's nothing about the building's glass frontage to give it the appearance of such.
+		#ENDIF
+		 Looking across to the entrance, you see that the opening times have been written on a piece of paper and stuck to the inside of the glass doors, and are displayed as a simple: 'Open 24/7'
+	</p>
+	<p>
+		Taking a look through the floor-to-ceiling glass windows which cover almost all of the ground floor, you see that the interior has a clean, modern look to it. Bathed in the unnaturally-bright light given out by its ceiling-mounted arcane fluorescent lamps, the store's interior is taken up by about a dozen rows of shelving. Most of these look to be filled with items of food and drink, although a couple appear instead to be stocked full of miscellaneous household items.
+	</p>
+	<p>
+		Behind the store's long counter you see
+		#IF(game.isHourBetween(7, 21))
+			 several members of staff, every one of which is a mouse-morph, busily serving the customers.
+		#ELSE
+			 a couple of mouse-morph cashiers who are waiting to serve the few customers they get at this hour.
+		#ENDIF
+		#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_convenience_visited))
+			 The familiar figure of the white-feathered greater owl-girl owner, Ceridwen, is sitting behind her raised section of the counter, 
+		#ELSE
+			 A white-feathered greater owl-girl is sitting behind a raised section of the counter, 
+		#ENDIF
+		#IF(game.isHourBetween(9, 17))
+			 although due to the time of day her eyes are closed and she looks to be sleeping.
+		#ELSE
+			 and you notice that she's looking very alert and attentive to her surroundings as she swivels her head to look around the store.
+		#ELSE
+			
+		#ENDIF
+		 Pausing for a moment, you wonder whether to head inside and buy something or instead continue on your way through Wall's End...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ENTER"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_elis_convenience_visited))
+		<p>
+			Deciding to enter this convenience store and see what sort of goods are on sale, you pass through the sliding glass doors and enter the brightly-lit interior. Stopping to take in your surroundings, you glance around at the rows of shelving which together form about a dozen aisles, before looking over at the long counter positioned near to where you're standing.
+			#IF(game.isHourBetween(7, 21))
+				 A few mouse-morph cashiers are busily serving a never-ending queue of customers,
+			#ELSE
+				 A couple of mouse-morph cashiers are serving the few customers that are about at this hour,
+			#ENDIF
+			 while the white-feathered greater owl-girl
+			#IF(game.isHourBetween(9, 17))
+				 is sitting motionless behind her raised section of the counter with both eyes seemingly closed.
+			#ELSE
+				 is sitting behind her raised section of the counter and watching over everyone within the store.
+			#ENDIF
+			 Just like the mouse-morphs, she's wearing a rather plain uniform which consists of a blue-grey shirt, a grey mini skirt, and a conspicuous lack of any sort of jewellery or other accessory.
+		</p>
+		<p>
+			Turning away from this owl-girl, you set off and [pc.walk] down the nearest aisle, scanning over the everyday food items that have been stacked up on the shelves. As you reach the end of this aisle, you suddenly feel a strong breeze blow against your back. Turning your head to see what the cause of this gust of wind could be, you can't help but instinctively jump back and you see that the white-feathered owl-girl is standing right behind you, silently staring at you with her big, yellow eyes. Her anthropomorphic, owl-like face is completely expressionless, which contributes a great deal to the alarming nature of her behaviour.
+		</p>
+		<p>
+			[ceridwen.speech(Good [style.morning],)] she says in an alarmingly friendly, Welsh accent. Her warm tone of voice is completely at odds with the way that she's creepily staring at you, and without blinking or taking her large eyes off of you for a second, she continues, [ceridwen.speech(I'm Ceridwen, the owner of this store. I haven't seen you here before, so I thought I'd fly on over and say hello.)]
+		</p>
+		<p>
+			Before you can reply, Ceridwen flaps her huge, white wings in order to silently hop a little closer to you. Continuing to gaze at you with a piercing intensity, she waits for you to introduce yourself to her...
+		</p>
+	#ELSE
+		<p>
+			Deciding to enter this convenience store once again and see what sort of goods are on sale, you pass through the sliding glass doors and enter the brightly-lit interior. Stopping to take in your surroundings, you glance around at the rows of shelving which together form about a dozen aisles, before looking over at the long counter positioned near to where you're standing.
+			#IF(game.isHourBetween(7, 21))
+				 A few mouse-morph cashiers are busily serving a never-ending queue of customers,
+			#ELSE
+				 A couple of mouse-morph cashiers are serving the few customers that are about at this hour,
+			#ENDIF
+			 while the white-feathered greater owl-girl, Ceridwen,
+			#IF(game.isHourBetween(9, 17))
+				 is sitting motionless behind her raised section of the counter with both eyes seemingly closed.
+			#ELSE
+				 is sitting behind her raised section of the counter and watching over everyone within the store.
+			#ENDIF
+			 Just like the mouse-morphs, she's wearing a rather plain uniform which consists of a blue-grey shirt, a grey mini skirt, and a conspicuous lack of any sort of jewellery or other accessory.
+		</p>
+		<p>
+			Knowing that she's likely to be the one to come to you, you turn away from the owl-girl and set off down the nearest aisle, scanning over the everyday food items that have been stacked up on the shelves. Just as you'd expected, as you reach the end of this aisle, you suddenly feel a familiar, strong breeze blowing against your back. Despite knowing that she's there, you can't help but instinctively jump a little as you turn to see that Ceridwen is standing right behind you, silently staring at you with her big, yellow eyes. Her anthropomorphic, owl-like face is completely expressionless, which contributes a great deal to the alarming nature of her behaviour.
+		</p>
+		<p>
+			[ceridwen.speech(Good [style.morning], [pc.name],)] she says in her friendly, Welsh accent. You can't help but think to yourself once again how the warm tone of her voice is completely at odds with her creepy behaviour, and without blinking or taking her large eyes off of you for a second, she continues, [ceridwen.speech(You know, I can tell that there's something really special about you, [pc.name]. Please let me know if you need anything...)]
+		</p>
+		<p>
+			As you thank Ceridwen for her offer, she flaps her huge, white wings and silently hops a little closer to you. As she continues to gaze at you with a piercing intensity, you realise that she intends to closely follow you as you [pc.walk] throughout her store...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TALK_NAME"><![CDATA[
+	<p>
+		Tired of Ceridwen's silence as she continues to stalk you throughout her store, you decide to stop and engage her in conversation. Turning to face the white-feathered owl-girl, you as her why she decided to name this store 'The Barn', even though it doesn't look anything like one.
+	</p>
+	<p>
+		[ceridwen.speech(Oh, that's because I wanted to name it after my old home,)] she replies in her usual friendly voice, before taking on a rather sad tone as she continues, [ceridwen.speech(I used to live in a large barn out in the Foloi Fields, but it was burnt down by Lunette's marauders... Thankfully, my sisters and I managed to escape, and after working for a while to deliver post between Dominion and Elis, we set up this convenience store.)]
+	</p>
+	<p>
+		Stating that you haven't seen any other owl-girls around, you ask Ceridwen if her sisters work here. Nodding her head as she continues to stare at you with her big, yellow eyes, the owl-girl replies, [ceridwen.speech(Yes, they work here, but they're fully occupied with transporting deliveries from Dominion. They aren't as sociable as I am, so you won't ever see them in the store.)]
+	</p>
+	<p>
+		Although the emotionless expression on her anthropomorphic, owl-like face doesn't change, you can tell from a slight shift in the tone of Ceridwen's voice that she's pleased to have been given the opportunity to talk with you about something. With her interest in you not showing any signs of lessening, she continues to silently follow you as you continue on your way through her store... 
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TALK_SOURCES"><![CDATA[
+	<p>
+		As you [pc.walk] past shelves stocked full of all manner of food and drink, you find yourself wondering where it all comes from. Coming to a halt, you turn to face the ever-present figure of Ceridwen, who seems to be convinced that her current duty is to act as your shadow, before asking her where she gets all of this produce from. 
+	</p>
+	<p>
+		[ceridwen.speech(The majority of it comes from Dominion, although the baked goods and dairy produce is all sourced locally,)] she replies. Once again you can't help but be struck by the manner in which the owl-girl's friendly voice is completely at odds with her anthropomorphic face's emotionless expression. Continuing to stare at you with her big, yellow eyes, she explains, [ceridwen.speech(The produce that's from Dominion is transported here by my sisters. Thanks to being able to fly, the journey isn't particularly long for them, and they're able to avoid being attacked by Lunette's marauders. Unfortunately, they can't really carry a large amount at any one time, so it's a never-ending back-and-forth between Elis and Dominion to keep these shelves stocked.)] 
+	</p>
+	<p>
+		Thanking the owl-girl for the information, you continue on your way down the aisle. Without making a sound, Ceridwen flaps her huge, white-feathered wings and hops along after you, acting as though her life depends on remaining as close to you as possible...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TALK_MICE"><![CDATA[
+	<p>
+		As you reach the end of one of the aisles, you find yourself within sight of the store's counter. Stopping to gesture at it, you ask Ceridwen why all of her employees are mouse-morphs.
+	</p>
+	<p>
+		[ceridwen.speech(Well, that's because they're all part of the same big family, and they were my friends from the farm,)] she says in her usual friendly tone. Quickly realising that she's going to need to explain a little more than that, she continues, [ceridwen.speech(You see, my sisters and I used to live in a large barn on the outskirts of this family's farm. When Lunette's marauders attacked, both our barn and their farmhouse were burnt to the ground...)]
+	</p>
+	<p>
+		In a rare display of facial emotion, Ceridwen sorrowfully casts her eyes down to the ground for a moment, before quickly looking back up to gaze into your eyes and continue, [ceridwen.speech(After my sisters and I had earned enough money to set up this store, we asked the mouse-morph family if they'd like to come and work with us. They'd been struggling a lot more than we had, and so they were more than happy to come and work here. They're the best workers I could ask for while I'm around to watch over them, but if I'm not here then they start to panic and can't work...)]
+	</p>
+	<p>
+		Curious to find out more about this state of affairs, you ask the owl-girl how she manages to overcome this issue.
+	</p>
+	<p>
+		[ceridwen.speech(Well, the only way to keep the mouse-morphs calm is for someone strong that they trust to be present at all times,)] she replies. [ceridwen.speech(My sisters are too busy working to transport goods here from Dominion, and the only security guard that I could find who was able to make the mouse-morphs happy completely disappeared without a word a short while ago. So all that's left is for me to stay here twenty-four-seven. I really would like to go home and rest each day, but that's just not possible at the moment...)]
+	</p>
+	<p>
+		With your initial question answered, you wonder what to do next. You could simply continue your shopping, or perhaps you could offer Ceridwen your assistance in finding this missing security guard...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="LEAVE"><![CDATA[
+	<p>
+		Having finished your business in Ceridwen's store, you set off towards the exit. The owl-girl continues to follow you all the way to the sliding glass doors, where you turn towards her and say goodbye. Raising her wing-like arm, she gives you a little wave and says in her warm, Welsh accent, [ceridwen.speech(Goodbye, [pc.name]. Please do come back soon; you really are a very interesting person...)]
+	</p>
+	<p>
+		Leaving this slightly-creepy owl-girl behind, you [pc.step] out of her convenience store and head back out into Wall's End, wondering where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="INTRODUCTION"><![CDATA[
+	<p>
+		Feeling like you've been trapped by this white-feathered owl-girl, you decide that the easiest way out of this awkward situation is to give her what she so clearly wants and introduce yourself to her. Giving Ceridwen your name, you tell her that you've come here to Elis from Dominion on some confidential business, and that you were hoping to buy some supplies from her store.
+	</p>
+	<p>
+		[ceridwen.speech(Oh, you mean your confidential business with Meraxis?)] Ceridwen casually asks. Anticipating your next question, she hastens to explain, [ceridwen.speech(One of my sisters saw you meeting with Meraxis outside of Dominion. We owl-morphs have excellent eyesight, and she saw the two of you as she flew past at quite some height. Although it's been more than a few years since my sisters and I had the pleasure of meeting Lyssieth's daughter, she's quite a distinctive character, and so was easily recognised.)]
+	</p>
+	<p>
+		Finding it hard not to be impressed by Ceridwen's knowledge of your affairs, you ask her if your association with Meraxis is why she's chosen to approach you.
+	</p>
+	<p>
+		[ceridwen.speech(That's right,)] she replies, [ceridwen.speech(Someone who secretly meets with a recognised daughter of an elder lilin is someone who's worth watching. Even if it wasn't for that, I believe that I'd still be interested in you, [pc.name]. I can tell that there's something special about you... I hope you don't mind, but I'm going to be keeping a very close eye on you.)]
+	</p>
+	<p>
+		With your introduction now at an end, you soon find out that Ceridwen's words seem to have been spoken in a very literal sense. As you [pc.step] forwards and continue on your way down the aisle, the owl-girl silently flaps her wings and hops along after you, staring at you with her big, yellow eyes the entire time. While the warm tone of her voice has given you confidence in the belief that she's a kind, friendly person, her emotionless, owl-like face, combined with her obsessive desire to stalk you throughout her store, is nothing short of being extremely creepy.
+	</p>
+	<p>
+		[ceridwen.speech(Just pretend that I'm not here,)] Ceridwen suggests, revealing that she's clearly aware of how her behaviour might be giving you some worry. Doing your best to follow her advice, you try not to think about the two large, yellow eyes that are constantly staring at you as you [pc.walk] through the owl-girl's store...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.2.3";
+	public static final String VERSION_NUMBER = "0.4.2.5";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -806,21 +806,11 @@ public class Main extends Application {
 	}
 	
 	public static void quickSaveGame() {
-		if (Main.game.isInCombat()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in combat!");
-			
-		} else if (Main.game.isInSex()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in sex!");
-			
-		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Can only quicksave in a normal scene!");
-			
-		} else if (!Main.game.isStarted() || !Main.game.isInNeutralDialogue()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot save in this scene!");
-			
-		} else {
+		if(isQuickSaveAvailable()){
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
 			saveGame(getQuickSaveName(), true);
+		} else {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, getQuickSaveUnavailabilityDescription());
 		}
 	}
 
@@ -904,12 +894,12 @@ public class Main extends Application {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			
+
 		} else {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
-	
+
 	public static void deleteExportedGame(String name) {
 		File file = new File("data/saves/"+name+".xml");
 
@@ -920,12 +910,12 @@ public class Main extends Application {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			
+
 		} else {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
-	
+
 	public static void deleteExportedCharacter(String name) {
 		File file = new File("data/characters/"+name+".xml");
 

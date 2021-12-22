@@ -56,7 +56,7 @@
 		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Feline's Fancy, before tilting [npc.her] head back and bringing it up to [npc.her] waiting [npc.lips]. A rich, creamy smell rises from the opening, and as [npc.she] greedily [npc.verb(gulp)] down the cool liquid, [npc.sheIs] delighted to discover that it tastes every bit as good as its delicious aroma suggested it would.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Wolf Whiskey, before bringing it up to [npc2.namePos] waiting [npc2.lips]. A rich, creamy smell rises from the opening, and as [npc2.she] greedily [npc2.verb(gulp)] down the cool liquid, [npc2.sheIs] delighted to discover that it tastes every bit as good as its delicious aroma suggested it would.
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Feline's Fancy, before bringing it up to [npc2.namePos] waiting [npc2.lips]. A rich, creamy smell rises from the opening, and as [npc2.she] greedily [npc2.verb(gulp)] down the cool liquid, [npc2.sheIs] delighted to discover that it tastes every bit as good as its delicious aroma suggested it would.
 		]]></otherUse>
 	</useDescriptions>
 

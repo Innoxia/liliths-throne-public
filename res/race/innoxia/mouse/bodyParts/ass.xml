@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ass>
+	<race>innoxia_mouse</race>
+	
+	<transformationName><![CDATA[mouse]]></transformationName>
+	
+	<coveringType>innoxia_mouse_fur</coveringType>
+	
+	<anusType>innoxia_mouse_anus</anusType>
+	
+	<names/>
+	<namesPlural/>
+	
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] a [style.boldMouse(mouse-like)], [npc.assholeFullDescription].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] a mouse-like, [npc.anusFullDescription(true)]
+	]]></bodyDescription>
+</ass>

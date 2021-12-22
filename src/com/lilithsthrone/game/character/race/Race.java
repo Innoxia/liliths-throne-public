@@ -672,7 +672,7 @@ public class Race {
 			RacialClass.BIRD,
 			CombatBehaviour.SEDUCE,
 			0.5f,
-			3,
+			2,
 			4,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
