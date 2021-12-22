@@ -1201,13 +1201,13 @@ public class EnforcerAlleywayDialogue {
 				}
 				
 				if(playerSexType.getPerformingSexArea()==SexAreaPenetration.PENIS) {
-					if(playerSexType.getPerformingSexArea()==SexAreaOrifice.VAGINA) {
+					if(playerSexType.getTargetedSexArea()==SexAreaOrifice.VAGINA) {
 						sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_PENIS_VAGINA", enforcers));
 					} else {
 						sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_PENIS_ANUS", enforcers));
 					}
 				} else {
-					if(playerSexType.getPerformingSexArea()==SexAreaOrifice.VAGINA) {
+					if(playerSexType.getTargetedSexArea()==SexAreaOrifice.VAGINA) {
 						sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_FINGER_VAGINA", enforcers));
 					} else {
 						sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_FINGER_ANUS", enforcers));
@@ -1253,10 +1253,10 @@ public class EnforcerAlleywayDialogue {
 							UtilText.parse(partner,
 								"Submit to [npc.namePos] 'strip search'..."
 								+(playerSexType.getPerformingSexArea()==SexAreaPenetration.PENIS
-									?(playerSexType.getPerformingSexArea()==SexAreaOrifice.VAGINA
+									?(playerSexType.getTargetedSexArea()==SexAreaOrifice.VAGINA
 										?"<br/>[style.italicsSex(This will end with [npc.name] fucking your pussy!)]"
 										:"<br/>[style.italicsSex(This will end with [npc.name] fucking your ass!)]")
-									:(playerSexType.getPerformingSexArea()==SexAreaOrifice.VAGINA
+									:(playerSexType.getTargetedSexArea()==SexAreaOrifice.VAGINA
 										?"<br/>[style.italicsSex(This will end with [npc.name] fingering your pussy!)]"
 										:"<br/>[style.italicsSex(This will end with [npc.name] fingering your ass while jerking you off!)]"))),
 							partner,
@@ -1277,10 +1277,10 @@ public class EnforcerAlleywayDialogue {
 							UtilText.parse(partner, spectator,
 								"Submit to [npc.namePos] 'strip search' and get [npc2.name] to join in on the fun..."
 								+(playerSexType.getPerformingSexArea()==SexAreaPenetration.PENIS
-									?(playerSexType.getPerformingSexArea()==SexAreaOrifice.VAGINA
+									?(playerSexType.getTargetedSexArea()==SexAreaOrifice.VAGINA
 										?"<br/>[style.italicsSex(This will end with [npc.name] fucking your pussy"
 										:"<br/>[style.italicsSex(This will end with [npc.name] fucking your ass")
-									:(playerSexType.getPerformingSexArea()==SexAreaOrifice.VAGINA
+									:(playerSexType.getTargetedSexArea()==SexAreaOrifice.VAGINA
 										?"<br/>[style.italicsSex(This will end with [npc.name] fingering your pussy"
 										:"<br/>[style.italicsSex(This will end with [npc.name] fingering your ass and jerking you off"))
 								+(spectator.hasPenis()

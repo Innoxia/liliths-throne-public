@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_shops_spa -->
+	<scene id="exterior">
+		<content folderPath="txt/places/fields/elis/shops/spa">EXTERIOR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
+						Push open the door and enter 'Woolly Heaven'.
+					#ELSE
+						As 'Woolly Heaven' is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
+						innoxia_places_fields_elis_shops_spa_enter
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="enter">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'ENTER'))]
+			[#penelope.setPlayerKnowsName(true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- First meeting: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Introduction]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell Penelope who you are.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_introduction]]></nextDialogue>
+				</response>
+			<!-- Repeat meeting: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Cosmetics]]></responseTitle>
+					<responseTooltip><![CDATA[Ask Penelope about her cosmetic services...]]></responseTooltip>
+					<nextDialogue><![CDATA[BEAUTICIAN_START]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'COSMETICS_START'))]
+						[#game.initCosmeticsDialogue(penelope, DN_innoxia_places_fields_elis_shops_spa_post_cosmetics)]
+					]]></effects>
+				</response>
+				<!-- Spa services: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Spa (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
+					<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Give Penelope a hundred and fifty flames in exchange for access to the spa. #ELSE You can't afford to use the spa... #ENDIF]]></responseTooltip>
+					<nextDialogue><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_shops_spa_relax#ELSEnull#ENDIF]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-150))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Massage ([style.moneyFormatUncoloured(250, span)])]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(pc.getMoney()>=250) Give Penelope two hundred and fifty flames in exchange for receiving a massage. #ELSE You can't afford to get a massage... #ENDIF
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
+					]]></effects>
+				</response>
+				<!-- Talk: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Posters]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_spa_talk_posters))
+							You've already asked Penelope about the posters which cover the walls today...
+						#ELSE
+							Ask Penelope about the posters of her which cover the walls.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_spa_talk_posters))
+							null
+						#ELSE
+							innoxia_places_fields_elis_shops_spa_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'TALK_POSTERS'))]
+						[#flags.setFlag(FLAG_innoxia_spa_talk_posters, true)]
+						#IF(penelope.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(penelope.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Sheep focus]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_spa_talk_sheep))
+							You've already asked Penelope about why all of her employees are sheep-morphs today...
+						#ELSE
+							Ask Penelope why all of her employees are sheep-morphs.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_spa_talk_sheep))
+							null
+						#ELSE
+							innoxia_places_fields_elis_shops_spa_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'TALK_SHEEP'))]
+						[#flags.setFlag(FLAG_innoxia_spa_talk_sheep, true)]
+						#IF(penelope.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(penelope.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<!-- Leave: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[0]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Say goodbye to Penelope and exit the spa.]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_shops_street"/>
+					<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'LEAVE'))]
+						[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="introduction">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_elis_spa_visited, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/shops/spa">INTRODUCTION</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_enter"/>
+	</scene>
+	
+	<scene id="talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_enter"/>
+	</scene>
+	
+	<scene id="post_cosmetics">
+		<content folderPath="txt/places/fields/elis/shops/spa">POST_COSMETICS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_enter"/>
+	</scene>
+	
+	<scene id="relax">
+		<content folderPath="txt/places/fields/elis/shops/spa">RELAX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Relax]]></responseTitle>
+				<responseTooltip><![CDATA[Take some time to relax in the spa...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_relax_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.applyWash(true, true, SE_CLEANED_SPA, 300)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="relax_end">
+		<content folderPath="txt/places/fields/elis/shops/spa">RELAX_END</content>
+		<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_enter"/>
+	</scene>
+	
+	<scene id="massage">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Relax]]></responseTitle>
+				<responseTooltip><![CDATA[Take some time to relax in the spa...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_relax_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.applyWash(true, true, SE_CLEANED_SPA, 300)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

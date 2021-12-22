@@ -298,14 +298,14 @@ public class FaceType {
 			Util.newArrayListOfValues(""),
 			"[npc.Her] nose and mouth twitch and transform as they fuse together and push out into a short beak, and [npc.her] tongue thins down, turning into a bird-like one."
 				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
-					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face"
+					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face,"
 				+ "#ELSE"
-					+ " Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+]"
+					+ " Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+],"
 				+ "#ENDIF"
-					+ ", and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath."
+					+ " and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath."
 				+ " [npc.She] [npc.verb(find)], much to [npc.her] relief, that [npc.sheIs] able to harden or soften the edges of [npc.her] beak at will,"
-					+ " allowing [npc.herHim] to portray facial emotions as well as to wrap [npc.her] beak's edges around anything [npc.she] might want to put in [npc.her] mouth<br/>"
-				+ "[npc.Name] now has an anthropomorphic [style.boldHarpy(bird-like face)], [npc.materialDescriptor] [npc.faceFullDescription]."
+					+ " allowing [npc.herHim] to portray facial emotions as well as to wrap [npc.her] beak's edges around anything [npc.she] might want to put in [npc.her] mouth.<br/>"
+				+ "[npc.Name] now [npc.has] an anthropomorphic [style.boldHarpy(bird-like face)], [npc.materialDescriptor] [npc.faceFullDescription]."
 				+ " Within [npc.her] [npc.mouth], [npc.sheHasFull] a [style.boldHarpy(thin, bird-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, bird-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a beak.",
 			"[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a beak.",

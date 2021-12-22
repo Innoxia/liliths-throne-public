@@ -1,35 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogueNodes>
 
-	<!-- Place type id: innoxia_fields_elis_shops_blacksmith -->
-	<scene id="blacksmith">
-		<content folderPath="txt/places/fields/elis/shops">BLACKSMITH</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Approach]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
-						#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_blacksmith_visited))
-							Approach the baphomets and get their attention.
-						#ELSE
-							Approach the goat-boys and get their attention.
-						#ENDIF
-						<br/>[style.italicsMinorBad(This will be added soon!)]
-					#ELSE
-						As the workshop is currently closed, you'll have to come back at another time...
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
 	<!-- Place type id: innoxia_fields_elis_shops_clothing -->
-	<scene id="clothing">
-		<content folderPath="txt/places/fields/elis/shops">CLOTHING</content>
+	<scene id="exterior">
+		<content folderPath="txt/places/fields/elis/shops/clothing">CLOTHING</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<responses>
 			<response>
@@ -54,9 +28,9 @@
 		</responses>
 	</scene>
 	
-	<scene id="clothing_enter">
+	<scene id="enter">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_ENTER'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_ENTER'))]
 			[#monica.setCharacterReactedToPregnancy(pc, true)]
 			[#monica.setPlayerKnowsName(true)]
 			[#monica.setCharacterReactedToPregnancy(pc, true)]
@@ -87,7 +61,7 @@
 				<responseTooltip><![CDATA[Tell the cow-girl who you are.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_talk]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_INTRO'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_INTRO'))]
 					[#flags.setFlag(FLAG_innoxia_elis_clothing_visited, true)]
 				]]></effects>
 			</response>
@@ -231,7 +205,7 @@
 				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_shops_street"/>
 				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_LEAVE'))]
 					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
 				]]></effects>
 			</response>
@@ -257,7 +231,7 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_SMALL'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_SMALL'))]
 					[#flags.setFlag(FLAG_innoxia_monica_talk_small, true)]
 					#IF(monica.getAffection(pc)<40)
 						[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 5))]
@@ -284,7 +258,7 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_BUSINESS'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_BUSINESS'))]
 					[#flags.setFlag(FLAG_innoxia_monica_talk_business, true)]
 					#IF(monica.getAffection(pc)<40)
 						[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 5))]
@@ -312,7 +286,7 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_ELIS'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_ELIS'))]
 					[#flags.setFlag(FLAG_innoxia_monica_talk_elis, true)]
 					#IF(monica.getAffection(pc)<40)
 						[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 5))]
@@ -339,7 +313,7 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_HISTORY'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_HISTORY'))]
 					[#flags.setFlag(FLAG_innoxia_monica_talk_history, true)]
 					#IF(monica.getAffection(pc)<40)
 						[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 5))]
@@ -355,7 +329,7 @@
 				<responseTooltip><![CDATA[Ask Monica what issues she's having with her daily milking.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_talk]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_MILKING'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_MILKING'))]
 					[#flags.setFlag(FLAG_innoxia_monica_talk_milker_unlocked, true)]
 				]]></effects>
 			</response>
@@ -382,7 +356,7 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_MILKING_HELP'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_MILKING_HELP'))]
 					[#game.appendToTextStartStringBuilder(pc.startQuest(QUEST_LINE_ROMANCE_MONICA))]
 					[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 10))]
 					#IF(game.getWorlds().get(WORLD_TYPE_WORLD_MAP).getCell(PLACE_TYPE_innoxia_fields_dairyFarm)==null)
@@ -410,7 +384,7 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_MILKING_COMPLETE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_MILKING_COMPLETE'))]
 					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_ROMANCE_MONICA, QUEST_SIDE_UTIL_COMPLETE))]
 					[#pc.removeItemByType(ITEM_innoxia_quest_monica_milker, 1, true)]
 					#IF(monica.getAffection(pc)<60)
@@ -461,7 +435,7 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_TALK_BOOBIES'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_TALK_BOOBIES'))]
 					[#flags.setFlag(FLAG_innoxia_monica_talk_boobies, true)]
 					#IF(monica.getAffection(pc)<40)
 						[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 5))]
@@ -476,14 +450,14 @@
 				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_shops_street"/>
 				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_LEAVE'))]
 					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
 				]]></effects>
 			</response>
 		</responses>
 	</scene>
 	
-	<scene id="clothing_talk">
+	<scene id="talk">
 		<content/>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
@@ -491,11 +465,11 @@
 		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_clothing_enter"/>
 	</scene>
 	
-	<scene id="clothing_milking">
+	<scene id="milking">
 		<preParsingEffects><![CDATA[
 			[#monica.displaceClothingForAccess(CA_NIPPLES, null, true)]
 		]]></preParsingEffects>
-		<content folderPath="txt/places/fields/elis/shops">CLOTHING_MILKING</content>
+		<content folderPath="txt/places/fields/elis/shops/clothing">CLOTHING_MILKING</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -507,7 +481,7 @@
 				<responseTooltip><![CDATA[Do as Monica asks and use her breast pump to milk her.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_milking_finished]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_MILKING_PUMP'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_MILKING_PUMP'))]
 					[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 5))]
 				]]></effects>
 			</response>
@@ -518,7 +492,7 @@
 				<responseTooltip><![CDATA[Offer to massage Monica's breasts while she operates the pump.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_milking_finished]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_MILKING_MASSAGE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_MILKING_MASSAGE'))]
 					[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 10))]
 				]]></effects>
 			</response>
@@ -542,20 +516,20 @@
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#pc.ingestFluid(monica, monica.getMilk(), ORIFICE_MOUTH, 1000)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_MILKING_DRINK'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_MILKING_DRINK'))]
 					[#game.appendToTextStartStringBuilder(monica.incrementAffection(pc, 15))]
 				]]></effects>
 			</response>
 		</responses>
 	</scene>
 	
-	<scene id="clothing_milking_finished">
+	<scene id="milking_finished">
 		<preParsingEffects><![CDATA[
 			[#monica.displaceClothingForAccess(CA_VAGINA, null, false)]
 			[#flags.setFlag(FLAG_innoxia_monica_milked, true)]
 			[#monica.setBreastStoredMilk(0)]
 		]]></preParsingEffects>
-		<content folderPath="txt/places/fields/elis/shops">CLOTHING_MILKING_FINISHED</content>
+		<content folderPath="txt/places/fields/elis/shops/clothing">CLOTHING_MILKING_FINISHED</content>
 		<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -568,7 +542,7 @@
 				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_shops_street"/>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_MILKING_FINISHED_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_MILKING_FINISHED_LEAVE'))]
 					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
 				]]></effects>
 			</response>
@@ -594,17 +568,17 @@
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_milking_sex_end]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/elis/shops">CLOTHING_MILKING_FINISHED_SEX_START</sexStartContent>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/clothing">CLOTHING_MILKING_FINISHED_SEX_START</sexStartContent>
 					<ongoingActionsAtStart/>
 				</sexVariablesWithManager>
 			</response>
 		</responses>
 	</scene>
 	
-	<scene id="clothing_milking_sex_end">
+	<scene id="milking_sex_end">
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Monica is satisfied and brings an end to the sex...]]></tooltip>
-		<content folderPath="txt/places/fields/elis/shops">CLOTHING_MILKING_FINISHED_SEX_END</content>
+		<content folderPath="txt/places/fields/elis/shops/clothing">CLOTHING_MILKING_FINISHED_SEX_END</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -617,224 +591,10 @@
 				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_shops_street"/>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'CLOTHING_MILKING_FINISHED_SEX_END_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/clothing', 'CLOTHING_MILKING_FINISHED_SEX_END_LEAVE'))]
 					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
 				]]></effects>
 			</response>
-		</responses>
-	</scene>
-	
-	
-	<!-- Place type id: innoxia_fields_elis_shops_convenience -->
-	<scene id="convenience">
-		<content folderPath="txt/places/fields/elis/shops">CONVENIENCE</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Enter]]></responseTitle>
-				<responseTooltip><![CDATA[
-					Enter the convenience store.
-					<br/>[style.italicsMinorBad(This will be added soon!)]
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
-	<!-- Place type id: innoxia_fields_elis_shops_exit -->
-	<scene id="exit">
-		<author><![CDATA[Innoxia]]></author>
-		<preParsingEffects/>
-		<content folderPath="txt/places/fields/elis/shops">EXIT</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>false</travelDisabled>
-		<responses>
-			<response>
-				<availabilityConditional><![CDATA[true]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Leave]]></responseTitle>
-				<responseTooltip><![CDATA[Exit the shopping precinct and head back out into the rest of Elis.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_street"/>
-				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
-				<effects><![CDATA[
-					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_shops)]
-					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_street)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'EXIT_LEAVE'))]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Information sign]]></responseTitle>
-				<responseTooltip><![CDATA[Take a moment to read the touristy-looking information sign positioned in the middle of the path.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_shops_exit_info</nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="exit_info">
-		<author><![CDATA[Innoxia]]></author>
-		<title/>
-		<tooltip/>
-		<preParsingEffects/>
-		<content folderPath="txt/places/fields/elis/shops">EXIT_INFO</content>
-		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Back]]></responseTitle>
-				<responseTooltip><![CDATA[You've finished reading and so [pc.step] away from the sign.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_exit"/>
-				<secondsPassed><![CDATA[30]]></secondsPassed>
-				<effects/>
-			</response>
-		</responses>
-	</scene>
-	
-	<!-- Place type id: innoxia_fields_elis_shops_fountain -->
-	<scene id="fountain">
-		<content folderPath="txt/places/fields/elis/shops">FOUNTAIN</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-	</scene>
-	
-	<!-- Place type id: innoxia_fields_elis_shops_generic_shop -->
-	<scene id="generic_shop">
-		<content folderPath="txt/places/fields/elis/shops">GENERIC_SHOP</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-	</scene>
-	
-	<!-- Place type id: innoxia_fields_elis_shops_generic_lawn -->
-	<scene id="lawn">
-		<content folderPath="txt/places/fields/elis/shops">LAWN</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-	</scene>
-	
-	<!-- Place type id: innoxia_fields_elis_shops_spa -->
-	<scene id="spa">
-		<content folderPath="txt/places/fields/elis/shops">SPA</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Enter]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
-						Enter the massage parlour.
-						<br/>[style.italicsMinorBad(This will be added soon!)]
-					#ELSE
-						As the shop is currently closed, you'll have to come back at another time...
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
-	<!-- Place type id: innoxia_fields_elis_shops_generic_street -->
-	<scene id="street">
-		<content folderPath="txt/places/fields/elis/shops">STREET</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-	</scene>
-	
-	<!-- Place type id: innoxia_fields_elis_shops_toilets -->
-	<scene id="toilets">
-		<content folderPath="txt/places/fields/elis/shops">TOILETS</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Enter]]></responseTitle>
-				<responseTooltip><![CDATA[
-					Enter the toilets.
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_toilets_interior]]></nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="toilets_interior">
-		<content folderPath="txt/places/fields/elis/shops">TOILETS_INTERIOR</content>
-		<secondsPassed><![CDATA[30]]></secondsPassed>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[0]]></index>
-				<responseTitle><![CDATA[Leave]]></responseTitle>
-				<responseTooltip><![CDATA[
-					Exit the toilets and head back out into the shopping precinct.
-				]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_street"/>
-				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
-				<effects><![CDATA[
-					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'TOILETS_LEAVE'))]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Toilet]]></responseTitle>
-				<responseTooltip><![CDATA[
-					Use the toilet.
-				]]></responseTooltip>
-				<nextDialogue forceContinue="true" stripContent="true"><![CDATA[innoxia_places_fields_elis_shops_toilets_interior]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'TOILETS_USE'))]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Wash]]></responseTitle>
-				<responseTooltip><![CDATA[
-					Use the sinks to wash your [pc.hands] and face.
-					<br/>[style.italicsGood(This will clean all inventory slots associated with head and hand slots, as well as any clothing worn in these slots.)]
-				]]></responseTooltip>
-				<nextDialogue forceContinue="true" stripContent="true"><![CDATA[innoxia_places_fields_elis_shops_toilets_interior]]></nextDialogue>
-				<effects><![CDATA[
-					[#pc.applyLimitedWash(IS_HEAD, IS_EYES, IS_MOUTH, IS_NECK, IS_HAIR, IS_FINGER, IS_HAND, IS_WRIST)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'TOILETS_WASH'))]
-				]]></effects>
-			</response>
-			<!-- TODO Glory hole: -->
-			<!-- <response>
-				<availabilityConditional><![CDATA[
-					[#!game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_toilets_hole_made)]
-				]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[3]]></index>
-				<responseTitle><![CDATA[Make glory hole]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(pc.hasWeaponWithTag(ITEM_TAG_WEAPON_BLADE, true, true))
-						Use your bladed weapon to cut a small hole between two of the stalls...
-					#ELSE
-						You require a bladed weapon in your inventory to be able to cut a hole between two of the stalls!
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[
-					#IF(pc.hasWeaponWithTag(ITEM_TAG_WEAPON_BLADE, true, true))
-						innoxia_places_fields_elis_shops_toilets_interior
-					#ELSE
-						null
-					#ENDIF
-				]]></nextDialogue>
-				<effects><![CDATA[
-					[#flags.setFlag(FLAG_innoxia_elis_toilets_hole_ever_made, true)]
-					[#flags.setFlag(FLAG_innoxia_elis_toilets_hole_made, true)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops', 'TOILETS_MAKE_HOLE'))]
-				]]></effects>
-			</response>
-			-->
 		</responses>
 	</scene>
 	

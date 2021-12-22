@@ -207,7 +207,7 @@ public abstract class DialogueNode {
 								
 								List<String> requiredFetishes = new ArrayList<>();
 								if(response.getOptionalFirstOf("requiredFetishes").isPresent()) {
-									for(Element fetish : node.getMandatoryFirstOf("requiredFetishes").getAllOf("fetish")) {
+									for(Element fetish : response.getMandatoryFirstOf("requiredFetishes").getAllOf("fetish")) {
 										requiredFetishes.add(fetish.getTextContent());
 									}
 								}
@@ -225,22 +225,22 @@ public abstract class DialogueNode {
 								
 								List<String> requiredPerks = new ArrayList<>();
 								if(response.getOptionalFirstOf("requiredPerks").isPresent()) {
-									for(Element perk : node.getMandatoryFirstOf("requiredPerks").getAllOf("perk")) {
+									for(Element perk : response.getMandatoryFirstOf("requiredPerks").getAllOf("perk")) {
 										requiredPerks.add(perk.getTextContent());
 									}
 								}
 	
 								List<String> subspeciesRequired = new ArrayList<>();
 								if(response.getOptionalFirstOf("requiredSubspecies").isPresent()) {
-									for(Element subspecies : node.getMandatoryFirstOf("requiredSubspecies").getAllOf("subspecies")) {
+									for(Element subspecies : response.getMandatoryFirstOf("requiredSubspecies").getAllOf("subspecies")) {
 										subspeciesRequired.add(subspecies.getTextContent());
 									}
 								}
 								
 								
 								// Trading:
-								if(response.getOptionalFirstOf("tradingVariables").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("tradingVariables").getAttribute("enabled"))) {
-									String tradeTarget = node.getMandatoryFirstOf("tradingVariables").getMandatoryFirstOf("tradePartner").getTextContent();
+								if(response.getOptionalFirstOf("tradingVariables").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("tradingVariables").getAttribute("enabled"))) {
+									String tradeTarget = response.getMandatoryFirstOf("tradingVariables").getMandatoryFirstOf("tradePartner").getTextContent();
 									ResponseTrade tradeResponse = new ResponseTrade(responseTitle, responseTooltip, tradeTarget, effectsResponse);
 									tradeResponse.setConditional(availabilityConditional);
 									
@@ -250,8 +250,8 @@ public abstract class DialogueNode {
 								}
 								
 								// Combat:
-								else if(response.getOptionalFirstOf("combatVariables").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("combatVariables").getAttribute("enabled"))) {
-									Element combatElement = node.getMandatoryFirstOf("combatVariables");
+								else if(response.getOptionalFirstOf("combatVariables").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("combatVariables").getAttribute("enabled"))) {
+									Element combatElement = response.getMandatoryFirstOf("combatVariables");
 									
 									String nextDialoguePlayerVictory = combatElement.getMandatoryFirstOf("nextDialoguePlayerVictory").getTextContent();
 									String nextDialoguePlayerDefeat = combatElement.getMandatoryFirstOf("nextDialoguePlayerDefeat").getTextContent();
@@ -298,7 +298,7 @@ public abstract class DialogueNode {
 								}
 								
 								// Sex:
-								else if(response.getOptionalFirstOf("sexVariables").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("sexVariables").getAttribute("enabled"))) {
+								else if(response.getOptionalFirstOf("sexVariables").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("sexVariables").getAttribute("enabled"))) {
 									Element sexElement = response.getMandatoryFirstOf("sexVariables");
 									
 									String consensual = sexElement.getMandatoryFirstOf("consensual").getTextContent();
@@ -397,7 +397,7 @@ public abstract class DialogueNode {
 								}
 								
 								// Sex with manager:
-								else if(response.getOptionalFirstOf("sexVariablesWithManager").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("sexVariablesWithManager").getAttribute("enabled"))) {
+								else if(response.getOptionalFirstOf("sexVariablesWithManager").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("sexVariablesWithManager").getAttribute("enabled"))) {
 									Element sexElement = response.getMandatoryFirstOf("sexVariablesWithManager");
 									
 									String sexManagerId = sexElement.getMandatoryFirstOf("id").getTextContent();

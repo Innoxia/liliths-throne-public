@@ -2795,12 +2795,14 @@ public class Sex {
 					}
 				}
 			}
-			for(GameCharacter drainer : levelDrains) {
-				if(drainer.isLevelDrainAvailableToUse()) {
-					stringBuilderForAppendingDescriptions.append(drainer.applyLevelDrain(Main.sex.getCharacterPerformingAction()));
+			if(!Main.game.isBadEnd()) { // Do not drain levels during a bad end
+				for(GameCharacter drainer : levelDrains) {
+					if(drainer.isLevelDrainAvailableToUse()) {
+						stringBuilderForAppendingDescriptions.append(drainer.applyLevelDrain(Main.sex.getCharacterPerformingAction()));
+					}
 				}
 			}
-
+			
 			// Reset appropriate flags:
 			removeCharacterBannedFromPositioning(getCharacterPerformingAction());
 			charactersRequestingCreampie = new HashSet<>();

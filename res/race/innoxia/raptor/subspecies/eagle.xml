@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>innoxia_raptor</race>
+	<colour>BASE_BROWN_DARK</colour>
+	<secondaryColour>innoxia_raptor</secondaryColour>
+	<tertiaryColour>innoxia_raptor</tertiaryColour>
+	<mainSubspecies>false</mainSubspecies>
+	<baseSlaveValue>18000</baseSlaveValue>
+	<attributeItemId>innoxia_race_raptor_energy_drink</attributeItemId>
+	<transformativeItemId>innoxia_race_raptor_energy_bar</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges><![CDATA[
+		#IF(targetedBody.getLegType().getRace()==RACE_innoxia_raptor)
+			[#targetedBody.setLegType(LEG_TYPE_innoxia_raptor_leg_large)]
+		#ENDIF
+		[#targetedBody.setHeight(targetedBody.getHeightValue()*1.25)]
+		#IF(targetedBody.getBodySize()<40)
+			[#targetedBody.setBodySize(targetedBody.getBodySize()+10)]
+		#ENDIF
+		#IF(targetedBody.getMuscle()<50)
+			[#targetedBody.setMuscle(targetedBody.getMuscle()+20)]
+		#ENDIF
+		#IF(targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_raptor_feathers, true).getPrimaryColour()==COLOUR_COVERING_BROWN_DARK && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_raptor_hair, true).getPrimaryColour()==COLOUR_COVERING_WHITE))
+			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_raptor_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_BROWN_DARK, false, COLOUR_COVERING_BROWN_DARK, false)]
+		#ENDIF
+	]]></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_innoxia_raptor && targetedBody.getLeg().getType()==LEG_TYPE_innoxia_raptor_leg_large)
+			110
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">eagle</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>icon</bookIconName>
+	<bookName>The Sharpest Talons</bookName>
+	<basicDescriptionId>RAPTOR_BASIC</basicDescriptionId>
+	<advancedDescriptionId>RAPTOR_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[eagle-morph]]></name>
+	<namePlural><![CDATA[eagle-morphs]]></namePlural>
+	<singularMaleName><![CDATA[eagle-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[eagle-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[eagle-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[eagle-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic eagle, known as a 'eagle-morph' when bipedal, and a 'eagle-taur' when the lower body is that of a feral eagle.]]></description>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[tengu]]></name>
+			<namePlural><![CDATA[tengu]]></namePlural>
+			<singularMaleName><![CDATA[tengu]]></singularMaleName>
+			<singularFemaleName><![CDATA[tengu]]></singularFemaleName>
+			<pluralMaleName><![CDATA[tengu]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[tengu]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[eagle]]></feralName>
+		<feralNamePlural><![CDATA[eagles]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[eagle]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[eagle]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[eagles]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[eagles]]></feralPluralFemaleName>
+		<legConfiguration>AVIAN</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>90</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>0</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>2</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>true</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] speed and power helps [npc.herHim] to land particularly hard-hitting strikes in combat.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="15">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="15">CRITICAL_DAMAGE</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="5" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="2">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="TWO_RARE">DOMINION</region>
+		<region rarity="FOUR_COMMON">FIELDS</region>
+		<region rarity="FOUR_COMMON">FIELD_CITY</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="TWO_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

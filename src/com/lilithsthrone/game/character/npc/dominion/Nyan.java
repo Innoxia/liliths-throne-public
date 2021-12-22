@@ -819,8 +819,8 @@ public class Nyan extends NPC {
 //
 //		if(withBirth) {
 //			// Nyan's children can't be encountered as her mother finds them jobs elsewhere in the Realm:
-//			for(String npc : offspringIds) {
-//				Main.game.removeNPC(npc);
+//			for(String os : offspringIds) {
+//				Main.game.removeOffspringSeed(os);
 //			}
 //		}
 //	}

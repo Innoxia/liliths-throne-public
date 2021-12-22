@@ -45,6 +45,7 @@
 			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
 			<tag>ATTRIBUTE_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
+			<tag>CAFFEINATED_005</tag>
 		</itemTags>
 	</coreAttributes>
 
