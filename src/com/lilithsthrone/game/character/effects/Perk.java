@@ -1410,7 +1410,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk BESERK = new AbstractPerk(20,
-			false,
+			true,
 			"berserk",
 			PerkCategory.PHYSICAL,
 			"perks/beserk",
@@ -1517,7 +1517,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk ENERGY_BOOST_DRAIN_DAMAGE = new AbstractPerk(20,
-			false,
+			true,
 			"aura shielding",
 			PerkCategory.PHYSICAL,
 			"perks/resource_boost_drain_aura",
@@ -1825,7 +1825,7 @@ public class Perk {
 	
 	
 	public static AbstractPerk ARCANE_COMBATANT = new AbstractPerk(20,
-			true,
+			false,
 			"arcane combatant",
 			PerkCategory.ARCANE,
 			"perks/physical_brawler",
@@ -1877,7 +1877,7 @@ public class Perk {
 	
 	
 	public static AbstractPerk FEROCIOUS_WARRIOR = new AbstractPerk(20,
-			true,
+			false,
 			"ferocious warrior",
 			PerkCategory.PHYSICAL,
 			"perks/physical_brawler",
@@ -1930,7 +1930,7 @@ public class Perk {
 	// Arcane:
 	
 	public static AbstractPerk ARCANE_CRITICALS = new AbstractPerk(60,
-			true,
+			false,
 			"arcane precision",
 			PerkCategory.ARCANE,
 			"perks/physical_accurate",
@@ -2200,7 +2200,7 @@ public class Perk {
 	
 
 	public static AbstractPerk UNARMED_TRAINING = new AbstractPerk(20,
-			true,
+			false,
 			"martial artist",
 			PerkCategory.PHYSICAL,
 			"perks/unarmed_training",
@@ -2263,7 +2263,7 @@ public class Perk {
 	};
 	
 	public static AbstractPerk CONVINCING_REQUESTS = new AbstractPerk(20,
-			false,
+			true,
 			"irresistible appeals",
 			PerkCategory.LUST,
 			"perks/convincing_requests",
@@ -2281,7 +2281,7 @@ public class Perk {
 	};
 	
 	public static AbstractPerk OBJECT_OF_DESIRE = new AbstractPerk(20,
-			false,
+			true,
 			"object of desire",
 			PerkCategory.LUST,
 			"perks/object_of_desire",
@@ -2340,7 +2340,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk LUSTPYRE = new AbstractPerk(20,
-			true,
+			false,
 			"lustpyre",
 			PerkCategory.LUST,
 			"perks/lustful_leech",
@@ -2355,7 +2355,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk PURE_MIND = new AbstractPerk(20,
-			true,
+			false,
 			"pure thoughts",
 			PerkCategory.LUST,
 			"perks/pure_mind",

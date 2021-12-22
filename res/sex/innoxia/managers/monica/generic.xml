@@ -2,7 +2,7 @@
 <sexManager>
 	<title/>
 	<wallName/>
-	<deskName/>
+	<deskName><![CDATA[bed]]></deskName>
 	<consensual><![CDATA[true]]></consensual>
 	<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
 	<canSkipSex><![CDATA[true]]></canSkipSex>

@@ -351,7 +351,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_D_TO_THEMISCRYA(QuestType.MAIN, 1, 25) {
+	MAIN_3_D_TO_THEMISCYRA(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "To Themiscyra";
@@ -359,7 +359,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
 					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
 		}
 
@@ -1966,7 +1966,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located an hour's travel to the North-East of Elis named 'Evelyx's Dairy'."
+			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located to the North-East of Elis named 'Evelyx's Dairy'."
 					+ " You'll have to go to this farm and ask for Monica's breast pump...";
 		}
 		@Override
@@ -2038,6 +2038,9 @@ public enum Quest {
 	public static Quest getQuestFromId(String quest) {
 		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
 			return Quest.MAIN_3_ELIS;
+		}
+		if(quest.equalsIgnoreCase("MAIN_3_D_TO_THEMISCRYA")) {
+			return Quest.MAIN_3_D_TO_THEMISCYRA;
 		}
 		
 		return Quest.valueOf(quest);

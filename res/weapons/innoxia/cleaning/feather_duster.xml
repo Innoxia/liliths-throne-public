@@ -17,7 +17,7 @@
 		<attackDescriptor>Duster tickle</attackDescriptor>
 		<attackTooltipDescription><![CDATA[Tickle [npc.name] with your feather duster!]]></attackTooltipDescription>
 		<rarity>EPIC</rarity>
-		<weaponSet/>
+		<weaponSet>innoxia_maid</weaponSet>
 		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] feather duster.]]></equipText>
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] feather duster away.]]></unequipText>
 		<imageName>feather_duster.svg</imageName> 

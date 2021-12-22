@@ -196,6 +196,9 @@ public class BreastCrotch implements BodyPartInterface {
 		}
 		
 		if (type == getType()) {
+			if(type.equals(BreastType.NONE)) {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] [npc.crotchBoobs], so nothing happens...)]</p>");
+			}
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.crotchBoobs] of [npc.a_breastRace], so nothing happens...)]</p>");
 		}
 		

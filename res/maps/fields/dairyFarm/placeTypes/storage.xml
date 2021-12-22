@@ -13,7 +13,9 @@
 	<populationPresent>
 		<population>
 			<populationType plural="true" density="SEVERAL">OFFICE_WORKER</populationType>
-			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+			<subspeciesPresent>
+				<subspecies>DEMON</subspecies>
+			</subspeciesPresent>
 		</population>
 	</populationPresent>
 	<furniturePresent>false</furniturePresent>

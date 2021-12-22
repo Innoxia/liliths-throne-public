@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -147,6 +148,52 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		}
 		sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
 		
+		for(ItemTag tag : this.getItemTags()) {
+			int intoxicationLevel = 0;
+			switch(tag) {
+				case CAFFEINATED_005:
+					intoxicationLevel = 5;
+					break;
+				case CAFFEINATED_010:
+					intoxicationLevel = 10;
+					break;
+				case CAFFEINATED_015:
+					intoxicationLevel = 15;
+					break;
+				case CAFFEINATED_020:
+					intoxicationLevel = 20;
+					break;
+				case CAFFEINATED_025:
+					intoxicationLevel = 25;
+					break;
+				case CAFFEINATED_030:
+					intoxicationLevel = 30;
+					break;
+				case CAFFEINATED_040:
+					intoxicationLevel = 40;
+					break;
+				case CAFFEINATED_050:
+					intoxicationLevel = 50;
+					break;
+				case CAFFEINATED_075:
+					intoxicationLevel = 75;
+					break;
+				case CAFFEINATED_100:
+					intoxicationLevel = 100;
+					break;
+				default:
+					break;
+			}
+			if(intoxicationLevel>0 && target.getRace()==Race.getRaceFromId("charisma_spider")) {
+				sb.append(UtilText.parse(target,
+						"<p style='text-align:center;'>"
+							+ "Due to [npc.her] spider physiology, the caffeine in the "+this.getName()+" acts in a similar manner to alcohol, and as a result [npc.she] [npc.verb(feel)] [npc.herself] getting [style.boldAlcohol(drunk)]..."
+						+ "</p>"));
+				sb.append(user.incrementAlcoholLevel(intoxicationLevel/100f));
+				break;
+			}
+		}
+		
 		return sb.toString();
 	}
 	
@@ -215,6 +262,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		}
 		for(String s : this.getItemType().getEffectTooltipLines()) {
 			sb.append("<br/>"+s);
+		}
+		for(ItemTag it : this.getItemTags()) {
+			for(String s : it.getClothingTooltipAdditions()) {
+				sb.append("<br/>"+s);
+			}
 		}
 
 		sb.append("</p>"

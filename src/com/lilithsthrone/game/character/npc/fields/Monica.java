@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -55,6 +56,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -207,13 +209,18 @@ public class Monica extends NPC {
 				for(int i=0; i < nodeList.getLength(); i++){
 					Element e = (Element) nodeList.item(i);
 					try {
-						entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+						AbstractClothing c = AbstractClothing.loadFromXML(e, doc);
+						if(c!=null) {
+							entry.getValue().add(c);
+						} else {
+							System.err.println("Warning: loaded clothing is null in Monica's loadFromXML() method!");
+						}
 					} catch(Exception ex) {
 					}
 				}
 			}
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2")) {
 			this.setStartingBody(true);
 			this.equipClothing();
 		}
@@ -270,6 +277,8 @@ public class Monica extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_COW_MORPH, PresetColour.EYE_HAZEL));
 		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_BLACK, false), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_TANNED), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_TANNED), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, CoveringPattern.HIGHLIGHTS, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
@@ -324,7 +333,7 @@ public class Monica extends NPC {
 		// Vagina:
 		this.setVaginaVirgin(false);
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
-		this.setVaginaLabiaSize(LabiaSize.TWO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.THREE_LARGE);
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
 		this.setVaginaWetness(Wetness.THREE_WET);
@@ -352,7 +361,7 @@ public class Monica extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_flats", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		AbstractClothing dress = Main.game.getItemGen().generateClothing("phlarx_dresses_vintage_dress", PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_SILVER, false);
-		dress.setPattern("irbynx_cow_patterned");
+		dress.setPattern(Pattern.getPatternIdByName("irbynx_cow_patterned"));
 		dress.setPatternColours(Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_WHITE));
 		this.equipClothingFromNowhere(dress, true, this);
 
@@ -465,11 +474,16 @@ public class Monica extends NPC {
 
 	@Override
 	public void endSex() {
-		this.replaceAllClothing();
+		this.equipClothing();
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+	
+	@Override
+	public String getTraderDescription() {
+		return UtilText.parseFromXMLFile("places/fields/elis/shops", "CLOTHING_TRANSACTION_START");
 	}
 }

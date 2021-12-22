@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>EYE_IRIS</category>
+	
+	<determiner><![CDATA[a pair of]]></determiner>
+	<name><![CDATA[eye]]></name>
+	<namePlural pluralByDefault="true"><![CDATA[eyes]]></namePlural> 
+	
+	<naturalCoveringModifiers>
+		<modifier>EYE</modifier>
+	</naturalCoveringModifiers>
+	
+	<extraCoveringModifiers/>
+	
+	<naturalPatterns>
+		<pattern weighting="1">EYE_IRISES</pattern>
+	</naturalPatterns>
+	
+	<extraPatterns>
+		<pattern weighting="1">EYE_IRISES_HETEROCHROMATIC</pattern>
+	</extraPatterns>
+	
+	<naturalColoursPrimary values="naturalIrisColours"/> 
+	<extraColoursPrimary values="dyeIrisColours"/>
+	
+	<naturalColoursSecondary values="naturalIrisColours"/>
+	<extraColoursSecondary values="dyeIrisColours"/>
+	
+</coveringType>

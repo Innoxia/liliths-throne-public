@@ -1881,6 +1881,13 @@ public class CharacterUtils {
 			}
 		}
 		
+		// Body parts:
+		
+		// Randomise skin colour if not greater:
+		if(character.getRaceStage()!=RaceStage.GREATER && character.getRaceStage()!=RaceStage.FERAL) {
+			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
+		}
+		
 		// Ass:
 		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 			character.setAssVirgin(false);
@@ -2416,7 +2423,7 @@ public class CharacterUtils {
 		for(Fetish f : Fetish.values()) {
 			switch(f) {
 				case FETISH_PURE_VIRGIN:
-					if(character.hasVagina()||(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))
+					if(character.hasVagina()&&(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))
 						allowedFetishes.add(f);
 					break;
 				case FETISH_PREGNANCY:
@@ -2921,6 +2928,10 @@ public class CharacterUtils {
 	}
 	
 	public void applyMakeup(GameCharacter character, boolean overrideExistingMakeup) {
+		if(!character.getBodyMaterial().isAbleToWearMakeup()) {
+			return;
+		}
+
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
 					PresetColour.COVERING_NONE,

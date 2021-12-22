@@ -19,10 +19,12 @@
 		  <type>ATHLETIC</type> <!-- At the time of creation (v0.3.0.6), only the MUGGER outfitType is used in the game. All outfit types will be added eventually. -->
 		</outfitTypes>
 		
-		<!-- WhatWhich leg configurations can equip this outfit. For a list of legConfigurations, see: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java -->
+		<!-- Which leg configurations can equip this outfit. For a list of legConfigurations, see: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java -->
 		<acceptableLegConfigurations>
 			<legConfiguration>BIPEDAL</legConfiguration>
 			<legConfiguration>TAUR</legConfiguration>
+			<legConfiguration>TAIL_LONG</legConfiguration>
+			<legConfiguration>ARACHNID</legConfiguration>
 		</acceptableLegConfigurations>
 		
 		<!-- The condition that needs to be satisfied for someone to generate this outfit. "npc.hasFetish(FETISH_EXHIBITIONIST)" should probably always be taken into account. This conditional instance does NOT support the "clothingConditionalX" elements.
@@ -187,7 +189,7 @@
 			
 			<!--Slacks always (if not a taur) -->
 			<uniqueClothing>
-				<conditional><![CDATA[!npc.isTaur()]]></conditional>
+				<conditional><![CDATA[npc.isBipedal()]]></conditional>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_ptrlequipset_enfslacks" isDirty="false">
 				</clothing>
 			</uniqueClothing>
