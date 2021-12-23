@@ -335,7 +335,7 @@ public class Game implements XMLSaving {
 	public static Map<String, TooltipInformationEventListener> informationTooltips = new HashMap<>();
 	
 	// Logs:
-	private List<EventLogEntry> eventLog = new ArrayList<>();
+	private List<EventLogEntry> eventLog = new SizedStack<>(50);
 	private SizedStack<Value<Integer, List<SlaveryEventLogEntry>>> slaveryEventLog = new SizedStack<>(7);
 	
 	// Slavery:
@@ -636,7 +636,7 @@ public class Game implements XMLSaving {
 		try {
 			Element eventLogNode = doc.createElement("eventLog");
 			game.appendChild(eventLogNode);
-			for(EventLogEntry event : Main.game.getEventLog().subList(Math.max(0, Main.game.getEventLog().size()-50), Main.game.getEventLog().size())) {
+			for(EventLogEntry event : Main.game.getEventLog()) {
 				event.saveAsXML(eventLogNode, doc);
 			}
 		} catch(Exception ex) {
