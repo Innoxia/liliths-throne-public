@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>innoxia_mouse</race>
+	
+	<transformationName><![CDATA[mouse]]></transformationName>
+	
+	<coveringType>innoxia_mouse_skin</coveringType>
+	
+	<spinneret>false</spinneret>
+	
+	<defaultGirth>2</defaultGirth>
+	
+	<defaultLengthAsPercentageOfHeight>1</defaultLengthAsPercentageOfHeight>
+	
+	<tags>
+		<tag>TAIL_PREHENSILE</tag>
+		<tag>TAIL_SUITABLE_FOR_PENETRATION</tag>
+		<tag>TAIL_SLEEP_HUGGING</tag>
+		<tag>TAIL_TYPE_SKIN</tag>
+		<tag>TAIL_TAPERING_LINEAR</tag>
+	</tags>
+	
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	
+	<name><![CDATA[tail]]></name>
+	<namePlural><![CDATA[tails]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>mouse-like</descriptor>
+		<descriptor>furry</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>mouse-like</descriptor>
+		<descriptor>furry</descriptor>
+	</descriptorsFeminine>
+	
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>furry</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>furry</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A slender, mouse-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over it, and can twist it almost anywhere [npc.she] [npc.verb(please)].
+			<br/>[npc.Name] now [npc.has] a [style.boldMouse(mouse-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			[npc.TailCount] slender, mouse-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over them, and can twist them almost anywhere [npc.she] [npc.verb(please)].
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldMouse(mouse-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] mouse tail, which [npc.she] can lift up and down.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] mouse tails, which [npc.she] can lift up and down.
+		#ENDIF
+	]]></bodyDescription>
+</tail>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>150</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[safety glasses]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[safety glasses]]></namePlural>
+		<description><![CDATA[A pair of hardened plastic safety glasses, which offer eye protection against debris, dirt, and dust.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>EYES</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>SCIENTIST</clothingSet>
+		<imageName>safety_glasses.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		
+		<effects>
+            <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_ICE" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_POISON" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>EYES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_ORANGE_BRIGHT</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_BLUE_NAVY</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_BLUE_NAVY</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the safety glasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the safety glasses onto [npc2.namePos] face.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] the safety glasses onto [npc2.namePos] face.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] safety glasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] safety glasses.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] safety glasses and roughly [npc.verb(pull)] them off.]]>
+		</otherRough>
+	</displacementText>
+  
+</clothing>

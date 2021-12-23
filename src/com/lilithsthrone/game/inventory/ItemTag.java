@@ -38,6 +38,19 @@ public enum ItemTag {
 	SUBMISSION_TUNNEL_SPAWN,
 	BAT_CAVERNS_SPAWN,
 	ALCOHOLIC, // For easy detection of alcoholic items in some scenes
+
+	// To mark consumables as containing caffeine, with the number representing the equivalent alcoholic level to be applied to spider-morphs
+	// Only one of these should be applied to an item
+	CAFFEINATED_005(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 5% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_010(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_015(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 15% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_020(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 20% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_025(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 25% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_030(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 30% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_040(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 40% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_050(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 50% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_075(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 75% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_100(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 100% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
 	
 	CONTRABAND_LIGHT(// 'Restricted' items will not be bought by honest shopkeepers
 			Util.newArrayListOfValues(

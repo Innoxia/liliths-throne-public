@@ -21,47 +21,272 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
 		Implemented new way of handling offspring who haven't yet been met, significantly improving turn time performance and save file size in games in which you have a lot of unmet offspring. (PR#1622 by AceXP)
 	
+	Engine/Modding:
+		Added new BodyPartTag values 'TAIL_ATTACK' and 'TAIL_VENOMOUS_STING' for future use in bee/scorpion/etc. tails.
+		Added several 'CAFFEINATED_' ItemTags for use in defining consumable items as being caffeinated (so that they can apply intoxication effects to spider-morphs).
+	
+	Gameplay:
+		Added characters and basic trading actions for the last remaining shops in Elis's shopping precint, Wall's End. (More content for each store will be added later.)
+		Added a new 'raptor' race which includes the subspecies: falcons (default); eagles; bald eagles (converted from harpy race); and owls.
+		Added 'Raptor energy drink' and 'Raptor energy bar' as new drink and food items for the new raptor race.
+		Added a new 'mouse' race which includes just one 'mouse' subspecies.
+		Added 'Harvest Mouse's barley water' and 'Harvest Mouse's cheese' as new drink and food items for the new mouse race.
+	
+	Clothing:
+		Added 'safety glasses' (scientist set, eye slot, androgynous, sold by Nyan).
+	
+	Sex:
+		NPCs will now only use the orgasm denial action during sex if they have the orgasm denial fetish. (Previously, all that they needed was to have a positive desire towards that fetish.)
+	
+	Other:
+		Changed references to beer and cider bottles to being on tap in the two pubs in Elis.
+		Changed Mintallys's Sunday milk flavour/theme from grape/purple to cherry/red.
+		Gave Amber a lore-friendly demonic surname.
+		Lyssieth's dominant and submissive sex options are no longer tied to her using her pussy or growing a cock, and instead you can request that she use her pussy or grow her cock for both dominant and submissive sex scenes.
+	
 	Bugs:
 		Parsing fixes.
 		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
 		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
 		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
+		Fixed issue where you could ask Dale about Monica's milker before even having started Monica's quest.
+		Fixed issue with several attributes in xml-defined responses (such as for fetish/perk requirements, sex, combat, and trading), where the first definition of these attributes would be used for all subsequent responses.
 	
-	
-	[x] Offspring seed PR testing
-		[x] Pre-PR pregnancy save conversion
-			[x] check load, save, load, birth
-		[x] Lilaya birthing
-		[x] Debug offspring screen
-		[x] Encounters
-		[x] Incubation
-			[x] Offspring map check
-		[x] Incubating
-			[x] Offspring map check
-		[x] Offspring starting at 19 instead of 18
-		[x] Slight formatting error at "Rest" when incubation birth
 	
 	
 	[x] 'underside of your feral a spider's body'
 	[x] fix incubation total offspring count
 	[x] parsing issues in encourage creampie/pullout
+	[x] once again able to use some basic telek
+	[x] Change description of beer and ale in pubs to be on tap
+	[x] Minotallys grape milk
+	[x] Amber needs correct surname
+	[-] Improve random racial TF potion to filter out TFs which will do nothing
+	[-] cannot egg spinnerets?
+		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
+		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
+	[x] Doggy-style you: "he grips your womanly hips and pulls his rump back against his groin, groaning"
+	[x] Wanting to check the new Dairy content I went there and noticed that when interacting with Dale, the option to ask about the milker was present, even though I hadn't started the quest or even met Monika.
+		I got the milker, and went to the clothing store and sure enough, the Monika NPC introduced herself to me and eventually introduced the quest. I was able to complete it on the spot because I had the milker
+	[x] decouple pussy/cock to sub/dom for Lyssieth sex
+		[x] sex dom/sub actions
+			[x] grow penis option
+	[x] NPCs denying orgasms even without fetish?
+	[x] Bird-morph rework:
+		Split harpy race to add Raptors
+			[x] Items
+				[x] Food - chicken wings
+				[x] Drink - energy drink
+			[x] Coverings
+			[x] Parts
+				[x] Check for boldRaptor
+			[x] Subspecies 
+				[x] Falcon: standard
+				[x] Eagle: Large feet
+					[x] Powerful legs
+				[x] Owl
+					[x] Large eyes
+			[x] Book entries
+		[x] Convert bald eagle
+	[x] Need caffeinated tag for drinks
+		[x] Apply to squirrel, spider, raptor
+		[x] Convert spider
+		[x] Item view doesn't show text for special effects from item tags
+	[x] Mice
+		[x] Icon
+		[x] Items
+			[x] Barley water
+			[x] Cheese
+		[x] Race/body
+		[x] Coverings
+		[x] Parts
+		[x] Subspecies
+		[x] Book entries
+		[x] testing
+	[x] MAKE A POST!!!
+	[x] owl subspecies not being applied...
+		if(this.isFromExternalFile() && Main.game.isStarted()) {
+	[x] owl/eagle colours
+	[x] Add body size to eagles
+	[x] bald-eagle to eagle should change hair colour to feather colour
 	
-	[] Improve random racial TF potion to filter out TFs which will do nothing
+	[] Wall's End
+		[x] Move Monica's content to a new file
+		[x] Add files for each shop
+		[] The Barn
+				[x] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night
+				[x] Add owl subspecies (large eyes)
+				[x] Add mice
+			[x] Owl-girl
+			[x] Ceridwen is tired during day, alert at night
+			[x] Enter
+				[x] Repeat, she stalks you
+				[x] First time, she silently ambushes you and comments on the player's demon/unique appearance
+					[x] After introduction, she starts stalking you
+			[x] Trade
+			[x] Talk
+				[x] 'The Barn' name
+					[x] Named after where she used to live out in the fields
+				[x] Selection of goods
+					[x] She gets them from Dominion - her less sociable sisters fly there to pick up goods, avoiding the marauders on their way
+				[x] Mouse-morphs
+					[x] They were a family of farmers near her old home, and after Lunette's marauders burnt down their farm, she offered to employ them
+					[x] They're very timid when Ceridwen isn't around, so she stays in the store 24/7 to make them feel at ease
+					[x] Says that she wishes she could go home, but she puts her friends first
+			[x] TEST
+		[x] The Ninth Strike
+			[x] 2 greater furry male baphomets who hold a serious grudge against Lunette.
+				[x] Imsu Lisophiamartu
+					- black fur/red eyes
+					- melee weapons
+				[x] Hale Loviennemartu
+					- grey fur/yellow eyes
+					- ranged weapons
+			[x] Trade
+				[x] Give them arcane hammers to sell
+			[x] Talk
+				[x] History
+					They were competing blacksmiths in two villages (making ), who were extremely well-renowned and always in high demand
+					Their villages were the first to be destroyed by Lunette, and they lost everything
+					Managed to escape and forged a pact to get their revenge on Lunette
+				[x] Ninth Strike
+					They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
+					Need to find a nine-tailed youko to teach them this technique
+				[x] Quest action
+		[] Woolly Heaven
+			[x] Beauticians/Spa/brothel
+				[x] Penelope: border-collie-girl futa (described as being extremely attractive - her effortless beauty reminds you of the same sort of aura that Helena has)
+					- posh accent
+					- feminine sweater and skirt
+				[x] Employees are all sheep-girls
+			[x] Covering change/piercings/tattoos (kate services)
+				[x] Move Kate's dialogues to a generic class
+				[x] add support for accessing these dialogues from xml
+				[x] test
+					[x] Issue with tattoo menu
+					[x] post-enchanting tattoos leads into Kate scenes
+					[x] coverings errors
+					[x] need action grey-out when in associated dialogue
+			[x] Talk
+				[x] Pix's sister
+				[x] Did some modelling in Dominion for a while, then left to open this shop
+			[] Spa treatment
+				[x] Spa relaxation
+				[] Massage/Intimate
+					[] Sheep (250)
+						[] Belle
+							- 19, average boobs, energetic, white wool
+						[] Daphne
+							- 29, big boobs, sensual, brown wool
+						[] Farah
+							- 44, huge boobs, motherly, black wool
+						[] intimate massage 500
+							[] finger you/jerk you off
+							[] sex
+					[] Penelope (1000)
+						[] intimate massage 1500
+							[] finger you/jerk you off
+						[] double facial (she cums & squirts on face)
+						[] ass/pussy focus
+							[] hotdogging/intercrural
+							[] fucked
+						[] oral
+							[] blowjob/cunnilingus
+						[] titjob
+						[] sex
+	
+	[] tagged choker stickers for text
+		[] Prefix
+			[] bound
+			[] good
+			[] bad
+			[] obedient
+			[] broken
+			[] worthless
+			[] cheap
+			[] dumb
+		[] Postfix
+			[] bitch
+			[] slut
+			[] cunt
+			[] pet
+			[] whore
+			[] toy
+			[] stud
+			[] dog
+	
+	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
+	
+	[] Wall's End quests:
+		[] Ceridwen
+			[] Offer to help
+				[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
+				[] Asks if you could find out what happened to her
+			[] Quest
+				[] Succubus known to be a heavy drinker in shady tavern
+				[] Add shady tavern
+					[] beer bitches - barrels behind bar have portraits on them
+					[] tile encounter opportunity to start fight (turns into huge brawl)
+						[] lose, can present self and get fucked
+						[] win, can fuck person who started it
+					[] alley tiles mugging encounters
+						[] after beating them, can take them to the shady tavern to be a beer bitch
+						[] can also take to Enforcer station to remove them
+				[] Go there and find out that she'd racked up a huge bill that she couldn't pay (after getting very drunk and fighting a gang who were bragging about mugging people in the alleyways - destroying a lot of the bar in the process)
+				[] She (and the gang) are paying off their bills by being locked up in barrels; their tits are transformed and milked for beer (out of pump-tap); their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to fuck them
+				[] Can either:
+					[] Pay off her tab
+					[] Join her in a barrel to be milked & fucked (for a week)
+					[] Intimidate (leads into fight)
+				[] Succubus thanks you and says that she'll be back at The Barn for tomorrow's shift
+					[] Can find her in the shady tavern again after this
+						[] She gets player to drink with her
+						[] She says how cute mouse-morphs are
+						[] Hits on player (with variation if player is mouse)
+						[] If drink with her too much, she smashes the table and chooses to be a beer bitch rather than pay for it
+			[] Post-quest
+				[] Ceridwen invites player to home (in wood tile in Elis)
+				[] Can have sex
+		[] The Ninth Strike
+			[] Side Quest - The Youko's Secret
+				- Find Youko smith
+				- Convince to teach ninth strike technique to Hale & Imsu
+					- Can make part of the training to have Imsu and Hale TF to female
+			[] Armpit worship (they lick player's armpits before fucking them)
+	
+	
+	[] Gym
+		[] Extremely fit hellhound
+		[] Talk
+			[] Pix's daughter (Pix got carried away while riding an exhausted succubus's cock and got knocked up)
+			[] Worked with Pix for a while, then left to work for aunt at Wall's End, but didn't last long and then opened this gym
+		[] Sex
+			[] sex with cock/pussy focus (can request to grow cock)
+		[] exercise together
+			[] face-fucked/sitting after doing bench press
+			[] eat out/blowjob after sit-ups
+			[] ride cock after squats
+			[] wrestle
+				[] if hellhound wins, she fucks pussy or rides cock
+					[] mating press
+					[] cowgirl
+				[] if player wins, can choose what to do
+					[] mating press
+					[] cowgirl
+	
+	[] Monica milking cow roleplay
+		[] She has old milk maid uniform
+		[] Wears it and can milk/fuck her
+	
+	[] Horse/Pony paraphernalia. All sorts of tack and harnesses are available. Bridles/Halters for the head slot, a Bit and Reins for the mouth, Harness for stomach slot, Blinders for the eye slot, a Feathered Headdress for the head.
+	 tauric bodies, a saddle for the stomach slot, Hoof Boots or Fancy Metal Horse Shoes (in silver, gold, white gold, etc... basically dyable horse shoes for syle purposes) for the foot slot, Splint Boots or Polo Wraps for the calves
 	
 	[] Just have NPCs pick rough, neutral, or gentle based on their sadism preferences.
 	
 	[] Add more NPCs wanting to use condom on player
 	
-	[] cannot egg spinnerets?
-		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
-		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
-	
 	[] adding a milk lover variant to the yummy meal modifier
 		aura-regen rate might be a nifty benefit
-	
-	[] decouple pussy/cock to sub/dom for Lilaya sex
-	
-	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
 	
 	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
 	
@@ -69,18 +294,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
 		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
 	
-	[] The Barn
-			[] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
-			[] Add mice
-		[] Owl-girl
-		[] Trade
-		[] Talk
-		[] Work
+	[] if an npc has toeless stockings on during a footjob it describes them pushing the stocking up against the dick
 	
-	
-	
-	[] adding a milk lover variant to the yummy meal modifier
-		aura-regen rate might be a nifty benefit
 	
 	[] Natalya encounter without needing Helena quest
 	
@@ -99,32 +314,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] requires player to have already finished main quest up to leaving Dominion
 		[] apply minimal completion
 	
-	[] Wall's End
-		[] Woolly Heaven
-				Border-collie-girl (described as being extremely attractive) gave up modelling in Dominion to open this shop.
-					Pix's sister(?)
-				Employees are twin greater sheep-girls
-					They have an annoying habit of starting and finishing one another's sentences
-			[] Sheep-girl twins
-			[] Covering change (kate services)
-			[] Talk
-			[] Spa treatment
-		[] The Ninth Strike
-				2 greater furry male baphomets who hold a serious grudge against Lunette. (Not related to one another)
-					They were competing blacksmiths in two villages, who were extremely well-renowned and always in high demand
-					Their villages were the first to be destroyed by Lunette, and they lost everything
-					Managed to escape and forged a pact to get their revenge on Lunette
-				They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
-			[] Imsu & Hale
-			[] Trade
-			[] Talk
-			[] Side Quest - The Youko's Secret
-				- Find Youko smith
-				- Convince to teach ninth strike technique to Hale & Imsu
-				- Youko moves to Elis shop
-				- Can get baphomets TF'd to female
-			[] Armpit worship (they lick player's armpits before fucking them)
-	
 	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
 	
 	[] hand holding sex action
@@ -136,6 +325,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Need a place to deliver pregnancy in Elis
 		[] Medical centre
 			[] Incubus & succubus doctors
+	
+	[] expand pregnancy content for slaves and friendly occupants
 	
 	[] Sex additions:
 		[] Finger urethra insertion

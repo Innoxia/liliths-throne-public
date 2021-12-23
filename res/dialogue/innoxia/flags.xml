@@ -102,6 +102,7 @@
 		<flag dailyReset="false">elis_blacksmith_visited</flag>
 		<flag dailyReset="false">elis_clothing_visited</flag>
 		<flag dailyReset="false">elis_convenience_visited</flag>
+		<flag dailyReset="false">elis_spa_visited</flag>
 		<flag dailyReset="false">elis_toilets_hole_ever_made</flag>
 		<flag dailyReset="true">elis_toilets_hole_made</flag>
 		
@@ -163,7 +164,7 @@
 		<flag dailyReset="true">minotallys_talk_lilith</flag>
 		<flag dailyReset="true">minotallys_talk_milk</flag>
 	
-		<!-- Shops -->
+		<!-- Monica -->
 		<flag dailyReset="true">monica_talk_small</flag>
 		<flag dailyReset="true">monica_talk_business</flag>
 		<flag dailyReset="true">monica_talk_elis</flag>
@@ -172,7 +173,20 @@
 		<flag dailyReset="true">monica_talk_boobies</flag>
 		<flag dailyReset="true">monica_milked</flag>
 	
+		<!-- Ceridwen -->
+		<flag dailyReset="true">ceridwen_talk_name</flag>
+		<flag dailyReset="true">ceridwen_talk_sources</flag>
+		<flag dailyReset="true">ceridwen_talk_mice</flag>
+		<flag dailyReset="false">ceridwen_side_quest_available</flag>
 	
+		<!-- Imsu & Hale -->
+		<flag dailyReset="true">blacksmith_talk_history</flag>
+		<flag dailyReset="true">blacksmith_talk_name</flag>
+		<flag dailyReset="false">blacksmith_side_quest_available</flag>
+	
+		<!-- Penelope -->
+		<flag dailyReset="true">spa_talk_posters</flag>
+		<flag dailyReset="true">spa_talk_sheep</flag>
 	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)

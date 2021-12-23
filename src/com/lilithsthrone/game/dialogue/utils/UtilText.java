@@ -161,6 +161,8 @@ import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.AbstractDialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
@@ -9729,6 +9731,9 @@ public class UtilText {
 		// Misc.:
 		for(Colour colour : PresetColour.getAllPresetColours()) {
 			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
+		}
+		for(Entry<DialogueNode, String> dn: DialogueManager.getDialogueToIdMap().entrySet()) {
+			engine.put("DN_"+dn.getValue(), dn.getKey());
 		}
 		
 		// Bodies:
