@@ -1198,7 +1198,7 @@ public class Game implements XMLSaving {
 					if(npc!=null
 						&& npc.getLocationPlace().getPlaceType() == PlaceType.GENERIC_EMPTY_TILE
 						&& npc.isReadyToBeDeleted()) {
-						Main.game.removeNPC(npc);
+						Main.game.banishNPC(npc);
 						System.out.println("Deleted NPC: "+npc.getId());
 					}
 				}
@@ -2620,7 +2620,7 @@ public class Game implements XMLSaving {
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
-			removeNPC(npc);
+			banishNPC(npc);
 		}
 		for(NPC npc : npcsToAdd) {
 			NPCMap.put(npc.getId(), npc);
@@ -4614,6 +4614,13 @@ public class Game implements XMLSaving {
 		} else {
 			ParserTarget.removeAdditionalParserTarget(npc);
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+			// Remove unnecessary data from banished NPCs
+			npc.resetInventory(true);
+			npc.resetAllPregnancyReactions();
+			for(CoverableArea area : CoverableArea.values()) {
+				npc.resetAreaKnownByCharacters(area);
+			}
+			npc.resetFluidsStored();
 			return false;
 		}
 	}
@@ -4631,19 +4638,7 @@ public class Game implements XMLSaving {
 		}
 	}
 
-	public void removeNPC(String id) {
-		try {
-			removeNPC((NPC)Main.game.getNPCById(id));
-		} catch (Exception e) {
-			System.err.println("Trying to remove an NPC that doesn't exist?");
-			e.printStackTrace();
-		}
-	}
-	
-	public void removeNPC(NPC npc) {
-		Main.game.getPlayer().removeCompanion(npc);
-		
-		npc.resetFluidsStored();
+	private void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			// End with birth if father is player
 			npc.endPregnancy(npc.getPregnantLitter().getFather()!=null && npc.getPregnantLitter().getFather().isPlayer());
@@ -4654,7 +4649,7 @@ public class Game implements XMLSaving {
 		
 		if(!npc.getIncubatingLitters().isEmpty()) {
 			for(SexAreaOrifice orifice : new ArrayList<>(npc.getIncubatingLitters().keySet())) {
-				npc.endIncubationPregnancy(orifice, false);
+				npc.endIncubationPregnancy(orifice, ((npc.getPregnantLitter().getFather()!=null && npc.getIncubationLitter(orifice).getFather().isPlayer()) || (npc.getPregnantLitter().getMother()!=null && npc.getIncubationLitter(orifice).getMother().isPlayer())));
 			}
 		}
 		
