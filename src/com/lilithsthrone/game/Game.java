@@ -206,6 +206,7 @@ import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemGeneration;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -4587,7 +4588,11 @@ public class Game implements XMLSaving {
 	 */
 	public boolean banishNPC(NPC npc) {
 		Main.game.getPlayer().removeCompanion(npc);
-		npc.deleteAllEquippedClothing(true); // To cut down on save size and return unique items to the player.
+		for (AbstractClothing clothing : npc.getClothingCurrentlyEquipped()) {
+			if (clothing.getRarity() == Rarity.QUEST) { // Return any unique clothing to the player
+				Main.game.getPlayer().addClothing(clothing, false);
+			}
+		}
 		
 		if(npc.isSlave()) {
 			npc.getOwner().removeSlave(npc);

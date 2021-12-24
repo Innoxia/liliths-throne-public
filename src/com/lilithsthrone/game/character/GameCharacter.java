@@ -23097,10 +23097,6 @@ public abstract class GameCharacter implements XMLSaving {
 		// If this item was able to be unequipped, and it was unequipped, revert its attribute bonuses:
 		if (wasAbleToUnequip) {
 			applyUnequipClothingEffects(clothing, slot, Main.game.isStarted() && this.isPlayer());
-			
-			if(clothing.getRarity()==Rarity.QUEST) { // Never delete unique clothing
-				Main.game.getPlayer().addClothing(clothing, false);
-			}
 		}
 		
 		if(this.isPlayer()) {
