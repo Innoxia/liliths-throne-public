@@ -22573,7 +22573,9 @@ public abstract class GameCharacter implements XMLSaving {
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Equipped", newClothing.getDisplayName(true)), false);
 		}
 		
-		newClothing.setUnlocked(false);
+		if (characterClothingEquipper != null) { // If no equipper do not reset the seal status
+			newClothing.setUnlocked(false);
+		}
 		
 		for (Entry<AbstractAttribute, Integer> e : newClothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), e.getValue());

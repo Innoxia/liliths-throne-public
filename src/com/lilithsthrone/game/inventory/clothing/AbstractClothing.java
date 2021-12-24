@@ -369,6 +369,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			}
 		}
 		
+		XMLUtil.addAttribute(doc, element, "sealed", String.valueOf(this.isSealed()));
 		XMLUtil.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
 		XMLUtil.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
 		
