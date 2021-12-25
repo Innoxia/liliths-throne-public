@@ -1751,34 +1751,19 @@ public enum RenderingEngine {
 			
 			count = 0;
 			
-			if(Main.game.getEventLog().size()>50) {
-				List<EventLogEntry> youveCatToBeKittenMeRightMeow = new ArrayList<>(Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size()));
-				Collections.reverse(youveCatToBeKittenMeRightMeow);
-				for(EventLogEntry event : youveCatToBeKittenMeRightMeow) {
-					if(count%2==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
-					} else {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
-					}
-					count++;
+			List<EventLogEntry> youveCatToBeKittenMeRightMeow = new ArrayList<>(Main.game.getEventLog());
+			Collections.reverse(youveCatToBeKittenMeRightMeow);
+			for(EventLogEntry event : youveCatToBeKittenMeRightMeow) {
+				if(count%2==0) {
+					uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
+				} else {
+					uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 				}
-				
-			} else {
-				List<EventLogEntry> youveCatToBeKittenMeRightMeow = new ArrayList<>(Main.game.getEventLog());
-				Collections.reverse(youveCatToBeKittenMeRightMeow);
-				for(EventLogEntry event : youveCatToBeKittenMeRightMeow) {
-					if(count%2==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
-					} else {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
-					}
-					count++;
-				}
+				count++;
 			}
-			uiAttributeSB.append("</div>"
-					+ "</div>");
-		
 		}
+		uiAttributeSB.append("</div>"
+				+ "</div>");
 		
 		uiAttributeSB.append("</body>");
 
