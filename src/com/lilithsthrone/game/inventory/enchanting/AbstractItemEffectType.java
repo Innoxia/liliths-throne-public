@@ -626,7 +626,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lactation", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
 						break;
 					case TF_MOD_REGENERATION:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration", String.valueOf(limit)));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)+" per day"));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples puffy", "nipple puffyness"));
@@ -659,7 +659,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lactation (crotch)", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
 						break;
 					case TF_MOD_REGENERATION:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration (crotch)", String.valueOf(limit)));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration (crotch)", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)+" per day"));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples puffy (crotch)", "nipple puffyness"));
@@ -824,7 +824,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum expulsion", limit+"%"));
 						break;
 					case TF_MOD_REGENERATION:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum regeneration", String.valueOf(limit)));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum regeneration", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)+" per day"));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra puffy", "puffy urethra"));
@@ -2475,7 +2475,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
+				if(Main.game.isCumRegenerationEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
+				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_INTERNAL, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
