@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -31,6 +32,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -254,20 +256,8 @@ public class BodyChanging {
 			faceSkinOptions.add(target.getHalfDemonSubspecies().getRace());
 			faceSkinOptions.add(Race.HUMAN);
 
-		} else if(isSelfTFMenu()) {
-			faceSkinOptions.add(target.getRace());
-			if (target.isYouko()){
-				faceSkinOptions.add(Race.FOX_MORPH);
-				faceSkinOptions.add(Race.HUMAN);
-			}
-
 		} else {
-			faceSkinOptions.add(Race.DEMON);
-			if(target.isPlayer()) {
-				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
-					faceSkinOptions.add(Race.HUMAN);
-				}
-			}
+			getCommonTfRaces(faceSkinOptions, target);
 		}
 		return faceSkinOptions;
 	}
@@ -282,19 +272,8 @@ public class BodyChanging {
 		} else if(isHalfDemon()) {
 			armLegOptions.add(target.getHalfDemonSubspecies().getRace());
 
-		} else if(isSelfTFMenu()) {
-			armLegOptions.add(target.getRace());
-			if (target.isYouko()) {
-				armLegOptions.add(Race.FOX_MORPH);
-				armLegOptions.add(Race.HUMAN);
-			}
 		} else {
-			armLegOptions.add(Race.DEMON);
-			if(target.isPlayer()) {
-				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
-					armLegOptions.add(Race.HUMAN);
-				}
-			}
+			getCommonTfRaces(armLegOptions, target);
 		}
 		return armLegOptions;
 	}
@@ -317,22 +296,65 @@ public class BodyChanging {
 				minorPartsOptions.add(Race.DEMON);
 			}
 
-		} else if(isSelfTFMenu()) {
-			minorPartsOptions.add(target.getRace());
-			if (target.isYouko()) {
-				minorPartsOptions.add(Race.FOX_MORPH);
-				minorPartsOptions.add(Race.HUMAN);
-			}
 		} else {
-			minorPartsOptions.add(Race.DEMON);
-			if(target.isPlayer()) {
-				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
-					minorPartsOptions.add(Race.HUMAN);
-				}
-			}
+			getCommonTfRaces(minorPartsOptions, target);
 		}
 		
 		return minorPartsOptions;
+	}
+	
+	private static void getCommonTfRaces(List<AbstractRace> commonOptions, GameCharacter target) {
+		if(isSelfTFMenu()) {
+			commonOptions.add(target.getRace());
+			if (target.isYouko()) {
+				commonOptions.add(Race.FOX_MORPH);
+				commonOptions.add(Race.HUMAN);
+			}
+		} else {
+			commonOptions.add(Race.DEMON);
+			if(target.isPlayer()) {
+				ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(); // Never have these TF options
+				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2)) { // I'm assuming you defeat Lovienne last
+					commonOptions.addAll(allRaces);
+					commonOptions.removeAll(unavailableRaces);
+					return;
+				} else if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+					commonOptions.add(Race.HUMAN);
+				}
+				for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+					AbstractRace race = subspecies.getRace();
+					if(subspecies.isMainSubspecies() && !unavailableRaces.contains(race)) { // Only check the main subspecies
+						List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
+						if (target.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1)
+								&& (mostCommonRegion.contains(WorldRegion.SEA)
+								|| mostCommonRegion.contains(WorldRegion.SEA_CITY))) {
+							commonOptions.add(race);
+						} else if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3)
+								&& (mostCommonRegion.contains(WorldRegion.MOUNTAINS)
+								|| mostCommonRegion.contains(WorldRegion.YOUKO_FOREST)
+								|| mostCommonRegion.contains(WorldRegion.SNOW))) {
+							commonOptions.add(race);
+						} else if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5)
+								&& (mostCommonRegion.contains(WorldRegion.WOODLAND)
+								|| mostCommonRegion.contains(WorldRegion.FIELDS)
+								|| mostCommonRegion.contains(WorldRegion.FIELD_CITY)
+								|| mostCommonRegion.contains(WorldRegion.RIVER))) {
+							commonOptions.add(race);
+						} else if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6)
+								&& (mostCommonRegion.contains(WorldRegion.JUNGLE)
+								|| mostCommonRegion.contains(WorldRegion.JUNGLE_CITY))) {
+							commonOptions.add(race);
+						} else if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7)
+								&& (mostCommonRegion.contains(WorldRegion.SAVANNAH)
+								|| mostCommonRegion.contains(WorldRegion.DESERT)
+								|| mostCommonRegion.contains(WorldRegion.DESERT_CITY)
+								|| mostCommonRegion.contains(WorldRegion.VOLCANO))) {
+							commonOptions.add(race);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	private static boolean removeNoneFromTailChoices() {
