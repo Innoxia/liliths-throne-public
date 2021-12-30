@@ -1060,10 +1060,10 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) {
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))));
 
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -1087,8 +1087,8 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) {
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getBodyMaterial() == BodyMaterial.SLIME));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getBodyMaterial() == BodyMaterial.SLIME));
 
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
