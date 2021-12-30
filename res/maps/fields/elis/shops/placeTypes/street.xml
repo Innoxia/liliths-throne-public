@@ -9,7 +9,7 @@
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_shops_street</dialogue>
+	<dialogue>innoxia_places_fields_elis_shops_generic_street</dialogue>
 	<populationPresent>
 		<!-- 9-5 -->
 		<population startMinutes="540" endMinutes="1019">

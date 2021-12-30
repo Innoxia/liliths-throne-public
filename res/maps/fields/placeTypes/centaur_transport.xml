@@ -7,7 +7,7 @@
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	<colour>BASE_TAN</colour>
-	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>
 	<encounterType>null</encounterType>
 	<dialogue>innoxia_places_fields_centaur_transport_exterior</dialogue>
 	<populationPresent/>

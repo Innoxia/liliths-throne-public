@@ -125,7 +125,7 @@ public class BatCavernSlimeAttacker extends NPC {
 	
 	@Override
 	public void hourlyUpdate() {
-		if(!this.isSlave()) {
+		if(!this.isSlave() && !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
 			this.useItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), this, false);
 		}
 	}

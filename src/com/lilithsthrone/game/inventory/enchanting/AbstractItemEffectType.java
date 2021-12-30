@@ -176,23 +176,31 @@ public abstract class AbstractItemEffectType {
 		return getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
 	}
 	
-	public static String getBookEffect(GameCharacter reader, AbstractSubspecies subspecies, boolean withDescription) {
-		Main.getProperties().addRaceDiscovered(subspecies);
-		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
-			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+	public static String getBookEffect(GameCharacter reader, AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies, boolean withDescription) {
+		List<AbstractSubspecies> subsPlusMain = new ArrayList<>();
+		subsPlusMain.add(mainSubspecies);
+		if(additionalUnlockSubspecies!=null) {
+			subsPlusMain.addAll(additionalUnlockSubspecies);
 		}
-
-		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(subspecies);
-		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(subspecies) || !reader.hasPerkAnywhereInTree(perk)) {
+		
+		for(AbstractSubspecies subspecies : subsPlusMain) {
+			Main.getProperties().addRaceDiscovered(subspecies);
+			if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
+				Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+			}
+		}
+		
+		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(mainSubspecies);
+		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(mainSubspecies) || !reader.hasPerkAnywhereInTree(perk)) {
 			return (withDescription
-						?subspecies.getBasicDescription(null)
-								+subspecies.getAdvancedDescription(null)
+						?mainSubspecies.getBasicDescription(null)
+								+mainSubspecies.getAdvancedDescription(null)
 						:"")
 					+reader.addSpecialPerk(perk);
 			
 		} else {
-			return subspecies.getBasicDescription(null)
-					+subspecies.getAdvancedDescription(null)
+			return mainSubspecies.getBasicDescription(null)
+					+mainSubspecies.getAdvancedDescription(null)
 					+"<p style='text-align:center; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";
@@ -290,7 +298,8 @@ public abstract class AbstractItemEffectType {
 						);
 			case TF_HAIR:
 				return Util.newArrayListOfValues(
-						TFModifier.TF_MOD_SIZE// hair length
+						TFModifier.TF_MOD_SIZE,// hair length
+						TFModifier.TF_MOD_SIZE_SECONDARY// neck floof
 						);
 			case TF_PENIS:
 				List<TFModifier> penisMods = Util.newArrayListOfValues(
@@ -695,7 +704,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lip size", LipSize.getLipSizeFromInt(limit).getName()));
 						break;
 					case TF_MOD_SIZE_SECONDARY:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "tongue length", TongueLength.getTongueLengthFromInt(limit).getDescriptor()));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "tongue length", Units.size(limit)));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "lips puffy", "puffy lips"));
@@ -738,6 +747,30 @@ public abstract class AbstractItemEffectType {
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "hair length", Units.size(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
+						break;
+					case TF_MOD_SIZE_SECONDARY:
+						switch(potency) {
+							case MINOR_BOOST:
+								descriptions.add("In a week, grows neck fluff.");
+								break;
+							case BOOST:
+								descriptions.add("In a day, grows neck fluff.");
+								break;
+							case MAJOR_BOOST:
+								descriptions.add("In an hour, grows neck fluff.");
+								break;
+							case MINOR_DRAIN:
+								descriptions.add("In a week, removes neck fluff.");
+								break;
+							case DRAIN:
+								descriptions.add("In a day, removes neck fluff.");
+								break;
+							case MAJOR_DRAIN:
+								descriptions.add("In an hour, removes neck fluff.");
+								break;
+							default:
+								break;
+						}
 						break;
 					default:
 						break;
@@ -1561,6 +1594,17 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setHairLength(limit));
 							}
 							break;
+						case TF_MOD_SIZE_SECONDARY:
+							if(potency.isNegative()) {
+								if(target.isNeckFluff()) {
+									sb.append(target.setNeckFluff(false));
+								}
+							} else {
+								if(!target.isNeckFluff()) {
+									sb.append(target.setNeckFluff(true));
+								}
+							}
+							break;
 						default:
 							break;
 					}
@@ -2341,6 +2385,7 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				break;
 				
 			case TF_HORNS:
@@ -3469,6 +3514,14 @@ public abstract class AbstractItemEffectType {
 							public String applyEffect() {
 								TFModifier mod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 								
+								// If race does not have horns, tail, wings, or crotch-boobs, make sure that the TF is to remove:
+								if((mod==TFModifier.TF_HORNS && race.getRacialBody().getHornTypes(false).size()==1 && race.getRacialBody().getHornTypes(false).contains(HornType.NONE))
+										|| (mod==TFModifier.TF_TAIL && race.getRacialBody().getTailType().size()==1 && race.getRacialBody().getTailType().contains(TailType.NONE))
+										|| (mod==TFModifier.TF_WINGS && race.getRacialBody().getWingTypes().size()==1 && race.getRacialBody().getWingTypes().contains(WingType.NONE))
+										|| ((mod==TFModifier.TF_BREASTS_CROTCH && race.getRacialBody().getBreastCrotchType()==BreastType.NONE))) {
+									return getRacialEffect(race, mod, TFModifier.REMOVAL, potency, user, target).applyEffect();
+								}
+								
 								return getRacialEffect(race, mod, secondaryModifier, potency, user, target).applyEffect();
 							}
 						};
@@ -3751,6 +3804,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourGood(++)] Hair length (+" + Units.size(mediumChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementHairLength(mediumChangeBoost); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("[style.colourExcellent(++)] Hair length (+" + Units.size(mediumChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementHairLength(mediumChangeMajorBoost); } };
+						}
+
+					case TF_MOD_SIZE_SECONDARY:
+						if(potency.isNegative()) {
+							return new RacialEffectUtil("Removes neck fluff.") { @Override public String applyEffect() { return target.setNeckFluff(false); } };
+						} else {
+							return new RacialEffectUtil("Adds neck fluff.") { @Override public String applyEffect() { return target.setNeckFluff(true); } };
 						}
 						
 					default:

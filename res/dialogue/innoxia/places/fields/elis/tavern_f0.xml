@@ -953,10 +953,20 @@
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Minotallys]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Tell Meraxis that you're ready to meet Minotallys now.
-					<br/>[style.italicsMinorBad(This will be added in the next update!)]
+					#IF(game.isHourBetween(8, 18))
+						Tell Meraxis that you're ready to meet Minotallys now, which will lead into travelling to Elis's town hall together.
+					#ELSE
+						This isn't a suitable time in which to be asking to meet Minotallys...
+						<br/>[style.italics(You can ask to meet Minotallys between [units.time(9)]-[units.time(18)]...)]
+					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(8, 18))
+						innoxia_quests_main_minotallys_meeting_start
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
 			</response>
 			<!-- Demon TF -->
 			<response>

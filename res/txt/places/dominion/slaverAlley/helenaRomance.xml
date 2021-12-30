@@ -958,7 +958,7 @@
 	<htmlContent tag="ROMANCE_PAINTING_C_PAINT_SIGN"><![CDATA[
 	<p>
 		#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_EARTH))
-			Thanks to your mastery of the arcane school of Earth, you're once again able to use some basic telekinesis to get the job done, and under the harpy's instruction, you set about painting the words 'Helena's Boutique' in flowing gold lettering above the entrance to her shop. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just ten minutes.
+			Thanks to your mastery of the arcane school of Earth, you're able to use some basic telekinesis to get the job done, and under the harpy's instruction, you set about painting the words 'Helena's Boutique' in flowing gold lettering above the entrance to her shop. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just ten minutes.
 		#ELSE
 			#IF(pc.isTaur())
 				Retrieving the ladders from the alleyway beside Helena's store, you do your best to overcome the hindrance of having the lower body of [pc.a_legRace] and somehow manage to haphazardly climb up high enough to reach the space above the front door.

@@ -155,7 +155,7 @@ public class SexSlot {
 			}
 		}
 		
-		 // Check for the opposite interactions (i.e. the targeted slot interacting with this slot):
+		// Check for the opposite interactions (i.e. the targeted slot interacting with this slot):
 		
 		if(targetedSlot==null) { // If no targeted slot, check all available slots:
 			for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> value : position.getSlotTargets().entrySet()) {

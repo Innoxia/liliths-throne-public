@@ -15,221 +15,348 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Add hospital as alternative to Lilaya
 		
 	
-	
-	
 	Patch notes:
 	
 	Contributors:
-		Fixed issue where altering vaginal urethra plasticity was affecting penis urethra plasticity instead. (by Maxis)
-		Fixed bug where clothing replacements after sex would sometimes break if the clothing being replaced was of a type that was previously equipped to multiple slots. (by Maxis and deboucher)
+		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
+		Implemented new way of handling offspring who haven't yet been met, significantly improving turn time performance and save file size in games in which you have a lot of unmet offspring. (PR#1622 by AceXP)
 	
 	Engine/Modding:
-		Added 'deskName' as a definable attribute within external 'worldType', 'placeType', and 'sexManager' files, which functions in the same way as 'wallName', allowing you to define the name of the 'desk' used in sex scenes.
-		Fixed issue where modded world types had '_worldType' appended to the end of their ids.
-		Added 'canRemoveClothingSeals' as an attribute in externally-defined sex managers to prevent characters from being able to unseal clothing during that scene.
-	
-	Artwork:
-		Added FriendlyAlienFriend's artwork of Takahashi to the game.
+		Added new BodyPartTag values 'TAIL_ATTACK' and 'TAIL_VENOMOUS_STING' for future use in bee/scorpion/etc. tails.
+		Added several 'CAFFEINATED_' ItemTags for use in defining consumable items as being caffeinated (so that they can apply intoxication effects to spider-morphs).
 	
 	Gameplay:
-		Added generic bandit encounters in the Foloi Fields. (They are a little basic at the moment and will be expanded upon at some point in the future.)
-		Filled in placeholder content for Yui.
-		Added content for the raccoon-girl (Nizhoni) in the centre of Elis's Farmer's Market.
-		Added content for the horse-boy (Moreno) in the centre of Elis's Farmer's Market.
-		Added new character 'Heather' (human) who runs the fortune telling stall in Elis's Farmer's Market.
-		Added new character 'Ms. Levine' (goat-girl) who runs the kissing booth in Elis's Farmer's Market.
+		Added characters and basic trading actions for the last remaining shops in Elis's shopping precint, Wall's End. (More content for each store will be added later.)
+		Added a new 'raptor' race which includes the subspecies: falcons (default); eagles; bald eagles (converted from harpy race); and owls.
+		Added 'Raptor energy drink' and 'Raptor energy bar' as new drink and food items for the new raptor race.
+		Added a new 'mouse' race which includes just one 'mouse' subspecies.
+		Added 'Harvest Mouse's barley water' and 'Harvest Mouse's cheese' as new drink and food items for the new mouse race.
+	
+	Clothing:
+		Added 'safety glasses' (scientist set, eye slot, androgynous, sold by Nyan).
 	
 	Sex:
-		During sex scenes in which the sub has less control than the dom, dominant AI sex partners will no longer end sex early (i.e. before the subs are satisfied).
-		Loosened requirements a little for the sex actions 'Object to rough' and 'Request rough sex'.
+		NPCs will now only use the orgasm denial action during sex if they have the orgasm denial fetish. (Previously, all that they needed was to have a positive desire towards that fetish.)
 	
 	Other:
-		Entering the Farmer's Market now places you at one of the four entry points instead of in the centre.
-		Clothing types can now be enchanted to have the 'vibration' and 'orgasm prevention' effects if it can be equipped into the groin, vagina, penis, anus, nipple, chest, nipple-piercing, cock-piercing, or vagina-piercing  slots.
-		Added a tufted tail type for panther-morphs, which is now assigned to newly-spawned lion-morphs.
-		Added ability to perform the 'Quick sex' action in all of Astrai's and Vronti's sex scenes.
-		Added ability to resist post-defeat sex with random centauress encounters in the fields (only if noncon is turned on).
-		The price of potions and elixirs is now influenced by how many effects they have.
+		Changed references to beer and cider bottles to being on tap in the two pubs in Elis.
+		Changed Mintallys's Sunday milk flavour/theme from grape/purple to cherry/red.
+		Gave Amber a lore-friendly demonic surname.
+		Lyssieth's dominant and submissive sex options are no longer tied to her using her pussy or growing a cock, and instead you can request that she use her pussy or grow her cock for both dominant and submissive sex scenes.
 	
 	Bugs:
-		Fixed visibility of armpit fetishes in the phone's fetish menu being locked behind foot content instead of armpit content.
-		Characters without legs can no longer use the 'spread legs' sex action.
-		Ralph no longer has randomised personality traits.
-		The 'desperate for sex' status effect now correctly only displays during combat.
-		Fixed issue where the SLime Queen wasn't correctly spawning wearing her tiara.
-		Fixed parsing issues in Lilaya's kimono gift scenes.
-		Fixed modding issue where setting an NPC to use a parser tag which had been previously assigned to an NPC wouldn't update the reference, causing the parser tag to always point to the first NPC who was given the parser tag.
-		Fixed post-submissive sex with centaur marauder/raider displaying a blank dialogue screen.
-		Reformatted potion item effects tooltip to fix an issue where having lots of effects on a potion would overflow the tooltip.
-		Pregnant/non-pregnant versions of character artwork are now automatically updated to be used when applicable, instead of requiring a save+load to be shown.
-		Fixed issue with several elements in externally-defined sex managers not using their correct default values.
+		Parsing fixes.
+		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
+		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
+		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
+		Fixed issue where you could ask Dale about Monica's milker before even having started Monica's quest.
+		Fixed issue with several attributes in xml-defined responses (such as for fetish/perk requirements, sex, combat, and trading), where the first definition of these attributes would be used for all subsequent responses.
 	
 	
-	[x] Toys
-		[x] writing
-		[x] Make toys for demonstration stay on player
-			[x] writing change
-		[x] Name toys 'Yui's demo X'
-		[x] test
-		
-	[x] Make entry based on direction came from
 	
-	[x] Check zakik oral positioning
+	[x] 'underside of your feral a spider's body'
+	[x] fix incubation total offspring count
+	[x] parsing issues in encourage creampie/pullout
+	[x] once again able to use some basic telek
+	[x] Change description of beer and ale in pubs to be on tap
+	[x] Minotallys grape milk
+	[x] Amber needs correct surname
+	[-] Improve random racial TF potion to filter out TFs which will do nothing
+	[-] cannot egg spinnerets?
+		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
+		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
+	[x] Doggy-style you: "he grips your womanly hips and pulls his rump back against his groin, groaning"
+	[x] Wanting to check the new Dairy content I went there and noticed that when interacting with Dale, the option to ask about the milker was present, even though I hadn't started the quest or even met Monika.
+		I got the milker, and went to the clothing store and sure enough, the Monika NPC introduced herself to me and eventually introduced the quest. I was able to complete it on the spot because I had the milker
+	[x] decouple pussy/cock to sub/dom for Lyssieth sex
+		[x] sex dom/sub actions
+			[x] grow penis option
+	[x] NPCs denying orgasms even without fetish?
+	[x] Bird-morph rework:
+		Split harpy race to add Raptors
+			[x] Items
+				[x] Food - chicken wings
+				[x] Drink - energy drink
+			[x] Coverings
+			[x] Parts
+				[x] Check for boldRaptor
+			[x] Subspecies 
+				[x] Falcon: standard
+				[x] Eagle: Large feet
+					[x] Powerful legs
+				[x] Owl
+					[x] Large eyes
+			[x] Book entries
+		[x] Convert bald eagle
+	[x] Need caffeinated tag for drinks
+		[x] Apply to squirrel, spider, raptor
+		[x] Convert spider
+		[x] Item view doesn't show text for special effects from item tags
+	[x] Mice
+		[x] Icon
+		[x] Items
+			[x] Barley water
+			[x] Cheese
+		[x] Race/body
+		[x] Coverings
+		[x] Parts
+		[x] Subspecies
+		[x] Book entries
+		[x] testing
+	[x] MAKE A POST!!!
+	[x] owl subspecies not being applied...
+		if(this.isFromExternalFile() && Main.game.isStarted()) {
+	[x] owl/eagle colours
+	[x] Add body size to eagles
+	[x] bald-eagle to eagle should change hair colour to feather colour
 	
-	[x] Raccoon-girl Nizhoni
-		[x] Get 1 raffle ticket for winning
-		[x] Trade raffle tickets for:
-			[x] 1 Prize
-			[x] 1 go for walk
-				[x] she shows you around the backs of some of the stalls
-					[x] she asks you to join her in dumpster diving
-					[x] as she leans over a bin, you see that she's not wearing underwear
-					[x] can have sex there
-						[x] oral
-						[x] fuck her
-					[x] Add desk name parsing
-		[x] test flow
-			[x] She doesn't go back to stall if leave at bins
-			[x] sex positions incorrectly defined
-			[x] In sex cannot stop
-		[x] writing
-			[x] Need repeat walk variations
-		
-	[x] Remove daily limit
-		
-	[x] Horse-boy Moreno
-		[x] Get 1 raffle ticket for winning
-			[x] after winning can flirt, he gets turned on
-				[x] Go behind stall to:
-					[x] blowjob (extra protein)
-					[x] fucked (workout)
-		[x] Trade raffle tickets for prizes
-		[x] test flow
-			[x] cannot play again after winning
-		[x] Change shirt colour and give shorts
-		[x] writing
-		[x] full test
-			[x] cannot stop sex...
-	
-	[x] Make the 'Play again' button grey-out when won, with continue options on 3/4
-	[x] Need a "Total spent trying to win:" counter 
-	
-	[x] Affection increases for both Moreno and Nizhoni
-	
-	[x] Ralph needs personality traits (randomised atm?)
-	
-	[x] add vibrations for the nipple slot
-	[x] when you overhauled the species the lion morph is stuck with the panther tail for greater lion. When they should have a tufted tail.
-	[-] when beating as enforcer patrol and opening their inventory, the bug is back where you'd need to click twice and whatever is in the groin slot is duplicated in your inventory.
-		 Only happens for one of the two enforcers, the second one opens first time without any duplication
-	[x] SS messages
-	[x] Dom AIs ending sex too early?
-
-	[x] 'Continue' after submit sex with centaur raider is blank dialogue
-	[x] Astrapi no quick sex?
-	[x] Cannot resist in post-defeat centaur sex?
-		[x] Need resist action going into sex
-		[x] test
-	[x] Add writing for all basic tiles in market
-		[x] Remove MARKET_ENTER placeholder warning
-		[x] exit tile
-	
-	[x] Fortunes
-		[x] Named NPC - rabbit-girl trap (caged) - androphilic
-			[x] Body
-			[x] TF potions
-			[x] TF clothing (all with seals)
-			[x] Crystal ball reading (1 raffle ticket) is an enchanted item based on telekinesis (so it always involves both of you)
-				[x] Results vary if player thinks of:
-					- Power -> shows you sitting on a throne with the rabbit-girl serving you
-					- Fame -> shows rabbit-girl asking for your autograph
-					- Fortune -> shows rabbit-girl admiring all of the money you have
-					- Sex -> (only if androphilic) shows her naked, chastity cage on cock, asking how you'd like to fuck her
-						- She gets a bit flustered and tells you to think of something else
-							- thinking of sex again leads into her wanting sex, depending on what you think:
-								[x] Fucking her ass (fuck over desk)
-								[x] Receiving oral
-		[x] framework
-			[x] test flow
-				[x] allow repositioning
-				[x] clothing limits not set...
-				[x] Heather's chastity status effect should be max?
-		[x] Fix item TF descriptions running off screen
-		[x] Need to combine same consecutive effects in tooltip
-		[x] Fix TF potion prices
-		[x] writing
-			[x] place type wall/desk names
-			[x] heather should always be eager
-			[x] Add boolean in managers for unsealing clothing
-				[x] deny for Heather's scenes
+	[] Wall's End
+		[x] Move Monica's content to a new file
+		[x] Add files for each shop
+		[] The Barn
+				[x] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night
+				[x] Add owl subspecies (large eyes)
+				[x] Add mice
+			[x] Owl-girl
+			[x] Ceridwen is tired during day, alert at night
+			[x] Enter
+				[x] Repeat, she stalks you
+				[x] First time, she silently ambushes you and comments on the player's demon/unique appearance
+					[x] After introduction, she starts stalking you
+			[x] Trade
+			[x] Talk
+				[x] 'The Barn' name
+					[x] Named after where she used to live out in the fields
+				[x] Selection of goods
+					[x] She gets them from Dominion - her less sociable sisters fly there to pick up goods, avoiding the marauders on their way
+				[x] Mouse-morphs
+					[x] They were a family of farmers near her old home, and after Lunette's marauders burnt down their farm, she offered to employ them
+					[x] They're very timid when Ceridwen isn't around, so she stays in the store 24/7 to make them feel at ease
+					[x] Says that she wishes she could go home, but she puts her friends first
+			[x] TEST
+		[x] The Ninth Strike
+			[x] 2 greater furry male baphomets who hold a serious grudge against Lunette.
+				[x] Imsu Lisophiamartu
+					- black fur/red eyes
+					- melee weapons
+				[x] Hale Loviennemartu
+					- grey fur/yellow eyes
+					- ranged weapons
+			[x] Trade
+				[x] Give them arcane hammers to sell
+			[x] Talk
+				[x] History
+					They were competing blacksmiths in two villages (making ), who were extremely well-renowned and always in high demand
+					Their villages were the first to be destroyed by Lunette, and they lost everything
+					Managed to escape and forged a pact to get their revenge on Lunette
+				[x] Ninth Strike
+					They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
+					Need to find a nine-tailed youko to teach them this technique
+				[x] Quest action
+		[] Woolly Heaven
+			[x] Beauticians/Spa/brothel
+				[x] Penelope: border-collie-girl futa (described as being extremely attractive - her effortless beauty reminds you of the same sort of aura that Helena has)
+					- posh accent
+					- feminine sweater and skirt
+				[x] Employees are all sheep-girls
+			[x] Covering change/piercings/tattoos (kate services)
+				[x] Move Kate's dialogues to a generic class
+				[x] add support for accessing these dialogues from xml
 				[x] test
-			[x] generic sex should be manager
+					[x] Issue with tattoo menu
+					[x] post-enchanting tattoos leads into Kate scenes
+					[x] coverings errors
+					[x] need action grey-out when in associated dialogue
+			[x] Talk
+				[x] Pix's sister
+				[x] Did some modelling in Dominion for a while, then left to open this shop
+			[] Spa treatment
+				[x] Spa relaxation
+				[] Massage/Intimate
+					[] Sheep (250)
+						[] Belle
+							- 19, average boobs, energetic, white wool
+						[] Daphne
+							- 29, big boobs, sensual, brown wool
+						[] Farah
+							- 44, huge boobs, motherly, black wool
+						[] intimate massage 500
+							[] finger you/jerk you off
+							[] sex
+					[] Penelope (1000)
+						[] intimate massage 1500
+							[] finger you/jerk you off
+						[] double facial (she cums & squirts on face)
+						[] ass/pussy focus
+							[] hotdogging/intercrural
+							[] fucked
+						[] oral
+							[] blowjob/cunnilingus
+						[] titjob
+						[] sex
 	
-	[x] Add Takahashi artwork
+	[] tagged choker stickers for text
+		[] Prefix
+			[] bound
+			[] good
+			[] bad
+			[] obedient
+			[] broken
+			[] worthless
+			[] cheap
+			[] dumb
+		[] Postfix
+			[] bitch
+			[] slut
+			[] cunt
+			[] pet
+			[] whore
+			[] toy
+			[] stud
+			[] dog
 	
-	[x] can't "object to rough" even hating masochism. The option isn't even there, it's absent, not greyed out - like it's never been there to begin with
-		(?) req's for Object too rough are way to restrictive, compared to Request rough
-		
-	[x] Kissing
-		[x] Mean Greater Goat-girl (dominant handling money)
-		[x] 1 ticket for kiss (slaves)
-			[x] add to place population
-			[x] Cow-girl
-		[x] Say you want kiss from goat girl
-			She gets annoyed & refuses, dismissively says she'll kiss you for a thousand flames
-			Can offer 1000 flames for it
-				She reluctantly agrees to kiss
-				Ask how much to see her naked
-				She is angry, says five thousand
-				Pay up and go behind stall, she flashes breasts and pussy
-				She knows what you want, says ten thousand to eat her out, fifty thousand to fuck her
-		[x] framework
-			[x] test
-				[x] displace blouse
-				[x] remove underwear at start of sex
-				[x] she doesn't end sex...
-				[x] needs daily clean
-				[x] grey-highlighted fur
-				[x] post-sex finish needs to strip content
-		[x] writing
-			[x] Need lipstick text after kiss cow-girls
-			[x] Ziva to call player hun?
-			[x] Pregnancy reaction
-		[x] Prevent player position switching
-		
-	[x] Need Faire ticket boards at entrances
-		
-	[x] Sex.java:905
-		Extend check if(clothing.getClothingType().equals(c.getClothingType())) to if(clothing.getClothingType().equals(c.getClothingType()) && clothing.getSlotEquippedTo().equals(c.getSlotEquippedTo()))
-		This is to account for the same item type being equip to multiple slots with different displacement types
-		
-	[x] Bandits
-		[x] framework
-		[x] test
-			[x] manager errors
-			[x] slavery
-			[x] Repeat encounters sex scenes spawns the same (enslaved) character...
-			[x] clothing
-		[x] writing
-			[x] test win-submit-post sex
-		[x] reset 90 to 4
+	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
 	
-	[x] Cunningham has blonde pubes???
+	[] Wall's End quests:
+		[] Ceridwen
+			[] Offer to help
+				[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
+				[] Asks if you could find out what happened to her
+			[] Quest
+				[] Succubus known to be a heavy drinker in shady tavern
+				[] Add shady tavern
+					[] beer bitches - barrels behind bar have portraits on them
+					[] tile encounter opportunity to start fight (turns into huge brawl)
+						[] lose, can present self and get fucked
+						[] win, can fuck person who started it
+					[] alley tiles mugging encounters
+						[] after beating them, can take them to the shady tavern to be a beer bitch
+						[] can also take to Enforcer station to remove them
+				[] Go there and find out that she'd racked up a huge bill that she couldn't pay (after getting very drunk and fighting a gang who were bragging about mugging people in the alleyways - destroying a lot of the bar in the process)
+				[] She (and the gang) are paying off their bills by being locked up in barrels; their tits are transformed and milked for beer (out of pump-tap); their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to fuck them
+				[] Can either:
+					[] Pay off her tab
+					[] Join her in a barrel to be milked & fucked (for a week)
+					[] Intimidate (leads into fight)
+				[] Succubus thanks you and says that she'll be back at The Barn for tomorrow's shift
+					[] Can find her in the shady tavern again after this
+						[] She gets player to drink with her
+						[] She says how cute mouse-morphs are
+						[] Hits on player (with variation if player is mouse)
+						[] If drink with her too much, she smashes the table and chooses to be a beer bitch rather than pay for it
+			[] Post-quest
+				[] Ceridwen invites player to home (in wood tile in Elis)
+				[] Can have sex
+		[] The Ninth Strike
+			[] Side Quest - The Youko's Secret
+				- Find Youko smith
+				- Convince to teach ninth strike technique to Hale & Imsu
+					- Can make part of the training to have Imsu and Hale TF to female
+			[] Armpit worship (they lick player's armpits before fucking them)
 	
-	[] Dialogue parsed before time passed...
 	
-	[] Shopping precinct
-		[] Add 4 main NPCs
+	[] Gym
+		[] Extremely fit hellhound
+		[] Talk
+			[] Pix's daughter (Pix got carried away while riding an exhausted succubus's cock and got knocked up)
+			[] Worked with Pix for a while, then left to work for aunt at Wall's End, but didn't last long and then opened this gym
+		[] Sex
+			[] sex with cock/pussy focus (can request to grow cock)
+		[] exercise together
+			[] face-fucked/sitting after doing bench press
+			[] eat out/blowjob after sit-ups
+			[] ride cock after squats
+			[] wrestle
+				[] if hellhound wins, she fucks pussy or rides cock
+					[] mating press
+					[] cowgirl
+				[] if player wins, can choose what to do
+					[] mating press
+					[] cowgirl
 	
-	[] Add Minotallys meeting
+	[] Monica milking cow roleplay
+		[] She has old milk maid uniform
+		[] Wears it and can milk/fuck her
 	
-	PRs
+	[] Horse/Pony paraphernalia. All sorts of tack and harnesses are available. Bridles/Halters for the head slot, a Bit and Reins for the mouth, Harness for stomach slot, Blinders for the eye slot, a Feathered Headdress for the head.
+	 tauric bodies, a saddle for the stomach slot, Hoof Boots or Fancy Metal Horse Shoes (in silver, gold, white gold, etc... basically dyable horse shoes for syle purposes) for the foot slot, Splint Boots or Polo Wraps for the calves
+	
+	[] Just have NPCs pick rough, neutral, or gentle based on their sadism preferences.
+	
+	[] Add more NPCs wanting to use condom on player
+	
+	[] adding a milk lover variant to the yummy meal modifier
+		aura-regen rate might be a nifty benefit
+	
+	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
+	
+	[] <blockAmount> has no effect in combat move mods.
+		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
+		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
+	
+	[] if an npc has toeless stockings on during a footjob it describes them pushing the stocking up against the dick
+	
+	
+	[] Natalya encounter without needing Helena quest
+	
+	[] Ace content
+	
+	[] boxing gloves mod
+	[] latex leggings
+	[] deer
+	[] Add tailjobs (make sure tail lower body type works with it)
+	
+	[] elemental quest before leaving Dominion
+		[] can research in library
+		[] If not obtained, Lyssieth grants you the spell
+	
+	[] Add option when starting a new game to skip Dominion
+		[] requires player to have already finished main quest up to leaving Dominion
+		[] apply minimal completion
+	
+	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
+	
+	[] hand holding sex action
+	
+	[] dye earth skill to take 1 essence
+	
+	[] Test fetish preferences in watering hole
 	
 	[] Need a place to deliver pregnancy in Elis
+		[] Medical centre
+			[] Incubus & succubus doctors
 	
-	Felicia
+	[] expand pregnancy content for slaves and friendly occupants
+	
+	[] Sex additions:
+		[] Finger urethra insertion
+		[] Lick fluids off partner actions
+		[] Fisting
+	
+	[] PR Maxis list
+	
+	[] Kay female TF
+	
+	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
+			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
+	
+	[] add some modding parameters for self-TF races to support definition of races that can be transformed into (or unlimited race self-TF)
+	
+	[] add an attribute to make special effects AoE for weapons (stun grenades)
+	
+	Felicia content expansion:
+		- Ask out on date (affection requirement first I guess)
+		- Repeat date until 3 dates completed
+		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+		- Says she feels lewd towards player, can sex
+		- Option to give her TF potion to give her vagina (although she prefers giving oral)
+		- Repeat dates & sex is end content
 	
 	Ashley
+	
+	[] 4 person guest rooms
+	
+	[] Investigate possibility of adding support for slave/guest functions to map modding, so that player homes could be added
 	
 	[] Centaur encounter spell effect expansion:
 		[] Spawn & start 2 slavers
@@ -307,8 +434,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
 	
-	---
-	
 	[] deer
 		glade springs - sparkling mineral water
 		tree shoots salad
@@ -316,30 +441,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] mouse
 	
 	[] Elis
-		[] Minotallys intro
-			[] Describe northern part as being home to a lot of refugees from Fields
-		[] Arcane storm SE tooltip text and icon for when not in Dominion
+		[] Describe northern part as being home to a lot of refugees from Fields
 		[] Allow quick sex in masturbation
 		[] Add 'All masculine clothing is unisex' option
-		[] Fully framework demonic centaur encounters
-		[] Write Demonic centaurs
-		[x] Backup
-		[-] Make Elis borders a little smaller?
-		[x] Don't show travel disabled black border if scene travel disabled
 		[] Weather based on season
 			[] Add rain status effect
 				[] Add immunity from clothing (and umbrella)
-	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated, says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
-	[x] In the initial conversation with Nyan she says it's  One Night in June, but on the quiz the answer is One Day in June
-	[] Elis
-		[] Map
-			[] Town Hall
-				[] Mayor's room
-			[] Tavern
-				[] Rent rooms
-			[] Market
-				[] Buy food/drink/clothing
-			[] Enforcer post
+	[] Bug: "when losing a fight and given a tf potion, if the tf effects transforming your legs from bipedal to taur, or now into a naga n such, the effect is negated,
+		 says the tf was intented for your attacker and not you, and since it already is taur/naga nothing happens."
 	[] Extra encounters
 		[] Grassland
 			[] Snakes
@@ -742,10 +851,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Make flat values a separate thing
 		Make them gems which can be inserted into weapons
 		
-	Throwable weapon
-		% chance to recover after thrown
-		% chance to recover after combat
-	
 	add a repeat-descriptor exclusion variable
 	
 	Being fucked while self milking would be great especially if @Innoxia ever makes it an actual scene instead of a "you liked x from yourself," text box
@@ -2119,6 +2224,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Add leg-lock and swallow as forced sub orgasms (overrides whatever dom chose)
 	
 	Add slave silence permission dialogue
+		[] slaves with silent permission speak when interacting with you and other npcs totally normally
 	
 	buttslut oral fetishists who are in the dominant position will not let my sub char change the position to dom sittting on subs face
 	

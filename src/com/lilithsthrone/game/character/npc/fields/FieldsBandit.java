@@ -28,7 +28,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -41,7 +40,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class FieldsBandit extends NPC {
 
 	public FieldsBandit() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public FieldsBandit(Gender gender) {
@@ -49,7 +48,7 @@ public class FieldsBandit extends NPC {
 	}
 	
 	public FieldsBandit(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
+		this(Gender.getGenderFromUserPreferences(false, false), isImported);
 	}
 	
 	/**
@@ -64,8 +63,8 @@ public class FieldsBandit extends NPC {
 				generationFlags);
 
 		if(!isImported) {
-			// Set random level from 5 to 10:
-			setLevel(Util.random.nextInt(6) + 5);
+			// Set random level from 10 to 20:
+			setLevel(10 + Util.random.nextInt(11));
 			
 			// RACE & NAME:
 			
@@ -87,7 +86,7 @@ public class FieldsBandit extends NPC {
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
@@ -99,16 +98,12 @@ public class FieldsBandit extends NPC {
 			
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"[npc.Name] is a bandit who roams the Foloi Fields looking for travellers to prey upon."));
 			
 			// PERSONALITY & BACKGROUND:
 			
 			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				this.setHistory(Occupation.NPC_MUGGER);
-				setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
-			}
+			this.setHistory(Occupation.NPC_MUGGER);
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			
 			// ADDING FETISHES:
 			
@@ -176,8 +171,12 @@ public class FieldsBandit extends NPC {
 		if(this.isSlave()) {
 			return UtilText.parse(this,
 					"[npc.NamePos] days of roaming the Foloi Fields and preying upon innocent travellers are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
+			
+		} else if(Main.game.getPlayer()!=null && Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
+			return UtilText.parse(this, "When you first met [npc.name], [npc.she] was a bandit who roamed the Foloi Fields looking for travellers to prey upon. After a period of being your slave, [npc.sheIs] now your trusted friend.");
+			
 		} else {
-			return UtilText.parse(this, description);
+			return UtilText.parse(this, "[npc.Name] is a bandit who roams the Foloi Fields looking for travellers to prey upon.");
 		}
 	}
 
@@ -204,7 +203,7 @@ public class FieldsBandit extends NPC {
 
 	@Override
 	public void applyEscapeCombatEffects() {
-		this.returnToHome();
+		Main.game.banishNPC(this);
 	}
 	
 	@Override

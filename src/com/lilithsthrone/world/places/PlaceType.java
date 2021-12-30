@@ -36,6 +36,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment.FeliciaApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
@@ -389,13 +390,13 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_ARTHUR = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Demon Home (Arthur)",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
-			"dominion/demonHomeArthurIcon",
+			"Sawlty Towers",
+			"A large stone building ornately decorated in the Victorian style, it resembles a five-star hotel more than an apartment complex.",
+			"dominion/demonHomeSawltyTowersIcon",
 			PresetColour.RACE_HUMAN,
 			DemonHome.DEMON_HOME_STREET_ARTHUR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the streets of Demon Home") {
+			null, "in the streets of Demon Home outside Sawlty Towers") {
 		@Override
 		public String getName() {
 			if(Main.game.isStarted()) {
@@ -758,14 +759,14 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_ALLEYS_CANAL_CROSSING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Canal Crossing",
-			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperados.",
+			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperadoes.",
 			"dominion/bridge",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionPlaces.BACK_ALLEYS_CANAL,
 			Darkness.DAYLIGHT, Encounter.DOMINION_ALLEY, "in one of Dominion's backalleys"
 			).initDangerous()
 			.initAquatic(Aquatic.MIXED);
-	
+	       
 	// Canals:
 	
 	public static final AbstractPlaceType DOMINION_CANAL = new AbstractPlaceType(
@@ -912,7 +913,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_STAIRS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Guarded Staircase",
-			"A staircase leaduing up to the next floor is guarded by a vigilant Enforcer.",
+			"A staircase leading up to the next floor is guarded by a vigilant Enforcer.",
 			"dominion/enforcerHQ/stairs",
 			PresetColour.BASE_GREEN,
 			EnforcerHQDialogue.STAIRCASE,
@@ -1100,7 +1101,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Requisions Desk",
+			"Requisitions Desk",
 			"Specialist or replacement Enforcer equipment is checked out of this area.",
 			"dominion/enforcerHQ/requisitions",
 			PresetColour.BASE_TAN,
@@ -1120,7 +1121,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_OFFICE_QUARTERMASTER = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Quartermaster's Office",
-			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisions Desk.",
+			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisitions Desk.",
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_ORANGE,
 			EnforcerHQDialogue.OFFICE_QUARTERMASTER,
@@ -1128,9 +1129,92 @@ public class PlaceType {
 			null, "")
 			.initWeatherImmune();
 	
-	
-	
-	
+        //Felicia's Apartment       
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_ENTRYWAY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Entrance Hall",
+			"The entryway in [felicia.NamePos] apartment has a coat closet off to the side.",
+			"dominion/feliciaApartment/entranceHall",
+			PresetColour.BASE_RED,
+			FeliciaApartment.ENTRYWAY,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the entrance hall of [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_BEDROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bedroom",
+			"PLACEHOLDER_FELICIA_APARTMENT_BEDROOM",
+			"dominion/feliciaApartment/feliciaBedroom",
+			PresetColour.BASE_YELLOW_PALE,
+			FeliciaApartment.FELICIA_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in [felicia.NamePos] bedroom"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_BATHROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bathroom",
+			"PLACEHOLDER_FELICIA_APARTMENT_BATHROOM",
+			"dominion/feliciaApartment/toilet",
+			PresetColour.BASE_BLUE_LIGHT,
+			FeliciaApartment.BATHROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the bathroom in Felicia's apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_KITCHEN = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Kitchen",
+			"The barren kitchen is open to both the hallway and the dining area.",
+			"dominion/feliciaApartment/kitchen",
+			PresetColour.BASE_ORANGE,
+			FeliciaApartment.KITCHEN,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the kitchen in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_DINING_AREA = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dining Area",
+			"The dining area in [felicia.NamePos] apartment is cramped despite being equipped to only seat one.",
+			"dominion/feliciaApartment/diningArea",
+			PresetColour.BASE_BLUE_STEEL,
+			FeliciaApartment.DINING_AREA,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the dining area in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_LIVING_AREA = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Living Area",
+			"[felicia.Name]'s living room is sparsely decorated but has a view of Dominion's streets.",
+			"dominion/feliciaApartment/livingArea",
+			PresetColour.BASE_INDIGO,
+			FeliciaApartment.LIVING_AREA,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the living area in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_HALLWAY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Hallway",
+			"The hallway is totally void of decoration or furniture.",
+			null,
+			PresetColour.BASE_BLACK,
+			FeliciaApartment.HALLWAY,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the hallway in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
 	// Enforcer warehouse:
 	
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENTRANCE = new AbstractPlaceType(
@@ -3321,7 +3405,7 @@ public class PlaceType {
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_SEATING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Recessed seating",
-			"Around the edges of the taven's main floor, there are several recessed seating areas.",
+			"Around the edges of the tavern's main floor, there are several recessed seating areas.",
 			"dominion/slaverAlley/bountyHunterLodge/seatingArea",
 			PresetColour.BASE_BROWN,
 			BountyHunterLodge.SEATING,

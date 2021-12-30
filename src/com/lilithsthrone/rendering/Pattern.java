@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.TreeMap;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -54,6 +55,7 @@ public class Pattern {
 	private static Map<String, Pattern> allPatterns;
 	private static Map<String, Pattern> defaultPatterns;
 	
+	private String id;
 	private String name;
 	private String displayName;
 	
@@ -64,8 +66,9 @@ public class Pattern {
 		allPatterns = new TreeMap<>();
 		defaultPatterns = new TreeMap<>();
 
-		allPatterns.put("none", new Pattern("none", null)); // Adding empty pattern
-		defaultPatterns.put("none", new Pattern("none", null));
+		Pattern nonePattern = new Pattern("none", "none", null);
+		allPatterns.put("none", nonePattern); // Adding empty pattern
+		defaultPatterns.put("none", nonePattern);
 		
 		// Modded patterns:
 		
@@ -100,14 +103,15 @@ public class Pattern {
 		
 	}
 	
-	public Pattern(String name, File xmlFile) {
+	public Pattern(String id, String name, File xmlFile) {
+		this.id = id;
 		this.name = name;
 		SVGStringMap = new HashMap<>();
 		
 		baseSVGString = "";
 		if(!name.equals("none")) {
 			try {
-				String fileName = xmlFile.getPath().replaceAll("xml","svg");
+				String fileName = xmlFile.getParent() + File.separator + name + ".svg";
 				File patternFile = new File(fileName);
 				List<String> lines = Files.readAllLines(patternFile.toPath());
 				StringBuilder sb = new StringBuilder();
@@ -122,25 +126,20 @@ public class Pattern {
 		
 	}
 	
-	private static Pattern loadFromFile(String id, File clothingXMLFile) {
+	private static Pattern loadFromFile(String id, File patternXMLFile) {
 		try {
-			Element patternElement = Element.getDocumentRootElement(clothingXMLFile);
+			Element patternElement = Element.getDocumentRootElement(patternXMLFile);
 			String loadedDisplayName = patternElement.getMandatoryFirstOf("name").getTextContent();
 			boolean loadedDefaultPattern = Boolean.valueOf(patternElement.getMandatoryFirstOf("defaultPattern").getTextContent());
 			String loadedPatternName = patternElement.getMandatoryFirstOf("patternName").getTextContent().replace(".svg", "");
 
-			Pattern pattern = new Pattern(loadedPatternName, clothingXMLFile);
+			Pattern pattern = new Pattern(id, loadedPatternName, patternXMLFile);
 			pattern.displayName = loadedDisplayName;
 			
 			allPatterns.put(id, pattern);
 			if(loadedDefaultPattern) {
 				defaultPatterns.put(id, pattern);
 			}
-			
-//			allPatterns.put(loadedPatternName, pattern);
-//			if(loadedDefaultPattern) {
-//				defaultPatterns.put(loadedPatternName, pattern);
-//			}
 			
 			return pattern;
 			
@@ -155,26 +154,46 @@ public class Pattern {
 	}
 	
 	/**
-	 * Checks all found patterns and returns one if available.
+	 * Lookup pattern by id, return null if no match found.
 	 */
-	public static Pattern getPattern(String name) {
-		if(name.equals("cow_patterned")
-				|| name.equals("tiger_striped")
-				|| name.equals("horizontally_tiger_striped")
-				|| name.equals("leopard_printed")
-				|| name.equals("multi_camo")
-				|| name.equals("rainbow")
-				|| name.equals("polka_dots_big")
-				|| name.equals("camo")
-				|| name.equals("polka_dots_small")
-				|| name.equals("polka_dots_tiny")) {
-			name = "irbynx_"+name;
-			
-		} else if(name.equals("urban_splinter_camo")) {
-			name = "dsg_"+name;
+	public static Pattern getPattern(String id) {
+		return allPatterns.get(id);
+	}
+
+	/**
+	 * Lookup pattern by name, return null if no match found.
+	 */
+	public static Pattern getPatternByName(String name) {
+		for(Pattern pattern : allPatterns.values()) {
+			if(Objects.equals(pattern.getName(), name)) {
+				return pattern;
+			}
 		}
-		
-		return allPatterns.get(name);
+		return null;
+	}
+
+	/**
+	 * Lookup pattern by id, else by name, return null if no match found.
+	 */
+	public static Pattern getPatternByIdOrName(String idOrName) {
+		if(allPatterns.containsKey(idOrName)) {
+			return getPattern(idOrName);
+		} else {
+			return getPatternByName(idOrName);
+		}
+	}
+
+	/**
+	 * Checks all found patterns and returns the id of one if available.
+	 */
+	public static String getPatternIdByName(String name) {
+		for(Pattern pattern : allPatterns.values()) {
+			if(Objects.equals(pattern.getName(), name)) {
+				return pattern.getId();
+			}
+		}
+		// unable to find the pattern id, just return the name as-is
+		return name;
 	}
 
 	/**
@@ -189,6 +208,13 @@ public class Pattern {
 	 */
 	public static List<Pattern> getAllDefaultPatterns() {
 		return new ArrayList<>(defaultPatterns.values());
+	}
+	
+	/**
+	 * Returns id of the pattern
+	 */
+	public String getId() {
+		return this.id;
 	}
 	
 	/**
@@ -219,7 +245,7 @@ public class Pattern {
 	}
 
 	private String generateIdentifier(List<Colour> colours) {
-		StringBuilder sb = new StringBuilder(this.getName());
+		StringBuilder sb = new StringBuilder(this.getId());
 		for(Colour c : colours) {
 			sb.append(c.getId());
 		}
@@ -234,7 +260,7 @@ public class Pattern {
 	}
 	
 	private void generateSVGImage(List<Colour> patternColours, List<ColourReplacement> patternColourReplacements) {
-		SVGStringMap.put(generateIdentifier(patternColours), SvgUtil.colourReplacementPattern(this.getName(), patternColours, patternColourReplacements, baseSVGString));
+		SVGStringMap.put(generateIdentifier(patternColours), SvgUtil.colourReplacementPattern(this.getId(), patternColours, patternColourReplacements, baseSVGString));
 	}
 }
 

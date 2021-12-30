@@ -200,7 +200,9 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-		return character.isPlayer() && isPositionChangingAllowed(character);
+		return character.isPlayer()
+				&& isPositionChangingAllowed(character)
+				&& Main.sex.getInitialSexManager().isSlotAvailable(target, Main.sex.getSexPositionSlot(character));
 	}
 	
 	/**
@@ -229,6 +231,7 @@ public interface SexManagerInterface {
 		boolean domsSatisfied = true;
 		boolean subsResisting = true;
 		boolean subsDenied = true;
+		boolean subsStillInForeplay = true;
 		
 		if(!isCharacterAbleToStopSex(partner)) {
 			return false;
@@ -265,13 +268,19 @@ public interface SexManagerInterface {
 			if(Main.sex.getNumberOfDeniedOrgasms(character)==0) {
 				subsDenied = false;
 			}
+			if(!Main.sex.isInForeplay(character)) {
+				subsStillInForeplay = false;
+			}
 		}
 		
+		boolean gettingBored = Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()+1;
+		
 		if(Main.sex.isDom(partner)
-				&& (!Main.sex.isConsensual() || subsResisting
-//						|| !Main.sex.isSubHasEqualControl() // 0.4.1.1 change
+				&& (!Main.sex.isConsensual()
+						|| subsResisting
+						|| (subsStillInForeplay && gettingBored)
 						|| (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
-			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+			if(gettingBored) {
 				return true;
 			}
 			return domsSatisfied;
@@ -431,9 +440,22 @@ public interface SexManagerInterface {
 	
 	/**
 	 * @return The OrgasmCumTarget for when this character is orgasming in an interaction with the target.
-	 *  Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 * <br/>Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 * <br/><b>Note:</b> This also limits the player's orgasm actions.
 	 */
 	public default OrgasmCumTarget getCharacterPullOutOrgasmCumTarget(GameCharacter character, GameCharacter target) {
+		if(character.isPlayer()) {
+			return null;
+		}
+		List<OrgasmCumTarget> orgasmTargets = new ArrayList<>();
+		for(Entry<GameCharacter, OrgasmCumTarget> entry : Main.sex.getCharactersRequestingPullout().entrySet()) {
+			if(entry.getValue()!=null && (character.isPlayer() || !((NPC)character).getSexBehaviourDeniesRequests(entry.getKey()))) {
+				orgasmTargets.add(entry.getValue());
+			}
+		}
+		if(!orgasmTargets.isEmpty()) {
+			return Util.randomItemFrom(orgasmTargets);
+		}
 		return null;
 	}
 	

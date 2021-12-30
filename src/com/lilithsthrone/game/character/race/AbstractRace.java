@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -22,8 +23,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.9.1
- * @version 0.4.0
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, Maxis
  */
 public abstract class AbstractRace {
 
@@ -53,6 +54,7 @@ public abstract class AbstractRace {
 	private FurryPreference defaultFemininePreference;
 	private FurryPreference defaultMasculinePreference;
 	private boolean affectedByFurryPreference;
+	private Map<Fetish, Map<String, Integer>> racialFetishModifiers;
 
 	private boolean feralPartsAvailable;
 	private boolean ableToSelfTransform;
@@ -141,6 +143,8 @@ public abstract class AbstractRace {
 		
 		this.affectedByFurryPreference = affectedByFurryPreference;
 		
+		this.racialFetishModifiers = new HashMap<Fetish, Map<String, Integer>>();
+
 		this.feralPartsAvailable = true;
 		this.ableToSelfTransform = false;
 		this.flyingRace = false;
@@ -247,6 +251,32 @@ public abstract class AbstractRace {
 				this.defaultMasculinePreference = FurryPreference.valueOf(coreElement.getMandatoryFirstOf("defaultMasculinePreference").getTextContent());
 				
 				this.affectedByFurryPreference = Boolean.valueOf(coreElement.getMandatoryFirstOf("affectedByFurryPreference").getTextContent());
+				
+				this.racialFetishModifiers = Util.newHashMapOfValues();
+				if(coreElement.getOptionalFirstOf("racialFetishModifiers").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("racialFetishModifiers").getAllOf("fetish")) {
+						try {
+							Fetish fetish = Fetish.valueOf(e.getTextContent());
+							HashMap<String, Integer> weights = new HashMap<>();
+							if(!e.getAttribute("love").isEmpty()) {
+								weights.put("love", Integer.parseInt(e.getAttribute("love")));
+							}
+							if(!e.getAttribute("like").isEmpty()) {
+								weights.put("like", Integer.parseInt(e.getAttribute("like")));
+							}
+							if(!e.getAttribute("dislike").isEmpty()) {
+								weights.put("dislike", Integer.parseInt(e.getAttribute("dislike")));
+							}
+							if(!e.getAttribute("hate").isEmpty()) {
+								weights.put("hate", Integer.parseInt(e.getAttribute("hate")));
+							}
+							this.racialFetishModifiers.put(fetish, weights);
+						} catch(Exception ex) {
+							System.err.println("Error in AbstractRace loading: Fetish '"+e.getTextContent()+"' not recognised in racialFetishModifiers!");
+							ex.printStackTrace();
+						}
+					}
+				}
 				
 				this.feralPartsAvailable = Boolean.valueOf(coreElement.getMandatoryFirstOf("feralPartsAvailable").getTextContent());
 				this.ableToSelfTransform = Boolean.valueOf(coreElement.getMandatoryFirstOf("ableToSelfTransform").getTextContent());
@@ -392,4 +422,7 @@ public abstract class AbstractRace {
 		return defaultMasculinePreference;
 	}
 
+	public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+		return racialFetishModifiers;
+	}
 }

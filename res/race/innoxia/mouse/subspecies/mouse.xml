@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>innoxia_mouse</race>
+	<colour>innoxia_mouse</colour>
+	<secondaryColour>innoxia_mouse</secondaryColour>
+	<tertiaryColour>innoxia_mouse</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>12000</baseSlaveValue>
+	<attributeItemId>innoxia_race_mouse_barley_water</attributeItemId>
+	<transformativeItemId>innoxia_race_mouse_cheese</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges/>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_innoxia_mouse)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">icon</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>icon</bookIconName>
+	<bookName>Harvest Friends</bookName>
+	<basicDescriptionId>MOUSE_BASIC</basicDescriptionId>
+	<advancedDescriptionId>MOUSE_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[mouse-morph]]></name>
+	<namePlural><![CDATA[mouse-morphs]]></namePlural>
+	<singularMaleName><![CDATA[mouse-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[mouse-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[mouse-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[mouse-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic mouse, known as a 'mouse-morph' when bipedal, and a 'mouse-taur' when the lower body is that of a feral mouse.]]></description>
+	<feralAttributes>
+		<feralName><![CDATA[mouse]]></feralName>
+		<feralNamePlural><![CDATA[mice]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[mouse]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[mouse]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[mice]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[mice]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>false</sizeHeight>
+		<size>20</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>6</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>true</armsOrWingsPresent>
+		<fingerActionsAvailable>true</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] agility and speed allow [npc.herHim] to effectively strike at an opponent's weak points.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="0">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="5">CRITICAL_DAMAGE</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="5" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="2" feminineWeighting="3">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="TWO_RARE">DOMINION</region>
+		<region rarity="FOUR_COMMON">FIELDS</region>
+		<region rarity="FOUR_COMMON">FIELD_CITY</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="TWO_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

@@ -2,13 +2,14 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 
 import java.time.Month;
 
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
+import com.lilithsthrone.game.character.npc.dominion.Felicia;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment.FeliciaApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -26,6 +27,10 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class DemonHome {
+    
+        private static Felicia getFelicia() {
+            return ((Felicia)Main.game.getNpc(Felicia.class));
+        }
 	
 	public static final DialogueNode DEMON_HOME_GATE = new DialogueNode("Demon Home (Gates)", "Demon Home", false) {
 		
@@ -115,6 +120,14 @@ public class DemonHome {
 						+ "</p>");
 			}
 
+			if(Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_DEMON_HOME_ARTHUR)) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "<b style='color:"+PresetColour.RACE_HUMAN.toWebHexString()+";'>Sawlty Towers:</b><br/>"
+							+ "Arthur's apartment building, 'Sawlty Towers', is located in this particular area of Demon Home."
+						+ "</p>");
+			}
+			
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -165,10 +178,10 @@ public class DemonHome {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
-					return new Response("Arthur's Apartment", "Find Arthur's apartment using the instructions Lilaya gave to you.", DEMON_HOME_ARTHURS_APARTMENT);
+					return new Response("Sawlty Towers", "Find Arthur's apartment in the building using the instructions Lilaya gave to you.", DEMON_HOME_ARTHURS_APARTMENT);
 					
 				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
-					return new Response("Arthur's Apartment", "Head over to Arthur's apartment building.", DEMON_HOME_ARTHURS_APARTMENT);
+					return new Response("Sawlty Towers", "Head over to the Sawlty Towers apartment building.", DEMON_HOME_ARTHURS_APARTMENT);
 					
 				} else {
 					return null;
@@ -257,41 +270,19 @@ public class DemonHome {
 	};
 
 	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT = new DialogueNode("", "-", true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
-		
-		@Override
-		public String getLabel() {
-			return "Arthur's Apartment Building";
-		}
-
 		@Override
 		public String getContent() {
-			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
-				return "<p>" + "Following Lilaya's instructions, you soon find yourself standing outside the building which houses Arthur's apartment."
-						+ " Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance,"
-						+ " you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily." + "</p>" + "<p>"
-						+ "The front door is unlocked, and as you step into the foyer, you see that this place looks more like a five-star hotel than an apartment building."
-						+ " The luxurious carpeting, fine paintings and crystal chandeliers all contribute to giving the impression that the apartments here are very exclusive, and very expensive."
-						+ " Although there's a front desk, the place seems to be deserted, but fortunately there's a sign on a nearby wall that lists the building's occupants" + " and their respective room numbers."
-						+ " You see that Arthur lives on the first floor, in room five." + "</p>";
-			else
-				return "<p>" + "You soon find yourself standing outside the building which houses Arthur's apartment."
-						+ " Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance,"
-						+ " you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily." + "</p>" + "<p>"
-						+ "The front door is unlocked, and as you step into the foyer, you once again take note that this place looks more like a five-star hotel than an apartment building."
-						+ " The luxurious carpeting, fine paintings and crystal chandeliers all contribute to giving the impression that the apartments here are very exclusive, and very expensive."
-						+ " The front desk is unmanned yet again, and you wonder what to do now that you're here." + "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/arthursApartment/apartment", "DEMON_HOME_ARTHURS_APARTMENT");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
-					return new Response("Arthur's Room", "Head up to Arthur's room.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM){
+					return new Response("Arthur's room", "Head up to Arthur's room.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM){
 						@Override
 						public void effects() {
 							if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
@@ -300,138 +291,133 @@ public class DemonHome {
 						}
 					};
 					
-				} else {
-					return null;
+				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
+					return new Response("Arthur's room", "Arthur is no longer living here...", null);
 				}
 				
 			} else if (index == 2) {
 				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
-					return new Response("Felicity's room", "Head up to Felicity's room.", DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM);
-				} else {
-					return null;
+					return new Response("[felicia.Name]'s room", "Head up to [felicia.namePos] room.", DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM);
 				}
 				
 			} else if (index == 0) {
 				return new Response("Leave", "Leave the building and head back out into Demon Home.", DEMON_HOME_STREET_ARTHUR);
-				
-			} else {
-				return null;
 			}
+			
+			return null;
 		}
 	};
 
-	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNode("", "-", true) {
-		
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNode("Arthur's Room", "-", true) {
+		@Override
+		public void applyPreParsingEffects() {
+            getFelicia().equipOutsideClothing();
+            getFelicia().setLocation(Main.game.getPlayer(), false);
+		}
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return 5*60;
 		}
-
 		@Override
 		public String getLabel() {
 			return "Arthur's Room";
 		}
-
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "You head over to the staircase and make your way up to the first floor."
-					+ " Turning down a long, straight corridor, you walk along until you find room number five."
-					+ " As you approach, you see that a note has been stuck to the door, and, coming to a halt in front of it, you let out a sigh."
-					+ "</p>"
-					+ "<p>"
-					+ "The note reads:"
-					+ "</p>"
-					+ "<h6 style='text-align:center;'>Dominion Enforcer Department</h6>"
-					+ "<h5 style='text-align:center;'>NOTICE OF ARREST</h5>"
-					+ "<p style='text-align:center;'>The occupant of this residence, namely the person of <i>Arthur Fairbanks</i>, has been issued with an arrest warrant.<br/>"
-					+ "These premises are therefore under investigation by Dominion's Enforcer Department, and any unauthorised entry beyond this point is in violation of the law."
-					+ "<br/><br/>"
-					+ "Officer in charge of issuing warrant: <i>[brax.fullName]</i>"
-					+ "<br/><br/>"
-					+ "Any complaints or inquiries should be made in person at Dominion's Enforcer HQ. Thank you for your understanding.</p>"
-					+ "<br/>"
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parsePlayerThought("Great... So he's been arrested...")
-					+ " you think, letting out another sigh."
-					+ "</p>"
-					+ "<p>"
-					+ "As you're reading the notice for a second time, you hear a soft scuffling noise close behind you."
-					+ " Spinning round, you see a partial dog-girl standing in the doorway behind you, with a curious look on her face."
-					+ " As you turn to face her, she lets out a little eek in surprise, and quickly steps back into her apartment."
-					+ " Or, at least, that's what she tries to do, but in her excitement, she manages to trip over her own feet, falling backwards into the doorway."
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parseNPCSpeech("Ow!", Femininity.FEMININE)
-					+ " she cries, as she lands on her bottom."
-					+ "</p>"
-					+ "<p>"
-					+ "Sensing a source of information, you step over to the dog-girl and offer her a hand up."
-					+ " She glances up at you with a worried look in her eyes. "
-					+ UtilText.parseNPCSpeech("Y-You're not an Enforcer... are you?", Femininity.FEMININE)
-					+ " she asks."
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parsePlayerSpeech("No,")
-					+ " you reply, "
-					+ UtilText.parsePlayerSpeech("I'm just here to check in on a friend, but it looks like he's not here anymore...")
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parseNPCSpeech("Ah, well, in that case, I'm Felicity, Arthur's friend,", Femininity.FEMININE)
-					+ " she says, reaching up to take your offered hand. You quickly help her"
-					+ " to her feet as you introduce yourself, and she smiles and thanks you for your help before continuing, "
-					+ UtilText.parseNPCSpeech("If you're looking to find out what happened, I'm afraid I don't really know much."
-							+ " Late last night, the Enforcers showed up, banging on Arthur's door."
-							+ " When he answered, I heard them say something about plotting against Lilith, then they arrested him and dragged him away."
-							+ " I don't know what he did wrong... He's such a nice guy...", Femininity.FEMININE)
-					+ "</p>"
-					+ "<p>"
-					+ "It seems like she can't offer you any useful information, so you thank her for what she's told you before continuing on your way."
-					+ " The arrest warrant mentioned that any inquiries need to be made in person at the Enforcer's HQ, so you'll need to make that your next stop."
-					+ " You couldn't help but notice that Felicity seemed to be glancing hungrily at your body the whole time she was talking to you, and you wonder if you should pay her a visit sometime later..."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/arthursApartment/apartment", "DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM");
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);
-				
-			} else {
-				return null;
+			if(index==1) {
+				return new Response("Question dog-girl", "Ask the dog-girl if she knows anything about Arthur's arrest.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM_END);
 			}
+			return null;
 		}
-
 	};
 
-	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM = new DialogueNode("", "", true) {
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM_END = new DialogueNode("Arthur's Room", "-", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+            getFelicia().setPlayerKnowsName(true);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/arthursApartment/apartment", "DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM_END");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR){
+                        @Override
+                        public void effects() {
+                            getFelicia().equipInsideClothing();
+                            getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, true);
+                        }
+                    };
+			}
+			return null;
+		}
+	};
 
+	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM = new DialogueNode("", "", true) {
+		public int h;
+        @Override
+        public void applyPreParsingEffects() {
+            h = Main.game.getHourOfDay();
+            if(h >= 6 && h <= 14) {
+                getFelicia().setLocation(Main.game.getPlayer(), false);
+                getFelicia().setIntroducedToPlayer(true);
+            }
+        }
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
 		@Override
 		public String getLabel() {
-			return "Felicity's Room";
+			return "[felicia.NamePos] Room";
 		}
-
 		@Override
 		public String getContent() {
-			return "<p>" + "You head over to the staircase and make your way up to the first floor." + " Turning down a long, straight corridor, you walk along until you're standing outside Felicity's room."
-					+ " Reaching up, you deliver a quick knock before standing back and waiting for the dog-girl to answer." + " After a few moments of silence, you decide to knock again, but there doesn't seem to be anyone home at the moment."
-					+ " Sighing, you give up and decide to come back another time." + "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/arthursApartment/apartment", "DEMON_HOME_ARTHURS_APARTMENT_FELICIAS_ROOM");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.<br/>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET_ARTHUR);
-				
-			} else {
-				return null;
+			if(index==1) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaRejectedPlayer)) {
+	                 return new Response("Leave", "Looks like Felicia doesn't want to talk to you. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);
+				}
+				if(h < 6 || h > 14) {
+					return new Response("Leave", "Looks like [felicia.name] isn't here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);
+					
+				} else if(h >= 6 && h <= 14) {
+	                if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feliciaToldAboutArthur)) {
+	                    return new Response("Enter", "Enter [felicia.namePos] home.", FeliciaApartment.ARTHUR_WHEREABOUTS) {
+	                        @Override
+	                        public void effects() {
+	                            getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, false);
+	                            Main.game.getPlayer().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA);
+	                        }
+	                    };
+	                    
+	                } else {
+	                   return new Response("Enter", "Enter [felicia.namePos] home.", FeliciaApartment.FELICIA_GREETINGS) {
+	                        @Override
+	                        public void effects() {
+	                            getFelicia().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA, false);
+	                            Main.game.getPlayer().setLocation(WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA);
+	                        }
+	                    }; 
+	                }
+	                
+				}
 			}
+			return null;
 		}
 	};
 }

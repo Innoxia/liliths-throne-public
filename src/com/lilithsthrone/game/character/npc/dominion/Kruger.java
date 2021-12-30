@@ -52,9 +52,6 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.slots.SexSlot;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -243,27 +240,38 @@ public class Kruger extends NPC {
 		return true;
 	}
 
-	@Override
-	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
-		return slot==SexSlotSitting.SITTING;
-	}
+	// Sex:
+
+//	@Override
+//	public SexPace getSexPaceDomPreference() {
+//		return SexPace.DOM_NORMAL;
+//	}
+	
+//	@Override
+//	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
+//		return slot==SexSlotSitting.SITTING;
+//	}
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+		if(target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+		} else {
+			return getMainSexPreference(target);
+		}
 	}
 	
-
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
 		if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			
-		} else if(target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)){
+		} else if(target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Main.game.isAnalContentEnabled()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+			
+		} else {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
-		
-		return super.getMainSexPreference(target);
 	}
 	
 }

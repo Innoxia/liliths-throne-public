@@ -5,6 +5,7 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1048,13 +1049,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1288,8 +1289,15 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		List<AbstractWingType> sortedTypes = new ArrayList<>(WingType.getAllWingTypes());
-		sortedTypes.sort((w1, w2) -> w1.getTransformName().compareTo(w2.getTransformName()));
-		sortedTypes.sort((w1, w2) -> w1==WingType.NONE?-1:w1.getRace().getName(false).compareTo(w2.getRace().getName(false)));
+		/*
+		 * 'None' is first, then the rest of the 'no race' options.
+		 * Then, the races are sorted alphabetically.
+		 * Within a race (including 'no race'), options are sorted alphabetically.
+		 */
+		sortedTypes.sort(Comparator.comparingInt((AbstractWingType w) -> w == WingType.NONE ? 0 : 1)
+				.thenComparingInt(w -> w.getRace() == Race.NONE ? 0 : 1)
+				.thenComparing(w -> w.getRace().getName(false))
+				.thenComparing(AbstractWingType::getTransformName));
 		
 		for(AbstractWingType wing : sortedTypes) {
 			if((wing.getRace() !=null && availableRaces.contains(wing.getRace()))
@@ -1334,8 +1342,15 @@ public class CharacterModificationUtils {
 		
 		
 		List<AbstractHornType> sortedTypes = new ArrayList<>(types);
-		sortedTypes.sort((h1, h2) -> h1.getTransformName().compareTo(h2.getTransformName()));
-		sortedTypes.sort((h1, h2) -> h1==HornType.NONE?-1:h1.getRace().getName(false).compareTo(h2.getRace().getName(false)));
+		/*
+		 * 'None' is first, then the rest of the 'no race' options.
+		 * Then, the races are sorted alphabetically.
+		 * Within a race (including 'no race'), options are sorted alphabetically.
+		 */
+		sortedTypes.sort(Comparator.comparingInt((AbstractHornType h) -> h == HornType.NONE ? 0 : 1)
+				.thenComparingInt(h -> h.getRace() == Race.NONE ? 0 : 1)
+				.thenComparing(h -> h.getRace().getName(false))
+				.thenComparing(AbstractHornType::getTransformName));
 		
 		for(AbstractHornType horn : sortedTypes) {
 			if((horn.getRace()!=null && availableRaces.contains(horn.getRace()))
@@ -1586,7 +1601,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>This is only used for subspecies identification.</i>"),
 				"HAIR_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 
 	public static String getSelfTransformHairLengthDiv() {
@@ -1611,6 +1626,36 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] [npc.hair(true)]."
 						+ "<br/><i>Hair of a sufficient length (marked by an asterisk) can be pulled in some sex actions.</i>"),
 				"HAIR_LENGTH",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getNeckFluffDiv() {
+		contentSB.setLength(0);
+		
+		if(BodyChanging.getTarget().isNeckFluff()) {
+			contentSB.append(
+					"<div id='NECK_FLUFF_OFF' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.TRANSFORMATION_SHRINK.getShades()[0]+";'>No neck fluff</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button active'>"
+						+ "<span style='color:"+PresetColour.TRANSFORMATION_GROW.toWebHexString()+";'>Neck fluff</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+PresetColour.TRANSFORMATION_SHRINK.toWebHexString()+";'>No neck fluff</span>"
+					+ "</div>"
+					+"<div id='NECK_FLUFF_ON' class='cosmetics-button'>"
+						+ "<span style='color:"+PresetColour.TRANSFORMATION_GROW.getShades()[0]+";'>Neck fluff</span>"
+					+ "</div>");
+		}
+		
+
+		return applyWrapper("Neck Fluff",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.name] [npc.has] a lot of additional fluff around [npc.her] neck and upper chest."
+						+ "<br/><i>This is a purely cosmetic transformation.</i>"),
+				"NECK_FLUFF",
 				contentSB.toString(),
 				true);
 	}

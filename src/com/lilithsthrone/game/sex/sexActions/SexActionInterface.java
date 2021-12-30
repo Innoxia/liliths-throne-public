@@ -13,10 +13,8 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -723,10 +721,11 @@ public interface SexActionInterface {
 					return convertToResponse();
 				}
 			}
-			// Your partner can't prepare for orgasms if you won't orgasm on the next turn:
+			// Can't prepare for orgasms if the target won't orgasm on the next turn or is hidden:
 			if(!Main.sex.getCharacterPerformingAction().isPlayer()
 					&& getActionType() == SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
-				if(!Main.sex.isReadyToOrgasm(Main.game.getPlayer())) {
+				if(!Main.sex.isReadyToOrgasm(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+					|| Main.sex.getInitialSexManager().isHidden(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return null;
 				} else {
 					return convertToResponse();
@@ -1677,7 +1676,7 @@ public interface SexActionInterface {
 					break;
 				case FOOT:
 					// IF no legs or feet, cannot use foot actions:
-					if(!performingCharacter.hasLegs() || performingCharacter.getFootStructure()==FootStructure.NONE || performingCharacter.getLegType().getFootType()==FootType.NONE) {
+					if(!performingCharacter.hasFeet()) {
 						return false;
 					}
 					break;

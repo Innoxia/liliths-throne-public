@@ -92,6 +92,7 @@ import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -180,7 +181,7 @@ import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.MoralityValue;
 import com.lilithsthrone.game.character.persona.Name;
@@ -494,6 +495,7 @@ public abstract class GameCharacter implements XMLSaving {
 //	private Map<String, Map<SexType, Integer>> sexPartnerMap;
 	/** Entry Strings are: Character ID who took virginity, virginity loss description.*/
 	protected Map<SexType, Entry<String, String>> virginityLossMap;
+	protected Map<SexType, String> backupVirginityLossMap; // Saves a parsed String when the virginity-taking character is deleted from the game
 	
 	// Fluids:
 	private float alcoholLevel = 0f;
@@ -503,6 +505,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Misc.:
 	private List<Dice> dice; // For gambling
+	private String speechColour;
 	
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> NPCAttributeChangeEventListeners = new ArrayList<>();
@@ -512,7 +515,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	protected static List<CharacterChangeEventListener> NPCInventoryChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
-
+	
 	protected GameCharacter(
 			NameTriplet nameTriplet,
 			String surname,
@@ -684,6 +687,7 @@ public abstract class GameCharacter implements XMLSaving {
 //		sexCountMap = new HashMap<>();
 //		cumCountMap = new HashMap<>();
 		virginityLossMap = new HashMap<>();
+		backupVirginityLossMap = new HashMap<>();
 		
 		// Addictions:
 		addictions = new ArrayList<>();
@@ -748,7 +752,6 @@ public abstract class GameCharacter implements XMLSaving {
 		if(isUnique()) {
 			loadImages();
 		}
-
 	}
 	
 	/**
@@ -1371,6 +1374,14 @@ public abstract class GameCharacter implements XMLSaving {
 			e.setAttribute("takenBy", entry.getValue().getKey());
 			e.setAttribute("takenDescription", entry.getValue().getValue());
 			virginityLossesElement.appendChild(e);
+		}
+		
+		Element backupVirginityLossesElement = doc.createElement("virginityLossesBackup");
+		characterSexStats.appendChild(backupVirginityLossesElement);
+		for(Entry<SexType, String> entry : this.getBackupVirginityLossMap().entrySet()) {
+			Element e = entry.getKey().saveAsXML(parentElement, doc);
+			e.setAttribute("takenDescription", entry.getValue());
+			backupVirginityLossesElement.appendChild(e);
 		}
 		
 		
@@ -3077,6 +3088,18 @@ public abstract class GameCharacter implements XMLSaving {
 							e.getAttribute("takenDescription"));
 				}
 			}
+			
+
+			element = (Element) (sexStatsElement).getElementsByTagName("virginityLossesBackup").item(0);
+			if(element!=null) {
+				NodeList sexTypeElements = element.getElementsByTagName("sexType");
+				for(int i=0; i<sexTypeElements.getLength(); i++){
+					Element e = (Element) sexTypeElements.item(i);
+					character.setBackupVirginityLoss(
+							SexType.loadFromXML(e, doc),
+							e.getAttribute("takenDescription"));
+				}
+			}
 		}
 		
 		// ************** Addictions **************//
@@ -3409,15 +3432,23 @@ public abstract class GameCharacter implements XMLSaving {
 				+ "<p>"
 					+ this.getDescription());
 		
+		boolean incubated = this.getIncubator()!=null;
 		if(Main.getProperties().hasValue(PropertyValue.ageContent)) {
 			boolean append = false;
 			if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
 				append = true;
-				infoScreenSB.append(UtilText.parse(this, " You gave birth to [npc.herHim] on the "+this.getBirthdayString()+","));
+				infoScreenSB.append(UtilText.parse(this, (incubated
+						?" After being incubated by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+", [npc.she] [npc.was] born"
+						:" You gave birth to [npc.herHim]")
+						+" on the "+this.getBirthdayString()+","));
 				
 			} else if(this.isPlayer() || (this.isPlayerKnowsName() && (this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue() || this.isSlave()))) {
 				append = true;
-				infoScreenSB.append(UtilText.parse(this, " [npc.She] [npc.was] born on the "+this.getBirthdayString()+","));
+				infoScreenSB.append(UtilText.parse(this, (incubated
+						?" After being incubated by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+", [npc.she]"
+						:" [npc.She]")
+                        +" [npc.was] born on the "+this.getBirthdayString()+","));
+   
 			}
 			if(append) {
 				infoScreenSB.append(UtilText.parse(this,
@@ -3428,7 +3459,10 @@ public abstract class GameCharacter implements XMLSaving {
 			
 		} else {
 			if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
-				infoScreenSB.append(UtilText.parse(this, " You gave birth to [npc.herHim] on the "+this.getBirthdayString()+"."));
+				infoScreenSB.append(UtilText.parse(this, (incubated
+						?" After being incubated by "+(this.getIncubator().isPlayer()?"yourself":this.getIncubator().getName())+", [npc.she] [npc.was] born"
+						:" You gave birth to [npc.herHim]")
+						+" on the "+this.getBirthdayString()+"."));
 			}
 		}
 		
@@ -3699,6 +3733,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String getSpeechColour() {
+		if(speechColour!=null) {
+			return speechColour;
+		}
 		if(this.isPlayer()) {
 			switch(Femininity.valueOf(getFemininityValue())) {
 				case ANDROGYNOUS:
@@ -3727,6 +3764,10 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		return null;
+	}
+	
+	public void setSpeechColour(String speechColour) {
+		this.speechColour = speechColour;
 	}
 
 	public void updateAttributeListeners(boolean requiresStatusEffectUpdate) {
@@ -3788,7 +3829,7 @@ public abstract class GameCharacter implements XMLSaving {
 		body = newBody;
 
 		if(additionalSetups) {
-			additionalBodySetup(body.getGender(), RacialBody.valueOfRace(body.getRace()));
+			additionalBodySetup(body.getGender(), RacialBody.valueOfRace(body.getRace()), body.getSubspecies());
 		}
 		
 		postTransformationCalculation();
@@ -3798,7 +3839,7 @@ public abstract class GameCharacter implements XMLSaving {
 		body = Main.game.getCharacterUtils().generateBody(this, startingGender, mother, father);
 
 		if(additionalSetups) {
-			additionalBodySetup(startingGender, RacialBody.valueOfRace(body.getRace()));
+			additionalBodySetup(startingGender, RacialBody.valueOfRace(body.getRace()), body.getSubspecies());
 		}
 		
 		postTransformationCalculation();
@@ -3808,7 +3849,7 @@ public abstract class GameCharacter implements XMLSaving {
 		body = Main.game.getCharacterUtils().generateBody(this, startingGender, startingBodyType, stage);
 
 		if(additionalSetups) {
-			additionalBodySetup(startingGender, startingBodyType);
+			additionalBodySetup(startingGender, startingBodyType, body.getSubspecies());
 		}
 		
 		postTransformationCalculation();
@@ -3818,13 +3859,13 @@ public abstract class GameCharacter implements XMLSaving {
 		body = Main.game.getCharacterUtils().generateBody(this, startingGender, startingSpeciesType, stage);
 		
 		if(additionalSetups) {
-			additionalBodySetup(startingGender, RacialBody.valueOfRace(startingSpeciesType.getRace()));
+			additionalBodySetup(startingGender, RacialBody.valueOfRace(startingSpeciesType.getRace()), startingSpeciesType);
 		}
 		
 		postTransformationCalculation();
 	}
 	
-	protected void additionalBodySetup(Gender gender, AbstractRacialBody startingRace) {
+	protected void additionalBodySetup(Gender gender, AbstractRacialBody startingRace, AbstractSubspecies startingSpeciesType) {
 		if(this.surname==null || this.surname.isEmpty()) {
 			this.surname = Name.getSurname(this);
 		}
@@ -3841,6 +3882,14 @@ public abstract class GameCharacter implements XMLSaving {
 				this.addPersonalityTrait(entry.getKey());
 			}
 		}
+
+		for(Entry<PersonalityTrait, Float> entry : startingSpeciesType.getPersonalityTraitChances().entrySet()) {
+			double rnd = Math.random();
+			if(rnd<=entry.getValue()) {
+				this.addPersonalityTrait(entry.getKey());
+			}
+		}
+		
 		if(this.hasPersonalityTrait(PersonalityTrait.MUTE)) { // If mute, remove all other speech traits
 			this.removePersonalityTraits(PersonalityCategory.SPEECH);
 			this.addPersonalityTrait(PersonalityTrait.MUTE);
@@ -5897,6 +5946,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
+
+		if(Main.game.isStarted() && att==Attribute.MAJOR_CORRUPTION && this.getHistory()==Occupation.ARISTOCRAT) {
+			value *= 2;
+		}
 		
 		if(att == Attribute.ACTION_POINTS) {
 			value += DEFAULT_COMBAT_AP;
@@ -5989,9 +6042,6 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String incrementAttribute(AbstractAttribute att, float increment, boolean appendAttributeChangeText) {
-		if(Main.game.isStarted() && att==Attribute.MAJOR_CORRUPTION && this.getHistory()==Occupation.ARISTOCRAT) {
-			increment *= 2;
-		}
 		float value = attributes.get(att) + increment;
 
 		// For handling health, mana and stamina changes as a result of an attribute being changed:
@@ -7057,20 +7107,20 @@ public abstract class GameCharacter implements XMLSaving {
 		wonCombatCount = count;
 	}
 	
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
-		if(this.getMainWeapon(armRow)!=null) {
-			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
+	public String getAttackDescription(AbstractWeapon weapon, GameCharacter target, boolean isHit, boolean critical) {
+		if(weapon!=null) {
+			return weapon.getWeaponType().getAttackDescription(this, target, isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 	
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
+		return this.getAttackDescription(this.getMainWeapon(armRow), target, isHit, critical);
+	}
+	
 	public String getOffhandAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
-		if(this.getOffhandWeapon(armRow)!=null) {
-			return this.getOffhandWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
-		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
-		}
+		return this.getAttackDescription(this.getOffhandWeapon(armRow), target, isHit, critical);
 	}
 	
 	public String getSpellDescription() {
@@ -7227,7 +7277,7 @@ public abstract class GameCharacter implements XMLSaving {
 		int increment = 0;
 		if(Main.game.isInSex()) {
 			for(GameCharacter character : Main.sex.getAllParticipants()) {
-				if(!character.equals(this) && character.hasPerkAnywhereInTree(Perk.OBJECT_OF_DESIRE)) {
+				if(!character.equals(this) && character.hasTraitActivated(Perk.OBJECT_OF_DESIRE)) {
 					increment++;
 				}
 			}
@@ -7256,14 +7306,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return uniqueCount.keySet().size();
 	}
 	
-	public boolean hasSexCountWith(GameCharacter partner) {
-		String key = "unknown";
-		if(partner!=null) {
-			key = partner.getId();
-		}
-		return sexCount.containsKey(key);
-	}
-
 	public Map<String, SexCount> getSexCountMap() {
 		return sexCount;
 	}
@@ -8955,6 +8997,7 @@ public abstract class GameCharacter implements XMLSaving {
 				this.applyOrgasmCumEffect();
 			}
 			
+			if(!Main.game.isBadEnd()) { // Do not drain levels during a bad end
 //			if(isDom) {
 				if(this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && this.isLevelDrainAvailableToUse() && !partner.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
 					levelDrainDescription = applyLevelDrain(partner);
@@ -8965,6 +9008,7 @@ public abstract class GameCharacter implements XMLSaving {
 					levelDrainDescription = partner.applyLevelDrain(this);
 				}
 //			}
+			}
 			// This is reset to 25 to factor in post-orgasm satisfaction:
 			this.setArousal(25);
 			if(partnerPresent) {
@@ -9166,16 +9210,21 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE), target, request, mainSexTypes, 0.5f);
 		
 		// Self-breasts:
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
+		boolean selfBreastDesired = this.hasBreasts() || this.isFeminine() || this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).isPositive();
+		if(selfBreastDesired) {
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
+		}
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS), target, request, foreplaySexTypes, 2);
 
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS), target, request, mainSexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
+		if(selfBreastDesired) {
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
+			addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
+		}
 
 		// Crotch-boobs:
 		if(target.hasBreastsCrotch()) {
@@ -9553,6 +9602,24 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Virginity:
 	
+	
+	public Map<SexType, String> getBackupVirginityLossMap() {
+		return backupVirginityLossMap;
+	}
+	
+	/**
+	 * <b>Should only be called if it is certain that the virginity-taking character is still in the game!</b>
+	 * @param sexType
+	 */
+	public void setBackupVirginityLoss(SexType sexType) {
+		String description = getVirginityLossDescription(sexType);
+		getBackupVirginityLossMap().put(sexType, description);
+	}
+
+	public void setBackupVirginityLoss(SexType sexType, String description) {
+		getBackupVirginityLossMap().put(sexType, description);
+	}
+	
 	public void setVirginityLoss(SexType sexType, GameCharacter characterTakingVirginity, String description) {
 		virginityLossMap.put(sexType, new SimpleEntry<>(characterTakingVirginity.getId(), description));
 	}
@@ -9578,7 +9645,6 @@ public abstract class GameCharacter implements XMLSaving {
 	public Map<SexType, Entry<String, String>> getVirginityLossMap() {
 		return virginityLossMap;
 	}
-	
 	
 	public String getVirginityLossDescription(SexType sexType) {
 		if(this.getVirginityLoss(sexType)==null || this.getVirginityLoss(sexType).getKey()==null) {
@@ -9667,7 +9733,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				return UtilText.parse(Main.game.getNPCById(this.getVirginityLoss(sexType).getKey()), this,
 						virginityLossPrefix+virginityLossMap.get(sexType).getValue()+".");
+				
 			} catch(Exception e) {
+				// If the character who took the virginity has been deleted, then try to use a backup description:
+				if(getBackupVirginityLossMap().containsKey(sexType)) {
+					return getBackupVirginityLossMap().get(sexType);
+				}
 				Util.logGetNpcByIdError("getVirginityLossDescription()", this.getVirginityLoss(sexType).getKey());
 				return UtilText.parse(this, "[npc.Name] lost [npc.her] virginity to someone [npc.she] can't remember."); // Catch bugged virginity loss save.
 			}
@@ -9729,7 +9800,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return true if this character is the player or if they are a dominant sex partner.
 	 */
 	public boolean isLevelDrainAvailableToUse() {
-		return this.isPlayer() || (Main.game.isInSex() && Main.sex.isDom(this));
+		return (!Main.game.isBadEnd() && this.isPlayer()) || (Main.game.isInSex() && Main.sex.isDom(this));
 	}
 	
 	/**
@@ -9763,6 +9834,9 @@ public abstract class GameCharacter implements XMLSaving {
 			return UtilText.parse(target, this,
 					"<p style='text-align:center'>"
 						+ "Although [npc2.nameHasFull] the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(this)+"' perk, [npc.nameIsFull] already at the minimum level, so [npc.her] experience cannot be drained..."
+						+ (target.getLevel()<=1
+							?""
+							:"<br/><i>Although [npc.her] level appears to be greater than 1, this is only due to your difficulty setting!</i>")
 					+ "</p>");
 		}
 	}
@@ -9836,98 +9910,95 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		} else {
 			boolean isPlayerDom = Main.sex.isDom(Main.game.getPlayer());
-			List<String> speech = new ArrayList<>();
+			Map<String, Float> speech = new HashMap<>();
 			String s = "";
 			GameCharacter target = Main.sex.getTargetedPartner(this);
 			
 			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-				if(Main.sex.getCharacterOngoingSexArea(this, orifice).contains(target)) {
+				if(Main.sex.getCharacterOngoingSexArea(this, orifice).contains(target) && !Main.sex.getCharacterOngoingSexArea(this, orifice).contains(this)) {
 					switch(orifice) {
 						case ARMPITS:
+						case ASS:
+						case THIGHS:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							s = null;
 							break;
 						case ANUS:
 							s = getDirtyTalkAssPenetrated(target, isPlayerDom);
-							break;
-						case ASS:
-							s = null;
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * (1 + (this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).getValue())));
 							break;
 						case BREAST:
 							s = getDirtyTalkBreastsPenetrated(target, isPlayerDom);
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * (1 + (this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).getValue())));
 							break;
 						case BREAST_CROTCH:
 							s = getDirtyTalkBreastsCrotchPenetrated(target, isPlayerDom);
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * (1 + (this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).getValue())));
 							break;
 						case MOUTH:
 							s = getDirtyTalkMouthPenetrated(target, isPlayerDom);
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * (1 + (this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).getValue())));
 							break;
 						case NIPPLE:
 							s = getDirtyTalkNipplePenetrated(target, isPlayerDom);
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * (1 + (this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).getValue())));
 							break;
 						case NIPPLE_CROTCH:
 							s = getDirtyTalkNippleCrotchPenetrated(target, isPlayerDom);
-							break;
-						case THIGHS:
-							s = null;
-							break;
-						case URETHRA_PENIS:
-							s = null;
-							break;
-						case URETHRA_VAGINA:
-							s = null;
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * (1 + (this.getFetishDesire(Fetish.FETISH_BREASTS_SELF).getValue())));
 							break;
 						case VAGINA:
 							s = getDirtyTalkVaginaPenetrated(target, isPlayerDom);
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * (1 + (this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).getValue())));
 							break;
 						case SPINNERET:
 							s = getDirtyTalkSpinneretPenetrated(target, isPlayerDom);
+							speech.put(s, orifice.getBaseArousalWhenPenetrated() * 3);
 							break;
 					}
 				}
-				if(s!=null && !s.isEmpty()) {
-					if(!Main.sex.getCharacterOngoingSexArea(this, orifice).contains(this)) {
-						speech.add(s);
-					}
-				}
 			}
-		
 			for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
-				if(Main.sex.getCharacterOngoingSexArea(this, penetration).contains(target)) {
+				if(Main.sex.getCharacterOngoingSexArea(this, penetration).contains(target)
+						&& (!Main.sex.getCharactersHavingOngoingActionWith(this, penetration).contains(this) || Main.sex.getCharactersHavingOngoingActionWith(this, penetration).size()>1)) {
 					switch(penetration) {
 						case FINGER:
 							s = getDirtyTalkFingerPenetrating(target, isPlayerDom);
+							speech.put(s, penetration.getBaseArousalWhenPenetrating() * (1 + (this.getFetishDesire(Fetish.FETISH_MASTURBATION).getValue())));
 							break;
 						case PENIS:
 							s = getDirtyTalkPenisPenetrating(target, isPlayerDom);
+							speech.put(s, penetration.getBaseArousalWhenPenetrating() * (1 + (this.getFetishDesire(Fetish.FETISH_PENIS_GIVING).getValue())));
 							break;
 						case TAIL:
 							s = getDirtyTalkTailPenetrating(target, isPlayerDom);
+							speech.put(s, penetration.getBaseArousalWhenPenetrating() * 2);
 							break;
 						case TENTACLE:
 							s = getDirtyTalkTentaclePenetrating(target, isPlayerDom);
+							speech.put(s, penetration.getBaseArousalWhenPenetrating() * (3));
 							break;
 						case TONGUE:
 							s = getDirtyTalkTonguePenetrating(target, isPlayerDom);
+							speech.put(s, penetration.getBaseArousalWhenPenetrating() * (1 + (this.getFetishDesire(Fetish.FETISH_ORAL_GIVING).getValue())));
 							break;
 						case CLIT:
 							s = getDirtyTalkClitPenetrating(target, isPlayerDom);
+							speech.put(s, penetration.getBaseArousalWhenPenetrating() * (1 + (this.getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).getValue())));
 							break;
 						case FOOT:
 							s = getDirtyTalkToesPenetrating(target, isPlayerDom);
+							speech.put(s, penetration.getBaseArousalWhenPenetrating() * (1 + (this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).getValue())));
 							break;
 					}
 				}
-				if(s!=null && !s.isEmpty()) {
-					if(!Main.sex.getCharactersHavingOngoingActionWith(this, penetration).contains(this) || Main.sex.getCharactersHavingOngoingActionWith(this, penetration).size()>1) {
-						speech.add(s);
-					}
-				}
 			}
-			
+			speech.keySet().removeIf(weightedSpeech->weightedSpeech==null || weightedSpeech.isEmpty());
 			
 			// Choose a random line to say:
 			if(!speech.isEmpty()){
-				s = Util.randomItemFrom(speech);
+				s = Util.getRandomObjectFromWeightedFloatMap(speech);
 				
 			} else if(Main.sex.isCharacterEngagedInOngoingAction(this)) {
 				if(Main.sex.getSexPace(this)==SexPace.SUB_RESISTING) {
@@ -10556,26 +10627,26 @@ public abstract class GameCharacter implements XMLSaving {
 						case DOM_NORMAL:
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my slutty little asshole gripping down on your cock?!",
-									"Good [npc2.girl]! Push your [npc2.cock] in deep!",
-									"Keep going! Get that [npc2.cock] in deep like a good [npc2.girl]!");
+									"Good [npc2.girl]! Push your [npc2.cock] deep! into my ass",
+									"Keep going! Get that [npc2.cock] deep in my ass like a good [npc2.girl]!");
 							break;
 						case DOM_ROUGH:
 							returnedLine = UtilText.returnStringAtRandom(
-									"That's right slut, you're my little fuck toy now!",
-									"Come on bitch! You can get your worthless [npc2.cock] in deeper than that!",
+									"That's right slut, you're my little anal fuck toy now!",
+									"Come on bitch! You can get your worthless [npc2.cock] deeper into my ass than that!",
 									"Fucking slut, put some more effort in! My ass deserves better than your worthless [npc2.cock]!");
 							break;
 						case SUB_EAGER:
 							returnedLine = UtilText.returnStringAtRandom(
-									"Yes! Fuck me! Fuck me harder! Don't stop!",
-									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
-									"Oh yes! Fuck me! I love your [npc2.cock]!");
+									"Yes! Fuck my ass! Fuck me harder! Don't stop!",
+									"Don't stop! Harder! Fuck my ass! Yes, yes, yes!",
+									"Oh yes! Fuck my ass! I love your [npc2.cock]!");
 							break;
 						case SUB_NORMAL:
 							returnedLine = UtilText.returnStringAtRandom(
-									"Yes! Fuck me!",
-									"Don't stop! Fuck me!",
-									"Oh yes! Fuck me!");
+									"Yes! Fuck my ass!",
+									"Don't stop! Fuck my ass!",
+									"Oh yes! Fuck my ass!");
 							break;
 						case SUB_RESISTING:
 							returnedLine = UtilText.returnStringAtRandom(
@@ -10585,8 +10656,8 @@ public abstract class GameCharacter implements XMLSaving {
 							break;
 						default:
 							returnedLine = UtilText.returnStringAtRandom(
-									"Fuck me! Yes! Harder!",
-									"Oh yeah! Fuck me!",
+									"Fuck my ass! Yes! Harder!",
+									"Oh yeah! Fuck my ass!",
 									"Harder! Don't stop!");
 							break;
 					}
@@ -18323,27 +18394,27 @@ public abstract class GameCharacter implements XMLSaving {
 				if(selectedMovesDisruption.get(index) == false) {
 					GameCharacter target = moveEntry.getKey();
 					float lustStart = target.getLust();
-					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getName(index, this)) + ":</b> "
+					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(index, this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getName(index, this)) + ":</b> "
 								+ move.perform(index, this, target, enemies, allies));
 					float lustEnd = target.getLust();
 					if(lustStart!=lustEnd) {
-						if(this.hasTraitActivated(Perk.LUSTPYRE)) {
+						if(this.hasPerkAnywhereInTree(Perk.LUSTPYRE)) {
 							int manaAbsorbed = Math.min(Math.round(target.getMana()), Math.max(1, Math.round(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.02f)));
 							if(manaAbsorbed>0) {
 								this.incrementMana(manaAbsorbed);
 								target.incrementMana(-manaAbsorbed);
 								sb.append("<br/>"
 										+ UtilText.parse(this, target,
-												"Thanks to [npc.her] '<span style='color:"+Perk.LUSTPYRE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.LUSTPYRE.getName(this))+"</span>' trait,"
+												"Thanks to [npc.her] '<span style='color:"+Perk.LUSTPYRE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.LUSTPYRE.getName(this))+"</span>' perk,"
 														+ " [npc.name] [npc.verb(absorb)] [style.colourMana("+manaAbsorbed+")] "+Attribute.MANA_MAXIMUM.getName()+" from [npc2.name]!"));
 							}
 						}
-						if(target.hasTraitActivated(Perk.PURE_MIND)) {
+						if(target.hasPerkAnywhereInTree(Perk.PURE_MIND)) {
 							int manaRestored = Math.round(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.02f);
 							target.incrementMana(manaRestored);
 							sb.append("<br/>"
 									+ UtilText.parse(target,
-											"Thanks to [npc.namePos] '<span style='color:"+Perk.PURE_MIND.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.PURE_MIND.getName(this))+"</span>' trait,"
+											"Thanks to [npc.namePos] '<span style='color:"+Perk.PURE_MIND.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.PURE_MIND.getName(this))+"</span>' perk,"
 													+ " [npc.she] [npc.verb(recover)] [style.colourMana("+manaRestored+")] "+Attribute.MANA_MAXIMUM.getName()+" in response to taking "+Attribute.DAMAGE_LUST.getName()+"!"));
 						}
 					}
@@ -18365,7 +18436,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					
 				} else {
-					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
+					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(index, this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
 								+ "<b style='color: " + PresetColour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + "The action was disrupted!</b>");
 				}
 				descriptionList.add(index, sb.toString());
@@ -18409,7 +18480,7 @@ public abstract class GameCharacter implements XMLSaving {
 			// Assembling move list
 			List<AbstractCombatMove> potentialMoves = new ArrayList<>();
 			for(AbstractCombatMove move : equippedMoves) {
-				if(move.isUsable(this, null, enemies, allies) == null) {
+				if(move.isUsable(turnIndex, this, null, enemies, allies) == null) {
 					potentialMoves.add(move);
 				}
 			}
@@ -18417,7 +18488,7 @@ public abstract class GameCharacter implements XMLSaving {
 			// If the character has no core moves, choose one from all available moves:
 			if(potentialMoves.isEmpty()) {
 				for(AbstractCombatMove move : getAvailableMoves()) {
-					if(move.isUsable(this, null, enemies, allies) == null) {
+					if(move.isUsable(turnIndex, this, null, enemies, allies) == null) {
 						potentialMoves.add(move);
 					}
 				}
@@ -18506,7 +18577,9 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isStarted()) {
 				Map<AbstractCombatMove, Integer> availables = new HashMap<>();
 				for(AbstractCombatMove move : getAvailableMoves()) {
-					availables.put(move, move.getEquipWeighting());
+					if(move.getEquipWeighting() > 0) { // non-positive weights mean that the move is never equipped automatically
+						availables.put(move, move.getEquipWeighting());
+					}
 				}
 				while(this.getEquippedMoves().size()<GameCharacter.MAX_COMBAT_MOVES
 						&& !availables.isEmpty()) {
@@ -18765,7 +18838,7 @@ public abstract class GameCharacter implements XMLSaving {
 			totalDamage *= 0.25f;
 		}
 
-		if(this.hasTraitActivated(Perk.UNARMED_TRAINING)) {
+		if(this.hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)) {
 			totalDamage *= 2;
 		}
 		
@@ -19484,12 +19557,12 @@ public abstract class GameCharacter implements XMLSaving {
 					numberOfChildren *= 2;
 				}
 				
-				List<NPC> offspring = new ArrayList<>(numberOfChildren);
+				List<OffspringSeed> offspring = new ArrayList<>(numberOfChildren);
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
-					NPC npc = new NPCOffspring(this, partner);
-					offspring.add(npc);
+					OffspringSeed os = new OffspringSeed(this, partner);
+					offspring.add(os);
 					try {
-						Main.game.addNPC(npc, false);
+						Main.game.addOffspringSeed(os, false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -19571,12 +19644,12 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				int numberOfChildren = minimumNumberOfChildren + Util.random.nextInt((maximumNumberOfChildren-minimumNumberOfChildren)+1);
 				
-				List<NPC> offspring = new ArrayList<>(numberOfChildren);
+				List<OffspringSeed> offspring = new ArrayList<>(numberOfChildren);
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
-					NPC npc = new NPCOffspring(this, null, partnerSubspecies, partnerHalfDemonSubspecies);
-					offspring.add(npc);
+					OffspringSeed os = new OffspringSeed(this, null, partnerSubspecies, partnerHalfDemonSubspecies);
+					offspring.add(os);
 					try {
-						Main.game.addNPC(npc, false);
+						Main.game.addOffspringSeed(os, false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -19654,15 +19727,33 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			this.removeDirtySlot(InventorySlot.VAGINA, true);
 			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA, true);
+			
+//			if(this.hasHymen()) {
+//				this.setVaginaVirgin(false);
+//				SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER);
+//				this.setVirginityLoss(sexType, this, "while giving birth");
+//			}
 
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
-					try {
-						NPC npc = (NPC) Main.game.getNPCById(id);
-						npc.setConceptionDate(birthedLitter.getConceptionDate());
-						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
-					} catch(Exception e) {
-						Util.logGetNpcByIdError("endPregnancy()", id);
+					if(id.contains("NPCOffspring")) { // If the offspring is from the pre-offspring seed PR, handle them in the old way:
+						try {
+							NPC npc = (NPC) Main.game.getNPCById(id);
+							npc.setConceptionDate(birthedLitter.getConceptionDate());
+							npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
+						} catch(Exception e) {
+							Util.logGetNpcByIdError("endPregnancy() 1", id);
+						}
+						
+					} else {
+						try {
+							OffspringSeed os = Main.game.getOffspringSeedById(id);
+							os.setConceptionDate(birthedLitter.getConceptionDate());
+							os.setBorn(true);
+							os.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
+						} catch(Exception e) {
+							Util.logGetNpcByIdError("endPregnancy() 2", id);
+						}
 					}
 				}
 			}
@@ -19673,16 +19764,24 @@ public abstract class GameCharacter implements XMLSaving {
 				birthedLitter.getFather().getLittersFathered().add(birthedLitter);
 			}
 			
-			// Remove NPCs if not related to the player:
+			// Remove offspring if not related to the player:
 			if(!this.isPlayer() && (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
-				for(String npc : birthedLitter.getOffspring()) {
-					Main.game.removeNPC(npc);
+				for(String os : birthedLitter.getOffspring()) {
+					if(os.contains("NPCOffspring")) {
+						Main.game.removeNPC(os);
+					} else {
+						Main.game.removeOffspringSeed(os);
+					}
 				}
 			}
 			
 		} else {
-			for(String npc : pregnantLitter.getOffspring()) {
-				Main.game.removeNPC(npc);
+			for(String os : pregnantLitter.getOffspring()) {
+				if(os.contains("NPCOffspring")) {
+					Main.game.removeNPC(os);
+				} else {
+					Main.game.removeOffspringSeed(os);
+				}
 			}
 		}
 		
@@ -19779,10 +19878,12 @@ public abstract class GameCharacter implements XMLSaving {
 					|| birthedLitter.getIncubator().isPlayer()) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
-						NPC npc = (NPC) Main.game.getNPCById(id);
-						npc.setConceptionDate(birthedLitter.getConceptionDate());
-						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
-						npc.setIncubator(this);
+						OffspringSeed os = Main.game.getOffspringSeedById(id);
+						os.setConceptionDate(birthedLitter.getConceptionDate());
+						os.setBorn(true);
+						os.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
+						os.setIncubator(this);
+//						System.out.println("offspring seed birthed from incubation");
 					} catch(Exception e) {
 						Util.logGetNpcByIdError("endIncubationPregnancy()", id);
 					}
@@ -19796,18 +19897,18 @@ public abstract class GameCharacter implements XMLSaving {
 //				birthedLitter.getFather().getLittersFathered().add(birthedLitter);
 //			}
 			
-			// Remove NPCs if not related to the player:
+			// Remove offspring if not related to the player:
 			if(!this.isPlayer()
 					&& (birthedLitter.getMother()==null || !birthedLitter.getMother().isPlayer())
 					&& (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
-				for(String npc : birthedLitter.getOffspring()) {
-					Main.game.removeNPC(npc);
+				for(String os : birthedLitter.getOffspring()) {
+					Main.game.removeOffspringSeed(os);
 				}
 			}
 			
 		} else {
-			for(String npc : birthedLitter.getOffspring()) {
-				Main.game.removeNPC(npc);
+			for(String os : birthedLitter.getOffspring()) {
+				Main.game.removeOffspringSeed(os);
 			}
 		}
 
@@ -19977,7 +20078,34 @@ public abstract class GameCharacter implements XMLSaving {
 	public void incrementLittersGenerated(int increment) {
 		this.setLittersGenerated(this.getLittersGenerated()+increment);
 	}
-
+	
+	public void swapLitter(Litter litter, String oldId, String newId) {
+		if(litter!=null && litter.getOffspring().contains(oldId)) {
+			litter.getOffspring().remove(oldId);
+			litter.getOffspring().add(newId);
+		}
+	}
+	
+	public void swapLitters(String oldId, String newId) {
+		this.swapLitter(this.getPregnantLitter(), oldId, newId);
+		
+		for(Entry<SexAreaOrifice, Litter> entry : this.getIncubatingLitters().entrySet()) {
+			this.swapLitter(entry.getValue(), oldId, newId);
+		}
+		for(Litter litter : this.getLittersBirthed()) {
+			this.swapLitter(litter, oldId, newId);
+		}
+		for(Litter litter : this.getLittersFathered()) {
+			this.swapLitter(litter, oldId, newId);
+		}
+		for(Litter litter : this.getLittersImplanted()) {
+			this.swapLitter(litter, oldId, newId);
+		}
+		for(Litter litter : this.getLittersIncubated()) {
+			this.swapLitter(litter, oldId, newId);
+		}
+	}
+	
 	/**
 	 * @return The time, in seconds, when this character's egg incubation in the orifice reached the fully matured stage (ready for birthing).
 	 * <br/><b>NOTE:</b> Returns -1 if not yet reached the final stage.
@@ -20475,6 +20603,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return getCell().getPlace();
 	}
 	
+	public AbstractPlaceType getLocationPlaceType() {
+		return getCell().getPlace().getPlaceType();
+	}
+	
 	public GenericPlace getHomeLocationPlace() {
 		return Main.game.getWorlds().get(getHomeWorldLocation()).getCell(getHomeLocation()).getPlace();
 	}
@@ -20667,6 +20799,33 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isSelfImmuneToDarkness() {
 		return getDescriptionSelfImmuneToDarkness()!=null;
 	}
+
+	public boolean hasNightVision() {
+		for(BodyPartInterface bpi : this.getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.NIGHT_VISION)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasEchoLocation() {
+		for(BodyPartInterface bpi : this.getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.ECHO_LOCATION)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasThermalVision() {
+		for(BodyPartInterface bpi : this.getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.THERMAL_VISION)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * @return A brief description of how this character is obtaining immunity to darkness. Returns null if not immune.
@@ -20764,6 +20923,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(this.isPlayer()
 					|| !Main.getProperties().difficultyLevel.isNPCLevelScaling()
 					|| (this.isSlave() && this.getOwner().isPlayer())
+					|| (this.isElemental() && ((Elemental)this).getSummoner()!=null && ((Elemental)this).getSummoner().isPlayer())
 					|| Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
 					|| (this.getPartyLeader()!=null && this.getPartyLeader().isPlayer())) {
 				return level;
@@ -21067,6 +21227,20 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
+	public boolean isSightHindered() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.isHindersSight(c.getSlotEquippedTo())) {
+				return true;
+			}
+		}
+		for(AbstractStatusEffect se : this.getStatusEffects()) {
+			if(se.getTags().contains(ItemTag.BLOCKS_SIGHT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isArmMovementHindered() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isHindersArmMovement(c.getSlotEquippedTo())) {
@@ -21254,6 +21428,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public void clearNonEquippedInventory(boolean clearMoney) {
 		inventory.clearNonEquippedInventory(clearMoney);
 	}
+	
+	public int getInventoryNonEquippedValue() {
+		return inventory.getNonEquippedValue();
+	}
 
 	public boolean isInventoryFull() {
 		return inventory.isInventoryFull();
@@ -21263,9 +21441,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getMaximumInventorySpace();
 	}
 
-	public void setMaximumInventorySpace(int maxInventorySpace) {
-		inventory.setMaximumInventorySpace(maxInventorySpace);
-	}
+//	public void setMaximumInventorySpace(int maxInventorySpace) {
+//		inventory.setMaximumInventorySpace(maxInventorySpace);
+//	}
 
 	public int getInventorySlotsTaken() {
 		return inventory.getInventorySlotsTaken();
@@ -21365,6 +21543,10 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Description of what happened.
 	 */
 	public String addItem(AbstractItem item, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if(item==null) {
+			System.err.println("Warning: item is returning null in GameCharacter.addItem()!");
+			return "";
+		}
 		if (removingFromFloor) {
 			if (inventory.addItem(item, count)) {
 				updateInventoryListeners();
@@ -21534,6 +21716,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String addWeapon(AbstractWeapon weapon, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if(weapon==null) {
+			System.err.println("Warning: weapon is returning null in GameCharacter.addWeapon()!");
+			return "";
+		}
 		if (inventory.addWeapon(weapon, count)) {
 			updateInventoryListeners();
 			if (removingFromFloor) {
@@ -21895,15 +22081,32 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return armRowToEquipTo;
 	}
-	
+
 	private String equipMainWeapon(AbstractWeapon weapon, boolean appendTextToEventLog) {
+		return equipMainWeapon(weapon, getMainWeaponIndexToEquipTo(weapon), appendTextToEventLog);
+	}
+	
+	/**
+	 * Equips the supplied weapon 'from nowhere'.
+	 * 
+	 * @param weapon The weapon to equip into a main slot.
+	 * @param armIndexToEquipTo The arm index preference to equip this weapon in to.
+	 *  Please note that this might unequip a main weapon which was in this slot.
+	 *  If the index is greater or equal to arm rows, then the index is automatically reduced to be an acceptable index.
+	 * @param appendTextToEventLog Whether or not to append a description to the event log.
+	 * @return Description of equipping this weapon.
+	 */
+	public String equipMainWeapon(AbstractWeapon weapon, int armIndexToEquipTo, boolean appendTextToEventLog) {
 		if(weapon == null) {
 			throw new NullPointerException("null weapon was passed.");
 		}
 		
 		StringBuilder s = new StringBuilder();
 		
-		int armRowToEquipTo = getMainWeaponIndexToEquipTo(weapon);
+		int armRowToEquipTo = armIndexToEquipTo;
+		if(armIndexToEquipTo>=this.getArmRows()) {
+			armIndexToEquipTo = this.getArmRows()-1;
+		}
 		
 		if(getMainWeapon(armRowToEquipTo) != null) {
 			s.append(unequipMainWeapon(armRowToEquipTo, false, appendTextToEventLog));
@@ -22046,15 +22249,32 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return armRowToEquipTo;
 	}
+
+	private String equipOffhandWeapon(AbstractWeapon weapon, boolean appendTextToEventLog) {
+		return equipOffhandWeapon(weapon, getOffhandWeaponIndexToEquipTo(weapon), appendTextToEventLog);
+	}
 	
-	public String equipOffhandWeapon(AbstractWeapon weapon, boolean appendTextToEventLog) {
+	/**
+	 * Equips the supplied weapon 'from nowhere'.
+	 * 
+	 * @param weapon The weapon to equip into an offhand slot.
+	 * @param armIndexToEquipTo The arm index preference to equip this weapon in to.
+	 *  Please note that this might unequip an offhand weapon which was in this slot, or a main slot weapon if that main weapon was two handed.
+	 *  If the index is greater or equal to arm rows, then the index is automatically reduced to be an acceptable index.
+	 * @param appendTextToEventLog Whether or not to append a description to the event log.
+	 * @return Description of equipping this weapon.
+	 */
+	public String equipOffhandWeapon(AbstractWeapon weapon, int armIndexToEquipTo, boolean appendTextToEventLog) {
 		if (weapon == null) {
 			throw new NullPointerException("null weapon was passed.");
 		}
 		
 		StringBuilder s = new StringBuilder();
 		
-		int armRowToEquipTo = getOffhandWeaponIndexToEquipTo(weapon);
+		int armRowToEquipTo = armIndexToEquipTo;
+		if(armIndexToEquipTo>=this.getArmRows()) {
+			armIndexToEquipTo = this.getArmRows()-1;
+		}
 		
 		if(getOffhandWeapon(armRowToEquipTo)!=null) {
 			s.append(unequipOffhandWeapon(armRowToEquipTo, false, appendTextToEventLog));
@@ -22177,6 +22397,10 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	public String addClothing(AbstractClothing clothing, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if(clothing==null) {
+			System.err.println("Warning: clothing is returning null in GameCharacter.addClothing()!");
+			return "";
+		}
 		if (inventory.addClothing(clothing, count)) {
 			updateInventoryListeners();
 			if (removingFromFloor) {
@@ -22310,6 +22534,38 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean removeFromUnlockKeyMap(String id, InventorySlot slot) {
 		return inventory.removeFromUnlockKeyMap(id, slot);
+	}
+	
+	public String getFormattedUnlockKeys() {
+		StringBuilder sb = new StringBuilder();
+		boolean foundAny = false;
+
+		sb.append("<hr/>");
+		for(Entry<String, List<InventorySlot>> entry : this.getUnlockKeyMap().entrySet()) {
+			try {
+				GameCharacter target = Main.game.getNPCById(entry.getKey());
+				boolean found = false;
+				for(InventorySlot slot : entry.getValue()) {
+					if(target.getClothingInSlot(slot)!=null) {
+						foundAny = true;
+						if(!found) {
+							found= true;
+							sb.append(UtilText.parse(target, "Clothing worn by <b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b>:"));
+						}
+						sb.append("<br/>- "+target.getClothingInSlot(slot).getDisplayName(true));
+					}
+				}
+				sb.append("<hr/>");
+			} catch(Exception ex) {
+				// NPC didn't exist, so just skip over it
+			}
+		}
+		
+		if(!foundAny) {
+			sb.append("[style.italicsDisabled(You don't own any clothing keys...)]");
+		}
+		
+		return sb.toString();
 	}
 	
 	private void applyEquipClothingEffects(AbstractClothing newClothing, InventorySlot slot, GameCharacter characterClothingEquipper, boolean appendTextToEventLog) {
@@ -22468,6 +22724,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+		
+		// Remove chastity effects (the other CHASTITY_REMOVED effects remove their associated chastity effect, so only CHASTITY_1 needs to be manually removed here):
+		if(!this.isWearingChastity()) {
+			this.removeStatusEffect(StatusEffect.CHASTITY_1);
+		}
+		
 		updateInventoryListeners();
 	}
 
@@ -23156,6 +23418,23 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
+	/**
+	 * @return true if this character's anus is exposed, or if the only clothing blocking the anus is a plug.
+	 */
+	private boolean isAbleToAccessRearCloaca() {
+		List<AbstractClothing> anusBlockingClothing = getBlockingCoverableAreaClothingList(CoverableArea.ANUS, false);
+		boolean canAccessAnusArea = anusBlockingClothing.size()==0;
+		if(!canAccessAnusArea) {
+			canAccessAnusArea = true;
+			for(AbstractClothing c : anusBlockingClothing) {
+				if(!c.getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PLUGS_ANUS) && !c.getItemTags(c.getSlotEquippedTo()).contains(ItemTag.SEALS_ANUS)) {
+					canAccessAnusArea = false;
+				}
+			}
+		}
+		return canAccessAnusArea;
+	}
+	
 	public boolean isPenetrationTypeExposed(SexAreaPenetration pt) {
 		switch(pt) {
 			case FINGER:
@@ -23163,7 +23442,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case PENIS:
 				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					AbstractClothing penisClothing = this.getClothingInSlot(InventorySlot.PENIS);
-					return isCoverableAreaExposed(CoverableArea.ANUS) && (penisClothing==null || penisClothing.isTransparent(penisClothing.getSlotEquippedTo()));
+					return isAbleToAccessRearCloaca() && (penisClothing==null || penisClothing.isTransparent(penisClothing.getSlotEquippedTo()));
 				} else {
 					return isCoverableAreaExposed(CoverableArea.PENIS);
 				}
@@ -23211,7 +23490,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case URETHRA_VAGINA:
 				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					AbstractClothing vaginaClothing = this.getClothingInSlot(InventorySlot.VAGINA);
-					return isCoverableAreaExposed(CoverableArea.ANUS) && (vaginaClothing==null || vaginaClothing.isTransparent(vaginaClothing.getSlotEquippedTo()));
+					return isAbleToAccessRearCloaca() && (vaginaClothing==null || vaginaClothing.isTransparent(vaginaClothing.getSlotEquippedTo()));
 				} else {
 					return isCoverableAreaExposed(CoverableArea.VAGINA);
 				}
@@ -24274,7 +24553,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return UtilText.parse(this, "As [npc.sheIsFull] [npc.a_race], [npc.name] cannot transform [npc.her] body at will!");
 		}
 		if(this.isFeral()) {
-			return UtilText.parse(this, "As [npc.sheIsFull] a feral [npc.race], [npc.name] cannot transform [npc.her] body at will!");
+			return UtilText.parse(this, "As [npc.sheIsFull] a feral [npc.race], [npc.name] cannot have [npc.her] body transformed!");
 		}
 		if(this.getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
 			return UtilText.parse(this, "Although [npc.nameIsFull] normally able to self-transform, [npc.she] cannot do so due to an enchantment on [npc.her] clothing prohibiting the use of [npc.her] self-transformative powers!");
@@ -25285,6 +25564,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Nail polish:
 	public Covering getHandNailPolish() {
+		if(!this.hasArms()) {
+			return new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_NONE);
+		}
 		return getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS);
 	}
 	public String setHandNailPolish(Covering nailPolish) {
@@ -25319,7 +25601,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return true if this character has an arm type which allows underarm hair.
 	 */
 	public boolean isUnderarmHairAvailable() {
-		return this.getArmType().isUnderarmHairAllowed();
+		return this.getArmType().isUnderarmHairAllowed() && Main.game.isBodyHairEnabled();
 	}
 	public BodyHair getUnderarmHair() {
 		if(!this.isUnderarmHairAvailable()) {
@@ -25605,19 +25887,19 @@ public abstract class GameCharacter implements XMLSaving {
 					+ "</p>";
 		}
 
-        // Pregnant slimes without a vagina are stuck until the pregnancy is resolved
-        if(type==BodyMaterial.FLESH && this.getBodyMaterial()==BodyMaterial.SLIME && this.isPregnant() && !this.hasVagina()) {
+        // Pregnant slimes are stuck until the pregnancy is resolved
+        if(type==BodyMaterial.FLESH && this.getBodyMaterial()==BodyMaterial.SLIME && this.isPregnant()) {
            return UtilText.parse(this,
         		   "<p>"
 						+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that they're made up of starting to get more and more opaque."
-						+ " As [npc.her] slime starts to solidify, the little glowing core in the place where [npc.her] heart should be suddenly glows brightly before a strange feeling starts to permeate [npc.her] groin."
+						+ " As [npc.her] slime starts to solidify, the little glowing core in the place where [npc.her] heart should be suddenly glows brightly while a strange warmth starts to permeate all of [npc.her] body."
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.She] [npc.verb(feel)] the transformation slow down and then reverse until [npc.her] entire body has reverted to being made entirely out of slime!"
 					+ "</p>"
 					+ "<p>"
 						+ "It seems that the ongoing pregnancy is [style.italicsBad(preventing)] [npc.him] from turning into anything other than a slime,"
-							+ " and it looks like [npc.she] will have to either gain a vagina or give birth before it will be possible to transform into having a body made of flesh."
+							+ " and it looks like [npc.she] will have to give birth before it will be possible to transform into having a body made of flesh."
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.NamePos] body is still made out of [style.boldTfGeneric(slime)]!"
@@ -27460,6 +27742,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setHairStyle(HairStyle hairStyle) {
 		return body.getHair().setStyle(this, hairStyle);
 	}
+	// Neck fluff:
+	public boolean isNeckFluff() {
+		return body.getHair().isNeckFluff();
+	}
+	public String setNeckFluff(boolean neckFluff) {
+		return body.getHair().setNeckFluff(this, neckFluff);
+	}
 	// Covering:
 	public String setHairCovering(Covering covering, boolean updateBodyHair) {
 		if(!getCovering(getHairCovering()).equals(covering)) {
@@ -27582,6 +27871,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasLegs() {
 		return getLegCount()>0;
 	}
+	/**
+	 * @return true if hasLegs() is true, if this character does not have FootStructure.NONE, and if they do not have FootType.NONE
+	 */
+	public boolean hasFeet() {
+		return hasLegs() && this.getFootStructure()!=FootStructure.NONE && this.getLegType().getFootType()!=FootType.NONE;
+	}
 	public boolean isThighSexAvailable() {
 		if(this.getLegConfiguration()==LegConfiguration.TAIL && this.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE)) { // When on land, grow 2 legs, so thigh sex is available.
 			return true;
@@ -27657,8 +27952,18 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return A description of all the changes.
 	 */
 	public String setLegConfiguration(AbstractLegType legType, LegConfiguration legConfiguration, boolean applyFullEffects) {
+		if(this.isFeral()) {
+			return "<p style='text-align:center;'>"
+						+ "[style.italicsDisabled(As [npc.sheIsFull] a feral [npc.race], [npc.name] cannot have [npc.her] leg configuration transformed!)]"
+					+ "</p>";
+		}
 		if(legType.isLegConfigurationAvailable(legConfiguration)) {
-			return legType.applyLegConfigurationTransformation(this, legConfiguration, true, applyFullEffects);
+			StringBuilder sb = new StringBuilder();
+			if(this.getLegType()!=legType) {
+				sb.append(this.setLegType(legType));
+			}
+			sb.append(legType.applyLegConfigurationTransformation(this, legConfiguration, true, applyFullEffects));
+			return sb.toString();
 		}
 		return "";
 	}
@@ -27724,6 +28029,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Nail polish:
 	public Covering getFootNailPolish() {
+		if(!this.hasFeet()) {
+			return new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_NONE);
+		}
 		return getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET);
 	}
 	public String setFootNailPolish(Covering nailPolish) {
@@ -28592,6 +28900,10 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "</p>"
 							+ postTransformationCalculation();
 				} else {
+					if(!Main.game.isStarted()) {
+						postTransformationCalculation();
+						return "";
+					}
 					return UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name] feels the " + coveringType.getName(this) + " on [npc.her] " + Util.stringsToStringList(affectedParts, false) + " suddenly start to itch, and [npc.she] lets out a startled cry as "

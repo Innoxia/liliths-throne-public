@@ -2,15 +2,15 @@
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
 	<name><![CDATA[The Ninth Strike]]></name>
-	<tooltipDescription><![CDATA[This arcane blacksmith supplies most of Elis with their metalworking needs.]]></tooltipDescription>
-	<virginityLossDescription><![CDATA[in 'The Ninth Strike' arcane blacksmith]]></virginityLossDescription>
+	<tooltipDescription><![CDATA[This arcane forge supplies most of Elis with their metalworking needs.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in 'The Ninth Strike' arcane forge]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>GENERIC_ARCANE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_shops_blacksmith</dialogue>
-	<populationPresent copyPlaceType="innoxia_fields_elis_shops_street"/>
+	<dialogue>innoxia_places_fields_elis_shops_blacksmith_exterior</dialogue>
+	<populationPresent/>
 	<furniturePresent>false</furniturePresent>
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>
